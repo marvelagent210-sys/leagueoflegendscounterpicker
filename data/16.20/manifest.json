@@ -217,5 +217,36 @@
       "missing": [],
       "fetchedAt": "2026-10-11T22:13:20.014Z"
     }
+  },
+  "items": {
+    "ddragonVersion": "16.20.1",
+    "cdragonVersion": "16.20.8248524+branch.releases-16-20.content.release",
+    "itemData": {
+      "title": "Module:ItemData/data",
+      "revid": 4082420
+    },
+    "fetchedAt": "2026-10-20T16:58:41.125Z",
+    "rules": [
+      {
+        "title": "Combat status",
+        "revid": 4058480
+      },
+      {
+        "title": "Critical strike",
+        "revid": 4059009
+      },
+      {
+        "title": "Template:Critical damage",
+        "revid": 4001015
+      },
+      {
+        "title": "Template:Tip data/Energized",
+        "revid": 4013385
+      },
+      {
+        "title": "Vamp",
+        "revid": 4058226
+      }
+    ]
   }
 }

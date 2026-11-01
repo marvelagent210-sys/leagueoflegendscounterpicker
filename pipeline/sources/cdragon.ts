@@ -25,3 +25,8 @@ export function characterBinText(name: string): Promise<string> {
   const folder = name.toLowerCase();
   return fetchText(`${CDRAGON}/game/data/characters/${folder}/${folder}.bin.json`);
 }
+
+/** The items' game data file: every item's stats and price, and the item groups that cap how many of a kind a build holds. */
+export function itemsBinText(): Promise<string> {
+  return fetchText(`${CDRAGON}/game/items.cdtb.bin.json`);
+}

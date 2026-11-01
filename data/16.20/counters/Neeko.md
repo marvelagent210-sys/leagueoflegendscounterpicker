@@ -1,5 +1,158 @@
 # Counters to Neeko (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Neeko: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Neeko wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Neeko --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.70 |
+| 2 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.50 |
+| 3 | Vel'Koz | +0.81 | +1.00 | +1.00 | +1.00 | +0.22 | – | +0.00 |
+| 4 | Corki | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 5 | Kayle | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 6 | Orianna | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 7 | Annie | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 8 | Tristana | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 9 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 10 | Dr. Mundo | +0.79 | +0.99 | +1.00 | +1.00 | −0.05 | +0.98 | +0.00 |
+| 11 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 12 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 13 | Lulu | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 14 | Vayne | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 15 | Heimerdinger | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 16 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 17 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 18 | Zeri | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 19 | Xayah | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 20 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 21 | Varus | +0.77 | +0.95 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 22 | Twisted Fate | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 23 | Swain | +0.76 | +1.00 | +0.93 | +1.00 | −0.01 | – | +0.00 |
+| 24 | Trundle | +0.76 | +1.00 | +1.00 | +1.00 | −0.30 | +1.00 | +0.02 |
+| 25 | Gragas | +0.71 | +1.00 | +1.00 | +1.00 | −0.12 | +0.26 | +0.00 |
+| 26 | Karma | +0.67 | +0.74 | +0.90 | +1.00 | −0.02 | – | +0.00 |
+| 27 | Aphelios | +0.51 | +0.62 | +1.00 | +1.00 | +0.01 | −1.00 | +0.00 |
+| 28 | Graves | +0.45 | +1.00 | +1.00 | −0.24 | +0.01 | −0.08 | +0.00 |
+| 29 | Rumble | +0.45 | +0.71 | +0.92 | +0.07 | −0.07 | +0.34 | +0.00 |
+| 30 | Camille | +0.40 | −0.55 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 31 | Ashe | +0.40 | +1.00 | +0.95 | −1.00 | +0.07 | +1.00 | +0.00 |
+| 32 | Kindred | +0.40 | +0.22 | +1.00 | +1.00 | −0.06 | −1.00 | +0.00 |
+| 33 | Rammus | +0.38 | +1.00 | +1.00 | −1.00 | −0.13 | +1.00 | +0.00 |
+| 34 | Draven | +0.34 | +1.00 | +1.00 | −1.00 | +0.06 | – | +0.00 |
+| 35 | Aurora | +0.34 | +1.00 | +1.00 | −1.00 | +0.05 | – | +0.00 |
+| 36 | Maokai | +0.33 | +0.00 | +1.00 | +0.00 | −0.12 | +0.97 | +0.00 |
+| 37 | Jayce | +0.33 | +0.00 | +1.00 | +1.00 | −0.15 | −1.00 | +0.00 |
+| 38 | Malzahar | +0.32 | +1.00 | +1.00 | −1.00 | −0.07 | – | +0.00 |
+| 39 | Akshan | +0.32 | +0.99 | +1.00 | −1.00 | −0.07 | – | +0.00 |
+| 40 | Jinx | +0.31 | +1.00 | +0.97 | −1.00 | +0.02 | +0.14 | +0.00 |
+| 41 | Miss Fortune | +0.31 | +1.00 | +1.00 | −1.00 | +0.05 | +0.00 | +0.00 |
+| 42 | Twitch | +0.30 | +0.92 | +1.00 | −1.00 | −0.05 | – | +0.00 |
+| 43 | Udyr | +0.28 | +1.00 | −1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 44 | Tryndamere | +0.25 | −1.00 | +0.91 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 45 | Yasuo | +0.19 | +0.49 | +0.50 | −0.47 | −0.10 | +0.49 | +0.00 |
+| 46 | Fizz | +0.18 | +1.00 | +1.00 | −1.00 | −0.19 | −0.94 | +0.00 |
+| 47 | Anivia | +0.17 | +0.26 | +0.25 | +0.19 | −0.12 | +0.24 | +0.00 |
+| 48 | Master Yi | +0.08 | +1.00 | −1.00 | +0.00 | −0.15 | +1.00 | +0.00 |
+| 49 | Zaahen | +0.06 | −0.32 | −0.28 | +0.53 | +0.01 | +0.99 | +0.00 |
+| 50 | Tahm Kench | +0.04 | +0.02 | +0.04 | −0.03 | +0.10 | +0.16 | +0.00 |
+| 51 | Malphite | +0.01 | −0.01 | +0.06 | −0.11 | +0.17 | −0.01 | +0.00 |
+| 52 | Sett | −0.10 | +0.34 | −1.00 | +1.00 | −0.21 | −1.00 | +0.00 |
+| 53 | Kalista | −0.11 | +0.47 | −0.10 | −0.82 | −0.19 | – | +0.00 |
+| 54 | Gangplank | −0.14 | −0.39 | +1.00 | −1.00 | −0.09 | −0.76 | +0.00 |
+| 55 | Taric | −0.18 | −0.29 | −0.26 | −0.07 | −0.00 | −0.26 | +0.00 |
+| 56 | Quinn | −0.21 | −0.77 | −0.77 | +1.00 | −0.02 | – | +0.00 |
+| 57 | Kennen | −0.25 | −0.77 | −0.13 | +0.10 | −0.16 | – | +0.00 |
+| 58 | Mordekaiser | −0.26 | +0.17 | −0.42 | −0.70 | −0.10 | −0.41 | +0.00 |
+| 59 | Poppy | −0.30 | −1.00 | +1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 60 | Karthus | −0.30 | −0.22 | −0.21 | −0.83 | −0.03 | −0.24 | +0.00 |
+| 61 | Darius | −0.32 | +1.00 | −1.00 | −0.99 | −0.16 | −0.95 | +0.00 |
+| 62 | Ziggs | −0.32 | +0.00 | −1.00 | −1.00 | +0.21 | +1.00 | +0.00 |
+| 63 | Kled | −0.32 | −0.31 | −0.30 | −0.92 | −0.12 | +0.36 | +0.00 |
+| 64 | Wukong | −0.32 | −1.00 | +1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 65 | Samira | −0.34 | −1.00 | −1.00 | +1.00 | −0.05 | – | +0.00 |
+| 66 | Gwen | −0.34 | −0.19 | −1.00 | +0.52 | −0.60 | −0.60 | +0.00 |
+| 67 | Sion | −0.38 | −0.31 | −0.32 | −1.00 | −0.03 | −0.13 | +0.00 |
+| 68 | Braum | −0.38 | −0.26 | −0.37 | −0.63 | −0.04 | −0.90 | +0.00 |
+| 69 | Lee Sin | −0.40 | −0.96 | −0.98 | +1.00 | −0.11 | −0.95 | +0.00 |
+| 70 | Olaf | −0.43 | −1.00 | −1.00 | +1.00 | −0.20 | −1.00 | +0.00 |
+| 71 | Rengar | −0.51 | −1.00 | −1.00 | +0.01 | +0.27 | −0.54 | +0.00 |
+| 72 | Xerath | −0.64 | −1.00 | −0.52 | −1.00 | +0.03 | – | +0.00 |
+| 73 | Hwei | −0.67 | −1.00 | −1.00 | −0.47 | −0.03 | – | +0.00 |
+| 74 | Nocturne | −0.69 | −0.87 | −0.80 | −0.84 | −0.15 | −0.83 | +0.00 |
+| 75 | Brand | −0.70 | −1.00 | −0.71 | −1.00 | −0.02 | – | +0.00 |
+| 76 | Lux | −0.71 | −1.00 | −0.78 | −1.00 | +0.02 | – | +0.00 |
+| 77 | Ornn | −0.72 | −0.98 | −0.79 | −1.00 | −0.08 | −0.69 | +0.00 |
+| 78 | Shen | −0.73 | −1.00 | −1.00 | −0.61 | −0.08 | −1.00 | +0.00 |
+| 79 | Nautilus | −0.75 | −0.95 | −0.86 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 80 | Ryze | −0.75 | −0.99 | −0.96 | −1.00 | +0.06 | – | +0.00 |
+| 81 | Cassiopeia | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 82 | Senna | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 83 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 84 | Smolder | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 85 | Zyra | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 86 | Warwick | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 87 | Syndra | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 88 | Zoe | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 89 | LeBlanc | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 90 | Nami | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 91 | Ezreal | −0.78 | −0.92 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 92 | Diana | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 93 | Viktor | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 94 | Xin Zhao | −0.79 | −0.97 | −1.00 | −0.82 | −0.20 | −0.99 | +0.00 |
+| 95 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 96 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 97 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 98 | Evelynn | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 99 | Vex | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 100 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 101 | Soraka | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 102 | Sivir | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 103 | Galio | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 104 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 105 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 106 | Nunu & Willump | −0.80 | −1.00 | −0.99 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 107 | Sona | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 108 | Kai'Sa | −0.80 | −0.93 | −1.00 | −1.00 | −0.23 | – | +0.00 |
+| 109 | Janna | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 110 | Lissandra | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 111 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 112 | Irelia | −0.80 | −0.98 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 113 | Alistar | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 114 | Jarvan IV | −0.81 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 115 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 116 | Rakan | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 117 | Rell | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 118 | Sejuani | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 119 | Kassadin | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 120 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 121 | Illaoi | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 122 | Gnar | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −0.99 | +0.00 |
+| 123 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 124 | Renekton | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −0.97 | +0.00 |
+| 125 | Cho'Gath | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 126 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.16 | −0.89 | +0.00 |
+| 127 | Morgana | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 128 | Katarina | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 129 | Kha'Zix | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 130 | Skarner | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 131 | Volibear | −0.82 | −0.96 | −1.00 | −0.96 | −0.26 | −1.00 | +0.00 |
+| 132 | Garen | −0.82 | −1.00 | −1.00 | −1.00 | −0.17 | −0.95 | +0.00 |
+| 133 | Talon | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 134 | Naafiri | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 135 | Zed | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 136 | Hecarim | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 137 | Yone | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 138 | Ekko | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 139 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 140 | Aatrox | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 141 | Vi | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 142 | Thresh | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+| 143 | Ambessa | −0.87 | −1.00 | −1.00 | −1.00 | −0.49 | −1.00 | +0.00 |
+| 144 | Singed | −0.88 | −1.00 | −1.00 | −1.00 | −0.55 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Neeko's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,71 +161,71 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Neeko` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Fizz (net +1.16)
+#### 1. Fizz (net +1.16)
 
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Neeko's Pop Blossom. Untargetable for 0.75 s; Pop Blossom takes 0.6 s to land, enough to react. (Fizz E Playful → Neeko R Pop Blossom)
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Neeko's Tangle-Barbs. Untargetable for 0.75 s; Tangle-Barbs takes 1.02 s to land, enough to react. (Fizz E Playful → Neeko E Tangle-Barbs)
 - **0.11** reveal: Chum the Waters reveals Neeko through Shapesplitter's stealth. (Fizz R Chum the Waters → Neeko W Shapesplitter)
 - Watch out: Neeko's basic attacks reach 375 units farther than Fizz's (550 vs 175 attack range).
 
-### 2. Morgana (net +1.07)
+#### 2. Morgana (net +1.07)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Neeko's Pop Blossom (airborne, stun). Immune for 5 s, long enough to use ahead of Pop Blossom. (Morgana E Black Shield → Neeko R Pop Blossom)
 - **0.54** cc immunity: Black Shield makes Morgana immune to Neeko's Tangle-Barbs (root). Immune for 5 s, long enough to use ahead of Tangle-Barbs. (Morgana E Black Shield → Neeko E Tangle-Barbs)
 - **0.11** reveal: Soul Shackles reveals Neeko through Shapesplitter's stealth. (Morgana R Soul Shackles → Neeko W Shapesplitter)
 - Watch out: Neeko's basic attacks reach 100 units farther than Morgana's (550 vs 450 attack range).
 
-### 3. Kled (net +1.04)
+#### 3. Kled (net +1.04)
 
 - **0.71** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Neeko's Pop Blossom (airborne, stun). Immune for ?; Pop Blossom takes 0.6 s to land, enough to react. (Kled R Chaaaaaaaarge!!! → Neeko R Pop Blossom)
 - **0.32** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Neeko's Tangle-Barbs (root). Immune for ?; Tangle-Barbs takes 1.02 s to land, enough to react. (Kled R Chaaaaaaaarge!!! → Neeko E Tangle-Barbs)
 - **0.11** reveal: Bear Trap on a Rope reveals Neeko through Shapesplitter's stealth. (Kled Q Bear Trap on a Rope → Neeko W Shapesplitter)
 - Watch out: Neeko's basic attacks reach 300 units farther than Kled's (550 vs 250 attack range).
 
-### 4. Fiora (net +1.01)
+#### 4. Fiora (net +1.01)
 
 - **0.90** parry: Riposte parries Neeko's Pop Blossom and stuns back. Parry for 0.75 s; Pop Blossom takes 0.6 s to land, enough to react. Negating Pop Blossom's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Neeko R Pop Blossom)
 - **0.64** parry: Riposte parries Neeko's Tangle-Barbs and stuns back. Parry for 0.75 s; Tangle-Barbs takes 1.02 s to land, enough to react. Negating Tangle-Barbs's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Neeko E Tangle-Barbs)
 - **0.05** attack speed slow: Riposte cuts Neeko's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Neeko basic attacks)
 - Watch out: Neeko's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range).
 
-### 5. Bard (net +0.97)
+#### 5. Bard (net +0.97)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Neeko's Pop Blossom. Untargetable for 2.5 s, long enough to use ahead of Pop Blossom. (Bard R Tempered Fate → Neeko R Pop Blossom)
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Neeko's Tangle-Barbs. Untargetable for 2.5 s, long enough to use ahead of Tangle-Barbs. (Bard R Tempered Fate → Neeko E Tangle-Barbs)
 
-### 6. Lissandra (net +0.97)
+#### 6. Lissandra (net +0.97)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Neeko's Pop Blossom. Untargetable for 2.5 s, long enough to use ahead of Pop Blossom. (Lissandra R Frozen Tomb → Neeko R Pop Blossom)
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Neeko's Tangle-Barbs. Untargetable for 2.5 s, long enough to use ahead of Tangle-Barbs. (Lissandra R Frozen Tomb → Neeko E Tangle-Barbs)
 
-### 7. Maokai (net +0.93)
+#### 7. Maokai (net +0.93)
 
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Neeko's Pop Blossom. Untargetable for 1.4 s; Pop Blossom takes 0.6 s to land, enough to react. (Maokai W Twisted Advance → Neeko R Pop Blossom)
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Neeko's Tangle-Barbs. Untargetable for 1.4 s; Tangle-Barbs takes 1.02 s to land, enough to react. (Maokai W Twisted Advance → Neeko E Tangle-Barbs)
 - Watch out: Neeko's basic attacks reach 425 units farther than Maokai's (550 vs 125 attack range).
 
-### 8. Udyr (net +0.93)
+#### 8. Udyr (net +0.93)
 
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Neeko's Pop Blossom (airborne, stun). Immune for 1.5 s, long enough to use ahead of Pop Blossom. (Udyr E Blazing Stampede → Neeko R Pop Blossom)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Neeko's Tangle-Barbs (root). Immune for 1.5 s, long enough to use ahead of Tangle-Barbs. (Udyr E Blazing Stampede → Neeko E Tangle-Barbs)
 - Watch out: Neeko's basic attacks reach 425 units farther than Udyr's (550 vs 125 attack range).
 
-### 9. Aurora (net +0.93)
+#### 9. Aurora (net +0.93)
 
 - **0.75** untargetable: Between Worlds makes Aurora untargetable, dodging Neeko's Pop Blossom. Untargetable for 0.4 s; Pop Blossom takes 0.6 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Neeko R Pop Blossom)
 - **0.32** untargetable: Between Worlds makes Aurora untargetable, dodging Neeko's Tangle-Barbs. Untargetable for 0.4 s; Tangle-Barbs takes 1.02 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Neeko E Tangle-Barbs)
 - **0.08** cc immunity: Between Worlds is displacement immune, ignoring Neeko's Pop Blossom (airborne) during it. Only during Between Worlds (0.4 s). (Aurora R Between Worlds → Neeko R Pop Blossom)
 
-### 10. Vladimir (net +0.91)
+#### 10. Vladimir (net +0.91)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Neeko's Pop Blossom. Untargetable for 2 s, long enough to use ahead of Pop Blossom. (Vladimir W Sanguine Pool → Neeko R Pop Blossom)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Neeko's Tangle-Barbs. Untargetable for 2 s, long enough to use ahead of Tangle-Barbs. (Vladimir W Sanguine Pool → Neeko E Tangle-Barbs)
 - Watch out: Neeko's basic attacks reach 100 units farther than Vladimir's (550 vs 450 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

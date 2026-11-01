@@ -51,6 +51,38 @@ Notes:
     - For example, applying a stack of Break the Mold to a champion with 100 armor and magic resistance will reduce their resistance by 3 and grant Rell the lost stats. If their resistances are then boosted to 500 before another stack is applied, the subsequent stack will only reduce their resistance by a further 3 despite 3% of 500 being 15.
     - Another example, when a target has temporarily gained increased resistances before Rell applies the first stack of Break the Mold then the snapshot of the target's stats will be of the increased amount. This can result in targets losing significantly more resistances after the duration of the increase ends, for as long as the stacks don't fall off.
     - If a target has 100 base resistances, and they are increased to 500 temporarily before Break the Mold is applied, then the target will lose a total of 15 resistances, up to a total of 75 resistances at 5 stacks, and when the target's resistance buff ends they would only have 25 remaining.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Break the Mold|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rell
+  |skill        = I
+  |icon         = Break the Mold.png
+  |blurb        = {{sbc|Innate:}} {{cis|Rell}} {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} {{tip|on-hit}} equal to a percentage of her {{as|'''total''' armor}} and {{as|'''total''' magic resistance}}.
+  |blurb2       = '''Rell's''' basic attacks and abilities apply a {{tip|stack}} of ''Break The Mold'' to enemies hit for a few seconds. Each stack reduces the target's {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} and increases '''Rell's''' {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} by the same amount.
+  |description  = {{sbc|Innate:}} '''Rell's''' {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} {{tip|on-hit}} equal to the sum of {{as|5% of her '''total''' armor}} and {{as|5% of her '''total''' magic resistance}}.
+  |description2 = {{sbc|Innate:}} '''Rell's''' {{tip|basic attacks}} {{tip|on-hit}} and {{tip|abilities}} against non-{{tip|minions}} apply a {{tip|stack}} of ''Break The Mold'' for 5 seconds, refreshing on subsequent hits and stacking up to 5 times. Each stack reduces the target's {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}} by 3% for a maximum of 15% reduction.
+  |description3 = '''Rell''' gains {{as|'''bonus''' armor}} and {{as|'''bonus''' magic resistance}} equal to the sum of resistances reduced from all afflicted enemies.
+  |description4 = ''Break the Mold'' will reduce the target's {{as|armor}} and {{as|magic resistance}} by a minimum of {{pp|1.5 + (3-1.5)/17*(x-1) for 20}}.
+  |cooldown     = 
+  |target range = 
+  |effect radius= 
+  |speed        = 
+  |width        = 
+  |angle        = 
+  |cast time    = 
+  |targeting    = Passive
+  |affects      = Self, Enemies
+  |damagetype   = magic
+  |spellshield  = false
+  |spelleffects = proc
+  |projectile   = 
+  |parry        = true
+  |callforhelp  = 
+  |notes        = 
+  * The attacks do not affect [[structures]].
+  * The first stack of ''Break the Mold'' that is applied to a target will snapshot the targets current {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}}. All subsequent stacks will reduce the targets resistances based on the snapshotted amount, even if the target's total resistances change. This snapshot lasts until the debuff expires.
+  ** For example, applying a stack of ''Break the Mold'' to a champion with 100 {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}} will reduce their resistance by 3 and grant '''Rell''' the lost stats. If their resistances are then boosted to 500 before another stack is applied, the subsequent stack will only reduce their resistance by a further 3 despite 3% of 500 being 15.
+  ** Another example, when a target has temporarily gained increased resistances before '''Rell''' applies the first stack of ''Break the Mold'' then the snapshot of the target's stats will be of the increased amount. This can result in targets losing significantly more resistances after the duration of the increase ends, for as long as the stacks don't fall off. 
+  ** If a target has 100 base resistances, and they are increased to 500 temporarily before ''Break the Mold'' is applied, then the target will lose a total of 15 resistances, up to a total of 75 resistances at 5 stacks, and when the target's resistance buff ends they would only have 25 remaining.
+  }}
 
 ## Q: Shattering Strike
 
@@ -78,6 +110,31 @@ Rell will not lunge forward after the cast time if she was immobilized, grounded
 Notes:
 
 - This ability will cast from wherever the caster is at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Shattering Strike|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rell
+  |skill        = Q
+  |icon         = Shattering Strike.png
+  |blurb        = {{sbc|Active:}} {{ci|Rell}} thrusts her lance in the target direction that destroys damage {{tip|shield|shields}} of enemies hit before dealing {{as|magic damage}} and {{tip|stun|stunning}}.
+  |description  = {{sbc|Active:}} '''Rell''' thrusts her lance in the target direction, {{tip|lunge|lunging}} forward 100 units and destroying the damage-mitigating {{tip|shield|shields}} of all enemies hit (excluding the shields of {{tip|monsters}}) before dealing them {{as|magic damage}} and {{tip|stun|stunning}} them for {{fd|0.65}} seconds.
+  |description2 = '''''Rell''' will not {{tip|lunge}} forward after the cast time if she was {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}} during it. She is also {{tip|lockout|unable to act}} for {{fd|0.35}} seconds after the cast time.'' 
+  |leveling     = {{st|Magic Damage|{{ap|60 to 220}} {{as|(+ 60% AP)}}}}
+  |cooldown     = {{ap|11 to 9}}
+  |cost         = 50
+  |costtype     = mana
+  |range        = {{dv|{{tip|er|icononly = true}} {{tt|520|Rectangle forward range}}|{{tip|er|icononly=true}} {{tt|-220|Rectangle backward range}}}}
+  |width        = {{tip|er|icononly = true}} {{tt|150|Rectangle width}}
+  |cast time    = {{fd|0.4}}
+  |queue time   = {{fd|0.25}}
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = magic
+  |spellshield  = true
+  |spelleffects = spellaoe
+  |projectile   = false
+  |callforhelp  = 
+  |notes        = 
+  {{Effect at cast time end}}
+  }}
 
 ## W: Ferromancy: Crash Down
 
@@ -115,6 +172,49 @@ Notes:
 - If Rell dashes before a wall on the map, the slide will cover a shorter distance to the terrain over the same time, moving slower.
     - Interaction with player-made walls.
 - The following table refers for interactions while Rell is dashing/in cast time:
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Ferromancy: Crash Down|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rell
+  |skill        = W
+  |icon         = Ferromancy Crash Down.png
+  |description  = {{sbc|Passive - Mounted Alacrity:}} While '''Rell''' is {{sbc|Mounted}}, she gains {{as|'''bonus''' movement speed}}.
+  |leveling     = {{st|Bonus Movement Speed|{{ap|20 to 40}}}}
+  |description2 = {{sbc|Active:}} '''Rell''' becomes {{sbc|Dismounted}} and {{tip|dash|leaps}} to the target location over the cast time, granting herself a {{tip|shield}} that lasts until destroyed or casting ''{{ai|Ferromancy: Mount Up|Rell}}''. Upon arrival, she deals {{as|magic damage}} to nearby enemies, {{tip|stun|stuns}} them for {{fd|0.8}} seconds, and {{tip|airborne|knocks them up}} for {{fd|0.4}} seconds. She will continue {{tip|dash|sliding}} forward another 320 units over {{tt|{{fd|0.5}} seconds|Estimated}}, though not through terrain, affecting further enemies along her path.
+  |leveling2    = {{st|Shield Strength|{{ap|20 to 100}} {{as|(+ 11% '''maximum''' health)}}}}
+  {{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 60% AP)}}}}
+  |description3 = While '''Rell''' is {{sbc|Dismounted}}, she can cast ''{{ai|Ferromancy: Mount Up|Rell}}''. Upon completing a {{si|Recall}} channel or respawning, '''Rell''' will automatically revert to {{sbc|Mounted}} form without casting the ability and reset ''{{ais|Ferromancy: Mount Up|Rell}}'' {{sti|cooldown}}.
+  |description4 = ''This ability can be cast only while Rell is {{sbc|Mounted}}. '''Rell''' can cast {{ai|Magnet Storm|Rell}} during the dash, and is considered to be dismounted at the start of the cast time.''
+  |cooldown     = 10
+  |cost         = 40
+  |costtype     = Mana
+  |target range = {{tt|100 - 400|Minimum and maximum initial dash distance}}
+  |effect radius= 180
+  |collision radius= {{tip|er|icononly = true}} {{tt|200|Sliding dash collision radius}}
+  |cast time    = {{fd|0.625}}
+  |speed        =
+  |targeting    = Location
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = true
+  |spelleffects = spellaoe
+  |grounded     = true
+  |knockdown    = true
+  |projectile   = 
+  |callforhelp  = 
+  |outofrange   = cast at max
+  |notes        = 
+  * ''Mounted Alacrity'' grants 15 {{as|'''bonus''' movement speed}} if the ability has not been learned (rank 0).
+  * '''Rell''' {{tip|dash|slides}} between 250 and 350 units in testing, depending on how far the spell was targeted. It is not known where this is intended.
+  * If '''Rell''' dashes before a wall on the map, the slide will cover a shorter distance to the terrain over the same time, moving slower.
+  ** {{pending for test}} Interaction with player-made walls.
+  * The following table refers for interactions while '''Rell''' is dashing/in cast time:
+  {{ct|attack=false|move=false|cast={{ai|Q|Rell}} is disabled. {{ai|E|Rell}} and {{ai|R|Rell}} are usable.|items=true,,,false|spells=true,false,false,false,false|interrupts=death}}
+  |flavorsound  = {{sm2|Rell_Original_W_Dismount_4.ogg}} ''"Armoring up!"''
+  <!-- Blurb -->
+  |blurb        = {{sbc|Passive - Mounted Alacrity:}} While {{ci|Rell}} is {{sbc|Mounted}}, she gains {{as|'''bonus''' movement speed}}.
+  |blurb2       = {{sbc|Active:}} '''Rell''' becomes {{sbc|Dismounted}} and {{tip|dash|leaps}} to the target location, gaining a {{tip|shield}} that lasts until destroyed or casting ''{{ai|Ferromancy: Mount Up|Rell}}''.
+  |blurb3       = Upon arrival, she deals {{as|magic damage}} and briefly {{tip|airborne|knocks up}} and {{tip|stun|stuns}} enemies hit. She will continue {{tip|dash|sliding}} forward to affect further enemies along her path.
+  |blurb4       = While '''Rell''' is {{sbc|Dismounted}}, she can cast ''{{ai|Ferromancy: Mount Up|Rell}}''. She will revert to {{sbc|Mounted}} form after {{si|Recall|recalling}} or respawning.
+  }}
 
 ## W: Ferromancy: Mount Up
 
@@ -148,6 +248,46 @@ Notes:
 - The dash can be knocked down but the attack's effects will still be applied.
 - Displacement immunity will not resist the application of the stun.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the empowered attack's cast time, it is cancelled but not consumed.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Ferromancy: Mount Up|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rell
+  |skill        = W
+  |icon         = false
+  |blurb        = {{sbc|Passive:}} While {{ci|Rell}} is {{sbc|Dismounted}}, she gains {{sti|ar|{{as|'''bonus''' armor}}}} and {{sti|mr|{{as|'''bonus''' magic resist}}}}.
+  |blurb2      = {{sbc|Active:}} '''Rell''' becomes {{sbc|Mounted}} and gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for a short time, increased while moving towards enemy {{tip|champions}}.
+  |blurb3      = During this time, '''Rell's''' next basic attack will gain {{sti|range|'''bonus''' attack range}} and causes her to {{tip|dash|charge}} to the target, dealing {{as|'''bonus''' magic damage}} before briefly {{tip|stun|stunning}} and {{tip|airborne|flinging}} them over.
+  |blurb4      = While '''Rell''' is {{sbc|Mounted}}, she can cast ''{{ai|Ferromancy: Crash Down|Rell}}''.
+  |description  = {{sbc|Passive:}} While '''Rell''' is {{sbc|Dismounted}}, she gains {{sti|{{as|15% '''bonus''' armor}}}}, {{sti|{{as|15% '''bonus''' magic resistance}}}}, {{sti|{{as|20% '''bonus''' attack speed}}}}, and {{sti|75 '''bonus''' attack range}}.
+  |icon2        = Ferromancy Mount Up.png
+  |description2 = {{sbc|Active:}} '''Rell''' becomes {{sbc|Mounted}}, gaining {{sti|ms|{{as|30% '''bonus''' movement speed}}}} decaying over 2 seconds and empowering her next basic attack within {{fd|3.5}} seconds to have a {{fd|0.2}}-second cast time, gain {{sti|100 '''bonus''' attack range}} and {{as|40% '''bonus''' attack speed}}, and cause her to {{tip|dash|charge}} at the target's location. Upon arrival or collision of the charge, her basic attack deals {{as|'''bonus''' magic damage}}, {{tip|stun|stuns}} the target for {{fd|0.6}} seconds, and {{tip|airborne|flings}} them 150 units over herself, though not through terrain, over {{fd|0.4}} seconds.
+  |leveling2    = {{st|Bonus Magic Damage|{{ap|10 to 70}} {{as|(+ 40% AP)}}}}
+  |description3 = While '''Rell''' is {{sbc|Mounted}}, she can cast ''{{ai|Ferromancy: Crash Down|Rell}}''.
+  |description4 = ''Ferromancy: Mount Up {{tip|basic attack reset|resets}} '''Rell's''' basic attack timer. This ability can be cast only while '''Rell''' is {{sbc|Dismounted}}.''
+  |cooldown     = 10
+  |target range = 
+  |effect radius= 
+  |width        = 
+  |angle        = 
+  |cast time    = none
+  |speed        = <!--{{tt|X|Dash speed}} / {{tt|Y|Knockback speed}}-->
+  |targeting    = Auto
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = true
+  |spelleffects = spell
+  |parry        = true
+  |grounded     = false
+  |knockdown    = special
+  |projectile   = 
+  |callforhelp  = 
+  |notes        = 
+  * '''Rell''' will always respawn and start the game as mounted.
+  * The basic attack reset is not considered one for {{ri|Hail of Blades}}.
+  * '''Rell''' can use the empowered attack even while {{tip|ground|grounded}} or {{tip|root|rooted}}.
+  * The {{tip|dash}} can be {{tip|knockdown|knocked down}} but the attack's effects will still be applied.
+  * {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.
+  * If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is too far away or no longer in {{tip|sight}} during the empowered attack's cast time, it is cancelled but not consumed.
+  |flavorsound  = {{sm2|Rell_Original_W_MountUp_4.ogg}} ''"Mount up!"''
+  }}
 
 ## E: Full Tilt
 
@@ -177,6 +317,34 @@ Notes:
 
 - If Shattering Strike hits more than one enemy, the Full Tilt explosion will be centered around the unit with the lowest Spawn ID.
     - "Spawn ID" is an unofficial abbreviation to describe the spawn order for all units at the beginning of games.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Full Tilt|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rell
+  |skill        = E
+  |icon         = Full Tilt.png
+  |description  = {{sbc|Active:}} '''Rell''' powers up herself and the target allied {{tip|champion}} for 3 seconds, both gaining {{as|15% '''bonus''' movement speed}}, increased to {{as|30%|ms}} while facing the empowered ally or a {{tip|sight|visible}} enemy champion.
+  |description2 = Additionally, '''Rell's''' next {{tip|basic attack}} or ''{{ai|Shattering Strike|Rell}}'' within 5 seconds creates an explosion around {{tt|the target|See Notes}} that deals {{as|'''bonus''' magic damage}}, capped at {{pp|150 + (300-150)/17*(x-1) for 20}} against {{tip|monsters}} and {{tip|structures}}.
+  |leveling2    = {{st|Bonus Magic Damage|{{as|{{ap|5 to 7}}% {{as|(+ 3% per 100 AP)}} of target's '''maximum''' health}}}}
+  |description3 = If cast without a valid target, or [[self-targeted|self-cast]], ''Full Tilt'' will automatically target the closest allied champion in range.
+  |cooldown     = {{ap|14 to 10}}
+  |cost         = 40
+  |costtype     = Mana
+  |target range = {{tip|cr|icononly=true}} 1200
+  |effect radius= {{dv|{{tip|cr|icononly=true}} {{tt|300|Explosion radius}}|{{tt|2200|Empowered ally detection range for granting the enhanced MS, estimated}}|{{tt|1600|Enemy champion detection range for granting the enhanced MS, estimated}}}}
+  |cast time    = none
+  |queue time   = {{fd|0.5}}
+  |targeting    = {{dv|[[Unit-targeted|Unit]]|[[Auto-targeted|Auto]]}}
+  |affects      = Self, Allies, Enemies
+  |damagetype   = Magic
+  |spellshield  = true
+  |spelleffects = spellaoe
+  |outofrange   = If targeting an ally, walk in range of the target unit to cast
+  |notes        = 
+  * If ''{{ai|Shattering Strike|Rell}}'' hits more than one enemy, the ''Full Tilt'' explosion will be centered around the unit with the lowest {{tt|Spawn ID|among enemy champions, this would also be the enemy first pick in Blind Pick mode}}.
+  ** "Spawn ID" is an unofficial abbreviation to describe the spawn order for all units at the beginning of games.
+  <!--Blurb-->
+  |blurb        = {{sbc|Active:}} {{ci|Rell}} empowers herself and an allied {{tip|champion}} with {{as|'''bonus''' movement speed}} for a few seconds, which is increased when moving towards the empowered ally or an enemy champion.
+  |blurb2       = '''Rell's''' next basic attack or {{ai|Shattering Strike|Rell}} within 5 seconds will also explode around the target, dealing {{as|magic damage}} to nearby enemies.
+  }}
 
 ## R: Magnet Storm
 
@@ -211,6 +379,44 @@ Notes:
     - Immune to crowd control.
 - Spell shield will block the initial pull but not the dragging effect.
 - Magnet Storm cannot be cast again while it is active.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Magnet Storm|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rell
+  |skill        = R
+  |icon         = Magnet Storm.png
+  |blurb        = {{sbc|Active:}} {{ci|Rell}} erupts in magnetic fury, {{tip|airborne|pulling}} nearby enemies inward. She then emits a {{tip|Kinematics|Kinematic}} field that continually deals {{as|magic damage}} over a short time.
+  |blurb4      = {{sbc|{{tip|Kinematics|nolink=true}}:}} Kinematics drags enemies toward the '''Source''', but does not disable their actions nor intercept other forms of movement.
+  |description  = {{sbc|Active:}} '''Rell''' erupts with magnetic fury, {{tip|airborne|pulling}} nearby enemies {{tt|inward|to a ring 225 units around Rell, but minimum 100 pull distance}} and creating a gravitational field around her for the next 2 seconds that deals {{as|magic damage}} every {{fd|0.25}} seconds to nearby enemies and {{tip|kinematics|drags}} them towards her.
+  |leveling     = {{st|Magic Damage Per Tick|{{ap|150/8 to 350/8}} {{as|(+ {{ap|110/8}}% AP)}}|Total Magic Damage|{{ap|150 to 350}} {{as|(+ 110% AP)}}}}
+  |cooldown     = {{ap|120 to 80}}
+  |cdstart      = on-cast
+  |cost         = 100
+  |costtype     = Mana
+  |target range = 
+  |effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|450|Initial knockup radius}}|{{tip|er|icononly = true}} {{tt|375|Continous kinetics effect radius, center to edge}}}}
+  |inner radius = {{tip|cr|icononly = true}} {{tt|225|Pulls target into at least this radius, continuous kinetics does not affect targets already in this radius}}
+  |width        = 
+  |angle        = 
+  |cast time    = {{fd|0.25}}
+  |speed        = {{tt|300|Kinematic attraction speed, in units per second}}
+  |targeting    = Auto
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = special
+  |spelleffects = aoedot
+  |projectile   = 
+  |callforhelp  = 
+  |notes        = 
+  {{Effect at cast time end}}
+  * ''Magnet Storm'' will '''not''' drag units that are:
+  ** {{tip|Dash|Dashing}}.
+  ** Being displaced (e.g. by {{tip|airborne}} effects)
+  ** {{tip|Attach|Attached}}.
+  ** {{tip|Displacement immune|Displacement immune}}.
+  ** {{tip|cc-immune|Immune to crowd control}}.
+  * {{tip|Spell shield}} will block the initial {{tip|airborne|pull}} but not the dragging effect.
+  * ''Magnet Storm'' cannot be cast again while it is active.
+  |flavorsound  = {{sm2|Rell_Original_R_0.ogg}} ''"Nobody leaves!"''
+  }}
 
 ## Game files
 
@@ -241,3 +447,127 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | RellP | StealFloor | linear 1.5 → 3 over levels 1-18, continues past 18 | 1.5 | 3 | 3.17647 |
 | RellE | PercentHealthDamageCap | linear 150 → 300 over levels 1-18, continues past 18 | 150 | 300 | 317.647 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Rell.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee, on hit: 5% armor + 5% magic resistance magic damage, varies with combat state; formula is a reference.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Shattering Strike | 9 | 0.4 | 50 | self | – | – |
+| W | Ferromancy: Crash Down | 10 | 0.625 | 40 | self | – | – |
+| W2 | Ferromancy: Mount Up | 10 | 0 | – | self | – | – |
+| E | Full Tilt | 10 | 0 | 40 | self | – | – |
+| R | Magnet Storm | 80 | depends on stats (0.25 base) | 100 | self | – | – |
+| Qhit | Shattering Strike | 0 | 0 | – | self | 220 + 60% AP magic damage; stun for 0.65 s | – |
+| Whit | Ferromancy: Crash Down | 0 | 0 | – | self | 180 + 60% AP magic damage; stun for 0.8 s; knock up over 0.4 s | – |
+| MountHit | Ferromancy: Mount Up | 0 | 0 | – | self | – | – |
+| Eburst | Full Tilt | 0 | 0 | – | self | – | – |
+| Rpull | Magnet Storm | 0 | 0 | – | self | 0 magic damage | – |
+| Rpulse | Magnet Storm | 0 | 0 | – | self | 43.75 + 13.75% AP magic damage | – |
+| Qlock | Shattering Strike | 0 | 0 | – | self | – | – |
+| Wslide | Ferromancy: Crash Down | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Starts mounted with no stolen resistances or preduel casts. Break the Mold snapshots each real non-minion target's total armor/MR on its first accepted basic/spell contact, using fixed3%per-stack flat reductions for5seconds up to5stacks; later target resistance changes do not resnapshot until expiry. The primary level20 minimum3.17647058823529 per stack wins over binary interpolation ending3 at18. Rell gains the actual reduced sums across real afflicted bodies, removed on expiry/death. Hit-count/fixed-damage objects grant no fabricated resistances. Passive magic onhit uses current total armor+MR, before the new contact's steal; spell shield does not block the ordinary passive onhit.
+- Q locks0.4seconds, resolves the source520forward/220backward rectangle on the duel axis from cast-completion position, removes actual non-monster damage shields only after spell/parry guards accept the contact, then deals220+60%AP and0.65secondstun. Primary150width and0.35postlock win over binary80indicatorwidth/0.5postlock. Its100lunge has no sourced finite speed, so uses explicit immediate terrain-clipped relocation; immobilize/ground/silence at declaration or duringcast suppresses only that lunge, preserving hit/lock. No guessed finite flight is created.
+- CrashDown becomes dismounted and grants100+11%maxHPshield at declaration. Its requested100–400initial leap runs concurrently with0.625cast, crosses intervening terrain only to a clear endpoint, then hits within180and slides the primary320over estimated0.5seconds with swept200radius contacts, once per body. Primary notes report250–350testing without a reproducible curve; nominal320is explicit. Slide terrain shortens distance over the same duration. The shield lasts until broken or actual MountUp. The sourcedknockdownflag stopsleapmotion while its committedcast still payscost/cooldown; interruptedflight creates noarrival/slide. Forms share10secondhastedWcooldown. MountedMS40; dismounted15%totalarmor/MR,20%ASand75range use source form modifiers. Death/resurrection restoresmounted and resetsW; no Recall action exists.
+- MountUp resets the real attack timer, adds30%MS decayinglinearlyover2seconds, and grants3.5second entitlement to a0.2windup basic with100range/40%AS. Actual invalid-target windups retain entitlement. Charge speed is unquantified in both sources: the valid launch uses explicit immediate terrain-clipped projection toward the target, while root/ground preserve the attack without relocation. Its separate spellshield/parry/attack-guarded70+40%AP,0.6stun and150-over-Rell0.4secondfling preserve actual pet bodies and terrain; displacement immunity does not deny stun. There is no invented finite charge interruption window.
+- E works on Rell herself without inventing an ally. If a real allied champion-class body is in1200, automatic selection uses nearest actualbody; explicit aim may choose another actual eligiblebody. Visible enemy detection scans actual living champion bodies, including only explicitly Champion-class pet/clone bodies, without treating visibility as targetability. Ally facing uses observed signed movement only; unknown stationarypetfacing grants15%rather than borrowing ownerfacing; its3second15%MS rises30%while facing a visiblechampion within1600or empoweredally within2200. Next accepted basic or physical Q contact within5seconds causes one300radius7%targetmaxHP+3%per100APexplosion, independently guarded for everybody and capped317.647058823529atlevel20againstmonsters. Qmulticontact chooses earliest-created actualbody: the duelchampion exists before spawnedpets; missing globaldraftSpawnIDs remain outside this model.
+- R starts80secondhastedcooldown atdeclaration and delivers after0.25seconds, including an independent pendingdeadline when overlaid on CrashDown's concurrentcast/dash. Initial450centerpull moves bodies toward225ring byatleast100, using guarded immediate terrain-clipped displacement because initialpulltime isunsourced. Primary350+110%APtotal wins over binary550+110%AP, and450radius wins over425. Eight0.25second damagepulses occur at0.25through2seconds and are not blocked by a later spellshield. Continuous300speedkinematics outside225within375center-to-edge preserves actions and voluntarymovement; dashes, attachments, forcedmovement and CC/displacementimmunity exclude dragging. Source-specific movement synchronizes realpetpositions, never substituting their owner. Death/resurrection cancels remainingunreleasedstormeffects.
+- Ordinary fight/trade/hold/flee policies use real casts and referencegold remains15000. Hold/trade reserve readyR; completedtrade retreat precedes optionalcasts. Referencebudget counts Q, alternating sharedWforms, oneEburst perrealcooldown, and sourceRdamage without fabricating fullpassivestacks, allies or resistedstatsteal beforecombat. All entitlements, snapshots and deadlines live in cloneable unit/world state.
+
+### Source values read (85)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Break the Mold | sum of 5% of her total armor | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | for 5 seconds | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | up to 5 times | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | by 3% | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | Break the Mold will reduce the target's armor and magic resistance by a minimum of 1.5 – 3 (based on level). | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | first stack | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | snapshot | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | against non-minions | [4050368](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) |
+| Break the Mold | "name":"ShredDuration","values":[5.0,5.0,5.0,5.0,5.0,5.0,5.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json) |
+| Break the Mold | "mStartValue":1.5,"mEndValue":3.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json) |
+| Shattering Strike | Magic Damage: 60 / 100 / 140 / 180 / 220 (+ 60% AP) | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | cooldown: 11 / 10.5 / 10 / 9.5 / 9 | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | castTime: 0.4 | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | range (forward): 520 • -220 | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | range (backward): 520 • -220 | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | for 0.65 seconds | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | forward 100 units | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | for 0.35 seconds | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | width: 150 | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | excluding the shields of monsters | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Shattering Strike | "mCastTime":0.4000000059604645 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json) |
+| Ferromancy: Crash Down | Magic Damage: 60 / 90 / 120 / 150 / 180 (+ 60% AP) | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | Shield Strength: 20 / 40 / 60 / 80 / 100 (+ 11% maximum health) | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | Bonus Movement Speed: 20 / 25 / 30 / 35 / 40 | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | cooldown: 10 | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | castTime: 0.625 | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | targetRange: 100 - 400 | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | effectRadius: 180 | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | collisionRadius: 200 | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | another 320 units | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | 0.5 seconds | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | for 0.8 seconds | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | for 0.4 seconds | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | considered to be dismounted at the start | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | 250 and 350 units | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Ferromancy: Crash Down | "name":"SlideDistance","values":[320.0,320.0,320.0,320.0,320.0,320.0,320.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json) |
+| Ferromancy: Mount Up | 15% bonus armor | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | 20% bonus attack speed | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | 75 bonus attack range | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | 30% bonus movement speed | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | over 2 seconds | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | within 3.5 seconds | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | 0.2-second cast time | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | 100 bonus attack range | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | 40% bonus attack speed | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | Bonus Magic Damage: 10 / 25 / 40 / 55 / 70 (+ 40% AP) | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | for 0.6 seconds | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | 150 units over herself | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | over 0.4 seconds | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | cooldown: 10 | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | cancelled but not consumed | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | while grounded or rooted | [3976244](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Mount_Up?oldid=3976244) |
+| Ferromancy: Mount Up | "canCastWhileDisabled":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json) |
+| Full Tilt | Bonus Magic Damage: 5 / 5.5 / 6 / 6.5 / 7% (+ 3% per 100 AP) of target's maximum health | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | cooldown: 14 / 13 / 12 / 11 / 10 | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | for 3 seconds | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | within 5 seconds | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | 15% bonus movement speed | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | increased to 30% | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | effectRadius (Explosion): 300 • 2200 • 1600 | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | targetRange: 1200 | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | effectRadius (Empowered ally): 300 • 2200 • 1600 | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | effectRadius (Enemy champion): 300 • 2200 • 1600 | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | Additionally, Rell's next basic attack or Shattering Strike within 5 seconds creates an explosion around the target that deals bonus magic damage, capped at 150 – 300 (based on level) against monsters and structures. | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | lowest Spawn ID | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | visible | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Full Tilt | "name":"Duration","values":[3.0,3.0,3.0,3.0,3.0,3.0,3.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json) |
+| Magnet Storm | Magic Damage Per Tick: 18.75 / 31.25 / 43.75 (+ 13.75% AP) | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | Total Magic Damage: 150 / 250 / 350 (+ 110% AP) | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | cooldown: 120 / 100 / 80 | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | castTime: 0.25 | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | next 2 seconds | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | every 0.25 seconds | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | effectRadius (Initial): 450 • 375 | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | effectRadius (Continous): 450 • 375 | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | innerRadius: 225 | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | minimum 100 pull distance | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | speed: 300 | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | not the dragging effect | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | Being displaced | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |
+| Magnet Storm | "name":"InitialRadius","values":[425.0,425.0,425.0,425.0,425.0,425.0,425.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json) |
+| Shattering Strike | cost: 50 | [4008008](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Shattering_Strike?oldid=4008008) |
+| Ferromancy: Crash Down | cost: 40 | [4007762](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Ferromancy:_Crash_Down?oldid=4007762) |
+| Full Tilt | cost: 40 | [4008009](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Full_Tilt?oldid=4008009) |
+| Magnet Storm | cost: 100 | [4008010](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Magnet_Storm?oldid=4008010) |

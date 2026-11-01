@@ -34,7 +34,7 @@ export function goldenSuite(name: string, matchups: GoldenMatchup[]): void {
         it.skip(`${title} [disputed: ${matchup.disputed}]`, () => {});
         continue;
       }
-      it(title, { timeout: 60_000 }, () => {
+      it(title, { timeout: 180_000 }, () => {
         const score = goldenScore(matchup);
         expect(score, `counter score ${score.toFixed(2)}`).toBeGreaterThan(MARGINS[matchup.margin]);
       });

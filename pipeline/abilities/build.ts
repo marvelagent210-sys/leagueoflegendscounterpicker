@@ -115,8 +115,8 @@ function fillAcrossParts(parts: AbilityPart[]): void {
   if (generic?.amount.base && types.size === 1) for (const mechanic of timed) mechanic.duration = generic.amount.base;
 }
 
-/** Each value template in a description with the sentence it appears in. */
-function descriptionValues(marked: Marked): AbilityPart["values"] {
+/** Each value template in a description with the sentence it appears in (item effects read them too). */
+export function descriptionValues(marked: Marked): AbilityPart["values"] {
   const values: AbilityPart["values"] = [];
   for (const match of marked.text.matchAll(PLACEHOLDER)) {
     const series = marked.series[Number(match[1])];

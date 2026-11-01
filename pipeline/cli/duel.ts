@@ -5,13 +5,23 @@
  * Champions with a kit (kits/champions/) fight with their abilities; others with their
  * level-20 base stats and basic attacks only.
  *
+ * With --items or --enemy-items, the sides hold item builds (items/) instead of the stat
+ * budget: names separated by commas, checked against the build rules (pipeline/items/rules.ts).
+ * Tear items are fully stacked unless --unstacked; --item-option "Heartsteel.stacked=600"
+ * changes an item's option.
+ *
  * Usage: npm run duel -- <your champion> <enemy> [--gold 15000] [--log <scenario>] [--sweep] [--dataset 16.20]
+ *        npm run duel -- <your champion> <enemy> --items "<item>, ..." --enemy-items "<item>, ..." [--unstacked] [--item-option <item>.<option>=<value>] [--log <scenario>]
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
+import { type EquippedFighter, matchupSpecs } from "../../items/equip";
 import { SCENARIOS, type ScenarioId, runScenarios } from "../../engine/sim/scenarios";
 import type { FightOutcome } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
 import { bestMatchup } from "../../engine/sim/matchup";
+import { equipBuild, findItem, loadItemCatalog } from "../itemData";
+import type { ItemCatalog } from "../items/records";
+import { BUILD_FORMATS, buildProblems } from "../items/rules";
 import { loadFighter, loadVariants } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
 
@@ -39,6 +49,39 @@ function outcomeLine(outcome: FightOutcome): string {
   return parts.join(", ");
 }
 
+/** The item names of a --items list, checked against the build rules. */
+function itemList(text: string | undefined, catalog: ItemCatalog, who: string): string[] {
+  if (text === undefined) return [];
+  const names = text.split(",").map((name) => name.trim()).filter(Boolean);
+  const problems = buildProblems(names.map((name) => findItem(catalog, name)));
+  if (problems.length > 0) throw new Error(`${who}'s build breaks the build rules: ${problems.join("; ")}`);
+  return names;
+}
+
+/** Option overrides from --item-option "<item>.<option>=<value>" flags. */
+function itemOptions(args: string[], catalog: ItemCatalog): Record<string, Record<string, number>> {
+  const options: Record<string, Record<string, number>> = {};
+  args.forEach((arg, i) => {
+    if (arg !== "--item-option") return;
+    const match = /^(.+)\.(\w+)=(-?[\d.]+)$/.exec(args[i + 1] ?? "");
+    if (!match) throw new Error(`--item-option takes <item>.<option>=<value>, not "${args[i + 1] ?? ""}"`);
+    const item = findItem(catalog, match[1]!).name;
+    options[item] = { ...options[item], [match[2]!]: Number(match[3]) };
+  });
+  return options;
+}
+
+function describeBuild(name: string, fighter: EquippedFighter): string[] {
+  const gold = fighter.items.reduce((sum, record) => sum + record.gold, 0);
+  // A full build names its format: six items, or five items and boots.
+  const boots = fighter.items.filter((record) => record.kind === "boots").length;
+  const format = Object.values(BUILD_FORMATS).find((f) => f.boots === boots && f.finished === fighter.items.length - boots);
+  const lines = [`${name} holds ${fighter.items.map((record) => record.name).join(", ") || "no items"} (${format ? `${format.label}, ` : ""}${gold.toLocaleString("en-US")} gold)`];
+  const left = fighter.coverage.flatMap((entry) => entry.unmodeled.map((text) => `${entry.item}: ${text}`));
+  if (left.length > 0) lines.push(...left.map((text) => `  not modeled: ${text}`));
+  return lines;
+}
+
 function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatPrices): [FighterSpec, FighterSpec, string[]] {
   const [a, b] = allocateBoth(you, enemy, gold, prices);
   const describe = (spent: Record<string, number>) =>
@@ -50,9 +93,9 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const valued = new Set(["--gold", "--log", "--dataset"]);
+  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option"]);
   const names = args.filter((arg, i) => !arg.startsWith("--") && !valued.has(args[i - 1] ?? ""));
-  if (names.length !== 2) throw new Error("Usage: npm run duel -- <your champion> <enemy> [--gold 15000] [--log <scenario>] [--sweep]");
+  if (names.length !== 2) throw new Error('Usage: npm run duel -- <your champion> <enemy> [--gold 15000 | --items "<item>, ..." --enemy-items "<item>, ..."] [--log <scenario>] [--sweep]');
   const data = await loadSimData(option(args, "--dataset"));
   const you = findChampion(data.champions, names[0] as string);
   const enemy = findChampion(data.champions, names[1] as string);
@@ -67,7 +110,24 @@ async function main(): Promise<void> {
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
   // A kit with a choice to make (Udyr's rank split, Heimerdinger's upgrade) plays the option set best for it here.
   const [myVariants, theirVariants] = [await loadVariants(data.dataset, you), await loadVariants(data.dataset, enemy)];
-  if (myVariants.length > 1 || theirVariants.length > 1) {
+  const withItems = args.includes("--items") || args.includes("--enemy-items");
+  if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
+  const catalog = withItems ? await loadItemCatalog(data.dataset) : undefined;
+  const build = catalog ? { options: itemOptions(args, catalog), stacked: !args.includes("--unstacked") } : {};
+  const myItems = catalog ? itemList(option(args, "--items"), catalog, you.name) : [];
+  const theirItems = catalog ? itemList(option(args, "--enemy-items"), catalog, enemy.name) : [];
+  if (catalog && (myVariants.length > 1 || theirVariants.length > 1)) {
+    // As bestMatchup chooses, with the builds instead of the stat budget: your best worst case, and the enemy's.
+    const scores = myVariants.map((x) => theirVariants.map((y) => runScenarios(...matchupSpecs(equipBuild(x.spec, myItems, catalog, build), equipBuild(y.spec, theirItems, catalog, build))).score));
+    const row = scores.reduce((best, line, i) => (Math.min(...line) > Math.min(...scores[best]!) + 1e-12 ? i : best), 0);
+    const column = theirVariants.reduce((best, _, j) => (Math.max(...scores.map((line) => line[j]!)) < Math.max(...scores.map((line) => line[best]!)) - 1e-12 ? j : best), 0);
+    mine.spec = myVariants[row]!.spec;
+    theirs.spec = theirVariants[column]!.spec;
+    for (const [side, variants, at] of [[you.name, myVariants, row], [enemy.name, theirVariants, column]] as const) {
+      const options = variants[at]?.options;
+      if (variants.length > 1 && options) console.log(`${side} plays ${Object.entries(options).map(([key, value]) => `${key} ${value}`).join(", ")}: the best of ${variants.length} option sets here`);
+    }
+  } else if (myVariants.length > 1 || theirVariants.length > 1) {
     const best = bestMatchup(myVariants, theirVariants, gold, data.prices);
     for (const { side, options } of best.variants ?? []) {
       const sideVariants = side === 0 ? myVariants : theirVariants;
@@ -81,8 +141,21 @@ async function main(): Promise<void> {
       console.log(`${side === 0 ? you.name : enemy.name} plays ${named}: the best of ${sideVariants.length} option sets here`);
     }
   }
-  const [a, b, bought] = equip(mine.spec, theirs.spec, gold, data.prices);
-  console.log(`Stat budget ${gold} gold: ${you.name} buys ${bought[0]}; ${enemy.name} buys ${bought[1]}\n`);
+  let a: FighterSpec;
+  let b: FighterSpec;
+  if (catalog) {
+    const yours = equipBuild(mine.spec, myItems, catalog, build);
+    const theirsEquipped = equipBuild(theirs.spec, theirItems, catalog, build);
+    for (const line of [...describeBuild(you.name, yours), ...describeBuild(enemy.name, theirsEquipped)]) console.log(line);
+    const assumptions = [...new Set([...yours.assumptions, ...theirsEquipped.assumptions])];
+    if (assumptions.length > 0) console.log(["Item assumptions:", ...assumptions.map((text) => `  ${text}`)].join("\n"));
+    console.log("");
+    [a, b] = matchupSpecs(yours, theirsEquipped);
+  } else {
+    const [x, y, bought] = equip(mine.spec, theirs.spec, gold, data.prices);
+    console.log(`Stat budget ${gold} gold: ${you.name} buys ${bought[0]}; ${enemy.name} buys ${bought[1]}\n`);
+    [a, b] = [x, y];
+  }
 
   const result = runScenarios(a, b, { settings: { log: Boolean(logScenario) } });
   for (const scenario of result.scenarios) {

@@ -1,5 +1,158 @@
 # Counters to Maokai (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Maokai: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Maokai wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Maokai --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.83 | +1.00 | +1.00 | +1.00 | −0.01 | – | +1.00 |
+| 2 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.05 | – | +1.00 |
+| 3 | Trundle | +0.81 | +1.00 | +1.00 | +1.00 | −0.25 | +1.00 | +1.00 |
+| 4 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 5 | Aphelios | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 6 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 7 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 8 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 9 | Yorick | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 10 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 11 | Sivir | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 12 | Gangplank | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 13 | Vayne | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 14 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 15 | Udyr | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 16 | Rakan | +0.77 | +1.00 | +1.00 | +1.00 | −0.21 | +1.00 | +0.00 |
+| 17 | Ambessa | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 18 | Warwick | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 19 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 20 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 21 | Yasuo | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 22 | Xin Zhao | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 23 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 24 | Zaahen | +0.75 | +1.00 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 25 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 26 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 27 | Aatrox | +0.73 | +1.00 | +1.00 | +1.00 | −0.31 | – | +0.00 |
+| 28 | Hwei | +0.72 | +1.00 | +1.00 | +1.00 | +0.16 | −0.05 | +0.00 |
+| 29 | Kled | +0.55 | +1.00 | +1.00 | +0.00 | −0.03 | – | +0.00 |
+| 30 | Cho'Gath | +0.53 | +1.00 | +0.55 | +0.55 | −0.10 | – | +0.00 |
+| 31 | Gnar | +0.38 | +0.27 | +0.87 | −0.03 | −0.02 | +1.00 | +0.00 |
+| 32 | Smolder | +0.35 | +1.00 | +0.00 | +0.00 | +0.03 | +1.00 | +0.00 |
+| 33 | Ashe | +0.30 | −1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 34 | Lee Sin | +0.26 | +1.00 | +0.00 | +0.00 | −0.13 | – | +0.00 |
+| 35 | Riven | +0.20 | +0.00 | +0.00 | +1.00 | −0.12 | – | +0.00 |
+| 36 | Quinn | +0.20 | −0.50 | +1.00 | +1.00 | −0.17 | −1.00 | +0.00 |
+| 37 | Camille | +0.20 | −1.00 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 38 | Morgana | +0.17 | +0.01 | +0.46 | +0.45 | +0.14 | −0.59 | +0.00 |
+| 39 | Sion | +0.13 | +0.50 | +0.00 | +0.00 | −0.07 | – | +0.00 |
+| 40 | Twisted Fate | +0.11 | −1.00 | +1.00 | +1.00 | +0.05 | −1.00 | +0.00 |
+| 41 | Dr. Mundo | +0.09 | +0.11 | +0.15 | +0.18 | −0.12 | – | +0.00 |
+| 42 | Karma | +0.08 | +0.14 | +0.03 | +0.12 | +0.01 | +0.11 | +0.00 |
+| 43 | Taric | +0.02 | +0.00 | −0.02 | +0.10 | +0.02 | – | +0.00 |
+| 44 | Jayce | +0.00 | +0.00 | +0.00 | +0.00 | +0.01 | – | +0.00 |
+| 45 | Urgot | −0.01 | +0.50 | −1.00 | +1.00 | +0.10 | −1.00 | +0.00 |
+| 46 | Pantheon | −0.01 | −1.00 | +1.00 | +0.00 | −0.07 | – | +0.00 |
+| 47 | Aurora | −0.03 | −0.12 | −0.00 | −0.00 | −0.03 | +0.03 | +0.00 |
+| 48 | Shen | −0.04 | −0.06 | −0.07 | +0.02 | −0.06 | – | +0.00 |
+| 49 | Tahm Kench | −0.09 | −0.07 | −0.15 | −0.15 | +0.07 | – | +0.00 |
+| 50 | Zeri | −0.09 | +1.00 | −1.00 | −1.00 | +0.06 | +1.00 | +0.00 |
+| 51 | Annie | −0.14 | −0.24 | −0.22 | −0.11 | +0.13 | −0.23 | +0.00 |
+| 52 | Soraka | −0.14 | −0.27 | −0.13 | −0.17 | +0.04 | −0.17 | +0.00 |
+| 53 | Rell | −0.15 | −0.23 | −0.23 | −0.19 | +0.04 | −0.00 | +0.00 |
+| 54 | Singed | −0.15 | −0.17 | −0.17 | −0.17 | −0.11 | – | +0.00 |
+| 55 | Anivia | −0.16 | −0.43 | −0.16 | +0.08 | −0.17 | +0.01 | +0.00 |
+| 56 | Braum | −0.16 | −0.26 | −0.15 | −0.15 | −0.09 | – | +0.00 |
+| 57 | Kog'Maw | −0.22 | +0.00 | −0.50 | −0.50 | +0.06 | +0.00 | +0.00 |
+| 58 | Garen | −0.24 | −1.00 | +1.00 | −1.00 | −0.12 | – | +0.00 |
+| 59 | Gragas | −0.25 | −0.33 | −0.36 | −0.23 | −0.05 | – | +0.00 |
+| 60 | Renekton | −0.29 | −0.35 | −0.40 | −0.34 | −0.04 | – | +0.00 |
+| 61 | Senna | −0.30 | −0.48 | −0.12 | −0.27 | +0.02 | −1.00 | +0.00 |
+| 62 | Tristana | −0.31 | +1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 63 | Nocturne | −0.31 | −1.00 | +0.00 | +0.00 | −0.21 | – | +0.00 |
+| 64 | Ornn | −0.32 | −0.38 | −0.41 | −0.43 | −0.01 | – | +0.00 |
+| 65 | Neeko | −0.33 | −1.00 | +0.00 | +0.00 | +0.12 | −0.97 | +0.00 |
+| 66 | Karthus | −0.35 | −0.48 | −0.41 | −0.37 | −0.01 | −0.47 | +0.00 |
+| 67 | Irelia | −0.35 | −1.00 | −1.00 | +0.89 | +0.05 | – | +0.00 |
+| 68 | Zyra | −0.41 | −1.00 | −0.20 | −0.21 | +0.01 | −0.67 | +0.00 |
+| 69 | Kalista | −0.41 | +0.64 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 70 | Corki | −0.44 | −1.00 | −1.00 | −0.09 | −0.05 | +0.88 | +0.00 |
+| 71 | Yone | −0.45 | +0.28 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 72 | Zoe | −0.51 | −1.00 | −0.37 | −0.35 | +0.02 | −1.00 | +0.00 |
+| 73 | Lulu | −0.55 | +0.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 74 | Jhin | −0.56 | −0.14 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 75 | Heimerdinger | −0.56 | −1.00 | −0.14 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 76 | Wukong | −0.57 | −1.00 | −1.00 | +0.00 | −0.07 | – | +0.00 |
+| 77 | Master Yi | −0.58 | −1.00 | −1.00 | −1.00 | −0.17 | +1.00 | +1.00 |
+| 78 | Orianna | −0.59 | −1.00 | −1.00 | −1.00 | +0.05 | +1.00 | +0.00 |
+| 79 | Jinx | −0.60 | −1.00 | −0.29 | −1.00 | +0.04 | −0.88 | +0.00 |
+| 80 | Xayah | −0.61 | −1.00 | −1.00 | −1.00 | −0.06 | +1.00 | +0.00 |
+| 81 | Syndra | −0.63 | −1.00 | −1.00 | −0.23 | +0.10 | −1.00 | +0.00 |
+| 82 | Malzahar | −0.67 | −0.50 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 83 | Vel'Koz | −0.68 | −0.62 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 84 | Nami | −0.72 | −0.94 | −0.94 | −0.91 | +0.06 | −0.81 | +0.00 |
+| 85 | Rengar | −0.73 | −1.00 | −1.00 | −1.00 | +0.28 | – | +0.00 |
+| 86 | Brand | −0.74 | −0.77 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 87 | Nunu & Willump | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 88 | Galio | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 89 | Diana | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 90 | Vi | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 91 | Jarvan IV | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 92 | Nautilus | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 93 | Leona | −0.78 | −0.96 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 94 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 95 | Alistar | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 96 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 97 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 98 | Fizz | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 99 | Ekko | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 100 | Sejuani | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 101 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 102 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 103 | Malphite | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 104 | Ziggs | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 105 | Ryze | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 106 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 107 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 108 | Cassiopeia | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 109 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 110 | Janna | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 111 | Twitch | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 112 | Miss Fortune | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 113 | Sona | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 114 | Samira | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 115 | Viktor | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 116 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 117 | Teemo | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 118 | Ezreal | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −0.97 | +0.00 |
+| 119 | Swain | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 120 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 121 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 122 | Hecarim | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 123 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 124 | Vex | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 125 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 126 | Draven | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 127 | Varus | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 128 | Akshan | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 129 | Kassadin | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 130 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 131 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 132 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 133 | Rammus | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 134 | Taliyah | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 135 | Caitlyn | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 136 | Sett | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 137 | Ahri | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 138 | Kennen | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 139 | Graves | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 140 | Zed | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 141 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 142 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 143 | Lucian | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 144 | Kai'Sa | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Maokai's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +161,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Maokai` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.74)
+#### 1. Sivir (net +1.74)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Maokai's Nature's Grasp. Spell shield for 1.5 s, long enough to use ahead of Nature's Grasp. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Maokai R Nature's Grasp)
 - **0.73** spell shield: Spell Shield's spell shield blocks Maokai's Twisted Advance. Spell shield for 1.5 s, long enough to use ahead of Twisted Advance. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Maokai W Twisted Advance)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Maokai's (500 vs 125 attack range). Maokai closes the gap with Twisted Advance. (Sivir basic attacks → Maokai basic attacks)
 
-### 2. Udyr (net +0.98)
+#### 2. Udyr (net +0.98)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Maokai's Twisted Advance (root). Immune for 1.5 s, long enough to use ahead of Twisted Advance. (Udyr E Blazing Stampede → Maokai W Twisted Advance)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Maokai's Nature's Grasp (root). Immune for 1.5 s, long enough to use ahead of Nature's Grasp. (Udyr E Blazing Stampede → Maokai R Nature's Grasp)
 - **0.63** cc immunity: Blazing Stampede makes Udyr immune to Maokai's Bramble Smash (airborne, slow, stun). Immune for 1.5 s, long enough to use ahead of Bramble Smash. (Udyr E Blazing Stampede → Maokai Q Bramble Smash)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Udyr's Blazing Stampede.
 
-### 3. Aurora (net +0.93)
+#### 3. Aurora (net +0.93)
 
 - **0.75** untargetable: Between Worlds makes Aurora untargetable, dodging Maokai's Nature's Grasp. Untargetable for 0.4 s; Nature's Grasp takes 30.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Maokai R Nature's Grasp)
 - **0.46** untargetable: Between Worlds makes Aurora untargetable, dodging Maokai's Twisted Advance. Untargetable for 0.4 s; Twisted Advance takes 0.4 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Maokai W Twisted Advance)
 - **0.30** untargetable: Between Worlds makes Aurora untargetable, dodging Maokai's Bramble Smash. Untargetable for 0.4 s; Bramble Smash takes 0.68 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Maokai Q Bramble Smash)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Aurora's Between Worlds.
 
-### 4. Yuumi (net +0.92)
+#### 4. Yuumi (net +0.92)
 
 - **1.00** untargetable: You and Me! makes Yuumi untargetable, dodging Maokai's Twisted Advance. Untargetable for ?; Twisted Advance takes 0.4 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Maokai W Twisted Advance)
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging Maokai's Nature's Grasp. Untargetable for ?; Nature's Grasp takes 30.5 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Maokai R Nature's Grasp)
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Maokai's Bramble Smash. Untargetable for ?; Bramble Smash takes 0.68 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Maokai Q Bramble Smash)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Yuumi's Final Chapter.
 
-### 5. Fiora (net +0.92)
+#### 5. Fiora (net +0.92)
 
 - **0.90** parry: Riposte parries Maokai's Nature's Grasp and stuns back. Parry for 0.75 s; Nature's Grasp takes 30.5 s to land, enough to react. Negating Nature's Grasp's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Maokai R Nature's Grasp)
 - **0.88** parry: Riposte parries Maokai's Twisted Advance and stuns back. Parry for 0.75 s; Twisted Advance takes 0.4 s to land, enough to react. Negating Twisted Advance's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Maokai W Twisted Advance)
 - **0.51** parry: Riposte parries Maokai's Bramble Smash and stuns back. Parry for 0.75 s; Bramble Smash takes 0.68 s to land, enough to react. Negating Bramble Smash's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Maokai Q Bramble Smash)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Fiora's Riposte.
 
-### 6. Xayah (net +0.90)
+#### 6. Xayah (net +0.90)
 
 - **0.75** untargetable: Featherstorm makes Xayah untargetable, dodging Maokai's Nature's Grasp. Untargetable for 1.5 s, long enough to use ahead of Nature's Grasp. (Xayah R Featherstorm → Maokai R Nature's Grasp)
 - **0.46** untargetable: Featherstorm makes Xayah untargetable, dodging Maokai's Twisted Advance. Untargetable for 1.5 s, long enough to use ahead of Twisted Advance. (Xayah R Featherstorm → Maokai W Twisted Advance)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Maokai's (525 vs 125 attack range). Maokai closes the gap with Twisted Advance. (Xayah basic attacks → Maokai basic attacks)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Xayah's Bladecaller.
 
-### 7. Vladimir (net +0.88)
+#### 7. Vladimir (net +0.88)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Maokai's Nature's Grasp. Untargetable for 2 s, long enough to use ahead of Nature's Grasp. (Vladimir W Sanguine Pool → Maokai R Nature's Grasp)
 - **0.78** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Maokai's Twisted Advance. Untargetable for 2 s, long enough to use ahead of Twisted Advance. (Vladimir W Sanguine Pool → Maokai W Twisted Advance)
 - **0.41** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Maokai's Bramble Smash. Untargetable for 2 s, long enough to use ahead of Bramble Smash. (Vladimir W Sanguine Pool → Maokai Q Bramble Smash)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Vladimir's Hemoplague.
 
-### 8. Olaf (net +0.76)
+#### 8. Olaf (net +0.76)
 
 - **0.80** cc immunity: Ragnarok makes Olaf immune to Maokai's Nature's Grasp (root). Immune for 3 s, long enough to use ahead of Nature's Grasp. (Olaf R Ragnarok → Maokai R Nature's Grasp)
 - **0.48** cc immunity: Ragnarok makes Olaf immune to Maokai's Twisted Advance (root). Immune for 3 s, long enough to use ahead of Twisted Advance. (Olaf R Ragnarok → Maokai W Twisted Advance)
 - **0.31** cc immunity: Ragnarok makes Olaf immune to Maokai's Bramble Smash (airborne, slow, stun). Immune for 3 s, long enough to use ahead of Bramble Smash. (Olaf R Ragnarok → Maokai Q Bramble Smash)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Olaf's Reckless Swing.
 
-### 9. Gwen (net +0.72)
+#### 9. Gwen (net +0.72)
 
 - **0.80** untargetable: Hallowed Mist makes Gwen untargetable, dodging Maokai's Nature's Grasp. Untargetable for ?; Nature's Grasp takes 30.5 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Maokai R Nature's Grasp)
 - **0.73** untargetable: Hallowed Mist makes Gwen untargetable, dodging Maokai's Twisted Advance. Untargetable for ?; Twisted Advance takes 0.4 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Maokai W Twisted Advance)
 - **0.40** untargetable: Hallowed Mist makes Gwen untargetable, dodging Maokai's Bramble Smash. Untargetable for ?; Bramble Smash takes 0.68 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Maokai Q Bramble Smash)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Gwen's Needlework.
 
-### 10. Kayle (net +0.71)
+#### 10. Kayle (net +0.71)
 
 - **0.40** invulnerable: Divine Judgment makes Kayle invulnerable to Maokai's Nature's Grasp (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Nature's Grasp. (Kayle R Divine Judgment → Maokai R Nature's Grasp)
 - **0.36** range: Kayle's basic attacks reach 500 units farther than Maokai's (625 vs 125 attack range). Maokai closes the gap with Twisted Advance. (Kayle basic attacks → Maokai basic attacks)
 - **0.24** invulnerable: Divine Judgment makes Kayle invulnerable to Maokai's Twisted Advance (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Twisted Advance. (Kayle R Divine Judgment → Maokai W Twisted Advance)
 - Watch out: Twisted Advance makes Maokai untargetable, dodging Kayle's Starfire Spellblade.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

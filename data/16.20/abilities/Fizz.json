@@ -208,6 +208,18 @@
       "If Playful is cast while under the effect of a move block, Fizz will not become untargetable and will initiate the hop instantly.\n  - If Trickster is cast, the splash will not occur.",
       "If Fizz casts Playful on top of himself after blinking and not moving from the blinked-to spot, the minimum dash distance of 25 units will not apply (casts at 0 range).",
       "If Fizz enters stasis during either Playful or Trickster, the splash occurs after the stasis ends."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Fizz/Playful",
+          "revid": 4008451
+        },
+        "text": [
+          "If the first dash is interrupted, Fizz initiates the hop immediately, and if the second one is, the splash will not occur.",
+          "In either cases, Fizz loses the untargetability."
+        ]
+      }
     ]
   },
   {
@@ -799,6 +811,17 @@
       "Chum the Waters' lure missile will stop its movement upon colliding with Blade Whirl or Wind Wall specifically, creating the area of effect for the eruption prematurely without destroying the missile. Collision with Rebuttal will destroy it altogether, however.",
       "This ability will cast from wherever the caster is at the end of the cast time.\n  - The targeted area does not change unless the ability was cast beyond maximum range.",
       "If the lure attaches to an enemy champion, a countdown will appear at their position to signify when the shark is about to emerge. The countdown begins from 4, and ticks down by one every 0.5 seconds."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/fizz/fizz.bin.json",
+        "sha256": "7c1dc9f12bb637c53976e52efcf969ab311c70cadcfe1d0975fc101860e121dc",
+        "object": "Characters/Fizz/Spells/FizzRAbility/FizzRMissile",
+        "text": [
+          "\"mMissileWidth\": 80.0"
+        ]
+      }
     ]
   },
   {

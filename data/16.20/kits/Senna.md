@@ -300,3 +300,129 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 | SennaPassive | MSSteal | breakpoints at levels 6, 9 (level 1: 0.1) | 0.1 | 0.2 | 0.2 |
 | SennaPassive | BonusCurentHealthDamage | breakpoints at levels 11 (level 1: 1) | 1 | 18 | 20 |
 | SennaPassive | DebuffDuration | breakpoints at levels 6, 11 (level 1: 6) | 6 | 4 | 4 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Senna.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 600, melee.
+- Options: mist = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Piercing Darkness | 15 | depends on stats (0.28 base) | 110 | self | 130 + 60% bonus AD physical damage; slow 15% for 2 s | heal 120 + 40% bonus AD + 35% AP |
+| W | Last Embrace | 11 | 0.25 | 70 | skillshot 1300 long, 140 wide, at 1200/s | 230 + 90% bonus AD physical damage | – |
+| E | Curse of the Black Mist | 20 (starts when its effect on the caster ends) | 1 | 70 | self | – | lingering for 8 s |
+| R | Dawning Shadow | 100 | 1 | 100 | skillshot Infinity long, 320 wide, at 20000/s | 550 + 115% bonus AD + 70% AP physical damage; marks it "senna:standardSight" for 3 s | – |
+| Relic | Absolution | 0 | 0 | – | self | – | – |
+| Wroot | Last Embrace (spread) | 0 | 0 | – | self | root for 2.25 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Mist stacks collected before the duel (explicit scenario assumption): 0.
+- Basic Attack: "base attack windup is reduced to 31.25 – 21.875 (based on level)%" has no value past level 18; its level-18 value is used at 20.
+- Absolution: "1 – 10 (based on level)% of the target's current health" has no value past level 10; its level-10 value is used at 20.
+- Preduel Mist is an explicit nonnegative whole-stack option, default zero. No lane farm, allied champions, gold, quest rewards or corpse pickups are invented. Actual champions and pets explicitly classified as Champion by their pinned summon source share target-local extraction; minion/monster/unknown pets do not. Two-hit extraction adds real in-duel Mist; its return path is checked immediately against projectile walls because the pinned source does not supply a travel speed. Fractional fallback extraction uses the lesser of the first mark weight and second hit weight for both proc damage and Mist; that bounded scalar approximation consumes the whole mark and starts ordinary target-local immunity without inventing residual branches. Permanent Mist grants0.75AD per stack and20range/10%crit per20; excess purchased-plus-Mist crit converts to35% life steal per unit excess chance.
+- Senna's nonprojectile basic uses the level18-capped21.875% windup and60% attack-speed scaling at level20,0.4AS ratio and160%AD critical damage. Relic Cannon is a separate noncritical20%AD life-stealing packet only after positive ordinary basic damage, followed by the target-current-health extraction. Immunity lasts4seconds; a mark near expiry extends to0.75seconds when a windup starts. Invulnerable champions can still be marked/extracted; dodge/parry/blind deny ordinary basic contact.
+- Q uses80% of the continuous sourced windup formula before tick rounding. It selects the visible champion in attack range (capped1100), otherwise a real targetable pet; an aimed endpoint selects the closest actual unit. It then fires1300 units along that target ray with100-unit shadow and280-unit light widths. The one-dimensional model cannot distinguish transverse ray positions. It heals only Senna in this solo duel. Real enemy summons take area damage, and hit-count objects receive one actual basic interaction; Source-classified Champion pets receive champion Q life steal/on-hits; minion/monster/unknown pets do not. The acquired target, if classified Champion, receives the single-target spell packet and sole on-attack cooldown refund. Otherwise the first struck eligible champion is selected in stable real-champion then pet-ID order. Other targets take area packets; every eligible champion still receives its own on-hits. Spell shields deny Q damage/slow but preserve its champion on-hits and on-attack cooldown refund. The source leaves Q block/blind interactions pending test: its spell damage/slow are independent of blind/block, dodge denies its on-hit packet, and parry denies all contact bonuses. An accepted Q resolves spell damage, then Relic Cannon, then current-health Absolution; the shielded exception applies its retained on-hits before spell-shield consumption. Each accepted champion Q procs Relic Cannon and Absolution once, while its on-attack refunds one actual second of current Q cooldown; ordinary attack declarations refund independently of later avoidance.
+- W attaches to the actual first contacted champion or summon, then roots all real enemy centers within280 after1second or immediately on that target's death. The attachment follows a living target and survives Senna's death; untargetability, stasis, spell shields, CC immunity and tenacity are checked at the root's separate contact. W's root is crowd control without a second Absolution hit.
+- E is a mobile one-second cast followed by eight seconds of camouflage with400-unit champion detection and20%+5%/100AP movement speed. Basic windup declarations and other spell declarations break camouflage; it returns after1.75seconds without such actions. The client data says1.5seconds; the exact wiki1.75second rule is used and the conflict remains recorded. Movement speed remains while detected or broken, and true sight exposes camouflage while independent invisibility retains its own rules. Post-effect cooldown starts after the aura. No allies receive fictitious Wraith buffs.
+- R retains its cast-start origin/direction, reveals Senna during the one-second cast, shields herself once on release for3seconds at200+50%AP+1.5 per current Mist, and sends a20000-speed global projectile. The320-unit enemy shadow and2400-unit light wave share one destructible flight; actual enemy champions and source-classified Champion summons take damage; other summons only register passage without damage, sight or Absolution. In this solo one-dimensional duel the broad wave supplies Senna's selfshield and no allied shields. Its enemy reveal is explicitly standard sight, recorded as a sight mark; it never reveals invisibility or camouflage as true sight would. Path sight has no extra effect without fog/brush.
+- The budget includes direct Q/W/R formulas, Q's attack-refunded effective cycle, average Relic Cannon/basic and Q procs, a half-health target extraction every immunity-plus-two-hit cycle, Q selfhealing and the R selfshield. Runtime souls, target selection, shields and delayed W controls remain simulated.
+
+### Source values read (90)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Basic Attack | non-projectile beam | [4044104](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Basic_Attack?oldid=4044104) |
+| Basic Attack | critical strikes deal only 160% AD | [4044104](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Basic_Attack?oldid=4044104) |
+| Basic Attack | Additionally, Senna's base attack windup is reduced to 31.25 – 21.875 (based on level)%, but is only reduced by 60% of the expected value given attack speed bonuses. | [4044104](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Basic_Attack?oldid=4044104) |
+| Basic Attack | only reduced by 60% | [4044104](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Basic_Attack?oldid=4044104) |
+| Basic Attack | capped at level 18 | [4044104](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Basic_Attack?oldid=4044104) |
+| Basic Attack | attack ratio of 0.4 | [4044104](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Basic_Attack?oldid=4044104) |
+| Absolution | mark enemy champions hit for 4 seconds | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | Subsequent attacks or ability hits against marked targets will consume the mark to grant Senna a stack of Mist and deal bonus physical damage equal to 1 – 10 (based on level)% of the target's current health, rendering the target immune to being marked again for a few seconds. | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | targetCooldown: 6 / 5 / 4 (based on level) | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | gains 0.75 bonus attack damage | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | For every 20 stacks | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | gains 20 bonus attack range | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | and 10% critical strike chance | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | converted into 0.35% life steal | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | deal 20% AD bonus physical damage | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | 10 / 15 / 20 (based on level)% | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | bonus movement speed for 0.5 seconds | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | remaining duration less than 0.25 seconds | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | modified to 0.75 seconds | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | Dealing 0 damage is valid for marking and collecting Mist from champions | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | Dodge prevents marking and collecting a Mist via Senna's basic attacks and Q | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | Mist traveling to Senna can be destroyed as a projectile | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Absolution | only applied if the attack deals more than 0 damage | [4071407](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) |
+| Piercing Darkness | Physical Damage: 30 / 55 / 80 / 105 / 130 (+ 60% bonus AD) | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | Healing: 40 / 60 / 80 / 100 / 120 (+ 40% bonus AD) (+ 35% AP) | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | Slow Duration: 1 / 1.25 / 1.5 / 1.75 / 2 seconds | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | slows them by 15% | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | (+ 15% per 100 bonus AD) | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | (+ 7% per 100 AP) | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | castTime: 80% of Senna's windup time (0.4 at base attack speed) | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | range: 1300 | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | width (Shadow): 100 • 280 | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | width (Light): 100 • 280 | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | targetRange: 600 – 1100 | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | reduced by 1 second on-attack | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | Applies spell damage to the same champion it applies on-attack effects to and area damage to all other targets | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | considered to trigger a single basic attack | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | applies on-hit effects against champions and turrets hit | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | Spell shield will not prevent on-hit effects from being applied | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | not either explicitly untargetable or herself | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Last Embrace | attaches to them for 1 second | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | Root Duration: 1.25 / 1.5 / 1.75 / 2 / 2.25 seconds | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | effectRadius: 280 | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | After the duration or when the target dies | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | will not root the primary target if they are untargetable | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Curse of the Black Mist | Effect Duration: 6 / 6.5 / 7 / 7.5 / 8 seconds | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | regains it after 1.75 seconds | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | Detection Radius: 400 | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | gain 20% | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | (+ 5% per 100 AP) | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | can move during Curse of the Black Mist's cast time | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | basic attack breaks the stealth at the start of the attack windup | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | cooldownStart: post-effect | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | will not activate if Senna enters resurrection during the cast time | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | "name":"DurationBeforeRestealth","values":[1.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json) |
+| Dawning Shadow | Physical Damage: 250 / 400 / 550 (+ 115% bonus AD) (+ 70% AP) | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | Shield Strength: 120 / 160 / 200 (+ 50% AP) (+ 150% Mist) | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | (+ 50% AP) | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | (+ 150% Mist) | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | shield to Senna and allied champions hit for 3 seconds | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | reveals}} them for 3 seconds | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | {{tip\|standard sight\|reveals}} | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | broad wave is a singular projectile | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | narrow wave will be destroyed with it | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | reveals herself during the cast time | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | wherever the caster is at the start of the cast time | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | width (Shadow): 320 • 2400 | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | width (Light): 320 • 2400 | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | "mSpeed":20000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json) |
+| Dawning Shadow | "mMissileWidth":1200.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json) |
+| Absolution | "name":"ADPerStack","values":[0.75 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json) |
+| Piercing Darkness | "name":"RectangleWidthEnemy","values":[100.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json) |
+| Last Embrace | "name":"DelayTime","values":[0.0,1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json) |
+| Piercing Darkness | cooldown: 15 | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Piercing Darkness | cost: 70 / 80 / 90 / 100 / 110 | [4042887](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Piercing_Darkness?oldid=4042887) |
+| Last Embrace | cooldown: 11 | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | cost: 50 / 55 / 60 / 65 / 70 | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | castTime: 0.25 | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | targetRange: 1300 | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | width: 140 | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | speed: 1200 | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Last Embrace | Physical Damage: 70 / 110 / 150 / 190 / 230 (+ 90% bonus AD) | [4009139](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Last_Embrace?oldid=4009139) |
+| Curse of the Black Mist | cooldown: 26 / 24.5 / 23 / 21.5 / 20 | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | cost: 70 | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Curse of the Black Mist | castTime: 1 | [3994514](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Curse_of_the_Black_Mist?oldid=3994514) |
+| Dawning Shadow | cooldown: 140 / 120 / 100 | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | cost: 100 | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Dawning Shadow | castTime: 1 | [4008033](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Dawning_Shadow?oldid=4008033) |
+| Basic Attack | attackRange: 600 | [4044104](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Basic_Attack?oldid=4044104) |
+| Mist Wraith | Minion | [4025085](https://wiki.leagueoflegends.com/en-us/Senna?oldid=4025085) |

@@ -188,6 +188,46 @@
       "This ability cannot target a unit with Mounting Dread stacks.",
       "Mounting Dread will prioritize casting on the closest champion within 100 radius of the cursor, even if other eligible targets are closer.\n  - As a consequence of this mechanic, Mounting Dread can still be cast on champions with Mounting Dread stacks.\n    - Reapplying Mounting Dread through this method will apply the slow, but will not reset the stack count.",
       "Reapplying Mounting Dread against disguised Neeko will reset the stack count."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kindred/Mounting Dread",
+          "revid": 4078261
+        },
+        "text": [
+          "{{critical damage|0 to 50|critScaling=true}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
+        "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredE",
+        "text": [
+          "\"missileSpeed\":1600.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
+        "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredEWolfMissile",
+        "text": [
+          "\"missileSpeed\":2000.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
+        "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredEWrapper",
+        "text": [
+          "\"mSpellCalculations\":{\"BaseBiteDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritMod\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"BonusADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"PercentBiteDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritMod\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BasePercentDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mBuffName\":\"{64290302}\",\"mIconKey\":\"%i:kindredPassiveIcon%\",\"mCoefficient\":0.004999999888241291,\"__type\":\"BuffCounterByCoefficientCalculationPart\"}],\"mDisplayAsPercent\":true,\"mPrecision\":1,\"__type\":\"GameCalculation\"},\"CritDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.5,\"__type\":\"NumberCalculationPart\"},{\"mStat\":9,\"mStatFormula\":2,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mModifiedGameCalculation\":\"PercentBiteDamage\",\"__type\":\"GameCalculationModified\"},\"TotalSlow\":{\"mFormulaParts\":[{\"mDataValue\":\"SlowAmount\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"SlowAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}}"
+        ]
+      }
     ]
   },
   {
@@ -283,6 +323,17 @@
       "Wolf cannot mark monsters that have been slain, even if Kindred's team doesn't know that the camp has been slain.",
       "Wolf's cooldown is not displayed in-game. Combined with the above point and the target restrictions, Wolf may go extended periods of time without seeming to do anything.",
       "Wolf's marked target will always have its mark removed from the map 15 seconds after dying for both teams, regardless of whether they have vision of it or not."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kindred/Mark of the Kindred",
+          "revid": 4069806
+        },
+        "text": [
+          "formula=+75 at 4 stacks, and +25 every 3 stacks thereafter, up to 250 bonus range at 25 stacks."
+        ]
+      }
     ]
   },
   {
@@ -479,6 +530,17 @@
       "Dance of Arrows has no minimum dash range.",
       "This ability always employs quick cast.",
       "The cooldown will not be modified if it cannot be reduced (the current cooldown would have to be less than the reduction amount in this case)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
+        "object": "Characters/Kindred/Spells/KindredQAbility/KindredQMissile",
+        "text": [
+          "\"missileSpeed\":1600.0"
+        ]
+      }
     ]
   },
   {
@@ -630,6 +692,17 @@
       "Health costs will ignore Lamb's Respite's threshold.\n  - The cost will not be paid if the caster is below the threshold.",
       "Lamb's Respite has no effect on zombie state or clone units.",
       "Lamb's Respite will have no effect if cast while Kindred is untargetable."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
+        "object": "Characters/Kindred/Spells/KindredRAbility/KindredR",
+        "text": [
+          "\"DataValues\":[{\"name\":\"HealFlat\",\"values\":[150.0,225.0,300.0,375.0,450.0,525.0,600.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BuffDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"},{\"name\":\"AoERadius\",\"values\":[530.0,530.0,530.0,530.0,530.0,530.0,530.0],\"__type\":\"SpellDataValue\"}]"
+        ]
+      }
     ]
   },
   {
@@ -971,6 +1044,43 @@
       "Wolf's Frenzy does not end if Lamb enters resurrection.",
       "Wolf's Frenzy applies ability haste to its cooldown post-effect.\n  - Given a base cooldown of 14 seconds at rank 5 with 100 ability haste, casting the ability and then ending it after 4 seconds will result in a remaining cooldown of (14 - 4) \\times 0.5 = 5 seconds, where 0.5 is derived from ability haste.\n  - Because of this, there will always be some cooldown time remaining post-effect regardless of the amount of ability haste, unlike certain other abilities with cooldowns that start on-cast.",
       ": Interaction with enemy vision and spectator mode."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kindred/Wolf's Frenzy",
+          "revid": 4078260
+        },
+        "text": [
+          "formula= 1.25% per 1% of '''Kindred's missing''' health. ''This is capped at 80% '''missing''' health.''"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json",
+        "sha256": "893932abab7632401551a31e4e593c7a15c4ccbbfc488f75e1c2fa5540a246cd",
+        "object": "Characters/KindredWolf/CharacterRecords/Root",
+        "text": [
+          "\"attackSpeedModifiable\":{\"baseValue\":0.5580000281333923,\"__type\":\"ModifiableFloat\"}",
+          "\"attackRangeModifiable\":{\"baseValue\":200.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseMoveSpeedModifiable\":{\"baseValue\":275.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseHPModifiable\":{\"baseValue\":300.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseArmorModifiable\":{\"baseValue\":13.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseMR\":{\"baseValue\":30.0,\"__type\":\"ModifiableFloat\"}",
+          "\"selectionRadius\":0.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json",
+        "sha256": "893932abab7632401551a31e4e593c7a15c4ccbbfc488f75e1c2fa5540a246cd",
+        "object": "Characters/KindredWolf/Spells/KindredWolfBasicAttack",
+        "text": [
+          "\"spellCastTime\":0.31610000133514404"
+        ]
+      }
     ]
   }
 ]

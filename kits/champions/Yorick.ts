@@ -340,7 +340,8 @@ const yorick: KitModule = {
           if (curse) {
             raiseGraves(ctx);
             for (const pet of world.pets) {
-              if (pet.owner !== self.side || pet.spec.kind !== WALKER || pet.memory.leapt || Math.abs(pet.x - enemy.x) > curseReach) continue;
+              if (pet.owner !== self.side || pet.spec.kind !== WALKER || pet.memory.leapt || Math.abs(pet.x - enemy.x) > curseReach
+                  || pet.carriedBy !== undefined || pet.statuses?.some(status => status.key === "stasis" && (status.kind === "state" || status.kind === "cc"))) continue;
               pet.memory.leapt = true;
               pet.x = enemy.x - directionTo(self, enemy) * (enemy.spec.base.radius + pet.spec.radius);
               pet.nextAttackTick = tick;

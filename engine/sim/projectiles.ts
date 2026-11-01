@@ -8,6 +8,7 @@ import { abilityOf } from "./forms";
 import { resolveAttackOnPet } from "./attackPet";
 import { petEffects } from "./pets";
 import { petFormulaTarget } from "./petTarget";
+import { interceptProjectile } from "./projectileIntercept";
 import type { Effect } from "./spec";
 import { other, type Missile, type Pet, type Unit, type World } from "./state";
 
@@ -99,21 +100,27 @@ export function advanceSpecialMissile(world: World, missile: Missile, blocked: B
     missile.travelLeft = Math.max(0, missile.travelLeft - traveled);
     if (missile.collisionDistanceLeft !== undefined) missile.collisionDistanceLeft = Math.max(0, missile.collisionDistanceLeft - traveled);
     timeLeft = Math.max(0, timeLeft - traveled / speed);
+    if (interceptProjectile(world, missile, from, missile.x)) return false;
     if (blocked(world, missile, from, missile.x)) {
       log(world, other(missile.owner), `blocks a projectile (${missile.source})`);
       return end(world, missile, "blocked");
     }
     owner.spec.hooks?.onMissileMove?.({ ...hookContext(world, owner), missile, from, to: missile.x });
+    // A kit can resolve its endpoint or replace this flight in the movement hook.
+    // That claimed ending invalidates a contact captured before the callback.
+    if (missile.ended) return false;
     if (contact) {
       const effects = missile.onHit;
       if ("target" in contact) {
         (missile.hitTargets ??= []).push(contact.target.side);
         const ability = abilityOf(owner, missile.source);
-        if (missile.attack) attackHit(world, owner, contact.target, missile.attack.blinded, missile.attack.bonusOnHit, missile.attack.split, missile.hitsUntargetable, missile.attack, missile.scale);
-        else if (ability) abilityHit(world, owner, contact.target, ability, effects, missile.scale);
+        if (missile.attack) attackHit(world, owner, contact.target, missile.attack.blinded, missile.attack.bonusOnHit, missile.attack.split, missile.hitsUntargetable, missile.attack, missile.scale, from);
+        else if (ability) abilityHit(world, owner, contact.target, ability, effects, missile.scale, from);
         owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner), missile });
       } else {
         (missile.hitPets ??= []).push(contact.pet.id);
+        // This actual spatial contact is independent of the champion's sidestep
+        // probability. Conditional homing follow-ups keep their share in actions.ts.
         if (missile.attack) resolveAttackOnPet(world, owner, contact.pet, missile.attack.blinded, missile.attack.bonusOnHit, missile.attack, missile.attack.split);
         else hitPet(world, missile, contact.pet, effects);
         owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner, undefined, petFormulaTarget(contact.pet, owner, world.tick)), missile, targetPet: contact.pet });

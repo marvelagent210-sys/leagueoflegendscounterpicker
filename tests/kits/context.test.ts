@@ -55,6 +55,23 @@ describe("reading wiki ability data at level 20", () => {
     expect(kit.evidence.at(-1)?.page).toBe("Template:Data Camille/Precision Protocol");
   });
 
+  it("tells apart records that share a name by their template page", () => {
+    const kayn = context("Kayn");
+    expect(() => kayn.ability("The Darkin Scythe")).toThrow(/ambiguous/);
+    expect(() => kayn.ability("I")).toThrow(/ambiguous/);
+    expect(kayn.ability("Template:Data Kayn/The Darkin Scythe").record.page.revid).toBe(4053172);
+    expect(kayn.ability("Template:Data Rhaast/The Darkin Scythe").record.page.revid).toBe(3249284);
+    expect(() => kayn.ability("Template:Data Kayn/No Such Page")).toThrow(/no such ability/);
+  });
+
+  it("reads the raw series of a field that depends on something else, as evidence", () => {
+    const blade = context("Nilah").ability("Formless Blade");
+    expect(() => blade.field("castTime")).toThrow(/depends on bonus attack speed/);
+    expect(blade.fieldSeries("castTime")).toEqual({ kind: "variable", variable: "bonus attack speed", points: [0, 13.72, 36.358, 48], values: [0.35, 0.33, 0.297, 0.28] });
+    expect(() => blade.fieldSeries("range", "No such label")).toThrow(/no range value labeled/);
+    expect(() => blade.fieldSeries("range")).toThrow(/several values/);
+  });
+
   it("finds every number in a phrase", () => {
     expect(numbersIn("deals 1,050 damage over 2.5 seconds, -50 units")).toEqual([1050, 2.5, -50]);
   });

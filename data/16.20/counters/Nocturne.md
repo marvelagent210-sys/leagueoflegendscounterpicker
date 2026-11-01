@@ -1,5 +1,158 @@
 # Counters to Nocturne (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Nocturne: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Nocturne wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Nocturne --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | +0.06 | – | +1.00 |
+| 2 | Teemo | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 3 | Ashe | +0.83 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | −0.29 |
+| 4 | Aatrox | +0.82 | +1.00 | +1.00 | +1.00 | +0.26 | – | +0.00 |
+| 5 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.26 | – | +0.00 |
+| 6 | Kog'Maw | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 7 | Vayne | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 8 | Master Yi | +0.82 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.50 |
+| 9 | Kalista | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 10 | Cho'Gath | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 11 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 12 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 13 | Kennen | +0.81 | +0.96 | +0.98 | +1.00 | +0.15 | +0.99 | +0.00 |
+| 14 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 15 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 16 | Gangplank | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 17 | Diana | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 18 | Darius | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 19 | Alistar | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 20 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 21 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 22 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 23 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 24 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 25 | Wukong | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 26 | Aphelios | +0.78 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | −1.00 |
+| 27 | Lee Sin | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 28 | Trundle | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 29 | Shen | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 30 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 31 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 32 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 33 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 34 | Braum | +0.71 | +0.88 | +0.88 | +1.00 | −0.01 | – | +0.00 |
+| 35 | Cassiopeia | +0.71 | +0.84 | +0.84 | +0.83 | +0.22 | +0.84 | +0.00 |
+| 36 | Neeko | +0.69 | +0.80 | +0.87 | +0.84 | +0.15 | +0.83 | +0.00 |
+| 37 | Karma | +0.65 | +0.69 | +0.90 | +1.00 | +0.10 | +0.41 | +0.00 |
+| 38 | Xayah | +0.64 | +1.00 | +1.00 | +0.00 | +0.28 | +1.00 | +0.00 |
+| 39 | Lulu | +0.63 | +1.00 | +1.00 | +1.00 | +0.16 | −0.99 | +0.00 |
+| 40 | Quinn | +0.61 | +1.00 | +1.00 | +1.00 | +0.08 | −1.00 | +0.00 |
+| 41 | Morgana | +0.58 | +0.83 | +0.81 | +0.78 | +0.12 | −0.02 | −0.12 |
+| 42 | Yasuo | +0.56 | +0.63 | +0.82 | +0.60 | +0.15 | – | +0.00 |
+| 43 | Kayle | +0.48 | +1.00 | +1.00 | −1.00 | +0.56 | +1.00 | +0.00 |
+| 44 | Riven | +0.46 | +1.00 | +0.50 | +0.00 | +0.24 | – | +0.00 |
+| 45 | Rengar | +0.41 | +1.00 | +1.00 | −1.00 | +0.46 | – | +0.00 |
+| 46 | Lissandra | +0.38 | +0.27 | +1.00 | −0.25 | +0.14 | +0.97 | +0.00 |
+| 47 | Sivir | +0.37 | +1.00 | +1.00 | −1.00 | +0.13 | +1.00 | −1.00 |
+| 48 | Garen | +0.35 | +1.00 | +1.00 | −1.00 | +0.10 | – | +0.00 |
+| 49 | Irelia | +0.34 | −0.63 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 50 | Rammus | +0.32 | +1.00 | +1.00 | −1.00 | −0.09 | – | +0.00 |
+| 51 | Zeri | +0.32 | +1.00 | −1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 52 | Maokai | +0.31 | +0.00 | +1.00 | +0.00 | +0.21 | – | +0.00 |
+| 53 | Swain | +0.27 | +0.90 | −1.00 | +0.91 | +0.14 | +0.90 | +0.00 |
+| 54 | Jayce | +0.25 | +1.00 | −1.00 | +1.00 | +0.14 | – | +0.00 |
+| 55 | Tristana | +0.21 | +1.00 | +1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 56 | Akali | +0.17 | −0.93 | +1.00 | +0.63 | +0.07 | – | +0.00 |
+| 57 | Anivia | +0.16 | +0.21 | +0.14 | +0.29 | −0.07 | +0.28 | +0.00 |
+| 58 | Mordekaiser | +0.11 | +0.87 | −1.00 | +0.63 | +0.02 | – | +0.00 |
+| 59 | Udyr | +0.06 | +0.00 | +1.00 | −1.00 | +0.03 | – | +0.00 |
+| 60 | Skarner | +0.06 | +0.00 | +1.00 | −1.00 | +0.01 | – | +0.00 |
+| 61 | Gwen | −0.01 | −0.11 | +0.76 | −1.00 | +0.15 | – | +0.00 |
+| 62 | Brand | −0.03 | −0.46 | +0.10 | +0.13 | +0.08 | +0.26 | +0.00 |
+| 63 | Rakan | −0.04 | +1.00 | +0.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 64 | Jinx | −0.12 | −0.01 | +0.16 | −0.62 | +0.12 | −0.51 | +0.00 |
+| 65 | Sion | −0.13 | +0.00 | −0.46 | +0.00 | −0.02 | – | +0.00 |
+| 66 | Orianna | −0.17 | −1.00 | −1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 67 | Corki | −0.28 | −1.00 | +1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 68 | Samira | −0.32 | −0.71 | −1.00 | +1.00 | +0.08 | −1.00 | +0.00 |
+| 69 | Rumble | −0.37 | −1.00 | −1.00 | +0.83 | +0.00 | – | +0.00 |
+| 70 | Camille | −0.38 | −1.00 | −1.00 | +1.00 | +0.08 | – | −1.00 |
+| 71 | Heimerdinger | −0.38 | −1.00 | −1.00 | +1.00 | +0.16 | −1.00 | +0.00 |
+| 72 | Annie | −0.38 | −1.00 | −1.00 | +0.00 | +0.15 | +1.00 | +0.00 |
+| 73 | Jarvan IV | −0.47 | −1.00 | +0.00 | −1.00 | +0.18 | – | +0.00 |
+| 74 | Ornn | −0.49 | −1.00 | −0.07 | −1.00 | +0.20 | – | +0.00 |
+| 75 | Zaahen | −0.53 | −1.00 | −0.19 | −1.00 | +0.11 | – | +0.00 |
+| 76 | Gragas | −0.56 | −1.00 | +0.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 77 | Ezreal | −0.59 | −1.00 | −0.19 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 78 | Graves | −0.63 | −1.00 | −1.00 | +0.00 | +0.15 | −1.00 | −1.00 |
+| 79 | Volibear | −0.65 | −0.86 | −0.86 | −0.86 | +0.07 | – | +0.00 |
+| 80 | Gnar | −0.66 | −1.00 | −1.00 | −1.00 | +0.29 | −0.05 | +0.00 |
+| 81 | Ambessa | −0.71 | −1.00 | −1.00 | −1.00 | +0.40 | – | +0.00 |
+| 82 | Galio | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 83 | Hecarim | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 84 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 85 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.16 | – | −0.09 |
+| 86 | Ziggs | −0.76 | −1.00 | −1.00 | −1.00 | +0.27 | −1.00 | +0.00 |
+| 87 | Fizz | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 88 | Vel'Koz | −0.76 | −1.00 | −1.00 | −1.00 | +0.26 | −1.00 | +0.00 |
+| 89 | Kassadin | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 90 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 91 | Smolder | −0.76 | −1.00 | −1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
+| 92 | Senna | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 93 | Vi | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 94 | Sejuani | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 95 | Miss Fortune | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 96 | Leona | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 97 | Akshan | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 98 | Janna | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 99 | Ryze | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 100 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 101 | Tahm Kench | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 102 | Kindred | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 103 | Zed | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 104 | Varus | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 105 | Lucian | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 106 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 107 | Rell | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 108 | Talon | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 109 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 110 | Kha'Zix | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 111 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 112 | Katarina | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 113 | Caitlyn | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 114 | Ekko | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 115 | Nami | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 116 | Amumu | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 117 | Syndra | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 118 | Kai'Sa | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 119 | Karthus | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 120 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 121 | Viktor | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 122 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 123 | Hwei | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 124 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 125 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 126 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 127 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 128 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 129 | Jhin | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 130 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 131 | Thresh | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 132 | Soraka | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 133 | Zoe | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 134 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 135 | Twisted Fate | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 136 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 137 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 138 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 139 | Vex | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 140 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 141 | Malzahar | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 142 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 143 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 144 | Xin Zhao | −0.82 | −0.96 | −1.00 | −1.00 | +0.01 | – | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Nocturne's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,76 +161,108 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Nocturne` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.51)
+#### 1. Sivir (net +1.51)
 
 - **0.90** spell shield: Spell Shield's spell shield blocks Nocturne's Paranoia. Spell shield for 1.5 s, long enough to use ahead of Paranoia. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Nocturne R Paranoia)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Nocturne's (500 vs 125 attack range). Nocturne closes the gap with Paranoia. (Sivir basic attacks → Nocturne basic attacks)
-- **0.27** spell shield: Spell Shield's spell shield blocks part of Nocturne's Unspeakable Horror. Spell shield for 1.5 s, long enough to use ahead of Unspeakable Horror. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block the tether's application but not the damage and aftereffects of one already applied. (Sivir E Spell Shield → Nocturne E Unspeakable Horror)
+- **0.27** spell shield: Spell Shield's spell shield blocks part of Nocturne's Unspeakable Horror. Spell shield for 1.5 s, long enough to use ahead of Unspeakable Horror. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block the tether's application but not the damage and aftereffects of one already applied. {{{{{1<noinclude>|Ability data</noinclude>}}}|Unspeakable Horror|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+|champion     = Nocturne
+|skill        = E
+|icon         = false
+|blurb        = {{sbc|Passive:}} {{ci|Nocturne}} gains {{sti|ms|{{as|'''bonus''' movement speed}}}} while moving towards {{tip|fear|feared}} targets.
+|blurb2      = {{sbc|Active:}} '''Nocturne''' torments the target, forming a {{tip|tether}} that continually deals {{as|magic damage}}.
+|blurb3      = If the tether is not broken after a short time, the target is briefly {{tip|fear|feared}} and {{tip|slow|slowed}}.
+|description  = {{sbc|Passive:}} '''Nocturne''' gains {{sti|ms|{{as|90% '''bonus''' movement speed}}}} while facing nearby {{tip|fear|feared}} targets.
+|icon2        =  Unspeakable Horror.png
+|description2 = {{sbc|Active:}} '''Nocturne''' torments the target, forming a {{tip|tether}} between himself and the target for 2 seconds, during which the target takes {{as|magic damage}} every {{fd|0.5}} seconds over the duration.
+|leveling2    = {{st|Total Magic Damage|{{ap|80 to 260}} {{as|(+ 100% AP)}}|Magic Damage per Tick|{{ap|80/4 to 260/4}} {{as|(+ {{ap|100/4}}% AP)}}}}
+|description3 = If the tether is not broken by the end of its duration, the target is {{tip|fear|feared}} for a duration while being {{tip|slow|slowed}} by 90%.
+|leveling3    = {{st|Disable Duration|{{ap|1.25 to 2.25}} seconds}}
+|effect radius= {{tip|cr|icononly = true}} {{tt|1000|Fear MS radius}}
+|target range = {{tip|cr|icononly = true}} 425
+|tether radius= {{tip|er|icononly = true}} 465
+|cooldown     = {{ap|15 to 11}}
+|cost         = {{ap|60 to 80}}
+|costtype     = mana
+|cast time    = none
+|targeting    = Unit
+|affects      = Enemies
+|damagetype   = Magic
+|spellshield  = Special
+|spelleffects = special
+|projectile   = False
+|callforhelp  = True
+|notes        = 
+* ''Unspeakable Horror'' deals {{tip|persistent damage}}, additionally tagged as {{tip|indirect damage}}, and applies {{tip|spell effects}}.
+* Feared enemies in a {{tip|cr|icononly = true}} 180° total angle within '''Nocturne's''' facing direction will trigger ''Unspeakable Horror's'' passive.
+* Casting ''Unspeakable Horror'' may grant '''Nocturne''' permanent {{tip|ghosting}} until he has [[death|died]].{{bug}}
+* {{tip|Spell shield}} will block the tether's application but not the damage and aftereffects of one already applied.
+}}. (Sivir E Spell Shield → Nocturne E Unspeakable Horror)
 
-### 2. Vladimir (net +0.87)
+#### 2. Vladimir (net +0.87)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Nocturne's Paranoia. Untargetable for 2 s, long enough to use ahead of Paranoia. (Vladimir W Sanguine Pool → Nocturne R Paranoia)
 - **0.57** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Nocturne's Unspeakable Horror. Untargetable for 2 s, long enough to use ahead of Unspeakable Horror. (Vladimir W Sanguine Pool → Nocturne E Unspeakable Horror)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Nocturne's (450 vs 125 attack range). Nocturne closes the gap with Paranoia. (Vladimir basic attacks → Nocturne basic attacks)
 - Watch out: Shroud of Darkness's spell shield blocks part of Vladimir's Hemoplague.
 
-### 3. Gwen (net +0.78)
+#### 3. Gwen (net +0.78)
 
 - **0.90** untargetable: Hallowed Mist makes Gwen untargetable, dodging Nocturne's Paranoia. Untargetable for ?; Paranoia takes 2.22 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Nocturne R Paranoia)
 - **0.32** untargetable: Hallowed Mist makes Gwen untargetable, dodging Nocturne's Unspeakable Horror. Untargetable for ?; Unspeakable Horror lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Nocturne E Unspeakable Horror)
 - Watch out: Shroud of Darkness's spell shield blocks part of Gwen's Needlework.
 
-### 4. Xayah (net +0.75)
+#### 4. Xayah (net +0.75)
 
 - **0.90** untargetable: Featherstorm makes Xayah untargetable, dodging Nocturne's Paranoia. Untargetable for 1.5 s, long enough to use ahead of Paranoia. (Xayah R Featherstorm → Nocturne R Paranoia)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Nocturne's (525 vs 125 attack range). Nocturne closes the gap with Paranoia. (Xayah basic attacks → Nocturne basic attacks)
 - **0.33** untargetable: Featherstorm makes Xayah untargetable, dodging Nocturne's Unspeakable Horror. Untargetable for 1.5 s, long enough to use ahead of Unspeakable Horror. (Xayah R Featherstorm → Nocturne E Unspeakable Horror)
 - Watch out: Shroud of Darkness's spell shield blocks Xayah's Featherstorm.
 
-### 5. Yuumi (net +0.75)
+#### 5. Yuumi (net +0.75)
 
 - **0.90** untargetable: You and Me! makes Yuumi untargetable, dodging Nocturne's Paranoia. Untargetable for ?; Paranoia takes 2.22 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Nocturne R Paranoia)
 - **0.42** untargetable: You and Me! makes Yuumi untargetable, dodging Nocturne's Unspeakable Horror. Untargetable for ?; Unspeakable Horror lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Nocturne E Unspeakable Horror)
 - **0.32** range: Yuumi's basic attacks reach 300 units farther than Nocturne's (425 vs 125 attack range). Nocturne closes the gap with Paranoia. (Yuumi basic attacks → Nocturne basic attacks)
 - Watch out: Unspeakable Horror's fear interrupts Yuumi's Final Chapter (normal channel).
 
-### 6. Fiora (net +0.60)
+#### 6. Fiora (net +0.60)
 
 - **0.90** parry: Riposte parries Nocturne's Paranoia. Parry for 0.75 s; Paranoia takes 2.22 s to land, enough to react. (Fiora W Riposte → Nocturne R Paranoia)
 - **0.44** parry: Riposte parries Nocturne's Unspeakable Horror and stuns back. Parry for 0.75 s; Unspeakable Horror lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Unspeakable Horror's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Nocturne E Unspeakable Horror)
 - **0.09** attack speed slow: Riposte cuts Nocturne's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Nocturne basic attacks)
 - Watch out: Shroud of Darkness's spell shield blocks Fiora's Riposte.
 
-### 7. Aurora (net +0.59)
+#### 7. Aurora (net +0.59)
 
 - **0.90** untargetable: Between Worlds makes Aurora untargetable, dodging Nocturne's Paranoia. Untargetable for 0.4 s; Paranoia takes 2.22 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Nocturne R Paranoia)
 - **0.29** range: Aurora's basic attacks reach 425 units farther than Nocturne's (550 vs 125 attack range). Nocturne closes the gap with Paranoia. (Aurora basic attacks → Nocturne basic attacks)
 - **0.20** untargetable: Between Worlds makes Aurora untargetable, dodging Nocturne's Unspeakable Horror. Untargetable for 0.4 s; Unspeakable Horror lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Nocturne E Unspeakable Horror)
 - Watch out: Shroud of Darkness's spell shield blocks Aurora's Between Worlds.
 
-### 8. Kayle (net +0.58)
+#### 8. Kayle (net +0.58)
 
 - **0.45** invulnerable: Divine Judgment makes Kayle invulnerable to Nocturne's Paranoia (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Paranoia. (Kayle R Divine Judgment → Nocturne R Paranoia)
 - **0.36** range: Kayle's basic attacks reach 500 units farther than Nocturne's (625 vs 125 attack range). Nocturne closes the gap with Paranoia. (Kayle basic attacks → Nocturne basic attacks)
 - **0.17** invulnerable: Divine Judgment makes Kayle invulnerable to Nocturne's Unspeakable Horror (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Unspeakable Horror. (Kayle R Divine Judgment → Nocturne E Unspeakable Horror)
 - Watch out: Shroud of Darkness's spell shield blocks Kayle's Starfire Spellblade.
 
-### 9. Master Yi (net +0.57)
+#### 9. Master Yi (net +0.57)
 
 - **0.90** untargetable: Alpha Strike makes Master Yi untargetable, dodging Nocturne's Paranoia. Untargetable for ?; Paranoia takes 2.22 s to land, enough to react. (Master Yi Q Alpha Strike → Nocturne R Paranoia)
 - **0.32** untargetable: Alpha Strike makes Master Yi untargetable, dodging Nocturne's Unspeakable Horror. Untargetable for ?; Unspeakable Horror lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Nocturne E Unspeakable Horror)
 - **0.08** cc immunity: Highlander makes Master Yi immune to Nocturne's Unspeakable Horror (slow). Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Nocturne E Unspeakable Horror)
 - Watch out: Shroud of Darkness's spell shield blocks part of Master Yi's Alpha Strike.
 
-### 10. Zed (net +0.55)
+#### 10. Zed (net +0.55)
 
 - **0.90** untargetable: Death Mark makes Zed untargetable, dodging Nocturne's Paranoia. Untargetable for 0.6 s; Paranoia takes 2.22 s to land, enough to react. (Zed R Death Mark → Nocturne R Paranoia)
 - **0.20** untargetable: Death Mark makes Zed untargetable, dodging Nocturne's Unspeakable Horror. Untargetable for 0.6 s; Unspeakable Horror lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Zed R Death Mark → Nocturne E Unspeakable Horror)
 - Watch out: Shroud of Darkness's spell shield blocks part of Zed's Death Mark.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -33,6 +33,7 @@ import { readGameAbilities } from "./abilities/gameSpells";
 import { reconcileWithGameFiles } from "./gameFiles";
 import { buildGlossary } from "./glossary/build";
 import { parsePets } from "./pets";
+import { curatePets } from "./petCuration";
 import { parseRunes } from "./runes";
 import { buildProfiles } from "./profiles/build";
 import { GOLD_VALUE_PAGE, parseGoldValues } from "./rules";
@@ -146,6 +147,7 @@ async function main(): Promise<void> {
     const id = championId(page.title);
     if (!id || !byId.has(id)) throw new Error(`Pet page "${page.title}" doesn't name a champion`);
     const found = parsePets(page, id, petLookup);
+    curatePets(found, id, page);
     if (found.length > 0) pets.set(id, found);
   }
   await rm(path.join(out, "pets"), { recursive: true, force: true });

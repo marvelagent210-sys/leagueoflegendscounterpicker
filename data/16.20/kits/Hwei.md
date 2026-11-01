@@ -57,6 +57,30 @@ Notes:
 - Enemies can be damaged by multiple explosions at once.
 - Spell shield will block both the mark and its consumption as well as the detonation.
 - The indicator for the effect telegraphs an unusually smaller radius than it actually hits.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Signature of the Visionary|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = I
+  |icon         = Hwei Signature of the Visionary.png
+  |description  = {{sbc|Innate:}} '''Hwei's''' damaging {{tip|abilities}} mark enemies hit for 4 seconds. Subsequent damaging abilities against marked targets consume the mark to create an explosion beneath them, dealing {{as|{{pplevel|40 to 285}}|magic damage}} {{as|(+ 35% AP)}} {{as|'''bonus''' magic damage}} to enemies in the area after a {{fd|0.85}}-second delay.
+  |effect radius= {{tip|er|icononly = true}} {{tt|285|Center of marked champion to edge of other units}}
+  |cooldown     = 
+  |targeting    = Passive
+  |affects      = Self, Enemies
+  |damagetype   = Magic
+  |spelleffects = aoe
+  |spellshield  = true
+  |notes        = 
+  * The ability that consumes the mark cannot apply it on the same {{tip|cast instance}}.
+  * The mark '''cannot''' be triggered from the same cast instance of an ability, even if the triggering ability was empowered by ''{{ai|Stirring Lights|Hwei}}''.
+  * The explosion occurs around the marked target from where they were when the ability damaged them to consume the mark.
+  ** In other words, the explosion is at the location of where they were hit, not where they are at the end of the delay.
+  *** The target who had their mark consumed is able to escape the area of the explosion within the delay period.
+  * Enemies can be damaged by multiple explosions at once.
+  * {{tip|Spell shield}} will block both the mark and its consumption as well as the detonation.
+  * The indicator for the effect telegraphs an unusually smaller radius than it actually hits.{{bug|1}}
+  <!-- Blurb -->
+  |blurb        = {{sbc|Innate:}} {{cis|Hwei}} damaging abilities mark enemies hit for a short time. Damaging them with a different ability consumes the mark to create an explosion at their location that deals {{as|magic damage}} in an area.
+  }}
 
 ## Q: Devastating Fire
 
@@ -79,6 +103,29 @@ Active - QQ: Hwei slings a fireball in the target direction that explodes upon c
 Notes:
 
 - This ability will cast from wherever the caster is at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Devastating Fire|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = Q
+  |icon         = Hwei Devastating Fire.png
+  |blurb        = {{sbc|Active - QQ:}} {{ci|Hwei}} slings a fireball in the target direction, dealing {{as|magic damage}} to enemies hit.
+  |description  = {{sbc|Active - QQ:}} '''Hwei''' slings a fireball in the target direction that explodes upon colliding with the first enemy or reaching maximum range, dealing {{as|magic damage}} to all nearby enemies. The damage based on the target's health ratio is capped at 250 against {{tip|monsters}}.
+  |leveling     = {{st|Magic Damage|{{ap|50 to 170}} {{as|(+ 80% AP)}} {{as|(+ {{ap|3 to 7}}% of target's '''maximum''' health)}}}}
+  |range        = {{dv|{{tip|cr|icononly = true}} 800|{{tip|er|icononly = true}} {{tt|1075|Range + explosion at end that is located 100 units past the missile end position}}}}
+  |effect radius= {{tip|er|icononly = true}} {{tt|175|Explosion at end}}
+  |collisionradius=
+  |speed        = 2000
+  |width        = {{tip|er|icononly = true}} 140
+  |queue time   = {{fd|0.25}}
+  |targeting    = Direction
+  |cast time    = {{fd|0.25}}
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = true
+  |projectile   = true
+  |notes        = 
+  {{Effect at cast time end}}
+  }}
 
 ## Q: Fleeting Current
 
@@ -103,6 +150,29 @@ Hwei can move during Fleeting Current's cast time.
 Notes:
 
 - This ability will cast from wherever the caster is at the start of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Fleeting Current|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = Q
+  |icon         = Hwei Fleeting Current.png
+  |blurb        = {{sbc|Active - WQ:}} {{ci|Hwei}} forms a current of water in the target direction that grants him and allied {{tip|champions}} {{sti|{{as|'''bonus''' movement speed}}}} and {{tip|ghosting}} while within it.
+  |description  = {{sbc|Active - WQ:}} '''Hwei''' forms a current of water in the target direction, creating a path for a duration that grants him and allied {{tip|champions}} {{sti|{{as|'''bonus''' movement speed}}}} and {{tip|ghosting}} for {{fd|0.5}} seconds, with the bonus refreshing every {{fd|0.125}} seconds while they remain in the area.
+  |leveling     = {{st|Path Duration|{{ap|4 to 6}} seconds}}
+  {{st|Bonus Movement Speed|{{ap|30 to 40}}% {{as|(+ 3% per 100 AP)}}}}
+  |description2 = '''''Hwei''' can move during Fleeting Current's cast time.''
+  |range        = 1200
+  |effect radius= 
+  |width        = {{tt|225|Estimated}}
+  |speed        = 
+  |cooldown     = 
+  |cdstart      = 
+  |queue time   = {{fd|0.25}}
+  |targeting    = Direction 
+  |cast time    = {{fd|0.25}}
+  |affects      = Self, Allies
+  |projectile   = false
+  |notes        = 
+  {{Effect at cast time start}}
+  }}
 
 ## Q: Grim Visage
 
@@ -130,6 +200,31 @@ Grim Visage's slow stacks multiplicatively with the slows applied by Molten Fiss
 Notes:
 
 - This ability will cast from wherever the caster is at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Grim Visage|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = Q
+  |icon         = Hwei Grim Visage.png
+  |blurb        = {{sbc|Active - EQ:}} {{ci|Hwei}} launches a terrifying grin in the target direction that deals {{as|magic damage}} to the first enemy hit, {{tip|knockdown|knocking them down}} and {{tip|fear|fearing}} and {{tip|slow|slowing}} them.
+  |description  = {{sbc|Active - EQ:}} '''Hwei''' launches a terrifying grin in the target direction that deals {{as|magic damage}} to the first enemy hit, {{tip|knockdown|knocks them down}}, and {{tip|fear|fears}} them for a duration, as well as {{tip|slow|slows}} them by {{pp|type=distance from '''Hwei'''|70;78;86;94;99|0;300;600;900;1100|key=%|changedisplay=true|formula=70% + 1% for every 38 units the target is away from Hwei at the time of being hit}} for the same duration.
+  |leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 65% AP)}}}}
+  {{st|Disable Duration|{{ap|1 to 1.5}} seconds}}
+  |description2 = ''Grim Visage's {{tip|slow}} stacks multiplicatively with the slows applied by {{ai|Molten Fissure|Hwei}}, {{ai|Crushing Maw|Hwei}}, and {{ai|Spiraling Despair|Hwei}}.''
+  |range        = 1100
+  |speed        = 1300
+  |width        = {{tip|er|icononly=true}} 140
+  |cooldown     = 
+  |cdstart      = 
+  |queue time   = {{fd|0.25}}
+  |targeting    = Direction
+  |cast time    = {{fd|0.25}}
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = spell
+  |spellshield  = true
+  |projectile   = true
+  |notes        = 
+  {{Effect at cast time end}}
+  }}
 
 ## Q: Subject: Disaster
 
@@ -150,6 +245,28 @@ Notes:
 
 - Toggled abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
 - Hwei cannot rank up this ability while he is in a mood.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Subject: Disaster|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = Q
+  |icon         = Hwei Subject Disaster.png
+  |description  = {{sbc|Toggle:}} '''Hwei''' enters a disastrous mood, gaining access to its abilities as well as ''{{ai|Wash Brush|Hwei}}''. He will exit the mood upon casting any of them.
+  |cooldown     = {{ap|10 to 6}}
+  |cost         = {{ap|80 to 120}}
+  |costtype     = {{tt|Mana|Consumes upon using a basic ability}}
+  |cdstart      = Starts upon using a basic ability
+  |queue time   = {{fd|0.25}}
+  |targeting    = Auto
+  |cast time    = none
+  |notes        = 
+  * Toggled abilities do not count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  * '''Hwei''' cannot rank up this ability while he is in a mood.
+  <!-- Blurb -->
+  |blurbicon = Hwei Subject Disaster.png
+  |blurb        = {{sbc|Active:}} {{ci|Hwei}} enters a disastrous mood, gaining access to its abilities as well as ''{{ai|Wash Brush|Hwei}}''. He will exit the mood upon casting any of them.
+  * ''{{ai|Devastating Fire|Hwei}}'' (QQ)
+  * ''{{ai|Severing Bolt|Hwei}}'' (QW)
+  * ''{{ai|Molten Fissure|Hwei}}'' (QE)
+  }}
 
 ## W: Gaze of the Abyss
 
@@ -176,6 +293,34 @@ Notes:
 - The lock-on missile's path is indicated by a dashed line.
     - Its launch range is about as wide as its vision range.
     - This is not to be confused with the eye's border which is the trigger range.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Gaze of the Abyss|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = W
+  |icon         = Hwei Gaze of the Abyss.png
+  |blurb        = {{sbc|Active - EW:}} {{ci|Hwei}} tosses an eyeball to the target location that expands into a dark gaze, granting {{tip|sight}} in a larger area and locking onto the nearest visible enemy {{tip|champion}}. The eye then launches itself at the locked-on target, dealing {{as|magic damage}} to the first enemy it collides with, {{tip|root|rooting}} and {{tip|true sight|revealing}} them.
+  |description  = {{sbc|Active - EW:}} '''Hwei''' tosses an eyeball to the target location. Upon arrival, it expands over {{fd|0.2}} seconds into a dark gaze that lasts 3 seconds and grants {{tip|sight}} of the {{tt|area|Can see into brush and terrain}}. After {{fd|0.7}} seconds of being placed, the eye locks onto the nearest visible enemy champion or otherwise remains there until an enemy champion is in range. Once locked on, the eye launches itself at the target after a {{fd|0.3}}-second delay and collides with the first enemy hit to deal {{as|magic damage}}, {{tip|true sight|reveal}} them for {{fd|2.5}} seconds, and {{tip|root}} them for a duration.
+  |leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 65% AP)}}}}
+  {{st|Root Duration|{{ap|1.2 to 2}} seconds}}
+  |target range = 900
+  |effect radius= {{dv|{{tt|350|Trigger radius}}|{{tt|600|Maximum launch range}}|{{tip|sight|icononly=true}}{{tt|450|Sight radius}}}}
+  |collisionradius=
+  |speed        = {{tt|1700|Launch speed}}
+  |cooldown     = 
+  |cdstart      = 
+  |targeting    = Location
+  |cast time    = {{fd|0.25}}
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = spell
+  |spellshield  = true
+  |projectile   = true
+  |outofrange   = walk to location
+  |notes        = 
+  * The target that the eye locks onto and launches towards is {{tip|true sight|revealed}} during the missile's flight.
+  * The lock-on missile's path is indicated by a dashed line.
+  ** Its launch range is about as wide as its vision range.
+  ** This is not to be confused with the eye's border which is the trigger range.
+  }}
 
 ## W: Pool of Reflection
 
@@ -209,6 +354,32 @@ Notes:
     - The shield will be regenerated back to its cap if it mitigates damage.
     - The total amount of shield that can be generated given damage mitigated is far greater than this cap.
 - The initial shield amount is inconsistent due to one or two ticks of the bonus shield being granted on-cast.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Pool of Reflection|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = W
+  |icon         = Hwei Pool of Reflection.png
+  |blurb        = {{sbc|Active - WW:}} {{ci|Hwei}} summons a protective water pool at the target location that grants him and allied {{tip|champions}} a {{tip|shield}} for a few seconds that increases in strength if they remain within it.
+  |description  = {{sbc|Active - WW:}} '''Hwei''' summons a pool of water at the target location, creating a protective zone for 3 seconds that grants him and allied {{tip|champions}} a {{tip|shield}} at the start of the cast time and for {{fd|0.5}} seconds while within the area. The shield refreshes and increases in strength by an amount every {{rutngt|0.25}} over the duration while they remain in the area.
+  |leveling     = {{st|Initial Shield Strength|{{ap|50 to 130}} {{as|(+ 30% AP)}}}}
+  {{st|Bonus Shield per Tick|{{ap|50/6 to 130/6|round=2}} {{as|(+ {{ap|30/6|round=2}}% AP)}}|Total Maximum Shield|{{ap|50*2 to 130*2}} {{as|(+ {{ap|30*2}}% AP)}}}}
+  |description2 = ''Pool of Reflection's'' shield strength is reduced to 85% for allies.
+  |leveling2    = {{st|Ally Initial Shield|{{ap|50*0.85 to 130*0.85}} {{as|(+ {{ap|30*0.85}}% AP)}}}}
+  {{st|Ally Bonus Shield per Tick|{{ap|50*0.85/6 to 130*0.85/6|round=2}} {{as|(+ {{ap|30*0.85/6|round=2}}% AP)}}|Ally Total Maximum Shield|{{ap|50*2*0.85 to 130*2*0.85}} {{as|(+ {{ap|30*2*0.85}}% AP)}}}}
+  |target range = 650
+  |effect radius= 350
+  |cooldown     = 
+  |cdstart      = 
+  |targeting    = Location
+  |cast time    = {{fd|0.3}}
+  |affects      = Self, Allies
+  |outofrange   = walk to location
+  |notes        = 
+  * The pool is summoned at the start of the cast time.
+  * The maximum shield defines the cap for the strength, and it takes approximately {{fd|1.5}} seconds to gain the full shield.
+  ** The shield will be regenerated back to its cap if it mitigates damage.
+  ** The total amount of shield that can be generated given damage mitigated is far greater than this cap.
+  * The initial shield amount is inconsistent due to one or two ticks of the bonus shield being granted on-cast.
+  }}
 
 ## W: Severing Bolt
 
@@ -241,6 +412,44 @@ Notes:
     - Rank 3: 100% – 275%
     - Rank 4: 100% – 312.5%
     - Rank 5: 100% – 350%
+- <!-- The following values are defined as parameters
+  -->{{#vardefine:qw_b1|60}}<!-- Rank 1 base (non-increased) damage
+  -->{{#vardefine:qw_b5|160}}<!-- Rank 5 base (non-increased) damage
+  -->{{#vardefine:qw_ap|30}}<!-- (non-increased) AP ratio as a PERCENTAGE
+  -->{{#vardefine:qw_mod1|2.0}}<!-- Rank 1 max damage multiplier as a DECIMAL
+  -->{{#vardefine:qw_mod5|3.5}}<!-- Rank 5 max damage multiplier as a DECIMAL
+  -->{{{{{1<noinclude>|Ability data</noinclude>}}}|Severing Bolt|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = W
+  |icon         = Hwei Severing Bolt.png
+  |blurb        = {{sbc|Active - QW:}} {{ci|Hwei}} strikes the target area with a lightning bolt, dealing {{as|magic damage}} to enemies within the area. Isolated or {{tip|immobilize|immobilized}} enemies are dealt {{ccs|increased|magic}} damage based on their {{as|'''missing''' health}}.
+  |description  = {{sbc|Active - QW:}} '''Hwei''' calls upon a lightning bolt to strike at the target location after {{tt|1 second|From start of cast time}}, dealing {{as|magic damage}} to enemies within the area.
+  |leveling     = {{st|Magic Damage|{{ap|{{#var:qw_b1}} to {{#var:qw_b5}}}} {{as|(+ {{#var:qw_ap}}% AP)}}}}
+  |description2 = If ''Severing Bolt'' hits only one enemy or {{tip|immobilize|immobilized}} enemies, it deals {{ccs|increased|magic}} damage based on the {{tt|{{as|target's '''missing''' health}}|See notes}}. This '''bonus''' damage is capped at 300 against monsters.
+  |leveling2    = {{st|Maximum Damage Increase|{{ap|{{#var:qw_mod1}}*100 to {{#var:qw_mod5}}*100}}%|Maximum Damage|{{ap|<!--
+  -->{{#var:qw_b1}}*{{#var:qw_mod1}}|({{#var:qw_b1}}+({{#var:qw_b5}}-{{#var:qw_b1}})*(1/4))*({{#var:qw_mod1}}+({{#var:qw_mod5}}-{{#var:qw_mod1}})*(1/4))|({{#var:qw_b1}}+({{#var:qw_b5}}-{{#var:qw_b1}})*(2/4))*({{#var:qw_mod1}}+({{#var:qw_mod5}}-{{#var:qw_mod1}})*(2/4))|({{#var:qw_b1}}+({{#var:qw_b5}}-{{#var:qw_b1}})*(3/4))*({{#var:qw_mod1}}+({{#var:qw_mod5}}-{{#var:qw_mod1}})*(3/4))|{{#var:qw_b5}}*{{#var:qw_mod5}}}} {{as|(+ {{ap|{{#var:qw_ap}}*{{#var:qw_mod1}} to {{#var:qw_ap}}*{{#var:qw_mod5}}}}% AP)}}<!--
+  -->}}
+  |description3 = ''Severing Bolt'' deals 50% damage to {{tip|minions}} and non-epic {{tip|monsters}}.
+  |target range = 1900
+  |effect radius= 225
+  |cooldown     = 
+  |cdstart      = 
+  |queue time   = {{fd|0.25}}
+  |targeting    = Location
+  |cast time    = {{fd|0.5}}
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = true
+  |outofrange   = walk to location
+  |notes        = 
+  * ''Severing Bolt's'' damage against immobilized or isolated enemies is increased based on both its rank and a {{as|target's '''missing''' health}}. The list below shows the total damage multiplier at various thresholds as a percentage of the base/non-increased damage.
+  ** Rank 1: {{as|{{pp|key=%|key1=%|type=target's '''missing''' health|1*100 to {{#var:qw_mod1}}*100 for 11|0 to 100|showtype=false}}|health}}
+  ** Rank 2: {{as|{{pp|key=%|key1=%|type=target's '''missing''' health|1*100 to ({{#var:qw_mod1}}+({{#var:qw_mod5}}-{{#var:qw_mod1}})*(1/4))*100 for 11|0 to 100|showtype=false}}|health}}
+  ** Rank 3: {{as|{{pp|key=%|key1=%|type=target's '''missing''' health|1*100 to ({{#var:qw_mod1}}+({{#var:qw_mod5}}-{{#var:qw_mod1}})*(2/4))*100 for 11|0 to 100|showtype=false}}|health}}
+  ** Rank 4: {{as|{{pp|key=%|key1=%|type=target's '''missing''' health|1*100 to ({{#var:qw_mod1}}+({{#var:qw_mod5}}-{{#var:qw_mod1}})*(3/4))*100 for 11|0 to 100|showtype=false}}|health}}
+  ** Rank 5: {{as|{{pp|key=%|key1=%|type=target's '''missing''' health|1*100 to {{#var:qw_mod5}}*100 for 11|0 to 100|showtype=false}}|health}}
+  }}
 
 ## W: Subject: Serenity
 
@@ -261,6 +470,28 @@ Notes:
 
 - Toggled abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
 - Hwei cannot rank up this ability while he is in a mood.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Subject: Serenity|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = W
+  |icon         = Hwei Subject Serenity.png
+  |description  = {{sbc|Toggle:}} '''Hwei''' enters a serene mood, gaining access to its abilities as well as ''{{ai|Wash Brush|Hwei}}''. He will exit the mood upon casting any of them.
+  |cooldown     = {{ap|18 to 16}}
+  |cost         = {{ap|90 to 110}}
+  |costtype     = {{tt|Mana|Consumes upon using a basic ability}}
+  |cdstart      = Starts upon using a basic ability
+  |queue time   = {{fd|0.25}}
+  |targeting    = Auto
+  |cast time    = none
+  |notes        = 
+  * Toggled abilities do not count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  * '''Hwei''' cannot rank up this ability while he is in a mood.
+  <!-- Blurb -->
+  |blurbicon = Hwei Subject Serenity.png
+  |blurb        = {{sbc|Active:}} {{ci|Hwei}} enters a serene mood, gaining access to its abilities as well as ''{{ai|Wash Brush|Hwei}}''. He will exit the mood upon casting any of them.
+  * ''{{ai|Fleeting Current|Hwei}}'' (WQ)
+  * ''{{ai|Pool of Reflection|Hwei}}'' (WW)
+  * ''{{ai|Stirring Lights|Hwei}}'' (WE)
+  }}
 
 ## E: Crushing Maw
 
@@ -289,6 +520,34 @@ Notes:
 
 - Enemies that are pulled will be slowed after the displacement ends.
 - The jaws are made of two rectangles in an angle of each other.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Crushing Maw|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = E
+  |icon         = Hwei Crushing Maw.png
+  |blurb        = {{sbc|Active - EE:}} {{ci|Hwei}} summons a jaw at the target location that snaps, dealing {{as|magic damage}} to all enemies in the area and applying a decaying {{tip|slow}} to them. Enemies that are not standing at the center of the jaw when it snaps are {{tip|airborne|pulled}} there.
+  |description  = {{sbc|Active - EE:}} '''Hwei''' conjures a jaw at the target location that snaps after {{tt|{{fd|0.6}} seconds|From start of cast time}}, dealing {{as|magic damage}} to enemies in the area and {{tip|slow|slowing}} them by an amount that decays over {{fd|1.25}} seconds. Enemies that are not standing at the center when the jaw snaps are {{tip|airborne|pulled}} there.
+  |leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 65% AP)}}}}
+  {{st|Slow|{{ap|40 to 70}}%}}
+  |description2 = ''Crushing Maw's {{tip|slow}} stacks multiplicatively with the slows applied by {{ai|Molten Fissure|Hwei}}, {{ai|Grim Visage|Hwei}}, and {{ai|Spiraling Despair|Hwei}}.''
+  |target range = 800
+  |effect radius= 
+  |angle        =
+  |width        = {{tt|340|Single rectangle width, see details}}
+  |range        = {{tt|680|Single rectangle length, see details}}
+  |cooldown     = 
+  |cdstart      = 
+  |queue time   = {{fd|0.25}}
+  |targeting    = Location
+  |cast time    = {{fd|0.35}}
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = true
+  |outofrange   = walk to location
+  |notes        = 
+  * Enemies that are pulled will be slowed after the displacement ends.
+  * The jaws are made of two rectangles in an angle of each other.
+  }}
 
 ## E: Molten Fissure
 
@@ -325,6 +584,37 @@ Notes:
 - The shockwaves can only hit each enemy once.
 - Spell shield will block an explosion but not the persistent lava damage.
 - This ability will cast from wherever the caster is at the start of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Molten Fissure|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = E
+  |icon         = Hwei Molten Fissure.png
+  |blurb        = {{sbc|Active - QE:}} {{ci|Hwei}} marks a blazing path in a direction that erupts after a delay into explosions. Each explosion deals {{as|magic damage}} and leaves behind a volcanic fissure that continually deals {{as|magic damage}} and {{tip|slow|slows}} enemies within.
+  |description  = {{sbc|Active - QE:}} '''Hwei''' marks a blazing path in the target direction. After {{tt|{{fd|0.6}} seconds|From start of cast time}}, the path erupts into volcanic explosions every {{tt|{{fd|0.2}} seconds|Estimated}} from the point of cast, for a total of 7 explosions. Each explosion creates a shockwave that deals {{as|magic damage}} to nearby enemies.
+  |leveling     = {{st|Magic Damage|{{ap|20 to 80}} {{as|(+ 30% AP)}}}}
+  |description2 = Each explosion also leaves a lava fissure in its wake. A fissure lasts for {{fd|2.5}} seconds, dealing {{as|magic damage}} every {{fd|0.25}} seconds to enemies within the area and {{tip|slow|slowing}} them by 35%. Enemies may be damaged by multiple fissures at once.
+  |leveling2    = {{st|Magic Damage per Tick|{{ap|50/10 to 200/10}} {{as|(+ {{ap|60/10}}% AP)}}|Total Fissure Magic Damage|{{ap|50 to 200}} {{as|(+ 60% AP)}}}}
+  |description3 = ''Molten Fissure's'' damage is reduced to 60% against {{tip|minions}} and increased to 135% against {{tip|monsters}}.
+  |description4 = ''Molten Fissure's {{tip|slow}} stacks multiplicatively with the slows applied by {{ai|Grim Visage|Hwei}}, {{ai|Crushing Maw|Hwei}}, and {{ai|Spiraling Despair|Hwei}}.''
+  |range        = 1200
+  |effect radius= {{tip|cr|icononly=true}} 225
+  |speed        =
+  |width        = {{tip|cr|icononly=true}} 225
+  |cooldown     = 
+  |cdstart      = 
+  |queue time   = {{fd|0.25}}
+  |targeting    = Direction
+  |cast time    = {{fd|0.35}}
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = special
+  |spellshield  = special
+  |projectile   = true
+  |notes        = 
+  * Applies {{tip|area damage}} for the explosions and deals {{tip|persistent area damage}} for the lava.
+  * The shockwaves can only hit each enemy once.
+  * {{tip|Spell shield}} will block an explosion but not the persistent lava damage.
+  {{Effect at cast time start}}
+  }}
 
 ## E: Stirring Lights
 
@@ -351,6 +641,29 @@ Notes:
 
 - Stirring Lights' bonus damage to non-champions is reduced if applied by Devastating Fire, Severing Bolt, Molten Fissure, Crushing Maw, or Spiraling Despair.
 - Spell shield will not block the bonus damage even if it is applied by an ability.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Stirring Lights|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = E
+  |icon         = Hwei Stirring Lights.png
+  |blurb        = {{sbc|Active - WE:}} {{ci|Hwei}} surrounds himself in swirling flares that empower his next 3 basic attacks or abilities to deal {{as|'''bonus''' magic damage}} and restore {{sti|{{as|mana}}}}.
+  |description  = {{sbc|Active - WE:}} '''Hwei''' surrounds himself in swirling flares that empower his next 3 [[basic attacks]] or [[champion ability|ability]] hits within 9 seconds to each deal {{as|'''bonus''' magic damage}} and restore {{sti|{{as|mana}}}}.
+  |leveling     = {{st|Bonus Magic Damage|{{ap|20 to 60}} {{as|(+ 15% AP)}}|Maximum Magic Damage|{{ap|20*3 to 60*3}} {{as|(+ {{ap|15*3}}% AP)}}}}
+  {{st|Mana Restore|{{ap|135/3 to 195/3}}|Total Mana Restore|{{ap|135 to 195}}}}
+  |description2 = ''Stirring Lights' '' '''bonus''' damage is reduced to 50% against {{tip|minions}} or {{tip|monsters}} if applied by his area of effect abilities.
+  |leveling2    = {{st|Reduced Bonus Damage|{{ap|20*0.5 to 60*0.5}} {{as|(+ {{ap|15*0.5}}% AP)}}}}
+  |cooldown     = 
+  |cdstart      = 
+  |queue time   = {{fd|0.25}}
+  |targeting    = Auto
+  |cast time    = none
+  |affects      = Self, Enemies
+  |damagetype   = Magic
+  |spelleffects = proc
+  |spellshield  = false
+  |notes        = 
+  * ''Stirring Lights' '' bonus damage to non-champions is reduced if applied by ''{{ai|Devastating Fire|Hwei}}'', ''{{ai|Severing Bolt|Hwei}}'', ''{{ai|Molten Fissure|Hwei}}'', ''{{ai|Crushing Maw|Hwei}}'', or ''{{ai|Spiraling Despair|Hwei}}''.
+  * {{tip|Spell shield}} will not block the bonus damage even if it is applied by an ability.{{bug}}
+  }}
 
 ## E: Subject: Torment
 
@@ -371,6 +684,28 @@ Notes:
 
 - Toggled abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
 - Hwei cannot rank up this ability while he is in a mood.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Subject: Torment|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = E
+  |icon         = Hwei Subject Torment.png
+  |description  = {{sbc|Toggle:}} '''Hwei''' enters a tumultuous mood, gaining access to its abilities as well as ''{{ai|Wash Brush|Hwei}}''. He will exit the mood upon casting any of them.
+  |cooldown     = {{ap|12 to 10}}
+  |cost         = {{ap|50 to 70}}
+  |costtype     = {{tt|Mana|Consumes upon using a basic ability}}
+  |cdstart      = Starts upon using a basic ability
+  |queue time   = {{fd|0.25}}
+  |targeting    = Auto
+  |cast time    = none
+  |notes        = 
+  * Toggled abilities do not count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  * '''Hwei''' cannot rank up this ability while he is in a mood.
+  <!-- Blurb -->
+  |blurbicon = Hwei Subject Torment.png
+  |blurb        = {{sbc|Active:}} {{ci|Hwei}} enters a tumultuous mood, gaining access to its abilities as well as ''{{ai|Wash Brush|Hwei}}''. He will exit the mood upon casting any of them.
+  * ''{{ai|Grim Visage|Hwei}}'' (EQ)
+  * ''{{ai|Gaze of the Abyss|Hwei}}'' (EW)
+  * ''{{ai|Crushing Maw|Hwei}}'' (EE)
+  }}
 
 ## R: Spiraling Despair
 
@@ -412,6 +747,42 @@ Notes:
 - Applies persistent area damage for the aura and deals area damage for the explosion.
 - Spell shield can block the aura, explosion, and the application of the first Despair stack.
 - This ability will cast from wherever the caster is at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Spiraling Despair|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = R
+  |icon         = Hwei Spiraling Despair.png
+  |description  = {{sbc|Active:}} '''Hwei''' launches a globule of pure despair in the target direction that collides with the first enemy {{tip|champion}} hit, afflicting them with an [[aura]] that grows over 3 seconds, {{tip|true sight|reveals}} the target, and grants {{tip|sight}} within its radius. Enemies within are both dealt {{as|magic damage}} and applied a {{tip|stack}} of ''Despair'' every {{fd|0.25}} seconds.
+  |leveling     = {{st|Magic Damage per Tick|{{ap|10/4 to 30/4}} {{as|(+ {{ap|5/4}}% AP)}}|Total Magic Damage|{{ap|10*3 to 30*3}} {{as|(+ {{ap|5*3}}% AP)}}}}
+  |description2 = {{sbc|Despair:}} For each stack, the target is {{tip|slow|slowed}} by 10% for {{fd|0.25}} seconds, stacking up to 12 times.
+  |description3 = At the end of the duration or when the target dies, the aura explodes to deal {{as|magic damage}} to enemies within and remove all ''Despair'' stacks from affected enemies.
+  |leveling3    = {{st|Magic Damage|{{ap|200 to 450}} {{as|(+ 80% AP)}}|Maximum Total Damage|{{ap|200+10*3 to 450+30*3}} {{as|(+ {{ap|80+5*3}}% AP)}}}}
+  |description4 = ''Spiraling Despair can only be cast if '''Hwei''' has not entered a mood.<br>Spiraling Despair's {{tip|slow}} stacks multiplicatively with the slows applied by {{ai|Molten Fissure|Hwei}}, {{ai|Grim Visage|Hwei}}, and {{ai|Crushing Maw|Hwei}}.''
+  |range        = {{tip|er|icononly = true}} {{tt|1340|1300 missile travel distance plus 40 to-edge radius check if nothing has been hit yet}}
+  |cast time    = {{fd|0.25}}
+  |effect radius= {{tip|cr|icononly = true}} {{tt|500|Aura maximum radius/detonation radius when aura times out}}<!--What's the base/initial radius of the aura? Also need the aura radius growth formula to format this into a pp template-->
+  |collisionradius=
+  |speed        = 1400
+  |width        = {{tip|er|icononly = true}} {{tt|180|Missile full width}}
+  |cooldown     = {{ap|120 to 80}}
+  |cost         = 100
+  |costtype     = Mana
+  |cdstart      = 
+  |queue time   = {{fd|0.25}}
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = special
+  |spellshield  = special
+  |projectile   = true
+  |notes        = 
+  * Applies {{tip|persistent area damage}} for the aura and deals {{tip|area damage}} for the explosion.
+  * {{tip|Spell shield}} can block the aura, explosion, and the application of the first ''Despair'' stack.
+  {{Effect at cast time end}}
+  <!-- Blurb -->
+  |blurbicon = Hwei Spiraling Despair.png
+  |blurb        = {{sbc|Active:}} {{ci|Hwei}} launches a globule in the target direction that collides with the first enemy {{tip|champion}} hit, afflicting them with an [[aura]] that grows over a few seconds. Enemies within are continually dealt {{as|magic damage}} and gradually {{tip|slow|slowed}}.
+  |blurb2      = After the duration ends or when the target dies, the aura explodes to deal {{as|magic damage}} to all enemies within.
+  }}
 
 ## R: Wash Brush
 
@@ -430,6 +801,21 @@ Wash Brush can only be cast if Hwei has entered a mood, and can be used while af
 Notes:
 
 - Toggled abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Wash Brush|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Hwei
+  |skill        = R
+  |icon         = Hwei Wash Brush.png
+  |description  = {{sbc|Toggle - QR, WR, ER:}} '''Hwei''' exits his current ''mood'' without incurring its ability cost or cooldown, toggling it off.
+  |description2 = ''Wash Brush can only be cast if '''Hwei''' has entered a mood, and can be used while affected by {{tip|cast-inhibiting crowd control}}.''
+  |cast time    = none
+  |targeting    = Auto
+  |affects      = Self
+  |notes        = 
+  * Toggled abilities do not count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  <!-- Blurb -->
+  |blurbcon     = Hwei Wash Brush.png
+  |blurb        = {{sbc|Active:}} {{ci|Hwei}} exits his current ''mood'' without incurring its ability cost or cooldown.
+  }}
 
 ## Game files
 
@@ -460,3 +846,205 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | HweiPassive | TotalDamage | linear 40 → 285 over levels 1-18, continues past 18 | 40 | 285 | 313.824 |
 | HweiQE | {a8f705ac} | linear 15 → 30 over levels 1-18, stops at 18 | 15 | 30 | 30 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Hwei.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2800/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Subject: Disaster | 0 | 0 | – | self | – | – |
+| W | Subject: Serenity | 0 | 0 | – | self | – | – |
+| E | Subject: Torment | 0 | 0 | – | self | – | – |
+| Wash | Wash Brush | 0 | 0 | – | self | – | – |
+| QQ | Devastating Fire | 6 | 0.25 | 120 | skillshot 1075 long, 140 wide, at 2000/s | 170 + 80% AP + 7% target's maximum health magic damage | – |
+| QW | Severing Bolt | 6 | 0.5 | 120 | circle of 225 radius up to 1900 away, lands after 0.5 s | 160 + 30% AP magic damage | – |
+| QE | Molten Fissure | 6 | 0.35 | 120 | self | – | – |
+| WQ | Fleeting Current | 16 | 0.25 | 110 | self | – | – |
+| WW | Pool of Reflection | 16 | 0.3 | 110 | self | – | – |
+| WE | Stirring Lights | 16 | 0 | 110 | self | – | – |
+| EQ | Grim Visage | 10 | 0.25 | 70 | skillshot 1100 long, 140 wide, at 1300/s | 230 + 65% AP magic damage; stops an interruptible dash without an airborne duration; fear for 1.5 s | – |
+| EW | Gaze of the Abyss | 10 | 0.25 | 70 | self | – | – |
+| EE | Crushing Maw | 10 | 0.35 | 70 | self | 230 + 65% AP magic damage | – |
+| R | Spiraling Despair | 80 | 0.25 | 100 | skillshot 1340 long, 180 wide, at 1400/s | revealed for 3 s | – |
+| QQ-explosion | Devastating Fire | 0 | 0 | – | self | – | – |
+| I-explosion | Signature of the Visionary | 0 | 0 | – | self | – | – |
+| QE-shock | Molten Fissure | 0 | 0 | – | self | slow 35% for 0.25 s | – |
+| QE-lava | Molten Fissure | 0 | 0 | – | self | – | – |
+| QE-driver | Molten Fissure | 0 | 0 | – | self | – | – |
+| WE-proc | Stirring Lights | 0 | 0 | – | self | – | – |
+| EW-eye | Gaze of the Abyss | 0 | 0 | – | self | – | – |
+| EW-place | Gaze of the Abyss | 0 | 0 | – | self | – | – |
+| EW-seeker | Gaze of the Abyss | 0 | 0 | – | self | – | – |
+| EE-slow | Crushing Maw | 0 | 0 | – | self | – | – |
+| WW-pool | Pool of Reflection | 0 | 0 | – | self | – | – |
+| WQ-path | Fleeting Current | 0 | 0 | – | self | – | – |
+| R-aura | Spiraling Despair | 0 | 0 | – | self | – | – |
+| R-tick | Spiraling Despair | 0 | 0 | – | self | – | – |
+| R-explosion | Spiraling Despair | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- All nine selected spells use rank5 despite their parsed second-key kinds. One Q/W/E group shares respectively6/16/10second cooldown and120/110/70mana cost. Book entry and Wash Brush are free non-activations; selection exits the current book. R requires no active mood. Wash Brush works under cast-inhibiting control, while actual selected spells retain normal restrictions. Primary E10second cooldown and instant WE/book switches override client11second/0.25second metadata.
+- Signature uses the supplied wiki level20 continuation313.823529411765+35%AP. The supplied primary description says damaging abilities mark enemies, while its radius tooltip calls the target a marked champion. Broad actual damageable bodies follow that description; the inconsistent restriction remains explicit. Same-cast identity covers overlapping QQ/QE/EW/R contacts and WE procs. A cast cannot apply, consume or reapply its own ink. Consumption schedules one285edge-radius explosion0.85seconds later at the real consumption position, with independent normal skillshot and spell-shield defenses. No enemy body or wave is invented.
+- QQ is a first-body2000speed800travel projectile. Collision creates one175edge-radius explosion at its real contact coordinate; untouched endpoint expiry explodes100units farther. Monster maximum-health damage is capped250 independently of flat/AP damage. QW lands1second from declaration rather than1second after its0.5cast. The exact primary raw11-point table establishes linear100-to350%total damage versus missing-health fraction for isolated or immobilized recipients. Monster bonus cap300 precedes minion/non-epic50%damage. Isolation snapshots actual hittable bodies at impact, excluding stasis/untargetability while preserving invisible area recipients; an earlier recipient death cannot change later isolation.
+- QE retains its declaration origin and seven eruptions beginning0.6seconds after declaration with explicitly estimated0.2second spacing. Seven uniformly spaced axial centers across1200range are an explicit spatial approximation because server center offsets are absent. Client800driver speed governs an actual independently blockable path carrier, not a sourced proof of those offsets; interception removes unreleased future eruptions but not existing lava. A real body receives one shockwave per cast despite overlapping areas. Every distinct2.5second lava pool has ten absolute quarter-second damage clocks. Only shockwaves are spell-shieldable; lava occupancy independently refreshes35%slow. Minion60%/monster135%damage stays recipient-local, and lava remains persistent area.
+- WQ preserves cast-start origin and direction. Its client1700speed driver is interpreted as axial path expansion after completion because server onset is not provided;225fullwidth is explicitly estimated and supplies no invented lateral collision. Real allied Champion-class bodies and self gain40%+0.03%AP movement and ghosting for0.5seconds on the released six-second path, refreshed at absolute0.125second deadlines. WW creates its650range350radius pool at declaration before its0.3cast completes. Actual recipients start with130+30%AP shield; each0.264second refresh regenerates remaining capacity by21.6667+5%AP up to260+60%AP. Actual allies receive85%. The primary inconsistent one/two bonus ticks on-cast are resolved to the stated initial amount; client1second shield and3second fill are not substituted. Reentry after expiry starts from initial shielding. No teammate is invented.
+- WE grants three nine-second stocks. Each actual connected basic or one source-cast hit group spends at most one stock and restores65mana once, clamped to maximum. A claimed AoE entitlement can proc once on each actual body; this grouping is an explicit interpretation of unspecified multi-target ordering. Proc damage bypasses spell shields even if the parent is shielded; parry/stasis/untargetability deny contact and blindness/dodge deny a basic proc. Nonchampion AoE procs deal50%. WE cannot recursively trigger itself or independent ink. Unused self stocks end on death; an already claimed released-cast entitlement remains with that cast.
+- EQ uses an actual first-body1300speed1100range missile,1.5second fear/knockdown, and interpolation of its exact distance-table slow with normal tenacity. EW uses an actual blockable placement projectile, with the primary1700launch-speed field interpreted for the toss and the seeker. Its eye expands0.2seconds, arms0.7seconds after placement, and lasts3seconds. Nearest actual visible Champion-class body within350locks, followed by0.3second firing delay and600finite seeker flight. Primary1700speed overrides client1300-to2100acceleration. Invalid/dead/too-distant targets at launch fizzle. Released flight follows actual target direction and can collide with an intervening real body; sight450 does not invent two-dimensional vision.
+- EE resolves0.6seconds from declaration in the union of two680-by340 rectangles rotated±20degrees. The arena uses a conservative circumscribed broad phase, exact center-axis rectangle/circle contact and independently computed axial clearance for finite champion branching, not a400radius disk. Real noncenter recipients are guardedly pulled to the actual center with duration0, using the shared guarded immediate-displacement contract because no server pull duration is sourced. No additional airborne lifetime is invented. Its70%slow begins after accepted pull completion, or immediately for centered/displacement-immune bodies, and decays over its accepted tenacity-adjusted1.25second lifetime. QE/EQ/EE/R explicitly share one multiplicative Hwei slow group; repeat refreshes do not multiply themselves.
+- R passes nonchampions before colliding with a real Champion-class body, with1300travel and a separate40edge terminal check. Its actual host is tracked after owner death, emitting twelve absolute quarter-second pulses and one final450+80%AP explosion. Host combat death detonates once at its current location. Unsourced initial aura radius/growth is interpreted as linear0-to500over3seconds, and early-death explosion uses current radius. Accepted pulses add10%Despair each up to12, with strength capped100%to keep movement nonnegative; normal movement floors apply. Shielded pulses add no stack; accepted quarter-second slow deadlines govern stack expiry/dispel/re-entry, and exact grid-deadline renewal remains contiguous. Tenacity cannot shorten this naturally sub0.3second pulse. Primary0.25second slow overrides client0.35second SlowDuration. Detonation removes source Despair. Growth curve, maximum slow and early-death geometry remain declared model limits.
+- Reference allocation prices one legal QQ stream, one EQ stream, one R stream, a paired passive cadence and bounded WE procs. W damage/mana and shielding are alternatives: the reference chooses WE and prices no simultaneous imaginary WW stream. AI actually enters books, spends WE, selects QQ/QW/QE from range/control/stationary state, uses EQ/EE for control and WW/WQ for danger/escape. Hold/trade reserve R and completed trades retreat. All allies and contacts require actual supplied bodies; unsupported lateral geometry and unsourced server timing remain declared.
+
+### Source values read (144)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Subject: Disaster | cooldown: 10 / 9 / 8 / 7 / 6 | [3970734](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Disaster?oldid=3970734) |
+| Subject: Serenity | cooldown: 18 / 17.5 / 17 / 16.5 / 16 | [3970735](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Serenity?oldid=3970735) |
+| Subject: Torment | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4026410](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Torment?oldid=4026410) |
+| Subject: Disaster | cost: 80 / 90 / 100 / 110 / 120 | [3970734](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Disaster?oldid=3970734) |
+| Subject: Serenity | cost: 90 / 95 / 100 / 105 / 110 | [3970735](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Serenity?oldid=3970735) |
+| Subject: Torment | cost: 50 / 55 / 60 / 65 / 70 | [4026410](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Torment?oldid=4026410) |
+| Devastating Fire | castTime: 0.25 | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Severing Bolt | castTime: 0.5 | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Molten Fissure | castTime: 0.35 | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Fleeting Current | castTime: 0.25 | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Pool of Reflection | castTime: 0.3 | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Stirring Lights | castTime: none | [3927605](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Stirring_Lights?oldid=3927605) |
+| Grim Visage | castTime: 0.25 | [4021906](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Grim_Visage?oldid=4021906) |
+| Gaze of the Abyss | castTime: 0.25 | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Crushing Maw | castTime: 0.35 | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Spiraling Despair | castTime: 0.25 | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Signature of the Visionary | Subsequent damaging abilities against marked targets consume the mark to create an explosion beneath them, dealing 40 – 285 (based on level) (+ 35% AP) bonus magic damage to enemies in the area after a 0.85-second delay. | [4038347](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) |
+| Signature of the Visionary | (+ 35% AP) | [4038347](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) |
+| Signature of the Visionary | effectRadius: 285 | [4038347](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) |
+| Signature of the Visionary | for 4 seconds | [4038347](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) |
+| Signature of the Visionary | 0.85-second delay | [4038347](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) |
+| Signature of the Visionary | cannot apply it on the same cast instance | [4038347](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) |
+| Signature of the Visionary | Spell shield will block both the mark and its consumption as well as the detonation | [4038347](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) |
+| Signature of the Visionary | "mEndValue":285.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Devastating Fire | Magic Damage: 50 / 80 / 110 / 140 / 170 (+ 80% AP) (+ 3 / 4 / 5 / 6 / 7% of target's maximum health) | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Devastating Fire | range: 800 • 1075 | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Devastating Fire | effectRadius: 175 | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Devastating Fire | width: 140 | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Devastating Fire | speed: 2000 | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Devastating Fire | 100 units past the missile end position | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Devastating Fire | capped at 250 against monsters | [4026403](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Devastating_Fire?oldid=4026403) |
+| Devastating Fire | "mMissileWidth":70.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Severing Bolt | Magic Damage: 60 / 85 / 110 / 135 / 160 (+ 30% AP) | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | targetRange: 1900 | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | effectRadius: 225 | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | after 1 second | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | Maximum Damage Increase: 200 / 237.5 / 275 / 312.5 / 350% | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | capped at 300 against monsters | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | deals 50% damage | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | From start of cast time | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | 1*100 to {{#var:qw_mod5}}*100 for 11\|0 to 100 | [4026406](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Severing_Bolt?oldid=4026406) |
+| Severing Bolt | "ObjectName":"HweiQW" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Molten Fissure | Magic Damage: 20 / 35 / 50 / 65 / 80 (+ 30% AP) | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | Magic Damage per Tick: 5 / 8.75 / 12.5 / 16.25 / 20 (+ 6% AP) | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | range: 1200 | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | effectRadius: 225 | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | After 0.6 seconds | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | every 0.2 seconds | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | total of 7 explosions | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | lasts for 2.5 seconds | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | every 0.25 seconds | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | slowing them by 35% | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | reduced to 60% | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | increased to 135% | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | "mSpeed":800.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Molten Fissure | shockwaves can only hit each enemy once | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | Spell shield will block an explosion but not the persistent lava damage | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Molten Fissure | From start of cast time | [4026407](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Molten_Fissure?oldid=4026407) |
+| Fleeting Current | range: 1200 | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Fleeting Current | width: 225 | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Fleeting Current | Path Duration: 4 / 4.5 / 5 / 5.5 / 6 seconds | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Fleeting Current | Bonus Movement Speed: 30 / 32.5 / 35 / 37.5 / 40% (+ 3% per 100 AP) | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Fleeting Current | (+ 3% per 100 AP) | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Fleeting Current | every 0.125 seconds | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Fleeting Current | for 0.5 seconds | [3959274](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Fleeting_Current?oldid=3959274) |
+| Fleeting Current | "mSpeed":1700.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Pool of Reflection | targetRange: 650 | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | effectRadius: 350 | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | for 3 seconds | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | every 0.264 | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | for 0.5 seconds | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | Initial Shield Strength: 50 / 70 / 90 / 110 / 130 (+ 30% AP) | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | Bonus Shield per Tick: 8.33333 / 11.6667 / 15 / 18.3333 / 21.6667 (+ 5% AP) | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | Total Maximum Shield: 100 / 140 / 180 / 220 / 260 (+ 60% AP) | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | reduced to 85% | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | pool is summoned at the start of the cast time | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | shield will be regenerated back to its cap if it mitigates damage | [3992645](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Pool_of_Reflection?oldid=3992645) |
+| Pool of Reflection | "name":"ShieldDuration","values":[1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Stirring Lights | Bonus Magic Damage: 20 / 30 / 40 / 50 / 60 (+ 15% AP) | [3927605](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Stirring_Lights?oldid=3927605) |
+| Stirring Lights | Mana Restore: 45 / 50 / 55 / 60 / 65 | [3927605](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Stirring_Lights?oldid=3927605) |
+| Stirring Lights | next 3 basic attacks | [3927605](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Stirring_Lights?oldid=3927605) |
+| Stirring Lights | within 9 seconds | [3927605](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Stirring_Lights?oldid=3927605) |
+| Stirring Lights | reduced to 50% | [3927605](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Stirring_Lights?oldid=3927605) |
+| Stirring Lights | Spell shield will not block the bonus damage even if it is applied by an ability | [3927605](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Stirring_Lights?oldid=3927605) |
+| Stirring Lights | "name":"Duration","values":[9.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Grim Visage | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 65% AP) | [4021906](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Grim_Visage?oldid=4021906) |
+| Grim Visage | range: 1100 | [4021906](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Grim_Visage?oldid=4021906) |
+| Grim Visage | width: 140 | [4021906](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Grim_Visage?oldid=4021906) |
+| Grim Visage | speed: 1300 | [4021906](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Grim_Visage?oldid=4021906) |
+| Grim Visage | Disable Duration: 1 / 1.125 / 1.25 / 1.375 / 1.5 seconds | [4021906](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Grim_Visage?oldid=4021906) |
+| Grim Visage | Active - EQ: Hwei launches a terrifying grin in the target direction that deals magic damage to the first enemy hit, knocks them down, and fears them for a duration, as well as slows them by 70 / 78 / 86 / 94 / 99 (based on distance from Hwei)% for the same duration. | [4021906](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Grim_Visage?oldid=4021906) |
+| Grim Visage | "mSpeed":1300.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Gaze of the Abyss | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 65% AP) | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | targetRange: 900 | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | effectRadius (Trigger): 350 • 600 • 450 | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | effectRadius (Maximum): 350 • 600 • 450 | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | effectRadius (Sight): 350 • 600 • 450 | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | speed: 1700 | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | Root Duration: 1.2 / 1.4 / 1.6 / 1.8 / 2 seconds | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | expands over 0.2 seconds | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | lasts 3 seconds | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | After 0.7 seconds | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | after a 0.3-second delay | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | reveal them for 2.5 seconds | [4010562](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Gaze_of_the_Abyss?oldid=4010562) |
+| Gaze of the Abyss | "mMissileWidth":30.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Crushing Maw | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 65% AP) | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | targetRange: 800 | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | range: 680 | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | width: 340 | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | after 0.6 seconds | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | over 1.25 seconds | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | Slow: 40 / 47.5 / 55 / 62.5 / 70% | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | "wallRotation":20.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Crushing Maw | From start of cast time | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Crushing Maw | Enemies that are pulled will be slowed after the displacement ends | [4008532](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Crushing_Maw?oldid=4008532) |
+| Spiraling Despair | Magic Damage: 200 / 325 / 450 (+ 80% AP) | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | Magic Damage per Tick: 2.5 / 5 / 7.5 (+ 1.25% AP) | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | 1300 missile travel distance | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | 40 to-edge radius check | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | effectRadius: 500 | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | width: 180 | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | speed: 1400 | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | grows over 3 seconds | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | every 0.25 seconds | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | slowed by 10% | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | up to 12 times | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | cooldown: 120 / 100 / 80 | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | cost: 100 | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | when the target dies | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | first enemy champion hit | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | Spell shield can block the aura, explosion, and the application of the first Despair stack | [4008531](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Spiraling_Despair?oldid=4008531) |
+| Spiraling Despair | "mCoefficient":0.949999988079071 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Subject: Disaster | do not count as ability activations | [3970734](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Disaster?oldid=3970734) |
+| Subject: Disaster | cooldownStart: starts upon using a basic ability | [3970734](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Disaster?oldid=3970734) |
+| Subject: Serenity | do not count as ability activations | [3970735](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Serenity?oldid=3970735) |
+| Subject: Serenity | cooldownStart: starts upon using a basic ability | [3970735](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Serenity?oldid=3970735) |
+| Subject: Torment | do not count as ability activations | [4026410](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Torment?oldid=4026410) |
+| Subject: Torment | cooldownStart: starts upon using a basic ability | [4026410](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Subject:_Torment?oldid=4026410) |
+| Subject: Disaster | "ObjectName":"HweiQ" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Subject: Serenity | "ObjectName":"HweiW" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Subject: Torment | "ObjectName":"HweiE" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |
+| Wash Brush | without incurring its ability cost or cooldown | [3970738](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Wash_Brush?oldid=3970738) |
+| Wash Brush | used while affected by cast-inhibiting crowd control | [3970738](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Wash_Brush?oldid=3970738) |
+| Wash Brush | "ObjectName":"HweiWashBrush" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json) |

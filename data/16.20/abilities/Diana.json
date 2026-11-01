@@ -139,6 +139,31 @@
       "Lunar Rush consumes Moonlight upon ending the dash (even if interrupted).",
       "Lunar Rush will still deal damage even if the target is untargetable by the end of the dash.",
       "If Lunar Rush is blocked by spell shield the Moonlight debuff is still consumed but Lunar Rush's cooldown is not reset."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Diana/Lunar Rush",
+          "revid": 3937024
+        },
+        "text": [
+          "Since ''Moonlight'' is consumed upon ending the dash, a {{ai|Crescent Strike|Diana}} cast mid-dash can still cause a reset.",
+          "''Lunar Rush'' only consumes present ''Moonlight'' from the enemies. Because of this, it is possible for ''Lunar Rush'' to be reset multiple times during the same ''Crescent Strike'' cast, until it finishes its trajectory."
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
+        "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
+        "object": "Characters/Diana/Spells/DianaTeleportAbility/DianaTeleport",
+        "text": [
+          "mSpell.mCastTime:0.25",
+          "mSpell.spellCastTime:0.25",
+          "mSpell.missileSpeed:20.0"
+        ]
+      }
     ]
   },
   {
@@ -472,6 +497,37 @@
       "Even if the target spell shields the bolt, they may still be damaged by the explosion. Moonlight is not applied to the protected target if blocked.",
       "The bolt consists of two projectiles with slightly different trajectories.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Diana/Crescent Strike",
+          "revid": 4007592
+        },
+        "text": [
+          "during which they are {{tip|standard sight|revealed}}."
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
+        "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
+        "object": "Characters/Diana/Spells/DianaQAbility/DianaQInnerMissile",
+        "text": [
+          "mSpell.mMissileSpec:{\"mMissileWidth\":70.0,\"movementComponent\":{\"mTracksTarget\":false,\"mStartBoneName\":\"\",\"mSplineInfo\":{\"mStartPositionOffset\":[20.888782501220703,0.0,81.77568817138672],\"mControlPoint1\":[1.1648650169372559,0.0,0.01497435662895441],\"mControlPoint2\":[-0.886760413646698,0.0,-0.04764879122376442],\"__type\":\"HermiteSplineInfo\"},\"mUseMissilePositionAsOrigin\":false,\"mSpeed\":1900.0,\"__type\":\"FixedSpeedSplineMovement\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
+        "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
+        "object": "Characters/Diana/Spells/DianaQAbility/DianaQOuterMissile",
+        "text": [
+          "mSpell.mMissileSpec:{\"mMissileWidth\":70.0,\"movementComponent\":{\"mTracksTarget\":false,\"mStartBoneName\":\"\",\"mSplineInfo\":{\"mStartPositionOffset\":[20.888782501220703,0.0,81.77568817138672],\"mControlPoint1\":[1.8616324663162231,0.0,-0.003753664204850793],\"mControlPoint2\":[-1.3954554796218872,0.0,0.012537208385765553],\"__type\":\"HermiteSplineInfo\"},\"mUseMissilePositionAsOrigin\":false,\"mSpeed\":2100.0,\"__type\":\"FixedSpeedSplineMovement\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      }
     ]
   },
   {
@@ -717,6 +773,17 @@
       "This ability will cast from wherever the caster is at the end of the cast time.",
       "A lunar phase of the moon will appear above Diana while she is casting Moonfall, each phase is based on the number of enemy champions pulled:",
       "New_Moon_Moonfall_(1_Enemy_Champion).png"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Diana/Moonfall",
+          "revid": 4007593
+        },
+        "text": [
+          "during which they are {{tip|standard sight|revealed}}"
+        ]
+      }
     ]
   },
   {
@@ -953,6 +1020,17 @@
     "custom": [],
     "notes": [
       "On the second application of Pale Cascade's shield, Shield Power will apply to both the new shield amount and the shield amount remaining from the first shield, which has already benefited from shield power.\n  - Because of this, shield power effectively applies to the second shield twice, but with reduced efficiency, for up to an increase of 50% of shield power (maximum benefit if no damage was mitigated by the first shield). With 10% shield power, the second shield's total amount will be increased by up to an additional 5%, for a total of 15.5% bonus shield.\n  - The formula for the total amount of shield Diana will receive from both shield applications is:\n    - Total Shield = (((Shield Amount × (1 + Shield Power)) - Damage Blocked by Shield) + Shield Amount) × (1 + Shield Power)"
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
+        "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
+        "object": "Characters/Diana/Spells/DianaOrbsAbility/DianaOrbsMissile",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent:{\"mStartBoneName\":\"chest\",\"mAngularVelocity\":5.199999809265137,\"mLinearVelocity\":900.0,\"mLifetime\":5.0,\"__type\":\"CircleMovement\"}"
+        ]
+      }
     ]
   }
 ]

@@ -297,3 +297,119 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | KhazixPassive | TotalDamage | table of values per level (30 levels) | 22 | 141 | 155 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Khazix.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+- Options: unevolved = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Taste Their Fear | 4 (depends on stats) | 0.25 | 20 | self | 180 + 105% bonus AD physical damage | – |
+| W | Void Spike | 9 | 0.25 | 75 | self | 195 + 100% bonus AD physical damage | – |
+| E | Leap | 12 | 0 | 50 | self | 205 + 40% bonus AD physical damage | – |
+| R | Void Assault | 70 | 0 | 100 | self | – | invisible for 1.25 s |
+| R2 | Void Assault (recast 1) | 0 | 0 | 0 | self | – | invisible for 1.25 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Unevolved ability at level 20 (0 chooses among Q/W/E/R; 1=Q, 2=W, 3=E, 4=R): 0.
+- Level 20 has exactly three unique evolutions from three Void Assault ranks. Four variants omit Q, W, E or R; automatic selection defaults to Q/W/E before matchup optimization. The Hunt is On! fourth evolution is not granted without that quest history. Evolution selection is completed before the duel; its two-second menu cast is not a combat spell.
+- Isolation checks actual living allied champions and pets within 375 center units of the target, irrespective of visibility. Monsters only protect other monsters. Wards and the primary's listed excluded summons do not protect targets; names/kinds identify those excluded units because the engine has no equivalent game tags. Dead and expired summons do not protect; living allies still protect while hidden, untargetable or in stasis. With environment.minions enabled, an allied lane-wave proxy conservatively prevents isolation of champion/minion/other targets; there are no fabricated minion collision bodies. Outer turrets are absent from the arena.
+- Unseen Threat starts unarmed in an exposed duel: no prior vision-loss history is invented. It arms on observed enemy-champion sight loss or each actual R cast, including through true sight. Only a connected unblocked champion-class basic attack consumes it; ordinary minions/monsters preserve it. Avoided attacks preserve it. Its level-20 base is 155, independently confirmed by the pinned game array. Item/rune cast-instance stacks are outside the plain-stat model.
+- Void Spike simulates three distinct finite rays for evolved W. The versioned 28-degree cone is interpreted as a total angle, putting side rays at +/-14 degrees; targets lie on the arena line, while each ray retains its off-line distance for collision/explosion checks. Primary 140 width and 275 explosion radius take precedence over conflicting binary cast metadata. Each cast damages each actual target at most once and heals once if the caster's center lies inside an actual explosion. The scalar projectile-wall API applies to each ray's projected segment. Standard sight is recorded separately from true sight: it never exposes invisibility or overrides nearsight; shared fog/brush vision is absent. Unhit missiles expire without exploding.
+- Neither the pinned Leap templates nor the pinned game objects supply a reliable travel speed or duration. Leap therefore uses the existing immediate displacement fallback to its chosen legal destination, with damage only at that destination. This timing limitation omits midair Q casting/buffering and midflight knockdown; grounding/root prevention and terrain/landing geometry remain real. No guessed travel time is assigned. Only an actual enemy champion death resets evolved E; pet and clone deaths do not.
+- R cooldown begins on its first cast. Each stealth exit starts a two-second lockout followed by its own twelve-second free-recast window; these clocks ignore ability haste. R movement speed ends with stealth. Basic spell casts break stealth at declaration, interpreted from mCastingBreaksStealth; attacks break it at launch. Natural stealth expiry, manual spell breaking and true-sight cases use the same exit bookkeeping. Passive sight checks observe the enemy champion; pet vision/brush occlusion are not represented by shared visibility.
+- Trade and hold reserve every R stage even with Q/W/E unavailable. A completed trade retreats before considering renewed casts. Flee uses a ready, legal E to its maximum backward destination while the pursuer is within E's approach/landing envelope; otherwise it preserves default reactive movement/defense. The reference budget assumes isolation only when the environment-free target has no represented allies, normal Q/W/E cadence and one passive proc for each allowed R cast per R cooldown; no unseen prefight proc, takedown resets or extra evolutions are valued.
+
+### Source values read (83)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Unseen Threat | Unseen Threat: Kha'Zix empowers his next basic attack against an enemy champion to deal 22 – 141 (based on level) (+ 50% bonus AD) bonus magic damage and slow them by 25% for 2 seconds. | [4064849](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Unseen_Threat?oldid=4064849) |
+| Unseen Threat | (+ 50% bonus AD) | [4064849](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Unseen_Threat?oldid=4064849) |
+| Unseen Threat | "values":[15.0,22.0,29.0,36.0,43.0,50.0,57.0,64.0,71.0,78.0,85.0,92.0,99.0,106.0,113.0,120.0,127.0,134.0,141.0,148.0,155.0,162.0,169.0,176.0,183.0,190.0,197.0,204.0,211.0,218.0,225.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json) |
+| Unseen Threat | slow them by 25% for 2 seconds | [4064849](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Unseen_Threat?oldid=4064849) |
+| Unseen Threat | whenever the enemy loses sight of him or he activates Void Assault | [4064849](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Unseen_Threat?oldid=4064849) |
+| Unseen Threat | Void Assault grants Unseen Threat even if Kha'Zix never becomes unseen | [4064849](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Unseen_Threat?oldid=4064849) |
+| Unseen Threat | Both the attack's damage and bonus spell damage are grouped under the same cast instance | [4064849](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Unseen_Threat?oldid=4064849) |
+| Taste Their Fear | Physical Damage: 80 / 105 / 130 / 155 / 180 (+ 105% bonus AD) | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Isolated Target Physical Damage: 168 / 220.5 / 273 / 325.5 / 378 (+ 220.5% bonus AD) | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | effectRadius: 375 | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | targetRange: 325 | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Evolved Reaper Claws | targetRange: 375 | [3994647](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Reaper_Claws?oldid=3994647) |
+| Evolved Reaper Claws | cooldown is reduced by 45% | [3994647](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Reaper_Claws?oldid=3994647) |
+| Evolved Reaper Claws | 50 bonus range | [3994647](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Reaper_Claws?oldid=3994647) |
+| Taste Their Fear | cost: 20 | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | For Evolved Reaper Claws, the start of cast | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | For Evolved Spike Racks, when the enemy is hit | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | For Taste Their Fear, the end of cast | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | A team's allies are champions, pets, minions and outer turrets | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Monsters are considered allies for other monsters | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Wards do not prevent Isolation | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | specifically tagged to not be a valid ally | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Powder Keg | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Prophet of an Elder God | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Captive Audience | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Bushwhack | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Tunnel | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Absolution Mist Wraiths | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Noxious Trap | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Sovereign's Domination Mist Wraiths | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | Dark Procession | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | this ability will cancel but does not go on cooldown nor pay its cost | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Void Spike | Physical Damage: 75 / 105 / 135 / 165 / 195 (+ 100% bonus AD) | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | Heal: 55 / 75 / 95 / 115 / 135 (+ 50% AP) | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | targetRange: 1025 | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | effectRadius: 275 | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | width: 140 | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | speed: 1700 | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | castTime: 0.25 | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Evolved Spike Racks | slows by 40% | [4064850](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Spike_Racks?oldid=4064850) |
+| Evolved Spike Racks | slowed by 60% | [4064850](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Spike_Racks?oldid=4064850) |
+| Evolved Spike Racks | for 2.25 seconds | [4064850](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Spike_Racks?oldid=4064850) |
+| Evolved Spike Racks | mSpell.castConeAngle: 28.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json) |
+| Void Spike | centered around the location of the missile as it collides | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | This ability will cast from wherever the caster is at the end of the cast time | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Evolved Spike Racks | now fires three clusters | [4064850](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Spike_Racks?oldid=4064850) |
+| Evolved Spike Racks | the missiles will not collide with enemies that have already been hit | [4064850](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Spike_Racks?oldid=4064850) |
+| Evolved Spike Racks | nor provide Kha'Zix with extra healing | [4064850](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Spike_Racks?oldid=4064850) |
+| Evolved Spike Racks | Spell shield will not block the reveal | [4064850](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Spike_Racks?oldid=4064850) |
+| Leap | Physical Damage: 65 / 100 / 135 / 170 / 205 (+ 40% bonus AD) | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Leap | targetRange: 700 | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Evolved Wings | targetRange: 1000 | [4072116](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Wings?oldid=4072116) |
+| Leap | effectRadius: 300 | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Leap | upon arrival | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Leap | Taste Their Fear can be cast during the dash | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Evolved Wings | cooldown resets upon scoring a champion takedown | [4072116](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Wings?oldid=4072116) |
+| Evolved Wings | can be buffered to cast after the leap ends | [4072116](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Wings?oldid=4072116) |
+| Evolved Adaptive Cloaking | now lasts 2 seconds | [3906950](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Evolved_Adaptive_Cloaking?oldid=3906950) |
+| Void Assault | invisible for 1.25 seconds | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | 40% bonus movement speed | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | After 2 seconds of leaving invisibility | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | for the next 12 seconds | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | "name":"NumberOfCasts","values":[2.0,2.0,2.0,2.0,2.0,2.0,2.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json) |
+| Void Assault | "name":"EvolutionsAvailable","values":[0.0,1.0,2.0,3.0,3.0,3.0,3.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json) |
+| Void Assault | Each rank in Void Assault allows Kha'Zix to evolve one of his abilities | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | this can only be done once per ability | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | The only way for Kha'Zix to evolve all of his abilities | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | for the purposes of on-cast effects | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | Using a basic attack breaks stealth at the end of the attack windup | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | cooldownStart: on-cast | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Taste Their Fear | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json) |
+| Void Spike | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json) |
+| Leap | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json) |
+| Taste Their Fear | cooldown: 4 | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Taste Their Fear | castTime: 0.25 | [4006997](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Taste_Their_Fear?oldid=4006997) |
+| Void Spike | cooldown: 9 | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Void Spike | cost: 55 / 60 / 65 / 70 / 75 | [3971345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Spike?oldid=3971345) |
+| Leap | cooldown: 20 / 18 / 16 / 14 / 12 | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Leap | cost: 50 | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Leap | castTime: none | [4072117](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Leap?oldid=4072117) |
+| Void Assault | cooldown: 100 / 85 / 70 | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | cost: 100 | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |
+| Void Assault | castTime: none | [3969560](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Void_Assault?oldid=3969560) |

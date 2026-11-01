@@ -48,6 +48,24 @@ Notes:
 - Mana Surge will trigger even if the attack is blocked, but not if it misses due to blind.
 - The empowered attack will trigger against structures.
 - : Mana Surge's interactions with dodging effects.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Mana Surge|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Xerath
+  |skill        = I
+  |icon         = Mana Surge.png
+  |blurb        = {{sbc|Innate:}} Periodically, {{cis|Xerath}} next basic attack restores {{sti|{{as|mana}}}}, doubled against an enemy {{tip|champion}}.
+  |blurb2       = Killing enemies {{sti|ah|reduces}} this ability's {{sti|cooldown}}.
+  |description  = {{sbc|Innate:}} Periodically, '''Xerath''' empowers his next {{tip|basic attack}} {{tip|on-hit}} to restore {{sti|mana|{{pp|27 + 3*x for 3; then +6*x for 3; then +9*x for 4; then +12*x for 5; then +15*x for 5|formula=27 + 3 at each level up to 3, then + 6 at each level up to 6, then + 9 at each level up to 10, 12 at each level up to 15, then + 15 at each level|color=mana}} {{as|mana}}}}, doubled to {{pp|54 + 6*x for 3; then +12*x for 3; then +18*x for 4; then +24*x for 5; then +30*x for 5|formula=54 + 6 at each level up to 3, then + 12 at each level up to 6, then + 18 at each level up to 10, then + 24 at each level up to 15, then + 30 at each level|color=mana}} against enemy {{tip|champions}}.
+  |description2 = ''Mana Surge's'' {{sti|cooldown}} is reduced by {{fd|3.5}} seconds whenever '''Xerath''' kills an enemy.
+  |description3 = ''Mana Surge does not trigger if '''Xerath''' would restore above {{as|his '''maximum''' mana}}.''
+  |static       = 16
+  |targeting   = Passive
+  |affects     = Self
+  |parry = unknown
+  |notes   =
+  * ''Mana Surge'' will trigger even if the attack is {{tip|blocked}}, but not if it misses due to {{tip|blind}}.
+  * The empowered attack will trigger against {{tip|structures}}.
+  * {{Pending for test}}: ''Mana Surge's '' interactions with {{tip|dodge|dodging}} effects.
+  }}
 
 ## Q: Arcanopulse
 
@@ -84,6 +102,43 @@ Notes:
 - Arcanopulse will not fire and deal damage if Xerath dies during the 0.528 recast delay.
 - The following table refers for interactions while Xerath is channeling:
 - The following table refers for interactions while Xerath is locked out during the 0.528 recast delay:
+- {{#vardefine:manacostmin|80}}
+  {{#vardefine:manacostmax|120}}
+  {{{{{1<noinclude>|Ability data</noinclude>}}}|Arcanopulse|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Xerath
+  |skill        = Q
+  |icon         = Arcanopulse.png
+  |blurb        = {{sbc|Active:}} {{ci|Xerath}} {{tip|channel|charges}} up to a short time, increasing the {{sti|range}} of his beam.
+  |blurb2       = ''Arcanopulse'' can be recast within the duration and will cancel automatically afterwards, refunding half the {{sti|mana|{{as|mana cost}}}}.
+  |blurb3       = {{sbc|Recast:}} After a brief delay, '''Xerath'''  fires a beam of energy in a line in the target direction that deals {{as|magic damage}} to enemies hit.
+  |description  = {{sbc|Active:}} '''Xerath''' {{tip|channel|charges}} while being {{tip|slow|slowed}} by {{pp|key=%|type=channel time|0;10;15;20;25;30;35;40|0 to 1.75|formula=10% after 0 to 0.25 seconds, then {{plus}}5% per 0.25 seconds channeled, capped at 40%}} for up to 3 seconds to increase ''Arcanopulse's'' {{sti|range}} over the first {{fd|1.5}} to {{fd|1.75}} seconds of the channel. 
+  |description2 = ''Arcanopulse'' can be recast within the duration. If the charge is {{tip|interrupt|interrupted}} or completes without reactivation, ''Arcanopulse'' is cancelled and refunds {{sti|mana|{{as|half the mana cost}}}}.
+  |description3 = {{sbc|Recast:}} '''Xerath''' becomes {{tip|lockout|unable to act}} for {{rutngt|0.5}} and afterwards fires a beam of energy in a line in the target direction that deals {{as|magic damage}} to enemies hit.
+  |leveling2    = {{st|Mana Refunded|{{as|{{ap|{{#var:manacostmin}}/2 to {{#var:manacostmax}}/2}}|mana}}}}
+  |leveling3    = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 90% AP)}}}}
+  |range        = {{tip|er|icononly = true}} {{pp|type=channel time|700 to 1450 for 8|0 to 1.75|formula=735 {{plus}} 107.14 per 0.25 seconds (after an intial delay of 0 to 0.25). ''This is capped at 1450 range.''}}
+  |width        = {{tip|er|icononly = true}} 145
+  |cooldown     = {{ap|9 to 5}}
+  |cdstart      = post-effect
+  |cost         = {{ap|{{#var:manacostmin}} to {{#var:manacostmax}}}}
+  |costtype     = mana
+  |cast time = none
+  |targeting    = [[Auto-targeted|Auto]] / [[Direction-targeted|Direction]]
+  |affects      = Self, Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = True
+  |projectile   = False
+  |silence      = true
+  |notes = 
+  * The onset of ''Arcanopulse's'' self-{{tip|slow}} and first range increase is at a random interval of 0 to {{fd|0.25}} seconds. The real time to maximum self-slow and range is thus {{fd|1.5}} to {{fd|1.75}} seconds.
+  * The rectangle hitbox's minimum range is {{tip|er|icononly = true}} 0, right through '''Xerath's''' center.
+  * ''Arcanopulse'' will not fire and deal damage if '''Xerath''' dies during the {{rutngt|0.5}} recast delay.{{bug|1}}
+  * The following table refers for interactions while '''Xerath''' is {{tip|channel|channeling}}:
+  {{ct|charge|attack=false|move=true|cast=false|items=false|consume=Disabled, but can still use trinkets.|spells=true, true, false, false, recasts}}
+  * The following table refers for interactions while '''Xerath''' is locked out during the {{rutngt|0.5}} recast delay:
+  {{ct|attack=false|move=false|cast=false|items=false,true|consume=true|spells=true,false,false,false,false|interrupts=death}}
+  }}
 
 ## W: Eye of Destruction
 
@@ -115,6 +170,33 @@ Notes:
 - Xerath's location gets revealed to the enemy (400 radius for 4.5 seconds) if Eye of Destruction's cast location is within 100 units of a valid enemy at the start of the cast time due to something related to targeting types.
 - Eye of Destructions targeting indicator appears on the player's minimap, despite the ability not having the longer range of others with this quality.
 - Eye of Destruction will not fire and deal damage if Xerath dies during the 0.25s cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Eye of Destruction|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Xerath
+  |skill        = W
+  |icon         = Eye of Destruction.png
+  |blurb        = {{sbc|Active:}} {{ci|Xerath}} casts down a blast of energy that strikes the target location after a brief delay, dealing {{as|magic damage}} and {{tip|slow|slowing}} enemies hit. The effects are increased against enemies in the epicenter.
+  |description  = {{sbc|Active:}} '''Xerath''' casts down a blast of arcane energy that strikes the target location after {{rutngt|0.5}}, briefly granting {{tip|sight}} of the area and dealing {{as|magic damage}} to enemies hit and {{tip|slow|slowing}} them by 25% for {{fd|2.5}} seconds.
+  |leveling     = {{st|Magic Damage|{{ap|50 to 190}} {{as|(+ 65% AP)}}}}
+  |description2 = Enemies in the epicenter take {{fd|66.7}}% increased damage and are {{tip|slow|slowed}} by a greater amount, decaying to 25% over the duration.
+  |leveling2    = {{st|Increased Damage|{{ap|50*1.667 to 190*1.667}} {{as|(+ {{ap|65*1.667}}% AP)}}}}
+  {{st|Increased Slow|{{ap|60 to 80}}%}}
+  |target range = 1000
+  |effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|275|Effect radius}}|{{tt|125|Inner radius}}|{{tip|sight|icononly=true}}{{tt|250|Sight radius}}}}
+  |cast time    = {{fd|0.25}}
+  |cooldown     = {{ap|14 to 10}}
+  |cost         = {{ap|80 to 120}}
+  |costtype     = mana
+  |targeting    = Location
+  |damagetype   = Magic
+  |affects = Enemies
+  |spelleffects = Area of effect
+  |spellshield  = True
+  |outofrange   = walk to location
+  |notes= 
+  * '''Xerath's''' location gets {{tip|sight|revealed}} to the enemy (400 radius for 4.5 seconds) if ''Eye of Destruction's'' cast location is within 100 units of a valid enemy at the start of the cast time due to something related to targeting types.{{bug}}
+  * ''Eye of Destruction'''s [[targeting]] indicator appears on the player's minimap, despite the ability not having the longer range of others with this quality.
+  * ''Eye of Destruction'' will not fire and deal damage if '''Xerath''' dies during the 0.25s cast time.{{bug|2}}
+  }}
 
 ## E: Shocking Orb
 
@@ -139,6 +221,29 @@ Active: Xerath fires an orb of energy in the target direction that deals magic d
 Notes:
 
 - This ability will cast from wherever the caster is at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Shocking Orb|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Xerath
+  |skill        = E
+  |icon         = Shocking Orb.png
+  |blurb        = {{sbc|Active:}} {{ci|Xerath}} fires an orb of energy in the target direction that deals {{as|magic damage}} to the first enemy hit, {{tip|stun|stunning}} them based on travel distance.
+  |description  = {{sbc|Active:}} '''Xerath''' fires an orb of energy in the target direction that deals {{as|magic damage}} to the first enemy hit and {{tip|stuns}} them for {{pp|type=orb travel distance|0.75 to 2.25 for 11|0 to 1050|formula=0.75+(0.15 per 105 units). ''This is capped at 1050 units traveled.''}} seconds.
+  |leveling     = {{st|Magic Damage|{{ap|70 to 190}} {{as|(+ 45% AP)}}}}
+  |range        = {{tip|cr|icononly = true}} 1125
+  |width        = {{tip|er|icononly = true}} 120
+  |speed        = 1400
+  |cooldown     = {{ap|13 to 11}}
+  |cost         = {{ap|60 to 80}}
+  |cast time    = {{fd|0.25}}
+  |costtype     = mana
+  |targeting    = Direction
+  |affects = Enemies
+  |damagetype   = Magic
+  |projectile   = True
+  |spelleffects = Single target
+  |spellshield  = True
+  |notes        = 
+  {{Effect at cast time end}}
+  }}
 
 ## R: Rite of the Arcane
 
@@ -190,6 +295,54 @@ Notes:
 - Xerath can use Dark Passage while channeling.
 - The following table refers for interactions while Xerath is channeling:
     - Teleport and Recall are disabled for the first 1.25 seconds and otherwise interrupt the channel if they are used.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Rite of the Arcane|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Xerath
+  |skill        = R
+  |icon         = Rite of the Arcane.png
+  |blurb        = {{sbc|Active:}} {{ci|Xerath}} {{tip|channel|channels}} up to a period, being able to fire several arcane missiles across the surrounding area.
+  |blurb2       = If ''Rite of the Arcane'' ends without using any recasts, half of the cooldown is {{sti|cdr|refunded}}.
+  |blurb3       = {{sbc|Recast - Arcane Barrage:}} '''Xerath''' catapults an arcane missile to the target location that deals {{as|magic damage}} to enemies hit. Hitting enemy champions increases the damage of the following missiles, up to a cap.
+  |blurb4       =  ''Rite of the Arcane's'' range is always {{tip|obscured|visible}} to both allies and enemies. After catapulting the first missile, '''Xerath''' will {{tip|sight|reveal}} himself while there are enemy {{tip|champions}} within ''Rite of the Arcane's'' range.
+  |description  = {{sbc|Active:}} '''Xerath''' {{tip|channel|channels}} for up to 10 seconds, gaining the ability to recast ''Rite of the Arcane'' multiple times after {{fd|0.5}} seconds within the duration. If ''Rite of the Arcane'' ends without any of the recasts being used, half of its {{sti|cooldown}} is refunded.
+  |leveling     = {{st|Number of Recasts|{{ap|4 to 6}}}}
+  |description2 = {{sbc|Recast - Arcane Barrage:}} '''Xerath''' catapults an arcane missile that strikes the target location after a {{rutngt|0.6}} delay, briefly granting {{tip|sight}} of the area and dealing {{as|magic damage}} to enemies hit. Each cast has a {{tt|static cooldown|Unaffected by ability haste}} of {{rutngt|0.6}}. After catapulting the first missile, '''Xerath''' will {{tip|sight|reveal}} himself while there are enemy {{tip|champions}} within ''Rite of the Arcane's'' range.
+  |leveling2    = {{st|Magic Damage|{{ap|170 to 270}} {{as|(+ 45% AP)}}|Total Magic Damage|{{ap|170*4|220*5|270*6}} {{as|(+ {{ap|45*4 to 45*6}}% AP)}}}}
+  |description3 = Hitting at least one enemy champion grants a stack of ''Arcane Perfection'' during the channel, stacking up to a maximum amount. Each stack increases ''Arcane Barrage's'' damage.
+  |leveling3    = {{st|Maximum Stacks|{{ap|3 to 5}}}}
+  {{st|Increased Damage per Stack|{{ap|20 to 30 3}} {{as|(+ 5% AP)}}}}
+  |description4 =  When there are no enemy {{tip|champions}} nearby, '''Xerath''' will {{tip|sight|reveal}} himself for a couple of seconds if a missile strikes within a distance of an enemy unit.
+  |leveling4    = {{st|Impact Distance to Reveal|{{ap|175 to 225}}}}
+  |target range = 5000
+  |effect radius= {{tip|cr|icononly = true}} 200
+  |cooldown     = {{ap|130 to 100}}
+  |cdstart      = post-effect
+  |static       =
+  |cast time    = none
+  |cost         = 100
+  |costtype     = mana
+  |targeting    = [[Auto-targeted|Auto]] / [[Location-targeted|Location]]
+  |affects = Self, Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = True
+  |projectile   = False
+  |silence      = true
+  |outofrange   = Target at maximum range (recast clamped)
+  |notes   = 
+  * Each cast counts as an ability activation for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  * ''Arcane Barrage'' will not apply its increased damage per stack to the cast that granted the stack.
+  ** Only successive casts of the ability will benefit from the damage increase.
+  * A circular indicator will be displayed at the target location to signify that the area will be blasted.
+  * The circle indicating the ability's range expands rapidly from near '''Xerath''' up to the maximum range over 1 second during the channel.
+  ** The maximum-range indicator is visible to both allies and enemies and is color coded for friendly (blue) or hostile (red).
+  * ''Rite of the Arcane'' uses a [[Champion ability|barrage system]] so that it can be recast multiple times within a given period at no additional cost.
+  * '''Xerath''' will turn to face toward the direction of the target location after using a recast.
+  * '''Xerath''' gains a wider field of view during ''Rite of the Arcane''.
+  * '''Xerath''' can use {{ai|Dark Passage|Thresh}} while channeling.
+  * The following table refers for interactions while '''Xerath''' is {{tip|channel|channeling}}:
+  ** {{si|Teleport}} and {{si|Recall}} are disabled for the first {{fd|1.25}} seconds and otherwise interrupt the channel if they are used.
+  {{ct|channel|cast=false|attack=interrupts|move=Disabled for the first {{fd|1.25}} seconds, otherwise, interrupts.|items=interrupts,true,,false|spells=true, false, interrupts, interrupts, false}}
+  }}
 
 ## Game files
 
@@ -220,3 +373,103 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | XerathAscended2 | MinionManaRestoreTT | breakpoints at levels 4, 7, 11, 16 (level 1: 30) | 30 | 195 | 225 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Xerath.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Arcanopulse | 5 (starts when its effect on the caster ends) | 0 | 120 | self; channel 3 s | – | lingering for 3 s |
+| Q2 | Arcanopulse (release) | 0 | 0.528 | – | self; recast of Q within 3 s | 230 + 90% AP magic damage | – |
+| W | Eye of Destruction | 10 | 0.25 | 120 | circle of 275 radius up to 1000 away, lands after 0.528 s | 190 + 65% AP magic damage; slow 25% for 2.5 s | – |
+| E | Shocking Orb | 11 | 0.25 | 80 | skillshot 1125 long, 120 wide, at 1400/s | 190 + 45% AP magic damage; stun for 0.75 s | – |
+| R | Rite of the Arcane | 100 (starts after the channel) | 0 | 100 | self; channel 10 s | – | – |
+| R2 | Rite of the Arcane (Arcane Barrage) | 0.627 (unaffected by ability haste) | 0 | – | circle of 200 radius up to 5000 away, lands after 0.627 s | 270 + 45% AP magic damage | – |
+| Rend | Rite of the Arcane (cancel) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Mana Surge starts ready but never grants mana unless an actual connected attack can restore its complete sourced amount without exceeding maximum mana. Level20 uses225 against nonchampions and450 against champions from the full wiki progression. Ordinary damage blocks still trigger; blind, dodge, parry and untargetability do not. The raw primary marks dodge interactions pending for test; retaining ordinary dodge denial is an explicit unresolved interaction, rather than verified server behavior. Actual kills shorten its static16second timer by3.5seconds; no imaginary minion history is added.
+- Arcanopulse models the conservative0.25second onset of the source's random0–0.25second charge lattice. Range700→1450 and self-slow0→40% advance at the exact parsed quarter-second points, reaching maximum at1.75seconds; the versioned binary's conflicting4second ChargeTime and different old slow parameters are retained, while the primary wiki3second maximum wins. AI releases as soon as the actual target is in current range. Damage is constant atall charge ages.
+- Q is an interruptible mobile channel that forbids attacks and other spells. Timeout and accepted interruption refund60mana atmaxrank and start the ordinaryhasted5second cooldown. Release ends the slow and starts an independently uninterruptible0.528second immobile cast; only death denies its beam. The rectangle uses actual end-of-lockout origin, declaration direction and captured charge range. The post-effect cooldown starts when the beam is released; no cooldown reduction equal to charge age is invented.
+- Eye of Destruction uses its0.25second cast plus0.528second landing delay and actual ground destination fixed at declaration, even if either body moves during the cast. The separate source cast and delay values do not specify the server timer's start event, so applying the landing delay after cast completion is an explicit timing interpretation. Each recipient independently uses its center against the125inner radius, otherwise the275outer overlap. Inner damage is exactly the primary316.73+108.355%AP, not a rounded replacement. Its80%slow decays linearly to25% over2.5seconds because the primary text names no decay function; the binary's multiplicative decay coefficient is retained as conflicting client evidence. The100unit declaration-time reveal bug checks actual live, targetable enemy champions and pet bodies, and grants4.5seconds ordinary sight of Xerath, never true sight. The source's unenumerated valid-enemy restriction is interpreted as excluding untargetability and stasis.
+- Shocking Orb stops on the first actual eligible enemy body, including summons, obeys projectile walls and uses its120width/1400speed. Stun interpolates the pinned0.75→2.25second table using actual missile travel to the contact point, rather than target launch distance or caster position atimpact. Damage and stun retain normal spell shields, parry, CC immunity and tenacity; releasedE/W persist after casterdeath.
+- Rite of the Arcane starts with six actual shots and zero ArcanePerfection, waits0.5seconds and allows independently aimed, free, nonprojectile200radius impacts after0.627seconds with astatic0.627second shotlock. Each shot captures stacks atits own declaration; a connectedchampion hit grants atmostone stack cappedfive only while that same channel remains. Ordinary pets and clones cannot grant champion stacks; an explicitly classified actual additional champion can, with one shared credit per actual impact. Shielded/parried/missed shots grantnone. The six-shot primary table wins over stale alternate-client wrappers; all retainedbinary objects remain separately attributed.
+- R lasts atmost10seconds. Movement is disabled forfirst1.25seconds and subsequently cancels; actual basicattacks may cancel immediately. Accepted CC/death cancel; alreadyreleased shots survive. Cooldown begins whenchannelends, at100/hasteseconds, halved onlyifzero shots wereused. The lastshot ends thechannel onthe next30Hz upkeep tick; itsdamage stilluses itscaptured stacks. Channel reveal grants ordinary sight while achampioniswithin5000; unsourced far-unit reveal duration is omitted.
+- Budget reference adds one fullychargedQ per1.75+0.528+5/hasteseconds, W's centerbonus over its ordinaryouterdamage, and acomplete six-hitR with0+1+2+3+4+5 stackbonuses over its firingtime pluscooldown. This is a nominal valuation reference, excluding misses, mana clipping, passivekill refunds and attack suppression duringchannels; actual fights use their finite resources andtimers.
+
+### Source values read (66)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Mana Surge | staticCooldown: 16 | [3986753](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Mana_Surge?oldid=3986753) |
+| Mana Surge | Innate: Periodically, Xerath empowers his next basic attack on-hit to restore 30 – 195 (based on level) mana, doubled to 60 – 390 (based on level) against enemy champions. | [3986753](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Mana_Surge?oldid=3986753) |
+| Mana Surge | reduced by 3.5 seconds | [3986753](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Mana_Surge?oldid=3986753) |
+| Mana Surge | does not trigger if Xerath would restore above his maximum mana | [3986753](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Mana_Surge?oldid=3986753) |
+| Mana Surge | trigger even if the attack is blocked, but not if it misses due to blind | [3986753](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Mana_Surge?oldid=3986753) |
+| Mana Surge | mSpell.missileSpeed: 2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json) |
+| Arcanopulse | cooldown: 9 / 8 / 7 / 6 / 5 | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | cost: 80 / 90 / 100 / 110 / 120 | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | for up to 3 seconds | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | unable to act for 0.528 | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | Mana Refunded: 40 / 45 / 50 / 55 / 60 | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 90% AP) | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | width: 145 | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | range: 700 / 807.143 / 914.286 / 1021.43 / 1128.57 / 1235.71 / 1342.86 / 1450 (based on channel time) | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | Active: Xerath charges while being slowed by 0 / 10 / 15 / 20 / 25 / 30 / 35 / 40 (based on channel time)% for up to 3 seconds to increase Arcanopulse's range over the first 1.5 to 1.75 seconds of the channel. | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | over the first 1.5 to 1.75 seconds | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | cooldownStart: post-effect | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | cancelled and refunds half the mana cost | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | {{ct\|charge\|attack=false\|move=true\|cast=false | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | {{ct\|attack=false\|move=false\|cast=false\|items=false,true\|consume=true\|spells=true,false,false,false,false\|interrupts=death}} | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Arcanopulse | dies during the 0.528 recast delay | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Eye of Destruction | cooldown: 14 / 13 / 12 / 11 / 10 | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | castTime: 0.25 | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | cost: 80 / 90 / 100 / 110 / 120 | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | targetRange: 1000 | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | effectRadius (Effect radius): 275 • 125 • 250 | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | effectRadius (Inner radius): 275 • 125 • 250 | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | after 0.528 | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | slowing them by 25% | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | for 2.5 seconds | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | Magic Damage: 50 / 85 / 120 / 155 / 190 (+ 65% AP) | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | Increased Damage: 83.35 / 141.695 / 200.04 / 258.385 / 316.73 (+ 108.355% AP) | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | Increased Slow: 60 / 65 / 70 / 75 / 80% | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | within 100 units | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | radius for 4.5 seconds | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | decaying to 25% over the duration | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | dies during the 0.25s cast time | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Eye of Destruction | valid enemy at the start of the cast time | [4008622](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Eye_of_Destruction?oldid=4008622) |
+| Shocking Orb | Magic Damage: 70 / 100 / 130 / 160 / 190 (+ 45% AP) | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Shocking Orb | range: 1125 | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Shocking Orb | width: 120 | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Shocking Orb | speed: 1400 | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Shocking Orb | Active: Xerath fires an orb of energy in the target direction that deals magic damage to the first enemy hit and stuns them for 0.75 / 0.9 / 1.05 / 1.2 / 1.35 / 1.5 / 1.65 / 1.8 / 1.95 / 2.1 / 2.25 (based on orb travel distance) seconds. | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Rite of the Arcane | cooldown: 130 / 115 / 100 | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | cost: 100 | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | for up to 10 seconds | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | after 0.5 seconds | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | after a 0.627 delay | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | static cooldown of 0.627 | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | Number of Recasts: 4 / 5 / 6 | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | Maximum Stacks: 3 / 4 / 5 | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | Magic Damage: 170 / 220 / 270 (+ 45% AP) | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | Increased Damage per Stack: 20 / 25 / 30 (+ 5% AP) | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | targetRange: 5000 | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | effectRadius: 200 | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | first {{fd\|1.25}} seconds | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | cooldownStart: post-effect | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | half of its cooldown is refunded | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | Only successive casts of the ability will benefit | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | Each cast counts as an ability activation | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Rite of the Arcane | {{ct\|channel\|cast=false\|attack=interrupts\|move=Disabled | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |
+| Arcanopulse | castTime: none | [4057478](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Arcanopulse?oldid=4057478) |
+| Shocking Orb | cooldown: 13 / 12.5 / 12 / 11.5 / 11 | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Shocking Orb | cost: 60 / 65 / 70 / 75 / 80 | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Shocking Orb | castTime: 0.25 | [3881560](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Shocking_Orb?oldid=3881560) |
+| Rite of the Arcane | castTime: none | [4002918](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Rite_of_the_Arcane?oldid=4002918) |

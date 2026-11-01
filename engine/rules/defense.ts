@@ -17,6 +17,8 @@ export interface Shield {
   /** Tick it expires on. */
   endTick: number;
   priority?: boolean;
+  /** A newly triggered shield lets this much of its first packet reach health first. */
+  firstDamageBypass?: number;
 }
 
 export const GRIEVOUS_WOUNDS = 0.4;
@@ -34,14 +36,16 @@ function absorbs(shield: Shield, type: "physical" | "magic" | "true"): boolean {
 export function absorbWithShields(damage: number, type: "physical" | "magic" | "true", shields: Shield[]): number {
   const order = shields
     .filter((s) => s.amount > 0 && absorbs(s, type))
-    .sort((a, b) => Number(Boolean(b.priority)) - Number(Boolean(a.priority)) || a.endTick - b.endTick);
+    .sort((a, b) => Number(a.firstDamageBypass !== undefined) - Number(b.firstDamageBypass !== undefined) || Number(Boolean(b.priority)) - Number(Boolean(a.priority)) || a.endTick - b.endTick);
   let left = damage;
   for (const shield of order) {
     if (left <= 0) break;
-    const taken = Math.min(shield.amount, left);
+    const taken = Math.min(shield.amount, Math.max(0, left - Math.max(0, shield.firstDamageBypass ?? 0)));
     shield.amount -= taken;
     left -= taken;
+    delete shield.firstDamageBypass;
   }
+  for (const shield of shields) delete shield.firstDamageBypass;
   return left;
 }
 

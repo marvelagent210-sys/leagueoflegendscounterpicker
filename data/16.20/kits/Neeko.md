@@ -371,3 +371,101 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Tangle-Barbs | cost | 60 / 65 / 70 / 75 / 80 | 60 / 65 / 70 / 75 / 80 | yes |
 | R: Pop Blossom | cooldown | 120 / 105 / 90 | 120 / 105 / 90 | yes |
 | R: Pop Blossom | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Neeko.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Blooming Burst | 7 | 0.25 | 90 | circle of 250 radius up to 800 away, projectile at 2000/s then lands after 0 s | 260 + 60% AP magic damage | – |
+| W | Shapesplitter | 12 (starts when its effect on the caster ends) | 0 | – | self | – | – |
+| W2 | Shapesplitter (command) | 0 | 0 | – | self | – | – |
+| E | Tangle-Barbs | 10 | 0.25 | 80 | skillshot 1000 long, 140 wide, at 1300/s | 220 + 65% AP magic damage; root for 1.5 s | – |
+| R | Pop Blossom | 90 | 0 | 100 | self | – | – |
+| Rland | Pop Blossom (landing) | 0 | 0.6 | – | self | – | – |
+| Rair | Pop Blossom (knock up) | 0 | 0 | – | self | – | – |
+| I | Inherent Glamour | 1 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Shapesplitter starts without preloaded attacks. Two actual connected on-hits prepare the next declared basic; the empowered attack consumes its stacks and grants movement at declaration, even if later blinded, dodged or cancelled. Its ordinary physical damage and separate magic on-hit retain normal defenses. It is non-projectile. Ward and jungle-plant attacks do not consume the empowerment.
+- Blooming Burst releases its seed at declaration, before its0.25second cast lock ends, from the declaration location with its captured direction and fixed chosen location. Each actual bloom can earn the next one by contacting a real champion or explicitly large monster, or by killing a real body. Shielded contact still qualifies. At most two additional blooms occur0.75seconds apart. At the branch cap, a champion-dependent follow-up retains its earned probability weight; an independently qualifying real pet contact can earn the full follow-up. Already released seeds and earned finite blooms survive Neeko death. No invisible farm wave is supplied.
+- Shapesplitter creates a real, non-attacking champion-class clone with its own identity. Its HP/resistances/radii and movement snapshot the owner at creation because the retained generic clone source does not provide a Neeko-specific stat table. This is an explicit unverified interpretation. Its first0.5seconds are untargetable/invisible, its normal life is3seconds, and positive damage schedules disappearance after the primary wiki0.5seconds; the conflicting client0.75seconds and reported inconsistent DoT behavior remain visible. Commands/casts stop its old movement; no damaging spell is duplicated. Cosmetic emote/Recall duration extensions are outside the modeled duel commands.
+- Pop Blossom activation pays100mana and begins its cooldown immediately, while its1.25second windup permits ordinary actions. Its later0.6second cast begins even during stasis, knocks up bodies within590 centered units, then damages/stuns bodies within600 at landing. The two packets test spell shields separately. Death before landing cancels unreleased damage; no obsolete client shield is granted.
+- Inherent Glamour starts with no allied champion or Sho'Ma form. Only actual represented, visible allied minion/non-epic monster pets can provide a stored form after2seconds within400units. Manual I selects that stored body, without cloning its HP, armor, MR or AD. This restricted form copies attack range/projectile/speed, size/pathing and movement, and caps the adopted attack rate at2. Source-specific ward/plant/trap, allied-champion menus, map structures and non-champion targeting/damage-class exceptions are not modeled; ordinary duel results have no such fabricated form.
+
+### Source values read (66)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Blooming Burst | Initial Magic Damage: 60 / 110 / 160 / 210 / 260 (+ 60% AP) | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | Subsequent Magic Damage: 35 / 60 / 85 / 110 / 135 (+ 25% AP) | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | Bonus Monster Damage: 35 / 50 / 65 / 80 / 95 | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | after 0.75 seconds | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | up to 2 times per cast | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | range: 800 | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | effectRadius: 250 | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | Spell shield blocks an instance of damage but does not prevent subsequent Blooms | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | "ObjectName":"NeekoQ" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/neeko/neeko.bin.json) |
+| Shapesplitter | Bonus Magic Damage: 30 / 65 / 100 / 135 / 170 (+ 60% AP) | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | Bonus Movement Speed: 10 / 17.5 / 25 / 32.5 / 40% | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | Bonus Movement Speed: 20 / 25 / 30 / 35 / 40% | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | stacks up to 2 times | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | for 1 second | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | 75 bonus magic damage | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | clone lasts for 3 seconds | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | invisible for 0.5 seconds | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | disappear prematurely after 0.5 seconds | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | targetRange: 900 | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | cooldown | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | "name":"CloneDamageTimer","values":[0.0,0.75 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/neeko/neeko.bin.json) |
+| Shapesplitter | A '''clone''' is a copy of a champion that is considered a champion | [4023248](https://wiki.leagueoflegends.com/en-us/Champion_summoned_units?oldid=4023248) |
+| Shapesplitter | Recasting Shapesplitter does not count as an ability activation | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | Using a basic attack breaks stealth at the start | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Tangle-Barbs | Magic Damage: 80 / 115 / 150 / 185 / 220 (+ 65% AP) | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | Root Duration: 0.7 / 0.9 / 1.1 / 1.3 / 1.5 seconds | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | Empowered Root Duration: 2 / 2.25 / 2.5 / 2.75 / 3 seconds | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | speed (Standard): 1300 • 1500 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | speed (Empowered): 1300 • 1500 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | width (Standard): 140 • 200 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | width (Empowered): 140 • 200 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | Spell shield will not prevent the missile to become empowered | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | "ObjectName":"NeekoE" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/neeko/neeko.bin.json) |
+| Pop Blossom | Magic Damage: 150 / 350 / 550 (+ 120% AP) | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | over 1.25 seconds | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | for 0.6 seconds | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | for 0.75 seconds | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | effectRadius (Knock up): 590 • 600 | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | effectRadius (Burst): 590 • 600 | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | after 0.5 seconds | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | Pop Blossom can start its cast time during stasis | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | Spell shield will block either the knock up or damage and stun, but not both | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | "name":"DelayUntilReveal","values":[0.0,1.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/neeko/neeko.bin.json) |
+| Inherent Glamour | \|custominfo = {{tip\|cr\|icononly = true}} 400 | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | Sho'Ma over 2 seconds | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | on a 1-second cooldown | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | on a 2-second cooldown | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | cannot be reduced below {{as\|200\|movement speed}} | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | or to {{fd\|2.0}} if the disguise's form's | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | nearest visible allied or neutral non-champion non-structure unit | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | Her disguise breaks if she | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | '''Base''' movement speed}} if it is lower than | [4049951](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Inherent_Glamour?oldid=4049951) |
+| Inherent Glamour | "name":"ChargeTime","values":[2.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/neeko/neeko.bin.json) |
+| Blooming Burst | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | cost: 50 / 60 / 70 / 80 / 90 | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | castTime: 0.25 | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Blooming Burst | speed: 2000 | [3961205](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Blooming_Burst?oldid=3961205) |
+| Tangle-Barbs | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | cost: 60 / 65 / 70 / 75 / 80 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | castTime: 0.25 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Tangle-Barbs | range: 1000 | [4078265](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Tangle-Barbs?oldid=4078265) |
+| Shapesplitter | cooldown: 16 / 15 / 14 / 13 / 12 | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Shapesplitter | castTime: none | [4022848](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Shapesplitter?oldid=4022848) |
+| Pop Blossom | cooldown: 120 / 105 / 90 | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | cost: 100 | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |
+| Pop Blossom | castTime: 0.6 | [4058467](https://wiki.leagueoflegends.com/en-us/Template:Data_Neeko/Pop_Blossom?oldid=4058467) |

@@ -1072,9 +1072,686 @@ matchups against Darius show the matrix scores, their kit pages show their assum
 without horizontal scrolling, and the matchup page fits a 390-pixel phone. Page, console
 and HTTP errors are all zero.
 
+## Item catalog, 20 October 2026
+
+The first step of M8 (PLAN.md §13): the items the build search will choose from, read from
+pinned sources. The simulator doesn't use them yet, so no simulated score changes, and
+`npm run build:sim -- --check` still matches fingerprint `248fa67b…`.
+
+- **Sources.**
+  - Data Dragon 16.20.1's item list decides which items the Summoner's Rift shop sells, and their gold.
+  - The items' game file gives stats and item groups. It comes from CommunityDragon 16.20.8248524, the dataset's own game build.
+  - [Module:ItemData/data revision 4082420](https://wiki.leagueoflegends.com/en-us/Module:ItemData/data?oldid=4082420) gives stats, effects and limits.
+- **The wiki's per-item subpages are out of date.** The `Module:ItemData/data/<item>` pages are an older copy, last edited in June 2025. There, Infinity Edge has 65 AD and 40% critical strike damage; the 16.20 game file and the combined module give 75 AD and 30%. The catalog reads the combined module.
+  - Triple Tonic's elixirs are still read from those subpages. Moving them is a follow-up, since it changes `runes.json` and so the simulation fingerprint.
+- **The catalog has 106 finished items and 7 tier-2 boots,** the counts confirmed on review.
+- **Cross-check:** all 323 stats the wiki gives for those items match the game file, once its float noise is rounded (30.000001% is 30%). The one difference is Redemption's gold: 2,250 on the wiki, 2,300 in Data Dragon. The catalog uses Data Dragon's.
+- **One-per-build groups:**
+  - Nine game-file caps bind the catalog. Besides the boots, the wiki's limits name the same items in each.
+  - They differ in three places from the rules confirmed on review (PLAN.md §13):
+    - The Tear items are one per build.
+    - Mortal Reminder and Morellonomicon can be combined.
+    - Penetration is two groups: LastWhisper (Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge, Black Cleaver) and VoidPen (Void Staff, Cryptbloom, Bloodletter's Curse). Terminus is in both.
+  - Shown these differences, the review kept its rules. `pipeline/items/rules.ts` gives them to the build search.
+  - Counted from the catalog, those rules allow 1,538,705,768 builds per side with six items and 661,723,587 with five items and boots: 2,200,429,355 together, before the two formats became a toggle (20 October). The game file's caps would allow 2,164,239,404 together.
+- **Effects:**
+  - All 163 effect and restriction texts render without wiki markup, with both melee and ranged values.
+  - The shared evaluator shows only the melee value of `{{rd}}`, so the item step spells out both before rendering. Melee/ranged values that scale by level render as level progressions.
+- **Tests:** `tests/items.test.ts` (14 tests) covers the selection, the text, the records, the cross-check, the groups, the build counts and the committed catalog.
+- **Full suite:** 3,529 of 3,535 tests pass and 5 are skipped. The one failure is the browser's full Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), which ran past its 180-second limit on this machine. It passes alone in about 150 seconds, and the code from before the item work takes as long on this machine (162 s); the earlier validation measured 106 seconds. It doesn't involve items.
+
+## Item effects, 20 October 2026
+
+The second step of M8: what each item does in a duel, read from its wiki text the way kits
+read their abilities. The precomputed matrix doesn't use items yet; `npm run build:sim --
+--check` still matches fingerprint `248fa67b…`, and no simulated score changes.
+
+- **Catalog additions.**
+  - The wiki module's further description paragraphs were dropped before; seven items keep rules there. For example, Hextech Rocketbelt and Titanic Hydra reset the attack timer, and Spear of Shojin gives one stack per cast per second.
+  - Each effect now carries its value templates as series with their sentences, its active range and the item's tags (`OnHitAppliesLifeSteal` decides whether on-hit damage heals through life steal).
+  - Muramana, Seraph's Embrace and Fimbulwinter join as transforms, their `=>` fields resolved from the base item. Their stats match the game file too (332 stats in all, the same one difference).
+- **Rules beyond the items' text** come from pinned wiki pages fetched with the items:
+  - [Template:Tip data/Energized revision 4013385](https://wiki.leagueoflegends.com/en-us/Template:Tip_data/Energized?oldid=4013385): 6 charges an attack, one per 24 units travelled, full at 100.
+  - [Combat status revision 4058480](https://wiki.leagueoflegends.com/en-us/Combat_status?oldid=4058480): out of combat 5 seconds after the last damage or crowd control.
+  - [Vamp revision 4058226](https://wiki.leagueoflegends.com/en-us/Vamp?oldid=4058226): omnivamp heals from post-mitigation physical, magic and true damage.
+  - [Critical strike revision 4059009](https://wiki.leagueoflegends.com/en-us/Critical_strike?oldid=4059009) and [Template:Critical damage revision 4001015](https://wiki.leagueoflegends.com/en-us/Template:Critical_damage?oldid=4001015): crit damage adds up, and a champion's modifier scales the total. Infinity Edge makes most crits 230%, and Yasuo's 218.5%.
+  - A quote no longer on these pages, or in an item's text, fails the build.
+- **Coverage** (`reports/item-effects.md`), of 116 items:
+  - 5 have stats only, and 83 have every effect modeled. The rest leave part out, each with its reason.
+  - 12 have no effect that can act in a duel: their effects work through allies, a takedown (which ends the duel), summoner spells or other enemies.
+  - Actualizer's active isn't cast, since its costs aren't modeled.
+- **Findings while modeling.**
+  - A stat effect in a kit's `start` replaces another of the same stat (their memo key is `effect:<stat>`). So items keep each stat under their own key: Lord Dominik's Regards' 35% armor penetration stays a separate source next to Darius's innate.
+  - The engine's stasis state makes a unit invulnerable and untargetable, but it can still attack and cast. Item stasis (Zhonya's Hourglass, Guardian Angel) adds the no-attack and no-movement states and blocks casts itself. Lissandra's self-cast Frozen Tomb has the same gap; its fix is in the engine, for the next refresh.
+  - When item actives can be used (confirmed on review, 20 October): under any crowd control but knock-ups and stuns, and the cleanse item (Mercurial Scimitar) under stuns too, never knocked up. Suppression, sleep and stasis count as stuns here: they stop a champion at least as fully, and Mercurial Scimitar removes suppression and sleep. A dash (Hextech Rocketbelt) still can't be used while rooted or grounded. The wiki's [Cast-inhibiting crowd control revision 4035713](https://wiki.leagueoflegends.com/en-us/Template:Tip_data/Cast-inhibiting_crowd_control?oldid=4035713) page says every cast-inhibiting type stops items, silence included; the review's rule is used for items, and kit abilities keep the wiki's (`items/equip.ts` `STOPS_ITEMS`).
+  - Leona's W and an item are both called Eclipse. Item damage is labeled with the item's name, so her W would have counted as the item's damage, and the item's passive would have skipped it. When a kit has an ability of the item's name, the item's damage now reads "Eclipse (item)".
+  - An Energized attack that hits a pet (Tibbers, the Maiden of the Mist) spends the charges there; before, the next attack on the champion fired them. Its effects don't hit the pet, which is stated as an assumption.
+  - Hollow Radiance's Desolate was left out as needing a kill, but its smaller eruption follows any non-champion kill, and a duel's pets are those. Killing a pet now erupts where it died, on the enemy within 350 units; only the champion-takedown eruption stays out. The effects that reach other enemies (the Hydras' Cleave, Runaan's Hurricane's bolts, Statikk Shiv's bounces, Luden's Echo's orbs) now say those can only be pets in a duel, and that the model leaves them out; Luden's Echo puts all its orbs' damage on the target, as with no other enemies.
+- **Tests:** 64 item tests pass (`tests/items.test.ts`, `tests/items/effects.test.ts`, `tests/items/mechanics.test.ts`):
+  - every item builds for a melee and a ranged champion;
+  - a changed quote fails the build;
+  - each shared mechanic plays as its wiki text says in synthetic fights (Spellblade, Lifeline, Energized, Annul, Guardian Angel, Death's Dance, auras, item haste, burns and executes);
+  - the build rules the duel command checks, the label of an item named like a kit's ability, and the crowd control each kind of item active can be used under.
+- **Speed:** with both builds fixed, a matchup's six scenarios took 0.25 to 0.85 s on four sample matchups. With the stat budget the same matchups took 1.8 to 3.1 s, its allocation included.
+- **Full suite:** 3,579 of 3,585 tests pass and 5 are skipped. The one failure is again the browser's Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), past its 180-second limit under the suite's load (193 to 229 s); alone it passes in 156 seconds. It doesn't involve items: nothing outside the item tests imports `items/`. `npm run build:sim -- --check` still matches `248fa67b…`.
+
+## Seventh expansion batch (private workspace): validated model and private delivery
+
+The private workspace continued from the 91-kit build; its batches 7 to 15 follow as it
+recorded them, before they were merged into this branch on 30 October.
+
+Akshan, Aphelios, Graves, Kindred, Senna and Zeri bring coverage to **97 of 173
+champions**, with **76 remaining**. All **4,656 unordered pairings / 9,312 directed
+entries** were freshly generated with four workers under fingerprint
+`f5ee5ef463912c6f174e508dbec6048b257131ffddc1550d4a034afc061d84bd`.
+The refresh took **8,997.1 seconds** and updated **275** simulator and ledger files.
+Parsed source records and profiles remain preserved.
+
+The source review checks **41 exact primary wiki templates**, the separately pinned
+Aphelios Sentry pet page and **seven versioned binary hashes**, including Kindred's
+Wolf. All **39 game-source records / 121 exact excerpts** match those binaries.
+Source conflicts and explicit limits remain with [Akshan](docs/next-wave/Akshan.md),
+[Aphelios](docs/next-wave/Aphelios.md), [Graves/Zeri](docs/next-wave/Graves-Zeri.md)
+and [Kindred/Senna](docs/next-wave/Kindred-Senna.md).
+
+Shared contracts cover actual pet contacts and projectile lifetimes, independent
+cast/dash clocks, anchored nearsight, camouflage detection and shared health-floor
+protection. Duskwave skips a follow-up whose initial hit removed its target; a
+surviving pet still receives its actual off-hand attack and returned Chakram.
+Failed simulation workers now stop and await their siblings, suppress late progress
+and report the failed dataset and pair without discarding valid checkpoints.
+
+- All **539 focused tests** pass, including the production Aphelios–Heimerdinger
+  regression, lethal/surviving pet contacts and worker failure cleanup. Both
+  TypeScript projects, provenance freshness and the production build pass.
+- An independent read-only audit validates every one of the **4,656 checkpoints**,
+  all matrix directions and six scenarios, rounded display scores, finite spending,
+  generated budget means, legal variant selections, all 97 counter rankings,
+  exact coverage and seven source pages. It reports **zero issues**.
+- Production searches pass strict side reflection for **192 Darius directions**
+  covering all 96 rivals and **30 directions** among the six new champions. Spending
+  and selected options match exactly. The largest scenario reflection difference is
+  **3.2862601528904634e-14**, below the unchanged **1e-10** tolerance.
+- The final unfiltered serial suite records **3,877 passing tests, 2 retained draft
+  winner failures and 5 existing skips**. Garen–Yasuo and Malphite–Yasuo remain the
+  two failures; all five golden files are byte-for-byte unchanged. The command
+  honestly exits with failure. The full Heimerdinger–Udyr search passes in
+  **148.01 seconds**, under its unchanged **180-second** limit, without concurrent
+  heavy jobs.
+- Chromium passes all **17 browser check groups**, including the three new live
+  pairings and seven source pages at **390-pixel** phone width. Every one of the
+  **96** live stale-cache fallback results and ranks agrees with the fresh matrix;
+  the largest score difference is **3.774758283725532e-15**. Page, console, HTTP
+  and request errors are zero, and no posted worker jobs remain unfinished.
+  The phone screenshot was inspected visually.
+- Private delivery packages the compiled app and exact working source. Archive
+  CRCs, every member digest, source inventory and five startup checks must pass
+  before publication to a new private fingerprint branch. Earlier previews, local
+  source HEAD, golden files and externally updated main commits are preserved.
+
+## Eighth expansion validation (103-kit snapshot)
+
+Diana, Ekko, Evelynn, Fizz, Katarina and LeBlanc bring coverage to **103 of 173
+champions**, with **70 remaining**. All **5,253 unordered pairings / 10,506 directed
+entries** were freshly computed with four production workers under fingerprint
+`50faa12336b7e4b5c3fbc5a0290ba7ec2dc32a6cb919e7cf50b43a01cdb585ad`.
+The refresh started with zero checkpoints, completed in **7,155.1 seconds**, updated
+**281** simulator/ledger files and preserved parsed inputs and profiles. No checkpoint
+was copied from another model. Source HEAD and all five golden files remain unchanged.
+
+The exact source audit verifies **33 primary revisions** (32 ability templates and
+LeBlanc's separate clone article), **six** versioned binaries, **24** curated game
+objects and **33** numeric excerpts. Arrays and scalars are compared exactly with
+Decimal parsing; URLs, object paths, bytes, SHA-256, version and source attribution
+are checked independently. Primary/bin conflicts remain explicit, including Diana's
+E cast/speed metadata, Ekko's E distance/W delay/R cost, Katarina's E range and
+LeBlanc's W radius. Individual audits are linked in [docs/next-wave](docs/next-wave/README.md).
+
+Shared changes distinguish spell dodge and block, preserve actual pet/clone classes
+and pathing radii, make clone attacks cosmetic without hit/retaliation events, and
+report pet attack resolution separately. Missile destruction uses the first actual
+wall/aura coordinate. Voluntary channel cancellation respects opening/closing locks;
+CC still interrupts. A per-dash callback tracks targets after same-tick cast completions,
+and opted-in targeted dashes revalidate range/visibility before paying cast costs.
+
+Production checks exposed and corrected exact-overlap direction choices after Shunpo:
+Diana's Q/E, Evelynn's R/Q recasts and Fizz's R now use reflected facing. A last-tick
+blink during empowered Whiplash cancels without mana/cooldown/empowerment loss, while
+post-commit target loss gives no refund. Custom policies preserve completed-trade
+retreat and reserve offensive ultimates in hold/trade modes, using tests where R is
+actually eligible. Defensive reactions remain available against real incoming threats.
+
+- All **676 focused tests** pass. Both TypeScript projects, final provenance freshness
+  and production build pass.
+- An independent read-only audit checks every one of the **5,253 checkpoints**, all
+  matrix directions/scenarios, legal variants/spending, 103 budget means and rankings,
+  complete coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **204 Darius directions** and **30 directions**
+  among the six new champions. Spending and selected variants match exactly. The
+  largest scenario difference is **3.2862601528904634e-14**, below unchanged **1e-10**.
+- The final unfiltered serial suite records **4,283 passing tests, 2 retained draft
+  winner failures and 5 existing skips / 4,290 total**. Garen–Yasuo and Malphite–Yasuo
+  remain the two failures; the command honestly exits with failure. The full
+  Heimerdinger–Udyr variant search passes in **109.40 seconds** under its
+  unchanged **180-second** limit, with no concurrent heavy jobs.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **102** live stale-cache fallback score/rank and seven source pages at
+  **390-pixel** phone width. The largest fallback score difference is **3.774758283725532e-15**.
+  Page, console, HTTP and request errors are zero; no posted worker jobs remain pending.
+  The phone screenshot is inspected before private packaging.
+- Private delivery packages the compiled app and exact working source. Every ZIP member,
+  CRC, source inventory and five startup checks must pass before publication to a new
+  private fingerprint branch. Older previews, main, local source HEAD and golden files
+  are preserved; no Codespace or public hosting is created by this work.
+
+Unquantified dash speeds retain explicit earliest-tick approximations; lateral geometry,
+Diana's orbital phase and Q projection, Katarina's unsourced pickup trigger radius, Ekko's
+path interpolation and LeBlanc's clone health snapshot interpretation remain documented.
+Each kit links its retained source conflicts and model interpretations.
+
+## Ninth expansion validation (109-kit snapshot)
+
+Kha'Zix, Naafiri, Nocturne, Rengar, Talon and Zed bring coverage to **109 of 173 champions**, with
+**64 remaining**. All **5,886 unordered pairings / 11,772 directed entries** were
+freshly computed with four production workers under fingerprint
+`d2cb2f6a86c2ddf52db35ee35fc28c7e9f84f3526adf3c8f8783155d55c00e8b`. The initial attempt started with zero checkpoints and
+was interrupted after saving 854 pairs. Their exact bytes were verified and retained
+under the same fingerprint; the resumed invocation computed the remaining 5,032 pairs.
+No checkpoint was copied from another model, and no raw checkpoint index was rewritten.
+The audit validates each recorded worker index against its actual invocation's
+dispatch map and checks every final matrix direction in canonical pair order.
+The local source HEAD and all five
+retained golden files remain unchanged.
+
+The strict source audit verifies **36 primary revisions** (34 ability templates and
+the separate Naafiri and Zed pet articles), **six** exact versioned binaries,
+**37** curated game objects and **115** exact numeric excerpts. Every full raw
+wiki revision is retained in its authored record. Arrays and scalar values are
+compared exactly with Decimal parsing, including object paths, SHA-256 and version.
+Primary/bin conflicts and unquantified movement timing remain explicit in the
+[individual audits](docs/next-wave/README.md).
+
+Kha'Zix has four legal combinations of three evolutions. Isolation uses actual
+nearby target classes and summons, with the lane-minion proxy declared as an
+assumption. Naafiri uses the pinned W Call of the Pack and R Hounds' Pursuit layout,
+actual Packmate bodies and target-local bleed consumption. Nocturne's declared
+missile and trail, spell-shield trigger, fear tether and nearsight use separate
+clocks and guards. Rengar's Ferocity and healing use actual duel events. Talon's
+close-range Q retains its independent cast clock during movement. Zed uses actual
+independent shadows, grouped E damage and accepted damage accounting for Death Mark.
+
+Shared engine changes add independent movement multipliers before soft caps,
+explicit opt-ins for death-persistent statuses and pets, reflected basic-attack
+facing at exact overlap, casts that retain declaration-time dashes, instant overlays
+on those dashes, and lines released at declaration without duplicate completion.
+Standard sight remains distinct from true sight. Each new champion has source,
+counterplay, target-identity, lifecycle and ordinary-mode regressions.
+
+- All **1,147 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **4,686 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 4,693 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the command honestly exits
+  with failure. The Heimerdinger–Udyr full search passes within its unchanged
+  180-second limit with no concurrent heavy work.
+- A separate read-only audit checks all **5,886 checkpoints**, every matrix
+  direction/scenario, legal variants and spending, all 109 budget means and counter
+  rankings, complete coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **216 Darius directions** and **30 directions**
+  among the six added champions. Spending and selected variants match exactly;
+  scenario differences remain within the unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live
+  matchups, all **108** supported live fallback scores and rankings, and seven
+  source pages at **390-pixel** phone width. Page, console, request and HTTP errors
+  are zero, with no pending worker jobs. The phone screenshot is inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, CRC, source inventory and five actual startup checks must pass before
+  publication to a new private fingerprint branch. The nine older previews,
+  historical helper/proof files, remote main, local HEAD and golden files are
+  preserved. This work creates no Codespace or public hosting.
+
+One-dimensional projection, finite skillshot branching, abstract lane minions and
+brush, unavailable preduel history and missing source timing remain model limits.
+Coverage does not claim exact reproduction of every champion interaction; each
+individual audit records its remaining approximations and evidence conflicts.
+
+## Tenth expansion validation (115-kit snapshot)
+
+Hecarim, Jarvan IV, Lee Sin, Wukong, Vi and Warwick bring coverage to **115 of 173 champions**, with
+**58 remaining**. All **6,555 unordered pairings / 13,110 directed entries** were
+freshly computed with four production workers under fingerprint
+`d9b033ae559724a9cef49565920eb1e9d2d40eb32d8e61328e29f0f316ab134c`. The actual refresh began with **zero checkpoints**
+and completed all 6,555 pairs under this exact source freeze. A separate audit
+verifies every raw worker index against the fresh canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD and all five golden files remain unchanged.
+
+The strict source audit verifies **34 primary revisions**: **33 ability templates**
+and Wukong's separate pet article. It checks **six** exact versioned binaries,
+**56 distinct game objects** across **59 source records** and **185 exact excerpts**.
+Every full raw revision remains in the authored data. Complete arrays, scalar
+values, object paths, versions and SHA-256 hashes are compared exactly with
+Decimal parsing. Primary/game-file conflicts and missing timing remain explicit
+in the [individual source audits](docs/next-wave/README.md).
+
+Hecarim derives his passive from current movement speed and heals from resolved
+damage around Spirit of Dread. Jarvan IV retains target-local passive clocks,
+actual flag auras, Dragon Strike contacts and Cataclysm terrain. Lee Sin keeps
+energy, Flurry, target marks, recast windows, real anchors and source-classified
+shields distinct. Wukong's clone has its own identity, health, statuses, attacks
+and copied spell contacts, with shared target history for Cyclone knockups.
+Vi preserves charge/release clocks, target-local Denting Blows and actual tracking
+contacts. Warwick heals from resolved packets and separates attached bites,
+fear, flight projection and suppression lifecycles.
+
+Damage-based healing follows the retained Riposte revision's explicit vamp rule:
+it uses post-mitigation damage before late parry negation, including shield damage.
+Actual health loss and shield absorption remain separate for stacks, hunts and
+combat events. The same ordering preserves actual allied pet-spell damage for
+Hecarim's healing, while parry still denies debuffs and hit callbacks. Invulnerability
+and stasis grant no damage-based healing. Focused regressions and an independent
+review cover the correction; the earlier incomplete model and its stopped-run
+evidence are retained separately and none of its checkpoints enters this model.
+
+Shared changes add opt-in damage observation with real source and victim identity,
+including pets and clone actors, and separate accepted health/shield damage from
+immunity. Typed shields now protect actual pets. Explicit pet state immunity
+preserves source exceptions, and non-damage pet contacts retain exact stage keys
+when several stages share a display name. Existing champion-only damage hooks keep
+their scope. Missing finite dash speeds, one-dimensional displacement and terrain,
+unavailable allies and preduel history remain stated limits rather than guessed data.
+
+- All **891 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **5,097 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 5,104 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the full command honestly
+  exits with failure. The Heimerdinger–Udyr full search passes in
+  **102.100 seconds** within its unchanged 180-second limit.
+- The independent audit checks all **6,555 checkpoints**, both matrix directions
+  and every scenario, complete legal variants and spending, all **115** budget means
+  and counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **228 Darius directions** and **30 directions**
+  among the six added champions: **258 directions** in total. Spending and selected
+  variants match exactly; all aggregate and scenario differences remain within
+  the unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live
+  matchups, every **114** supported live fallback score/ranking and seven source
+  pages at **390-pixel** phone width. Page, console, HTTP and request errors are
+  zero, with no pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **ten** older previews,
+  historical helper/proof files, remote main, local HEAD and golden files are
+  preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or every player decision. One-dimensional
+geometry, finite skillshot branching, abstract lane minions and brush, absent
+preduel events and unquantified source timing remain model limits.
+
+## Eleventh expansion validation (121-kit snapshot)
+
+Alistar, Blitzcrank, Braum, Galio, Gragas and Maokai bring coverage to **121 of 173 champions**, with
+**52 remaining**. All **7,260 unordered pairings / 14,520 directed entries** were
+freshly computed with four production workers under fingerprint
+`0678eb2da46eec316542e5b47a8cb9849ed6bb3a7dc1dc63af3752bb05ade074`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD and all five golden files remain unchanged.
+
+The strict source audit verifies **31 primary revisions**: **30 ability templates**
+and Maokai's separate Sapling article. It checks **six** exact versioned binaries,
+**61 distinct game objects** across **61 source records** and **1058 exact excerpts**.
+Every full raw revision remains in the authored data. Arrays, scalar values,
+object paths, versions and SHA-256 hashes are compared exactly with Decimal
+parsing. Source conflicts, unquantified timings and geometry assumptions remain
+in the [individual source audits](docs/next-wave/README.md).
+
+Alistar observes actual nearby combat deaths and deduplicates passive stack
+credits for simultaneous control from one cast on one target. Buffered
+Headbutt/Pulverize and Trample keep their separate contact clocks. Blitzcrank's Mana
+Barrier absorbs only damage beyond the health threshold on its triggering packet,
+after existing shields; it scales from maximum mana. Rocket Grab preserves actual
+body selection and guarded displacement, and Static Field removes real shields.
+Braum's guard uses the damage's ground or traveled projectile origin, resolves
+collision effects before ending intercepted flights and keeps the first frontal
+nontrue packet's shield/vamp ordering. Rear-departing shots and genuine newly
+emitted collision bounces keep their independent lifecycles. Returning missiles
+and curved rays preserve source-specific destruction and collision rules.
+
+Galio retains actual curved gust contacts, the passive cooldown's qualifying
+bodies, channel interruption exceptions and charged taunt. His ultimate requires
+an explicitly eligible real allied champion body; ordinary duels acquire no ally
+or invented ultimate budget. Gragas keeps real drink completion, fermenting barrel
+age, body collision refunds and center-relative explosions. Maokai's saplings
+retain actual identities, brush-qualified empowerment and real pursuit; his
+ultimate models the central traveling branch and its trailers, with unsized
+lateral branches explicitly omitted. Shared pet movement and death observation use
+actual combat bodies and preserve immunity, terrain and despawn boundaries.
+
+- All **2,671 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **5,536 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 5,543 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the full command honestly
+  exits with failure. The Heimerdinger–Udyr full search passes in
+  **145.757 seconds** within its unchanged 180-second limit.
+- The independent audit checks all **7,260 checkpoints**, both matrix directions
+  and every scenario, complete legal variants and spending, all **121** budget means
+  and counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **240 Darius directions** and **30 directions**
+  among the six added champions: **270 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live
+  matchups, all **120** supported live fallback scores/rankings and seven source
+  pages at **390-pixel** phone width. Page, console, HTTP and request errors are
+  zero, with no pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **eleven** older
+  previews, historical helper/proof files, remote main, local HEAD and golden files
+  are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel
+history, unavailable allies and unquantified source timing remain model limits.
+
+## Twelfth expansion validation (127-kit snapshot)
+
+Nunu & Willump, Rakan, Rell, Sejuani, Taric and Thresh bring coverage to **127 of 173 champions**, with
+**46 remaining**. All **8,001 unordered pairings / 16,002 directed entries** were freshly
+computed with four production workers under fingerprint
+`60f98b364c8647567737d7153792fb92e8116ea03324cc7358e548a6cc76d89d`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD and all five golden files remain unchanged.
+
+The strict source audit verifies **31 ability-template revisions**, including both
+independently pinned Rell W forms, with **zero separate pet-article pins**. It
+checks **six** exact versioned binaries, **49 distinct game objects** across
+**49 source records** and **126 exact excerpts**. Every full raw revision
+remains in the authored data. Arrays, scalar values, object paths, versions and
+SHA-256 hashes are compared exactly with Decimal parsing. The final strict report
+requires original primary values to remain preserved and rejects unpromoted game
+evidence. Source conflicts and unquantified timings remain explicit in the
+[individual source audits](docs/next-wave/README.md).
+
+The six kits use actual cast and resource clocks, target-local contacts, defensive
+guards and real body identities. Rell's two W records remain distinct while the
+runtime forms share their cooldown. Her passive snapshots each target's first
+resistances, her Q removes accepted non-monster shields and her ultimate keeps
+nondisabling kinematics separate from the initial pull. Conditional ally spells
+across the batch require real eligible bodies; ordinary duels acquire no invented
+teammate. Farm history, unsupported lateral geometry and missing finite movement
+timings remain declared model boundaries.
+
+- All **3,314 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **6,075 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 6,082 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the full command honestly
+  exits with failure. The Heimerdinger–Udyr full search passes in
+  **175.570 seconds** within its unchanged 180-second limit.
+- The independent audit checks all **8,001 checkpoints**, both matrix directions and
+  every scenario, complete legal variants and spending, all **127** budget means and
+  counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **252 Darius directions** and **30 directions**
+  among the six added champions: **282 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **126** supported live fallback scores/rankings and seven source pages at
+  **390-pixel** phone width. Page, console, HTTP and request errors are zero, with no
+  pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **twelve** older
+  previews, historical helper/proof files, remote main, local HEAD and golden files
+  are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel history,
+unavailable allies and unquantified source timing remain model limits.
+
+## Thirteenth expansion validation (133-kit snapshot)
+
+Janna, Karma, Lulu, Nami, Sona and Soraka bring coverage to **133 of 173 champions**, with
+**40 remaining**. All **8,778 unordered pairings / 17,556 directed entries** were freshly
+computed with four production workers under fingerprint
+`1c41a50fa21c36ec6e1705bcc7efd7ba3efea5855a5f73fb6007f1ac23ec8eda`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD is unchanged. All golden expectations remain
+intact: four golden files match their original checksums, and the golden-search
+driver differs only in its CI deadline, raised from 60 to 180 seconds.
+
+The strict source audit verifies **33 ability-template revisions**, including the
+three independently pinned Karma Mantra forms, with **zero separate pet-article pins**. It
+checks **six** exact versioned binaries, **100 distinct game objects** across
+**115 source records** and **115 exact excerpts**. Every full raw revision
+remains in the authored data. Arrays, scalar values, object paths, versions and
+SHA-256 hashes are compared exactly with Decimal parsing. The final strict report
+requires original primary values to remain preserved and rejects unpromoted game
+evidence. Source conflicts and unquantified timings remain explicit in the
+[individual source audits](docs/next-wave/README.md).
+
+The six kits use actual cast and resource clocks, target-local contacts, defensive
+guards and real body identities. Karma retains separate primary records for her
+three Mantra forms. Shield-dependent bonuses end with their exact source's shield;
+polymorph's flat movement penalty ends with its accepted control. Damage reports
+identify the standard shield and exact amount absorbed, including actual pet
+recipients. Target cancellation preserves each spell's explicit free or paid rule,
+including early loss of visibility. Actual pet basic declarations stay separate
+from connected hits, and explicitly released ally buffs can finish after caster
+death without enabling new actions. Temporary pet health, refresh, expiry and
+healing reduction use the recipient's own state. Hook-created uncertain packets
+retain normal finite skillshot branching and independent cloned queues. Ground
+delivery preserves actual per-cast delays, initialized zone identity and centered
+champion/pet contacts. Ally effects require real eligible bodies; ordinary duels
+acquire no invented teammate. Each kit audit retains its source conflicts and
+remaining limits. Farm history, unsupported lateral and size geometry, and missing
+finite movement timings remain declared model boundaries.
+
+- All **3,754 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The actual unfiltered serial suite records **6,526 passing tests, 3 failures
+  and 5 existing skips / 6,534 total**, and exits with failure.
+  It retains the Garen–Yasuo and Malphite–Yasuo draft winner failures plus an
+  exhaustive Heimerdinger–Udyr timing failure. The subsequent complete browser-file
+  retest records **7 passes, 0 failures and 0 skips**. Its Heimerdinger–Udyr search
+  passes in **284.473 seconds** with a revised **900-second CI deadline**.
+  Across both actual commands, distinct assertion coverage is **6,527 passes,
+  2 retained failures and 5 skips / 6,534 total**, counting the six repeated
+  successful assertions once. This derived coverage does not change the raw
+  failed full-suite verdict. The deadline changed from 180 to 360, then 900
+  seconds for cloud runtime variation; each failed attempt remains preserved.
+  Golden searches now allow 180 seconds per case and the configured default is
+  30 seconds. All 60 variant pairings and every result assertion remain intact;
+  earlier timing failures are preserved. These are revised CI allowances; custom live searches
+  can still take minutes. Default rankings use the precomputed matrix.
+- The independent audit checks all **8,778 checkpoints**, both matrix directions and
+  every scenario, complete legal variants and spending, all **133** budget means and
+  counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **264 Darius directions** and **30 directions**
+  among the six added champions: **294 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **132** supported live fallback scores/rankings and seven source pages at
+  **390-pixel** phone width. Page, console, HTTP and request errors are zero, with no
+  pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **thirteen** older
+  previews, historical helper/proof files, remote main, local HEAD and golden expectations
+  are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel history,
+unavailable allies and unquantified source timing remain model limits.
+
+## Fourteenth expansion validation (139-kit snapshot)
+
+Hwei, Orianna, Ryze, Syndra, Taliyah and Viktor bring coverage to **139 of 173 champions**, with
+**34 remaining**. All **9,591 unordered pairings / 19,182 directed entries** were
+freshly computed with four production workers under fingerprint
+`d2a43acafdaaa5cfc3f9999c23903335f60717713b8dd4b9c9b07de80e711858`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD is unchanged. **All five current golden
+files** and the existing test harness match their batch 14 starting checksums.
+Original golden expectations remain preserved; batch 14 changes no test deadline.
+
+The strict source audit verifies **40 ability-template revisions** and **one
+separately pinned Orianna Ball article**, retaining **41 full raw revisions**.
+It checks **six** exact versioned binaries, **85 distinct game objects** across
+**85 source records** and **169 exact excerpts**. Arrays, scalar values,
+object paths, versions and SHA-256 hashes are compared exactly with Decimal
+parsing. Original primary values remain preserved and unpromoted game evidence
+is rejected. Source conflicts and unquantified timings remain explicit in the
+[individual source audits](docs/next-wave/README.md).
+
+The six kits preserve actual cast clocks, resource costs, recipient identities
+and finite histories. Hwei uses eligible-body isolation snapshots, exact rotated
+rectangle contacts and accepted Despair slow renewal. Orianna's Ball retains its
+actual position, travel, attachment and local command origin. Ryze derives mana
+without recurring resource refills and transports only actual eligible bodies.
+Syndra collects actual Splinters on their delayed arrival, including large-minion
+mana restoration. Taliyah commits mine rows at declaration time and responds to
+actual accepted movement; completed landings resolve before terminal observers.
+Viktor preserves ray-local travel decisions and snapshots storm recipients before
+a packet can grow the field. Shared rules retain independent empowered attack
+packets, multiplicative ability power, source-grouped slows, carried pet state and
+accepted movement transitions. A separate legacy follow-up corrects Wukong's
+Nimbus Strike so protected current and pending attacks retain their own windup
+and timer. Ordinary basic windups remain interruptible; ability-like pet deliveries,
+other recipients and launched projectiles remain independent. This follow-up
+preserves all five original primary records and game evidence, verifies 42 exact
+game fields, and restores the separately pinned Uncancellable windup revision
+4072133 plus Cyclone's exact interaction-table note. The previous complete matrix
+and its failed evidence checks are retained, and the corrected model receives a
+new source freeze and fresh matrix. These modeled mechanics do not imply exhaustive
+server equivalence. Missing allies, absent farm history, lateral geometry and
+unquantified timing retain the explicit limits in each champion audit.
+
+- All **4,327 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The actual unfiltered serial suite records **7,091 passing tests, 2 retained
+  failures and 5 existing skips / 7,098 total**, and exits with failure. Its only
+  failures are the unchanged Garen–Yasuo and Malphite–Yasuo draft winner expectations.
+  Every previous assertion identity is retained, including all **6,527** previously
+  passing assertions. The exhaustive Heimerdinger–Udyr case passes within this same
+  unfiltered run in **118.862 seconds**. The existing 30-second default,
+  180-second golden driver and 900-second exhaustive-search allowances remain
+  unchanged. All legal variant searches and result assertions remain intact;
+  earlier failed attempts remain preserved. Custom live searches can still take
+  minutes; default rankings use the precomputed matrix.
+- The independent audit checks all **9,591 checkpoints**, both matrix directions,
+  every scenario, legal variants and spending, all **139** budget means and counter
+  rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **276 Darius directions** and **30 directions**
+  among the six added champions: **306 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **138** supported live fallback scores/rankings and seven source pages at
+  **390-pixel** phone width. Page, console, HTTP and request errors are zero, with no
+  pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **fourteen** older
+  previews, historical helper/proof files, remote main, local HEAD and original
+  golden expectations are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel history,
+unavailable allies and unquantified source timing remain model limits.
+
+## Fifteenth expansion validation (145-kit snapshot)
+
+Neeko, Swain, Twisted Fate, Vex, Xerath and Zoe bring coverage to **145 of 173 champions**, with
+**28 remaining**. All **10,440 unordered pairings / 20,880 directed entries** were
+computed from zero checkpoints under the actual frozen source fingerprint
+`244198f803f736138620972d8074c840a983121b91aa6dadb54a3856ad1df2b6`, using four production workers. No old-model checkpoint was reused or
+restamped. The independent audit verifies every raw dispatch index against this
+fresh invocation, both matrix directions, spending, legal options, all 145 budget
+means and rankings, complete roster coverage and seven generated source pages.
+
+All **4,766 focused checks** and both TypeScript projects pass. The actual
+unfiltered full suite reports **7,542 passes, two retained draft winner
+failures and five existing skips out of 7,549 assertions**, with exit code 1.
+Only Garen–Yasuo and Malphite–Yasuo retain their draft winner failures. All **7,098
+previous assertion identities** and all **7,091 previously passing assertions**
+are preserved. The full Heimerdinger–Udyr case passes in
+**134.297 seconds** within the unchanged 900-second allowance.
+All five current golden files and the established test harness match their
+batch 15 starting checksums; original golden expectations remain preserved.
+No test deadline changes in this batch.
+
+The strict source audit verifies **31 original ability-template revisions**,
+retaining their full raw text and original primary values. **3 separately pinned
+wiki supplements** retain Champion summoned units (revision 4023248); Flash (revision 4008665); Module:SpellData/data (revision 4089805). The audit checks **six exact
+versioned binaries**, **61 distinct game objects**, **63
+object-scoped source records** and **87 excerpts** using exact numeric,
+complete-array and dictionary-fragment comparisons. Every comparison stays
+inside the cited binary object. Missing sources and unpromoted records fail the
+audit. The individual champion audits document assumptions and any unsupported
+mechanics; coverage alone does not certify every mechanic or in-game decision.
+
+Final provenance freshness and the production build pass. Strict production
+reflection verifies **288 Darius directions** and **30 directions among the six
+new champions**: **318 directions** total, with unchanged `1e-10` tolerance and
+exact reflected spending and options. All **17 production browser groups** pass,
+including the three new live pairs, all **144** fallback rivals, default legal
+option metadata, seven source pages at 390-pixel width, worker lifecycles,
+initialized stats, reruns, cancellation, retry and unsupported labels. Root
+visually inspected the actual final phone screenshot. No unexpected page,
+console, HTTP or request errors and no pending worker jobs remain.
+
+The package contains the exact compiled app and working source, with five actual
+startup checks required before publication. Publication is restricted to a new
+fingerprint branch of the existing private repository. The fifteen earlier
+private previews, main branch and local HEAD must remain unchanged. No Codespace
+or public hosting is created by this delivery workflow.
+
+## Merge into this branch, 30–31 October 2026
+
+Batches 7 to 15 were merged on the 91-kit import they grew from, so this branch keeps
+its own Gragas, Hecarim, Warwick and Wukong (with their tests and data), the Yasuo
+review and the item work.
+
+Model fingerprint:
+`3f85249931932b5e6580192c3834a28abcd8ce49689ddba6900eeb5059660975`.
+
+The refresh computed all **10,440 pairs** on four workers. A container restart stopped
+it after 4,746 verified pair checkpoints of this same fingerprint; the resumed run
+reused those and computed the other 5,694 in **8,583.3 seconds**, writing **323**
+simulator and ledger files. All 145 rows and 20,880 directed entries are complete,
+`npm run build:sim -- --check` passes for the fingerprint above, and every directed
+score is the exact negative of its mirror. Both TypeScript projects pass.
+
+Against the private build's matrix (`244198f8…`), **19,740 of the 20,880 directed
+entries** are identical, every scenario value included. The **1,140** that differ are
+exactly the entries of Gragas, Hecarim, Warwick and Wukong, whose kits are this
+branch's. The largest is Warwick against Xayah, from +0.74 in the private build to
+−0.89 here. By mean score against the other 144, Warwick ranks **29th** (+0.302, 102
+wins), Wukong **57th** (+0.150, 89 wins), Gragas **81st** (−0.054, 67 wins) and Hecarim
+**130th** (−0.519, 22 wins); the private build's versions ranked 47th, 84th, 104th and
+133rd.
+
+The full suite ran **7,478 tests across 190 files** on one worker in **1,203.2
+seconds**: **7,473 passed** and the five existing tests were skipped, the Heimerdinger–Udyr
+full variant search included within its unchanged 180-second limit. `npm run build:web`
+passes.
+
 ## Remaining limits
 
-- Only 95 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 145 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.

@@ -331,7 +331,48 @@
       "Under certain circumstances, upon attaching the hook to terrain, Akshan will create a particle on the location permanently.\n  - This particle can be attacked by minions.",
       "Hook range including lollipop against walls and final dash distance and speed.",
       "The following table refers for interactions while the hook is attached or in flight:",
-      "The following table refers for interactions while Akshan is swinging:"
+      "The following table refers for interactions while Akshan is swinging:",
+      "The shots critically strike for 150% damage with 50% bonus critical damage.",
+      "Despite this ability not triggering on-attack effects, it does trigger Navori Flickerblade Transcendence on each hit.",
+      "Avengerang and Going Rogue are disabled. Comeuppance is usable.",
+      "It can miss if the user is blinded."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
+        "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
+        "object": "Characters/Akshan/Spells/AkshanEAbility/AkshanE",
+        "text": [
+          "mSpell.DataValues.BaseDamage.values: [0.0,8.0,16.0,24.0,32.0,40.0,48.0]",
+          "mSpell.DataValues.ADRatio.values: [0.25,0.25,0.25,0.25,0.25,0.25,0.25]",
+          "mSpell.DataValues.AttackSpeedCoefficient.values: [0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896]",
+          "mSpell.DataValues.CritDamageMod.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]",
+          "mSpell.DataValues.OnHitDamageReduction.values: [0.25,0.25,0.25,0.25,0.25,0.25,0.25]",
+          "mSpell.DataValues.AttackFrequency.values: [0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224]",
+          "mSpell.DataValues.TimeToCastE2.values: [2.0,2.0,2.0,2.0,2.0,2.0,2.0]",
+          "mSpell.DataValues.AnchorLifetime.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]",
+          "mSpell.DataValues.MinJumpbackDistance.values: [250.0,250.0,250.0,250.0,250.0,250.0,250.0]",
+          "mSpell.DataValues.EdgeToEdgeCollisionRadius.values: [50.0,50.0,50.0,50.0,50.0,50.0,50.0]",
+          "mSpell.DataValues.ResetCooldownToSet.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]",
+          "mSpell.DataValues.DistanceShiftTowardsWall.values: [175.0,175.0,175.0,175.0,175.0,175.0,175.0]",
+          "mSpell.DataValues.E3LockoutDuration.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]",
+          "mSpell.DataValues.SpinDuration.values: [25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0]",
+          "mSpell.mSpellCalculations.DamageToDeal: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mStat\":4,\"mStatFormula\":2,\"mDataValue\":\"AttackSpeedCoefficient\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.CriticalCalc: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mDataValue\":\"CritDamageMod\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mModifiedGameCalculation\":\"DamageToDeal\",\"__type\":\"GameCalculationModified\"}",
+          "mSpell.mSpellCalculations.{36ebd3cf}: {\"mFormulaParts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.castRange: [800.0,800.0,800.0,800.0,800.0,800.0,800.0]"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
+        "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
+        "object": "Characters/Akshan/Spells/AkshanEAbility/AkshanE3",
+        "text": [
+          "mSpell.castRange: [350.0,350.0,350.0,350.0,350.0,350.0,350.0]"
+        ]
+      }
     ]
   },
   {
@@ -539,7 +580,48 @@
       "The second shot:\n  - Is treated as a basic attack.\n  - Critically strikes independently from the first shot.\n  - Can be cancelled by inputting a different command right after using the first shot.\n  - Counts as a separate hit for effects such as Electrocute, Muramana Shock, and Eclipse Ever Rising Moon.\n  - Starts the attack windup's cooldown after it is used, rather than when the first shot is.",
       "The attack speed scaling on the movement speed buff includes the bonus attack speed gained from Akshan's innate attack speed growth.\n  - At level 20, at minimum it grants 145.56 decaying movement speed.",
       "Changing targets for the second shot will also acquire the new target.",
-      "The second shot, if the first shot's target was killed, will prioritize visible enemy champions, then minions on low health."
+      "The second shot, if the first shot's target was killed, will prioritize visible enemy champions, then minions on low health.",
+      "Static Cooldown: Unaffected by ability haste, starts upon the shield being destroyed or expiring.",
+      "40+(240/17)*(x-1)*(0.7025+0.0175*(x-1))",
+      "Mark Consumption applies before the damage of his attacks (basic, Dirty Fighting second shot, and Heroic Swing attacks) but after damage of his non-attack spells (Avengerang and Comeuppance)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
+        "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
+        "object": "Characters/Akshan/Spells/AkshanPassiveAbility/AkshanPassive",
+        "text": [
+          "mSpell.DataValues.MaxStacks.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]",
+          "mSpell.DataValues.DebuffDuration.values: [4.5,4.5,4.5,4.5,4.5,4.5,4.5]",
+          "mSpell.DataValues.ShieldBADRatio.values: [0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355]",
+          "mSpell.DataValues.ShieldDuration.values: [2.0,2.0,2.0,2.0,2.0,2.0,2.0]",
+          "mSpell.DataValues.SecondAutoADRatio.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]",
+          "mSpell.DataValues.HasteDuration.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0]",
+          "mSpell.DataValues.SecondAutoFlexedAttackRange.values: [200.0,200.0,200.0,200.0,200.0,200.0,200.0]",
+          "mSpell.DataValues.SecondAutoCritRatio.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0]",
+          "mSpell.DataValues.APRatio.values: [0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579]",
+          "mSpell.mSpellCalculations.MS: {\"mFormulaParts\":[{\"mStartValue\":20.0,\"mEndValue\":75.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.TotalShieldAmount: {\"mFormulaParts\":[{\"mStartValue\":40.0,\"mEndValue\":280.0,\"mScaleByStatProgressionMultiplier\":true,\"__type\":\"ByCharLevelInterpolationCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"ShieldBADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.PassiveProcDamage: {\"mFormulaParts\":[{\"mLevel1Value\":15.0,\"mBreakpoints\":[{\"mLevel\":6,\"mAdditionalBonusAtThisLevel\":25.0,\"__type\":\"Breakpoint\"},{\"mLevel\":11,\"mAdditionalBonusAtThisLevel\":40.0,\"__type\":\"Breakpoint\"},{\"mLevel\":16,\"mAdditionalBonusAtThisLevel\":70.0,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.SecondAutoDamage: {\"mFormulaParts\":[{\"mStat\":2,\"mDataValue\":\"SecondAutoADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.PassiveCooldown: {\"mFormulaParts\":[{\"mLevel1Value\":16.0,\"mBreakpoints\":[{\"mLevel\":6,\"mAdditionalBonusAtThisLevel\":-4.0,\"__type\":\"Breakpoint\"},{\"mLevel\":11,\"mAdditionalBonusAtThisLevel\":-4.0,\"__type\":\"Breakpoint\"},{\"mLevel\":16,\"mAdditionalBonusAtThisLevel\":-4.0,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.ASModdedMS: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mStat\":4,\"mStatFormula\":2,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mModifiedGameCalculation\":\"MS\",\"__type\":\"GameCalculationModified\"}",
+          "mSpell.mSpellCalculations.{82593567}: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mDataValue\":\"SecondAutoCritRatio\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mModifiedGameCalculation\":\"SecondAutoDamage\",\"__type\":\"GameCalculationModified\"}",
+          "mSpell.castRange: [0.0,0.0,0.0,0.0,0.0,0.0,0.0]"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
+        "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
+        "object": "Characters/Akshan/Spells/AkshanPassiveAbility/AkshanPassiveAttack",
+        "text": [
+          "mSpell.mPreCastLockoutDeltaTime: 0.10000000149011612",
+          "mSpell.mUseAutoattackCastTimeData: {\"mAutoattackCastTimeCalculation\":{\"mFormulaParts\":[{\"mNumber\":2.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"UseAutoattackCastTimeData\"}",
+          "mSpell.castRange: [1500.0,1500.0,1500.0,1500.0,1500.0,1500.0,1500.0]"
+        ]
+      }
     ]
   },
   {
@@ -1174,7 +1256,33 @@
       "Comeuppance will not go on a reduced cooldown if Akshan dies during the channel.",
       "Comeuppance will cancel if the target becomes untargetable or dies during the channel.",
       "Comeuppance is special cased to place Inherent Glamour on cooldown when targeting Neeko, and to break the disguise before damaging her.",
-      "The following table refers for interactions while Akshan is channeling:"
+      "The following table refers for interactions while Akshan is channeling:",
+      "The bullet damage is increased by 0 to 30% based on critical strike chance.",
+      "2% per 1% of target's missing health, capped at 100% missing health",
+      "Avengerang and Going Rogue are disabled. Heroic Swing is usable.",
+      "Comeuppance is interrupted by death or silence."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
+        "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
+        "object": "Characters/Akshan/Spells/AkshanRAbility/AkshanR",
+        "text": [
+          "mSpell.DataValues.BonusDamage.values: [15.0,25.0,35.0,45.0,55.0,65.0,75.0]",
+          "mSpell.DataValues.ADRatio.values: [0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448]",
+          "mSpell.DataValues.CritDamageMod.values: [0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896]",
+          "mSpell.DataValues.MaxIncrease.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]",
+          "mSpell.DataValues.ChannelDuration.values: [2.5,2.5,2.5,2.5,2.5,2.5,2.5]",
+          "mSpell.DataValues.GraceCooldown.values: [5.0,5.0,5.0,5.0,5.0,5.0,5.0]",
+          "mSpell.DataValues.CastTimePerBullet.values: [0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448]",
+          "mSpell.DataValues.MinimumChannelDuration.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]",
+          "mSpell.DataValues.NumberOfBullets.values: [4.0,5.0,6.0,7.0,8.0,9.0,10.0]",
+          "mSpell.mSpellCalculations.MaxDamagePerBullet: {\"mMultiplier\":{\"mDataValue\":\"MaxIncrease\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"DamagePerBulletWithCrit\",\"__type\":\"GameCalculationModified\"}",
+          "mSpell.mSpellCalculations.DamagePerBulletWithCrit: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritDamageMod\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BonusDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.castRange: [2500.0,2500.0,2500.0,2500.0,2500.0,2500.0,2500.0]"
+        ]
+      }
     ]
   },
   {
@@ -1343,6 +1451,32 @@
       "Allied champions within a zombie state are resurrected only after the state ends.",
       "Akshan can still trigger Going Rogue's passive while he is within a zombie state.",
       "Using a basic attack breaks the stealth at the start of the attack windup."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
+        "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
+        "object": "Characters/Akshan/Spells/AkshanWAbility/AkshanW",
+        "text": [
+          "mSpell.DataValues.VengeanceDuration.values: [60.0,60.0,60.0,60.0,60.0,60.0,60.0]",
+          "mSpell.DataValues.MSValue.values: [70.0,80.0,90.0,100.0,110.0,120.0,130.0]",
+          "mSpell.DataValues.ShredValue.values: [12.5,15.0,17.5,20.0,22.5,25.0,27.5]",
+          "mSpell.DataValues.DeathTimer.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0]",
+          "mSpell.DataValues.PassiveSecondAutoRatio.values: [0.4000000059604645,0.46000000834465027,0.5199999809265137,0.5799999833106995,0.6399999856948853,0.699999988079071,0.7599999904632568]",
+          "mSpell.DataValues.WallGracePeriod.values: [2.0,2.0,2.0,2.0,2.0,2.0,2.0]",
+          "mSpell.DataValues.MissingManaRegen.values: [0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099]",
+          "mSpell.DataValues.GoldReward.values: [100.0,100.0,100.0,100.0,100.0,100.0,100.0]",
+          "mSpell.DataValues.RecentlyDamagedWindow.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]",
+          "mSpell.DataValues.VFXTrailSpeed.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]",
+          "mSpell.DataValues.PassiveWallRange.values: [175.0,175.0,175.0,175.0,175.0,175.0,175.0]",
+          "mSpell.DataValues.StealthDetectionRange.values: [800.0,800.0,800.0,800.0,800.0,800.0,800.0]",
+          "mSpell.DataValues.GameModeInteger.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0]",
+          "mSpell.DataValues.ReviveHealthPercent.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0]",
+          "mSpell.mSpellCalculations.SecondAutoDamage: {\"mFormulaParts\":[{\"mStat\":2,\"mDataValue\":\"PassiveSecondAutoRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.castRange: [5000.0,5000.0,5000.0,5000.0,5000.0,5000.0,5000.0]"
+        ]
+      }
     ]
   }
 ]

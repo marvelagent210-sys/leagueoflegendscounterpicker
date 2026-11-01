@@ -236,3 +236,112 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Playful | cost | 75 / 80 / 85 / 90 / 95 | 75 / 80 / 85 / 90 / 95 | yes |
 | R: Chum the Waters | cooldown | 120 / 100 / 80 | 120 / 100 / 80 | yes |
 | R: Chum the Waters | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Fizz.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee, on hit: 90 + 25% AP magic damage over 3 s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Urchin Strike | 6 | 0 | 50 | dash toward 550 units at Infinity/s, through the enemy | 100% AD physical damage; 70 + 55% AP magic damage | – |
+| W | Seastone Trident | 3 (starts after the empowered attacks) | 0 | 70 | self | – | – |
+| Wactive | Seastone Trident (active) | 0 | 0 | – | self | 150 + 45% AP magic damage (Seastone Trident (active)) | – |
+| E | Playful | 8 (starts when its effect on the caster ends) | 0 | 95 | dash toward 25–400 units at Infinity/s, through the enemy | – | – |
+| E2 | Trickster | 0 | 0 | – | dash toward 75–300 units at Infinity/s, through the enemy | – | – |
+| Eland | Playful (landing) | 0 | 0 | – | self | 280 + 95% AP magic damage; slow 60% for 2 s | – |
+| Eearly | Trickster (landing) | 0 | 0 | – | self | 280 + 95% AP magic damage | – |
+| R | Chum the Waters | 80 | 0.25 | 100 | skillshot 1300 long, 160 wide, at 1300/s | marks it "fizzLure" for 2 s | – |
+| Rshark | Chum the Waters (shark) | 0 | 0 | – | circle of 450 radius up to 1300 away, lands after 2 s | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Nimble Fighter dynamically subtracts 4 + 1% AP from each non-true pre-mitigation damage instance, capped at half that instance. No bleed, empowered attack, on-hit buff, hop or shark is prepared before the fight. Monster-specific bonus damage and reduction do not apply to ordinary champion pets.
+- Urchin Strike and both Playful/Trickster dashes retain a real interruptible dash action but use earliest-tick arrival because the exact wiki revisions and versioned game binary do not quantify their dash speeds. Urchin Strike travels its fixed 550 units and checks the target within 200 units of its original position only at completion; it does not hit along the path. W and R can overlay the dash. The wiki's approximate 0.5-second Q-to-E lockout is used as written. Terrain crossing follows the shared clear-endpoint dash rule.
+- Seastone Trident's empowered attack is restored after blind or dodge only within its original four-second window, including actual pet attacks. A blocked empowered attack is consumed and applies the passive bleed. The active damage is a separate spell-shieldable packet, the bleed is persistent damage and the five-second follow-up is proc damage. The reduced one-second kill cooldown is absolute and refunds the paid mana; cooldown starts when the empowered attack is consumed or expires. A Q contact consumes the active on-hit only after Q's defensive checks.
+- Playful balances until 0.75 seconds from declaration, then permits directed movement with 50% bonus speed during the separate 0.5-second hop, retaining untargetability until landing. Trickster is available after 0.15 seconds and before the balance ends, then lands with its smaller radius and no slow. A first-dash interruption immediately starts the targetable hop; a second-dash interruption cancels damage. Landing waits through stasis. The pinned minimum dash distances and the two radius variants are preserved; lateral landing geometry, Flash and move-block bugs are outside the one-dimensional duel.
+- Chum the Waters uses the exact versioned lure missile's 80-unit collision radius and 1300 speed. Only the enemy champion intercepts the lure; pets do not attach it and receive the actual shark area's area damage. Fish tier is determined by the initial flight's actual traveled distance (<455, 455–910, >910). A blocked attachment leaves the eruption on the ground; projectile walls and blocking auras stop flight and also leave the eruption. Rebuttal-specific missile reflection/destruction is not a separate shared projectile state. Ground knockback distance is sourced but its travel duration is unquantified: it is applied on the earliest simulation tick without inventing a lasting airborne duration. The attached holder instead receives the exact one-second knockup. The two-second eruption timer begins when initial flight ends, including interception.
+- The ordinary policy reserves offensive Chum the Waters in hold and short-trade modes and preserves completed-trade retreat. Shared reactive defenses remain available against actual incoming threats.
+
+### Source values read (75)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Nimble Fighter | damage taken by 4 (+ 1% AP) | [4042251](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Nimble_Fighter?oldid=4042251) |
+| Nimble Fighter | maximum of 50% reduction | [4042251](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Nimble_Fighter?oldid=4042251) |
+| Nimble Fighter | permanently ghosted | [4042251](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Nimble_Fighter?oldid=4042251) |
+| Urchin Strike | Magic Damage: 10 / 25 / 40 / 55 / 70 (+ 55% AP) | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | plus 100% AD physical damage | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | targetRange: 550 | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | range: 550 | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | within 200 units of their original location | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | Seastone Trident and Chum the Waters can be cast during the dash | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | Life steal applies only on the physical damage component | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Seastone Trident | Total Passive Magic Damage: 30 / 45 / 60 / 75 / 90 (+ 25% AP) | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | Active Magic Damage: 50 / 75 / 100 / 125 / 150 (+ 45% AP) | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | Active On-Hit Magic Damage: 20 / 25 / 30 / 35 / 40 (+ 30% AP) | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | every 0.5 seconds over 3 seconds | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | next basic attack within 4 seconds | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | gain 50 bonus range | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | on-hit for the next 5 seconds | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | cooldown is reduced to 1 second | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | cost: 30 / 40 / 50 / 60 / 70 | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | the empowered attack won't be consumed | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | the attack will apply the passive bonus damage of Seastone Trident | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | spell damage on the empowered attack | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | persistent damage additionally tagged as indirect damage | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | proc damage on the bonus damage on-hit | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | Seastone Trident resets Fizz's basic attack timer | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Playful | Magic Damage: 80 / 130 / 180 / 230 / 280 (+ 95% AP) | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | Slow: 40 / 45 / 50 / 55 / 60% | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | slows them for 2 seconds | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | balancing on his trident for 0.75 seconds | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | after 0.15 seconds into the duration | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | hop off of his trident over 0.5 seconds | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | gains 50% bonus movement speed | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | approximately 0.5 seconds after using Urchin Strike | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | targetRange: 25 - 400 | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Trickster | targetRange: 75 - 300 | [4007741](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Trickster?oldid=4007741) |
+| Playful | effectRadius: 375 | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Trickster | effectRadius: 225 | [4007741](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Trickster?oldid=4007741) |
+| Trickster | Magic Damage: 80 / 130 / 180 / 230 / 280 (+ 95% AP) | [4007741](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Trickster?oldid=4007741) |
+| Trickster | not applying the slow | [4007741](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Trickster?oldid=4007741) |
+| Trickster | does not count as an ability activation | [4007741](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Trickster?oldid=4007741) |
+| Playful | If the first dash is interrupted, Fizz initiates the hop immediately | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | if the second one is, the splash will not occur | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | In either cases, Fizz loses the untargetability | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | the splash occurs after the stasis ends | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Chum the Waters | Guppy Damage: 180 / 300 / 420 (+ 60% AP) | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | Chomper Damage: 225 / 375 / 525 (+ 75% AP) | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | Gigalodon Damage: 270 / 450 / 630 (+ 90% AP) | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | Guppy (<455) | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | Chomper (455-910) | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | 40% slow, 200 eruption radius and 150 unit knock back distance | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | 60% slow, 325 eruption radius and 250 unit knock back distance | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | 80% slow, 450 eruption radius and 350 unit knock back distance | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | after 2 seconds | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | slowing them for 2 seconds | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | knocked up for 1 second | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | "mMissileWidth": 80.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/fizz/fizz.bin.json) |
+| Chum the Waters | targetRange: 1300 | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | speed: 1300 | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | Enemy champions can intercept the lure while it is in flight | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | will not attach the lure to an enemy champion if they have a spell shield | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | the target will intercept the lure without getting attached to it | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | stop its movement upon colliding with Blade Whirl or Wind Wall | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | Collision with Rebuttal will destroy it altogether | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | This ability will cast from wherever the caster is at the end of the cast time | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Urchin Strike | cost: 50 | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Urchin Strike | castTime: none | [3948968](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Urchin_Strike?oldid=3948968) |
+| Seastone Trident | cooldown: 7 / 6 / 5 / 4 / 3 | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Seastone Trident | castTime: none | [4015181](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Seastone_Trident?oldid=4015181) |
+| Playful | cooldown: 16 / 14 / 12 / 10 / 8 | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | cost: 75 / 80 / 85 / 90 / 95 | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Playful | castTime: none | [4008451](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Playful?oldid=4008451) |
+| Chum the Waters | cooldown: 120 / 100 / 80 | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | cost: 100 | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |
+| Chum the Waters | castTime: 0.25 | [4010638](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Chum_the_Waters?oldid=4010638) |

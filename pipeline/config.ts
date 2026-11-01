@@ -19,6 +19,17 @@ export const WIKI_LICENSE = "CC BY-SA 3.0";
 /** Wiki page whose rendered table is the oracle for level-20 base stats. */
 export const WIKI_LEVEL20_PAGE = "List of champions/Statistics at level 20";
 export const WIKI_CHAMPION_DATA_PAGE = "Module:ChampionData/data";
+/**
+ * Every current item's stats, effects and limits (the item catalog, M8). Its subpages
+ * "Module:ItemData/data/<item>" are an older copy that this module has moved past.
+ */
+export const WIKI_ITEM_DATA_PAGE = "Module:ItemData/data";
+
+/**
+ * The game rules item effects follow that their own text leaves out: how Energized charges
+ * build, when combat ends, what omnivamp heals from, and how critical strike damage adds up.
+ */
+export const WIKI_ITEM_RULE_PAGES = ["Combat status", "Critical strike", "Template:Critical damage", "Template:Tip data/Energized", "Vamp"];
 
 /** Dataset folder name, e.g. Data Dragon "16.20.1" -> "16.20". */
 export function datasetName(ddragonVersion: string): string {

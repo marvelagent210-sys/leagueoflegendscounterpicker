@@ -304,7 +304,7 @@ export function threatsTo(world: World, side: Side): Threat[] {
           : d.kind === "target"
             ? travelTicks(enemy, self, d.missileSpeed)
             : d.kind === "circle" || d.kind === "area"
-              ? toTicks(d.delay) + (d.kind === "circle" ? (d.flight !== undefined ? toTicks(d.flight) : d.speed ? toTicks(Math.min(Math.abs(enemy.x - self.x), d.range) / d.speed) : 0) : 0)
+              ? toTicks(d.kind === "circle" ? Math.max(0, d.delayFor?.(enemy, self, action.aim) ?? d.delay) : d.delay) + (d.kind === "circle" ? (d.flight !== undefined ? toTicks(d.flight) : d.speed ? toTicks(Math.min(Math.abs(enemy.x - self.x), d.range) / d.speed) : 0) : 0)
               : d.kind === "dash"
                 ? d.time !== undefined
                   ? toTicks(d.time)
@@ -318,7 +318,7 @@ export function threatsTo(world: World, side: Side): Threat[] {
         const toward = ability.castDirection === "start" ? enemy.x + Number(enemy.memory[`castDirection:${ability.key}`] ?? (self.x >= enemy.x ? 1 : -1)) : self.x;
         threat.area = areaOnLine(enemy.x, toward, d.near, d.far, d.bands, enemy, self, d.centered);
       }
-      if ((ability.onHit?.length ?? 0) > 0 || (!ability.channel?.completionThreat && (ability.estimate || !ability.channel?.onComplete?.length))) threats.push(threat);
+      if (ability.castThreat !== false && ((ability.onHit?.length ?? 0) > 0 || (!ability.channel?.completionThreat && (ability.estimate || !ability.channel?.onComplete?.length)))) threats.push(threat);
       // A cast that begins a channel announces its final packet now. Its damage is
       // still due after the channel, independently of any initial on-hit packet.
       if (ability.channel?.onComplete?.length) {
@@ -340,7 +340,7 @@ export function threatsTo(world: World, side: Side): Threat[] {
     threats.push({ ...attackThreat(enemy, self, eta, []), predicted: true });
   }
   for (const m of world.missiles) {
-    if (m.owner !== enemy.side || m.pet !== undefined || m.seenTick > seenBy || (!m.connects && m.impactTick === undefined)) continue;
+    if (m.perceptionHidden || m.owner !== enemy.side || m.pet !== undefined || m.seenTick > seenBy || (!m.connects && m.impactTick === undefined)) continue;
     const eta = m.impactTick === undefined ? missileArrivalTicks(m, Math.max(0, Math.abs(self.x - m.x) - self.spec.base.radius)) : Math.max(0, m.impactTick - world.tick);
     if (m.attack) {
       if (!m.homing && (m.hitTargets?.includes(self.side) || m.direction * (self.x - m.x) + self.spec.base.radius + (m.radius ?? 0) < -EPSILON || Math.abs(self.x - m.x) - self.spec.base.radius - (m.radius ?? 0) > m.travelLeft + EPSILON)) continue;
@@ -558,7 +558,7 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
   const { world, self, enemy } = view;
   const d = ability.delivery;
   if (d.kind !== "line" && d.kind !== "circle") return true;
-  const travel = d.kind === "line" ? travelTicks(self, enemy, d.speed) / 30 : d.delay + (d.flight ?? (d.speed ? Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed : 0));
+  const travel = d.kind === "line" ? travelTicks(self, enemy, d.speed) / 30 : Math.max(0, d.delayFor?.(self, enemy) ?? d.delay) + (d.flight ?? (d.speed ? Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed : 0));
   const timeToLand = (ability.deliveryAtCastStart ? 0 : (ability.castTimeFor?.(self) ?? ability.castTime)) + travel;
   const chance = hitChance(
     { timeToLand, reach: d.kind === "line" ? d.width / 2 : d.radius },
@@ -591,7 +591,7 @@ function wasted(view: View, ability: AbilitySpec): boolean {
   const d = ability.delivery;
   if (d.kind === "self" || ((d.kind === "dash" || d.kind === "blink") && d.hitRadius === undefined)) return false;
   const travel =
-    d.kind === "line" ? travelTicks(self, enemy, d.speed) : d.kind === "target" ? travelTicks(self, enemy, d.missileSpeed) : d.kind === "circle" || d.kind === "area" ? toTicks(d.delay) + (d.kind === "circle" ? (d.flight !== undefined ? toTicks(d.flight) : d.speed ? toTicks(Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed) : 0) : 0) : 0;
+    d.kind === "line" ? travelTicks(self, enemy, d.speed) : d.kind === "target" ? travelTicks(self, enemy, d.missileSpeed) : d.kind === "circle" || d.kind === "area" ? toTicks(d.kind === "circle" ? Math.max(0, d.delayFor?.(self, enemy) ?? d.delay) : d.delay) + (d.kind === "circle" ? (d.flight !== undefined ? toTicks(d.flight) : d.speed ? toTicks(Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed) : 0) : 0) : 0;
   const lands = world.tick + (ability.deliveryAtCastStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime)) + travel;
   return enemy.statuses.some((s) => s.endTick > lands && (s.key === "stasis" || (s.kind === "state" && (s.key === "untargetable" || s.key === "invulnerable"))));
 }

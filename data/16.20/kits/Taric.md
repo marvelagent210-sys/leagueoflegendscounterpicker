@@ -42,6 +42,30 @@ Notes:
     - Bravado may only grant up to two empowered attacks.
 - The bonus damage will not apply against structures.
 - Bravado can be dodged and blocked but it cannot miss if Taric is blinded. The cooldown reduction still applies when blinded, however it does not apply on dodged or blocked Bravado attacks.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Bravado|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Taric
+  |skill        = I
+  |icon         = Bravado.png
+  |blurb        = {{sbc|Innate:}} After casting an ability, {{ci|Taric}} empowers his next two basic attacks to gain tremendous {{sti|as|{{as|'''total''' attack speed}}}}, deal {{as|'''bonus''' magic damage}} based on {{as|his '''bonus''' armor}}, and {{sti|cdr|reduce}} the cooldowns of his basic abilities.
+  |description  = {{sbc|Innate:}} After casting an {{tip|ability}}, '''Taric''' empowers his next two {{tip|basic attacks}} within 5 seconds to each gain {{sti|as|{{as|100% '''total''' attack speed}}}}, deal {{as|{{pp|25 + (93-25)/17*(x-1) for 20}}|magic damage}} {{as|(+ 15% '''bonus''' armor)}} {{as|'''bonus''' magic damage}} {{tip|on-attack}}, and reduce the {{sti|'''remaining''' cooldowns}} of his basic abilities by {{pp|1;( 1 + ( ( x * 10 ) / ( ( x * 10 ) + 100 ) ) );2|0;10 to 100 for 10;∞|label1= AH|type=ability haste|formula= 1 + ( Haste / ( Haste + 100 ) )}}
+   seconds.
+  |targeting    = Passive
+  |affects      = Self
+  |damagetype   = Magic
+  |spellshield  = 
+  |spelleffects = proc
+  |projectile   = 
+  |grounded     = 
+  |knockdown    = 
+  |parry        = Special
+  |notes        = 
+  * The first attack refreshes ''Bravado's'' duration.
+  * Subsequent ability casts will refresh the duration and grant another empowered attack if '''Taric''' has one attack remaining.
+  ** ''Bravado'' may only grant up to two empowered attacks.
+  * The bonus damage will not apply against {{tip|structures}}.
+  * ''Bravado'' can be {{tip|dodged}} and {{tip|blocked}} but it cannot ''miss'' if '''Taric''' is {{tip|blind|blinded}}. The cooldown reduction still applies when {{tip|blind|blinded}}, however it does not apply on {{tip|dodged}} or {{tip|blocked}} ''Bravado'' attacks.
+  |yvideo       = qTgrm_sZmZ4
+  }}
 
 ## Q: Starlight's Touch
 
@@ -67,6 +91,30 @@ Starlight's Touch can heal up to a maximum of 125 (+ 75% AP) (+ 5% of Taric's ma
 Notes:
 
 - The healing will apply heal effects (such as Summon Aery) prioritizing targets in Taric's circle, based on proximity to him, then in the Bastioned ally's circle, based on proximity to that ally (including it).
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Starlight's Touch|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Taric
+  |skill        = Q
+  |icon         = Starlight's Touch.png
+  |blurb        = {{sbc|Active:}} {{ci|Taric}} {{tip|heal|heals}} himself and nearby allied champions based on {{as|his '''maximum''' health}} per charge of ''Starlight's Touch'' that he periodically [[ammunition|stocks]], up to a cap. ''{{ai|Bravado|Taric}}''-empowered attacks each grant one charge.
+  |description  = {{sbc|Active:}} '''Taric''' {{tip|heals}} himself and nearby allied champions for {{as|25|heal}} {{as|(+ 15% AP)}} {{as|(+ 1% of his '''maximum''' health)}} per charge of ''Starlight's Touch'' that he periodically [[ammunition|stocks]], up to a maximum amount. ''{{ais|Bravado|Taric}}'' empowered attacks each grant one charge. 
+  |description2 = ''Starlight's Touch'' can heal up to a maximum of {{as|125|heal}} {{as|(+ 75% AP)}} {{as|(+ 5% of '''Taric's''' '''maximum''' health)}} at 5 charges.
+  |leveling     = {{st|Maximum Charges|{{ap|1 to 5}}}}
+  |effect radius= {{tip|cr|icononly = true}} 325
+  |cost         = 60
+  |cast time    = {{fd|0.25}}
+  |costtype     = Mana + all charges
+  |cooldown     = 3
+  |recharge     = 15
+  |targeting    = Auto
+  |affects      = Allies
+  |spelleffects = 
+  |projectile   = 
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * The healing will apply heal effects (such as {{ri|Summon Aery}}) prioritizing targets in '''Taric's''' circle, based on proximity to him, then in the {{ai|Bastion|Taric|Bastioned}} ally's circle, based on proximity to that ally (including it).
+  |yvideo       = QF0eGQWp6NU
+  }}
 
 ## W: Bastion
 
@@ -101,6 +149,37 @@ Notes:
     - Mimicked abilities will also cancel if they vanish as above.
 - Bastion effects will be temporarily disabled while the bound ally is in a different realm than Taric (Death Realm). The tether will not break.
 - Bastion has a forgiveness radius of 175 units.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Bastion|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Taric
+  |skill        = W
+  |icon         = Bastion.png
+  |blurb        = {{sbc|Passive:}} {{ci|Taric}} gains {{sti|armor|{{as|'''bonus''' armor}}}} and forms a {{tip|tether}} to the ally bound by ''Bastion''. While the tether persists, the ally gains the {{as|'''bonus''' armor}} and '''Taric's''' abilities are mimicked to them. 
+  |blurb2      = {{sbc|Active:}} '''Taric''' {{tip|shields}} himself and the target allied champion for a short time, with the amount based on each {{as|target's '''maximum''' health}}. He also binds them with ''Bastion''.
+  |blurb3      = '''Taric''' can also [[self-targeted|self-cast]] to shield himself.
+  |blurb4      = Only one ally can be bound at a time, and selecting a new ally overrides the previous bind.
+  |description  = {{sbc|Passive:}} '''Taric''' gains {{sti|armor|{{as|'''bonus''' armor}}}} and forms a {{tip|tether}} between him and the ally bound by ''Bastion''. While the tether persists, the ally also gains the {{as|'''bonus''' armor}} and '''Taric's''' abilities are mimicked to them, though the effects do not stack.
+  |leveling     = {{st|Bonus Armor|{{as|{{ap|6 to 10}}% of '''Taric's''' armor}}}}
+  |icon2        = Bastion 2.png
+  |description2 = {{sbc|Active:}} '''Taric''' grants himself and the target allied champion a {{tip|shield}} for {{fd|2.5}} seconds, binding them with ''Bastion''.
+  |leveling2    = {{st|Shield Strength|{{as|{{ap|7 to 11}}% of target's '''maximum''' health}}}}
+  |description3 = '''Taric''' can also [[self-targeted|self-cast]] to shield himself; if he self-casts and is untethered, he will become tethered to the nearest ally. Similarly, if he is tethered to an ally and self-casts, both he and the ally will be shielded. Only one ally can be bound at a time, and selecting a new ally overrides the previous bind.
+  |cast time    = {{fd|0.25}}
+  |target range = {{tip|cr|icononly = true}} 800
+  |tether radius= {{tip|cr|icononly = true}} 1300
+  |cost         = 60
+  |costtype     = Mana
+  |cooldown     = 15
+  |targeting    = Unit
+  |affects      = Self, Allies
+  |spelleffects = 
+  |notes        = 
+  * The mimicked abilities will still complete even if '''Taric''' dies or leaves range.
+  * Abilities are not mimicked to the bound ally if they are {{tip|vanish|vanished}} via {{ai|Alpha Strike|Master Yi}}, {{ai|Hallucinate|Shaco}}, {{ai|Rappel|Elise}}, or {{ai|Void Rush|Rek'Sai}}.
+  ** Mimicked abilities will also cancel if they vanish as above.
+  * ''Bastion'' effects will be temporarily disabled while the bound ally is in a different realm than '''Taric''' ({{ai|Realm of Death|Mordekaiser|Death Realm}}). The tether will not break.
+  * ''Bastion'' has a {{tip|forgiveness radius}} of 175 units.
+  |yvideo       = 9RpBz98Qf20
+  }}
 
 ## E: Dazzle
 
@@ -126,6 +205,33 @@ Taric can move during Dazzle.
 Notes:
 
 - Dazzle will aim towards the target direction on-cast when firing from both his and his Bastion's positions.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Dazzle|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Taric
+  |skill        = E
+  |icon         = Dazzle.png
+  |blurb        = {{sbc|Active:}} {{ci|Taric}} winds up over a brief moment, then projects a beam of starlight in the target direction that briefly {{tip|stuns}} enemies hit, dealing {{as|magic damage}} based on his {{as|'''bonus''' armor}}.
+  |blurb4      = '''Taric''' can move during ''Dazzle''.
+  |description  = {{sbc|Active:}} '''Taric''' winds up over 1 second, granting {{tip|ghosting}} to nearby units, then projects a beam of starlight in the target direction that deals {{as|magic damage}} to enemies hit and {{tip|stuns}} them for {{fd|1.5}} seconds.
+  |description2 = '''''Taric''' can move during Dazzle.''
+  |leveling     = {{st|Magic Damage|{{ap|90 to 250}} {{as|(+ 50% AP)}} {{as|(+ 50% '''bonus''' armor)}}}}
+  |cast time    = none
+  |range        = {{tip|er|icononly = true}} 575
+  |width        = {{tip|er|icononly = true}} 140
+  |cost         = 40
+  |costtype     = Mana
+  |cooldown     = {{ap|16 to 12}}
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = Area of effect
+  |projectile   = False
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * ''Dazzle'' will aim towards the target direction on-cast when firing from both his and his {{ai|Bastion 2|Taric|Bastion's}} positions.
+  |yvideo       = 4pfky7Eg_2g
+  }}
 
 ## R: Cosmic Radiance
 
@@ -148,6 +254,25 @@ Notes:
 
 - Cosmic Radiance has no effect on untargetable allies.
     - It will affect the primary unit (the one the star is falling down on) even if they are untargetable.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Cosmic Radiance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Taric
+  |skill        = R
+  |icon         = Cosmic Radiance.png
+  |blurb        = {{sbc|Active:}} {{ci|Taric}} calls down a star that descends to him over a short time. Afterwards, he and nearby allied champions become {{tip|invulnerable}} for a short time.
+  |description  = {{sbc|Active:}} '''Taric''' calls down a star from above that descends to him over {{fd|2.5}} seconds. Afterwards, he and nearby allied champions become {{tip|invulnerable}} for {{fd|2.5}} seconds.
+  |effect radius= {{tip|cr|icononly = true}} 400
+  |cost         = 100
+  |costtype     = Mana
+  |cooldown     = {{ap|180|150|120}}
+  |cast time    = {{fd|0.25}}
+  |targeting    = Auto
+  |affects      = Allies
+  |notes        = 
+  * ''Cosmic Radiance'' has no effect on {{tip|untargetable}} allies.
+  ** It will affect the primary unit (the one the star is falling down on) even if they are untargetable.
+  |flavorsound  = {{sm2|Taric_Original_R_2.ogg}} ''"Embrace the cosmos."''
+  |yvideo       = OSj4r4qwhoQ
+  }}
 
 ## Game files
 
@@ -177,3 +302,95 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | TaricPassive | TotalDamage | linear 25 → 93 over levels 1-18, continues past 18 | 25 | 93 | 101 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Taric.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Starlight's Touch | 5 charges, one every 15 s (3 s between casts) | 0.25 | 60 | self | – | – |
+| W | Bastion | 15 | 0.25 | 60 | self | – | – |
+| E | Dazzle | 12 | 0 | 40 | self | – | – |
+| R | Cosmic Radiance | 120 | 0.25 | 100 | self | – | – |
+| I | Bravado | 0 | 0 | – | self | 101 + 15% bonus armor magic damage | – |
+| E-beam | Dazzle | 0 | 0 | – | self | 250 + 50% AP + 50% bonus armor magic damage; stun for 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Bravado starts empty, grants at most two real attack entitlements for five seconds after a completed cast, and refreshes on the first declaration or another completed cast. Each declared empowered attack retains its sourced doubled total AS timing and spends one entitlement; cancellation follows the common declaration-spent empowerment contract. The bonus on-attack packet and basic-cooldown refund ignore blindness while the ordinary blind basic misses. Dodge, attack block and parry deny the bonus/refund; ordinary invulnerability does not invent attack avoidance. Real pets use their own defenses. No structure is created.
+- Starlight's Touch starts with the normal full five-charge ammunition stock, consumes all charges captured at declaration for one heal at completion, and uses a separate hasted fifteen-second recharge plus three-second cast cooldown. Bravado adds one charge per accepted empowered attack, without changing a running recharge deadline; full stock pauses recharge. Self and actual Champion-class friendly pets can be healed once across overlapping source/tether circles; no allied champion is fabricated. Healing modifiers remain recipient-local.
+- Bastion grants a nonrecursive ten-percent total-armor increase through the shared armor-percent rule. A real living Champion-class pet can be explicitly selected within800; completion allows the sourced175forgiveness. Self-cast shields self and the active bound ally or binds the nearest eligible ally if unbound. Each shield uses its recipient's own maximum HP. One remembered bind has effects only within1300, and switching replaces the previous armor contribution. Other realm and the specifically named vanish forms lack independent arena metadata and are unsupported boundaries; generic untargetability is not silently equated with every named vanish.
+- Dazzle is an instantaneous declaration followed by a one-second delayed nonprojectile beam, permitting ordinary walking, attacks and other spells during the delay. The direction toward the on-cast cursor is fixed separately from each actual emitter, while the origin follows that body until release. The primary575range/140fullwidth and no casttime override binary610display/100lineWidth/0.25cast metadata. Targets on the lane axis intersect a forward575interval with each target's actual radius; no unsourced endpoint lollipop is added; two overlapping beams share one damage/control entitlement per cast. A released actual ally mimic completes after Taric dies or leaves tether range, provided that real emitter survives; the dead self emitter supplies no beam. Nearby-unit ghosting has no supplied radius, so only each emitter's own collision ghosting is represented. One live beam whose present axial interval covers the actual enemy announces the shared cast damage and stun with a finite impact clock; its origin follows the real emitter and can fall back to an ally emitter after self loss, without duplicating overlap damage in perception. Beneficial R carriers announce no hostile packet.
+- Cosmic Radiance starts its2.5second star delay after the real0.25second cast completes. The star follows each actual primary emitter, then grants2.5seconds of invulnerability to that living primary even if untargetable, and nearby targetable real allied champions; overlapping stars do not stack. No future resurrection inherits a dead primary's star. An already emitted actual ally mimic can finish after owner death/range loss. R is reserved in hold/trade and used proactively against visible threats in fight; completed trades retreat before optional actions. Flee can heal, shield or aim E backward without spending R.
+- Reference allocation estimates a sustained self-only two-Bravado weave, solving capped attack/cast cadence with source refund and charge generation. Actual fights still require missing health, mana, real contacts and availability; no allied heal, shield, duplicated beam, ally stats or R damage is priced. Bastion's nominal self shield and Q healing are the only sustain packets in that estimate.
+
+### Source values read (61)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Bravado | Bravado may only grant up to two empowered attacks | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | next two basic attacks within 5 seconds | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | gain 100% total attack speed | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | Innate: After casting an ability, Taric empowers his next two basic attacks within 5 seconds to each gain 100% total attack speed, deal 25 – 93 (based on level) (+ 15% bonus armor) bonus magic damage on-attack, and reduce the remaining cooldowns of his basic abilities by 1 / 1.09091 / 1.16667 / 1.23077 / 1.28571 / 1.33333 / 1.375 / 1.41176 / 1.44444 / 1.47368 / 1.5 / 2 (based on AH) | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | (+ 15% bonus armor) | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | The first attack refreshes Bravado's duration | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | Subsequent ability casts will refresh the duration and grant another empowered attack | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | it cannot miss if Taric is blinded | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | it does not apply on dodged or blocked Bravado attacks | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | The bonus damage will not apply against structures | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | "mNumber":1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Bravado | "mDataValue":"ArmorDamageValue" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Bravado | "values":[5.0,5.0,5.0,5.0,5.0,5.0,5.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Bravado | 1 + ( Haste / ( Haste + 100 ) ) | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Bravado | Haste + 100 | [3986177](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) |
+| Starlight's Touch | Maximum Charges: 1 / 2 / 3 / 4 / 5 | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Starlight's Touch | recharge: 15 | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Starlight's Touch | cooldown: 3 | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Starlight's Touch | castTime: 0.25 | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Starlight's Touch | effectRadius: 325 | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Starlight's Touch | for 25 (+ 15% AP) (+ 1% of his maximum health) per charge | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Starlight's Touch | Bravado empowered attacks each grant one charge | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Starlight's Touch | "name":"Recharge","values":[15.0,15.0,15.0,15.0,15.0,15.0,15.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Starlight's Touch | "mAmmoUsed":[0,0,0,0,0,0,0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Bastion | Bonus Armor: 6 / 7 / 8 / 9 / 10% of Taric's armor | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | Shield Strength: 7 / 8 / 9 / 10 / 11% of target's maximum health | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | shield for 2.5 seconds | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | targetRange: 800 | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | tetherRadius: 1300 | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | forgiveness radius of 175 units | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | cooldown: 15 | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | castTime: 0.25 | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | Only one ally can be bound at a time | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | the effects do not stack | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | The mimicked abilities will still complete even if Taric dies or leaves range | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Bastion | "name":"LeashBreakActualRange","values":[1300.0,1300.0,1300.0,1300.0,1300.0,1300.0,1300.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Bastion | "ForgivenessRange":175.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Dazzle | width: 140 | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | winds up over 1 second | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | range: 575 | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | Magic Damage: 90 / 130 / 170 / 210 / 250 (+ 50% AP) (+ 50% bonus armor) | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | stuns them for 1.5 seconds | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | cooldown: 16 / 15 / 14 / 13 / 12 | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | Taric can move during Dazzle | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | target direction on-cast | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | "name":"ChargeDuration","values":[1.0,1.0,1.0,1.0,1.0,1.0,1.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Dazzle | "castRangeDisplayOverride":[610.0,610.0,610.0,610.0,610.0,610.0,610.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Cosmic Radiance | descends to him over 2.5 seconds | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |
+| Cosmic Radiance | become invulnerable for 2.5 seconds | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |
+| Cosmic Radiance | effectRadius: 400 | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |
+| Cosmic Radiance | Cosmic Radiance has no effect on untargetable allies | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |
+| Cosmic Radiance | It will affect the primary unit | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |
+| Cosmic Radiance | "name":"InitialDelay","values":[2.5,2.5,2.5,2.5,2.5,2.5,2.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Cosmic Radiance | "name":"InvulnDuration","values":[2.5,2.5,2.5,2.5,2.5,2.5,2.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json) |
+| Starlight's Touch | cost: 60 | [3996427](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Starlight's_Touch?oldid=3996427) |
+| Bastion | cost: 60 | [3989049](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bastion?oldid=3989049) |
+| Dazzle | cost: 40 | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Dazzle | castTime: none | [3907336](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Dazzle?oldid=3907336) |
+| Cosmic Radiance | cooldown: 180 / 150 / 120 | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |
+| Cosmic Radiance | cost: 100 | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |
+| Cosmic Radiance | castTime: 0.25 | [3907334](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Cosmic_Radiance?oldid=3907334) |

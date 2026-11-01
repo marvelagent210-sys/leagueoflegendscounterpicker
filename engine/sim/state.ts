@@ -7,6 +7,7 @@ import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { CCType } from "../rules/crowdControl";
 import type { AttackSplit, Effect, FighterSpec, Formula, PetSpec } from "./spec";
+import type { PendingSplit } from "./actions";
 
 export type Side = 0 | 1;
 
@@ -22,10 +23,12 @@ export interface Status {
   charges?: number;
   shieldType?: ShieldType;
   priority?: boolean;
+  /** One incoming packet's HP damage that precedes a newly triggered shield. */
+  firstDamageBypass?: number;
   /** Black Shield's CC protection follows this shield's lifetime and its incoming hit packet. */
   blackShield?: boolean;
   /** `label`: what its ticks are logged as (the ability's name). */
-  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string };
+  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string; originX?: number };
   empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; hitsUntargetable?: boolean; spellShield?: boolean; spellShieldOnHit?: boolean; attackOnHitReplacement?: Effect[]; breakShields?: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
@@ -36,17 +39,31 @@ export interface Status {
   memoKey?: string;
   /** Crowd control most cleanses can't remove (non-dispellable). */
   sticky?: boolean;
+  /** An explicit source exception to death/resurrection cleansing; normal expiry still applies. */
+  persistThroughDeath?: boolean;
   tenacityGroup?: string;
   /** This particular slow is an explicit source exception to slow immunity. */
   bypassSlowImmune?: boolean;
+  /** Explicit same-source group whose distinct slow applications multiply. */
+  slowStackGroup?: string;
+  /** Fixed epicenter of a sourced fear; omitted fears follow their actual caster. */
+  fearOriginX?: number;
   /** This immunity applies to hostile sources only (Void Shift). */
   hostileOnly?: boolean;
   /** A reveal lasts only while this same-source, same-ability crowd control exists. */
   revealWhileCC?: CCType;
+  /** Explicitly removed by an unrestricted CC cleanse, even during a mark-only tail. */
+  cleanseWithCC?: boolean;
+  /** A timed stat depends on a positive shield from this exact source and ability. */
+  requiresShield?: boolean;
+  /** A timed stat or control depends on this exact source and ability's crowd control. */
+  whileCC?: CCType;
 }
 
 /** Attack properties captured with the windup and retained by an in-flight missile. */
 export interface AttackHitOptions {
+  /** Replaces the whole ordinary basic-damage packet; on-hits and attack defenses remain separate. */
+  baseDamage?: { damageType: DamageType; amount: Formula; canCrit?: boolean; label?: string };
   critChance?: number;
   /** Scales the ordinary AD part, including its critical outcome, without scaling on-hits. */
   baseDamageScale?: number;
@@ -70,6 +87,7 @@ export type Action =
       uncancellable: boolean;
       hitsUntargetable?: boolean;
       critChance?: number;
+      baseDamage?: AttackHitOptions["baseDamage"];
       baseDamageScale?: number;
       bonusPhysical?: Formula;
       critMultiplier?: number;
@@ -88,7 +106,10 @@ export type Action =
       /** The abilities whose empowerments this attack spent: their post-effect cooldowns wait for it to land. */
       empowered?: string[];
     }
-  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim; cost?: number; resume?: Action; delivered?: boolean }
+  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim; cost?: number; resume?: Action; delivered?: boolean;
+      /** Explicit target cancellation settles this declaration once, including an already collected due action. */
+      cancelled?: boolean;
+    }
   | {
       kind: "channel";
       ability: string;
@@ -168,7 +189,7 @@ export interface Unit {
    * enemy). A throw over the enemy (`over`, Fling) moves along the line instead (positive is
    * toward larger x), passing through it.
    */
-  forced?: { endTick: number; perTick: number; over?: boolean; absolute?: boolean; remaining?: number };
+  forced?: { endTick: number; perTick: number; over?: boolean; absolute?: boolean; remaining?: number; ignoreUnitCollision?: boolean; startTick?: number; ability?: string };
   /**
    * Carried by the enemy until `endTick` (Ixtal's Impact, Devour): held `offset` units from its
    * center, on the side (`dir`, +1 or -1 along the line) it was on when grabbed.
@@ -188,6 +209,8 @@ export interface Unit {
 }
 
 export interface Missile {
+  /** Kit-resolved collisions may hide a forecast without changing the actual flight or hit entitlement. */
+  perceptionHidden?: boolean;
   /** Absolute contact clock for an explicitly kit-resolved fixed-time projectile.
    * Only perception uses this; movement and collision remain owned by its kit. */
   impactTick?: number;
@@ -208,6 +231,10 @@ export interface Missile {
   followOwner?: boolean;
   radius?: number;
   collisionPet?: boolean;
+  /** A kit-owned landing projectile has no ordinary hit packet but can be intercepted. */
+  interceptable?: boolean;
+  /** Collision payload still resolves, but this flight cannot continue or return. */
+  intercepted?: boolean;
   collisionDistanceLeft?: number;
   ended?: boolean;
   expiresTick?: number;
@@ -233,6 +260,10 @@ export interface Missile {
 
 /** A pet on the line (engine/sim/pets.ts). */
 export interface Pet {
+  /** Carried without changing this body's identity, ownership, health or launched packets. */
+  carriedBy?: Side;
+  /** Forced movement belongs to this actual body, never its owner. */
+  forced?: Unit["forced"];
   statuses?: Status[];
   windup?: { target: Side | { pet: number }; launchTick: number; blinded: boolean; effects: Effect[] };
   id: number;
@@ -248,6 +279,10 @@ export interface Pet {
 }
 
 export interface Zone {
+  /** A real finite released effect whose next pulse is advanced by its kit hook. */
+  pendingAfterDeath?: boolean;
+  /** A shared spatial floor: evaluated for both sides, with optional healing denial at the floor. */
+  healthProtection?: { minimumHealthFraction: number; preventHealingAtFloor?: boolean };
   memory?: Record<string, number | string | boolean>;
   id: number;
   owner: Side;
@@ -420,6 +455,8 @@ export interface World {
   weight: number;
   /** Times this branch has split. */
   splits: number;
+  /** Hook-created packets waiting for normal branching; they cannot land before that fork. */
+  pendingSplits?: PendingSplit[];
   modes: [Mode, Mode];
   settings: SimSettings;
   log: LogEntry[];
@@ -460,7 +497,7 @@ function cloneStatus(status: Status): Status {
 
 /** Launch hooks can append on-hits to any retained windup after a world branches. */
 function cloneWindup(action: Extract<Action, { kind: "windup" }>): Extract<Action, { kind: "windup" }> {
-  return { ...action, onHit: [...action.onHit], ...(action.empowered ? { empowered: [...action.empowered] } : {}) };
+  return { ...action, ...(action.baseDamage ? { baseDamage: structuredClone(action.baseDamage) } : {}), onHit: [...action.onHit], ...(action.empowered ? { empowered: [...action.empowered] } : {}) };
 }
 
 function cloneAction(action: Action): Action {
@@ -491,15 +528,16 @@ function cloneUnit(unit: Unit): Unit {
 }
 
 function clonePet(pet: Pet): Pet {
-  return { ...pet, memory: { ...pet.memory }, ...(pet.statuses ? { statuses: pet.statuses.map((s) => ({ ...s, ...(s.dot ? { dot: { ...s.dot } } : {}), ...(s.empower ? { empower: { ...s.empower, onHit: [...s.empower.onHit] } } : {}) })) } : {}), ...(pet.windup ? { windup: { ...pet.windup, target: typeof pet.windup.target === "number" ? pet.windup.target : { ...pet.windup.target }, effects: [...pet.windup.effects] } } : {}) };
+  return { ...pet, ...(pet.forced ? { forced: { ...pet.forced } } : {}), memory: { ...pet.memory }, ...(pet.statuses ? { statuses: pet.statuses.map((s) => ({ ...s, ...(s.dot ? { dot: { ...s.dot } } : {}), ...(s.empower ? { empower: { ...s.empower, onHit: [...s.empower.onHit] } } : {}) })) } : {}), ...(pet.windup ? { windup: { ...pet.windup, target: typeof pet.windup.target === "number" ? pet.windup.target : { ...pet.windup.target }, effects: [...pet.windup.effects] } } : {}) };
 }
 
 export function cloneWorld(world: World): World {
   return {
     ...world,
+    ...(world.pendingSplits ? { pendingSplits: structuredClone(world.pendingSplits) } : {}),
     units: [cloneUnit(world.units[0]), cloneUnit(world.units[1])],
-    missiles: world.missiles.map((m) => ({ ...m, ...(m.attack ? { attack: { ...m.attack } } : {}), ...(m.acceleration ? { acceleration: { ...m.acceleration } } : {}), ...(m.hitTargets ? { hitTargets: [...m.hitTargets] } : {}), ...(m.hitPets ? { hitPets: [...m.hitPets] } : {}) })),
-    zones: world.zones.map((z) => ({ ...z, ...(z.memory ? { memory: { ...z.memory } } : {}) })),
+    missiles: world.missiles.map((m) => ({ ...m, ...(m.attack ? { attack: { ...m.attack, ...(m.attack.baseDamage ? { baseDamage: structuredClone(m.attack.baseDamage) } : {}) } } : {}), ...(m.acceleration ? { acceleration: { ...m.acceleration } } : {}), ...(m.hitTargets ? { hitTargets: [...m.hitTargets] } : {}), ...(m.hitPets ? { hitPets: [...m.hitPets] } : {}) })),
+    zones: world.zones.map((z) => ({ ...z, ...(z.memory ? { memory: { ...z.memory } } : {}), ...(z.healthProtection ? { healthProtection: { ...z.healthProtection } } : {}) })),
     terrain: world.terrain.map((t) => ({ ...t })),
     pets: world.pets.map(clonePet),
     ...(world.petMissiles ? { petMissiles: world.petMissiles.map((m) => ({ ...m, target: typeof m.target === "number" ? m.target : { ...m.target }, effects: [...m.effects], ...(m.sourcePet ? { sourcePet: clonePet(m.sourcePet) } : {}) })) } : {}),
@@ -512,4 +550,10 @@ export function cloneWorld(world: World): World {
 
 export function other(side: Side): Side {
   return side === 0 ? 1 : 0;
+}
+
+/** A hook may create a packet before the flight phase; defer it until its probability is resolved. */
+export function awaitsSplit(world: World, kind: "missile" | "zone" | "dash", id: number): boolean {
+  const contains = (splits: PendingSplit[]): boolean => splits.some(split => split[kind] === id || (split.followUps ? contains(split.followUps) : false));
+  return world.pendingSplits ? contains(world.pendingSplits) : false;
 }

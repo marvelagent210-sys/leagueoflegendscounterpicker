@@ -31,7 +31,7 @@ export interface Derived {
   armorPen: number[];
   magicPenPercent: number[];
   moveSpeed: number;
-  /** Movement speed before soft caps, with the same buffs, slows and slow resistance. */
+  /** Movement speed before soft caps, or the supplied effective speed when explicitly overridden. */
   rawMoveSpeed: number;
   tenacity: number;
   /** Damage dealt modifiers (fractions, additive). */
@@ -70,6 +70,13 @@ function list(statuses: Status[], kind: Status["kind"], key: string): number[] {
   return values;
 }
 
+/** Dependency checks read current recipient state, even after the originating caster dies. */
+export function statIsActive(status: Status, statuses: readonly Status[]): boolean {
+  if (status.kind === "stat" && status.requiresShield && !statuses.some(candidate => candidate.kind === "shield" && candidate.value > 0 && candidate.source === status.source && (candidate.ability ?? candidate.key) === (status.ability ?? "shield"))) return false;
+  if (status.whileCC && !statuses.some(candidate => candidate.kind === "cc" && candidate.key === status.whileCC && candidate.source === status.source && candidate.ability === status.ability)) return false;
+  return true;
+}
+
 /** Distinct cripples multiply; refreshing/ramping the same source does not stack it. */
 function attackSpeedSlowFactor(statuses: Status[]): number {
   const sources = new Map<string, number>();
@@ -87,11 +94,11 @@ export function hasState(unit: Unit, state: string): boolean {
 }
 
 export function ccTypes(unit: Unit): Set<CCType> {
-  return new Set(unit.statuses.filter((s) => s.kind === "cc").map((s) => s.key as CCType));
+  return new Set(unit.statuses.filter((s) => s.kind === "cc" && statIsActive(s, unit.statuses)).map((s) => s.key as CCType));
 }
 
 type StatConversions = NonNullable<FighterSpec["statConversions"]>;
-type DerivedStatusInput = Pick<Status, "kind" | "key" | "value" | "source" | "ability" | "tenacityGroup" | "bypassSlowImmune">;
+type DerivedStatusInput = Pick<Status, "kind" | "key" | "value" | "source" | "ability" | "tenacityGroup" | "bypassSlowImmune" | "requiresShield" | "whileCC" | "slowStackGroup">;
 
 interface DerivedCache {
   base: BaseStats;
@@ -125,7 +132,10 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
   const conversions = previous.conversions;
   if (statConversions && conversions) {
     if (statConversions.healthToAP !== conversions.healthToAP || statConversions.apToHealth !== conversions.apToHealth
+        || statConversions.apToManaPercent !== conversions.apToManaPercent
         || statConversions.moveSpeedBonusEffectiveness !== conversions.moveSpeedBonusEffectiveness
+        || statConversions.totalMoveSpeedOverride !== conversions.totalMoveSpeedOverride
+        || statConversions.minimumMoveSpeed !== conversions.minimumMoveSpeed
         || statConversions.fixedAttackSpeed !== conversions.fixedAttackSpeed) return false;
     const multiplier = statConversions.attackDamageMultiplier, before = conversions.attackDamageMultiplier;
     if (multiplier && before) {
@@ -139,7 +149,9 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
     if (status.kind !== before.kind || status.key !== before.key || status.value !== before.value
         || status.source !== before.source || status.ability !== before.ability
         || status.tenacityGroup !== before.tenacityGroup
-        || status.bypassSlowImmune !== before.bypassSlowImmune) return false;
+        || status.bypassSlowImmune !== before.bypassSlowImmune
+        || status.slowStackGroup !== before.slowStackGroup
+        || status.requiresShield !== before.requiresShield || status.whileCC !== before.whileCC) return false;
   }
   return true;
 }
@@ -152,19 +164,28 @@ export function derive(unit: Unit): Derived {
     base: { ...unit.spec.base, attackSpeed: { ...unit.spec.base.attackSpeed } },
     bonus: unit.spec.bonus ? { ...unit.spec.bonus } : undefined,
     conversions: unit.spec.statConversions ? { ...unit.spec.statConversions, ...(unit.spec.statConversions.attackDamageMultiplier ? { attackDamageMultiplier: { ...unit.spec.statConversions.attackDamageMultiplier } } : {}) } : undefined,
-    statuses: unit.statuses.map(({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune }) =>
-      ({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune })),
+    statuses: unit.statuses.map(({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune, requiresShield, whileCC, slowStackGroup }) =>
+      ({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune, requiresShield, whileCC, slowStackGroup })),
     value,
   });
   return value;
 }
 
 /** Exceptional slows (Charm) retain their strength during ordinary slow immunity. */
-function unavoidableSlows(statuses: Status[], key: "slow" | "drowsy"): number[] {
+function effectiveSlows(statuses: Status[], slowImmune: boolean): number[] {
   const values: number[] = [];
+  const groups = new Map<string, Map<string, number>>();
   for (const status of statuses) {
-    if (status.kind === "cc" && status.key === key && status.bypassSlowImmune) values.push(status.value);
+    if (status.kind !== "cc" || (status.key !== "slow" && status.key !== "drowsy")
+        || (slowImmune && !status.bypassSlowImmune)) continue;
+    if (!status.slowStackGroup) { values.push(status.value); continue; }
+    const key = `${status.source}:${status.slowStackGroup}`;
+    let applications = groups.get(key);
+    if (!applications) { applications = new Map(); groups.set(key, applications); }
+    const application = `${status.key}:${status.ability ?? status.key}`;
+    applications.set(application, Math.max(applications.get(application) ?? 0, status.value));
   }
+  for (const applications of groups.values()) values.push(1 - [...applications.values()].reduce((remaining, slow) => remaining * (1 - Math.min(1, Math.max(0, slow))), 1));
   return values;
 }
 
@@ -175,16 +196,18 @@ export function boughtPenetration(points: number): number {
 
 function computeDerived(unit: Unit): Derived {
   const { base, bonus = {} } = unit.spec;
-  const st = unit.statuses;
+  const st = unit.statuses.some(status => status.requiresShield || status.whileCC)
+    ? unit.statuses.filter(status => statIsActive(status, unit.statuses)) : unit.statuses;
   // Both conversions read the unconverted stats; their outputs never feed one another.
   const healthBuffs = sum(st, "health");
   const externalBonusHp = (bonus.hp ?? 0) + healthBuffs;
   const externalAP = (bonus.ap ?? 0) + sum(st, "AP");
+  const apMultiplier = list(st, "stat", "APMultiplier").reduce((factor, bonus) => factor * (1 + bonus), 1);
   const conversion = unit.spec.statConversions;
   const maxHp = conversion?.apToHealth === undefined
     ? base.hp + (bonus.hp ?? 0) + healthBuffs
-    : base.hp + externalBonusHp + externalAP * conversion.apToHealth;
-  const ap = conversion?.healthToAP === undefined ? externalAP : externalAP + externalBonusHp * conversion.healthToAP;
+    : base.hp + externalBonusHp + externalAP * apMultiplier * conversion.apToHealth;
+  const ap = (conversion?.healthToAP === undefined ? externalAP : externalAP + externalBonusHp * conversion.healthToAP) * apMultiplier;
   const rawBonusAd = (bonus.ad ?? 0) + sum(st, "AD");
   const totalADReduction = Math.max(0, sum(st, "totalADReduction"));
   const bonusAttackSpeed = base.attackSpeed.bonus + (bonus.attackSpeed ?? 0) + sum(st, "attackSpeed");
@@ -203,6 +226,7 @@ function computeDerived(unit: Unit): Derived {
   const speedEffectiveness = conversion?.moveSpeedBonusEffectiveness;
   let flatSpeedBonus = sum(st, "moveSpeedFlat");
   const percentSpeedBonuses = list(st, "stat", "moveSpeedPercent");
+  const totalSpeedMultipliers = list(st, "stat", "moveSpeedMultiplier");
   if (speedEffectiveness !== undefined) {
     flatSpeedBonus = 0;
     for (const status of st) {
@@ -212,16 +236,21 @@ function computeDerived(unit: Unit): Derived {
     for (let index = 0; index < percentSpeedBonuses.length; index++) {
       if (percentSpeedBonuses[index]! > 0) percentSpeedBonuses[index]! *= speedEffectiveness;
     }
+    for (let index = 0; index < totalSpeedMultipliers.length; index++) {
+      if (totalSpeedMultipliers[index]! > 0) totalSpeedMultipliers[index]! *= speedEffectiveness;
+    }
   }
   const speedModifiers = {
     flat: flatSpeedBonus,
+    flatReduction: Math.max(0, sum(st, "totalMoveSpeedReduction")),
     additive: percentSpeedBonuses,
-    slows: slowImmune
-      ? [...unavoidableSlows(st, "slow"), ...unavoidableSlows(st, "drowsy")]
-      : [...list(st, "cc", "slow"), ...list(st, "cc", "drowsy")],
+    multiplicative: totalSpeedMultipliers,
+    slows: effectiveSlows(st, slowImmune),
     slowResist: combineSlowResist(list(st, "stat", "slowResist")),
   };
-  const rawMoveSpeed = (base.moveSpeed + speedModifiers.flat) * (1 + speedModifiers.additive.reduce((total, value) => total + value, 0)) * (1 - Math.max(0, ...speedModifiers.slows) * (1 - speedModifiers.slowResist));
+  const rawMoveSpeed = ((base.moveSpeed + speedModifiers.flat) * (1 + speedModifiers.additive.reduce((total, value) => total + value, 0)) * speedModifiers.multiplicative.reduce((product, value) => product * (1 + value), 1) - speedModifiers.flatReduction) * (1 - Math.max(0, ...speedModifiers.slows) * (1 - speedModifiers.slowResist));
+  const speedOverrides = list(st, "state", "moveSpeedOverride");
+  const finalMoveSpeed = speedOverrides.length ? Math.max(0, Math.min(...speedOverrides)) : conversion?.totalMoveSpeedOverride ?? movementSpeed(base.moveSpeed, speedModifiers);
   const tenacityGroups = new Map<string, number>();
   const tenacitySources: number[] = [];
   for (const status of st) {
@@ -246,8 +275,8 @@ function computeDerived(unit: Unit): Derived {
     magicPen: bonus.magicPen ?? 0,
     armorPen: [...list(st, "stat", "armorPen"), ...(bonus.armorPenPoints ? [boughtPenetration(bonus.armorPenPoints)] : [])],
     magicPenPercent: [...list(st, "stat", "magicPenPercent"), ...(bonus.magicPenPoints ? [boughtPenetration(bonus.magicPenPoints)] : [])],
-    moveSpeed: movementSpeed(base.moveSpeed, speedModifiers),
-    rawMoveSpeed,
+    moveSpeed: conversion?.minimumMoveSpeed === undefined ? finalMoveSpeed : Math.max(0, conversion.minimumMoveSpeed, finalMoveSpeed),
+    rawMoveSpeed: speedOverrides.length ? Math.max(0, Math.min(...speedOverrides)) : conversion?.totalMoveSpeedOverride ?? rawMoveSpeed,
     tenacity: combineTenacity([[...tenacitySources, ...tenacityGroups.values()]]),
     damageDealt: list(st, "stat", "damageDealt"),
     damageReduction: list(st, "state", "damageReduction"),
@@ -257,17 +286,18 @@ function computeDerived(unit: Unit): Derived {
     mrReduction: { flat: sum(st, "mrReduction"), percent: list(st, "stat", "mrReductionPercent") },
     lifeSteal: sum(st, "lifeSteal"),
     healingIncrease: sum(st, "healingIncrease"),
-    maxResource: base.resource + sum(st, "maxResource"),
+    maxResource: (base.resource + sum(st, "maxResource")) * (unit.spec.resourceType === "Mana" ? 1 + ap * (conversion?.apToManaPercent ?? 0) : 1),
     bonusArmorPen: list(st, "stat", "bonusArmorPen"),
     criticalBonusArmorIgnore: sum(st, "criticalBonusArmorIgnore"),
   };
 }
 
 /** Mana formulas cannot read energy, Fury, or another champion resource as mana. */
-function manaValue(kind: "max" | "current" | "missing", unit?: Unit, d?: Derived): number {
+function manaValue(kind: "max" | "bonus" | "current" | "missing", unit?: Unit, d?: Derived): number {
   if (!unit || !d || unit.spec.resourceType !== "Mana") return 0;
   const maximum = Math.max(0, d.maxResource);
   if (kind === "max") return maximum;
+  if (kind === "bonus") return Math.max(0, maximum - unit.spec.base.resource);
   const current = Math.min(maximum, Math.max(0, unit.resource));
   return kind === "current" ? current : maximum - current;
 }
@@ -292,6 +322,8 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
       return d.maxHp - unit.hp;
     case "maxMana":
       return manaValue("max", unit, d);
+    case "bonusMana":
+      return manaValue("bonus", unit, d);
     case "currentMana":
       return manaValue("current", unit, d);
     case "missingMana":
@@ -334,6 +366,8 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
       return target && t ? t.maxHp - target.spec.base.hp : 0;
     case "targetMaxMana":
       return manaValue("max", target, t);
+    case "targetBonusMana":
+      return manaValue("bonus", target, t);
     case "targetCurrentMana":
       return manaValue("current", target, t);
     case "targetMissingMana":
@@ -393,8 +427,9 @@ export function canAttack(unit: Unit): boolean {
 }
 
 /** Whether crowd control allows casting; `movement` abilities are also stopped by root and ground. */
-export function canCastUnderCC(unit: Unit, movement: boolean): boolean {
+export function canCastUnderCC(unit: Unit, movement: boolean, usableWhileSilenced = false): boolean {
   for (const type of ccTypes(unit)) {
+    if (usableWhileSilenced && type === "silence") continue;
     const rule = CC_RULES[type].abilities;
     if (rule === "disabled") return false;
     // "Partial" means movement abilities for root and ground; nearsight only limits targeting.

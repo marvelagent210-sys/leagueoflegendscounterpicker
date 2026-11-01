@@ -93,14 +93,11 @@ const draven: KitModule = {
           }
           if (missile.source !== "Raxe") return;
           const key = `draven:r:${missile.id}:hits`, hits = Number(ctx.memory[key] ?? 0) + 1; ctx.memory[key] = hits; missile.onHit = [{ type: "damage", damageType: "physical", amount: scaled(rDamage, Math.max(rFloor, rFalloff ** hits)), petDamageCategory: "area" }];
-          if (!ctx.targetPet && !missile.followOwner) beginReturn(ctx, missile);
+          if (!ctx.targetPet && !missile.followOwner && !missile.intercepted) beginReturn(ctx, missile);
         },
         onMissileTick(ctx) { if (ctx.missile.source === "Raxe" && ctx.memory[`draven:r:${ctx.missile.id}:phase`] === "braking" && ctx.missile.perTick <= 1e-6) finishReturn(ctx, ctx.missile); },
-        onMissileEnd(ctx) { if (ctx.missile.source === "Raxe" && ctx.reason === "range" && !ctx.missile.followOwner && ctx.memory[`draven:r:${ctx.missile.id}:phase`] === "out" && ctx.tick < (ctx.missile.expiresTick ?? Infinity)) { ctx.missile.ended = false; beginReturn(ctx, ctx.missile); ctx.world.missiles.push({ ...ctx.missile, id: ctx.world.nextId++ }); const replacement = ctx.world.missiles.at(-1)!; ctx.memory[`draven:r:${replacement.id}:phase`] = "braking"; } },
+        onMissileEnd(ctx) { if (ctx.missile.source === "Raxe" && ctx.reason === "range" && !ctx.missile.intercepted && !ctx.missile.followOwner && ctx.memory[`draven:r:${ctx.missile.id}:phase`] === "out" && ctx.tick < (ctx.missile.expiresTick ?? Infinity)) { ctx.missile.ended = false; beginReturn(ctx, ctx.missile); ctx.world.missiles.push({ ...ctx.missile, id: ctx.world.nextId++ }); const replacement = ctx.world.missiles.at(-1)!; ctx.memory[`draven:r:${replacement.id}:phase`] = "braking"; } },
         onAbilityHit(ctx) {
-          // The pet effect path has no forced-movement implementation. Opt its
-          // zero-longitudinal-distance interruption into the ordinary CC guards.
-          if (ctx.ability.key === "E" && ctx.enemy.petId !== undefined && !hasState(ctx.enemy, "displacementImmune") && !hasState(ctx.enemy, "ccImmune")) ctx.apply({ type: "cc", cc: "airborne", duration: displacementSeconds });
           if (ctx.ability.key === "Raxe" && ctx.enemy.petId === undefined) ctx.apply({ type: "execute", threshold: { base: Number(ctx.memory[ADORATION] ?? 0) } });
         },
         onKill(ctx) { if (ctx.pet) ctx.memory[ADORATION] = Number(ctx.memory[ADORATION] ?? 0) + 1; else { ctx.memory["draven:gold"] = Number(ctx.memory["draven:gold"] ?? 0) + cashBase + cashPer * Number(ctx.memory[ADORATION] ?? 0); ctx.memory[ADORATION] = 0; } },

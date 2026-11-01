@@ -9,6 +9,8 @@
 
 export interface SpeedModifiers {
   flat?: number;
+  /** Reduces total speed after positive bonuses, before ordinary slows and caps. */
+  flatReduction?: number;
   /** Additive percentage bonuses, as fractions (0.4 = +40%). */
   additive?: number[];
   multiplicative?: number[];
@@ -39,5 +41,5 @@ export function movementSpeed(base: number, modifiers: SpeedModifiers = {}): num
   const slowFactor = 1 - slow * (1 - slowResist);
   // Negative stat modifiers can take speed below the normal slow floor, but movement
   // speed itself cannot be negative (Movement speed, revision 4064468).
-  return Math.max(0, softCap((base + (modifiers.flat ?? 0)) * additive * multiplicative * slowFactor));
+  return Math.max(0, softCap(((base + (modifiers.flat ?? 0)) * additive * multiplicative - Math.max(0, modifiers.flatReduction ?? 0)) * slowFactor));
 }

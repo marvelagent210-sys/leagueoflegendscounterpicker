@@ -1,5 +1,158 @@
 # Counters to Alistar (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Alistar: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Alistar wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Alistar --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Trundle | +0.87 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +1.00 |
+| 2 | Vayne | +0.84 | +1.00 | +1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 3 | Jayce | +0.83 | +1.00 | +1.00 | +1.00 | +0.32 | – | +0.00 |
+| 4 | Olaf | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 5 | Smolder | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 6 | Fiora | +0.82 | +1.00 | +1.00 | +1.00 | −0.09 | – | +1.00 |
+| 7 | Lulu | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 8 | Rakan | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 9 | Kog'Maw | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 10 | Janna | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 11 | Urgot | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 12 | Zeri | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 13 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 14 | Rell | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 15 | Illaoi | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 16 | Xayah | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 17 | Graves | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 18 | Tristana | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 19 | Aphelios | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 20 | Yorick | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 21 | Miss Fortune | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 22 | Orianna | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 23 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 24 | Corki | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 25 | Neeko | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 26 | Draven | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 27 | Aurora | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 28 | Kai'Sa | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 29 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 30 | Ashe | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 31 | Lucian | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 32 | Quinn | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 33 | Twisted Fate | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 34 | Ezreal | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 35 | Kalista | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 36 | Karma | +0.79 | +0.98 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 37 | Gangplank | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 38 | Sivir | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 39 | Malphite | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 40 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 41 | Jinx | +0.79 | +1.00 | +1.00 | +1.00 | +0.03 | +0.85 | +0.00 |
+| 42 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 43 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 44 | Lee Sin | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 45 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 46 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 47 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 48 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 49 | Diana | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 50 | Xin Zhao | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 51 | Shen | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 52 | Poppy | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 53 | K'Sante | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 54 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 55 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 56 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 57 | Irelia | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 58 | Maokai | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 59 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 60 | Rammus | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 61 | Kled | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 62 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 63 | Riven | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 64 | Gwen | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 65 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 66 | Braum | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 67 | Volibear | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 68 | Morgana | +0.65 | +0.54 | +0.92 | +0.95 | −0.02 | +1.00 | +0.00 |
+| 69 | Samira | +0.65 | +1.00 | +1.00 | +1.00 | −0.00 | −0.50 | +0.00 |
+| 70 | Ornn | +0.55 | +0.11 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 71 | Varus | +0.40 | +1.00 | +1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
+| 72 | Tahm Kench | +0.34 | +0.93 | +0.17 | +0.17 | −0.01 | – | +0.00 |
+| 73 | Kennen | +0.33 | −0.82 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 74 | Camille | +0.31 | +1.00 | +1.00 | −1.00 | −0.11 | – | +0.00 |
+| 75 | Akshan | +0.30 | −1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 76 | Swain | +0.29 | +0.31 | +0.41 | +0.41 | −0.02 | +0.31 | +0.00 |
+| 77 | Gragas | +0.28 | −0.05 | +0.59 | +0.60 | −0.01 | – | +0.00 |
+| 78 | Sion | +0.27 | +1.00 | +0.00 | +0.00 | −0.07 | – | +0.00 |
+| 79 | Sejuani | +0.23 | −1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 80 | Twitch | +0.11 | −1.00 | +1.00 | +1.00 | +0.05 | −1.00 | +0.00 |
+| 81 | Annie | +0.10 | +0.20 | +0.05 | +0.05 | +0.05 | +0.21 | +0.00 |
+| 82 | Singed | +0.08 | +0.09 | +0.16 | +0.11 | −0.06 | – | +0.00 |
+| 83 | Hwei | +0.08 | −0.16 | +0.09 | −0.04 | +0.04 | +1.00 | +0.00 |
+| 84 | Syndra | +0.08 | +0.06 | +0.12 | −0.03 | +0.11 | +0.22 | +0.00 |
+| 85 | Soraka | +0.06 | +0.18 | +0.05 | +0.04 | +0.00 | −0.13 | +0.00 |
+| 86 | Sona | +0.05 | +0.04 | +0.08 | +0.08 | +0.01 | +0.05 | +0.00 |
+| 87 | Zoe | +0.05 | +0.05 | +0.06 | +0.05 | +0.02 | +0.05 | +0.00 |
+| 88 | Vel'Koz | +0.03 | +0.11 | −0.04 | +0.03 | +0.11 | −0.08 | +0.00 |
+| 89 | Heimerdinger | +0.01 | +0.16 | +0.11 | +0.10 | +0.11 | −1.00 | +0.00 |
+| 90 | Zyra | +0.01 | +0.04 | +0.02 | −0.01 | +0.02 | −0.10 | +0.00 |
+| 91 | Leona | −0.03 | −0.01 | −0.04 | −0.04 | −0.04 | – | +0.00 |
+| 92 | Lux | −0.03 | −0.05 | −0.05 | −0.06 | −0.00 | +0.01 | +0.00 |
+| 93 | Anivia | −0.06 | +0.00 | −0.11 | −0.11 | −0.09 | +0.00 | +0.00 |
+| 94 | Vex | −0.08 | −0.10 | −0.08 | −0.11 | −0.01 | −0.07 | +0.00 |
+| 95 | Nami | −0.09 | −0.16 | −0.08 | −0.07 | +0.01 | −0.19 | +0.00 |
+| 96 | Veigar | −0.16 | −0.15 | −0.14 | −0.33 | −0.03 | −0.16 | +0.00 |
+| 97 | Karthus | −0.18 | −0.22 | −0.23 | −0.23 | +0.06 | −0.27 | +0.00 |
+| 98 | Senna | −0.19 | −1.00 | +0.15 | +0.15 | +0.01 | −0.07 | +0.00 |
+| 99 | Vi | −0.23 | +1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 100 | Jhin | −0.23 | +1.00 | −0.88 | −0.88 | +0.03 | −0.88 | +0.00 |
+| 101 | Aatrox | −0.24 | −1.00 | +1.00 | −1.00 | −0.10 | – | +0.00 |
+| 102 | Warwick | −0.25 | +1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 103 | Cassiopeia | −0.25 | −0.23 | −0.22 | −0.22 | +0.06 | −1.00 | +0.00 |
+| 104 | Brand | −0.26 | −1.00 | −0.03 | −0.03 | +0.04 | −0.07 | +0.00 |
+| 105 | Ahri | −0.29 | −1.00 | −0.10 | −0.08 | +0.04 | −0.01 | +0.00 |
+| 106 | Malzahar | −0.33 | −0.19 | −0.25 | −1.00 | +0.07 | −0.25 | +0.00 |
+| 107 | Viktor | −0.33 | −1.00 | +0.08 | +0.00 | +0.02 | −1.00 | +0.00 |
+| 108 | Lissandra | −0.33 | −1.00 | −0.17 | −0.10 | −0.01 | −0.12 | +0.00 |
+| 109 | Wukong | −0.36 | −1.00 | −1.00 | +1.00 | −0.14 | – | +0.00 |
+| 110 | Yone | −0.39 | +0.45 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 111 | Master Yi | −0.60 | −1.00 | −1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
+| 112 | Ryze | −0.70 | −1.00 | −1.00 | −1.00 | +0.01 | +0.00 | +0.00 |
+| 113 | Rengar | −0.71 | −1.00 | −1.00 | −1.00 | +0.42 | – | +0.00 |
+| 114 | Xerath | −0.71 | −1.00 | −1.00 | −1.00 | −0.00 | −0.11 | +0.00 |
+| 115 | Ambessa | −0.72 | −1.00 | −1.00 | −1.00 | +0.36 | – | +0.00 |
+| 116 | Hecarim | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 117 | Taliyah | −0.76 | −1.00 | −1.00 | −1.00 | +0.02 | −0.58 | +0.00 |
+| 118 | Fizz | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 119 | Naafiri | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 120 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 121 | Jarvan IV | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 122 | Kassadin | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 123 | Zed | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 124 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 125 | Nautilus | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 126 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 127 | Kha'Zix | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 128 | Talon | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 129 | Blitzcrank | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 130 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 131 | Katarina | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 132 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 133 | Galio | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 134 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 135 | Ekko | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 136 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 137 | Ziggs | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 138 | Nocturne | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 139 | Evelynn | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 140 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 141 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 142 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 143 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 144 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Alistar's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +161,132 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Alistar` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.38)
+#### 1. Sivir (net +1.38)
 
 - **0.59** spell shield: Spell Shield's spell shield blocks Alistar's Headbutt. Spell shield for 1.5 s, long enough to use ahead of Headbutt. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Alistar W Headbutt)
 - **0.51** spell shield: Spell Shield's spell shield blocks Alistar's Pulverize. Spell shield for 1.5 s, long enough to use ahead of Pulverize. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Alistar Q Pulverize)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Alistar's (500 vs 125 attack range). Alistar closes the gap with Headbutt. (Sivir basic attacks → Alistar basic attacks)
 
-### 2. Vladimir (net +0.97)
+#### 2. Vladimir (net +0.97)
 
 - **0.62** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Alistar's Headbutt. Untargetable for 2 s, long enough to use ahead of Headbutt. (Vladimir W Sanguine Pool → Alistar W Headbutt)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Alistar's Pulverize. Untargetable for 2 s, long enough to use ahead of Pulverize. (Vladimir W Sanguine Pool → Alistar Q Pulverize)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Alistar's Trample. Untargetable for 2 s, long enough to use ahead of Trample. (Vladimir W Sanguine Pool → Alistar E Trample)
 - Watch out: Pulverize's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 3. Fiora (net +0.95)
+#### 3. Fiora (net +0.95)
 
 - **0.72** parry: Riposte parries Alistar's Headbutt and stuns back. Parry for 0.75 s; Headbutt takes 0.54 s to land, enough to react. Negating Headbutt's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Alistar W Headbutt)
 - **0.64** parry: Riposte parries Alistar's Pulverize and stuns back. Parry for 0.75 s; Pulverize takes 0.25 s to land, enough to react. Negating Pulverize's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Alistar Q Pulverize)
 - **0.43** parry: Riposte parries Alistar's Trample and stuns back. Parry for 0.75 s; Trample lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Trample's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Alistar E Trample)
 - Watch out: Unbreakable Will cleanses Fiora's Riposte (cripple, slow, stun) after it lands.
 
-### 4. Udyr (net +0.94)
+#### 4. Udyr (net +0.94)
 
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Alistar's Headbutt (airborne, stun). Immune for 1.5 s, long enough to use ahead of Headbutt. (Udyr E Blazing Stampede → Alistar W Headbutt)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Alistar's Pulverize (airborne, stun). Immune for 1.5 s, long enough to use ahead of Pulverize. (Udyr E Blazing Stampede → Alistar Q Pulverize)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Alistar's Trample (stun). Immune for 1.5 s, long enough to use ahead of Trample. (Udyr E Blazing Stampede → Alistar E Trample)
 - Watch out: Unbreakable Will cleanses Udyr's Blazing Stampede (stun) after it lands.
 
-### 5. Nocturne (net +0.87)
+#### 5. Nocturne (net +0.87)
 
 - **0.72** spell shield: Shroud of Darkness's spell shield blocks Alistar's Headbutt. Spell shield for 1.5 s, long enough to use ahead of Headbutt. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Alistar W Headbutt)
 - **0.63** spell shield: Shroud of Darkness's spell shield blocks Alistar's Pulverize. Spell shield for 1.5 s, long enough to use ahead of Pulverize. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Alistar Q Pulverize)
-- **0.32** spell shield: Shroud of Darkness's spell shield blocks part of Alistar's Trample. Spell shield for 1.5 s, long enough to use ahead of Trample. A spell shield blocks only the first enemy ability that reaches it. The on-hit effect can be blocked by spell shield, but the attack cannot. (Nocturne W Shroud of Darkness → Alistar E Trample)
+- **0.32** spell shield: Shroud of Darkness's spell shield blocks part of Alistar's Trample. Spell shield for 1.5 s, long enough to use ahead of Trample. A spell shield blocks only the first enemy ability that reaches it. The on-hit effect can be blocked by spell shield, but the attack cannot. {{{{{1<noinclude>|Ability data</noinclude>}}}|Trample|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+|champion     = Alistar
+|skill        = E
+|icon         = Trample.png
+|description  = {{sbc|Active:}} '''Alistar''' tramples the ground around him every {{fd|0.5}} seconds over 5 seconds, becoming {{tip|ghosted}} and dealing {{as|magic damage}} to nearby enemies. Each time this damages at least one enemy champion, he generates a {{tip|stack}} of ''Trample'' that lasts for the remaining duration, stacking up to 5 times.
+|icon2        = Alistar Trample Indicator.png
+|leveling     = {{st|Magic Damage Per Tick|{{ap|80/10 to 200/10}} {{as|(+ {{ap|70/10}}% AP)}}|Total Magic Damage|{{ap|80 to 200}} {{as|(+ 70% AP)}}}}
+|description2 = At 5 stacks, '''Alistar's''' next {{tip|basic attack}} {{tip|on-hit}} against a {{tip|champion}} within 6 seconds ends ''Trample's'' effects to deal {{as|{{pplevel|20 to 275}} '''bonus''' magic damage}} and {{tip|stun}} the target for 1 second.
+|effect radius= {{tip|cr|icononly = true}} 350
+|cooldown     = {{ap|12 to 10}}
+|cdstart      = on-cast
+|cost         = {{ap|50 to 70}}
+|costtype     = mana
+|cast time    = none
+|targeting    = Auto
+|affects      = Self, Enemies
+|damagetype   = Magic
+|spellshield  = Special
+|spelleffects = Special
+|parry        = Special
+|notes        = 
+* The on-hit effect is single-use and '''Alistar's''' buff is removed as soon as it is consumed; it can only be applied once by the triggering attack instance.
+** For example, {{iis|Guinsoo's Rageblade}} Phantom Hit can trigger it if the triggering attack did not, but cannot apply it again if the triggering attack consumed it.
+* The on-hit effect can be blocked by {{tip|spell shield}}, but the attack cannot.
+* The on-hit effect is consumed if the attack is {{tip|blocked}}, but not if it is {{tip|dodged}} or missed while '''Alistar''' is {{tip|blind|blinded}}. In all cases, the attack's effects are negated as normal.
+<!-- Damage -->
+|damage       = true
+|damagedetails=
+{{Infobox damage
+|dtitle      = Alistar - Trample: Shockwave
+|dtype       = m
+|dtags       = ability,area,periodic
+|dproperties = 
+|dnotes      = 
+}}
+{{Infobox damage
+|dtitle      = Alistar - Trample: Attack
+|dtype       = p
+|dtags       = basic
+|dproperties = ApplyLifesteal = true, EnableCallForHelp = true , RespectDodge = true, TriggerOnHitEvents = true,
+|dnotes       = * Refers to this alternative attack's main damage to the primary target, and thus copies all properties of the basic attack.
+** It can {{tip|blind|miss}} if the user is blinded.
+}}
+{{Infobox damage
+|dtitle      = Alistar - Trample: Bonus Damage
+|dtype       = m
+|dtags       = ability
+|dproperties = 
+|dnotes      = * Does not apply if the triggering attack is {{tip|dodge|dodged}}, {{tip|block|blocked}} or {{tip|blind|misses}}.
+}}
+
+<!-- Blurb -->
+|blurb        = {{sbc|Active:}} {{ci|Alistar}} becomes {{tip|ghosted}} and continually deals {{as|magic damage}} to nearby enemies. He generates a stack of ''Trample'' each time this damages at least one {{tip|champion}}.
+|blurb2       = At max stacks, his next {{tip|basic attack}} against a {{tip|champion}} within a few seconds will deal {{as|'''bonus''' magic damage}} and {{tip|stun}} them.
+}}. (Nocturne W Shroud of Darkness → Alistar E Trample)
 - Watch out: Unbreakable Will cleanses Nocturne's Unspeakable Horror (fear, slow) after it lands.
 
-### 6. Gwen (net +0.81)
+#### 6. Gwen (net +0.81)
 
 - **0.59** untargetable: Hallowed Mist makes Gwen untargetable, dodging Alistar's Headbutt. Untargetable for ?; Headbutt takes 0.54 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Alistar W Headbutt)
 - **0.51** untargetable: Hallowed Mist makes Gwen untargetable, dodging Alistar's Pulverize. Untargetable for ?; Pulverize takes 0.25 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Alistar Q Pulverize)
 - **0.31** untargetable: Hallowed Mist makes Gwen untargetable, dodging Alistar's Trample. Untargetable for ?; Trample lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Alistar E Trample)
 - Watch out: Unbreakable Will cleanses Gwen's Needlework (slow) after it lands.
 
-### 7. Rengar (net +0.79)
+#### 7. Rengar (net +0.79)
 
 - **0.64** cleanse: Battle Roar cleanses Alistar's Headbutt (airborne, stun) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Alistar W Headbutt)
 - **0.56** cleanse: Battle Roar cleanses Alistar's Pulverize (airborne, stun) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Alistar Q Pulverize)
 - **0.56** cleanse: Battle Roar cleanses Alistar's Trample (stun) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Alistar E Trample)
 - Watch out: Unbreakable Will cleanses Rengar's Bola Strike (slow, root) after it lands.
 
-### 8. Teemo (net +0.76)
+#### 8. Teemo (net +0.76)
 
 - **0.43** blind: Blinding Dart's blind makes Alistar's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Alistar basic attacks)
 - **0.34** range: Teemo's basic attacks reach 375 units farther than Alistar's (500 vs 125 attack range). Alistar closes the gap with Headbutt. (Teemo basic attacks → Alistar basic attacks)
 - **0.23** blind: Blinding Dart's blind makes Alistar's Trample, an empowered attack, miss. Blind for 3 s. The on-hit effect can be blocked by spell shield, but the attack cannot. The on-hit effect is consumed if the attack is blocked, but not if it is dodged or missed while Alistar is blinded. In all cases, the attack's effects are negated as normal. (Teemo Q Blinding Dart → Alistar E Trample)
 - Watch out: Unbreakable Will cleanses Teemo's Blinding Dart (blind) after it lands.
 
-### 9. Gangplank (net +0.75)
+#### 9. Gangplank (net +0.75)
 
 - **0.53** cleanse: Remove Scurvy cleanses Alistar's Headbutt (airborne, stun) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Alistar W Headbutt)
 - **0.46** cleanse: Remove Scurvy cleanses Alistar's Pulverize (airborne, stun) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Alistar Q Pulverize)
 - **0.46** cleanse: Remove Scurvy cleanses Alistar's Trample (stun) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Alistar E Trample)
 - Watch out: Unbreakable Will cleanses Gangplank's Cannon Barrage (slow) after it lands.
 
-### 10. Xayah (net +0.73)
+#### 10. Xayah (net +0.73)
 
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Alistar's (525 vs 125 attack range). Alistar closes the gap with Headbutt. (Xayah basic attacks → Alistar basic attacks)
 - **0.37** untargetable: Featherstorm makes Xayah untargetable, dodging Alistar's Headbutt. Untargetable for 1.5 s, long enough to use ahead of Headbutt. (Xayah R Featherstorm → Alistar W Headbutt)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Alistar's Pulverize. Untargetable for 1.5 s, long enough to use ahead of Pulverize. (Xayah R Featherstorm → Alistar Q Pulverize)
 - Watch out: Unbreakable Will cleanses Xayah's Bladecaller (root) after it lands.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

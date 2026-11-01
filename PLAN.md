@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The sixth batch adds Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah, and the seventh adds Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 95 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are planned as M8, once every champion has a kit (§13).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14. The private workspace's batches 7 to 15 were merged into this branch on 30 October, with this branch's own Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 145 of 173 champions, with 28 remaining and 10,440 unordered pairings. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are M8 (§13), in progress: the item catalog and every item's effects are done, and duels can be played with fixed builds; runes and the build search come once every champion has a kit.
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -73,7 +73,7 @@ missiles, projectile interception, independent dash/channel clocks, terrain flig
 sourced summoned-unit classes, lethal-pet attribution and committed post-death
 basic missiles. Source conflicts remain explicit in the three new pair audits.
 
-The seventh batch implements Gragas, Hecarim, Warwick and Wukong, and merges the
+This branch's seventh batch implemented Gragas, Hecarim, Warwick and Wukong, and merged the
 private 91-kit build (`158c0a49`), which had been published only as an archive, into
 this branch. Coverage is 95 of 173 champions, with 78 remaining and 4,465 unordered
 pairings. Every restriction the four kits quote was broken on purpose to confirm a
@@ -94,6 +94,221 @@ that alone decides both matchups (+0.78 for him). No simulated score changed; th
 matrix was refreshed under fingerprint `248fa67b…` because the golden file is part of
 it. The full suite passes for the first time since that import: 3,516 tests pass and
 the five disputed matchups are skipped.
+
+The private workspace continued from the 91-kit build in batches 7 to 15, recorded below as it reported them; they were merged into this branch on 30 October (see the end of this log).
+
+The seventh batch registers Akshan, Aphelios, Graves, Kindred, Senna and Zeri.
+Coverage is 97 of 173 champions, leaving 76 and requiring 4,656 unordered pairings.
+Pinned sources include 41 primary ability templates and seven versioned binary files,
+including Kindred's Wolf companion. Its source, combat, reflection and full-matrix validation
+are complete, and its exact model and source form the seventh private delivery. Shared work covers anchored smoke
+vision, camouflage, selective silence exceptions, actual alternative-attack pet contacts,
+committed pet projectiles and spatial health floors with separate healing and cost rules.
+
+The eighth batch implements Diana, Ekko, Evelynn, Fizz, Katarina and LeBlanc.
+Coverage is 103 of 173 champions, leaving 70. All 5,253 unordered pairs were freshly
+computed under fingerprint `50faa123…` with four workers in 7,155.1 seconds. The
+source audit validates 33 exact primary revisions, six versioned binary files,
+24 objects and 33 exact excerpts. All 676 focused tests, both TypeScript projects,
+provenance freshness and production build pass. The final serial suite records
+4,283 passes, the two retained draft winner failures and five existing skips.
+Strict production searches pass 204 Darius directions and 30 directions among the
+new champions, with exact spending and options. All 17 browser groups pass, including
+102 complete live fallback rankings and seven source pages at phone width. Shared
+work covers selective spell defenses, actual clone/pet classes, cosmetic clone
+attacks, pet attack resolution, precise projectile destruction, channel cancellation
+windows, live dash tracking and completion-time target validation. Co-location
+geometry and ordinary scenario mode rules have dedicated regressions. The private
+compiled/source package must pass archive, startup and preservation verification
+before publication. Remaining source and geometry limits stay in each audit.
+
+The ninth batch implements Kha'Zix, Naafiri, Nocturne, Rengar, Talon and Zed.
+Coverage is 109 of 173 champions, leaving 64. All 5,886 unordered pairs were
+freshly computed under fingerprint `d2cb2f6a…` with four production workers,
+starting without checkpoints. After an interruption, 854 verified results were
+retained under that same fingerprint and the remaining 5,032 pairs were computed.
+No checkpoint was imported from another model. The source audit validates 36 exact primary revisions,
+six versioned binary files, 37 objects and 115 exact excerpts; all 36 full raw
+wiki revisions remain in the authored records. All 1,147 focused tests pass.
+The final serial suite records 4,686 passes, the two retained draft winner
+failures and five existing skips. Both TypeScript projects, provenance freshness,
+production build, 216 Darius reflection directions, 30 new-champion directions and
+17 browser groups pass. Kha'Zix has four legal three-evolution variants. Shared work
+covers multiplicative total movement speed, explicit death-persistent effects and
+pets, independent cast/dash clocks, instant overlays and declaration-timed lines.
+The private compiled/source package must pass archive, startup and preservation
+verification before publication. Each champion audit retains its source conflicts
+and model limits.
+
+The tenth batch implements Hecarim, Jarvan IV, Lee Sin, Wukong, Vi and Warwick.
+Coverage is 115 of 173 champions, leaving 58. All 6,555 unordered pairs were
+freshly computed under fingerprint `d9b033ae…` with four production workers,
+starting with zero checkpoints. Every saved worker index matches that fresh
+invocation's canonical dispatch, and no checkpoint was imported from another model.
+The source audit verifies 34 primary revisions (33 ability templates and Wukong's
+pet article), six exact versioned binaries, 56 distinct game objects across
+59 source records and 185 exact excerpts. All full raw revisions are retained.
+All 891 focused tests pass. The final unfiltered serial suite records 5,097
+passes, the two retained draft winner failures and five existing skips. Both
+TypeScript projects, final provenance freshness, the production build, 228 Darius
+reflection directions, 30 new-champion directions and 17 browser groups pass.
+Shared changes observe resolved damage with actual source/target identities,
+preserving damage-based healing before Riposte's late damage negation while
+keeping actual health loss and shield absorption separate for damage triggers. They
+apply typed shields to real pets, respect explicitly sourced pet state immunity
+and preserve exact ability-stage identity for pet crowd control. Wukong's clone
+has independent combat state and copied attacks. Missing finite movement timings,
+terrain projections and unsupported preduel history remain explicit in each audit.
+The private compiled/source package must pass archive, five actual startup checks
+and preservation of all ten previous previews before publication.
+
+The eleventh batch implements Alistar, Blitzcrank, Braum, Galio, Gragas and Maokai.
+Coverage is 121 of 173 champions, leaving 52. All 7,260 unordered pairs were
+freshly computed under fingerprint `0678eb2d…` with four production workers,
+starting with zero checkpoints. Every raw saved worker index matches that fresh
+invocation's canonical dispatch; no checkpoint was imported or its index rewritten.
+The source audit verifies 31 primary revisions (30 ability templates and Maokai's
+separate Sapling article), six exact versioned binaries, 61 distinct game
+objects across 61 source records and 1058 exact excerpts. Every full
+raw revision is retained. All 2,671 focused tests pass. The final unfiltered
+serial suite records 5,536 passes, the same two retained draft winner failures
+and five existing skips. Both TypeScript projects, final provenance freshness,
+the production build, 240 Darius directions, 30 directions among the six new
+champions and all 17 browser groups pass. Browser live fallback checks cover
+all 120 rivals, and seven source pages are checked at phone width.
+Shared mechanics preserve first-packet threshold shields, actual ground and
+projectile origins, collision effects before projectile interception ends a
+flight, and real pet displacement/death identity. Returning and curved projectiles
+retain their individual collision and destruction rules. Channel interruption
+exceptions and temporary movement speeds are explicit. Missing finite movement
+timings, one-dimensional geometry and unavailable allies remain documented limits.
+Private packaging requires archive integrity, five actual startup checks and
+preservation of all eleven previous previews before publication.
+
+The twelfth batch implements Nunu & Willump, Rakan, Rell, Sejuani, Taric and Thresh.
+Coverage is 127 of 173 champions, leaving 46. All 8,001 unordered pairs were
+freshly computed under fingerprint `60f98b36…` with four production workers,
+starting with zero checkpoints. Every raw saved worker index matches that fresh
+invocation's canonical dispatch; no checkpoint was imported or its index rewritten.
+The strict source audit verifies 31 ability-template revisions, including both
+independently pinned Rell W forms, six exact versioned binaries, 49 distinct
+game objects across 49 source records and 126 exact excerpts.
+There are no separate pet-article pins in this batch. Every full raw revision is
+retained, original primary values are preserved, and unpromoted evidence is not
+accepted. All 3,314 focused tests pass. The final unfiltered serial suite records
+6,075 passes, the same two retained draft winner failures and five existing
+skips. Both TypeScript projects, final provenance freshness, the production build,
+252 Darius directions, 30 directions among the six new champions and all 17 browser
+groups pass. Browser live fallback checks cover all 126 rivals and seven source
+pages at 390-pixel phone width. Each new kit preserves its own casts, resources,
+contacts, control and actual-body lifecycle. Conditional ally effects use real
+eligible bodies; missing allies, farm history and unsourced timing remain explicit
+limits in the individual audits. Private packaging requires archive integrity,
+five actual startup checks and preservation of all twelve previous previews
+before publication.
+
+The thirteenth batch implements Janna, Karma, Lulu, Nami, Sona and Soraka.
+Coverage is 133 of 173 champions, leaving 40. All 8,778 unordered pairs were
+freshly computed under fingerprint `1c41a50f…` with four production workers,
+starting with zero checkpoints. Every raw saved worker index matches that fresh
+invocation's canonical dispatch; no checkpoint was imported or its index rewritten.
+The strict source audit verifies 33 ability-template revisions, including the
+three independently pinned Karma Mantra forms, six exact versioned binaries, 100 distinct
+game objects across 115 source records and 115 exact excerpts.
+There are no separate pet-article pins in this batch. Every full raw revision is
+retained, original primary values are preserved, and unpromoted evidence is not
+accepted. All 3,754 focused tests pass. The actual unfiltered serial suite records
+6,526 passes, two retained draft winner failures, one exhaustive-search timeout
+and five existing skips. A subsequent retest of the complete seven-test browser
+file passes all seven tests. Distinct assertion coverage across those two commands
+is 6,527 passes, two retained failures and five skips; this is a derived count,
+not a passing unfiltered suite. The CI harness explicitly revises wall-clock
+allowances to 30 seconds by default, 180 seconds for the golden-search driver and
+900 seconds for the complete browser variant search. All result assertions and
+model inputs remain intact; earlier timing failures are preserved. Both TypeScript projects, final provenance freshness, the production build,
+264 Darius directions, 30 directions among the six new champions and all 17 browser
+groups pass. Browser live fallback checks cover all 132 rivals and seven source
+pages at 390-pixel phone width. Each new kit preserves its own casts, resources,
+contacts, control and actual-body lifecycle. Conditional ally effects use real
+eligible bodies. Shared rules retain shield-dependent and CC-dependent stats,
+exact per-shield absorption, paid target cancellations and real pet declarations.
+Hook-created uncertain packets use normal branch-local skillshot forks; actual
+ground delays, recipient health expiry and centered contacts keep their own clocks.
+Missing allies, farm history and unsourced timing remain explicit
+limits in the individual audits. Private packaging requires archive integrity,
+five actual startup checks and preservation of all thirteen previous previews
+before publication.
+
+The fourteenth batch implements Hwei, Orianna, Ryze, Syndra, Taliyah and Viktor.
+Coverage is 139 of 173 champions, leaving 34. All 9,591 unordered pairs were
+freshly computed under fingerprint `d2a43aca…` with four production workers,
+starting with zero checkpoints. Every raw saved worker index matches that fresh
+invocation's canonical dispatch; no checkpoint was imported or its index rewritten.
+The strict source audit verifies 40 ability-template revisions and one separately
+pinned Orianna Ball article, six exact versioned binaries, 85 distinct game
+objects across 85 source records and 169 exact excerpts. Every full raw
+revision is retained, original primary values are preserved, and unpromoted
+evidence is not accepted. All 4,327 focused tests pass. The actual unfiltered
+serial suite records 7,091 passes, precisely two retained draft winner failures
+and five existing skips out of 7,098 assertions; its process exits with failure.
+All 6,534 previous assertion identities are retained, including all 6,527
+previously passing assertions. The exhaustive Heimerdinger–Udyr case passes in
+118.862 seconds within the existing 900-second allowance. All five current
+golden files and the existing test harness remain byte-for-byte unchanged from
+the start of batch 14. Both TypeScript projects, final provenance freshness, the
+production build, 276 Darius directions, 30 directions among the six new champions
+and all 17 browser groups pass. Browser live fallback checks cover all 138 rivals,
+with three new live matchups and seven source pages at 390-pixel phone width.
+The actual phone screenshot was visually inspected. The kits retain actual body
+and pet identities, cast and resource clocks, vector origins, per-packet recipient
+snapshots and finite spell histories. Shared movement notifications preserve
+accepted transitions and completed landing effects. Missing allies, farm history,
+unsupported lateral geometry and unsourced timing remain explicit limits in the
+individual audits. A separate legacy review corrects Wukong's Nimbus Strike:
+protected attacks keep their windup and timer, ordinary basic attacks still stop,
+and unrelated or already launched attacks remain independent. Its five primary
+records and original game excerpts are preserved. The separately pinned
+Uncancellable windup revision 4072133 and exact Cyclone interaction note are
+restored; 42 old game fields are checked exactly. Private packaging requires archive integrity, five actual
+startup checks and preservation of all fourteen previous previews before publication.
+
+The fifteenth batch implements Neeko, Swain, Twisted Fate, Vex, Xerath and Zoe.
+Coverage is 145 of 173 champions, leaving 28. All 10,440 unordered pairs were
+freshly computed under fingerprint `244198f8…` with four production workers,
+starting with zero checkpoints. Every raw saved worker index matches that fresh
+invocation's canonical dispatch; no checkpoint was imported or its index rewritten.
+The strict source audit verifies 31 original ability-template revisions, 3 separately pinned
+supplemental wiki revisions and six exact
+versioned binaries, 61 distinct game objects across 63 source
+records and 87 exact excerpts. Full raw revisions are retained, original
+primary values are preserved, and unpromoted evidence is not accepted.
+All 4,766 focused tests pass. The actual unfiltered serial suite records 7,542
+passes, precisely two retained draft winner failures and five existing skips out
+of 7,549 assertions; its process exits with failure. All 7,098 previous assertion
+identities are retained, including all 7,091 previously passing assertions. The
+exhaustive Heimerdinger–Udyr case passes in 134.297 seconds within the
+existing 900-second allowance. All five current golden files and the existing
+test harness remain byte-for-byte unchanged from the start of batch 15.
+Both TypeScript projects, final provenance freshness, the production build,
+288 Darius directions, 30 directions among the six new champions and all 17
+browser groups pass. Browser live fallback checks cover all 144 rivals, with
+three new live matchups and seven source pages at 390-pixel phone width.
+Root inspected the actual final phone screenshot. The individual audits retain
+source restrictions, gameplay assumptions and unsupported mechanics. Actual farm,
+allies and spell histories are required where an ability depends on them.
+Private packaging requires archive integrity, five actual startup checks and
+preservation of all fifteen previous previews before publication.
+
+On 30 October batches 7 to 15 were merged into this branch on the 91-kit import they
+grew from, keeping this branch's own Gragas, Hecarim, Warwick and Wukong, the Yasuo
+review and the item work. Coverage is 145 of 173 champions, with 28 remaining and
+10,440 unordered pairings. All 10,440 pairs were computed under fingerprint
+`3f852499…`; a container restart stopped the refresh once, and it resumed from 4,746
+verified checkpoints of that fingerprint. The 19,740 directed entries without Gragas,
+Hecarim, Warwick or Wukong match the private build's matrix exactly; the 1,140 with
+them differ because those four are this branch's kits. The full suite passes: 7,473
+tests pass and the five existing ones are skipped. The production build passes too.
+Validation is recorded in [ACCURACY.md](ACCURACY.md).
 
 Each batch must read pinned source values, check meaningful damage/timing/counterplay
 cases, exercise ordinary behavior, regenerate all affected duels, and pass type/build
@@ -126,6 +341,16 @@ layout has no page overflow. Existing timeout limits and fixture expectations ar
 unchanged. Evidence for that snapshot and current batch validation is recorded in
 [ACCURACY.md](ACCURACY.md).
 
+The seventh batch implements Akshan, Aphelios, Graves, Kindred, Senna and Zeri.
+All 4,656 unordered pairs were freshly generated under fingerprint `f5ee5ef4…`.
+The final serial suite has 3,877 passes, the two retained draft winner failures and
+five existing skips. All 539 focused tests, types, freshness and production build
+pass. Strict production reflection covers 192 Darius directions and 30 directions
+among the new champions. All 17 browser groups pass, including 96 complete live
+fallback rankings and seven source pages at phone width. The private compiled/source
+package requires exact integrity checks and five startup checks before publication.
+Evidence and remaining modeling limits are recorded in [ACCURACY.md](ACCURACY.md).
+
 ## 1. What we're building
 
 A static web app for top lane. You pick the enemy champion, and it ranks every champion in the game by how well its **kit** beats the enemy's kit in a **1v1 at level 20**. Every result explains itself down to individual ability interactions.
@@ -134,12 +359,12 @@ A static web app for top lane. You pick the enemy champion, and it ranks every c
 
 | Rule | Detail |
 |---|---|
-| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells, with one exception: Udyr's Triple Tonic (§4.1). Correctness is checked with hand-written tests (§8), not statistics. M8 (planned, §13) adds items and runes. |
+| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells, with one exception: Udyr's Triple Tonic (§4.1). Correctness is checked with hand-written tests (§8), not statistics. M8 (in progress, §13) adds items and runes. |
 | Level 20 | Completing the Top Lane Role Quest raises the level cap from 18 to 20, so both champions are level 20. Base stats keep growing through level 20. Effects that scale with champion level use the game's own formulas, which say whether they keep growing past 18 or cap there. Skill points work differently for Udyr (§4.1). |
 | Pure 1v1 | No draft, teammates, jungler or lane phases, and no early-game power spikes. |
 | Any champion | You can play every champion, so all 173 are candidates. The enemy can also be any champion; champions the client tags as top lane are listed first. |
 | Static web app | No backend, accounts or API keys. |
-| Stat budget | Both champions get the same amount of gold, as plain stats only (§10). M8 (planned) spends it on items instead and keeps plain stats as a setting. |
+| Stat budget | Both champions get the same amount of gold, as plain stats only (§10). M8 (in progress) replaces it with full item builds and keeps plain stats as a setting. |
 
 ## 2. How a counter is decided
 
@@ -349,7 +574,7 @@ Every pairing (173 × 172) is precomputed for the default settings at build time
 | M5 | Behavior wave 1 (about 25 top laners you choose, e.g. the ones you face most) and golden matchups | Golden tests pass and you've reviewed the results. |
 | M6 | Web app on GitHub Pages | Picker, matchup page, kit page and settings are live. |
 | M7 | Behavior waves 2 and 3 | All remaining top-lane champions, then all 173, are simulated. |
-| M8 | Items and runes (planned, §13) | Every matchup plays the item build and rune page found best for each side against the other's, and every item and rune has wiki evidence and tests. |
+| M8 | Items and runes (in progress, §13) | Every matchup plays the item build and rune page found best for each side against the other's, and every item and rune has wiki evidence and tests. |
 | M9 | Patch automation | A scheduled job refetches the data, rebuilds, runs the tests, and opens a PR with a diff report. |
 
 ## 10. Stat budget at level 20 (decided)
@@ -362,7 +587,7 @@ With zero items, ability ratios (AP, bonus AD, bonus HP) would add nothing at le
 
 A slider runs from 0 gold (pure kit) up to a full build. The default is 15,000 gold, about what a top laner has when the role quest takes it to level 20 (set in M4; see §13).
 
-M8 (planned, §13) replaces plain stats with item builds and rune pages; plain stats stay available as a setting.
+M8 (in progress, §13) replaces plain stats with item builds and rune pages; plain stats stay available as a setting.
 
 ## 11. Tech and layout
 
@@ -651,18 +876,33 @@ web/        the app
 - **Tests.** 744 pass and 5 are skipped (the disputed golden matchups). New: every wave-2 kit's values from the wiki and its fights, tick by tick; the engine additions on synthetic kits; both sides' kit options in matchups, in the build and in the browser.
 - **Known gap: quoted restrictions can go untested.** A kit quoting a wiki rule ("Trial by Fire cannot be applied with Parrrley nor Powder Keg") only checks that the sentence is still on the wiki; the kit's code enforces the rule, and a test may or may not. Breaking the four restrictions Akali, Ambessa and Aurora quote, in eight ways one at a time (attacks that don't break stealth, or break it at the wrong point of the windup; Ambessa acting while she holds the enemy), failed no test, and seven of the eight changed matchup results: with Ambessa able to attack while she holds the enemy, her loss to Gnar (−0.56) becomes a win (+0.76). Before wave 3: a test for each quoted restriction, each shown to fail when its rule is broken, then a full audit of the 49 kits.
 
-### M8: items and runes (planned)
+### M8: items and runes (in progress)
 
 It starts once all 173 champions have kits; at the M7 pace (46 kits from 14 to 20 October) the last 78 take about two weeks. M8 itself is about 5 to 7 weeks of work. Each matchup then plays the item build and rune page found best for each side against the other's, instead of plain stats.
 
+Progress (20 October, while the remaining kits are written elsewhere):
+
+- **Item data, done.** `npm run fetch -- --only items` and `npm run build:items` write the catalog to `items.json` and `reports/items.md`. It holds the 106 finished items, the 7 tier-2 boots and the 3 transformed Tear items, with each effect's notes and values by level, and the wiki rule pages item effects quote (`--only item-rules`).
+- **Item effects, done.** Every item's effects are modeled from its wiki text, or left out with a reason (`items/`, `reports/item-effects.md`): 99 item modules, and 12 items whose effects can't act in a duel (allies, takedowns, summoner spells, other enemies). `npm run duel -- A B --items "..." --enemy-items "..."` plays a matchup with fixed builds. With both builds fixed, a matchup's six scenarios take 0.25 to 0.85 s.
+- **Not yet:** runes, the build search, and the precomputed matrix with builds. Until the matrix uses items, they stay out of the simulation fingerprint, which is unchanged (`248fa67b`).
+
+See ACCURACY.md for the validation.
+
 - **What changes.**
   - Two ground rules (§1): items and runes join the kits. The plain-stat budget (§10) becomes a setting, so the kit-only view stays available.
-  - Builds are full (decided on 20 October): six finished items without boots, or five with one of the seven tier-2 boots. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
-- **Item data and behavior** (about 2 weeks).
-  - Only the stat prices (Module:Gold value) are fetched now. The catalog for patch 26.20 (Data Dragon 16.20.1, purchasable on Summoner's Rift) is 106 finished items (105 at 2,000 gold or more, plus Mejai's Soulstealer) and 7 tier-2 boots. Left out: trinkets, consumables, starters, components, basic Boots, the 7 tier-3 boots (free upgrades), the 5 support quest upgrades, items only one champion can buy, and 33 copies the data carries for other modes.
-  - The search uses all 106 items for now. Fetch and parse them: their stats, passives, actives and unique effects, pinned to wiki revisions and cross-checked against the game files, as abilities are (M2).
-  - The engine needs stacking passives, shared effects such as Spellblade, item cooldowns and haste.
-  - Actives need behavior that decides when to use them (Zhonya's Hourglass). Every rule an item quotes gets a test, as kits' rules do.
+  - Builds are full: six finished items without boots, or five with one of the seven tier-2 boots. The two formats are a toggle (decided on 20 October): a search plays one of them, for both sides (`pipeline/items/rules.ts` `BUILD_FORMATS`), and the app gets the switch. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
+- **Item data and behavior** (done on 20 October).
+  - The catalog for patch 26.20 (Data Dragon 16.20.1, purchasable on Summoner's Rift) is 106 finished items (105 at 2,000 gold or more, plus Mejai's Soulstealer) and 7 tier-2 boots. Left out: trinkets, consumables, starters, components, basic Boots, the 7 tier-3 boots (free upgrades), the 5 support quest upgrades, items only one champion can buy, and 33 copies the data carries for other modes.
+  - Items put their stats, passives and actives on a champion's kit through the engine's extension points, without changing the engine (`items/equip.ts`). Shared mechanics: Spellblade, Lifeline, Energized, Annul, Immolate, combat status, ultimate and basic ability haste, decaying shields.
+  - Actives are abilities the default behavior casts: it saves Zhonya's Hourglass for the threats stasis answers, as kits' defenses are.
+  - Actives can be used under any crowd control but knock-ups and stuns (suppression, sleep and stasis count as stuns), and the cleanse item (Mercurial Scimitar) under stuns too, never knocked up (confirmed on 20 October). The wiki stops items under every cast-inhibiting type, silence included; kit abilities keep that rule.
+  - Stacks a game gathers are options with stated defaults: Tear items are stacked and transformed, Yun Tal Wildarrows and Rod of Ages are fully stacked, and Mejai's Soulstealer and Heartsteel have none.
+  - What the engine can't express yet, to fix with the next matrix refresh (each changes the fingerprint):
+    - Randuin's Omen's Resilience: the damage hooks can't tell a critical outcome from an ordinary one.
+    - Heal and shield power, shields received (Spirit Visage) and champion size.
+    - Actualizer's doubled costs and faster cooldowns.
+    - Tenacity groups: the wiki adds the groups (Mercury's Treads' 30% and Courage's 60% are 90%); the engine multiplies them (72%).
+    - The engine's own stasis state lets a unit act (Lissandra's Frozen Tomb on herself). Item stasis stops attacks, walking and casts itself.
 - **Runes** (about 1 week).
   - `runes.json` holds only Triple Tonic. Fetch the rest: about 60 runes and the stat shards.
   - About half matter in a level-20 1v1. The others are recorded as having no effect, with the reason.
@@ -674,9 +914,14 @@ It starts once all 173 champions have kits; at the M7 pace (46 kits from 14 to 2
   - Hydras: Ravenous, Titanic and Profane Hydra, and Stridebreaker;
   - Sunfire Aegis or Hollow Radiance; Mortal Reminder or Morellonomicon (Grievous Wounds); Banshee's Veil or Edge of Night (Annul).
   - The Tear items (Manamune, Archangel's Staff, Winter's Approach) can be combined.
-  - That leaves 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots: 2,200,429,355 per side.
+  - That leaves 1,538,705,768 builds per side with six items, or 661,723,587 with five items and boots, by the toggle.
+  - These rules stand (kept on review, 20 October), and `pipeline/items/rules.ts` gives them to the build search; `items.json` counts the builds above from the catalog. The game file's own caps, which the wiki's limits match (`reports/items.md`), differ in three places:
+    - The Tear items are one per build (TearItems), and so are Archangel's Staff and the Lifeline items.
+    - Mortal Reminder and Morellonomicon can be combined.
+    - Penetration is two groups, both with Terminus: Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge and Black Cleaver (LastWhisper), and Void Staff, Cryptbloom and Bloodletter's Curse (VoidPen).
+  - Under the game file's caps there would be 1,510,649,782 or 653,589,622 builds per side.
 - **Build and rune search** (1 to 2 weeks).
-  - Each side has about 2.2 billion builds and about a million rune pages. Fighting every pairing would take about 15 billion processor-years per matchup, so nothing is searched exhaustively.
+  - Each side has about 1.5 billion builds with six items, or 0.66 billion with five items and boots, and about a million rune pages. Fighting every pairing of builds alone, at about 0.1 s a pairing, would take about 7.5 billion processor-years per matchup with six items (1.4 billion with boots), so nothing is searched exhaustively.
   - Per champion, the search drops items its kit can't use and items another beats on every stat it uses, at the same price or less. For hybrids such as Kai'Sa and Kog'Maw this removes little, which the steps below don't depend on.
   - The quick estimate, like today's stat budget (about 23 µs a build), assembles builds slot by slot. It keeps the best 50 partial builds and tries one- and two-item swaps, so thresholds such as Kai'Sa's evolutions can be crossed.
   - So that it doesn't settle on one route: it starts once from each usable finished item, keeps the best few builds of each profile (mostly AP, attack speed, crit or tank), and restarts from random swaps.

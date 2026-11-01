@@ -187,6 +187,17 @@
     "notes": [
       "If Graves dashes while reloading, he can cast any of his abilities during the dash.",
       "Graves gains the one additional stack of True Grit from Quickdraw if at any point during the dash a visible enemy champion is in front of Graves within 1300 distance.\n  - Enemy champions have to be targetable to grant the additional stack.\n  - The additional stack of True Grit is gained when dashing towards clones just like actual champions.\n  - This check never happens if Graves dashes 0 distance (impossible outside of bugs), and will not always repeat a final time at the very end of the dash. Otherwise, it occurs continously while Graves is dashing.\n  - This works for a 180 degree sector from Graves to the Champion, as such dashing parallel to the champ will also give a bonus stack."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesMoveAbility/GravesMove",
+        "text": [
+          "mSpell.DataValues[DashSpeed].values: [750.0,750.0,750.0,750.0,750.0,750.0,750.0]"
+        ]
+      }
     ]
   },
   {
@@ -509,6 +520,30 @@
       "Sundered Sky Lightshield Strike will function normally with Graves' basic attacks, causing the pellets to critically strike if the primary target was also a target of the item's effect.\n  - If none of the pellets hit the target of Lightshield Strike's effect, however, the item's effect will not be consumed on the target thus not triggering the heal nor applying the on-target-cooldown, but still causing Graves' basic attack to critically strike as if the effect was successfully consumed.\n    - His basic attacks against the marked target will be guaranteed to critically strike until the item's effect has been consumed by at least one pellet hitting them.\n  - Pellets will not consume the item's effect on secondary targets that are also targets of the item's effect; they will not consume the mark of enemies near the primary target that are marked by Lightshield Strike.",
       "Randuin's Omen Resilience will reduce the critical damage dealt by every pellet, resulting in each pellet dealing less damage than if they were to not critically strike.",
       "Kraken Slayer Bring It Down VFX for its missile appears to fire at the primary target, but will always collide with the target hit by the first pellet."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesPassiveAbility/GravesPassive",
+        "text": [
+          "mSpell.mSpellCalculations.MultiBulletDamage.mMultiplier.mNumber: 0.3330000042915344"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Graves/New Destiny",
+          "revid": 4038342
+        },
+        "text": [
+          "Maximum reload speed formula tooltip: 0.65114 + (0.89119 - 0.65114) / 17 * (x - 1). Formula decimals are estimated to match the ingame rounded values.",
+          "Reload Speed Cap is 0.65114 to 0.89119 (based on level); shortest reload timer is 1 / Reload Speed Cap at the 150% threshold.",
+          "Critical strikes footnote: each pellet deals increased damage equal to 50% bonus critical damage."
+        ]
+      }
     ]
   },
   {
@@ -743,6 +778,35 @@
       "Wind Wall will destroy the projectile entirely and mitigate all effects, including the trail on the ground.",
       "Unbreakable is considered to be terrain for the purposes of the projectile, triggering its second effect.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesQLineSpellAbility/GravesQLineMis",
+        "text": [
+          "mSpell.missileSpeed: 3000.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesQLineSpellAbility/GravesQReturn",
+        "text": [
+          "mSpell.missileSpeed: 1600.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesQLineSpellAbility/GravesQLineSpell",
+        "text": [
+          "mSpell.DataValues[TerrainCollisionDelay].values: [0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224]"
+        ]
+      }
     ]
   },
   {
@@ -1157,6 +1221,29 @@
       "Crowd control immunity and cleanses have no effect on the user's sight radius reduction despite the nearsight being resisted / removed. Loss of allied vision will still be affected.\n  - Removing or resisting the nearsight will prevent it from being reapplied while staying inside the area (leaving and coming back inside will not).",
       "The nearsight debuff applies to non-champions but it does not inherently stop them from performing actions that require sight, such as basic attacking.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Graves/Smoke Screen",
+          "revid": 4067475
+        },
+        "text": [
+          "Smoke Screen speed tooltip: 1500. Starts traveling at the start of the cast time.",
+          "Smoke Screen sight radius tooltip: 250 units. Estimated."
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesSmokeGrenadeAbility/GravesSmokeGrenade",
+        "text": [
+          "mSpell.DataValues.SmokeRadius.values: [200.0,200.0,200.0,200.0,200.0,200.0,200.0]"
+        ]
+      }
     ]
   }
 ]

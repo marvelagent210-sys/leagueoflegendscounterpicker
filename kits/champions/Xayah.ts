@@ -5,6 +5,7 @@ import { canCast, EPSILON, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
 import { abilityHit, abilityHitPet, applyEffect, directionTo, inStasis, isUntargetable } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
+import { interceptProjectile } from "../../engine/sim/projectileIntercept";
 import { projectileBlocked } from "../../engine/sim/projectileBlock";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
@@ -77,14 +78,35 @@ const xayah: KitModule = {
       const t = length2 > EPSILON * EPSILON ? Math.max(0, Math.min(1, ((x - ax) * dx - ay * dy) / length2)) : 0;
       return Math.hypot(ax + dx * t - x, ay + dy * t) <= radius + EPSILON;
     };
+    const tryFanIntercept = (ctx: HookContext, m: Missile, toX: number, toY: number) => {
+      m.interceptable = false;
+      const fromY = Number(ctx.memory[yKey(m.id)] ?? 0), radius = (m.source === "Ereturn" ? eWidth / 2 : rRadius) + ctx.enemy.spec.base.radius;
+      const dx = toX - m.x, dy = toY - fromY, ox = m.x - ctx.enemy.x, a = dx * dx + dy * dy, c = ox * ox + fromY * fromY - radius * radius;
+      let entry = 0;
+      if (c > EPSILON) {
+        if (a <= EPSILON * EPSILON) return false;
+        const b = 2 * (ox * dx + fromY * dy), discriminant = b * b - 4 * a * c;
+        if (discriminant < 0) return false;
+        entry = (-b - Math.sqrt(discriminant)) / (2 * a);
+        if (entry < -EPSILON || entry > 1 + EPSILON) return false;
+        entry = Math.max(0, Math.min(1, entry));
+      }
+      const point = m.x + dx * entry;
+      ctx.memory[`xayah:interceptY:${m.id}`] = fromY + dy * entry;
+      m.interceptable = true;
+      const intercepted = interceptProjectile(ctx.world, m, m.x, toX, point);
+      m.interceptable = false;
+      delete ctx.memory[`xayah:interceptY:${m.id}`];
+      return intercepted;
+    };
     const contactSegment = (ctx: HookContext, m: Missile, fromX: number, fromY: number, toX: number, toY: number) => {
           const radius = m.source === "Ereturn" ? eWidth / 2 : rRadius, spec = m.source === "Ereturn" ? recall : rFeather, share = Number(ctx.memory[`xayah:share:${m.id}`] ?? 1);
           if (share > 0 && ctx.enemy.alive && !inStasis(ctx.enemy) && !isUntargetable(ctx.enemy, ctx.self) && !m.hitTargets?.includes(ctx.enemy.side) && cross(fromX, fromY, toX, toY, ctx.enemy.x, radius + ctx.enemy.spec.base.radius)) {
-            (m.hitTargets ??= []).push(ctx.enemy.side); abilityHit(ctx.world, ctx.self, ctx.enemy, spec, m.onHit, share);
+            (m.hitTargets ??= []).push(ctx.enemy.side); abilityHit(ctx.world, ctx.self, ctx.enemy, spec, m.onHit, share, fromX);
           }
           for (const pet of [...ctx.world.pets]) {
             if (pet.owner === ctx.self.side || pet.hp <= 0 || pet.spec.hitPoints || pet.spec.untargetable || isUntargetable(petFormulaTarget(pet, ctx.self, ctx.tick), ctx.self) || m.hitPets?.includes(pet.id) || !cross(fromX, fromY, toX, toY, pet.x, radius + pet.spec.radius)) continue;
-            (m.hitPets ??= []).push(pet.id); abilityHitPet(ctx.world, ctx.self, pet, spec, m.onHit, "area");
+            (m.hitPets ??= []).push(pet.id); abilityHitPet(ctx.world, ctx.self, pet, spec, m.onHit, "area", 1, fromX);
           }
     };
     const abilities: AbilitySpec[] = [
@@ -106,12 +128,12 @@ const xayah: KitModule = {
       }
       return ordinary;
     };
-    kit.assume("Clean Cuts stores scalar per-world stacks, starts empty, grants 3 per completed Q/W/E/R cast, caps at 5 and expires 8 seconds after the last grant. A stack is consumed at windup declaration even if that attack later misses or is cancelled. The primary remains a homing ordinary attack at 4000 speed; after actual contact, the same logical feather continues along the current axis to 1000 from Xayah's impact-time position, without hitting that primary twice. Projectile-wall destruction prevents a new planted feather. If the primary has moved beyond 1000, it plants at the primary immediately. Basic blind/dodge/parry still deny primary damage while an already launched physical feather can continue.");
+    kit.assume("Clean Cuts stores scalar per-world stacks, starts empty, grants 3 per completed Q/W/E/R cast, caps at 5 and expires 8 seconds after the last grant. A stack is consumed at windup declaration even if that attack later misses or is cancelled. The primary remains a homing ordinary attack at 4000 speed; after actual contact, the same logical feather continues along the current axis to 1000 from Xayah's impact-time position, without hitting that primary twice. Projectile-wall destruction and directional interception prevent a new continuation or planted feather from the destroyed original projectile. If the primary has moved beyond 1000, it plants at the primary immediately. Basic blind/dodge/parry still deny primary damage while an already launched physical feather can continue.");
     kit.assume("Planted feathers last 6 seconds, have individual ground positions and expire exclusively at their deadline. All planted feathers are removed at actual lethal death, and outbound projectiles cannot plant new feathers while Xayah is dead. A previously launched E return may still deal damage. No imaginary Rakan, recall companion, ward, structure or item interaction is created.");
     kit.assume("Double Daggers has max(0.1, 0.25 − 0.07 × bonus AS) cast time from the exact raw-template formula, with ordinary 30 Hz rounding. Two 3500 speed piercing daggers use the version-pinned root DataValues; the separate 400 speed missile objects appear inconsistent, so the runtime choice is disclosed. Their relative 0.25 second spacing is the difference between the two pinned animation-delay values; first launch is at cast completion. Both use the 100 width body on the duel axis; lateral origin offsets and the unsized initial formation-area contact are not invented. Each dagger independently falls to 50% damage after its first actual enemy contact, and a spell shield blocks only that dagger.");
     kit.assume("Deadly Plumage gives 55% AS for 4 seconds. Successful attacks declared during it launch a separate 3000 speed 25%-of-basic-physical strike and grant 30% MS for 1.5 seconds on champion contact; its raw basic damage inherits the triggering attack's averaged critical factor without applying on-hits or critting a second time. W cast during an already flying attack adds the strike but not movement speed. The supplemental missile is launched from Xayah on the primary's successful contact; exact undocumented script launch geometry is an approximation. Blind, dodge, parry and damage block conservatively prevent the supplemental strike; the wiki leaves dodge/block interactions unresolved.");
     kit.assume("Bladecaller requires an actual unexpired planted feather, costs 20, waits the pinned 0.25 second return delay and returns each feather at 4000 speed toward Xayah's current position. Feathers already in flight at E declaration are tagged and recall only after landing, while subsequently launched feathers are excluded. Each actual return checks independent projectile walls, spell shields, parry and spatial overlap. Accepted contacts receive per-target/per-E falloff 100/95/90…floor 10%, with 1 + 0.5 × critChance × (critDamage − 1) exact pinned scaling, and the third accepted feather roots 1.25 seconds. Only pets explicitly classified as minions by their pinned pet records receive the additional 50% minion multiplier; unknown summons and champion clones are not guessed to be minions. A spell-shielded feather is conservatively excluded from the three accepted-hit counter because the available note specifies only a single blocked damage instance. Champion sidesteps are expected shares per return; the combination of every fan feather is not independently branch-enumerated.");
-    kit.assume("Featherstorm keeps its 1.5 second untargetable/ghosted/no-attacks/no-other-casts mobile phase and fires after 1 second. The pinned client RUntargetable value is 1.25, a documented conflict resolved in favor of the explicit wiki 1.5. Five feathers are equally spaced across the sourced 30 degree cone, an explicit geometry approximation, with 1000 effective outward length and 4000 speed. Actual 2D fan positions are retained for recall, while champion movement remains on the duel axis. Each target receives at most one R damage packet; this prevents the five projectiles becoming five times the listed damage. The unsourced rear launch offset behind Xayah is not invented; the wiki 1060/1000 effective-reach distinction remains a limitation.");
+    kit.assume("Featherstorm keeps its 1.5 second untargetable/ghosted/no-attacks/no-other-casts mobile phase and fires after 1 second. The pinned client RUntargetable value is 1.25, a documented conflict resolved in favor of the explicit wiki 1.5. Five feathers are equally spaced across the sourced 30 degree cone, an explicit geometry approximation, with 1000 effective outward length and 4000 speed. Actual 2D fan positions are retained for recall, while champion movement remains on the duel axis. Directional interception requires a confirmed two-dimensional body contact, retains that real collision packet, and terminates the original feather without planting it. Returning packets use their actual traveled-from coordinate for directional defenses. Each target receives at most one R damage packet; this prevents the five projectiles becoming five times the listed damage. The unsourced rear launch offset behind Xayah is not invented; the wiki 1060/1000 effective-reach distinction remains a limitation.");
     kit.assume("The budget includes only capped W attack-speed uptime and its 25% strike, two Q damage packets per cycle, and a finite E feather supply from Q, capped Clean Cuts attacks and only one central R feather. Its E reference applies the real diminishing-return sum and critical factor, excludes fake preplanted feathers, and does not value guaranteed five-feather fan overlap or allied Rakan damage.");
     return {
       attack: { ranged: true, projectile: true, missileSpeed: basicSpeed, onHitToPets: true }, abilities, behavior,
@@ -160,18 +182,35 @@ const xayah: KitModule = {
         },
         onMissileTick(ctx) {
           const m = ctx.missile;
+          if (m.source === "Rfeather") {
+            const to = m.x + m.direction * Math.min(m.perTick, m.travelLeft), fromY = Number(ctx.memory[yKey(m.id)] ?? 0);
+            tryFanIntercept(ctx, m, to, fromY + (to - m.x) * Number(ctx.memory[`xayah:slope:${m.id}`] ?? 0));
+            return;
+          }
           if (m.source !== "Ereturn") return;
+          m.interceptable = false;
           if (ctx.tick < Number(ctx.memory[`xayah:returnAt:${m.id}`])) { m.followOwner = false; m.perTick = 0; return; }
           const dx = Math.abs(ctx.self.x - m.x), y = Number(ctx.memory[yKey(m.id)] ?? 0), length = Math.hypot(dx, y);
           if (dx <= EPSILON) {
             if (projectileBlocked(ctx.world, ctx.self.side, m.x, m.x)) { m.ended = true; return; }
             const toY = Math.sign(y) * Math.max(0, Math.abs(y) - eSpeed / 30);
+            if (tryFanIntercept(ctx, m, m.x, toY)) return;
             contactSegment(ctx, m, m.x, y, m.x, toY); ctx.memory[yKey(m.id)] = toY;
             m.followOwner = false; m.travelLeft = Infinity; m.perTick = 0;
             if (Math.abs(toY) <= EPSILON) m.ended = true;
             return;
           }
           m.followOwner = true; m.travelLeft = Infinity; m.perTick = eSpeed / 30 * dx / length;
+          const to = m.x + Math.sign(ctx.self.x - m.x) * Math.min(dx, m.perTick);
+          tryFanIntercept(ctx, m, to, y * Math.max(0, 1 - Math.abs(to - m.x) / dx));
+        },
+        onProjectileIntercept(ctx) {
+          const m = ctx.missile;
+          if (!["Rfeather", "Ereturn"].includes(m.source)) return false;
+          const fromY = Number(ctx.memory[yKey(m.id)] ?? 0), toY = Number(ctx.memory[`xayah:interceptY:${m.id}`] ?? fromY);
+          contactSegment(ctx, m, ctx.from, fromY, ctx.to, toY);
+          ctx.memory[yKey(m.id)] = toY;
+          return true;
         },
         onMissileMove(ctx) {
           const m = ctx.missile;
@@ -184,7 +223,7 @@ const xayah: KitModule = {
         onMissileContact(ctx) {
           const m = ctx.missile;
           if (m.source === "Q" || m.source === "Qsecond") m.onHit = [{ type: "damage", damageType: "physical", amount: scaled(qDamage, 1 - qFalloff) }];
-          if (m.source === "attack" && m.attack?.attackTag?.split(":")[2] === "1") {
+          if (m.source === "attack" && !m.intercepted && m.attack?.attackTag?.split(":")[2] === "1") {
             const direction = Number(ctx.memory[`xayah:lastDirection:${m.id}`] ?? m.direction) as 1 | -1, distance = (ctx.enemy.x - ctx.self.x) * direction;
             const fly = spawn(ctx, "Ifeather", ctx.enemy.x, direction, Math.max(0, pRange - distance), pSpeed, pWidth, [{ type: "damage", damageType: "physical", amount: { base: derive(ctx.self).ad * secondaryAD * (1 + (m.attack.critChance ?? derive(ctx.self).critChance) * (derive(ctx.self).critDamage - 1)) } }]);
             if (ctx.targetPet) fly.hitPets = [ctx.targetPet.id]; else fly.hitTargets = [ctx.enemy.side];
@@ -192,7 +231,7 @@ const xayah: KitModule = {
             if (Math.abs(ctx.enemy.x - ctx.self.x) >= pRange - EPSILON) { fly.ended = true; plant(ctx, fly); }
           }
         },
-        onMissileEnd(ctx) { if (["Q", "Qsecond", "Ifeather", "Rfeather"].includes(ctx.missile.source) && ctx.reason !== "blocked") plant(ctx, ctx.missile); },
+        onMissileEnd(ctx) { if (["Q", "Qsecond", "Ifeather", "Rfeather"].includes(ctx.missile.source) && ctx.reason !== "blocked" && ctx.reason !== "intercepted" && !ctx.missile.intercepted) plant(ctx, ctx.missile); },
         onZoneLand(ctx) {
           if (ctx.zone.ability !== "Qsecond") return;
           const direction = Number(ctx.zone.memory?.direction ?? directionTo(ctx.self, ctx.enemy)) as 1 | -1;

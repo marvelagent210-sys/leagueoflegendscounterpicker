@@ -113,7 +113,7 @@ const sivir: KitModule = {
         },
         onMissileEnd(ctx) {
           if (ctx.missile.source === "Wbounce") delete ctx.memory[`sivir:bounce:${ctx.missile.id}`];
-          if (ctx.missile.source !== "Q" || ctx.reason !== "range") return;
+          if (ctx.missile.source !== "Q" || ctx.reason !== "range" || ctx.missile.intercepted) return;
           const missile: Missile = { id: ctx.world.nextId++, owner: ctx.self.side, source: "Qreturn", seenTick: ctx.missile.seenTick, x: ctx.missile.x, perTick: qBackSpeed / 30, homing: false, followOwner: true, direction: ctx.self.x >= ctx.missile.x ? 1 : -1, travelLeft: Infinity, expiresTick: ticks(ctx.world.settings.maxSeconds), projectile: true, connects: true, scale: 1, piercing: true, collisionPet: true, radius: qBackWidth / 2, hitTargets: [], hitPets: [], onHit: qPacket() };
           const eta = missileArrivalTicks(missile, Math.max(0, Math.abs(ctx.enemy.x - missile.x) - ctx.enemy.spec.base.radius)); missile.scale = skillshotChance(ctx.world, ctx.enemy, missile.seenTick, eta / 30, qBackWidth / 2); ctx.world.missiles.push(missile);
         },
