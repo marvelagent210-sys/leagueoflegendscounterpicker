@@ -503,6 +503,19 @@ function value(self: Unit, enemy: Unit): number {
   return Math.log(Math.max(dps, 1e-9)) + Math.log(health(self, enemy, incoming)) - Math.log(Math.max(incomingDps, 1e-9));
 }
 
+/**
+ * The budget's objective for a unit against the enemy's (see the module comment): what the build
+ * search scores item builds with. Units come from budgetUnit.
+ */
+export function budgetValue(self: Unit, enemy: Unit): number {
+  return value(self, enemy);
+}
+
+/** A unit as the budget sees it: bought stats through the kit's multipliers, and its innate starts. */
+export function budgetUnit(spec: FighterSpec, side: 0 | 1): Unit {
+  return unitOf(valued(spec, spec.bonus ?? {}), side);
+}
+
 function validateBudget(gold: number, prices: StatPrices): void {
   if (!Number.isFinite(gold) || gold < 0) throw new RangeError("Stat budget must be finite and nonnegative");
   for (const stat of BUDGET_STATS) {

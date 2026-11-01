@@ -323,11 +323,43 @@ function permanent(item: string, statuses: Permanent[]): KitHooks {
   };
 }
 
-function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext, equip: EquipOptions, options: Record<string, Record<string, number>>, coverage: Map<string, ItemCoverage>): { spec: FighterSpec; enemyHooks: KitHooks[] } {
-  // The kit's ability names, in every form: an item of the same name labels its damage apart.
-  const reserved = new Set(Object.values(form.forms ?? { [form.name]: form }).flatMap((f) => f.abilities.map((ability) => ability.name)));
-  const items = build.map((record) => context.item(record, reserved));
-  const itemNames = new Set(items.map((item) => item.label));
+/** An item's shop stats, sorted by where the simulator keeps them. */
+interface ShopStats {
+  bonus: BonusStats;
+  /** Stats kept as statuses (percentage penetration, movement speed, life steal) and tenacity, in the stats' order. */
+  statuses: Permanent[];
+  critDamage: number;
+  omnivamp: number;
+  hp5: number;
+  mana: number;
+  mp5: number;
+  unmodeled: string[];
+}
+
+function shopStats(record: ItemRecord, form: FighterSpec): ShopStats {
+  const stats: ShopStats = { bonus: {}, statuses: [], critDamage: 0, omnivamp: 0, hp5: 0, mana: 0, mp5: 0, unmodeled: [] };
+  const usesMana = form.resourceType === "Mana";
+  for (const [key, value] of Object.entries(record.stats)) {
+    const bought = BONUS_STATS[key];
+    const status = STATUS_STATS[key];
+    if (bought) stats.bonus[bought[0]] = (stats.bonus[bought[0]] ?? 0) + value / bought[1];
+    else if (status) stats.statuses.push({ stat: status.stat, value: value / status.per });
+    else if (key === "critdamage") stats.critDamage += value / 100;
+    else if (key === "tenacity") stats.statuses.push({ state: "tenacity", value: value / 100 });
+    else if (key === "omnivamp") stats.omnivamp += value / 100;
+    else if (key === "hp5") stats.hp5 += value / 100;
+    else if (key === "mana" || key === "mp5") {
+      if (!usesMana) stats.unmodeled.push(`${key === "mana" ? "Mana" : "Mana regeneration"}: no effect, ${form.name} doesn't use mana.`);
+      else if (key === "mana") stats.mana += value;
+      else stats.mp5 += value / 100;
+    } else if (key === "hsp") stats.unmodeled.push("Heal and shield power: not modeled yet.");
+    else if (!OTHER_STATS.has(key)) throw new ItemDataError(record.name, `the simulator doesn't know the stat "${key}"`);
+  }
+  return stats;
+}
+
+/** What a build's items know about their holder, with the combat status and Energized pool they share once asked for. */
+function itemFighter(form: FighterSpec, build: ItemRecord[], context: ItemContext, itemNames: ReadonlySet<string>): { fighter: ItemFighter; shared: () => { combat?: CombatStatus; energized?: Energized } } {
   let combat: CombatStatus | undefined;
   let energized: Energized | undefined;
   const fighter: ItemFighter = {
@@ -348,6 +380,24 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
       return (energized = energizedPool({ full: rule.quoted("Energized is an effect of certain items and runes that grants Charges, up to 100."), perAttack: rule.quoted(gain), unitsPerCharge: rule.quoted(gain, 2) }));
     },
   };
+  return { fighter, shared: () => ({ ...(combat ? { combat } : {}), ...(energized ? { energized } : {}) }) };
+}
+
+/** The kit's ability names, in every form: an item of the same name labels its damage apart. */
+function reservedNames(form: FighterSpec): Set<string> {
+  return new Set(Object.values(form.forms ?? { [form.name]: form }).flatMap((f) => f.abilities.map((ability) => ability.name)));
+}
+
+/** An item module's options: its defaults, then the given choices. */
+function chosenOptions(module: ItemModule, given: Record<string, number> | undefined): Record<string, number> {
+  return { ...Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, option.default])), ...given };
+}
+
+function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext, equip: EquipOptions, options: Record<string, Record<string, number>>, coverage: Map<string, ItemCoverage>): { spec: FighterSpec; enemyHooks: KitHooks[] } {
+  const reserved = reservedNames(form);
+  const items = build.map((record) => context.item(record, reserved));
+  const itemNames = new Set(items.map((item) => item.label));
+  const { fighter, shared } = itemFighter(form, build, context, itemNames);
   const bonus: BonusStats = { ...form.bonus };
   const base: BaseStats = { ...form.base, attackSpeed: { ...form.base.attackSpeed }, windup: { ...form.base.windup } };
   const first: KitHooks[] = [];
@@ -365,28 +415,21 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     const leaveOut = (text: string) => {
       if (!notes.unmodeled.includes(text)) notes.unmodeled.push(text);
     };
-    for (const [key, value] of Object.entries(record.stats)) {
-      const bought = BONUS_STATS[key];
-      const status = STATUS_STATS[key];
-      if (bought) bonus[bought[0]] = (bonus[bought[0]] ?? 0) + value / bought[1];
-      else if (status) first.push(permanent(record.name, [{ stat: status.stat, value: value / status.per }]));
-      else if (key === "critdamage") critDamage += value / 100;
-      else if (key === "tenacity") first.push(permanent(record.name, [{ state: "tenacity", value: value / 100 }]));
-      else if (key === "omnivamp") omnivamp += value / 100;
-      else if (key === "hp5") regen.hp5 += value / 100;
-      else if (key === "mana" || key === "mp5") {
-        if (!fighter.mana) leaveOut(`${key === "mana" ? "Mana" : "Mana regeneration"}: no effect, ${form.name} doesn't use mana.`);
-        else if (key === "mana") base.resource += value;
-        else regen.mp5 += value / 100;
-      } else if (key === "hsp") leaveOut("Heal and shield power: not modeled yet.");
-      else if (!OTHER_STATS.has(key)) throw new ItemDataError(record.name, `the simulator doesn't know the stat "${key}"`);
-    }
+    const stats = shopStats(record, form);
+    addBonus(bonus, stats.bonus);
+    for (const status of stats.statuses) first.push(permanent(record.name, [status]));
+    critDamage += stats.critDamage;
+    omnivamp += stats.omnivamp;
+    regen.hp5 += stats.hp5;
+    base.resource += stats.mana;
+    regen.mp5 += stats.mp5;
+    for (const text of stats.unmodeled) leaveOut(text);
     const module = equip.modules[record.name];
     if (!module) {
       for (const effect of record.effects) leaveOut(`${effect.name ?? effect.slot}: not modeled yet.`);
       continue;
     }
-    const chosen = { ...Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, option.default])), ...options[record.name] };
+    const chosen = chosenOptions(module, options[record.name]);
     for (const [key, option] of Object.entries(module.options ?? {})) context.assume(`${record.name}: ${option.label}: ${chosen[key]}.`);
     options[record.name] = chosen;
     const definition = module.build(items[index]!, fighter, chosen);
@@ -423,6 +466,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     context.rule("Vamp", "Omnivamp").quote("Omnivamp is a stat which grants healing equal to a percentage of the post-mitigation physical damage, magic damage, and true damage dealt. It stacks additively and does not benefit from heal and shield power.");
     hooks.unshift(omnivampHooks(omnivamp));
   }
+  const { combat, energized } = shared();
   if (combat) hooks.unshift(combat.hooks);
   if (energized) hooks.push(energized.hooks);
   const haste = built.flatMap(({ definition }) => definition.haste ?? []);
@@ -464,6 +508,36 @@ export function equipItems(spec: FighterSpec, build: ItemRecord[], equip: EquipO
   context.seal();
   const evidence = context.evidence.filter((entry, i, all) => all.findIndex((other) => other.item === entry.item && other.effect === entry.effect && other.text === entry.text) === i);
   return { spec: equipped, enemyHooks, items: build, options, evidence, assumptions: context.assumptions, coverage: build.map((record) => coverage.get(record.name)!) };
+}
+
+/**
+ * What one item adds that the build search's quick estimate (items/estimate.ts) values: its shop
+ * stats and fixed passive stats, the stats it keeps as statuses of its own, its critical strike
+ * damage and its on-hit effects. Built for the item alone, so a passive that counts the rest of
+ * the build (Warmog's Vitality) sees only itself.
+ */
+export interface ItemParts {
+  item: string;
+  bonus: BonusStats;
+  statuses: Array<{ stat: BuffStat; value: number }>;
+  critDamage: number;
+  onHit: Effect[];
+}
+
+export function itemParts(spec: FighterSpec, record: ItemRecord, equip: EquipOptions): ItemParts {
+  const context = new ItemContext(equip.source);
+  const item = context.item(record, reservedNames(spec));
+  const stats = shopStats(record, spec);
+  const parts: ItemParts = { item: record.name, bonus: { ...stats.bonus }, statuses: [], critDamage: stats.critDamage, onHit: [] };
+  const stat = (status: Permanent): status is { stat: BuffStat; value: number } => "stat" in status;
+  parts.statuses.push(...stats.statuses.filter(stat));
+  const module = equip.modules[record.name];
+  if (!module) return parts;
+  const definition = module.build(item, itemFighter(spec, [record], context, new Set([item.label])).fighter, chosenOptions(module, equip.options?.[record.name]));
+  addBonus(parts.bonus, definition.bonus);
+  parts.statuses.push(...(definition.permanent ?? []).filter(stat));
+  parts.onHit.push(...(definition.onHit ?? []));
+  return parts;
 }
 
 /** Both sides of a matchup, each with the hooks the other's items put on it. */
