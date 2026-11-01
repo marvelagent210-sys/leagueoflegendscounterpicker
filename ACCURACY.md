@@ -1749,6 +1749,69 @@ seconds**: **7,473 passed** and the five existing tests were skipped, the Heimer
 full variant search included within its unchanged 180-second limit. `npm run build:web`
 passes.
 
+## Batches 16 to 19: the last 28 champions (173-kit snapshot), 31 October 2026
+
+Batches 16 to 19 were written in this repository after the merge above. They complete
+the roster: **173 of 173 champions** have kits, with **14,878 unordered pairings /
+29,756 directed entries**.
+
+- Batch 16: Briar, Lillia, Nidalee, Rek'Sai, Shyvana and Zac.
+- Batch 17: Bel'Veth, Elise, Kayn, Nilah, Pyke and Qiyana.
+- Batch 18: Fiddlesticks, Renata Glasc, Shaco, Sylas, Viego and Zilean.
+- Batch 19: Aurelion Sol, Azir, Bard, Ivern, Locke, Mel, Milio, Seraphine, Yunara and Yuumi.
+
+Each kit reads its values from the pinned ability records at level 20 and quotes the
+wiki for each rule it applies; a quote no longer on the wiki fails the build. Each has its
+own test file for its values and quoted restrictions, and passes the shared kit checks:
+every formula finite, budget hints still evaluable after the kit is sealed, and fights in
+which it deals damage and uses at least three abilities. What a duel can't hold is left
+out with a stated assumption on the kit page. Among them:
+
+- **Played alone.** With no ally, Yuumi can't attach, so You and Me! does nothing and her spells keep their unattached forms; Milio's shields and heals go on himself.
+- **Gathered over the game.** Aurelion Sol's Stardust (200) and Bard's Chimes (40) are kit options with those defaults.
+- **Two forms.** By level 20 Kayn has both forms, so like Udyr's rank split he plays whichever does better in the matchup.
+- **Rules from the wiki's tables.** Aurelion Sol stands still to breathe: by Breath of Light's channel table, moving, attacking or casting an ability ends it, so he opens with Singularity.
+- **One-dimensional lane.** Azir's soldiers stab only the enemy champion, and Emperor's Divide's wall spans the whole line, as Crystallize's does.
+
+The shared engine gained three things for them, none of which changes an earlier kit:
+
+- the kit reader finds an ability by its template page when two records share a name (Kayn's);
+- `fieldSeries` reads a field's raw series (Nilah's Formless Blade cast time, by bonus attack speed);
+- a channel's pulses can pass spell shields while its completion can't (Apotheosis: "Spell shield will only block the burst damage").
+
+`npm run build:data` also rebuilds the private workspace's curated ability evidence for its
+50 kits, so all 173 ability records rebuild from the downloads.
+
+Before the refresh, a smoke round robin played each new kit, in every variant, against
+every other kit from both sides: **4,438 pairs and 9,972 runs** of the stat budget's hints
+and all six scenarios (one branch each), with no runtime error.
+
+Model fingerprint:
+`d28cd1a6862d54eb5b53314b8a6ca90d9d30ea029fde49646ea316d47b84ebfa`.
+
+The refresh computed all **14,878 pairs** on four workers. The container was reclaimed
+twice while the session sat idle, after 4,810 and 5,049 verified pair checkpoints of this
+fingerprint; each resumed run reused them, and the last computed the other 9,829 in
+**13,330.9 seconds**, writing **351** simulator and ledger files. All 173 rows and 29,756
+directed entries are complete, `npm run build:sim -- --check` passes for the fingerprint
+above, and every directed score is the exact negative of its mirror. Both TypeScript
+projects pass.
+
+All **20,880** directed entries among the 145 earlier kits are identical to the 145-kit
+matrix (`3f852499…`), every scenario value included: the engine's additions change none of
+their duels.
+
+By mean score against the other 172, Ivern ranks highest of the 28 (**7th**, +0.657, 163
+wins: Daisy fights beside him for 45 s), then Shyvana (**15th**) and Zac (**36th**). Pyke
+(**172nd**, 4 wins), Yuumi (**171st**, 4 wins), Qiyana (**169th**) and Renata Glasc
+(**167th**) rank lowest. Over all 173, Yorick, Nasus, K'Sante, Vayne and Fiora lead, and
+Thresh, Pyke and Yuumi trail.
+
+The full suite ran **7,898 tests across 219 files** on one worker in **1,014.5 seconds**:
+**7,893 passed** and the five existing tests were skipped, the Heimerdinger–Udyr full
+variant search included within its unchanged 180-second limit. `npm run build:web`
+passes. The Kit Counter Picker's page renders all 173 at 390 pixels with no console error.
+
 ## Remaining limits
 
 - Only 145 of the dataset's 173 champions have simulator kits. Other pairings use the

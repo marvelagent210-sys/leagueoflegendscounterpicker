@@ -262,3 +262,94 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | ZacPassiveChunkDrop | HealPercent | linear 0.04 → 0.08 over levels 1-18, continues past 18 | 0.04 | 0.08 | 0.0847059 |
 | ZacPassiveChunkDrop | ReviveBlobletDuration | breakpoints at levels 6, 10, 13, 17 (level 1: 8) | 8 | 4 | 4 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Zac.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Stretching Strikes | 8 | 0.33 | 8% current health health | skillshot 800 long, 160 wide, at 2800/s | 180 + 30% AP + 3% bonus health magic damage; slow 40% for 0.5 s | resets the attack timer |
+| W | Unstable Matter | 5 | 0 | 4% current health health | around itself, 350 units | 80 + 8% target's maximum health + 3% of target's maximum health per 100 AP magic damage | – |
+| E | Elastic Slingshot | 9 | depends on stats (1.033 base) | 4% current health health | dash toward 1800 units (adjusted by current stats) at 1350/s, hits within 265 | 240 + 80% AP magic damage; knock up over 1 s; stun for 1 s | – |
+| R | Let's Bounce! | 90 | 0.3 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Goo chunks land 45% of the way from Zac to an enemy within 1000 ("slightly in Zac's favor"), at once and next to Zac without one. Whoever is within 50 units of a chunk first takes it, Zac when both are; it can't be taken for its first 0.25 s.
+- Cell Division's four bloblets split 700 units diagonally, 495 along the duel's line: two on each side of Zac. They return at an even speed. Zac revives with his remaining health, at least 10%.
+- Elastic Slingshot's range grows evenly from 0 to 1800 over its 1.3 s charge. Zac charges it at least 1 s, for the longer stun, and leaps where the enemy stands when he lets go; the enemy can step out of the 265 landing by moving during the leap.
+- Let's Bounce!'s first hit knocks the enemy back 250 units (the game files' KnockbackDistance; the wiki gives none). Its bounces don't hit pets.
+
+### Source values read (64)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Cell Division | he sheds a number of chunks of himself to a nearby location, landing towards nearby visible enemy champions and lasting for 6 seconds | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | Both Zac and enemy champions can interact with a chunk by being within 50 units of it | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | Both Zac and enemy champions can interact with a chunk by being within 50 units of it: an enemy will destroy it, while Zac will consume it to heal for 4 – 8 (based on level)% of his maximum health. | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | Cannot be interacted with for the first 0.25 seconds (except during Let's Bounce!) | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | Cannot be interacted with for the first 0.25 seconds | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | roughly equidistant from Zac and the nearest visible enemy champion within 1000 range of him (dropping slightly in Zac's favor) | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | staticCooldown: 300 | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration. | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | After 1.5 seconds of the bloblets being untargetable, they start moving toward Zac's location over the remaining duration | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | After the duration, Zac is revived with 10 – 50% maximum health | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | Any damage the bloblets receive, excluding damage dealt in excess of each bloblet's total maximum health, is also echoed to Zac as true damage. | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | While in resurrection, Zac cannot take damage from sources other than the echoed damage from his bloblets. | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | Zac will be executed once all bloblets are killed. | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Cell Division | range: 700 | [4061399](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) |
+| Bloblet | 12% of Zac's maximum health | [4057435](https://wiki.leagueoflegends.com/en-us/Zac?oldid=4057435) |
+| Bloblet | 50% of Zac's armor | [4057435](https://wiki.leagueoflegends.com/en-us/Zac?oldid=4057435) |
+| Bloblet | 50% of Zac's magic resistance | [4057435](https://wiki.leagueoflegends.com/en-us/Zac?oldid=4057435) |
+| Bloblet | 33% | [4057435](https://wiki.leagueoflegends.com/en-us/Zac?oldid=4057435) |
+| Bloblet | Immune to crowd control (except stasis, still able to move) | [4057435](https://wiki.leagueoflegends.com/en-us/Zac?oldid=4057435) |
+| Bloblet | radius: 65 | [4057435](https://wiki.leagueoflegends.com/en-us/Zac?oldid=4057435) |
+| Stretching Strikes | Magic Damage: 60 / 90 / 120 / 150 / 180 (+ 30% AP) (+ 3% of Zac's bonus health) | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | slowing them by 40% for 0.5 seconds | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | forming a tether between Zac and the target for 2 seconds, during which they are revealed | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | tetherRadius: 900 | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | empowering it to have a 0.25-second cast time and gain 25 bonus attack range | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | This attack triggers on-attack effects, but cannot critically strike nor apply on-hit effects. | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | If both Stretching Strikes affect the same target, the target will be dealt the damage and applied the slow for both hits. | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | Both Stretching Strikes (the cast and the empowered attack) reset Zac's basic attack timer. Zac is unable to move or attack while his left arm is in flight. | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | The first Stretching Strike will have its damage, slow, and tether application all blocked. | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | targetRange (Initial stretch missile range): 800 • 80 | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | speed: 2800 | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Unstable Matter | Magic Damage: 40 / 50 / 60 / 70 / 80 (+ 4 / 5 / 6 / 7 / 8% (+ 3% per 100 AP) of target's maximum health) | [4022472](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Unstable_Matter?oldid=4022472) |
+| Unstable Matter | Unstable Matter's current cooldown is reduced by 1 second whenever Zac collects a Cell Division chunk. | [4022472](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Unstable_Matter?oldid=4022472) |
+| Elastic Slingshot | targetRange: 1200 / 1350 / 1500 / 1650 / 1800 | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | Maximum Range Channel Duration: 0.9 / 1 / 1.1 / 1.2 / 1.3 seconds | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | knocks them up and stuns them for 0.5 seconds, increased to 1 second if Elastic Slingshot was charged for more than 1 second | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | Displacement immunity will also resist the application of the stun. | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | effectRadius: 265 | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Let's Bounce! | Zac bounces after the cast time, then bounces 3 additional times each second over 3 seconds | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | effectRadius: 300 | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | Magic Damage Per Hit: 120 / 190 / 260 (+ 40% AP) | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | Reduced Damage Per Hit: 60 / 95 / 130 (+ 20% AP) | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | knocks them back over 1 second, and slows them by 20% for the same duration | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | An enemy can be hit by multiple bounces, but ones beyond the first deal 50% damage to them and do not apply the knock back. | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | but becomes unable to declare basic attacks, Stretching Strikes, and Elastic Slingshot. He also automatically consumes all chunks within the bounce radius. | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | Zac can move while Let's Bounce! is active, gaining ghosting and 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on duration)% bonus movement speed, but becomes unable to declare basic attacks, Stretching Strikes, and Elastic Slingshot. | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Stretching Strikes | cooldown: 14 / 12.5 / 11 / 9.5 / 8 | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | costType: current health | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | cost: 8% | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | castTime: 0.33 | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Stretching Strikes | width: 160 | [4008654](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Stretching_Strikes?oldid=4008654) |
+| Unstable Matter | cooldown: 5 | [4022472](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Unstable_Matter?oldid=4022472) |
+| Unstable Matter | costType: current health | [4022472](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Unstable_Matter?oldid=4022472) |
+| Unstable Matter | cost: 4% | [4022472](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Unstable_Matter?oldid=4022472) |
+| Unstable Matter | targetRange: 350 | [4022472](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Unstable_Matter?oldid=4022472) |
+| Elastic Slingshot | cooldown: 21 / 18 / 15 / 12 / 9 | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | costType: current health | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | cost: 4% | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | speed: 1350 | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Elastic Slingshot | Magic Damage: 60 / 105 / 150 / 195 / 240 (+ 80% AP) | [4046591](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Elastic_Slingshot?oldid=4046591) |
+| Let's Bounce! | cooldown: 120 / 105 / 90 | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Let's Bounce! | castTime: 0.3 | [4013080](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Let's_Bounce!?oldid=4013080) |
+| Bloblet | Minion * Bloblets can be targeted by Smite and Force of Will. ** A grabbed Bloblet, while visually separated from the others, will not delay Zac's revival or cause him to recombine with less current health. * Bloblets can be targeted by Teleport. * Taste Their Fear considers Bloblets 'isolated' when being the last one alive or after having merged with the others right before Zac recombines (A Bloblet is not considered 'isolated' when close enough to the others) * Turrets will prioritize Bloblets over other minions. | [4057435](https://wiki.leagueoflegends.com/en-us/Zac?oldid=4057435) |

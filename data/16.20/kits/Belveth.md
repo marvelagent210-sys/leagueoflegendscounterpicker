@@ -243,3 +243,75 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | BelvethPassive | SheenSpeedPerStack | along the stat growth curve 0.2 → 0.2 over levels 1-18, continues past 18 | 0.2 | 0.2 | 0.2 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Belveth.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+- Options: lavender = 40, trueForm = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Void Surge | 1 | 0 | – | dash toward 0–400 units at 850/s (adjusted by current stats), hits within 100, through the enemy | 20 + 105% AD physical damage, can crit | resets the attack timer |
+| W | Above and Below | 8 | 0.5 | – | skillshot 660 long, 200 wide, instant | 320 + 150% AP magic damage; knock up over 1 s; slow 30% for 2 s | – |
+| E | Royal Maelstrom | 12 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Lavender stacks by level 20 (1 per large minion or large monster, 2 per champion or epic monster takedown): 40.
+- True Form at the start of the fight (1 = yes, 0 = no: it needs a Void Coral, which a duel has none of): 0.
+- Endless Banquet's active has no Void Coral to consume in a duel: no champion or epic monster has died. True Form comes only from its option, with its health, range and attack speed (not its size).
+- Void Surge's four directions are four separate dashes through or away from the enemy, each with its own 12 s cooldown (the game files' PerSideCooldown; the wiki gives none), with 1 s between any two.
+- Royal Maelstrom's slashes come at an even pace over its 1.5 s; its share of on-hit effects applies to Endless Banquet's true damage alone.
+
+### Source values read (44)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Death in Lavender | Bel'Veth is allowed to exceed the attack speed cap. | [4050294](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Death_in_Lavender?oldid=4050294) |
+| Death in Lavender | Lavender: For each stack, Bel'Veth gains 0.1 / 0.15 / 0.2 / 0.25 / 0.3 / 0.4 / 0.5 / 0.6 / 0.7 / 0.8 / 0.95 / 1.1 / 1.25 / 1.4 / 1.55 / 1.7 / 1.85 / 2 / 2.15 / 2.3 / 2.45 / 2.6 / 2.75 / 2.9 / 3.05 / 3.2 / 3.35 / 3.5 / 3.65 / 3.8 / 3.95 / 4.1 / 4.25 / 4.4 / 4.55 / 4.7 / 4.85 / 5 / 5.15 / 5.3 / 5.45 (based on level)% bonus attack speed. | [4050294](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Death_in_Lavender?oldid=4050294) |
+| Death in Lavender | Bel'Veth's ability casts grant her ghosting and 20% bonus attack speed for 3 seconds, refreshing on subsequent casts. | [4050294](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Death_in_Lavender?oldid=4050294) |
+| Death in Lavender | Bel'Veth's attack speed cap is increased to 9999.0 | [4050294](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Death_in_Lavender?oldid=4050294) |
+| Endless Banquet | Bel'Veth's basic attacks on-hit apply a mark to the target for 5 seconds, refreshing on subsequent hits | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Endless Banquet | Bonus True Damage: 2 / 4 / 6 (+ 3% bonus AD) | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Endless Banquet | Every attack on-hit against the marked target deals bonus true damage and generates a stack of Endless Banquet that increases this damage by the same value. This effect stacks infinitely | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Endless Banquet | A nearby Void Coral is required to cast this ability. | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Endless Banquet | The passive bonus true damage is affected by the on-hit modifier of Royal Maelstrom. | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Endless Banquet | Bonus Health: 100 / 250 / 400 (+ 150% bonus AD) (+ 150% AP) | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Endless Banquet | Bonus Attack Range: 25 / 75 / 125 | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Endless Banquet | Increased Total Attack Speed: 6 / 13 / 20% | [4053392](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Endless_Banquet?oldid=4053392) |
+| Void Surge | range: 400 | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | speed: 850 + 100% movement speed | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | collisionRadius: 100 | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | Against the first target, Void Surge can critically strike for 200% damage and applies on-hit effects and life steal. | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | Against the first target, Void Surge can critically strike for 200% damage | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | Each cardinal direction has a unique cooldown that is reduced equivalent to 0.2 ability haste per 1% bonus attack speed. | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | reduced equivalent to 0.2 ability haste per 1% bonus attack speed | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | Void Surge resets Bel'Veth's basic attack timer. | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Void Surge | cooldown: 4 / 3.25 / 2.5 / 1.75 / 1 | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Above and Below | If this hits an enemy champion, it resets Void Surge dash cooldown of the target direction. | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Above and Below | This ability will cast from wherever the caster is at the start of the cast time. | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Above and Below | range: 0 - 660 | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Royal Maelstrom | Bel'Veth enters a frenzy for 1.5 seconds, during which she is unable to move | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Damage Reduction: 20 / 30 / 40 / 50 / 60% | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Life Steal: 20 / 25 / 30 / 35 / 40% | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | she rapidly slashes at the nearest enemy with the lowest current health percentage for up to 6 (+ 1 per 40% bonus attack speed) times over the duration | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Minimum Physical Damage per hit: 10 / 12 / 14 / 16 / 18 (+ 12% AD) | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Maximum Physical Damage per hit: 20 / 24 / 28 / 32 / 36 (+ 24% AD) | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Each slash deals physical damage, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%, and applies on-hit, on-attack, and spell effects, with on-hit and on-attack damage reduced to 12 / 13.2 / 14.4 / 15.6 / 16.8 / 18 / 19.2 / 20.4 / 21.6 / 22.8 / 24 (based on target's missing health)% effectiveness. | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | effectRadius: 500 | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Bel'Veth cannot perform slashes while she is affected by cast-inhibiting crowd control. | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Royal Maelstrom deals 200% damage to monsters, applies life steal, and is affected by critical strike modifiers. | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Royal Maelstrom | Royal Maelstrom can be recast after 0.75 seconds within the duration, and does so automatically after the duration or when Bel'Veth casts an ability. | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Void Surge | Physical Damage: 12 / 14 / 16 / 18 / 20 (+ 105% AD) | [4050295](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Void_Surge?oldid=4050295) |
+| Above and Below | cooldown: 12 / 11 / 10 / 9 / 8 | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Above and Below | castTime: 0.5 | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Above and Below | width: 200 | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Above and Below | Magic Damage: 80 / 140 / 200 / 260 / 320 (+ 150% AP) | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Above and Below | Knock Up Duration: 0.6 / 0.7 / 0.8 / 0.9 / 1 seconds | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Above and Below | knocks them up for a duration, and slows them by 30% for 2 seconds | [4046855](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Above_and_Below?oldid=4046855) |
+| Royal Maelstrom | cooldown: 24 / 21 / 18 / 15 / 12 | [4046605](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Royal_Maelstrom?oldid=4046605) |
+| Void Remora | Lane Minion, but does not count towards the minion kill tracking score. | [4063501](https://wiki.leagueoflegends.com/en-us/Bel'Veth?oldid=4063501) |

@@ -220,3 +220,63 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Magical Journey | cost | 30 / 30 / 30 / 30 / 30 | 30 / 30 / 30 / 30 / 30 | yes |
 | R: Tempered Fate | cooldown | 110 / 95 / 80 | 110 / 95 / 80 | yes |
 | R: Tempered Fate | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Bard.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 2000/s.
+- Options: chimes = 40.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Cosmic Binding | 7 | 0.25 | 60 | skillshot 850 long, 120 wide, at 1500/s | 240 + 80% AP magic damage; slow 60% for 1.8 s | – |
+| W | Caretaker's Shrine | 2 charges, one every 18 s (0 s between casts) | 0.25 | 70 | self | – | – |
+| R | Tempered Fate | 80 | 0.5 | 100 | circle of 350 radius up to 3400 away, lands after 0.5 s | stun for 2.5 s; stasis for 2.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Chimes collected by level 20 (one appears every 50 s): 40.
+- Bard has collected 40 Chimes by level 20 (the Chimes setting), and starts the duel with his 3 Meeps. The Chimes' movement speed is out of combat only, and their spread to other enemies has no one else to hit.
+- Bard places Caretaker's Shrine at his feet and walks over it when it has gathered its full power, 5 s later.
+- Magical Journey's corridor through terrain lets the enemy follow, so on a duel's line it gains Bard nothing and is left out.
+- Tempered Fate lands 0.5 s after its cast (the wiki gives no speed), on the enemy alone.
+
+### Source values read (32)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Traveler's Call | While he has Meeps, his basic attacks are empowered to each consume a Meep on-attack to deal 30 (+ 6 per 5 Chimes collected) (+ 40% AP) bonus magic damage. | [4034690](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Traveler's_Call?oldid=4034690) |
+| Traveler's Call | * At 5 Chimes, Meeps slow damaged enemies by 25 / 35 / 45 / 55 / 65 / 75 (based on number of Chimes)% for 1 second. | [4034690](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Traveler's_Call?oldid=4034690) |
+| Traveler's Call | At 5 Chimes, Meeps slow damaged enemies by 25 / 35 / 45 / 55 / 65 / 75 (based on number of Chimes)% for 1 second. | [4034690](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Traveler's_Call?oldid=4034690) |
+| Traveler's Call | Bard can have up to 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 (based on number of Chimes) Meeps at a time. | [4034690](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Traveler's_Call?oldid=4034690) |
+| Traveler's Call | staticCooldown (Meep spawn rate): 50 • 8 / 7 / 6 / 5 / 4 (based on number of Chimes) | [4034690](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Traveler's_Call?oldid=4034690) |
+| Cosmic Binding | Bard fires an energy bolt in the target direction that deals magic damage to the first enemy hit and slows them by 60% for a duration. | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | Disable Duration: 1 / 1.2 / 1.4 / 1.6 / 1.8 seconds | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | After Cosmic Binding hits an enemy, the bolt continues behind them for 300 units. | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | If the bolt hits terrain or a second enemy, it stuns both targets for the same duration | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Caretaker's Shrine | gathers power over 5 seconds | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Caretaker's Shrine | Minimum Heal: 25 / 50 / 75 / 100 / 125 (+ 40% AP) | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Caretaker's Shrine | Maximum Heal: 50 / 87.5 / 125 / 162.5 / 200 (+ 70% AP) | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Caretaker's Shrine | Bonus Movement Speed: 20 / 22.5 / 25 / 27.5 / 30% (+ 6% per 100 AP) | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Caretaker's Shrine | gain bonus movement speed decaying over 1.5 seconds | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Caretaker's Shrine | Bard periodically stocks a Caretaker's Shrine charge, up to a maximum of 2. | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Caretaker's Shrine | recharge: 18 | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Magical Journey | A valid piece of terrain within the target range is required to cast this ability. | [4007574](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Magical_Journey?oldid=4007574) |
+| Tempered Fate | Upon impact, it puts all units within into stasis for 2.5 seconds | [4008478](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Tempered_Fate?oldid=4008478) |
+| Cosmic Binding | cooldown: 11 / 10 / 9 / 8 / 7 | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | cost: 60 | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | castTime: 0.25 | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | targetRange: 850 | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | width: 120 | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | speed: 1500 | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Cosmic Binding | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 80% AP) | [4037681](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Cosmic_Binding?oldid=4037681) |
+| Caretaker's Shrine | cost: 70 | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Caretaker's Shrine | castTime: 0.25 | [3960421](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Caretaker's_Shrine?oldid=3960421) |
+| Tempered Fate | cooldown: 110 / 95 / 80 | [4008478](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Tempered_Fate?oldid=4008478) |
+| Tempered Fate | cost: 100 | [4008478](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Tempered_Fate?oldid=4008478) |
+| Tempered Fate | castTime: 0.5 | [4008478](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Tempered_Fate?oldid=4008478) |
+| Tempered Fate | targetRange: 3400 | [4008478](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Tempered_Fate?oldid=4008478) |
+| Tempered Fate | effectRadius: 350 | [4008478](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Tempered_Fate?oldid=4008478) |

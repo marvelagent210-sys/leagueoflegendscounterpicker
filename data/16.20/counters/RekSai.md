@@ -1,5 +1,186 @@
 # Counters to Rek'Sai (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Rek'Sai: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Rek'Sai wins every time) to +1 (the champion does). Run `npm run duel -- <champion> RekSai --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Aphelios | +0.88 | +1.00 | +1.00 | +1.00 | +0.51 | +1.00 | +0.00 |
+| 2 | Ashe | +0.87 | +1.00 | +1.00 | +1.00 | +0.48 | +1.00 | +0.00 |
+| 3 | Malzahar | +0.87 | +1.00 | +1.00 | +1.00 | +0.47 | +1.00 | +0.00 |
+| 4 | Kog'Maw | +0.86 | +1.00 | +1.00 | +1.00 | +0.37 | +1.00 | +0.00 |
+| 5 | Milio | +0.85 | +0.96 | +1.00 | +1.00 | +0.46 | +0.96 | +0.00 |
+| 6 | Neeko | +0.85 | +1.00 | +1.00 | +1.00 | +0.36 | +1.00 | +0.00 |
+| 7 | Sivir | +0.85 | +1.00 | +1.00 | +1.00 | +0.31 | +1.00 | +0.00 |
+| 8 | Ambessa | +0.85 | +1.00 | +1.00 | +1.00 | +0.41 | – | +0.00 |
+| 9 | Vayne | +0.85 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 10 | Xayah | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 11 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.06 | – | +1.00 |
+| 12 | Quinn | +0.84 | +1.00 | +1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 13 | Trundle | +0.84 | +1.00 | +1.00 | +1.00 | +0.02 | – | +1.00 |
+| 14 | Corki | +0.84 | +1.00 | +1.00 | +1.00 | +0.24 | +1.00 | +0.00 |
+| 15 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | +0.34 | – | +0.00 |
+| 16 | Graves | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 17 | Bel'Veth | +0.83 | +1.00 | +1.00 | +1.00 | +0.34 | – | +0.00 |
+| 18 | Kayle | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 19 | Rakan | +0.82 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 20 | Orianna | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 21 | Twisted Fate | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 22 | Karma | +0.82 | +1.00 | +0.98 | +0.98 | +0.18 | +1.00 | +0.00 |
+| 23 | Jayce | +0.82 | +1.00 | +1.00 | +1.00 | +0.24 | – | +0.00 |
+| 24 | Cassiopeia | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 25 | Ivern | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 26 | Cho'Gath | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 27 | Zeri | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 28 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 29 | Aurora | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 30 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 31 | Yone | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 32 | Nasus | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 33 | Lulu | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 34 | Yunara | +0.80 | +0.93 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 35 | Olaf | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 36 | Kalista | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 37 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 38 | Bard | +0.80 | +0.99 | +0.92 | +1.00 | +0.21 | +0.91 | +0.00 |
+| 39 | Morgana | +0.80 | +1.00 | +0.94 | +0.92 | +0.19 | +0.99 | +0.00 |
+| 40 | Shyvana | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 41 | Illaoi | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 42 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 43 | Poppy | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 44 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 45 | Viego | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 46 | Aatrox | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 47 | Malphite | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 48 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 49 | Lee Sin | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 50 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 51 | Wukong | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 52 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 53 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 54 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 55 | Diana | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 56 | Vi | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 57 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 58 | Yasuo | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 59 | Braum | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 60 | Warwick | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 61 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 62 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 63 | Mordekaiser | +0.77 | +1.00 | +1.00 | +0.98 | −0.02 | – | +0.00 |
+| 64 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 65 | Maokai | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 66 | Udyr | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 67 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 68 | Kled | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 69 | Gnar | +0.75 | +1.00 | +0.78 | +0.83 | +0.23 | +1.00 | +0.00 |
+| 70 | Jinx | +0.71 | +0.88 | +0.90 | +0.81 | +0.08 | +0.90 | +0.00 |
+| 71 | Elise | +0.67 | +1.00 | +1.00 | +1.00 | +0.10 | −0.43 | +0.00 |
+| 72 | Ezreal | +0.58 | +0.99 | +0.52 | +0.52 | +0.02 | +1.00 | +0.00 |
+| 73 | Lillia | +0.57 | +0.53 | +0.97 | +0.97 | +0.01 | +0.02 | +0.00 |
+| 74 | Heimerdinger | +0.54 | +1.00 | +0.64 | +0.99 | +0.22 | −1.00 | +0.00 |
+| 75 | Sion | +0.52 | +0.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 76 | Zac | +0.49 | +0.20 | +0.84 | +0.84 | +0.05 | – | +0.00 |
+| 77 | Lux | +0.47 | +0.58 | +0.41 | +0.51 | +0.15 | +0.94 | +0.00 |
+| 78 | Varus | +0.39 | +1.00 | +1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 79 | Kennen | +0.35 | −1.00 | +1.00 | +1.00 | +0.31 | +1.00 | +0.00 |
+| 80 | Nilah | +0.33 | +1.00 | +0.00 | +0.00 | +0.34 | – | +0.00 |
+| 81 | Syndra | +0.27 | +1.00 | −0.03 | +0.01 | +0.11 | +0.06 | +0.00 |
+| 82 | Irelia | +0.22 | −1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 83 | Pantheon | +0.22 | −1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 84 | Kayn | +0.20 | −1.00 | +0.97 | +0.97 | −0.02 | – | +0.00 |
+| 85 | Sona | +0.17 | +0.84 | +1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 86 | Singed | +0.12 | +0.16 | +0.18 | +0.16 | −0.04 | – | +0.00 |
+| 87 | Tahm Kench | +0.07 | +0.13 | +0.10 | +0.07 | −0.03 | – | +0.00 |
+| 88 | Swain | +0.07 | +0.09 | +0.08 | +0.08 | +0.04 | +0.09 | +0.00 |
+| 89 | Vel'Koz | +0.03 | +0.64 | −0.20 | −0.54 | +0.22 | −0.09 | +0.00 |
+| 90 | Senna | −0.02 | +0.89 | −1.00 | −0.01 | +0.04 | −0.00 | +0.00 |
+| 91 | Hwei | −0.03 | −0.13 | +0.06 | −0.10 | +0.09 | −0.03 | +0.00 |
+| 92 | Zilean | −0.05 | +1.00 | −1.00 | −1.00 | +0.31 | +1.00 | +0.00 |
+| 93 | Anivia | −0.05 | +0.16 | −0.18 | −0.22 | −0.13 | +0.16 | +0.00 |
+| 94 | Janna | −0.08 | +1.00 | −1.00 | −1.00 | +0.15 | +1.00 | +0.00 |
+| 95 | Kindred | −0.09 | +0.00 | +0.00 | −1.00 | +0.07 | +1.00 | +0.00 |
+| 96 | Nami | −0.10 | +0.09 | −0.26 | −0.26 | +0.00 | −0.06 | +0.00 |
+| 97 | Draven | −0.11 | +1.00 | −1.00 | −1.00 | +0.13 | +0.74 | +0.00 |
+| 98 | Zyra | −0.11 | −0.06 | −0.10 | −0.23 | +0.13 | −0.43 | +0.00 |
+| 99 | Kai'Sa | −0.19 | +1.00 | −1.00 | −1.00 | −0.04 | +0.17 | +0.00 |
+| 100 | Mel | −0.19 | +0.60 | −0.91 | −0.58 | +0.10 | −0.13 | +0.00 |
+| 101 | Nocturne | −0.23 | +1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 102 | Zoe | −0.24 | −0.23 | −0.35 | −0.34 | −0.01 | −0.23 | +0.00 |
+| 103 | Miss Fortune | −0.28 | +1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 104 | Urgot | −0.29 | −1.00 | +0.99 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 105 | Lucian | −0.29 | +1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 106 | Samira | −0.30 | +1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 107 | Riven | −0.32 | −1.00 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 108 | Rumble | −0.32 | +0.69 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 109 | Soraka | −0.33 | −0.12 | −1.00 | −0.15 | +0.05 | −0.27 | +0.00 |
+| 110 | Smolder | −0.41 | −1.00 | +0.00 | −1.00 | +0.29 | +0.00 | +0.00 |
+| 111 | Karthus | −0.44 | −0.39 | −0.45 | −1.00 | +0.08 | −0.44 | +0.00 |
+| 112 | Tristana | −0.54 | −1.00 | −1.00 | −1.00 | +0.37 | +1.00 | +0.00 |
+| 113 | Brand | −0.56 | −0.01 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 114 | Master Yi | −0.56 | −1.00 | −1.00 | −1.00 | −0.04 | +1.00 | +1.00 |
+| 115 | Veigar | −0.58 | −0.25 | −1.00 | −0.83 | −0.03 | −0.93 | +0.00 |
+| 116 | Lissandra | −0.59 | −1.00 | −1.00 | −0.51 | +0.14 | −0.05 | +0.00 |
+| 117 | Vex | −0.59 | −1.00 | −0.52 | −0.56 | +0.00 | −1.00 | +0.00 |
+| 118 | Ryze | −0.61 | −0.30 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 119 | Seraphine | −0.62 | −1.00 | −1.00 | −1.00 | +0.17 | +0.55 | +0.00 |
+| 120 | Nautilus | −0.67 | −1.00 | −1.00 | −1.00 | +0.00 | +0.31 | +0.00 |
+| 121 | Rell | −0.68 | −1.00 | −1.00 | −1.00 | +0.16 | +0.00 | +0.00 |
+| 122 | Ziggs | −0.68 | −1.00 | −1.00 | −1.00 | +0.13 | +0.00 | +0.00 |
+| 123 | Annie | −0.69 | −1.00 | −1.00 | −1.00 | +0.14 | −0.06 | +0.00 |
+| 124 | Azir | −0.70 | −1.00 | −1.00 | −1.00 | +0.01 | +0.00 | +0.00 |
+| 125 | Blitzcrank | −0.70 | −1.00 | −1.00 | −1.00 | −0.03 | +0.00 | +0.00 |
+| 126 | Viktor | −0.71 | −1.00 | −1.00 | −1.00 | +0.04 | −0.13 | +0.00 |
+| 127 | Rengar | −0.71 | −1.00 | −1.00 | −1.00 | +0.41 | – | +0.00 |
+| 128 | Sylas | −0.72 | −1.00 | −1.00 | −1.00 | +0.37 | – | +0.00 |
+| 129 | Jhin | −0.72 | −0.88 | −0.94 | −0.94 | +0.16 | −1.00 | +0.00 |
+| 130 | Aurelion Sol | −0.73 | −1.00 | −1.00 | −1.00 | +0.44 | −1.00 | +0.00 |
+| 131 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 132 | Fizz | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 133 | Skarner | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 134 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 135 | Naafiri | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 136 | Nunu & Willump | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 137 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 138 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.10 | −0.87 | +0.00 |
+| 139 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 140 | Hecarim | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 141 | Shaco | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 142 | Twitch | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 143 | Gragas | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 144 | Sejuani | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 145 | Galio | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 146 | Jarvan IV | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 147 | Kassadin | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 148 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 149 | Talon | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 150 | Leona | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 151 | Alistar | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 152 | Locke | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 153 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 154 | Akshan | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 155 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 156 | Zed | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 157 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 158 | Pyke | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 159 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 160 | Ahri | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 161 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 162 | Briar | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 163 | Fiddlesticks | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 164 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 165 | Renata Glasc | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 166 | Thresh | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 167 | Yuumi | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 168 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 169 | Rammus | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 170 | Nidalee | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 171 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 172 | Qiyana | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Rek'Sai's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +189,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> RekSai` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.41)
+#### 1. Sivir (net +1.41)
 
 - **0.90** spell shield: Spell Shield's spell shield blocks Rek'Sai's Void Rush. Spell shield for 1.5 s, long enough to use ahead of Void Rush. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Rek'Sai R Void Rush)
 - **0.35** spell shield: Spell Shield's spell shield blocks Rek'Sai's Unburrow. Spell shield for 1.5 s, long enough to use ahead of Unburrow. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Rek'Sai W Unburrow)
 - **0.27** range: Sivir's basic attacks reach 325 units farther than Rek'Sai's (500 vs 175 attack range). Rek'Sai closes the gap with Tunnel, Void Rush. (Sivir basic attacks → Rek'Sai basic attacks)
 
-### 2. Fiora (net +0.82)
+#### 2. Fiora (net +0.82)
 
 - **0.90** parry: Riposte parries Rek'Sai's Void Rush. Parry for 0.75 s; Void Rush takes 1.32 s to land, enough to react. (Fiora W Riposte → Rek'Sai R Void Rush)
 - **0.31** parry: Riposte parries Rek'Sai's Unburrow and stuns back. Parry for 0.75 s; Unburrow lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Unburrow's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Rek'Sai W Unburrow)
 - **0.28** parry: Riposte parries Rek'Sai's Furious Bite. Parry for 0.75 s; Furious Bite takes 0.25 s to land, enough to react. (Fiora W Riposte → Rek'Sai E Furious Bite)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Fiora's Riposte.
 
-### 3. Kayle (net +0.68)
+#### 3. Kayle (net +0.68)
 
 - **0.45** invulnerable: Divine Judgment makes Kayle invulnerable to Rek'Sai's Void Rush (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Void Rush. (Kayle R Divine Judgment → Rek'Sai R Void Rush)
 - **0.24** range: Kayle's basic attacks reach 450 units farther than Rek'Sai's (625 vs 175 attack range). Rek'Sai closes the gap with Tunnel, Void Rush. (Kayle basic attacks → Rek'Sai basic attacks)
 - **0.23** invulnerable: Divine Judgment makes Kayle invulnerable to Rek'Sai's Queen's Wrath. Invulnerable for 2.5 s, long enough to use ahead of Queen's Wrath. (Kayle R Divine Judgment → Rek'Sai Q Queen's Wrath)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Kayle's Starfire Spellblade.
 
-### 4. Gwen (net +0.56)
+#### 4. Gwen (net +0.56)
 
 - **0.90** untargetable: Hallowed Mist makes Gwen untargetable, dodging Rek'Sai's Void Rush. Untargetable for ?; Void Rush takes 1.32 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Rek'Sai R Void Rush)
 - **0.27** untargetable: Hallowed Mist makes Gwen untargetable, dodging Rek'Sai's Furious Bite. Untargetable for ?; Furious Bite takes 0.25 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Rek'Sai E Furious Bite)
 - **0.21** untargetable: Hallowed Mist makes Gwen untargetable, dodging Rek'Sai's Unburrow. Untargetable for ?; Unburrow lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Rek'Sai W Unburrow)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Gwen's Needlework.
 
-### 5. Xayah (net +0.54)
+#### 5. Xayah (net +0.54)
 
 - **0.79** untargetable: Featherstorm makes Xayah untargetable, dodging Rek'Sai's Void Rush. Untargetable for 1.5 s, long enough to use ahead of Void Rush. (Xayah R Featherstorm → Rek'Sai R Void Rush)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Rek'Sai's Unburrow. Untargetable for 1.5 s, long enough to use ahead of Unburrow. (Xayah R Featherstorm → Rek'Sai W Unburrow)
 - **0.23** untargetable: Featherstorm makes Xayah untargetable, dodging Rek'Sai's Queen's Wrath. Untargetable for 1.5 s, long enough to use ahead of Queen's Wrath. (Xayah R Featherstorm → Rek'Sai Q Queen's Wrath)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Xayah's Featherstorm.
 
-### 6. Vladimir (net +0.52)
+#### 6. Vladimir (net +0.52)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rek'Sai's Void Rush. Untargetable for 2 s, long enough to use ahead of Void Rush. (Vladimir W Sanguine Pool → Rek'Sai R Void Rush)
 - **0.35** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rek'Sai's Unburrow. Untargetable for 2 s, long enough to use ahead of Unburrow. (Vladimir W Sanguine Pool → Rek'Sai W Unburrow)
 - **0.28** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rek'Sai's Furious Bite. Untargetable for 2 s, long enough to use ahead of Furious Bite. (Vladimir W Sanguine Pool → Rek'Sai E Furious Bite)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Vladimir's Hemoplague.
 
-### 7. Yuumi (net +0.49)
+#### 7. Yuumi (net +0.49)
 
 - **0.90** untargetable: You and Me! makes Yuumi untargetable, dodging Rek'Sai's Void Rush. Untargetable for ?; Void Rush takes 1.32 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Rek'Sai R Void Rush)
 - **0.48** untargetable: You and Me! makes Yuumi untargetable, dodging Rek'Sai's Unburrow. Untargetable for ?; Unburrow lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Rek'Sai W Unburrow)
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Rek'Sai's Furious Bite. Untargetable for ?; Furious Bite takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Rek'Sai E Furious Bite)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Yuumi's Final Chapter.
 
-### 8. Bard (net +0.49)
+#### 8. Bard (net +0.49)
 
 - **0.90** untargetable: Tempered Fate makes Bard untargetable, dodging Rek'Sai's Void Rush. Untargetable for 2.5 s, long enough to use ahead of Void Rush. (Bard R Tempered Fate → Rek'Sai R Void Rush)
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Rek'Sai's Unburrow. Untargetable for 2.5 s, long enough to use ahead of Unburrow. (Bard R Tempered Fate → Rek'Sai W Unburrow)
 - **0.23** untargetable: Tempered Fate makes Bard untargetable, dodging Rek'Sai's Queen's Wrath. Untargetable for 2.5 s, long enough to use ahead of Queen's Wrath. (Bard R Tempered Fate → Rek'Sai Q Queen's Wrath)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Bard's Tempered Fate.
 
-### 9. Master Yi (net +0.45)
+#### 9. Master Yi (net +0.45)
 
 - **0.90** untargetable: Alpha Strike makes Master Yi untargetable, dodging Rek'Sai's Void Rush. Untargetable for ?; Void Rush takes 1.32 s to land, enough to react. (Master Yi Q Alpha Strike → Rek'Sai R Void Rush)
 - **0.27** untargetable: Alpha Strike makes Master Yi untargetable, dodging Rek'Sai's Furious Bite. Untargetable for ?; Furious Bite takes 0.25 s to land, enough to react. (Master Yi Q Alpha Strike → Rek'Sai E Furious Bite)
 - **0.21** untargetable: Alpha Strike makes Master Yi untargetable, dodging Rek'Sai's Unburrow. Untargetable for ?; Unburrow lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Rek'Sai W Unburrow)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Master Yi's Alpha Strike.
 
-### 10. Shaco (net +0.42)
+#### 10. Shaco (net +0.42)
 
 - **0.90** untargetable: Hallucinate makes Shaco untargetable, dodging Rek'Sai's Void Rush. Untargetable for 0.5 s; Void Rush takes 1.32 s to land, enough to react. (Shaco R Hallucinate → Rek'Sai R Void Rush)
 - **0.20** untargetable: Hallucinate makes Shaco untargetable, dodging Rek'Sai's Furious Bite. Untargetable for 0.5 s; Furious Bite takes 0.25 s to land, enough to react. (Shaco R Hallucinate → Rek'Sai E Furious Bite)
 - **0.20** untargetable: Hallucinate makes Shaco untargetable, dodging Rek'Sai's Unburrow. Untargetable for 0.5 s; Unburrow lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Shaco R Hallucinate → Rek'Sai W Unburrow)
 - Watch out: Void Rush makes Rek'Sai untargetable, dodging Shaco's Deceive.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

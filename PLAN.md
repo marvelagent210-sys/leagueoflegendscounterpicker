@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14. The private workspace's batches 7 to 15 were merged into this branch on 30 October, with this branch's own Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 145 of 173 champions, with 28 remaining and 10,440 unordered pairings. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are M8 (§13), in progress: the item catalog and every item's effects are done, and duels can be played with fixed builds; runes and the build search come once every champion has a kit.
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14. The private workspace's batches 7 to 15 were merged into this branch on 30 October, with this branch's own Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 145 of 173 champions. Batches 16 to 19, written here on 31 October, add the last 28: every champion has a kit, with 14,878 unordered pairings. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are M8 (§13), in progress: the item catalog and every item's effects are done, and duels can be played with fixed builds; with every champion's kit done, runes and the build search are next.
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -308,6 +308,15 @@ verified checkpoints of that fingerprint. The 19,740 directed entries without Gr
 Hecarim, Warwick or Wukong match the private build's matrix exactly; the 1,140 with
 them differ because those four are this branch's kits. The full suite passes: 7,473
 tests pass and the five existing ones are skipped. The production build passes too.
+Validation is recorded in [ACCURACY.md](ACCURACY.md).
+
+Batches 16 to 19 followed on 31 October, written in this repository: Briar, Lillia,
+Nidalee, Rek'Sai, Shyvana and Zac; Bel'Veth, Elise, Kayn, Nilah, Pyke and Qiyana;
+Fiddlesticks, Renata Glasc, Shaco, Sylas, Viego and Zilean; and Aurelion Sol, Azir, Bard,
+Ivern, Locke, Mel, Milio, Seraphine, Yunara and Yuumi. Every champion now has a kit: 173
+of 173, with 14,878 unordered pairings, all computed under fingerprint `d28cd1a6…`. The
+20,880 directed entries among the earlier 145 kits are unchanged. The full suite passes
+(7,893 tests, five skipped), and so does the production build.
 Validation is recorded in [ACCURACY.md](ACCURACY.md).
 
 Each batch must read pinned source values, check meaningful damage/timing/counterplay

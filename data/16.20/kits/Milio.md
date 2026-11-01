@@ -180,3 +180,66 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | MilioPassive | ADBurstRatio | breakpoints at levels 6, 9 (level 1: 0.07) | 0.07 | 0.15 | 0.15 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Milio.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 1900/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Ultra Mega Fire Kick | 10 | 0.25 | 70 | skillshot 1200 long, 120 wide, at 1200/s | knock back 190 units over 1 s; after 0.5 s: 320 + 120% AP magic damage (Ultra Mega Fire Kick) | – |
+| W | Cozy Campfire | 21 | 0.25 | 130 | self | – | attackRange 105 for 6 s |
+| E | Warm Hugs | 2 charges, one every 13 s (0.5 s between casts) | 0 | 90 | self | – | shield of 165 + 45% AP for 2.5 s; moveSpeedPercent 0.2 for 2.5 s |
+| R | Breath of Life | 130 | 0 | 100 | self | – | heal 350 + 50% AP; cleanses blind, charm, cripple, disarm, drowsy, fear, ground, nearsight, polymorph, root, silence, sleep, slow, stun, suppression, taunt, berserk; tenacity 0.65 for 3 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Ultra Mega Fire Kick's knock back and stun are one 1 s displacement, and its bounce explodes on the enemy 0.5 s after the hit.
+
+### Source values read (39)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Fired Up! | Milio's ability hits on himself and allied champions grant an enchantment for 4 seconds, which causes the next basic attack or ability hit against enemies to deal 7 / 11 / 15 (based on level)% of enchanted target's AD bonus magic damage and apply a burn that deals 10 – 50 (based on level) (+ 20% of Milio's AP) magic damage over 1.5 seconds. | [4074280](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Fired_Up!?oldid=4074280) |
+| Fired Up! | Innate: Milio's ability hits on himself and allied champions grant an enchantment for 4 seconds, which causes the next basic attack or ability hit against enemies to deal 7 / 11 / 15 (based on level)% of enchanted target's AD bonus magic damage and apply a burn that deals 10 – 50 (based on level) (+ 20% of Milio's AP) magic damage over 1.5 seconds. | [4074280](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Fired_Up!?oldid=4074280) |
+| Ultra Mega Fire Kick | After a 0.25-second delay, Milio kicks a fireball in the target direction that grants sight of its path and knocks back and stuns the first enemy it hits over 1 second. | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | effectRadius (Champion knock back distance): 100 • 250 • 275 • 190 | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | Slow: 40 / 45 / 50 / 55 / 60% (+ 5% per 100 AP) | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | dealing magic damage to enemies hit and slowing them for 1.5 seconds | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | Ultra Mega Fire Kick refunds 50% of its mana cost if it hits at least one champion with the fireball or explosion. | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | Milio cannot cast other abilities during Ultra Mega Fire Kick's delay. | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Cozy Campfire | Milio summons a fuemigo at the target location or upon the target allied champion for 6 seconds | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Cozy Campfire | Base Attack Range Scaling: 10 / 12.5 / 15 / 17.5 / 20% | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Cozy Campfire | Heal per Tick: 2.8 / 3.6 / 4.4 / 5.2 / 6 (+ 0.6% AP) | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Cozy Campfire | Allied champions near the fuemigo gain bonus attack range equal to a percentage of their base attack range and heal every 0.264 over the duration. | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Cozy Campfire | Cozy Campfire may grant Fired Up! upon being summoned and at most once every 3 seconds thereafter. | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Cozy Campfire | Milio counts as an allied champion for this ability. | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Warm Hugs | Milio envelops himself or the target allied champion in protective flames, granting the target a shield and bonus movement speed for 2.5 seconds. | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Warm Hugs | Milio periodically stocks a Warm Hugs charge, up to a maximum of 2. | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Warm Hugs | Warm Hugs' effects can stack up to 2 times. | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Breath of Life | Milio explodes in soothing flames, healing and cleansing himself and nearby allied champions of non-airborne crowd control, and granting them 65% tenacity for 3 seconds. | [3908080](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Breath_of_Life?oldid=3908080) |
+| Breath of Life | Milio cannot cast his other abilities for 0.75 seconds after Breath of Life's activation. | [3908080](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Breath_of_Life?oldid=3908080) |
+| Breath of Life | Breath of Life cannot be used while affected by cast-inhibiting crowd control. | [3908080](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Breath_of_Life?oldid=3908080) |
+| Ultra Mega Fire Kick | cooldown: 10 | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | cost: 50 / 55 / 60 / 65 / 70 | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | range: 1200 | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | width: 120 | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | speed: 1200 | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Ultra Mega Fire Kick | Magic Damage: 80 / 140 / 200 / 260 / 320 (+ 120% AP) | [4074323](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Ultra_Mega_Fire_Kick?oldid=4074323) |
+| Cozy Campfire | cooldown: 29 / 27 / 25 / 23 / 21 | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Cozy Campfire | cost: 90 / 100 / 110 / 120 / 130 | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Cozy Campfire | castTime (Initial cast): 0.25 • None | [4007694](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Cozy_Campfire?oldid=4007694) |
+| Warm Hugs | staticCooldown: 0.5 | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Warm Hugs | recharge: 17 / 16 / 15 / 14 / 13 | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Warm Hugs | cost: 50 / 60 / 70 / 80 / 90 | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Warm Hugs | castTime: none | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Warm Hugs | Shield Strength: 45 / 75 / 105 / 135 / 165 (+ 45% AP) | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Warm Hugs | Bonus Movement Speed: 12 / 14 / 16 / 18 / 20% | [3908079](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Warm_Hugs?oldid=3908079) |
+| Breath of Life | cooldown: 160 / 145 / 130 | [3908080](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Breath_of_Life?oldid=3908080) |
+| Breath of Life | cost: 100 | [3908080](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Breath_of_Life?oldid=3908080) |
+| Breath of Life | castTime: none | [3908080](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Breath_of_Life?oldid=3908080) |
+| Breath of Life | Heal: 150 / 250 / 350 (+ 50% AP) | [3908080](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Breath_of_Life?oldid=3908080) |

@@ -237,3 +237,74 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | YunaraW | Calc_Minion_Damage_Mod | breakpoints at levels 9, 13 (level 1: 0.5) | 0.5 | 1 | 1 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Yunara.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 575, missile at 2500/s, on hit: 23 + 20% AP magic damage (Cultivation of Spirit), varies with combat state; formula is a reference; 0 magic damage (Vow of the First Lands), varies with combat state; formula is a reference.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Cultivation of Spirit | 0 | 0 | 30 | self | – | resets the attack timer |
+| W | Arc of Judgment | 10 | depends on stats (0.45 base) | 60 | skillshot 1150 long, 120 wide, at 2150/s | 215 + 85% bonus AD + 50% AP magic damage (Arc of Judgment); slow 99% for 0.5 s; after 0.5 s: slow 66% for 0.5 s; after 1 s: slow 33% for 0.5 s; after 0.25 s: 32.25 + 12.75% bonus AD + 7.5% AP magic damage (Arc of Judgment (linger)); after 0.5 s: 32.25 + 12.75% bonus AD + 7.5% AP magic damage (Arc of Judgment (linger)); after 0.75 s: 32.25 + 12.75% bonus AD + 7.5% AP magic damage (Arc of Judgment (linger)); after 1 s: 32.25 + 12.75% bonus AD + 7.5% AP magic damage (Arc of Judgment (linger)) | – |
+| WR | Arc of Ruin | 10 | depends on stats (0.6 base) | 0 | skillshot 1150 long, 120 wide, instant | 480 + 120% bonus AD + 75% AP magic damage (Arc of Ruin); slow 99% for 0.5 s; after 0.5 s: slow 49.5% for 0.5 s | – |
+| E | Kanmei's Steps | 9 | 0 | 40 | self | – | ghosted for 1.5 s |
+| ER | Untouchable Shadow | 9 | 0 | 0 | dash toward 225–450 units at 1650/s | – | resets the attack timer |
+| R | Transcend One's Self | 80 | 0 | 100 | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Vow of the First Lands adds its share of the critical strike's damage, averaged over her critical strike chance.
+- Cultivation of Spirit is cast with a full 8 Unleash stacks (it has no cooldown), and spends them; its spread attacks have no one else to hit in a duel.
+- Arc of Judgment's bead lingers on the enemy it hits for 4 ticks (the 1 s its expanded bead lingers).
+- Arc of Judgment's and Arc of Ruin's decaying slows fall in steps.
+
+### Source values read (42)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Vow of the First Lands | Yunara's critical strikes deal 10% (+ 10% per 100 AP) bonus magic damage. | [4058999](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Vow_of_the_First_Lands?oldid=4058999) |
+| Cultivation of Spirit | Passive Bonus Magic Damage: 3 / 8 / 13 / 18 / 23 (+ 20% AP) | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Cultivation of Spirit | Combined Bonus Magic Damage: 6 / 16 / 26 / 36 / 46 (+ 40% AP) | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Cultivation of Spirit | While this ability is inactive, her basic attacks on-attack generate a stack of Unleash for 6 seconds, increased to 2 stacks against champions. The stacks refresh on subsequent attacks, stack up to 8 times, and expire one by one every 0.5 seconds after the duration. | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Cultivation of Spirit | Yunara unleashes for 5 seconds: gaining bonus attack speed, dealing additional bonus magic damage on-hit, and augmenting her basic attacks to have increased missile speed, a 40% lower windup time, and an uncancellable windup. | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Cultivation of Spirit | Bonus Attack Speed: 20 / 30 / 40 / 50 / 60% | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Cultivation of Spirit | speed (Empowered attack missile speed): 10000 • 2000 | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Cultivation of Spirit | Cultivation of Spirit resets Yunara's basic attack timer. | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Arc of Judgment | The initial hit against each enemy before the bead's expansion deals magic damage and slows them by 99% decaying over 1.5 seconds. While lingering, the bead deals 15% of the impact damage as magic damage to nearby enemies every 0.25 seconds. | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Judgment | Linger Magic Damage per Tick: 8.25 / 14.25 / 20.25 / 26.25 / 32.25 (+ 12.75% bonus AD) (+ 7.5% AP) | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Judgment | castTime: 0.45 / 0.4275 / 0.405 / 0.3825 / 0.36 / 0.3375 / 0.315 / 0.2925 / 0.27 / 0.2475 / 0.225 (based on Bonus AS) | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Ruin | Active: Yunara fires a beam of spirit magic in the target direction that deals 160 / 320 / 480 (based on Rank) (+ 120% bonus AD) (+ 75% AP) magic damage to enemies hit and slows them by 99% decaying over 1 second, as well as granting sight of the surrounding area. | [4039441](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Ruin?oldid=4039441) |
+| Arc of Ruin | Yunara fires a beam of spirit magic in the target direction that deals 160 / 320 / 480 (based on Rank) (+ 120% bonus AD) (+ 75% AP) magic damage to enemies hit and slows them by 99% decaying over 1 second | [4039441](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Ruin?oldid=4039441) |
+| Arc of Ruin | castTime: 0.6 / 0.585 / 0.57 / 0.555 / 0.54 / 0.525 / 0.51 / 0.495 / 0.48 / 0.465 / 0.45 (based on bonus attack speed) | [4039441](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Ruin?oldid=4039441) |
+| Kanmei's Steps | Yunara becomes ghosted and gains bonus movement speed for 1.5 seconds. | [3960443](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Kanmei's_Steps?oldid=3960443) |
+| Kanmei's Steps | Bonus Move Speed: 30 / 35 / 40 / 45 / 50% | [3960443](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Kanmei's_Steps?oldid=3960443) |
+| Kanmei's Steps | Increased Bonus Move Speed: 45 / 52.5 / 60 / 67.5 / 75% | [3960443](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Kanmei's_Steps?oldid=3960443) |
+| Untouchable Shadow | targetRange: 225 - 450 • 550 | [4010459](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Untouchable_Shadow?oldid=4010459) |
+| Untouchable Shadow | speed: 1350 / 1500 / 1650 (based on Rank) | [4010459](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Untouchable_Shadow?oldid=4010459) |
+| Untouchable Shadow | Untouchable Shadow resets Yunara's basic attack timer. Arc of Ruin can be cast during the dash. | [4010459](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Untouchable_Shadow?oldid=4010459) |
+| Transcend One's Self | Yunara enters Transcendent State for 15 seconds, during which each of her basic abilities is empowered | [4038856](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Transcend_One's_Self?oldid=4038856) |
+| Transcend One's Self | which has no cost and has its remaining cooldown reduced by 80% upon both entering and exiting the state | [4038856](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Transcend_One's_Self?oldid=4038856) |
+| Transcend One's Self | Upgraded into Untouchable Shadow, which has no cost and has its cooldown reset upon both entering and exiting the state. | [4038856](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Transcend_One's_Self?oldid=4038856) |
+| Cultivation of Spirit | cost: 30 | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Cultivation of Spirit | castTime: none | [4078272](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Cultivation_of_Spirit?oldid=4078272) |
+| Arc of Judgment | Initial Magic Damage: 55 / 95 / 135 / 175 / 215 (+ 85% bonus AD) (+ 50% AP) | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Judgment | cooldown: 10 | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Judgment | cost: 60 | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Judgment | range: 1150 | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Judgment | width: 120 | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Judgment | speed (Normal missile speed): 2150 • 150 | [4008650](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Judgment?oldid=4008650) |
+| Arc of Ruin | cooldown: 10 | [4039441](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Ruin?oldid=4039441) |
+| Arc of Ruin | range: 1150 | [4039441](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Ruin?oldid=4039441) |
+| Arc of Ruin | width: 120 | [4039441](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Arc_of_Ruin?oldid=4039441) |
+| Kanmei's Steps | cooldown: 9 | [3960443](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Kanmei's_Steps?oldid=3960443) |
+| Kanmei's Steps | cost: 40 | [3960443](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Kanmei's_Steps?oldid=3960443) |
+| Kanmei's Steps | castTime: none | [3960443](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Kanmei's_Steps?oldid=3960443) |
+| Untouchable Shadow | cooldown: 9 | [4010459](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Untouchable_Shadow?oldid=4010459) |
+| Untouchable Shadow | castTime: none | [4010459](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Untouchable_Shadow?oldid=4010459) |
+| Transcend One's Self | cooldown: 100 / 90 / 80 | [4038856](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Transcend_One's_Self?oldid=4038856) |
+| Transcend One's Self | cost: 100 | [4038856](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Transcend_One's_Self?oldid=4038856) |
+| Transcend One's Self | castTime: none | [4038856](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Transcend_One's_Self?oldid=4038856) |

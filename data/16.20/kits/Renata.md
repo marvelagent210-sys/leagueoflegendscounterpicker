@@ -208,3 +208,77 @@ All 2 level-based formulas in the game files (0 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | RenataPassive | PercentAmpCalc | breakpoints at levels 6, 9 (level 1: 0.01) | 0.01 | 0.033 | 0.0356 |
 | RenataPassive | PercentAmpCalcSelf | breakpoints at levels 6, 9 (level 1: 0.01) | 0.01 | 0.033 | 0.0356 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Renata.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1800/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Handshake | 16 | 0.25 | 80 | skillshot 900 long, 140 wide, at 1450/s | 260 + 80% AP magic damage; root for 1 s | – |
+| W | Bailout | 24 | 0 | 80 | self | – | – |
+| E | Loyalty Program | 10 | 0.25 | 110 | skillshot 800 long, 220 wide, at 1450/s | 185 + 55% AP magic damage; slow 30% for 2 s | shield of 110 + 50% AP for 3 s |
+| R | Hostile Takeover | 110 | 0.75 | 100 | skillshot 2000 long, 500 wide, at 650/s | berserk for 2.25 s; attackSpeed 1 for 2.25 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Leverage's 1 – 2% (based on level) is its level-18 2% at 20. Only allied champions consume the mark, so in a duel it only ever deals its first-attack damage.
+- Handshake's recast throws the enemy to damage and stun others it passes, and there are none in a duel, so Renata lets the tether run out.
+- Loyalty Program strikes an enemy once per cast: with its rockets if within 325 of Renata, else with the missile (its 0.429 s convergence is left out).
+- Hostile Takeover's cloud flies at its starting 650 (its acceleration is left out). A berserk enemy with no allies attacks Renata, so she sends it berserk only to stop its spells: against an enemy that scales with ability power, or one channeling.
+
+### Source values read (47)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Leverage | If the enemy was unmarked, the attack also deals bonus magic damage equal to 1 – 2 (based on level)% (+ 2% per 100 AP) of the target's maximum health. | [3997432](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Leverage?oldid=3997432) |
+| Leverage | Renata's basic attacks are empowered to apply a mark that lasts 6 seconds, refreshes on subsequent hits and expires when attacking a new enemy. | [3997432](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Leverage?oldid=3997432) |
+| Leverage | Allied champions' damaging attacks and abilities against a marked target will consume the mark | [3997432](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Leverage?oldid=3997432) |
+| Handshake | Renata fires a hook in the target direction that deals magic damage to the first enemy hit and roots them for 1 second, during which they are revealed. | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | causing Renata to become unable to declare attacks and have her movement speed reduced by 30% | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | The tether's duration lasts the same as the root duration, even if it is modified by tenacity. | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | If the root is removed, the tether is as well, but not vice versa. | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | Renata breaks the tether to knock the target in the target direction, though not through terrain, dealing the same damage to enemies they pass through. | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Bailout | Renata infuses herself or the target allied champion with a chemtech formula for 5 seconds | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | Bonus Attack Speed: 10 / 15 / 20 / 25 / 30% (+ 1% per 100 AP) | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | Bonus Movement Speed: 10 / 12.5 / 15 / 17.5 / 20% (+ 1% per 100 AP) | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | Maximum Bonus Attack Speed: 20 / 30 / 40 / 50 / 60% (+ 2% per 100 AP) | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | while they are facing nearby visible enemy champions or minions, with both of the bonuses increasing in effectiveness by | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | If the target takes fatal damage while Bailout is active, they are restored to 100% of their maximum health but suffer a true damage burn equal to 10% of their maximum health every 0.264 until they reach 0 health | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | The burn will stop once the target scores a takedown against an enemy champion within 6 seconds of damaging them, setting their current health to 20% of their maximum health immediately afterwards. | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | This effect may occur only once per application of Bailout while the target already has the buff and is not burning. | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | The self-damage taken is considered raw damage and is calculated based on the target's maximum health at the time of taking lethal damage. | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Loyalty Program | Renata and allies struck are granted a shield for 3 seconds and enemies struck are dealt magic damage and slowed by 30% for 2 seconds. | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | effectRadius (Initial hit radius around Renata): 325 • 225 | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | Renata sends out chemtech rockets from either side of her that instantly strike targets around her. | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Hostile Takeover | Berserk Duration: 1.25 / 1.75 / 2.25 seconds | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Hostile Takeover | Berserked units gain 100% bonus attack speed and 25% increased size. | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Hostile Takeover | Within their targeting radius, they prioritize attacking the closest unit by the following categories in descending order | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Hostile Takeover | speed: 650 - 1000 | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Handshake | cooldown: 16 | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | cost: 80 | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | castTime: 0.25 | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | range (Missile range): 900 • 275 | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | width: 140 | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | speed: 1450 | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Handshake | Magic Damage: 80 / 125 / 170 / 215 / 260 (+ 80% AP) | [4053296](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Handshake?oldid=4053296) |
+| Bailout | cooldown: 28 / 27 / 26 / 25 / 24 | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | cost: 80 | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Bailout | castTime: none | [3908415](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Bailout?oldid=3908415) |
+| Loyalty Program | cooldown: 14 / 13 / 12 / 11 / 10 | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | cost: 70 / 80 / 90 / 100 / 110 | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | castTime: 0.25 | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | targetRange: 800 | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | width: 220 | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | speed: 1450 | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | Shield Strength: 50 / 65 / 80 / 95 / 110 (+ 50% AP) | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Loyalty Program | Magic Damage: 65 / 95 / 125 / 155 / 185 (+ 55% AP) | [4053301](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Loyalty_Program?oldid=4053301) |
+| Hostile Takeover | cooldown: 150 / 130 / 110 | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Hostile Takeover | cost: 100 | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Hostile Takeover | castTime: 0.75 | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Hostile Takeover | range: 2000 | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |
+| Hostile Takeover | width: 500 | [4050286](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Hostile_Takeover?oldid=4050286) |

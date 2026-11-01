@@ -252,3 +252,73 @@ All 7 level-based formulas in the game files (1 linked to wiki values above):
 | QiyanaQ_Grass | TremorDamage | breakpoints at levels 6, 11 (level 1: 0.6) | 0.6 | 0.6 | 0.6 |
 | QiyanaQ_Water | TremorDamage | breakpoints at levels 6, 11 (level 1: 0.6) | 0.6 | 0.6 | 0.6 |
 | QiyanaQ_Rock | TremorDamage | breakpoints at levels 6, 11 (level 1: 0.6) | 0.6 | 0.6 | 0.6 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Qiyana.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Edge of Ixtal | 7 | 0.25 | 35 | skillshot 525 long, 140 wide, instant | 200 + 90% bonus AD physical damage | – |
+| QE | Elemental Wrath | 7 | 0.25 | 35 | skillshot 865 long, 200 wide, at 1600/s | 200 + 90% bonus AD physical damage | – |
+| W | Terrashape | 7 | 0 | 45 | dash toward 0–300 units at 440/s (adjusted by current stats) | – | – |
+| E | Audacity | 7 | 0 | 60 | dash target 650 units at 600/s (adjusted by current stats), hits within 250 | 210 + 50% bonus AD physical damage | – |
+| R | Supreme Display of Talent | 120 | 0.25 | 100 | skillshot 875 long, 280 wide, at 2000/s | knock back 375 units over 0.188 s; after 0.188 s: 300 + 125% bonus AD + 10% target's maximum health physical damage (Supreme Display of Talent (shockwave)); stun for 0.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- There is always River and Terrain near enough for Terrashape. Qiyana starts holding Terrain, and gathers River for its root while the enemy is above half health, Terrain for its bonus damage below; Brush's invisibility is left out.
+- Supreme Display of Talent's shockwave always finds River, Brush or Terrain to run along (top lane is walled), and stuns for its shorter 0.5 s.
+
+### Source values read (44)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Royal Privilege | Innate: Qiyana's basic attacks on-hit and basic abilities deal 15 – 83 (based on level) (+ 25% bonus AD) (+ 30% AP) additional physical damage. | [3985639](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Royal_Privilege?oldid=3985639) |
+| Royal Privilege | Qiyana's basic attacks on-hit and basic abilities deal 15 – 83 (based on level) (+ 25% bonus AD) (+ 30% AP) additional physical damage. | [3985639](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Royal_Privilege?oldid=3985639) |
+| Royal Privilege | targetCooldown: 25 | [3985639](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Royal_Privilege?oldid=3985639) |
+| Royal Privilege | Gathering an Element with Terrashape resets Royal Privilege's per-target cooldown for enemies affected by Royal Privilege using a different Element (or no Element). | [3985639](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Royal_Privilege?oldid=3985639) |
+| Royal Privilege | Royal Privilege's trigger from a basic attack can be blocked (additional damage is negated and the on-target cooldown does not apply). | [3985639](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Royal_Privilege?oldid=3985639) |
+| Terrashape | Bonus Attack Speed: 15 / 20 / 25 / 30 / 35% | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Terrashape | While holding an Element, Qiyana gains bonus attack speed, 25 bonus attack range | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Terrashape | Bonus Magic Damage: 8 / 16 / 24 / 32 / 40 (+ 20% bonus AD) (+ 45% AP) | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Terrashape | Qiyana dashes up to 300 units towards the target location to gather the Element of the nearest Brush, River or Terrain she targeted. | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Terrashape | speed: 440 + 100% movement speed | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Terrashape | Once Terrashape has been learned, Qiyana is automatically given the Terrain element upon respawning. | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Edge of Ixtal | Gathering an Element with Terrashape resets Edge of Ixtal's cooldown and upgrades it into Elemental Wrath. | [4057472](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Edge_of_Ixtal?oldid=4057472) |
+| Edge of Ixtal | Physical Damage: 80 / 110 / 140 / 170 / 200 (+ 90% bonus AD) | [4057472](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Edge_of_Ixtal?oldid=4057472) |
+| Elemental Wrath | The blast roots enemies hit for 0.5 seconds, then slows them by 20% for 1 second. | [4057473](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Elemental_Wrath?oldid=4057473) |
+| Elemental Wrath | Increased Damage: 128 / 176 / 224 / 272 / 320 (+ 144% bonus AD) | [4057473](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Elemental_Wrath?oldid=4057473) |
+| Elemental Wrath | The blast deals 60% increased damage against enemies below 50% of their maximum health. | [4057473](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Elemental_Wrath?oldid=4057473) |
+| Elemental Wrath | consuming the current Element to empower the blade with an additional effect | [4057473](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Elemental_Wrath?oldid=4057473) |
+| Audacity | speed: 600 + 100% movement speed | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Audacity | speed label: Capped at 1200 | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Audacity | Audacity only damages targets if within 250 range upon completion of the dash. | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Audacity | Qiyana can cast any of her abilities during the dash. | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Supreme Display of Talent | Qiyana sweeps a windblast in the target direction that knocks back enemies hit by 375 units | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Supreme Display of Talent | Physical Damage: 100 / 200 / 300 (+ 125% bonus AD) (+ 10% of target's maximum health) | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Supreme Display of Talent | stunning them for 0.5 / 1 (based on proximity) seconds | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Edge of Ixtal | cooldown: 7 | [4057472](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Edge_of_Ixtal?oldid=4057472) |
+| Edge of Ixtal | cost: 35 | [4057472](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Edge_of_Ixtal?oldid=4057472) |
+| Edge of Ixtal | castTime: 0.25 | [4057472](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Edge_of_Ixtal?oldid=4057472) |
+| Edge of Ixtal | range (Rectangle forward range): 525 • -40 | [4057472](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Edge_of_Ixtal?oldid=4057472) |
+| Edge of Ixtal | width: 140 | [4057472](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Edge_of_Ixtal?oldid=4057472) |
+| Elemental Wrath | range (Maximum total range): 865 • -50 | [4057473](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Elemental_Wrath?oldid=4057473) |
+| Elemental Wrath | width (Hurl missile and explosion missile width): 250 • 200 | [4057473](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Elemental_Wrath?oldid=4057473) |
+| Elemental Wrath | speed (Hurl missile speed): 1600 • 2000 | [4057473](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Elemental_Wrath?oldid=4057473) |
+| Terrashape | cooldown: 7 | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Terrashape | cost: 25 / 30 / 35 / 40 / 45 | [4007752](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Terrashape?oldid=4007752) |
+| Audacity | cooldown: 11 / 10 / 9 / 8 / 7 | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Audacity | cost: 40 / 45 / 50 / 55 / 60 | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Audacity | targetRange: 650 | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Audacity | Physical Damage: 50 / 90 / 130 / 170 / 210 (+ 50% bonus AD) | [4052493](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Audacity?oldid=4052493) |
+| Supreme Display of Talent | cooldown: 120 | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Supreme Display of Talent | cost: 100 | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Supreme Display of Talent | castTime: 0.25 | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Supreme Display of Talent | targetRange: 875 | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Supreme Display of Talent | width (Windblast missile width): 280 • 120 | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |
+| Supreme Display of Talent | speed (Windblast missile speed): 2000 • 2840 | [4007999](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Supreme_Display_of_Talent?oldid=4007999) |

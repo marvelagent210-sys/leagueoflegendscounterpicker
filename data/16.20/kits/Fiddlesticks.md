@@ -262,3 +262,73 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Reap | cost | 40 / 45 / 50 / 55 / 60 | 40 / 45 / 50 / 55 / 60 | yes |
 | R: Crowstorm | cooldown | 140 / 110 / 80 | 140 / 110 / 80 | yes |
 | R: Crowstorm | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Fiddlesticks.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 480, missile at 1750/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Terrify | 13 | 0.35 | 65 | targeted, 575 range | 6% target's current health + 3% of target's current health per 100 AP magic damage, at least 120; fear for 2 s; slow 90% for 2 s | – |
+| W | Bountiful Harvest | 8 | 0.25 | 80 | self; channel 2 s, 8 pulses | each pulse: 45 + 11.25% AP magic damage (Bountiful Harvest); at the end: 22% target's missing health magic damage (Bountiful Harvest (last tick)) | when the channel completes: cuts W's cooldown by 60% |
+| E | Reap | 6 | 0.4 | 60 | circle of 300 radius up to 850 away, lands after 0 s | 210 + 50% AP magic damage; slow 50% for 1.25 s; silence for 1.25 s | – |
+| R | Crowstorm | 80 | 0 | 100 | self; channel 1.5 s | – | when the channel completes: reappears 800 units closer |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- A duel starts with both champions in sight and ready to fight, so Fiddlesticks never impersonates an Effigy and Terrify's passive fear never applies; its Effigies and Sweeper Drone do nothing here. Its close-range slash deals the same damage as its ranged attack and is left out.
+- Fiddlesticks can't walk while channeling Bountiful Harvest or Crowstorm.
+- Reap's area is a circle of 300 (the wiki gives no size), and aimed at the enemy it hits with its center, silencing.
+
+### Source values read (44)
+
+| Ability | Value | Source version |
+|---|---|---|
+| A Harmless Scarecrow | Fiddlesticks can pretend to be an Effigy by standing still and not acting nor being acted upon for 2 seconds | [4058532](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/A_Harmless_Scarecrow?oldid=4058532) |
+| Terrify | While Fiddlesticks has been out of combat for at least 2.25 seconds and is not visible to the enemy team, or is impersonating an Effigy, its damaging ability will additionally fear targets hit for a duration. | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | Magic Damage: 4 / 4.5 / 5 / 5.5 / 6% (+ 3% per 100 AP) of target's current health | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | Minimum Damage: 40 / 60 / 80 / 100 / 120 | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | Fear Duration: 1.2 / 1.4 / 1.6 / 1.8 / 2 seconds | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | Terrify slows affected targets by 90%. | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | Targets feared by Fiddlesticks by any means cannot be affected by it again for a duration equal to Terrify's cooldown. Against these targets, Terrify's damage and minimum threshold are doubled. | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | Increased Magic Damage: 8 / 9 / 10 / 11 / 12% (+ 6% per 100 AP) of target's current health | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | Increased Minimum Damage: 80 / 120 / 160 / 200 / 240 | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | It is not applied if the effect is blocked by a spell shield. | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Bountiful Harvest | Fiddlesticks forms a tether between itself and each nearby enemy over the cast time, then channels for up to 2 seconds to harvest their souls, revealing them in the process. | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | While Fiddlesticks is channeling, the tethered enemies are dealt magic damage every 0.25 seconds. | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | Damage per Instance: 15 / 22.5 / 30 / 37.5 / 45 (+ 11.25% AP) | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | Last Tick of Damage: 15 / 22.5 / 30 / 37.5 / 45 (+ 11.25% AP) (+ 12 / 14.5 / 17 / 19.5 / 22% of target's missing health) | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | Champion Heal Portion: 25 / 32.5 / 40 / 47.5 / 55% | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | Fiddlesticks heals itself for a portion of the pre-mitigation damage dealt | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | Bountiful Harvest ends if all targets have died or broken their tethers. If the channel was not interrupted, 60% of the current cooldown is refunded. | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | effectRadius: 650 | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | tetherRadius: 725 | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | A nearby enemy is required to cast this ability. | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | Spell shield will block the tether's application but not the damage of one already applied. | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Reap | Fiddlesticks slashes the target location with its scythe, dealing magic damage to enemies within the area and slowing them for 1.25 seconds. | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Reap | Enemies hit in the center of the area are also silenced for 1.25 seconds. | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Crowstorm | Fiddlesticks channels for 1.5 seconds, then blinks to the target location upon completion with a murder of crows flying wildly around it for 5 seconds, dealing magic damage every 0.25 seconds to nearby enemies. | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
+| Crowstorm | Magic Damage per Tick: 37.5 / 62.5 / 87.5 (+ 12.5% AP) | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
+| Crowstorm | effectRadius: 600 | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
+| Crowstorm | targetRange: 800 | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
+| Crowstorm | Roots do not interrupt the ability despite being a movement channel. | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
+| Terrify | cooldown: 15 / 14.5 / 14 / 13.5 / 13 | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | cost: 65 | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | castTime: 0.35 | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Terrify | targetRange: 575 | [4058043](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Terrify?oldid=4058043) |
+| Bountiful Harvest | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | cost: 60 / 65 / 70 / 75 / 80 | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Bountiful Harvest | castTime: 0.25 | [3936351](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Bountiful_Harvest?oldid=3936351) |
+| Reap | cooldown: 10 / 9 / 8 / 7 / 6 | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Reap | cost: 40 / 45 / 50 / 55 / 60 | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Reap | castTime: 0.4 | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Reap | targetRange: 850 | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Reap | Magic Damage: 70 / 105 / 140 / 175 / 210 (+ 50% AP) | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Reap | Slow: 30 / 35 / 40 / 45 / 50% | [3906828](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Reap?oldid=3906828) |
+| Crowstorm | cooldown: 140 / 110 / 80 | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
+| Crowstorm | cost: 100 | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
+| Crowstorm | castTime: none | [4004933](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Crowstorm?oldid=4004933) |
