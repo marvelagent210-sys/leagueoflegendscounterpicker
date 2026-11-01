@@ -213,3 +213,82 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | NilahQ | BonusAttackSpeedCalc | linear 10 → 60 over levels 1-18, continues past 18 | 10 | 60 | 65.8824 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Nilah.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 225, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Formless Blade | 4 | depends on stats (0.35 base) | 30 | skillshot 600 long, 150 wide, instant | 40 + 100% AD physical damage, varies with combat state; formula is a reference | – |
+| W | Jubilant Veil | 22 (starts when its effect on the caster ends) | 0 | 0 | self | – | ghosted for 2.25 s; dodgeAttacks for 2.25 s; magicReduction 0.25 for 2.25 s; moveSpeedPercent 0.25 for 2.25 s |
+| E | Slipstream | 2 charges, one every 12 s (0.5 s between casts) | 0 | 30 | dash toward 450 units at 2200/s, hits within 150, through the enemy | 100 + 20% bonus AD physical damage | resets the attack timer |
+| R | Apotheosis | 80 | 0 | 100 | self; channel 1 s, 4 pulses | each pulse: 35 + 10% bonus AD physical damage; slow 10% for 3 s; at the end: 325 + 100% bonus AD physical damage (Apotheosis (burst)); pull 250 units over 0.25 s; slow 10% for 3 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Joy Unending works only with allied champions and minions, so it does nothing in a duel.
+- Formless Blade's damage runs in a straight line from its minimum at 0% critical strike chance to its maximum at 100%, as the wiki writes them, whatever Nilah's critical strike damage.
+- Formless Blade's empowered attacks strike the enemy champion as ordinary attacks; the cone's damage to other units (pets included) is left out.
+- Formless Blade's second cast time, none, is its cast during Slipstream. An enemy takes Formless Blade's damage once per cast, from the blade or its wave.
+- Apotheosis's pull takes 0.25 s (the wiki gives no speed). Crowd control that stops casting interrupts the whirl, as it does channels in general.
+
+### Source values read (51)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Joy Unending | Whenever a nearby allied champion uses an ability to heal or shield either Nilah or themselves | [3960984](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Joy_Unending?oldid=3960984) |
+| Joy Unending | Whenever Nilah kills a minion, she and the nearest allied champion gain an additional 50% of the experience | [3960984](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Joy_Unending?oldid=3960984) |
+| Formless Blade | Passive: Nilah gains 0 / 3 / 6 / 9 / 12 / 15 / 18 / 21 / 24 / 27 / 30 (based on critical strike chance)% armor penetration. | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds. | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | converting each heal instance beyond maximum health into a shield that lasts 6 seconds | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | Minimum Physical Damage: 0 / 10 / 20 / 30 / 40 (+ 100% AD) | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | Maximum Physical Damage: 0 / 19.1 / 38.2 / 57.3 / 76.4 (+ 191% AD) | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | deals physical damage to enemies hit, increased by critical strike damage (based on critical strike chance) | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | castTime: 0.35 / 0.33 / 0.297 / 0.28 (based on bonus attack speed) • None | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | range: 0 - 600 • -150 - 500 | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | range label: Rectangle length, starts at 0 distance from Nilah | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | Formless Blade can hit structures and applies life steal at 100% effectiveness to one target. | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | If Formless Blade hits an enemy, Nilah empowers herself for 4 seconds: gaining 125 bonus attack range and 10 – 60 (based on level)% bonus attack speed | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | If Formless Blade hits an enemy, Nilah empowers herself for 4 seconds: gaining 125 bonus attack range and 10 – 60 (based on level)% bonus attack speed, and causing her basic attacks to strike in a cone that deals 100% AD physical damage to enemies hit. | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | causing her basic attacks to strike in a cone that deals 100% AD physical damage to enemies hit | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | On-hit effects are applied only to the primary target. | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Slipstream | Formless Blade and Apotheosis can be cast during the dash. | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Formless Blade | If Formless Blade is cast during Slipstream, Nilah leaves behind a wave that is sent towards her location at the end of the dash, dealing the same damage to enemies hit. | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Jubilant Veil | Nilah envelops herself in mist for 2.25 seconds, during which she becomes ghosted, gains bonus movement speed, reduces all incoming magic damage taken by 25%, and dodges all non-turret basic attacks. | [3845922](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Jubilant_Veil?oldid=3845922) |
+| Jubilant Veil | cooldownStart: post-effect | [3845922](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Jubilant_Veil?oldid=3845922) |
+| Slipstream | Nilah periodically stocks a Slipstream charge, up to a maximum of 2. | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | targetRange: 550 | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | Nilah dashes a fixed distance in the direction of the target unit, dealing physical damage to enemies she passes through. | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | Slipstream resets Nilah's basic attack timer. | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Apotheosis | Nilah whirls her whip-blade over 1 second, dealing physical damage to nearby enemies every 0.25 seconds. | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | She then unleashes a burst that deals physical damage and pulls them 250 units towards her. | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | Each hit also slows targets by 10% for 3 seconds, refreshing on subsequent hits. | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | Physical Damage per Tick: 15 / 25 / 35 (+ 10% bonus AD) | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | Burst Physical Damage: 125 / 225 / 325 (+ 100% bonus AD) | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds. | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | Nilah is unable to basic attack and cast her other abilities during Apotheosis, but she is able to move. | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | Spell shield will only block the burst damage. | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Formless Blade | cooldown: 4 | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | cost: 30 | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Formless Blade | width: 150 | [4007708](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Formless_Blade?oldid=4007708) |
+| Jubilant Veil | cooldown: 26 / 25 / 24 / 23 / 22 | [3845922](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Jubilant_Veil?oldid=3845922) |
+| Jubilant Veil | cost: 60 / 45 / 30 / 15 / 0 | [3845922](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Jubilant_Veil?oldid=3845922) |
+| Jubilant Veil | castTime: none | [3845922](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Jubilant_Veil?oldid=3845922) |
+| Jubilant Veil | Bonus Movement Speed: 15 / 17.5 / 20 / 22.5 / 25% | [3845922](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Jubilant_Veil?oldid=3845922) |
+| Slipstream | staticCooldown: 0.5 | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | recharge: 26 / 22.5 / 19 / 15.5 / 12 | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | cost: 30 | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | castTime: none | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | range (Dash distance): 450 | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | speed: 2200 | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | collisionRadius: 150 | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Slipstream | Physical Damage: 60 / 70 / 80 / 90 / 100 (+ 20% bonus AD) | [3927625](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Slipstream?oldid=3927625) |
+| Apotheosis | cooldown: 110 / 95 / 80 | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | cost: 100 | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | castTime: none | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |
+| Apotheosis | effectRadius (Damage radius): 450 • 1500 | [4007709](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Apotheosis?oldid=4007709) |

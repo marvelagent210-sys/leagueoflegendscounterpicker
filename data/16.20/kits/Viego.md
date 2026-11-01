@@ -269,3 +269,74 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | W: Spectral Maw | cooldown | 8 / 8 / 8 / 8 / 8 | 8 / 8 / 8 / 8 / 8 | yes |
 | E: Harrowed Path | cooldown | 14 / 12 / 10 / 8 / 6 | 14 / 12 / 10 / 8 / 6 | yes |
 | R: Heartbreaker | cooldown | 120 / 100 / 80 | 120 / 100 / 80 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Viego.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 200, melee, on hit: 6% target's current health physical damage (Blade of the Ruined King), can crit, at least 30.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Blade of the Ruined King | 3 | depends on stats (0.35 base) | 0 | skillshot 600 long, 125 wide, instant | 85 + 70% AD physical damage, can crit; marks it "viego:mark" for 4 s | – |
+| W | Spectral Maw | 8 | depends on stats (1 base) | 0 | skillshot 900 long, 120 wide, at 1300/s | 300 + 100% AP magic damage; stun for 1.25 s; marks it "viego:mark" for 4 s | resets the attack timer |
+| E | Harrowed Path | 6 | 0 | 0 | self | – | – |
+| R | Heartbreaker | 80 | 0.5 | 0 | blink toward 500 units | 20% target's missing health + 5% of target's missing health per 100 bonus AD physical damage (Heartbreaker); 120% AD physical damage (Heartbreaker), can crit; slow 99% for 0.25 s | as the cast starts: displacementImmune for 0.5 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Sovereign's Domination begins with a champion takedown, which ends a duel, so Possession never comes into play.
+- Spectral Maw's range field reads "300 / 500 / … / 900 (based on channel time)": the first number is the dash's fixed distance, the series the blast's range.
+- Viego charges Spectral Maw just long enough for its range to reach the enemy, and its dash goes after the blast through the enemy's position.
+- Harrowed Path's mist runs straight along the duel's line from where Viego casts it (its spread around walls is left out), and its camouflage doesn't hide him at fighting range.
+
+### Source values read (44)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Sovereign's Domination | Whenever Viego scores an enemy champion takedown while alive and within 3 seconds of damaging them, a Mist Wraith spawns from that champion's corpse for 8 seconds. | [4063480](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Sovereign's_Domination?oldid=4063480) |
+| Blade of the Ruined King | Bonus Physical Damage: 2 / 3 / 4 / 5 / 6% of target's current health | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | Minimum Bonus Damage: 10 / 15 / 20 / 25 / 30 | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | This damage can critically strike for 170% damage | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | his damaging abilities apply a mark to enemies hit for 4 seconds | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | Viego's next basic attack against a marked target is empowered to consume the mark on-hit to strike a second time, dealing 20% AD (+ 15% AP) physical damage. | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | 100% against minions, 125% against monsters, and 150% against other targets | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | The second strike applies on-hit effects and can critically strike for 200% damage. | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | Ability damage that applies on-hit effects (e.g., R damage against the primary target) cannot apply the mark but can consume it, as a basic attack would. | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | Viego will not perform the second strike if the first attack was dodged, blocked, and missed. | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | Physical Damage: 25 / 40 / 55 / 70 / 85 (+ 70% AD) | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | deals physical damage to enemies hit, increased by critical strike damage (based on critical strike chance) | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | castTime: 140% of Viego's windup time (0.349936 at base attack speed) | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | range: -25 - 600 | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | range label: Rectangle length is 625 units total, starting from 25 units behind Viego's center | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Spectral Maw | Viego charges while being slowed by 10% for up to 3 seconds to increase Spectral Maw's missile range and stun duration over the first second of the channel. | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | targetRange: 300 / 500 / 600 / 700 / 800 / 900 (based on channel time) | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | The mist deals magic damage to the first enemy hit and stuns them for 0.25 / 0.5 / 0.75 / 1 / 1.25 (based on channel time) seconds. | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | Viego hurls a blast of mist in the target direction and dashes a fixed distance in the same direction, though not through terrain. | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | Spectral Maw resets Viego's basic attack timer. | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | speed (Dash speed): 1000 • 1300 | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | speed (Missile speed): 1000 • 1300 | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Harrowed Path | range (Initial missile reach): 775 • 8000 | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Harrowed Path | creates a trail of mist in its wake which lasts 8 seconds | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Harrowed Path | Bonus Attack Speed: 30 / 35 / 40 / 45 / 50% | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Harrowed Path | Bonus Movement Speed: 25 / 27.5 / 30 / 32.5 / 35% (+ 4% per 100 AP) | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Harrowed Path | preventing Viego from gaining them again for 1 second | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Harrowed Path | Harrowed Path can be cast during any of Viego's abilities. | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Heartbreaker | Physical Damage: 12 / 16 / 20% (+ 5% per 100 bonus AD) of target's missing health | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Heartbreaker | All targets hit are dealt 120% AD physical damage, increased by critical strike damage (based on critical strike chance). | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Heartbreaker | Viego gains displacement immunity over the cast time, then blinks to the target location. | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Heartbreaker | Heartbreaker's strike to the champion can be dodged and blocked, but not missed. | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Heartbreaker | targetRange: 500 | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Heartbreaker | effectRadius: 300 | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Blade of the Ruined King | cooldown: 5 / 4.5 / 4 / 3.5 / 3 | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Blade of the Ruined King | width: 125 | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
+| Spectral Maw | cooldown: 8 | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | width: 120 | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Spectral Maw | Magic Damage: 80 / 135 / 190 / 245 / 300 (+ 100% AP) | [4008551](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Spectral_Maw?oldid=4008551) |
+| Harrowed Path | cooldown: 14 / 12 / 10 / 8 / 6 | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Harrowed Path | castTime: none | [4057854](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Harrowed_Path?oldid=4057854) |
+| Heartbreaker | cooldown: 120 / 100 / 80 | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Heartbreaker | castTime: 0.5 | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
+| Heartbreaker | dealing physical damage, slowing them by 99% for 0.25 seconds, and applying on-hit effects | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |

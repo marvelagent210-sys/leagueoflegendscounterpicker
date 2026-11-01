@@ -213,3 +213,110 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 | ShyvanaW | Calc_Heal_Min | linear 75 → 200 over levels 1-18, continues past 18 | 75 | 200 | 214.706 |
 | ShyvanaW | Calc_Missing_Health_Heal | linear 0.04 → 0.08 over levels 1-18, continues past 18 | 0.04 | 0.08 | 0.0847059 |
 | ShyvanaW | Calc_Base_Heal | linear 60 → 100 over levels 1-18, continues past 18 | 60 | 100 | 104.706 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Shyvana.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee, on hit: 1% target's maximum health + 1.1% of target's maximum health per 100 bonus AD magic damage (Emberstrike (passive)); cuts Q's cooldown by 0.5 s.
+- Options: scalemail = 30.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Emberstrike | 6 | 0 | – | self | – | next 1 attack within 6 s (resets the attack timer, uncancellable) |
+| Q2 | Emberstrike (second cast) | 0 | 0 | – | self; recast of Q within 11.5 s | – | next 1 attack within 6 s (resets the attack timer, uncancellable) |
+| Q3 | Emberstrike (third cast, Dragon Form) | 0 | 0 | – | self; recast of Q within 11.5 s | – | next 1 attack within 6 s (resets the attack timer, uncancellable) |
+| W | Inferno Aegis | 10 | 0 | 0 | self | – | – |
+| W2 | Inferno Aegis (explosion) | 0 | 0 | – | around itself, 350 units; recast of W within 2.5 s, after 1 s, automatic | 160 + 65% AP magic damage | – |
+| E | Molten Burst | 8 | 0.25 | 0 | skillshot 800 long, 120 wide, at 1500/s | 110 + 80% AP + 5% target's maximum health magic damage; slow 30% for 2 s | – |
+| ED | Molten Burst (Dragon Form) | 8 | 0.333 | 0 | skillshot 1000 long, 144 wide, at 1600/s | 137.5 + 100% AP + 6.25% target's maximum health magic damage; slow 30% for 2 s | – |
+| R | Dragon's Descent | 0 | 0.25 | 0 | dash toward 400–1050 units at 1100/s, hits within 112.5, through the enemy | 350 + 100% AP magic damage; fear for 0.75 s; slow 99% for 0.75 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Scalemail stacks by level 20 (1 per large minion or large monster, 3 per champion or epic monster takedown): 30.
+- Shyvana starts a fight with full Dragon Fury and without ultimate haste, so Dragon Fury generation gets no bonus. Dragon Form's bonus health raises her current health by the same amount; leaving it keeps her health, capped at the lower maximum. Its size increase is left out: her hitbox doesn't grow.
+- Emberstrike's cone and tail slam hit only the attack's target in a duel; its 10 bonus damage against monsters and its passive's minimum and cap against non-champions are left out.
+- The Dragon Form fireball's width isn't on the wiki ("wider"): it is taken as 144, the human 120 scaled by the game files' missile widths (90 against 75). The fireball's scorched trail, 100 wide, is left out (stepping off it sideways is free); the scorched fields around the struck champion and at the end of the fireball's range are kept.
+- A human fireball that misses explodes at its maximum range, hitting the enemy only if it stands within the explosion beyond that range. A Dragon Form fireball's contact is its first explosion on the champion (the increased damage); the explosion it sets upon the champion follows 0.25 s later (the game files' RepeatExplosionDelay) as a subsequent explosion for 40%, as does its explosion at maximum range when that catches the champion again. A fireball that misses still explodes at its maximum range, for full damage.
+- Dragon's Descent flies at 1100 units per second (neither the wiki nor the game files give its speed), and its fire hits the enemy if the flight passes within 112.5 units of it (half the game files' 225 width).
+
+### Source values read (73)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Scalemail | For each stack, Shyvana gains 0.3 bonus armor and 0.3 bonus magic resistance | [4001512](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Scalemail?oldid=4001512) |
+| Dragon's Descent | Dragon Fury Generation per 0.5 Seconds: 0.25 / 0.375 / 0.5 | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | Shyvana generates Dragon Fury every 0.5 seconds while in Human Form | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | generate 1.25 Dragon Fury for each enemy damaged | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | increased by 200% during Dragon Form | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | up to once per enemy per cast instance | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | 100 Dragon Fury is required to cast this ability | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | cost: 3.3 | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | costType: dragon fury every 0.5 seconds | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | returning to Human Form once all Dragon Fury has been depleted | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | Bonus Health: 150 / 250 / 350 | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | Bonus Range: 25 / 50 / 75 | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Emberstrike | After 1.5 seconds of using an Emberstrike attack, or immediately following a basic attack, the ability can be recast within and up to the next 4 seconds each time | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | empowers Shyvana's next basic attack within 6 seconds to have an uncancellable windup | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | Emberstrike can be cast twice in Human Form and thrice in Dragon Form | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | Shyvana gains 50 bonus range on all of her basic attacks while Emberstrike is active | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | Area Physical Damage: 10 / 15 / 20 / 25 / 30 (+ 110% AD) (+ 30% AP) | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | True Damage: 15 / 22.5 / 30 / 37.5 / 45 (+ 165% AD) (+ 45% AP) | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | The damage to the primary target is affected by critical strike modifiers. | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | This damage cannot critically strike. | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | All casts reset Shyvana's basic attack timer. | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | Spell shield will not block any damage nor be consumed by the strikes. | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | Blind will negate the damage to the primary target | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | Only the last cast of Emberstrike puts Shyvana's basic attack on cooldown. | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | In Human Form, only Q2 will put it on cooldown; in Dragon Form, only Q3 will. | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | cooldownStart: starts on-cast, but restarts each time an empowered attack is used | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | reduce Emberstrike's current cooldown by 0.5 seconds | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | deal bonus magic damage equal to 1% (+ 1.1% per 100 bonus AD) of the target's maximum health | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Emberstrike | cooldown: 10 / 9 / 8 / 7 / 6 | [4049991](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Emberstrike?oldid=4049991) |
+| Inferno Aegis | Shield Strength: 60 / 80 / 100 / 120 / 140 (+ 12% bonus health) | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | Increased shield per champion: 18 / 24 / 30 / 36 / 42 (+ 3.6% bonus health) | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | with the shield strength increased by 30% for every nearby enemy champion | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | Shyvana shields herself for 2.5 seconds | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | effectRadius (Enemy champion detection range): 350 • 2000 • 600 | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | she gains 25% bonus movement speed, increased to 43.75% while facing visible enemy champions | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | effectRadius (Enemy detection range for granting the enhanced MS): 350 • 2000 • 600 | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | After 1 second, Inferno Aegis can be recast while the shield holds and does so automatically after it expires or is broken. | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | Shyvana consumes the shield to explode | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | effectRadius (Explosion radius): 350 • 2000 • 600 | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | Magic Damage: 80 / 100 / 120 / 140 / 160 (+ 65% AP) | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Inferno Aegis | Dragon Form Bonus: If the explosion hits an enemy champion, Shyvana heals herself for 60 – 100 (based on level) (+ 4 – 8 (based on level)% missing health). | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Molten Burst | Magic Damage: 50 / 65 / 80 / 95 / 110 (+ 60 / 65 / 70 / 75 / 80% AP) (+ 5% of target's maximum health) | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | slowing them by 30% for 2 seconds | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | explodes upon colliding with the first enemy or reaching maximum range | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | effectRadius (in Human Form): 150 • 300 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | effectRadius (Dragon Form): 150 • 300 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | width (Fireball width): 120 • 100 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | The fireball is wider, can pass through enemies, and deals 25% increased damage. | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | the fireball sets an explosion upon the targets struck and at the location that applies the same effects | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | Increased/Explosion Magic Damage: 62.5 / 81.25 / 100 / 118.75 / 137.5 (+ 75 / 81.25 / 87.5 / 93.75 / 100% AP) (+ 6.25% of target's maximum health) | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | Subsequent Explosion Damage: 25 / 32.5 / 40 / 47.5 / 55 (+ 30 / 32.5 / 35 / 37.5 / 40% AP) (+ 2.5% of target's maximum health) | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | Subsequent explosions against the same target deal 40% damage. | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | Molten Burst will also scorch the ground it touches beneath for 2 seconds | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | Enemies within a scorched field are dealt 3.75 / 5 / 6.25 (based on level) (+ 1.25% AP) magic damage every 0.25 seconds, for a total maximum damage of 30 / 40 / 50 (based on level) (+ 10% AP). | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | (+ 1.25% AP) magic damage every 0.25 seconds | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | Enemies may be damaged by only one scorched field at a time. | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | In Dragon Form, both areas of effect will be centered on the first champion struck, not at the location the missile collided with them. | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | This ability will cast from wherever the caster is at the end of the cast time. | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | width (Scorched ground trail): 120 • 100 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Dragon's Descent | targetRange: 400 - 1050 | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | flies with displacement immunity to the target location, breathing fire in a cone along the way | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | fears them for 0.75 seconds, as well as slows them by 99% for the same duration | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | Dragon's Descent's displacement immunity begins from the start of the cast time. | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Inferno Aegis | cooldown: 13 / 12.25 / 11.5 / 10.75 / 10 | [4021912](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) |
+| Molten Burst | cooldown: 12 / 11 / 10 / 9 / 8 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | castTime (Human Form): 0.25 • 0.3333 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | range (Human Form): 800 • 1000 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | speed (Human Form): 1500 • 1600 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | castTime (Dragon Form): 0.25 • 0.3333 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | range (Dragon Form): 800 • 1000 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Molten Burst | speed (Dragon Form): 1500 • 1600 | [4058111](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Molten_Burst?oldid=4058111) |
+| Dragon's Descent | castTime: 0.25 | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |
+| Dragon's Descent | Magic Damage: 150 / 250 / 350 (+ 100% AP) | [4049822](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Dragon's_Descent?oldid=4049822) |

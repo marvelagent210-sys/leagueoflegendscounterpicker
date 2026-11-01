@@ -1,5 +1,186 @@
 # Counters to Ivern (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Ivern: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ivern wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ivern --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.89 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +1.00 |
+| 2 | Heimerdinger | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 3 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 4 | K'Sante | +0.60 | +1.00 | +1.00 | +1.00 | +0.00 | −1.00 | +0.00 |
+| 5 | Syndra | +0.57 | +0.58 | +0.63 | +1.00 | +0.09 | – | +0.00 |
+| 6 | Lulu | +0.29 | +0.36 | +0.48 | +0.09 | +0.21 | – | +0.00 |
+| 7 | Dr. Mundo | +0.06 | +0.09 | +0.11 | +0.07 | −0.03 | +0.02 | +0.00 |
+| 8 | Anivia | +0.02 | +0.05 | +0.10 | −0.00 | −0.03 | −0.18 | +0.00 |
+| 9 | Kog'Maw | +0.00 | −0.43 | +0.40 | +0.00 | +0.06 | – | +0.00 |
+| 10 | Yunara | −0.01 | +0.50 | +0.56 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 11 | Miss Fortune | −0.06 | +0.19 | +0.25 | −1.00 | +0.25 | – | +0.00 |
+| 12 | Corki | −0.08 | −0.17 | −0.18 | +0.02 | +0.10 | – | +0.00 |
+| 13 | Jayce | −0.09 | +1.00 | −0.56 | −1.00 | −0.01 | +0.04 | +0.00 |
+| 14 | Taric | −0.12 | −0.12 | −0.26 | −0.06 | +0.01 | −0.17 | +0.00 |
+| 15 | Zac | −0.18 | −0.22 | −0.30 | −0.12 | −0.11 | −0.08 | +0.00 |
+| 16 | Kayle | −0.19 | −1.00 | −1.00 | +1.00 | +0.30 | +0.62 | +0.00 |
+| 17 | Ashe | −0.22 | +0.24 | −0.89 | −0.89 | +0.47 | +0.52 | +0.00 |
+| 18 | Tahm Kench | −0.24 | −0.34 | −0.33 | −0.21 | +0.01 | −0.28 | +0.00 |
+| 19 | Trundle | −0.27 | −1.00 | −1.00 | +1.00 | −0.18 | +0.11 | +1.00 |
+| 20 | Aphelios | −0.30 | −0.18 | −0.19 | −1.00 | +0.18 | – | +0.00 |
+| 21 | Elise | −0.32 | −1.00 | −1.00 | +1.00 | +0.09 | – | +0.00 |
+| 22 | Neeko | −0.32 | −0.40 | −0.51 | −0.39 | +0.12 | – | +0.00 |
+| 23 | Maokai | −0.33 | −0.71 | −0.10 | −0.68 | +0.03 | +0.05 | +0.00 |
+| 24 | Aurelion Sol | −0.34 | −0.22 | −0.23 | −1.00 | +0.02 | – | +0.00 |
+| 25 | Olaf | −0.36 | −1.00 | −1.00 | +1.00 | −0.04 | −1.00 | +1.00 |
+| 26 | Aurora | −0.50 | −1.00 | −1.00 | +0.16 | +0.11 | – | +0.00 |
+| 27 | Malzahar | −0.52 | −0.23 | −0.88 | −1.00 | +0.05 | – | +0.00 |
+| 28 | Smolder | −0.53 | −0.99 | −1.00 | +0.03 | +0.08 | – | +0.00 |
+| 29 | Annie | −0.55 | −0.08 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 30 | Ornn | −0.56 | −0.39 | −0.69 | −0.94 | −0.03 | −1.00 | +0.00 |
+| 31 | Ziggs | −0.58 | −1.00 | −0.44 | −1.00 | +0.25 | – | +0.00 |
+| 32 | Zoe | −0.63 | −0.50 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 33 | Shen | −0.69 | −1.00 | −1.00 | −0.63 | +0.01 | −0.63 | +0.00 |
+| 34 | Vayne | −0.70 | −1.00 | −0.83 | −1.00 | +0.14 | – | +0.07 |
+| 35 | Jhin | −0.72 | −0.96 | −0.94 | −1.00 | +0.18 | – | +0.00 |
+| 36 | Sylas | −0.73 | −1.00 | −1.00 | −1.00 | +0.45 | −1.00 | +0.00 |
+| 37 | Master Yi | −0.74 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +1.00 |
+| 38 | Milio | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 39 | Vel'Koz | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 40 | Nami | −0.75 | −0.97 | −0.95 | −1.00 | +0.05 | – | +0.00 |
+| 41 | Bel'Veth | −0.75 | −1.00 | −0.81 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 42 | Teemo | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 43 | Graves | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 44 | Rengar | −0.75 | −1.00 | −1.00 | −1.00 | +0.34 | −1.00 | +0.00 |
+| 45 | Janna | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 46 | Mel | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 47 | Lissandra | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 48 | Samira | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 49 | Cassiopeia | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 50 | Renata Glasc | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 51 | Xayah | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 52 | Ryze | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 53 | Yone | −0.76 | −0.91 | −0.94 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 54 | Swain | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 55 | Hwei | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 56 | Nilah | −0.76 | −1.00 | −1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
+| 57 | Taliyah | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 58 | Twisted Fate | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 59 | Jinx | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 60 | Lux | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 61 | Orianna | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 62 | Veigar | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 63 | Draven | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 64 | Sona | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 65 | Brand | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 66 | Zeri | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 67 | Twitch | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 68 | Akshan | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 69 | Lucian | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 70 | Sion | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 71 | Karma | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 72 | Riven | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 73 | Morgana | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 74 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 75 | Viktor | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 76 | Ahri | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 77 | Zilean | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 78 | Azir | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 79 | Karthus | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 80 | Seraphine | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 81 | Sivir | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 82 | Xerath | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 83 | Soraka | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 84 | Kindred | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 85 | Nunu & Willump | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 86 | Kalista | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 87 | Ezreal | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 88 | Fiddlesticks | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 89 | Vex | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 90 | Yuumi | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 91 | LeBlanc | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 92 | Kai'Sa | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 93 | Nidalee | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 94 | Quinn | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 95 | Bard | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 96 | Irelia | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 97 | Kassadin | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 98 | Diana | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 99 | Gangplank | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 100 | Galio | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 101 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 102 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 103 | Evelynn | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 104 | Varus | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 105 | Zaahen | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 106 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 107 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 108 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 109 | Poppy | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 110 | Gnar | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 111 | Kayn | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 112 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 113 | Wukong | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 114 | Naafiri | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 115 | Rell | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 116 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 117 | Shyvana | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.05 |
+| 118 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 119 | Warwick | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 120 | Gwen | −0.79 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +1.00 |
+| 121 | Illaoi | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 122 | Nautilus | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 123 | Jarvan IV | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 124 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 125 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 126 | Jax | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −0.96 | +0.00 |
+| 127 | Shaco | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 128 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 129 | Tristana | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 130 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 131 | Alistar | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 132 | Sett | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 133 | Lillia | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 134 | Rakan | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 135 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 136 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 137 | Gragas | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 138 | Braum | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 139 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 140 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 141 | Nasus | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 142 | Cho'Gath | −0.81 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 143 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 144 | Rumble | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 145 | Lee Sin | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 146 | Yasuo | −0.81 | −1.00 | −1.00 | −0.98 | −0.07 | −1.00 | +0.00 |
+| 147 | Darius | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 148 | Skarner | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 149 | Udyr | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 150 | Ekko | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 151 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 152 | Fizz | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 153 | Zed | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 154 | Kled | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 155 | Viego | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 156 | Vi | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 157 | Katarina | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 158 | Rammus | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 159 | Locke | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 160 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
+| 161 | Rek'Sai | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 162 | Garen | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 163 | Hecarim | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 164 | Tryndamere | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 165 | Pyke | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 166 | Xin Zhao | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 167 | Nocturne | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 168 | Singed | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 169 | Qiyana | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 170 | Volibear | −0.82 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 171 | Aatrox | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 172 | Briar | −0.85 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Ivern's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +189,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Ivern` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Braum (net +1.03)
+#### 1. Braum (net +1.03)
 
 - **0.85** projectile block: Unbreakable blocks Ivern's Rootcaller, a projectile. Unbreakable for 4 s, long enough to use ahead of Rootcaller. (Braum E Unbreakable → Ivern Q Rootcaller)
 - **0.31** projectile block: Unbreakable blocks Ivern's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Ivern basic attacks)
 - **0.15** interrupt: Concussive Blows's stun interrupts Ivern's Friend of the Forest (normal channel). Concussive Blows must land during the channel. (Braum I Concussive Blows → Ivern I Friend of the Forest)
 - Watch out: Ivern's basic attacks reach 350 units farther than Braum's (475 vs 125 attack range).
 
-### 2. Yuumi (net +0.99)
+#### 2. Yuumi (net +0.99)
 
 - **0.85** untargetable: You and Me! makes Yuumi untargetable, dodging Ivern's Rootcaller. Untargetable for ?; Rootcaller takes 1.17 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Ivern Q Rootcaller)
 - **0.27** untargetable: You and Me! makes Yuumi untargetable, dodging Ivern's Triggerseed. Untargetable for ?; Triggerseed lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Ivern E Triggerseed)
 
-### 3. Fizz (net +0.97)
+#### 3. Fizz (net +0.97)
 
 - **0.85** untargetable: Playful makes Fizz untargetable, dodging Ivern's Rootcaller. Untargetable for 0.75 s; Rootcaller takes 1.17 s to land, enough to react. (Fizz E Playful → Ivern Q Rootcaller)
 - **0.25** untargetable: Playful makes Fizz untargetable, dodging Ivern's Triggerseed. Untargetable for 0.75 s; Triggerseed lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Ivern E Triggerseed)
 - **0.07** interrupt: Chum the Waters's airborne interrupts Ivern's Friend of the Forest (normal channel). Chum the Waters must land during the channel. (Fizz R Chum the Waters → Ivern I Friend of the Forest)
 - Watch out: Ivern's basic attacks reach 300 units farther than Fizz's (475 vs 175 attack range).
 
-### 4. Maokai (net +0.92)
+#### 4. Maokai (net +0.92)
 
 - **0.85** untargetable: Twisted Advance makes Maokai untargetable, dodging Ivern's Rootcaller. Untargetable for 1.4 s; Rootcaller takes 1.17 s to land, enough to react. (Maokai W Twisted Advance → Ivern Q Rootcaller)
 - **0.22** untargetable: Twisted Advance makes Maokai untargetable, dodging Ivern's Triggerseed. Untargetable for 1.4 s; Triggerseed lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Ivern E Triggerseed)
 - **0.15** interrupt: Bramble Smash's airborne interrupts Ivern's Friend of the Forest (normal channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Ivern I Friend of the Forest)
 - Watch out: Ivern's basic attacks reach 350 units farther than Maokai's (475 vs 125 attack range).
 
-### 5. Nocturne (net +0.89)
+#### 5. Nocturne (net +0.89)
 
 - **0.77** spell shield: Shroud of Darkness's spell shield blocks Ivern's Rootcaller. Spell shield for 1.5 s, long enough to use ahead of Rootcaller. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Ivern Q Rootcaller)
 - **0.34** spell shield: Shroud of Darkness's spell shield blocks Ivern's Triggerseed. Spell shield for 1.5 s, long enough to use ahead of Triggerseed. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Ivern E Triggerseed)
 - **0.14** interrupt: Unspeakable Horror's fear interrupts Ivern's Friend of the Forest (normal channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Ivern I Friend of the Forest)
 - Watch out: Ivern's basic attacks reach 350 units farther than Nocturne's (475 vs 125 attack range).
 
-### 6. Yasuo (net +0.89)
+#### 6. Yasuo (net +0.89)
 
 - **0.64** projectile block: Wind Wall blocks Ivern's Rootcaller, a projectile. Wind Wall for 4 s, long enough to use ahead of Rootcaller. (Yasuo W Wind Wall → Ivern Q Rootcaller)
 - **0.24** projectile block: Wind Wall blocks Ivern's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Ivern basic attacks)
 - **0.15** interrupt: Steel Tempest's airborne interrupts Ivern's Friend of the Forest (normal channel). Steel Tempest must land during the channel. (Yasuo Q Steel Tempest → Ivern I Friend of the Forest)
 - Watch out: Ivern's basic attacks reach 300 units farther than Yasuo's (475 vs 175 attack range).
 
-### 7. Malzahar (net +0.85)
+#### 7. Malzahar (net +0.85)
 
 - **0.43** cc immunity: Void Shift makes Malzahar immune to Ivern's Rootcaller (root). Void Shift is up on its own and ends on the first damage or crowd control it takes. (Malzahar I Void Shift → Ivern Q Rootcaller)
 - **0.20** dash stop: Nether Grasp's knockdown can stop Ivern's Rootcaller mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Malzahar R Nether Grasp → Ivern Q Rootcaller)
 - **0.15** interrupt: Call of the Void's silence interrupts Ivern's Friend of the Forest (normal channel). Call of the Void must land during the channel. (Malzahar Q Call of the Void → Ivern I Friend of the Forest)
 
-### 8. Vladimir (net +0.81)
+#### 8. Vladimir (net +0.81)
 
 - **0.66** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ivern's Rootcaller. Untargetable for 2 s, long enough to use ahead of Rootcaller. (Vladimir W Sanguine Pool → Ivern Q Rootcaller)
 - **0.30** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ivern's Triggerseed. Untargetable for 2 s, long enough to use ahead of Triggerseed. (Vladimir W Sanguine Pool → Ivern E Triggerseed)
 
-### 9. Udyr (net +0.76)
+#### 9. Udyr (net +0.76)
 
 - **0.85** cc immunity: Blazing Stampede makes Udyr immune to Ivern's Rootcaller (root). Immune for 1.5 s, long enough to use ahead of Rootcaller. (Udyr E Blazing Stampede → Ivern Q Rootcaller)
 - **0.15** interrupt: Blazing Stampede's stun interrupts Ivern's Friend of the Forest (normal channel). Blazing Stampede must land during the channel. (Udyr E Blazing Stampede → Ivern I Friend of the Forest)
 - **0.11** cc immunity: Blazing Stampede makes Udyr immune to Ivern's Triggerseed (slow). Immune for 1.5 s, long enough to use ahead of Triggerseed. (Udyr E Blazing Stampede → Ivern E Triggerseed)
 - Watch out: Ivern's basic attacks reach 350 units farther than Udyr's (475 vs 125 attack range).
 
-### 10. Sivir (net +0.76)
+#### 10. Sivir (net +0.76)
 
 - **0.62** spell shield: Spell Shield's spell shield blocks Ivern's Rootcaller. Spell shield for 1.5 s, long enough to use ahead of Rootcaller. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Ivern Q Rootcaller)
 - **0.28** spell shield: Spell Shield's spell shield blocks Ivern's Triggerseed. Spell shield for 1.5 s, long enough to use ahead of Triggerseed. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Ivern E Triggerseed)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -198,3 +198,61 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | HeightenedLearning | {e359ec0d} | breakpoints at levels 6, 11, 16, 21, 26, 31 (level 1: 0.8) | 0.8 | 2.4 | 2.4 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Zilean.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Time Bomb | 8 | 0.25 | 80 | circle of 140 radius up to 900 away, lands after 0.5 s | marks it "zilean:bomb" for 3.1 s | – |
+| W | Rewind | 6 | 0 | 35 | self | – | cuts Q's cooldown by 10 s; cuts E's cooldown by 10 s |
+| E | Time Warp | 15 | 0 | 50 | targeted, 550 range | slow 99% for 2.5 s | – |
+| ES | Time Warp (self) | 15 | 0 | 50 | self | – | moveSpeedPercent 0.99 for 2.5 s |
+| R | Chronoshift | 60 | 0 | 175 | self | – | marks it "zilean:rune" for 5 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Time in a Bottle is disabled at level 20 (every champion is at its maximum level), so it does nothing in a duel.
+- Time Bomb lands 0.5 s after it is thrown (the wiki gives no speed) and sticks to the enemy if its center is within the 140 epicenter; one that lands beside the enemy explodes on the ground and is left out. A second bomb detonates the first: one explosion, plus the stun.
+- Zilean can be his own ally for Time Warp's movement speed.
+
+### Source values read (31)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Time in a Bottle | becomes disabled when Zilean and his allied champions have reached their maximum level | [4056302](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_in_a_Bottle?oldid=4056302) |
+| Time Bomb | After 3 seconds, or when the attached unit dies, the bomb explodes to deal magic damage to nearby enemies. | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | Magic Damage: 75 / 115 / 165 / 230 / 300 (+ 90% AP) | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | Stun Duration: 1.1 / 1.2 / 1.3 / 1.4 / 1.5 seconds | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | The bomb detonates immediately if another bomb attaches itself to the same unit, stunning nearby enemies for a duration. | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | The bomb will attach itself to units that move within the epicenter, or those hit directly at the time of the bomb's landing | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | Time Bomb can deal damage to the enemy holder through untargetablility. | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | Spell shield will prevent the application of Time Bomb and its detonation damage as well as block the stun | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Rewind | Zilean reduces the remaining cooldowns of Time Bomb and Time Warp by 10 seconds each. | [4008463](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Rewind?oldid=4008463) |
+| Rewind | Either Time Bomb or Time Warp must be on cooldown to cast this ability. | [4008463](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Rewind?oldid=4008463) |
+| Time Warp | Zilean applies Time Warp to the target champion which lasts for 2.5 seconds. | [3433210](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Warp?oldid=3433210) |
+| Time Warp | Movement Speed Modifier: 40 / 55 / 70 / 85 / 99% | [3433210](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Warp?oldid=3433210) |
+| Time Warp | If the target is an ally, they gain bonus movement speed. If the target is an enemy, they are slowed. | [3433210](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Warp?oldid=3433210) |
+| Chronoshift | Zilean places a protective time rune on the target allied champion or himself for 5 seconds. | [3907350](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Chronoshift?oldid=3907350) |
+| Chronoshift | If the target takes fatal damage within the duration, they enter resurrection for 3 seconds, becoming invulnerable, untargetable, and unable to act. | [3907350](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Chronoshift?oldid=3907350) |
+| Chronoshift | Heal: 600 / 850 / 1100 (+ 200% AP) | [3907350](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Chronoshift?oldid=3907350) |
+| Time Bomb | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | cost: 60 / 65 / 70 / 75 / 80 | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | castTime: 0.25 | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | targetRange: 900 | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Time Bomb | collisionRadius: 140 | [4008679](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Bomb?oldid=4008679) |
+| Rewind | cooldown: 14 / 12 / 10 / 8 / 6 | [4008463](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Rewind?oldid=4008463) |
+| Rewind | cost: 35 | [4008463](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Rewind?oldid=4008463) |
+| Rewind | castTime: none | [4008463](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Rewind?oldid=4008463) |
+| Time Warp | cooldown: 15 | [3433210](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Warp?oldid=3433210) |
+| Time Warp | cost: 50 | [3433210](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Warp?oldid=3433210) |
+| Time Warp | castTime: none | [3433210](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Warp?oldid=3433210) |
+| Time Warp | targetRange: 550 | [3433210](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_Warp?oldid=3433210) |
+| Chronoshift | cooldown: 120 / 90 / 60 | [3907350](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Chronoshift?oldid=3907350) |
+| Chronoshift | cost: 125 / 150 / 175 | [3907350](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Chronoshift?oldid=3907350) |
+| Chronoshift | castTime: none | [3907350](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Chronoshift?oldid=3907350) |

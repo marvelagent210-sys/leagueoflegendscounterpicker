@@ -250,3 +250,68 @@ All 5 level-based formulas in the game files (2 linked to wiki values above):
 | AurelionSolE | LevelBasedRangeScaling | breakpoints at levels none (level 1: 750) | 750 | 920 | 940 |
 | AurelionSolW | {e3ddb2ca} | linear 0.8 → 1.2 over levels 1-18, stops at 18 | 0.8 | 1.2 | 1.2 |
 | AurelionSolWToggle | {e3ddb2ca} | linear 0.8 → 1.2 over levels 1-18, stops at 18 | 0.8 | 1.2 | 1.2 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/AurelionSol.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 4000/s.
+- Options: stardust = 200.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Breath of Light | 3 (starts after the channel) | 0 | 0 | self; channel 160 s, pulses every 0.125 s | each pulse: 13.125 + 6.875% AP magic damage (Breath of Light) | – |
+| W | Astral Flight | 14 | 0.4 | 70 | dash away 0–3000 units at 340/s (adjusted by current stats) | – | – |
+| E | Singularity | 12 | 0.2 | 90 | circle of 364.623 radius up to 940 away, lands after 0.5 s | – | – |
+| R | The Skies Descend | 100 | 0 | 100 | circle of 496.725 radius up to 1250 away, lands after 2 s | 437.5 + 93.75% AP magic damage; knock up over 1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Stardust gathered by level 20: 200.
+- Aurelion Sol has gathered 200 Stardust by level 20 (the Stardust setting); what a duel adds is left out.
+- Breath of Light costs 50 mana per second of its channel. Aurelion Sol stands still to channel it: by the wiki's channel table, moving, attacking or casting an ability ends it. He ends it himself when the enemy has been out of reach for a second.
+- Astral Flight is an escape here; its reset of Breath of Light and its boost to it during the flight are left out.
+- Singularity's drag toward its center is left out: an enemy caught in it is executed only if it stays in the center.
+
+### Source values read (36)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Cosmic Creator | Aurelion Sol's damaging abilities against enemies generate him permanent stacks of Stardust, which gradually augments his abilities. | [3963005](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Cosmic_Creator?oldid=3963005) |
+| Breath of Light | Magic Damage per Tick: 5.625 / 7.5 / 9.375 / 11.25 / 13.125 (+ 6.875% AP) | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | Bonus Magic Damage: 60 / 70 / 80 / 90 / 100 (+ 30% AP) (+ (3.1% Stardust)% of target's maximum health) | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | dealing magic damage to them and surrounding enemies every 0.125 seconds | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | range: 750 – 920 (based on level) | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | cost: 30 / 35 / 40 / 45 / 50 | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | At rank 5, Breath of Light's channel duration is increased to 160 seconds. | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | Against the primary target, the beam will deal a burst of bonus magic damage for each full second that it burns them | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | The following table refers to interactions while Aurelion Sol is channeling: | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Astral Flight | targetRange: 1500 (+ 7.5 × Stardust) | [4057545](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Astral_Flight?oldid=4057545) |
+| Astral Flight | speed: 340 + 100% movement speed • 170 + 50% movement speed | [4057545](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Astral_Flight?oldid=4057545) |
+| Astral Flight | Breath of Light channel will be interrupted if Astral Flight ends or Singularity or Falling Star / The Skies Descend is cast during the flight | [4057545](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Astral_Flight?oldid=4057545) |
+| Singularity | Aurelion Sol conjures a black hole at the target location after a 0.5-second delay that lasts for 5 seconds, granting sight of the area and dealing magic damage every 0.25 seconds to enemies within. | [4038217](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Singularity?oldid=4038217) |
+| Singularity | Magic Damage per Tick: 2.5 / 3.75 / 5 / 6.25 / 7.5 (+ 3% AP) | [4038217](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Singularity?oldid=4038217) |
+| Singularity | effectRadius label: Radius at 0 Stardust | [4038217](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Singularity?oldid=4038217) |
+| Singularity | Enemies within the center are executed below 5% (+ 2.6% per 100 Stardust) of their maximum health, excluding epic monsters. | [4038217](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Singularity?oldid=4038217) |
+| Falling Star | Once Falling Star has been learned, gathering 75 Stardust causes the next cast of Falling Star to transform into The Skies Descend | [3978297](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Falling_Star?oldid=3978297) |
+| Falling Star | Aurelion Sol calls down a star that strikes the target location after 1.25 seconds, dealing magic damage to enemies hit and stunning them for 1 second. | [3978297](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Falling_Star?oldid=3978297) |
+| The Skies Descend | Aurelion Sol calls down a giant star that strikes the target location after 2 seconds, dealing 25% increased damage in a larger area and knocking up enemies hit for 1 second. | [3936269](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/The_Skies_Descend?oldid=3936269) |
+| The Skies Descend | the impact sends a massive shockwave that rapidly expands from the area over 3 seconds, dealing magic damage to enemy champions and epic monsters hit, slowing all enemies hit by 50% for 1 second | [3936269](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/The_Skies_Descend?oldid=3936269) |
+| The Skies Descend | Magic Damage: 135 / 225 / 315 (+ 67.5% AP) | [3936269](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/The_Skies_Descend?oldid=3936269) |
+| The Skies Descend | effectRadius (Shockwave radius): 5000 | [3936269](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/The_Skies_Descend?oldid=3936269) |
+| The Skies Descend | Enemies hit by the star are immune to the shockwave. | [3936269](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/The_Skies_Descend?oldid=3936269) |
+| Breath of Light | cooldown: 3 | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Breath of Light | castTime: none | [4057543](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Breath_of_Light?oldid=4057543) |
+| Astral Flight | cooldown: 22 / 20 / 18 / 16 / 14 | [4057545](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Astral_Flight?oldid=4057545) |
+| Astral Flight | cost: 50 / 55 / 60 / 65 / 70 | [4057545](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Astral_Flight?oldid=4057545) |
+| Astral Flight | castTime (Initial cast): 0.4 • None | [4057545](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Astral_Flight?oldid=4057545) |
+| Singularity | cooldown: 12 | [4038217](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Singularity?oldid=4038217) |
+| Singularity | cost: 90 | [4038217](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Singularity?oldid=4038217) |
+| Singularity | castTime: 0.2 | [4038217](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Singularity?oldid=4038217) |
+| Falling Star | cooldown: 120 / 110 / 100 | [3978297](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Falling_Star?oldid=3978297) |
+| Falling Star | cost: 100 | [3978297](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Falling_Star?oldid=3978297) |
+| Falling Star | castTime: none | [3978297](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Falling_Star?oldid=3978297) |
+| Falling Star | targetRange: 1250 | [3978297](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Falling_Star?oldid=3978297) |
+| The Skies Descend | Empowered Magic Damage: 187.5 / 312.5 / 437.5 (+ 93.75% AP) | [3936269](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/The_Skies_Descend?oldid=3936269) |

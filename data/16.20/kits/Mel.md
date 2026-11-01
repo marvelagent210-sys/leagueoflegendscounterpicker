@@ -245,3 +245,70 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | MelPassive | PassiveBonusMissileDamage | linear 8 → 30 over levels 1-18, continues past 18 | 8 | 30 | 32.5882 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Mel.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1600/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Radiant Volley | 6 | 0.35 | 90 | circle of 250 radius up to 950 away, lands after 0.25 s | 160 + 55% AP magic damage (Radiant Volley); after 0.05 s: 13 + 5% AP magic damage (Radiant Volley); after 0.1 s: 13 + 5% AP magic damage (Radiant Volley); after 0.15 s: 13 + 5% AP magic damage (Radiant Volley); after 0.2 s: 13 + 5% AP magic damage (Radiant Volley); after 0.25 s: 13 + 5% AP magic damage (Radiant Volley); after 0.3 s: 13 + 5% AP magic damage (Radiant Volley); after 0.35 s: 13 + 5% AP magic damage (Radiant Volley); after 0.4 s: 13 + 5% AP magic damage (Radiant Volley); after 0.45 s: 13 + 5% AP magic damage (Radiant Volley) | – |
+| W | Rebuttal | 26 | 0 | 0 | self | – | shield of 200 + 70% AP for 0.75 s |
+| E | Solar Snare | 9 | 0.25 | 90 | skillshot 1000 long, 140 wide, at 1100/s | 240 + 70% AP magic damage; root for 1.5 s | – |
+| R | Golden Eclipse | 80 | 0.75 | 100 | targeted, 50000 range | 275 + 30% AP magic damage (Golden Eclipse) | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Radiant Volley's bolts all land on an enemy caught in their 250 area, each one a damage instance.
+- Rebuttal's replicas fly straight back at the enemy at the speed they came, carrying the same effects; a basic attack's replica carries the attack's average damage.
+- Solar Snare's field of radiation around its orb is left out (its damage is small next to the orb's).
+
+### Source values read (41)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Searing Brilliance | Mel's basic attacks and abilities apply a stack of Overwhelm for each instance of damage they deal to enemies for 5 seconds, refreshing on subsequent damage instances and stacking infinitely. | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Searing Brilliance | Overwhelm: Store 50 / 60 / 70 / 80 (based on Golden Eclipse's rank) (+ 10% AP) magic damage on the affected enemy with the first stack, reduced to 50% against minions. | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Searing Brilliance | Store 50 / 60 / 70 / 80 (based on Golden Eclipse's rank) (+ 10% AP) magic damage on the affected enemy with the first stack | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Searing Brilliance | For each stack, store an additional 2 / 3 / 4 / 5 (based on Golden Eclipse's rank) (+ 0.75% AP) magic damage on the target. | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Searing Brilliance | If the total post-mitigation damage stored exceeds the target's current health and shields, the next stack applied against them will consume them all to deal the stored damage. | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Searing Brilliance | Mel's ability casts each generate 3 stacks of Searing Brilliance for 5 seconds, refreshing on subsequent casts and stacking up to 9 times. | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Searing Brilliance | Each projectile deals 8 – 30 (based on level) (+ 4% AP) magic damage, for a total possible damage of 72 – 270 (based on level) (+ 36% AP) at maximum stacks. | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Searing Brilliance | Each projectile deals 8 – 30 (based on level) (+ 4% AP) magic damage | [4062268](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) |
+| Radiant Volley | Mel launches a barrage of luminous bolts at the target location over 0.5 seconds which distribute evenly in the area. | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | Number of Bolts: 6 / 7 / 8 / 9 / 10 | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | Initial Explosion Magic Damage: 60 / 85 / 110 / 135 / 160 (+ 55% AP) | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | Magic Damage per Subsequent Explosion: 5 / 7 / 9 / 11 / 13 (+ 5% AP) | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | = 200 + 50 = 250 units | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Rebuttal | Mel forms a protective barrier around herself for 0.75 seconds, granting herself a shield for the duration, and gaining 40% bonus movement speed that decays over 0.75 seconds. | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | effectRadius: 175 | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | Replicated Projectile Magic Damage Modifier: 40 / 45 / 50 / 55 / 60% (+ 5% per 100 AP) of the original damage | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | with physical damage instances being reduced to 70% before conversion | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | all hostile projectiles sourced from enemy champions that collide with the barrier will be destroyed instantly before Mel fires the same projectiles as her own | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | The scaling of the effects of the copied missile is calculated using the original missile source's attributes | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Solar Snare | Enemies hit by the orb are dealt magic damage and rooted for 1.5 seconds. | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Golden Eclipse | Magic Damage: 125 / 200 / 275 (+ 30% AP) (+ 4 / 7 / 10 (+ 4% AP) per Overwhelm stack on the target) | [4036107](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Golden_Eclipse?oldid=4036107) |
+| Golden Eclipse | An enemy champion affected by Overwhelm is required to cast this ability. | [4036107](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Golden_Eclipse?oldid=4036107) |
+| Radiant Volley | cooldown: 10 / 9 / 8 / 7 / 6 | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | cost: 70 / 75 / 80 / 85 / 90 | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | castTime: 0.35 | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | targetRange: 950 | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Radiant Volley | effectRadius (Explosion radius): 200 • 100 | [4042677](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Radiant_Volley?oldid=4042677) |
+| Rebuttal | cooldown: 38 / 35 / 32 / 29 / 26 | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | cost: 80 / 60 / 40 / 20 / 0 | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | castTime: none | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Rebuttal | Shield: 80 / 110 / 140 / 170 / 200 (+ 70% AP) | [4050141](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Rebuttal?oldid=4050141) |
+| Solar Snare | cooldown: 11 / 10.5 / 10 / 9.5 / 9 | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Solar Snare | cost: 50 / 60 / 70 / 80 / 90 | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Solar Snare | castTime: 0.25 | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Solar Snare | range: 1000 | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Solar Snare | effectRadius (Orb radius): 70 • 70 • 230 • 60 • 400 | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Solar Snare | speed: 1100 | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Solar Snare | Orb Magic Damage: 60 / 105 / 150 / 195 / 240 (+ 70% AP) | [4007692](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Solar_Snare?oldid=4007692) |
+| Golden Eclipse | cooldown: 120 / 100 / 80 | [4036107](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Golden_Eclipse?oldid=4036107) |
+| Golden Eclipse | cost: 100 | [4036107](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Golden_Eclipse?oldid=4036107) |
+| Golden Eclipse | castTime: 0.75 | [4036107](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Golden_Eclipse?oldid=4036107) |

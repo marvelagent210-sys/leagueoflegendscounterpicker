@@ -214,3 +214,68 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 | PykeW | {601654a1} | breakpoints at levels 4, 8 (level 1: 0.25) | 0.25 | 0.5 | 0.52 |
 | PykeR | RDamage | breakpoints at levels 7, 10, 12, 17 (level 1: 250) | 250 | 550 | 570 |
 | PykeR | RBaseDamage | breakpoints at levels 7, 10, 12, 17 (level 1: 250) | 250 | 550 | 570 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Pyke.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Bone Skewer | 8 | 0.25 | 90 | skillshot 400 long, 200 wide, instant | 300 + 75% bonus AD physical damage | – |
+| QC | Bone Skewer (harpoon) | 8 | depends on stats (1 base) | 90 | skillshot 1100 long, 140 wide, at 2000/s | 300 + 75% bonus AD physical damage; pull 550 units over 0.275 s; after 0.275 s: slow 90% for 1 s | – |
+| W | Ghostwater Dive | 10 | 0 | 65 | self | – | – |
+| E | Phantom Undertow | 11 | 0 | 40 | dash toward 0–550 units at 3000/s, through the enemy | – | – |
+| R | Death from Below | 70 | 0.5 | 100 | circle of 200 radius up to 750 away, lands after 0 s | executes at 550 + 80% bonus AD + 150% lethality health or less | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Pyke stays in sight of the enemy throughout a duel (Ghostwater Dive's camouflage doesn't hide him at fighting range), so his grey health never turns into healing and is left out.
+- The harpoon flies at 2000 (the game files' missile speed) and pulls its target 550 units toward Pyke, no farther than his side.
+- Death from Below's X reaches 200 units along the duel's line (its 125 center circle and 282.5-long arms at 45°).
+
+### Source values read (38)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Gift of the Drowned Ones | instead he gains 1 bonus attack damage per 14 bonus health | [4007005](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Gift_of_the_Drowned_Ones?oldid=4007005) |
+| Gift of the Drowned Ones | Pyke's maximum health cannot increase except through growth (per level) | [4007005](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Gift_of_the_Drowned_Ones?oldid=4007005) |
+| Gift of the Drowned Ones | While Pyke is not visible to enemies, he rapidly consumes his grey health to heal for the same amount. | [4007005](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Gift_of_the_Drowned_Ones?oldid=4007005) |
+| Bone Skewer | Physical Damage: 100 / 150 / 200 / 250 / 300 (+ 75% bonus AD) | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | targetRange: 400 / 400 / 516.667 / 633.333 / 750 / 866.667 / 983.333 / 1100 (based on channel time) | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | Releasing the ability within 0.4 seconds causes Pyke to instead thrust his blade in the target direction | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | Pyke charges while being slowed by 20% for up to 3 seconds to increase Bone Skewer's range over the first second of the channel | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | pulling them, during which they are also revealed, then slowing them by 90% for 1 second | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | width (Harpoon missile): 140 • 200 | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | width (Thrust hitbox): 140 • 200 | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | effectRadius (Pull range): 550 | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | Bone Skewer's mana cost is also refunded if it hits an enemy champion. | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | becoming unable to act while it is in flight | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Ghostwater Dive | Pyke submerges into water for 5 seconds, entering camouflage and gaining 45% (+ 2% per 1 Lethality) bonus movement speed that decays over the duration. | [4050339](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Ghostwater_Dive?oldid=4050339) |
+| Ghostwater Dive | Attacking or casting abilities ends Ghostwater Dive immediately. | [4050339](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Ghostwater_Dive?oldid=4050339) |
+| Phantom Undertow | targetRange: 550 | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Phantom Undertow | speed: 3000 | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Phantom Undertow | width: 220 | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Phantom Undertow | After 1 second, the Phantom homes back to Pyke | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Phantom Undertow | the Phantom homes back to Pyke to stun enemies around it and those it passes through along the way for 1.25 (+ 0.1 per 10 Lethality) seconds | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Phantom Undertow | Physical Damage: 100 / 150 / 200 / 250 / 300 (+ 100% bonus AD) | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Phantom Undertow | Pyke is ghosted while the Phantom is active. | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Death from Below | Active: Pyke marks the target location with the shape of an X before striking it, executing enemy champions within the area that are below 250 / 290 / 330 / 370 / 400 / 430 / 450 / 470 / 490 / 510 / 530 / 540 / 550 (based on level) (+ 80% bonus AD) (+ 1.5 per 1 Lethality) health. | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Death from Below | executing enemy champions within the area that are below 250 / 290 / 330 / 370 / 400 / 430 / 450 / 470 / 490 / 510 / 530 / 540 / 550 (based on level) (+ 80% bonus AD) (+ 1.5 per 1 Lethality) health | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Death from Below | Other enemies hit and enemy champions above the threshold are instead dealt 50% of the amount as physical damage. | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Death from Below | If Death from Below hits an enemy champion or at least one is killed inside the X by the execution or an ally, Pyke will blink to the center of the X. | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Death from Below | Spell shield does not prevent Pyke from blinking. | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Death from Below | targetRange: 750 | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Bone Skewer | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | cost: 70 / 75 / 80 / 85 / 90 | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Bone Skewer | castTime: 0.25 | [4007993](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Bone_Skewer?oldid=4007993) |
+| Ghostwater Dive | cooldown: 14 / 13 / 12 / 11 / 10 | [4050339](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Ghostwater_Dive?oldid=4050339) |
+| Ghostwater Dive | cost: 65 | [4050339](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Ghostwater_Dive?oldid=4050339) |
+| Phantom Undertow | cooldown: 15 / 14 / 13 / 12 / 11 | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Phantom Undertow | cost: 40 | [4044071](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow?oldid=4044071) |
+| Death from Below | cooldown: 100 / 85 / 70 | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Death from Below | cost: 100 | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |
+| Death from Below | castTime: 0.5 | [4007995](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Death_from_Below?oldid=4007995) |

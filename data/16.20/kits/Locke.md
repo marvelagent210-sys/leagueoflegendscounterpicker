@@ -239,3 +239,70 @@ All 3 level-based formulas in the game files (4 linked to wiki values above):
 | LockeW | AttackSpeed | linear 0.4 → 0.7 over levels 1-18, continues past 18 | 0.4 | 0.7 | 0.735294 |
 | LockeW | AdditionalHeal | linear 40 → 200 over levels 1-18, continues past 18 | 40 | 200 | 218.824 |
 | LockeQ | AmmoCooldownReset | linear 0.2 → 0.35 over levels 1-18, continues past 18 | 0.2 | 0.35 | 0.367647 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Locke.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee, on hit: 44.118 + 10% AP magic damage (Silver Stake), varies with combat state; formula is a reference.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Ritual Nails | 6 | 0.25 | 70 | skillshot 950 long, 100 wide, at 1650/s | 72 + 20% AP magic damage (Ritual Nails); slow 25% for 1 s | – |
+| Q2 | Ritual Nails (second nail) | 0 | 0.25 | 0 | skillshot 950 long, 100 wide, at 1650/s; recast of Q within 4 s, after 0.5 s | 72 + 20% AP magic damage (Ritual Nails); slow 25% for 1 s | – |
+| Q3 | Ritual Nails (third nail) | 0 | 0.25 | 0 | skillshot 950 long, 100 wide, at 1650/s; recast of Q within 4 s, after 0.5 s | 72 + 20% AP magic damage (Ritual Nails); slow 25% for 1 s | – |
+| W | Soul Ignition | 14 | 0 | 70 | self | – | ghosted for 6 s; attackSpeed 0.735 for 6 s |
+| E | Ashen Pursuit | 10 | 0.5 | 70 | blink toward 375 units | 80 + 40% AP magic damage | – |
+| R | Purgatory | 80 | 0.5 | 100 | circle of 400 radius up to 950 away, lands after 0.75 s | 300 + 60% AP magic damage; after 0 s: slow 99% for 0.5 s; after 0.5 s: slow 74.25% for 0.5 s; after 1 s: slow 49.5% for 0.5 s; after 1.5 s: slow 24.75% for 0.5 s; marks it "locke:purgatory" for 5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Ashen Pursuit's blink strikes within 250 of where Locke lands (the wiki gives no radius). Its dash strike replaces his next attack's damage and ends beside the enemy; it keeps that attack's timing.
+- Purgatory's slow decays in four steps over its 2 s, and no champion has been sealed before the duel (no Sealed Champion stacks).
+
+### Source values read (40)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Silver Stake | Innate: Locke's basic attacks deal 5 – 40 (based on level) (+ 10% AP) bonus magic damage on-hit, increased by 0 / 7.14286 / 14.2857 / 21.4286 / 28.5714 / 35.7143 / 42.8571 / 50 / 57.1429 / 64.2857 / 71.4286 / 78.5714 / 85.7143 / 92.8571 / 100 (based on target's missing health)%, up to 10 – 80 (based on level) (+ 20% AP). | [4038404](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Silver_Stake?oldid=4038404) |
+| Silver Stake | Locke's basic attacks deal 5 – 40 (based on level) (+ 10% AP) bonus magic damage on-hit | [4038404](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Silver_Stake?oldid=4038404) |
+| Silver Stake | up to 10 – 80 (based on level) (+ 20% AP) | [4038404](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Silver_Stake?oldid=4038404) |
+| Ritual Nails | Locke hurls a nail in the target direction that deals magic damage to enemies hit, slows them by 25% for 1 second, and applies a stack of Soul Nails for 4 seconds, refreshing on subsequent applications and stacking up to 3 times. Against targets with at least 2 stacks, the slow is increased to 60% and lasts for 2 seconds. | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | Ritual Nails can be recast twice more within 4 seconds of the activation at no additional cost, with a 0.5-second static cooldown between casts. | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | Magic Damage per Nail: 40 / 48 / 56 / 64 / 72 (+ 20% AP) | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | For each recast not used when Ritual Nails ends, 20 – 35 (based on level)% of the ability's cooldown and mana cost is refunded, up to a 40 – 70 (based on level)% refund for two remaining recasts. | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | One Stack Bonus Damage: 18 / 26 / 34 / 42 / 50 (+ 25 / 27.5 / 30 / 32.5 / 35% AP) | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | Two Stacks Bonus Damage: 43.2 / 62.4 / 81.6 / 100.8 / 120 (+ 60 / 66 / 72 / 78 / 84% AP) | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | Three Stacks Bonus Damage: 75.6 / 109.2 / 142.8 / 176.4 / 210 (+ 105 / 115.5 / 126 / 136.5 / 147% AP) | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | Locke's next damaging basic attack or Ashen Pursuit against an enemy with Soul Nails stacks consumes them all to deal bonus magic damage based on the amount of stacks. | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Soul Ignition | Locke ignites his soul for 6 seconds, becoming ghosted and gaining 40 – 70 (based on level)% bonus attack speed and 40% (+ 2% per 100 AP) bonus movement speed, with the latter decaying to 20% over 1 second after 1.5 seconds have elapsed. | [4062633](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Soul_Ignition?oldid=4062633) |
+| Soul Ignition | Active: Locke ignites his soul for 6 seconds, becoming ghosted and gaining 40 – 70 (based on level)% bonus attack speed and 40% (+ 2% per 100 AP) bonus movement speed, with the latter decaying to 20% over 1 second after 1.5 seconds have elapsed. | [4062633](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Soul_Ignition?oldid=4062633) |
+| Ashen Pursuit | targetRange: 375 | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Ashen Pursuit | After a 0.1-second delay, he empowers his next attack command within 4 seconds to gain 275 bonus range and cause him to dash in the target's direction, dealing magic damage to nearby enemies along the way, and applying on-hit effects to the primary target hit. | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Ashen Pursuit | Dash Magic Damage: 40 / 60 / 80 / 100 / 120 (+ 40% AP) | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Ashen Pursuit | Does not count as a basic attack and will not trigger any basic attack-specific interactions | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Purgatory | Locke throws a totem artifact that travels to the target location over 0.5 seconds. After landing for 0.25 seconds, the totem fires latching nails at nearby enemies | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | slowing them by 99% decaying over 2 seconds, revealing them for 1 second, and marking enemy champions hit for 5 seconds | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | Execute Threshold: 10 / 11 / 12% (+ 0.5% per Sealed Champion stack) of the target's maximum health | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | Marked enemies are executed below a portion of their health. | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Soul Ignition | cooldown: 18 / 17 / 16 / 15 / 14 | [4062633](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Soul_Ignition?oldid=4062633) |
+| Soul Ignition | cost: 50 / 55 / 60 / 65 / 70 | [4062633](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Soul_Ignition?oldid=4062633) |
+| Soul Ignition | castTime: none | [4062633](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Soul_Ignition?oldid=4062633) |
+| Ashen Pursuit | cooldown: 10 | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Ashen Pursuit | cost: 30 / 40 / 50 / 60 / 70 | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Ashen Pursuit | castTime: 0.5 | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Ashen Pursuit | Blink Magic Damage: 40 / 50 / 60 / 70 / 80 (+ 40% AP) | [4052832](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ashen_Pursuit?oldid=4052832) |
+| Purgatory | cooldown: 120 / 100 / 80 | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | cost: 100 | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | castTime: 0.5 | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | targetRange: 950 | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | effectRadius: 400 | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Purgatory | Magic Damage: 150 / 225 / 300 (+ 60% AP) | [4051476](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Purgatory?oldid=4051476) |
+| Ritual Nails | cooldown: 10 / 9 / 8 / 7 / 6 | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | cost: 70 | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | castTime: 0.25 | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | targetRange: 950 | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | width: 100 | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |
+| Ritual Nails | speed: 1650 | [4046580](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Ritual_Nails?oldid=4046580) |

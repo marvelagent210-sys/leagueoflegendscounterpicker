@@ -295,3 +295,95 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | ElisePassive | {38943004} | breakpoints at levels 8, 11, 14, 17 (level 1: 5) | 5 | 305 | 365 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Elise.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1600/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Neurotoxin | 6 | 0.25 | 100 | targeted, 575 range, missile at 2200/s | 160 + 4% target's current health + 3% of target's current health per 100 AP magic damage | – |
+| W | Volatile Spiderling | 12 | 0.125 | 100 | targeted, 950 range, missile at 550/s | 220 + 75% AP magic damage | – |
+| E | Cocoon | 10 | 0.25 | 50 | skillshot 1100 long, 110 wide, at 1600/s | stun for 2.4 s; revealed for 2.4 s | – |
+| R | Spider Form / Human Form | 3 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Spider Queen: "Elise gains one dormant Spiderling whenever she hits an enemy with an ability, storing once per cast and up to 2 – 5 (based on level) at a time." has no value past level 4; its level-4 value is used at 20.
+- Spider Queen: "Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage" has no value past level 4; its level-4 value is used at 20.
+- Elise starts a fight in Human Form with 5 stored Spiderlings. Aspect's own "Spider Queen bonuses are increased" gives no number and is left out.
+- Spiderling: hp has no value past level 18; its level-18 value is used at 20.
+- Volatile Spiderling chases the enemy at 550 units per second after its 0.75 s delay (its speed isn't sourced), exploding on contact: it can be outrun for its 3 s, not sidestepped.
+- Rappel recasts onto the enemy as soon as it can, 0.5 s after the lift (the wiki's delay for a recast without a target; a targeted recast is instant), landing behind the enemy.
+
+### Source values read (63)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Spider Queen | Innate - Human Form: Elise gains one dormant Spiderling whenever she hits an enemy with an ability, storing once per cast and up to 2 – 5 (based on level) at a time. | [4064845](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) |
+| Spider Queen | She stores the maximum number of Spiderlings when the game starts and upon respawning. | [4064845](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) |
+| Spider Queen | Innate - Spider Form: Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage and heal her for 6 – 12 (based on level) (+ 8% AP) on-hit. | [4064845](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) |
+| Spider Queen | (+ 15% AP) bonus magic damage and heal her for | [4064845](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) |
+| Spider Queen | heal her for 6 – 12 (based on level) (+ 8% AP) on-hit | [4064845](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) |
+| Spider Queen | If an ability hits while Elise is already in Spider Form, a Spiderling will spawn near her rather than being stored. | [4064845](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) |
+| Spider Queen | Spider Form's bonus damage and healing can be blocked, dodge and are not applied if Elise is blind. | [4064845](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) |
+| Spiderling | hp: 85 – 390 (based on level) | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | armor: 30 / 50 / 70 / 90 | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | magicresist: 50 / 70 / 90 / 110 | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | damage: 10 / 20 / 30 / 40 (+ 15% AP) | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | 10 / 20 / 30 / 40 (+ 15% AP) | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | 0.665 (+ 0% – 25% (based on Skittering Frenzy's rank)) | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Skittering Frenzy | Spiderling Bonus Attack Speed: 5 / 10 / 15 / 20 / 25% | [4064846](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Skittering_Frenzy?oldid=4064846) |
+| Spiderling | range: 100 | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | movespeed: 350 | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | radius: 1 | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | 75% damage from area damage | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Spiderling | Spiderlings' attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm. | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |
+| Neurotoxin | If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel | [3982568](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Neurotoxin?oldid=3982568) |
+| Volatile Spiderling | The spider searches for nearby targets and crawls to them after a delay of 0.75 seconds | [3906822](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Volatile_Spiderling?oldid=3906822) |
+| Volatile Spiderling | Elise summons an untargetable venom-gorged spider that lasts for 3 seconds | [3906822](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Volatile_Spiderling?oldid=3906822) |
+| Cocoon | This ability will cast from wherever the caster is at the end of the cast time. | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Spider Form / Human Form | Elise transforms into a spider, gaining 25 base movement speed, melee basic attacks with 125 range | [3979322](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Form_/_Human_Form?oldid=3979322) |
+| Spider Form / Human Form | Additionally, she summons all stored Spiderlings and heals them to full health. | [3979322](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Form_/_Human_Form?oldid=3979322) |
+| Spider Form / Human Form | Additionally, she stores all active Spiderlings. | [3979322](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Form_/_Human_Form?oldid=3979322) |
+| Venomous Bite | If there are active Spiderlings or Volatile Spiderlings nearby, they will dash alongside Elise to the target upon Venomous Bite's cast | [3982567](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Venomous_Bite?oldid=3982567) |
+| Skittering Frenzy | Bonus Attack Speed: 70 / 85 / 100 / 115 / 130% | [4064846](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Skittering_Frenzy?oldid=4064846) |
+| Skittering Frenzy | Elise and her Spiderlings gain bonus attack speed for 3 seconds. | [4064846](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Skittering_Frenzy?oldid=4064846) |
+| Skittering Frenzy | Skittering Frenzy resets Elise's basic attack timer. Elise loses Skittering Frenzy immediately when she switches to Human Form. | [4064846](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Skittering_Frenzy?oldid=4064846) |
+| Rappel | Elise and her Spiderlings lift up into the air over 0.6 seconds, immediately becoming untargetable and unable to act, and afterwards vanishing for up to 1.95 seconds | [4007596](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Rappel?oldid=4007596) |
+| Rappel | Elise and her Spiderlings reappear and descend onto the ground over 0.4 seconds | [4007596](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Rappel?oldid=4007596) |
+| Rappel | Spider Effects Increase: 40 / 55 / 70 / 85 / 100% | [4007596](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Rappel?oldid=4007596) |
+| Rappel | Additionally, Spider Queen bonuses are increased for 5 seconds. | [4007596](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Rappel?oldid=4007596) |
+| Rappel | targetRange (Location-targeted recast range): 825 • 900 | [4007596](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Rappel?oldid=4007596) |
+| Rappel | If the recast was used on a target enemy, Elise and her Spiderlings descend behind the target's location. | [4007596](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Rappel?oldid=4007596) |
+| Neurotoxin | cooldown: 6 | [3982568](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Neurotoxin?oldid=3982568) |
+| Neurotoxin | cost: 80 / 85 / 90 / 95 / 100 | [3982568](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Neurotoxin?oldid=3982568) |
+| Neurotoxin | castTime: 0.25 | [3982568](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Neurotoxin?oldid=3982568) |
+| Neurotoxin | targetRange: 575 | [3982568](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Neurotoxin?oldid=3982568) |
+| Neurotoxin | speed: 2200 | [3982568](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Neurotoxin?oldid=3982568) |
+| Neurotoxin | Magic Damage: 40 / 70 / 100 / 130 / 160 (+ 4% (+ 3% per 100 AP) of target's current health) | [3982568](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Neurotoxin?oldid=3982568) |
+| Volatile Spiderling | cooldown: 12 | [3906822](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Volatile_Spiderling?oldid=3906822) |
+| Volatile Spiderling | cost: 60 / 70 / 80 / 90 / 100 | [3906822](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Volatile_Spiderling?oldid=3906822) |
+| Volatile Spiderling | castTime: 0.125 | [3906822](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Volatile_Spiderling?oldid=3906822) |
+| Volatile Spiderling | targetRange: 950 | [3906822](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Volatile_Spiderling?oldid=3906822) |
+| Volatile Spiderling | Magic Damage: 60 / 100 / 140 / 180 / 220 (+ 75% AP) | [3906822](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Volatile_Spiderling?oldid=3906822) |
+| Cocoon | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Cocoon | cost: 50 | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Cocoon | castTime: 0.25 | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Cocoon | targetRange: 1100 | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Cocoon | width: 110 | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Cocoon | speed: 1600 | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Cocoon | Stun Duration: 1.6 / 1.8 / 2 / 2.2 / 2.4 seconds | [3906643](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Cocoon?oldid=3906643) |
+| Spider Form / Human Form | cooldown: 3 | [3979322](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Form_/_Human_Form?oldid=3979322) |
+| Venomous Bite | cooldown: 6 | [3982567](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Venomous_Bite?oldid=3982567) |
+| Venomous Bite | castTime: 0.25 | [3982567](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Venomous_Bite?oldid=3982567) |
+| Venomous Bite | targetRange: 475 | [3982567](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Venomous_Bite?oldid=3982567) |
+| Venomous Bite | speed: 1150 | [3982567](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Venomous_Bite?oldid=3982567) |
+| Venomous Bite | Magic Damage: 50 / 80 / 110 / 140 / 170 (+ 8% (+ 3% per 100 AP) of target's missing health) | [3982567](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Venomous_Bite?oldid=3982567) |
+| Skittering Frenzy | cooldown: 6 | [4064846](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Skittering_Frenzy?oldid=4064846) |
+| Rappel | cooldown: 22 / 21 / 20 / 19 / 18 | [4007596](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Rappel?oldid=4007596) |
+| Spiderling | Minion, does not count towards the minion kill tracking score | [4061128](https://wiki.leagueoflegends.com/en-us/Elise?oldid=4061128) |

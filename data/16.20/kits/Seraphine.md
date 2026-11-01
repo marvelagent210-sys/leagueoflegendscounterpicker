@@ -245,3 +245,73 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | SeraphinePassive | AutoDamage | linear 4 → 25 over levels 1-18, continues past 18 | 4 | 25 | 27.4706 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Seraphine.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 1800/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | High Note | 6 | 0.25 | 100 | circle of 350 radius up to 900 away, projectile at 1300/s then lands after 0.4 s | 160 + 40% AP magic damage, varies with combat state; formula is a reference | – |
+| W | Surround Sound | 22 | 0.25 | 90 | self | – | shield of 140 + 20% AP for 2.5 s |
+| E | Beat Drop | 11 | 0.25 | 60 | skillshot 1300 long, 140 wide, at 1200/s | 190 + 50% AP magic damage (Beat Drop); slow 99% for 1.5 s | – |
+| QX | High Note (echo) | 0 | 0 | 0 | circle of 350 radius up to 900 away, projectile at 1300/s then lands after 0.4 s | 160 + 40% AP magic damage, varies with combat state; formula is a reference | – |
+| WX | Surround Sound (echo) | 0 | 0 | 0 | self | – | shield of 140 + 20% AP for 2.5 s |
+| EX | Beat Drop (echo) | 0 | 0 | 0 | skillshot 1300 long, 140 wide, at 1200/s | 190 + 50% AP magic damage (Beat Drop); slow 99% for 1.5 s | – |
+| R | Encore | 120 | 0.5 | 100 | skillshot 1300 long, 320 wide, at 1600/s | 250 + 40% AP magic damage; charm for 1.75 s; after 0 s: slow 40% for 0.25 s; after 0.25 s: slow 55% for 0.25 s; after 0.5 s: slow 70% for 0.25 s; after 0.75 s: slow 85% for 0.25 s; after 1 s: slow 99% for 0.25 s; after 1.25 s: slow 99% for 0.25 s; after 1.5 s: slow 99% for 0.25 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Echoed casts land at once (their cast time is the original's) and give a Note like any cast.
+
+### Source values read (43)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Stage Presence | Seraphine's basic ability casts each generate a stack of Echo, stacking up to 2 times. At 2 stacks, the next basic ability cast consumes them all to cast an additional time at no cost after a 0.033 delay. | [4019648](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Stage_Presence?oldid=4019648) |
+| Stage Presence | Seraphine gains maximum stacks of Echo when the game starts and upon respawning. | [4019648](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Stage_Presence?oldid=4019648) |
+| Stage Presence | Seraphine's ability casts grant a Note to herself and nearby allied champions that lasts 6 seconds, refreshes on subsequent Notes and stacks up to 4 times on each unit. | [4019648](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Stage_Presence?oldid=4019648) |
+| Stage Presence | While any amount of Notes are active, Seraphine's next basic attack is empowered to have an uncancellable windup, gain 25 bonus attack range per Note, and fire all Notes at the target, with each one dealing 4 – 25 (based on level) (+ 4% AP) magic damage | [4019648](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Stage_Presence?oldid=4019648) |
+| Stage Presence | While any amount of Notes are active, Seraphine's next basic attack is empowered to have an uncancellable windup, gain 25 bonus attack range per Note, and fire all Notes at the target, with each one dealing 4 – 25 (based on level) (+ 4% AP) magic damage, reduced by 75% for Notes from allies. | [4019648](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Stage_Presence?oldid=4019648) |
+| High Note | Magic Damage: 60 / 85 / 110 / 135 / 160 (+ 40% AP) | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| High Note | Against champions and monsters, the damage is increased by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on target's missing health)%. | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| High Note | Seraphine hurls a soundwave to the target location that upon arrival expands in a radius over 0.4 seconds | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| Surround Sound | Seraphine grants a shield to herself and nearby allied champions for 2.5 seconds. | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Surround Sound | For the same duration, she also gains 20% (+ 2% per 100 AP) decaying bonus movement speed | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Surround Sound | Heal: 8 / 10 / 12 / 14 / 16% of target's missing health | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Surround Sound | If Seraphine already had a shield at the time of cast, Surround Sound will pulse after the duration, healing herself and nearby allied champions. | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Surround Sound | Seraphine can move during Surround Sound's cast time. | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Beat Drop | slows them by 99% for a few seconds | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | Disable Duration: 1.1 / 1.2 / 1.3 / 1.4 / 1.5 seconds | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | Enemies that are already slowed are also rooted for the same duration. | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | Enemies that are immobilized or grounded are also stunned for the same duration. | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Encore | Disable Duration: 1.25 / 1.5 / 1.75 seconds | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | slows them by 40% for a duration, increasing by 15% every 0.25 seconds over the duration up to 99% | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | castTime: 0.5 • 0.5 | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | cooldown: 160 / 140 / 120 | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | cost: 100 | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | targetRange: 1300 | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | width: 320 | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | speed: 1600 | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| Encore | Magic Damage: 150 / 200 / 250 (+ 40% AP) | [4008035](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Encore?oldid=4008035) |
+| High Note | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| High Note | cost: 60 / 70 / 80 / 90 / 100 | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| High Note | castTime: 0.25 | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| High Note | targetRange: 900 | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| High Note | effectRadius: 350 | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| High Note | speed (Missile travel speed): 1300 • 875 | [4042889](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/High_Note?oldid=4042889) |
+| Surround Sound | cooldown: 22 | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Surround Sound | cost: 70 / 75 / 80 / 85 / 90 | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Surround Sound | castTime: 0.25 | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Surround Sound | Shield Strength: 60 / 80 / 100 / 120 / 140 (+ 20% AP) | [3990364](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Surround_Sound?oldid=3990364) |
+| Beat Drop | cooldown: 11 | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | cost: 60 | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | castTime: 0.25 | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | targetRange: 1300 | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | width: 140 | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | speed: 1200 | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |
+| Beat Drop | Magic Damage: 70 / 100 / 130 / 160 / 190 (+ 50% AP) | [4060366](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Beat_Drop?oldid=4060366) |

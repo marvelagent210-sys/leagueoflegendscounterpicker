@@ -15,11 +15,12 @@ The twelfth registers Nunu & Willump, Rakan, Rell, Sejuani, Taric and Thresh.
 The thirteenth registers Janna, Karma, Lulu, Nami, Sona and Soraka.
 The fourteenth registers Hwei, Orianna, Ryze, Syndra, Taliyah and Viktor.
 The fifteenth registers Neeko, Swain, Twisted Fate, Vex, Xerath and Zoe.
-Implemented coverage is 145 of 173 champions, leaving 28, with 10,440 unordered
-pairings. These batches were written in the private workspace and merged into this
-repository on 30 October; Gragas, Hecarim, Warwick and Wukong use this repository's own
-kits, not the audited ones here. Release evidence and remaining limits are recorded in
-[ACCURACY.md](../../ACCURACY.md).
+The seventh to fifteenth batches were written in the private workspace and merged into
+this repository on 30 October; Gragas, Hecarim, Warwick and Wukong use this repository's
+own kits, not the audited ones here. Batches 16 to 19 were written in this repository and
+register the last 28 champions, so implemented coverage is all 173, with 14,878 unordered
+pairings; each kit page lists its own sources and assumptions. Release evidence and
+remaining limits are recorded in [ACCURACY.md](../../ACCURACY.md).
 
 All twelve casters and twenty-four marksmen in these audits now have registered kits. The audits retain
 their original formulas and evidence gaps;

@@ -237,3 +237,90 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | ShacoPassive | BasicAttackDamage | linear 20 → 35 over levels 1-18, continues past 18 | 20 | 35 | 36.7647 |
 | ShacoPassive | ShivDamage | linear 15 → 50 over levels 1-18, continues past 18 | 15 | 50 | 54.1176 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Shaco.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Deceive | 11 | 0.125 | 40 | blink toward 400 units | – | as the cast starts: invisible for 3.5 s |
+| W | Jack in the Box | 15 | 0.25 | 50 | self | – | – |
+| E | Two-Shiv Poison | 8 | 0.25 | 75 | targeted, 625 range, missile at 1500/s | 170 + 80% bonus AD + 60% AP magic damage; slow 30% for 3 s | – |
+| R | Hallucinate | 80 | 0.25 | 100 | self | – | invisible for 0.5 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Shaco is behind the enemy when it faces away from him: it last turned, walked or acted facing the other way (after Deceive blinks him past it, or while it flees).
+- Deceive blinks Shaco just past the enemy (its target location behind it) when the enemy is within its 400 range.
+- Jack in the Box / Mini-Box: hp has no value past level 18; its level-18 value is used at 20.
+- A box springs on the enemy within its 300 attack range once armed (the wiki gives no trigger radius), and Shaco places it under an enemy within reach. The 33% maximum health a box loses to each champion attack is left out.
+- Hallucination's 50% increased damage taken is its health divided by 1.5, and its attacks' on-hit effects are left out. The three mini-boxes share one body that fires three shots at a time.
+
+### Source values read (59)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Backstab | Innate: Shaco's basic attacks are empowered to deal 20 – 30 (based on level) (+ 20% bonus AD) bonus physical damage when hitting an enemy from behind. | [3985836](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Backstab?oldid=3985836) |
+| Backstab | Shaco's basic attacks are empowered to deal 20 – 30 (based on level) (+ 20% bonus AD) bonus physical damage when hitting an enemy from behind. | [3985836](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Backstab?oldid=3985836) |
+| Backstab | This damage is affected by critical strike modifiers. | [3985836](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Backstab?oldid=3985836) |
+| Backstab | Backstab's bonus damage adds to the damage instance of the original basic attack. | [3985836](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Backstab?oldid=3985836) |
+| Deceive | Shaco becomes invisible for a duration, and after a 0.125-second delay, he blinks to the target location. | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | Invisibility Duration: 2.5 / 2.75 / 3 / 3.25 / 3.5 seconds | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | Bonus Physical Damage: 25 / 35 / 45 / 55 / 65 (+ 60% bonus AD) | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | Shaco empowers his next basic attack within 0.25 seconds to deal bonus physical damage, which is affected by critical strike modifiers. | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | The attack will critically strike for 160% damage, increased to 200% if a critical strike was rolled. | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | Deceive's invisibility breaks when Shaco uses a basic attack or casts Two-Shiv Poison, but not from casting Jack in the Box or Hallucinate. | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | Using a basic attack breaks the stealth at the end of the attack windup. | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | targetRange: 400 | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Two-Shiv Poison | Shaco's basic attacks slow enemies for 2 seconds while Two-Shiv Poison is not on cooldown. | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | Slow: 20 / 22.5 / 25 / 27.5 / 30% | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | Shaco throws a dagger at the target enemy that deals magic damage, increased by 50% if they are below 30% of their maximum health, and slows them for 3 seconds. | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | Magic Damage: 70 / 95 / 120 / 145 / 170 (+ 80% bonus AD) (+ 60% AP) | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | Increased Damage: 105 / 142.5 / 180 / 217.5 / 255 (+ 120% bonus AD) (+ 90% AP) | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | Backstab Bonus: The dagger deals an additional 15 – 50 (based on level) (+ 10% AP) bonus magic damage, increased to 22.5 – 75 (based on level) (+ 15% AP) if the target is below 30% of their maximum health. | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Jack in the Box | Shaco summons a box at the target location that becomes stealthed after arming over 2 seconds, lasting for up to 40 (+ 10% AP) seconds. | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | Fear Duration: 0.5 / 0.75 / 1 / 1.25 / 1.5 seconds | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | Root Duration: 0.5 / 0.75 / 1 / 1 / 1 seconds | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | Slow Duration: 0.8 / 1.05 / 1.3 / 1.55 / 1.8 seconds | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | After a 0.15-second delay of the box's activation, enemies hit also have their movement speed reduced. Enemy champions have their movement speed set to a static 100 | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | Once sprung, the box will remain for 5 seconds, during which it will automatically fire at nearby visible enemies every 0.5 seconds, dealing magic damage with each attack. | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | Increased Damage: 25 / 40 / 55 / 70 / 85 (+ 18% AP) | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | targetRange: 500 | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box / Mini-Box | hp: 150 – 550 (based on level) / 360 / 380 / 400 / 420 / 460 / 500 / 550 / 600 / 700 / 800 / 900 / 1000 / 1100 (based on level) | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Jack in the Box / Mini-Box | armor: 50 | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Jack in the Box / Mini-Box | magicresist: 100 | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Jack in the Box / Mini-Box | range: 300 | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Jack in the Box / Mini-Box | radius: 50 | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Jack in the Box / Mini-Box | attackspeed: 2 | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Jack in the Box / Mini-Box | Boxes' attacks can be mitigated by block and dodge, but not blind. | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Hallucinate | Shaco vanishes for 0.5 seconds and blinks in the target direction while creating a clone of himself | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | remaining within control range of him as a controllable clone for up to 18 seconds | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | Magic Damage: 150 / 225 / 300 (+ 70% AP) | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | effectRadius: 250 | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | deploy three mini-boxes that activate instantly, fearing nearby enemies for 1 second, increased to 2.2 seconds against non-champions, and rooting them for 0.5 seconds | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | Increased Modified Damage: 25 / 50 / 75 (+ 15% AP) | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | The boxes possess Jack in the Box effects, except they have a doubled, but shared health | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucination | Hallucination's attacks deal 60% damage to units | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Hallucination | range: 125 | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Hallucination | 100% of Shaco's current health | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Hallucination | 50% increased damage from all sources | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Deceive | cooldown: 13 / 12.5 / 12 / 11.5 / 11 | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Deceive | cost: 40 | [4023266](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Deceive?oldid=4023266) |
+| Jack in the Box | cooldown: 15 | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | cost: 70 / 65 / 60 / 55 / 50 | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Jack in the Box | castTime: 0.25 | [4061736](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Jack_in_the_Box?oldid=4061736) |
+| Two-Shiv Poison | cooldown: 8 | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | cost: 75 | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | castTime: 0.25 | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | targetRange: 625 | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Two-Shiv Poison | speed: 1500 | [3985833](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison?oldid=3985833) |
+| Hallucinate | cooldown: 100 / 90 / 80 | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | cost: 100 | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Hallucinate | castTime: 0.25 | [4013796](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate?oldid=4013796) |
+| Jack in the Box / Mini-Box | Minion, does not count towards the minion kill tracking score | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |
+| Hallucination | Champion | [4011256](https://wiki.leagueoflegends.com/en-us/Shaco?oldid=4011256) |

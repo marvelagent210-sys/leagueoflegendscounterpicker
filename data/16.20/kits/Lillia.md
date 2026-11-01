@@ -205,3 +205,82 @@ All 6 level-based formulas in the game files (1 linked to wiki values above):
 | LilliaPDoT | HealPerSecond | breakpoints at levels none (level 1: 7) | 7 | 7 | 7 |
 | LilliaPDoT | {8abdf228} | breakpoints at levels none (level 1: 10) | 10 | 10 | 10 |
 | LilliaPDoT | MonsterDamageCap | linear 40 → 100 over levels 1-18, continues past 18 | 40 | 100 | 107.059 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Lillia.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 325, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Blooming Blows | 4 | 0.25 | 65 | area -485 to 485 units ahead, lands after 0 s; bands -225–225: 75 + 35% AP magic damage | 75 + 35% AP magic damage; 75 + 35% AP true damage (Blooming Blows (outer edge)) | – |
+| W | Watch Out! Eep! | 10 | 0 | 50 | dash toward 0–350 units in 0.759 s | – | – |
+| E | Swirlseed | 12 | 0.4 | 70 | skillshot 5000 long, 120 wide, at 5000/s | 160 + 50% AP magic damage; slow 40% for 3 s; revealed for 2 s | – |
+| R | Lilting Lullaby | 110 | 0.4 | 50 | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Dream Dust deals its damage in 6 ticks over 3 s (the game files' DotTicks), and Lillia's heal comes in the same ticks. A new application refreshes both rather than stacking.
+- Blooming Blows' outer ring is decided by where the enemy's center is, beyond 225 from Lillia's.
+- Whether the enemy is within Watch Out! Eep!'s epicenter is taken by expected value: the epicenter's extra damage counts for the chance that the enemy, having stayed in the strike, also stayed within 65 units of its center (the same dodge model as the strike's 250).
+- Swirlseed's roll, endless on the wiki, is cut at 5000 units, farther than any duel distance. The enemy's chance to dodge it is taken from its lob speed alone.
+
+### Source values read (52)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Dream-Laden Bough | which deals 5% (+ 1.25% per 100 AP) of the target's maximum health total magic damage over 3 seconds | [4038402](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Dream-Laden_Bough?oldid=4038402) |
+| Dream-Laden Bough | Lillia heals herself for 39 (+ 15% AP) against large monsters and 6 – 90 (based on level) (+ 30% AP) against champions over the duration of Dream Dust, reduced to 15% effectiveness for each target afflicted beyond the first. | [4038402](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Dream-Laden_Bough?oldid=4038402) |
+| Dream-Laden Bough | (+ 30% AP) against champions over the duration of Dream Dust | [4038402](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Dream-Laden_Bough?oldid=4038402) |
+| Dream-Laden Bough | Dream Dust is applied even if the target takes no damage from an ability, e.g. by being shielded or invulnerable, but not when the ability hit is prevented in the first place (e.g. spell shield). | [4038402](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Dream-Laden_Bough?oldid=4038402) |
+| Dream-Laden Bough | Lilting Lullaby application does not apply Dream Dust, but its triggering damage does. | [4038402](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Dream-Laden_Bough?oldid=4038402) |
+| Blooming Blows | she generates a stack of Prance for 6.5 seconds, refreshing on subsequent hits and stacking up to 4 times | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | Stacks expire one by one every 1.5 seconds when the duration ends | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | Bonus Movement Speed per Stack: 3 / 4 / 5 / 6 / 7% (+ 3% per 100 AP) | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | 7% (+ 3% per 100 AP) | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | Spell shield will not prevent Lillia from gaining a Prance stack. | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | Magic Damage: 35 / 45 / 55 / 65 / 75 (+ 35% AP) | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | effectRadius (Outer radius): 485 | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | innerRadius: 225 | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | Enemies hit within the outer edge of the area additionally take the same amount as bonus true damage. | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | Lillia can move during Blooming Blows' cast time. | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Watch Out! Eep! | targetRange (Range for center of AoE): 500 • 350 | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | targetRange (Maximum dash range): 500 • 350 | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | Lillia dashes to 150 units in front of the target location over 0.759 | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | effectRadius (Outer radius): 250 | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | innerRadius (Epicenter radius): 65 | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | Magic Damage: 80 / 100 / 120 / 140 / 160 (+ 35% AP) | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | Increased Damage: 240 / 300 / 360 / 420 / 480 (+ 105% AP) | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | but cannot move before the strike goes off at 0.767 seconds, regardless | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | Enemies hit within the epicenter are dealt 200% increased damage. | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Swirlseed | Magic Damage: 60 / 85 / 110 / 135 / 160 (+ 50% AP) | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | targetRange (Lob range): 700 • Global | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | speed (Lobbed missile speed): 5000 • 1400 | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | speed (Rolling missile speed): 5000 • 1400 | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | width: 120 | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | lobs a seed at the target location that rolls forward indefinitely | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | Swirlseed's origin is determined from Lillia's position at the start of cast | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Lilting Lullaby | which arrives after 0.3 seconds and renders them drowsy for 1.5 seconds, slowing them by 10% | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | Sleep Duration: 2.5 / 2.75 / 3 | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | Magic Damage: 100 / 150 / 200 (+ 40% AP) | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | An enemy champion affected by Dream Dust is required to cast this ability. | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | Lillia can move during Lilting Lullaby's cast time. | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | The next instance of non-persistent damage that a sleeping target takes from champions, large monsters or turrets consumes the debuff to deal additional magic damage. | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | Spell shield will not prevent falling asleep nor block the wake-up damage. | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | The lullaby's drowsy application will be blocked. | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | Lilting Lullaby's missile will not hit a target that becomes untargetable during the cast time or while it is travelling | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Blooming Blows | cooldown: 6 / 5.5 / 5 / 4.5 / 4 | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | cost: 65 | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Blooming Blows | castTime: 0.25 | [4007646](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Blooming_Blows?oldid=4007646) |
+| Watch Out! Eep! | cooldown: 14 / 13 / 12 / 11 / 10 | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Watch Out! Eep! | cost: 50 | [4007660](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Watch_Out!_Eep!?oldid=4007660) |
+| Swirlseed | cooldown: 12 | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | cost: 70 | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | castTime: 0.4 | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Swirlseed | slowing them by 40% for 3 seconds and revealing them for 2 seconds | [4007662](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Swirlseed?oldid=4007662) |
+| Lilting Lullaby | cooldown: 150 / 130 / 110 | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | cost: 50 | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |
+| Lilting Lullaby | castTime: 0.4 | [4078262](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Lilting_Lullaby?oldid=4078262) |

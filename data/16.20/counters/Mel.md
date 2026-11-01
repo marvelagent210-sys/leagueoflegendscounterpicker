@@ -1,5 +1,186 @@
 # Counters to Mel (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Mel: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Mel wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Mel --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Rengar | +0.86 | +1.00 | +1.00 | +1.00 | +0.38 | +1.00 | +0.00 |
+| 2 | Master Yi | +0.85 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +1.00 |
+| 3 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +1.00 |
+| 4 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +1.00 |
+| 5 | Zaahen | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 6 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 7 | Gangplank | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 8 | Pantheon | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 9 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 10 | Bel'Veth | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 11 | Sylas | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 12 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 13 | Wukong | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 14 | Vi | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 15 | Rammus | +0.79 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 16 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 17 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 18 | Riven | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 19 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 20 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 21 | Fizz | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 22 | Jhin | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 23 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 24 | Ziggs | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 25 | Corki | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 26 | Ryze | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 27 | Mordekaiser | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 28 | Annie | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 29 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 30 | Udyr | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 31 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 32 | Neeko | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 33 | Shyvana | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.10 |
+| 34 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 35 | Azir | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 36 | Tristana | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 37 | Milio | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 38 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 39 | Rumble | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 40 | Varus | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 41 | Fiddlesticks | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 42 | Heimerdinger | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 43 | Orianna | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 44 | Karma | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 45 | Lulu | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 46 | Aurora | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 47 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 48 | Gwen | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 49 | Malzahar | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 50 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 51 | Swain | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 52 | Yunara | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 53 | Smolder | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 54 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +0.00 |
+| 55 | Kayle | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 56 | Zeri | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 57 | Lucian | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 58 | Vayne | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 59 | Xayah | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 60 | Twisted Fate | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 61 | Kalista | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 62 | Teemo | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 63 | Samira | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 64 | Kennen | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 65 | Kindred | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 66 | Ivern | +0.75 | +1.00 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 67 | Kai'Sa | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 68 | Kled | +0.74 | +1.00 | +1.00 | +0.76 | −0.08 | +1.00 | +0.00 |
+| 69 | Vel'Koz | +0.73 | +0.84 | +0.97 | +1.00 | +0.03 | – | +0.00 |
+| 70 | Volibear | +0.71 | +1.00 | +0.67 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 71 | Twitch | +0.70 | +1.00 | +1.00 | +0.65 | +0.02 | – | +0.00 |
+| 72 | Lillia | +0.69 | +0.85 | +0.79 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 73 | Ambessa | +0.67 | +1.00 | +1.00 | +1.00 | −0.18 | +0.00 | +0.00 |
+| 74 | Jayce | +0.64 | +1.00 | +1.00 | +1.00 | −0.01 | −0.54 | +0.00 |
+| 75 | Gnar | +0.62 | +1.00 | +1.00 | +0.49 | −0.07 | +0.36 | +0.00 |
+| 76 | Sion | +0.59 | +0.96 | +1.00 | +0.50 | −0.02 | +0.03 | +0.00 |
+| 77 | Hwei | +0.58 | +0.36 | +0.93 | +1.00 | −0.03 | – | +0.00 |
+| 78 | Alistar | +0.56 | +0.95 | +0.09 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 79 | Sejuani | +0.53 | +1.00 | +0.13 | +0.93 | −0.01 | +0.60 | +0.00 |
+| 80 | Diana | +0.52 | +1.00 | +0.14 | +1.00 | +0.04 | +0.26 | +0.00 |
+| 81 | Graves | +0.51 | +1.00 | +1.00 | −0.47 | +0.03 | +0.94 | +0.00 |
+| 82 | Galio | +0.47 | +1.00 | −0.32 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 83 | Maokai | +0.46 | +0.59 | +0.21 | +1.00 | −0.01 | +0.60 | +0.00 |
+| 84 | Yasuo | +0.42 | +0.00 | +0.90 | +1.00 | −0.04 | −0.00 | +0.00 |
+| 85 | Rell | +0.40 | +0.91 | +0.26 | +0.29 | +0.08 | +0.36 | +0.00 |
+| 86 | Aurelion Sol | +0.39 | +0.17 | +0.43 | +1.00 | +0.02 | – | +0.00 |
+| 87 | Anivia | +0.36 | +0.03 | +1.00 | +0.42 | −0.14 | – | +0.00 |
+| 88 | Ashe | +0.34 | +1.00 | +1.00 | −1.00 | +0.03 | – | +0.00 |
+| 89 | Zilean | +0.32 | +1.00 | +1.00 | −1.00 | −0.06 | – | +0.00 |
+| 90 | Zoe | +0.32 | +1.00 | +1.00 | −1.00 | −0.08 | – | +0.00 |
+| 91 | Miss Fortune | +0.32 | +1.00 | +1.00 | −1.00 | −0.11 | – | +0.00 |
+| 92 | Xerath | +0.31 | +1.00 | +0.93 | −1.00 | −0.03 | – | +0.00 |
+| 93 | Renekton | +0.31 | +0.60 | +0.06 | +0.21 | +0.00 | +0.99 | +0.00 |
+| 94 | Urgot | +0.30 | +0.04 | −0.02 | +0.93 | +0.09 | +0.97 | +0.00 |
+| 95 | Shaco | +0.28 | +1.00 | −1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 96 | Yone | +0.24 | +0.60 | +1.00 | −1.00 | −0.11 | +0.59 | +0.00 |
+| 97 | Singed | +0.23 | +1.00 | −0.50 | +1.00 | −0.11 | −0.80 | +0.00 |
+| 98 | Gragas | +0.23 | +0.07 | +0.07 | +1.00 | −0.07 | +0.03 | +0.00 |
+| 99 | Irelia | +0.22 | −0.49 | +1.00 | +1.00 | −0.13 | −0.84 | +0.00 |
+| 100 | Garen | +0.22 | +0.55 | −0.87 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 101 | Malphite | +0.21 | +1.00 | +1.00 | −1.00 | −0.01 | −0.86 | +0.00 |
+| 102 | Rek'Sai | +0.19 | +0.91 | −0.60 | +0.58 | −0.10 | +0.13 | +0.00 |
+| 103 | Cho'Gath | +0.18 | +0.38 | −0.33 | +1.00 | −0.10 | −0.18 | +0.00 |
+| 104 | Zyra | +0.17 | +0.41 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 105 | Nilah | +0.16 | −0.07 | −0.08 | +1.00 | +0.05 | −0.10 | +0.00 |
+| 106 | Zac | +0.12 | −0.15 | +0.48 | +0.20 | −0.20 | +0.25 | +0.00 |
+| 107 | Darius | +0.10 | −0.67 | +0.02 | +1.00 | −0.10 | +0.76 | +0.00 |
+| 108 | Jinx | +0.09 | +0.12 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 109 | Tahm Kench | +0.08 | +0.14 | +0.14 | +0.13 | −0.12 | +0.03 | +0.00 |
+| 110 | Akshan | +0.08 | +0.13 | +1.00 | −1.00 | −0.08 | – | +0.00 |
+| 111 | Kayn | +0.06 | +0.31 | −0.79 | +0.84 | −0.01 | +0.10 | +0.00 |
+| 112 | Viego | +0.05 | +0.60 | −0.83 | +0.19 | −0.23 | +1.00 | +0.00 |
+| 113 | Cassiopeia | +0.03 | +1.00 | −0.09 | −1.00 | −0.00 | – | +0.00 |
+| 114 | Shen | +0.01 | +0.07 | −0.08 | +0.11 | −0.11 | +0.09 | +0.00 |
+| 115 | Soraka | +0.00 | −0.02 | −0.01 | +0.06 | +0.00 | – | +0.00 |
+| 116 | Caitlyn | +0.00 | +1.00 | +0.20 | −1.00 | +0.00 | −0.97 | +0.00 |
+| 117 | Taric | +0.00 | +0.02 | −0.03 | +0.02 | +0.02 | −0.02 | +0.00 |
+| 118 | Braum | −0.01 | −0.20 | −0.22 | +0.58 | −0.05 | −0.12 | +0.00 |
+| 119 | Nunu & Willump | −0.02 | +0.02 | −0.15 | +0.06 | +0.02 | −0.07 | +0.00 |
+| 120 | Leona | −0.02 | +0.01 | −0.07 | +0.03 | −0.06 | −0.05 | +0.00 |
+| 121 | Ornn | −0.05 | −0.07 | −0.09 | +0.04 | −0.10 | −0.07 | +0.00 |
+| 122 | Briar | −0.07 | −0.68 | +1.00 | −0.61 | −0.34 | +0.20 | +0.00 |
+| 123 | Karthus | −0.09 | −0.11 | −0.09 | −0.15 | −0.00 | −0.10 | +0.00 |
+| 124 | Brand | −0.14 | −0.63 | −0.64 | +1.00 | −0.07 | – | +0.00 |
+| 125 | Quinn | −0.15 | −0.52 | −0.77 | +1.00 | −0.10 | – | +0.00 |
+| 126 | Draven | −0.20 | −0.91 | +1.00 | −0.97 | −0.06 | – | +0.00 |
+| 127 | Aatrox | −0.20 | −0.54 | −0.33 | −0.29 | −0.17 | +1.00 | +0.00 |
+| 128 | Sona | −0.23 | −1.00 | +1.00 | −1.00 | −0.05 | – | +0.00 |
+| 129 | Sivir | −0.24 | +0.00 | +0.00 | −1.00 | −0.11 | – | +0.00 |
+| 130 | Nidalee | −0.27 | −0.86 | −0.85 | +1.00 | −0.08 | – | +0.00 |
+| 131 | Sett | −0.27 | −0.30 | −0.16 | −0.81 | −0.03 | +0.15 | +0.00 |
+| 132 | Nautilus | −0.28 | +0.01 | +0.07 | −1.00 | +0.00 | −0.99 | +0.00 |
+| 133 | Lux | −0.29 | −0.93 | −0.72 | +0.77 | −0.02 | – | +0.00 |
+| 134 | Bard | −0.29 | +0.42 | −0.59 | −1.00 | −0.15 | – | +0.00 |
+| 135 | Akali | −0.34 | −0.87 | −0.34 | −0.66 | −0.04 | +0.98 | +0.00 |
+| 136 | Naafiri | −0.34 | −1.00 | −1.00 | +1.00 | −0.05 | −0.37 | +0.00 |
+| 137 | Viktor | −0.34 | −1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
+| 138 | Elise | −0.35 | −1.00 | −1.00 | +1.00 | −0.11 | – | +0.00 |
+| 139 | Zed | −0.36 | +0.00 | −1.00 | +0.00 | −0.14 | −0.88 | +0.00 |
+| 140 | Lee Sin | −0.37 | −0.94 | −0.94 | +1.00 | −0.09 | −0.91 | +0.00 |
+| 141 | Morgana | −0.40 | −0.02 | −0.44 | −0.88 | −0.04 | −0.99 | +0.00 |
+| 142 | LeBlanc | −0.42 | −1.00 | −1.00 | +0.75 | −0.16 | – | +0.00 |
+| 143 | Illaoi | −0.45 | −0.85 | −0.95 | −0.19 | −0.08 | +0.49 | +0.00 |
+| 144 | Jarvan IV | −0.50 | −0.73 | −0.77 | −0.73 | +0.07 | +0.11 | +0.00 |
+| 145 | Syndra | −0.50 | +0.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 146 | Ezreal | −0.51 | −0.96 | −0.06 | −0.99 | −0.05 | – | +0.00 |
+| 147 | Ekko | −0.69 | −1.00 | −0.99 | −0.61 | −0.15 | −0.52 | +0.00 |
+| 148 | Nami | −0.70 | −0.75 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 149 | Seraphine | −0.72 | −1.00 | −0.77 | −1.00 | −0.05 | – | +0.00 |
+| 150 | Janna | −0.72 | −1.00 | −1.00 | −0.71 | −0.07 | – | +0.00 |
+| 151 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 152 | Evelynn | −0.77 | −0.81 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 153 | Vex | −0.78 | −1.00 | −1.00 | −0.95 | −0.06 | – | +0.00 |
+| 154 | Ahri | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 155 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 156 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 157 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 158 | Renata Glasc | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 159 | Hecarim | −0.79 | −1.00 | −0.97 | −0.96 | −0.06 | −1.00 | +0.00 |
+| 160 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 161 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 162 | Yuumi | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 163 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 164 | Blitzcrank | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 165 | Locke | −0.82 | −1.00 | −1.00 | −0.98 | −0.14 | −0.98 | +0.00 |
+| 166 | Talon | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 167 | Skarner | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 168 | Rakan | −0.82 | −1.00 | −1.00 | −0.99 | −0.15 | −1.00 | +0.00 |
+| 169 | Thresh | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 170 | Qiyana | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 171 | Vladimir | −0.84 | −1.00 | −1.00 | −1.00 | −0.25 | −1.00 | +0.00 |
+| 172 | Pyke | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Mel's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,73 +189,73 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Mel` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Master Yi (net +0.66)
+#### 1. Master Yi (net +0.66)
 
 - **0.55** untargetable: Alpha Strike makes Master Yi untargetable, dodging Mel's Golden Eclipse. Untargetable for ?; Golden Eclipse takes 0.75 s to land, enough to react. (Master Yi Q Alpha Strike → Mel R Golden Eclipse)
 - **0.49** untargetable: Alpha Strike makes Master Yi untargetable, dodging Mel's Solar Snare. Untargetable for ?; Solar Snare takes 1.16 s to land, enough to react. (Master Yi Q Alpha Strike → Mel E Solar Snare)
 - **0.08** cc immunity: Highlander makes Master Yi immune to Mel's Solar Snare (slow). Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Mel E Solar Snare)
 - Watch out: Mel's basic attacks reach 375 units farther than Master Yi's (550 vs 175 attack range).
 
-### 2. Kayn (net +0.55)
+#### 2. Kayn (net +0.55)
 
 - **0.55** untargetable: Umbral Trespass makes Kayn untargetable, dodging Mel's Golden Eclipse. Untargetable for 0.25 s; Golden Eclipse takes 0.75 s to land, enough to react. (Kayn R Umbral Trespass → Mel R Golden Eclipse)
 - **0.33** untargetable: Umbral Trespass makes Kayn untargetable, dodging Mel's Solar Snare. Untargetable for 0.25 s; Solar Snare takes 1.16 s to land, enough to react. (Kayn R Umbral Trespass → Mel E Solar Snare)
 - Watch out: Mel's basic attacks reach 375 units farther than Kayn's (550 vs 175 attack range).
 
-### 3. Camille (net +0.54)
+#### 3. Camille (net +0.54)
 
 - **0.51** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Mel's Golden Eclipse. Untargetable for 0.5 s; Golden Eclipse takes 0.75 s to land, enough to react. (Camille R The Hextech Ultimatum → Mel R Golden Eclipse)
 - **0.32** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Mel's Solar Snare. Untargetable for 0.5 s; Solar Snare takes 1.16 s to land, enough to react. (Camille R The Hextech Ultimatum → Mel E Solar Snare)
 - Watch out: Mel's basic attacks reach 425 units farther than Camille's (550 vs 125 attack range).
 
-### 4. Fizz (net +0.45)
+#### 4. Fizz (net +0.45)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Mel's Solar Snare. Untargetable for 0.75 s; Solar Snare takes 1.16 s to land, enough to react. (Fizz E Playful → Mel E Solar Snare)
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Mel's Golden Eclipse. Untargetable for 0.75 s; Golden Eclipse takes 0.75 s to land, enough to react. (Fizz E Playful → Mel R Golden Eclipse)
 - Watch out: Rebuttal blocks part of Fizz's Chum the Waters, a projectile.
 
-### 5. Vladimir (net +0.43)
+#### 5. Vladimir (net +0.43)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Mel's Golden Eclipse. Untargetable for 2 s, long enough to use ahead of Golden Eclipse. (Vladimir W Sanguine Pool → Mel R Golden Eclipse)
 - **0.52** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Mel's Solar Snare. Untargetable for 2 s, long enough to use ahead of Solar Snare. (Vladimir W Sanguine Pool → Mel E Solar Snare)
 - Watch out: Rebuttal blocks Vladimir's basic attacks, which are projectiles.
 
-### 6. Pantheon (net +0.42)
+#### 6. Pantheon (net +0.42)
 
 - **0.55** invulnerable: Aegis Assault makes Pantheon invulnerable to Mel's Golden Eclipse. Invulnerable for 1.5 s, long enough to use ahead of Golden Eclipse. Only invulnerable to non-turret damage coming from a specific direction. (Pantheon E Aegis Assault → Mel R Golden Eclipse)
 - **0.24** invulnerable: Aegis Assault makes Pantheon invulnerable to Mel's Solar Snare (its crowd control still applies). Invulnerable for 1.5 s, long enough to use ahead of Solar Snare. Only invulnerable to non-turret damage coming from a specific direction. (Pantheon E Aegis Assault → Mel E Solar Snare)
 - Watch out: Mel's basic attacks reach 375 units farther than Pantheon's (550 vs 175 attack range).
 
-### 7. Yasuo (net +0.37)
+#### 7. Yasuo (net +0.37)
 
 - **0.50** projectile block: Wind Wall blocks Mel's Solar Snare, a projectile. Wind Wall for 4 s, long enough to use ahead of Solar Snare. (Yasuo W Wind Wall → Mel E Solar Snare)
 - **0.29** projectile block: Wind Wall blocks Mel's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Mel basic attacks)
 - **0.28** projectile block: Wind Wall blocks Mel's Radiant Volley, a projectile. Wind Wall for 4 s, long enough to use ahead of Radiant Volley. (Yasuo W Wind Wall → Mel Q Radiant Volley)
 - Watch out: Rebuttal blocks part of Yasuo's Steel Tempest, a projectile.
 
-### 8. Xin Zhao (net +0.31)
+#### 8. Xin Zhao (net +0.31)
 
 - **0.48** invulnerable: Crescent Guard makes Xin Zhao invulnerable to Mel's Golden Eclipse. Invulnerable for 4 s, long enough to use ahead of Golden Eclipse. Only invulnerable to champions a certain distance away. (Xin Zhao R Crescent Guard → Mel R Golden Eclipse)
 - **0.16** invulnerable: Crescent Guard makes Xin Zhao invulnerable to Mel's Solar Snare (its crowd control still applies). Invulnerable for 4 s, long enough to use ahead of Solar Snare. Only invulnerable to champions a certain distance away. (Xin Zhao R Crescent Guard → Mel E Solar Snare)
 - Watch out: Mel's basic attacks reach 375 units farther than Xin Zhao's (550 vs 175 attack range).
 
-### 9. Kayle (net +0.30)
+#### 9. Kayle (net +0.30)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Mel's Golden Eclipse. Invulnerable for 2.5 s, long enough to use ahead of Golden Eclipse. (Kayle R Divine Judgment → Mel R Golden Eclipse)
 - **0.16** invulnerable: Divine Judgment makes Kayle invulnerable to Mel's Solar Snare (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Solar Snare. (Kayle R Divine Judgment → Mel E Solar Snare)
 - **0.14** range: Kayle's basic attacks reach 75 units farther than Mel's (625 vs 550 attack range). Mel has no dash or blink to close the gap. (Kayle basic attacks → Mel basic attacks)
 - Watch out: Rebuttal blocks Kayle's basic attacks, which are projectiles.
 
-### 10. Fiora (net +0.29)
+#### 10. Fiora (net +0.29)
 
 - **0.62** parry: Riposte parries Mel's Solar Snare and stuns back. Parry for 0.75 s; Solar Snare takes 1.16 s to land, enough to react. Negating Solar Snare's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Mel E Solar Snare)
 - **0.55** parry: Riposte parries Mel's Golden Eclipse. Parry for 0.75 s; Golden Eclipse takes 0.75 s to land, enough to react. (Fiora W Riposte → Mel R Golden Eclipse)
 - **0.06** attack speed slow: Riposte cuts Mel's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Mel basic attacks)
 - Watch out: Rebuttal blocks Fiora's Riposte, a projectile.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

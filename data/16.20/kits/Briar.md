@@ -288,3 +288,110 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | BriarP | {15da76ad} | linear 2 → 10 over levels 1-18, continues past 18 | 2 | 10 | 10.9412 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Briar.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Head Rush | 9 | 0 | 5% current health health | dash target 475 units at 900/s (adjusted by current stats), hits within 100 | 160 + 80% bonus AD + 60% AP physical damage; stun for 0.85 s; armorReductionPercent 0.2 for 5 s; mrReductionPercent 0.2 for 5 s | resets the attack timer |
+| W | Blood Frenzy | 10 | 0 | 5% current health health | dash toward 75–300 units at 1200/s | – | – |
+| W2 | Snack Attack | 0 | 0 | – | self | – | next 1 attack within 5 s: 65 + 5% AD + 9% target's missing health + 2.5% of target's missing health per 100 bonus AD physical damage (Snack Attack); to itself: heal 5% maximum health (+50 range, resets the attack timer, uncancellable) |
+| E | Chilling Scream | 16 | 1 | 5% current health health | skillshot 600 long, 380 wide, at 1900/s | 220 + 100% bonus AD + 100% AP magic damage; slow 80% for 0.5 s; knock back 575 units over 0.319 s, stun 1.5 s into a wall | as the cast starts: damageReduction 0.35 for 1 s |
+| R | Certain Death | 80 | 1 | 5% current health health | skillshot 12000 long, 320 wide, at 2000/s | interrupts an interruptible channel without lasting crowd control | – |
+| R2 | Certain Death (dash) | 0 | 1.25 | – | dash target 12000 units at 2500/s (adjusted by current stats), hits within 100 | 350 + 130% AP magic damage | as the cast starts: cleanses crowd control; ccImmune for 1.25 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Crimson Curse ticks every 0.5 s (the game files' BleedTickRate). Each application refreshes the whole bleed for 5 s at the damage of its new stack count. Its heal on a target that dies while bleeding is left out: a death ends the duel.
+- Blood Frenzy's cleave around the target is left out of the duel. Briar always charges Chilling Scream fully.
+- Certain Death's dash takes 0.5 s, at a speed between 2500 and 5000 (the game files' IdealDashTime, MinDashSpeed and MaxDashSpeed). Its fear of other enemies has no target in a duel.
+
+### Source values read (79)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Crimson Curse | The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration. | [4038287](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) |
+| Crimson Curse | The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage | [4038287](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) |
+| Crimson Curse | stacking up to 5 times and dealing 25% damage for stacks beyond the first | [4038287](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) |
+| Crimson Curse | inflict a bleed against enemies for 5 seconds, refreshing on subsequent applications | [4038287](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) |
+| Crimson Curse | The bleed always heals Briar for 25% of the pre-mitigation damage dealt. | [4038287](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) |
+| Crimson Curse | Briar has no base health regeneration | [4038287](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) |
+| Crimson Curse | Briar has no base health regeneration, but she increases healing from all sources by 0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 (based on missing health)% (+ 0 / 0.25 / 0.5 / 0.75 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 (based on missing health)% per 100 bonus health). | [4038287](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) |
+| Head Rush | stuns them for 0.85 seconds, and reduces their armor and magic resistance for 5 seconds | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | Resistances Reduction: 10 / 12.5 / 15 / 17.5 / 20% | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | targetRange: 475 | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | speed: 600 / 633.333 / 666.667 / 700 / 733.333 / 766.667 / 800 / 833.333 / 866.667 / 900 (based on distance) | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | applies on-hit effects | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | Head Rush resets Briar's basic attack timer. | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | Head Rush's damage benefits from life steal. | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | Head Rush does not force the target's armor and magic resistance to update immediately outside of the natural stat update cycle | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Blood Frenzy | targetRange: 75 - 300 • 650 | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | effectRadius (Frenzy target radius): 1000 • 275 | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | If there is a nearby enemy upon her arrival, she gains Blood Frenzy for 5 seconds | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | Bonus Attack Speed: 55 / 65 / 75 / 85 / 95% | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | Bonus Movement Speed: 24 / 33 / 42 / 51 / 60% | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | She reveals the target and gains ghosting | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | empowering her basic attacks to have an uncancellable windup | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | Blood Frenzy causes Briar to become unable to receive movement and attack commands. | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | The frenzy ends early if there are no longer any nearby valid targets or Chilling Scream is cast. | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | Blood Frenzy resets Briar's basic attack timer. | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Snack Attack | Briar empowers her next basic attack within 5 seconds during Blood Frenzy | [4015000](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Snack_Attack?oldid=4015000) |
+| Snack Attack | gaining 50 bonus range | [4015000](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Snack_Attack?oldid=4015000) |
+| Snack Attack | healing her for 5% of her maximum health plus a percentage of the post-mitigation damage dealt | [4015000](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Snack_Attack?oldid=4015000) |
+| Snack Attack | Heal Percentage: 24 / 28 / 32 / 36 / 40% | [4015000](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Snack_Attack?oldid=4015000) |
+| Snack Attack | Snack Attack resets Briar's basic attack timer. | [4015000](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Snack_Attack?oldid=4015000) |
+| Snack Attack | if the frenzy ends at any point, the empowered attack will be lost immediately | [4015000](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Snack_Attack?oldid=4015000) |
+| Chilling Scream | charging for up to 1 second | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | gains 35% damage reduction and heals herself every 0.25 seconds | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | Heal Per Tick: 2.5 / 2.875 / 3.25 / 3.625 / 4% maximum health | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | Chilling Scream's charge cannot be interrupted by crowd control. | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | Chilling Scream can be recast within the duration, and does so automatically afterwards. | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | range: -100 • 400 / 420 / 440 / 460 / 480 / 500 / 520 / 540 / 560 / 580 / 600 (based on charge time) | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | If Chilling Scream was charged for its full duration, enemies hit are also knocked back 575 units | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Certain Death | marking the first enemy champion hit as her prey | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | The mark's application disrupts the target's ongoing channels. | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | While the target is marked, they are revealed. | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | She will not stop tracking the target until she reaches them, as there is no maximum tracking distance. | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | Hematomania lasts until the mark is dispelled by any means, including Briar's or the target's death. | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | Casting Chilling Scream removes the target's mark and ends Hematomania early. | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | This ability will cast from wherever the caster is at the start of the cast time. | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | Briar lands 100 units in front of her target at the end of the dash. | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | bonus armor and bonus magic resistance equal to 20% AD | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | Life Steal: 10 / 15 / 20% | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | Additional Bonus Movement Speed: 10 / 20 / 30% | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | speed (Dash speed): 2000 • 2500 – 5000 | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | Magic Damage: 150 / 250 / 350 (+ 130% AP) | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Head Rush | cooldown: 13 / 12 / 11 / 10 / 9 | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | costType: current health | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | cost: 5% | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Head Rush | Physical Damage: 60 / 85 / 110 / 135 / 160 (+ 80% bonus AD) (+ 60% AP) | [3989856](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Head_Rush?oldid=3989856) |
+| Blood Frenzy | cooldown: 14 / 13 / 12 / 11 / 10 | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | costType: current health | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | cost: 5% | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Blood Frenzy | speed: 1200 | [4072099](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Blood_Frenzy?oldid=4072099) |
+| Snack Attack | Bonus Physical Damage: 5 / 20 / 35 / 50 / 65 (+ 5% AD) (+ 9% (+ 2.5% per 100 bonus AD) of the target's missing health) | [4015000](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Snack_Attack?oldid=4015000) |
+| Chilling Scream | cooldown: 16 | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | costType: current health | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | cost: 5% | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | width: 380 | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | speed (Missile speed): 1900 • 1800 | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | Maximum Magic Damage: 80 / 115 / 150 / 185 / 220 (+ 100% bonus AD) (+ 100% AP) | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | slowing them by 80% for 0.5 seconds | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | speed (Knockback speed): 1900 • 1800 | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | become knocked up for 0.5 seconds and stunned for 1.5 seconds | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Chilling Scream | Bonus Magic Damage: 140 / 215 / 290 / 365 / 440 (+ 240% bonus AD) (+ 240% AP) | [4007450](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Chilling_Scream?oldid=4007450) |
+| Certain Death | cooldown: 120 / 100 / 80 | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | costType: current health | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | cost: 5% | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | castTime (Time before kicking hemolith): 1 • 1.25 | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | range: 12000 | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | width: 320 | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | speed (Missile speed): 2000 • 2500 – 5000 | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |
+| Certain Death | castTime (Time before dashing to target): 1 • 1.25 | [4051322](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Certain_Death?oldid=4051322) |

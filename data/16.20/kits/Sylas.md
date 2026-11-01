@@ -322,3 +322,76 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | W: Kingslayer | cost | 50 / 60 / 70 / 80 / 90 | 50 / 60 / 70 / 80 / 90 | yes |
 | R: Hijack | cooldown | 80 / 55 / 30 | 80 / 55 / 30 | yes |
 | R: Hijack | cost | 75 / 75 / 75 | 75 / 75 / 75 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Sylas.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Chain Lash | 6 | 0.4 | 55 | skillshot 775 long, 360 wide, instant | 120 + 40% AP magic damage; slow 35% for 1.5 s | – |
+| W | Kingslayer | 6 | 0 | 90 | dash target 400 units at 1450/s, hits within 400 | 215 + 60% AP magic damage | – |
+| E | Abscond | 9 | 0 | 65 | dash toward 0–400 units at 1450/s | – | – |
+| E2 | Abduct | 0 | 0.25 | – | skillshot 790 long, 120 wide, at 2500/s | 280 + 80% AP magic damage; stun for 0.5 s | – |
+| R | Hijack | 30 | 0.25 | 75 | targeted, 950 range, missile at 2200/s | marks it "sylas:hijack" for 1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Petricite Burst's empowered attack deals its 130% AD (+ 30% AP) magic damage in place of the attack's own; its whirl around Sylas has no one else to hit in a duel.
+- Chain Lash's chains strike along the duel's line like a 360-wide rectangle, and their crossing is placed on the enemy.
+- Kingslayer's dash moves at Abscond's 1450 (the wiki gives it no speed).
+- Abduct's chains fly at their starting 2500 (their deceleration is left out).
+- Hijack takes the enemy's ultimate once per duel (its per-champion lockout has no stated length). The copy keeps the ultimate's declared delivery and effects, with attack damage ratios turned into ability power; what the enemy's kit adds in code (its hooks), and ultimates that change form, are left out.
+
+### Source values read (44)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Petricite Burst | Whenever Sylas casts an ability, he generates a stack of Unshackled for 4 seconds, refreshing on subsequent casts and stacking up to 3 times. | [4061737](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Petricite_Burst?oldid=4061737) |
+| Petricite Burst | Sylas next basic attack gains 125% bonus attack speed and is empowered to have an uncancellable windup and consume a stack to whirl his chains around him, dealing 130% AD (+ 30% AP) magic damage to the primary target | [4061737](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Petricite_Burst?oldid=4061737) |
+| Petricite Burst | Petricite Burst can critically strike for 175% damage only against the primary target. | [4061737](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Petricite_Burst?oldid=4061737) |
+| Petricite Burst | Unshackled stacks are granted at the end of the abilities' cast time. | [4061737](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Petricite_Burst?oldid=4061737) |
+| Chain Lash | Sylas lashes out two chains that converge to the target location and extend beyond it up to a maximum range, dealing magic damage to enemies hit and slowing them for 1.5 seconds. | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | After a 0.6-second delay, the chains' intersection explodes to deal magic damage to enemies within, reduced to 40% against minions. | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | Magic Damage: 60 / 115 / 170 / 225 / 280 (+ 80% AP) | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | effectRadius (Detonation radius against champions and minions): 180 • 200 | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | targetRange (Maximum convergence range): 50 • 775 | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Kingslayer | Minimum Heal: 20 / 40 / 60 / 80 / 100 (+ 30% AP) (+ 5% of his bonus health) | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Kingslayer | If this damages a champion, Sylas is also healed, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on his missing health)%. | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Kingslayer | The damage will be dealt if the dash completed uninterrupted, and regardless of how far the target's location is at the end of the dash. | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Abscond | speed: 1450 | [4007757](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abscond?oldid=4007757) |
+| Abscond | Within 3.5 seconds, he can cast Abduct after a 0.2-second delay from casting Abscond. | [4007757](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abscond?oldid=4007757) |
+| Abduct | Sylas whips out his chains in the target direction that deal magic damage to the first enemy hit and reveal and stun them for 0.5 seconds. Upon hitting the target, Sylas dashes to their location and knocks them up for 0.5 seconds upon arrival. | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Abduct | speed: 2500 - 400 • 1800 | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Abduct | speed (Dash speed): 2500 - 400 • 1800 | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Abduct | Sylas will not dash to his target if the chains are blocked by spell shield. | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Hijack | Hijacked ultimates and abilities that do not scale with ability power have their attack damage ratios converted to ability power ratios, scaling with 0.6% AP per 1% total AD, and 0.4% AP per 1% bonus AD respectively. | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |
+| Hijack | Sylas cannot select the same champion again for a set duration, and can hold the hijacked ultimate for up to 90 seconds, during which he can recast Hijack. | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |
+| Hijack | Sylas casts his hijacked ultimate ability at no cost, scaling based on Hijack's rank and his own statistics. | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |
+| Hijack | targetRange: 950 | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |
+| Chain Lash | cooldown: 10 / 9 / 8 / 7 / 6 | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | cost: 55 | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | castTime: 0.4 | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | Magic Damage: 40 / 60 / 80 / 100 / 120 (+ 40% AP) | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Chain Lash | Slow: 15 / 20 / 25 / 30 / 35% | [4046589](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Chain_Lash?oldid=4046589) |
+| Kingslayer | cooldown: 12 / 10.5 / 9 / 7.5 / 6 | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Kingslayer | cost: 50 / 60 / 70 / 80 / 90 | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Kingslayer | castTime: none | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Kingslayer | targetRange: 400 | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Kingslayer | Magic Damage: 75 / 110 / 145 / 180 / 215 (+ 60% AP) | [4026459](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Kingslayer?oldid=4026459) |
+| Abscond | cooldown: 13 / 12 / 11 / 10 / 9 | [4007757](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abscond?oldid=4007757) |
+| Abscond | cost: 65 | [4007757](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abscond?oldid=4007757) |
+| Abscond | castTime: none | [4007757](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abscond?oldid=4007757) |
+| Abscond | targetRange: 400 | [4007757](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abscond?oldid=4007757) |
+| Abduct | castTime: 0.25 | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Abduct | range (Maximum edge range): 950 • 790 | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Abduct | width: 120 | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Abduct | Magic Damage: 80 / 130 / 180 / 230 / 280 (+ 80% AP) | [4008064](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Abduct?oldid=4008064) |
+| Hijack | cooldown: 80 / 55 / 30 | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |
+| Hijack | cost: 75 | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |
+| Hijack | castTime: 0.25 | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |
+| Hijack | speed: 2200 | [4050139](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Hijack?oldid=4050139) |

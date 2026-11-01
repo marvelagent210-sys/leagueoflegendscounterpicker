@@ -231,3 +231,82 @@ All 4 level-based formulas in the game files (0 linked to wiki values above):
 | AzirW | TotalDamage | breakpoints at levels 10 (level 1: 0) | 0 | 72 | 88 |
 | AzirPassive | TowerDamage | breakpoints at levels 7 (level 1: 230) | 230 | 410 | 440 |
 | AzirPassive | BonusResists | breakpoints at levels 7 (level 1: 30) | 30 | 90 | 100 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Azir.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Conquering Sands | 6 | 0.25 | 110 | circle of 150 radius up to 740 away, lands after 0.463 s | 155 + 55% AP magic damage; slow 25% for 1 s | – |
+| W | Arise! | 2 charges, one every 6 s (1.5 s between casts) | 0.25 | 20 | self | – | – |
+| E | Shifting Sands | 16 | 0 | 60 | dash toward 0–1100 units at 1700/s, hits within 0 | 230 + 60% AP magic damage | shield of 230 + 60% AP for 1.5 s |
+| R | Emperor's Divide | 90 | 0.5 | 100 | area -325 to 400 units ahead, lands after 0.161 s | 600 + 75% AP magic damage; knock back 650 units over 1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Shurima's Legacy needs turret ruins, which a duel has none of.
+- Azir commands the soldiers within 660 of him; a soldier's stab lands when his attack would have launched, and reaches 425 from it. Soldiers don't expire when Azir walks away, and they stab only the enemy champion.
+- Conquering Sands' soldiers dash at 1600 (the wiki gives no speed) and all land together at the target location, with no formation.
+- Shifting Sands dashes at 1700 (the wiki gives no speed).
+- Emperor's Divide hits once its charge reaches the wall's line, 0.16 s after the cast; its wall, 250 thick (its soldiers' radius each way), stands across the whole line, so an enemy can't walk around it.
+
+### Source values read (51)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Shurima's Legacy | Whenever a turret outside the enemy team's base is destroyed, a marker is placed above its ruins which can be targeted by Azir. | [3962342](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shurima's_Legacy?oldid=3962342) |
+| Arise! | Azir summons a Sand Soldier at the target location that is untargetable, lasts 10 seconds | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | Azir periodically stocks a Sand Soldier, up to a maximum of 2. | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | targetRange: 525 | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | tetherRadius: 660 | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | Magic Damage: 0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 / 96 / 104 / 112 / 120 / 128 / 136 / 144 / 152 / 160 / 168 / 176 / 184 / 192 / 200 / 208 / 216 / 224 / 232 / 240 / 248 / 256 / 264 / 272 / 280 / 288 / 296 / 304 / 312 / 320 (based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 42.5 / 50 / 57.5 / 65% AP) | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | (based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 42.5 / 50 / 57.5 / 65% AP) | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | Against the primary target, the Sand Soldier's attack applies both on-hit and on-attack effects, the damage of which is reduced to 50% effectiveness. | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | Subsequent Sand Soldier attacks against the same target deal 25% damage without applying on-hit and on-attack effects. | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Sand Soldiers | Whenever Azir declares an attack on a target within 375 units of one of his Sand Soldiers, he instead commands all Sand Soldiers in range to attack. | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |
+| Sand Soldiers | 375 / 425 | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |
+| Sand Soldiers | Their attack passes through by 50 units. | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |
+| Sand Soldiers | There is a brief delay between the command and the attack occurring. | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |
+| Sand Soldiers | Sand Soldiers' attacks are mitigated by block or dodge, likewise while Azir is blinded. | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |
+| Conquering Sands | targetRange: 740 | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | Active: Azir orders all Sand Soldiers to dash toward the target location, dealing magic damage to all enemies they pass through as well as those in front of them upon arrival, and slowing them by 25% for 1 second. | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | Sand Soldiers dash about 50 units further away from Azir than the target location | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | effectRadius (collision): 150 • 325 | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | Enemies hit by subsequent soldiers take no additional damage or slow. | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | A summoned Sand Soldier is required to cast this ability. | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Shifting Sands | Active: Azir grants himself a shield for 1.5 seconds and dashes to the Sand Soldier closest to the cursor, dealing magic damage to enemies within his path. | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Shifting Sands | targetRange: 1100 | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Shifting Sands | If Azir dashes into an enemy champion, he stops and gains a charge of Arise!. | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Shifting Sands | A summoned Sand Soldier is required to cast this ability. | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Emperor's Divide | Active: Azir calls forth a phalanx of soldiers from 175 units behind him, catching enemies from up to 325 units behind him and charging forward 575 units in the target direction. | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | targetRange (Charge distance): 400 • -325 | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | Enemies impacted by the charge are dealt magic damage and knocked away over 1 second to a line 650 units in front of Azir. | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | Upon finishing their charge, the soldiers stand as a wall for 5 seconds, acting as impassible terrain against enemies | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | Azir and his allies can move through these soldiers. | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | effectRadius: 125 | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | speed: 1000 • 1400 | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | The charge starts at 0.25 seconds into the cast time. | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | castTime: 0.5 | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Arise! | cost: 40 / 35 / 30 / 25 / 20 | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Shifting Sands | cost: 60 | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Emperor's Divide | cost: 100 | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Conquering Sands | cooldown: 14 / 12 / 10 / 8 / 6 | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | cost: 70 / 80 / 90 / 100 / 110 | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | castTime: 0.25 | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Conquering Sands | Magic Damage: 75 / 95 / 115 / 135 / 155 (+ 35 / 40 / 45 / 50 / 55% AP) | [4051339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Conquering_Sands?oldid=4051339) |
+| Arise! | cooldown: 1.5 | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | recharge: 12 / 10.5 / 9 / 7.5 / 6 | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | castTime: 0.25 | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Shifting Sands | cooldown: 22 / 20.5 / 19 / 17.5 / 16 | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Shifting Sands | castTime: none | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Shifting Sands | Shield Strength: 70 / 110 / 150 / 190 / 230 (+ 60% AP) | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Shifting Sands | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 60% AP) | [4022609](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shifting_Sands?oldid=4022609) |
+| Emperor's Divide | cooldown: 120 / 105 / 90 | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Emperor's Divide | Magic Damage: 200 / 400 / 600 (+ 75% AP) | [4042859](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Emperor's_Divide?oldid=4042859) |
+| Sand Soldiers | Minion (untargetable) | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |
+| Sun Disc | Structure | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |

@@ -251,3 +251,75 @@ All 5 level-based formulas in the game files (0 linked to wiki values above):
 | IvernP | {c6433908} | breakpoints at levels none (level 1: 20) | 20 | 0.0250008 | -2.325 |
 | IvernR | TotalBonusResists | breakpoints at levels 7 (level 1: 30) | 30 | 90 | 100 |
 | IvernR | TotalDaisyHP | breakpoints at levels 7, 11 (level 1: 1000) | 1000 | 4400 | 5200 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ivern.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 475, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Rootcaller | 10 | 0.25 | 60 | skillshot 1150 long, 160 wide, at 1300/s | 260 + 70% AP magic damage; root for 2 s | – |
+| W | Brushmaker | 3 charges, one every 20 s (0.5 s between casts) | 0.25 | 30 | self | – | – |
+| E | Triggerseed | 7 | 0 | 70 | self | – | shield of 235 + 50% AP for 2 s |
+| R | Daisy! | 120 | 0.5 | 100 | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Friend of the Forest only concerns jungle camps, which a duel has none of.
+- Rootcaller's dash to the rooted enemy is left out: Ivern fights from range, and a duel has no allies to bring.
+- Ivern grows his brush at his feet, 250 across each way (the wiki gives no size); the brush's concealment doesn't hide him at fighting range.
+- Daisy Smash! strikes with the third attack itself (its 0.625 s charge-up is left out). Daisy's 25% damage reduction while spawning and 2.5 health regeneration per second are left out.
+
+### Source values read (45)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Friend of the Forest | Ivern cannot attack nor damage non-epic monsters. | [4038386](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Friend_of_the_Forest?oldid=4038386) |
+| Rootcaller | Root Duration: 1.6 / 1.7 / 1.8 / 1.9 / 2 seconds | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Rootcaller | Ivern and allied champions can issue an attack order against the target rooted by Rootcaller to dash to their location, stopping at their attack range. | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Brushmaker | While Ivern is in brush, his basic attacks are empowered to fire a bolt at the target, dealing additional magic damage. This bonus persists for 3 seconds after leaving brush. | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Brushmaker | Additional Magic Damage: 20 / 27.5 / 35 / 42.5 / 50 (+ 20% AP) | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Brushmaker | Ivern grows a patch of brush at the target location for 45 seconds | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Brushmaker | Ivern periodically stocks a Brushmaker charge, up to a maximum of 3. | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Triggerseed | Ivern places a seed on the target allied champion, Daisy, or himself, granting the target a shield for 2 seconds. | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | effectRadius: 500 | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | After 2 seconds, the seed explodes to deal magic damage to nearby enemies and slow them for 2 seconds. | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | Shield Strength: 75 / 115 / 155 / 195 / 235 (+ 50% AP) | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | Magic Damage: 70 / 90 / 110 / 130 / 150 (+ 80% AP) | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | Slow: 40 / 45 / 50 / 55 / 60% | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | If the seed does not damage an enemy champion and the shield persists by the end of the duration, the shield is reapplied for the same strength and duration without the explosion effect. | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Daisy! | remains on the field for up to 45 seconds as a controllable pet | [3976509](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Daisy!?oldid=3976509) |
+| Daisy | hp: 1000 / 1050 / 1100 / 1150 / 1200 / 1600 / 2000 / 2400 / 2800 / 3200 / 3600 / 4000 / 4400 (based on level) (+ 50% AP) | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | (+ 50% AP) | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | damage: 70 / 100 / 130 (+ 15% AP) | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | 70 / 100 / 130 (+ 15% AP) | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | Against a target with 2 stacks, Daisy's next basic attack gains 325 bonus attack range and is empowered to charge up for 0.625 seconds to send a shockwave in a line ( 800 range, 200 width) toward the target that deals 90 / 140 / 190 (+ 50% AP) magic damage to enemies hit and stuns and knocks them up up for 1 second. Daisy Smash! cannot occur again for 3 seconds. | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | Daisy gains 40% bonus movement speed for the first 5 seconds after spawning. Additionally, she takes 25% reduced damage from all sources. | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | armor: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 (based on level) | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | magicresist: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 (based on level) | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | radius: 100 | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | movespeed: 430 | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | range: 175 | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Daisy | 0.975 / 1.0875 / 1.2 | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |
+| Rootcaller | cooldown: 14 / 13 / 12 / 11 / 10 | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Rootcaller | cost: 60 | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Rootcaller | castTime: 0.25 | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Rootcaller | range: 1150 | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Rootcaller | width: 160 | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Rootcaller | speed: 1300 | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Rootcaller | Magic Damage: 80 / 125 / 170 / 215 / 260 (+ 70% AP) | [4009163](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Rootcaller?oldid=4009163) |
+| Brushmaker | staticCooldown: 0.5 | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Brushmaker | recharge: 20 | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Brushmaker | cost: 30 | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Brushmaker | castTime: 0.25 | [4067542](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Brushmaker?oldid=4067542) |
+| Triggerseed | cooldown: 11 / 10 / 9 / 8 / 7 | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | cost: 70 | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Triggerseed | castTime: none | [3994759](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Triggerseed?oldid=3994759) |
+| Daisy! | cooldown: 140 / 130 / 120 | [3976509](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Daisy!?oldid=3976509) |
+| Daisy! | cost: 100 | [3976509](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Daisy!?oldid=3976509) |
+| Daisy! | castTime: 0.5 | [3976509](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Daisy!?oldid=3976509) |
+| Daisy | Minion | [4015438](https://wiki.leagueoflegends.com/en-us/Ivern?oldid=4015438) |

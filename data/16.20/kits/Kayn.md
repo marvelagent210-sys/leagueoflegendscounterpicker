@@ -293,3 +293,73 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | The Darkin Scythe | description: Shadow Assassin Bonus: Upon entering combat with enemy champions, Kayn becomes e | no match | 40 | 41.1765 | 42.3529 | – |
 | The Darkin Scythe | description: Innate: Rhaast heals for 30 – 40 (based on level)% of the post-mitigation physic | no match | 40 | – | – | – |
 | The Darkin Scythe | description: Innate: If Kayn has been out of combat with enemy champions for over 8 seconds,  | no match | 44 | – | – | – |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Kayn.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+- Options: form = -1.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Reaping Slash | 5 | 0 | 40 | dash toward 0–350 units at 1200/s (adjusted by current stats), hits within 100, through the enemy | 65% AD + 6% target's maximum health + 3.5% of target's maximum health per 100 bonus AD physical damage | – |
+| W | Blade's Reach | 9 | 0.55 | 60 | skillshot 700 long, 175 wide, instant | 265 + 110% bonus AD physical damage; slow 45% for 1.5 s; knock up over 1 s | – |
+| E | Shadow Step | 13 | 0 | 90 | self | – | moveSpeedMultiplier 0.4 for 1.5 s; ghosted for 1.5 s |
+| R | Umbral Trespass | 80 | 0 | 100 | targeted, 550 range | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Form at level 20 (-1 tries both, as both are unlocked by then; 0 Darkin Slayer, 1 Shadow Assassin): -1.
+- Kayn fights as the Darkin Slayer: both forms are unlocked by level 20, and the duel tries each. Shadow Step's terrain (its heal, its 70% speed and vision inside walls) is left out: it is a 1.5 s burst of speed in a fight.
+- Reaping Slash's dash moves at 1200 plus Kayn's bonus movement speed (the base is unsourced) and its swing reaches 300 (the game files' AoERadius).
+- Blade's Reach is 175 wide (the game files' line width); its decaying slow counts as half its strength throughout.
+- Kayn stays inside his target for the whole 2 s channel, then emerges 300 units back toward where he came from, 0.5 s after the recast.
+
+### Source values read (41)
+
+| Ability | Value | Source version |
+|---|---|---|
+| The Darkin Scythe | Once he has earned enough orbs, he unlocks a form based on whether he earned more from melee or ranged champions (for Darkin Slayer and Shadow Assassin, respectively), with the other form unlocked later. | [4053172](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) |
+| The Darkin Scythe | Darkin Slayer Bonus: Rhaast heals for 25% (+ 0.5% per 100 bonus health) of the post-mitigation physical damage that he deals to enemy champions with his abilities. | [4053172](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) |
+| The Darkin Scythe | Darkin Slayer Bonus: Rhaast heals for 25% (+ 0.5% per 100 bonus health) | [4053172](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) |
+| The Darkin Scythe | Shadow Assassin Bonus: Upon entering combat with enemy champions, Kayn becomes empowered for 3 seconds to deal 20 – 40 (based on level)% of post-mitigation physical and magic damage dealt against enemy champions as bonus magic damage. | [4053172](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) |
+| The Darkin Scythe | Kayn becomes empowered for 3 seconds to deal 20 – 40 (based on level)% of post-mitigation physical and magic damage dealt against enemy champions as bonus magic damage. This effect cannot trigger again until Kayn has been out of combat with champions for over 8 seconds | [4053172](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) |
+| The Darkin Scythe | The Shadow Assassin Bonus will not be triggered nor have its out-of-combat timer be refreshed if Kayn deals true damage. | [4053172](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) |
+| The Darkin Scythe | If the Shadow Assassin Bonus is granted by Kayn dealing damage, the triggering instance of damage will benefit from the bonus. | [4053172](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) |
+| Reaping Slash | targetRange: 350 | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Reaping Slash | Physical Damage: 75 / 105 / 135 / 165 / 195 (+ 85% bonus AD) | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Reaping Slash | Reaping Slash's damage is modified to deal 65% AD (+ 6% (+ 3.5% per 100 bonus AD) of the target's maximum health) physical damage with each hit | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Reaping Slash | Reaping Slash's dash speed is increased by Kayn's bonus movement speed. | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Reaping Slash | Spell shields will block only a single instance of damage - either the dash or the slash. | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Reaping Slash | If the dash is interrupted, Kayn will not swing his scythe. | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Reaping Slash | The swing's animation has a 0.25-second lockout time. | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Blade's Reach | targetRange (Standard range): 700 • 900 | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Blade's Reach | castTime (Cast time for Kayn and Darkin Slayer): 0.55 • None | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Blade's Reach | slowing them by 90% decaying over 1.5 seconds | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Blade's Reach | Darkin Slayer Bonus: Blade's Reach knocks up enemies hit for 1 second. | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Blade's Reach | Kayn conjures an untargetable shadow at the casting position to perform Blade's Reach's sweep over 0.55 seconds in his stead, removing the ability's cast time. | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Blade's Reach | This ability will cast from wherever the caster is at the start of the cast time. | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Blade's Reach | Physical Damage: 85 / 130 / 175 / 220 / 265 (+ 110% bonus AD) | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Shadow Step | Kayn gains 40% bonus total movement speed, ghosting and the ability to ignore terrain collision for a duration | [3907115](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Shadow_Step?oldid=3907115) |
+| Shadow Step | If he has been in combat with enemy champions within the last 3 seconds, Shadow Step will instead last 1.5 seconds. | [3907115](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Shadow_Step?oldid=3907115) |
+| Shadow Step | cooldown: 21 / 19 / 17 / 15 / 13 | [3907115](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Shadow_Step?oldid=3907115) |
+| Shadow Step | will cancel immediately if Kayn performs a basic attack or becomes immobilized or polymorphed | [3907115](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Shadow_Step?oldid=3907115) |
+| Umbral Trespass | Kayn marks enemy champions he damaged in the last 3.15 seconds. | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | targetRange (Standard cast range): 550 • 750 | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | Kayn vanishes and dashes to a marked enemy champion over 0.25 seconds, attaching himself to them at the end of the dash. After 0.5 seconds of his arrival, he channels for up to 2 seconds | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | Recast: After a delay of 0.5 seconds to 0.75 seconds, Kayn deals physical damage to the target | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | effectRadius: 300 • 300 - 500 | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | If Umbral Trespass is targeted on an enemy with a spell shield or a Fiora with her Riposte active, the ability will fail to cast entirely, being placed on full cooldown | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | Spell shield will not block the damage from the recast. | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | Shadow Assassin Bonus: Umbral Trespass gains 200 bonus cast range and emerge range. Additionally, emerging will reset The Darkin Scythe's cooldown. | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | Darkin Slayer Bonus: Umbral Trespass is modified to deal physical damage equal to 15% (+ 10% per 100 bonus AD) of the target's maximum health, and also heals Rhaast for 11.25% (+ 7.5% per 100 bonus AD) of the target's maximum health after the recast's delay. | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Reaping Slash | cooldown: 7 / 6.5 / 6 / 5.5 / 5 | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Reaping Slash | cost: 40 | [4051323](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Reaping_Slash?oldid=4051323) |
+| Blade's Reach | cooldown: 13 / 12 / 11 / 10 / 9 | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Blade's Reach | cost: 40 / 45 / 50 / 55 / 60 | [4007629](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Blade's_Reach?oldid=4007629) |
+| Shadow Step | cost: 90 | [3907115](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Shadow_Step?oldid=3907115) |
+| Umbral Trespass | cooldown: 120 / 100 / 80 | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |
+| Umbral Trespass | cost: 100 | [4007627](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/Umbral_Trespass?oldid=4007627) |

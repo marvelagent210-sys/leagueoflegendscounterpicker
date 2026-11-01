@@ -295,3 +295,82 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
 | Fury of the Xer'Sai | description: When Rek'Sai becomes Burrowed, she consumes her current Fury over 3 seconds to h | no match | 20 | 20.6471 | 21.2941 | – |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/RekSai.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Queen's Wrath | 2 (starts after the empowered attacks) | 0 | – | self | – | attackSpeed 0.35 for 3 s; next 3 attacks within 3 s: 50% AD physical damage (Queen's Wrath), can crit (resets the attack timer, uncancellable) |
+| QB | Prey Seeker | 10 | 0.125 | – | skillshot 1500 long, 130 wide, at 1950/s | 170 + 25% bonus AD + 70% AP magic damage; revealed for 5 s | – |
+| W | Burrow | 4 | 0 | – | self | – | – |
+| WB | Unburrow | 0 | 0 | – | self | – | – |
+| E | Furious Bite | 6 | 0.25 | – | targeted, 225 range | 170 + 60% bonus AD physical damage | – |
+| EB | Tunnel | 14 | 0 | – | dash toward 0–850 units at 500/s (adjusted by current stats) | – | – |
+| R | Void Rush | 80 | 0.25 | – | targeted, 1500 range | – | as the cast starts: displacementImmune for 1.65 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Rek'Sai starts a fight with full Fury and unburrowed; Fury's decay out of combat doesn't come up in a duel. Burrowing's heal comes in 6 even steps over its 3 s. Tunnel is a one-way dash: going back through it is left out.
+
+### Source values read (52)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Fury of the Xer'Sai | Rek'Sai basic attacks generate 25 Fury on-hit | [4007776](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Fury_of_the_Xer'Sai?oldid=4007776) |
+| Fury of the Xer'Sai | Rek'Sai's abilities other than Queen's Wrath generate 25 Fury upon hitting at least one unit. | [4007776](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Fury_of_the_Xer'Sai?oldid=4007776) |
+| Fury of the Xer'Sai | she consumes her current Fury over 3 seconds | [4007776](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Fury_of_the_Xer'Sai?oldid=4007776) |
+| Fury of the Xer'Sai | When Rek'Sai becomes Burrowed, she consumes her current Fury over 3 seconds to heal for 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on Fury)% of 9 – 20 (based on level)% maximum health, stopping once fully consumed or she reaches full health. | [4007776](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Fury_of_the_Xer'Sai?oldid=4007776) |
+| Fury of the Xer'Sai | stopping once fully consumed or she reaches full health | [4007776](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Fury_of_the_Xer'Sai?oldid=4007776) |
+| Queen's Wrath | Rek'Sai gains 35% bonus attack speed for 3 seconds | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Queen's Wrath | If Rek'Sai completes an attack, the duration is refreshed, for up to 3 total empowered attacks. | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Queen's Wrath | Queen's Wrath's damage to the primary target is affected by critical strike modifiers. | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Queen's Wrath | Queen's Wrath resets Rek'Sai's basic attack timer. | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Queen's Wrath | When dodged or blocked, or if Rek'Sai is blinded, the damage dealt to the primary target is nullified | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Queen's Wrath | cooldownStart: post-effect | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Queen's Wrath | Bonus Physical Damage: 30 / 35 / 40 / 45 / 50% AD | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Burrow | reducing her attack range by 50 | [3980688](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Burrow?oldid=3980688) |
+| Burrow | Bonus Movement Speed: 5 / 10 / 15 / 20 / 25 | [3980688](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Burrow?oldid=3980688) |
+| Burrow | She also becomes ghosted and gains bonus movement speed | [3980688](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Burrow?oldid=3980688) |
+| Burrow | cooldownStart: starts after casting unburrow | [3980688](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Burrow?oldid=3980688) |
+| Unburrow | effectRadius (Knock up radius): 220 • 250 • 75 | [4008007](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Unburrow?oldid=4008007) |
+| Unburrow | emerging from the ground to deal magic damage to nearby enemies and knock them up for 1 second | [4008007](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Unburrow?oldid=4008007) |
+| Unburrow | targetCooldown: 10 / 9 / 8 / 7 / 6 | [4008007](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Unburrow?oldid=4008007) |
+| Unburrow | staticCooldown: 1 | [4008007](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Unburrow?oldid=4008007) |
+| Unburrow | Rek'Sai becomes unable to move or attack for 0.15 seconds after hitting an enemy with Unburrow. | [4008007](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Unburrow?oldid=4008007) |
+| Unburrow | Targets hit cannot be displaced by Unburrow again for some time. | [4008007](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Unburrow?oldid=4008007) |
+| Unburrow | Magic Damage: 30 / 55 / 80 / 105 / 130 (+ 80% AP) | [4008007](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Unburrow?oldid=4008007) |
+| Furious Bite | At maximum Fury, Furious Bite deals 120% damage and is converted to true damage. | [4034704](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Furious_Bite?oldid=4034704) |
+| Furious Bite | Physical Damage: 70 / 95 / 120 / 145 / 170 (+ 60% bonus AD) | [4034704](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Furious_Bite?oldid=4034704) |
+| Furious Bite | True Damage: 84 / 114 / 144 / 174 / 204 (+ 72% bonus AD) | [4034704](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Furious_Bite?oldid=4034704) |
+| Void Rush | Rek'Sai applies Marked as Prey to enemy champions she damages, lasting for 5 seconds. | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | After 0.9 seconds, she blinks to a location near the target | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | dashes 125 units through them | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | Physical Damage: 150 / 250 / 350 (+ 100% bonus AD) (+ 15 / 20 / 25% of target's maximum health) | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | Rek'Sai gains the displacement immunity from the start of the cast time, and loses it once her dash ends. | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | Void Rush will not deal damage if the target is untargetable by the time Rek'Sai reaches them. | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | She will always emerge as Unburrowed. | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Queen's Wrath | cooldown: 4 / 3.5 / 3 / 2.5 / 2 | [3983369](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Queen's_Wrath?oldid=3983369) |
+| Prey Seeker | cooldown: 10 | [3961898](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Prey_Seeker?oldid=3961898) |
+| Prey Seeker | castTime: 0.125 | [3961898](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Prey_Seeker?oldid=3961898) |
+| Prey Seeker | targetRange: 1500 | [3961898](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Prey_Seeker?oldid=3961898) |
+| Prey Seeker | width: 130 | [3961898](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Prey_Seeker?oldid=3961898) |
+| Prey Seeker | speed: 1950 | [3961898](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Prey_Seeker?oldid=3961898) |
+| Prey Seeker | Magic Damage: 50 / 80 / 110 / 140 / 170 (+ 25% bonus AD) (+ 70% AP) | [3961898](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Prey_Seeker?oldid=3961898) |
+| Prey Seeker | revealing them for 5 seconds | [3961898](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Prey_Seeker?oldid=3961898) |
+| Burrow | cooldown: 4 | [3980688](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Burrow?oldid=3980688) |
+| Furious Bite | cooldown: 6 | [4034704](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Furious_Bite?oldid=4034704) |
+| Furious Bite | castTime: 0.25 | [4034704](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Furious_Bite?oldid=4034704) |
+| Furious Bite | targetRange: 225 | [4034704](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Furious_Bite?oldid=4034704) |
+| Tunnel | Rek'Sai cannot enter a tunnel while immobilized, grounded, or silenced. | [4007778](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Tunnel?oldid=4007778) |
+| Tunnel | speed: 500 + 100% movement speed | [4007778](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Tunnel?oldid=4007778) |
+| Tunnel | cooldown: 18 / 17 / 16 / 15 / 14 | [4007778](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Tunnel?oldid=4007778) |
+| Tunnel | targetRange: 850 | [4007778](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Tunnel?oldid=4007778) |
+| Void Rush | cooldown: 120 / 100 / 80 | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | castTime: 0.25 | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |
+| Void Rush | targetRange: 1500 | [4004938](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Void_Rush?oldid=4004938) |

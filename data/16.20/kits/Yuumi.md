@@ -271,3 +271,55 @@ All 5 level-based formulas in the game files (1 linked to wiki values above):
 | YuumiP | {656dde8a} | breakpoints at levels none (level 1: 50) | 50 | 50 | 50 |
 | YuumiP | HealAmount | linear 20 → 110 over levels 1-18, continues past 18 | 20 | 110 | 120.588 |
 | YuumiR | AllyHealingPerc | breakpoints at levels 7, 13 (level 1: 1.3) | 1.3 | 1.9 | 2 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Yuumi.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 425, missile at 1500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Prowling Projectile | 6.5 | 0 | 75 | skillshot 850 long, 120 wide, at 950/s | 235 + 20% AP magic damage; slow 20% for 1 s | – |
+| E | Zoomies | 10 | 0 | 120 | self | – | shield of 165 + 40% AP for 3 s; attackSpeed 0.35 + 0.08% AP for 3 s |
+| R | Final Chapter | 100 | 0 | 100 | self; channel 3.5 s, 5 pulses | each pulse: 175 + 25% AP magic damage (Final Chapter) | as the cast starts: ghosted for 3.5 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Feline Friendship: staticCooldown has no value past level 13; its level-13 value is used at 20.
+- A duel has no allied champion for You and Me!, so Yuumi stays unattached: her spells keep their unattached forms and Best Friend bonuses never apply.
+- Final Chapter's waves fire evenly over its 3.5 s and reach an enemy within 1100 of Yuumi along the duel's line.
+
+### Source values read (27)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Feline Friendship | staticCooldown: 20 – 8 (based on level) | [4026485](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Feline_Friendship?oldid=4026485) |
+| Feline Friendship | Periodically, Yuumi's next basic attack against an enemy champion is empowered to have an uncancellable windup, gain 50 bonus range and become non-projectile. | [4026485](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Feline_Friendship?oldid=4026485) |
+| Feline Friendship | Upon hitting them with the basic attack or Prowling Projectile, or upon a Final Chapter hit on ally champions while attached, the buff is consumed to heal her for 20 – 110 (based on level) (+ 30% AP). | [4026485](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Feline_Friendship?oldid=4026485) |
+| You and Me! | Yuumi channels for 0.25 seconds, then upon completion dashes to the target allied champion and attaches to them upon arrival | [4011487](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/You_and_Me!?oldid=4011487) |
+| Prowling Projectile | If the target is a champion, they are also revealed and slowed by 20% for 1 second. | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Zoomies | Yuumi grants herself a shield and gains bonus attack speed for 3 seconds. She also gains 20% bonus movement speed while the shield holds. | [4026487](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Zoomies?oldid=4026487) |
+| Zoomies | Bonus Attack Speed: 25 / 27.5 / 30 / 32.5 / 35% (+ 8% per 100 AP) | [4026487](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Zoomies?oldid=4026487) |
+| Final Chapter | Yuumi and Book channel for up to 3.5 seconds, during which they are ghosted, to launch 5 magical waves in the target direction. | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Final Chapter | Enemies struck by the waves take magic damage and are slowed by 10% for 1.25 seconds. The slow stacks and refreshes on subsequent hits, up to a total strength of 50%. Subsequent waves against enemies hit deal 25% damage. | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Final Chapter | Magic Damage per Hit: 75 / 125 / 175 (+ 25% AP) | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Final Chapter | Reduced Damage per Hit: 18.75 / 31.25 / 43.75 (+ 6.25% AP) | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Final Chapter | While not attached, Yuumi can move while channeling Final Chapter. | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Prowling Projectile | cooldown: 6.5 | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Prowling Projectile | cost: 50 / 55 / 60 / 65 / 70 / 75 | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Prowling Projectile | castTime: none | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Prowling Projectile | targetRange: 850 | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Prowling Projectile | width: 120 | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Prowling Projectile | speed (Missile speed): 950 • 850 • 1650 | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Prowling Projectile | Magic Damage: 60 / 95 / 130 / 165 / 200 / 235 (+ 20% AP) | [4008652](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Prowling_Projectile?oldid=4008652) |
+| Zoomies | cooldown: 10 | [4026487](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Zoomies?oldid=4026487) |
+| Zoomies | cost: 80 / 90 / 100 / 110 / 120 | [4026487](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Zoomies?oldid=4026487) |
+| Zoomies | castTime: none | [4026487](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Zoomies?oldid=4026487) |
+| Zoomies | Shield: 65 / 90 / 115 / 140 / 165 (+ 40% AP) | [4026487](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Zoomies?oldid=4026487) |
+| Final Chapter | cooldown: 120 / 110 / 100 | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Final Chapter | cost: 100 | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Final Chapter | castTime: none | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |
+| Final Chapter | targetRange: 1100 | [4047717](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Final_Chapter?oldid=4047717) |

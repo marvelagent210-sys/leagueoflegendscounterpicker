@@ -265,3 +265,88 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | Bushwhack | MaxTraps | breakpoints at levels 6, 11, 16 (level 1: 4) | 4 | 10 | 10 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Nidalee.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Javelin Toss | 6 | 0.25 | 70 | skillshot 1500 long, 80 wide, at 1300/s | 150 + 50% AP magic damage | – |
+| W | Bushwhack | 9 | 0.25 | 50 | self | – | – |
+| E | Primal Surge | 12 | 0.25 | 70 | self | – | attackSpeed 0.7 for 7 s |
+| R | Aspect of the Cougar | 3 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Nidalee lays Bushwhack where the enemy will walk: between her and a chasing enemy, or under one held in place. The enemy walks over an armed trap in its path; 10 may stand at once.
+- Pounce lands 0.5 s after it starts, however far it goes (neither the wiki nor the game files give its speed). Takedown's critical strikes count by their chance, as 100% AD more magic damage.
+
+### Source values read (60)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Prowl | Hitting enemy champions or monsters with Javelin Toss or Bushwhack applies a Hunted mark to the target for 4 seconds | [4007706](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Prowl?oldid=4007706) |
+| Prowl | she gains ghosting and 10% bonus movement speed for 4 seconds, increased to 30% while she is facing a Hunted target | [4007706](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Prowl?oldid=4007706) |
+| Prowl | effectRadius (Range for granting Nidalee Hunt's movement speed bonus): 3000 • 5500 | [4007706](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Prowl?oldid=4007706) |
+| Prowl | the first cast of both Takedown and Pounce against a Hunted target is enhanced | [4007706](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Prowl?oldid=4007706) |
+| Aspect of the Cougar | While in this form, applying a Hunted mark will reset Aspect of the Cougar's cooldown. | [3547669](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Aspect_of_the_Cougar?oldid=3547669) |
+| Javelin Toss | Minimum Magic Damage: 70 / 90 / 110 / 130 / 150 (+ 50% AP) | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | Maximum Magic Damage: 227.5 / 292.5 / 357.5 / 422.5 / 487.5 (+ 162.5% AP) | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | Active: Nidalee hurls a javelin in the target direction that deals magic damage to the first enemy hit, increased by 0 / 45 / 90 / 135 / 180 / 225 (based on distance traveled)%. | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | The damage amplification is based on the distance from Nidalee's location at the end of the cast time to the struck target's center at the time of collision. | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | This ability will cast from wherever the caster is at the start of the cast time. | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Bushwhack | becomes stealthed after arming over 1.5 seconds, lasting for up to 120 seconds | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Bushwhack | dealing magic damage every second over 4 seconds | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Bushwhack | collisionRadius: 150 | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Bushwhack | targetRange: 900 | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Bushwhack | Total Magic Damage: 40 / 80 / 120 / 160 / 200 (+ 20% AP) | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Bushwhack | Up to a maximum of 4 / 6 / 8 / 10 (based on level) traps may be active at once. | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Primal Surge | Minimum Heal: 50 / 75 / 100 / 125 / 150 (+ 35% AP) | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Primal Surge | Maximum Heal: 100 / 150 / 200 / 250 / 300 (+ 70% AP) | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Primal Surge | Active: Nidalee revitalizes herself or the target allied champion, granting the target bonus attack speed for 7 seconds and healing them for an amount that is increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%. | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Primal Surge | Bonus Attack Speed: 30 / 40 / 50 / 60 / 70% | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Primal Surge | granting the target bonus attack speed for 7 seconds | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Primal Surge | The bonus attack speed will persist through Cougar Form if Nidalee uses Primal Surge on herself. | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Takedown | Minimum Magic Damage: 5 / 30 / 55 / 80 (+ 75% AD) (+ 40% AP) | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | Increased Damage Modifier: 1 / 1.25 / 1.5 / 1.75% | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | Maximum Increased Damage: 100 / 125 / 150 / 175% | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | Hitting a Hunted target increases Takedown's damage by 30%. | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | empowers her next basic attack within 10 seconds to have an uncancellable windup, gain 75 bonus range | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | Takedown resets Nidalee's basic attack timer. | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | Nidalee loses Takedown's empowered attack immediately when she switches to Human Form. | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | Takedown can critically strike for 100% AD bonus magic damage. | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Takedown | cooldownStart: post-effect | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Pounce | targetRange (Standard range): 375 • 750 | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Pounce | targetRange (Enhanced range): 375 • 750 | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Pounce | effectRadius: 250 | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Pounce | Reduced Cooldown: 3 / 2.5 / 2 / 1.5 seconds | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Pounce | Nidalee can perform Pounce from an increased range on a Hunted enemy closest to the cursor. She will leap to the front of the target. | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Pounce | Takedown and Aspect of the Cougar can be cast during the dash. | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Aspect of the Cougar | gaining melee attacks with 125 range | [3547669](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Aspect_of_the_Cougar?oldid=3547669) |
+| Swipe | effectRadius: 310 | [3959337](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Swipe?oldid=3959337) |
+| Javelin Toss | cooldown: 6 | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | cost: 50 / 55 / 60 / 65 / 70 | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | castTime: 0.25 | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | range: 1500 | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | width: 80 | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Javelin Toss | speed: 1300 | [3971597](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Javelin_Toss?oldid=3971597) |
+| Bushwhack | cooldown: 13 / 12 / 11 / 10 / 9 | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Bushwhack | cost: 30 / 35 / 40 / 45 / 50 | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Bushwhack | castTime: 0.25 | [4015217](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Bushwhack?oldid=4015217) |
+| Primal Surge | cooldown: 12 | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Primal Surge | cost: 50 / 55 / 60 / 65 / 70 | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Primal Surge | castTime: 0.25 | [3907033](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Primal_Surge?oldid=3907033) |
+| Aspect of the Cougar | cooldown: 3 | [3547669](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Aspect_of_the_Cougar?oldid=3547669) |
+| Takedown | cooldown: 6 | [3948934](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Takedown?oldid=3948934) |
+| Pounce | cooldown: 6 | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Pounce | Magic Damage: 55 / 100 / 145 / 190 (+ 50% bonus AD) (+ 30% AP) | [4007707](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Pounce?oldid=4007707) |
+| Swipe | cooldown: 6 | [3959337](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Swipe?oldid=3959337) |
+| Swipe | castTime: 0.25 | [3959337](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Swipe?oldid=3959337) |
+| Swipe | Magic Damage: 70 / 130 / 190 / 250 (+ 70% bonus AD) (+ 55% AP) | [3959337](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Swipe?oldid=3959337) |
+| Swipe | This ability will cast from wherever the caster is at the start of the cast time. | [3959337](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Swipe?oldid=3959337) |
+| Spring Trap | Ward | [4008141](https://wiki.leagueoflegends.com/en-us/Nidalee?oldid=4008141) |
