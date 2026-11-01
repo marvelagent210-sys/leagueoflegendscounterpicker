@@ -208,6 +208,11 @@ describe("development model refresh", () => {
     expect(refreshesModel(path.join(repo, "kits/champions/Garen.ts"))).toBe(true);
     expect(refreshesModel(path.join(repo, "data/16.20/simulated.json"))).toBe(true);
     expect(refreshesModel(path.join(repo, "web/src/sim/run.ts"))).toBe(true);
+    // The build matrix's inputs.
+    expect(refreshesModel(path.join(repo, "items/modules/TrinityForce.ts"))).toBe(true);
+    expect(refreshesModel(path.join(repo, "pipeline/items/search.ts"))).toBe(true);
+    expect(refreshesModel(path.join(repo, "pipeline/itemData.ts"))).toBe(true);
+    expect(refreshesModel(path.join(repo, "data/16.20/items.json"))).toBe(true);
     expect(refreshesModel(path.join(repo, "web/public/data/index.json"))).toBe(false);
     expect(refreshesModel(path.join(repo, "data/raw/16.20/large.json"))).toBe(false);
   });

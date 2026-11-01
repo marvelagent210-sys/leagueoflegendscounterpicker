@@ -1,15 +1,18 @@
-/** One matchup: the verdict, each scenario and its fight, the numbers, the ledger, and the assumptions. */
+/** One matchup: its result with item builds, the plain-stats verdict with each scenario and its fight, the numbers, the ledger, and the assumptions. */
 import { Fragment, useMemo, useState } from "react";
 import { BUDGET_STATS, type BudgetStat } from "../../../engine/budget";
 import { buildLedger, isHardCounter, type LedgerEntry } from "../../../engine/ledger/index";
-import { SCENARIO_LABELS, type ScenarioId } from "../../../engine/sim/scenarios";
+import { SCENARIO_LABELS, SCENARIOS, type ScenarioId } from "../../../engine/sim/scenarios";
 import { TOP_LANE_MAX_LEVEL, statsAtLevel } from "../../../engine/stats";
 import type { Champion } from "../../../engine/types";
+import { buildsMatchup, shownResults } from "../builds";
+import { BuildLists, VariantNotes } from "../components/BuildLists";
+import { ResultsToggle } from "../components/ResultsToggle";
 import { Confidence, ErrorBox, Loading, Score, ScoreBar, percent, signed } from "../components/common";
 import { type AppData, findChampion } from "../data";
-import { useMatchupRun, useSettings } from "../hooks";
+import { useMatchupRun, useResults, useSettings } from "../hooks";
 import { routeHash } from "../routes";
-import { type AppSettings, DEFAULT_APP_SETTINGS, fightsChanged } from "../settings";
+import { type AppSettings, DEFAULT_APP_SETTINGS, fightsChanged, weightsChanged } from "../settings";
 import type { MatchupRun, OutcomeSummary, StatLine } from "../sim/run";
 
 export function MatchupPage({ data, youId, enemyId }: { data: AppData; youId: string; enemyId: string }) {
@@ -34,9 +37,13 @@ export function MatchupPage({ data, youId, enemyId }: { data: AppData; youId: st
           <a href={routeHash({ page: "kit", champion: you.id })}>{you.name}'s kit</a>
           <a href={routeHash({ page: "kit", champion: enemy.id })}>{enemy.name}'s kit</a>
         </div>
+        {simulated && data.builds ? <ResultsToggle /> : null}
       </div>
       {simulated ? (
-        <Simulation data={data} you={you} enemy={enemy} />
+        <>
+          <BuildsResult data={data} you={you} enemy={enemy} />
+          <Simulation data={data} you={you} enemy={enemy} />
+        </>
       ) : (
         <p className="note">
           {[you, enemy]
@@ -52,12 +59,67 @@ export function MatchupPage({ data, youId, enemyId }: { data: AppData; youId: st
   );
 }
 
+/** Which way a score goes, for the verdict: how many scenarios each side takes. */
+function verdictLine(score: number, scenarios: Array<number | null>, you: string, enemy: string): string {
+  const decided = scenarios.filter((s): s is number => s !== null);
+  const won = decided.filter((s) => s > 0.05).length;
+  const lost = decided.filter((s) => s < -0.05).length;
+  return `${score > 0.05 ? `${you} wins` : score < -0.05 ? `${enemy} wins` : "Even"}: ${you} takes ${won} of ${decided.length} scenarios, ${enemy} ${lost}.`;
+}
+
+/** The matchup with item builds, from the build matrix, when the app shows builds. */
+function BuildsResult({ data, you, enemy }: { data: AppData; you: Champion; enemy: Champion }) {
+  const { settings } = useSettings();
+  const { wanted } = useResults();
+  if (!data.builds) return null;
+  if (shownResults(data.builds, wanted, settings) !== "builds") {
+    return wanted === "builds" ? <p className="note">The item builds were played at the default fight settings, so with yours this page shows plain stats only.</p> : null;
+  }
+  const matchup = buildsMatchup(data.builds, you.id, enemy.id, settings);
+  if (!matchup) return null;
+  const { score, scenarios, variants } = matchup;
+  return (
+    <section className="panel" aria-labelledby="builds-head">
+      <div className="verdict">
+        <div>
+          <p className="eyebrow" id="builds-head">
+            Counter score for {you.name} with item builds
+          </p>
+          <p>{verdictLine(score, scenarios, you.name, enemy.name)}</p>
+        </div>
+        <span className={`big ${score > 0 ? "score win" : score < 0 ? "score lose" : "score"}`}>{signed(score)}</span>
+        <ScoreBar value={score} />
+      </div>
+      <BuildLists names={[you.name, enemy.name]} builds={matchup.builds} />
+      <div className="scenario-list">
+        {SCENARIOS.map((id, i) => (
+          <div key={id} className="scen">
+            <span className="label">
+              {SCENARIO_LABELS[id]} ({Math.round(settings.weights[id] * 100)}%)
+            </span>
+            <ScoreBar value={scenarios[i]} />
+            <span className="val">{scenarios[i] === null ? "n/a" : <Score value={scenarios[i]} />}</span>
+          </div>
+        ))}
+      </div>
+      <VariantNotes names={[you.name, enemy.name]} ids={[you.id, enemy.id]} variants={variants} />
+      <p className="note">
+        Level 20, six finished items each. Each build is the one the build search found to do best against the other's, settled by fights between each side's best
+        routes. The search is too slow for the browser, so these results were computed in advance at the default fight settings
+        {weightsChanged(settings) ? ", and the scenarios are reweighed by your weights (the builds were searched with the default ones)" : ""}. The fights below, which you
+        can watch tick by tick, are the plain-stats duels.
+      </p>
+    </section>
+  );
+}
+
 function Simulation({ data, you, enemy }: { data: AppData; you: Champion; enemy: Champion }) {
   const { settings } = useSettings();
+  const { wanted } = useResults();
   const run = useMatchupRun(data, you.id, enemy.id, settings, true);
   if (run.error) return <ErrorBox error={run.error} />;
   if (!run.value) return <Loading>Playing out the six scenarios…</Loading>;
-  return <Results you={you} enemy={enemy} run={run.value} settings={settings} />;
+  return <Results you={you} enemy={enemy} run={run.value} settings={settings} plain={shownResults(data.builds, wanted, settings) === "builds"} />;
 }
 
 const OUTCOME_LABELS: Partial<Record<ScenarioId, [string, string]>> = {
@@ -76,11 +138,9 @@ function outcomeText(o: OutcomeSummary, you: string, enemy: string): string {
   return parts.join(", ");
 }
 
-function Results({ you, enemy, run, settings }: { you: Champion; enemy: Champion; run: MatchupRun; settings: AppSettings }) {
+/** The live plain-stats duels; `plain` says so in the verdict, beside the item builds' results. */
+function Results({ you, enemy, run, settings, plain }: { you: Champion; enemy: Champion; run: MatchupRun; settings: AppSettings; plain: boolean }) {
   const score = run.score;
-  const decided = run.scenarios.filter((s) => s.score !== null);
-  const won = decided.filter((s) => (s.score ?? 0) > 0.05).length;
-  const lost = decided.filter((s) => (s.score ?? 0) < -0.05).length;
   const fights = run.scenarios.flatMap((s) =>
     s.outcomes.map((o, i) => ({ key: `${s.id}-${i}`, label: s.outcomes.length > 1 ? (OUTCOME_LABELS[s.id]?.[i] ?? `${SCENARIO_LABELS[s.id]} ${i + 1}`) : SCENARIO_LABELS[s.id], outcome: o })),
   );
@@ -91,11 +151,8 @@ function Results({ you, enemy, run, settings }: { you: Champion; enemy: Champion
       <section className="panel" aria-label="Verdict">
         <div className="verdict">
           <div>
-            <p className="eyebrow">Counter score for {you.name}</p>
-            <p>
-              {score > 0.05 ? `${you.name} wins` : score < -0.05 ? `${enemy.name} wins` : "Even"}: {you.name} takes {won} of {decided.length} scenarios, {enemy.name}{" "}
-              {lost}.
-            </p>
+            <p className="eyebrow">Counter score for {you.name}{plain ? " with plain stats" : ""}</p>
+            <p>{verdictLine(score, run.scenarios.map((s) => s.score), you.name, enemy.name)}</p>
           </div>
           <span className={`big ${score > 0 ? "score win" : score < 0 ? "score lose" : "score"}`}>{signed(score)}</span>
           <ScoreBar value={score} />

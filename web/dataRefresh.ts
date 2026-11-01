@@ -15,9 +15,10 @@ async function exportDevelopmentData(): Promise<void> {
 
 export function refreshesModel(file: string): boolean {
   const relative = path.relative(REPO_ROOT, file).replaceAll(path.sep, "/");
-  return ((relative.startsWith("engine/") || relative.startsWith("kits/") || relative.startsWith("web/src/sim/")) && relative.endsWith(".ts"))
+  // The item code and catalog are the build matrix's inputs: a change makes its results stale.
+  return ((relative.startsWith("engine/") || relative.startsWith("kits/") || relative.startsWith("items/") || relative.startsWith("web/src/sim/")) && relative.endsWith(".ts"))
     || relative === "web/src/settings.ts"
-    || (/^pipeline\/(?:sim\/|kitData\.ts$|simData\.ts$|ledgerData\.ts$|simPages\.ts$|ledgerPages\.ts$|build\.ts$)/.test(relative) && /\.(?:ts|mjs)$/.test(relative))
+    || (/^pipeline\/(?:sim\/|items\/|kitData\.ts$|simData\.ts$|ledgerData\.ts$|simPages\.ts$|ledgerPages\.ts$|build\.ts$|itemData\.ts$)/.test(relative) && /\.(?:ts|mjs)$/.test(relative))
     || (/^data\/(?!raw\/)[^/]+\//.test(relative) && relative.endsWith(".json"));
 }
 

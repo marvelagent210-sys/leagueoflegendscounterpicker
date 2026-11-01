@@ -6,7 +6,7 @@ import { type LedgerContext, ledgerContext } from "../../engine/ledger/index";
 import type { KitProfile } from "../../engine/profiles";
 import type { Champion, ChampionDataset } from "../../engine/types";
 import { KITS } from "../../kits/champions/index";
-import type { PrecomputedMatchups } from "../../engine/sim/precomputed";
+import { type PrecomputedBuilds, type PrecomputedMatchups, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
 import { precomputedCompatible } from "./sim/cache";
 
 export type SimulatedFile = PrecomputedMatchups;
@@ -32,7 +32,23 @@ export interface AppData {
   runes: RuneRecord[];
   /** Champions with a simulator kit, by name. */
   kitIds: string[];
+  /**
+   * The duel results with item builds (npm run build:builds), when the dataset has them and
+   * they are the current inputs': the build search is too slow to run in the browser.
+   */
+  builds?: PrecomputedBuilds;
+  /** Where the builds' item records come from: the wiki module's revision and the Data Dragon version. */
+  itemSources?: ItemSources;
 }
+
+export interface ItemSources {
+  title: string;
+  revid: number;
+  ddragon: string;
+}
+
+/** The build format the build matrix plays: six items. */
+export const BUILDS_FORMAT = "sixItems";
 
 const cache = new Map<string, Promise<unknown>>();
 
@@ -53,7 +69,7 @@ let app: Promise<AppData> | undefined;
 
 export function loadAppData(): Promise<AppData> {
   app ??= (async () => {
-    const index = await fetchJson<{ dataset: string; patch: string; simulationFingerprint?: string }>("data/index.json");
+    const index = await fetchJson<{ dataset: string; patch: string; simulationFingerprint?: string; buildsFingerprint?: string; itemSources?: ItemSources }>("data/index.json");
     const dir = `data/${index.dataset}/`;
     const [dataset, profiles, glossary, simulated, rules, pets, runes] = await Promise.all([
       fetchJson<ChampionDataset>(`${dir}champions.json`),
@@ -69,6 +85,9 @@ export function loadAppData(): Promise<AppData> {
     const kitIds = Object.keys(KITS)
       .filter((id) => byId.has(id))
       .sort((a, b) => (byId.get(a)?.name ?? a).localeCompare(byId.get(b)?.name ?? b));
+    // Optional: a dataset without builds, or with stale ones, shows plain stats only.
+    const builds = index.buildsFingerprint ? await fetchJson<PrecomputedBuilds>(`${dir}simulated-builds.json`).catch(() => undefined) : undefined;
+    const currentBuilds = builds && precomputedBuildsCurrent(builds, index.dataset, index.patch, index.buildsFingerprint, BUILDS_FORMAT, kitIds) ? builds : undefined;
     return {
       dataset: index.dataset,
       patch: index.patch,
@@ -84,6 +103,7 @@ export function loadAppData(): Promise<AppData> {
       pets: new Map(Object.entries(pets)),
       runes,
       kitIds,
+      ...(currentBuilds ? { builds: currentBuilds, ...(index.itemSources ? { itemSources: index.itemSources } : {}) } : {}),
     };
   })();
   app.catch(() => {
