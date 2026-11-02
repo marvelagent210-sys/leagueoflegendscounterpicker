@@ -23,7 +23,7 @@ npm ci
 npm run typecheck
 npm run build:sim -- --threads 4   # refresh duels, counter pages, ledger rankings and reports after engine changes
 npm run build:sim -- --check       # check whether committed duel results match current inputs
-npm run build:builds -- --threads 4   # the duels with item builds: the build search for every pairing (about 18 hours on four threads)
+npm run build:builds -- --threads 4   # the duels with item builds: the build search for every pairing (about 19 hours on four threads)
 npm run build:builds -- --check       # check whether the committed build matrix matches current inputs
 npm test
 ```
@@ -82,7 +82,7 @@ npm run build:builds -- --smoke --threads 4   # each kit against the next (172 p
 npm run build:builds -- --threads 4           # all 14,878 pairings, resuming from checkpoints
 ```
 
-`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.20/reports/builds.md): each champion's most-built items across its matchups. A pairing takes about 18 s on one of four threads, so a full run takes about 18 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item code, the build search and the item catalog. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
+`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.20/reports/builds.md): each champion's most-built items across its matchups. A pairing takes about 19 s on one of four threads, so a full run takes about 19 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item code, the build search and the item catalog. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
 
 The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats, with penetration capped near what items give. Each prints a score from -1 to +1 for these scenarios:
 

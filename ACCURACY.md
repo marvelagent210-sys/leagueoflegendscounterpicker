@@ -1812,10 +1812,60 @@ The full suite ran **7,898 tests across 219 files** on one worker in **1,014.5 s
 variant search included within its unchanged 180-second limit. `npm run build:web`
 passes. The Kit Counter Picker's page renders all 173 at 390 pixels with no console error.
 
+## The build matrix, 1–2 November 2026
+
+`npm run build:builds -- --threads 4` played the build search (`pipeline/items/search.ts`)
+for all **14,878 pairings**, six items each, under inputs fingerprint
+`3b4c26efe9c32989484794ee19bec409fec573420da63ad4a2d8461f1f939dab` (the simulation's
+inputs, the item code, the build search and the item catalog).
+
+- **Smoke runs first.** The first smoke run (each kit against the next, 172 pairings)
+  failed for Aurelion Sol's and Azir's pairings: their calibrated estimate of an empty
+  build was inflated, so no item looked useful and the search found no build. The estimate
+  now scales a calibrated kit's own damage the same way with items and without, and the
+  search falls back to every item when too few help alone (a regression test holds both).
+  The second smoke run played all 172 without failures in 12.8 minutes.
+- **The run.** 19.4 hours on four threads, resuming the smoke run's 172 checkpoints:
+  **77.8 processor-hours**, 18.8 s a pairing on its thread (12 s alone). No pairing failed.
+  The process held about 3.2 GB throughout. `npm run build:builds -- --check` passes.
+- **The builds.** 29,756 directed builds, 2,680 of them distinct, from 76 of the catalog's
+  113 items. 94% hold Guardian Angel or Zhonya's Hourglass (29% both): a revive or a stasis
+  decides a duel, as fights showed before the run. Guardian Angel is in 90% of builds,
+  Yun Tal Wildarrows in 72%, Terminus in 62%, Frozen Heart in 41% and Infinity Edge in 40%
+  (`reports/builds.md` has each champion's). Mages whose damage is their abilities build
+  ability power (Cassiopeia, Aurelion Sol, Azir); many others, tanks and some mages among
+  them, build for basic attacks.
+- **Against plain stats.** Over all pairings the scores with builds correlate with the plain
+  matrix's (`d28cd1a6…`, from before M8's changes to the stat budget) at r = 0.65; 2,160
+  pairings change winner where both scores are beyond ±0.2. With builds, Fiora, Aphelios,
+  Yorick, Jax and Nasus lead on average, and Pyke, Thresh, Yuumi, Qiyana and Karthus trail.
+- **Two limits the results show.**
+  - When a matchup is lopsided (71% of directed scores are beyond ±0.5), the losing side's
+    build barely moves it, so the build listed for that side is close to arbitrary. Against
+    Darius's build, Malphite's found build scores +0.77 for Darius; a tank build (Sunfire
+    Aegis, Thornmail, Frozen Heart, Randuin's Omen, Force of Nature, Dead Man's Plate) +0.75;
+    an ability power build with Zhonya's Hourglass, Rabadon's Deathcap and Guardian Angel
+    +0.74.
+  - A ranged champion with a basic-attack build keeps a melee champion out of reach when the
+    melee kit has no gap-closer as long as its range: Annie with a critical strike build
+    beats Darius at +0.91 (−0.14 with plain stats). The duel has no summoner spells,
+    terrain or second dimension to close the gap, and in the six-item format no boots.
+
+The app shows these results by default where the dataset has them (`web/src/builds.ts`),
+with plain stats a toggle away; a headless browser check of the picker and matchup pages
+with this file found the builds, Udyr's rank split and the item catalog's revision in place,
+with no console error.
+
 ## Remaining limits
 
-- Only 145 of the dataset's 173 champions have simulator kits. Other pairings use the
-  interaction ledger's heuristic estimates.
+- Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
+  interaction ledger's heuristic estimates sit beside the duels, not in their place.
+- Item builds come from a search, not an exhaustive one. In a lopsided matchup the losing
+  side's listed build is close to arbitrary, since its build barely moves the result; and
+  the builds hold at the default fight settings only, since the browser can't search them.
+- Duels have no summoner spells, and in the six-item format no boots, so a melee kit
+  without a gap-closer as long as the enemy's range can be kept out of reach by a ranged
+  champion's basic attacks (Annie with a critical strike build beats Darius).
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
 - Skillshot branching has a finite limit; minor hits and further branches use expected
@@ -1853,7 +1903,7 @@ passes. The Kit Counter Picker's page renders all 173 at 390 pixels with no cons
   does not quantify R's early-release distance. Malphite's size/cone geometry, Q forward
   missile spawn, and exact armor-recursion behavior remain unmodeled.
 - Renekton's built-in W strikes are modeled individually; additional external on-hit
-  effects still apply once. The current model buys plain stats and has no item effects.
+  effects still apply once.
 - Teemo's Guerrilla Warfare stealth is not modeled. Tryndamere's critical Fury/refunds
   use expected outcomes, facing uses movement/attack direction, and slash speed remains
   an explicit assumption. Tahm Kench's source does not quantify Regurgitate's spit distance.
