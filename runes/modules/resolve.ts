@@ -1,8 +1,10 @@
 /** The Resolve path's runes. */
 import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { toTicks } from "../../engine/rules/time";
-import { ccTypes, derive } from "../../engine/sim/derived";
-import type { HookContext } from "../../engine/sim/spec";
+import { budgetUses } from "../../engine/budget";
+import { ccTypes, derive, evaluate } from "../../engine/sim/derived";
+import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
+import { abilityHas, attacks, casts, incoming, slowsOrImmobilizes, triggers, usesOf } from "../../items/hints";
 import type { RuneModule } from "../equip";
 import { GAME_MINUTES, LATE_GAME_ESTIMATE, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
 
@@ -127,8 +129,11 @@ export const FontOfLife: RuneModule = {
   build(rune, fighter) {
     const heal = rune.level("Slowing or immobilizing an enemy champion heals you and the nearest and most wounded allied champion within 1000 units for", fighter.ranged ? 1 : 0);
     rune.noted("Font of Life will trigger if the user has no allies nearby, and triggers even while 100% maximum health.");
-    const wait = cooldown(rune.name, rune.cooldown());
+    const seconds = rune.cooldown();
+    const wait = cooldown(rune.name, seconds);
     return {
+      // Once a cast of the kit's that slows or immobilizes, at most once a cooldown.
+      budget: { healing: (self) => heal * Math.min(triggers(seconds), usesOf(self, slowsOrImmobilizes)) },
       hooks: {
         onEnemyCrowdControlled(ctx) {
           if ((ctx.cc !== "slow" && !IMMOBILIZING.has(ctx.cc)) || !wait.ready(ctx.self, ctx.tick)) return;
@@ -139,6 +144,19 @@ export const FontOfLife: RuneModule = {
     };
   },
 };
+
+/** The first shield an ability gives: on itself, its hits, its channel or its empowered attacks. */
+function shieldOf(ability: AbilitySpec): Extract<Effect, { type: "shield" }> | undefined {
+  const find = (effects: readonly Effect[] | undefined): Extract<Effect, { type: "shield" }> | undefined => {
+    for (const e of effects ?? []) {
+      if (e.type === "shield") return e;
+      const inner = e.type === "delayed" ? find(e.effects) : e.type === "empower" ? find(e.onHit) : undefined;
+      if (inner) return inner;
+    }
+    return undefined;
+  };
+  return find(ability.onSelf) ?? find(ability.onCastStart) ?? find(ability.onHit) ?? find(ability.channel?.onTick) ?? find(ability.channel?.onComplete);
+}
 
 export const ShieldBash: RuneModule = {
   rune: "Shield Bash",
@@ -152,6 +170,22 @@ export const ShieldBash: RuneModule = {
     rune.noted("Shield Bash's shield scaling is calculated with the initial maximum value of the shield.");
     const [seen, armed, until] = [runeMemo(rune.name, "seen"), runeMemo(rune.name, "armed"), runeMemo(rune.name, "until")];
     return {
+      // An empowered attack for each cast of the kit's that shields the holder, at most one an attack.
+      budget: {
+        damage(self) {
+          const bonusHealth = derive(self).maxHp - self.spec.base.hp;
+          let rate = 0;
+          let total = 0;
+          for (const use of budgetUses(self)) {
+            const shield = shieldOf(use.ability);
+            if (!shield) continue;
+            rate += use.perSecond;
+            total += use.perSecond * (damage + health * bonusHealth + share * evaluate(shield.amount, self));
+          }
+          const cap = attacks(self);
+          return { [adaptiveType(fighter)]: rate > cap && rate > 0 ? (total * cap) / rate : total };
+        },
+      },
       hooks: {
         onTick(ctx) {
           const known = new Set(String(ctx.self.memory[seen] ?? "").split("|").filter(Boolean));
@@ -195,6 +229,8 @@ export const SecondWind: RuneModule = {
     rune.noted("Second Wind will not trigger if the damage is:");
     const until = runeMemo(rune.name, "until");
     return {
+      // Taking damage throughout, over a fight from full health to none: half the maximum health missing on average.
+      budget: { healing: (self) => ((share / seconds) * derive(self).maxHp) / 2 },
       hooks: {
         onDamageTaken(ctx) {
           if (ctx.amount > 0) ctx.self.memory[until] = ctx.tick + toTicks(seconds);
@@ -221,10 +257,21 @@ export const BonePlating: RuneModule = {
     rune.noted("Bone Plating's damage reduction can only occur once per cast instance.");
     rune.assume("it takes its reduction off the damage left after shields; damage over time doesn't count, each basic attack is a cast instance, and an ability's hits from one cast are one.");
     // Its cooldown runs from the end of its duration.
-    const wait = cooldown(rune.name, seconds + rune.cooldown());
+    const cycle = seconds + rune.cooldown();
+    const wait = cooldown(rune.name, cycle);
     const [until, left, instances] = [runeMemo(rune.name, "until"), runeMemo(rune.name, "left"), runeMemo(rune.name, "instances")];
     const active = (ctx: HookContext) => ctx.tick <= Number(ctx.self.memory[until] ?? -1) && Number(ctx.self.memory[left] ?? 0) > 0;
     return {
+      // The enemy's attacks and casts within its window after the first, each the enemy's average hit, at most its reduction.
+      budget: {
+        shielding(self, enemy) {
+          const coming = incoming(self, enemy);
+          const perSecond = coming.physical + coming.magic + coming.true;
+          const instances = attacks(enemy) + casts(enemy);
+          if (instances <= 0 || perSecond <= 0) return 0;
+          return Math.min(reduction, perSecond / instances) * Math.min(hits, instances * seconds) * triggers(cycle);
+        },
+      },
       hooks: {
         modifyDamageAfterShields(ctx) {
           if (ctx.persistent || !active(ctx)) return ctx.amount;
@@ -270,7 +317,15 @@ export const Unflinching: RuneModule = {
     const [armor, mr, linger] = [rune.quoted(words), rune.quoted(words, 1), rune.quoted(words, 2)];
     rune.noted("Unflinching triggers from all forms of crowd control, except for kinematics and disruption.");
     const last = runeMemo(rune.name, "last");
+    const controls = (ability: AbilitySpec) => abilityHas(ability, (e) => e.type === "cc" || e.type === "displace");
     return {
+      // Its share of the fight: a second of crowd control for each of the enemy's casts that has some, and its linger.
+      budget: {
+        stats(_self, enemy) {
+          const share = Math.min(1, usesOf(enemy, controls) * (1 + linger));
+          return [{ stat: "armor", value: armor * share }, { stat: "MR", value: mr * share }];
+        },
+      },
       hooks: {
         onTick(ctx) {
           const held = [...ccTypes(ctx.self)].some((type) => type !== "kinematics");

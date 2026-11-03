@@ -10,8 +10,8 @@
  * runes the article lists in place of the ones it can't use.
  */
 import { traitsOf } from "../engine/sim/behavior";
-import type { AbilitySpec, BonusStats, Effect, FighterSpec, KitHooks } from "../engine/sim/spec";
-import type { ItemFighter, LoadoutPart, Permanent } from "../items/equip";
+import type { AbilitySpec, BonusStats, BuffStat, Effect, FighterSpec, KitHooks } from "../engine/sim/spec";
+import type { ItemBudget, ItemFighter, ItemParts, LoadoutPart, Permanent } from "../items/equip";
 import { permanentHooks } from "../items/equip";
 import type { RuneCatalog, RuneEntry, ShardOption } from "../pipeline/runeCatalog/records";
 import { RuneContext, type RuneData, type RuneEvidence } from "./context";
@@ -56,6 +56,12 @@ export interface RuneDefinition {
   haste?: LoadoutPart["haste"];
   /** Bonus maximum mana, for mana champions. */
   mana?: number;
+  /**
+   * What the loadout search's quick estimate counts of its hooks (items/estimate.ts), as an
+   * item's hint does: their average over the stat budget's ten-second reference fight. Fights
+   * play the hooks themselves.
+   */
+  budget?: ItemBudget;
   /** What the rune does that the simulator leaves out, each with why. */
   unmodeled?: string[];
   /** Why the rune does nothing in a duel at all; the loadout search leaves it out. */
@@ -180,18 +186,29 @@ export function immobilizes(spec: FighterSpec, catalog: RuneCatalog): boolean {
   return forms.some((form) => form.abilities.some((ability: AbilitySpec) => traitsOf(ability).immobilizes));
 }
 
+/** The rune a champion plays in place of `name` under the Rune article's substitutions, with what was made, if anything. */
+export function substituteRune(name: string, catalog: RuneCatalog, facts: SubstitutionFacts): { name: string; made?: string } {
+  for (const rule of SUBSTITUTIONS) {
+    const found = rule.swaps.find(([from]) => simplify(from) === simplify(name));
+    if (!found || !rule.applies(facts)) continue;
+    if (!catalog.substitutions.some((line) => line.trim() === rule.bullet)) throw new Error(`The Rune article no longer says: ${rule.bullet}`);
+    return { name: found[1], made: `${found[0]} is ${found[1]}: "${rule.bullet}" (the wiki's Rune article)` };
+  }
+  return { name };
+}
+
+/** What decides a champion's substitutions, from its kit and summoner spells. */
+export function substitutionFacts(spec: FighterSpec, catalog: RuneCatalog, spells: readonly string[]): SubstitutionFacts {
+  return { champion: spec.id, ...(spec.resourceType ? { resourceType: spec.resourceType } : {}), immobilizes: immobilizes(spec, catalog), spells };
+}
+
 /** The page as a champion plays it, and the substitutions made, with the bullets that state them. */
 export function substitutePage(page: RunePage, catalog: RuneCatalog, facts: SubstitutionFacts): { page: RunePage; made: string[] } {
   const made: string[] = [];
   const swap = (name: string): string => {
-    for (const rule of SUBSTITUTIONS) {
-      const found = rule.swaps.find(([from]) => simplify(from) === simplify(name));
-      if (!found || !rule.applies(facts)) continue;
-      if (!catalog.substitutions.some((line) => line.trim() === rule.bullet)) throw new Error(`The Rune article no longer says: ${rule.bullet}`);
-      made.push(`${found[0]} is ${found[1]}: "${rule.bullet}" (the wiki's Rune article)`);
-      return found[1];
-    }
-    return name;
+    const swapped = substituteRune(name, catalog, facts);
+    if (swapped.made) made.push(swapped.made);
+    return swapped.name;
   };
   return { page: { keystone: swap(page.keystone), primary: page.primary.map(swap), secondary: page.secondary.map(swap), shards: [...page.shards] }, made };
 }
@@ -205,7 +222,7 @@ function reservedNames(form: FighterSpec): Set<string> {
 }
 
 /** Adaptive force's choice (the wiki's Adaptive force page): the higher of bonus AD and AP, the champion's adaptive type on a tie. */
-function adaptiveChoice(bonus: BonusStats, adaptiveType: "Physical" | "Magic"): "ad" | "ap" {
+export function adaptiveChoice(bonus: BonusStats, adaptiveType: "Physical" | "Magic"): "ad" | "ap" {
   const [ad, ap] = [bonus.ad ?? 0, bonus.ap ?? 0];
   return ad > ap ? "ad" : ap > ad ? "ap" : adaptiveType === "Physical" ? "ad" : "ap";
 }
@@ -232,7 +249,7 @@ export function runeLoadout(spec: FighterSpec, page: RunePage, catalog: RuneCata
   const context = new RuneContext(catalog);
   context.rule("Rune", "Rune page").quote(PAGE_RULE);
   const spells = settings.spells ?? [];
-  const substituted = substitutePage(page, catalog, { champion: spec.id, ...(spec.resourceType ? { resourceType: spec.resourceType } : {}), immobilizes: immobilizes(spec, catalog), spells });
+  const substituted = substitutePage(page, catalog, substitutionFacts(spec, catalog, spells));
   for (const text of substituted.made) context.assume(text);
   const played = substituted.page;
   const runes = [played.keystone, ...played.primary, ...played.secondary].map((name) => findRune(catalog, name));
@@ -284,4 +301,47 @@ export function runeLoadout(spec: FighterSpec, page: RunePage, catalog: RuneCata
       return { page, played, evidence: context.evidence, assumptions: context.assumptions, coverage: keys.map((key) => coverage.get(key) ?? { rune: key, modeled: false, unmodeled: [] }), options };
     },
   };
+}
+
+// ---------------------------------------------------------------------------------------
+// The quick estimate
+
+/** A rune or stat shard a page can hold: a catalog rune, or a shard slot's option. */
+export type RuneChoice = { kind: "rune"; entry: RuneEntry } | { kind: "shard"; slot: number; option: ShardOption };
+
+/** The key a choice's options and assumptions go by: the rune's name, or the shard's slot and name ("Offense: Adaptive Force"). */
+export function choiceKey(choice: RuneChoice, catalog: RuneCatalog): string {
+  return choice.kind === "rune" ? choice.entry.name : `${catalog.shards[choice.slot]!.slot}: ${choice.option.name}`;
+}
+
+/**
+ * What one rune or stat shard adds that the loadout search's quick estimate (items/estimate.ts)
+ * values, for one form of the champion holding its items: the stats it fixes, the stats it
+ * keeps as statuses, its on-hit effects, its haste, its mana and its hint. Built for the rune
+ * alone, from its module with its options' defaults (or `settings.options`); `outside` when it
+ * does nothing in a duel.
+ */
+export function runeParts(form: FighterSpec, choice: RuneChoice, catalog: RuneCatalog, modules: Readonly<Record<string, RuneModule>>, settings: RuneLoadoutOptions, items: { bonus: BonusStats; fighter: ItemFighter }): { parts: ItemParts; outside: boolean } {
+  const context = new RuneContext(catalog);
+  const fighter: RuneFighter = { spec: form, ranged: form.attack.ranged, mana: form.resourceType === "Mana", adaptive: adaptiveChoice(items.bonus, settings.adaptiveType), bonus: items.bonus, items: items.fighter, spells: settings.spells ?? [] };
+  const key = choiceKey(choice, catalog);
+  const name = choice.kind === "rune" ? choice.entry.name : `Shard: ${choice.option.name}`;
+  const module = modules[name];
+  if (!module) throw new Error(`No module for the rune ${name}`);
+  const data = choice.kind === "rune" ? context.rune(choice.entry, reservedNames(form)) : context.shard(choice.option);
+  const chosen = { ...Object.fromEntries(Object.entries(module.options ?? {}).map(([option, value]) => [option, value.default])), ...settings.options?.[key] };
+  const definition = module.build(data, fighter, chosen);
+  const statuses = (definition.permanent ?? []).filter((status): status is { stat: BuffStat; value: number } => "stat" in status);
+  const parts: ItemParts = {
+    item: `rune:${key}`,
+    bonus: { ...definition.bonus },
+    statuses,
+    critDamage: 0,
+    onHit: [...(definition.onHit ?? [])],
+    omnivamp: 0,
+    mana: fighter.mana ? (definition.mana ?? 0) : 0,
+    haste: [...(definition.haste ?? [])],
+    ...(definition.budget ? { budget: definition.budget } : {}),
+  };
+  return { parts, outside: definition.outsideDuels !== undefined };
 }

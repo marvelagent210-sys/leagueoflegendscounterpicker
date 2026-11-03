@@ -166,6 +166,16 @@ export function spellLoadout(names: readonly string[], catalog: SpellCatalog, mo
   };
 }
 
+/** The catalog's spells that do something in a duel (none of Smite's and Teleport's `outsideDuels`), in catalog order, built for `form`. */
+export function duelSpells(catalog: SpellCatalog, modules: Readonly<Record<string, SpellModule>>, form: FighterSpec): string[] {
+  const context = new SpellContext(catalog);
+  const reserved = reservedNames(form);
+  return catalog.spells.filter((record) => {
+    const module = modules[record.name];
+    return module !== undefined && module.build(context.spell(record, reserved), { spec: form }).outsideDuels === undefined;
+  }).map((record) => record.name);
+}
+
 const simplify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 /** A catalog spell by name; case, spaces and punctuation don't matter. */

@@ -1,10 +1,12 @@
 /** The Sorcery path's runes. */
+import { budgetAbilityDamageOf } from "../../engine/budget";
 import { toTicks } from "../../engine/rules/time";
 import { heldInPlace, heldUntil } from "../../engine/sim/actions";
 import { consumeSpellShield } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { hitChance } from "../../engine/sim/hitModel";
 import type { AbilitySpec, HookContext } from "../../engine/sim/spec";
+import { damagingCasts, triggers } from "../../items/hints";
 import type { RuneFighter, RuneModule } from "../equip";
 import { GAME_MINUTES, adaptiveBonus, adaptiveStat, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
 import { variableType } from "./domination";
@@ -178,6 +180,13 @@ export const AxiomArcanist: RuneModule = {
     rune.assume("its healing and shielding increase is left out; its takedown cooldown cut does nothing in a duel.");
     return {
       unmodeled: ["Its ultimate's healing and shielding: not modeled yet."],
+      budget: {
+        damage(self, enemy) {
+          const one = budgetAbilityDamageOf(self, enemy, (ability) => ability.slot === "R" && !isArea(ability));
+          const many = budgetAbilityDamageOf(self, enemy, (ability) => ability.slot === "R" && isArea(ability));
+          return { physical: single * one.physical + area * many.physical, magic: single * one.magic + area * many.magic, true: single * one.true + area * many.true };
+        },
+      },
       enemyHooks: {
         modifyDamageTakenRaw(ctx) {
           if (ctx.enemy.spec.id !== holder || ctx.ability === undefined || !ultimates.has(ctx.ability)) return ctx.raw;
@@ -257,6 +266,8 @@ export const AbsoluteFocus: RuneModule = {
     const amount = rune.level("bonus attack damage or", fighter.adaptive === "ad" ? 0 : 1);
     const stat = adaptiveStat(fighter);
     return {
+      // The estimate's average over a fight taking the holder from full health to none.
+      budget: { stats: () => [{ stat, value: amount * (1 - line) }] },
       hooks: {
         onTick(ctx) {
           runeStat(ctx, rune.name, stat, ctx.self.hp / derive(ctx.self).maxHp > line ? amount : 0);
@@ -290,8 +301,11 @@ export const Scorch: RuneModule = {
     const words = "Dealing ability damage to an enemy champion sets them on fire, dealing them";
     const damage = rune.level(words);
     const delay = rune.quoted("bonus magic damage after 1 second.");
-    const wait = cooldown(rune.name, rune.cooldown());
+    const seconds = rune.cooldown();
+    const wait = cooldown(rune.name, seconds);
     return {
+      // Once a damaging cast of the kit's, at most once a cooldown.
+      budget: { damage: (self) => ({ magic: damage * Math.min(triggers(seconds), damagingCasts(self)) }) },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.petSource || !kitAbilityDamage(fighter, ctx) || !wait.ready(ctx.self, ctx.tick)) return;

@@ -34,7 +34,37 @@ export interface PrecomputedBuilds {
   items: string[];
   /** Each side's build against the other, as indices into `items`: builds[you][enemy] is yours. */
   builds: Record<string, Record<string, number[]>>;
+  /** The summoner spells, runes and stat shards the loadouts name, by index. */
+  loadoutNames?: string[];
+  /** Each side's loadout against the other (encodeLoadout): loadouts[you][enemy] is yours. */
+  loadouts?: Record<string, Record<string, number[]>>;
   variants?: Record<string, Record<string, Record<string, number>>>;
+}
+
+/** A side's summoner spells and rune page, by name (the loadout search's, pipeline/loadouts/search.ts). */
+export interface MatrixLoadout {
+  spells: string[];
+  page: { keystone: string; primary: string[]; secondary: string[]; shards: string[] };
+}
+
+/** A stored loadout's indices: two summoner spells, the keystone, three primary runes, two secondary runes and three shards. */
+export const LOADOUT_LENGTH = 11;
+
+/** A loadout as a build matrix stores it: its names' indices into the matrix's `loadoutNames`. */
+export function encodeLoadout(loadout: MatrixLoadout, index: ReadonlyMap<string, number>): number[] {
+  return [...loadout.spells, loadout.page.keystone, ...loadout.page.primary, ...loadout.page.secondary, ...loadout.page.shards].map((name) => {
+    const found = index.get(name);
+    if (found === undefined) throw new Error(`The loadout names have no "${name}"`);
+    return found;
+  });
+}
+
+/** A stored loadout by name, if its indices are whole. */
+export function decodeLoadout(indices: unknown, names: readonly string[]): MatrixLoadout | undefined {
+  if (!Array.isArray(indices) || indices.length !== LOADOUT_LENGTH) return undefined;
+  const found = indices.map((index) => (Number.isSafeInteger(index) ? names[index as number] : undefined));
+  if (!found.every((name): name is string => typeof name === "string" && name.length > 0)) return undefined;
+  return { spells: found.slice(0, 2), page: { keystone: found[2]!, primary: found.slice(3, 6), secondary: found.slice(6, 8), shards: found.slice(8, 11) } };
 }
 
 export function precomputedCurrent(raw: unknown, dataset: string, patch: string, fingerprint: string | undefined, gold: number, kitIds: string[]): boolean {
@@ -42,10 +72,21 @@ export function precomputedCurrent(raw: unknown, dataset: string, patch: string,
   return matchupsComplete(raw, kitIds);
 }
 
-/** Whether a build matrix is the current inputs' (`fingerprint`, buildsProvenance) and complete: every pairing scored, both builds named. */
+/** Whether a build matrix is the current inputs' (`fingerprint`, buildsProvenance) and complete: every pairing scored, both builds and loadouts named. */
 export function precomputedBuildsCurrent(raw: unknown, dataset: string, patch: string, fingerprint: string | undefined, format: string, kitIds: string[]): boolean {
   if (!object(raw) || !object(raw.simulation) || !fingerprint || raw.simulation.schema !== 1 || raw.simulation.fingerprint !== fingerprint || raw.dataset !== dataset || raw.patch !== patch || raw.format !== format) return false;
-  return buildsComplete(raw, kitIds) && matchupsComplete(raw, kitIds);
+  return buildsComplete(raw, kitIds) && loadoutsComplete(raw, kitIds) && matchupsComplete(raw, kitIds);
+}
+
+/** Every pairing has both sides' loadouts, whole, by index into `loadoutNames`. */
+export function loadoutsComplete(raw: Record<string, unknown>, kitIds: string[]): boolean {
+  if (!object(raw.loadouts) || !Array.isArray(raw.loadoutNames) || !raw.loadoutNames.every((name) => typeof name === "string" && name.length > 0)) return false;
+  const loadouts = raw.loadouts;
+  const names = raw.loadoutNames as string[];
+  return kitIds.every((you) => {
+    const row = loadouts[you];
+    return object(row) && kitIds.every((enemy) => (you === enemy ? !(enemy in row) : decodeLoadout(row[enemy], names) !== undefined));
+  });
 }
 
 /** Every pairing has both sides' builds: one to six different items each, by index into `items`. */

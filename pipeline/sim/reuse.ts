@@ -13,6 +13,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { BUDGET_STATS, type BudgetStat } from "../../engine/budget";
 import type { MatchupVariant } from "../../engine/sim/matchup";
+import { decodeLoadout } from "../../engine/sim/precomputed";
 import { DATA_DIR, datasetDir } from "../config";
 import type { BuildsPairResult } from "./buildsCheckpoint";
 import { type PairInputs, isPairInputs, samePairInputs } from "./pairKeys";
@@ -108,6 +109,8 @@ interface BuildsFile {
   items: string[];
   matchups: Rows<Array<number | null>>;
   builds: Rows<number[]>;
+  loadoutNames?: string[];
+  loadouts?: Rows<number[]>;
   variants?: Rows<Record<string, number>>;
 }
 
@@ -126,9 +129,12 @@ export async function buildsStores(dataset: string, format: string, file = "simu
         const mine = names(stored.builds[you]?.[enemy]);
         const theirs = names(stored.builds[enemy]?.[you]);
         if (!values || typeof values[0] !== "number" || !mine || !theirs || [...mine, ...theirs].some((item) => typeof item !== "string")) return undefined;
+        // A matrix from before loadouts has none to give back: its pairings are computed again.
+        const loadouts = [decodeLoadout(stored.loadouts?.[you]?.[enemy], stored.loadoutNames ?? []), decodeLoadout(stored.loadouts?.[enemy]?.[you], stored.loadoutNames ?? [])] as const;
+        if (!loadouts[0] || !loadouts[1]) return undefined;
         const variants = variantsOf(stored.variants, you, enemy);
         // Reused, not computed: no processor time of its own in this refresh.
-        return { score: values[0], scenarios: values.slice(1), builds: [mine as string[], theirs as string[]], ...(variants ? { variants } : {}), seconds: 0 };
+        return { score: values[0], scenarios: values.slice(1), builds: [mine as string[], theirs as string[]], loadouts: [loadouts[0], loadouts[1]], ...(variants ? { variants } : {}), seconds: 0 };
       },
     });
   }

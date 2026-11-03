@@ -15,11 +15,14 @@ const ids = ["Darius", "Garen", "Udyr"];
 const pairs: Array<[string, string]> = [["Darius", "Garen"], ["Darius", "Udyr"], ["Garen", "Udyr"]];
 // You engage, they engage, brawl, short trade, spacing (not applying here), escape.
 const scenarios = [0.6, -0.2, 0.3, 0.5, null, 0.1];
+const ignite = { spells: ["Flash", "Ignite"], page: { keystone: "Conqueror", primary: ["Triumph", "Legend: Alacrity", "Last Stand"], secondary: ["Bone Plating", "Unflinching"], shards: ["Attack Speed", "Health Scaling", "Health Scaling"] } };
+const barrier = { spells: ["Flash", "Barrier"], page: { keystone: "Grasp of the Undying", primary: ["Demolish", "Second Wind", "Overgrowth"], secondary: ["Legend: Haste", "Last Stand"], shards: ["Ability Haste", "Health Scaling", "Health"] } };
 const result = (index: number, builds: [string[], string[]], variants?: BuildsPairResult["variants"]): BuildsPairResult => ({
   index,
   score: blend(scenarios, SCENARIO_WEIGHTS),
   scenarios,
   builds,
+  loadouts: [ignite, barrier],
   ...(variants ? { variants } : {}),
   seconds: 10,
 });

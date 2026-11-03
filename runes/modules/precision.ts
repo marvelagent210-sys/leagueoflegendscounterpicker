@@ -198,13 +198,18 @@ export const LegendBloodline: RuneModule = {
   },
 };
 
-/** "Deal 8% increased damage to champions below 40% maximum health": a damage increase while the enemy's health is on one side of a line. */
+/**
+ * "Deal 8% increased damage to champions below 40% maximum health": a damage increase while the
+ * enemy's health is on one side of a line. The estimate counts it for the share of a fight
+ * taking the enemy from full health to none that its health spends there.
+ */
 function healthBand(name: string, words: string, below: boolean): RuneModule {
   return {
     rune: name,
     build(rune) {
       const [amp, line] = [rune.quoted(words) / 100, rune.quoted(words, 1) / 100];
       return {
+        budget: { stats: () => [{ stat: "damageDealt", value: amp * (below ? line : 1 - line) }] },
         hooks: {
           onTick(ctx) {
             const share = ctx.enemy.hp / derive(ctx.enemy).maxHp;
@@ -226,6 +231,8 @@ export const LastStand: RuneModule = {
     const [low, start, high, full] = [rune.quoted(words) / 100, rune.quoted(words, 1) / 100, rune.quoted(words, 2) / 100, rune.quoted(words, 3) / 100];
     rune.assume("its damage increase grows evenly from 5% at 60% health to 11% at 30%.");
     return {
+      // The estimate's average over a fight taking the holder from full health to none.
+      budget: { stats: () => [{ stat: "damageDealt", value: ((start - full) * (low + high)) / 2 + full * high }] },
       hooks: {
         onTick(ctx) {
           const share = ctx.self.hp / derive(ctx.self).maxHp;

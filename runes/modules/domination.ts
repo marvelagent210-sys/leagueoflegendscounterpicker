@@ -3,7 +3,9 @@ import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { toTicks } from "../../engine/rules/time";
 import { traitsOf } from "../../engine/sim/behavior";
 import { derive } from "../../engine/sim/derived";
-import type { HookContext } from "../../engine/sim/spec";
+import { evaluate } from "../../engine/sim/derived";
+import type { AbilitySpec, HookContext } from "../../engine/sim/spec";
+import { abilityHas, stealths, triggers, usesOf } from "../../items/hints";
 import type { RuneFighter, RuneModule } from "../equip";
 import { LATE_GAME_ESTIMATE, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
 
@@ -180,8 +182,12 @@ export const CheapShot: RuneModule = {
     rune.quote("The target must already be impaired prior to the damaging attack or spell in order to trigger the bonus damage.");
     rune.noted("Cripple does not count as a valid crowd control for Cheap Shot.");
     const valid = new Set<string>(["blind", "disarm", "ground", "nearsight", "polymorph", "silence", "slow", ...IMMOBILIZING]);
-    const wait = cooldown(rune.name, rune.cooldown());
+    const seconds = rune.cooldown();
+    const wait = cooldown(rune.name, seconds);
+    const impairs = (ability: AbilitySpec) => abilityHas(ability, (e) => (e.type === "cc" && valid.has(e.cc)) || e.type === "displace");
     return {
+      // Once a cast of the kit's that impairs, at most once a cooldown.
+      budget: { damage: (self) => ({ true: damage * Math.min(triggers(seconds), usesOf(self, impairs)) }) },
       hooks: {
         onDamageDealt(ctx) {
           if (isProc(fighter, ctx) || !wait.ready(ctx.self, ctx.tick)) return;
@@ -202,8 +208,10 @@ export const TasteOfBlood: RuneModule = {
     const ratios = "(+ 10% bonus AD) (+ 5% AP).";
     const [ad, ap] = [rune.quoted(ratios) / 100, rune.quoted(ratios, 1) / 100];
     rune.quote("Does not trigger at full health.");
-    const wait = cooldown(rune.name, rune.cooldown());
+    const seconds = rune.cooldown();
+    const wait = cooldown(rune.name, seconds);
     return {
+      budget: { healing: (self) => evaluate({ base: heal, ratios: { bonusAD: ad, AP: ap } }, self) * triggers(seconds) },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.self.hp >= derive(ctx.self).maxHp || !wait.ready(ctx.self, ctx.tick)) return;
@@ -222,12 +230,16 @@ export const SuddenImpact: RuneModule = {
     const window = rune.quoted(words);
     const damage = rune.level(words);
     rune.noted("Sudden Impact deals proc damage, and thus will not trigger spell effects.");
-    const wait = cooldown(rune.name, rune.cooldown());
+    const seconds = rune.cooldown();
+    const wait = cooldown(rune.name, seconds);
+    const mobile = (ability: AbilitySpec) => ability.delivery.kind === "dash" || ability.delivery.kind === "blink" || stealths(ability);
     const [readyUntil, hidden] = [runeMemo(rune.name, "until"), runeMemo(rune.name, "hidden")];
     const arm = (ctx: { self: { memory: Record<string, number | string | boolean> }; tick: number }) => {
       ctx.self.memory[readyUntil] = ctx.tick + toTicks(window);
     };
     return {
+      // Once a dash, blink or stealth of the kit's, at most once a cooldown.
+      budget: { damage: (self) => ({ true: damage * Math.min(triggers(seconds), usesOf(self, mobile)) }) },
       hooks: {
         onDashEnd: arm,
         onBlinkEnd: arm,

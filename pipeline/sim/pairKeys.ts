@@ -5,7 +5,8 @@
  * - the code its fight runs: the worker and every module it imports (the engine, the shared kit
  *   code; for item builds also the item effects and the build search);
  * - the shared data every fight reads: the stat prices and the runes (and, for item builds, the
- *   item catalog and the build format);
+ *   item catalog, the build format, and the summoner spell and rune catalogs the loadouts are
+ *   chosen from);
  * - its two kits: each one's module, its champion record, its ability records and its pets.
  *
  * Provenance enters none of them: wiki revision ids, game-file versions, URLs and file hashes,
@@ -158,6 +159,17 @@ function catalogContent(catalog: Record<string, unknown>): unknown {
   return withoutProvenance({ ...rest, sources: { itemData: { title: itemData?.title } } });
 }
 
+/**
+ * The summoner spell or rune catalog as fights read it: its records and rule pages (and the
+ * title of the page the spells' evidence names), without its dataset, versions, cross-checks or
+ * provenance.
+ */
+function loadoutCatalogContent(catalog: Record<string, unknown>): unknown {
+  const { dataset: _dataset, patch: _patch, sources, checks: _checks, ...rest } = catalog;
+  const spellData = (sources as { spellData?: { title?: unknown } } | undefined)?.spellData;
+  return withoutProvenance({ ...rest, ...(spellData ? { sources: { spellData: { title: spellData.title } } } : {}) });
+}
+
 /** What a kit's key is made of: its module's source, and its champion record, ability records and pets as the dataset has them. */
 export interface KitParts {
   module: string | Uint8Array;
@@ -200,6 +212,8 @@ export async function pairInputs(dataset: string, kind: MatrixKind, format?: str
     if (!format) throw new Error("Item builds' pair inputs need the build format");
     shared.format = format;
     shared.catalog = catalogContent((await readJsonFile(path.join(dir, "items.json"))) as Record<string, unknown>);
+    shared.spells = loadoutCatalogContent((await readJsonFile(path.join(dir, "summoners.json"))) as Record<string, unknown>);
+    shared.runeCatalog = loadoutCatalogContent((await readJsonFile(path.join(dir, "rune-catalog.json"))) as Record<string, unknown>);
   }
   const champions = new Map(((await readJsonFile(path.join(dir, "champions.json"))) as ChampionDataset).champions.map((champion: Champion) => [champion.id, champion]));
   const keys: Record<string, string> = {};

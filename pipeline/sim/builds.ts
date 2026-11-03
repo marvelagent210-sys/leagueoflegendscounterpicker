@@ -20,7 +20,7 @@ import { readFile, rename, rm, writeFile } from "node:fs/promises";
 import { availableParallelism } from "node:os";
 import path from "node:path";
 import { Worker } from "node:worker_threads";
-import { type PrecomputedBuilds, type SimulationProvenance, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
+import { type MatrixLoadout, type PrecomputedBuilds, type SimulationProvenance, encodeLoadout, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
 import { SCENARIOS } from "../../engine/sim/scenarios";
 import { KITS } from "../../kits/champions/index";
 import { REPO_ROOT, datasetDir } from "../config";
@@ -94,6 +94,7 @@ async function playPairs(task: Omit<BuildsTask, "pairs">, pairs: Array<[string, 
 export function simulatedBuildsJson(dataset: string, patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], simulation: SimulationProvenance, inputs?: PairInputs): string {
   const scores = new Map(ids.map((id) => [id, new Map<string, Array<number | null>>()]));
   const builds = new Map(ids.map((id) => [id, new Map<string, string[]>()]));
+  const loadouts = new Map(ids.map((id) => [id, new Map<string, MatrixLoadout>()]));
   const variants = new Map<string, Map<string, Record<string, number>>>();
   const negate = (v: number | null) => (v === null ? null : v === 0 ? 0 : -v);
   results.forEach((result, i) => {
@@ -104,6 +105,8 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
     scores.get(enemy)!.set(you, [negate(result.score), negate(engaged ?? null), negate(engage ?? null), ...rest.map(negate)]);
     builds.get(you)!.set(enemy, result.builds[0]);
     builds.get(enemy)!.set(you, result.builds[1]);
+    loadouts.get(you)!.set(enemy, result.loadouts[0]);
+    loadouts.get(enemy)!.set(you, result.loadouts[1]);
     for (const variant of result.variants ?? []) {
       const [who, against] = variant.side === 0 ? [you, enemy] : [enemy, you];
       if (!variants.has(who)) variants.set(who, new Map());
@@ -112,10 +115,14 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
   });
   const items = [...new Set([...builds.values()].flatMap((row) => [...row.values()].flat()))].sort();
   const index = new Map(items.map((item, i) => [item, i]));
+  const named = (loadout: MatrixLoadout) => [...loadout.spells, loadout.page.keystone, ...loadout.page.primary, ...loadout.page.secondary, ...loadout.page.shards];
+  const loadoutNames = [...new Set([...loadouts.values()].flatMap((row) => [...row.values()].flatMap(named)))].sort();
+  const loadoutIndex = new Map(loadoutNames.map((name, i) => [name, i]));
   const round = (v: number | null) => (v === null ? null : Math.round(v * 1000) / 1000);
   const byEnemy = <T>(row: Map<string, T>, value: (v: T) => unknown) => JSON.stringify(Object.fromEntries([...row].sort(([a], [b]) => a.localeCompare(b)).map(([enemy, v]) => [enemy, value(v)])));
   const scoreLines = ids.map((you) => `    ${JSON.stringify(you)}: ${byEnemy(scores.get(you)!, (values) => values.map((value, i) => (i === 0 ? value : round(value))))}`);
   const buildLines = ids.map((you) => `    ${JSON.stringify(you)}: ${byEnemy(builds.get(you)!, (names) => names.map((name) => index.get(name)!))}`);
+  const loadoutLines = ids.map((you) => `    ${JSON.stringify(you)}: ${byEnemy(loadouts.get(you)!, (loadout) => encodeLoadout(loadout, loadoutIndex))}`);
   const variantLines = [...variants].sort(([a], [b]) => a.localeCompare(b)).map(([who, row]) => `    ${JSON.stringify(who)}: ${byEnemy(row, (options) => options)}`);
   return [
     "{",
@@ -131,21 +138,36 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
     "  },",
     "  \"builds\": {",
     buildLines.join(",\n"),
+    "  },",
+    `  "loadoutNames": ${JSON.stringify(loadoutNames)},`,
+    "  \"loadouts\": {",
+    loadoutLines.join(",\n"),
     `  }${variantLines.length ? `,\n  "variants": {\n${variantLines.join(",\n")}\n  }` : ""}`,
     "}",
     "",
   ].join("\n");
 }
 
-/** reports/builds.md: how the run went, and each champion's items across its matchups. */
+/** reports/builds.md: how the run went, and each champion's items, keystones and second summoner spells across its matchups. */
 export function buildsReport(patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], names: Map<string, string>, reused = 0): string {
   const counts = new Map(ids.map((id) => [id, new Map<string, number>()]));
+  const keystones = new Map(ids.map((id) => [id, new Map<string, number>()]));
+  const spells = new Map(ids.map((id) => [id, new Map<string, number>()]));
+  const add = (table: Map<string, Map<string, number>>, who: string, name: string) => table.get(who)!.set(name, (table.get(who)!.get(name) ?? 0) + 1);
   results.forEach((result, i) => {
     const [you, enemy] = pairs[i]!;
-    for (const [who, build] of [[you, result.builds[0]], [enemy, result.builds[1]]] as const) for (const item of build) counts.get(who)!.set(item, (counts.get(who)!.get(item) ?? 0) + 1);
+    for (const [who, build] of [[you, result.builds[0]], [enemy, result.builds[1]]] as const) for (const item of build) add(counts, who, item);
+    for (const [who, loadout] of [[you, result.loadouts[0]], [enemy, result.loadouts[1]]] as const) {
+      add(keystones, who, loadout.page.keystone);
+      for (const spell of loadout.spells.slice(1)) add(spells, who, spell);
+    }
   });
-  const total = new Map<string, number>();
-  for (const row of counts.values()) for (const [item, n] of row) total.set(item, (total.get(item) ?? 0) + n);
+  const totalOf = (table: Map<string, Map<string, number>>) => {
+    const sums = new Map<string, number>();
+    for (const row of table.values()) for (const [entry, n] of row) sums.set(entry, (sums.get(entry) ?? 0) + n);
+    return sums;
+  };
+  const total = totalOf(counts);
   const seconds = results.reduce((sum, result) => sum + result.seconds, 0);
   const computed = results.length - reused;
   const builds = 2 * results.length;
@@ -164,6 +186,10 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
     "",
     `Share of the ${builds} builds holding each item: ${top(total, 25, builds)}.`,
     "",
+    "## Keystones and summoner spells across all loadouts",
+    "",
+    `Every loadout holds Flash (pipeline/loadouts/search.ts). Share of the ${builds} loadouts with each keystone: ${top(totalOf(keystones), 20, builds)}. With each second summoner spell: ${top(totalOf(spells), 10, builds)}.`,
+    "",
     "## Each champion's items",
     "",
     "Share of the champion's matchups holding each item, its eight most frequent.",
@@ -171,6 +197,14 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
     "| Champion | Items |",
     "| --- | --- |",
     ...ids.map((id) => `| ${name(id)} | ${top(counts.get(id)!, 8, ids.length - 1)} |`),
+    "",
+    "## Each champion's keystones and second summoner spells",
+    "",
+    "Share of the champion's matchups with each keystone, its three most frequent, and with each second summoner spell (Flash is always the first).",
+    "",
+    "| Champion | Keystones | Second spells |",
+    "| --- | --- | --- |",
+    ...ids.map((id) => `| ${name(id)} | ${top(keystones.get(id)!, 3, ids.length - 1)} | ${top(spells.get(id)!, 3, ids.length - 1)} |`),
     "",
   ].join("\n");
 }

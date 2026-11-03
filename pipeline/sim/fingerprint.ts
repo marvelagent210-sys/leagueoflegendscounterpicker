@@ -31,15 +31,19 @@ export async function simulationProvenance(dataset: string): Promise<SimulationP
 
 /**
  * The build matrix's inputs: the simulation's, and the item effects, their hints, the build
- * search, the item catalog and the build matrix's own pipeline (npm run build:builds).
+ * search, the summoner spell and rune effects, the loadout search, the item, summoner spell and
+ * rune catalogs, and the build matrix's own pipeline (npm run build:builds).
  */
 export async function buildsProvenance(dataset: string): Promise<SimulationProvenance> {
   const code = [
     ...await sources(path.join(REPO_ROOT, "items")),
+    ...await sources(path.join(REPO_ROOT, "summoners")),
+    ...await sources(path.join(REPO_ROOT, "runes")),
     ...await sources(path.join(REPO_ROOT, "pipeline", "items")),
-    ...["pipeline/itemData.ts", "pipeline/sim/builds.ts", "pipeline/sim/buildsWorker.ts", "pipeline/sim/buildsWorker.mjs", "pipeline/sim/buildsCheckpoint.ts"].map((file) => path.join(REPO_ROOT, file)),
+    ...await sources(path.join(REPO_ROOT, "pipeline", "loadouts")),
+    ...["pipeline/itemData.ts", "pipeline/summoners/records.ts", "pipeline/runeCatalog/records.ts", "pipeline/sim/builds.ts", "pipeline/sim/buildsWorker.ts", "pipeline/sim/buildsWorker.mjs", "pipeline/sim/buildsCheckpoint.ts"].map((file) => path.join(REPO_ROOT, file)),
   ];
-  const items = [path.join(datasetDir(dataset), "items.json")];
+  const items = ["items.json", "summoners.json", "rune-catalog.json"].map((file) => path.join(datasetDir(dataset), file));
   const entries = await Promise.all([...code, ...items].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
   return { schema: 1, fingerprint: fingerprintEntries([...(await simulationInputs(dataset)), ...entries]) };
 }

@@ -162,7 +162,7 @@ function SimulatedRow({ data, enemy, rank, row }: { data: AppData; enemy: Champi
               <span className="val">{row.scenarios[i] === null ? "n/a" : <Score value={row.scenarios[i]} />}</span>
             </div>
           ))}
-          {row.builds ? <BuildLists names={[name, enemy.name]} builds={row.builds.builds} /> : null}
+          {row.builds ? <BuildLists names={[name, enemy.name]} builds={row.builds.builds} loadouts={row.builds.loadouts} /> : null}
           <VariantNotes names={[name, enemy.name]} ids={[row.id, enemy.id]} variants={variants} />
           <div className="row-links">
             <a href={routeHash({ page: "matchup", you: row.id, enemy: enemy.id })}>

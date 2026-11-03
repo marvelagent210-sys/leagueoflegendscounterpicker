@@ -227,6 +227,7 @@ interface ReferenceTiming {
 }
 
 interface Use extends ReferenceTiming {
+  ability: AbilitySpec;
   terms: DamageTerm[];
 }
 
@@ -333,7 +334,7 @@ function usesOf(abilities: AbilitySpec[]): Use[][] {
   for (const ability of abilities) {
     if (ability.chain || ability.budgetExcluded) continue;
     const stages = abilities.filter((stage) => !stage.budgetExcluded && stage.chain?.root === ability.key);
-    const use: Use = { ...timingOf(ability), terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
+    const use: Use = { ...timingOf(ability), ability, terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
     const key = cooldownKeyOf(ability);
     byCooldown.set(key, [...(byCooldown.get(key) ?? []), use]);
   }
@@ -438,11 +439,16 @@ function attackDamage(self: Unit, target: Unit): DamageMix {
   return raw;
 }
 
-/** Adds the kit's abilities' damage per second to `raw`: of versions sharing a cooldown, the strongest sustained damage into this target (a calibrated kit's share of it). */
-function abilityDamage(self: Unit, target: Unit, raw: DamageMix): DamageMix {
+/**
+ * Adds the kit's abilities' damage per second to `raw`: of versions sharing a cooldown, the
+ * strongest sustained damage into this target (a calibrated kit's share of it). With `only`,
+ * just the abilities it admits.
+ */
+function abilityDamage(self: Unit, target: Unit, raw: DamageMix, only?: (ability: AbilitySpec) => boolean): DamageMix {
   const mitigation = multipliers(self, target);
   const share = self.spec.budget?.calibration?.damage ?? 1;
-  for (const alternatives of usesOf(abilitiesOf(self.spec))) {
+  for (const all of usesOf(abilitiesOf(self.spec))) {
+    const alternatives = only ? all.filter((use) => only(use.ability)) : all;
     let best: DamageMix | undefined;
     let bestTotal = -1;
     let bestCooldown = 0;
@@ -604,6 +610,11 @@ export function budgetMultipliers(attacker: Unit, target: Unit): DamageMix {
 /** The kit's abilities' damage per second against the target, by type, before resistances (what item passives on ability damage scale with). */
 export function budgetAbilityDamage(self: Unit, target: Unit): DamageMix {
   return once("abilities", self, target, () => abilityDamage(self, target, { physical: 0, magic: 0, true: 0 }));
+}
+
+/** The damage per second of the kit's abilities that `only` admits, by type, before resistances (what Axiom Arcanist adds a share of to the ultimate's). */
+export function budgetAbilityDamageOf(self: Unit, target: Unit, only: (ability: AbilitySpec) => boolean): DamageMix {
+  return abilityDamage(self, target, { physical: 0, magic: 0, true: 0 }, only);
 }
 
 /**

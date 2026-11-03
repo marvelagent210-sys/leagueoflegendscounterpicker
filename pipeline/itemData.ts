@@ -1,7 +1,7 @@
 /** The committed item catalog and summoner spell catalog, and loadouts on fighters (CLI, tests). */
 import path from "node:path";
-import type { FighterSpec } from "../engine/sim/spec";
-import { type EquipOptions, type EquippedFighter, equipItems, joinParts } from "../items/equip";
+import type { BonusStats, FighterSpec } from "../engine/sim/spec";
+import { type EquipOptions, type EquippedFighter, type ItemFighter, equipItems, joinParts } from "../items/equip";
 import { ITEM_MODULES } from "../items/modules/index";
 import { type EquippedRunes, type RunePage, runeLoadout } from "../runes/equip";
 import { RUNE_MODULES } from "../runes/modules/index";
@@ -90,6 +90,27 @@ export interface LoadoutFighter extends EquippedFighter {
 /** Every item module the simulator has, with the catalog's wiki source and option overrides. */
 export function equipOptions(catalog: ItemCatalog, options: Record<string, Record<string, number>> = {}): EquipOptions {
   return { modules: ITEM_MODULES, source: { page: catalog.sources.itemData.title, revid: catalog.sources.itemData.revid, rules: catalog.rulePages }, options };
+}
+
+/**
+ * What `use` makes of a fighter holding the named items, as the rest of its loadout sees them
+ * (EquipOptions.extras): the champion's main form, its bonus stats after the items, and what
+ * the items know of it. It runs while the items are equipped, as runes are built (the rune
+ * estimate's parts are built this way).
+ */
+export function withItems<T>(spec: FighterSpec, names: string[], catalog: ItemCatalog, use: (items: { form: FighterSpec; bonus: BonusStats; fighter: ItemFighter }) => T, build: BuildOptions = {}): T {
+  const stacked = build.stacked ?? true;
+  const held = names.map((name) => findItem(catalog, name)).map((record) => (stacked && record.transformsInto ? findItem(catalog, record.transformsInto) : record));
+  let made: { value: T } | undefined;
+  equipItems(spec, held, {
+    ...equipOptions(catalog, build.options),
+    extras: (form, items) => {
+      if (!spec.forms || form.form === spec.form) made = { value: use({ form, ...items }) };
+      return joinParts([]);
+    },
+  });
+  if (!made) throw new Error(`${spec.name}: equipping its items gave no main form`);
+  return made.value;
 }
 
 /** A fighter holding the named items and summoner spells, with every item and spell module the simulator has. */

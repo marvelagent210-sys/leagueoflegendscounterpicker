@@ -1,12 +1,16 @@
 /**
  * The build matrix's per-pair checkpoints (npm run build:builds): checkpoint.ts's atomic,
- * validated files, with each side's build. A long run that stops resumes from them.
+ * validated files, with each side's build and loadout. A long run that stops resumes from them.
  */
 import { randomUUID } from "node:crypto";
 import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { MatchupVariant } from "../../engine/sim/matchup";
+import type { MatrixLoadout } from "../../engine/sim/precomputed";
 import { SCENARIOS, SCENARIO_WEIGHTS } from "../../engine/sim/scenarios";
+
+/** A side's summoner spells and rune page, by name (pipeline/loadouts/search.ts). */
+export type LoadoutRecord = MatrixLoadout;
 
 /** One pairing of the build matrix. */
 export interface BuildsPairResult {
@@ -16,6 +20,8 @@ export interface BuildsPairResult {
   scenarios: Array<number | null>;
   /** Each side's build, item names: you, then the enemy. */
   builds: [string[], string[]];
+  /** Each side's summoner spells and rune page: you, then the enemy. */
+  loadouts: [LoadoutRecord, LoadoutRecord];
   /** The kit variants played by the sides that had several, with the builds found. */
   variants?: MatchupVariant[];
   /** Seconds the pairing took: calibration, search and fights. */
@@ -29,7 +35,7 @@ export interface BuildsCheckpointContext {
 }
 
 interface Checkpoint {
-  schema: 1;
+  schema: 2;
   fingerprint: string;
   dataset: string;
   format: string;
@@ -41,6 +47,10 @@ const record = (value: unknown): value is Record<string, unknown> => value !== n
 const finite = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value);
 const bounded = (value: unknown): value is number => finite(value) && Math.abs(value) <= 1;
 const build = (value: unknown): value is string[] => Array.isArray(value) && value.length >= 1 && value.length <= 6 && value.every((item) => typeof item === "string" && item.length > 0) && new Set(value).size === value.length;
+const names = (value: unknown, count: number): value is string[] => Array.isArray(value) && value.length === count && value.every((name) => typeof name === "string" && name.length > 0);
+/** Two different spells, and a page's keystone, three primary runes, two secondary runes and three shards, by name. */
+export const validLoadout = (value: unknown): value is LoadoutRecord =>
+  record(value) && names(value.spells, 2) && new Set(value.spells).size === 2 && record(value.page) && typeof value.page.keystone === "string" && value.page.keystone.length > 0 && names(value.page.primary, 3) && names(value.page.secondary, 2) && names(value.page.shards, 3);
 
 function filename(context: BuildsCheckpointContext, pair: [string, string]): string {
   if (!pair.every((id) => typeof id === "string" && id.length > 0)) throw new TypeError("Checkpoint champion identifiers must be nonempty strings");
@@ -63,6 +73,7 @@ export function validBuildsResult(value: unknown): value is BuildsPairResult {
   }
   if (Math.abs(value.score - weighted / weight) > 1e-9) return false;
   if (!Array.isArray(value.builds) || value.builds.length !== 2 || !value.builds.every(build)) return false;
+  if (!Array.isArray(value.loadouts) || value.loadouts.length !== 2 || !value.loadouts.every(validLoadout)) return false;
   if (value.variants !== undefined) {
     if (!Array.isArray(value.variants) || value.variants.length > 2) return false;
     const sides = new Set<number>();
@@ -79,7 +90,7 @@ export async function writeBuildsCheckpoint(context: BuildsCheckpointContext, da
   if (!context.fingerprint || !dataset || !context.format || !validBuildsResult(result)) throw new TypeError("Invalid build matrix checkpoint metadata or result");
   const file = filename(context, pair);
   const temporary = `${file}.${process.pid}.${randomUUID()}.tmp`;
-  const checkpoint: Checkpoint = { schema: 1, fingerprint: context.fingerprint, dataset, format: context.format, pair, result };
+  const checkpoint: Checkpoint = { schema: 2, fingerprint: context.fingerprint, dataset, format: context.format, pair, result };
   await mkdir(context.directory, { recursive: true });
   try {
     await writeFile(temporary, JSON.stringify(checkpoint), { encoding: "utf8", flag: "wx" });
@@ -105,6 +116,6 @@ export async function readBuildsCheckpoint(context: BuildsCheckpointContext, dat
     if (error instanceof SyntaxError) return undefined;
     throw error;
   }
-  if (!record(checkpoint) || checkpoint.schema !== 1 || checkpoint.fingerprint !== context.fingerprint || checkpoint.dataset !== dataset || checkpoint.format !== context.format || !Array.isArray(checkpoint.pair) || checkpoint.pair.length !== 2 || checkpoint.pair[0] !== pair[0] || checkpoint.pair[1] !== pair[1] || !validBuildsResult(checkpoint.result)) return undefined;
+  if (!record(checkpoint) || checkpoint.schema !== 2 || checkpoint.fingerprint !== context.fingerprint || checkpoint.dataset !== dataset || checkpoint.format !== context.format || !Array.isArray(checkpoint.pair) || checkpoint.pair.length !== 2 || checkpoint.pair[0] !== pair[0] || checkpoint.pair[1] !== pair[1] || !validBuildsResult(checkpoint.result)) return undefined;
   return checkpoint.result;
 }

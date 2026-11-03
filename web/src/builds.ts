@@ -1,11 +1,12 @@
 /**
- * The duel results with item builds in the app (npm run build:builds): each side's build and
- * the scores, read from the precomputed build matrix. The build search takes seconds a pairing,
+ * The duel results with item builds in the app (npm run build:builds): each side's build, its
+ * summoner spells and rune page, and the scores, read from the precomputed build matrix. The
+ * build and loadout searches take seconds a pairing,
  * too slow for the browser, so these results hold at the default fight settings only. The
  * plain stat budget's gold doesn't enter them (the builds buy items), and changed scenario
  * weights reweigh their scenarios.
  */
-import type { PrecomputedBuilds } from "../../engine/sim/precomputed";
+import { type MatrixLoadout, type PrecomputedBuilds, decodeLoadout } from "../../engine/sim/precomputed";
 import { type AppSettings, DEFAULT_APP_SETTINGS, KIT_OPTIONS, blend, fightKey, weightsChanged } from "./settings";
 
 /** Which duels rank the champions: with item builds, or with the plain stat budget. */
@@ -32,6 +33,8 @@ export interface BuildsMatchup {
   scenarios: Array<number | null>;
   /** Your build against the enemy's, then theirs against yours: item names. */
   builds: [string[], string[]];
+  /** Your summoner spells and rune page, then theirs: none from a matrix without loadouts. */
+  loadouts: [MatrixLoadout | undefined, MatrixLoadout | undefined];
   /** The kit options each side played, where its kit has variants (Udyr's rank splits). */
   variants: [Record<string, number> | undefined, Record<string, number> | undefined];
 }
@@ -48,6 +51,7 @@ export function buildsMatchup(file: PrecomputedBuilds, you: string, enemy: strin
     score: weightsChanged(settings) ? blend(scenarios, settings.weights) : score,
     scenarios,
     builds: [mine.map(item), theirs.map(item)],
+    loadouts: [decodeLoadout(file.loadouts?.[you]?.[enemy], file.loadoutNames ?? []), decodeLoadout(file.loadouts?.[enemy]?.[you], file.loadoutNames ?? [])],
     variants: [file.variants?.[you]?.[enemy], file.variants?.[enemy]?.[you]],
   };
 }
