@@ -37,4 +37,14 @@ export interface Manifest {
     rules?: Array<{ title: string; revid: number }>;
     fetchedAt: string;
   };
+  /**
+   * The summoner spells' sources: Data Dragon's summoner list, the wiki's spell data module and
+   * each classic spell's article. Fetched with the rest, or alone with --only spells.
+   */
+  spells?: {
+    ddragonVersion: string;
+    spellData: { title: string; revid: number };
+    articles: Array<{ title: string; revid: number }>;
+    fetchedAt: string;
+  };
 }

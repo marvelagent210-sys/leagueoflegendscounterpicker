@@ -9,6 +9,7 @@
  *        npm run fetch -- --only runes      (refetch just the rune and elixir pages)
  *        npm run fetch -- --only items      (refetch just the item catalog's sources)
  *        npm run fetch -- --only item-rules (refetch just the rule pages item effects quote)
+ *        npm run fetch -- --only spells     (refetch just the summoner spells' sources)
  */
 import path from "node:path";
 import {
@@ -21,6 +22,7 @@ import {
   WIKI_LEVEL20_PAGE,
   WIKI_LICENSE,
   WIKI_RUNE_PAGES,
+  WIKI_SPELL_DATA_PAGE,
   datasetDir,
   datasetName,
   patchName,
@@ -32,6 +34,7 @@ import { readJson, readText, writeJson, writeText } from "./lib/files";
 import { mapLimit } from "./lib/http";
 import type { Manifest } from "./manifest";
 import { parseChampionData } from "./parse/championData";
+import { classicSpells } from "./summoners/records";
 import * as cdragon from "./sources/cdragon";
 import * as ddragon from "./sources/ddragon";
 import * as wiki from "./sources/wiki";
@@ -95,6 +98,30 @@ async function fetchItemRules(): Promise<wiki.WikiPage[]> {
   const { pages, missing } = await wiki.getPages(WIKI_ITEM_RULE_PAGES);
   if (missing.length > 0) throw new Error(`Wiki rule pages not found: ${missing.join(", ")}`);
   return WIKI_ITEM_RULE_PAGES.map((title) => pages.find((page) => page.title === title)!);
+}
+
+/**
+ * The summoner spells' sources: Data Dragon's summoner list for the dataset's version (it names
+ * the spells Summoner's Rift offers), the wiki's spell data module, and each of those spells'
+ * articles (their notes). Every one must exist.
+ */
+async function fetchSpells(raw: string, ddragonVersion: string): Promise<{ data: wiki.WikiPage; articles: wiki.WikiPage[]; fetchedAt: string }> {
+  const fetchedAt = new Date().toISOString();
+  const summoners = await ddragon.summonerText(ddragonVersion);
+  await writeText(path.join(raw, "ddragon", "summoner.json"), summoners);
+  const names = classicSpells(JSON.parse(summoners) as ddragon.DDragonSummoners).map((spell) => spell.name);
+  const titles = [WIKI_SPELL_DATA_PAGE, ...names];
+  const { pages, missing } = await wiki.getPages(titles);
+  if (missing.length > 0) throw new Error(`Wiki pages not found: ${missing.join(", ")}`);
+  const [data, ...articles] = titles.map((title) => pages.find((page) => page.title === title)!);
+  await writeJson(path.join(raw, "wiki", "spell-pages.json"), [data, ...articles]);
+  log(`Summoner spells: Data Dragon ${ddragonVersion}, ${WIKI_SPELL_DATA_PAGE} rev ${data!.revid}, ${articles.length} articles (${names.join(", ")})`);
+  return { data: data!, articles, fetchedAt };
+}
+
+/** The manifest's record of the summoner spells' sources. */
+function spellSources(ddragonVersion: string, spells: { data: wiki.WikiPage; articles: wiki.WikiPage[]; fetchedAt: string }): NonNullable<Manifest["spells"]> {
+  return { ddragonVersion, spellData: { title: spells.data.title, revid: spells.data.revid }, articles: spells.articles.map(({ title, revid }) => ({ title, revid })), fetchedAt: spells.fetchedAt };
 }
 
 /** Writes new wiki revisions into a dataset's wiki-revisions.json, keeping the rest. */
@@ -164,6 +191,17 @@ async function itemRulesOnly(): Promise<void> {
   log(`Items: ${rules.length} rule pages (${rules.map((page) => `${page.title} rev ${page.revid}`).join(", ")})`);
 }
 
+/** Refetches only the summoner spells' sources into the latest dataset and updates its provenance files. */
+async function spellsOnly(): Promise<void> {
+  const dataset = await latestDataset(RAW_DIR, "ddragon");
+  const out = datasetDir(dataset);
+  const manifest = await readJson<Manifest>(path.join(out, "manifest.json"));
+  const spells = await fetchSpells(rawDir(dataset), manifest.ddragon.version);
+  manifest.spells = spellSources(manifest.ddragon.version, spells);
+  await writeJson(path.join(out, "manifest.json"), manifest);
+  await addRevisions(out, [spells.data, ...spells.articles]);
+}
+
 /** Refetches only the glossary pages into the latest dataset and updates its provenance files. */
 async function glossaryOnly(): Promise<void> {
   const dataset = await latestDataset(RAW_DIR, "ddragon");
@@ -182,6 +220,7 @@ async function main(): Promise<void> {
   if (only === "runes") return runesOnly();
   if (only === "items") return itemsOnly();
   if (only === "item-rules") return itemRulesOnly();
+  if (only === "spells") return spellsOnly();
   if (only !== undefined) throw new Error(`Unknown --only value: ${only}`);
 
   const ddragonVersion = await ddragon.latestVersion();
@@ -251,6 +290,7 @@ async function main(): Promise<void> {
   const pets = await fetchPetPages(raw, parseChampionData(championData.content).map((entry) => entry.name));
   const runes = await fetchRunePages(raw);
   const items = await fetchItems(raw, ddragonVersion, cdragonVersion);
+  const spells = await fetchSpells(raw, ddragonVersion);
 
   const manifest: Manifest = {
     dataset,
@@ -269,6 +309,7 @@ async function main(): Promise<void> {
       runePages: { pages: runes.pages.length, missing: runes.missing, fetchedAt: runes.fetchedAt },
     },
     items: { ddragonVersion, cdragonVersion, itemData: { title: items.page.title, revid: items.page.revid }, rules: items.rules.map(({ title, revid }) => ({ title, revid })), fetchedAt: items.fetchedAt },
+    spells: spellSources(ddragonVersion, spells),
   };
   const out = datasetDir(dataset);
   await writeJson(path.join(out, "manifest.json"), manifest);
@@ -276,7 +317,7 @@ async function main(): Promise<void> {
   const revisions = Object.fromEntries(
     [
       [WIKI_LEVEL20_PAGE, level20.revid] as const,
-      ...[championData, ...templates.pages, ...glossary.pages, ...pets.pages, ...runes.pages, items.page, ...items.rules].map((page) => [page.title, page.revid] as const),
+      ...[championData, ...templates.pages, ...glossary.pages, ...pets.pages, ...runes.pages, items.page, ...items.rules, spells.data, ...spells.articles].map((page) => [page.title, page.revid] as const),
     ].sort(([a], [b]) => a.localeCompare(b)),
   );
   await writeJson(path.join(out, "wiki-revisions.json"), revisions);

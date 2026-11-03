@@ -36,3 +36,14 @@ export function championFullText(version: string): Promise<string> {
 export function itemText(version: string): Promise<string> {
   return fetchText(`${DDRAGON}/cdn/${version}/data/en_US/item.json`);
 }
+
+/** Every summoner spell of the version: names, cooldowns, ranges and the game modes each is in. */
+export function summonerText(version: string): Promise<string> {
+  return fetchText(`${DDRAGON}/cdn/${version}/data/en_US/summoner.json`);
+}
+
+/** The subset of Data Dragon's summoner.json that the pipeline reads. */
+export interface DDragonSummoners {
+  version: string;
+  data: Record<string, { id: string; name: string; description: string; cooldown: number[]; range: number[]; modes: string[] }>;
+}
