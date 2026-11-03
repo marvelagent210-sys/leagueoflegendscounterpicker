@@ -1937,6 +1937,116 @@ committed results.
   full suite (7,980 tests across 226 files, the five disputed golden expectations skipped)
   then passed on the runner in another eight minutes.
 
+## Patch 26.21, 3 November 2026
+
+The dataset moved to patch 26.21 (Data Dragon 16.21.1, CommunityDragon 16.21, the wiki as
+fetched on 3 November). `data/16.21/` holds it; `data/16.20/` stays as the previous patch's
+snapshot, and the tests, the app and the kits' tests now read 16.21.
+
+- **Curated evidence.** 27 wiki pages that kits' evidence pins at a revision had new
+  revisions. Each was read again against the previous revision (`pipeline/abilities/`) and
+  re-pinned: 12 carry the patch's number changes, 14 wiki edits (new or reworded notes for
+  Kha'Zix, Rengar, Sejuani, Syndra, Taric, Thresh, Twisted Fate and Zeri; Maokai's
+  restructured Sapling Toss; Vex's reworded blurb), and Neeko's changed revision without
+  changing its text.
+  Caitlyn's and Varus's hand-rendered excerpts take 26.21's text; Taliyah's game-file excerpt
+  lines take the 26.21 file's values, as the build checks them. Zoe's Sleepy Trouble Bubble
+  gets back, as an anchored note, a sentence 26.21 moved where the parser doesn't read.
+- **Kits.** All 173 compile against 26.21. 15 needed their quotes changed for new wording or
+  numbers; four rules changed:
+  - Caitlyn: a champion that springs a trap can't spring another anywhere for 3 seconds (the
+    note that let another spot's trap catch them is gone);
+  - Zoe: the wake-up damage has a fixed window of 3.25 seconds from the sleep's start, which
+    tenacity, a cleanse or an early wake no longer shorten;
+  - Varus: Piercing Arrow's charge raises Blight, the empowered W and the cooldown refund by
+    up to 70% (was 50%), now read from the wiki rather than written in the kit;
+  - Maokai: 26.21 dropped the minion damage row; minions take the ordinary explosion.
+  Compiling each kit whose code didn't change against both patches, every changed value is
+  one the patch notes list (Darius's Q cooldown, Lee Sin's W and R, Locke's mana, W cost and
+  E, Nidalee's E and Pounce, Nunu's R, Orianna's ratios, Qiyana's Q, Yone's Q, the base
+  stats), and values the notes change at ranks a duel doesn't use stay put (Gwen's R at rank
+  3, Tristana's Q and Zyra's W at rank 5). Assumption texts that wrote 26.20's numbers (Lee
+  Sin, Nunu, Ryze, Varus) now read them from the kit's values.
+- **Items.** Bastionbreaker's Shaped Charge (40 / 20), Bloodletter's Curse's Vile Decay (no
+  rate limit on stacks) and Dawncore's First Light (15 AP per 100% base mana regeneration)
+  follow the new text.
+- **Tests.** Every test that pinned a 26.20 value was checked against the patch and moved to
+  26.21; two new tests pin Caitlyn's and Zoe's new rules.
+- **The refresh.** The refresh workflow's
+  [run 41575445956](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/41575445956)
+  computed both matrices on GitHub's runners.
+  - The plan job found 10,222 plain-stats pairings to compute, reusing 4,656 from 26.20, and
+    all 14,878 build pairings, since the item catalog changed.
+  - 76 kits' inputs differ from 26.20's: 68 kits' records changed, and 8 kits (Alistar,
+    Corki, Ekko, Ezreal, Karthus, Kindred, Vayne, Veigar) changed only because a comment or
+    assumption text named 16.20. The engine, stat prices and runes didn't change, so the
+    shared key is 26.20's.
+  - Five plain-stats shards took 36 to 75 minutes and twenty build shards 34 to 76 minutes:
+    24.5 runner-hours, or 98 processor-hours. That is 7.2 processor-seconds a plain pairing
+    (6.7 estimated) and 18.8 a build pairing (as estimated).
+  - The runners took 20 jobs at a time, so five build shards waited 34 to 48 minutes for
+    one. The outputs were committed (`1e2f19e`) two hours after the push; with 20 shards in
+    all, about 75 minutes would have done.
+  - In the same job, the typecheck passed and the tests failed only on Trundle–Sion (below).
+- **Checks.**
+  - `npm run build:sim -- --check` and `npm run build:builds -- --check` pass locally, with
+    fingerprints `fd1489b1…` (plain stats) and `8f33771f…` (builds).
+  - Runners and local machines agree. The 804 plain-stats pairings computed again only for
+    the eight text-only changes equal 26.20's exactly, in scores, scenarios and kit variants,
+    and so do the 4,656 reused ones. Aphelios–Urgot's build search, run again locally, gives
+    the runners' +0.45.
+- **What moved with plain stats.** 3,243 of the 9,418 pairings with a changed kit record
+  moved (34%): 107 changed winner, and 84 moved by 0.5 or more. None of the other 5,460
+  moved.
+  - Each champion whose average moved most has a matching change in the patch.
+  - Risers: Vel'Koz +0.094 (Organic Deconstruction 35 – 205 (+ 65% AP), was 35 – 180
+    (+ 60% AP)), Miss Fortune +0.058 (Bullet Time's waves crit for 145%, was 130%), Sion
+    +0.044 (health growth), Darius +0.035 (Decimate's cooldown 4 seconds at rank 5, was 5),
+    Nunu +0.028 (Absolute Zero).
+  - Fallers: Rammus −0.057 (Defensive Ball Curl's resistances), Jinx −0.051 (610 base
+    health, was 630; 3 attack damage a level, was 3.25), Lee Sin −0.049 (Dragon's Rage 550
+    at rank 3, was 625), Varus −0.042 (Blighted Quiver's on-hit and maximum-health damage),
+    Caitlyn −0.040 (the trap rule).
+  - One of the largest moves runs against a buff and tips a near tie. Under 26.20, Orianna beat
+    Kassadin in the engage and spacing fights with 0.2% to 3% of her health left
+    (Kassadin's score −0.82). Her 26.21 ability power ratios move about 100 gold of her
+    budget out of attack speed, health and resistances, mostly into ability power, and
+    Kassadin's magic damage now wins those fights first (+0.38).
+- **What moved with item builds.** 2,981 of the 9,418 pairings moved (32%): 234 changed
+  winner, and 250 moved by 0.5 or more. Ryze rose most (+0.076) and Lee Sin fell most
+  (−0.067).
+  - Between kits that didn't change, 183 of 5,460 pairings moved and 6 changed winner. 165
+    of the 183 hold one of the five changed items (Bastionbreaker, Bloodletter's Curse,
+    Dawncore, Gluttonous Greaves, Hubris) in either patch's builds.
+  - In the other 18, the search settled on other builds. Those items are the only inputs
+    that differ, and the search weighs them among its candidates.
+  - Builds move further than plain stats because the search can settle on different builds
+    once a kit changes. Xin Zhao's 26.21 build loses to Jayce's at −0.86; his 26.20 build
+    would hold the same Jayce build to −0.51. The search's limit, listed below, shows
+    whenever a patch moves it.
+- **Golden matchups.** 64 of 69 expectations hold. Trundle beats Sion (clear) no longer
+  holds:
+  - Trundle wins by +0.18; the expectation needs +0.25, and he won by +0.46 under 26.20.
+  - The brawl, which Trundle used to win, ends with both champions dead, and the
+    enemy-engage scenario falls from +0.85 to +0.66.
+  - Sion's health growth alone accounts for it (95 a level, was 87). With 26.20's 87, the
+    26.21 data gives +0.456 again, whichever patch's abilities Sion has. With 95, it gives
+    +0.181 either way. His R changes (40% bonus AD on the minimum damage, was 60%; 450 / 900
+    / 1350 base maximum, was 400 / 800 / 1200) don't move this matchup.
+  - The expectation is left failing for review: lower it to slight (the winner holds), mark
+    it disputed, or change the model.
+- **Suite and app.**
+  - The full suite ran 7,987 tests across 226 files on four workers: 7,981 passed, the five
+    disputed golden expectations were skipped as before, and Trundle–Sion failed. Both
+    TypeScript projects pass.
+  - The production build exports 16.21 with both matrices' fingerprints. In Chromium:
+    - the picker lists all 173 champions;
+    - the matchup pages for Trundle–Sion, Kassadin–Orianna and Xin Zhao–Jayce show the
+      stored scores, with builds and with plain stats, without a rerun;
+    - Zoe's, Caitlyn's, Varus's and Sion's kit pages show 26.21's rules;
+    - the matchup page fits a 390-pixel phone;
+    - page, console and HTTP errors are all zero.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
@@ -1944,6 +2054,8 @@ committed results.
 - Item builds come from a search, not an exhaustive one. In a lopsided matchup the losing
   side's listed build is close to arbitrary, since its build barely moves the result; and
   the builds hold at the default fight settings only, since the browser can't search them.
+  A change to either kit, or to any item the search weighs, can make it settle on other
+  builds, so the build matrix moves more than plain stats from one patch to the next.
 - Duels have no summoner spells, and in the six-item format no boots, so a melee kit
   without a gap-closer as long as the enemy's range can be kept out of reach by a ranged
   champion's basic attacks (Annie with a critical strike build beats Darius).
