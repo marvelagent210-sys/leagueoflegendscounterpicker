@@ -34,7 +34,7 @@ describe("Nocturne production and source contract", () => {
   it("uses the five exact revisions, full binary arrays and primary conflicts", () => {
     const value = compiled(); expect(new Set(value.evidence.filter((e) => !e.url).map((e) => e.revid))).toEqual(new Set([4015219,4007794,4026429,4064858,3948584]));
     expect(value.evidence.filter((e) => e.url)).toHaveLength(10);
-    expect(value.assumptions.join(" ")).toContain("HealLevel18Value32"); expect(value.assumptions.join(" ")).toContain("obsolete5000");
+    expect(value.assumptions.join(" ")).toContain("HealLevel 18 Value 32"); expect(value.assumptions.join(" ")).toContain("obsolete 5000");
     expect(value.variants).toEqual([]);
     const world = worldFor(); expect(ability(world,"Q")).toMatchObject({ cooldown:8,cost:80,castTime:.25,deliveryAtCastStart:true }); expect(ability(world,"E")).toMatchObject({cooldown:11,cost:80,castTime:0}); expect(ability(world,"W")).toMatchObject({cooldown:12,cost:50}); expect(ability(world,"R")).toMatchObject({cooldown:100,cost:100,castTime:0});
   });

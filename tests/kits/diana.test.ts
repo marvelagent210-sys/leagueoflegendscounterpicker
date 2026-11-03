@@ -42,7 +42,7 @@ describe("Diana pinned source and numeric contract", () => {
     expect(game.length).toBeGreaterThanOrEqual(15);
     expect(game.every((row) => row.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && row.sourceSha256 === "9b2d999ce53563bd2d0e10838c928ed72d062a53f310a93583692fe6617cefbe")).toBe(true);
     expect(game.some((row) => row.text.includes('"mControlPoint2":[-1.3954554796218872,0.0,0.012537208385765553]'))).toBe(true);
-    expect(compiled.assumptions.join(" ")).toContain("earliest30Hz arrival tick");
+    expect(compiled.assumptions.join(" ")).toContain("earliest 30 Hz arrival tick");
     expect(compiled.assumptions.join(" ")).toContain("initial phase and sphere collision radius are unpublished");
   });
   it("reads rank-five/three spell values, ratios, costs and cast times", () => {

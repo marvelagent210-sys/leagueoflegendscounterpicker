@@ -58,7 +58,7 @@ describe("Galio pinned source and numeric contract",()=>{
  });
  it.each(["Q","E","R"])("fails closed without %s exact pinned game evidence",slot=>{const changed=structuredClone(records("Galio"));delete changed.find(row=>row.kind===slot)!.gameSources;expect(()=>compileKit(championData("Galio"),changed,Galio)).toThrow("pinned game data");});
  it("reads full spline endpoints and preserves source disagreements as explicit limits",()=>{
-  const text=compiled.assumptions.join(" ");expect(text).toContain("backward displacement/speed");expect(text).toContain("primary150cap");expect(text).toContain("no R damage/shield budget");expect(text).toContain("physical AP ratio differs");
+  const text=compiled.assumptions.join(" ");expect(text).toContain("backward displacement/speed");expect(text).toContain("primary 150 cap");expect(text).toContain("no R damage/shield budget");expect(text).toContain("physical AP ratio differs");
   expect(compiled.evidence.some(e=>e.text.includes('"mControlPoint1":[0.2720096707344055,0.0,1.0743502378463745]'))).toBe(true);
  });
 });
