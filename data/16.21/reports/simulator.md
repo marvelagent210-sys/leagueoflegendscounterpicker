@@ -237,7 +237,7 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Urgot beats Ornn | slight | −0.07 | disputed | Echoing Flames' shotgun legs deal damage from maximum health, and Fear Beyond Death executes. *Disputed:* Even (0.00): every all-in runs the full 30 s with both near half health. Urgot's damage is all physical, and Ornn buys 8,500 gold of armor that Living Forge makes worth 30% more (562 armor in all) against Urgot's capped 34% penetration. |
 | Trundle beats Ornn | clear | +0.77 | holds | Subjugate drains 30% of Ornn's maximum health and steals 40% of his armor and magic resistance. |
 | Trundle beats Cho'Gath | clear | +0.79 | holds | Subjugate drains 30% of Cho'Gath's maximum health, Feast's health included, and steals 40% of his resistances. |
-| Trundle beats Sion | clear | +0.18 | **fails** | Subjugate drains 30% of Sion's maximum health and steals 40% of his resistances. |
+| Trundle beats Sion | slight | +0.18 | holds | Subjugate drains 30% of Sion's maximum health and steals 40% of his resistances. |
 | Trundle beats Dr. Mundo | clear | −0.77 | disputed | Subjugate drains 30% of Dr. Mundo's maximum health and steals 40% of his resistances. *Disputed:* Dr. Mundo wins every all-in (-0.78). He buys 8,600 gold of health and 5,100 of armor: Subjugate's share of his health comes to about 1,100 after magic resistance, Maximum Dosage heals more than that back, and Trundle's attacks run into the armor. |
 | Gwen beats Cho'Gath | clear | +0.75 | holds | A Thousand Cuts deals magic damage from maximum health, Feast's health included. |
 | Gwen beats Tahm Kench | clear | +0.77 | holds | A Thousand Cuts deals magic damage from maximum health. |
@@ -258,7 +258,7 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Garen beats Irelia | slight | +0.80 | holds | Decisive Strike silences Irelia (no Bladesurge resets), and Garen's regeneration outlasts her trades. |
 | Nasus beats Renekton | slight | +0.79 | holds | By level 20 Siphoning Strike has its stacks, and Wither cripples Renekton's attacks. |
 
-64 of 69 expectations hold.
+65 of 69 expectations hold.
 
 ## What the stat budget buys
 

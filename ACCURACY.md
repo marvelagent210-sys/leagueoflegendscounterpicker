@@ -2024,8 +2024,8 @@ snapshot, and the tests, the app and the kits' tests now read 16.21.
     once a kit changes. Xin Zhao's 26.21 build loses to Jayce's at −0.86; his 26.20 build
     would hold the same Jayce build to −0.51. The search's limit, listed below, shows
     whenever a patch moves it.
-- **Golden matchups.** 64 of 69 expectations hold. Trundle beats Sion (clear) no longer
-  holds:
+- **Golden matchups.** Trundle beats Sion (clear) no longer held, leaving 64 of 69
+  expectations holding:
   - Trundle wins by +0.18; the expectation needs +0.25, and he won by +0.46 under 26.20.
   - The brawl, which Trundle used to win, ends with both champions dead, and the
     enemy-engage scenario falls from +0.85 to +0.66.
@@ -2033,11 +2033,13 @@ snapshot, and the tests, the app and the kits' tests now read 16.21.
     26.21 data gives +0.456 again, whichever patch's abilities Sion has. With 95, it gives
     +0.181 either way. His R changes (40% bonus AD on the minimum damage, was 60%; 450 / 900
     / 1350 base maximum, was 400 / 800 / 1200) don't move this matchup.
-  - The expectation is left failing for review: lower it to slight (the winner holds), mark
-    it disputed, or change the model.
+  - On review the expectation is now slight: the winner holds, and the patch took the
+    margin. The simulator report shows 65 of 69 holding again. Only the report's golden
+    table and the two matrices' fingerprints changed; every pairing was reused.
 - **Suite and app.**
   - The full suite ran 7,987 tests across 226 files on four workers: 7,981 passed, the five
-    disputed golden expectations were skipped as before, and Trundle–Sion failed. Both
+    disputed golden expectations were skipped as before, and Trundle–Sion failed. With its
+    margin at slight, the golden suites pass (64 tested, 5 disputed skipped). Both
     TypeScript projects pass.
   - The production build exports 16.21 with both matrices' fingerprints. In Chromium:
     - the picker lists all 173 champions;

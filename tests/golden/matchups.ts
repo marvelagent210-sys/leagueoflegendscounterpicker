@@ -112,7 +112,8 @@ export const TANK_BUSTERS: GoldenMatchup[] = [
   // Wave 2.
   { winner: "Trundle", loser: "Ornn", margin: "clear", why: "Subjugate drains 30% of Ornn's maximum health and steals 40% of his armor and magic resistance." },
   { winner: "Trundle", loser: "Chogath", margin: "clear", why: "Subjugate drains 30% of Cho'Gath's maximum health, Feast's health included, and steals 40% of his resistances." },
-  { winner: "Trundle", loser: "Sion", margin: "clear", why: "Subjugate drains 30% of Sion's maximum health and steals 40% of his resistances." },
+  // Slight since 26.21, which raised Sion's health growth from 87 to 95 a level: that alone takes Trundle's margin from +0.46 to +0.18.
+  { winner: "Trundle", loser: "Sion", margin: "slight", why: "Subjugate drains 30% of Sion's maximum health and steals 40% of his resistances." },
   {
     winner: "Trundle",
     loser: "DrMundo",

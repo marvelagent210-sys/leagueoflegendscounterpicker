@@ -926,7 +926,7 @@ Progress (20 October, while the remaining kits are written elsewhere):
   - The tests moved to dataset 16.21; `data/16.20/` stays as the previous patch's snapshot.
   - `npm run build:data -- --skip-duels` built everything but the duels in minutes.
   - The refresh workflow then computed the 10,222 plain-stats pairings whose inputs changed (4,656 reused from 26.20) and the whole build matrix, whose item catalog changed. That took 98 processor-hours on 25 runners, and the commit came two hours after the push.
-  - One golden matchup no longer holds as reviewed: Trundle still beats Sion, but by +0.18 rather than the "clear" margin (+0.46 under 26.20). Sion's health growth (95 a level, was 87) accounts for all of it. It waits for review (ACCURACY.md).
+  - One golden matchup no longer holds as reviewed: Trundle still beats Sion, but by +0.18 rather than the "clear" margin (+0.46 under 26.20). Sion's health growth (95 a level, was 87) accounts for all of it, so on review the expectation is now slight (ACCURACY.md).
   - 8 of the 76 recomputed kits changed only in comments or assumption texts that named 16.20. The kit key hashes the module's source, so it counts them; their 804 pairings came out identical. Kits name no patch now, so this won't recur.
   - GitHub took 20 jobs at a time, so 5 of the 25 shards waited up to 48 minutes for a runner. Sizing the two matrices' shards together, at most 20 in all, would have brought this refresh to about 75 minutes.
 - **Not yet:** runes.
