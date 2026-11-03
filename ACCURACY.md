@@ -1914,6 +1914,29 @@ Refreshes now reuse every pairing whose inputs are unchanged (`pipeline/sim/pair
 - The full suite passed: **7,975 tests across 225 files** on four workers in 220 seconds,
   with the five disputed golden expectations skipped as before. Both TypeScript projects pass.
 
+## Sharded refresh on GitHub Actions, 3 November 2026
+
+The refresh workflow's first run ([run 41566738646](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/41566738646))
+checked it end to end. Its request had Darius's pairings computed again in both matrices,
+whatever was stored, so that what GitHub's runners compute could be compared with the
+committed results.
+
+- The plan job found 172 pairings to compute in each matrix (14,706 reused) and split them
+  as requested: two plain-stats shards and three item-build shards, each on its own
+  four-core runner.
+- The runners worked out the same fingerprints as local refreshes (`30202eca…` for plain
+  stats, `210a6675…` for builds), so their checkpoints are for the same inputs. Side by side,
+  the plain-stats shards took 1.1 and 2.7 minutes and the item-build shards 2.3, 2.8 and 4.7
+  minutes (0.6 processor-hours for the 172 build pairings, 13.0 s each on average).
+- The last job found every shard's checkpoints (172 for each matrix), wrote the outputs and
+  checked them. **Every pairing computed on the runners equals the committed result**:
+  `simulated.json`, `simulated-spent.json`, `simulated-builds.json`, the counter and kit pages
+  and the simulator report came out byte-for-byte unchanged. The one change, which it
+  committed as `3de79cb`, is the build report's line on how the refresh ran.
+- The outputs were committed six minutes after the push. Both TypeScript projects and the
+  full suite (7,980 tests across 226 files, the five disputed golden expectations skipped)
+  then passed on the runner in another eight minutes.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
