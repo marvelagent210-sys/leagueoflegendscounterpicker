@@ -31,6 +31,8 @@ const active = (s: FighterSpec, key: string): AbilitySpec => {
   if (!found) throw new Error(`No ability ${key} (has ${s.abilities.map((a) => a.key).join(", ")})`);
   return found;
 };
+/** A fighter with one channel of its own, holding Ignite. */
+const holdingSpin = (spin: AbilitySpec) => holding(fighter({ abilities: [spin] }), ["Ignite"]).spec;
 /** The damage numbers a side's log shows for a source. */
 const hits = (log: Array<{ side: number; text: string }>, side: 0 | 1, source: string) =>
   log.filter((entry) => entry.side === side && entry.text.startsWith(`${source} deals `)).map((entry) => Number(/deals (\d+)/.exec(entry.text)?.[1]));
@@ -55,7 +57,7 @@ describe("summoner spells on a fighter", () => {
     expect(pages).toContain(`Ignite ${spells.spells.find((record) => record.name === "Ignite")!.article.revid}`);
     expect([...pages].some((page) => page.startsWith("Template:Tip data/Cast-inhibiting crowd control "))).toBe(true);
     expect(fighterSpells.evidence).toContainEqual(expect.objectContaining({ spell: "Ignite", page: "Module:SpellData/data", text: "cooldown: 180" }));
-    expect(fighterSpells.assumptions).toContain("Summoner spells are cast between the champion's own casts, channels and dashes, as item actives are.");
+    expect(fighterSpells.assumptions).toContain("Summoner spells but Flash are cast during the champion's own casts, channels, dashes and attack windups without interrupting them (the wiki says channels may allow or forbid summoner spells, and lists none that forbid them); Flash waits for them, as movement does.");
     expect(fighterSpells.coverage.map((entry) => [entry.spell, entry.modeled])).toEqual([["Ignite", true], ["Exhaust", true]]);
   });
 
@@ -109,6 +111,30 @@ describe("Ignite", () => {
     const [holder, enemy] = w.units;
     applyEffect(w, holder, enemy, active(holder.spec, spellKey("Ignite")).onHit![2]!, { scale: 1 });
     expect(enemy.statuses.find((status) => status.kind === "grievousWounds")?.endTick).toBe(150);
+  });
+
+  it("isn't raised by damage amplifiers on either side, as the wiki says", () => {
+    const outcome = duel(spec("Ignite"), fighter(), {
+      distance: 400,
+      behaviors: [castWhenReady(spellKey("Ignite")), idle],
+      settings: { maxSeconds: 6 },
+      setup: (w) => {
+        // The holder deals 20% more damage, and its target takes 20% more.
+        w.units[0].statuses.push(lasting("stat", "damageDealt", 0.2));
+        w.units[1].statuses.push(lasting("state", "damageReduction", -0.2));
+      },
+    });
+    expect(hits(outcome.timeline, 0, "Ignite")).toEqual([105, 105, 105, 105, 105]);
+  });
+
+  it("is cast during the champion's own channel, which goes on", () => {
+    const spin = ability({ key: "E", cooldown: 100, delivery: { kind: "self" }, channel: { duration: 3, interruptible: false, mobile: true } });
+    const w = createWorld({ fighters: [holdingSpin(spin), fighter({ id: "enemy" })], distance: 300, modes: ["fight", "idle"] });
+    step(w, [castWhenReady("E"), idle]);
+    expect(w.units[0].action?.kind).toBe("channel");
+    for (let i = 0; i < 5; i++) step(w, [defaultBehavior, idle]);
+    expect(w.units[0].cooldownReady[spellKey("Ignite")]).toBeGreaterThan(w.tick);
+    expect(w.units[0].action?.kind).toBe("channel");
   });
 
   it("is kept while its holder is stealthed", () => {

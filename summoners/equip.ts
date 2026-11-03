@@ -98,6 +98,10 @@ function spellActive(spell: SpellData, active: SpellActiveSpec, movement: boolea
   if (movement) return { ...ability, usable: (unit, world) => !inStasis(unit) && (own?.(unit, world) ?? true) };
   return {
     ...ability,
+    // Instant: cast during the champion's own casts, channels, dashes and windups, interrupting none of them.
+    anytime: true,
+    preserveAttackWindup: true,
+    preserveFacing: true,
     flags: { ...ability.flags, usableWhileDisabled: true },
     usable: (unit, world) => !inStasis(unit) && !ccTypes(unit).has("suppression") && (own?.(unit, world) ?? true),
   };
@@ -135,7 +139,7 @@ export function spellLoadout(names: readonly string[], catalog: SpellCatalog, mo
   const coverage = new Map<string, SpellCoverage>();
   return {
     part(form) {
-      if (records.length > 0) context.assume("Summoner spells are cast between the champion's own casts, channels and dashes, as item actives are.");
+      if (records.length > 0) context.assume("Summoner spells but Flash are cast during the champion's own casts, channels, dashes and attack windups without interrupting them (the wiki says channels may allow or forbid summoner spells, and lists none that forbid them); Flash waits for them, as movement does.");
       const reserved = reservedNames(form);
       const part: LoadoutPart = { abilities: [], hooks: [], enemyHooks: [], labels: [] };
       for (const record of records) {

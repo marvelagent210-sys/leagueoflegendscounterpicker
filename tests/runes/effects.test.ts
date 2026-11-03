@@ -117,7 +117,7 @@ describe("a rune page", () => {
     expect(holding(fighter(), pageWith("Conqueror", [], shards), [], "Magic").spec.bonus).toEqual({ ap: 18 });
     expect(holding(fighter(), pageWith("Conqueror", [], shards), [], "Physical").spec.bonus).toEqual({ ad: 10.8 });
     const mage = holding(fighter(), pageWith("Conqueror", [], shards), ["Rabadon's Deathcap"], "Physical");
-    expect(mage.spec.bonus.ap).toBe(items.items.find((record) => record.name === "Rabadon's Deathcap")!.stats.ap! + 18);
+    expect(mage.spec.bonus?.ap).toBe(items.items.find((record) => record.name === "Rabadon's Deathcap")!.stats.ap! + 18);
     expect(mage.runes!.assumptions).toContain("Adaptive force: Dummy has 0 bonus AD and 130 AP from items, so adaptive force gives AP and adaptive damage is magic.");
   });
 

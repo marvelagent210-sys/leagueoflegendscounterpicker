@@ -379,7 +379,8 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec, anyRange
   if (!unit.alive || unit.resurrection || unit.deathDefied?.allowCasting === false || !abilityReady(world, unit, ability)) return false;
   // Casting cancels a windup, but nothing else can be interrupted (except a channel by its own recast).
   const allowedChannel = unit.action?.kind === "channel" && ability.allowedDuringChannel?.includes(unit.action.ability);
-  if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability) && !overlays(unit, ability) && !allowedChannel) return false;
+  const instant = ability.anytime === true && (ability.castTimeFor?.(unit) ?? ability.castTime) === 0;
+  if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability) && !overlays(unit, ability) && !allowedChannel && !instant) return false;
   if (ability.usable && !ability.usable(unit, world)) return false;
   if (!ability.flags?.usableWhileDisabled && !canCastUnderCC(unit, isMovement(ability) || ability.flags?.grounded === true, ability.flags?.usableWhileSilenced)) return false;
   if (ability.delivery.kind === "target" && (!canTarget(enemy, unit) || !enemy.alive)) return false;

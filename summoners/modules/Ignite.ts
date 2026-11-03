@@ -19,15 +19,14 @@ export const Ignite: SpellModule = {
     spell.noted("Ignite deals proc damage and is tagged as periodic without applying spell effects.");
     spell.noted("Ignite's damage cannot be amplified by damage amplifiers.");
     spell.assume("its first tick lands with the cast, the start of the wiki's [0 to 0.264] seconds.");
-    spell.assume("the true damage amplifiers the simulator applies amplify it, though the wiki says nothing can: the simulator has no unamplified damage yet.");
     spell.assume("cast as soon as the enemy is in range, as the default behavior uses the kit's damage.");
     return {
       actives: [{
         cooldown: spell.cooldown(),
         delivery: { kind: "target", range: spell.range() },
         onHit: [
-          { type: "damage", damageType: "true", amount: { base: perTick }, persistent: true, label: spell.label },
-          { type: "dot", damageType: "true", total: { base: total - perTick }, duration: (ticks - 1) * interval, interval, label: spell.label },
+          { type: "damage", damageType: "true", amount: { base: perTick }, persistent: true, label: spell.label, unamplified: true },
+          { type: "dot", damageType: "true", total: { base: total - perTick }, duration: (ticks - 1) * interval, interval, label: spell.label, unamplified: true },
           { type: "grievousWounds", duration: seconds },
         ],
         usable: keptInStealth(spell),

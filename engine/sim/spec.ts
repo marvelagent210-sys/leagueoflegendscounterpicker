@@ -194,7 +194,8 @@ export type Effect =
    * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
   /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
-  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory }
+  /** `unamplified`: damage amplifiers don't raise it, on either side; reductions still apply (Ignite: "Ignite's damage cannot be amplified by damage amplifiers"). */
+  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory; unamplified?: boolean }
   /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
   /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
   | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean; spellShield?: boolean; bypassSlowImmune?: boolean; slowStackGroup?: string;
@@ -232,7 +233,7 @@ export type Effect =
       whileCC?: CCType;
     }
   /** `stacks`: a new application runs alongside the old one instead of refreshing it (Trial by Fire). */
-  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string; stacks?: boolean }
+  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string; stacks?: boolean; unamplified?: boolean }
   | { type: "grievousWounds"; duration: number }
   /** Removes the listed crowd control types from the caster, or every type when none are listed. */
   /** `sticky`: also removes non-dispellable crowd control, as cleanses that grant immunity do (Ragnarok). */
@@ -692,6 +693,12 @@ export interface AbilitySpec {
   overlay?: boolean;
   /** Instant overlay casts allowed during these channels, preserving their original clocks. */
   overlayChannels?: string[];
+  /**
+   * Castable during the caster's own casts, channels and dashes without interrupting them, when
+   * it has no cast time (summoner spells but Flash). With `preserveAttackWindup` it keeps an
+   * attack windup going too; the default behavior considers it while the caster is busy.
+   */
+  anytime?: boolean;
   /** Casts allowed to end these channels, without bypassing ordinary CC restrictions. */
   allowedDuringChannel?: string[];
   /**

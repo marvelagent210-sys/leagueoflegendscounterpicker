@@ -219,6 +219,8 @@ export interface DamageContext {
   noLifeSteal?: boolean;
   /** Average critical and ordinary outcomes before shields, preserving this as one damage event. */
   crit?: { chance: number; multiplier: number; bonus?: number };
+  /** Damage amplifiers on either side don't raise it; reductions still apply (Ignite). */
+  unamplified?: boolean;
 }
 
 /** How deep kit hooks are nested: a hook's damage can trigger hooks, but not without end. */
@@ -333,7 +335,9 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
         ? effectiveResist(t.mr, t.mrReduction, { flat: s.magicPen, percent: s.magicPenPercent })
         : 0;
   const typed = type === "physical" ? t.physicalReduction : type === "magic" ? t.magicReduction : [];
-  const modifiers = { dealt: s.damageDealt, received: [...t.damageReduction, ...typed] };
+  const received = [...t.damageReduction, ...typed];
+  // Amplifiers are dealt-damage increases and received-damage reductions below zero.
+  const modifiers = ctx.unamplified ? { dealt: s.damageDealt.filter((m) => m < 0), received: received.filter((m) => m > 0) } : { dealt: s.damageDealt, received };
   const criticalResist = type === "physical" && critChance > 0 && s.criticalBonusArmorIgnore > 0
     ? effectiveResist(t.armor, t.armorReduction, { flat: s.lethality, percent: s.armorPen, bonusPercent: s.bonusArmorPen, bonusIgnoreAdditive: s.criticalBonusArmorIgnore })
     : resist;
@@ -775,6 +779,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         ...(effect.lifesteal ? { lifesteal: effect.lifesteal } : {}),
         ...(effect.noLifeSteal ? { noLifeSteal: true } : {}),
         ...(effect.persistent ? { persistent: true } : {}),
+        ...(effect.unamplified ? { unamplified: true } : {}),
         ...((effect.petDamageCategory ?? ctx.petDamageCategory) ? { petDamageCategory: effect.petDamageCategory ?? ctx.petDamageCategory } : {}),
       });
       return;
@@ -890,6 +895,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
           intervalTicks,
           nextTick: first,
           ...(effect.label || ctx.ability ? { label: effect.label ?? ctx.ability?.name } : {}),
+          ...(effect.unamplified ? { unamplified: true } : {}),
         },
       });
       return;

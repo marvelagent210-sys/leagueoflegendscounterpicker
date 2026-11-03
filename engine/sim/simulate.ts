@@ -169,7 +169,7 @@ function upkeep(world: World, unit: Unit): void {
     const dot = status.dot;
     if (status.kind !== "dot" || !dot || world.tick < dot.nextTick || world.tick > status.endTick) continue;
     dot.nextTick += dot.intervalTicks;
-    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: dot.label ?? status.key, persistent: true, ...(dot.originX !== undefined ? { originX: dot.originX } : {}) });
+    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: dot.label ?? status.key, persistent: true, ...(dot.originX !== undefined ? { originX: dot.originX } : {}), ...(dot.unamplified ? { unamplified: true } : {}) });
   }
   const { base } = unit.spec;
   heal(world, unit, base.hpRegen / 5 / 30, true);

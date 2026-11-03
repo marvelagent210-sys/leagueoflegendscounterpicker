@@ -452,13 +452,23 @@ function answers(view: View, state: StateType, t: Threat): boolean {
 /** Share of maximum health below which death-prevention abilities are used without a visible threat. */
 const LOW_HEALTH = 0.15;
 
-/** Ticks the worst crowd control on the unit still lasts, counting only types that stop it from acting. */
-function disabledFor(unit: Unit, tick: number): number {
+/**
+ * Ticks the worst crowd control on the unit still lasts, counting only types that stop it from
+ * acting, and with `cleanse` only those it removes (as applyEffect's cleanse does).
+ */
+function disabledFor(unit: Unit, tick: number, cleanse?: Extract<Effect, { type: "cleanse" }>): number {
   let longest = 0;
   for (const s of unit.statuses) {
-    if (s.kind === "cc" && IMMOBILIZING.has(s.key as CCType)) longest = Math.max(longest, s.endTick - tick);
+    if (s.kind !== "cc" || !IMMOBILIZING.has(s.key as CCType)) continue;
+    if (cleanse && !((cleanse.types ? cleanse.types.includes(s.key as CCType) : s.key !== "stasis" && s.key !== "kinematics") && (!s.sticky || cleanse.sticky === true))) continue;
+    longest = Math.max(longest, s.endTick - tick);
   }
   return longest;
+}
+
+/** The cleanse an ability gives its caster, if any. */
+function cleanseOf(ability: AbilitySpec): Extract<Effect, { type: "cleanse" }> | undefined {
+  return flatten([...(ability.onSelf ?? []), ...(ability.onCastStart ?? [])]).find((e): e is Extract<Effect, { type: "cleanse" }> => e.type === "cleanse");
 }
 
 /**
@@ -525,7 +535,8 @@ export function react(view: View): Command | undefined {
     const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;
-    if (traits.cleanse && disabledFor(self, world.tick) >= 15) return { kind: "cast", ability: ability.key };
+    // A cleanse is spent on crowd control it removes (Cleanse leaves knock-ups).
+    if (traits.cleanse && disabledFor(self, world.tick, cleanseOf(ability)) >= 15) return { kind: "cast", ability: ability.key };
     for (const [state, duration] of traits.defenses) {
       if (view.threats.some((t) => inWindow(t, duration) && answers(view, state, t))) return { kind: "cast", ability: ability.key };
     }
@@ -596,11 +607,15 @@ function wasted(view: View, ability: AbilitySpec): boolean {
   return enemy.statuses.some((s) => s.endTick > lands && (s.key === "stasis" || (s.kind === "state" && (s.key === "untargetable" || s.key === "invulnerable"))));
 }
 
-/** Offensive casts and attacks, best first: executes, crowd control, damage, gap closers, buffs. */
-function offense(view: View, options: OffenseOptions): Command | undefined {
+/**
+ * Offensive casts and attacks, best first: executes, crowd control, damage, gap closers, buffs.
+ * With `only`, just casts of the abilities it admits (those usable while busy).
+ */
+function offense(view: View, options: OffenseOptions, only?: (ability: AbilitySpec) => boolean): Command | undefined {
   const { world, self, enemy } = view;
   if (!enemy.alive) return undefined;
   const eligible = (a: AbilitySpec) => {
+    if (only && !only(a)) return false;
     const traits = traitsOf(a);
     if (reactive(a, traits) || (!options.ultimates && a.slot === "R") || wasted(view, a)) return false;
     // Pure escapes are saved for getting away.
@@ -610,6 +625,7 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
   // A targeted finisher that would kill just out of range (a champion spacing at a longer attack range) is worth a step in.
   let closeIn = false;
   for (const ability of self.spec.abilities) {
+    if (only && !only(ability)) continue;
     const threshold = traitsOf(ability).execute;
     const finisher = ability.roles?.includes("finisher");
     if (!threshold && !finisher) continue;
@@ -666,6 +682,7 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       if (traits.resetsAttack ? self.attackReadyTick > world.tick + 1 : self.attackReadyTick <= world.tick + 1) return { kind: "cast", ability: ability.key };
     }
   }
+  if (only) return undefined;
   const urgent = petTarget(view, true);
   if (urgent) return { kind: "attack", pet: urgent.id };
   if (canStartAttack(world, self) && !outrunsWindup(view)) return { kind: "attack" };
@@ -756,6 +773,11 @@ export const defaultBehavior: Behavior = (view) => {
   // canCast admits only the explicit overlays that may defend during another action.
   const reaction = react(view);
   if (reaction) return reaction;
+  // Abilities usable at any time (summoner spells), during the unit's own casts, channels, dashes and windups.
+  if (action && mode !== "flee" && self.spec.abilities.some((a) => a.anytime)) {
+    const instant = offense(view, { ultimates: mode !== "trade" && mode !== "hold", engage: mode !== "kite" }, (a) => a.anytime === true);
+    if (instant) return instant;
+  }
   if (action && action.kind !== "windup") {
     // Busy: only walking, during casts and channels that allow it.
     const ability = "ability" in action ? abilityOf(self, action.ability) : undefined;

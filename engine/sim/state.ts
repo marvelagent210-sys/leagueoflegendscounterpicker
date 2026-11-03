@@ -28,7 +28,7 @@ export interface Status {
   /** Black Shield's CC protection follows this shield's lifetime and its incoming hit packet. */
   blackShield?: boolean;
   /** `label`: what its ticks are logged as (the ability's name). */
-  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string; originX?: number };
+  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string; originX?: number; unamplified?: boolean };
   empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; hitsUntargetable?: boolean; spellShield?: boolean; spellShieldOnHit?: boolean; attackOnHitReplacement?: Effect[]; breakShields?: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
