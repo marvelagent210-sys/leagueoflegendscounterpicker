@@ -1,5 +1,186 @@
 # Counters to Lissandra (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Lissandra: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Lissandra wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Lissandra --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Rengar | +0.86 | +1.00 | +1.00 | +1.00 | +0.42 | +1.00 | +0.00 |
+| 2 | Aurelion Sol | +0.85 | +1.00 | +1.00 | +1.00 | +0.31 | +1.00 | +0.00 |
+| 3 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +1.00 |
+| 4 | Gangplank | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 5 | Ryze | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 6 | Vi | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 7 | Heimerdinger | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 8 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 9 | Zoe | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 10 | Tristana | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 11 | Vel'Koz | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 12 | Aphelios | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 13 | Galio | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 14 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 15 | Jarvan IV | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 16 | Zaahen | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 17 | Neeko | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 18 | Kassadin | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 19 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 20 | Riven | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 21 | Brand | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 22 | Lillia | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 23 | Maokai | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 24 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 25 | Lulu | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 26 | Rumble | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +0.99 | +0.00 |
+| 27 | Cassiopeia | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 28 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 29 | Nami | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 30 | Mordekaiser | +0.79 | +0.99 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 31 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 32 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 33 | Master Yi | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 34 | Zeri | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 35 | Soraka | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 36 | Kog'Maw | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 37 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 38 | Shyvana | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 39 | Sona | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 40 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 41 | Swain | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 42 | Mel | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 43 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 44 | Shaco | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 45 | Orianna | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 46 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 47 | Graves | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 48 | Twisted Fate | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 49 | Sion | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 50 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 51 | Milio | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 52 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 53 | K'Sante | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 54 | Sejuani | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 55 | Hwei | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 56 | Trundle | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 57 | Annie | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 58 | Ezreal | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 59 | Smolder | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 60 | Xayah | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 61 | Aurora | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 62 | Miss Fortune | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 63 | Volibear | +0.78 | +1.00 | +1.00 | +1.00 | −0.06 | +0.88 | +0.00 |
+| 64 | Varus | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 65 | Kennen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 66 | Azir | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 67 | Lux | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 68 | Lucian | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 69 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 70 | Corki | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 71 | Sylas | +0.78 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 72 | Janna | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 73 | Kayle | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 74 | Twitch | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 75 | Samira | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 76 | Akshan | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 77 | Kalista | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 78 | Ashe | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 79 | Syndra | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 80 | Karma | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 81 | Viktor | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 82 | Kindred | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 83 | Kai'Sa | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 84 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 85 | Yunara | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 86 | Nidalee | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 87 | Draven | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 88 | Seraphine | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 89 | Viego | +0.77 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
+| 90 | Kayn | +0.77 | +1.00 | +1.00 | +1.00 | −0.21 | +0.99 | +0.00 |
+| 91 | Elise | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 92 | Fiddlesticks | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 93 | Quinn | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 94 | Jhin | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 95 | Ivern | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 96 | Vayne | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 97 | Diana | +0.74 | +1.00 | +1.00 | +1.00 | +0.09 | +0.26 | +0.00 |
+| 98 | Poppy | +0.72 | +1.00 | +1.00 | +1.00 | −0.01 | +0.27 | +0.00 |
+| 99 | Rell | +0.72 | +1.00 | +1.00 | +1.00 | +0.07 | +0.13 | +0.00 |
+| 100 | Garen | +0.70 | +1.00 | +1.00 | +1.00 | −0.00 | +0.04 | +0.00 |
+| 101 | Nautilus | +0.70 | +0.98 | +0.98 | +0.57 | −0.01 | +0.96 | +0.00 |
+| 102 | Darius | +0.70 | +0.94 | +1.00 | +1.00 | −0.07 | +0.21 | +0.00 |
+| 103 | Gragas | +0.70 | +1.00 | +1.00 | +1.00 | −0.14 | +0.17 | +0.00 |
+| 104 | Urgot | +0.69 | +0.98 | +1.00 | +1.00 | −0.06 | +0.05 | +0.00 |
+| 105 | Sett | +0.69 | +1.00 | +1.00 | +0.47 | −0.05 | +1.00 | +0.00 |
+| 106 | Skarner | +0.68 | +1.00 | +1.00 | +1.00 | −0.17 | +0.02 | +0.00 |
+| 107 | Illaoi | +0.67 | +0.95 | +1.00 | +0.97 | −0.08 | +0.01 | +0.00 |
+| 108 | Xin Zhao | +0.66 | +1.00 | +1.00 | +1.00 | −0.03 | −0.31 | +0.00 |
+| 109 | Anivia | +0.63 | +0.49 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 110 | Lee Sin | +0.62 | +1.00 | +1.00 | +1.00 | −0.05 | −0.71 | +0.00 |
+| 111 | Morgana | +0.59 | +0.65 | +1.00 | +0.98 | −0.05 | −0.16 | +0.00 |
+| 112 | Rek'Sai | +0.59 | +1.00 | +1.00 | +0.51 | −0.14 | +0.05 | +0.00 |
+| 113 | Bel'Veth | +0.58 | +1.00 | +1.00 | +1.00 | −0.12 | −1.00 | +0.00 |
+| 114 | Rakan | +0.58 | +1.00 | +1.00 | +1.00 | −0.21 | −0.88 | +0.00 |
+| 115 | Pantheon | +0.57 | +1.00 | +1.00 | +1.00 | −0.19 | −1.00 | +0.00 |
+| 116 | Irelia | +0.56 | +1.00 | +1.00 | +0.34 | −0.03 | −0.01 | +0.00 |
+| 117 | Fizz | +0.54 | +0.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 118 | Ambessa | +0.51 | +1.00 | +1.00 | +0.52 | +0.05 | −1.00 | +0.00 |
+| 119 | Akali | +0.50 | +0.99 | +0.39 | +0.68 | −0.03 | +0.25 | +0.00 |
+| 120 | Yone | +0.48 | +1.00 | +1.00 | +0.47 | −0.10 | −0.97 | +0.00 |
+| 121 | Gwen | +0.46 | +0.98 | −0.16 | +0.95 | −0.17 | +0.84 | +0.00 |
+| 122 | Leona | +0.44 | −0.04 | +0.85 | +0.85 | −0.03 | +0.75 | +0.00 |
+| 123 | Evelynn | +0.41 | +1.00 | +1.00 | +0.00 | +0.06 | −0.95 | +0.00 |
+| 124 | Wukong | +0.40 | +1.00 | +0.26 | +1.00 | −0.11 | −1.00 | +0.00 |
+| 125 | LeBlanc | +0.40 | +0.92 | −0.09 | +0.67 | −0.01 | +0.56 | +0.00 |
+| 126 | Nilah | +0.38 | +0.15 | +1.00 | +1.00 | −0.13 | −0.86 | +0.00 |
+| 127 | Zac | +0.36 | +0.46 | +0.91 | +0.23 | −0.27 | +0.11 | +0.00 |
+| 128 | Alistar | +0.33 | +0.17 | +1.00 | +0.10 | +0.01 | +0.12 | +0.00 |
+| 129 | Rammus | +0.32 | +0.10 | +0.06 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 130 | Veigar | +0.31 | +0.17 | +0.61 | +0.16 | +0.01 | +0.83 | +0.00 |
+| 131 | Ornn | +0.28 | +0.08 | +0.47 | +0.51 | −0.06 | +0.47 | +0.00 |
+| 132 | Vladimir | +0.27 | +0.02 | +1.00 | +0.13 | −0.05 | −0.02 | +0.00 |
+| 133 | Braum | +0.25 | +0.22 | +0.66 | +0.21 | −0.03 | −0.05 | +0.00 |
+| 134 | Ziggs | +0.25 | +1.00 | −1.00 | +1.00 | +0.14 | – | +0.00 |
+| 135 | Zyra | +0.23 | +0.02 | +0.06 | +1.00 | −0.02 | +0.14 | +0.00 |
+| 136 | Shen | +0.19 | +0.10 | +0.19 | +0.59 | −0.08 | +0.08 | +0.00 |
+| 137 | Jinx | +0.16 | +1.00 | −0.44 | +0.00 | +0.04 | – | +0.00 |
+| 138 | Tahm Kench | +0.14 | +0.18 | +0.17 | +0.25 | −0.10 | +0.17 | +0.00 |
+| 139 | Briar | +0.13 | +0.20 | +0.53 | +0.09 | −0.33 | −0.26 | +0.00 |
+| 140 | Nunu & Willump | +0.12 | +0.16 | +0.19 | +0.17 | −0.01 | −0.00 | +0.00 |
+| 141 | Malphite | +0.10 | −0.08 | +0.09 | +0.49 | +0.03 | −0.01 | +0.00 |
+| 142 | Ekko | +0.10 | +0.47 | +0.04 | +0.03 | −0.09 | −0.17 | +0.00 |
+| 143 | Warwick | +0.09 | −1.00 | +1.00 | +1.00 | −0.08 | −1.00 | +0.00 |
+| 144 | Taric | +0.08 | +0.10 | +0.23 | +0.05 | −0.04 | −0.04 | +0.00 |
+| 145 | Singed | +0.00 | +0.15 | +0.12 | +0.09 | −0.30 | −0.39 | +0.00 |
+| 146 | Naafiri | −0.00 | −0.01 | +0.04 | −0.08 | +0.04 | +0.02 | +0.00 |
+| 147 | Kha'Zix | −0.00 | +0.05 | +0.01 | +0.03 | −0.19 | +0.02 | +0.00 |
+| 148 | Aatrox | −0.01 | +0.56 | +0.39 | −0.77 | −0.17 | −0.68 | +0.00 |
+| 149 | Amumu | −0.01 | −0.01 | −0.01 | +0.07 | −0.11 | −0.02 | +0.00 |
+| 150 | Locke | −0.03 | −0.01 | +0.02 | −0.10 | −0.08 | −0.02 | +0.00 |
+| 151 | Vex | −0.06 | −0.02 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 152 | Karthus | −0.08 | −0.10 | −0.11 | −0.15 | +0.09 | −0.16 | +0.00 |
+| 153 | Xerath | −0.11 | −1.00 | +0.98 | −1.00 | −0.01 | +1.00 | +0.00 |
+| 154 | Blitzcrank | −0.16 | −0.17 | −0.17 | −0.10 | −0.12 | −0.30 | +0.00 |
+| 155 | Senna | −0.22 | −0.03 | −0.01 | −1.00 | +0.06 | – | +0.00 |
+| 156 | Ahri | −0.31 | −0.91 | −0.97 | +1.00 | −0.06 | – | +0.00 |
+| 157 | Zilean | −0.34 | −1.00 | −1.00 | +1.00 | −0.03 | – | +0.00 |
+| 158 | Nocturne | −0.38 | −1.00 | −0.27 | +0.25 | −0.14 | −0.97 | +0.00 |
+| 159 | Bard | −0.52 | −0.84 | −1.00 | +0.00 | −0.08 | – | +0.00 |
+| 160 | Zed | −0.56 | +0.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 161 | Malzahar | −0.57 | −0.30 | −0.95 | −1.00 | +0.02 | – | +0.00 |
+| 162 | Caitlyn | −0.58 | −0.55 | −0.72 | −1.00 | −0.01 | −0.55 | +0.00 |
+| 163 | Taliyah | −0.67 | −0.56 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 164 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −0.93 | +0.00 |
+| 165 | Sivir | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 166 | Renata Glasc | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 167 | Qiyana | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 168 | Yuumi | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 169 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 170 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 171 | Hecarim | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 172 | Pyke | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Lissandra's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,75 +189,75 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Lissandra` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.67)
+#### 1. Sivir (net +0.67)
 
 - **0.47** spell shield: Spell Shield's spell shield blocks Lissandra's Ring of Frost. Spell shield for 1.5 s, long enough to use ahead of Ring of Frost. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Lissandra W Ring of Frost)
 - **0.40** spell shield: Spell Shield's spell shield blocks part of Lissandra's Frozen Tomb. Spell shield for 1.5 s, long enough to use ahead of Frozen Tomb. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block the single-targeted portion and the radiating ice damage, but will not stop it from spreading. (Sivir E Spell Shield → Lissandra R Frozen Tomb)
 
-### 2. Fiora (net +0.51)
+#### 2. Fiora (net +0.51)
 
 - **0.90** parry: Riposte parries Lissandra's Frozen Tomb and stuns back. Parry for 0.75 s; Frozen Tomb takes 0.38 s to land, enough to react. Negating Frozen Tomb's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Lissandra R Frozen Tomb)
 - **0.39** parry: Riposte parries Lissandra's Ring of Frost and stuns back. Parry for 0.75 s; Ring of Frost lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Ring of Frost's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Lissandra W Ring of Frost)
 - **0.05** attack speed slow: Riposte cuts Lissandra's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Lissandra basic attacks)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Fiora's Riposte.
 
-### 3. Master Yi (net +0.46)
+#### 3. Master Yi (net +0.46)
 
 - **0.80** untargetable: Alpha Strike makes Master Yi untargetable, dodging Lissandra's Frozen Tomb. Untargetable for ?; Frozen Tomb takes 0.38 s to land, enough to react. (Master Yi Q Alpha Strike → Lissandra R Frozen Tomb)
 - **0.28** untargetable: Alpha Strike makes Master Yi untargetable, dodging Lissandra's Ring of Frost. Untargetable for ?; Ring of Frost lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Lissandra W Ring of Frost)
 - **0.15** cleanse: Highlander cleanses Lissandra's Frozen Tomb (slow) after it lands. 85 s cooldown; usable while crowd controlled. Doesn't remove knockdown, stun. (Master Yi R Highlander → Lissandra R Frozen Tomb)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Master Yi's Alpha Strike.
 
-### 4. Udyr (net +0.39)
+#### 4. Udyr (net +0.39)
 
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Lissandra's Frozen Tomb (knockdown, slow, stun). Immune for 1.5 s, long enough to use ahead of Frozen Tomb. (Udyr E Blazing Stampede → Lissandra R Frozen Tomb)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Lissandra's Ring of Frost (root). Immune for 1.5 s, long enough to use ahead of Ring of Frost. (Udyr E Blazing Stampede → Lissandra W Ring of Frost)
 - **0.10** cc immunity: Blazing Stampede makes Udyr immune to Lissandra's Ice Shard (slow). Immune for 1.5 s, long enough to use ahead of Ice Shard. (Udyr E Blazing Stampede → Lissandra Q Ice Shard)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Udyr's Blazing Stampede.
 
-### 5. Milio (net +0.36)
+#### 5. Milio (net +0.36)
 
 - **0.49** cleanse: Breath of Life cleanses Lissandra's Frozen Tomb (slow, stun) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove knockdown. (Milio R Breath of Life → Lissandra R Frozen Tomb)
 - **0.24** cleanse: Breath of Life cleanses Lissandra's Ring of Frost (root) after it lands. 130 s cooldown; usable while crowd controlled. (Milio R Breath of Life → Lissandra W Ring of Frost)
 - **0.22** tenacity: Breath of Life's 65% tenacity shortens Lissandra's Frozen Tomb (slow, stun). Breath of Life lasts 3 s on a 130 s cooldown. (Milio R Breath of Life → Lissandra R Frozen Tomb)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Milio's Ultra Mega Fire Kick.
 
-### 6. Kayle (net +0.35)
+#### 6. Kayle (net +0.35)
 
 - **0.40** invulnerable: Divine Judgment makes Kayle invulnerable to Lissandra's Frozen Tomb (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Frozen Tomb. (Kayle R Divine Judgment → Lissandra R Frozen Tomb)
 - **0.16** invulnerable: Divine Judgment makes Kayle invulnerable to Lissandra's Ring of Frost (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Ring of Frost. (Kayle R Divine Judgment → Lissandra W Ring of Frost)
 - **0.07** range: Kayle's basic attacks reach 75 units farther than Lissandra's (625 vs 550 attack range). Lissandra closes the gap with Glacial Path. (Kayle basic attacks → Lissandra basic attacks)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Kayle's Starfire Spellblade.
 
-### 7. Olaf (net +0.34)
+#### 7. Olaf (net +0.34)
 
 - **0.80** cc immunity: Ragnarok makes Olaf immune to Lissandra's Frozen Tomb (knockdown, slow, stun). Immune for 3 s, long enough to use ahead of Frozen Tomb. (Olaf R Ragnarok → Lissandra R Frozen Tomb)
 - **0.32** cc immunity: Ragnarok makes Olaf immune to Lissandra's Ring of Frost (root). Immune for 3 s, long enough to use ahead of Ring of Frost. (Olaf R Ragnarok → Lissandra W Ring of Frost)
 - **0.06** cc immunity: Ragnarok makes Olaf immune to Lissandra's Ice Shard (slow). Immune for 3 s, long enough to use ahead of Ice Shard. (Olaf R Ragnarok → Lissandra Q Ice Shard)
 - Watch out: Lissandra's basic attacks reach 425 units farther than Olaf's (550 vs 125 attack range).
 
-### 8. Vladimir (net +0.28)
+#### 8. Vladimir (net +0.28)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Lissandra's Frozen Tomb. Untargetable for 2 s, long enough to use ahead of Frozen Tomb. (Vladimir W Sanguine Pool → Lissandra R Frozen Tomb)
 - **0.49** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Lissandra's Ring of Frost. Untargetable for 2 s, long enough to use ahead of Ring of Frost. (Vladimir W Sanguine Pool → Lissandra W Ring of Frost)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Vladimir's Hemoplague.
 
-### 9. Morgana (net +0.24)
+#### 9. Morgana (net +0.24)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Lissandra's Frozen Tomb (knockdown, slow, stun). Immune for 5 s, long enough to use ahead of Frozen Tomb. (Morgana E Black Shield → Lissandra R Frozen Tomb)
 - **0.49** cc immunity: Black Shield makes Morgana immune to Lissandra's Ring of Frost (root). Immune for 5 s, long enough to use ahead of Ring of Frost. (Morgana E Black Shield → Lissandra W Ring of Frost)
 - **0.07** cc immunity: Black Shield makes Morgana immune to Lissandra's Ice Shard (slow). Immune for 5 s, long enough to use ahead of Ice Shard. (Morgana E Black Shield → Lissandra Q Ice Shard)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Morgana's Soul Shackles.
 
-### 10. Yuumi (net +0.20)
+#### 10. Yuumi (net +0.20)
 
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging Lissandra's Frozen Tomb. Untargetable for ?; Frozen Tomb takes 0.38 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Lissandra R Frozen Tomb)
 - **0.42** untargetable: You and Me! makes Yuumi untargetable, dodging Lissandra's Ring of Frost. Untargetable for ?; Ring of Frost lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Lissandra W Ring of Frost)
 - Watch out: Frozen Tomb makes Lissandra untargetable, dodging Yuumi's Final Chapter.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

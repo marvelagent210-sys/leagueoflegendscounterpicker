@@ -1,5 +1,186 @@
 # Counters to Nunu & Willump (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Nunu & Willump: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Nunu & Willump wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Nunu --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.18 | – | +1.00 |
+| 2 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 3 | Rengar | +0.84 | +1.00 | +1.00 | +1.00 | +0.34 | – | +0.00 |
+| 4 | Vayne | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 5 | Master Yi | +0.82 | +1.00 | +1.00 | +1.00 | −0.06 | – | +1.00 |
+| 6 | Udyr | +0.82 | +1.00 | +1.00 | +1.00 | −0.11 | – | +1.00 |
+| 7 | Gnar | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 8 | Trundle | +0.81 | +1.00 | +1.00 | +1.00 | −0.13 | – | +1.00 |
+| 9 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 10 | Urgot | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 11 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 12 | Milio | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 13 | Kled | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 14 | Galio | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 15 | Ambessa | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 16 | Corki | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 17 | Gangplank | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 18 | Malphite | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 19 | Akshan | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 20 | Orianna | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 21 | Kayle | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 22 | Neeko | +0.79 | +0.98 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 23 | Kalista | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 24 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 25 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 26 | Ryze | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 27 | Graves | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 28 | Lucian | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 29 | Hecarim | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 30 | Viego | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 31 | Warwick | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 32 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 33 | Ashe | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 34 | Yone | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 35 | Xayah | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 36 | Kai'Sa | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 37 | Morgana | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 38 | Nilah | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 39 | Jarvan IV | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 40 | Rakan | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 41 | Aphelios | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 42 | Yunara | +0.78 | +1.00 | +1.00 | +0.98 | −0.09 | +1.00 | +0.00 |
+| 43 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 44 | Samira | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 45 | Shyvana | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 46 | Varus | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 47 | Miss Fortune | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 48 | Kassadin | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 49 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 50 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 51 | Riven | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 52 | Volibear | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 53 | Smolder | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 54 | Shen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 55 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 56 | Alistar | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 57 | Zeri | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 58 | Kindred | +0.78 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 59 | Lee Sin | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 60 | Illaoi | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 61 | Twisted Fate | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 62 | Jayce | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 63 | Sona | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 64 | Azir | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 65 | Aurora | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 66 | Lulu | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 67 | Ivern | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 68 | Diana | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 69 | Teemo | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 70 | Bel'Veth | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 71 | Poppy | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 72 | Pantheon | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 73 | Yasuo | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 74 | Janna | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 75 | Garen | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 76 | Skarner | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 77 | Draven | +0.77 | +1.00 | +1.00 | +1.00 | −0.21 | +1.00 | +0.00 |
+| 78 | Rumble | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 79 | Wukong | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 80 | Braum | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 81 | Rek'Sai | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 82 | Irelia | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 83 | Yorick | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 84 | Bard | +0.77 | +1.00 | +1.00 | +1.00 | −0.14 | +0.87 | +0.00 |
+| 85 | Rammus | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 86 | Amumu | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 87 | Zac | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 88 | Jax | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 89 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 90 | Renekton | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 91 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 92 | Vi | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 93 | Sylas | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 94 | Sett | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 95 | Ezreal | +0.76 | +1.00 | +1.00 | +1.00 | −0.27 | +1.00 | +0.00 |
+| 96 | Kayn | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 97 | Camille | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 98 | Xin Zhao | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 99 | Shaco | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 100 | Ekko | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 101 | Maokai | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 102 | Quinn | +0.75 | +1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +0.00 |
+| 103 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 104 | Taric | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 105 | Aatrox | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 106 | Fizz | +0.74 | +1.00 | +1.00 | +1.00 | −0.20 | – | +0.00 |
+| 107 | Karma | +0.74 | +1.00 | +0.99 | +0.64 | +0.08 | +1.00 | +0.00 |
+| 108 | Kennen | +0.73 | +1.00 | +1.00 | +1.00 | −0.08 | +0.47 | +0.00 |
+| 109 | Jinx | +0.72 | +1.00 | +1.00 | +0.70 | −0.13 | +1.00 | +0.00 |
+| 110 | Elise | +0.68 | +1.00 | +1.00 | +1.00 | −0.10 | −0.08 | +0.00 |
+| 111 | Zilean | +0.68 | +1.00 | +1.00 | +1.00 | −0.29 | +0.19 | +0.00 |
+| 112 | Lillia | +0.58 | +0.14 | +0.99 | +0.99 | +0.01 | +1.00 | +0.00 |
+| 113 | Tahm Kench | +0.55 | +0.21 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 114 | Fiddlesticks | +0.54 | +0.25 | +1.00 | +1.00 | −0.01 | +0.31 | +0.00 |
+| 115 | Jhin | +0.53 | +0.04 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 116 | Aurelion Sol | +0.45 | −0.04 | +1.00 | +1.00 | +0.00 | +0.06 | +0.00 |
+| 117 | Lux | +0.44 | +0.24 | +0.55 | +0.81 | −0.07 | +0.95 | +0.00 |
+| 118 | Sejuani | +0.35 | +1.00 | +0.15 | +0.14 | −0.01 | – | +0.00 |
+| 119 | Gragas | +0.31 | +0.19 | +0.21 | +1.00 | −0.09 | +0.21 | +0.00 |
+| 120 | Nautilus | +0.26 | +0.07 | +0.13 | +1.00 | −0.08 | +0.18 | +0.00 |
+| 121 | Brand | +0.25 | +0.06 | +0.94 | −0.04 | −0.06 | +0.17 | +0.00 |
+| 122 | Malzahar | +0.25 | −0.03 | +1.00 | +0.02 | +0.03 | −0.04 | +0.00 |
+| 123 | Ziggs | +0.24 | +1.00 | −0.05 | −0.02 | +0.09 | −0.02 | +0.00 |
+| 124 | Hwei | +0.24 | +0.12 | +0.20 | +0.63 | +0.01 | +0.29 | +0.00 |
+| 125 | Zed | +0.22 | −1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 126 | Evelynn | +0.21 | −1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 127 | Caitlyn | +0.19 | −0.71 | +1.00 | +1.00 | −0.10 | −0.65 | +0.00 |
+| 128 | Swain | +0.18 | +0.30 | +0.19 | +0.21 | −0.08 | +0.30 | +0.00 |
+| 129 | Nidalee | +0.17 | −1.00 | +1.00 | +1.00 | −0.24 | +0.08 | +0.00 |
+| 130 | Ornn | +0.16 | +0.18 | +0.14 | +0.14 | +0.25 | – | +0.00 |
+| 131 | Heimerdinger | +0.16 | +0.09 | +0.16 | +0.46 | +0.05 | +0.02 | +0.00 |
+| 132 | Seraphine | +0.15 | +0.05 | +0.95 | −0.91 | −0.13 | +1.00 | +0.00 |
+| 133 | Rell | +0.14 | +0.13 | +0.19 | +0.19 | +0.01 | +0.23 | +0.00 |
+| 134 | Nami | +0.11 | +0.16 | +0.13 | +0.14 | −0.03 | +0.14 | +0.00 |
+| 135 | Singed | +0.10 | +0.13 | +0.13 | +0.16 | −0.07 | – | +0.00 |
+| 136 | Soraka | +0.08 | +0.14 | +0.05 | +0.05 | +0.10 | +0.11 | +0.00 |
+| 137 | Mel | +0.07 | +0.15 | −0.04 | −0.06 | −0.03 | +0.55 | +0.00 |
+| 138 | Annie | +0.05 | +0.11 | +0.08 | −0.05 | +0.01 | +0.13 | +0.00 |
+| 139 | Zoe | +0.04 | +0.11 | +0.05 | +0.02 | −0.07 | +0.11 | +0.00 |
+| 140 | Viktor | +0.04 | +0.01 | +0.04 | +0.16 | −0.17 | +0.25 | +0.00 |
+| 141 | Leona | +0.04 | +0.03 | +0.07 | +0.06 | −0.04 | – | +0.00 |
+| 142 | Syndra | +0.02 | +0.06 | +0.04 | −0.03 | +0.00 | +0.01 | +0.00 |
+| 143 | Twitch | +0.00 | −0.03 | +0.10 | −0.03 | −0.09 | +0.04 | +0.00 |
+| 144 | Vel'Koz | +0.00 | +0.11 | −0.06 | +0.04 | −0.07 | −0.08 | +0.00 |
+| 145 | Senna | +0.00 | +0.13 | +0.01 | +0.00 | −0.26 | +0.05 | +0.00 |
+| 146 | Zyra | −0.01 | −0.02 | +0.06 | +0.07 | −0.20 | −0.06 | +0.00 |
+| 147 | Akali | −0.02 | +0.02 | −0.03 | −0.03 | −0.07 | – | +0.00 |
+| 148 | Anivia | −0.02 | +0.04 | −0.03 | −0.03 | −0.20 | +0.07 | +0.00 |
+| 149 | Ahri | −0.05 | −0.01 | −0.06 | −0.07 | −0.15 | +0.07 | +0.00 |
+| 150 | Cassiopeia | −0.10 | −0.04 | −0.23 | −0.18 | +0.06 | −0.11 | +0.00 |
+| 151 | Blitzcrank | −0.11 | −0.14 | −0.14 | −0.14 | +0.00 | −0.14 | +0.00 |
+| 152 | Tristana | −0.11 | +1.00 | −1.00 | −1.00 | −0.09 | +1.00 | +0.00 |
+| 153 | Lissandra | −0.12 | −0.19 | −0.16 | −0.17 | +0.01 | +0.00 | +0.00 |
+| 154 | Vladimir | −0.14 | −0.12 | −0.08 | −0.08 | −0.37 | −0.15 | +0.00 |
+| 155 | Renata Glasc | −0.15 | +0.92 | −1.00 | −1.00 | −0.17 | +1.00 | +0.00 |
+| 156 | Sivir | −0.15 | +1.00 | −1.00 | −1.00 | −0.32 | +1.00 | +0.00 |
+| 157 | Veigar | −0.16 | −0.31 | −0.14 | −0.14 | −0.10 | −0.06 | +0.00 |
+| 158 | Kha'Zix | −0.17 | −0.14 | −0.20 | −0.20 | −0.18 | – | +0.00 |
+| 159 | Karthus | −0.19 | −0.26 | −0.21 | −0.21 | −0.09 | −0.18 | +0.00 |
+| 160 | Vex | −0.31 | −1.00 | −0.08 | −0.07 | −0.11 | −0.07 | +0.00 |
+| 161 | Briar | −0.37 | −0.56 | −0.48 | −0.48 | +0.15 | – | +0.00 |
+| 162 | Xerath | −0.41 | −0.17 | −0.52 | −1.00 | −0.20 | −0.03 | +0.00 |
+| 163 | Taliyah | −0.48 | −0.58 | −1.00 | −0.20 | −0.19 | −0.17 | +0.00 |
+| 164 | LeBlanc | −0.58 | −1.00 | −0.96 | +0.07 | −0.04 | −1.00 | +0.00 |
+| 165 | Locke | −0.76 | −1.00 | −0.94 | −0.94 | −0.10 | – | +0.00 |
+| 166 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 167 | Qiyana | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 168 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 169 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 170 | Pyke | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 171 | Thresh | −0.84 | −1.00 | −1.00 | −1.00 | −0.28 | −1.00 | +0.00 |
+| 172 | Yuumi | −0.84 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Nunu & Willump's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,21 +189,21 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Nunu` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +2.33)
+#### 1. Rell (net +2.33)
 
 - **0.35** interrupt: Ferromancy: Crash Down's airborne interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Nunu & Willump W Biggest Snowball Ever!)
 - **0.35** interrupt: Ferromancy: Mount Up's airborne interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Nunu & Willump W Biggest Snowball Ever!)
 - **0.35** interrupt: Full Tilt's stun interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). Full Tilt must land during the channel. (Rell E Full Tilt → Nunu & Willump W Biggest Snowball Ever!)
 
-### 2. Sivir (net +1.99)
+#### 2. Sivir (net +1.99)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Nunu & Willump's (500 vs 125 attack range). Nunu & Willump has no dash or blink to close the gap. (Sivir basic attacks → Nunu & Willump basic attacks)
 - **0.61** spell shield: Spell Shield's spell shield blocks Nunu & Willump's Biggest Snowball Ever!. Spell shield for 1.5 s, long enough to use ahead of Biggest Snowball Ever!. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Nunu & Willump W Biggest Snowball Ever!)
 - **0.55** spell shield: Spell Shield's spell shield blocks Nunu & Willump's Absolute Zero. Spell shield for 1.5 s, long enough to use ahead of Absolute Zero. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Nunu & Willump R Absolute Zero)
 
-### 3. Yasuo (net +1.58)
+#### 3. Yasuo (net +1.58)
 
 - **0.53** projectile block: Wind Wall blocks Nunu & Willump's Snowball Barrage, a projectile. Wind Wall for 4 s, long enough to use ahead of Snowball Barrage. (Yasuo W Wind Wall → Nunu & Willump E Snowball Barrage)
 - **0.35** interrupt: Steel Tempest's airborne interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). Steel Tempest must land during the channel. (Yasuo Q Steel Tempest → Nunu & Willump W Biggest Snowball Ever!)
@@ -84,54 +265,54 @@ Run `npm run matchup -- <champion> Nunu` for the full ledger of a matchup, with 
 |flavorsound = {{sm2|Nunu Original W 2.ogg}} ''"This is gonna be the biggest snowball ever!"''
 }}. (Yasuo W Wind Wall → Nunu & Willump W Biggest Snowball Ever!)
 
-### 4. Xayah (net +1.57)
+#### 4. Xayah (net +1.57)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Nunu & Willump's (525 vs 125 attack range). Nunu & Willump has no dash or blink to close the gap. (Xayah basic attacks → Nunu & Willump basic attacks)
 - **0.52** untargetable: Featherstorm makes Xayah untargetable, dodging Nunu & Willump's Absolute Zero. Untargetable for 1.5 s, long enough to use ahead of Absolute Zero. (Xayah R Featherstorm → Nunu & Willump R Absolute Zero)
 - **0.34** untargetable: Featherstorm makes Xayah untargetable, dodging Nunu & Willump's Biggest Snowball Ever!. Untargetable for 1.5 s, long enough to use ahead of Biggest Snowball Ever!. (Xayah R Featherstorm → Nunu & Willump W Biggest Snowball Ever!)
 
-### 5. Nocturne (net +1.56)
+#### 5. Nocturne (net +1.56)
 
 - **0.70** spell shield: Shroud of Darkness's spell shield blocks Nunu & Willump's Biggest Snowball Ever!. Spell shield for 1.5 s, long enough to use ahead of Biggest Snowball Ever!. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Nunu & Willump W Biggest Snowball Ever!)
 - **0.63** spell shield: Shroud of Darkness's spell shield blocks Nunu & Willump's Snowball Barrage. Spell shield for 1.5 s, long enough to use ahead of Snowball Barrage. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Nunu & Willump E Snowball Barrage)
 - **0.55** spell shield: Shroud of Darkness's spell shield blocks Nunu & Willump's Absolute Zero. Spell shield for 1.5 s, long enough to use ahead of Absolute Zero. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Nunu & Willump R Absolute Zero)
 - Watch out: Biggest Snowball Ever! makes Nunu & Willump immune to Nocturne's Unspeakable Horror (slow).
 
-### 6. Milio (net +1.52)
+#### 6. Milio (net +1.52)
 
 - **0.77** range: Milio's basic attacks reach 400 units farther than Nunu & Willump's (525 vs 125 attack range). Nunu & Willump has no dash or blink to close the gap. (Milio basic attacks → Nunu & Willump basic attacks)
 - **0.35** interrupt: Ultra Mega Fire Kick's airborne interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). Ultra Mega Fire Kick must land during the channel. (Milio Q Ultra Mega Fire Kick → Nunu & Willump W Biggest Snowball Ever!)
 - **0.28** interrupt: Ultra Mega Fire Kick's airborne interrupts Nunu & Willump's Absolute Zero (normal channel). Ultra Mega Fire Kick must land during the channel. (Milio Q Ultra Mega Fire Kick → Nunu & Willump R Absolute Zero)
 - Watch out: Biggest Snowball Ever! makes Nunu & Willump immune to Milio's Ultra Mega Fire Kick (slow).
 
-### 7. Zaahen (net +1.52)
+#### 7. Zaahen (net +1.52)
 
 - **0.35** cc immunity: Grim Deliverance makes Zaahen immune to Nunu & Willump's Biggest Snowball Ever! (airborne, stun). Immune for ?; Biggest Snowball Ever! takes 1.76 s to land, enough to react. (Zaahen R Grim Deliverance → Nunu & Willump W Biggest Snowball Ever!)
 - **0.35** interrupt: Dreaded Return's airborne interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). Dreaded Return must land during the channel. (Zaahen W Dreaded Return → Nunu & Willump W Biggest Snowball Ever!)
 - **0.35** interrupt: The Darkin Glaive's airborne interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Nunu & Willump W Biggest Snowball Ever!)
 
-### 8. Maokai (net +1.47)
+#### 8. Maokai (net +1.47)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Nunu & Willump's Biggest Snowball Ever!. Untargetable for 1.4 s; Biggest Snowball Ever! takes 1.76 s to land, enough to react. (Maokai W Twisted Advance → Nunu & Willump W Biggest Snowball Ever!)
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Nunu & Willump's Snowball Barrage. Untargetable for 1.4 s; Snowball Barrage takes 0.35 s to land, enough to react. (Maokai W Twisted Advance → Nunu & Willump E Snowball Barrage)
 - **0.42** untargetable: Twisted Advance makes Maokai untargetable, dodging Nunu & Willump's Consume. Untargetable for 1.4 s; Consume takes 0.3 s to land, enough to react. (Maokai W Twisted Advance → Nunu & Willump Q Consume)
 - Watch out: Biggest Snowball Ever! makes Nunu & Willump immune to Maokai's Bramble Smash (slow).
 
-### 9. Bard (net +1.44)
+#### 9. Bard (net +1.44)
 
 - **0.72** range: Bard's basic attacks reach 375 units farther than Nunu & Willump's (500 vs 125 attack range). Nunu & Willump has no dash or blink to close the gap. (Bard basic attacks → Nunu & Willump basic attacks)
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Nunu & Willump's Absolute Zero. Untargetable for 2.5 s, long enough to use ahead of Absolute Zero. (Bard R Tempered Fate → Nunu & Willump R Absolute Zero)
 - **0.35** untargetable: Tempered Fate makes Bard untargetable, dodging Nunu & Willump's Biggest Snowball Ever!. Untargetable for 2.5 s, long enough to use ahead of Biggest Snowball Ever!. (Bard R Tempered Fate → Nunu & Willump W Biggest Snowball Ever!)
 - Watch out: Biggest Snowball Ever! makes Nunu & Willump immune to Bard's Cosmic Binding (slow).
 
-### 10. Renata Glasc (net +1.44)
+#### 10. Renata Glasc (net +1.44)
 
 - **0.77** range: Renata Glasc's basic attacks reach 425 units farther than Nunu & Willump's (550 vs 125 attack range). Nunu & Willump has no dash or blink to close the gap. (Renata Glasc basic attacks → Nunu & Willump basic attacks)
 - **0.32** interrupt: Handshake's airborne interrupts Nunu & Willump's Biggest Snowball Ever! (movement channel). Handshake must land during the channel. (Renata Glasc Q Handshake → Nunu & Willump W Biggest Snowball Ever!)
 - **0.28** interrupt: Handshake's airborne interrupts Nunu & Willump's Absolute Zero (normal channel). Handshake must land during the channel. (Renata Glasc Q Handshake → Nunu & Willump R Absolute Zero)
 - Watch out: Biggest Snowball Ever! makes Nunu & Willump immune to Renata Glasc's Loyalty Program (slow).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

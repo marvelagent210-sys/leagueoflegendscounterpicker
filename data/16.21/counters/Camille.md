@@ -1,5 +1,186 @@
 # Counters to Camille (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Camille: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Camille wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Camille --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.91 | +1.00 | +1.00 | +1.00 | +0.46 | – | +1.00 |
+| 2 | Yorick | +0.85 | +1.00 | +1.00 | +1.00 | +0.11 | – | +1.00 |
+| 3 | Vayne | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 4 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.31 | – | +0.00 |
+| 5 | Ashe | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 6 | Nasus | +0.82 | +1.00 | +1.00 | +1.00 | −0.05 | – | +1.00 |
+| 7 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 8 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.10 | – | +1.00 |
+| 9 | Kled | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 10 | Ivern | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 11 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 12 | Warwick | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 13 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 14 | Karma | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 15 | Morgana | +0.79 | +0.95 | +0.95 | +1.00 | +0.14 | +0.93 | +0.00 |
+| 16 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 17 | Diana | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 18 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 19 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 20 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 21 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 22 | Braum | +0.77 | +0.99 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 23 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 24 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 25 | Kalista | +0.77 | +1.00 | +0.79 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 26 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 27 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 28 | Zaahen | +0.75 | +1.00 | +1.00 | +1.00 | +0.17 | – | −1.00 |
+| 29 | Wukong | +0.74 | +1.00 | +1.00 | +1.00 | −0.04 | – | −0.50 |
+| 30 | Shyvana | +0.73 | +1.00 | +1.00 | +1.00 | +0.07 | – | −1.00 |
+| 31 | Aatrox | +0.72 | +1.00 | +1.00 | +1.00 | −0.01 | – | −1.00 |
+| 32 | Volibear | +0.62 | +1.00 | +0.55 | +1.00 | −0.21 | – | +0.00 |
+| 33 | Lulu | +0.60 | +1.00 | +1.00 | +1.00 | +0.00 | −1.00 | +0.00 |
+| 34 | Jarvan IV | +0.52 | +1.00 | +0.00 | +1.00 | +0.13 | – | +0.00 |
+| 35 | Aphelios | +0.50 | +0.00 | +1.00 | +1.00 | −0.01 | +1.00 | −1.00 |
+| 36 | K'Sante | +0.39 | +1.00 | +1.00 | −1.00 | +0.17 | – | +0.50 |
+| 37 | Nocturne | +0.38 | +1.00 | +1.00 | −1.00 | −0.08 | – | +1.00 |
+| 38 | Yone | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 39 | Mordekaiser | +0.32 | +1.00 | +1.00 | −1.00 | −0.10 | – | +0.00 |
+| 40 | Lux | +0.27 | +0.32 | +0.77 | +0.00 | +0.10 | −0.12 | +0.00 |
+| 41 | Xin Zhao | +0.27 | +1.00 | +0.00 | +0.00 | −0.04 | – | +0.00 |
+| 42 | Kog'Maw | +0.24 | +0.00 | +0.00 | +1.00 | +0.28 | +0.00 | +0.00 |
+| 43 | Yasuo | +0.21 | +1.00 | −1.00 | +1.00 | −0.06 | – | +0.00 |
+| 44 | Zac | +0.20 | +0.75 | −0.64 | +0.88 | −0.15 | – | +0.00 |
+| 45 | Vi | +0.20 | +1.00 | −1.00 | +1.00 | −0.16 | – | +0.00 |
+| 46 | Malzahar | +0.16 | +0.82 | +1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 47 | Sion | +0.07 | −0.02 | +0.25 | +0.00 | +0.03 | – | +0.00 |
+| 48 | Irelia | +0.06 | +1.00 | +0.03 | −0.95 | −0.09 | – | +0.00 |
+| 49 | Draven | −0.03 | +1.00 | +0.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 50 | Corki | −0.08 | −1.00 | +1.00 | +0.00 | +0.14 | −1.00 | +0.00 |
+| 51 | Elise | −0.09 | +0.37 | +0.36 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 52 | Anivia | −0.12 | +0.04 | +0.23 | −1.00 | −0.05 | +0.23 | +0.00 |
+| 53 | Maokai | −0.20 | −1.00 | +1.00 | −1.00 | +0.16 | – | +0.00 |
+| 54 | Jinx | −0.20 | −1.00 | +0.00 | +0.66 | +0.12 | −1.00 | +0.00 |
+| 55 | Gangplank | −0.20 | +1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 56 | Sett | −0.22 | −1.00 | +1.00 | −1.00 | +0.01 | – | +0.00 |
+| 57 | Bel'Veth | −0.26 | +1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 58 | Nilah | −0.28 | +0.00 | +0.00 | −1.00 | +0.33 | −1.00 | −0.50 |
+| 59 | Kayle | −0.28 | +0.16 | −1.00 | −1.00 | +0.22 | +1.00 | +0.00 |
+| 60 | Master Yi | −0.28 | +0.00 | −1.00 | +0.00 | +0.12 | −1.00 | +1.00 |
+| 61 | Gwen | −0.31 | −1.00 | −1.00 | +1.00 | +0.15 | – | +0.00 |
+| 62 | Alistar | −0.31 | −1.00 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 63 | Ezreal | −0.33 | −0.94 | +0.99 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 64 | Heimerdinger | −0.38 | −1.00 | −1.00 | +1.00 | +0.12 | −1.00 | +0.00 |
+| 65 | Orianna | −0.39 | −1.00 | −1.00 | +1.00 | +0.09 | −1.00 | +0.00 |
+| 66 | Cassiopeia | −0.39 | −1.00 | −1.00 | +1.00 | +0.05 | −1.00 | +0.00 |
+| 67 | Neeko | −0.40 | −1.00 | +0.55 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 68 | Vex | −0.41 | +0.59 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 69 | Pantheon | −0.46 | −1.00 | +0.00 | −1.00 | +0.22 | – | +0.00 |
+| 70 | Quinn | −0.47 | −0.27 | −0.27 | −1.00 | +0.11 | −1.00 | −1.00 |
+| 71 | Annie | −0.49 | −1.00 | −1.00 | −0.50 | +0.09 | +1.00 | +0.00 |
+| 72 | Jayce | −0.54 | −1.00 | −1.00 | +0.00 | +0.07 | – | +0.00 |
+| 73 | Lee Sin | −0.56 | −1.00 | −1.00 | +0.00 | −0.00 | – | +0.00 |
+| 74 | Tahm Kench | −0.56 | −1.00 | −1.00 | +0.00 | −0.03 | – | +0.00 |
+| 75 | Riven | −0.57 | −1.00 | −1.00 | +0.00 | +0.09 | – | −0.50 |
+| 76 | Kennen | −0.58 | −1.00 | −1.00 | −1.00 | +0.16 | +1.00 | +0.00 |
+| 77 | Rell | −0.58 | −1.00 | −1.00 | −1.00 | +0.12 | +1.00 | +0.00 |
+| 78 | Gnar | −0.60 | −1.00 | −1.00 | −1.00 | +0.19 | +0.73 | +0.00 |
+| 79 | Milio | −0.61 | −1.00 | −1.00 | −1.00 | +0.03 | +0.88 | +0.00 |
+| 80 | Hwei | −0.61 | −0.25 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 81 | Urgot | −0.61 | −0.37 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 82 | Rengar | −0.70 | −1.00 | −1.00 | −1.00 | +0.45 | – | +0.00 |
+| 83 | Udyr | −0.72 | −1.00 | −1.00 | −1.00 | +0.01 | – | +1.00 |
+| 84 | Ambessa | −0.74 | −1.00 | −1.00 | −1.00 | +0.25 | – | +0.00 |
+| 85 | Sylas | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 86 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 87 | Nunu & Willump | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 88 | Viego | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 89 | Galio | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 90 | Vel'Koz | −0.76 | −1.00 | −1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
+| 91 | Rakan | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 92 | Kayn | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 93 | Ziggs | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 94 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 95 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 96 | Gragas | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 97 | Naafiri | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 98 | Shaco | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 99 | Fizz | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 100 | Nautilus | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 101 | Janna | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 102 | Amumu | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 103 | Akshan | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 104 | Kha'Zix | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 105 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 106 | Sejuani | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 107 | Nami | −0.78 | −1.00 | −0.99 | −0.90 | −0.02 | −1.00 | +0.00 |
+| 108 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 109 | Yunara | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 110 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 111 | Ahri | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 112 | Lillia | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 113 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 114 | Locke | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 115 | Zed | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 116 | Katarina | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 117 | Smolder | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 118 | Tristana | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 119 | Caitlyn | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 120 | Ekko | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 121 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 122 | Leona | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 123 | Xayah | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 124 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 125 | Zoe | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 126 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 127 | Syndra | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 128 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 129 | Rek'Sai | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 130 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 131 | Ryze | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 132 | Mel | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 133 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 134 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 135 | Miss Fortune | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 136 | Rammus | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 137 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 138 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 139 | Bard | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 140 | Samira | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 141 | Sivir | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 142 | Senna | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 143 | Qiyana | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 144 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 145 | Nidalee | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 146 | Soraka | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 147 | Seraphine | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 148 | Zilean | −0.81 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 149 | Xerath | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 150 | Brand | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 151 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 152 | Swain | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 153 | Twitch | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 154 | Aurelion Sol | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 155 | Azir | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 156 | Varus | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 157 | Fiddlesticks | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 158 | Jhin | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 159 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 160 | Renata Glasc | −0.83 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | −1.00 |
+| 161 | Graves | −0.84 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | −1.00 |
+| 162 | Kai'Sa | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 163 | Hecarim | −0.84 | −1.00 | −1.00 | −1.00 | −0.04 | – | −1.00 |
+| 164 | Zeri | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 165 | Talon | −0.85 | −1.00 | −1.00 | −1.00 | −0.08 | – | −1.00 |
+| 166 | Sona | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 167 | Viktor | −0.85 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | −1.00 |
+| 168 | Pyke | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
+| 169 | Twisted Fate | −0.85 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | −1.00 |
+| 170 | Thresh | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 171 | Yuumi | −0.86 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | −1.00 |
+| 172 | Briar | −0.86 | −1.00 | −1.00 | −1.00 | −0.49 | – | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Camille's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +189,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Camille` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.60)
+#### 1. Sivir (net +1.60)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Camille's The Hextech Ultimatum. Spell shield for 1.5 s, long enough to use ahead of The Hextech Ultimatum. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Camille R The Hextech Ultimatum)
 - **0.73** spell shield: Spell Shield's spell shield blocks Camille's Wall Dive. Spell shield for 1.5 s, long enough to use ahead of Wall Dive. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Camille E Wall Dive)
 - **0.23** range: Sivir's basic attacks reach 375 units farther than Camille's (500 vs 125 attack range). Camille closes the gap with Hookshot, The Hextech Ultimatum, Wall Dive. (Sivir basic attacks → Camille basic attacks)
 
-### 2. Udyr (net +1.19)
+#### 2. Udyr (net +1.19)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Camille's The Hextech Ultimatum (airborne, disrupt). Immune for 1.5 s, long enough to use ahead of The Hextech Ultimatum. (Udyr E Blazing Stampede → Camille R The Hextech Ultimatum)
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Camille's Wall Dive (airborne, stun). Immune for 1.5 s, long enough to use ahead of Wall Dive. (Udyr E Blazing Stampede → Camille E Wall Dive)
 - **0.11** cc immunity: Blazing Stampede makes Udyr immune to Camille's Tactical Sweep (slow). Immune for 1.5 s, long enough to use ahead of Tactical Sweep. (Udyr E Blazing Stampede → Camille W Tactical Sweep)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Udyr's Blazing Stampede.
 
-### 3. Olaf (net +1.05)
+#### 3. Olaf (net +1.05)
 
 - **1.00** cc immunity: Ragnarok makes Olaf immune to Camille's The Hextech Ultimatum (airborne, disrupt). Immune for 3 s, long enough to use ahead of The Hextech Ultimatum. (Olaf R Ragnarok → Camille R The Hextech Ultimatum)
 - **0.48** cc immunity: Ragnarok makes Olaf immune to Camille's Wall Dive (airborne, stun). Immune for 3 s, long enough to use ahead of Wall Dive. (Olaf R Ragnarok → Camille E Wall Dive)
 - **0.05** cc immunity: Ragnarok makes Olaf immune to Camille's Tactical Sweep (slow). Immune for 3 s, long enough to use ahead of Tactical Sweep. (Olaf R Ragnarok → Camille W Tactical Sweep)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Olaf's Reckless Swing.
 
-### 4. Vladimir (net +0.99)
+#### 4. Vladimir (net +0.99)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Camille's The Hextech Ultimatum. Untargetable for 2 s, long enough to use ahead of The Hextech Ultimatum. (Vladimir W Sanguine Pool → Camille R The Hextech Ultimatum)
 - **0.78** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Camille's Wall Dive. Untargetable for 2 s, long enough to use ahead of Wall Dive. (Vladimir W Sanguine Pool → Camille E Wall Dive)
 - **0.13** untargetable: Sanguine Pool can deny the initial targeting of Camille's Precision Protocol, but untargetability does not stop its committed effect. Must be used before the enemy commits the attack, dash or mark. The enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup. (Vladimir W Sanguine Pool → Camille Q Precision Protocol)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Vladimir's Hemoplague.
 
-### 5. Fiora (net +0.99)
+#### 5. Fiora (net +0.99)
 
 - **0.88** parry: Riposte parries Camille's Wall Dive and stuns back. Parry for 0.75 s; Wall Dive takes 0.38 s to land, enough to react. Negating Wall Dive's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Camille E Wall Dive)
 - **0.70** parry: Riposte parries Camille's The Hextech Ultimatum and stuns back. Parry for 0.75 s; The Hextech Ultimatum lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating The Hextech Ultimatum's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Camille R The Hextech Ultimatum)
 - **0.16** parry: Riposte parries Camille's Precision Protocol. Parry for 0.75 s; Precision Protocol lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fiora W Riposte → Camille Q Precision Protocol)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Fiora's Riposte.
 
-### 6. Xayah (net +0.95)
+#### 6. Xayah (net +0.95)
 
 - **0.94** untargetable: Featherstorm makes Xayah untargetable, dodging Camille's The Hextech Ultimatum. Untargetable for 1.5 s, long enough to use ahead of The Hextech Ultimatum. (Xayah R Featherstorm → Camille R The Hextech Ultimatum)
 - **0.46** untargetable: Featherstorm makes Xayah untargetable, dodging Camille's Wall Dive. Untargetable for 1.5 s, long enough to use ahead of Wall Dive. (Xayah R Featherstorm → Camille E Wall Dive)
 - **0.19** range: Xayah's basic attacks reach 400 units farther than Camille's (525 vs 125 attack range). Camille closes the gap with Hookshot, The Hextech Ultimatum, Wall Dive. (Xayah basic attacks → Camille basic attacks)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Xayah's Featherstorm.
 
-### 7. Morgana (net +0.79)
+#### 7. Morgana (net +0.79)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Camille's The Hextech Ultimatum (airborne, disrupt). Immune for 5 s, long enough to use ahead of The Hextech Ultimatum. (Morgana E Black Shield → Camille R The Hextech Ultimatum)
 - **0.78** cc immunity: Black Shield makes Morgana immune to Camille's Wall Dive (airborne, stun). Immune for 5 s, long enough to use ahead of Wall Dive. (Morgana E Black Shield → Camille E Wall Dive)
 - **0.10** range: Morgana's basic attacks reach 325 units farther than Camille's (450 vs 125 attack range). Camille closes the gap with Hookshot, The Hextech Ultimatum, Wall Dive. (Morgana basic attacks → Camille basic attacks)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Morgana's Soul Shackles.
 
-### 8. Rengar (net +0.73)
+#### 8. Rengar (net +0.73)
 
 - **0.80** cleanse: Battle Roar cleanses Camille's The Hextech Ultimatum (airborne) after it lands. 10 s cooldown; usable while crowd controlled. Doesn't remove disrupt. (Rengar W Battle Roar → Camille R The Hextech Ultimatum)
 - **0.80** cleanse: Battle Roar cleanses Camille's Wall Dive (airborne, stun) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Camille E Wall Dive)
 - **0.09** cleanse: Battle Roar cleanses Camille's Tactical Sweep (slow) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Camille W Tactical Sweep)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Rengar's Bola Strike.
 
-### 9. Kayle (net +0.73)
+#### 9. Kayle (net +0.73)
 
 - **0.50** invulnerable: Divine Judgment makes Kayle invulnerable to Camille's The Hextech Ultimatum (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of The Hextech Ultimatum. (Kayle R Divine Judgment → Camille R The Hextech Ultimatum)
 - **0.24** invulnerable: Divine Judgment makes Kayle invulnerable to Camille's Wall Dive (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Wall Dive. (Kayle R Divine Judgment → Camille E Wall Dive)
 - **0.20** invulnerable: Divine Judgment makes Kayle invulnerable to Camille's Precision Protocol. Invulnerable for 2.5 s, long enough to use ahead of Precision Protocol. (Kayle R Divine Judgment → Camille Q Precision Protocol)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Kayle's Starfire Spellblade.
 
-### 10. Sion (net +0.63)
+#### 10. Sion (net +0.63)
 
 - **1.00** cc immunity: Unstoppable Onslaught makes Sion immune to Camille's The Hextech Ultimatum (airborne, disrupt). Immune for 8 s, long enough to use ahead of The Hextech Ultimatum. (Sion R Unstoppable Onslaught → Camille R The Hextech Ultimatum)
 - **0.50** cc immunity: Unstoppable Onslaught makes Sion immune to Camille's Wall Dive (airborne, stun). Immune for 8 s, long enough to use ahead of Wall Dive. (Sion R Unstoppable Onslaught → Camille E Wall Dive)
 - **0.06** cc immunity: Unstoppable Onslaught makes Sion immune to Camille's Tactical Sweep (slow). Immune for 8 s, long enough to use ahead of Tactical Sweep. (Sion R Unstoppable Onslaught → Camille W Tactical Sweep)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Sion's Unstoppable Onslaught.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

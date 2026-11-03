@@ -1,5 +1,186 @@
 # Counters to Rengar (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Rengar: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Rengar wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Rengar --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.85 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +1.00 |
+| 2 | Urgot | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 3 | Graves | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 4 | Corki | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 5 | Nilah | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 6 | Vayne | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.11 |
+| 7 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 8 | Gragas | +0.78 | +1.00 | +1.00 | +0.94 | −0.04 | +1.00 | +0.00 |
+| 9 | Fiora | +0.78 | +1.00 | +1.00 | +1.00 | −0.32 | – | +1.00 |
+| 10 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 11 | Quinn | +0.78 | +1.00 | +1.00 | +1.00 | +0.12 | +0.59 | +0.00 |
+| 12 | Master Yi | +0.77 | +1.00 | +1.00 | +1.00 | −0.36 | – | +1.00 |
+| 13 | Rammus | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 14 | Poppy | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 15 | Jhin | +0.76 | +1.00 | +1.00 | +1.00 | −0.24 | +1.00 | +0.00 |
+| 16 | Trundle | +0.76 | +1.00 | +1.00 | +1.00 | −0.42 | – | +1.00 |
+| 17 | Kog'Maw | +0.76 | +1.00 | +1.00 | +1.00 | −0.24 | +1.00 | +0.00 |
+| 18 | Kayle | +0.76 | +1.00 | +1.00 | +1.00 | −0.26 | +1.00 | +0.00 |
+| 19 | Garen | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 20 | Yorick | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 21 | Aphelios | +0.76 | +1.00 | +1.00 | +1.00 | −0.29 | +1.00 | +0.00 |
+| 22 | Tahm Kench | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 23 | Ashe | +0.75 | +1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +0.00 |
+| 24 | Teemo | +0.75 | +1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +0.00 |
+| 25 | Gwen | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 26 | Ivern | +0.75 | +1.00 | +1.00 | +1.00 | −0.34 | +1.00 | +0.00 |
+| 27 | Bel'Veth | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 28 | Kennen | +0.75 | +1.00 | +1.00 | +1.00 | −0.32 | +0.94 | +0.00 |
+| 29 | Taric | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 30 | Gangplank | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 31 | Twisted Fate | +0.74 | +1.00 | +1.00 | +1.00 | −0.37 | +1.00 | +0.00 |
+| 32 | Riven | +0.74 | +1.00 | +1.00 | +1.00 | −0.21 | – | +0.00 |
+| 33 | Sett | +0.74 | +1.00 | +1.00 | +1.00 | −0.21 | – | +0.00 |
+| 34 | Kai'Sa | +0.74 | +1.00 | +1.00 | +1.00 | −0.38 | +1.00 | +0.00 |
+| 35 | Jax | +0.74 | +1.00 | +1.00 | +1.00 | −0.22 | – | +0.00 |
+| 36 | Malzahar | +0.74 | +1.00 | +1.00 | +1.00 | −0.40 | +1.00 | +0.00 |
+| 37 | Lulu | +0.74 | +1.00 | +1.00 | +1.00 | −0.40 | +1.00 | +0.00 |
+| 38 | Samira | +0.74 | +1.00 | +1.00 | +1.00 | −0.41 | +1.00 | +0.00 |
+| 39 | Ambessa | +0.74 | +1.00 | +1.00 | +1.00 | −0.25 | – | +0.00 |
+| 40 | Volibear | +0.74 | +1.00 | +1.00 | +1.00 | −0.25 | – | +0.00 |
+| 41 | Orianna | +0.74 | +1.00 | +1.00 | +1.00 | −0.43 | +1.00 | +0.00 |
+| 42 | Nasus | +0.73 | +1.00 | +1.00 | +1.00 | −0.27 | – | +0.00 |
+| 43 | Zaahen | +0.73 | +1.00 | +1.00 | +1.00 | −0.27 | – | +0.00 |
+| 44 | Skarner | +0.73 | +1.00 | +1.00 | +1.00 | −0.27 | – | +0.00 |
+| 45 | Renekton | +0.73 | +1.00 | +1.00 | +1.00 | −0.28 | – | +0.00 |
+| 46 | Zeri | +0.73 | +1.00 | +1.00 | +1.00 | −0.46 | +1.00 | +0.00 |
+| 47 | Warwick | +0.73 | +1.00 | +1.00 | +1.00 | −0.28 | – | +0.00 |
+| 48 | Maokai | +0.73 | +1.00 | +1.00 | +1.00 | −0.28 | – | +0.00 |
+| 49 | Wukong | +0.73 | +1.00 | +1.00 | +1.00 | −0.29 | – | +0.00 |
+| 50 | Shyvana | +0.73 | +1.00 | +1.00 | +1.00 | −0.30 | – | +0.00 |
+| 51 | Jarvan IV | +0.73 | +1.00 | +1.00 | +1.00 | −0.32 | – | +0.00 |
+| 52 | Sion | +0.73 | +1.00 | +1.00 | +1.00 | −0.32 | – | +0.00 |
+| 53 | Irelia | +0.72 | +1.00 | +1.00 | +1.00 | −0.32 | – | +0.00 |
+| 54 | Udyr | +0.72 | +1.00 | +1.00 | +1.00 | −0.32 | – | +0.00 |
+| 55 | Diana | +0.72 | +1.00 | +1.00 | +1.00 | −0.34 | – | +0.00 |
+| 56 | Viego | +0.72 | +1.00 | +1.00 | +1.00 | −0.34 | – | +0.00 |
+| 57 | Olaf | +0.72 | +1.00 | +1.00 | +1.00 | −0.34 | – | +0.00 |
+| 58 | Lee Sin | +0.72 | +1.00 | +1.00 | +1.00 | −0.34 | – | +0.00 |
+| 59 | Yasuo | +0.72 | +1.00 | +1.00 | +1.00 | −0.36 | – | +0.00 |
+| 60 | Yone | +0.72 | +1.00 | +1.00 | +1.00 | −0.36 | – | +0.00 |
+| 61 | Cho'Gath | +0.71 | +1.00 | +1.00 | +1.00 | −0.38 | – | +0.00 |
+| 62 | Illaoi | +0.71 | +1.00 | +1.00 | +1.00 | −0.39 | – | +0.00 |
+| 63 | Darius | +0.71 | +1.00 | +1.00 | +1.00 | −0.39 | – | +0.00 |
+| 64 | Pantheon | +0.71 | +1.00 | +1.00 | +1.00 | −0.40 | – | +0.00 |
+| 65 | Kassadin | +0.71 | +1.00 | +1.00 | +1.00 | −0.40 | – | +0.00 |
+| 66 | Rek'Sai | +0.71 | +1.00 | +1.00 | +1.00 | −0.41 | – | +0.00 |
+| 67 | Braum | +0.71 | +1.00 | +1.00 | +1.00 | −0.41 | – | +0.00 |
+| 68 | Alistar | +0.71 | +1.00 | +1.00 | +1.00 | −0.42 | – | +0.00 |
+| 69 | Vi | +0.71 | +1.00 | +1.00 | +1.00 | −0.42 | – | +0.00 |
+| 70 | Mordekaiser | +0.71 | +1.00 | +1.00 | +1.00 | −0.42 | – | +0.00 |
+| 71 | Tryndamere | +0.70 | +1.00 | +1.00 | +1.00 | −0.44 | – | +0.00 |
+| 72 | Camille | +0.70 | +1.00 | +1.00 | +1.00 | −0.45 | – | +0.00 |
+| 73 | Kled | +0.70 | +1.00 | +1.00 | +1.00 | −0.47 | – | +0.00 |
+| 74 | Zac | +0.70 | +1.00 | +0.88 | +1.00 | −0.28 | – | +0.00 |
+| 75 | Aatrox | +0.70 | +1.00 | +1.00 | +1.00 | −0.48 | – | +0.00 |
+| 76 | Amumu | +0.61 | +0.69 | +0.92 | +1.00 | −0.36 | – | +0.00 |
+| 77 | Elise | +0.58 | +1.00 | +1.00 | +1.00 | −0.12 | −1.00 | +0.00 |
+| 78 | Fiddlesticks | +0.58 | +1.00 | +1.00 | +1.00 | −0.13 | −1.00 | +0.00 |
+| 79 | Gnar | +0.56 | +1.00 | +1.00 | +1.00 | −0.34 | −0.93 | +0.00 |
+| 80 | Heimerdinger | +0.56 | +1.00 | +1.00 | +1.00 | −0.29 | −1.00 | +0.00 |
+| 81 | Kindred | +0.55 | +1.00 | +1.00 | +1.00 | −0.35 | −1.00 | +0.00 |
+| 82 | Cassiopeia | +0.51 | +0.51 | +0.62 | +0.71 | +0.13 | +0.71 | +0.00 |
+| 83 | Neeko | +0.51 | +1.00 | +1.00 | −0.01 | −0.27 | +0.54 | +0.00 |
+| 84 | Lucian | +0.49 | +0.00 | +1.00 | +1.00 | −0.39 | +1.00 | +0.00 |
+| 85 | Yunara | +0.37 | +0.25 | +0.25 | +1.00 | −0.38 | +1.00 | +0.00 |
+| 86 | Brand | +0.35 | +0.66 | +0.68 | +0.13 | −0.41 | +0.55 | +0.00 |
+| 87 | Akshan | +0.34 | +1.00 | +1.00 | −1.00 | −0.37 | +1.00 | +0.00 |
+| 88 | Rell | +0.28 | −0.94 | +1.00 | +1.00 | −0.26 | +1.00 | +0.00 |
+| 89 | Jayce | +0.27 | +1.00 | −0.64 | +1.00 | −0.28 | – | +0.00 |
+| 90 | Anivia | +0.26 | +0.21 | +0.21 | +1.00 | −0.37 | +0.15 | +0.00 |
+| 91 | Rakan | +0.26 | −0.95 | +1.00 | +1.00 | −0.32 | +1.00 | +0.00 |
+| 92 | Swain | +0.26 | +1.00 | +0.98 | −0.52 | −0.24 | −0.95 | +0.00 |
+| 93 | Malphite | +0.26 | +0.04 | +0.06 | +1.00 | +0.03 | – | +0.00 |
+| 94 | Varus | +0.25 | −1.00 | +1.00 | +1.00 | −0.30 | +1.00 | +0.00 |
+| 95 | Smolder | +0.25 | +1.00 | −1.00 | +1.00 | −0.35 | +1.00 | +0.00 |
+| 96 | Ornn | +0.24 | −0.01 | +0.05 | +0.99 | +0.06 | – | +0.00 |
+| 97 | Sejuani | +0.17 | −1.00 | +1.00 | +1.00 | −0.33 | – | +0.00 |
+| 98 | Azir | +0.13 | +1.00 | +1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
+| 99 | Akali | −0.02 | −1.00 | +1.00 | +0.12 | −0.29 | – | +0.00 |
+| 100 | Sylas | −0.05 | +0.63 | −0.17 | −0.60 | −0.26 | – | +0.00 |
+| 101 | Karma | −0.06 | +0.23 | −1.00 | +1.00 | −0.09 | −0.54 | +0.00 |
+| 102 | Vex | −0.15 | +0.45 | −0.86 | +0.00 | −0.45 | +0.16 | +0.00 |
+| 103 | Kayn | −0.17 | −0.13 | −0.13 | −0.13 | −0.41 | – | +0.00 |
+| 104 | Tristana | −0.22 | −1.00 | −1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 105 | Miss Fortune | −0.26 | −1.00 | −1.00 | +1.00 | −0.39 | +1.00 | +0.00 |
+| 106 | Ezreal | −0.26 | −1.00 | +0.63 | −0.67 | +0.03 | −0.41 | +0.00 |
+| 107 | Fizz | −0.29 | −1.00 | +1.00 | −1.00 | −0.39 | – | +0.00 |
+| 108 | Zed | −0.30 | −1.00 | +1.00 | −1.00 | −0.48 | – | +0.00 |
+| 109 | Hecarim | −0.38 | −1.00 | −1.00 | +1.00 | −0.29 | – | +0.00 |
+| 110 | Morgana | −0.39 | −1.00 | −1.00 | +1.00 | +0.04 | −0.96 | +0.00 |
+| 111 | Shaco | −0.39 | −1.00 | −1.00 | +1.00 | −0.34 | – | +0.00 |
+| 112 | Vel'Koz | −0.41 | −1.00 | −1.00 | +0.77 | −0.20 | −0.32 | +0.00 |
+| 113 | Nocturne | −0.41 | −1.00 | −1.00 | +1.00 | −0.46 | – | +0.00 |
+| 114 | Rumble | −0.42 | −1.00 | −1.00 | +0.92 | −0.40 | – | +0.00 |
+| 115 | Draven | −0.43 | −1.00 | −1.00 | +1.00 | −0.20 | −1.00 | +0.00 |
+| 116 | Leona | −0.44 | −1.00 | −1.00 | +0.82 | −0.39 | – | +0.00 |
+| 117 | Zilean | −0.57 | −1.00 | −1.00 | +0.00 | −0.45 | +0.00 | +0.00 |
+| 118 | Kalista | −0.72 | −0.97 | −0.89 | −1.00 | −0.35 | +0.01 | +0.00 |
+| 119 | Jinx | −0.73 | −1.00 | −1.00 | −0.77 | −0.37 | −0.16 | +0.00 |
+| 120 | Aurelion Sol | −0.73 | −1.00 | −1.00 | −1.00 | +0.46 | −1.00 | +0.00 |
+| 121 | Singed | −0.76 | −1.00 | −0.97 | −1.00 | +0.03 | – | +0.00 |
+| 122 | Milio | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 123 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 124 | Syndra | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 125 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 126 | Shen | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 127 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 128 | Senna | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 129 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 130 | Nautilus | −0.82 | −1.00 | −1.00 | −1.00 | −0.33 | −0.71 | +0.00 |
+| 131 | Blitzcrank | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 132 | Ziggs | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 133 | Evelynn | −0.84 | −1.00 | −1.00 | −1.00 | −0.34 | – | +0.00 |
+| 134 | Briar | −0.84 | −1.00 | −1.00 | −1.00 | −0.34 | – | +0.00 |
+| 135 | Nunu & Willump | −0.84 | −1.00 | −1.00 | −1.00 | −0.34 | – | +0.00 |
+| 136 | Galio | −0.84 | −1.00 | −1.00 | −1.00 | −0.36 | – | +0.00 |
+| 137 | Naafiri | −0.84 | −1.00 | −1.00 | −1.00 | −0.36 | – | +0.00 |
+| 138 | Ahri | −0.84 | −1.00 | −1.00 | −1.00 | −0.27 | −1.00 | +0.00 |
+| 139 | Janna | −0.84 | −1.00 | −1.00 | −1.00 | −0.27 | −1.00 | +0.00 |
+| 140 | Qiyana | −0.84 | −1.00 | −1.00 | −1.00 | −0.38 | – | +0.00 |
+| 141 | Zyra | −0.85 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+| 142 | Karthus | −0.85 | −1.00 | −1.00 | −1.00 | −0.32 | −1.00 | +0.00 |
+| 143 | Taliyah | −0.85 | −1.00 | −1.00 | −1.00 | −0.32 | −1.00 | +0.00 |
+| 144 | Ekko | −0.85 | −1.00 | −1.00 | −1.00 | −0.43 | – | +0.00 |
+| 145 | Lux | −0.85 | −1.00 | −1.00 | −1.00 | −0.33 | −1.00 | +0.00 |
+| 146 | Caitlyn | −0.85 | −1.00 | −1.00 | −1.00 | −0.33 | −1.00 | +0.00 |
+| 147 | Locke | −0.85 | −1.00 | −1.00 | −1.00 | −0.45 | – | +0.00 |
+| 148 | Annie | −0.85 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 149 | Nidalee | −0.85 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 150 | Bard | −0.85 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 151 | Twitch | −0.85 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 152 | Talon | −0.85 | −1.00 | −1.00 | −1.00 | −0.45 | – | +0.00 |
+| 153 | Kha'Zix | −0.85 | −1.00 | −1.00 | −1.00 | −0.45 | – | +0.00 |
+| 154 | Hwei | −0.85 | −1.00 | −1.00 | −1.00 | −0.36 | −1.00 | +0.00 |
+| 155 | Nami | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
+| 156 | Vladimir | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
+| 157 | Mel | −0.86 | −1.00 | −1.00 | −1.00 | −0.38 | −1.00 | +0.00 |
+| 158 | Katarina | −0.86 | −1.00 | −1.00 | −1.00 | −0.48 | – | +0.00 |
+| 159 | Xayah | −0.86 | −1.00 | −1.00 | −1.00 | −0.39 | −1.00 | +0.00 |
+| 160 | Ryze | −0.86 | −1.00 | −1.00 | −1.00 | −0.40 | −1.00 | +0.00 |
+| 161 | Viktor | −0.86 | −1.00 | −1.00 | −1.00 | −0.41 | −1.00 | +0.00 |
+| 162 | Lissandra | −0.86 | −1.00 | −1.00 | −1.00 | −0.42 | −1.00 | +0.00 |
+| 163 | Sona | −0.86 | −1.00 | −1.00 | −1.00 | −0.42 | −1.00 | +0.00 |
+| 164 | Seraphine | −0.86 | −1.00 | −1.00 | −1.00 | −0.42 | −1.00 | +0.00 |
+| 165 | Aurora | −0.86 | −1.00 | −1.00 | −1.00 | −0.43 | −1.00 | +0.00 |
+| 166 | Lillia | −0.86 | −1.00 | −1.00 | −1.00 | −0.43 | −1.00 | +0.00 |
+| 167 | Renata Glasc | −0.86 | −1.00 | −1.00 | −1.00 | −0.43 | −1.00 | +0.00 |
+| 168 | Sivir | −0.87 | −1.00 | −1.00 | −1.00 | −0.46 | −1.00 | +0.00 |
+| 169 | Yuumi | −0.87 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 170 | Soraka | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 171 | Pyke | −0.88 | −1.00 | −1.00 | −1.00 | −0.51 | −1.00 | +0.00 |
+| 172 | Thresh | −0.91 | −1.00 | −1.00 | −1.00 | −0.41 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Rengar's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,35 +189,35 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Rengar` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.45)
+#### 1. Sivir (net +1.45)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Rengar's (500 vs 125 attack range). Rengar has no dash or blink to close the gap. (Sivir basic attacks → Rengar basic attacks)
 - **0.51** spell shield: Spell Shield's spell shield blocks Rengar's Bola Strike. Spell shield for 1.5 s, long enough to use ahead of Bola Strike. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Rengar E Bola Strike)
 
-### 2. Yuumi (net +1.36)
+#### 2. Yuumi (net +1.36)
 
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Rengar's Bola Strike. Untargetable for ?; Bola Strike takes 0.92 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Rengar E Bola Strike)
 - **0.64** range: Yuumi's basic attacks reach 300 units farther than Rengar's (425 vs 125 attack range). Rengar has no dash or blink to close the gap. (Yuumi basic attacks → Rengar basic attacks)
 - **0.33** untargetable: You and Me! makes Yuumi untargetable, dodging Rengar's Thrill of the Hunt. Untargetable for ?; Thrill of the Hunt lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Rengar R Thrill of the Hunt)
 - Watch out: Battle Roar cleanses Yuumi's Final Chapter (slow) after it lands.
 
-### 3. Vladimir (net +1.06)
+#### 3. Vladimir (net +1.06)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rengar's Thrill of the Hunt. Untargetable for 2 s, long enough to use ahead of Thrill of the Hunt. (Vladimir W Sanguine Pool → Rengar R Thrill of the Hunt)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rengar's Bola Strike. Untargetable for 2 s, long enough to use ahead of Bola Strike. (Vladimir W Sanguine Pool → Rengar E Bola Strike)
 - **0.36** range: Vladimir's basic attacks reach 325 units farther than Rengar's (450 vs 125 attack range). Rengar has no dash or blink to close the gap. (Vladimir basic attacks → Rengar basic attacks)
 - Watch out: Battle Roar cleanses Vladimir's Sanguine Pool (slow) after it lands.
 
-### 4. Kayle (net +1.01)
+#### 4. Kayle (net +1.01)
 
 - **0.72** range: Kayle's basic attacks reach 500 units farther than Rengar's (625 vs 125 attack range). Rengar has no dash or blink to close the gap. (Kayle basic attacks → Rengar basic attacks)
 - **0.28** invulnerable: Divine Judgment makes Kayle invulnerable to Rengar's Thrill of the Hunt (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Thrill of the Hunt. (Kayle R Divine Judgment → Rengar R Thrill of the Hunt)
 - **0.17** invulnerable: Divine Judgment makes Kayle invulnerable to Rengar's Bola Strike (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Bola Strike. (Kayle R Divine Judgment → Rengar E Bola Strike)
 - Watch out: Battle Roar cleanses Kayle's Radiant Blast (slow) after it lands.
 
-### 5. Teemo (net +0.96)
+#### 5. Teemo (net +0.96)
 
 - **0.68** range: Teemo's basic attacks reach 375 units farther than Rengar's (500 vs 125 attack range). Rengar has no dash or blink to close the gap. (Teemo basic attacks → Rengar basic attacks)
 - **0.50** blind: Blinding Dart's blind makes Rengar's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Rengar basic attacks)
@@ -45,35 +226,35 @@ Run `npm run matchup -- <champion> Rengar` for the full ledger of a matchup, wit
     - The mark will however still linger for a very short period after that, allowing Rengar to consume it with a quick basic attack. [https://github.com/ArdaSenyurek/Rengar-Bugs/issues/108]. (Teemo Q Blinding Dart → Rengar R Thrill of the Hunt)
 - Watch out: Battle Roar cleanses Teemo's Blinding Dart (blind) after it lands.
 
-### 6. Xayah (net +0.92)
+#### 6. Xayah (net +0.92)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Rengar's (525 vs 125 attack range). Rengar has no dash or blink to close the gap. (Xayah basic attacks → Rengar basic attacks)
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Rengar's Thrill of the Hunt. Untargetable for 1.5 s, long enough to use ahead of Thrill of the Hunt. (Xayah R Featherstorm → Rengar R Thrill of the Hunt)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Rengar's Bola Strike. Untargetable for 1.5 s, long enough to use ahead of Bola Strike. (Xayah R Featherstorm → Rengar E Bola Strike)
 - Watch out: Battle Roar cleanses Xayah's Bladecaller (root) after it lands.
 
-### 7. Kindred (net +0.86)
+#### 7. Kindred (net +0.86)
 
 - **0.94** range: Kindred's basic attacks reach 375 units farther than Rengar's (500 vs 125 attack range). Rengar has no dash or blink to close the gap. (Kindred basic attacks → Rengar basic attacks)
 - Watch out: Battle Roar cleanses Kindred's Mounting Dread (slow) after it lands.
 
-### 8. Zeri (net +0.80)
+#### 8. Zeri (net +0.80)
 
 - **0.88** range: Zeri's basic attacks reach 425 units farther than Rengar's (550 vs 125 attack range). Rengar has no dash or blink to close the gap. (Zeri basic attacks → Rengar basic attacks)
 - Watch out: Battle Roar cleanses Zeri's Ultrashock Laser (slow) after it lands.
 
-### 9. Master Yi (net +0.79)
+#### 9. Master Yi (net +0.79)
 
 - **0.51** untargetable: Alpha Strike makes Master Yi untargetable, dodging Rengar's Bola Strike. Untargetable for ?; Bola Strike takes 0.92 s to land, enough to react. (Master Yi Q Alpha Strike → Rengar E Bola Strike)
 - **0.33** untargetable: Alpha Strike makes Master Yi untargetable, dodging Rengar's Thrill of the Hunt. Untargetable for ?; Thrill of the Hunt lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Rengar R Thrill of the Hunt)
 - **0.08** cc immunity: Highlander makes Master Yi immune to Rengar's Bola Strike (slow). Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Rengar E Bola Strike)
 
-### 10. Nidalee (net +0.74)
+#### 10. Nidalee (net +0.74)
 
 - **0.60** range: Nidalee's basic attacks reach 400 units farther than Rengar's (525 vs 125 attack range). Rengar has no dash or blink to close the gap. (Nidalee basic attacks → Rengar basic attacks)
 - **0.14** reveal: Prowl reveals Rengar through Thrill of the Hunt's stealth. (Nidalee I Prowl → Rengar R Thrill of the Hunt)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

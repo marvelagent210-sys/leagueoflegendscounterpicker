@@ -1,5 +1,186 @@
 # Counters to Xin Zhao (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Xin Zhao: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Xin Zhao wins every time) to +1 (the champion does). Run `npm run duel -- <champion> XinZhao --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.89 | +1.00 | +1.00 | +1.00 | +0.24 | +1.00 | +1.00 |
+| 2 | Kayle | +0.86 | +1.00 | +1.00 | +1.00 | +0.43 | +1.00 | +0.00 |
+| 3 | Yorick | +0.85 | +1.00 | +1.00 | +1.00 | +0.07 | – | +1.00 |
+| 4 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.04 | – | +1.00 |
+| 5 | Morgana | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 6 | Aphelios | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 7 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.05 | – | +1.00 |
+| 8 | Vayne | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 9 | Kalista | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 10 | Ivern | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 11 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 12 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 13 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 14 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 15 | Warwick | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 16 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 17 | Sivir | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 18 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 19 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 20 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 21 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 22 | Shyvana | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 23 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 24 | Yasuo | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 25 | Karma | +0.78 | +0.99 | +0.99 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 26 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 27 | Singed | +0.77 | +1.00 | +1.00 | +0.93 | +0.04 | – | +0.00 |
+| 28 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 29 | Neeko | +0.75 | +1.00 | +0.97 | +0.64 | +0.20 | +0.99 | +0.00 |
+| 30 | Nocturne | +0.75 | +0.71 | +0.98 | +1.00 | −0.01 | – | +1.00 |
+| 31 | Ashe | +0.74 | +0.70 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 32 | Xayah | +0.71 | +1.00 | +1.00 | +0.56 | −0.01 | +1.00 | +0.00 |
+| 33 | Milio | +0.66 | +0.91 | +0.92 | +0.62 | +0.24 | +0.39 | +0.00 |
+| 34 | Zaahen | +0.65 | +0.88 | +0.71 | +1.00 | −0.07 | – | +0.00 |
+| 35 | Kled | +0.64 | +0.80 | +0.80 | +1.00 | −0.14 | – | +0.00 |
+| 36 | Quinn | +0.62 | +1.00 | +0.71 | +0.85 | +0.01 | +0.22 | +0.00 |
+| 37 | Lulu | +0.60 | +1.00 | +0.95 | +0.82 | +0.11 | −0.70 | +0.00 |
+| 38 | Ambessa | +0.55 | +1.00 | +1.00 | −0.28 | +0.35 | – | +0.00 |
+| 39 | Kennen | +0.55 | +0.70 | +0.37 | +0.96 | +0.04 | +0.86 | +0.00 |
+| 40 | Twisted Fate | +0.54 | +0.50 | +0.87 | +0.46 | +0.06 | +1.00 | +0.00 |
+| 41 | Taric | +0.54 | +0.85 | +0.23 | +1.00 | +0.10 | – | +0.00 |
+| 42 | Wukong | +0.51 | +1.00 | +1.00 | +0.00 | −0.16 | – | −0.32 |
+| 43 | Aurora | +0.31 | −0.14 | +0.20 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 44 | Elise | +0.25 | +0.58 | −0.16 | +1.00 | +0.15 | −0.79 | +0.00 |
+| 45 | Graves | +0.19 | +1.00 | +1.00 | −1.00 | +0.25 | −0.93 | −1.00 |
+| 46 | Zeri | +0.16 | +0.66 | +0.61 | −1.00 | −0.17 | +0.66 | +0.00 |
+| 47 | Vel'Koz | +0.14 | +0.75 | +0.90 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 48 | Draven | +0.13 | +0.51 | +0.39 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 49 | Cassiopeia | +0.10 | −1.00 | +1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 50 | Mordekaiser | +0.07 | +0.13 | −0.07 | +0.30 | −0.06 | – | +0.00 |
+| 51 | Rakan | +0.07 | +1.00 | −1.00 | −0.14 | −0.03 | +1.00 | +0.00 |
+| 52 | Lucian | +0.04 | +0.51 | +0.12 | −1.00 | +0.01 | +0.84 | +0.00 |
+| 53 | Varus | +0.02 | +0.97 | −0.85 | −0.01 | +0.02 | −0.12 | +0.00 |
+| 54 | Syndra | +0.01 | +0.71 | +0.57 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 55 | Jayce | −0.00 | +1.00 | −1.00 | −0.11 | +0.14 | – | +0.00 |
+| 56 | Anivia | −0.02 | −0.12 | +0.12 | −0.04 | −0.12 | +0.10 | +0.00 |
+| 57 | Jinx | −0.10 | +0.07 | −0.24 | +0.20 | +0.04 | −1.00 | +0.00 |
+| 58 | Bel'Veth | −0.14 | −0.98 | −0.65 | +1.00 | +0.23 | – | +0.98 |
+| 59 | Gangplank | −0.16 | −1.00 | +1.00 | −1.00 | +0.04 | – | +1.00 |
+| 60 | Lux | −0.19 | +0.95 | −0.93 | −0.54 | +0.12 | −1.00 | +0.00 |
+| 61 | Heimerdinger | −0.19 | −0.74 | −0.53 | +1.00 | +0.17 | −1.00 | +0.00 |
+| 62 | Volibear | −0.21 | +0.97 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 63 | Sion | −0.23 | −0.51 | −0.28 | +0.00 | −0.06 | – | +0.00 |
+| 64 | Zac | −0.24 | −0.04 | −0.04 | −0.96 | −0.00 | – | +0.00 |
+| 65 | Janna | −0.25 | +0.42 | −1.00 | −0.69 | +0.12 | +0.16 | +0.00 |
+| 66 | Camille | −0.27 | +0.00 | −1.00 | +0.00 | +0.04 | – | +0.00 |
+| 67 | Brand | −0.28 | −0.25 | −0.10 | −1.00 | +0.00 | +0.12 | +0.00 |
+| 68 | Tahm Kench | −0.28 | −0.43 | −0.19 | −0.53 | +0.07 | – | +0.00 |
+| 69 | Hwei | −0.30 | −0.56 | −0.81 | −0.06 | −0.09 | +0.72 | +0.00 |
+| 70 | Yunara | −0.30 | −0.71 | +0.29 | −1.00 | −0.07 | +0.14 | +0.00 |
+| 71 | Corki | −0.30 | −1.00 | −0.21 | +0.42 | +0.10 | −1.00 | +0.00 |
+| 72 | Miss Fortune | −0.31 | +1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 73 | Pantheon | −0.31 | −1.00 | −1.00 | +1.00 | +0.15 | – | +0.00 |
+| 74 | Cho'Gath | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
+| 75 | Orianna | −0.34 | −1.00 | −1.00 | +1.00 | −0.02 | −0.32 | +0.00 |
+| 76 | Zilean | −0.42 | +0.55 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 77 | Bard | −0.43 | −0.39 | −0.44 | −1.00 | +0.12 | −0.43 | +0.00 |
+| 78 | Braum | −0.46 | −0.70 | −0.96 | +0.00 | −0.03 | – | +0.00 |
+| 79 | Samira | −0.51 | −1.00 | −1.00 | +0.40 | +0.08 | −1.00 | +0.00 |
+| 80 | Swain | −0.61 | −0.45 | −0.97 | −1.00 | −0.04 | −0.45 | +0.00 |
+| 81 | Tristana | −0.65 | −1.00 | −1.00 | −1.00 | −0.05 | +0.60 | +0.00 |
+| 82 | Senna | −0.65 | −0.89 | −1.00 | −1.00 | +0.10 | +0.06 | +0.00 |
+| 83 | Lissandra | −0.66 | −1.00 | −1.00 | −1.00 | +0.03 | +0.31 | +0.00 |
+| 84 | LeBlanc | −0.67 | −1.00 | −1.00 | −0.35 | +0.02 | −1.00 | +0.00 |
+| 85 | Ezreal | −0.67 | −0.96 | −1.00 | −0.48 | +0.06 | −0.98 | +0.00 |
+| 86 | Annie | −0.68 | −1.00 | −1.00 | −0.87 | +0.18 | −0.29 | +0.00 |
+| 87 | Lillia | −0.68 | −1.00 | −1.00 | −0.39 | +0.00 | −1.00 | +0.00 |
+| 88 | Ahri | −0.68 | −1.00 | −1.00 | −1.00 | +0.13 | +0.00 | +0.00 |
+| 89 | Gnar | −0.71 | −1.00 | −1.00 | −1.00 | −0.05 | +0.02 | +0.00 |
+| 90 | Riven | −0.72 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.50 |
+| 91 | Ornn | −0.74 | −1.00 | −1.00 | −1.00 | +0.24 | – | +0.00 |
+| 92 | Zyra | −0.74 | −0.89 | −1.00 | −1.00 | +0.04 | −0.71 | +0.00 |
+| 93 | Udyr | −0.74 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.32 |
+| 94 | Garen | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 95 | Hecarim | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 96 | Skarner | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
+| 97 | Yone | −0.75 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.49 |
+| 98 | Viego | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 99 | Nilah | −0.76 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 100 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 101 | Jarvan IV | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 102 | Nunu & Willump | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 103 | Kayn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 104 | Master Yi | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 105 | Naafiri | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 106 | Maokai | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 107 | Zed | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 108 | Irelia | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 109 | Nautilus | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 110 | Sylas | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 111 | Amumu | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 112 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 113 | Briar | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 114 | Lee Sin | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 115 | Vex | −0.77 | −0.82 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 116 | Diana | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 117 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 118 | Rell | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 119 | Gwen | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 120 | Rengar | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 121 | Fizz | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 122 | Rek'Sai | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 123 | Blitzcrank | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 124 | Akshan | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | −0.75 | +0.00 |
+| 125 | Shaco | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 126 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 127 | Mel | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 128 | Sejuani | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 129 | Vi | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 130 | Galio | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 131 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 132 | Caitlyn | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 133 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 134 | Taliyah | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 135 | Smolder | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | −0.79 | +0.00 |
+| 136 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 137 | Ryze | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 138 | Alistar | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 139 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 140 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 141 | Locke | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 142 | Qiyana | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 143 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 144 | Ziggs | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 145 | Jhin | −0.79 | −0.94 | −0.98 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 146 | Nami | −0.80 | −1.00 | −0.94 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 147 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 148 | Gragas | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 149 | Soraka | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 150 | Rammus | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 151 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 152 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 153 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 154 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 155 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 156 | Kindred | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 157 | Kai'Sa | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 158 | Aurelion Sol | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 159 | Malzahar | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 160 | Azir | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 161 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 162 | Viktor | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 163 | Seraphine | −0.82 | −0.98 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 164 | Sona | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 165 | Thresh | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 166 | Nidalee | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 167 | Fiddlesticks | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 168 | Twitch | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 169 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.31 | – | +0.00 |
+| 170 | Yuumi | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 171 | Pyke | −0.84 | −1.00 | −1.00 | −1.00 | −0.25 | −1.00 | +0.00 |
+| 172 | Renata Glasc | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Xin Zhao's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,77 +189,77 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> XinZhao` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.57)
+#### 1. Sivir (net +1.57)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Xin Zhao's Crescent Guard. Spell shield for 1.5 s, long enough to use ahead of Crescent Guard. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Xin Zhao R Crescent Guard)
 - **0.61** spell shield: Spell Shield's spell shield blocks Xin Zhao's Audacious Charge. Spell shield for 1.5 s, long enough to use ahead of Audacious Charge. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Xin Zhao E Audacious Charge)
 - **0.41** range: Sivir's basic attacks reach 325 units farther than Xin Zhao's (500 vs 175 attack range). Xin Zhao closes the gap with Audacious Charge. (Sivir basic attacks → Xin Zhao basic attacks)
 
-### 2. Bard (net +1.28)
+#### 2. Bard (net +1.28)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Xin Zhao's Crescent Guard. Untargetable for 2.5 s, long enough to use ahead of Crescent Guard. (Bard R Tempered Fate → Xin Zhao R Crescent Guard)
 - **0.39** untargetable: Tempered Fate makes Bard untargetable, dodging Xin Zhao's Audacious Charge. Untargetable for 2.5 s, long enough to use ahead of Audacious Charge. (Bard R Tempered Fate → Xin Zhao E Audacious Charge)
 - **0.31** range: Bard's basic attacks reach 325 units farther than Xin Zhao's (500 vs 175 attack range). Xin Zhao closes the gap with Audacious Charge. (Bard basic attacks → Xin Zhao basic attacks)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Bard's Cosmic Binding (its crowd control still applies).
 
-### 3. Fiora (net +1.17)
+#### 3. Fiora (net +1.17)
 
 - **0.90** parry: Riposte parries Xin Zhao's Crescent Guard and stuns back. Parry for 0.75 s; Crescent Guard takes 0.35 s to land, enough to react. Negating Crescent Guard's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Xin Zhao R Crescent Guard)
 - **0.65** parry: Riposte parries Xin Zhao's Audacious Charge. Parry for 0.75 s; Audacious Charge takes 0.26 s to land, enough to react. (Fiora W Riposte → Xin Zhao E Audacious Charge)
 - **0.35** parry: Riposte parries Xin Zhao's Three Talon Strike and stuns back. Parry for 0.75 s; Three Talon Strike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Three Talon Strike's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Xin Zhao Q Three Talon Strike)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Fiora's Riposte (its crowd control still applies).
 
-### 4. Udyr (net +1.06)
+#### 4. Udyr (net +1.06)
 
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Xin Zhao's Crescent Guard (airborne, stun). Immune for 1.5 s, long enough to use ahead of Crescent Guard. (Udyr E Blazing Stampede → Xin Zhao R Crescent Guard)
 - **0.63** cc immunity: Blazing Stampede makes Udyr immune to Xin Zhao's Three Talon Strike (airborne). Immune for 1.5 s, long enough to use ahead of Three Talon Strike. (Udyr E Blazing Stampede → Xin Zhao Q Three Talon Strike)
 - **0.20** cc immunity: Blazing Stampede makes Udyr immune to Xin Zhao's Audacious Charge (slow). Immune for 1.5 s, long enough to use ahead of Audacious Charge. (Udyr E Blazing Stampede → Xin Zhao E Audacious Charge)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Udyr's Wingborne Storm (its crowd control still applies).
 
-### 5. Aurora (net +0.97)
+#### 5. Aurora (net +0.97)
 
 - **0.80** untargetable: Between Worlds makes Aurora untargetable, dodging Xin Zhao's Crescent Guard. Untargetable for 0.4 s; Crescent Guard takes 0.35 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Xin Zhao R Crescent Guard)
 - **0.37** untargetable: Between Worlds makes Aurora untargetable, dodging Xin Zhao's Audacious Charge. Untargetable for 0.4 s; Audacious Charge takes 0.26 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Xin Zhao E Audacious Charge)
 - **0.27** range: Aurora's basic attacks reach 375 units farther than Xin Zhao's (550 vs 175 attack range). Xin Zhao closes the gap with Audacious Charge. (Aurora basic attacks → Xin Zhao basic attacks)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Aurora's Between Worlds (its crowd control still applies).
 
-### 6. Kled (net +0.96)
+#### 6. Kled (net +0.96)
 
 - **0.76** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Xin Zhao's Crescent Guard (airborne, stun). Immune for ?; Crescent Guard takes 0.35 s to land, enough to react. (Kled R Chaaaaaaaarge!!! → Xin Zhao R Crescent Guard)
 - **0.18** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Xin Zhao's Three Talon Strike (airborne). Immune for ?; Three Talon Strike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Kled R Chaaaaaaaarge!!! → Xin Zhao Q Three Talon Strike)
 - **0.09** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Xin Zhao's Audacious Charge (slow). Immune for ?; Audacious Charge takes 0.26 s to land, enough to react. (Kled R Chaaaaaaaarge!!! → Xin Zhao E Audacious Charge)
 
-### 7. Gwen (net +0.93)
+#### 7. Gwen (net +0.93)
 
 - **0.80** untargetable: Hallowed Mist makes Gwen untargetable, dodging Xin Zhao's Crescent Guard. Untargetable for ?; Crescent Guard takes 0.35 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Xin Zhao R Crescent Guard)
 - **0.61** untargetable: Hallowed Mist makes Gwen untargetable, dodging Xin Zhao's Audacious Charge. Untargetable for ?; Audacious Charge takes 0.26 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Xin Zhao E Audacious Charge)
 - **0.24** untargetable: Hallowed Mist makes Gwen untargetable, dodging Xin Zhao's Three Talon Strike. Untargetable for ?; Three Talon Strike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Xin Zhao Q Three Talon Strike)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Gwen's Needlework (its crowd control still applies).
 
-### 8. Teemo (net +0.90)
+#### 8. Teemo (net +0.90)
 
 - **0.58** blind: Blinding Dart's blind makes Xin Zhao's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Xin Zhao basic attacks)
 - **0.46** blind: Blinding Dart's blind makes Xin Zhao's Three Talon Strike, an empowered attack, miss. Blind for 3 s. Spell shield will only block the knock up. (Teemo Q Blinding Dart → Xin Zhao Q Three Talon Strike)
 - **0.29** range: Teemo's basic attacks reach 325 units farther than Xin Zhao's (500 vs 175 attack range). Xin Zhao closes the gap with Audacious Charge. (Teemo basic attacks → Xin Zhao basic attacks)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Teemo's Noxious Trap (its crowd control still applies).
 
-### 9. Nocturne (net +0.89)
+#### 9. Nocturne (net +0.89)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Xin Zhao's Crescent Guard. Spell shield for 1.5 s, long enough to use ahead of Crescent Guard. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Xin Zhao R Crescent Guard)
 - **0.76** spell shield: Shroud of Darkness's spell shield blocks Xin Zhao's Audacious Charge. Spell shield for 1.5 s, long enough to use ahead of Audacious Charge. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Xin Zhao E Audacious Charge)
 - **0.23** spell shield: Shroud of Darkness's spell shield blocks part of Xin Zhao's Three Talon Strike. Spell shield for 1.5 s, long enough to use ahead of Three Talon Strike. A spell shield blocks only the first enemy ability that reaches it. Spell shield will only block the knock up. (Nocturne W Shroud of Darkness → Xin Zhao Q Three Talon Strike)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Nocturne's Paranoia (its crowd control still applies).
 
-### 10. Lissandra (net +0.88)
+#### 10. Lissandra (net +0.88)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Xin Zhao's Crescent Guard. Untargetable for 2.5 s, long enough to use ahead of Crescent Guard. (Lissandra R Frozen Tomb → Xin Zhao R Crescent Guard)
 - **0.39** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Xin Zhao's Audacious Charge. Untargetable for 2.5 s, long enough to use ahead of Audacious Charge. (Lissandra R Frozen Tomb → Xin Zhao E Audacious Charge)
 - **0.31** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Xin Zhao's Three Talon Strike. Untargetable for 2.5 s, long enough to use ahead of Three Talon Strike. (Lissandra R Frozen Tomb → Xin Zhao Q Three Talon Strike)
 - Watch out: Crescent Guard makes Xin Zhao invulnerable to Lissandra's Frozen Tomb (its crowd control still applies).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

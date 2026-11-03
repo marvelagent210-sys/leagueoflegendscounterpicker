@@ -1,5 +1,186 @@
 # Counters to Karthus (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Karthus: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Karthus wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Karthus --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Rengar | +0.85 | +1.00 | +1.00 | +1.00 | +0.32 | +1.00 | +0.00 |
+| 2 | Briar | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 3 | Skarner | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 4 | Master Yi | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 5 | Sylas | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 6 | Fizz | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 7 | Zeri | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 8 | Lee Sin | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 9 | Gwen | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 10 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 11 | Vayne | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 12 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 13 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 14 | Renekton | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 15 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 16 | Gangplank | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 17 | Lulu | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 18 | Camille | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 19 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 20 | Kayle | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 21 | Miss Fortune | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 22 | Irelia | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 23 | Pantheon | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 24 | Xin Zhao | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 25 | Zaahen | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 26 | Kayn | +0.80 | +0.99 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 27 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 28 | Shyvana | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 29 | Yone | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 30 | Mordekaiser | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 31 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 32 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 33 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 34 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 35 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 36 | Heimerdinger | +0.79 | +0.97 | +0.97 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 37 | Aatrox | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 38 | Warwick | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 39 | Vi | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 40 | Fiora | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 41 | Nocturne | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 42 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 43 | Rumble | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 44 | Orianna | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 45 | Wukong | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 46 | Xayah | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 47 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 48 | Twisted Fate | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 49 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 50 | Udyr | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 51 | Graves | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 52 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 53 | Bel'Veth | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 54 | Kog'Maw | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 55 | Yunara | +0.78 | +1.00 | +1.00 | +0.93 | −0.06 | +0.99 | +0.00 |
+| 56 | Ivern | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 57 | Quinn | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 58 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
+| 59 | Corki | +0.76 | +1.00 | +0.86 | +1.00 | +0.01 | +0.98 | +0.00 |
+| 60 | Gnar | +0.75 | +1.00 | +1.00 | +1.00 | +0.02 | +0.51 | +0.00 |
+| 61 | Ezreal | +0.74 | +0.86 | +0.94 | +1.00 | +0.01 | +0.93 | +0.00 |
+| 62 | Kennen | +0.73 | +1.00 | +1.00 | +1.00 | +0.07 | +0.21 | +0.00 |
+| 63 | Diana | +0.73 | +1.00 | +0.64 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 64 | Aurora | +0.71 | +1.00 | +1.00 | +0.58 | −0.05 | +1.00 | +0.00 |
+| 65 | Lillia | +0.71 | +1.00 | +0.59 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 66 | Shaco | +0.70 | +1.00 | +1.00 | +0.55 | −0.08 | +1.00 | +0.00 |
+| 67 | Ryze | +0.67 | +0.91 | +0.84 | +0.68 | +0.03 | +0.98 | +0.00 |
+| 68 | Varus | +0.67 | +0.50 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 69 | Volibear | +0.66 | +0.87 | +1.00 | +0.87 | −0.06 | +0.32 | +0.00 |
+| 70 | Viego | +0.66 | +1.00 | +0.50 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 71 | Jarvan IV | +0.63 | +1.00 | +1.00 | +0.11 | +0.07 | +1.00 | +0.00 |
+| 72 | Rammus | +0.63 | +1.00 | +1.00 | +0.15 | −0.01 | +1.00 | +0.00 |
+| 73 | Urgot | +0.61 | +0.18 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 74 | Jhin | +0.61 | +0.22 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 75 | Aphelios | +0.60 | +1.00 | +1.00 | +0.00 | +0.01 | +1.00 | +0.00 |
+| 76 | Kalista | +0.60 | +0.48 | +0.89 | +1.00 | −0.04 | – | +0.00 |
+| 77 | Locke | +0.55 | +0.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 78 | Riven | +0.53 | +1.00 | +0.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 79 | Akali | +0.53 | +0.45 | +0.67 | +1.00 | −0.06 | +0.61 | +0.00 |
+| 80 | Amumu | +0.53 | +0.00 | +0.97 | +1.00 | −0.05 | +0.95 | +0.00 |
+| 81 | Ziggs | +0.52 | +0.13 | +1.00 | +1.00 | +0.15 | +0.14 | +0.00 |
+| 82 | Samira | +0.50 | +0.00 | +1.00 | +0.99 | +0.04 | – | +0.00 |
+| 83 | Elise | +0.49 | +0.16 | +1.00 | +1.00 | −0.01 | +0.02 | +0.00 |
+| 84 | Poppy | +0.49 | +0.65 | +0.30 | +1.00 | +0.12 | +0.32 | +0.00 |
+| 85 | Jinx | +0.47 | +0.59 | +1.00 | +0.11 | +0.01 | – | +0.00 |
+| 86 | Rek'Sai | +0.44 | +0.45 | +0.39 | +1.00 | −0.08 | +0.44 | +0.00 |
+| 87 | Smolder | +0.44 | +0.50 | +0.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 88 | Olaf | +0.43 | +0.00 | +1.00 | +1.00 | −0.11 | +0.00 | +0.00 |
+| 89 | Swain | +0.38 | +0.48 | +0.47 | +0.46 | +0.06 | – | +0.00 |
+| 90 | Vel'Koz | +0.37 | +0.20 | +0.25 | +1.00 | +0.16 | – | +0.00 |
+| 91 | Rakan | +0.37 | +0.43 | +0.43 | +0.50 | +0.03 | +0.50 | +0.00 |
+| 92 | Zac | +0.36 | +0.42 | +0.46 | +0.40 | +0.09 | +0.45 | +0.00 |
+| 93 | Azir | +0.36 | +1.00 | +0.17 | +0.15 | −0.03 | – | +0.00 |
+| 94 | Twitch | +0.35 | +1.00 | +0.00 | +0.00 | −0.00 | +1.00 | +0.00 |
+| 95 | Aurelion Sol | +0.35 | +1.00 | +0.17 | +0.17 | +0.16 | −0.01 | +0.00 |
+| 96 | Ashe | +0.35 | +0.00 | +1.00 | +0.00 | −0.01 | +1.00 | +0.00 |
+| 97 | Maokai | +0.35 | +0.41 | +0.48 | +0.37 | +0.01 | +0.47 | +0.00 |
+| 98 | Taric | +0.30 | +0.37 | +0.39 | +0.40 | −0.02 | +0.37 | +0.00 |
+| 99 | Neeko | +0.30 | +0.21 | +0.23 | +0.83 | +0.03 | +0.24 | +0.00 |
+| 100 | Naafiri | +0.30 | +0.09 | +1.00 | +0.08 | +0.06 | +0.00 | +0.00 |
+| 101 | Gragas | +0.29 | +0.31 | +0.37 | +0.37 | +0.05 | +0.39 | +0.00 |
+| 102 | Rell | +0.26 | +0.31 | +0.31 | +0.30 | +0.12 | +0.31 | +0.00 |
+| 103 | Lucian | +0.26 | +0.00 | +1.00 | +0.00 | −0.11 | – | +0.00 |
+| 104 | Sona | +0.26 | +0.36 | +0.36 | +0.27 | +0.01 | +0.23 | +0.00 |
+| 105 | Nautilus | +0.25 | +0.33 | +0.30 | +0.31 | +0.04 | +0.25 | +0.00 |
+| 106 | Janna | +0.24 | +0.26 | +0.35 | +0.34 | +0.02 | +0.19 | +0.00 |
+| 107 | Sejuani | +0.23 | +0.20 | +0.17 | +0.19 | +0.02 | +1.00 | +0.00 |
+| 108 | Karma | +0.22 | +0.25 | +0.27 | +0.32 | +0.01 | – | +0.00 |
+| 109 | Ornn | +0.22 | +0.27 | +0.29 | +0.27 | −0.04 | +0.27 | +0.00 |
+| 110 | Singed | +0.22 | +0.24 | +0.32 | +0.27 | −0.04 | +0.26 | +0.00 |
+| 111 | Fiddlesticks | +0.21 | +0.28 | +0.25 | +0.34 | −0.05 | – | +0.00 |
+| 112 | Malphite | +0.21 | +0.27 | +0.29 | +0.25 | −0.05 | +0.27 | +0.00 |
+| 113 | Zoe | +0.20 | +0.27 | +0.21 | +0.25 | +0.02 | +0.27 | +0.00 |
+| 114 | Illaoi | +0.20 | +0.15 | +0.14 | +0.15 | −0.02 | +0.99 | +0.00 |
+| 115 | Shen | +0.20 | +0.22 | +0.21 | +0.29 | +0.04 | +0.28 | +0.00 |
+| 116 | Leona | +0.20 | +0.20 | +0.24 | +0.28 | +0.01 | +0.29 | +0.00 |
+| 117 | Nilah | +0.20 | +0.00 | +0.50 | +0.00 | +0.15 | +0.50 | +0.00 |
+| 118 | Galio | +0.20 | +0.22 | +0.21 | +0.25 | +0.11 | +0.22 | +0.00 |
+| 119 | Nunu & Willump | +0.19 | +0.21 | +0.26 | +0.21 | +0.09 | +0.18 | +0.00 |
+| 120 | Braum | +0.19 | +0.25 | +0.26 | +0.26 | −0.07 | +0.23 | +0.00 |
+| 121 | Hwei | +0.19 | +0.15 | +0.17 | +0.53 | −0.05 | +0.12 | +0.00 |
+| 122 | Annie | +0.18 | +0.17 | +0.23 | +0.25 | +0.06 | +0.24 | +0.00 |
+| 123 | Alistar | +0.18 | +0.23 | +0.22 | +0.23 | −0.06 | +0.27 | +0.00 |
+| 124 | Morgana | +0.18 | +0.00 | +0.11 | +0.62 | +0.06 | – | +0.00 |
+| 125 | Brand | +0.17 | +0.21 | +0.19 | +0.23 | +0.00 | +0.23 | +0.00 |
+| 126 | Tahm Kench | +0.17 | +0.00 | +0.30 | +0.29 | +0.03 | +0.29 | +0.00 |
+| 127 | Milio | +0.16 | +0.20 | +0.29 | +0.12 | −0.02 | – | +0.00 |
+| 128 | Seraphine | +0.16 | +0.26 | +0.19 | +0.17 | −0.03 | – | +0.00 |
+| 129 | Lux | +0.15 | +0.15 | +0.20 | +0.24 | +0.02 | +0.15 | +0.00 |
+| 130 | Sett | +0.15 | +0.19 | +0.21 | +0.20 | −0.08 | +0.20 | +0.00 |
+| 131 | Xerath | +0.14 | +0.16 | +0.19 | +0.19 | +0.02 | – | +0.00 |
+| 132 | Soraka | +0.14 | +0.17 | +0.19 | +0.19 | −0.01 | +0.10 | +0.00 |
+| 133 | Nidalee | +0.14 | +0.18 | +0.23 | +0.17 | −0.10 | – | +0.00 |
+| 134 | Cassiopeia | +0.13 | +0.12 | +0.17 | +0.23 | +0.02 | +0.14 | +0.00 |
+| 135 | Draven | +0.13 | +0.18 | +0.18 | +0.15 | −0.00 | +0.11 | +0.00 |
+| 136 | Ekko | +0.13 | +0.23 | +0.12 | +0.21 | −0.16 | +0.22 | +0.00 |
+| 137 | Kindred | +0.13 | +0.04 | +0.00 | +0.50 | +0.03 | – | +0.00 |
+| 138 | Kai'Sa | +0.12 | +0.00 | +0.45 | +0.00 | −0.00 | – | +0.00 |
+| 139 | Zed | +0.12 | +0.00 | +0.00 | +0.50 | −0.19 | +0.50 | +0.00 |
+| 140 | Senna | +0.12 | +0.18 | +0.20 | −0.01 | +0.05 | +0.18 | +0.00 |
+| 141 | Syndra | +0.12 | +0.13 | +0.18 | +0.12 | +0.02 | +0.12 | +0.00 |
+| 142 | Viktor | +0.11 | +0.18 | +0.15 | +0.09 | −0.00 | – | +0.00 |
+| 143 | Nami | +0.11 | +0.13 | +0.15 | +0.18 | −0.02 | +0.07 | +0.00 |
+| 144 | Tristana | +0.11 | +0.00 | +0.00 | +0.00 | +0.07 | +1.00 | +0.00 |
+| 145 | Evelynn | +0.10 | +0.10 | +0.13 | +0.16 | −0.04 | +0.18 | +0.00 |
+| 146 | Mel | +0.09 | +0.09 | +0.11 | +0.15 | +0.00 | +0.10 | +0.00 |
+| 147 | LeBlanc | +0.08 | +0.10 | +0.10 | +0.13 | −0.01 | – | +0.00 |
+| 148 | Zilean | +0.08 | +0.12 | +0.10 | +0.12 | −0.07 | +0.16 | +0.00 |
+| 149 | Lissandra | +0.08 | +0.11 | +0.10 | +0.15 | −0.09 | +0.16 | +0.00 |
+| 150 | Akshan | +0.07 | +0.08 | +0.09 | +0.13 | −0.03 | – | +0.00 |
+| 151 | Ahri | +0.07 | +0.15 | +0.06 | +0.09 | −0.08 | +0.06 | +0.00 |
+| 152 | Katarina | +0.07 | +0.10 | +0.09 | +0.10 | −0.07 | +0.10 | +0.00 |
+| 153 | Bard | +0.06 | +0.12 | +0.12 | +0.04 | −0.08 | – | +0.00 |
+| 154 | Anivia | +0.06 | +0.13 | +0.12 | +0.09 | −0.10 | −0.02 | +0.00 |
+| 155 | Kha'Zix | +0.06 | +0.10 | +0.08 | +0.08 | −0.06 | +0.05 | +0.00 |
+| 156 | Blitzcrank | +0.05 | +0.04 | +0.04 | +0.11 | −0.01 | +0.10 | +0.00 |
+| 157 | Vex | +0.05 | +0.05 | +0.03 | +0.13 | −0.03 | +0.08 | +0.00 |
+| 158 | Qiyana | +0.04 | +0.05 | +0.05 | +0.02 | +0.02 | +0.06 | +0.00 |
+| 159 | Veigar | +0.03 | +0.06 | +0.05 | +0.00 | +0.01 | +0.05 | +0.00 |
+| 160 | Taliyah | +0.02 | +0.04 | +0.01 | +0.03 | −0.01 | – | +0.00 |
+| 161 | Caitlyn | +0.01 | +0.00 | +0.00 | +0.00 | +0.04 | +0.01 | +0.00 |
+| 162 | Sivir | +0.00 | +0.00 | +0.02 | +0.03 | −0.05 | – | +0.00 |
+| 163 | Renata Glasc | −0.00 | +0.00 | +0.03 | +0.03 | −0.00 | −0.14 | +0.00 |
+| 164 | Vladimir | −0.01 | −0.04 | +0.02 | +0.05 | −0.09 | – | +0.00 |
+| 165 | Talon | −0.01 | +0.02 | +0.03 | +0.00 | −0.14 | +0.01 | +0.00 |
+| 166 | Hecarim | −0.01 | +0.00 | +0.00 | +0.00 | −0.06 | +0.00 | +0.00 |
+| 167 | Ambessa | −0.01 | +0.00 | +0.00 | +0.00 | −0.06 | +0.00 | +0.00 |
+| 168 | Zyra | −0.02 | −0.02 | −0.03 | +0.04 | −0.05 | −0.05 | +0.00 |
+| 169 | Malzahar | −0.02 | −0.03 | −0.05 | −0.01 | +0.00 | – | +0.00 |
+| 170 | Pyke | −0.74 | −1.00 | −1.00 | −1.00 | −0.19 | −0.07 | +0.00 |
+| 171 | Yuumi | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 172 | Thresh | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Karthus's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +189,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Karthus` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +1.29)
+#### 1. Rell (net +1.29)
 
 - **0.28** interrupt: Ferromancy: Crash Down's airborne interrupts Karthus's Requiem (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Karthus R Requiem)
 - **0.28** interrupt: Ferromancy: Mount Up's airborne interrupts Karthus's Requiem (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Karthus R Requiem)
 - **0.28** interrupt: Full Tilt's stun interrupts Karthus's Requiem (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Karthus R Requiem)
 - Watch out: Karthus's basic attacks reach 275 units farther than Rell's (450 vs 175 attack range).
 
-### 2. Taliyah (net +0.94)
+#### 2. Taliyah (net +0.94)
 
 - **0.28** interrupt: Seismic Shove's airborne interrupts Karthus's Requiem (normal channel). Seismic Shove must land during the channel. (Taliyah W Seismic Shove → Karthus R Requiem)
 - **0.28** interrupt: Unraveled Earth's stun interrupts Karthus's Requiem (normal channel). Unraveled Earth must land during the channel. (Taliyah E Unraveled Earth → Karthus R Requiem)
 - **0.28** interrupt: Weaver's Wall's airborne interrupts Karthus's Requiem (normal channel). Weaver's Wall must land during the channel. (Taliyah R Weaver's Wall → Karthus R Requiem)
 
-### 3. Camille (net +0.87)
+#### 3. Camille (net +0.87)
 
 - **0.55** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Karthus's Requiem. Untargetable for 0.5 s; Requiem takes 0.25 s to land, enough to react. (Camille R The Hextech Ultimatum → Karthus R Requiem)
 - **0.28** interrupt: The Hextech Ultimatum's airborne interrupts Karthus's Requiem (normal channel). The Hextech Ultimatum must land during the channel. (Camille R The Hextech Ultimatum → Karthus R Requiem)
 - **0.28** interrupt: Wall Dive's airborne interrupts Karthus's Requiem (normal channel). Wall Dive must land during the channel. (Camille E Wall Dive → Karthus R Requiem)
 - Watch out: Karthus's basic attacks reach 325 units farther than Camille's (450 vs 125 attack range).
 
-### 4. Kayle (net +0.87)
+#### 4. Kayle (net +0.87)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Karthus's Requiem. Invulnerable for 2.5 s, long enough to use ahead of Requiem. (Kayle R Divine Judgment → Karthus R Requiem)
 - **0.32** range: Kayle's basic attacks reach 175 units farther than Karthus's (625 vs 450 attack range). Karthus has no dash or blink to close the gap. (Kayle basic attacks → Karthus basic attacks)
 
-### 5. Lulu (net +0.85)
+#### 5. Lulu (net +0.85)
 
 - **0.28** interrupt: Whimsy's polymorph interrupts Karthus's Requiem (normal channel). Whimsy must land during the channel. (Lulu W Whimsy → Karthus R Requiem)
 - **0.28** interrupt: Wild Growth's airborne interrupts Karthus's Requiem (normal channel). Wild Growth must land during the channel. (Lulu R Wild Growth → Karthus R Requiem)
 - **0.22** disarm: Whimsy disarms Karthus for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Karthus basic attacks)
 
-### 6. Xin Zhao (net +0.81)
+#### 6. Xin Zhao (net +0.81)
 
 - **0.55** invulnerable: Crescent Guard makes Xin Zhao invulnerable to Karthus's Requiem. Invulnerable for 4 s, long enough to use ahead of Requiem. Only invulnerable to champions a certain distance away. (Xin Zhao R Crescent Guard → Karthus R Requiem)
 - **0.28** interrupt: Crescent Guard's airborne interrupts Karthus's Requiem (normal channel). Crescent Guard must land during the channel. (Xin Zhao R Crescent Guard → Karthus R Requiem)
 - **0.28** interrupt: Three Talon Strike's airborne interrupts Karthus's Requiem (normal channel). Three Talon Strike must land during the channel. (Xin Zhao Q Three Talon Strike → Karthus R Requiem)
 - Watch out: Karthus's basic attacks reach 275 units farther than Xin Zhao's (450 vs 175 attack range).
 
-### 7. Lissandra (net +0.80)
+#### 7. Lissandra (net +0.80)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Karthus's Requiem. Untargetable for 2.5 s, long enough to use ahead of Requiem. (Lissandra R Frozen Tomb → Karthus R Requiem)
 - **0.28** interrupt: Frozen Tomb's stun interrupts Karthus's Requiem (normal channel). Frozen Tomb must land during the channel. (Lissandra R Frozen Tomb → Karthus R Requiem)
 - **0.11** range: Lissandra's basic attacks reach 100 units farther than Karthus's (550 vs 450 attack range). Karthus has no dash or blink to close the gap. (Lissandra basic attacks → Karthus basic attacks)
 
-### 8. K'Sante (net +0.75)
+#### 8. K'Sante (net +0.75)
 
 - **0.28** interrupt: All Out's airborne interrupts Karthus's Requiem (normal channel). All Out must land during the channel. (K'Sante R All Out → Karthus R Requiem)
 - **0.28** interrupt: Ntofo Strikes's airborne interrupts Karthus's Requiem (normal channel). Ntofo Strikes must land during the channel. (K'Sante Q Ntofo Strikes → Karthus R Requiem)
 - **0.28** interrupt: Path Maker's airborne interrupts Karthus's Requiem (normal channel). Path Maker must land during the channel. (K'Sante W Path Maker → Karthus R Requiem)
 - Watch out: Karthus's basic attacks reach 300 units farther than K'Sante's (450 vs 150 attack range).
 
-### 9. Fizz (net +0.75)
+#### 9. Fizz (net +0.75)
 
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Karthus's Requiem. Untargetable for 0.75 s; Requiem takes 0.25 s to land, enough to react. (Fizz E Playful → Karthus R Requiem)
 - **0.28** interrupt: Chum the Waters's airborne interrupts Karthus's Requiem (normal channel). Chum the Waters must land during the channel. (Fizz R Chum the Waters → Karthus R Requiem)
 - Watch out: Karthus's basic attacks reach 275 units farther than Fizz's (450 vs 175 attack range).
 
-### 10. Renata Glasc (net +0.75)
+#### 10. Renata Glasc (net +0.75)
 
 - **0.28** interrupt: Handshake's airborne interrupts Karthus's Requiem (normal channel). Handshake must land during the channel. (Renata Glasc Q Handshake → Karthus R Requiem)
 - **0.28** interrupt: Hostile Takeover's berserk interrupts Karthus's Requiem (normal channel). Hostile Takeover must land during the channel. (Renata Glasc R Hostile Takeover → Karthus R Requiem)
 - **0.19** range: Renata Glasc's basic attacks reach 100 units farther than Karthus's (550 vs 450 attack range). Karthus has no dash or blink to close the gap. (Renata Glasc basic attacks → Karthus basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

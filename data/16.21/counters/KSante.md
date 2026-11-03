@@ -1,5 +1,186 @@
 # Counters to K'Sante (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against K'Sante: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (K'Sante wins every time) to +1 (the champion does). Run `npm run duel -- <champion> KSante --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Olaf | +0.85 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +1.00 |
+| 2 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.28 | +1.00 | +0.00 |
+| 3 | Garen | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 4 | Trundle | +0.75 | +1.00 | +1.00 | +1.00 | −0.31 | +1.00 | +0.00 |
+| 5 | Tryndamere | +0.56 | +1.00 | +1.00 | +1.00 | −0.25 | −1.00 | +0.00 |
+| 6 | Nasus | +0.52 | +1.00 | +1.00 | +1.00 | −0.21 | −1.00 | −1.00 |
+| 7 | Zac | +0.45 | +1.00 | +0.00 | +1.00 | −0.29 | – | +0.00 |
+| 8 | Jax | +0.12 | +0.00 | +1.00 | +0.00 | −0.19 | −1.00 | +0.00 |
+| 9 | Xayah | −0.09 | −1.00 | +1.00 | −1.00 | +0.05 | +1.00 | +0.00 |
+| 10 | Kog'Maw | −0.17 | +0.00 | +0.00 | −1.00 | +0.19 | +0.00 | +0.00 |
+| 11 | Heimerdinger | −0.27 | +1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 12 | Aphelios | −0.33 | +1.00 | −1.00 | −1.00 | +0.11 | −1.00 | −1.00 |
+| 13 | Yorick | −0.35 | −1.00 | −1.00 | +1.00 | −0.09 | – | +0.00 |
+| 14 | Camille | −0.39 | −1.00 | −1.00 | +1.00 | −0.17 | – | −0.50 |
+| 15 | Gangplank | −0.39 | +0.00 | −1.00 | +0.00 | +0.04 | −1.00 | −1.00 |
+| 16 | Darius | −0.41 | −1.00 | −1.00 | +1.00 | −0.12 | – | −1.00 |
+| 17 | Sivir | −0.43 | −1.00 | +0.04 | −1.00 | +0.04 | +0.04 | +0.00 |
+| 18 | Annie | −0.60 | −1.00 | −1.00 | −1.00 | +0.03 | +1.00 | +0.00 |
+| 19 | Ivern | −0.60 | −1.00 | −1.00 | −1.00 | −0.00 | +1.00 | +0.00 |
+| 20 | Twisted Fate | −0.63 | −1.00 | −1.00 | −1.00 | +0.14 | +1.00 | −1.00 |
+| 21 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 22 | Aurelion Sol | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 23 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 24 | Taric | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 25 | Poppy | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 26 | Rammus | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 27 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 28 | Alistar | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 29 | Corki | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 30 | Irelia | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 31 | Nautilus | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 32 | Blitzcrank | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 33 | Ziggs | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 34 | Gnar | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 35 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 36 | Jayce | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 37 | Morgana | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 38 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 39 | Rek'Sai | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 40 | Mel | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 41 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 42 | Cho'Gath | −0.79 | −1.00 | −1.00 | −0.83 | −0.16 | −1.00 | +0.00 |
+| 43 | Ornn | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 44 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 45 | Bard | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 46 | Karma | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 47 | Elise | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 48 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 49 | Vex | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 50 | Swain | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 51 | Sona | −0.79 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 52 | Sion | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 53 | Lulu | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 54 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 55 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 56 | Ezreal | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 57 | Rakan | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 58 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 59 | Leona | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 60 | Briar | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 61 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 62 | Ahri | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 63 | Gwen | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | −0.05 |
+| 64 | Zilean | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 65 | Hwei | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 66 | Vel'Koz | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 67 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 68 | Jarvan IV | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 69 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 70 | Braum | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 71 | Lucian | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 72 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 73 | Nocturne | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 74 | Nami | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 75 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 76 | Vayne | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 77 | Tahm Kench | −0.81 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 78 | Karthus | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 79 | Udyr | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 80 | Fiddlesticks | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 81 | Yasuo | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 82 | Kassadin | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 83 | Master Yi | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 84 | Singed | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 85 | Neeko | −0.81 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −0.50 |
+| 86 | Shen | −0.82 | −1.00 | −1.00 | −1.00 | −0.06 | – | −0.50 |
+| 87 | Lee Sin | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 88 | Gragas | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
+| 89 | Kennen | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 90 | Sett | −0.82 | −1.00 | −1.00 | −1.00 | −0.26 | – | +0.00 |
+| 91 | Renekton | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 92 | Dr. Mundo | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 93 | Jhin | −0.83 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | −1.00 |
+| 94 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 95 | Jinx | −0.83 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | −1.00 |
+| 96 | Milio | −0.83 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | −1.00 |
+| 97 | Maokai | −0.83 | −1.00 | −1.00 | −1.00 | +0.01 | – | −1.00 |
+| 98 | Anivia | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 99 | Hecarim | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 100 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 101 | Warwick | −0.83 | −1.00 | −1.00 | −1.00 | −0.00 | – | −1.00 |
+| 102 | Kayle | −0.84 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | −1.00 |
+| 103 | Kha'Zix | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 104 | Zyra | −0.84 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | −1.00 |
+| 105 | Orianna | −0.84 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | −1.00 |
+| 106 | Mordekaiser | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
+| 107 | Zed | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+| 108 | Nunu & Willump | −0.84 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | −1.00 |
+| 109 | Ashe | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 110 | Ryze | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 111 | Riven | −0.84 | −1.00 | −1.00 | −1.00 | −0.20 | – | −0.50 |
+| 112 | Aurora | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 113 | Syndra | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 114 | Xerath | −0.84 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −1.00 |
+| 115 | Viktor | −0.84 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −1.00 |
+| 116 | Janna | −0.84 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −1.00 |
+| 117 | Akshan | −0.84 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −1.00 |
+| 118 | Teemo | −0.84 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | −1.00 |
+| 119 | Yunara | −0.84 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | −1.00 |
+| 120 | Cassiopeia | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 121 | Pyke | −0.84 | −1.00 | −1.00 | −1.00 | −0.40 | – | +0.00 |
+| 122 | Miss Fortune | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 123 | Zeri | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 124 | Smolder | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 125 | Wukong | −0.85 | −1.00 | −1.00 | −1.00 | −0.24 | – | −0.50 |
+| 126 | Rengar | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 127 | Kindred | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 128 | Draven | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 129 | Soraka | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 130 | Seraphine | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 131 | Azir | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 132 | Renata Glasc | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 133 | Brand | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 134 | Bel'Veth | −0.85 | −1.00 | −1.00 | −1.00 | −0.09 | – | −1.00 |
+| 135 | Sylas | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
+| 136 | Caitlyn | −0.85 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | −1.00 |
+| 137 | Zaahen | −0.85 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | −1.00 |
+| 138 | Graves | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 139 | Nidalee | −0.85 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −1.00 |
+| 140 | Tristana | −0.85 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −1.00 |
+| 141 | Yuumi | −0.85 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | −1.00 |
+| 142 | LeBlanc | −0.86 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | −1.00 |
+| 143 | Quinn | −0.86 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | −1.00 |
+| 144 | Illaoi | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
+| 145 | Diana | −0.86 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | −1.00 |
+| 146 | Pantheon | −0.86 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | −1.00 |
+| 147 | Fizz | −0.86 | −1.00 | −1.00 | −1.00 | −0.16 | – | −1.00 |
+| 148 | Varus | −0.86 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | −1.00 |
+| 149 | Volibear | −0.86 | −1.00 | −1.00 | −1.00 | −0.17 | – | −1.00 |
+| 150 | Shaco | −0.86 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | −1.00 |
+| 151 | Naafiri | −0.86 | −1.00 | −1.00 | −1.00 | −0.17 | – | −1.00 |
+| 152 | Lillia | −0.87 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | −1.00 |
+| 153 | Galio | −0.87 | −1.00 | −1.00 | −1.00 | −0.20 | – | −1.00 |
+| 154 | Kalista | −0.87 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | −1.00 |
+| 155 | Vi | −0.87 | −1.00 | −1.00 | −1.00 | −0.21 | – | −1.00 |
+| 156 | Locke | −0.87 | −1.00 | −1.00 | −1.00 | −0.21 | – | −1.00 |
+| 157 | Kled | −0.87 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | −1.00 |
+| 158 | Aatrox | −0.87 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | −1.00 |
+| 159 | Kayn | −0.87 | −1.00 | −1.00 | −1.00 | −0.23 | – | −1.00 |
+| 160 | Rell | −0.87 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | −1.00 |
+| 161 | Katarina | −0.87 | −1.00 | −1.00 | −1.00 | −0.25 | – | −1.00 |
+| 162 | Kai'Sa | −0.87 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | −1.00 |
+| 163 | Viego | −0.88 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | −1.00 |
+| 164 | Shyvana | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
+| 165 | Samira | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
+| 166 | Yone | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
+| 167 | Rumble | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
+| 168 | Nilah | −0.88 | −1.00 | −1.00 | −1.00 | −0.29 | – | −1.00 |
+| 169 | Talon | −0.88 | −1.00 | −1.00 | −1.00 | −0.30 | – | −1.00 |
+| 170 | Qiyana | −0.88 | −1.00 | −1.00 | −1.00 | −0.31 | – | −1.00 |
+| 171 | Xin Zhao | −0.89 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | −1.00 |
+| 172 | Thresh | −0.90 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against K'Sante's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +189,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> KSante` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +1.74)
+#### 1. Nocturne (net +1.74)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks K'Sante's All Out. Spell shield for 1.5 s, long enough to use ahead of All Out. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → K'Sante R All Out)
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks K'Sante's Path Maker. Spell shield for 1.5 s, long enough to use ahead of Path Maker. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → K'Sante W Path Maker)
 - **0.46** spell shield: Shroud of Darkness's spell shield blocks K'Sante's Ntofo Strikes. Spell shield for 1.5 s, long enough to use ahead of Ntofo Strikes. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → K'Sante Q Ntofo Strikes)
 
-### 2. Sivir (net +1.69)
+#### 2. Sivir (net +1.69)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks K'Sante's All Out. Spell shield for 1.5 s, long enough to use ahead of All Out. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → K'Sante R All Out)
 - **0.73** spell shield: Spell Shield's spell shield blocks K'Sante's Path Maker. Spell shield for 1.5 s, long enough to use ahead of Path Maker. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → K'Sante W Path Maker)
 - **0.41** spell shield: Spell Shield's spell shield blocks K'Sante's Ntofo Strikes. Spell shield for 1.5 s, long enough to use ahead of Ntofo Strikes. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → K'Sante Q Ntofo Strikes)
 
-### 3. Udyr (net +1.65)
+#### 3. Udyr (net +1.65)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to K'Sante's All Out (airborne, root, stun). Immune for 1.5 s, long enough to use ahead of All Out. (Udyr E Blazing Stampede → K'Sante R All Out)
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to K'Sante's Path Maker (airborne, stun). Immune for 1.5 s, long enough to use ahead of Path Maker. (Udyr E Blazing Stampede → K'Sante W Path Maker)
 - **0.60** cc immunity: Blazing Stampede makes Udyr immune to K'Sante's Ntofo Strikes (airborne, slow, stun). Immune for 1.5 s, long enough to use ahead of Ntofo Strikes. (Udyr E Blazing Stampede → K'Sante Q Ntofo Strikes)
 
-### 4. Fiora (net +1.59)
+#### 4. Fiora (net +1.59)
 
 - **1.00** parry: Riposte parries K'Sante's All Out and stuns back. Parry for 0.75 s; All Out takes 0.55 s to land, enough to react. Negating All Out's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → K'Sante R All Out)
 - **0.88** parry: Riposte parries K'Sante's Path Maker and stuns back. Parry for 0.75 s; Path Maker takes 0.35 s to land, enough to react. Negating Path Maker's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → K'Sante W Path Maker)
 - **0.53** parry: Riposte parries K'Sante's Ntofo Strikes and stuns back. Parry for 0.75 s; Ntofo Strikes takes 0.45 s to land, enough to react. Negating Ntofo Strikes's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → K'Sante Q Ntofo Strikes)
 
-### 5. Morgana (net +1.59)
+#### 5. Morgana (net +1.59)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to K'Sante's All Out (airborne, root, stun). Immune for 5 s, long enough to use ahead of All Out. (Morgana E Black Shield → K'Sante R All Out)
 - **0.78** cc immunity: Black Shield makes Morgana immune to K'Sante's Path Maker (airborne, stun). Immune for 5 s, long enough to use ahead of Path Maker. (Morgana E Black Shield → K'Sante W Path Maker)
 - **0.43** cc immunity: Black Shield makes Morgana immune to K'Sante's Ntofo Strikes (airborne, slow, stun). Immune for 5 s, long enough to use ahead of Ntofo Strikes. (Morgana E Black Shield → K'Sante Q Ntofo Strikes)
 
-### 6. Maokai (net +1.48)
+#### 6. Maokai (net +1.48)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging K'Sante's All Out. Untargetable for 1.4 s; All Out takes 0.55 s to land, enough to react. (Maokai W Twisted Advance → K'Sante R All Out)
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging K'Sante's Path Maker. Untargetable for 1.4 s; Path Maker takes 0.35 s to land, enough to react. (Maokai W Twisted Advance → K'Sante W Path Maker)
 - **0.49** untargetable: Twisted Advance makes Maokai untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for 1.4 s; Ntofo Strikes takes 0.45 s to land, enough to react. (Maokai W Twisted Advance → K'Sante Q Ntofo Strikes)
 - Watch out: All Out is displacement immune, ignoring Maokai's Bramble Smash (airborne) during it.
 
-### 7. Fizz (net +1.47)
+#### 7. Fizz (net +1.47)
 
 - **1.00** untargetable: Playful makes Fizz untargetable, dodging K'Sante's All Out. Untargetable for 0.75 s; All Out takes 0.55 s to land, enough to react. (Fizz E Playful → K'Sante R All Out)
 - **1.00** untargetable: Playful makes Fizz untargetable, dodging K'Sante's Path Maker. Untargetable for 0.75 s; Path Maker takes 0.35 s to land, enough to react. (Fizz E Playful → K'Sante W Path Maker)
 - **0.53** untargetable: Playful makes Fizz untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for 0.75 s; Ntofo Strikes takes 0.45 s to land, enough to react. (Fizz E Playful → K'Sante Q Ntofo Strikes)
 - Watch out: All Out is displacement immune, ignoring Fizz's Chum the Waters (airborne) during it.
 
-### 8. Gwen (net +1.47)
+#### 8. Gwen (net +1.47)
 
 - **1.00** untargetable: Hallowed Mist makes Gwen untargetable, dodging K'Sante's All Out. Untargetable for ?; All Out takes 0.55 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → K'Sante R All Out)
 - **0.73** untargetable: Hallowed Mist makes Gwen untargetable, dodging K'Sante's Path Maker. Untargetable for ?; Path Maker takes 0.35 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → K'Sante W Path Maker)
 - **0.41** untargetable: Hallowed Mist makes Gwen untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for ?; Ntofo Strikes takes 0.45 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → K'Sante Q Ntofo Strikes)
 
-### 9. Xayah (net +1.38)
+#### 9. Xayah (net +1.38)
 
 - **0.88** untargetable: Featherstorm makes Xayah untargetable, dodging K'Sante's All Out. Untargetable for 1.5 s, long enough to use ahead of All Out. (Xayah R Featherstorm → K'Sante R All Out)
 - **0.46** untargetable: Featherstorm makes Xayah untargetable, dodging K'Sante's Path Maker. Untargetable for 1.5 s, long enough to use ahead of Path Maker. (Xayah R Featherstorm → K'Sante W Path Maker)
 - **0.34** untargetable: Featherstorm makes Xayah untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for 1.5 s, long enough to use ahead of Ntofo Strikes. (Xayah R Featherstorm → K'Sante Q Ntofo Strikes)
 
-### 10. Lissandra (net +1.36)
+#### 10. Lissandra (net +1.36)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging K'Sante's All Out. Untargetable for 2.5 s, long enough to use ahead of All Out. (Lissandra R Frozen Tomb → K'Sante R All Out)
 - **0.48** untargetable: Frozen Tomb makes Lissandra untargetable, dodging K'Sante's Path Maker. Untargetable for 2.5 s, long enough to use ahead of Path Maker. (Lissandra R Frozen Tomb → K'Sante W Path Maker)
 - **0.34** untargetable: Frozen Tomb makes Lissandra untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for 2.5 s, long enough to use ahead of Ntofo Strikes. (Lissandra R Frozen Tomb → K'Sante Q Ntofo Strikes)
 - Watch out: All Out is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

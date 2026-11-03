@@ -1,5 +1,186 @@
 # Counters to Shen (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Shen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Shen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Shen --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.22 | – | +0.50 |
+| 2 | Vayne | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 3 | K'Sante | +0.82 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.50 |
+| 4 | Milio | +0.81 | +1.00 | +1.00 | +0.99 | +0.10 | +1.00 | +0.00 |
+| 5 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 6 | Kalista | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 7 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 8 | Twisted Fate | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 9 | Lulu | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 10 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 11 | Aphelios | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 12 | Corki | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 13 | Draven | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 14 | Azir | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 15 | Aurora | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 16 | Sivir | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 17 | Lucian | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 18 | Yunara | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 19 | Xayah | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 20 | Orianna | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 21 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 22 | Rengar | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 23 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 24 | Samira | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 25 | Ashe | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 26 | Quinn | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 27 | Ezreal | +0.79 | +1.00 | +1.00 | +0.97 | −0.02 | +1.00 | +0.00 |
+| 28 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 29 | Bel'Veth | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 30 | Smolder | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 31 | Rek'Sai | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 32 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 33 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 34 | Shyvana | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 35 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 36 | Viego | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 37 | Gangplank | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 38 | Bard | +0.78 | +1.00 | +1.00 | +0.98 | −0.09 | +0.97 | +0.00 |
+| 39 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 40 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 41 | Aatrox | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 42 | Yasuo | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 43 | Yorick | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 44 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 45 | Warwick | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 46 | Riven | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 47 | Gwen | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 48 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 49 | Jayce | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 50 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 51 | Rumble | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 52 | Cho'Gath | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 53 | Jax | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 54 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 55 | Kled | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 56 | Trundle | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 57 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 58 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 59 | Neeko | +0.73 | +1.00 | +1.00 | +0.61 | +0.08 | +1.00 | +0.00 |
+| 60 | Zilean | +0.71 | +1.00 | +1.00 | +0.49 | +0.08 | +1.00 | +0.00 |
+| 61 | Kennen | +0.69 | +1.00 | +1.00 | +1.00 | −0.15 | +0.16 | +0.00 |
+| 62 | Jinx | +0.69 | +1.00 | +0.69 | +0.92 | −0.02 | +0.87 | +0.00 |
+| 63 | Ivern | +0.69 | +1.00 | +1.00 | +0.63 | −0.01 | +0.63 | +0.00 |
+| 64 | Irelia | +0.67 | +1.00 | +1.00 | +0.50 | +0.00 | – | +0.00 |
+| 65 | Janna | +0.65 | +1.00 | +1.00 | +0.17 | +0.09 | +1.00 | +0.00 |
+| 66 | Zac | +0.65 | +0.65 | +1.00 | +0.99 | −0.19 | – | +0.00 |
+| 67 | Lee Sin | +0.57 | +1.00 | +1.00 | +0.11 | −0.06 | – | +0.00 |
+| 68 | Yone | +0.57 | +1.00 | +1.00 | +0.04 | −0.00 | – | +0.00 |
+| 69 | Ambessa | +0.56 | +1.00 | +1.00 | +0.00 | +0.05 | – | +0.00 |
+| 70 | Sett | +0.56 | +1.00 | +1.00 | +0.00 | +0.02 | – | +0.00 |
+| 71 | Garen | +0.56 | +1.00 | +1.00 | +0.00 | +0.01 | – | +0.00 |
+| 72 | Master Yi | +0.54 | +0.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 73 | Vi | +0.54 | +1.00 | +1.00 | +0.00 | −0.10 | – | +0.00 |
+| 74 | Wukong | +0.54 | +1.00 | +1.00 | +0.00 | −0.11 | – | +0.00 |
+| 75 | Diana | +0.52 | +1.00 | +0.48 | +0.49 | −0.03 | – | +0.00 |
+| 76 | Renekton | +0.44 | +0.57 | +1.00 | +0.10 | −0.09 | – | +0.00 |
+| 77 | Varus | +0.39 | +1.00 | +1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 78 | Graves | +0.35 | +0.00 | +1.00 | +0.00 | +0.01 | +1.00 | +0.00 |
+| 79 | Fizz | +0.32 | +1.00 | +1.00 | −1.00 | −0.07 | – | +0.00 |
+| 80 | Taric | +0.29 | +0.43 | +0.39 | +0.32 | −0.07 | – | +0.00 |
+| 81 | Kai'Sa | +0.28 | −1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 82 | Heimerdinger | +0.27 | +0.02 | +0.23 | +0.92 | +0.02 | +0.22 | +0.00 |
+| 83 | Naafiri | +0.27 | +0.00 | +1.00 | +0.00 | −0.03 | – | +0.00 |
+| 84 | Elise | +0.26 | +0.95 | +0.95 | −1.00 | −0.01 | −0.16 | +0.00 |
+| 85 | Karma | +0.24 | +0.42 | +0.37 | +0.03 | +0.03 | +0.36 | +0.00 |
+| 86 | Lillia | +0.22 | +0.14 | +0.26 | +0.19 | −0.07 | +0.97 | +0.00 |
+| 87 | Rakan | +0.21 | +0.25 | +0.33 | +0.20 | +0.02 | +0.23 | +0.00 |
+| 88 | Twitch | +0.19 | +1.00 | +1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 89 | Rell | +0.17 | +0.12 | +0.16 | +0.13 | +0.06 | +0.63 | +0.00 |
+| 90 | Urgot | +0.15 | +0.07 | +0.06 | +0.01 | +0.11 | +1.00 | +0.00 |
+| 91 | Hwei | +0.13 | +0.23 | +0.13 | +0.10 | +0.01 | +0.18 | +0.00 |
+| 92 | Swain | +0.13 | +0.16 | +0.21 | +0.05 | +0.06 | +0.16 | +0.00 |
+| 93 | Morgana | +0.12 | +0.13 | +0.19 | +0.12 | +0.08 | +0.06 | +0.00 |
+| 94 | Ornn | +0.12 | +0.18 | +0.17 | +0.06 | +0.02 | – | +0.00 |
+| 95 | Soraka | +0.12 | +0.15 | +0.17 | +0.05 | +0.04 | +0.20 | +0.00 |
+| 96 | Zeri | +0.09 | −1.00 | +1.00 | +1.00 | −0.07 | −1.00 | +0.00 |
+| 97 | Lux | +0.09 | +0.13 | +0.14 | +0.01 | +0.03 | +0.13 | +0.00 |
+| 98 | Annie | +0.07 | +0.17 | +0.05 | +0.11 | +0.03 | −0.07 | +0.00 |
+| 99 | Nami | +0.07 | +0.22 | +0.06 | +0.01 | −0.01 | −0.01 | +0.00 |
+| 100 | Viktor | +0.06 | +0.11 | +0.08 | +0.06 | −0.06 | +0.08 | +0.00 |
+| 101 | Syndra | +0.05 | +0.07 | +0.12 | −0.07 | +0.04 | +0.12 | +0.00 |
+| 102 | Maokai | +0.04 | +0.07 | +0.06 | −0.02 | +0.06 | – | +0.00 |
+| 103 | Singed | +0.02 | +0.10 | −0.02 | +0.08 | −0.11 | – | +0.00 |
+| 104 | Sion | +0.02 | +0.02 | +0.06 | +0.06 | −0.10 | – | +0.00 |
+| 105 | Akshan | +0.01 | +0.01 | +0.05 | −0.08 | +0.02 | +0.03 | +0.00 |
+| 106 | Braum | +0.00 | −0.04 | +0.07 | −0.03 | +0.00 | – | +0.00 |
+| 107 | Malzahar | −0.00 | −0.04 | +0.05 | −0.07 | −0.00 | +0.08 | +0.00 |
+| 108 | Zyra | −0.00 | +0.01 | +0.03 | −0.02 | −0.07 | +0.02 | +0.00 |
+| 109 | Mel | −0.01 | +0.08 | −0.07 | −0.11 | +0.10 | −0.09 | +0.00 |
+| 110 | Senna | −0.01 | −0.05 | +0.06 | −0.01 | −0.12 | +0.06 | +0.00 |
+| 111 | Malphite | −0.02 | +0.07 | −0.08 | −0.09 | +0.03 | – | +0.00 |
+| 112 | Brand | −0.02 | +0.02 | +0.02 | −0.07 | −0.09 | −0.04 | +0.00 |
+| 113 | Anivia | −0.03 | +0.01 | −0.04 | −0.13 | −0.07 | +0.10 | +0.00 |
+| 114 | Tahm Kench | −0.03 | −0.01 | −0.01 | −0.09 | −0.03 | – | +0.00 |
+| 115 | Vex | −0.04 | −0.04 | +0.03 | −0.14 | +0.02 | −0.09 | +0.00 |
+| 116 | Zoe | −0.05 | −0.03 | −0.05 | −0.10 | −0.01 | −0.03 | +0.00 |
+| 117 | Jhin | −0.05 | +0.99 | +0.04 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 118 | Vel'Koz | −0.05 | +0.08 | −0.08 | −0.25 | +0.03 | −0.08 | +0.00 |
+| 119 | Gragas | −0.07 | −0.10 | −0.01 | −0.15 | −0.03 | – | +0.00 |
+| 120 | Fiddlesticks | −0.07 | −0.03 | −0.04 | −0.14 | −0.13 | −0.06 | +0.00 |
+| 121 | Leona | −0.08 | −0.06 | −0.05 | −0.18 | −0.08 | – | +0.00 |
+| 122 | Veigar | −0.09 | −0.04 | −0.11 | −0.26 | +0.04 | −0.10 | +0.00 |
+| 123 | Cassiopeia | −0.10 | −0.15 | −0.05 | −0.21 | +0.01 | −0.07 | +0.00 |
+| 124 | Miss Fortune | −0.10 | +1.00 | −1.00 | +0.00 | +0.01 | −1.00 | +0.00 |
+| 125 | Lissandra | −0.19 | −0.19 | −0.10 | −0.59 | +0.08 | −0.08 | +0.00 |
+| 126 | Sona | −0.19 | +0.06 | −0.04 | −1.00 | +0.00 | +0.06 | +0.00 |
+| 127 | Karthus | −0.20 | −0.21 | −0.22 | −0.29 | −0.04 | −0.28 | +0.00 |
+| 128 | Nidalee | −0.20 | +1.00 | −0.96 | −1.00 | −0.10 | +0.04 | +0.00 |
+| 129 | Ryze | −0.21 | −0.98 | +1.00 | −1.00 | −0.10 | +0.02 | +0.00 |
+| 130 | Seraphine | −0.22 | −0.09 | −0.01 | −1.00 | −0.01 | +0.04 | +0.00 |
+| 131 | Ahri | −0.22 | −0.04 | −0.08 | −1.00 | +0.11 | −0.08 | +0.00 |
+| 132 | Nautilus | −0.29 | +0.12 | −0.07 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 133 | Vladimir | −0.30 | −0.11 | −0.11 | −0.53 | −0.26 | −1.00 | +0.00 |
+| 134 | Aurelion Sol | −0.31 | −0.01 | −0.57 | −1.00 | +0.26 | −0.07 | +0.00 |
+| 135 | Nilah | −0.39 | −1.00 | −1.00 | +0.00 | +0.09 | +1.00 | +0.00 |
+| 136 | Blitzcrank | −0.40 | −0.19 | −0.19 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 137 | LeBlanc | −0.46 | −1.00 | +0.03 | −1.00 | −0.04 | −0.10 | +0.00 |
+| 138 | Ziggs | −0.46 | −0.01 | −1.00 | −1.00 | +0.07 | −0.15 | +0.00 |
+| 139 | Jarvan IV | −0.50 | −1.00 | +0.00 | −1.00 | +0.03 | – | +0.00 |
+| 140 | Zed | −0.51 | +0.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 141 | Skarner | −0.52 | −1.00 | +0.00 | −1.00 | −0.12 | – | +0.00 |
+| 142 | Akali | −0.53 | −1.00 | −0.07 | −1.00 | −0.04 | – | +0.00 |
+| 143 | Kayn | −0.53 | −1.00 | −0.19 | −0.84 | −0.09 | – | +0.00 |
+| 144 | Xerath | −0.60 | −0.17 | −0.99 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 145 | Tristana | −0.62 | −1.00 | −1.00 | −1.00 | −0.10 | +1.00 | +0.00 |
+| 146 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 147 | Hecarim | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 148 | Galio | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 149 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 150 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 151 | Nocturne | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 152 | Sylas | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 153 | Alistar | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 154 | Sejuani | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 155 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 156 | Renata Glasc | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 157 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 158 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 159 | Briar | −0.80 | −1.00 | −0.90 | −1.00 | −0.27 | – | +0.00 |
+| 160 | Qiyana | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 161 | Locke | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 162 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 163 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 164 | Rammus | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 165 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 166 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 167 | Shaco | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 168 | Thresh | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 169 | Yuumi | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 170 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 171 | Pyke | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 172 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Shen's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,79 +189,79 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Shen` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Maokai (net +1.28)
+#### 1. Maokai (net +1.28)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Shen's Shadow Dash. Untargetable for 1.4 s; Shadow Dash takes 0.38 s to land, enough to react. (Maokai W Twisted Advance → Shen E Shadow Dash)
 - **0.45** interrupt: Bramble Smash's airborne interrupts Shen's Stand United (movement channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Shen R Stand United)
 - **0.19** untargetable: Twisted Advance makes Maokai untargetable, dodging Shen's Twilight Assault. Untargetable for 1.4 s; Twilight Assault lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Shen Q Twilight Assault)
 - Watch out: Spirit's Refuge blocks Maokai's basic attacks (with Sap Magic).
 
-### 2. Nocturne (net +1.11)
+#### 2. Nocturne (net +1.11)
 
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks Shen's Shadow Dash. Spell shield for 1.5 s, long enough to use ahead of Shadow Dash. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Shen E Shadow Dash)
 - **0.45** interrupt: Unspeakable Horror's fear interrupts Shen's Stand United (movement channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Shen R Stand United)
 - **0.29** spell shield: Shroud of Darkness's spell shield blocks Shen's Twilight Assault. Spell shield for 1.5 s, long enough to use ahead of Twilight Assault. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Shen Q Twilight Assault)
 - Watch out: Spirit's Refuge blocks Nocturne's basic attacks (with Umbra Blades).
 
-### 3. Cassiopeia (net +1.08)
+#### 3. Cassiopeia (net +1.08)
 
 - **0.48** grounding: Miasma grounds Shen, who then can't cast Shadow Dash. Grounded while in the area; 16 s cooldown. (Cassiopeia W Miasma → Shen E Shadow Dash)
 - **0.45** interrupt: Petrifying Gaze's stun interrupts Shen's Stand United (movement channel). Petrifying Gaze must land during the channel. (Cassiopeia R Petrifying Gaze → Shen R Stand United)
 - **0.43** grounding: Miasma grounds Shen, who then can't cast Stand United. Grounded while in the area; 16 s cooldown. (Cassiopeia W Miasma → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Cassiopeia's basic attacks.
 
-### 4. Rell (net +1.07)
+#### 4. Rell (net +1.07)
 
 - **0.45** interrupt: Ferromancy: Crash Down's airborne interrupts Shen's Stand United (movement channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Shen R Stand United)
 - **0.45** interrupt: Ferromancy: Mount Up's airborne interrupts Shen's Stand United (movement channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Shen R Stand United)
 - **0.45** interrupt: Full Tilt's stun interrupts Shen's Stand United (movement channel). Full Tilt must land during the channel. (Rell E Full Tilt → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Rell's Ferromancy: Mount Up, an empowered attack.
 
-### 5. Malzahar (net +1.07)
+#### 5. Malzahar (net +1.07)
 
 - **0.50** cc immunity: Void Shift makes Malzahar immune to Shen's Shadow Dash (taunt). Void Shift is up on its own and ends on the first damage or crowd control it takes. (Malzahar I Void Shift → Shen E Shadow Dash)
 - **0.45** interrupt: Call of the Void's silence interrupts Shen's Stand United (movement channel). Call of the Void must land during the channel. (Malzahar Q Call of the Void → Shen R Stand United)
 - **0.45** interrupt: Nether Grasp's suppression interrupts Shen's Stand United (movement channel). Nether Grasp must land during the channel. (Malzahar R Nether Grasp → Shen R Stand United)
 - Watch out: Shadow Dash's taunt interrupts Malzahar's Nether Grasp (normal channel).
 
-### 6. Sejuani (net +1.02)
+#### 6. Sejuani (net +1.02)
 
 - **0.45** interrupt: Arctic Assault's airborne interrupts Shen's Stand United (movement channel). Arctic Assault must land during the channel. (Sejuani Q Arctic Assault → Shen R Stand United)
 - **0.45** interrupt: Glacial Prison's stun interrupts Shen's Stand United (movement channel). Glacial Prison must land during the channel. (Sejuani R Glacial Prison → Shen R Stand United)
 - **0.45** interrupt: Permafrost's airborne interrupts Shen's Stand United (movement channel). Permafrost must land during the channel. (Sejuani E Permafrost → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Sejuani's basic attacks (with Fury of the North).
 
-### 7. Lulu (net +0.96)
+#### 7. Lulu (net +0.96)
 
 - **0.45** interrupt: Whimsy's polymorph interrupts Shen's Stand United (movement channel). Whimsy must land during the channel. (Lulu W Whimsy → Shen R Stand United)
 - **0.45** interrupt: Wild Growth's airborne interrupts Shen's Stand United (movement channel). Wild Growth must land during the channel. (Lulu R Wild Growth → Shen R Stand United)
 - **0.36** disarm: Whimsy disarms Shen for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Shen basic attacks)
 - Watch out: Spirit's Refuge blocks Lulu's basic attacks (with Pix, Faerie Companion).
 
-### 8. K'Sante (net +0.92)
+#### 8. K'Sante (net +0.92)
 
 - **0.45** interrupt: All Out's airborne interrupts Shen's Stand United (movement channel). All Out must land during the channel. (K'Sante R All Out → Shen R Stand United)
 - **0.45** interrupt: Ntofo Strikes's airborne interrupts Shen's Stand United (movement channel). Ntofo Strikes must land during the channel. (K'Sante Q Ntofo Strikes → Shen R Stand United)
 - **0.45** interrupt: Path Maker's airborne interrupts Shen's Stand United (movement channel). Path Maker must land during the channel. (K'Sante W Path Maker → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks K'Sante's basic attacks (with Dauntless Instinct).
 
-### 9. Singed (net +0.89)
+#### 9. Singed (net +0.89)
 
 - **0.49** grounding: Mega Adhesive grounds Shen, who then can't cast Shadow Dash. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Shen E Shadow Dash)
 - **0.45** interrupt: Fling's airborne interrupts Shen's Stand United (movement channel). Fling must land during the channel. (Singed E Fling → Shen R Stand United)
 - **0.44** grounding: Mega Adhesive grounds Shen, who then can't cast Stand United. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Singed's basic attacks.
 
-### 10. Heimerdinger (net +0.88)
+#### 10. Heimerdinger (net +0.88)
 
 - **0.45** interrupt: CH-2 Electron Storm Grenade's stun interrupts Shen's Stand United (movement channel). CH-2 Electron Storm Grenade must land during the channel. (Heimerdinger E CH-2 Electron Storm Grenade → Shen R Stand United)
 - **0.45** interrupt: CH-3X Lightning Grenade's stun interrupts Shen's Stand United (movement channel). CH-3X Lightning Grenade must land during the channel. (Heimerdinger E CH-3X Lightning Grenade → Shen R Stand United)
 - **0.13** range: Heimerdinger's basic attacks reach 425 units farther than Shen's (550 vs 125 attack range). Shen closes the gap with Shadow Dash, Stand United. (Heimerdinger basic attacks → Shen basic attacks)
 - Watch out: Spirit's Refuge blocks Heimerdinger's basic attacks.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

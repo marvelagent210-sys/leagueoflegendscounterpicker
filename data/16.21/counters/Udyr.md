@@ -1,5 +1,186 @@
 # Counters to Udyr (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Udyr: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Udyr wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Udyr --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kog'Maw | +0.84 | +1.00 | +1.00 | +1.00 | +0.28 | +1.00 | +0.00 |
+| 2 | Jayce | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 3 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.28 | – | +0.00 |
+| 4 | Ashe | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 5 | Gnar | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | −0.06 |
+| 6 | Vayne | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 7 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 8 | Mordekaiser | +0.81 | +1.00 | +0.99 | +0.97 | +0.14 | +0.97 | +0.00 |
+| 9 | Yorick | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 10 | Ivern | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 11 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 12 | Cho'Gath | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 13 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 14 | Sett | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 15 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.37 |
+| 16 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 17 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 18 | Garen | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 19 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 20 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 21 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 22 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 23 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 24 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 25 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 26 | Yasuo | +0.77 | +1.00 | +1.00 | +0.90 | +0.08 | – | +0.00 |
+| 27 | Shyvana | +0.76 | +1.00 | +1.00 | +1.00 | +0.21 | – | −1.00 |
+| 28 | Xin Zhao | +0.74 | +1.00 | +1.00 | +1.00 | −0.13 | – | −0.32 |
+| 29 | Illaoi | +0.73 | +0.86 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 30 | Aatrox | +0.73 | +1.00 | +1.00 | +1.00 | +0.06 | – | −1.00 |
+| 31 | Bel'Veth | +0.73 | +1.00 | +1.00 | +0.85 | −0.10 | – | +0.00 |
+| 32 | Camille | +0.72 | +1.00 | +1.00 | +1.00 | −0.01 | – | −1.00 |
+| 33 | Lulu | +0.72 | +1.00 | +1.00 | +1.00 | +0.09 | +0.03 | +0.00 |
+| 34 | Yone | +0.70 | +1.00 | +1.00 | +1.00 | −0.11 | – | −1.00 |
+| 35 | Ambessa | +0.64 | +1.00 | +1.00 | +1.00 | +0.29 | −1.00 | +0.00 |
+| 36 | Kalista | +0.58 | +0.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 37 | Karma | +0.57 | +0.23 | +0.93 | +0.96 | +0.07 | +0.72 | +0.00 |
+| 38 | Aphelios | +0.56 | +1.00 | +1.00 | +1.00 | +0.09 | −1.00 | −1.00 |
+| 39 | Vel'Koz | +0.48 | +0.85 | −0.03 | +0.69 | +0.27 | +1.00 | +0.00 |
+| 40 | Zaahen | +0.45 | +0.01 | +1.00 | +1.00 | −0.01 | – | −1.00 |
+| 41 | Annie | +0.43 | +1.00 | +1.00 | −1.00 | +0.17 | +1.00 | +0.00 |
+| 42 | Xayah | +0.38 | +1.00 | +1.00 | −1.00 | +0.22 | +1.00 | −1.00 |
+| 43 | Corki | +0.35 | −1.00 | +1.00 | +1.00 | +0.33 | +1.00 | +0.00 |
+| 44 | Malphite | +0.32 | −1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 45 | Gangplank | +0.30 | +1.00 | +1.00 | −1.00 | +0.11 | – | −1.00 |
+| 46 | Vi | +0.29 | +1.00 | +1.00 | −1.00 | +0.07 | – | −1.00 |
+| 47 | Wukong | +0.24 | −1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 48 | Braum | +0.23 | +0.82 | −0.53 | +0.96 | −0.01 | −0.36 | +0.00 |
+| 49 | Brand | +0.21 | +0.85 | +0.49 | −1.00 | +0.10 | +0.60 | +0.00 |
+| 50 | Twisted Fate | +0.21 | +1.00 | +1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 51 | Morgana | +0.21 | +0.92 | +0.34 | −1.00 | +0.06 | +0.84 | +0.00 |
+| 52 | Rammus | +0.18 | +1.00 | +1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 53 | Zeri | +0.08 | −1.00 | +1.00 | +1.00 | +0.18 | −1.00 | −1.00 |
+| 54 | Heimerdinger | +0.03 | −1.00 | +0.67 | +0.94 | +0.18 | −1.00 | +0.00 |
+| 55 | Kayle | −0.02 | +1.00 | −1.00 | −1.00 | +0.57 | +1.00 | −0.08 |
+| 56 | Sion | −0.02 | −0.07 | +0.00 | +0.00 | −0.00 | – | +0.00 |
+| 57 | Nocturne | −0.06 | −1.00 | +0.00 | +1.00 | −0.03 | – | +0.00 |
+| 58 | Lee Sin | −0.21 | −1.00 | +1.00 | −1.00 | +0.05 | – | +0.00 |
+| 59 | Anivia | −0.23 | +0.02 | −1.00 | −0.00 | −0.22 | +0.49 | +0.00 |
+| 60 | Kled | −0.24 | +1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 61 | Irelia | −0.25 | −0.84 | −0.87 | +1.00 | +0.12 | +0.06 | −0.94 |
+| 62 | Ezreal | −0.26 | +0.77 | −1.00 | −1.00 | +0.04 | −0.07 | +0.00 |
+| 63 | Yunara | −0.27 | +0.43 | −1.00 | −1.00 | +0.15 | +1.00 | −1.00 |
+| 64 | Zilean | −0.28 | −1.00 | +1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 65 | Neeko | −0.28 | +1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 66 | Rumble | −0.34 | −1.00 | −1.00 | +0.93 | +0.07 | – | +0.00 |
+| 67 | Orianna | −0.38 | −1.00 | −1.00 | +1.00 | +0.13 | −1.00 | +0.00 |
+| 68 | Elise | −0.38 | −1.00 | −1.00 | +1.00 | +0.11 | −1.00 | +0.00 |
+| 69 | Viego | −0.39 | +0.65 | −1.00 | −1.00 | −0.08 | – | −1.00 |
+| 70 | Milio | −0.42 | +0.37 | −1.00 | −1.00 | +0.23 | −1.00 | +0.00 |
+| 71 | Bard | −0.44 | +0.36 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 72 | Varus | −0.47 | +0.52 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 73 | Lux | −0.50 | −0.10 | −1.00 | −1.00 | +0.07 | −0.41 | +0.00 |
+| 74 | Jinx | −0.52 | −1.00 | −1.00 | +0.26 | +0.16 | −1.00 | +0.00 |
+| 75 | Nilah | −0.57 | −1.00 | −1.00 | +0.00 | +0.21 | −1.00 | +0.00 |
+| 76 | Smolder | −0.61 | −1.00 | −1.00 | −1.00 | +0.28 | +1.00 | −1.00 |
+| 77 | Tahm Kench | −0.63 | −0.40 | −0.91 | −0.98 | −0.06 | −0.95 | +0.00 |
+| 78 | Volibear | −0.64 | −0.79 | −0.76 | −0.79 | +0.11 | – | −1.00 |
+| 79 | Rengar | −0.72 | −1.00 | −1.00 | −1.00 | +0.32 | – | +0.00 |
+| 80 | Kennen | −0.73 | −1.00 | −0.93 | −0.92 | +0.22 | −0.94 | +0.00 |
+| 81 | Aurelion Sol | −0.75 | −1.00 | −1.00 | −1.00 | +0.34 | −1.00 | +0.00 |
+| 82 | Akali | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 83 | Riven | −0.76 | −1.00 | −1.00 | −1.00 | +0.28 | – | −0.50 |
+| 84 | Diana | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 85 | Hecarim | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 86 | Jarvan IV | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 87 | Rek'Sai | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 88 | Sylas | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 89 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 90 | Maokai | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 91 | Ziggs | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 92 | Kayn | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 93 | Sejuani | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 94 | Rell | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 95 | Shaco | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 96 | Gwen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 97 | Jhin | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 98 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 99 | Cassiopeia | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 100 | Syndra | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 101 | Janna | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 102 | Seraphine | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 103 | Karthus | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 104 | Zoe | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 105 | Ryze | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 106 | Aurora | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 107 | Miss Fortune | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 108 | Mel | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 109 | Ekko | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 110 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 111 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 112 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 113 | Alistar | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 114 | Galio | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 115 | Viktor | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 116 | Nami | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 117 | Renata Glasc | −0.79 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | −0.16 |
+| 118 | Azir | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 119 | Ornn | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 120 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 121 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 122 | Vex | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 123 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 124 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 125 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 126 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 127 | Shen | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 128 | Fiddlesticks | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 129 | Thresh | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 130 | Hwei | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 131 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 132 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 133 | Zac | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 134 | Rakan | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 135 | LeBlanc | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 136 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 137 | Soraka | −0.79 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 138 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 139 | Kassadin | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 140 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 141 | Gragas | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 142 | Nidalee | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 143 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 144 | Tristana | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 145 | Master Yi | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 146 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 147 | Zed | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 148 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 149 | Locke | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 150 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 151 | Pyke | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 152 | Naafiri | −0.81 | −1.00 | −1.00 | −1.00 | +0.12 | – | −1.00 |
+| 153 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | +0.12 | – | −1.00 |
+| 154 | Nunu & Willump | −0.82 | −1.00 | −1.00 | −1.00 | +0.11 | – | −1.00 |
+| 155 | Lillia | −0.82 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | −0.24 |
+| 156 | Skarner | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 157 | Swain | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | −0.61 |
+| 158 | Qiyana | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 159 | Akshan | −0.82 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | −1.00 |
+| 160 | Lucian | −0.83 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | −1.00 |
+| 161 | Graves | −0.83 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | −1.00 |
+| 162 | Fizz | −0.83 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | −1.00 |
+| 163 | Sona | −0.83 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | −1.00 |
+| 164 | Quinn | −0.84 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | −1.00 |
+| 165 | Yuumi | −0.84 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | −1.00 |
+| 166 | Evelynn | −0.84 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | −1.00 |
+| 167 | Kindred | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 168 | Sivir | −0.84 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | −1.00 |
+| 169 | Kai'Sa | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 170 | Briar | −0.85 | −1.00 | −1.00 | −1.00 | −0.09 | – | −1.00 |
+| 171 | Katarina | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
+| 172 | Samira | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Udyr's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,68 +189,68 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Udyr` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.07)
+#### 1. Sivir (net +1.07)
 
 - **0.60** spell shield: Spell Shield's spell shield blocks Udyr's Blazing Stampede. Spell shield for 1.5 s, long enough to use ahead of Blazing Stampede. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Udyr E Blazing Stampede)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Udyr's (500 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Sivir basic attacks → Udyr basic attacks)
 
-### 2. Vladimir (net +0.79)
+#### 2. Vladimir (net +0.79)
 
 - **0.63** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Udyr's Blazing Stampede. Untargetable for 2 s, long enough to use ahead of Blazing Stampede. (Vladimir W Sanguine Pool → Udyr E Blazing Stampede)
 - **0.34** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Udyr's Wingborne Storm. Untargetable for 2 s, long enough to use ahead of Wingborne Storm. (Vladimir W Sanguine Pool → Udyr R Wingborne Storm)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Udyr's (450 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Vladimir basic attacks → Udyr basic attacks)
 - Watch out: Blazing Stampede makes Udyr immune to Vladimir's Sanguine Pool (slow).
 
-### 3. Yuumi (net +0.64)
+#### 3. Yuumi (net +0.64)
 
 - **0.60** untargetable: You and Me! makes Yuumi untargetable, dodging Udyr's Blazing Stampede. Untargetable for ?; Blazing Stampede lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Udyr E Blazing Stampede)
 - **0.33** untargetable: You and Me! makes Yuumi untargetable, dodging Udyr's Wingborne Storm. Untargetable for ?; Wingborne Storm lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Udyr R Wingborne Storm)
 - **0.32** range: Yuumi's basic attacks reach 300 units farther than Udyr's (425 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Yuumi basic attacks → Udyr basic attacks)
 - Watch out: Blazing Stampede's stun interrupts Yuumi's Final Chapter (normal channel).
 
-### 4. Teemo (net +0.54)
+#### 4. Teemo (net +0.54)
 
 - **0.54** blind: Blinding Dart's blind makes Udyr's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Udyr basic attacks)
 - **0.34** range: Teemo's basic attacks reach 375 units farther than Udyr's (500 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Teemo basic attacks → Udyr basic attacks)
 - Watch out: Blazing Stampede makes Udyr immune to Teemo's Blinding Dart (blind).
 
-### 5. Kai'Sa (net +0.38)
+#### 5. Kai'Sa (net +0.38)
 
 - **0.38** range: Kai'Sa's basic attacks reach 400 units farther than Udyr's (525 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Kai'Sa basic attacks → Udyr basic attacks)
 
-### 6. Gangplank (net +0.37)
+#### 6. Gangplank (net +0.37)
 
 - **0.53** cleanse: Remove Scurvy cleanses Udyr's Blazing Stampede (stun) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Udyr E Blazing Stampede)
 - **0.07** cleanse: Remove Scurvy cleanses Udyr's Wingborne Storm (slow) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Gangplank's Cannon Barrage (slow).
 
-### 7. Kayle (net +0.37)
+#### 7. Kayle (net +0.37)
 
 - **0.36** range: Kayle's basic attacks reach 500 units farther than Udyr's (625 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Kayle basic attacks → Udyr basic attacks)
 - **0.12** invulnerable: Divine Judgment makes Kayle invulnerable to Udyr's Wingborne Storm (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Wingborne Storm. (Kayle R Divine Judgment → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Kayle's Radiant Blast (slow).
 
-### 8. Olaf (net +0.37)
+#### 8. Olaf (net +0.37)
 
 - **0.45** cc immunity: Ragnarok makes Olaf immune to Udyr's Blazing Stampede (stun). Immune for 3 s, long enough to use ahead of Blazing Stampede. (Olaf R Ragnarok → Udyr E Blazing Stampede)
 - **0.06** cc immunity: Ragnarok makes Olaf immune to Udyr's Wingborne Storm (slow). Immune for 3 s, long enough to use ahead of Wingborne Storm. (Olaf R Ragnarok → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Olaf's Undertow (slow).
 
-### 9. Aurora (net +0.36)
+#### 9. Aurora (net +0.36)
 
 - **0.29** range: Aurora's basic attacks reach 425 units farther than Udyr's (550 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Aurora basic attacks → Udyr basic attacks)
 - **0.26** untargetable: Between Worlds makes Aurora untargetable, dodging Udyr's Blazing Stampede. Untargetable for 0.4 s; Blazing Stampede lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Udyr E Blazing Stampede)
 - **0.14** untargetable: Between Worlds makes Aurora untargetable, dodging Udyr's Wingborne Storm. Untargetable for 0.4 s; Wingborne Storm lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Aurora's Between Worlds (slow).
 
-### 10. Kindred (net +0.36)
+#### 10. Kindred (net +0.36)
 
 - **0.47** range: Kindred's basic attacks reach 375 units farther than Udyr's (500 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Kindred basic attacks → Udyr basic attacks)
 - Watch out: Blazing Stampede makes Udyr immune to Kindred's Mounting Dread (slow).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

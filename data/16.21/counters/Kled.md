@@ -1,5 +1,186 @@
 # Counters to Kled (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Kled: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kled wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Kled --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.87 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +1.00 |
+| 2 | Kayle | +0.86 | +1.00 | +1.00 | +1.00 | +0.40 | +1.00 | +0.00 |
+| 3 | Vayne | +0.84 | +1.00 | +1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 4 | Aphelios | +0.82 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 5 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 6 | Ashe | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 7 | Ivern | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 8 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 9 | Smolder | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 10 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 11 | Zeri | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 12 | Shyvana | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 13 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 14 | Yorick | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 15 | Quinn | +0.67 | +1.00 | +0.41 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 16 | Annie | +0.62 | +1.00 | +1.00 | +0.00 | +0.16 | +1.00 | +0.00 |
+| 17 | Lulu | +0.61 | +1.00 | +1.00 | +1.00 | +0.08 | −1.00 | +0.00 |
+| 18 | Dr. Mundo | +0.52 | +0.57 | +0.73 | +0.89 | −0.22 | – | +0.00 |
+| 19 | Gwen | +0.49 | +0.45 | +0.46 | +1.00 | +0.07 | – | +0.00 |
+| 20 | Yunara | +0.48 | +0.32 | +0.32 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 21 | Yasuo | +0.48 | +0.33 | +0.52 | +1.00 | +0.11 | – | +0.00 |
+| 22 | Trundle | +0.47 | +1.00 | +0.00 | +1.00 | −0.15 | – | +0.00 |
+| 23 | Kalista | +0.41 | +1.00 | +1.00 | −1.00 | +0.06 | +1.00 | +0.00 |
+| 24 | Darius | +0.34 | +1.00 | +1.00 | −1.00 | +0.05 | – | +0.00 |
+| 25 | Poppy | +0.32 | +0.00 | +1.00 | +0.00 | +0.28 | – | +0.00 |
+| 26 | Neeko | +0.32 | +0.30 | +0.31 | +0.92 | +0.12 | −0.35 | +0.00 |
+| 27 | Orianna | +0.29 | +1.00 | −1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 28 | Karma | +0.27 | +0.11 | +0.22 | +0.59 | −0.06 | +0.79 | +0.00 |
+| 29 | Malphite | +0.25 | +0.00 | +0.00 | +1.00 | +0.18 | – | +0.00 |
+| 30 | Udyr | +0.24 | +1.00 | −1.00 | +1.00 | +0.09 | – | +0.00 |
+| 31 | Jax | +0.22 | +1.00 | −1.00 | +1.00 | +0.01 | – | +0.00 |
+| 32 | Taric | +0.16 | +0.20 | +0.18 | +0.23 | +0.03 | – | +0.00 |
+| 33 | Zaahen | +0.04 | −0.73 | +0.04 | +1.00 | +0.06 | – | +0.00 |
+| 34 | Anivia | +0.02 | +0.22 | +0.22 | −0.27 | −0.05 | −0.34 | +0.00 |
+| 35 | Tahm Kench | +0.01 | +0.05 | +0.05 | +0.03 | −0.13 | – | +0.00 |
+| 36 | Caitlyn | −0.03 | +0.30 | +0.30 | −1.00 | +0.10 | +0.00 | +0.00 |
+| 37 | Zac | −0.08 | −0.09 | −0.09 | +0.01 | −0.20 | – | +0.00 |
+| 38 | Heimerdinger | −0.10 | −0.73 | −0.94 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 39 | Morgana | −0.16 | +0.00 | −1.00 | +0.17 | +0.13 | +0.35 | +0.00 |
+| 40 | Fiora | −0.18 | +0.00 | −1.00 | +0.00 | +0.23 | – | +1.00 |
+| 41 | Corki | −0.19 | −1.00 | −1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 42 | Twisted Fate | −0.19 | −1.00 | −1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 43 | Varus | −0.20 | −1.00 | −1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 44 | Tristana | −0.20 | −1.00 | −1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 45 | Warwick | −0.20 | +0.00 | +0.00 | −1.00 | +0.12 | – | +0.00 |
+| 46 | Kennen | −0.23 | −1.00 | −1.00 | +0.81 | +0.16 | +0.86 | +0.00 |
+| 47 | Illaoi | −0.23 | +0.95 | −0.99 | −0.90 | −0.11 | – | +0.00 |
+| 48 | Janna | −0.30 | +0.00 | −1.00 | +0.00 | +0.01 | −0.50 | +0.00 |
+| 49 | Draven | −0.33 | −0.10 | −1.00 | +0.49 | −0.32 | −1.00 | +0.00 |
+| 50 | Urgot | −0.37 | −1.00 | −1.00 | +1.00 | +0.19 | −1.00 | +0.00 |
+| 51 | Milio | −0.39 | −1.00 | −1.00 | +0.05 | +0.27 | +0.61 | +0.00 |
+| 52 | Swain | −0.40 | −0.99 | −1.00 | +0.98 | +0.04 | −0.99 | +0.00 |
+| 53 | Aurora | −0.41 | −1.00 | −1.00 | +1.00 | −0.07 | −1.00 | +0.00 |
+| 54 | Bel'Veth | −0.42 | −1.00 | −1.00 | +0.62 | +0.01 | – | +0.00 |
+| 55 | Cassiopeia | −0.42 | −1.00 | −1.00 | +0.75 | +0.17 | −1.00 | +0.00 |
+| 56 | Jinx | −0.49 | −0.91 | −0.91 | −0.43 | +0.10 | +0.34 | +0.00 |
+| 57 | Azir | −0.54 | +0.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 58 | Mordekaiser | −0.55 | −0.69 | −0.92 | −0.50 | +0.04 | – | +0.00 |
+| 59 | Maokai | −0.55 | −1.00 | −1.00 | +0.00 | +0.03 | – | +0.00 |
+| 60 | Irelia | −0.56 | −0.33 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 61 | Kai'Sa | −0.59 | −1.00 | −1.00 | −1.00 | +0.05 | +1.00 | +0.00 |
+| 62 | Lucian | −0.62 | −1.00 | −1.00 | −1.00 | −0.10 | +1.00 | +0.00 |
+| 63 | Xin Zhao | −0.64 | −0.80 | −0.80 | −1.00 | +0.14 | – | +0.00 |
+| 64 | Master Yi | −0.70 | −1.00 | −1.00 | −1.00 | +0.15 | – | +1.00 |
+| 65 | Rengar | −0.70 | −1.00 | −1.00 | −1.00 | +0.47 | – | +0.00 |
+| 66 | Aurelion Sol | −0.73 | −1.00 | −1.00 | −1.00 | +0.25 | −0.63 | +0.00 |
+| 67 | Malzahar | −0.73 | −1.00 | −1.00 | −1.00 | −0.08 | −0.22 | +0.00 |
+| 68 | Ambessa | −0.74 | −1.00 | −1.00 | −1.00 | +0.25 | – | +0.00 |
+| 69 | Jarvan IV | −0.74 | −1.00 | −1.00 | −1.00 | +0.22 | – | +0.00 |
+| 70 | Mel | −0.74 | −1.00 | −1.00 | −0.76 | +0.08 | −1.00 | +0.00 |
+| 71 | Hwei | −0.74 | −1.00 | −1.00 | −0.65 | −0.09 | −1.00 | +0.00 |
+| 72 | Jayce | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 73 | Gangplank | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 74 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 75 | Hecarim | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 76 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 77 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 78 | Shaco | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 79 | Diana | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 80 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 81 | Viego | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 82 | Riven | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 83 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 84 | Rek'Sai | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 85 | Vi | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 86 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 87 | Singed | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 88 | Sylas | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 89 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 90 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 91 | Naafiri | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 92 | Elise | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 93 | Zed | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 94 | Olaf | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 95 | Lee Sin | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 96 | Volibear | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 97 | Cho'Gath | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 98 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 99 | Alistar | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 100 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 101 | Kassadin | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 102 | Fizz | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 103 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 104 | Ziggs | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 105 | Rell | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 106 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 107 | Braum | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 108 | Katarina | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 109 | Galio | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 110 | Nilah | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 111 | Lux | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 112 | Samira | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 113 | Sion | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 114 | Talon | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 115 | Gragas | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 116 | Wukong | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 117 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 118 | Rammus | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 119 | Nocturne | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 120 | Ryze | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 121 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 122 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 123 | Ekko | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 124 | Kayn | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 125 | Aatrox | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 126 | Ezreal | −0.79 | −1.00 | −1.00 | −0.98 | +0.03 | −1.00 | +0.00 |
+| 127 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 128 | Lillia | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 129 | Qiyana | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 130 | Viktor | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 131 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 132 | Karthus | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 133 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 134 | Zilean | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 135 | Xayah | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 136 | Locke | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 137 | Soraka | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 138 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 139 | Senna | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 140 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 141 | Fiddlesticks | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 142 | Nunu & Willump | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 143 | Brand | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 144 | Nautilus | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 145 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 146 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 147 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 148 | Akshan | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 149 | Nami | −0.81 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 150 | Jhin | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 151 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 152 | Bard | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 153 | Xerath | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 154 | Twitch | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 155 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 156 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 157 | Nidalee | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 158 | Camille | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 159 | Rakan | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 160 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 161 | Miss Fortune | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 162 | Syndra | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 163 | Vex | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 164 | Seraphine | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 165 | Sona | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 166 | Graves | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 167 | Vel'Koz | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 168 | Briar | −0.83 | −1.00 | −1.00 | −1.00 | −0.30 | – | +0.00 |
+| 169 | Sivir | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 170 | Yuumi | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 171 | Pyke | −0.84 | −1.00 | −1.00 | −1.00 | −0.25 | −1.00 | +0.00 |
+| 172 | Renata Glasc | −0.85 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Kled's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,75 +189,75 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Kled` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.38)
+#### 1. Sivir (net +1.38)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Kled's Chaaaaaaaarge!!!. Spell shield for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kled R Chaaaaaaaarge!!!)
 - **0.44** spell shield: Spell Shield's spell shield blocks Kled's Bear Trap on a Rope. Spell shield for 1.5 s, long enough to use ahead of Bear Trap on a Rope. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kled Q Bear Trap on a Rope)
 - **0.16** range: Sivir's basic attacks reach 250 units farther than Kled's (500 vs 250 attack range). Kled closes the gap with Chaaaaaaaarge!!!, Jousting, Pocket Pistol. (Sivir basic attacks → Kled basic attacks)
 
-### 2. Vladimir (net +1.12)
+#### 2. Vladimir (net +1.12)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 2 s, long enough to use ahead of Chaaaaaaaarge!!!. (Vladimir W Sanguine Pool → Kled R Chaaaaaaaarge!!!)
 - **0.46** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 2 s, long enough to use ahead of Bear Trap on a Rope. (Vladimir W Sanguine Pool → Kled Q Bear Trap on a Rope)
 - **0.05** range: Vladimir's basic attacks reach 200 units farther than Kled's (450 vs 250 attack range). Kled closes the gap with Chaaaaaaaarge!!!, Jousting, Pocket Pistol. (Vladimir basic attacks → Kled basic attacks)
 - Watch out: Bear Trap on a Rope's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 3. Xayah (net +1.10)
+#### 3. Xayah (net +1.10)
 
 - **1.00** untargetable: Featherstorm makes Xayah untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. (Xayah R Featherstorm → Kled R Chaaaaaaaarge!!!)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 1.5 s, long enough to use ahead of Bear Trap on a Rope. (Xayah R Featherstorm → Kled Q Bear Trap on a Rope)
 - **0.13** range: Xayah's basic attacks reach 275 units farther than Kled's (525 vs 250 attack range). Kled closes the gap with Chaaaaaaaarge!!!, Jousting, Pocket Pistol. (Xayah basic attacks → Kled basic attacks)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Xayah's Bladecaller (root).
 
-### 4. Nocturne (net +1.06)
+#### 4. Nocturne (net +1.06)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Kled's Chaaaaaaaarge!!!. Spell shield for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Kled R Chaaaaaaaarge!!!)
 - **0.52** spell shield: Shroud of Darkness's spell shield blocks Kled's Bear Trap on a Rope. Spell shield for 1.5 s, long enough to use ahead of Bear Trap on a Rope. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Kled Q Bear Trap on a Rope)
 - **0.20** cc immunity: Paranoia is displacement immune, ignoring Kled's Chaaaaaaaarge!!! (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Kled R Chaaaaaaaarge!!!)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Nocturne's Paranoia (nearsight).
 
-### 5. Zed (net +1.04)
+#### 5. Zed (net +1.04)
 
 - **1.00** untargetable: Death Mark makes Zed untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 0.6 s; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. (Zed R Death Mark → Kled R Chaaaaaaaarge!!!)
 - **0.31** untargetable: Death Mark makes Zed untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 0.6 s; Bear Trap on a Rope takes 0.75 s to land, enough to react. (Zed R Death Mark → Kled Q Bear Trap on a Rope)
 - Watch out: Kled's basic attacks reach 125 units farther than Zed's (250 vs 125 attack range).
 
-### 6. Gwen (net +1.00)
+#### 6. Gwen (net +1.00)
 
 - **1.00** untargetable: Hallowed Mist makes Gwen untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for ?; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Kled R Chaaaaaaaarge!!!)
 - **0.44** untargetable: Hallowed Mist makes Gwen untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for ?; Bear Trap on a Rope takes 0.75 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Kled Q Bear Trap on a Rope)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Gwen's Needlework (slow).
 
-### 7. Rek'Sai (net +0.98)
+#### 7. Rek'Sai (net +0.98)
 
 - **1.00** untargetable: Void Rush makes Rek'Sai untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. (Rek'Sai R Void Rush → Kled R Chaaaaaaaarge!!!)
 - **0.32** untargetable: Void Rush makes Rek'Sai untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 1.5 s, long enough to use ahead of Bear Trap on a Rope. (Rek'Sai R Void Rush → Kled Q Bear Trap on a Rope)
 - **0.21** cc immunity: Void Rush is displacement immune, ignoring Kled's Chaaaaaaaarge!!! (airborne) during it. Only during Void Rush (1.5 s). (Rek'Sai R Void Rush → Kled R Chaaaaaaaarge!!!)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Rek'Sai's Unburrow (airborne).
 
-### 8. Fiora (net +0.97)
+#### 8. Fiora (net +0.97)
 
 - **1.00** parry: Riposte parries Kled's Chaaaaaaaarge!!! and stuns back. Parry for 0.75 s; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. Negating Chaaaaaaaarge!!!'s immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Kled R Chaaaaaaaarge!!!)
 - **0.56** parry: Riposte parries Kled's Bear Trap on a Rope and stuns back. Parry for 0.75 s; Bear Trap on a Rope takes 0.75 s to land, enough to react. Negating Bear Trap on a Rope's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Kled Q Bear Trap on a Rope)
 - **0.10** attack speed slow: Riposte cuts Kled's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Kled basic attacks)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Fiora's Riposte (cripple, slow, stun).
 
-### 9. Udyr (net +0.94)
+#### 9. Udyr (net +0.94)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Kled's Chaaaaaaaarge!!! (airborne). Immune for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. (Udyr E Blazing Stampede → Kled R Chaaaaaaaarge!!!)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Kled's Bear Trap on a Rope (airborne, slow). Immune for 1.5 s, long enough to use ahead of Bear Trap on a Rope. (Udyr E Blazing Stampede → Kled Q Bear Trap on a Rope)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Udyr's Blazing Stampede (stun).
 
-### 10. Master Yi (net +0.92)
+#### 10. Master Yi (net +0.92)
 
 - **1.00** untargetable: Alpha Strike makes Master Yi untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for ?; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. (Master Yi Q Alpha Strike → Kled R Chaaaaaaaarge!!!)
 - **0.44** untargetable: Alpha Strike makes Master Yi untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for ?; Bear Trap on a Rope takes 0.75 s to land, enough to react. (Master Yi Q Alpha Strike → Kled Q Bear Trap on a Rope)
 - **0.08** cc immunity: Highlander makes Master Yi immune to Kled's Bear Trap on a Rope (slow). Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Kled Q Bear Trap on a Rope)
 - Watch out: Bear Trap on a Rope's airborne interrupts Master Yi's Meditate (normal channel).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -1,5 +1,186 @@
 # Counters to Kayle (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Kayle: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kayle wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Kayle --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +1.00 |
+| 2 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +1.00 |
+| 3 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 4 | Master Yi | +0.80 | +1.00 | +1.00 | +1.00 | −0.35 | +1.00 | +1.00 |
+| 5 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 6 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 7 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.53 | +1.00 | +1.00 |
+| 8 | Poppy | +0.75 | +1.00 | +1.00 | +1.00 | −0.33 | +1.00 | +0.00 |
+| 9 | Fiora | +0.72 | +0.99 | +0.99 | +1.00 | −0.20 | +0.03 | +1.00 |
+| 10 | Kog'Maw | +0.59 | +1.00 | +1.00 | +0.00 | −0.06 | +1.00 | +0.00 |
+| 11 | Anivia | +0.46 | −0.04 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 12 | Yasuo | +0.36 | +0.40 | +0.47 | +0.81 | −0.30 | +0.21 | +0.00 |
+| 13 | Renekton | +0.31 | +1.00 | −0.26 | +1.00 | −0.18 | −0.46 | +0.00 |
+| 14 | Camille | +0.28 | +1.00 | −0.16 | +1.00 | −0.22 | −1.00 | +0.00 |
+| 15 | Gangplank | +0.25 | +0.57 | −0.64 | +1.00 | −0.03 | +0.23 | +1.00 |
+| 16 | Ivern | +0.19 | +1.00 | +1.00 | −1.00 | −0.30 | −0.62 | +0.00 |
+| 17 | Tahm Kench | +0.14 | +0.59 | +0.58 | −1.00 | −0.11 | +0.58 | +0.00 |
+| 18 | Zeri | +0.04 | +0.33 | −1.00 | +1.00 | +0.05 | – | +0.00 |
+| 19 | Lee Sin | +0.03 | −1.00 | +0.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 20 | Tryndamere | +0.02 | +0.00 | −1.00 | +1.00 | −0.21 | +1.00 | +0.00 |
+| 21 | Udyr | +0.02 | +1.00 | −1.00 | +1.00 | −0.57 | −1.00 | +0.08 |
+| 22 | Kassadin | −0.14 | +1.00 | −0.45 | −1.00 | −0.22 | −0.45 | +0.00 |
+| 23 | Graves | −0.20 | −1.00 | −1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 24 | Sylas | −0.31 | −1.00 | +1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 25 | Heimerdinger | −0.35 | −1.00 | −1.00 | +1.00 | −0.12 | – | +0.00 |
+| 26 | Malphite | −0.41 | −1.00 | −0.93 | +1.00 | −0.20 | −0.97 | +0.00 |
+| 27 | Rumble | −0.43 | −1.00 | −1.00 | +1.00 | −0.18 | −1.00 | +0.00 |
+| 28 | Bel'Veth | −0.44 | −1.00 | −1.00 | +1.00 | −0.24 | −1.00 | +0.00 |
+| 29 | Warwick | −0.48 | −1.00 | −1.00 | +1.00 | −0.52 | −1.00 | +0.00 |
+| 30 | Nocturne | −0.48 | −1.00 | −1.00 | +1.00 | −0.56 | −1.00 | +0.00 |
+| 31 | Mordekaiser | −0.56 | −0.57 | −0.56 | −0.91 | −0.28 | −0.57 | +0.00 |
+| 32 | Zaahen | −0.60 | −1.00 | −0.59 | −0.54 | −0.20 | −0.61 | +0.00 |
+| 33 | Annie | −0.60 | −1.00 | −1.00 | +0.01 | −0.30 | – | +0.00 |
+| 34 | Azir | −0.60 | −1.00 | −1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
+| 35 | Riven | −0.62 | −1.00 | −1.00 | +0.00 | −0.15 | −1.00 | +0.00 |
+| 36 | Gnar | −0.65 | −1.00 | −1.00 | −0.07 | −0.35 | −0.84 | +0.00 |
+| 37 | Wukong | −0.66 | −1.00 | −1.00 | +0.00 | −0.43 | −1.00 | +0.00 |
+| 38 | Gwen | −0.68 | −1.00 | −1.00 | −0.06 | −0.44 | −1.00 | +0.00 |
+| 39 | Braum | −0.69 | −0.54 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 40 | Aurelion Sol | −0.70 | −1.00 | −1.00 | −1.00 | +0.49 | – | +0.00 |
+| 41 | Jhin | −0.70 | −1.00 | −1.00 | −0.57 | −0.09 | – | +0.00 |
+| 42 | Sion | −0.73 | −1.00 | −1.00 | −0.50 | −0.17 | −1.00 | +0.00 |
+| 43 | Jinx | −0.74 | −1.00 | −1.00 | −1.00 | +0.06 | −0.50 | +0.00 |
+| 44 | Vi | −0.75 | −1.00 | −0.72 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 45 | Ziggs | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 46 | Rengar | −0.76 | −1.00 | −1.00 | −1.00 | +0.26 | −1.00 | +0.00 |
+| 47 | Tristana | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 48 | Mel | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 49 | Corki | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 50 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 51 | Soraka | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 52 | Diana | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 53 | Aphelios | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 54 | Syndra | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 55 | Ezreal | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 56 | Yunara | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 57 | Varus | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 58 | Zoe | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 59 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 60 | Hwei | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 61 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 62 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 63 | Swain | −0.79 | −1.00 | −0.98 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 64 | Miss Fortune | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 65 | Jarvan IV | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 66 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 67 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 68 | Nunu & Willump | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 69 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 70 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 71 | Rell | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 72 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 73 | Ashe | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 74 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 75 | Orianna | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 76 | Brand | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 77 | Renata Glasc | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 78 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 79 | Naafiri | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 80 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 81 | Neeko | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 82 | Elise | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 83 | Xayah | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 84 | Nami | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 85 | Galio | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 86 | Taric | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 87 | Shen | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 88 | Lucian | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 89 | Smolder | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 90 | Maokai | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 91 | Twitch | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 92 | Fizz | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 93 | Nautilus | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 94 | Viktor | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 95 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 96 | Alistar | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 97 | Zilean | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 98 | Nidalee | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 99 | Malzahar | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 100 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 101 | Sett | −0.81 | −0.94 | −1.00 | −0.92 | −0.29 | −1.00 | +0.00 |
+| 102 | Samira | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 103 | Quinn | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 104 | Ryze | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
+| 105 | Taliyah | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 106 | Evelynn | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 107 | Irelia | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 108 | Jayce | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 109 | Veigar | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 110 | Seraphine | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 111 | Cassiopeia | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 112 | Gragas | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 113 | Rakan | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 114 | Vex | −0.82 | −1.00 | −1.00 | −1.00 | −0.26 | – | +0.00 |
+| 115 | Locke | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 116 | Ornn | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 117 | Vel'Koz | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 118 | Talon | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 119 | Zac | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 120 | Lulu | −0.82 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 121 | Twisted Fate | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 122 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 123 | Garen | −0.82 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 124 | Morgana | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 125 | Amumu | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 126 | LeBlanc | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 127 | Blitzcrank | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 128 | Kai'Sa | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 129 | Ahri | −0.83 | −1.00 | −1.00 | −1.00 | −0.31 | – | +0.00 |
+| 130 | Fiddlesticks | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 131 | Karma | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 132 | Rek'Sai | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 133 | Kalista | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 134 | Sejuani | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 135 | Thresh | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 136 | Katarina | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 137 | Kindred | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 138 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 139 | Qiyana | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 140 | Milio | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 141 | Cho'Gath | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 142 | Ekko | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 143 | Nilah | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 144 | Akali | −0.84 | −1.00 | −1.00 | −1.00 | −0.25 | −1.00 | +0.00 |
+| 145 | Darius | −0.84 | −1.00 | −1.00 | −1.00 | −0.28 | −1.00 | +0.00 |
+| 146 | Illaoi | −0.84 | −1.00 | −1.00 | −1.00 | −0.28 | −1.00 | +0.00 |
+| 147 | Lillia | −0.84 | −1.00 | −1.00 | −1.00 | −0.28 | −1.00 | +0.00 |
+| 148 | Teemo | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+| 149 | Sivir | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+| 150 | Akshan | −0.84 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+| 151 | Vayne | −0.84 | −1.00 | −1.00 | −1.00 | −0.40 | – | +0.00 |
+| 152 | Rammus | −0.85 | −1.00 | −1.00 | −1.00 | −0.33 | −1.00 | +0.00 |
+| 153 | Shaco | −0.85 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 154 | Kayn | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
+| 155 | Briar | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
+| 156 | Volibear | −0.86 | −1.00 | −1.00 | −1.00 | −0.38 | −1.00 | +0.00 |
+| 157 | Kled | −0.86 | −1.00 | −1.00 | −1.00 | −0.40 | −1.00 | +0.00 |
+| 158 | Singed | −0.86 | −1.00 | −1.00 | −1.00 | −0.41 | −1.00 | +0.00 |
+| 159 | Pantheon | −0.86 | −1.00 | −1.00 | −1.00 | −0.42 | −1.00 | +0.00 |
+| 160 | Xin Zhao | −0.86 | −1.00 | −1.00 | −1.00 | −0.43 | −1.00 | +0.00 |
+| 161 | Ambessa | −0.86 | −1.00 | −1.00 | −1.00 | −0.43 | −1.00 | +0.00 |
+| 162 | Hecarim | −0.87 | −1.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
+| 163 | Yuumi | −0.87 | −1.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
+| 164 | Bard | −0.87 | −1.00 | −1.00 | −1.00 | −0.45 | −1.00 | +0.00 |
+| 165 | Zed | −0.87 | −1.00 | −1.00 | −1.00 | −0.47 | −1.00 | +0.00 |
+| 166 | Janna | −0.87 | −1.00 | −1.00 | −1.00 | −0.57 | – | +0.00 |
+| 167 | Pyke | −0.87 | −1.00 | −1.00 | −1.00 | −0.49 | −1.00 | +0.00 |
+| 168 | Olaf | −0.87 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 169 | Viego | −0.89 | −1.00 | −1.00 | −1.00 | −0.60 | −1.00 | +0.00 |
+| 170 | Shyvana | −0.89 | −1.00 | −1.00 | −1.00 | −0.60 | −1.00 | +0.00 |
+| 171 | Aatrox | −0.90 | −1.00 | −1.00 | −1.00 | −0.66 | −1.00 | +0.00 |
+| 172 | Yone | −0.90 | −1.00 | −1.00 | −1.00 | −0.66 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Kayle's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,9 +189,9 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Kayle` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +0.11)
+#### 1. Teemo (net +0.11)
 
 - **0.47** blind: Blinding Dart's blind makes Kayle's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Kayle basic attacks)
 - **0.15** blind: Blinding Dart's blind makes Kayle's Starfire Spellblade, an empowered attack, miss. Blind for 3 s. Parry interactions:
@@ -19,40 +200,40 @@ Run `npm run matchup -- <champion> Kayle` for the full ledger of a matchup, with
   - Dodge: Dodging will always negate all damage. (Teemo Q Blinding Dart → Kayle E Starfire Spellblade)
 - Watch out: Kayle's basic attacks reach 125 units farther than Teemo's (625 vs 500 attack range).
 
-### 2. Lulu (net +0.10)
+#### 2. Lulu (net +0.10)
 
 - **0.34** disarm: Whimsy disarms Kayle for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Kayle basic attacks)
 - Watch out: Kayle's basic attacks reach 75 units farther than Lulu's (625 vs 550 attack range).
 
-### 3. Braum (net +0.06)
+#### 3. Braum (net +0.06)
 
 - **0.50** projectile block: Unbreakable blocks Kayle's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Kayle basic attacks)
 - **0.45** projectile block: Unbreakable blocks Kayle's Radiant Blast, a projectile. Unbreakable for 4 s, long enough to use ahead of Radiant Blast. (Braum E Unbreakable → Kayle Q Radiant Blast)
 - **0.38** projectile block: Unbreakable blocks Kayle's Starfire Spellblade, a projectile. Unbreakable for 4 s, long enough to use ahead of Starfire Spellblade. (Braum E Unbreakable → Kayle E Starfire Spellblade)
 - Watch out: Divine Judgment makes Kayle invulnerable to Braum's Glacial Fissure (its crowd control still applies).
 
-### 4. Sivir (net +0.05)
+#### 4. Sivir (net +0.05)
 
 - **0.27** spell shield: Spell Shield's spell shield blocks Kayle's Starfire Spellblade. Spell shield for 1.5 s, long enough to use ahead of Starfire Spellblade. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kayle E Starfire Spellblade)
 - Watch out: Kayle's basic attacks reach 125 units farther than Sivir's (625 vs 500 attack range).
 
-### 5. Samira (net 0.00)
+#### 5. Samira (net 0.00)
 
 - **0.30** projectile block: Blade Whirl blocks Kayle's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Kayle basic attacks)
 - **0.28** projectile block: Blade Whirl blocks Kayle's Radiant Blast, a projectile. Blade Whirl for 0.75 s; Radiant Blast takes 0.56 s to land, enough to react. (Samira W Blade Whirl → Kayle Q Radiant Blast)
 - **0.15** projectile block: Blade Whirl blocks Kayle's Starfire Spellblade, a projectile. Blade Whirl for 0.75 s; Starfire Spellblade lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Samira W Blade Whirl → Kayle E Starfire Spellblade)
 - Watch out: Divine Judgment makes Kayle invulnerable to Samira's Wild Rush.
 
-### 6. Yunara (net 0.00)
+#### 6. Yunara (net 0.00)
 
 - No interaction in Yunara's favor.
 
-### 7. Bard (net -0.01)
+#### 7. Bard (net -0.01)
 
 - **0.20** untargetable: Tempered Fate makes Bard untargetable, dodging Kayle's Starfire Spellblade. Untargetable for 2.5 s, long enough to use ahead of Starfire Spellblade. (Bard R Tempered Fate → Kayle E Starfire Spellblade)
 - Watch out: Kayle's basic attacks reach 125 units farther than Bard's (625 vs 500 attack range).
 
-### 8. Shen (net -0.08)
+#### 8. Shen (net -0.08)
 
 - **0.36** attack block: Spirit's Refuge blocks Kayle's basic attacks (with Divine Ascent). Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Kayle basic attacks)
 - **0.17** attack block: Spirit's Refuge blocks Kayle's Starfire Spellblade, an empowered attack. Spirit's Refuge lasts 1.75 s on a 10 s cooldown. Parry interactions:
@@ -61,17 +242,17 @@ Run `npm run matchup -- <champion> Kayle` for the full ledger of a matchup, with
   - Dodge: Dodging will always negate all damage. : All parry interactions are marked for retesting because of patch V11.1 changes. (Shen W Spirit's Refuge → Kayle E Starfire Spellblade)
 - Watch out: Divine Judgment makes Kayle invulnerable to Shen's Shadow Dash (its crowd control still applies).
 
-### 9. Kai'Sa (net -0.09)
+#### 9. Kai'Sa (net -0.09)
 
 - No interaction in Kai'Sa's favor.
 - Watch out: Kayle's basic attacks reach 100 units farther than Kai'Sa's (625 vs 525 attack range).
 
-### 10. Kled (net -0.12)
+#### 10. Kled (net -0.12)
 
 - **0.05** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Kayle's Radiant Blast (slow). Immune for ?; Radiant Blast takes 0.56 s to land, enough to react. (Kled R Chaaaaaaaarge!!! → Kayle Q Radiant Blast)
 - Watch out: Kayle's basic attacks reach 375 units farther than Kled's (625 vs 250 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

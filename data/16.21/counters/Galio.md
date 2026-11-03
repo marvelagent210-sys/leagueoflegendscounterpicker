@@ -1,5 +1,186 @@
 # Counters to Galio (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Galio: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Galio wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Galio --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.88 | +1.00 | +1.00 | +1.00 | +0.31 | – | +1.00 |
+| 2 | K'Sante | +0.87 | +1.00 | +1.00 | +1.00 | +0.20 | – | +1.00 |
+| 3 | Master Yi | +0.86 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +1.00 |
+| 4 | Gangplank | +0.84 | +1.00 | +1.00 | +1.00 | +0.40 | – | +0.00 |
+| 5 | Trundle | +0.84 | +1.00 | +1.00 | +1.00 | +0.04 | – | +1.00 |
+| 6 | Rengar | +0.84 | +1.00 | +1.00 | +1.00 | +0.36 | – | +0.00 |
+| 7 | Vayne | +0.84 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 8 | Urgot | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 9 | Aphelios | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 10 | Akshan | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 11 | Ashe | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 12 | Miss Fortune | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 13 | Xayah | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 14 | Smolder | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 15 | Graves | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 16 | Corki | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 17 | Quinn | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 18 | Nautilus | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 19 | Kalista | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 20 | Milio | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 21 | Rell | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 22 | Nilah | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 23 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 24 | Rakan | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 25 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 26 | Zilean | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 27 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 28 | Darius | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 29 | Illaoi | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 30 | Twisted Fate | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 31 | Sivir | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 32 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 33 | Yunara | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 34 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 35 | Tristana | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 36 | Orianna | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 37 | Ezreal | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 38 | Ambessa | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 39 | Morgana | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 40 | Zaahen | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 41 | Zeri | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 42 | Lulu | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 43 | Sett | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 44 | Samira | +0.79 | +1.00 | +1.00 | +1.00 | −0.02 | +0.97 | +0.00 |
+| 45 | Lucian | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 46 | Neeko | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 47 | Bard | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 48 | Viego | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 49 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 50 | Riven | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 51 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 52 | Jarvan IV | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 53 | Alistar | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 54 | Ivern | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 55 | Vi | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 56 | Diana | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 57 | Rek'Sai | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 58 | Jayce | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 59 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 60 | Sejuani | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 61 | Yasuo | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 62 | Kled | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 63 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 64 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 65 | Pantheon | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 66 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 67 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 68 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 69 | Volibear | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 70 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 71 | Irelia | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 72 | Wukong | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 73 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 74 | Shen | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 75 | Yone | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 76 | Bel'Veth | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 77 | Shaco | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 78 | Mordekaiser | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 79 | Malphite | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 80 | Shyvana | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 81 | Sion | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 82 | Yorick | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 83 | Jinx | +0.77 | +1.00 | +0.99 | +0.88 | −0.00 | +0.95 | +0.00 |
+| 84 | Gwen | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 85 | Kayn | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 86 | Lee Sin | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 87 | Leona | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 88 | Zed | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 89 | Braum | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 90 | Maokai | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 91 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 92 | Camille | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 93 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 94 | Warwick | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 95 | Zac | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 96 | Rammus | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 97 | Nocturne | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 98 | Rumble | +0.74 | +0.94 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 99 | Senna | +0.72 | +1.00 | +1.00 | +1.00 | +0.15 | +0.00 | +0.00 |
+| 100 | Draven | +0.70 | +1.00 | +1.00 | +1.00 | +0.01 | +0.00 | +0.00 |
+| 101 | Swain | +0.45 | +1.00 | −0.36 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 102 | Jhin | +0.29 | +1.00 | +1.00 | −0.76 | +0.12 | −0.73 | +0.00 |
+| 103 | Skarner | +0.23 | −1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 104 | Briar | +0.21 | +1.00 | −0.93 | +1.00 | −0.17 | – | +0.00 |
+| 105 | Malzahar | +0.20 | +1.00 | +1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 106 | Elise | +0.20 | +1.00 | +1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 107 | Tahm Kench | +0.18 | +0.10 | +0.12 | +0.55 | −0.01 | – | +0.00 |
+| 108 | Ornn | +0.10 | +0.13 | +0.13 | +0.13 | +0.02 | – | +0.00 |
+| 109 | Karma | +0.06 | +0.06 | +0.04 | +0.11 | +0.00 | +0.14 | +0.00 |
+| 110 | Vel'Koz | +0.06 | +0.02 | +0.98 | −1.00 | +0.12 | −0.10 | +0.00 |
+| 111 | Twitch | +0.05 | +1.00 | +0.00 | −1.00 | +0.03 | +0.00 | +0.00 |
+| 112 | Lillia | −0.04 | −0.01 | −0.04 | −0.02 | −0.11 | −0.06 | +0.00 |
+| 113 | Singed | −0.07 | −0.11 | −0.06 | −0.11 | +0.00 | – | +0.00 |
+| 114 | Kennen | −0.09 | −0.84 | −0.25 | +1.00 | −0.11 | +0.00 | +0.00 |
+| 115 | Kassadin | −0.13 | +0.00 | +0.00 | −0.50 | −0.11 | – | +0.00 |
+| 116 | Anivia | −0.15 | −0.18 | −0.26 | −0.01 | −0.14 | −0.19 | +0.00 |
+| 117 | Karthus | −0.20 | −0.21 | −0.22 | −0.25 | −0.11 | −0.22 | +0.00 |
+| 118 | Varus | −0.20 | −1.00 | +1.00 | −1.00 | +0.01 | −0.03 | +0.00 |
+| 119 | Aurora | −0.20 | −1.00 | +1.00 | −1.00 | −0.04 | +0.04 | +0.00 |
+| 120 | Fizz | −0.20 | −0.50 | −1.00 | +1.00 | −0.05 | – | +0.00 |
+| 121 | Heimerdinger | −0.22 | −0.25 | −0.26 | −0.13 | −0.09 | −0.55 | +0.00 |
+| 122 | Kai'Sa | −0.29 | −1.00 | −0.29 | +0.00 | −0.10 | +0.50 | +0.00 |
+| 123 | Nami | −0.30 | −1.00 | +1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 124 | Akali | −0.31 | −1.00 | +0.85 | −1.00 | −0.26 | – | +0.00 |
+| 125 | Amumu | −0.34 | −1.00 | −1.00 | +1.00 | −0.04 | – | +0.00 |
+| 126 | Annie | −0.35 | −0.12 | −0.11 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 127 | Soraka | −0.37 | −0.08 | −1.00 | +0.02 | −0.04 | −1.00 | +0.00 |
+| 128 | Kindred | −0.39 | −1.00 | −1.00 | +1.00 | +0.10 | −1.00 | +0.00 |
+| 129 | Viktor | −0.40 | −1.00 | −1.00 | +1.00 | −0.03 | −1.00 | +0.00 |
+| 130 | Brand | −0.44 | −0.12 | −0.42 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 131 | Mel | −0.47 | +0.32 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 132 | Zyra | −0.51 | −0.62 | −1.00 | +0.00 | −0.01 | −1.00 | +0.00 |
+| 133 | Lux | −0.54 | +0.03 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 134 | Zoe | −0.60 | −0.60 | −0.74 | −1.00 | −0.03 | −0.60 | +0.00 |
+| 135 | Janna | −0.66 | −0.50 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 136 | Aurelion Sol | −0.74 | −1.00 | −1.00 | −1.00 | −0.12 | −0.26 | +0.00 |
+| 137 | Hecarim | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 138 | Nidalee | −0.78 | −1.00 | −1.00 | −1.00 | −0.14 | −0.61 | +0.00 |
+| 139 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 140 | Caitlyn | −0.78 | −1.00 | −0.98 | −1.00 | +0.05 | −0.97 | +0.00 |
+| 141 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 142 | Talon | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 143 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 144 | Sona | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 145 | Naafiri | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 146 | Qiyana | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 147 | Gragas | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 148 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 149 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 150 | Nunu & Willump | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 151 | Seraphine | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 152 | Renata Glasc | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 153 | Lissandra | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 154 | Pyke | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 155 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 156 | Cassiopeia | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 157 | Yuumi | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 158 | Sylas | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 159 | Locke | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 160 | Blitzcrank | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 161 | Ahri | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 162 | Vex | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 163 | Azir | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 164 | Syndra | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 165 | Ryze | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 166 | Xerath | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 167 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 168 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 169 | Hwei | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 170 | Ziggs | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 171 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 172 | Fiddlesticks | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Galio's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,69 +189,69 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Galio` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +2.91)
+#### 1. Rell (net +2.91)
 
 - **0.50** interrupt: Ferromancy: Crash Down's airborne interrupts Galio's Hero's Entrance (movement channel). Ferromancy: Crash Down must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Rell W Ferromancy: Crash Down → Galio R Hero's Entrance)
 - **0.50** interrupt: Ferromancy: Mount Up's airborne interrupts Galio's Hero's Entrance (movement channel). Ferromancy: Mount Up must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Rell W Ferromancy: Mount Up → Galio R Hero's Entrance)
 - **0.50** interrupt: Full Tilt's stun interrupts Galio's Hero's Entrance (movement channel). Full Tilt must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Rell E Full Tilt → Galio R Hero's Entrance)
 
-### 2. Nocturne (net +2.24)
+#### 2. Nocturne (net +2.24)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Galio's Hero's Entrance. Spell shield for 1.5 s, long enough to use ahead of Hero's Entrance. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Galio R Hero's Entrance)
 - **0.70** spell shield: Shroud of Darkness's spell shield blocks Galio's Shield of Durand. Spell shield for 1.5 s, long enough to use ahead of Shield of Durand. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Galio W Shield of Durand)
 - **0.50** interrupt: Unspeakable Horror's fear interrupts Galio's Hero's Entrance (movement channel). Unspeakable Horror must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Nocturne E Unspeakable Horror → Galio R Hero's Entrance)
 
-### 3. Alistar (net +2.23)
+#### 3. Alistar (net +2.23)
 
 - **0.80** cleanse: Unbreakable Will cleanses Galio's Hero's Entrance (airborne) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Galio R Hero's Entrance)
 - **0.50** interrupt: Pulverize's airborne interrupts Galio's Hero's Entrance (movement channel). Pulverize must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Alistar Q Pulverize → Galio R Hero's Entrance)
 - **0.50** interrupt: Trample's stun interrupts Galio's Hero's Entrance (movement channel). Trample must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Alistar E Trample → Galio R Hero's Entrance)
 
-### 4. Zaahen (net +2.06)
+#### 4. Zaahen (net +2.06)
 
 - **0.60** cc immunity: Grim Deliverance makes Zaahen immune to Galio's Hero's Entrance (airborne). Immune for ?; Hero's Entrance lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Zaahen R Grim Deliverance → Galio R Hero's Entrance)
 - **0.50** interrupt: Dreaded Return's airborne interrupts Galio's Hero's Entrance (movement channel). Dreaded Return must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Zaahen W Dreaded Return → Galio R Hero's Entrance)
 - **0.50** interrupt: The Darkin Glaive's airborne interrupts Galio's Hero's Entrance (movement channel). The Darkin Glaive must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Zaahen Q The Darkin Glaive → Galio R Hero's Entrance)
 
-### 5. Rek'Sai (net +1.94)
+#### 5. Rek'Sai (net +1.94)
 
 - **1.00** untargetable: Void Rush makes Rek'Sai untargetable, dodging Galio's Hero's Entrance. Untargetable for 1.5 s, long enough to use ahead of Hero's Entrance. (Rek'Sai R Void Rush → Galio R Hero's Entrance)
 - **0.50** interrupt: Unburrow's airborne interrupts Galio's Hero's Entrance (movement channel). Unburrow must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Rek'Sai W Unburrow → Galio R Hero's Entrance)
 - **0.45** untargetable: Void Rush makes Rek'Sai untargetable, dodging Galio's Justice Punch. Untargetable for 1.5 s, long enough to use ahead of Justice Punch. (Rek'Sai R Void Rush → Galio E Justice Punch)
 
-### 6. K'Sante (net +1.92)
+#### 6. K'Sante (net +1.92)
 
 - **0.50** interrupt: All Out's airborne interrupts Galio's Hero's Entrance (movement channel). All Out must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (K'Sante R All Out → Galio R Hero's Entrance)
 - **0.50** interrupt: Ntofo Strikes's airborne interrupts Galio's Hero's Entrance (movement channel). Ntofo Strikes must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (K'Sante Q Ntofo Strikes → Galio R Hero's Entrance)
 - **0.50** interrupt: Path Maker's airborne interrupts Galio's Hero's Entrance (movement channel). Path Maker must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (K'Sante W Path Maker → Galio R Hero's Entrance)
 
-### 7. Fizz (net +1.88)
+#### 7. Fizz (net +1.88)
 
 - **0.93** untargetable: Playful makes Fizz untargetable, dodging Galio's Justice Punch. Untargetable for 0.75 s; Justice Punch takes 0.51 s to land, enough to react. (Fizz E Playful → Galio E Justice Punch)
 - **0.60** untargetable: Playful makes Fizz untargetable, dodging Galio's Hero's Entrance. Untargetable for 0.75 s; Hero's Entrance lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Galio R Hero's Entrance)
 - **0.50** interrupt: Chum the Waters's airborne interrupts Galio's Hero's Entrance (movement channel). Chum the Waters must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Fizz R Chum the Waters → Galio R Hero's Entrance)
 
-### 8. Maokai (net +1.82)
+#### 8. Maokai (net +1.82)
 
 - **0.82** untargetable: Twisted Advance makes Maokai untargetable, dodging Galio's Justice Punch. Untargetable for 1.4 s; Justice Punch takes 0.51 s to land, enough to react. (Maokai W Twisted Advance → Galio E Justice Punch)
 - **0.60** untargetable: Twisted Advance makes Maokai untargetable, dodging Galio's Hero's Entrance. Untargetable for 1.4 s; Hero's Entrance lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Galio R Hero's Entrance)
 - **0.50** interrupt: Bramble Smash's airborne interrupts Galio's Hero's Entrance (movement channel). Bramble Smash must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Maokai Q Bramble Smash → Galio R Hero's Entrance)
 
-### 9. Udyr (net +1.75)
+#### 9. Udyr (net +1.75)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Galio's Hero's Entrance (airborne). Immune for 1.5 s, long enough to use ahead of Hero's Entrance. (Udyr E Blazing Stampede → Galio R Hero's Entrance)
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Galio's Justice Punch (airborne). Immune for 1.5 s, long enough to use ahead of Justice Punch. (Udyr E Blazing Stampede → Galio E Justice Punch)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Galio's Shield of Durand (taunt, slow). Immune for 1.5 s, long enough to use ahead of Shield of Durand. (Udyr E Blazing Stampede → Galio W Shield of Durand)
 
-### 10. Blitzcrank (net +1.74)
+#### 10. Blitzcrank (net +1.74)
 
 - **0.50** interrupt: Power Fist's airborne interrupts Galio's Hero's Entrance (movement channel). Power Fist must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Blitzcrank E Power Fist → Galio R Hero's Entrance)
 - **0.50** interrupt: Rocket Grab's airborne interrupts Galio's Hero's Entrance (movement channel). Rocket Grab must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Blitzcrank Q Rocket Grab → Galio R Hero's Entrance)
 - **0.50** interrupt: Static Field's silence interrupts Galio's Hero's Entrance (movement channel). Static Field must land during the channel. Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel. The following table refers for interactions while Galio is channeling:. (Blitzcrank R Static Field → Galio R Hero's Entrance)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

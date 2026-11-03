@@ -1,5 +1,186 @@
 # Counters to Malzahar (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Malzahar: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Malzahar wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Malzahar --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +1.00 |
+| 2 | Gangplank | +0.85 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +1.00 |
+| 3 | Olaf | +0.84 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +1.00 |
+| 4 | Trundle | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 5 | Xin Zhao | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 6 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 7 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 8 | Diana | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 9 | Garen | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 10 | Caitlyn | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 11 | Jayce | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 12 | Lillia | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 13 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 14 | Annie | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 15 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 16 | Yorick | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 17 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 18 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 19 | Nocturne | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 20 | Bel'Veth | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 21 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 22 | Lee Sin | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 23 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 24 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 25 | Yunara | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 26 | Riven | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 27 | Fizz | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 28 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 29 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 30 | Shyvana | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 31 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 32 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 33 | Smolder | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 34 | Rumble | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 35 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 36 | Vi | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 37 | Xayah | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 38 | Varus | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 39 | Kog'Maw | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 40 | Ambessa | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 41 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 42 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 43 | Corki | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 44 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 45 | Aatrox | +0.78 | +1.00 | +0.94 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 46 | Lulu | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 47 | Orianna | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 48 | Volibear | +0.78 | +1.00 | +0.96 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 49 | Graves | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 50 | Fiddlesticks | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 51 | Twisted Fate | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 52 | Swain | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 53 | Zeri | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 54 | Singed | +0.77 | +1.00 | +1.00 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 55 | Vayne | +0.76 | +0.97 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 56 | Sivir | +0.74 | +1.00 | +1.00 | +0.84 | −0.01 | – | +0.00 |
+| 57 | Mordekaiser | +0.74 | +0.98 | +1.00 | +0.96 | +0.05 | +0.48 | +0.00 |
+| 58 | Illaoi | +0.74 | +0.94 | +0.98 | +1.00 | −0.03 | +0.59 | +0.00 |
+| 59 | Akshan | +0.73 | +1.00 | +0.85 | +1.00 | −0.01 | – | +0.00 |
+| 60 | Kled | +0.73 | +1.00 | +1.00 | +1.00 | +0.08 | +0.22 | +0.00 |
+| 61 | Heimerdinger | +0.73 | +0.94 | +0.88 | +1.00 | +0.00 | – | +0.00 |
+| 62 | Ezreal | +0.68 | +0.71 | +0.94 | +1.00 | +0.01 | – | +0.00 |
+| 63 | Maokai | +0.67 | +1.00 | +0.50 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 64 | Amumu | +0.58 | +0.33 | +0.89 | +1.00 | −0.06 | +0.84 | +0.00 |
+| 65 | Lissandra | +0.57 | +0.95 | +0.30 | +1.00 | −0.02 | – | +0.00 |
+| 66 | Ornn | +0.54 | +0.96 | +0.05 | +1.00 | −0.03 | +0.94 | +0.00 |
+| 67 | Ivern | +0.52 | +0.88 | +0.23 | +1.00 | −0.05 | – | +0.00 |
+| 68 | Skarner | +0.45 | +0.97 | +0.53 | +0.14 | −0.03 | +0.51 | +0.00 |
+| 69 | Vex | +0.44 | +0.66 | +0.14 | +1.00 | −0.01 | – | +0.00 |
+| 70 | Rakan | +0.43 | +0.24 | +0.28 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 71 | Yasuo | +0.43 | −0.02 | +0.99 | +0.93 | −0.02 | +0.00 | +0.00 |
+| 72 | Ekko | +0.42 | +1.00 | −0.09 | +1.00 | −0.03 | +0.01 | +0.00 |
+| 73 | Ashe | +0.35 | +1.00 | +0.77 | −1.00 | +0.09 | +0.96 | +0.00 |
+| 74 | Karma | +0.35 | +0.20 | +0.25 | +1.00 | +0.02 | – | +0.00 |
+| 75 | Master Yi | +0.35 | +0.00 | +1.00 | +0.00 | +0.00 | +1.00 | +0.00 |
+| 76 | Aurora | +0.34 | +1.00 | +1.00 | −0.99 | +0.03 | – | +0.00 |
+| 77 | Alistar | +0.33 | +0.26 | +0.19 | +1.00 | −0.07 | +0.26 | +0.00 |
+| 78 | Tristana | +0.30 | −1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 79 | Briar | +0.25 | +0.92 | −1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 80 | Vel'Koz | +0.25 | +0.62 | +1.00 | −1.00 | +0.13 | – | +0.00 |
+| 81 | Viego | +0.23 | +1.00 | −1.00 | +1.00 | −0.04 | +0.40 | +0.00 |
+| 82 | Nautilus | +0.17 | +0.15 | +0.12 | +0.00 | +0.06 | +0.94 | +0.00 |
+| 83 | Tahm Kench | +0.17 | +0.22 | +0.21 | +0.23 | −0.07 | +0.23 | +0.00 |
+| 84 | Rell | +0.16 | +1.00 | −1.00 | +1.00 | +0.10 | −0.49 | +0.00 |
+| 85 | Taric | +0.16 | +0.21 | +0.21 | +0.22 | −0.02 | +0.16 | +0.00 |
+| 86 | Zac | +0.13 | +0.19 | +0.13 | +0.28 | −0.11 | +0.13 | +0.00 |
+| 87 | Hwei | +0.11 | −0.28 | −0.13 | +1.00 | +0.00 | – | +0.00 |
+| 88 | Braum | +0.11 | +0.10 | +0.15 | +0.17 | −0.04 | +0.17 | +0.00 |
+| 89 | Twitch | +0.06 | +1.00 | +0.01 | −1.00 | −0.00 | – | +0.00 |
+| 90 | Warwick | +0.04 | −1.00 | +0.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 91 | Taliyah | +0.04 | +0.83 | +0.06 | −1.00 | +0.07 | – | +0.00 |
+| 92 | Jinx | +0.04 | −0.08 | +1.00 | −1.00 | +0.03 | – | +0.00 |
+| 93 | Rammus | +0.03 | +1.00 | −0.44 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 94 | Gragas | +0.03 | +0.07 | −0.02 | +0.07 | −0.07 | +0.16 | +0.00 |
+| 95 | Wukong | +0.03 | +0.00 | −1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 96 | Anivia | +0.03 | +0.08 | +0.10 | −0.00 | −0.09 | −0.06 | +0.00 |
+| 97 | Karthus | +0.02 | +0.05 | +0.03 | +0.01 | −0.00 | – | +0.00 |
+| 98 | Sion | +0.00 | +0.41 | +0.03 | −1.00 | −0.04 | +0.98 | +0.00 |
+| 99 | Shen | +0.00 | −0.05 | +0.04 | +0.07 | +0.00 | −0.08 | +0.00 |
+| 100 | Ziggs | −0.03 | −1.00 | +0.00 | +1.00 | +0.13 | – | +0.00 |
+| 101 | Draven | −0.04 | +0.34 | +0.34 | −1.00 | +0.00 | – | +0.00 |
+| 102 | Sett | −0.04 | +0.04 | +0.11 | −0.84 | −0.04 | +1.00 | +0.00 |
+| 103 | Akali | −0.05 | −0.06 | −0.59 | +1.00 | −0.05 | −0.77 | +0.00 |
+| 104 | Yone | −0.06 | −0.51 | −0.11 | +0.02 | −0.03 | +1.00 | +0.00 |
+| 105 | Sejuani | −0.10 | +1.00 | −1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
+| 106 | Blitzcrank | −0.13 | −0.18 | −0.18 | −0.10 | −0.04 | −0.16 | +0.00 |
+| 107 | Irelia | −0.14 | −0.51 | −0.94 | +1.00 | +0.00 | +0.18 | +0.00 |
+| 108 | Senna | −0.15 | +0.14 | −0.00 | −1.00 | +0.06 | +0.06 | +0.00 |
+| 109 | Camille | −0.16 | −1.00 | −0.82 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 110 | Naafiri | −0.20 | −1.00 | −1.00 | +1.00 | +0.04 | +0.96 | +0.00 |
+| 111 | Hecarim | −0.20 | +1.00 | −1.00 | −1.00 | +0.01 | +0.00 | +0.00 |
+| 112 | Galio | −0.20 | −1.00 | −1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 113 | Xerath | −0.20 | +0.04 | +0.03 | −1.00 | +0.00 | – | +0.00 |
+| 114 | Urgot | −0.22 | −1.00 | −1.00 | +0.94 | −0.04 | +1.00 | +0.00 |
+| 115 | Kennen | −0.22 | +0.99 | −0.98 | −1.00 | +0.00 | – | +0.00 |
+| 116 | Nilah | −0.23 | +0.52 | −1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 117 | Katarina | −0.24 | −0.51 | −0.04 | −1.00 | −0.03 | +1.00 | +0.00 |
+| 118 | Leona | −0.24 | +0.21 | −0.01 | −1.00 | −0.01 | −0.94 | +0.00 |
+| 119 | Nunu & Willump | −0.25 | −1.00 | +0.03 | −0.02 | −0.03 | +0.04 | +0.00 |
+| 120 | Locke | −0.25 | +0.02 | +0.22 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 121 | Zoe | −0.25 | −0.02 | −0.09 | −1.00 | −0.00 | – | +0.00 |
+| 122 | Neeko | −0.32 | −1.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 123 | Syndra | −0.32 | −1.00 | −1.00 | +1.00 | +0.06 | – | +0.00 |
+| 124 | Morgana | −0.33 | −1.00 | −1.00 | +1.00 | +0.03 | – | +0.00 |
+| 125 | Lux | −0.33 | −1.00 | −1.00 | +1.00 | +0.02 | – | +0.00 |
+| 126 | Brand | −0.33 | −1.00 | −1.00 | +1.00 | +0.00 | – | +0.00 |
+| 127 | Viktor | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
+| 128 | Ryze | −0.33 | −1.00 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 129 | Samira | −0.34 | −1.00 | −1.00 | +1.00 | −0.02 | – | +0.00 |
+| 130 | Pantheon | −0.35 | +0.00 | −1.00 | −1.00 | +0.00 | +1.00 | +0.00 |
+| 131 | Evelynn | −0.45 | −0.11 | −1.00 | −0.81 | −0.03 | −0.07 | +0.00 |
+| 132 | Soraka | −0.51 | −1.00 | −1.00 | +0.19 | −0.01 | – | +0.00 |
+| 133 | Zyra | −0.52 | −0.85 | −1.00 | −0.05 | +0.01 | – | +0.00 |
+| 134 | Zed | −0.52 | +0.00 | −0.85 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 135 | Shaco | −0.57 | −1.00 | −0.85 | +0.00 | −0.05 | −1.00 | +0.00 |
+| 136 | Nami | −0.57 | −1.00 | −1.00 | −0.07 | −0.00 | – | +0.00 |
+| 137 | Kassadin | −0.57 | −1.00 | −0.08 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 138 | Veigar | −0.58 | −1.00 | −1.00 | −0.08 | −0.01 | – | +0.00 |
+| 139 | Jarvan IV | −0.68 | −1.00 | −1.00 | −1.00 | +0.12 | +0.00 | +0.00 |
+| 140 | Kha'Zix | −0.70 | −1.00 | −0.57 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 141 | Azir | −0.73 | −1.00 | −0.85 | −1.00 | +0.01 | – | +0.00 |
+| 142 | Rengar | −0.74 | −1.00 | −1.00 | −1.00 | +0.40 | −1.00 | +0.00 |
+| 143 | Yuumi | −0.75 | −1.00 | −0.88 | −1.00 | −0.03 | – | +0.00 |
+| 144 | Aurelion Sol | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
+| 145 | Milio | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 146 | Renata Glasc | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 147 | Kalista | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 148 | Mel | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 149 | Cassiopeia | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 150 | Kai'Sa | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 151 | Miss Fortune | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 152 | Ahri | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 153 | Nidalee | −0.77 | −1.00 | −1.00 | −0.97 | −0.01 | – | +0.00 |
+| 154 | Teemo | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 155 | Elise | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 156 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 157 | Seraphine | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 158 | Janna | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 159 | Zilean | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 160 | Quinn | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 161 | Lucian | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 162 | Sylas | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 163 | Bard | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 164 | LeBlanc | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 165 | Kindred | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 166 | Thresh | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 167 | Vladimir | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 168 | Qiyana | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 169 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 170 | Kayn | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 171 | Pyke | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 172 | Rek'Sai | −0.87 | −1.00 | −1.00 | −1.00 | −0.47 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Malzahar's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +189,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Malzahar` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Vladimir (net +0.78)
+#### 1. Vladimir (net +0.78)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Malzahar's Nether Grasp. Untargetable for 2 s, long enough to use ahead of Nether Grasp. (Vladimir W Sanguine Pool → Malzahar R Nether Grasp)
 - **0.30** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Malzahar's Malefic Visions. Untargetable for 2 s, long enough to use ahead of Malefic Visions. (Vladimir W Sanguine Pool → Malzahar E Malefic Visions)
 - **0.28** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Malzahar's Call of the Void. Untargetable for 2 s, long enough to use ahead of Call of the Void. (Vladimir W Sanguine Pool → Malzahar Q Call of the Void)
 - Watch out: Call of the Void's silence interrupts Vladimir's Tides of Blood (charge-up).
 
-### 2. Kayle (net +0.69)
+#### 2. Kayle (net +0.69)
 
 - **0.40** invulnerable: Divine Judgment makes Kayle invulnerable to Malzahar's Nether Grasp (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Nether Grasp. (Kayle R Divine Judgment → Malzahar R Nether Grasp)
 - **0.22** range: Kayle's basic attacks reach 125 units farther than Malzahar's (625 vs 500 attack range). Malzahar has no dash or blink to close the gap. (Kayle basic attacks → Malzahar basic attacks)
 - **0.20** invulnerable: Divine Judgment makes Kayle invulnerable to Malzahar's Malefic Visions. Invulnerable for 2.5 s, long enough to use ahead of Malefic Visions. (Kayle R Divine Judgment → Malzahar E Malefic Visions)
 - Watch out: Void Shift makes Malzahar immune to Kayle's Radiant Blast (slow).
 
-### 3. Rell (net +0.66)
+#### 3. Rell (net +0.66)
 
 - **0.40** interrupt: Ferromancy: Crash Down's airborne interrupts Malzahar's Nether Grasp (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Malzahar R Nether Grasp)
 - **0.40** interrupt: Ferromancy: Mount Up's airborne interrupts Malzahar's Nether Grasp (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Malzahar R Nether Grasp)
 - **0.40** interrupt: Full Tilt's stun interrupts Malzahar's Nether Grasp (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Malzahar R Nether Grasp)
 - Watch out: Void Shift makes Malzahar immune to Rell's Ferromancy: Crash Down (airborne, stun).
 
-### 4. Rek'Sai (net +0.64)
+#### 4. Rek'Sai (net +0.64)
 
 - **0.80** untargetable: Void Rush makes Rek'Sai untargetable, dodging Malzahar's Nether Grasp. Untargetable for 1.5 s, long enough to use ahead of Nether Grasp. (Rek'Sai R Void Rush → Malzahar R Nether Grasp)
 - **0.40** interrupt: Unburrow's airborne interrupts Malzahar's Nether Grasp (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Malzahar R Nether Grasp)
 - **0.20** untargetable: Void Rush makes Rek'Sai untargetable, dodging Malzahar's Call of the Void. Untargetable for 1.5 s, long enough to use ahead of Call of the Void. (Rek'Sai R Void Rush → Malzahar Q Call of the Void)
 - Watch out: Void Shift makes Malzahar immune to Rek'Sai's Unburrow (airborne).
 
-### 5. Sivir (net +0.61)
+#### 5. Sivir (net +0.61)
 
 - **0.40** spell shield: Spell Shield's spell shield blocks part of Malzahar's Nether Grasp. Spell shield for 1.5 s, long enough to use ahead of Nether Grasp. A spell shield blocks only the first enemy ability that reaches it. Spell shield prevents both the tether and the Null Zone from appearing, however Malzahar will continue to channel. [https://www.reddit.com/r/Sivir/comments/g7yt38/if_you_shield_malzahar_ult_he_ironically_gets_ccd/]. (Sivir E Spell Shield → Malzahar R Nether Grasp)
 - **0.28** spell shield: Spell Shield's spell shield blocks Malzahar's Malefic Visions. Spell shield for 1.5 s, long enough to use ahead of Malefic Visions. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Malzahar E Malefic Visions)
 - **0.27** spell shield: Spell Shield's spell shield blocks Malzahar's Call of the Void. Spell shield for 1.5 s, long enough to use ahead of Call of the Void. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Malzahar Q Call of the Void)
 
-### 6. Milio (net +0.60)
+#### 6. Milio (net +0.60)
 
 - **0.49** cleanse: Breath of Life cleanses Malzahar's Nether Grasp (suppression) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove knockdown. (Milio R Breath of Life → Malzahar R Nether Grasp)
 - **0.40** interrupt: Ultra Mega Fire Kick's airborne interrupts Malzahar's Nether Grasp (normal channel). Ultra Mega Fire Kick must land during the channel. (Milio Q Ultra Mega Fire Kick → Malzahar R Nether Grasp)
 - **0.09** cleanse: Breath of Life cleanses Malzahar's Call of the Void (silence) after it lands. 130 s cooldown; usable while crowd controlled. (Milio R Breath of Life → Malzahar Q Call of the Void)
 - Watch out: Void Shift makes Malzahar immune to Milio's Ultra Mega Fire Kick (airborne, slow, stun).
 
-### 7. Zaahen (net +0.52)
+#### 7. Zaahen (net +0.52)
 
 - **0.48** cc immunity: Grim Deliverance makes Zaahen immune to Malzahar's Nether Grasp (knockdown, suppression). Immune for ?; Nether Grasp lands within 0.01 s, faster than a 0.25 s reaction, so it needs prediction. (Zaahen R Grim Deliverance → Malzahar R Nether Grasp)
 - **0.40** interrupt: Dreaded Return's airborne interrupts Malzahar's Nether Grasp (normal channel). Dreaded Return must land during the channel. (Zaahen W Dreaded Return → Malzahar R Nether Grasp)
 - **0.40** interrupt: The Darkin Glaive's airborne interrupts Malzahar's Nether Grasp (normal channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Malzahar R Nether Grasp)
 - Watch out: Void Shift makes Malzahar immune to Zaahen's Dreaded Return (airborne, stun).
 
-### 8. Xayah (net +0.50)
+#### 8. Xayah (net +0.50)
 
 - **0.70** untargetable: Featherstorm makes Xayah untargetable, dodging Malzahar's Nether Grasp. Untargetable for 1.5 s, long enough to use ahead of Nether Grasp. (Xayah R Featherstorm → Malzahar R Nether Grasp)
 - **0.20** untargetable: Featherstorm makes Xayah untargetable, dodging Malzahar's Call of the Void. Untargetable for 1.5 s, long enough to use ahead of Call of the Void. (Xayah R Featherstorm → Malzahar Q Call of the Void)
 - **0.20** untargetable: Featherstorm makes Xayah untargetable, dodging Malzahar's Malefic Visions. Untargetable for 1.5 s, long enough to use ahead of Malefic Visions. (Xayah R Featherstorm → Malzahar E Malefic Visions)
 - Watch out: Void Shift makes Malzahar immune to Xayah's Bladecaller (root).
 
-### 9. Nocturne (net +0.48)
+#### 9. Nocturne (net +0.48)
 
 - **0.40** interrupt: Unspeakable Horror's fear interrupts Malzahar's Nether Grasp (normal channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Malzahar R Nether Grasp)
 - **0.40** spell shield: Shroud of Darkness's spell shield blocks part of Malzahar's Nether Grasp. Spell shield for 1.5 s, long enough to use ahead of Nether Grasp. A spell shield blocks only the first enemy ability that reaches it. Spell shield prevents both the tether and the Null Zone from appearing, however Malzahar will continue to channel. [https://www.reddit.com/r/Sivir/comments/g7yt38/if_you_shield_malzahar_ult_he_ironically_gets_ccd/]. (Nocturne W Shroud of Darkness → Malzahar R Nether Grasp)
 - **0.34** spell shield: Shroud of Darkness's spell shield blocks Malzahar's Malefic Visions. Spell shield for 1.5 s, long enough to use ahead of Malefic Visions. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Malzahar E Malefic Visions)
 - Watch out: Void Shift makes Malzahar immune to Nocturne's Unspeakable Horror (fear, slow).
 
-### 10. Lissandra (net +0.48)
+#### 10. Lissandra (net +0.48)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Malzahar's Nether Grasp. Untargetable for 2.5 s, long enough to use ahead of Nether Grasp. (Lissandra R Frozen Tomb → Malzahar R Nether Grasp)
 - **0.40** interrupt: Frozen Tomb's stun interrupts Malzahar's Nether Grasp (normal channel). Frozen Tomb must land during the channel. (Lissandra R Frozen Tomb → Malzahar R Nether Grasp)
 - **0.20** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Malzahar's Call of the Void. Untargetable for 2.5 s, long enough to use ahead of Call of the Void. (Lissandra R Frozen Tomb → Malzahar Q Call of the Void)
 - Watch out: Void Shift makes Malzahar immune to Lissandra's Frozen Tomb (knockdown, slow, stun).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

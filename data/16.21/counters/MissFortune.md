@@ -1,5 +1,186 @@
 # Counters to Miss Fortune (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Miss Fortune: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Miss Fortune wins every time) to +1 (the champion does). Run `npm run duel -- <champion> MissFortune --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +1.00 |
+| 2 | Master Yi | +0.84 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +1.00 |
+| 3 | Nasus | +0.84 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +1.00 |
+| 4 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +1.00 |
+| 5 | Vayne | +0.83 | +1.00 | +1.00 | +1.00 | −0.05 | – | +1.00 |
+| 6 | Shyvana | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 7 | Diana | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 8 | Skarner | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 9 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.21 | +1.00 | +1.00 |
+| 10 | Zac | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 11 | Kled | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 12 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 13 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 14 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 15 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | −0.30 | +1.00 | +1.00 |
+| 16 | Ziggs | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 17 | Tristana | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 18 | Swain | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 19 | Yasuo | +0.80 | +1.00 | +0.99 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 20 | Camille | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 21 | Maokai | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 22 | Malphite | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 23 | Kayle | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 24 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 25 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 26 | Sejuani | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 27 | Tahm Kench | +0.79 | +1.00 | +1.00 | +0.99 | −0.07 | +0.99 | +0.00 |
+| 28 | Lee Sin | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 29 | Sion | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 30 | Rumble | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 31 | Udyr | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 32 | Annie | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 33 | Volibear | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 34 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 35 | Orianna | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 36 | Lulu | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 37 | Ashe | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 38 | Azir | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 39 | Fizz | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 40 | Cassiopeia | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 41 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 42 | Xayah | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 43 | Teemo | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 44 | Zaahen | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 45 | Malzahar | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 46 | Nocturne | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 47 | Sett | +0.77 | +1.00 | +1.00 | +1.00 | −0.21 | +1.00 | +0.00 |
+| 48 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 49 | Gangplank | +0.76 | +1.00 | +1.00 | +1.00 | −0.24 | +1.00 | +0.00 |
+| 50 | Anivia | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 51 | Yone | +0.75 | +1.00 | +1.00 | +1.00 | −0.30 | +1.00 | +0.00 |
+| 52 | Amumu | +0.72 | +1.00 | +1.00 | +1.00 | −0.07 | +0.26 | +0.00 |
+| 53 | Warwick | +0.71 | +1.00 | +1.00 | +1.00 | −0.57 | +1.00 | +0.00 |
+| 54 | Mordekaiser | +0.70 | +0.94 | +0.82 | +1.00 | −0.21 | +0.92 | +0.00 |
+| 55 | Lillia | +0.67 | +0.85 | +0.85 | +0.85 | −0.10 | +0.95 | +0.00 |
+| 56 | Zed | +0.67 | +1.00 | +1.00 | +1.00 | −0.20 | +0.00 | +0.00 |
+| 57 | Illaoi | +0.64 | +1.00 | +0.42 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 58 | Kayn | +0.59 | +1.00 | +0.25 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 59 | Briar | +0.55 | +1.00 | +1.00 | +1.00 | −0.35 | −0.96 | +0.00 |
+| 60 | Irelia | +0.52 | +1.00 | −0.13 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 61 | Kennen | +0.50 | +1.00 | +0.00 | +1.00 | −0.01 | – | +0.00 |
+| 62 | Ornn | +0.47 | +1.00 | −0.25 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 63 | Vi | +0.39 | +1.00 | +1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 64 | Jarvan IV | +0.32 | +1.00 | −1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 65 | Xin Zhao | +0.31 | +1.00 | −1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 66 | Garen | +0.30 | +1.00 | −1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 67 | Heimerdinger | +0.30 | −1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 68 | Riven | +0.29 | +1.00 | −1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 69 | Bel'Veth | +0.29 | +1.00 | −1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 70 | Zeri | +0.28 | +1.00 | −1.00 | +1.00 | +0.04 | – | +1.00 |
+| 71 | Rek'Sai | +0.28 | +1.00 | −1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 72 | Renekton | +0.28 | +1.00 | −1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 73 | Rammus | +0.27 | +0.00 | +0.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 74 | Kassadin | +0.27 | +1.00 | −1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 75 | Ambessa | +0.26 | −1.00 | +1.00 | +1.00 | −0.26 | +1.00 | +0.00 |
+| 76 | Rengar | +0.26 | +1.00 | +1.00 | −1.00 | +0.39 | −1.00 | +0.00 |
+| 77 | Wukong | +0.25 | +1.00 | −1.00 | +1.00 | −0.31 | +1.00 | +0.00 |
+| 78 | Milio | +0.24 | −1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 79 | Gwen | +0.23 | +1.00 | −1.00 | +1.00 | −0.47 | +1.00 | +0.00 |
+| 80 | Aurelion Sol | +0.22 | +0.00 | +1.00 | −1.00 | +0.45 | +1.00 | +0.00 |
+| 81 | Draven | +0.21 | +1.00 | −1.00 | +1.00 | −0.05 | – | +0.00 |
+| 82 | Shen | +0.10 | +1.00 | −1.00 | +0.00 | −0.01 | +1.00 | +0.00 |
+| 83 | Singed | +0.09 | +1.00 | −1.00 | +1.00 | −0.09 | −1.00 | +0.00 |
+| 84 | Ekko | +0.08 | +1.00 | −1.00 | +1.00 | −0.15 | −1.00 | +0.00 |
+| 85 | Darius | +0.07 | +1.00 | −1.00 | +1.00 | −0.23 | −1.00 | +0.00 |
+| 86 | Ivern | +0.06 | −0.24 | −0.20 | +1.00 | −0.25 | – | +0.00 |
+| 87 | Jinx | +0.04 | +0.46 | +0.46 | −1.00 | +0.04 | – | +0.00 |
+| 88 | Akali | +0.02 | +0.24 | −1.00 | +1.00 | −0.06 | +0.22 | +0.00 |
+| 89 | Taric | −0.03 | +0.06 | −0.19 | +0.00 | +0.04 | −0.10 | +0.00 |
+| 90 | Morgana | −0.07 | −0.62 | −0.05 | +1.00 | −0.17 | −0.73 | +0.00 |
+| 91 | Gnar | −0.07 | +0.36 | −1.00 | +1.00 | −0.08 | −1.00 | +0.00 |
+| 92 | Vel'Koz | −0.16 | −1.00 | −1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 93 | Naafiri | −0.20 | −1.00 | −1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 94 | Pantheon | −0.20 | −1.00 | −1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 95 | Gragas | −0.21 | −1.00 | −1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 96 | Viego | −0.22 | −1.00 | −1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 97 | Urgot | −0.24 | −1.00 | −1.00 | +1.00 | −0.05 | +0.72 | +0.00 |
+| 98 | Braum | −0.25 | −1.00 | −1.00 | +0.85 | −0.02 | +0.84 | +0.00 |
+| 99 | Nautilus | −0.28 | −1.00 | −1.00 | +0.90 | +0.07 | +0.34 | +0.00 |
+| 100 | Mel | −0.32 | −1.00 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 101 | Corki | −0.33 | −1.00 | −1.00 | +1.00 | +0.01 | – | +0.00 |
+| 102 | Varus | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
+| 103 | Samira | −0.34 | −1.00 | −1.00 | +1.00 | −0.02 | – | +0.00 |
+| 104 | Elise | −0.34 | −1.00 | −1.00 | +1.00 | −0.03 | – | +0.00 |
+| 105 | Hwei | −0.34 | −1.00 | −1.00 | +1.00 | −0.04 | – | +0.00 |
+| 106 | Smolder | −0.34 | −1.00 | −1.00 | +1.00 | −0.06 | – | +0.00 |
+| 107 | Zilean | −0.34 | −1.00 | −1.00 | +1.00 | −0.06 | – | +0.00 |
+| 108 | Twisted Fate | −0.35 | −1.00 | −1.00 | +1.00 | −0.09 | – | +0.00 |
+| 109 | Kalista | −0.35 | −1.00 | −1.00 | +1.00 | −0.12 | – | +0.00 |
+| 110 | Brand | −0.37 | −1.00 | −1.00 | +1.00 | −0.06 | −0.62 | +0.00 |
+| 111 | Caitlyn | −0.40 | −1.00 | −1.00 | +1.00 | +0.02 | −1.00 | +0.00 |
+| 112 | Neeko | −0.41 | −1.00 | −1.00 | +1.00 | −0.05 | −1.00 | +0.00 |
+| 113 | Nilah | −0.41 | −1.00 | −1.00 | +1.00 | −0.09 | −1.00 | +0.00 |
+| 114 | Rakan | −0.42 | −1.00 | −1.00 | +0.00 | −0.15 | +1.00 | +0.00 |
+| 115 | Olaf | −0.44 | −1.00 | −1.00 | +1.00 | −0.28 | −1.00 | +0.00 |
+| 116 | LeBlanc | −0.50 | −1.00 | −1.00 | +0.56 | −0.07 | −1.00 | +0.00 |
+| 117 | Bard | −0.56 | −0.14 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 118 | Lux | −0.57 | −1.00 | −1.00 | +0.00 | −0.06 | – | +0.00 |
+| 119 | Rell | −0.58 | −1.00 | −1.00 | −1.00 | +0.11 | +1.00 | +0.00 |
+| 120 | Graves | −0.60 | −1.00 | −1.00 | +0.00 | −0.03 | −1.00 | +0.00 |
+| 121 | Leona | −0.63 | −1.00 | −1.00 | −0.12 | −0.04 | −1.00 | +0.00 |
+| 122 | Karma | −0.65 | −0.54 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 123 | Zoe | −0.68 | −0.67 | −1.00 | −1.00 | +0.02 | −0.67 | +0.00 |
+| 124 | Xerath | −0.70 | −1.00 | −1.00 | −1.00 | −0.00 | −0.03 | +0.00 |
+| 125 | Sylas | −0.75 | −0.90 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 126 | Syndra | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 127 | Ezreal | −0.77 | −1.00 | −1.00 | −0.92 | −0.05 | – | +0.00 |
+| 128 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 129 | Soraka | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 130 | Senna | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 131 | Yunara | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 132 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 133 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 134 | Fiddlesticks | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 135 | Nami | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 136 | Janna | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 137 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 138 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 139 | Akshan | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 140 | Vex | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 141 | Renata Glasc | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 142 | Seraphine | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 143 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 144 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 145 | Viktor | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 146 | Nidalee | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 147 | Kindred | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 148 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 149 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 150 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 151 | Kai'Sa | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 152 | Sivir | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 153 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 154 | Ryze | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 155 | Alistar | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 156 | Katarina | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 157 | Hecarim | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 158 | Veigar | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 159 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 160 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 161 | Blitzcrank | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 162 | Qiyana | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 163 | Evelynn | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 164 | Locke | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 165 | Yuumi | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 166 | Galio | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 167 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 168 | Cho'Gath | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 169 | Shaco | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 170 | Thresh | −0.84 | −1.00 | −1.00 | −1.00 | −0.27 | −1.00 | +0.00 |
+| 171 | Aatrox | −0.85 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+| 172 | Pyke | −0.85 | −1.00 | −1.00 | −1.00 | −0.33 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Miss Fortune's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,74 +189,74 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> MissFortune` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +1.20)
+#### 1. Rell (net +1.20)
 
 - **0.28** interrupt: Ferromancy: Crash Down's airborne interrupts Miss Fortune's Bullet Time (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Ferromancy: Mount Up's airborne interrupts Miss Fortune's Bullet Time (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Full Tilt's stun interrupts Miss Fortune's Bullet Time (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Miss Fortune R Bullet Time)
 - Watch out: Miss Fortune's basic attacks reach 375 units farther than Rell's (550 vs 175 attack range).
 
-### 2. Yasuo (net +1.16)
+#### 2. Yasuo (net +1.16)
 
 - **0.55** projectile block: Wind Wall blocks Miss Fortune's Bullet Time, a projectile. Wind Wall for 4 s, long enough to use ahead of Bullet Time. (Yasuo W Wind Wall → Miss Fortune R Bullet Time)
 - **0.35** projectile block: Wind Wall blocks Miss Fortune's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Miss Fortune basic attacks)
 - **0.28** interrupt: Last Breath's airborne interrupts Miss Fortune's Bullet Time (normal channel). Last Breath must land during the channel. (Yasuo R Last Breath → Miss Fortune R Bullet Time)
 - Watch out: Miss Fortune's basic attacks reach 375 units farther than Yasuo's (550 vs 175 attack range).
 
-### 3. Braum (net +1.10)
+#### 3. Braum (net +1.10)
 
 - **0.55** projectile block: Unbreakable blocks Miss Fortune's Bullet Time, a projectile. Unbreakable for 4 s, long enough to use ahead of Bullet Time. (Braum E Unbreakable → Miss Fortune R Bullet Time)
 - **0.45** projectile block: Unbreakable blocks Miss Fortune's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Miss Fortune basic attacks)
 - **0.34** projectile block: Unbreakable blocks Miss Fortune's Double Up, a projectile. Unbreakable for 4 s, long enough to use ahead of Double Up. (Braum E Unbreakable → Miss Fortune Q Double Up)
 - Watch out: Miss Fortune's basic attacks reach 425 units farther than Braum's (550 vs 125 attack range).
 
-### 4. Kayle (net +0.81)
+#### 4. Kayle (net +0.81)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Miss Fortune's Bullet Time. Invulnerable for 2.5 s, long enough to use ahead of Bullet Time. (Kayle R Divine Judgment → Miss Fortune R Bullet Time)
 - **0.23** invulnerable: Divine Judgment makes Kayle invulnerable to Miss Fortune's Double Up. Invulnerable for 2.5 s, long enough to use ahead of Double Up. (Kayle R Divine Judgment → Miss Fortune Q Double Up)
 - **0.14** range: Kayle's basic attacks reach 75 units farther than Miss Fortune's (625 vs 550 attack range). Miss Fortune has no dash or blink to close the gap. (Kayle basic attacks → Miss Fortune basic attacks)
 
-### 5. Taliyah (net +0.81)
+#### 5. Taliyah (net +0.81)
 
 - **0.28** interrupt: Seismic Shove's airborne interrupts Miss Fortune's Bullet Time (normal channel). Seismic Shove must land during the channel. (Taliyah W Seismic Shove → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Unraveled Earth's stun interrupts Miss Fortune's Bullet Time (normal channel). Unraveled Earth must land during the channel. (Taliyah E Unraveled Earth → Miss Fortune R Bullet Time)
 - **0.25** interrupt: Weaver's Wall's airborne interrupts Miss Fortune's Bullet Time (normal channel). Weaver's Wall must land during the channel. (Taliyah R Weaver's Wall → Miss Fortune R Bullet Time)
 
-### 6. Rek'Sai (net +0.75)
+#### 6. Rek'Sai (net +0.75)
 
 - **0.55** untargetable: Void Rush makes Rek'Sai untargetable, dodging Miss Fortune's Bullet Time. Untargetable for 1.5 s, long enough to use ahead of Bullet Time. (Rek'Sai R Void Rush → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Unburrow's airborne interrupts Miss Fortune's Bullet Time (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Miss Fortune R Bullet Time)
 - **0.23** untargetable: Void Rush makes Rek'Sai untargetable, dodging Miss Fortune's Double Up. Untargetable for 1.5 s, long enough to use ahead of Double Up. (Rek'Sai R Void Rush → Miss Fortune Q Double Up)
 - Watch out: Miss Fortune's basic attacks reach 375 units farther than Rek'Sai's (550 vs 175 attack range).
 
-### 7. Bard (net +0.75)
+#### 7. Bard (net +0.75)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Miss Fortune's Bullet Time. Untargetable for 2.5 s, long enough to use ahead of Bullet Time. (Bard R Tempered Fate → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Tempered Fate's stasis interrupts Miss Fortune's Bullet Time (normal channel). Tempered Fate must land during the channel. (Bard R Tempered Fate → Miss Fortune R Bullet Time)
 - **0.23** untargetable: Tempered Fate makes Bard untargetable, dodging Miss Fortune's Double Up. Untargetable for 2.5 s, long enough to use ahead of Double Up. (Bard R Tempered Fate → Miss Fortune Q Double Up)
 
-### 8. Lissandra (net +0.75)
+#### 8. Lissandra (net +0.75)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Miss Fortune's Bullet Time. Untargetable for 2.5 s, long enough to use ahead of Bullet Time. (Lissandra R Frozen Tomb → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Frozen Tomb's stun interrupts Miss Fortune's Bullet Time (normal channel). Frozen Tomb must land during the channel. (Lissandra R Frozen Tomb → Miss Fortune R Bullet Time)
 - **0.23** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Miss Fortune's Double Up. Untargetable for 2.5 s, long enough to use ahead of Double Up. (Lissandra R Frozen Tomb → Miss Fortune Q Double Up)
 
-### 9. Xin Zhao (net +0.73)
+#### 9. Xin Zhao (net +0.73)
 
 - **0.55** invulnerable: Crescent Guard makes Xin Zhao invulnerable to Miss Fortune's Bullet Time. Invulnerable for 4 s, long enough to use ahead of Bullet Time. Only invulnerable to champions a certain distance away. (Xin Zhao R Crescent Guard → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Crescent Guard's airborne interrupts Miss Fortune's Bullet Time (normal channel). Crescent Guard must land during the channel. (Xin Zhao R Crescent Guard → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Three Talon Strike's airborne interrupts Miss Fortune's Bullet Time (normal channel). Three Talon Strike must land during the channel. (Xin Zhao Q Three Talon Strike → Miss Fortune R Bullet Time)
 - Watch out: Miss Fortune's basic attacks reach 375 units farther than Xin Zhao's (550 vs 175 attack range).
 
-### 10. Lulu (net +0.72)
+#### 10. Lulu (net +0.72)
 
 - **0.30** disarm: Whimsy disarms Miss Fortune for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Miss Fortune basic attacks)
 - **0.28** interrupt: Whimsy's polymorph interrupts Miss Fortune's Bullet Time (normal channel). Whimsy must land during the channel. (Lulu W Whimsy → Miss Fortune R Bullet Time)
 - **0.28** interrupt: Wild Growth's airborne interrupts Miss Fortune's Bullet Time (normal channel). Wild Growth must land during the channel. (Lulu R Wild Growth → Miss Fortune R Bullet Time)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -1,5 +1,186 @@
 # Counters to Anivia (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Anivia: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Anivia wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Anivia --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.41 | +1.00 | +0.00 |
+| 2 | K'Sante | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 3 | Olaf | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 4 | Vayne | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 5 | Corki | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 6 | Yorick | +0.78 | +0.95 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 7 | Master Yi | +0.55 | +0.38 | +1.00 | +0.48 | +0.09 | +1.00 | +0.00 |
+| 8 | Darius | +0.44 | −0.04 | +1.00 | +1.00 | +0.15 | −0.24 | +0.00 |
+| 9 | Bel'Veth | +0.35 | +1.00 | −0.43 | +1.00 | +0.03 | +0.03 | +0.00 |
+| 10 | Zac | +0.30 | +0.44 | +0.27 | +0.41 | +0.02 | +0.34 | +0.00 |
+| 11 | Swain | +0.27 | +0.31 | +0.32 | +0.32 | +0.12 | – | +0.00 |
+| 12 | Udyr | +0.23 | +1.00 | −0.02 | +0.00 | +0.22 | −0.49 | +0.00 |
+| 13 | Heimerdinger | +0.22 | +0.91 | +0.10 | −0.14 | +0.14 | −0.21 | +0.00 |
+| 14 | Renekton | +0.21 | +0.27 | +0.26 | +0.21 | +0.08 | +0.26 | +0.00 |
+| 15 | Dr. Mundo | +0.19 | +0.28 | +0.20 | +0.16 | +0.05 | +0.25 | +0.00 |
+| 16 | Fiddlesticks | +0.17 | +0.15 | +0.33 | +0.25 | +0.06 | −0.08 | +0.00 |
+| 17 | Maokai | +0.16 | +0.16 | +0.42 | −0.08 | +0.17 | −0.01 | +0.00 |
+| 18 | Galio | +0.15 | +0.26 | +0.18 | +0.01 | +0.14 | +0.19 | +0.00 |
+| 19 | Diana | +0.14 | +0.08 | +0.28 | +0.08 | +0.15 | +0.11 | +0.00 |
+| 20 | Nautilus | +0.12 | +0.11 | +0.16 | +0.11 | +0.08 | +0.17 | +0.00 |
+| 21 | Camille | +0.12 | −0.23 | −0.04 | +1.00 | +0.05 | −0.23 | +0.00 |
+| 22 | Rakan | +0.11 | −0.00 | +0.15 | +0.23 | +0.09 | +0.12 | +0.00 |
+| 23 | Zaahen | +0.09 | −0.06 | +0.07 | +0.08 | +0.19 | +0.40 | +0.00 |
+| 24 | Sylas | +0.07 | +0.07 | +0.05 | +0.02 | +0.23 | +0.05 | +0.00 |
+| 25 | Shyvana | +0.07 | −0.28 | −0.20 | +1.00 | +0.09 | −0.23 | +0.00 |
+| 26 | Ornn | +0.07 | +0.01 | +0.02 | +0.11 | +0.20 | +0.06 | +0.00 |
+| 27 | Malphite | +0.06 | +0.11 | +0.14 | −0.06 | +0.11 | −0.03 | +0.00 |
+| 28 | Lee Sin | +0.06 | +0.17 | +0.17 | −0.24 | +0.11 | +0.14 | +0.00 |
+| 29 | Alistar | +0.06 | +0.11 | −0.00 | +0.11 | +0.09 | −0.00 | +0.00 |
+| 30 | Tahm Kench | +0.06 | +0.04 | +0.04 | +0.11 | +0.11 | +0.01 | +0.00 |
+| 31 | Hwei | +0.06 | +0.05 | +0.04 | +0.11 | +0.06 | – | +0.00 |
+| 32 | Briar | +0.06 | +0.14 | +0.07 | −0.02 | +0.07 | −0.03 | +0.00 |
+| 33 | Leona | +0.05 | +0.03 | +0.02 | +0.11 | +0.05 | +0.13 | +0.00 |
+| 34 | Rek'Sai | +0.05 | +0.18 | −0.16 | +0.22 | +0.13 | −0.15 | +0.00 |
+| 35 | Braum | +0.05 | +0.00 | −0.01 | +0.20 | +0.11 | −0.02 | +0.00 |
+| 36 | Jarvan IV | +0.05 | +0.09 | −0.01 | +0.04 | +0.14 | −0.01 | +0.00 |
+| 37 | Nasus | +0.05 | −0.07 | +0.28 | −0.04 | +0.10 | −0.11 | +0.00 |
+| 38 | Rammus | +0.05 | +0.13 | +0.13 | −0.06 | +0.06 | −0.17 | +0.00 |
+| 39 | Sejuani | +0.04 | +0.07 | +0.07 | −0.16 | +0.13 | +0.21 | +0.00 |
+| 40 | Amumu | +0.04 | +0.03 | −0.05 | +0.12 | +0.09 | +0.10 | +0.00 |
+| 41 | Yone | +0.04 | +0.46 | −0.03 | −0.36 | +0.15 | −0.18 | +0.00 |
+| 42 | Shen | +0.03 | +0.04 | −0.01 | +0.13 | +0.07 | −0.10 | +0.00 |
+| 43 | Rell | +0.02 | +0.01 | +0.03 | +0.01 | +0.13 | −0.06 | +0.00 |
+| 44 | Nunu & Willump | +0.02 | +0.03 | −0.04 | +0.03 | +0.20 | −0.07 | +0.00 |
+| 45 | Xin Zhao | +0.02 | −0.12 | +0.12 | +0.04 | +0.12 | −0.10 | +0.00 |
+| 46 | Mordekaiser | +0.01 | +0.06 | −0.01 | −0.03 | +0.12 | −0.11 | +0.00 |
+| 47 | Karma | +0.01 | −0.04 | −0.04 | +0.03 | +0.13 | – | +0.00 |
+| 48 | Soraka | +0.01 | −0.02 | −0.05 | +0.08 | +0.04 | – | +0.00 |
+| 49 | Skarner | +0.00 | −0.03 | −0.04 | +0.06 | +0.08 | −0.05 | +0.00 |
+| 50 | Yasuo | +0.00 | +0.09 | −0.06 | −0.04 | +0.12 | −0.15 | +0.00 |
+| 51 | Vel'Koz | −0.00 | +0.10 | +0.10 | −0.29 | +0.22 | −0.24 | +0.00 |
+| 52 | Urgot | −0.00 | +0.01 | +0.02 | −0.17 | +0.12 | +0.07 | +0.00 |
+| 53 | Orianna | −0.00 | +0.08 | +0.08 | −0.31 | +0.12 | – | +0.00 |
+| 54 | Naafiri | −0.00 | −0.07 | +0.00 | +0.02 | +0.12 | −0.08 | +0.00 |
+| 55 | Gangplank | −0.01 | −0.09 | +0.01 | −0.07 | +0.27 | −0.11 | +0.00 |
+| 56 | Kayn | −0.01 | −0.11 | +0.11 | −0.12 | +0.12 | −0.03 | +0.00 |
+| 57 | Taric | −0.01 | +0.10 | −0.14 | −0.03 | +0.07 | −0.05 | +0.00 |
+| 58 | Volibear | −0.01 | −0.08 | −0.13 | +0.04 | +0.07 | +0.22 | +0.00 |
+| 59 | Kled | −0.02 | −0.22 | −0.22 | +0.27 | +0.05 | +0.34 | +0.00 |
+| 60 | Ivern | −0.02 | −0.10 | −0.05 | +0.00 | +0.03 | +0.18 | +0.00 |
+| 61 | Xerath | −0.02 | −0.04 | −0.05 | −0.01 | +0.06 | −0.01 | +0.00 |
+| 62 | Jax | −0.02 | −0.10 | −0.11 | +0.02 | +0.20 | −0.01 | +0.00 |
+| 63 | Quinn | −0.02 | −0.07 | +0.01 | −0.05 | +0.04 | – | +0.00 |
+| 64 | Akshan | −0.02 | −0.05 | −0.05 | +0.01 | +0.07 | −0.13 | +0.00 |
+| 65 | Malzahar | −0.03 | −0.10 | −0.08 | +0.00 | +0.09 | +0.06 | +0.00 |
+| 66 | Gragas | −0.03 | −0.17 | −0.18 | +0.26 | +0.15 | −0.17 | +0.00 |
+| 67 | Evelynn | −0.03 | −0.06 | −0.07 | +0.00 | +0.05 | −0.05 | +0.00 |
+| 68 | Akali | −0.03 | −0.04 | −0.08 | −0.03 | +0.04 | −0.01 | +0.00 |
+| 69 | Cho'Gath | −0.03 | +0.00 | −0.04 | +0.01 | −0.00 | −0.22 | +0.00 |
+| 70 | Poppy | −0.03 | −0.19 | +0.17 | −0.13 | +0.10 | −0.15 | +0.00 |
+| 71 | Aurora | −0.03 | −0.06 | −0.12 | −0.01 | +0.10 | – | +0.00 |
+| 72 | Sett | −0.04 | −0.07 | −0.03 | −0.03 | +0.06 | −0.18 | +0.00 |
+| 73 | Garen | −0.04 | −0.01 | −0.07 | −0.14 | +0.15 | −0.14 | +0.00 |
+| 74 | Illaoi | −0.04 | −0.13 | −0.08 | +0.02 | +0.11 | −0.09 | +0.00 |
+| 75 | Teemo | −0.05 | −0.07 | −0.13 | +0.02 | +0.08 | −0.13 | +0.00 |
+| 76 | Kha'Zix | −0.05 | −0.04 | −0.15 | −0.03 | +0.03 | −0.06 | +0.00 |
+| 77 | Nami | −0.06 | −0.03 | −0.12 | −0.12 | +0.06 | – | +0.00 |
+| 78 | Karthus | −0.06 | −0.12 | −0.13 | −0.09 | +0.10 | +0.02 | +0.00 |
+| 79 | Ekko | −0.07 | −0.07 | −0.13 | +0.02 | +0.00 | −0.21 | +0.00 |
+| 80 | Irelia | −0.07 | −0.15 | −0.06 | −0.14 | +0.10 | −0.04 | +0.00 |
+| 81 | Hecarim | −0.07 | −0.12 | −0.13 | −0.08 | +0.12 | −0.08 | +0.00 |
+| 82 | Lulu | −0.07 | −0.07 | −0.19 | −0.07 | +0.12 | – | +0.00 |
+| 83 | Gnar | −0.07 | −0.18 | −0.08 | −0.09 | +0.15 | −0.10 | +0.00 |
+| 84 | Tristana | −0.07 | −0.09 | −0.10 | −0.12 | +0.07 | −0.16 | +0.00 |
+| 85 | Trundle | −0.08 | −0.08 | −0.22 | −0.07 | +0.03 | +0.09 | +0.00 |
+| 86 | Veigar | −0.08 | −0.12 | −0.12 | −0.07 | +0.02 | −0.07 | +0.00 |
+| 87 | Blitzcrank | −0.08 | −0.12 | −0.09 | −0.14 | +0.09 | −0.12 | +0.00 |
+| 88 | Azir | −0.08 | +0.44 | −0.01 | −1.00 | +0.12 | – | +0.00 |
+| 89 | Fizz | −0.09 | −0.13 | −0.05 | −0.21 | +0.10 | −0.16 | +0.00 |
+| 90 | Shaco | −0.09 | −0.14 | +0.01 | −0.25 | +0.10 | −0.24 | +0.00 |
+| 91 | Locke | −0.10 | −0.11 | −0.13 | −0.18 | +0.02 | −0.00 | +0.00 |
+| 92 | Aatrox | −0.10 | −0.06 | −0.14 | −0.07 | +0.00 | −0.33 | +0.00 |
+| 93 | Seraphine | −0.10 | −0.23 | −0.09 | −0.10 | +0.06 | – | +0.00 |
+| 94 | Brand | −0.10 | −0.02 | −0.03 | −0.38 | +0.04 | −0.19 | +0.00 |
+| 95 | Vi | −0.10 | −0.05 | −0.31 | −0.05 | +0.03 | −0.06 | +0.00 |
+| 96 | Singed | −0.11 | −0.15 | −0.21 | −0.05 | +0.06 | −0.26 | +0.00 |
+| 97 | Wukong | −0.11 | −0.07 | −0.21 | −0.19 | +0.08 | −0.20 | +0.00 |
+| 98 | Samira | −0.11 | −0.33 | −0.21 | −0.07 | +0.23 | +0.01 | +0.00 |
+| 99 | Sion | −0.12 | −0.18 | −0.17 | −0.15 | +0.06 | −0.06 | +0.00 |
+| 100 | Jinx | −0.12 | +0.06 | −0.03 | −0.67 | +0.10 | – | +0.00 |
+| 101 | Kennen | −0.13 | −0.19 | −0.19 | −0.16 | +0.09 | – | +0.00 |
+| 102 | Tryndamere | −0.13 | −0.14 | −0.27 | +0.02 | +0.06 | −0.35 | +0.00 |
+| 103 | Jayce | −0.13 | −0.28 | +0.00 | −0.21 | +0.11 | −0.32 | +0.00 |
+| 104 | Zyra | −0.13 | −0.19 | −0.33 | −0.06 | +0.10 | −0.06 | +0.00 |
+| 105 | Kindred | −0.13 | −0.22 | −0.06 | −0.35 | +0.19 | −0.21 | +0.00 |
+| 106 | Nidalee | −0.14 | −0.14 | −0.21 | −0.19 | +0.03 | – | +0.00 |
+| 107 | Vladimir | −0.14 | −0.16 | −0.14 | −0.11 | −0.04 | −0.32 | +0.00 |
+| 108 | Jhin | −0.14 | −0.21 | −0.21 | −0.21 | +0.14 | – | +0.00 |
+| 109 | Kassadin | −0.15 | −0.24 | −0.20 | −0.16 | +0.07 | −0.20 | +0.00 |
+| 110 | Nocturne | −0.16 | −0.14 | −0.21 | −0.29 | +0.07 | −0.28 | +0.00 |
+| 111 | Zoe | −0.16 | −0.38 | −0.31 | +0.11 | +0.11 | −0.32 | +0.00 |
+| 112 | Graves | −0.17 | −0.33 | −0.25 | −0.15 | +0.13 | −0.15 | +0.00 |
+| 113 | Neeko | −0.17 | −0.25 | −0.26 | −0.19 | +0.12 | −0.24 | +0.00 |
+| 114 | Talon | −0.18 | −0.34 | −0.14 | −0.21 | +0.04 | −0.20 | +0.00 |
+| 115 | Rumble | −0.18 | −0.04 | −0.02 | −0.79 | +0.08 | −0.19 | +0.00 |
+| 116 | Twisted Fate | −0.18 | −0.21 | −0.23 | −0.34 | +0.11 | – | +0.00 |
+| 117 | LeBlanc | −0.18 | −0.10 | −0.47 | −0.03 | +0.07 | −0.44 | +0.00 |
+| 118 | Bard | −0.18 | −0.23 | −0.30 | −0.18 | +0.04 | −0.24 | +0.00 |
+| 119 | Kog'Maw | −0.19 | −0.19 | −0.06 | −0.60 | +0.10 | −0.18 | +0.00 |
+| 120 | Lux | −0.19 | +0.03 | +0.03 | −1.00 | +0.11 | – | +0.00 |
+| 121 | Riven | −0.20 | −0.34 | −0.16 | −0.26 | +0.16 | −0.52 | +0.00 |
+| 122 | Ziggs | −0.21 | −0.30 | −0.30 | −0.35 | +0.21 | – | +0.00 |
+| 123 | Lillia | −0.22 | −0.33 | −0.24 | −0.31 | +0.10 | −0.27 | +0.00 |
+| 124 | Janna | −0.22 | −0.26 | −0.35 | −0.30 | +0.10 | – | +0.00 |
+| 125 | Ambessa | −0.23 | −1.00 | +0.02 | −0.10 | +0.25 | −0.05 | +0.00 |
+| 126 | Pantheon | −0.23 | −0.37 | −0.31 | −0.21 | +0.04 | −0.27 | +0.00 |
+| 127 | Zed | −0.24 | −0.20 | +0.04 | −1.00 | +0.04 | −0.04 | +0.00 |
+| 128 | Taliyah | −0.25 | −0.09 | −0.07 | −1.00 | +0.10 | – | +0.00 |
+| 129 | Kalista | −0.26 | −0.38 | −0.35 | −0.31 | +0.08 | – | +0.00 |
+| 130 | Senna | −0.26 | −0.09 | −0.08 | −1.00 | +0.05 | – | +0.00 |
+| 131 | Viktor | −0.26 | −0.08 | −0.10 | −1.00 | +0.05 | – | +0.00 |
+| 132 | Rengar | −0.26 | −0.21 | −0.21 | −1.00 | +0.37 | −0.15 | +0.00 |
+| 133 | Aphelios | −0.27 | +0.00 | −0.28 | −1.00 | +0.17 | – | +0.00 |
+| 134 | Nilah | −0.28 | −0.24 | −0.98 | −0.13 | +0.31 | −0.01 | +0.00 |
+| 135 | Xayah | −0.29 | +0.01 | −0.97 | −0.20 | +0.14 | – | +0.00 |
+| 136 | Annie | −0.30 | −0.46 | −0.34 | −0.41 | +0.08 | – | +0.00 |
+| 137 | Aurelion Sol | −0.30 | −0.38 | −0.38 | −0.42 | +0.08 | −0.40 | +0.00 |
+| 138 | Varus | −0.31 | −0.17 | −0.19 | −1.00 | +0.06 | – | +0.00 |
+| 139 | Sivir | −0.32 | −0.21 | −0.21 | −1.00 | +0.05 | −0.21 | +0.00 |
+| 140 | Syndra | −0.33 | −0.46 | +0.02 | −1.00 | +0.09 | – | +0.00 |
+| 141 | Viego | −0.33 | −1.00 | −0.86 | +1.00 | +0.21 | −1.00 | +0.00 |
+| 142 | Mel | −0.36 | −1.00 | −0.03 | −0.42 | +0.14 | – | +0.00 |
+| 143 | Ezreal | −0.38 | −0.47 | −0.55 | −0.49 | +0.07 | – | +0.00 |
+| 144 | Draven | −0.39 | −0.53 | −0.15 | −1.00 | +0.09 | – | +0.00 |
+| 145 | Morgana | −0.42 | −0.41 | −0.55 | −0.93 | +0.12 | −0.12 | +0.00 |
+| 146 | Warwick | −0.42 | −1.00 | −0.06 | −1.00 | +0.21 | +0.14 | +0.00 |
+| 147 | Elise | −0.46 | −0.45 | −0.69 | −0.64 | +0.03 | – | +0.00 |
+| 148 | Kayle | −0.46 | −1.00 | +0.04 | −1.00 | +0.16 | – | +0.00 |
+| 149 | Sona | −0.48 | −1.00 | +0.02 | −1.00 | +0.07 | – | +0.00 |
+| 150 | Katarina | −0.50 | −1.00 | +0.01 | −1.00 | +0.06 | −0.60 | +0.00 |
+| 151 | Twitch | −0.54 | −0.70 | −0.46 | −1.00 | +0.06 | – | +0.00 |
+| 152 | Ryze | −0.54 | −0.34 | −1.00 | −1.00 | +0.17 | −0.35 | +0.00 |
+| 153 | Zilean | −0.61 | −0.40 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 154 | Lucian | −0.61 | −1.00 | −0.29 | −0.99 | +0.08 | −1.00 | +0.00 |
+| 155 | Lissandra | −0.63 | −1.00 | −0.49 | −1.00 | +0.07 | – | +0.00 |
+| 156 | Caitlyn | −0.63 | −0.53 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 157 | Ahri | −0.65 | −0.76 | −1.00 | −0.75 | +0.03 | – | +0.00 |
+| 158 | Renata Glasc | −0.67 | −0.82 | −0.82 | −1.00 | +0.09 | – | +0.00 |
+| 159 | Gwen | −0.68 | −0.77 | −1.00 | −1.00 | +0.32 | −0.86 | +0.00 |
+| 160 | Milio | −0.69 | −0.76 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 161 | Yuumi | −0.69 | −1.00 | −0.83 | −1.00 | +0.03 | −0.42 | +0.00 |
+| 162 | Vex | −0.71 | −1.00 | −1.00 | −0.71 | +0.02 | – | +0.00 |
+| 163 | Pyke | −0.75 | −1.00 | −0.80 | −1.00 | −0.01 | −0.96 | +0.00 |
+| 164 | Yunara | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 165 | Ashe | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 166 | Cassiopeia | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 167 | Smolder | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 168 | Miss Fortune | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 169 | Zeri | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 170 | Kai'Sa | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 171 | Qiyana | −0.78 | −0.99 | −1.00 | −1.00 | +0.04 | −0.90 | +0.00 |
+| 172 | Thresh | −0.84 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Anivia's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,77 +189,77 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Anivia` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Fizz (net +1.03)
+#### 1. Fizz (net +1.03)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Anivia's Crystallize. Untargetable for 0.75 s; Crystallize takes 0.25 s to land, enough to react. (Fizz E Playful → Anivia W Crystallize)
 - **0.65** untargetable: Playful makes Fizz untargetable, dodging Anivia's Flash Frost. Untargetable for 0.75 s; Flash Frost takes 1.41 s to land, enough to react. (Fizz E Playful → Anivia Q Flash Frost)
 - **0.39** untargetable: Playful makes Fizz untargetable, dodging Anivia's Frostbite. Untargetable for 0.75 s; Frostbite takes 0.63 s to land, enough to react. (Fizz E Playful → Anivia E Frostbite)
 - Watch out: Anivia's basic attacks reach 425 units farther than Fizz's (600 vs 175 attack range).
 
-### 2. Fiora (net +0.94)
+#### 2. Fiora (net +0.94)
 
 - **0.80** parry: Riposte parries Anivia's Crystallize and stuns back. Parry for 0.75 s; Crystallize takes 0.25 s to land, enough to react. Negating Crystallize's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Anivia W Crystallize)
 - **0.56** parry: Riposte parries Anivia's Flash Frost and stuns back. Parry for 0.75 s; Flash Frost takes 1.41 s to land, enough to react. Negating Flash Frost's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Anivia Q Flash Frost)
 - **0.30** parry: Riposte parries Anivia's Frostbite. Parry for 0.75 s; Frostbite takes 0.63 s to land, enough to react. (Fiora W Riposte → Anivia E Frostbite)
 - Watch out: Anivia's basic attacks reach 450 units farther than Fiora's (600 vs 150 attack range).
 
-### 3. Maokai (net +0.86)
+#### 3. Maokai (net +0.86)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Anivia's Crystallize. Untargetable for 1.4 s; Crystallize takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Anivia W Crystallize)
 - **0.57** untargetable: Twisted Advance makes Maokai untargetable, dodging Anivia's Flash Frost. Untargetable for 1.4 s; Flash Frost takes 1.41 s to land, enough to react. (Maokai W Twisted Advance → Anivia Q Flash Frost)
 - **0.35** untargetable: Twisted Advance makes Maokai untargetable, dodging Anivia's Frostbite. Untargetable for 1.4 s; Frostbite takes 0.63 s to land, enough to react. (Maokai W Twisted Advance → Anivia E Frostbite)
 - Watch out: Anivia's basic attacks reach 475 units farther than Maokai's (600 vs 125 attack range).
 
-### 4. Udyr (net +0.83)
+#### 4. Udyr (net +0.83)
 
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Anivia's Crystallize (airborne). Immune for 1.5 s, long enough to use ahead of Crystallize. (Udyr E Blazing Stampede → Anivia W Crystallize)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Anivia's Flash Frost (slow, stun). Immune for 1.5 s, long enough to use ahead of Flash Frost. (Udyr E Blazing Stampede → Anivia Q Flash Frost)
 - **0.10** cc immunity: Blazing Stampede makes Udyr immune to Anivia's Glacial Storm (slow). Immune for 1.5 s, long enough to use ahead of Glacial Storm. (Udyr E Blazing Stampede → Anivia R Glacial Storm)
 - Watch out: Anivia's basic attacks reach 475 units farther than Udyr's (600 vs 125 attack range).
 
-### 5. Morgana (net +0.77)
+#### 5. Morgana (net +0.77)
 
 - **0.70** cc immunity: Black Shield makes Morgana immune to Anivia's Crystallize (airborne). Immune for 5 s, long enough to use ahead of Crystallize. (Morgana E Black Shield → Anivia W Crystallize)
 - **0.46** cc immunity: Black Shield makes Morgana immune to Anivia's Flash Frost (slow, stun). Immune for 5 s, long enough to use ahead of Flash Frost. (Morgana E Black Shield → Anivia Q Flash Frost)
 - **0.08** cc immunity: Black Shield makes Morgana immune to Anivia's Glacial Storm (slow). Immune for 5 s, long enough to use ahead of Glacial Storm. (Morgana E Black Shield → Anivia R Glacial Storm)
 - Watch out: Anivia's basic attacks reach 150 units farther than Morgana's (600 vs 450 attack range).
 
-### 6. Gwen (net +0.76)
+#### 6. Gwen (net +0.76)
 
 - **0.68** untargetable: Hallowed Mist makes Gwen untargetable, dodging Anivia's Crystallize. Untargetable for ?; Crystallize takes 0.25 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Anivia W Crystallize)
 - **0.44** untargetable: Hallowed Mist makes Gwen untargetable, dodging Anivia's Flash Frost. Untargetable for ?; Flash Frost takes 1.41 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Anivia Q Flash Frost)
 - **0.29** untargetable: Hallowed Mist makes Gwen untargetable, dodging Anivia's Frostbite. Untargetable for ?; Frostbite takes 0.63 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Anivia E Frostbite)
 - Watch out: Anivia's basic attacks reach 450 units farther than Gwen's (600 vs 150 attack range).
 
-### 7. Vladimir (net +0.72)
+#### 7. Vladimir (net +0.72)
 
 - **0.70** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Anivia's Crystallize. Untargetable for 2 s, long enough to use ahead of Crystallize. (Vladimir W Sanguine Pool → Anivia W Crystallize)
 - **0.46** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Anivia's Flash Frost. Untargetable for 2 s, long enough to use ahead of Flash Frost. (Vladimir W Sanguine Pool → Anivia Q Flash Frost)
 - **0.31** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Anivia's Glacial Storm. Untargetable for 2 s, long enough to use ahead of Glacial Storm. (Vladimir W Sanguine Pool → Anivia R Glacial Storm)
 - Watch out: Anivia's basic attacks reach 150 units farther than Vladimir's (600 vs 450 attack range).
 
-### 8. Braum (net +0.69)
+#### 8. Braum (net +0.69)
 
 - **0.65** projectile block: Unbreakable blocks Anivia's Flash Frost, a projectile. Unbreakable for 4 s, long enough to use ahead of Flash Frost. (Braum E Unbreakable → Anivia Q Flash Frost)
 - **0.39** projectile block: Unbreakable blocks Anivia's Frostbite, a projectile. Unbreakable for 4 s, long enough to use ahead of Frostbite. (Braum E Unbreakable → Anivia E Frostbite)
 - **0.33** projectile block: Unbreakable blocks Anivia's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Anivia basic attacks)
 - Watch out: Anivia's basic attacks reach 475 units farther than Braum's (600 vs 125 attack range).
 
-### 9. Lissandra (net +0.63)
+#### 9. Lissandra (net +0.63)
 
 - **0.37** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Anivia's Crystallize. Untargetable for 2.5 s, long enough to use ahead of Crystallize. (Lissandra R Frozen Tomb → Anivia W Crystallize)
 - **0.32** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Anivia's Flash Frost. Untargetable for 2.5 s, long enough to use ahead of Flash Frost. (Lissandra R Frozen Tomb → Anivia Q Flash Frost)
 - **0.27** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Anivia's Glacial Storm. Untargetable for 2.5 s, long enough to use ahead of Glacial Storm. (Lissandra R Frozen Tomb → Anivia R Glacial Storm)
 
-### 10. Aurora (net +0.59)
+#### 10. Aurora (net +0.59)
 
 - **0.35** untargetable: Between Worlds makes Aurora untargetable, dodging Anivia's Crystallize. Untargetable for 0.4 s; Crystallize takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Anivia W Crystallize)
 - **0.31** untargetable: Between Worlds makes Aurora untargetable, dodging Anivia's Flash Frost. Untargetable for 0.4 s; Flash Frost takes 1.41 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Anivia Q Flash Frost)
 - **0.23** untargetable: Between Worlds makes Aurora untargetable, dodging Anivia's Frostbite. Untargetable for 0.4 s; Frostbite takes 0.63 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Anivia E Frostbite)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

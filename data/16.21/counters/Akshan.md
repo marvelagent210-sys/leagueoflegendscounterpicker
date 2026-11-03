@@ -1,5 +1,186 @@
 # Counters to Akshan (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Akshan: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Akshan wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Akshan --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +1.00 |
+| 2 | Kayle | +0.84 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 3 | Nasus | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 4 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 5 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 6 | Master Yi | +0.84 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +1.00 |
+| 7 | Ashe | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 8 | Udyr | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 9 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 10 | Vel'Koz | +0.82 | +1.00 | +1.00 | +1.00 | +0.26 | – | +0.00 |
+| 11 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 12 | Irelia | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 13 | Diana | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 14 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 15 | Kled | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 16 | Maokai | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 17 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 18 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 19 | Bel'Veth | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 20 | Jayce | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 21 | Varus | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 22 | Yunara | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 23 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 24 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 25 | Mordekaiser | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 26 | Gragas | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 27 | Fizz | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 28 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 29 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 30 | Corki | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 31 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 32 | Zeri | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 33 | Sion | +0.79 | +0.99 | +0.99 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 34 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 35 | Miss Fortune | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 36 | Skarner | +0.79 | +1.00 | +1.00 | +1.00 | −0.01 | +0.92 | +0.00 |
+| 37 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 38 | Sejuani | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 39 | Smolder | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 40 | Xayah | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 41 | Viego | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 42 | Rek'Sai | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 43 | Teemo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 44 | Lulu | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 45 | Orianna | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 46 | Tristana | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 47 | Aurora | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 48 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 49 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 50 | Azir | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 51 | Elise | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 52 | Lee Sin | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 53 | Samira | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 54 | Shyvana | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 55 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | +0.75 | +0.00 |
+| 56 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 57 | Heimerdinger | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 58 | Ambessa | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 59 | Twisted Fate | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 60 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 61 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 62 | Warwick | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 63 | Aatrox | +0.78 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 64 | Fiddlesticks | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 65 | Rammus | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 66 | Kalista | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 67 | Volibear | +0.77 | +1.00 | +0.99 | +1.00 | −0.12 | +0.96 | +0.00 |
+| 68 | Kindred | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 69 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 70 | Nocturne | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 71 | Rumble | +0.77 | +0.95 | +0.95 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 72 | Vayne | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 73 | Ivern | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 74 | Gwen | +0.77 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +0.00 |
+| 75 | Wukong | +0.77 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +0.00 |
+| 76 | Kennen | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 77 | Illaoi | +0.73 | +0.76 | +0.97 | +1.00 | −0.04 | +0.99 | +0.00 |
+| 78 | Morgana | +0.65 | +0.80 | +0.80 | +1.00 | −0.12 | – | +0.00 |
+| 79 | Gnar | +0.64 | +1.00 | +1.00 | +1.00 | +0.01 | −0.63 | +0.00 |
+| 80 | Draven | +0.59 | +1.00 | +0.32 | +1.00 | +0.01 | – | +0.00 |
+| 81 | Tahm Kench | +0.46 | +0.30 | +0.30 | +0.98 | +0.13 | +0.98 | +0.00 |
+| 82 | Nilah | +0.45 | +1.00 | +0.00 | +1.00 | −0.01 | +0.00 | +0.00 |
+| 83 | Riven | +0.43 | +1.00 | +0.00 | +1.00 | −0.15 | +0.00 | +0.00 |
+| 84 | Ziggs | +0.37 | +1.00 | +1.00 | −1.00 | +0.21 | – | +0.00 |
+| 85 | Yone | +0.36 | +0.17 | +0.17 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 86 | Annie | +0.32 | +1.00 | −1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 87 | Sett | +0.29 | −1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 88 | Sylas | +0.22 | +1.00 | +1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 89 | Braum | +0.17 | +0.09 | +0.48 | +0.14 | −0.04 | +0.03 | +0.00 |
+| 90 | Zac | +0.15 | +0.20 | +0.20 | +0.27 | −0.08 | +0.10 | +0.00 |
+| 91 | Lillia | +0.12 | +0.11 | +0.11 | +0.81 | +0.03 | −1.00 | +0.00 |
+| 92 | Vi | +0.09 | −1.00 | +1.00 | +1.00 | −0.09 | −1.00 | +0.00 |
+| 93 | Ekko | +0.09 | +1.00 | −1.00 | +1.00 | −0.09 | −1.00 | +0.00 |
+| 94 | Leona | +0.07 | +0.01 | +0.01 | −0.02 | −0.02 | +0.71 | +0.00 |
+| 95 | Swain | +0.06 | +0.07 | +0.03 | +0.08 | +0.10 | – | +0.00 |
+| 96 | Anivia | +0.02 | +0.05 | +0.05 | −0.01 | −0.07 | +0.13 | +0.00 |
+| 97 | Taric | −0.00 | +0.02 | −0.04 | +0.02 | −0.00 | +0.02 | +0.00 |
+| 98 | Shen | −0.01 | −0.05 | −0.01 | +0.08 | −0.02 | −0.03 | +0.00 |
+| 99 | Ornn | −0.02 | −0.01 | −0.02 | −0.01 | −0.05 | −0.00 | +0.00 |
+| 100 | Soraka | −0.04 | +0.01 | −0.06 | −0.08 | −0.02 | – | +0.00 |
+| 101 | Urgot | −0.07 | −0.09 | −0.09 | −0.09 | +0.01 | −0.05 | +0.00 |
+| 102 | Karthus | −0.07 | −0.09 | −0.08 | −0.13 | +0.03 | – | +0.00 |
+| 103 | Zyra | −0.07 | −0.10 | −0.11 | −0.10 | +0.04 | – | +0.00 |
+| 104 | Mel | −0.08 | −1.00 | −0.13 | +1.00 | +0.08 | – | +0.00 |
+| 105 | Pantheon | −0.21 | −1.00 | −1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 106 | Karma | −0.28 | +0.79 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 107 | Alistar | −0.30 | −1.00 | +1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 108 | Neeko | −0.32 | −1.00 | −0.99 | +1.00 | +0.07 | – | +0.00 |
+| 109 | Graves | −0.32 | −1.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 110 | Ryze | −0.32 | −1.00 | −1.00 | +1.00 | +0.06 | – | +0.00 |
+| 111 | Kai'Sa | −0.34 | −1.00 | −1.00 | +1.00 | −0.05 | – | +0.00 |
+| 112 | Lucian | −0.34 | −1.00 | −1.00 | +1.00 | −0.05 | – | +0.00 |
+| 113 | Rengar | −0.34 | −1.00 | −1.00 | +1.00 | +0.37 | −1.00 | +0.00 |
+| 114 | Nidalee | −0.35 | −1.00 | −1.00 | +0.92 | −0.01 | – | +0.00 |
+| 115 | Singed | −0.38 | −1.00 | −0.07 | +0.00 | −0.07 | −1.00 | +0.00 |
+| 116 | Senna | −0.39 | −0.19 | −0.19 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 117 | Zed | −0.42 | −1.00 | −1.00 | +1.00 | −0.13 | −1.00 | +0.00 |
+| 118 | Ezreal | −0.43 | −0.88 | −0.88 | +0.25 | −0.01 | – | +0.00 |
+| 119 | Lux | −0.44 | −1.00 | −1.00 | +0.50 | +0.04 | – | +0.00 |
+| 120 | Aurelion Sol | −0.50 | −0.63 | −0.63 | −1.00 | +0.43 | – | +0.00 |
+| 121 | Rell | −0.55 | −1.00 | −0.07 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 122 | Briar | −0.56 | −1.00 | −1.00 | +0.20 | −0.36 | −0.45 | +0.00 |
+| 123 | Kassadin | −0.57 | +0.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 124 | Jinx | −0.58 | −1.00 | −1.00 | −0.16 | +0.07 | – | +0.00 |
+| 125 | Jarvan IV | −0.68 | −1.00 | −0.50 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 126 | Quinn | −0.68 | −1.00 | −1.00 | −0.51 | −0.09 | – | +0.00 |
+| 127 | Caitlyn | −0.72 | −0.86 | −0.86 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 128 | Malzahar | −0.73 | −0.85 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 129 | Taliyah | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 130 | Xerath | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 131 | Cassiopeia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 132 | Renata Glasc | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 133 | Milio | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 134 | Janna | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 135 | Syndra | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 136 | Nami | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 137 | Ahri | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 138 | Brand | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 139 | Sona | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 140 | Hwei | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 141 | Zoe | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 142 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 143 | Seraphine | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 144 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 145 | Zilean | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 146 | Twitch | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 147 | Viktor | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 148 | Vex | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 149 | Sivir | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 150 | LeBlanc | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 151 | Naafiri | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 152 | Evelynn | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 153 | Yuumi | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 154 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 155 | Nunu & Willump | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 156 | Vladimir | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 157 | Bard | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 158 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 159 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 160 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 161 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 162 | Kayn | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 163 | Hecarim | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 164 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 165 | Locke | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 166 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 167 | Shaco | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 168 | Thresh | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 169 | Galio | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 170 | Rakan | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 171 | Qiyana | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 172 | Pyke | −0.85 | −1.00 | −1.00 | −1.00 | −0.34 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Akshan's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,74 +189,74 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Akshan` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Yasuo (net +1.37)
+#### 1. Yasuo (net +1.37)
 
 - **0.55** projectile block: Wind Wall blocks Akshan's Comeuppance, a projectile. Wind Wall for 4 s, long enough to use ahead of Comeuppance. (Yasuo W Wind Wall → Akshan R Comeuppance)
 - **0.49** projectile block: Wind Wall blocks Akshan's Heroic Swing, a projectile. Wind Wall for 4 s, long enough to use ahead of Heroic Swing. (Yasuo W Wind Wall → Akshan E Heroic Swing)
 - **0.39** projectile block: Wind Wall blocks Akshan's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Akshan basic attacks)
 - Watch out: Akshan's basic attacks reach 325 units farther than Yasuo's (500 vs 175 attack range).
 
-### 2. Braum (net +1.21)
+#### 2. Braum (net +1.21)
 
 - **0.60** projectile block: Unbreakable blocks Akshan's Heroic Swing, a projectile. Unbreakable for 4 s, long enough to use ahead of Heroic Swing. (Braum E Unbreakable → Akshan E Heroic Swing)
 - **0.55** projectile block: Unbreakable blocks Akshan's Comeuppance, a projectile. Unbreakable for 4 s, long enough to use ahead of Comeuppance. (Braum E Unbreakable → Akshan R Comeuppance)
 - **0.50** projectile block: Unbreakable blocks Akshan's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Akshan basic attacks)
 - Watch out: Akshan's basic attacks reach 375 units farther than Braum's (500 vs 125 attack range).
 
-### 3. Rell (net +1.18)
+#### 3. Rell (net +1.18)
 
 - **0.28** interrupt: Ferromancy: Crash Down's airborne interrupts Akshan's Comeuppance (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Akshan R Comeuppance)
 - **0.28** interrupt: Ferromancy: Mount Up's airborne interrupts Akshan's Comeuppance (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Akshan R Comeuppance)
 - **0.28** interrupt: Full Tilt's stun interrupts Akshan's Comeuppance (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Akshan R Comeuppance)
 - Watch out: Akshan's basic attacks reach 325 units farther than Rell's (500 vs 175 attack range).
 
-### 4. Samira (net +0.88)
+#### 4. Samira (net +0.88)
 
 - **0.55** projectile block: Blade Whirl blocks Akshan's Comeuppance, a projectile. Blade Whirl for 0.75 s; Comeuppance takes 0.78 s to land, enough to react. (Samira W Blade Whirl → Akshan R Comeuppance)
 - **0.44** projectile block: Blade Whirl blocks Akshan's Heroic Swing, a projectile. Blade Whirl for 0.75 s; Heroic Swing takes 0.32 s to land, enough to react. (Samira W Blade Whirl → Akshan E Heroic Swing)
 - **0.30** projectile block: Blade Whirl blocks Akshan's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Akshan basic attacks)
 
-### 5. Lulu (net +0.87)
+#### 5. Lulu (net +0.87)
 
 - **0.34** disarm: Whimsy disarms Akshan for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Akshan basic attacks)
 - **0.28** interrupt: Whimsy's polymorph interrupts Akshan's Comeuppance (normal channel). Whimsy must land during the channel. (Lulu W Whimsy → Akshan R Comeuppance)
 - **0.25** interrupt: Wild Growth's airborne interrupts Akshan's Comeuppance (normal channel). Wild Growth must land during the channel. (Lulu R Wild Growth → Akshan R Comeuppance)
 
-### 6. Mel (net +0.86)
+#### 6. Mel (net +0.86)
 
 - **0.55** projectile block: Rebuttal blocks Akshan's Comeuppance, a projectile. Rebuttal for 0.75 s; Comeuppance takes 0.78 s to land, enough to react. (Mel W Rebuttal → Akshan R Comeuppance)
 - **0.41** projectile block: Rebuttal blocks Akshan's Heroic Swing, a projectile. Rebuttal for 0.75 s; Heroic Swing takes 0.32 s to land, enough to react. (Mel W Rebuttal → Akshan E Heroic Swing)
 - **0.30** projectile block: Rebuttal blocks Akshan's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Akshan basic attacks)
 
-### 7. Shen (net +0.84)
+#### 7. Shen (net +0.84)
 
 - **0.60** attack block: Spirit's Refuge blocks Akshan's Heroic Swing, which applies on-hit effects. Spirit's Refuge lasts 1.75 s on a 10 s cooldown. Spell shield will only block a single shot. (Shen W Spirit's Refuge → Akshan E Heroic Swing)
 - **0.36** attack block: Spirit's Refuge blocks Akshan's basic attacks (with Dirty Fighting). Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Akshan basic attacks)
 - **0.28** interrupt: Shadow Dash's taunt interrupts Akshan's Comeuppance (normal channel). Shadow Dash must land during the channel. (Shen E Shadow Dash → Akshan R Comeuppance)
 - Watch out: Akshan's basic attacks reach 375 units farther than Shen's (500 vs 125 attack range).
 
-### 8. Fiddlesticks (net +0.84)
+#### 8. Fiddlesticks (net +0.84)
 
 - **0.28** interrupt: Reap's silence interrupts Akshan's Comeuppance (normal channel). Reap must land during the channel. (Fiddlesticks E Reap → Akshan R Comeuppance)
 - **0.28** interrupt: Terrify's fear interrupts Akshan's Comeuppance (normal channel). Terrify must land during the channel. (Fiddlesticks Q Terrify → Akshan R Comeuppance)
 - **0.14** reveal: A Harmless Scarecrow reveals Akshan through Going Rogue's stealth. (Fiddlesticks I A Harmless Scarecrow → Akshan W Going Rogue)
 
-### 9. Taliyah (net +0.77)
+#### 9. Taliyah (net +0.77)
 
 - **0.28** interrupt: Seismic Shove's airborne interrupts Akshan's Comeuppance (normal channel). Seismic Shove must land during the channel. (Taliyah W Seismic Shove → Akshan R Comeuppance)
 - **0.28** interrupt: Unraveled Earth's stun interrupts Akshan's Comeuppance (normal channel). Unraveled Earth must land during the channel. (Taliyah E Unraveled Earth → Akshan R Comeuppance)
 - **0.21** interrupt: Weaver's Wall's airborne interrupts Akshan's Comeuppance (normal channel). Weaver's Wall must land during the channel. (Taliyah R Weaver's Wall → Akshan R Comeuppance)
 
-### 10. Fizz (net +0.72)
+#### 10. Fizz (net +0.72)
 
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Akshan's Comeuppance. Untargetable for 0.75 s; Comeuppance takes 0.78 s to land, enough to react. (Fizz E Playful → Akshan R Comeuppance)
 - **0.25** interrupt: Chum the Waters's airborne interrupts Akshan's Comeuppance (normal channel). Chum the Waters must land during the channel. (Fizz R Chum the Waters → Akshan R Comeuppance)
 - **0.14** reveal: Chum the Waters reveals Akshan through Going Rogue's stealth. (Fizz R Chum the Waters → Akshan W Going Rogue)
 - Watch out: Akshan's basic attacks reach 325 units farther than Fizz's (500 vs 175 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

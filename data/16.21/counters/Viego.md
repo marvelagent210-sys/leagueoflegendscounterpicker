@@ -1,5 +1,186 @@
 # Counters to Viego (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Viego: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Viego wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Viego --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.92 | +1.00 | +1.00 | +1.00 | +0.50 | – | +1.00 |
+| 2 | Kayle | +0.89 | +1.00 | +1.00 | +1.00 | +0.60 | +1.00 | +0.00 |
+| 3 | K'Sante | +0.88 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +1.00 |
+| 4 | Vayne | +0.87 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +1.00 |
+| 5 | Kog'Maw | +0.86 | +1.00 | +1.00 | +1.00 | +0.39 | +1.00 | +0.00 |
+| 6 | Milio | +0.85 | +1.00 | +1.00 | +1.00 | +0.33 | +1.00 | +0.00 |
+| 7 | Ashe | +0.85 | +1.00 | +1.00 | +1.00 | +0.31 | +1.00 | +0.00 |
+| 8 | Malphite | +0.84 | +1.00 | +1.00 | +1.00 | +0.35 | – | +0.00 |
+| 9 | Master Yi | +0.84 | +1.00 | +1.00 | +1.00 | +0.01 | – | +1.00 |
+| 10 | Gnar | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 11 | Warwick | +0.83 | +1.00 | +1.00 | +1.00 | +0.34 | – | +0.00 |
+| 12 | Neeko | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 13 | Nasus | +0.83 | +1.00 | +1.00 | +1.00 | −0.01 | – | +1.00 |
+| 14 | Aphelios | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 15 | Xayah | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 16 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 17 | Twisted Fate | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 18 | Sivir | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 19 | Aurora | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 20 | Quinn | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 21 | Annie | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 22 | Ivern | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 23 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 24 | Zeri | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 25 | Trundle | +0.81 | +1.00 | +1.00 | +1.00 | −0.15 | – | +1.00 |
+| 26 | Yorick | +0.81 | +1.00 | +1.00 | +1.00 | −0.16 | – | +1.00 |
+| 27 | Morgana | +0.80 | +0.90 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 28 | Karma | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 29 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 30 | Garen | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 31 | Wukong | +0.78 | +1.00 | +1.00 | +1.00 | +0.19 | – | −0.50 |
+| 32 | Graves | +0.78 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | −1.00 |
+| 33 | Aatrox | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 34 | Pantheon | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 35 | Shyvana | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 36 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 37 | Olaf | +0.77 | +1.00 | +0.96 | +1.00 | −0.01 | – | +0.00 |
+| 38 | Kled | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 39 | Tahm Kench | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 40 | Camille | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 41 | Jax | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 42 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 43 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 44 | Xin Zhao | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 45 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 46 | Cho'Gath | +0.74 | +1.00 | +1.00 | +1.00 | −0.23 | – | +0.00 |
+| 47 | Volibear | +0.73 | +1.00 | +0.78 | +1.00 | −0.16 | – | +0.74 |
+| 48 | Heimerdinger | +0.73 | +0.79 | +0.84 | +1.00 | +0.25 | +0.84 | +0.00 |
+| 49 | Zaahen | +0.73 | +1.00 | +1.00 | +0.83 | −0.05 | – | +0.00 |
+| 50 | Illaoi | +0.72 | +0.93 | +0.80 | +1.00 | +0.07 | – | +0.00 |
+| 51 | Lulu | +0.69 | +1.00 | +1.00 | +1.00 | +0.09 | −0.27 | +0.00 |
+| 52 | Mordekaiser | +0.67 | +0.82 | +0.86 | +1.00 | −0.12 | – | +0.00 |
+| 53 | Corki | +0.57 | +0.02 | +0.99 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 54 | Irelia | +0.57 | +1.00 | +1.00 | +0.00 | +0.07 | – | +0.00 |
+| 55 | Nocturne | +0.54 | +1.00 | +1.00 | +0.00 | −0.09 | – | +0.00 |
+| 56 | Sion | +0.51 | +0.96 | +0.96 | +0.00 | −0.14 | – | +0.00 |
+| 57 | Lux | +0.47 | +0.73 | +0.80 | −0.05 | +0.09 | +0.86 | +0.00 |
+| 58 | Braum | +0.46 | +0.92 | −0.01 | +1.00 | −0.10 | – | +0.00 |
+| 59 | Jayce | +0.45 | +1.00 | −0.22 | +1.00 | +0.06 | – | +0.00 |
+| 60 | Cassiopeia | +0.44 | +1.00 | +1.00 | −1.00 | +0.24 | +1.00 | +0.00 |
+| 61 | Udyr | +0.39 | +1.00 | −0.65 | +1.00 | +0.08 | – | +1.00 |
+| 62 | Samira | +0.38 | +1.00 | +1.00 | −1.00 | +0.12 | +0.59 | +0.00 |
+| 63 | Yone | +0.35 | +1.00 | +1.00 | −1.00 | −0.07 | – | +0.49 |
+| 64 | Anivia | +0.33 | +0.86 | +1.00 | −1.00 | −0.21 | +1.00 | +0.00 |
+| 65 | Rakan | +0.31 | +0.00 | +0.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 66 | Rammus | +0.30 | +1.00 | +1.00 | −1.00 | −0.18 | – | +0.00 |
+| 67 | Sett | +0.29 | +1.00 | −0.73 | +1.00 | −0.04 | – | +0.00 |
+| 68 | Miss Fortune | +0.22 | +1.00 | +1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 69 | Elise | +0.22 | +1.00 | +1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 70 | Brand | +0.22 | +1.00 | +1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 71 | Zilean | +0.19 | −1.00 | +1.00 | +1.00 | +0.05 | −0.14 | +0.00 |
+| 72 | Orianna | +0.12 | −1.00 | +1.00 | +1.00 | +0.16 | −1.00 | +0.00 |
+| 73 | Mel | −0.05 | +0.83 | −0.60 | −0.19 | +0.23 | −1.00 | +0.00 |
+| 74 | Bel'Veth | −0.10 | −0.96 | −0.46 | +1.00 | +0.07 | – | +0.98 |
+| 75 | Varus | −0.14 | −0.38 | +1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 76 | Gangplank | −0.18 | −1.00 | +1.00 | −1.00 | −0.06 | – | +1.00 |
+| 77 | Riven | −0.20 | −1.00 | +1.00 | −1.00 | +0.13 | – | +0.00 |
+| 78 | Malzahar | −0.23 | +1.00 | −1.00 | −1.00 | +0.04 | −0.40 | +0.00 |
+| 79 | Singed | −0.24 | −1.00 | +1.00 | −1.00 | −0.12 | – | +0.00 |
+| 80 | Kennen | −0.25 | −1.00 | +0.44 | −1.00 | −0.06 | +0.96 | +0.00 |
+| 81 | Jhin | −0.28 | +0.94 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 82 | Azir | −0.29 | −1.00 | +1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 83 | Akali | −0.30 | −1.00 | +0.77 | −1.00 | −0.12 | – | +0.00 |
+| 84 | Yasuo | −0.32 | −1.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 85 | Zyra | −0.32 | +0.85 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 86 | Senna | −0.33 | −1.00 | +0.87 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 87 | Vel'Koz | −0.36 | +0.66 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 88 | Gwen | −0.37 | −1.00 | −1.00 | +1.00 | −0.24 | – | +0.00 |
+| 89 | Viktor | −0.40 | −1.00 | −1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 90 | Nami | −0.44 | −0.90 | +0.29 | −0.99 | +0.04 | −0.99 | +0.00 |
+| 91 | Ezreal | −0.47 | −0.84 | −0.97 | +0.42 | −0.01 | −0.99 | +0.00 |
+| 92 | Swain | −0.51 | −0.99 | +0.10 | −1.00 | +0.09 | −0.99 | +0.00 |
+| 93 | Hwei | −0.56 | −1.00 | −0.87 | −0.05 | +0.02 | −0.88 | +0.00 |
+| 94 | Kalista | −0.56 | −0.92 | −1.00 | −1.00 | +0.12 | +1.00 | +0.00 |
+| 95 | Draven | −0.58 | −1.00 | −0.02 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 96 | Yunara | −0.58 | −1.00 | −1.00 | −1.00 | +0.21 | +0.83 | +0.00 |
+| 97 | Tristana | −0.59 | −1.00 | −1.00 | −1.00 | +0.05 | +1.00 | +0.00 |
+| 98 | Bard | −0.59 | −0.62 | −0.63 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 99 | Lucian | −0.63 | −1.00 | −1.00 | −1.00 | +0.11 | +0.49 | +0.00 |
+| 100 | Karthus | −0.66 | −0.50 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 101 | Kai'Sa | −0.68 | −1.00 | −0.43 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 102 | Ahri | −0.70 | −1.00 | −1.00 | −1.00 | +0.06 | −0.11 | +0.00 |
+| 103 | Rengar | −0.72 | −1.00 | −1.00 | −1.00 | +0.34 | – | +0.00 |
+| 104 | Aurelion Sol | −0.72 | −1.00 | −1.00 | −1.00 | +0.51 | −1.00 | +0.00 |
+| 105 | Vi | −0.74 | −1.00 | −0.78 | −1.00 | −0.11 | – | +0.00 |
+| 106 | Sylas | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 107 | Maokai | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 108 | Jarvan IV | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 109 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 110 | Lillia | −0.76 | −1.00 | −0.79 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 111 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 112 | Skarner | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 113 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 114 | Diana | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 115 | Naafiri | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 116 | Ambessa | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 117 | Alistar | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 118 | Hecarim | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 119 | Shaco | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 120 | Janna | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 121 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 122 | Ziggs | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 123 | Twitch | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 124 | Ryze | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 125 | Rell | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 126 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 127 | Kassadin | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 128 | Fizz | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 129 | Zac | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 130 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 131 | Vex | −0.79 | −0.96 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 132 | Leona | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 133 | Akshan | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 134 | Nunu & Willump | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 135 | Seraphine | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 136 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 137 | Syndra | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 138 | Rek'Sai | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 139 | Kindred | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 140 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 141 | Sona | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 142 | Jinx | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −0.98 | +0.00 |
+| 143 | Galio | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 144 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 145 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 146 | Briar | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 147 | Kayn | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 148 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 149 | Qiyana | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 150 | Locke | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 151 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 152 | Smolder | −0.80 | −1.00 | −1.00 | −1.00 | +0.16 | −0.72 | −1.00 |
+| 153 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 154 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 155 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 156 | Lee Sin | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 157 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 158 | Zed | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 159 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 160 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 161 | Gragas | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 162 | Nidalee | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 163 | Taliyah | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 164 | Katarina | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 165 | Soraka | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 166 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 167 | Nilah | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 168 | Fiddlesticks | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 169 | Renata Glasc | −0.83 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | −1.00 |
+| 170 | Pyke | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 171 | Yuumi | −0.86 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | −1.00 |
+| 172 | Thresh | −0.89 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Viego's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,76 +189,76 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Viego` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +1.62)
+#### 1. Nocturne (net +1.62)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Viego's Heartbreaker. Spell shield for 1.5 s, long enough to use ahead of Heartbreaker. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Viego R Heartbreaker)
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Viego's Spectral Maw. Spell shield for 1.5 s, long enough to use ahead of Spectral Maw. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Viego W Spectral Maw)
 - **0.21** interrupt: Unspeakable Horror's fear interrupts Viego's Spectral Maw (charge-up). Unspeakable Horror must land during the charge-up. Viego can release Spectral Maw early instead of charging it fully. (Nocturne E Unspeakable Horror → Viego W Spectral Maw)
 - Watch out: Viego's basic attacks reach 75 units farther than Nocturne's (200 vs 125 attack range).
 
-### 2. Fizz (net +1.60)
+#### 2. Fizz (net +1.60)
 
 - **1.00** untargetable: Playful makes Fizz untargetable, dodging Viego's Heartbreaker. Untargetable for 0.75 s; Heartbreaker takes 0.5 s to land, enough to react. (Fizz E Playful → Viego R Heartbreaker)
 - **1.00** untargetable: Playful makes Fizz untargetable, dodging Viego's Spectral Maw. Untargetable for 0.75 s; Spectral Maw takes 0.5 s to land, enough to react. (Fizz E Playful → Viego W Spectral Maw)
 - **0.12** interrupt: Chum the Waters's airborne interrupts Viego's Spectral Maw (charge-up). Chum the Waters must land during the charge-up. Viego can release Spectral Maw early instead of charging it fully. (Fizz R Chum the Waters → Viego W Spectral Maw)
 - Watch out: Heartbreaker is displacement immune, ignoring Fizz's Chum the Waters (airborne) during it.
 
-### 3. Maokai (net +1.53)
+#### 3. Maokai (net +1.53)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Viego's Heartbreaker. Untargetable for 1.4 s; Heartbreaker takes 0.5 s to land, enough to react. (Maokai W Twisted Advance → Viego R Heartbreaker)
 - **0.88** untargetable: Twisted Advance makes Maokai untargetable, dodging Viego's Spectral Maw. Untargetable for 1.4 s; Spectral Maw takes 0.5 s to land, enough to react. (Maokai W Twisted Advance → Viego W Spectral Maw)
 - **0.25** interrupt: Bramble Smash's airborne interrupts Viego's Spectral Maw (charge-up). Bramble Smash must land during the charge-up. Viego can release Spectral Maw early instead of charging it fully. (Maokai Q Bramble Smash → Viego W Spectral Maw)
 - Watch out: Viego's basic attacks reach 75 units farther than Maokai's (200 vs 125 attack range).
 
-### 4. Morgana (net +1.53)
+#### 4. Morgana (net +1.53)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Viego's Heartbreaker (airborne, slow). Immune for 5 s, long enough to use ahead of Heartbreaker. (Morgana E Black Shield → Viego R Heartbreaker)
 - **0.70** cc immunity: Black Shield makes Morgana immune to Viego's Spectral Maw (stun). Immune for 5 s, long enough to use ahead of Spectral Maw. (Morgana E Black Shield → Viego W Spectral Maw)
 - **0.11** reveal: Soul Shackles reveals Viego through Harrowed Path's stealth. (Morgana R Soul Shackles → Viego E Harrowed Path)
 
-### 5. Sivir (net +1.53)
+#### 5. Sivir (net +1.53)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Viego's Heartbreaker. Spell shield for 1.5 s, long enough to use ahead of Heartbreaker. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Viego R Heartbreaker)
 - **0.67** spell shield: Spell Shield's spell shield blocks Viego's Spectral Maw. Spell shield for 1.5 s, long enough to use ahead of Spectral Maw. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Viego W Spectral Maw)
 - **0.19** range: Sivir's basic attacks reach 300 units farther than Viego's (500 vs 200 attack range). Viego closes the gap with Heartbreaker, Sovereign's Domination, Spectral Maw. (Sivir basic attacks → Viego basic attacks)
 
-### 6. Zaahen (net +1.50)
+#### 6. Zaahen (net +1.50)
 
 - **1.00** cc immunity: Grim Deliverance makes Zaahen immune to Viego's Heartbreaker (airborne, slow). Immune for ?; Heartbreaker takes 0.5 s to land, enough to react. (Zaahen R Grim Deliverance → Viego R Heartbreaker)
 - **0.46** cc immunity: Grim Deliverance makes Zaahen immune to Viego's Spectral Maw (stun). Immune for ?; Spectral Maw takes 0.5 s to land, enough to react. (Zaahen R Grim Deliverance → Viego W Spectral Maw)
 - **0.25** interrupt: The Darkin Glaive's airborne interrupts Viego's Spectral Maw (charge-up). The Darkin Glaive must land during the charge-up. Viego can release Spectral Maw early instead of charging it fully. (Zaahen Q The Darkin Glaive → Viego W Spectral Maw)
 - Watch out: Heartbreaker is displacement immune, ignoring Zaahen's The Darkin Glaive (airborne) during it.
 
-### 7. Udyr (net +1.47)
+#### 7. Udyr (net +1.47)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Viego's Heartbreaker (airborne, slow). Immune for 1.5 s, long enough to use ahead of Heartbreaker. (Udyr E Blazing Stampede → Viego R Heartbreaker)
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Viego's Spectral Maw (stun). Immune for 1.5 s, long enough to use ahead of Spectral Maw. (Udyr E Blazing Stampede → Viego W Spectral Maw)
 - **0.25** interrupt: Blazing Stampede's stun interrupts Viego's Spectral Maw (charge-up). Blazing Stampede must land during the charge-up. Viego can release Spectral Maw early instead of charging it fully. (Udyr E Blazing Stampede → Viego W Spectral Maw)
 - Watch out: Viego's basic attacks reach 75 units farther than Udyr's (200 vs 125 attack range).
 
-### 8. Fiora (net +1.43)
+#### 8. Fiora (net +1.43)
 
 - **1.00** parry: Riposte parries Viego's Heartbreaker and stuns back. Parry for 0.75 s; Heartbreaker takes 0.5 s to land, enough to react. Negating Heartbreaker's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Viego R Heartbreaker)
 - **0.80** parry: Riposte parries Viego's Spectral Maw and stuns back. Parry for 0.75 s; Spectral Maw takes 0.5 s to land, enough to react. Negating Spectral Maw's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Viego W Spectral Maw)
 - **0.12** attack speed slow: Riposte cuts Viego's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Viego basic attacks)
 
-### 9. Evelynn (net +1.38)
+#### 9. Evelynn (net +1.38)
 
 - **1.00** untargetable: Last Caress makes Evelynn untargetable, dodging Viego's Heartbreaker. Untargetable for ?; Heartbreaker takes 0.5 s to land, enough to react. (Evelynn R Last Caress → Viego R Heartbreaker)
 - **0.46** untargetable: Last Caress makes Evelynn untargetable, dodging Viego's Spectral Maw. Untargetable for ?; Spectral Maw takes 0.5 s to land, enough to react. (Evelynn R Last Caress → Viego W Spectral Maw)
 - **0.21** interrupt: Allure's charm interrupts Viego's Spectral Maw (charge-up). Allure must land during the charge-up. Viego can release Spectral Maw early instead of charging it fully. (Evelynn W Allure → Viego W Spectral Maw)
 - Watch out: Viego's basic attacks reach 75 units farther than Evelynn's (200 vs 125 attack range).
 
-### 10. Rek'Sai (net +1.36)
+#### 10. Rek'Sai (net +1.36)
 
 - **1.00** untargetable: Void Rush makes Rek'Sai untargetable, dodging Viego's Heartbreaker. Untargetable for 1.5 s, long enough to use ahead of Heartbreaker. (Rek'Sai R Void Rush → Viego R Heartbreaker)
 - **0.46** untargetable: Void Rush makes Rek'Sai untargetable, dodging Viego's Spectral Maw. Untargetable for 1.5 s, long enough to use ahead of Spectral Maw. (Rek'Sai R Void Rush → Viego W Spectral Maw)
 - **0.25** interrupt: Unburrow's airborne interrupts Viego's Spectral Maw (charge-up). Unburrow must land during the charge-up. Viego can release Spectral Maw early instead of charging it fully. (Rek'Sai W Unburrow → Viego W Spectral Maw)
 - Watch out: Heartbreaker is displacement immune, ignoring Rek'Sai's Unburrow (airborne) during it.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -1,5 +1,186 @@
 # Counters to Syndra (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Syndra: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Syndra wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Syndra --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Master Yi | +0.84 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +1.00 |
+| 2 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +1.00 |
+| 3 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +1.00 |
+| 4 | Shyvana | +0.84 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +1.00 |
+| 5 | Warwick | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 6 | Sion | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 7 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 8 | Yorick | +0.82 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.68 |
+| 9 | Kled | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 10 | Fizz | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 11 | Kassadin | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 12 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 13 | Vel'Koz | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 14 | Galio | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 15 | Caitlyn | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 16 | Sylas | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 17 | Irelia | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 18 | Zaahen | +0.80 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.22 |
+| 19 | Riven | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 20 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 21 | Lillia | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 22 | Graves | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 23 | Xayah | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 24 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 25 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 26 | Rumble | +0.79 | +0.99 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 27 | Jayce | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 28 | Rengar | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 29 | Ziggs | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 30 | Viego | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 31 | Ambessa | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 32 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 33 | Swain | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 34 | Lee Sin | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 35 | Tristana | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 36 | Corki | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 37 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 38 | Sejuani | +0.78 | +1.00 | +1.00 | +1.00 | −0.08 | +0.93 | +0.00 |
+| 39 | Zeri | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 40 | Jarvan IV | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 41 | Xerath | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 42 | Aphelios | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 43 | Cassiopeia | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 44 | Aurora | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 45 | Kayle | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 46 | Neeko | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 47 | Zoe | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 48 | Udyr | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 49 | Mordekaiser | +0.78 | +0.98 | +0.99 | +1.00 | −0.09 | +0.99 | +0.00 |
+| 50 | Aurelion Sol | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 51 | Draven | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 52 | Vi | +0.77 | +1.00 | +1.00 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 53 | Orianna | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 54 | Vayne | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 55 | Twitch | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 56 | Samira | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 57 | Lulu | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 58 | Jhin | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 59 | Annie | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 60 | Quinn | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 61 | Yunara | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 62 | Lucian | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 63 | Milio | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 64 | Kindred | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 65 | Varus | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 66 | Janna | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 67 | Miss Fortune | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 68 | Akshan | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 69 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 70 | Kai'Sa | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 71 | Sona | +0.77 | +0.95 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 72 | Ryze | +0.77 | +0.99 | +0.99 | +1.00 | −0.04 | – | +0.00 |
+| 73 | Gnar | +0.76 | +1.00 | +1.00 | +1.00 | −0.06 | +0.74 | +0.00 |
+| 74 | Kalista | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 75 | Teemo | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 76 | Twisted Fate | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 77 | Nidalee | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 78 | Ashe | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 79 | Smolder | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 80 | Sivir | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 81 | Hwei | +0.75 | +1.00 | +1.00 | +0.92 | −0.03 | – | +0.00 |
+| 82 | Kennen | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 83 | Briar | +0.75 | +1.00 | +1.00 | +1.00 | −0.07 | +0.58 | +0.00 |
+| 84 | Heimerdinger | +0.74 | +0.89 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 85 | Kayn | +0.71 | +0.84 | +0.99 | +1.00 | −0.12 | +0.69 | +0.00 |
+| 86 | Darius | +0.68 | +1.00 | +1.00 | +1.00 | −0.16 | +0.07 | +0.00 |
+| 87 | Tryndamere | +0.66 | +0.52 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 88 | Jinx | +0.65 | +1.00 | +0.52 | +1.00 | +0.02 | – | +0.00 |
+| 89 | Maokai | +0.63 | +1.00 | +1.00 | +0.23 | −0.10 | +1.00 | +0.00 |
+| 90 | Bel'Veth | +0.60 | +1.00 | +1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 91 | Pantheon | +0.60 | +1.00 | +1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 92 | Gragas | +0.59 | +1.00 | +1.00 | +0.14 | −0.00 | +0.65 | +0.00 |
+| 93 | Skarner | +0.56 | +1.00 | +1.00 | −0.09 | −0.13 | +1.00 | +0.00 |
+| 94 | Zyra | +0.55 | +1.00 | +1.00 | +0.00 | −0.02 | – | +0.00 |
+| 95 | Renekton | +0.54 | +1.00 | +0.01 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 96 | Volibear | +0.54 | +1.00 | +0.84 | +1.00 | −0.15 | −1.00 | +0.00 |
+| 97 | Karma | +0.53 | +0.67 | +0.43 | +1.00 | −0.00 | – | +0.00 |
+| 98 | Olaf | +0.51 | +0.09 | +1.00 | +1.00 | −0.14 | +0.56 | +0.00 |
+| 99 | Mel | +0.50 | +1.00 | +0.00 | +1.00 | +0.01 | – | +0.00 |
+| 100 | Diana | +0.50 | +1.00 | +0.09 | +1.00 | +0.07 | +0.16 | +0.00 |
+| 101 | Nilah | +0.43 | +0.00 | +1.00 | +1.00 | −0.12 | +0.00 | +0.00 |
+| 102 | Gwen | +0.43 | +0.55 | +0.55 | +0.55 | −0.09 | +0.59 | +0.00 |
+| 103 | Yasuo | +0.43 | +0.95 | +0.06 | +0.41 | −0.01 | +0.95 | +0.00 |
+| 104 | Tahm Kench | +0.42 | +0.78 | +0.78 | +0.03 | +0.13 | +0.05 | +0.00 |
+| 105 | Zac | +0.39 | +0.94 | +1.00 | −0.22 | −0.18 | −0.17 | +0.00 |
+| 106 | Garen | +0.39 | +1.00 | +1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 107 | Rammus | +0.39 | +1.00 | +1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 108 | Wukong | +0.39 | +1.00 | +1.00 | −1.00 | −0.09 | +1.00 | +0.00 |
+| 109 | Sett | +0.38 | +1.00 | −0.12 | +1.00 | −0.14 | −0.17 | +0.00 |
+| 110 | Anivia | +0.33 | −0.02 | +0.46 | +1.00 | −0.09 | – | +0.00 |
+| 111 | Azir | +0.33 | +1.00 | +1.00 | −1.00 | −0.02 | – | +0.00 |
+| 112 | Zilean | +0.32 | +1.00 | +1.00 | −1.00 | −0.05 | – | +0.00 |
+| 113 | Malzahar | +0.32 | +1.00 | +1.00 | −1.00 | −0.06 | – | +0.00 |
+| 114 | Zed | +0.28 | +1.00 | −1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 115 | Yone | +0.19 | +1.00 | +1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 116 | Shaco | +0.19 | −1.00 | +1.00 | +0.52 | −0.10 | +1.00 | +0.00 |
+| 117 | Urgot | +0.15 | −0.10 | +0.03 | +0.91 | −0.04 | −0.06 | +0.00 |
+| 118 | Rakan | +0.15 | +1.00 | +0.03 | +0.00 | −0.05 | −1.00 | +0.00 |
+| 119 | Poppy | +0.13 | +1.00 | −0.08 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 120 | Ezreal | +0.10 | −0.30 | +0.39 | +0.40 | −0.06 | – | +0.00 |
+| 121 | Kha'Zix | +0.08 | +1.00 | −1.00 | +1.00 | −0.11 | −1.00 | +0.00 |
+| 122 | Bard | +0.04 | −0.56 | −0.01 | +1.00 | −0.16 | – | +0.00 |
+| 123 | Akali | +0.00 | −0.14 | +0.25 | −0.07 | −0.02 | −0.09 | +0.00 |
+| 124 | Singed | +0.00 | +0.05 | +0.04 | +0.01 | −0.17 | +0.02 | +0.00 |
+| 125 | Brand | −0.00 | −0.59 | −0.19 | +1.00 | −0.06 | – | +0.00 |
+| 126 | Xin Zhao | −0.01 | −0.57 | −0.71 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 127 | Illaoi | −0.02 | −0.10 | −0.04 | +0.00 | −0.05 | +0.25 | +0.00 |
+| 128 | Nunu & Willump | −0.02 | −0.04 | −0.06 | +0.03 | −0.00 | −0.01 | +0.00 |
+| 129 | Ornn | −0.03 | +0.01 | +0.01 | −0.08 | −0.07 | −0.12 | +0.00 |
+| 130 | Amumu | −0.03 | −0.07 | −0.07 | +0.00 | −0.01 | +0.01 | +0.00 |
+| 131 | Braum | −0.04 | −0.03 | −0.04 | −0.07 | −0.04 | −0.05 | +0.00 |
+| 132 | Malphite | −0.05 | −0.17 | −0.06 | −0.12 | +0.26 | −0.06 | +0.00 |
+| 133 | Shen | −0.05 | −0.12 | −0.07 | +0.07 | −0.04 | −0.12 | +0.00 |
+| 134 | Nautilus | −0.05 | −0.07 | −0.08 | −0.02 | +0.00 | −0.13 | +0.00 |
+| 135 | Alistar | −0.08 | −0.12 | −0.06 | +0.03 | −0.11 | −0.22 | +0.00 |
+| 136 | Rell | −0.08 | −0.12 | −0.05 | −0.11 | −0.04 | −0.13 | +0.00 |
+| 137 | Nami | −0.09 | −0.73 | +0.82 | −0.49 | −0.03 | – | +0.00 |
+| 138 | Karthus | −0.12 | −0.18 | −0.13 | −0.12 | −0.02 | −0.12 | +0.00 |
+| 139 | Lux | −0.12 | −1.00 | +0.99 | −0.55 | +0.02 | – | +0.00 |
+| 140 | Leona | −0.13 | +0.04 | +0.66 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 141 | Seraphine | −0.14 | +0.20 | +0.11 | −1.00 | −0.05 | – | +0.00 |
+| 142 | Taric | −0.15 | −0.17 | −0.12 | −0.19 | −0.05 | −0.27 | +0.00 |
+| 143 | Vladimir | −0.18 | −0.11 | −0.08 | −0.07 | −0.09 | −1.00 | +0.00 |
+| 144 | Cho'Gath | −0.18 | −0.21 | −0.25 | −0.13 | −0.12 | −0.19 | +0.00 |
+| 145 | Blitzcrank | −0.19 | −0.23 | −0.29 | −0.17 | +0.03 | −0.30 | +0.00 |
+| 146 | Fiddlesticks | −0.23 | −1.00 | +1.00 | −1.00 | −0.04 | – | +0.00 |
+| 147 | Rek'Sai | −0.27 | +0.03 | −1.00 | −0.01 | −0.11 | −0.06 | +0.00 |
+| 148 | Viktor | −0.35 | −1.00 | −1.00 | +1.00 | −0.10 | – | +0.00 |
+| 149 | Aatrox | −0.39 | −0.10 | −0.21 | −1.00 | −0.12 | −0.92 | +0.00 |
+| 150 | Naafiri | −0.40 | −0.74 | −0.12 | −1.00 | +0.10 | +0.00 | +0.00 |
+| 151 | Evelynn | −0.42 | −1.00 | −1.00 | +0.02 | −0.02 | +0.82 | +0.00 |
+| 152 | Renata Glasc | −0.43 | −0.36 | −0.36 | −1.00 | −0.02 | – | +0.00 |
+| 153 | Soraka | −0.44 | −0.73 | −0.67 | −0.23 | +0.00 | – | +0.00 |
+| 154 | Ivern | −0.57 | −0.63 | −0.58 | −1.00 | −0.09 | – | +0.00 |
+| 155 | Ekko | −0.62 | −1.00 | −0.24 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 156 | Ahri | −0.63 | −1.00 | −1.00 | −0.36 | +0.06 | – | +0.00 |
+| 157 | Morgana | −0.70 | −1.00 | −1.00 | −0.43 | −0.07 | −1.00 | +0.00 |
+| 158 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 159 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 160 | Senna | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 161 | Vex | −0.78 | −1.00 | −1.00 | −0.97 | −0.08 | – | +0.00 |
+| 162 | Elise | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 163 | LeBlanc | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 164 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 165 | Locke | −0.81 | −0.98 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 166 | Katarina | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 167 | Yuumi | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 168 | Thresh | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 169 | Talon | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 170 | Qiyana | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 171 | Pyke | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 172 | Hecarim | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Syndra's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,29 +189,29 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Syndra` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Kayle (net +0.97)
+#### 1. Kayle (net +0.97)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Syndra's Unleashed Power. Invulnerable for 2.5 s, long enough to use ahead of Unleashed Power. (Kayle R Divine Judgment → Syndra R Unleashed Power)
 - **0.44** death prevention: Syndra's Unleashed Power can't execute Kayle during Divine Judgment (invulnerable). Divine Judgment lasts 2.5 s on a 80 s cooldown. (Kayle R Divine Judgment → Syndra R Unleashed Power)
 - **0.18** invulnerable: Divine Judgment makes Kayle invulnerable to Syndra's Scatter the Weak (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Scatter the Weak. (Kayle R Divine Judgment → Syndra E Scatter the Weak)
 
-### 2. Fizz (net +0.94)
+#### 2. Fizz (net +0.94)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Syndra's Scatter the Weak. Untargetable for 0.75 s; Scatter the Weak takes 0.53 s to land, enough to react. (Fizz E Playful → Syndra E Scatter the Weak)
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Syndra's Unleashed Power. Untargetable for 0.75 s; Unleashed Power takes 0.25 s to land, enough to react. (Fizz E Playful → Syndra R Unleashed Power)
 - **0.27** untargetable: Playful makes Fizz untargetable, dodging Syndra's Force of Will. Untargetable for 0.75 s; Force of Will lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Syndra W Force of Will)
 - Watch out: Syndra's basic attacks reach 375 units farther than Fizz's (550 vs 175 attack range).
 
-### 3. Fiora (net +0.88)
+#### 3. Fiora (net +0.88)
 
 - **0.77** parry: Riposte parries Syndra's Scatter the Weak and stuns back. Parry for 0.75 s; Scatter the Weak takes 0.53 s to land, enough to react. Negating Scatter the Weak's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Syndra E Scatter the Weak)
 - **0.55** parry: Riposte parries Syndra's Unleashed Power. Parry for 0.75 s; Unleashed Power takes 0.25 s to land, enough to react. (Fiora W Riposte → Syndra R Unleashed Power)
 - **0.20** parry: Riposte parries Syndra's Force of Will. Parry for 0.75 s; Force of Will lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fiora W Riposte → Syndra W Force of Will)
 - Watch out: Syndra's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range).
 
-### 4. Sivir (net +0.86)
+#### 4. Sivir (net +0.86)
 
 - **0.63** spell shield: Spell Shield's spell shield blocks Syndra's Scatter the Weak. Spell shield for 1.5 s, long enough to use ahead of Scatter the Weak. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Syndra E Scatter the Weak)
 - **0.32** spell shield: Spell Shield's spell shield blocks Syndra's Force of Will. Spell shield for 1.5 s, long enough to use ahead of Force of Will. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Syndra W Force of Will)
@@ -77,21 +258,21 @@ Run `npm run matchup -- <champion> Syndra` for the full ledger of a matchup, wit
 * {{tip|Spell shield}} will only block the damage of a single ''sphere''.
 }}. (Sivir E Spell Shield → Syndra R Unleashed Power)
 
-### 5. Vladimir (net +0.85)
+#### 5. Vladimir (net +0.85)
 
 - **0.67** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Syndra's Scatter the Weak. Untargetable for 2 s, long enough to use ahead of Scatter the Weak. (Vladimir W Sanguine Pool → Syndra E Scatter the Weak)
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Syndra's Unleashed Power. Untargetable for 2 s, long enough to use ahead of Unleashed Power. (Vladimir W Sanguine Pool → Syndra R Unleashed Power)
 - **0.33** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Syndra's Force of Will. Untargetable for 2 s, long enough to use ahead of Force of Will. (Vladimir W Sanguine Pool → Syndra W Force of Will)
 - Watch out: Syndra's basic attacks reach 100 units farther than Vladimir's (550 vs 450 attack range).
 
-### 6. Maokai (net +0.82)
+#### 6. Maokai (net +0.82)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Syndra's Scatter the Weak. Untargetable for 1.4 s; Scatter the Weak takes 0.53 s to land, enough to react. (Maokai W Twisted Advance → Syndra E Scatter the Weak)
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Syndra's Unleashed Power. Untargetable for 1.4 s; Unleashed Power takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Syndra R Unleashed Power)
 - **0.25** untargetable: Twisted Advance makes Maokai untargetable, dodging Syndra's Force of Will. Untargetable for 1.4 s; Force of Will lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Syndra W Force of Will)
 - Watch out: Syndra's basic attacks reach 425 units farther than Maokai's (550 vs 125 attack range).
 
-### 7. Nocturne (net +0.81)
+#### 7. Nocturne (net +0.81)
 
 - **0.70** spell shield: Shroud of Darkness's spell shield blocks Syndra's Scatter the Weak. Spell shield for 1.5 s, long enough to use ahead of Scatter the Weak. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Syndra E Scatter the Weak)
 - **0.38** spell shield: Shroud of Darkness's spell shield blocks Syndra's Force of Will. Spell shield for 1.5 s, long enough to use ahead of Force of Will. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Syndra W Force of Will)
@@ -139,19 +320,19 @@ Run `npm run matchup -- <champion> Syndra` for the full ledger of a matchup, wit
 }}. (Nocturne W Shroud of Darkness → Syndra R Unleashed Power)
 - Watch out: Syndra's basic attacks reach 425 units farther than Nocturne's (550 vs 125 attack range).
 
-### 8. Bard (net +0.78)
+#### 8. Bard (net +0.78)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Syndra's Unleashed Power. Untargetable for 2.5 s, long enough to use ahead of Unleashed Power. (Bard R Tempered Fate → Syndra R Unleashed Power)
 - **0.36** untargetable: Tempered Fate makes Bard untargetable, dodging Syndra's Scatter the Weak. Untargetable for 2.5 s, long enough to use ahead of Scatter the Weak. (Bard R Tempered Fate → Syndra E Scatter the Weak)
 - **0.21** untargetable: Tempered Fate makes Bard untargetable, dodging Syndra's Force of Will. Untargetable for 2.5 s, long enough to use ahead of Force of Will. (Bard R Tempered Fate → Syndra W Force of Will)
 
-### 9. Lissandra (net +0.78)
+#### 9. Lissandra (net +0.78)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Syndra's Unleashed Power. Untargetable for 2.5 s, long enough to use ahead of Unleashed Power. (Lissandra R Frozen Tomb → Syndra R Unleashed Power)
 - **0.36** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Syndra's Scatter the Weak. Untargetable for 2.5 s, long enough to use ahead of Scatter the Weak. (Lissandra R Frozen Tomb → Syndra E Scatter the Weak)
 - **0.21** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Syndra's Force of Will. Untargetable for 2.5 s, long enough to use ahead of Force of Will. (Lissandra R Frozen Tomb → Syndra W Force of Will)
 
-### 10. Samira (net +0.74)
+#### 10. Samira (net +0.74)
 
 - **0.55** projectile block: Blade Whirl blocks Syndra's Unleashed Power, a projectile. Blade Whirl for 0.75 s; Unleashed Power takes 0.25 s to land, enough to react. (Samira W Blade Whirl → Syndra R Unleashed Power)
 - **0.28** projectile block: Blade Whirl blocks part of Syndra's Scatter the Weak, a projectile. Blade Whirl for 0.75 s; Scatter the Weak takes 0.53 s to land, enough to react. Only part of the ability is a projectile. Scatter the Weak is blocked by the portion of Wind Wall it collides with. Spheres thrown will stop upon colliding with the wall. {{{{{1<noinclude>|Ability data</noinclude>}}}|Scatter the Weak|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
@@ -193,7 +374,7 @@ Run `npm run matchup -- <champion> Syndra` for the full ledger of a matchup, wit
 }}. (Samira W Blade Whirl → Syndra E Scatter the Weak)
 - **0.19** projectile block: Blade Whirl blocks Syndra's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Syndra basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

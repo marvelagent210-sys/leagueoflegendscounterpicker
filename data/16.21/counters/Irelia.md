@@ -1,5 +1,186 @@
 # Counters to Irelia (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Irelia: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Irelia wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Irelia --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.82 | +1.00 | +1.00 | +1.00 | −0.06 | – | +1.00 |
+| 2 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +1.00 |
+| 3 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 4 | Aphelios | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 5 | Vayne | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 6 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 7 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 8 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 9 | Neeko | +0.80 | +1.00 | +0.98 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 10 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 11 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 12 | Gwen | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.35 |
+| 13 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 14 | Diana | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 15 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 16 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 17 | Kalista | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 18 | Corki | +0.79 | +0.95 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 19 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 20 | Samira | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | +0.80 | +0.00 |
+| 21 | Quinn | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 22 | K'Sante | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 23 | Ivern | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 24 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 25 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 26 | Singed | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 27 | Zeri | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 28 | Karma | +0.77 | +0.96 | +0.95 | +1.00 | −0.02 | +0.95 | +0.00 |
+| 29 | Bel'Veth | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 30 | Rakan | +0.77 | +1.00 | +1.00 | +0.98 | −0.18 | +1.00 | +0.00 |
+| 31 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 32 | Xin Zhao | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 33 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 34 | Graves | +0.77 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | −1.00 |
+| 35 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 36 | Wukong | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 37 | Zac | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 38 | Tahm Kench | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 39 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 40 | Xayah | +0.76 | +0.83 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 41 | Aatrox | +0.74 | +1.00 | +1.00 | +1.00 | −0.20 | – | +0.00 |
+| 42 | Lulu | +0.72 | +1.00 | +1.00 | +1.00 | −0.01 | +0.27 | +0.00 |
+| 43 | Volibear | +0.71 | +0.88 | +1.00 | +0.88 | −0.05 | – | +0.00 |
+| 44 | Shyvana | +0.65 | +1.00 | +1.00 | +1.00 | −0.15 | −0.23 | +0.00 |
+| 45 | Mordekaiser | +0.65 | +0.99 | +1.00 | +0.53 | −0.12 | – | +0.00 |
+| 46 | Sivir | +0.63 | +1.00 | +1.00 | +1.00 | −0.08 | −0.61 | +0.00 |
+| 47 | Malphite | +0.61 | +1.00 | +1.00 | +0.18 | +0.11 | – | +0.00 |
+| 48 | Fizz | +0.61 | +1.00 | +0.45 | +1.00 | −0.11 | – | +0.00 |
+| 49 | Elise | +0.60 | +1.00 | +1.00 | +1.00 | +0.02 | −1.00 | +0.00 |
+| 50 | Illaoi | +0.59 | +0.40 | +1.00 | +1.00 | −0.01 | +0.41 | +0.00 |
+| 51 | Ashe | +0.57 | +0.46 | +1.00 | +0.56 | −0.05 | +1.00 | +0.00 |
+| 52 | Vel'Koz | +0.57 | +0.99 | +1.00 | +0.14 | +0.17 | +0.14 | +0.00 |
+| 53 | Kled | +0.56 | +1.00 | +0.33 | +1.00 | −0.16 | – | +0.00 |
+| 54 | Warwick | +0.51 | +1.00 | +0.00 | +1.00 | +0.05 | – | +0.00 |
+| 55 | Master Yi | +0.46 | +1.00 | +1.00 | −1.00 | +0.07 | +1.00 | +1.00 |
+| 56 | Annie | +0.44 | +0.29 | +0.88 | +0.59 | +0.01 | +0.33 | +0.00 |
+| 57 | Morgana | +0.44 | +0.89 | +0.82 | −0.49 | +0.07 | +1.00 | +0.00 |
+| 58 | Braum | +0.43 | +0.85 | +0.88 | −0.17 | −0.05 | – | +0.00 |
+| 59 | Sion | +0.40 | +0.63 | +0.52 | +0.48 | −0.12 | – | +0.00 |
+| 60 | Ezreal | +0.40 | +1.00 | +1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
+| 61 | Aurora | +0.40 | +1.00 | +1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
+| 62 | Lucian | +0.38 | +1.00 | −0.20 | +0.67 | −0.06 | +0.58 | +0.00 |
+| 63 | Maokai | +0.35 | +1.00 | +1.00 | −0.89 | −0.05 | – | +0.00 |
+| 64 | Kennen | +0.34 | +1.00 | +1.00 | −1.00 | −0.04 | +0.48 | +0.00 |
+| 65 | Udyr | +0.25 | +0.87 | +0.84 | −1.00 | −0.12 | −0.06 | +0.94 |
+| 66 | Lee Sin | +0.23 | +1.00 | +0.32 | −0.61 | −0.01 | – | +0.00 |
+| 67 | Gangplank | +0.20 | +0.89 | −1.00 | +1.00 | +0.06 | – | +0.00 |
+| 68 | Cassiopeia | +0.18 | +0.22 | −0.80 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 69 | Jinx | +0.17 | +1.00 | +0.22 | −0.52 | +0.00 | −0.28 | +0.00 |
+| 70 | Malzahar | +0.14 | +0.94 | +0.51 | −1.00 | −0.00 | −0.18 | +0.00 |
+| 71 | Anivia | +0.07 | +0.06 | +0.15 | +0.14 | −0.10 | +0.04 | +0.00 |
+| 72 | Milio | +0.03 | +0.30 | +0.30 | −1.00 | −0.01 | +0.81 | +0.00 |
+| 73 | Rammus | +0.01 | +0.23 | +0.61 | −1.00 | −0.01 | – | +0.00 |
+| 74 | Senna | −0.00 | +0.39 | +0.83 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 75 | Lillia | −0.06 | −0.12 | +0.51 | −0.80 | −0.13 | +0.23 | +0.00 |
+| 76 | Camille | −0.06 | −0.03 | −1.00 | +0.95 | +0.09 | – | +0.00 |
+| 77 | Hwei | −0.08 | +1.00 | −0.90 | −0.06 | +0.00 | −0.97 | +0.00 |
+| 78 | Pantheon | −0.09 | +1.00 | −1.00 | −0.34 | −0.10 | – | +0.00 |
+| 79 | Sett | −0.11 | −0.60 | +1.00 | −1.00 | −0.02 | – | +0.00 |
+| 80 | Gnar | −0.13 | −0.45 | +0.27 | −0.51 | +0.04 | +0.14 | +0.00 |
+| 81 | Swain | −0.13 | +0.19 | −0.90 | +0.16 | −0.00 | +0.19 | +0.00 |
+| 82 | Zilean | −0.14 | −0.23 | +0.23 | −0.79 | −0.02 | +0.16 | +0.00 |
+| 83 | Azir | −0.16 | +0.39 | +0.18 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 84 | Yone | −0.16 | +0.11 | +0.11 | −1.00 | +0.01 | – | +0.00 |
+| 85 | Brand | −0.18 | −0.43 | +0.48 | −1.00 | −0.04 | +0.14 | +0.00 |
+| 86 | Skarner | −0.18 | +0.43 | −1.00 | −0.14 | +0.04 | – | +0.00 |
+| 87 | Jarvan IV | −0.22 | −1.00 | +1.00 | −1.00 | +0.04 | – | +0.00 |
+| 88 | Rek'Sai | −0.22 | −1.00 | +1.00 | −1.00 | +0.02 | – | +0.00 |
+| 89 | Mel | −0.22 | −1.00 | +0.49 | −1.00 | +0.13 | +0.84 | +0.00 |
+| 90 | Tristana | −0.27 | −0.16 | −0.50 | −1.00 | −0.01 | +1.00 | +0.00 |
+| 91 | Nocturne | −0.34 | −1.00 | +0.63 | −1.00 | −0.10 | – | +0.00 |
+| 92 | Heimerdinger | −0.39 | −1.00 | −1.00 | +0.98 | +0.07 | −1.00 | +0.00 |
+| 93 | Twitch | −0.41 | +0.55 | −0.93 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 94 | Vi | −0.41 | +0.35 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 95 | Varus | −0.43 | −0.19 | −1.00 | −0.12 | −0.03 | −1.00 | +0.00 |
+| 96 | Ambessa | −0.44 | −1.00 | +0.23 | −1.00 | −0.03 | – | +0.00 |
+| 97 | Zoe | −0.46 | −0.02 | −1.00 | −1.00 | −0.04 | −0.02 | +0.00 |
+| 98 | Ahri | −0.48 | −1.00 | −1.00 | +0.13 | −0.03 | +0.04 | +0.00 |
+| 99 | Smolder | −0.48 | −0.44 | −1.00 | −1.00 | −0.16 | +1.00 | +0.00 |
+| 100 | Orianna | −0.51 | +0.13 | −0.96 | −0.99 | −0.01 | −1.00 | +0.00 |
+| 101 | Fiddlesticks | −0.52 | +0.23 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 102 | Miss Fortune | −0.52 | +0.13 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 103 | Lissandra | −0.56 | −1.00 | −1.00 | −0.34 | +0.03 | +0.01 | +0.00 |
+| 104 | Vex | −0.56 | −0.68 | −0.95 | −1.00 | −0.06 | +0.53 | +0.00 |
+| 105 | Viego | −0.57 | −1.00 | −1.00 | +0.00 | −0.07 | – | +0.00 |
+| 106 | Olaf | −0.57 | −1.00 | −1.00 | −0.29 | −0.11 | +0.04 | +0.00 |
+| 107 | Sejuani | −0.58 | −1.00 | −1.00 | −0.09 | −0.02 | – | +0.00 |
+| 108 | Rell | −0.58 | −1.00 | −1.00 | −1.00 | +0.13 | +1.00 | +0.00 |
+| 109 | Kayn | −0.58 | −0.95 | −0.67 | −0.42 | −0.23 | – | +0.00 |
+| 110 | Nilah | −0.59 | −1.00 | −1.00 | −0.14 | −0.03 | – | +0.00 |
+| 111 | Viktor | −0.60 | −1.00 | −1.00 | +0.04 | −0.04 | −1.00 | +0.00 |
+| 112 | Rumble | −0.64 | −0.52 | −0.93 | −1.00 | −0.07 | – | +0.00 |
+| 113 | Briar | −0.64 | −0.48 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 114 | Jayce | −0.64 | −1.00 | −0.85 | −0.67 | +0.13 | – | +0.00 |
+| 115 | Twisted Fate | −0.65 | −1.00 | −0.96 | −0.39 | +0.01 | −0.80 | +0.00 |
+| 116 | Shen | −0.67 | −1.00 | −1.00 | −0.50 | −0.00 | – | +0.00 |
+| 117 | Akali | −0.68 | −1.00 | −0.58 | −1.00 | −0.13 | – | +0.00 |
+| 118 | Amumu | −0.69 | −0.83 | −0.83 | −1.00 | −0.05 | – | +0.00 |
+| 119 | Riven | −0.71 | −1.00 | −1.00 | −0.64 | −0.07 | – | +0.00 |
+| 120 | Rengar | −0.72 | −1.00 | −1.00 | −1.00 | +0.32 | – | +0.00 |
+| 121 | Aurelion Sol | −0.74 | −1.00 | −1.00 | −1.00 | +0.43 | −1.00 | +0.00 |
+| 122 | Caitlyn | −0.75 | −0.84 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 123 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 124 | Hecarim | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 125 | Janna | −0.76 | −1.00 | −1.00 | −0.77 | −0.04 | −1.00 | +0.00 |
+| 126 | Sylas | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 127 | Gragas | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 128 | Nunu & Willump | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 129 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 130 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 131 | Nautilus | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 132 | Galio | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 133 | Blitzcrank | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 134 | Shaco | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 135 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 136 | Alistar | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 137 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 138 | Lux | −0.78 | −1.00 | −0.94 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 139 | Kassadin | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 140 | Locke | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 141 | Ziggs | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 142 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 143 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 144 | Yunara | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 145 | Qiyana | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 146 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 147 | Syndra | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 148 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 149 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 150 | Kai'Sa | −0.80 | −1.00 | −0.89 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 151 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 152 | Nami | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 153 | Jhin | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 154 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 155 | Sona | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 156 | Zed | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 157 | Soraka | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 158 | Ekko | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 159 | Seraphine | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 160 | Draven | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 161 | Pyke | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
+| 162 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 163 | Ryze | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 164 | Kindred | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 165 | Zyra | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 166 | Akshan | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 167 | Yuumi | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 168 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 169 | Nidalee | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 170 | Bard | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 171 | Renata Glasc | −0.83 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −0.48 |
+| 172 | Thresh | −0.87 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | −0.86 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Irelia's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,15 +189,15 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Irelia` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.20)
+#### 1. Sivir (net +1.20)
 
 - **0.51** spell shield: Spell Shield's spell shield blocks Irelia's Flawless Duet. Spell shield for 1.5 s, long enough to use ahead of Flawless Duet. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Irelia E Flawless Duet)
 - **0.48** spell shield: Spell Shield's spell shield blocks Irelia's Bladesurge. Spell shield for 1.5 s, long enough to use ahead of Bladesurge. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Irelia Q Bladesurge)
 - **0.38** range: Sivir's basic attacks reach 300 units farther than Irelia's (500 vs 200 attack range). Irelia closes the gap with Bladesurge. (Sivir basic attacks → Irelia basic attacks)
 
-### 2. Fizz (net +1.06)
+#### 2. Fizz (net +1.06)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Irelia's Flawless Duet. Untargetable for 0.75 s; Flawless Duet takes 0.39 s to land, enough to react. (Fizz E Playful → Irelia E Flawless Duet)
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 0.75 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Fizz E Playful → Irelia R Vanguard's Edge)
@@ -27,31 +208,31 @@ Run `npm run matchup -- <champion> Irelia` for the full ledger of a matchup, wit
   - Irelia will complete her remaining dash distance even if the damage is dealt earlier.
   - If the target is untargetable, Bladesurge will instead deals its damage at the end of the dash, rather than on collision. (Fizz E Playful → Irelia Q Bladesurge)
 
-### 3. Bard (net +1.05)
+#### 3. Bard (net +1.05)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 2.5 s, long enough to use ahead of Vanguard's Edge. (Bard R Tempered Fate → Irelia R Vanguard's Edge)
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Irelia's Flawless Duet. Untargetable for 2.5 s, long enough to use ahead of Flawless Duet. (Bard R Tempered Fate → Irelia E Flawless Duet)
 - **0.29** range: Bard's basic attacks reach 300 units farther than Irelia's (500 vs 200 attack range). Irelia closes the gap with Bladesurge. (Bard basic attacks → Irelia basic attacks)
 
-### 4. Fiora (net +1.05)
+#### 4. Fiora (net +1.05)
 
 - **0.64** parry: Riposte parries Irelia's Flawless Duet and stuns back. Parry for 0.75 s; Flawless Duet takes 0.39 s to land, enough to react. Negating Flawless Duet's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Irelia E Flawless Duet)
 - **0.55** parry: Riposte parries Irelia's Vanguard's Edge. Parry for 0.75 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Fiora W Riposte → Irelia R Vanguard's Edge)
 - **0.50** parry: Riposte parries Irelia's Bladesurge. Parry for 0.75 s; Bladesurge takes 0.43 s to land, enough to react. (Fiora W Riposte → Irelia Q Bladesurge)
 
-### 5. Samira (net +1.02)
+#### 5. Samira (net +1.02)
 
 - **0.55** projectile block: Blade Whirl blocks Irelia's Vanguard's Edge, a projectile. Blade Whirl for 0.75 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Samira W Blade Whirl → Irelia R Vanguard's Edge)
 - **0.47** projectile block: Blade Whirl blocks Irelia's Flawless Duet, a projectile. Blade Whirl for 0.75 s; Flawless Duet takes 0.39 s to land, enough to react. (Samira W Blade Whirl → Irelia E Flawless Duet)
 - **0.24** range: Samira's basic attacks reach 300 units farther than Irelia's (500 vs 200 attack range). Irelia closes the gap with Bladesurge. (Samira basic attacks → Irelia basic attacks)
 
-### 6. Xayah (net +1.01)
+#### 6. Xayah (net +1.01)
 
 - **0.50** untargetable: Featherstorm makes Xayah untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 1.5 s, long enough to use ahead of Vanguard's Edge. (Xayah R Featherstorm → Irelia R Vanguard's Edge)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Irelia's Flawless Duet. Untargetable for 1.5 s, long enough to use ahead of Flawless Duet. (Xayah R Featherstorm → Irelia E Flawless Duet)
 - **0.31** range: Xayah's basic attacks reach 325 units farther than Irelia's (525 vs 200 attack range). Irelia closes the gap with Bladesurge. (Xayah basic attacks → Irelia basic attacks)
 
-### 7. Maokai (net +1.00)
+#### 7. Maokai (net +1.00)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Irelia's Flawless Duet. Untargetable for 1.4 s; Flawless Duet takes 0.39 s to land, enough to react. (Maokai W Twisted Advance → Irelia E Flawless Duet)
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 1.4 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Maokai W Twisted Advance → Irelia R Vanguard's Edge)
@@ -63,25 +244,25 @@ Run `npm run matchup -- <champion> Irelia` for the full ledger of a matchup, wit
   - If the target is untargetable, Bladesurge will instead deals its damage at the end of the dash, rather than on collision. (Maokai W Twisted Advance → Irelia Q Bladesurge)
 - Watch out: Irelia's basic attacks reach 75 units farther than Maokai's (200 vs 125 attack range).
 
-### 8. Mel (net +1.00)
+#### 8. Mel (net +1.00)
 
 - **0.55** projectile block: Rebuttal blocks Irelia's Vanguard's Edge, a projectile. Rebuttal for 0.75 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Mel W Rebuttal → Irelia R Vanguard's Edge)
 - **0.44** projectile block: Rebuttal blocks Irelia's Flawless Duet, a projectile. Rebuttal for 0.75 s; Flawless Duet takes 0.39 s to land, enough to react. (Mel W Rebuttal → Irelia E Flawless Duet)
 - **0.23** range: Mel's basic attacks reach 350 units farther than Irelia's (550 vs 200 attack range). Irelia closes the gap with Bladesurge. (Mel basic attacks → Irelia basic attacks)
 
-### 9. Lissandra (net +0.97)
+#### 9. Lissandra (net +0.97)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 2.5 s, long enough to use ahead of Vanguard's Edge. (Lissandra R Frozen Tomb → Irelia R Vanguard's Edge)
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Irelia's Flawless Duet. Untargetable for 2.5 s, long enough to use ahead of Flawless Duet. (Lissandra R Frozen Tomb → Irelia E Flawless Duet)
 - **0.19** range: Lissandra's basic attacks reach 350 units farther than Irelia's (550 vs 200 attack range). Irelia closes the gap with Bladesurge. (Lissandra basic attacks → Irelia basic attacks)
 
-### 10. Aurora (net +0.95)
+#### 10. Aurora (net +0.95)
 
 - **0.50** untargetable: Between Worlds makes Aurora untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 0.4 s; Vanguard's Edge takes 0.9 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Irelia R Vanguard's Edge)
 - **0.32** untargetable: Between Worlds makes Aurora untargetable, dodging Irelia's Flawless Duet. Untargetable for 0.4 s; Flawless Duet takes 0.39 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Irelia E Flawless Duet)
 - **0.25** range: Aurora's basic attacks reach 350 units farther than Irelia's (550 vs 200 attack range). Irelia closes the gap with Bladesurge. (Aurora basic attacks → Irelia basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

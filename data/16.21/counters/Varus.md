@@ -1,5 +1,186 @@
 # Counters to Varus (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Varus: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Varus wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Varus --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.86 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +1.00 |
+| 2 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +1.00 |
+| 3 | Master Yi | +0.85 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +1.00 |
+| 4 | Vel'Koz | +0.82 | +1.00 | +1.00 | +1.00 | +0.25 | – | +0.00 |
+| 5 | Malphite | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 6 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 7 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 8 | Camille | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 9 | Diana | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 10 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 11 | Yasuo | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 12 | Riven | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 13 | Gragas | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 14 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 15 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 16 | Sion | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 17 | Tryndamere | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 18 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 19 | Zac | +0.79 | +0.99 | +0.99 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 20 | Xayah | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 21 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 22 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 23 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 24 | Trundle | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 25 | Orianna | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 26 | Ivern | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 27 | Zeri | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 28 | Azir | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 29 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 30 | Vayne | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 31 | Heimerdinger | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 32 | Kayle | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 33 | Lulu | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 34 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 35 | Tahm Kench | +0.78 | +0.98 | +0.98 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 36 | Corki | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 37 | Rumble | +0.78 | +1.00 | +1.00 | +1.00 | −0.09 | +0.89 | +0.00 |
+| 38 | Rammus | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 39 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 40 | Maokai | +0.70 | +1.00 | +1.00 | +1.00 | +0.02 | +0.00 | +0.00 |
+| 41 | Garen | +0.68 | +1.00 | +1.00 | +1.00 | +0.10 | −0.38 | +0.00 |
+| 42 | Aatrox | +0.67 | +0.56 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 43 | Vi | +0.60 | +1.00 | +0.18 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 44 | Zed | +0.59 | +1.00 | +1.00 | +0.00 | −0.06 | +1.00 | +0.00 |
+| 45 | Ziggs | +0.57 | +1.00 | +1.00 | +0.00 | +0.11 | – | +0.00 |
+| 46 | Braum | +0.57 | +0.68 | +0.44 | +1.00 | −0.02 | +0.95 | +0.00 |
+| 47 | Taric | +0.57 | +1.00 | +0.22 | +1.00 | +0.04 | +0.55 | +0.00 |
+| 48 | Lee Sin | +0.55 | +0.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 49 | Volibear | +0.54 | +0.91 | +0.70 | +0.92 | −0.01 | −0.42 | +0.00 |
+| 50 | Cassiopeia | +0.51 | +1.00 | +0.04 | +1.00 | −0.01 | – | +0.00 |
+| 51 | Twisted Fate | +0.50 | +0.51 | +0.51 | +1.00 | −0.05 | – | +0.00 |
+| 52 | Udyr | +0.47 | +1.00 | −0.52 | +1.00 | −0.02 | +1.00 | +1.00 |
+| 53 | Zaahen | +0.45 | +1.00 | −0.38 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 54 | Gwen | +0.43 | −0.27 | +0.84 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 55 | Irelia | +0.43 | +1.00 | +0.19 | +0.12 | +0.03 | +1.00 | +0.00 |
+| 56 | Fizz | +0.40 | +1.00 | +1.00 | −1.00 | −0.03 | +1.00 | +0.00 |
+| 57 | Mordekaiser | +0.37 | −0.29 | +0.93 | +0.97 | −0.12 | +0.30 | +0.00 |
+| 58 | Aurora | +0.34 | +1.00 | +1.00 | −1.00 | +0.02 | – | +0.00 |
+| 59 | Kennen | +0.34 | −0.60 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 60 | Miss Fortune | +0.33 | +1.00 | +1.00 | −1.00 | +0.00 | – | +0.00 |
+| 61 | Sylas | +0.33 | −1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 62 | Draven | +0.32 | +1.00 | +0.96 | −1.00 | −0.01 | – | +0.00 |
+| 63 | Graves | +0.31 | −0.76 | +0.79 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 64 | Anivia | +0.31 | +0.19 | +0.17 | +1.00 | −0.06 | – | +0.00 |
+| 65 | Tristana | +0.31 | +0.03 | +0.03 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 66 | Sett | +0.30 | +1.00 | −1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 67 | Yone | +0.29 | +0.86 | +0.17 | +0.17 | −0.12 | +0.17 | +0.00 |
+| 68 | Shyvana | +0.29 | +1.00 | −1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 69 | Aphelios | +0.26 | +0.06 | +0.06 | +1.00 | +0.01 | – | +0.00 |
+| 70 | Jayce | +0.23 | +1.00 | −0.33 | +0.00 | +0.09 | +0.53 | +0.00 |
+| 71 | Kayn | +0.21 | −1.00 | +0.71 | +0.99 | −0.02 | +0.84 | +0.00 |
+| 72 | Galio | +0.20 | −1.00 | +1.00 | +1.00 | −0.01 | +0.03 | +0.00 |
+| 73 | Karma | +0.20 | −1.00 | +0.92 | +1.00 | −0.01 | – | +0.00 |
+| 74 | Pantheon | +0.20 | +1.00 | +1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 75 | Kled | +0.20 | +1.00 | +1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 76 | Briar | +0.19 | +0.50 | +0.50 | +0.17 | −0.17 | −0.65 | +0.00 |
+| 77 | Samira | +0.17 | −1.00 | +0.82 | +1.00 | −0.04 | – | +0.00 |
+| 78 | Quinn | +0.16 | −1.00 | +0.99 | +0.74 | −0.01 | – | +0.00 |
+| 79 | Viego | +0.14 | −1.00 | +0.38 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 80 | Renekton | +0.10 | −1.00 | +1.00 | +1.00 | +0.02 | −1.00 | +0.00 |
+| 81 | Bel'Veth | +0.10 | −1.00 | +1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 82 | Wukong | +0.10 | −1.00 | +1.00 | +0.00 | −0.01 | +1.00 | +0.00 |
+| 83 | Milio | +0.03 | +1.00 | −0.08 | −1.00 | −0.01 | – | +0.00 |
+| 84 | Kai'Sa | +0.02 | −0.33 | −0.33 | +1.00 | −0.08 | – | +0.00 |
+| 85 | Twitch | +0.02 | +0.35 | +0.55 | −1.00 | −0.05 | – | +0.00 |
+| 86 | Xin Zhao | −0.02 | +0.85 | −0.97 | +0.01 | −0.02 | +0.12 | +0.00 |
+| 87 | Teemo | −0.03 | +0.08 | −0.99 | +1.00 | +0.02 | – | +0.00 |
+| 88 | Aurelion Sol | −0.04 | −0.56 | +1.00 | −1.00 | +0.38 | – | +0.00 |
+| 89 | Jarvan IV | −0.08 | −1.00 | +1.00 | −1.00 | +0.15 | +1.00 | +0.00 |
+| 90 | Lillia | −0.10 | +0.41 | +0.41 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 91 | Illaoi | −0.13 | −0.91 | −0.04 | +1.00 | −0.03 | −0.84 | +0.00 |
+| 92 | Kassadin | −0.21 | −1.00 | +1.00 | −1.00 | −0.11 | +0.06 | +0.00 |
+| 93 | Nautilus | −0.23 | +0.10 | +0.09 | −1.00 | +0.08 | −0.91 | +0.00 |
+| 94 | Swain | −0.24 | −0.91 | +0.74 | −0.97 | +0.12 | – | +0.00 |
+| 95 | Rengar | −0.25 | −1.00 | +1.00 | −1.00 | +0.30 | −1.00 | +0.00 |
+| 96 | Rek'Sai | −0.27 | −0.50 | −1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 97 | Cho'Gath | −0.28 | −0.96 | −0.51 | +1.00 | −0.10 | −1.00 | +0.00 |
+| 98 | Ashe | −0.29 | −0.53 | −0.53 | +0.00 | −0.01 | – | +0.00 |
+| 99 | Locke | −0.32 | +0.99 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 100 | Annie | −0.33 | −1.00 | −1.00 | +1.00 | +0.05 | – | +0.00 |
+| 101 | Hwei | −0.33 | −0.81 | −0.81 | +0.50 | +0.06 | – | +0.00 |
+| 102 | Elise | −0.33 | −1.00 | −1.00 | +1.00 | +0.01 | – | +0.00 |
+| 103 | Lucian | −0.34 | −1.00 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 104 | Brand | −0.34 | −0.98 | −1.00 | +1.00 | −0.05 | – | +0.00 |
+| 105 | Kindred | −0.34 | −1.00 | −1.00 | +1.00 | −0.03 | – | +0.00 |
+| 106 | Leona | −0.34 | −0.48 | −0.48 | −1.00 | −0.03 | +0.98 | +0.00 |
+| 107 | Shen | −0.39 | −1.00 | −1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 108 | Akali | −0.40 | +0.61 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 109 | Sejuani | −0.41 | −1.00 | −0.96 | +1.00 | −0.11 | −1.00 | +0.00 |
+| 110 | Urgot | −0.41 | −1.00 | −1.00 | +1.00 | −0.08 | −1.00 | +0.00 |
+| 111 | Morgana | −0.42 | −1.00 | −1.00 | +0.76 | −0.06 | −0.62 | +0.00 |
+| 112 | Ornn | −0.45 | −0.38 | −0.34 | −0.83 | −0.04 | −1.00 | +0.00 |
+| 113 | Shaco | −0.46 | −0.86 | −0.19 | −0.50 | +0.00 | −1.00 | +0.00 |
+| 114 | Rakan | −0.52 | −1.00 | −1.00 | +0.00 | +0.02 | −0.23 | +0.00 |
+| 115 | Ryze | −0.54 | −1.00 | −0.14 | −1.00 | +0.01 | – | +0.00 |
+| 116 | Amumu | −0.55 | −1.00 | −0.16 | −1.00 | +0.04 | −0.62 | +0.00 |
+| 117 | Neeko | −0.55 | −1.00 | −0.97 | +0.00 | −0.02 | – | +0.00 |
+| 118 | Yunara | −0.56 | −1.00 | −0.21 | −1.00 | −0.01 | – | +0.00 |
+| 119 | Kalista | −0.59 | −0.96 | −0.32 | −1.00 | −0.07 | – | +0.00 |
+| 120 | Alistar | −0.60 | −1.00 | −1.00 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 121 | Gnar | −0.60 | −1.00 | −0.84 | −0.21 | +0.01 | −1.00 | +0.00 |
+| 122 | Nilah | −0.60 | −1.00 | −0.21 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 123 | Caitlyn | −0.62 | −0.43 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 124 | Smolder | −0.65 | −0.73 | −0.73 | −1.00 | −0.11 | – | +0.00 |
+| 125 | Zilean | −0.66 | −1.00 | −0.56 | −1.00 | −0.06 | – | +0.00 |
+| 126 | Zoe | −0.67 | −1.00 | −0.58 | −1.00 | −0.02 | – | +0.00 |
+| 127 | Karthus | −0.67 | −1.00 | −0.50 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 128 | Nidalee | −0.72 | −0.88 | −0.88 | −1.00 | −0.04 | – | +0.00 |
+| 129 | Rell | −0.75 | −1.00 | −0.84 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 130 | Fiddlesticks | −0.75 | −0.93 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 131 | Xerath | −0.76 | −1.00 | −0.93 | −1.00 | −0.02 | – | +0.00 |
+| 132 | Soraka | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 133 | Senna | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 134 | Syndra | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 135 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 136 | Jinx | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 137 | Janna | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 138 | Ahri | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 139 | Lux | −0.77 | −0.99 | −0.99 | −1.00 | −0.00 | – | +0.00 |
+| 140 | Mel | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 141 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | +0.06 | −0.86 | +0.00 |
+| 142 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 143 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 144 | Ezreal | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 145 | Nami | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 146 | Renata Glasc | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 147 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 148 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 149 | Zyra | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 150 | Viktor | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 151 | LeBlanc | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 152 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 153 | Seraphine | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 154 | Vex | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 155 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 156 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 157 | Sivir | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 158 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 159 | Bard | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 160 | Akshan | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 161 | Naafiri | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 162 | Qiyana | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 163 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 164 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 165 | Yuumi | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 166 | Hecarim | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 167 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 168 | Ekko | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 169 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 170 | Ambessa | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 171 | Pyke | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 172 | Vladimir | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Varus's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,70 +189,70 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Varus` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Yasuo (net +1.11)
+#### 1. Yasuo (net +1.11)
 
 - **0.80** projectile block: Wind Wall blocks Varus's Chain of Corruption, a projectile. Wind Wall for 4 s, long enough to use ahead of Chain of Corruption. (Yasuo W Wind Wall → Varus R Chain of Corruption)
 - **0.37** projectile block: Wind Wall blocks Varus's Piercing Arrow, a projectile. Wind Wall for 4 s, long enough to use ahead of Piercing Arrow. (Yasuo W Wind Wall → Varus Q Piercing Arrow)
 - **0.34** projectile block: Wind Wall blocks Varus's Hail of Arrows, a projectile. Wind Wall for 4 s, long enough to use ahead of Hail of Arrows. (Yasuo W Wind Wall → Varus E Hail of Arrows)
 - Watch out: Varus's basic attacks reach 400 units farther than Yasuo's (575 vs 175 attack range).
 
-### 2. Braum (net +1.07)
+#### 2. Braum (net +1.07)
 
 - **0.80** projectile block: Unbreakable blocks Varus's Chain of Corruption, a projectile. Unbreakable for 4 s, long enough to use ahead of Chain of Corruption. (Braum E Unbreakable → Varus R Chain of Corruption)
 - **0.45** projectile block: Unbreakable blocks Varus's Hail of Arrows, a projectile. Unbreakable for 4 s, long enough to use ahead of Hail of Arrows. (Braum E Unbreakable → Varus E Hail of Arrows)
 - **0.45** projectile block: Unbreakable blocks Varus's Piercing Arrow, a projectile. Unbreakable for 4 s, long enough to use ahead of Piercing Arrow. (Braum E Unbreakable → Varus Q Piercing Arrow)
 - Watch out: Varus's basic attacks reach 450 units farther than Braum's (575 vs 125 attack range).
 
-### 3. Mel (net +1.03)
+#### 3. Mel (net +1.03)
 
 - **0.80** projectile block: Rebuttal blocks Varus's Chain of Corruption, a projectile. Rebuttal for 0.75 s; Chain of Corruption takes 1.16 s to land, enough to react. (Mel W Rebuttal → Varus R Chain of Corruption)
 - **0.30** projectile block: Rebuttal blocks Varus's Piercing Arrow, a projectile. Rebuttal for 0.75 s; Piercing Arrow takes 0.47 s to land, enough to react. (Mel W Rebuttal → Varus Q Piercing Arrow)
 - **0.22** projectile block: Rebuttal blocks Varus's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Varus basic attacks)
 
-### 4. Fizz (net +0.73)
+#### 4. Fizz (net +0.73)
 
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Varus's Chain of Corruption. Untargetable for 0.75 s; Chain of Corruption takes 1.16 s to land, enough to react. (Fizz E Playful → Varus R Chain of Corruption)
 - **0.06** interrupt: Chum the Waters's airborne interrupts Varus's Piercing Arrow (charge-up). Chum the Waters must land during the charge-up. Varus can release Piercing Arrow early instead of charging it fully. (Fizz R Chum the Waters → Varus Q Piercing Arrow)
 - Watch out: Varus's basic attacks reach 400 units farther than Fizz's (575 vs 175 attack range).
 
-### 5. Samira (net +0.63)
+#### 5. Samira (net +0.63)
 
 - **0.80** projectile block: Blade Whirl blocks Varus's Chain of Corruption, a projectile. Blade Whirl for 0.75 s; Chain of Corruption takes 1.16 s to land, enough to react. (Samira W Blade Whirl → Varus R Chain of Corruption)
 - **0.33** projectile block: Blade Whirl blocks Varus's Piercing Arrow, a projectile. Blade Whirl for 0.75 s; Piercing Arrow takes 0.47 s to land, enough to react. (Samira W Blade Whirl → Varus Q Piercing Arrow)
 - **0.22** projectile block: Blade Whirl blocks Varus's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Varus basic attacks)
 - Watch out: Hail of Arrows's Grievous Wounds cuts Samira's healing from Flair by 40%.
 
-### 6. Xayah (net +0.61)
+#### 6. Xayah (net +0.61)
 
 - **0.61** untargetable: Featherstorm makes Xayah untargetable, dodging Varus's Chain of Corruption. Untargetable for 1.5 s, long enough to use ahead of Chain of Corruption. (Xayah R Featherstorm → Varus R Chain of Corruption)
 
-### 7. Shaco (net +0.60)
+#### 7. Shaco (net +0.60)
 
 - **0.68** untargetable: Hallucinate makes Shaco untargetable, dodging Varus's Chain of Corruption. Untargetable for 0.5 s; Chain of Corruption takes 1.16 s to land, enough to react. (Shaco R Hallucinate → Varus R Chain of Corruption)
 - **0.10** interrupt: Jack in the Box's fear interrupts Varus's Piercing Arrow (charge-up). Jack in the Box must land during the charge-up. Varus can release Piercing Arrow early instead of charging it fully. (Shaco W Jack in the Box → Varus Q Piercing Arrow)
 - Watch out: Varus's basic attacks reach 450 units farther than Shaco's (575 vs 125 attack range).
 
-### 8. Morgana (net +0.56)
+#### 8. Morgana (net +0.56)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Varus's Chain of Corruption (root). Immune for 5 s, long enough to use ahead of Chain of Corruption. (Morgana E Black Shield → Varus R Chain of Corruption)
 - **0.09** cc immunity: Black Shield makes Morgana immune to Varus's Hail of Arrows (slow). Immune for 5 s, long enough to use ahead of Hail of Arrows. (Morgana E Black Shield → Varus E Hail of Arrows)
 - Watch out: Varus's basic attacks reach 125 units farther than Morgana's (575 vs 450 attack range).
 
-### 9. Maokai (net +0.52)
+#### 9. Maokai (net +0.52)
 
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Varus's Chain of Corruption. Untargetable for 1.4 s; Chain of Corruption takes 1.16 s to land, enough to react. (Maokai W Twisted Advance → Varus R Chain of Corruption)
 - **0.11** interrupt: Bramble Smash's airborne interrupts Varus's Piercing Arrow (charge-up). Bramble Smash must land during the charge-up. Varus can release Piercing Arrow early instead of charging it fully. (Maokai Q Bramble Smash → Varus Q Piercing Arrow)
 - Watch out: Varus's basic attacks reach 450 units farther than Maokai's (575 vs 125 attack range).
 
-### 10. Nocturne (net +0.52)
+#### 10. Nocturne (net +0.52)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Varus's Chain of Corruption. Spell shield for 1.5 s, long enough to use ahead of Chain of Corruption. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Varus R Chain of Corruption)
 - **0.11** interrupt: Unspeakable Horror's fear interrupts Varus's Piercing Arrow (charge-up). Unspeakable Horror must land during the charge-up. Varus can release Piercing Arrow early instead of charging it fully. (Nocturne E Unspeakable Horror → Varus Q Piercing Arrow)
 - Watch out: Varus's basic attacks reach 450 units farther than Nocturne's (575 vs 125 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

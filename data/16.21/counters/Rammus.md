@@ -1,5 +1,186 @@
 # Counters to Rammus (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Rammus: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Rammus wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Rammus --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kayle | +0.85 | +1.00 | +1.00 | +1.00 | +0.33 | +1.00 | +0.00 |
+| 2 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.43 | – | +0.00 |
+| 3 | Aphelios | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 4 | Olaf | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 5 | Vayne | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 6 | Smolder | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 7 | Nasus | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 8 | Cho'Gath | +0.82 | +1.00 | +1.00 | +1.00 | +0.24 | – | +0.00 |
+| 9 | Kalista | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 10 | Ivern | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 11 | Master Yi | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 12 | Darius | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 13 | Kennen | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 14 | Yone | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 15 | Illaoi | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 16 | Trundle | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 17 | Maokai | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 18 | Rek'Sai | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 19 | Volibear | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 20 | Zeri | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 21 | Swain | +0.80 | +1.00 | +0.98 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 22 | Jayce | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 23 | Wukong | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 24 | Gwen | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 25 | Shen | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 26 | Gangplank | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 27 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 28 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 29 | Xin Zhao | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 30 | Mordekaiser | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 31 | Camille | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 32 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 33 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 34 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 35 | Poppy | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 36 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 37 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 38 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 39 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 40 | Karma | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 41 | Vi | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 42 | Tahm Kench | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 43 | Sion | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 44 | K'Sante | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 45 | Rumble | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 46 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 47 | Taric | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 48 | Zac | +0.73 | +1.00 | +0.99 | +1.00 | −0.29 | – | +0.00 |
+| 49 | Graves | +0.72 | +1.00 | +1.00 | +1.00 | +0.15 | +0.00 | +0.00 |
+| 50 | Vel'Koz | +0.70 | +1.00 | +1.00 | +1.00 | +0.21 | −0.28 | +0.00 |
+| 51 | Shyvana | +0.64 | +1.00 | +1.00 | +1.00 | +0.25 | −1.00 | +0.00 |
+| 52 | Lulu | +0.62 | +1.00 | +1.00 | +1.00 | +0.10 | −1.00 | +0.00 |
+| 53 | Quinn | +0.61 | +1.00 | +1.00 | +1.00 | +0.05 | −1.00 | +0.00 |
+| 54 | Ezreal | +0.59 | +0.76 | +0.54 | +0.86 | −0.02 | +0.97 | +0.00 |
+| 55 | Kog'Maw | +0.58 | +0.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 56 | Diana | +0.53 | +1.00 | +0.00 | +1.00 | +0.19 | – | +0.00 |
+| 57 | Warwick | +0.53 | +0.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 58 | Corki | +0.33 | +0.00 | +0.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 59 | Rell | +0.32 | −1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 60 | Orianna | +0.32 | +1.00 | −1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 61 | Bel'Veth | +0.26 | +1.00 | −1.00 | +1.00 | +0.25 | – | +0.00 |
+| 62 | Morgana | +0.26 | −0.03 | −0.01 | +0.83 | +0.11 | +0.84 | +0.00 |
+| 63 | Sett | +0.23 | +1.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 64 | Rakan | +0.23 | −1.00 | +1.00 | +0.57 | +0.10 | +1.00 | +0.00 |
+| 65 | Ashe | +0.17 | −0.24 | −0.40 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 66 | Lillia | +0.16 | −0.10 | −0.43 | +0.95 | +0.09 | +0.91 | +0.00 |
+| 67 | Xayah | +0.13 | +1.00 | −1.00 | +1.00 | +0.18 | −1.00 | +0.00 |
+| 68 | Singed | +0.10 | +0.10 | +0.15 | +0.15 | −0.02 | – | +0.00 |
+| 69 | Malphite | +0.09 | +0.09 | +0.08 | +0.09 | +0.12 | – | +0.00 |
+| 70 | Jinx | +0.05 | −0.20 | +0.00 | +0.71 | +0.06 | −0.53 | +0.00 |
+| 71 | Braum | +0.03 | +0.05 | +0.05 | +0.07 | −0.06 | – | +0.00 |
+| 72 | Ornn | +0.03 | +0.01 | −0.04 | −0.01 | +0.20 | – | +0.00 |
+| 73 | Irelia | −0.01 | −0.61 | −0.23 | +1.00 | +0.01 | – | +0.00 |
+| 74 | Samira | −0.01 | −0.12 | −0.39 | +1.00 | +0.10 | −1.00 | +0.00 |
+| 75 | Janna | −0.02 | +0.08 | +0.10 | +0.12 | +0.06 | −1.00 | +0.00 |
+| 76 | Jarvan IV | −0.02 | +0.00 | −1.00 | +1.00 | +0.20 | – | +0.00 |
+| 77 | Malzahar | −0.03 | +0.44 | −1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 78 | Nocturne | −0.04 | −1.00 | +0.00 | +1.00 | +0.09 | – | +0.00 |
+| 79 | Anivia | −0.05 | −0.13 | −0.13 | +0.06 | −0.06 | +0.17 | +0.00 |
+| 80 | Soraka | −0.06 | −0.14 | −0.08 | +0.03 | −0.03 | −0.09 | +0.00 |
+| 81 | Annie | −0.10 | +0.94 | −1.00 | +0.00 | +0.13 | −1.00 | +0.00 |
+| 82 | Gnar | −0.16 | −1.00 | −1.00 | +1.00 | +0.28 | +1.00 | +0.00 |
+| 83 | Aurora | −0.17 | −1.00 | −1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 84 | Twisted Fate | −0.18 | −1.00 | −1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 85 | Udyr | −0.18 | −1.00 | −1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 86 | Nami | −0.20 | −0.13 | −0.12 | −0.22 | +0.02 | −0.93 | +0.00 |
+| 87 | Riven | −0.25 | −1.00 | +0.00 | +0.00 | +0.17 | – | +0.00 |
+| 88 | Ambessa | −0.27 | −1.00 | −1.00 | +1.00 | +0.37 | – | +0.00 |
+| 89 | Miss Fortune | −0.27 | +0.00 | +0.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 90 | Bard | −0.30 | −1.00 | −1.00 | +0.98 | +0.08 | −0.08 | +0.00 |
+| 91 | Viego | −0.30 | −1.00 | −1.00 | +1.00 | +0.18 | – | +0.00 |
+| 92 | Sejuani | −0.32 | −1.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 93 | Lissandra | −0.32 | −0.06 | −0.10 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 94 | Skarner | −0.33 | −1.00 | −1.00 | +1.00 | +0.02 | – | +0.00 |
+| 95 | Fizz | −0.33 | −1.00 | −1.00 | +1.00 | +0.00 | – | +0.00 |
+| 96 | Pantheon | −0.34 | −1.00 | −1.00 | +1.00 | −0.04 | – | +0.00 |
+| 97 | Urgot | −0.37 | −1.00 | −1.00 | +1.00 | +0.21 | −1.00 | +0.00 |
+| 98 | Teemo | −0.37 | −1.00 | −1.00 | +1.00 | +0.19 | −1.00 | +0.00 |
+| 99 | Elise | −0.37 | −1.00 | −1.00 | +1.00 | +0.19 | −1.00 | +0.00 |
+| 100 | Heimerdinger | −0.37 | −1.00 | −1.00 | +1.00 | +0.18 | −1.00 | +0.00 |
+| 101 | Neeko | −0.38 | −1.00 | −1.00 | +1.00 | +0.14 | −1.00 | +0.00 |
+| 102 | Azir | −0.39 | −1.00 | −1.00 | +1.00 | +0.09 | −1.00 | +0.00 |
+| 103 | Sivir | −0.39 | −1.00 | −1.00 | +1.00 | +0.07 | −1.00 | +0.00 |
+| 104 | Lux | −0.39 | −1.00 | −1.00 | +0.98 | +0.09 | −1.00 | +0.00 |
+| 105 | Syndra | −0.39 | −1.00 | −1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 106 | Hwei | −0.40 | −1.00 | −1.00 | +1.00 | +0.01 | −1.00 | +0.00 |
+| 107 | Ryze | −0.40 | −1.00 | −1.00 | +0.90 | +0.12 | −1.00 | +0.00 |
+| 108 | Kai'Sa | −0.40 | −1.00 | −1.00 | +1.00 | −0.02 | −1.00 | +0.00 |
+| 109 | Milio | −0.40 | −1.00 | −1.00 | +0.87 | +0.14 | −1.00 | +0.00 |
+| 110 | Yunara | −0.41 | −1.00 | −1.00 | +0.80 | +0.22 | −1.00 | +0.00 |
+| 111 | Brand | −0.48 | −0.54 | −0.52 | −0.63 | +0.07 | −1.00 | +0.00 |
+| 112 | Viktor | −0.49 | −1.00 | −1.00 | +0.50 | +0.08 | −1.00 | +0.00 |
+| 113 | Nilah | −0.57 | −1.00 | −1.00 | −1.00 | +0.19 | +1.00 | +0.00 |
+| 114 | Ziggs | −0.57 | −1.00 | −1.00 | +0.00 | +0.18 | −1.00 | +0.00 |
+| 115 | Zyra | −0.61 | −1.00 | −1.00 | −0.08 | +0.04 | −1.00 | +0.00 |
+| 116 | Karthus | −0.63 | −1.00 | −1.00 | −0.15 | +0.01 | −1.00 | +0.00 |
+| 117 | Zoe | −0.68 | −1.00 | −0.55 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 118 | Sylas | −0.71 | −1.00 | −1.00 | −1.00 | +0.38 | – | +0.00 |
+| 119 | Aurelion Sol | −0.72 | −1.00 | −1.00 | −1.00 | +0.03 | −0.25 | +0.00 |
+| 120 | Galio | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 121 | Nautilus | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 122 | Blitzcrank | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 123 | Naafiri | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 124 | Kassadin | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 125 | Amumu | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 126 | Hecarim | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 127 | Nunu & Willump | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 128 | Kayn | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 129 | Kindred | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 130 | Shaco | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 131 | Qiyana | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 132 | Rengar | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 133 | Pyke | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 134 | Varus | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 135 | Akshan | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 136 | Renata Glasc | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 137 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 138 | Gragas | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 139 | Lee Sin | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 140 | Tristana | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 141 | Jhin | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 142 | Alistar | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 143 | Locke | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 144 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 145 | Talon | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 146 | Zed | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 147 | Ekko | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 148 | Kha'Zix | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 149 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 150 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 151 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 152 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 153 | Cassiopeia | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 154 | Thresh | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 155 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 156 | Seraphine | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 157 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 158 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 159 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 160 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 161 | Mel | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 162 | Zilean | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 163 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 164 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 165 | Fiddlesticks | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 166 | Sona | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 167 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 168 | Vex | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 169 | Nidalee | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 170 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 171 | Yuumi | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 172 | Briar | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Rammus's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,79 +189,79 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Rammus` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Maokai (net +1.41)
+#### 1. Maokai (net +1.41)
 
 - **0.90** untargetable: Twisted Advance makes Maokai untargetable, dodging Rammus's Soaring Slam. Untargetable for 1.4 s; Soaring Slam takes 0.89 s to land, enough to react. (Maokai W Twisted Advance → Rammus R Soaring Slam)
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Rammus's Frenzying Taunt. Untargetable for 1.4 s; Frenzying Taunt takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Rammus E Frenzying Taunt)
 - **0.35** interrupt: Bramble Smash's airborne interrupts Rammus's Powerball (normal channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Rammus Q Powerball)
 - Watch out: Defensive Ball Curl deals damage back to Maokai for each basic attack.
 
-### 2. Zaahen (net +1.39)
+#### 2. Zaahen (net +1.39)
 
 - **0.90** cc immunity: Grim Deliverance makes Zaahen immune to Rammus's Soaring Slam (airborne, slow). Immune for ?; Soaring Slam takes 0.89 s to land, enough to react. (Zaahen R Grim Deliverance → Rammus R Soaring Slam)
 - **0.35** interrupt: The Darkin Glaive's airborne interrupts Rammus's Powerball (normal channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Rammus Q Powerball)
 - **0.34** cc immunity: Grim Deliverance makes Zaahen immune to Rammus's Frenzying Taunt (taunt). Immune for ?; Frenzying Taunt takes 0.25 s to land, enough to react. (Zaahen R Grim Deliverance → Rammus E Frenzying Taunt)
 - Watch out: Defensive Ball Curl deals damage back to Zaahen for each basic attack.
 
-### 3. Morgana (net +1.26)
+#### 3. Morgana (net +1.26)
 
 - **0.90** cc immunity: Black Shield makes Morgana immune to Rammus's Soaring Slam (airborne, slow). Immune for 5 s, long enough to use ahead of Soaring Slam. (Morgana E Black Shield → Rammus R Soaring Slam)
 - **0.60** cc immunity: Black Shield makes Morgana immune to Rammus's Frenzying Taunt (taunt). Immune for 5 s, long enough to use ahead of Frenzying Taunt. (Morgana E Black Shield → Rammus E Frenzying Taunt)
 - **0.44** cc immunity: Black Shield makes Morgana immune to Rammus's Powerball (airborne, slow, stun). Immune for 5 s, long enough to use ahead of Powerball. (Morgana E Black Shield → Rammus Q Powerball)
 - Watch out: Defensive Ball Curl deals damage back to Morgana for each basic attack.
 
-### 4. Fizz (net +1.23)
+#### 4. Fizz (net +1.23)
 
 - **0.90** untargetable: Playful makes Fizz untargetable, dodging Rammus's Soaring Slam. Untargetable for 0.75 s; Soaring Slam takes 0.89 s to land, enough to react. (Fizz E Playful → Rammus R Soaring Slam)
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Rammus's Frenzying Taunt. Untargetable for 0.75 s; Frenzying Taunt takes 0.25 s to land, enough to react. (Fizz E Playful → Rammus E Frenzying Taunt)
 - **0.36** untargetable: Playful makes Fizz untargetable, dodging Rammus's Powerball. Untargetable for 0.75 s; Powerball lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Rammus Q Powerball)
 - Watch out: Defensive Ball Curl deals damage back to Fizz for each basic attack.
 
-### 5. Rek'Sai (net +1.21)
+#### 5. Rek'Sai (net +1.21)
 
 - **0.90** untargetable: Void Rush makes Rek'Sai untargetable, dodging Rammus's Soaring Slam. Untargetable for 1.5 s, long enough to use ahead of Soaring Slam. (Rek'Sai R Void Rush → Rammus R Soaring Slam)
 - **0.35** interrupt: Unburrow's airborne interrupts Rammus's Powerball (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Rammus Q Powerball)
 - **0.34** untargetable: Void Rush makes Rek'Sai untargetable, dodging Rammus's Frenzying Taunt. Untargetable for 1.5 s, long enough to use ahead of Frenzying Taunt. (Rek'Sai R Void Rush → Rammus E Frenzying Taunt)
 - Watch out: Defensive Ball Curl deals damage back to Rek'Sai for each basic attack.
 
-### 6. Lissandra (net +1.17)
+#### 6. Lissandra (net +1.17)
 
 - **0.90** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Rammus's Soaring Slam. Untargetable for 2.5 s, long enough to use ahead of Soaring Slam. (Lissandra R Frozen Tomb → Rammus R Soaring Slam)
 - **0.34** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Rammus's Frenzying Taunt. Untargetable for 2.5 s, long enough to use ahead of Frenzying Taunt. (Lissandra R Frozen Tomb → Rammus E Frenzying Taunt)
 - **0.31** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Rammus's Powerball. Untargetable for 2.5 s, long enough to use ahead of Powerball. (Lissandra R Frozen Tomb → Rammus Q Powerball)
 - Watch out: Defensive Ball Curl deals damage back to Lissandra for each basic attack.
 
-### 7. Bard (net +1.15)
+#### 7. Bard (net +1.15)
 
 - **0.90** untargetable: Tempered Fate makes Bard untargetable, dodging Rammus's Soaring Slam. Untargetable for 2.5 s, long enough to use ahead of Soaring Slam. (Bard R Tempered Fate → Rammus R Soaring Slam)
 - **0.36** range: Bard's basic attacks reach 375 units farther than Rammus's (500 vs 125 attack range). Rammus closes the gap with Soaring Slam. (Bard basic attacks → Rammus basic attacks)
 - **0.34** untargetable: Tempered Fate makes Bard untargetable, dodging Rammus's Frenzying Taunt. Untargetable for 2.5 s, long enough to use ahead of Frenzying Taunt. (Bard R Tempered Fate → Rammus E Frenzying Taunt)
 - Watch out: Defensive Ball Curl deals damage back to Bard for each basic attack.
 
-### 8. Alistar (net +1.14)
+#### 8. Alistar (net +1.14)
 
 - **0.72** cleanse: Unbreakable Will cleanses Rammus's Soaring Slam (airborne, slow) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Rammus R Soaring Slam)
 - **0.27** cleanse: Unbreakable Will cleanses Rammus's Frenzying Taunt (taunt) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Rammus E Frenzying Taunt)
 - **0.27** interrupt: Pulverize's airborne interrupts Rammus's Powerball (normal channel). Pulverize must land during the channel. (Alistar Q Pulverize → Rammus Q Powerball)
 - Watch out: Defensive Ball Curl deals damage back to Alistar for each basic attack.
 
-### 9. Fiora (net +1.13)
+#### 9. Fiora (net +1.13)
 
 - **1.00** parry: Riposte parries Rammus's Soaring Slam and stuns back. Parry for 0.75 s; Soaring Slam takes 0.89 s to land, enough to react. Negating Soaring Slam's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Rammus R Soaring Slam)
 - **0.70** parry: Riposte parries Rammus's Frenzying Taunt and stuns back. Parry for 0.75 s; Frenzying Taunt takes 0.25 s to land, enough to react. Negating Frenzying Taunt's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Rammus E Frenzying Taunt)
 - **0.36** parry: Riposte parries Rammus's Powerball and stuns back. Parry for 0.75 s; Powerball lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Powerball's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Rammus Q Powerball)
 - Watch out: Defensive Ball Curl deals damage back to Fiora for each basic attack.
 
-### 10. Vladimir (net +1.10)
+#### 10. Vladimir (net +1.10)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rammus's Soaring Slam. Untargetable for 2 s, long enough to use ahead of Soaring Slam. (Vladimir W Sanguine Pool → Rammus R Soaring Slam)
 - **0.60** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rammus's Frenzying Taunt. Untargetable for 2 s, long enough to use ahead of Frenzying Taunt. (Vladimir W Sanguine Pool → Rammus E Frenzying Taunt)
 - **0.44** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Rammus's Powerball. Untargetable for 2 s, long enough to use ahead of Powerball. (Vladimir W Sanguine Pool → Rammus Q Powerball)
 - Watch out: Defensive Ball Curl deals damage back to Vladimir for each basic attack.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

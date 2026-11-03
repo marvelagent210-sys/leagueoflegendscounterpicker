@@ -1,5 +1,186 @@
 # Counters to Zed (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Zed: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Zed wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Zed --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kayle | +0.87 | +1.00 | +1.00 | +1.00 | +0.47 | +1.00 | +0.00 |
+| 2 | Master Yi | +0.85 | +1.00 | +1.00 | +1.00 | +0.10 | – | +1.00 |
+| 3 | Kog'Maw | +0.85 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 4 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 5 | Cassiopeia | +0.84 | +1.00 | +1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 6 | Xayah | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 7 | Ashe | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 8 | Teemo | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 9 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.01 | – | +1.00 |
+| 10 | Kalista | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 11 | Neeko | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 12 | Vayne | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 13 | Urgot | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 14 | Gnar | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 15 | Lulu | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 16 | Garen | +0.82 | +1.00 | +1.00 | +1.00 | +0.28 | – | +0.00 |
+| 17 | Heimerdinger | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 18 | Aphelios | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 19 | Rell | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 20 | Annie | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 21 | Swain | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 22 | Twisted Fate | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 23 | Ornn | +0.82 | +1.00 | +1.00 | +1.00 | +0.25 | – | +0.00 |
+| 24 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.24 | – | +0.00 |
+| 25 | Brand | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 26 | Karma | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 27 | Azir | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 28 | Milio | +0.81 | +1.00 | +0.95 | +0.96 | +0.22 | +1.00 | +0.00 |
+| 29 | Aatrox | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 30 | Sivir | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 31 | Ivern | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 32 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 33 | Tahm Kench | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 34 | Maokai | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 35 | Cho'Gath | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 36 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 37 | Gwen | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 38 | Irelia | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 39 | Lillia | +0.80 | +1.00 | +0.95 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 40 | Rakan | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 41 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 42 | Udyr | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 43 | Riven | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 44 | Viego | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 45 | Samira | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 46 | Shyvana | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 47 | Kennen | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 48 | Fizz | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 49 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 50 | Hwei | +0.80 | +0.96 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 51 | Warwick | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 52 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 53 | Wukong | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 54 | Lee Sin | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 55 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 56 | Mordekaiser | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 57 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 58 | Volibear | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 59 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 60 | Pantheon | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 61 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 62 | Rek'Sai | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 63 | Sett | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 64 | Akali | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 65 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 66 | Diana | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 67 | Tristana | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 68 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 69 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 70 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 71 | Kayn | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 72 | Sejuani | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 73 | Soraka | +0.79 | +1.00 | +0.94 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 74 | Amumu | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 75 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 76 | Rammus | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 77 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 78 | Vi | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 79 | Gangplank | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 80 | Bel'Veth | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 81 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 82 | Braum | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 83 | Alistar | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 84 | Leona | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 85 | Lux | +0.77 | +0.91 | +0.97 | +0.97 | +0.13 | +0.91 | +0.00 |
+| 86 | Skarner | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 87 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 88 | Kled | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 89 | Singed | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 90 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 91 | Zac | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 92 | Xin Zhao | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 93 | Quinn | +0.73 | +1.00 | +1.00 | +0.50 | +0.19 | +1.00 | +0.00 |
+| 94 | Ezreal | +0.71 | +1.00 | +0.79 | +0.79 | +0.05 | +0.96 | +0.00 |
+| 95 | Jinx | +0.67 | +1.00 | +0.40 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 96 | Vel'Koz | +0.65 | +0.45 | +0.97 | +1.00 | +0.31 | +0.47 | +0.00 |
+| 97 | Bard | +0.62 | +1.00 | +1.00 | +0.00 | +0.13 | +1.00 | +0.00 |
+| 98 | Fiddlesticks | +0.62 | +1.00 | +1.00 | +1.00 | +0.12 | −1.00 | +0.00 |
+| 99 | Aurora | +0.61 | +1.00 | +1.00 | +0.00 | +0.09 | +1.00 | +0.00 |
+| 100 | Orianna | +0.58 | +1.00 | +0.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 101 | Yone | +0.57 | +1.00 | +1.00 | +0.00 | +0.06 | – | +0.00 |
+| 102 | Ziggs | +0.56 | +1.00 | +0.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 103 | Lissandra | +0.56 | +1.00 | +0.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 104 | Graves | +0.56 | +1.00 | +1.00 | +0.00 | +0.06 | +1.00 | −1.00 |
+| 105 | Malzahar | +0.52 | +0.85 | +0.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 106 | Shen | +0.51 | +1.00 | +0.00 | +1.00 | +0.09 | – | +0.00 |
+| 107 | Rumble | +0.50 | +1.00 | +0.00 | +1.00 | +0.02 | – | +0.00 |
+| 108 | Kai'Sa | +0.48 | +1.00 | +0.50 | +0.00 | +0.02 | +1.00 | +0.00 |
+| 109 | Corki | +0.42 | +1.00 | +1.00 | −1.00 | +0.16 | +1.00 | +0.00 |
+| 110 | Akshan | +0.42 | +1.00 | +1.00 | −1.00 | +0.13 | +1.00 | +0.00 |
+| 111 | Mel | +0.36 | +1.00 | −0.00 | −0.00 | +0.14 | +0.88 | +0.00 |
+| 112 | Nilah | +0.35 | +1.00 | +0.00 | +0.00 | +0.02 | +1.00 | +0.00 |
+| 113 | Viktor | +0.31 | +1.00 | −1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 114 | Ambessa | +0.31 | −1.00 | +1.00 | +1.00 | +0.51 | – | +0.00 |
+| 115 | Rengar | +0.30 | −1.00 | +1.00 | +1.00 | +0.48 | – | +0.00 |
+| 116 | Gragas | +0.30 | +1.00 | −1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 117 | Anivia | +0.24 | −0.04 | +0.20 | +1.00 | −0.04 | +0.04 | +0.00 |
+| 118 | Naafiri | +0.24 | −1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 119 | Nautilus | +0.17 | +1.00 | +0.00 | −1.00 | +0.12 | +1.00 | +0.00 |
+| 120 | Elise | +0.12 | +1.00 | −1.00 | +1.00 | +0.11 | −1.00 | +0.00 |
+| 121 | Senna | +0.10 | −1.00 | +0.95 | +0.95 | +0.12 | −1.00 | +0.00 |
+| 122 | Smolder | −0.04 | +1.00 | −0.50 | −0.50 | +0.24 | −1.00 | +0.00 |
+| 123 | Yunara | −0.07 | +1.00 | −1.00 | −1.00 | +0.21 | +1.00 | +0.00 |
+| 124 | Nami | −0.08 | +1.00 | −0.99 | −0.99 | +0.10 | +0.99 | +0.00 |
+| 125 | Zoe | −0.09 | +1.00 | −1.00 | −1.00 | +0.10 | +1.00 | +0.00 |
+| 126 | Zeri | −0.09 | +1.00 | −1.00 | −1.00 | +0.07 | +1.00 | +0.00 |
+| 127 | Vex | −0.09 | +1.00 | −1.00 | −1.00 | +0.06 | +1.00 | +0.00 |
+| 128 | Karthus | −0.12 | +0.00 | +0.00 | −0.50 | +0.19 | −0.50 | +0.00 |
+| 129 | Zyra | −0.20 | +1.00 | −1.00 | −1.00 | +0.02 | +0.00 | +0.00 |
+| 130 | Kassadin | −0.21 | +1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 131 | Nunu & Willump | −0.22 | −1.00 | +1.00 | −1.00 | +0.02 | – | +0.00 |
+| 132 | Ekko | −0.23 | −1.00 | +1.00 | −1.00 | −0.02 | – | +0.00 |
+| 133 | Ryze | −0.28 | +1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 134 | Janna | −0.28 | +1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 135 | Syndra | −0.28 | +1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 136 | Ahri | −0.29 | +1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 137 | Veigar | −0.38 | −1.00 | −1.00 | +0.96 | +0.05 | −0.81 | +0.00 |
+| 138 | Morgana | −0.38 | −1.00 | −1.00 | +0.00 | +0.12 | +1.00 | +0.00 |
+| 139 | LeBlanc | −0.41 | −1.00 | −1.00 | +0.00 | −0.03 | +0.95 | +0.00 |
+| 140 | Jhin | −0.53 | −1.00 | +0.03 | −0.94 | −0.02 | −0.94 | +0.00 |
+| 141 | Kindred | −0.53 | +0.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 142 | Varus | −0.59 | −1.00 | −1.00 | +0.00 | +0.06 | −1.00 | +0.00 |
+| 143 | Nidalee | −0.61 | −1.00 | −1.00 | −1.00 | +0.03 | +0.85 | +0.00 |
+| 144 | Miss Fortune | −0.67 | −1.00 | −1.00 | −1.00 | +0.20 | +0.00 | +0.00 |
+| 145 | Lucian | −0.68 | −1.00 | −1.00 | −1.00 | +0.13 | +0.00 | +0.00 |
+| 146 | Draven | −0.68 | −1.00 | −1.00 | −1.00 | +0.10 | +0.00 | +0.00 |
+| 147 | Aurelion Sol | −0.73 | −1.00 | −1.00 | −1.00 | +0.48 | −1.00 | +0.00 |
+| 148 | Twitch | −0.74 | −1.00 | −1.00 | −1.00 | +0.08 | −0.50 | +0.00 |
+| 149 | Hecarim | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 150 | Sylas | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 151 | Jarvan IV | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 152 | Galio | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 153 | Shaco | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 154 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 155 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 156 | Locke | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 157 | Qiyana | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 158 | Seraphine | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 159 | Yuumi | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 160 | Kha'Zix | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 161 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 162 | Zilean | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 163 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 164 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 165 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 166 | Talon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 167 | Briar | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 168 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 169 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 170 | Pyke | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 171 | Renata Glasc | −0.82 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | −1.00 |
+| 172 | Thresh | −0.86 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Zed's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,65 +189,65 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Zed` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Kayle (net +1.02)
+#### 1. Kayle (net +1.02)
 
 - **0.90** invulnerable: Divine Judgment makes Kayle invulnerable to Zed's Death Mark. Invulnerable for 2.5 s, long enough to use ahead of Death Mark. (Kayle R Divine Judgment → Zed R Death Mark)
 - **0.24** range: Kayle's basic attacks reach 500 units farther than Zed's (625 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Kayle basic attacks → Zed basic attacks)
 - Watch out: Death Mark makes Zed untargetable, dodging Kayle's Starfire Spellblade.
 
-### 2. Sivir (net +0.76)
+#### 2. Sivir (net +0.76)
 
 - **0.45** spell shield: Spell Shield's spell shield blocks part of Zed's Death Mark. Spell shield for 1.5 s, long enough to use ahead of Death Mark. A spell shield blocks only the first enemy ability that reaches it. Spell shield will only block the mark's application. They will not prevent Zed from initiating Death Mark against the target nor block the detonation from a mark that is already applied. (Sivir E Spell Shield → Zed R Death Mark)
 - **0.31** range: Sivir's basic attacks reach 375 units farther than Zed's (500 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Sivir basic attacks → Zed basic attacks)
 
-### 3. Xayah (net +0.73)
+#### 3. Xayah (net +0.73)
 
 - **0.90** untargetable: Featherstorm makes Xayah untargetable, dodging Zed's Death Mark. Untargetable for 1.5 s, long enough to use ahead of Death Mark. (Xayah R Featherstorm → Zed R Death Mark)
 - **0.26** range: Xayah's basic attacks reach 400 units farther than Zed's (525 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Xayah basic attacks → Zed basic attacks)
 - Watch out: Death Mark makes Zed untargetable, dodging Xayah's Featherstorm.
 
-### 4. Vladimir (net +0.59)
+#### 4. Vladimir (net +0.59)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Zed's Death Mark. Untargetable for 2 s, long enough to use ahead of Death Mark. (Vladimir W Sanguine Pool → Zed R Death Mark)
 - **0.12** range: Vladimir's basic attacks reach 325 units farther than Zed's (450 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Vladimir basic attacks → Zed basic attacks)
 - Watch out: Death Mark makes Zed untargetable, dodging Vladimir's Hemoplague.
 
-### 5. Bard (net +0.39)
+#### 5. Bard (net +0.39)
 
 - **0.90** untargetable: Tempered Fate makes Bard untargetable, dodging Zed's Death Mark. Untargetable for 2.5 s, long enough to use ahead of Death Mark. (Bard R Tempered Fate → Zed R Death Mark)
 - **0.24** range: Bard's basic attacks reach 375 units farther than Zed's (500 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Bard basic attacks → Zed basic attacks)
 - Watch out: Death Mark makes Zed untargetable, dodging Bard's Tempered Fate.
 
-### 6. Master Yi (net +0.39)
+#### 6. Master Yi (net +0.39)
 
 - **0.54** untargetable: Alpha Strike makes Master Yi untargetable, dodging Zed's Death Mark. Untargetable for ?; Death Mark lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Zed R Death Mark)
 - **0.06** cc immunity: Highlander makes Master Yi immune to Zed's Shadow Slash (slow). Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Zed E Shadow Slash)
 - **0.05** cleanse: Highlander cleanses Zed's Shadow Slash (slow) after it lands. 85 s cooldown; usable while crowd controlled. (Master Yi R Highlander → Zed E Shadow Slash)
 - Watch out: Death Mark makes Zed untargetable, dodging Master Yi's Alpha Strike.
 
-### 7. Aurora (net +0.31)
+#### 7. Aurora (net +0.31)
 
 - **0.54** untargetable: Between Worlds makes Aurora untargetable, dodging Zed's Death Mark. Untargetable for 0.4 s; Death Mark lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Zed R Death Mark)
 - **0.19** range: Aurora's basic attacks reach 425 units farther than Zed's (550 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Aurora basic attacks → Zed basic attacks)
 - Watch out: Death Mark makes Zed untargetable, dodging Aurora's Between Worlds.
 
-### 8. Fiora (net +0.30)
+#### 8. Fiora (net +0.30)
 
 - **0.54** parry: Riposte parries Zed's Death Mark. Parry for 0.75 s; Death Mark lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fiora W Riposte → Zed R Death Mark)
 - **0.07** attack speed slow: Riposte cuts Zed's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Zed basic attacks)
 - Watch out: Death Mark makes Zed untargetable, dodging Fiora's Riposte.
 
-### 9. Twitch (net +0.29)
+#### 9. Twitch (net +0.29)
 
 - **0.29** range: Twitch's basic attacks reach 425 units farther than Zed's (550 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Twitch basic attacks → Zed basic attacks)
 
-### 10. Kai'Sa (net +0.26)
+#### 10. Kai'Sa (net +0.26)
 
 - **0.26** range: Kai'Sa's basic attacks reach 400 units farther than Zed's (525 vs 125 attack range). Zed closes the gap with Death Mark, Living Shadow. (Kai'Sa basic attacks → Zed basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

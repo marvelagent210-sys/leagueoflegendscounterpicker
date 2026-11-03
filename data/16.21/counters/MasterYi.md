@@ -1,5 +1,186 @@
 # Counters to Master Yi (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Master Yi: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Master Yi wins every time) to +1 (the champion does). Run `npm run duel -- <champion> MasterYi --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Vayne | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 2 | Twisted Fate | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 3 | Yorick | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 4 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 5 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 6 | Udyr | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 7 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 8 | Tahm Kench | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 9 | Riven | +0.78 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | −1.00 |
+| 10 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 11 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 12 | Bel'Veth | +0.78 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | −0.23 |
+| 13 | Garen | +0.78 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | −1.00 |
+| 14 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 15 | Kennen | +0.77 | +1.00 | +0.96 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 16 | Cho'Gath | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 17 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 18 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 19 | Aphelios | +0.76 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | −1.00 |
+| 20 | Xin Zhao | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 21 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | −1.00 |
+| 22 | Kalista | +0.75 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | −1.00 |
+| 23 | Volibear | +0.74 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | −1.00 |
+| 24 | Kayn | +0.74 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | −1.00 |
+| 25 | Ivern | +0.74 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | −1.00 |
+| 26 | Gangplank | +0.73 | +1.00 | +1.00 | +1.00 | +0.04 | – | −1.00 |
+| 27 | Shyvana | +0.73 | +1.00 | +1.00 | +1.00 | +0.02 | – | −1.00 |
+| 28 | Poppy | +0.73 | +1.00 | +1.00 | +1.00 | +0.02 | – | −1.00 |
+| 29 | Fiora | +0.72 | +1.00 | +1.00 | +1.00 | +0.01 | – | −1.00 |
+| 30 | Nasus | +0.72 | +1.00 | +1.00 | +1.00 | −0.01 | – | −1.00 |
+| 31 | Zaahen | +0.72 | +1.00 | +1.00 | +1.00 | −0.03 | – | −1.00 |
+| 32 | Olaf | +0.71 | +1.00 | +1.00 | +1.00 | −0.05 | – | −1.00 |
+| 33 | Trundle | +0.71 | +1.00 | +1.00 | +1.00 | −0.06 | – | −1.00 |
+| 34 | Sett | +0.71 | +1.00 | +1.00 | +1.00 | +0.06 | +0.00 | +0.00 |
+| 35 | Kled | +0.70 | +1.00 | +1.00 | +1.00 | −0.15 | – | −1.00 |
+| 36 | Taric | +0.63 | +1.00 | +1.00 | +1.00 | +0.18 | −1.00 | +0.00 |
+| 37 | Alistar | +0.60 | +1.00 | +1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 38 | Rakan | +0.58 | +1.00 | +1.00 | +0.00 | −0.12 | +1.00 | +0.00 |
+| 39 | Karma | +0.58 | +1.00 | +0.98 | −0.01 | −0.03 | +0.92 | +0.00 |
+| 40 | Maokai | +0.58 | +1.00 | +1.00 | +1.00 | +0.17 | −1.00 | −1.00 |
+| 41 | Rek'Sai | +0.56 | +1.00 | +1.00 | +1.00 | +0.04 | −1.00 | −1.00 |
+| 42 | Braum | +0.54 | +1.00 | +1.00 | +1.00 | −0.09 | −1.00 | −1.00 |
+| 43 | Elise | +0.52 | +0.94 | +0.94 | +0.94 | +0.06 | −1.00 | −1.00 |
+| 44 | Wukong | +0.52 | +1.00 | +1.00 | +1.00 | −0.23 | −1.00 | −1.00 |
+| 45 | Lee Sin | +0.48 | +1.00 | +1.00 | +0.00 | −0.10 | – | −1.00 |
+| 46 | Aatrox | +0.42 | +1.00 | +0.00 | +1.00 | −0.15 | – | −1.00 |
+| 47 | Sion | +0.41 | +0.50 | +0.50 | +0.50 | +0.13 | – | +0.00 |
+| 48 | Jayce | +0.31 | +1.00 | +0.00 | +0.00 | +0.08 | +1.00 | −1.00 |
+| 49 | Camille | +0.28 | +1.00 | +0.00 | +0.00 | −0.12 | +1.00 | −1.00 |
+| 50 | Warwick | +0.21 | +1.00 | +1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 51 | Fizz | +0.13 | +1.00 | +1.00 | −1.00 | −0.10 | −1.00 | −1.00 |
+| 52 | Gnar | +0.11 | +0.37 | +0.69 | +0.00 | −0.02 | −1.00 | −1.00 |
+| 53 | Kog'Maw | +0.11 | +0.00 | +0.00 | +0.50 | +0.07 | +0.00 | +0.00 |
+| 54 | Lulu | +0.10 | +1.00 | +0.00 | +0.00 | +0.01 | −1.00 | −1.00 |
+| 55 | Annie | +0.06 | −1.00 | +1.00 | +0.00 | +0.09 | +1.00 | −1.00 |
+| 56 | Mordekaiser | +0.05 | −0.53 | −0.06 | +1.00 | +0.00 | −0.06 | +0.00 |
+| 57 | Vi | +0.04 | +1.00 | −1.00 | +1.00 | −0.04 | −1.00 | −1.00 |
+| 58 | Zac | +0.04 | −0.77 | +0.26 | +0.26 | +0.12 | +1.00 | +0.00 |
+| 59 | Corki | +0.01 | +0.82 | −1.00 | +1.00 | +0.01 | −1.00 | −1.00 |
+| 60 | Yone | −0.07 | +0.00 | +0.00 | +0.00 | −0.10 | – | −1.00 |
+| 61 | Neeko | −0.08 | +1.00 | −1.00 | +0.00 | +0.15 | −1.00 | +0.00 |
+| 62 | Ashe | −0.12 | −0.02 | +0.00 | +0.00 | +0.25 | −1.00 | −1.00 |
+| 63 | Graves | −0.12 | +1.00 | −1.00 | −1.00 | +0.20 | +1.00 | −1.00 |
+| 64 | Xayah | −0.19 | −1.00 | +0.00 | +0.00 | +0.06 | +1.00 | −1.00 |
+| 65 | Briar | −0.27 | −1.00 | +0.00 | +0.00 | −0.16 | +0.00 | +0.00 |
+| 66 | Nilah | −0.33 | −1.00 | +1.00 | −1.00 | +0.14 | −1.00 | −1.00 |
+| 67 | Skarner | −0.34 | −1.00 | +0.00 | +0.00 | +0.10 | −1.00 | +0.00 |
+| 68 | Malzahar | −0.35 | −1.00 | +0.00 | +0.00 | +0.00 | −1.00 | +0.00 |
+| 69 | Amumu | −0.36 | −1.00 | +0.00 | +0.00 | −0.06 | −1.00 | −0.06 |
+| 70 | Heimerdinger | −0.43 | −1.00 | −1.00 | +1.00 | +0.11 | −1.00 | −1.00 |
+| 71 | Irelia | −0.46 | −1.00 | −1.00 | +1.00 | −0.07 | −1.00 | −1.00 |
+| 72 | Senna | −0.48 | −1.00 | −0.44 | −0.44 | +0.04 | +0.13 | −1.00 |
+| 73 | Shen | −0.54 | −1.00 | +0.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 74 | Anivia | −0.55 | −1.00 | −0.38 | −0.48 | −0.09 | −1.00 | +0.00 |
+| 75 | Zilean | −0.56 | −1.00 | +0.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 76 | Vel'Koz | −0.56 | −1.00 | −1.00 | +0.00 | +0.24 | −1.00 | +0.00 |
+| 77 | Nautilus | −0.59 | −1.00 | −1.00 | +0.00 | +0.07 | −1.00 | +0.00 |
+| 78 | Caitlyn | −0.60 | −1.00 | −1.00 | +0.00 | +0.00 | −1.00 | +0.00 |
+| 79 | Swain | −0.66 | −1.00 | −0.61 | −0.61 | +0.03 | −1.00 | −0.81 |
+| 80 | Bard | −0.67 | −1.00 | −1.00 | −0.50 | +0.20 | −1.00 | +0.00 |
+| 81 | Quinn | −0.69 | −1.00 | −1.00 | −0.14 | −0.10 | −1.00 | −1.00 |
+| 82 | Veigar | −0.72 | −1.00 | −1.00 | −0.57 | −0.05 | −1.00 | +0.00 |
+| 83 | Ambessa | −0.75 | −1.00 | −1.00 | −1.00 | +0.30 | −1.00 | +0.00 |
+| 84 | Aurelion Sol | −0.76 | −1.00 | −1.00 | −1.00 | +0.29 | −1.00 | +0.00 |
+| 85 | Cassiopeia | −0.76 | −0.88 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 86 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 87 | Rengar | −0.77 | −1.00 | −1.00 | −1.00 | +0.36 | – | −1.00 |
+| 88 | Malphite | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 89 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 90 | Ryze | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 91 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 92 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 93 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 94 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 95 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 96 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 97 | Ahri | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 98 | Hwei | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 99 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 100 | Kayle | −0.80 | −1.00 | −1.00 | −1.00 | +0.35 | −1.00 | −1.00 |
+| 101 | Azir | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 102 | Jinx | −0.80 | −1.00 | −1.00 | −0.78 | +0.03 | −1.00 | −1.00 |
+| 103 | Jhin | −0.81 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | −0.50 |
+| 104 | Kassadin | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 105 | Sejuani | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 106 | Aurora | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 107 | Fiddlesticks | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 108 | Karthus | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 109 | Rammus | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 110 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 111 | Nocturne | −0.82 | −1.00 | −1.00 | −1.00 | −0.07 | – | −0.50 |
+| 112 | Hecarim | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
+| 113 | Milio | −0.82 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | −1.00 |
+| 114 | Nunu & Willump | −0.82 | −1.00 | −1.00 | −1.00 | +0.06 | – | −1.00 |
+| 115 | Ziggs | −0.82 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | −1.00 |
+| 116 | Rell | −0.82 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | −1.00 |
+| 117 | Diana | −0.83 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 118 | Smolder | −0.83 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | −1.00 |
+| 119 | Shaco | −0.83 | −1.00 | −1.00 | −1.00 | +0.03 | – | −1.00 |
+| 120 | Renata Glasc | −0.83 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | −1.00 |
+| 121 | Vex | −0.83 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −0.50 |
+| 122 | Gragas | −0.83 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | −0.50 |
+| 123 | Rumble | −0.84 | −1.00 | −1.00 | −1.00 | −0.01 | – | −1.00 |
+| 124 | Viego | −0.84 | −1.00 | −1.00 | −1.00 | −0.01 | – | −1.00 |
+| 125 | Zeri | −0.84 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | −1.00 |
+| 126 | Akali | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
+| 127 | Akshan | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 128 | Miss Fortune | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 129 | Seraphine | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −1.00 |
+| 130 | Lux | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | −0.86 | −1.00 |
+| 131 | Twitch | −0.84 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −1.00 |
+| 132 | Tristana | −0.84 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | −1.00 |
+| 133 | Soraka | −0.84 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | −1.00 |
+| 134 | Zyra | −0.84 | −1.00 | −1.00 | −0.99 | +0.03 | −1.00 | −1.00 |
+| 135 | Janna | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 136 | Syndra | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 137 | Orianna | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 138 | Kindred | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 139 | Mel | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 140 | Sylas | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 141 | Nami | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 142 | Sona | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 143 | Varus | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 144 | Yunara | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 145 | Viktor | −0.85 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | −1.00 |
+| 146 | Brand | −0.85 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | −1.00 |
+| 147 | LeBlanc | −0.85 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | −1.00 |
+| 148 | Zed | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
+| 149 | Jarvan IV | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 150 | Katarina | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 151 | Sivir | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 152 | Xerath | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 153 | Draven | −0.85 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −1.00 |
+| 154 | Nidalee | −0.85 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −1.00 |
+| 155 | Lillia | −0.86 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | −1.00 |
+| 156 | Lucian | −0.86 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | −1.00 |
+| 157 | Samira | −0.86 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | −1.00 |
+| 158 | Leona | −0.86 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | −1.00 |
+| 159 | Evelynn | −0.86 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | −1.00 |
+| 160 | Talon | −0.86 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | −1.00 |
+| 161 | Galio | −0.86 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | −1.00 |
+| 162 | Qiyana | −0.86 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | −1.00 |
+| 163 | Naafiri | −0.86 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | −1.00 |
+| 164 | Gwen | −0.86 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | −1.00 |
+| 165 | Ezreal | −0.86 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | −1.00 |
+| 166 | Kai'Sa | −0.87 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | −1.00 |
+| 167 | Locke | −0.87 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | −1.00 |
+| 168 | Ekko | −0.87 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | −1.00 |
+| 169 | Morgana | −0.87 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | −1.00 |
+| 170 | Yuumi | −0.87 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | −1.00 |
+| 171 | Pyke | −0.88 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | −1.00 |
+| 172 | Thresh | −0.88 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Master Yi's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,65 +189,65 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> MasterYi` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.81)
+#### 1. Sivir (net +0.81)
 
 - **0.41** range: Sivir's basic attacks reach 325 units farther than Master Yi's (500 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Sivir basic attacks → Master Yi basic attacks)
 - **0.40** spell shield: Spell Shield's spell shield blocks part of Master Yi's Alpha Strike. Spell shield for 1.5 s, long enough to use ahead of Alpha Strike. A spell shield blocks only the first enemy ability that reaches it. Spell shield will only block a single instance of damage. (Sivir E Spell Shield → Master Yi Q Alpha Strike)
 
-### 2. Kayle (net +0.56)
+#### 2. Kayle (net +0.56)
 
 - **0.43** invulnerable: Divine Judgment makes Kayle invulnerable to Master Yi's Alpha Strike. Invulnerable for 2.5 s, long enough to use ahead of Alpha Strike. (Kayle R Divine Judgment → Master Yi Q Alpha Strike)
 - **0.36** range: Kayle's basic attacks reach 450 units farther than Master Yi's (625 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Kayle basic attacks → Master Yi basic attacks)
 - Watch out: Alpha Strike makes Master Yi untargetable, dodging Kayle's Starfire Spellblade.
 
-### 3. Vladimir (net +0.40)
+#### 3. Vladimir (net +0.40)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Master Yi's Alpha Strike. Untargetable for 2 s, long enough to use ahead of Alpha Strike. (Vladimir W Sanguine Pool → Master Yi Q Alpha Strike)
 - **0.15** range: Vladimir's basic attacks reach 275 units farther than Master Yi's (450 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Vladimir basic attacks → Master Yi basic attacks)
 - Watch out: Alpha Strike makes Master Yi untargetable, dodging Vladimir's Hemoplague.
 
-### 4. Kai'Sa (net +0.34)
+#### 4. Kai'Sa (net +0.34)
 
 - **0.34** range: Kai'Sa's basic attacks reach 350 units farther than Master Yi's (525 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Kai'Sa basic attacks → Master Yi basic attacks)
 
-### 5. Twitch (net +0.33)
+#### 5. Twitch (net +0.33)
 
 - **0.40** range: Twitch's basic attacks reach 375 units farther than Master Yi's (550 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Twitch basic attacks → Master Yi basic attacks)
 - Watch out: Highlander makes Master Yi immune to Twitch's Venom Cask (slow).
 
-### 6. Xayah (net +0.28)
+#### 6. Xayah (net +0.28)
 
 - **0.41** untargetable: Featherstorm makes Xayah untargetable, dodging Master Yi's Alpha Strike. Untargetable for 1.5 s, long enough to use ahead of Alpha Strike. (Xayah R Featherstorm → Master Yi Q Alpha Strike)
 - **0.34** range: Xayah's basic attacks reach 350 units farther than Master Yi's (525 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Xayah basic attacks → Master Yi basic attacks)
 - Watch out: Alpha Strike makes Master Yi untargetable, dodging Xayah's Featherstorm.
 
-### 7. Yunara (net +0.27)
+#### 7. Yunara (net +0.27)
 
 - **0.36** range: Yunara's basic attacks reach 400 units farther than Master Yi's (575 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Yunara basic attacks → Master Yi basic attacks)
 - Watch out: Highlander makes Master Yi immune to Yunara's Arc of Judgment (slow).
 
-### 8. Twisted Fate (net +0.25)
+#### 8. Twisted Fate (net +0.25)
 
 - **0.38** range: Twisted Fate's basic attacks reach 350 units farther than Master Yi's (525 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Twisted Fate basic attacks → Master Yi basic attacks)
 - **0.23** interrupt: Pick a Card's stun interrupts Master Yi's Meditate (normal channel). Pick a Card must land during the channel. (Twisted Fate W Pick a Card → Master Yi W Meditate)
 - Watch out: Alpha Strike makes Master Yi untargetable, dodging Twisted Fate's Pick a Card.
 
-### 9. Singed (net +0.18)
+#### 9. Singed (net +0.18)
 
 - **0.39** grounding: Mega Adhesive grounds Master Yi, who then can't cast Alpha Strike. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Master Yi Q Alpha Strike)
 - **0.23** interrupt: Fling's airborne interrupts Master Yi's Meditate (normal channel). Fling must land during the channel. (Singed E Fling → Master Yi W Meditate)
 - **0.18** anti-heal: Insanity Potion's Grievous Wounds cuts Master Yi's healing from Meditate by 40%. (Singed R Insanity Potion → Master Yi W Meditate)
 - Watch out: Alpha Strike makes Master Yi untargetable, dodging Singed's Fling.
 
-### 10. Zilean (net +0.10)
+#### 10. Zilean (net +0.10)
 
 - **0.30** range: Zilean's basic attacks reach 375 units farther than Master Yi's (550 vs 175 attack range). Master Yi closes the gap with Alpha Strike. (Zilean basic attacks → Master Yi basic attacks)
 - **0.23** interrupt: Time Bomb's stun interrupts Master Yi's Meditate (normal channel). Time Bomb must land during the channel. (Zilean Q Time Bomb → Master Yi W Meditate)
 - Watch out: Alpha Strike makes Master Yi untargetable, dodging Zilean's Time Warp.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

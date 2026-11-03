@@ -1,5 +1,186 @@
 # Counters to Yuumi (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Yuumi: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yuumi wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yuumi --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Jarvan IV | +0.90 | +1.00 | +1.00 | +1.00 | +0.31 | +1.00 | +1.00 |
+| 2 | Rengar | +0.87 | +1.00 | +1.00 | +1.00 | +0.50 | +1.00 | +0.00 |
+| 3 | Aurelion Sol | +0.87 | +1.00 | +1.00 | +1.00 | +0.48 | +1.00 | +0.00 |
+| 4 | Master Yi | +0.87 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +1.00 |
+| 5 | Kayle | +0.87 | +1.00 | +1.00 | +1.00 | +0.44 | +1.00 | +0.00 |
+| 6 | Ashe | +0.86 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.96 |
+| 7 | Camille | +0.86 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +1.00 |
+| 8 | Viego | +0.86 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +1.00 |
+| 9 | K'Sante | +0.85 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +1.00 |
+| 10 | Sylas | +0.85 | +1.00 | +1.00 | +1.00 | +0.36 | +1.00 | +0.00 |
+| 11 | Riven | +0.85 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +1.00 |
+| 12 | Shyvana | +0.85 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +1.00 |
+| 13 | Aphelios | +0.85 | +1.00 | +1.00 | +1.00 | +0.31 | +1.00 | +0.00 |
+| 14 | Yorick | +0.85 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +1.00 |
+| 15 | Nunu & Willump | +0.84 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 16 | Skarner | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 17 | Vel'Koz | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 18 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 19 | Volibear | +0.84 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.80 |
+| 20 | Trundle | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 21 | Udyr | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 22 | Xin Zhao | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 23 | Milio | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 24 | Kled | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 25 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 26 | Teemo | +0.83 | +1.00 | +1.00 | +1.00 | +0.30 | – | +0.00 |
+| 27 | Tahm Kench | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 28 | Tristana | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 29 | Yasuo | +0.83 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.30 |
+| 30 | Smolder | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 31 | Yunara | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 32 | Renata Glasc | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 33 | Cassiopeia | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 34 | Lulu | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 35 | Diana | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 36 | Ziggs | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 37 | Zac | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 38 | Samira | +0.82 | +1.00 | +1.00 | +1.00 | +0.27 | – | +0.00 |
+| 39 | Jinx | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 40 | Annie | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 41 | Swain | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 42 | Zeri | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 43 | Naafiri | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 44 | Lillia | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 45 | Miss Fortune | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 46 | Irelia | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 47 | Yone | +0.82 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.46 |
+| 48 | Draven | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 49 | Maokai | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 50 | Janna | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 51 | Heimerdinger | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 52 | Nautilus | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 53 | Senna | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 54 | Kalista | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 55 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 56 | Syndra | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 57 | Zilean | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 58 | Orianna | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 59 | Vi | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 60 | Xayah | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 61 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 62 | Kog'Maw | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 63 | Neeko | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 64 | Hecarim | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 65 | Kennen | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 66 | Jhin | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 67 | Kai'Sa | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 68 | Evelynn | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 69 | Lissandra | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 70 | Qiyana | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 71 | Mel | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 72 | Azir | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 73 | Hwei | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 74 | Caitlyn | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 75 | Zoe | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 76 | Ryze | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 77 | Varus | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 78 | Corki | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 79 | Nilah | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 80 | Sona | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 81 | Nami | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 82 | Kha'Zix | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 83 | Elise | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 84 | Locke | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 85 | Karma | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 86 | Ambessa | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 87 | Sion | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 88 | Lux | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 89 | Aurora | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 90 | Vayne | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 91 | Sejuani | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 92 | Brand | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 93 | LeBlanc | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 94 | Twitch | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 95 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 96 | Ahri | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 97 | Katarina | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 98 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 99 | Veigar | +0.80 | +0.99 | +0.99 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 100 | Shaco | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 101 | Graves | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 102 | Shen | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 103 | Twisted Fate | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 104 | Xerath | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 105 | Rammus | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 106 | Zyra | +0.80 | +1.00 | +1.00 | +1.00 | +0.08 | +0.91 | +0.00 |
+| 107 | Galio | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 108 | Rakan | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 109 | Seraphine | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 110 | Quinn | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 111 | Rek'Sai | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 112 | Pantheon | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 113 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 114 | Mordekaiser | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 115 | Briar | +0.80 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.35 |
+| 116 | Viktor | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 117 | Illaoi | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 118 | Ezreal | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 119 | Bel'Veth | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 120 | Singed | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 121 | Kayn | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 122 | Gragas | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 123 | Amumu | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +0.99 | +0.00 |
+| 124 | Kassadin | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 125 | Renekton | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 126 | Nidalee | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 127 | Akali | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 128 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 129 | Talon | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 130 | Lee Sin | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 131 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 132 | Rumble | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 133 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 134 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 135 | Warwick | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 136 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 137 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 138 | Urgot | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 139 | Ekko | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 140 | Sett | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 141 | Bard | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 142 | Akshan | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 143 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 144 | Nocturne | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 145 | Fizz | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 146 | Karthus | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 147 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 148 | Morgana | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 149 | Zed | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 150 | Fiddlesticks | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 151 | Thresh | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 152 | Lucian | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 153 | Kindred | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 154 | Wukong | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 155 | Sivir | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 156 | Vladimir | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 157 | Ivern | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 158 | Garen | +0.77 | +0.95 | +1.00 | +1.00 | +0.16 | +0.57 | +0.00 |
+| 159 | Aatrox | +0.76 | +1.00 | +0.92 | +1.00 | −0.09 | +0.93 | +0.00 |
+| 160 | Malzahar | +0.75 | +0.88 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 161 | Anivia | +0.69 | +0.83 | +1.00 | +1.00 | −0.03 | +0.42 | +0.00 |
+| 162 | Rell | +0.63 | +1.00 | +0.24 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 163 | Vex | +0.56 | +0.23 | +0.82 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 164 | Braum | +0.38 | +0.76 | +0.70 | +0.02 | −0.02 | +0.15 | +0.00 |
+| 165 | Leona | +0.37 | +0.23 | +0.12 | +0.96 | +0.01 | +0.87 | +0.00 |
+| 166 | Soraka | +0.27 | +0.29 | +0.29 | +0.47 | +0.02 | +0.26 | +0.00 |
+| 167 | Ornn | +0.26 | +0.09 | +0.08 | +0.73 | +0.02 | +0.70 | +0.00 |
+| 168 | Taric | +0.12 | +0.17 | +0.09 | +0.17 | +0.05 | +0.17 | +0.00 |
+| 169 | Taliyah | −0.16 | +0.19 | −0.72 | −0.76 | +0.13 | +1.00 | +0.00 |
+| 170 | Blitzcrank | −0.54 | −0.51 | −0.48 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 171 | Pyke | −0.59 | −1.00 | −0.03 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 172 | Alistar | −0.78 | −1.00 | −1.00 | −1.00 | +0.07 | −0.94 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Yuumi's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,69 +189,69 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Yuumi` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Braum (net +0.64)
+#### 1. Braum (net +0.64)
 
 - **0.60** projectile block: Unbreakable blocks Yuumi's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Yuumi basic attacks)
 - **0.55** projectile block: Unbreakable blocks Yuumi's Final Chapter, a projectile. Unbreakable for 4 s, long enough to use ahead of Final Chapter. (Braum E Unbreakable → Yuumi R Final Chapter)
 - **0.40** projectile block: Unbreakable blocks Yuumi's Prowling Projectile, a projectile. Unbreakable for 4 s, long enough to use ahead of Prowling Projectile. (Braum E Unbreakable → Yuumi Q Prowling Projectile)
 - Watch out: You and Me! makes Yuumi untargetable, dodging Braum's Glacial Fissure.
 
-### 2. Sivir (net +0.37)
+#### 2. Sivir (net +0.37)
 
 - **0.28** spell shield: Spell Shield's spell shield blocks part of Yuumi's Final Chapter. Spell shield for 1.5 s, long enough to use ahead of Final Chapter. A spell shield blocks only the first enemy ability that reaches it. Spell shield will only block a single instance of damage. (Sivir E Spell Shield → Yuumi R Final Chapter)
 - **0.09** range: Sivir's basic attacks reach 75 units farther than Yuumi's (500 vs 425 attack range). Yuumi closes the gap with You and Me!. (Sivir basic attacks → Yuumi basic attacks)
 
-### 3. Lulu (net +0.31)
+#### 3. Lulu (net +0.31)
 
 - **0.40** disarm: Whimsy disarms Yuumi for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Yuumi basic attacks)
 - **0.28** interrupt: Whimsy's polymorph interrupts Yuumi's Final Chapter (normal channel). Whimsy must land during the channel. (Lulu W Whimsy → Yuumi R Final Chapter)
 - **0.28** interrupt: Wild Growth's airborne interrupts Yuumi's Final Chapter (normal channel). Wild Growth must land during the channel. (Lulu R Wild Growth → Yuumi R Final Chapter)
 - Watch out: You and Me! makes Yuumi untargetable, dodging Lulu's Wild Growth.
 
-### 4. Aurora (net +0.22)
+#### 4. Aurora (net +0.22)
 
 - **0.55** untargetable: Between Worlds makes Aurora untargetable, dodging Yuumi's Final Chapter. Untargetable for 0.4 s; Final Chapter takes 0.37 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Yuumi R Final Chapter)
 - **0.09** range: Aurora's basic attacks reach 125 units farther than Yuumi's (550 vs 425 attack range). Yuumi closes the gap with You and Me!. (Aurora basic attacks → Yuumi basic attacks)
 - Watch out: You and Me! makes Yuumi untargetable, dodging Aurora's Between Worlds.
 
-### 5. Kayle (net +0.19)
+#### 5. Kayle (net +0.19)
 
 - **0.28** invulnerable: Divine Judgment makes Kayle invulnerable to Yuumi's Final Chapter (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Final Chapter. (Kayle R Divine Judgment → Yuumi R Final Chapter)
 - **0.18** range: Kayle's basic attacks reach 200 units farther than Yuumi's (625 vs 425 attack range). Yuumi closes the gap with You and Me!. (Kayle basic attacks → Yuumi basic attacks)
 - Watch out: You and Me! makes Yuumi untargetable, dodging Kayle's Starfire Spellblade.
 
-### 6. Rell (net +0.14)
+#### 6. Rell (net +0.14)
 
 - **0.28** interrupt: Ferromancy: Crash Down's airborne interrupts Yuumi's Final Chapter (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Yuumi R Final Chapter)
 - **0.28** interrupt: Ferromancy: Mount Up's airborne interrupts Yuumi's Final Chapter (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Yuumi R Final Chapter)
 - **0.28** interrupt: Full Tilt's stun interrupts Yuumi's Final Chapter (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Yuumi R Final Chapter)
 - Watch out: You and Me! makes Yuumi untargetable, dodging Rell's Ferromancy: Crash Down.
 
-### 7. Yunara (net +0.14)
+#### 7. Yunara (net +0.14)
 
 - **0.14** range: Yunara's basic attacks reach 150 units farther than Yuumi's (575 vs 425 attack range). Yuumi closes the gap with You and Me!. (Yunara basic attacks → Yuumi basic attacks)
 
-### 8. Malzahar (net +0.13)
+#### 8. Malzahar (net +0.13)
 
 - **0.28** interrupt: Call of the Void's silence interrupts Yuumi's Final Chapter (normal channel). Call of the Void must land during the channel. (Malzahar Q Call of the Void → Yuumi R Final Chapter)
 - **0.28** interrupt: Nether Grasp's suppression interrupts Yuumi's Final Chapter (normal channel). Nether Grasp must land during the channel. (Malzahar R Nether Grasp → Yuumi R Final Chapter)
 - **0.23** interrupt: Call of the Void's silence interrupts Yuumi's Prowling Projectile (normal channel). Call of the Void must land during the channel. (Malzahar Q Call of the Void → Yuumi Q Prowling Projectile)
 - Watch out: You and Me! makes Yuumi untargetable, dodging Malzahar's Nether Grasp.
 
-### 9. Twitch (net +0.13)
+#### 9. Twitch (net +0.13)
 
 - **0.13** range: Twitch's basic attacks reach 125 units farther than Yuumi's (550 vs 425 attack range). Yuumi closes the gap with You and Me!. (Twitch basic attacks → Yuumi basic attacks)
 
-### 10. Twisted Fate (net +0.12)
+#### 10. Twisted Fate (net +0.12)
 
 - **0.28** interrupt: Pick a Card's stun interrupts Yuumi's Final Chapter (normal channel). Pick a Card must land during the channel. (Twisted Fate W Pick a Card → Yuumi R Final Chapter)
 - **0.23** interrupt: Pick a Card's stun interrupts Yuumi's Prowling Projectile (normal channel). Pick a Card must land during the channel. (Twisted Fate W Pick a Card → Yuumi Q Prowling Projectile)
 - **0.14** interrupt: Pick a Card's stun interrupts Yuumi's You and Me! (movement channel). Pick a Card must land during the channel. (Twisted Fate W Pick a Card → Yuumi W You and Me!)
 - Watch out: You and Me! makes Yuumi untargetable, dodging Twisted Fate's Pick a Card.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

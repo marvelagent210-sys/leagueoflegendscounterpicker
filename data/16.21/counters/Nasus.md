@@ -1,5 +1,186 @@
 # Counters to Nasus (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Nasus: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Nasus wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Nasus --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Ivern | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 2 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 3 | Yorick | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 4 | Vayne | +0.42 | +1.00 | +1.00 | −1.00 | +0.12 | +1.00 | +0.00 |
+| 5 | Ashe | +0.09 | −0.01 | +0.68 | −1.00 | +0.14 | +1.00 | +0.00 |
+| 6 | Zac | −0.03 | +0.04 | −0.01 | −0.04 | −0.19 | – | +0.00 |
+| 7 | Anivia | −0.05 | −0.28 | +0.07 | +0.04 | −0.10 | +0.11 | +0.00 |
+| 8 | Yasuo | −0.21 | +1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 9 | Karma | −0.37 | −0.12 | −0.59 | −1.00 | +0.09 | −0.09 | +0.00 |
+| 10 | Tahm Kench | −0.41 | −0.24 | −0.26 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 11 | Kog'Maw | −0.44 | −1.00 | +0.00 | −1.00 | +0.10 | +0.00 | +0.00 |
+| 12 | K'Sante | −0.52 | −1.00 | −1.00 | −1.00 | +0.21 | +1.00 | +1.00 |
+| 13 | Fiora | −0.69 | −1.00 | −1.00 | −1.00 | +0.22 | – | +1.00 |
+| 14 | Master Yi | −0.72 | −1.00 | −1.00 | −1.00 | +0.01 | – | +1.00 |
+| 15 | Rengar | −0.73 | −1.00 | −1.00 | −1.00 | +0.27 | – | +0.00 |
+| 16 | Aurelion Sol | −0.74 | −1.00 | −1.00 | −1.00 | +0.38 | −1.00 | +0.00 |
+| 17 | Gwen | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 18 | Ambessa | −0.75 | −1.00 | −1.00 | −1.00 | +0.30 | −1.00 | +0.00 |
+| 19 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 20 | Gangplank | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 21 | Cho'Gath | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 22 | Zaahen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 23 | Volibear | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 24 | Hecarim | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 25 | Vel'Koz | −0.76 | −1.00 | −1.00 | −1.00 | +0.26 | −1.00 | +0.00 |
+| 26 | Poppy | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 27 | Naafiri | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 28 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 29 | Milio | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −0.01 |
+| 30 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 31 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 32 | Darius | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 33 | Udyr | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 34 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 35 | Lee Sin | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 36 | Jax | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 37 | Sion | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 38 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 39 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 40 | Dr. Mundo | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 41 | Illaoi | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 42 | Nocturne | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 43 | Kayle | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 44 | Diana | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 45 | Ziggs | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 46 | Corki | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 47 | Sejuani | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 48 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 49 | Jarvan IV | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 50 | Galio | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 51 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 52 | Cassiopeia | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 53 | Karthus | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 54 | Ryze | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 55 | Heimerdinger | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 56 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 57 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 58 | Taliyah | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 59 | Malphite | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 60 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 61 | Xayah | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 62 | Wukong | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 63 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 64 | Maokai | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 65 | Mel | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 66 | Morgana | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 67 | Jhin | −0.78 | −0.99 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 68 | Janna | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 69 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 70 | Fiddlesticks | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 71 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 72 | Hwei | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 73 | Jinx | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 74 | Bel'Veth | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 75 | Syndra | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 76 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 77 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 78 | Neeko | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 79 | Shaco | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 80 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 81 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 82 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 83 | Lulu | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 84 | Gnar | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 85 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 86 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 87 | Teemo | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 88 | Renekton | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 89 | Annie | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 90 | Kled | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 91 | Zilean | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 92 | Azir | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 93 | Fizz | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 94 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 95 | Zoe | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 96 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 97 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 98 | Orianna | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 99 | Alistar | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 100 | Twisted Fate | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 101 | Rakan | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 102 | Seraphine | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 103 | Varus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 104 | Elise | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 105 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 106 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 107 | Ezreal | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 108 | Gragas | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 109 | LeBlanc | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 110 | Yuumi | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 111 | Viktor | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 112 | Sona | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 113 | Xin Zhao | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 114 | Soraka | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −0.02 |
+| 115 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 116 | Locke | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | −0.01 |
+| 117 | Kayn | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 118 | Bard | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 119 | Lillia | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 120 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 121 | Malzahar | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 122 | Warwick | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 123 | Vi | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 124 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 125 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 126 | Vex | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 127 | Leona | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 128 | Zed | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 129 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 130 | Samira | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 131 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 132 | Rek'Sai | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 133 | Olaf | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 134 | Nilah | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 135 | Shyvana | −0.81 | −1.00 | −1.00 | −1.00 | +0.15 | – | −1.00 |
+| 136 | Skarner | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 137 | Braum | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 138 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | +0.13 | – | −1.00 |
+| 139 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | +0.09 | – | −1.00 |
+| 140 | Rammus | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 141 | Katarina | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 142 | Qiyana | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 143 | Aphelios | −0.82 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | −1.00 |
+| 144 | Sylas | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 145 | Camille | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 146 | Smolder | −0.83 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | −1.00 |
+| 147 | Yunara | −0.83 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | −1.00 |
+| 148 | Viego | −0.83 | −1.00 | −1.00 | −1.00 | +0.01 | – | −1.00 |
+| 149 | Kalista | −0.83 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | −1.00 |
+| 150 | Graves | −0.83 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | −1.00 |
+| 151 | Swain | −0.83 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | −1.00 |
+| 152 | Miss Fortune | −0.84 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | −1.00 |
+| 153 | Renata Glasc | −0.84 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | −1.00 |
+| 154 | Thresh | −0.84 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | −1.00 |
+| 155 | Nami | −0.84 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | −0.94 |
+| 156 | Kai'Sa | −0.84 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | −1.00 |
+| 157 | Sivir | −0.84 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −1.00 |
+| 158 | Akshan | −0.84 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | −1.00 |
+| 159 | Tristana | −0.84 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | −1.00 |
+| 160 | Quinn | −0.84 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | −1.00 |
+| 161 | Brand | −0.85 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | −1.00 |
+| 162 | Rell | −0.85 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | −1.00 |
+| 163 | Zeri | −0.85 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | −1.00 |
+| 164 | Kindred | −0.85 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | −1.00 |
+| 165 | Rumble | −0.85 | −1.00 | −1.00 | −1.00 | −0.08 | – | −1.00 |
+| 166 | Blitzcrank | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 167 | Nidalee | −0.85 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | −1.00 |
+| 168 | Veigar | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 169 | Ekko | −0.86 | −1.00 | −1.00 | −1.00 | −0.16 | – | −1.00 |
+| 170 | Pyke | −0.86 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | −1.00 |
+| 171 | Talon | −0.87 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | −1.00 |
+| 172 | Briar | −0.87 | −1.00 | −1.00 | −1.00 | −0.22 | – | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Nasus's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,76 +189,76 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Nasus` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +0.93)
+#### 1. Teemo (net +0.93)
 
 - **0.68** range: Teemo's basic attacks reach 375 units farther than Nasus's (500 vs 125 attack range). Nasus has no dash or blink to close the gap. (Teemo basic attacks → Nasus basic attacks)
 - **0.43** blind: Blinding Dart's blind makes Nasus's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Nasus basic attacks)
 - **0.36** blind: Blinding Dart's blind makes Nasus's Siphoning Strike, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Nasus Q Siphoning Strike)
 - Watch out: Wither cuts Teemo's attack speed by 75% for 5 s.
 
-### 2. Yuumi (net +0.83)
+#### 2. Yuumi (net +0.83)
 
 - **0.64** range: Yuumi's basic attacks reach 300 units farther than Nasus's (425 vs 125 attack range). Nasus has no dash or blink to close the gap. (Yuumi basic attacks → Nasus basic attacks)
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Nasus's Wither. Untargetable for ?; Wither takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Nasus W Wither)
 - **0.33** untargetable: You and Me! makes Yuumi untargetable, dodging Nasus's Siphoning Strike. Untargetable for ?; Siphoning Strike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Nasus Q Siphoning Strike)
 - Watch out: Wither cuts Yuumi's attack speed by 75% for 5 s.
 
-### 3. Sivir (net +0.79)
+#### 3. Sivir (net +0.79)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Nasus's (500 vs 125 attack range). Nasus has no dash or blink to close the gap. (Sivir basic attacks → Nasus basic attacks)
 - **0.35** spell shield: Spell Shield's spell shield blocks Nasus's Wither. Spell shield for 1.5 s, long enough to use ahead of Wither. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Nasus W Wither)
 - Watch out: Wither cuts Sivir's attack speed by 75% for 5 s.
 
-### 4. Xayah (net +0.72)
+#### 4. Xayah (net +0.72)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Nasus's (525 vs 125 attack range). Nasus has no dash or blink to close the gap. (Xayah basic attacks → Nasus basic attacks)
 - **0.23** untargetable: Featherstorm makes Xayah untargetable, dodging Nasus's Siphoning Strike. Untargetable for 1.5 s, long enough to use ahead of Siphoning Strike. (Xayah R Featherstorm → Nasus Q Siphoning Strike)
 - **0.21** untargetable: Featherstorm makes Xayah untargetable, dodging Nasus's Wither. Untargetable for 1.5 s, long enough to use ahead of Wither. (Xayah R Featherstorm → Nasus W Wither)
 - Watch out: Wither cuts Xayah's attack speed by 75% for 5 s.
 
-### 5. Bard (net +0.67)
+#### 5. Bard (net +0.67)
 
 - **0.72** range: Bard's basic attacks reach 375 units farther than Nasus's (500 vs 125 attack range). Nasus has no dash or blink to close the gap. (Bard basic attacks → Nasus basic attacks)
 - **0.23** untargetable: Tempered Fate makes Bard untargetable, dodging Nasus's Siphoning Strike. Untargetable for 2.5 s, long enough to use ahead of Siphoning Strike. (Bard R Tempered Fate → Nasus Q Siphoning Strike)
 - **0.22** untargetable: Tempered Fate makes Bard untargetable, dodging Nasus's Wither. Untargetable for 2.5 s, long enough to use ahead of Wither. (Bard R Tempered Fate → Nasus W Wither)
 - Watch out: Wither cuts Bard's attack speed by 75% for 5 s.
 
-### 6. Lulu (net +0.66)
+#### 6. Lulu (net +0.66)
 
 - **0.72** range: Lulu's basic attacks reach 425 units farther than Nasus's (550 vs 125 attack range). Nasus has no dash or blink to close the gap. (Lulu basic attacks → Nasus basic attacks)
 - **0.30** disarm: Whimsy disarms Nasus for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Nasus basic attacks)
 - Watch out: Wither cuts Lulu's attack speed by 75% for 5 s.
 
-### 7. Vladimir (net +0.66)
+#### 7. Vladimir (net +0.66)
 
 - **0.37** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Nasus's Wither. Untargetable for 2 s, long enough to use ahead of Wither. (Vladimir W Sanguine Pool → Nasus W Wither)
 - **0.36** range: Vladimir's basic attacks reach 325 units farther than Nasus's (450 vs 125 attack range). Nasus has no dash or blink to close the gap. (Vladimir basic attacks → Nasus basic attacks)
 - **0.29** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Nasus's Siphoning Strike. Untargetable for 2 s, long enough to use ahead of Siphoning Strike. (Vladimir W Sanguine Pool → Nasus Q Siphoning Strike)
 - Watch out: Wither cuts Vladimir's attack speed by 75% for 5 s.
 
-### 8. Kayle (net +0.59)
+#### 8. Kayle (net +0.59)
 
 - **0.72** range: Kayle's basic attacks reach 500 units farther than Nasus's (625 vs 125 attack range). Nasus has no dash or blink to close the gap. (Kayle basic attacks → Nasus basic attacks)
 - **0.23** invulnerable: Divine Judgment makes Kayle invulnerable to Nasus's Siphoning Strike. Invulnerable for 2.5 s, long enough to use ahead of Siphoning Strike. (Kayle R Divine Judgment → Nasus Q Siphoning Strike)
 - Watch out: Wither cuts Kayle's attack speed by 75% for 5 s.
 
-### 9. Aurora (net +0.57)
+#### 9. Aurora (net +0.57)
 
 - **0.58** range: Aurora's basic attacks reach 425 units farther than Nasus's (550 vs 125 attack range). Nasus has no dash or blink to close the gap. (Aurora basic attacks → Nasus basic attacks)
 - **0.21** untargetable: Between Worlds makes Aurora untargetable, dodging Nasus's Wither. Untargetable for 0.4 s; Wither takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Nasus W Wither)
 - **0.14** untargetable: Between Worlds makes Aurora untargetable, dodging Nasus's Siphoning Strike. Untargetable for 0.4 s; Siphoning Strike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Nasus Q Siphoning Strike)
 - Watch out: Wither cuts Aurora's attack speed by 75% for 5 s.
 
-### 10. Lissandra (net +0.56)
+#### 10. Lissandra (net +0.56)
 
 - **0.44** range: Lissandra's basic attacks reach 425 units farther than Nasus's (550 vs 125 attack range). Nasus has no dash or blink to close the gap. (Lissandra basic attacks → Nasus basic attacks)
 - **0.23** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Nasus's Siphoning Strike. Untargetable for 2.5 s, long enough to use ahead of Siphoning Strike. (Lissandra R Frozen Tomb → Nasus Q Siphoning Strike)
 - **0.22** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Nasus's Wither. Untargetable for 2.5 s, long enough to use ahead of Wither. (Lissandra R Frozen Tomb → Nasus W Wither)
 - Watch out: Wither cuts Lissandra's attack speed by 75% for 5 s.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

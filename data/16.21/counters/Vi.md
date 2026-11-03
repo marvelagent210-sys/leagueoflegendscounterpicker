@@ -1,5 +1,186 @@
 # Counters to Vi (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Vi: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Vi wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Vi --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.87 | +1.00 | +1.00 | +1.00 | +0.21 | – | +1.00 |
+| 2 | Yorick | +0.86 | +1.00 | +1.00 | +1.00 | +0.18 | – | +1.00 |
+| 3 | Gangplank | +0.85 | +1.00 | +1.00 | +1.00 | +0.12 | – | +1.00 |
+| 4 | Cassiopeia | +0.85 | +1.00 | +1.00 | +1.00 | +0.36 | +1.00 | +0.00 |
+| 5 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.11 | – | +1.00 |
+| 6 | Quinn | +0.84 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 7 | Milio | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 8 | Vayne | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 9 | Aphelios | +0.84 | +1.00 | +1.00 | +1.00 | +0.24 | +1.00 | +0.00 |
+| 10 | Cho'Gath | +0.84 | +1.00 | +1.00 | +1.00 | +0.35 | – | +0.00 |
+| 11 | Neeko | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 12 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.29 | – | +0.00 |
+| 13 | Kalista | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 14 | Kog'Maw | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 15 | Twisted Fate | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 16 | Darius | +0.82 | +1.00 | +1.00 | +1.00 | +0.24 | – | +0.00 |
+| 17 | Kennen | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 18 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 19 | Ivern | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 20 | Xayah | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 21 | Zeri | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 22 | Bel'Veth | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 23 | Lucian | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 24 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 25 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 26 | Riven | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 27 | Lulu | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 28 | Sett | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 29 | Wukong | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 30 | Zaahen | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 31 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 32 | Sona | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 33 | Azir | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 34 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 35 | Mordekaiser | +0.80 | +0.99 | +0.99 | +1.00 | +0.14 | – | +0.00 |
+| 36 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 37 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 38 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 39 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 40 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 41 | Trundle | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 42 | Shyvana | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 43 | Warwick | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 44 | Gnar | +0.79 | +0.98 | +1.00 | +0.94 | +0.02 | +1.00 | +0.00 |
+| 45 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 46 | Garen | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 47 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 48 | Tahm Kench | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 49 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 50 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 51 | Braum | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 52 | Maokai | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 53 | Zac | +0.77 | +0.99 | +1.00 | +0.99 | −0.02 | – | +0.00 |
+| 54 | Nocturne | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 55 | Kled | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 56 | Kayle | +0.75 | +0.72 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 57 | Kayn | +0.75 | +0.94 | +0.94 | +0.94 | +0.10 | – | +0.00 |
+| 58 | Viego | +0.74 | +0.78 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 59 | Morgana | +0.71 | +0.58 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 60 | Sion | +0.71 | +1.00 | +0.75 | +1.00 | −0.00 | – | +0.00 |
+| 61 | Urgot | +0.62 | +1.00 | +1.00 | +1.00 | +0.14 | −1.00 | +0.00 |
+| 62 | Annie | +0.61 | +1.00 | +1.00 | +0.00 | +0.05 | +1.00 | +0.00 |
+| 63 | Karma | +0.59 | +0.17 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 64 | Ashe | +0.57 | +0.02 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 65 | Lee Sin | +0.56 | +1.00 | +1.00 | +0.00 | +0.05 | – | +0.00 |
+| 66 | Heimerdinger | +0.48 | −0.34 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 67 | Irelia | +0.41 | +1.00 | −0.35 | +1.00 | +0.07 | – | +0.00 |
+| 68 | Rakan | +0.39 | +0.00 | +1.00 | +1.00 | +0.27 | −1.00 | +0.00 |
+| 69 | Corki | +0.32 | −1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 70 | Yunara | +0.31 | −1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 71 | Kai'Sa | +0.31 | −1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 72 | Sivir | +0.29 | −1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 73 | Lillia | +0.27 | −1.00 | +0.95 | +0.94 | +0.04 | +0.91 | +0.00 |
+| 74 | Ambessa | +0.26 | −1.00 | +1.00 | +1.00 | +0.23 | – | +0.00 |
+| 75 | Gwen | +0.25 | −1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 76 | Brand | +0.25 | −1.00 | +0.96 | +1.00 | +0.11 | +0.43 | +0.00 |
+| 77 | Diana | +0.24 | +1.00 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 78 | Yone | +0.23 | +1.00 | −1.00 | +1.00 | +0.05 | – | +0.00 |
+| 79 | Alistar | +0.23 | +1.00 | −1.00 | +1.00 | +0.03 | – | +0.00 |
+| 80 | Jinx | +0.21 | −1.00 | +0.67 | +0.96 | +0.03 | +1.00 | +0.00 |
+| 81 | Bard | +0.13 | +1.00 | −0.95 | +1.00 | +0.10 | −1.00 | +0.00 |
+| 82 | Elise | +0.12 | −1.00 | +1.00 | +1.00 | +0.10 | −1.00 | +0.00 |
+| 83 | Anivia | +0.10 | +0.31 | +0.05 | +0.05 | −0.03 | +0.06 | +0.00 |
+| 84 | Samira | +0.10 | −1.00 | +1.00 | +1.00 | −0.00 | −1.00 | +0.00 |
+| 85 | Vel'Koz | +0.08 | +1.00 | −1.00 | +0.65 | +0.36 | −1.00 | +0.00 |
+| 86 | Ezreal | +0.08 | −0.88 | +0.51 | +0.36 | +0.03 | +0.99 | +0.00 |
+| 87 | Graves | +0.07 | −1.00 | +0.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 88 | Singed | +0.02 | +0.04 | +0.04 | +0.07 | −0.09 | – | +0.00 |
+| 89 | Lux | +0.02 | −1.00 | +0.95 | −0.28 | −0.04 | +0.95 | +0.00 |
+| 90 | Jayce | +0.01 | +1.00 | −1.00 | +0.00 | +0.05 | – | +0.00 |
+| 91 | Master Yi | −0.04 | +1.00 | −1.00 | −1.00 | +0.04 | +1.00 | +1.00 |
+| 92 | Smolder | −0.08 | −1.00 | +1.00 | −1.00 | +0.16 | +1.00 | +0.00 |
+| 93 | Akshan | −0.09 | −1.00 | +1.00 | −1.00 | +0.09 | +1.00 | +0.00 |
+| 94 | Hwei | −0.10 | −1.00 | +1.00 | +0.00 | +0.03 | −1.00 | +0.00 |
+| 95 | Tristana | −0.15 | +0.00 | −1.00 | +1.00 | +0.02 | −1.00 | +0.00 |
+| 96 | Aurora | −0.19 | −1.00 | −1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 97 | Camille | −0.20 | +1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 98 | Zilean | −0.21 | −1.00 | −1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 99 | Udyr | −0.29 | −1.00 | −1.00 | +1.00 | −0.07 | – | +1.00 |
+| 100 | Sejuani | −0.32 | −1.00 | −1.00 | +1.00 | +0.06 | – | +0.00 |
+| 101 | Rumble | −0.34 | −1.00 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 102 | Jhin | −0.35 | −0.86 | −1.00 | +1.00 | +0.13 | −1.00 | +0.00 |
+| 103 | Vex | −0.39 | −1.00 | −1.00 | +1.00 | +0.10 | −1.00 | +0.00 |
+| 104 | Miss Fortune | −0.39 | −1.00 | −1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 105 | Orianna | −0.40 | −1.00 | −1.00 | +1.00 | +0.03 | −1.00 | +0.00 |
+| 106 | Fizz | −0.49 | +0.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 107 | Briar | −0.50 | −0.02 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 108 | Shen | −0.54 | −1.00 | −1.00 | +0.00 | +0.10 | – | +0.00 |
+| 109 | Rell | −0.58 | −1.00 | −1.00 | −1.00 | +0.15 | +1.00 | +0.00 |
+| 110 | Nilah | −0.59 | −1.00 | −1.00 | −1.00 | +0.04 | +1.00 | +0.00 |
+| 111 | Varus | −0.60 | −0.18 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 112 | Janna | −0.67 | −1.00 | −1.00 | −1.00 | +0.21 | +0.00 | +0.00 |
+| 113 | Rengar | −0.71 | −1.00 | −1.00 | −1.00 | +0.42 | – | +0.00 |
+| 114 | Aurelion Sol | −0.73 | −1.00 | −1.00 | −1.00 | +0.45 | −1.00 | +0.00 |
+| 115 | Jarvan IV | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 116 | Ornn | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 117 | Sylas | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 118 | Swain | −0.76 | −1.00 | −1.00 | −0.93 | +0.19 | −1.00 | +0.00 |
+| 119 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 120 | Skarner | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 121 | Hecarim | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 122 | Nunu & Willump | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 123 | Amumu | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 124 | Naafiri | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 125 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 126 | Ziggs | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 127 | Ryze | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 128 | Kassadin | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 129 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 130 | Syndra | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 131 | Seraphine | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 132 | Gragas | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 133 | Shaco | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 134 | Draven | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 135 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 136 | Rek'Sai | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 137 | Qiyana | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 138 | Pyke | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 139 | Zed | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 140 | Renata Glasc | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 141 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 142 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 143 | Galio | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 144 | Nautilus | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 145 | Rammus | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 146 | Fiddlesticks | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 147 | Soraka | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 148 | Kindred | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 149 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 150 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 151 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 152 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 153 | Locke | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 154 | Talon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 155 | Karthus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 156 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 157 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 158 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 159 | Nami | −0.80 | −1.00 | −0.99 | −1.00 | −0.03 | −0.94 | +0.00 |
+| 160 | Mel | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 161 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 162 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 163 | Senna | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 164 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 165 | Thresh | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 166 | Viktor | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 167 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 168 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 169 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 170 | Nidalee | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 171 | Lissandra | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 172 | Yuumi | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Vi's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,76 +189,76 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Vi` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +2.01)
+#### 1. Nocturne (net +2.01)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Vi's Cease and Desist. Spell shield for 1.5 s, long enough to use ahead of Cease and Desist. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Vi R Cease and Desist)
 - **0.70** spell shield: Shroud of Darkness's spell shield blocks Vi's Vault Breaker. Spell shield for 1.5 s, long enough to use ahead of Vault Breaker. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Vi Q Vault Breaker)
 - **0.36** interrupt: Unspeakable Horror's fear interrupts Vi's Vault Breaker (movement channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Vi Q Vault Breaker)
 
-### 2. Zaahen (net +1.81)
+#### 2. Zaahen (net +1.81)
 
 - **1.00** cc immunity: Grim Deliverance makes Zaahen immune to Vi's Cease and Desist (airborne, stun). Immune for ?; Cease and Desist takes 1.25 s to land, enough to react. (Zaahen R Grim Deliverance → Vi R Cease and Desist)
 - **0.50** interrupt: The Darkin Glaive's airborne interrupts Vi's Vault Breaker (movement channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Vi Q Vault Breaker)
 - **0.35** interrupt: Dreaded Return's airborne interrupts Vi's Vault Breaker (movement channel). Dreaded Return must land during the channel. (Zaahen W Dreaded Return → Vi Q Vault Breaker)
 - Watch out: Cease and Desist is displacement immune, ignoring Zaahen's The Darkin Glaive (airborne) during it.
 
-### 3. Maokai (net +1.72)
+#### 3. Maokai (net +1.72)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Vi's Cease and Desist. Untargetable for 1.4 s; Cease and Desist takes 1.25 s to land, enough to react. (Maokai W Twisted Advance → Vi R Cease and Desist)
 - **0.50** interrupt: Bramble Smash's airborne interrupts Vi's Vault Breaker (movement channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Vi Q Vault Breaker)
 - **0.46** untargetable: Twisted Advance makes Maokai untargetable, dodging Vi's Vault Breaker. Untargetable for 1.4 s; Vault Breaker lands within 0.17 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Vi Q Vault Breaker)
 - Watch out: Cease and Desist is displacement immune, ignoring Maokai's Bramble Smash (airborne) during it.
 
-### 4. Rek'Sai (net +1.65)
+#### 4. Rek'Sai (net +1.65)
 
 - **1.00** untargetable: Void Rush makes Rek'Sai untargetable, dodging Vi's Cease and Desist. Untargetable for 1.5 s, long enough to use ahead of Cease and Desist. (Rek'Sai R Void Rush → Vi R Cease and Desist)
 - **0.50** interrupt: Unburrow's airborne interrupts Vi's Vault Breaker (movement channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Vi Q Vault Breaker)
 - **0.45** untargetable: Void Rush makes Rek'Sai untargetable, dodging Vi's Vault Breaker. Untargetable for 1.5 s, long enough to use ahead of Vault Breaker. (Rek'Sai R Void Rush → Vi Q Vault Breaker)
 - Watch out: Cease and Desist is displacement immune, ignoring Rek'Sai's Unburrow (airborne) during it.
 
-### 5. Sivir (net +1.65)
+#### 5. Sivir (net +1.65)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Vi's Cease and Desist. Spell shield for 1.5 s, long enough to use ahead of Cease and Desist. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Vi R Cease and Desist)
 - **0.60** spell shield: Spell Shield's spell shield blocks Vi's Vault Breaker. Spell shield for 1.5 s, long enough to use ahead of Vault Breaker. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Vi Q Vault Breaker)
 - **0.31** range: Sivir's basic attacks reach 375 units farther than Vi's (500 vs 125 attack range). Vi closes the gap with Cease and Desist, Vault Breaker. (Sivir basic attacks → Vi basic attacks)
 
-### 6. Udyr (net +1.63)
+#### 6. Udyr (net +1.63)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Vi's Cease and Desist (airborne, stun). Immune for 1.5 s, long enough to use ahead of Cease and Desist. (Udyr E Blazing Stampede → Vi R Cease and Desist)
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Vi's Vault Breaker (airborne). Immune for 1.5 s, long enough to use ahead of Vault Breaker. (Udyr E Blazing Stampede → Vi Q Vault Breaker)
 - **0.50** interrupt: Blazing Stampede's stun interrupts Vi's Vault Breaker (movement channel). Blazing Stampede must land during the channel. (Udyr E Blazing Stampede → Vi Q Vault Breaker)
 
-### 7. Alistar (net +1.62)
+#### 7. Alistar (net +1.62)
 
 - **0.80** cleanse: Unbreakable Will cleanses Vi's Cease and Desist (airborne, stun) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Vi R Cease and Desist)
 - **0.38** interrupt: Pulverize's airborne interrupts Vi's Vault Breaker (movement channel). Pulverize must land during the channel. (Alistar Q Pulverize → Vi Q Vault Breaker)
 - **0.38** interrupt: Trample's stun interrupts Vi's Vault Breaker (movement channel). Trample must land during the channel. (Alistar E Trample → Vi Q Vault Breaker)
 - Watch out: Cease and Desist is displacement immune, ignoring Alistar's Headbutt (airborne) during it.
 
-### 8. Rell (net +1.52)
+#### 8. Rell (net +1.52)
 
 - **0.40** interrupt: Shattering Strike's stun interrupts Vi's Vault Breaker (movement channel). Shattering Strike must land during the channel. (Rell Q Shattering Strike → Vi Q Vault Breaker)
 - **0.38** interrupt: Ferromancy: Crash Down's airborne interrupts Vi's Vault Breaker (movement channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Vi Q Vault Breaker)
 - **0.38** interrupt: Ferromancy: Mount Up's airborne interrupts Vi's Vault Breaker (movement channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Vi Q Vault Breaker)
 - Watch out: Cease and Desist is displacement immune, ignoring Rell's Magnet Storm (airborne, kinematics) during it.
 
-### 9. Sion (net +1.47)
+#### 9. Sion (net +1.47)
 
 - **1.00** cc immunity: Unstoppable Onslaught makes Sion immune to Vi's Cease and Desist (airborne, stun). Immune for 8 s, long enough to use ahead of Cease and Desist. (Sion R Unstoppable Onslaught → Vi R Cease and Desist)
 - **0.50** interrupt: Decimating Smash's airborne interrupts Vi's Vault Breaker (movement channel). Decimating Smash must land during the channel. (Sion Q Decimating Smash → Vi Q Vault Breaker)
 - **0.46** cc immunity: Unstoppable Onslaught makes Sion immune to Vi's Vault Breaker (airborne). Immune for 8 s, long enough to use ahead of Vault Breaker. (Sion R Unstoppable Onslaught → Vi Q Vault Breaker)
 - Watch out: Vault Breaker's airborne interrupts Sion's Decimating Smash (charge-up).
 
-### 10. Bard (net +1.47)
+#### 10. Bard (net +1.47)
 
 - **1.00** untargetable: Tempered Fate makes Bard untargetable, dodging Vi's Cease and Desist. Untargetable for 2.5 s, long enough to use ahead of Cease and Desist. (Bard R Tempered Fate → Vi R Cease and Desist)
 - **0.45** untargetable: Tempered Fate makes Bard untargetable, dodging Vi's Vault Breaker. Untargetable for 2.5 s, long enough to use ahead of Vault Breaker. (Bard R Tempered Fate → Vi Q Vault Breaker)
 - **0.24** range: Bard's basic attacks reach 375 units farther than Vi's (500 vs 125 attack range). Vi closes the gap with Cease and Desist, Vault Breaker. (Bard basic attacks → Vi basic attacks)
 - Watch out: Cease and Desist is displacement immune, ignoring Bard's Tempered Fate (stasis) during it.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

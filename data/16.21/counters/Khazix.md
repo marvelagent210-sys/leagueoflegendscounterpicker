@@ -1,5 +1,186 @@
 # Counters to Kha'Zix (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Kha'Zix: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kha'Zix wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Khazix --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Rengar | +0.85 | +1.00 | +1.00 | +1.00 | +0.45 | – | +0.00 |
+| 2 | Bel'Veth | +0.84 | +1.00 | +1.00 | +1.00 | +0.38 | – | +0.00 |
+| 3 | Vayne | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +0.00 |
+| 4 | Urgot | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 5 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | +0.24 | +1.00 | +0.00 |
+| 6 | Heimerdinger | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +0.96 | +0.00 |
+| 7 | Kalista | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 8 | Smolder | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 9 | Corki | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 10 | Xayah | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 11 | Samira | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 12 | Gnar | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 13 | Ornn | +0.82 | +1.00 | +1.00 | +1.00 | +0.25 | – | +0.00 |
+| 14 | Aphelios | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 15 | Gangplank | +0.82 | +1.00 | +1.00 | +1.00 | +0.25 | – | +0.00 |
+| 16 | Rell | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 17 | Kog'Maw | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 18 | Graves | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 19 | Neeko | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 20 | Rakan | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 21 | Lillia | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 22 | Jayce | +0.82 | +1.00 | +1.00 | +1.00 | +0.23 | – | +0.00 |
+| 23 | Ambessa | +0.81 | +1.00 | +1.00 | +1.00 | +0.22 | – | +0.00 |
+| 24 | Akshan | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 25 | Morgana | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 26 | Milio | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 27 | Lulu | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 28 | Jinx | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 29 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.22 | – | +0.00 |
+| 30 | Fiddlesticks | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 31 | Wukong | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 32 | Miss Fortune | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 33 | Tristana | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 34 | Garen | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 35 | Nautilus | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 36 | Kai'Sa | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 37 | Gragas | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 38 | Annie | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 39 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 40 | Varus | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 41 | Twisted Fate | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 42 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 43 | Ezreal | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 44 | Fiora | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 45 | Cho'Gath | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 46 | Riven | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 47 | Ryze | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 48 | Vex | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 49 | Vel'Koz | +0.81 | +1.00 | +0.99 | +1.00 | +0.13 | +0.88 | +0.00 |
+| 50 | Karma | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 51 | Mel | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 52 | Yorick | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 53 | Tahm Kench | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 54 | Janna | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 55 | Jhin | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 56 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 57 | Ivern | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 58 | Lucian | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 59 | Zac | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 60 | Nilah | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 61 | Pantheon | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 62 | Sivir | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 63 | Sylas | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 64 | Mordekaiser | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 65 | Viego | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 66 | Xin Zhao | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 67 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 68 | Ashe | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 69 | Skarner | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 70 | Gwen | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 71 | Shen | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 72 | Azir | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 73 | Quinn | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 74 | Illaoi | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 75 | Orianna | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 76 | Draven | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 77 | Master Yi | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 78 | Brand | +0.80 | +0.97 | +0.99 | +0.99 | +0.07 | +0.98 | +0.00 |
+| 79 | Bard | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 80 | Sion | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 81 | Zeri | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 82 | Yunara | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 83 | Kennen | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 84 | Warwick | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 85 | Rek'Sai | +0.80 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 86 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 87 | Sejuani | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 88 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 89 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 90 | Irelia | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 91 | Maokai | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 92 | Volibear | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 93 | Diana | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 94 | Naafiri | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 95 | Jarvan IV | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 96 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 97 | Nidalee | +0.79 | +1.00 | +1.00 | +1.00 | −0.02 | +0.94 | +0.00 |
+| 98 | Evelynn | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 99 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 100 | Rumble | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 101 | Lee Sin | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 102 | Aurora | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 103 | Braum | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 104 | Kayn | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 105 | Galio | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 106 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 107 | Vi | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 108 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 109 | Hecarim | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 110 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 111 | Zed | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 112 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 113 | Sett | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 114 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 115 | Rammus | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 116 | Amumu | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 117 | Shyvana | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 118 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 119 | Alistar | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 120 | Locke | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 121 | Fizz | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 122 | Trundle | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 123 | Leona | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 124 | Kassadin | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 125 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 126 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 127 | Shaco | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 128 | Yone | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 129 | Ekko | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 130 | Akali | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 131 | Talon | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 132 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 133 | Viktor | +0.71 | +1.00 | +1.00 | +1.00 | +0.07 | +0.00 | +0.00 |
+| 134 | Malzahar | +0.70 | +0.57 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 135 | Lux | +0.70 | +1.00 | +0.57 | +0.95 | +0.09 | +1.00 | +0.00 |
+| 136 | LeBlanc | +0.69 | +0.95 | +0.75 | +0.78 | +0.09 | +1.00 | +0.00 |
+| 137 | Elise | +0.62 | +1.00 | +1.00 | +1.00 | +0.12 | −1.00 | +0.00 |
+| 138 | Kindred | +0.58 | +0.50 | +1.00 | +1.00 | +0.01 | +0.00 | +0.00 |
+| 139 | Hwei | +0.54 | +0.66 | +0.95 | +0.54 | +0.10 | +0.15 | +0.00 |
+| 140 | Briar | +0.46 | +0.73 | +0.09 | +1.00 | +0.07 | – | +0.00 |
+| 141 | Zoe | +0.46 | +0.15 | +0.89 | +0.91 | +0.00 | +0.15 | +0.00 |
+| 142 | Swain | +0.38 | +0.48 | +0.47 | +0.47 | +0.01 | +0.48 | +0.00 |
+| 143 | Senna | +0.35 | +0.98 | −0.00 | −0.00 | +0.06 | +0.96 | +0.00 |
+| 144 | Cassiopeia | +0.32 | +0.45 | −0.04 | +1.00 | +0.09 | −0.01 | +0.00 |
+| 145 | Vladimir | +0.29 | −1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 146 | Singed | +0.19 | +0.24 | +0.24 | +0.23 | +0.02 | – | +0.00 |
+| 147 | Nunu & Willump | +0.17 | +0.20 | +0.14 | +0.20 | +0.18 | – | +0.00 |
+| 148 | Twitch | +0.16 | +1.00 | +0.00 | +0.00 | +0.07 | −1.00 | +0.00 |
+| 149 | Soraka | +0.16 | +0.20 | +0.17 | +0.26 | −0.01 | +0.16 | +0.00 |
+| 150 | Nami | +0.12 | +0.22 | +0.08 | +0.10 | +0.06 | +0.11 | +0.00 |
+| 151 | Zilean | +0.09 | +1.00 | −1.00 | +1.00 | −0.07 | −1.00 | +0.00 |
+| 152 | Zyra | +0.08 | +0.13 | +0.08 | +0.07 | +0.07 | −0.01 | +0.00 |
+| 153 | Anivia | +0.05 | +0.15 | +0.04 | +0.03 | −0.03 | +0.06 | +0.00 |
+| 154 | Lissandra | +0.00 | −0.01 | −0.05 | −0.03 | +0.19 | −0.02 | +0.00 |
+| 155 | Karthus | −0.06 | −0.08 | −0.10 | −0.08 | +0.06 | −0.05 | +0.00 |
+| 156 | Ziggs | −0.06 | +1.00 | −1.00 | −1.00 | +0.26 | +1.00 | +0.00 |
+| 157 | Syndra | −0.08 | +1.00 | −1.00 | −1.00 | +0.11 | +1.00 | +0.00 |
+| 158 | Ahri | −0.08 | +0.98 | −0.96 | −1.00 | +0.11 | +0.95 | +0.00 |
+| 159 | Caitlyn | −0.11 | +1.00 | −0.66 | −0.66 | +0.19 | −0.90 | +0.00 |
+| 160 | Blitzcrank | −0.14 | +0.00 | −1.00 | +0.00 | +0.09 | +1.00 | +0.00 |
+| 161 | Xerath | −0.14 | +1.00 | −1.00 | −1.00 | +0.08 | +0.50 | +0.00 |
+| 162 | Aurelion Sol | −0.19 | +1.00 | −1.00 | −1.00 | +0.05 | +0.00 | +0.00 |
+| 163 | Seraphine | −0.28 | +1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 164 | Sona | −0.32 | −0.06 | +0.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 165 | Katarina | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 166 | Qiyana | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 167 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −0.93 | +0.00 |
+| 168 | Renata Glasc | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 169 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 170 | Yuumi | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 171 | Pyke | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 172 | Thresh | −0.83 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | −0.50 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Kha'Zix's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,69 +189,69 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Khazix` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Yuumi (net +1.10)
+#### 1. Yuumi (net +1.10)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Kha'Zix's Taste Their Fear. Untargetable for ?; Taste Their Fear takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Kha'Zix Q Taste Their Fear)
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Kha'Zix's Evolved Reaper Claws. Untargetable for ?, timed to Evolved Reaper Claws. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Kha'Zix Q Evolved Reaper Claws)
 - **0.32** range: Yuumi's basic attacks reach 300 units farther than Kha'Zix's (425 vs 125 attack range). Kha'Zix closes the gap with Leap. (Yuumi basic attacks → Kha'Zix basic attacks)
 
-### 2. Hwei (net +1.05)
+#### 2. Hwei (net +1.05)
 
 - **0.40** dash stop: Grim Visage's knockdown can stop Kha'Zix's Leap mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Hwei Q Grim Visage → Kha'Zix E Leap)
 - **0.23** range: Hwei's basic attacks reach 425 units farther than Kha'Zix's (550 vs 125 attack range). Kha'Zix closes the gap with Leap. (Hwei basic attacks → Kha'Zix basic attacks)
 - **0.14** reveal: Gaze of the Abyss reveals Kha'Zix through Evolved Adaptive Cloaking's stealth. (Hwei W Gaze of the Abyss → Kha'Zix R Evolved Adaptive Cloaking)
 
-### 3. Sivir (net +0.95)
+#### 3. Sivir (net +0.95)
 
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Kha'Zix's (500 vs 125 attack range). Kha'Zix closes the gap with Leap. (Sivir basic attacks → Kha'Zix basic attacks)
 - **0.33** spell shield: Spell Shield's spell shield blocks Kha'Zix's Evolved Reaper Claws. Spell shield for 1.5 s, long enough to use ahead of Evolved Reaper Claws. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kha'Zix Q Evolved Reaper Claws)
 - **0.29** spell shield: Spell Shield's spell shield blocks Kha'Zix's Taste Their Fear. Spell shield for 1.5 s, long enough to use ahead of Taste Their Fear. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kha'Zix Q Taste Their Fear)
 
-### 4. Fizz (net +0.86)
+#### 4. Fizz (net +0.86)
 
 - **0.45** untargetable: Playful makes Fizz untargetable, dodging Kha'Zix's Evolved Reaper Claws. Untargetable for 0.75 s, timed to Evolved Reaper Claws. (Fizz E Playful → Kha'Zix Q Evolved Reaper Claws)
 - **0.39** untargetable: Playful makes Fizz untargetable, dodging Kha'Zix's Taste Their Fear. Untargetable for 0.75 s; Taste Their Fear takes 0.25 s to land, enough to react. (Fizz E Playful → Kha'Zix Q Taste Their Fear)
 - **0.14** reveal: Chum the Waters reveals Kha'Zix through Evolved Adaptive Cloaking's stealth. (Fizz R Chum the Waters → Kha'Zix R Evolved Adaptive Cloaking)
 
-### 5. Vex (net +0.82)
+#### 5. Vex (net +0.82)
 
 - **0.34** dash stop: Doom 'n Gloom's knockdown can stop Kha'Zix's Leap mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Vex I Doom 'n Gloom → Kha'Zix E Leap)
 - **0.27** range: Vex's basic attacks reach 425 units farther than Kha'Zix's (550 vs 125 attack range). Kha'Zix closes the gap with Leap. (Vex basic attacks → Kha'Zix basic attacks)
 - **0.14** reveal: Shadow Surge reveals Kha'Zix through Evolved Adaptive Cloaking's stealth. (Vex R Shadow Surge → Kha'Zix R Evolved Adaptive Cloaking)
 
-### 6. Lulu (net +0.79)
+#### 6. Lulu (net +0.79)
 
 - **0.36** range: Lulu's basic attacks reach 425 units farther than Kha'Zix's (550 vs 125 attack range). Kha'Zix closes the gap with Leap. (Lulu basic attacks → Kha'Zix basic attacks)
 - **0.22** disarm: Whimsy disarms Kha'Zix for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Kha'Zix basic attacks)
 - **0.14** reveal: Help, Pix! reveals Kha'Zix through Evolved Adaptive Cloaking's stealth. (Lulu E Help, Pix! → Kha'Zix R Evolved Adaptive Cloaking)
 
-### 7. Caitlyn (net +0.78)
+#### 7. Caitlyn (net +0.78)
 
 - **0.36** range: Caitlyn's basic attacks reach 525 units farther than Kha'Zix's (650 vs 125 attack range). Kha'Zix closes the gap with Leap. (Caitlyn basic attacks → Kha'Zix basic attacks)
 - **0.14** reveal: Ace in the Hole reveals Kha'Zix through Evolved Adaptive Cloaking's stealth. (Caitlyn R Ace in the Hole → Kha'Zix R Evolved Adaptive Cloaking)
 - **0.14** reveal: Ace in the Hole reveals Kha'Zix through Void Assault's stealth. (Caitlyn R Ace in the Hole → Kha'Zix R Void Assault)
 
-### 8. Kled (net +0.78)
+#### 8. Kled (net +0.78)
 
 - **0.14** reveal: Bear Trap on a Rope reveals Kha'Zix through Evolved Adaptive Cloaking's stealth. (Kled Q Bear Trap on a Rope → Kha'Zix R Evolved Adaptive Cloaking)
 - **0.14** reveal: Bear Trap on a Rope reveals Kha'Zix through Void Assault's stealth. (Kled Q Bear Trap on a Rope → Kha'Zix R Void Assault)
 - **0.14** reveal: Chaaaaaaaarge!!! reveals Kha'Zix through Evolved Adaptive Cloaking's stealth. (Kled R Chaaaaaaaarge!!! → Kha'Zix R Evolved Adaptive Cloaking)
 
-### 9. Samira (net +0.74)
+#### 9. Samira (net +0.74)
 
 - **0.30** projectile block: Blade Whirl blocks Kha'Zix's Evolved Spike Racks, a projectile. Blade Whirl for 0.75 s, timed to Evolved Spike Racks. (Samira W Blade Whirl → Kha'Zix W Evolved Spike Racks)
 - **0.30** range: Samira's basic attacks reach 375 units farther than Kha'Zix's (500 vs 125 attack range). Kha'Zix closes the gap with Leap. (Samira basic attacks → Kha'Zix basic attacks)
 - **0.29** projectile block: Blade Whirl blocks Kha'Zix's Void Spike, a projectile. Blade Whirl for 0.75 s; Void Spike takes 0.85 s to land, enough to react. (Samira W Blade Whirl → Kha'Zix W Void Spike)
 
-### 10. Xayah (net +0.72)
+#### 10. Xayah (net +0.72)
 
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Kha'Zix's (525 vs 125 attack range). Kha'Zix closes the gap with Leap. (Xayah basic attacks → Kha'Zix basic attacks)
 - **0.23** untargetable: Featherstorm makes Xayah untargetable, dodging Kha'Zix's Taste Their Fear. Untargetable for 1.5 s, long enough to use ahead of Taste Their Fear. (Xayah R Featherstorm → Kha'Zix Q Taste Their Fear)
 - **0.21** untargetable: Featherstorm makes Xayah untargetable, dodging Kha'Zix's Evolved Reaper Claws. Untargetable for 1.5 s, long enough to use ahead of Evolved Reaper Claws. (Xayah R Featherstorm → Kha'Zix Q Evolved Reaper Claws)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

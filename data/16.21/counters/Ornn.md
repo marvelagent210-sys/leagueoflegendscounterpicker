@@ -1,5 +1,186 @@
 # Counters to Ornn (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Ornn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ornn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ornn --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.10 | – | +1.00 |
+| 2 | Corki | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 3 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 4 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 5 | Gnar | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 6 | Vayne | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 7 | Xayah | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 8 | Yunara | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 9 | Twisted Fate | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 10 | Aurora | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 11 | Lulu | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 12 | Aphelios | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 13 | Ezreal | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 14 | Ashe | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 15 | Smolder | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 16 | Jayce | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 17 | Quinn | +0.80 | +0.99 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 18 | Zeri | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 19 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 20 | Orianna | +0.79 | +0.91 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 21 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 22 | Graves | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 23 | Master Yi | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 24 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 25 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 26 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 27 | Shyvana | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 28 | Ambessa | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 29 | Poppy | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 30 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 31 | Pantheon | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 32 | Diana | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 33 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 34 | Gangplank | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 35 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 36 | Yone | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 37 | Warwick | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 38 | Yorick | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 39 | Zaahen | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 40 | Kayn | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 41 | Kled | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 42 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 43 | Skarner | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 44 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 45 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 46 | Cho'Gath | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 47 | Jarvan IV | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 48 | Viego | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 49 | Irelia | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 50 | Yasuo | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 51 | Rek'Sai | +0.76 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 52 | Aatrox | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 53 | Sylas | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 54 | Gwen | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 55 | Vi | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 56 | Darius | +0.74 | +1.00 | +1.00 | +1.00 | −0.20 | – | +0.00 |
+| 57 | Garen | +0.74 | +1.00 | +1.00 | +1.00 | −0.22 | – | +0.00 |
+| 58 | Xin Zhao | +0.74 | +1.00 | +1.00 | +1.00 | −0.24 | – | +0.00 |
+| 59 | Wukong | +0.73 | +1.00 | +1.00 | +1.00 | −0.26 | – | +0.00 |
+| 60 | Tryndamere | +0.73 | +1.00 | +1.00 | +1.00 | −0.26 | – | +0.00 |
+| 61 | Bel'Veth | +0.73 | +1.00 | +1.00 | +1.00 | −0.28 | – | +0.00 |
+| 62 | Kog'Maw | +0.72 | +1.00 | +1.00 | +0.50 | +0.15 | +1.00 | +0.00 |
+| 63 | Neeko | +0.72 | +0.79 | +0.97 | +1.00 | +0.07 | +0.69 | +0.00 |
+| 64 | Kalista | +0.71 | +1.00 | +1.00 | +1.00 | −0.14 | +0.34 | +0.00 |
+| 65 | Elise | +0.65 | +0.79 | +1.00 | +1.00 | +0.03 | −0.05 | +0.00 |
+| 66 | Kai'Sa | +0.58 | +0.35 | +1.00 | +1.00 | −0.06 | +0.53 | +0.00 |
+| 67 | Lee Sin | +0.56 | +0.99 | +0.33 | +1.00 | −0.14 | – | +0.00 |
+| 68 | Ivern | +0.56 | +0.69 | +0.39 | +0.94 | +0.03 | +1.00 | +0.00 |
+| 69 | Nocturne | +0.49 | +0.07 | +1.00 | +1.00 | −0.20 | – | +0.00 |
+| 70 | Lillia | +0.49 | +0.68 | +0.36 | +0.98 | −0.14 | +0.53 | +0.00 |
+| 71 | Taric | +0.47 | +0.72 | +0.43 | +0.72 | −0.05 | – | +0.00 |
+| 72 | Zac | +0.47 | +0.12 | +1.00 | +1.00 | −0.35 | – | +0.00 |
+| 73 | Varus | +0.45 | +0.34 | +0.38 | +0.83 | +0.04 | +1.00 | +0.00 |
+| 74 | Azir | +0.39 | +1.00 | +1.00 | −0.90 | +0.04 | +0.66 | +0.00 |
+| 75 | Kindred | +0.39 | +1.00 | +0.92 | −1.00 | +0.05 | +1.00 | +0.00 |
+| 76 | Maokai | +0.32 | +0.41 | +0.38 | +0.43 | +0.01 | – | +0.00 |
+| 77 | Nilah | +0.30 | +1.00 | +1.00 | −1.00 | −0.19 | – | +0.00 |
+| 78 | Sett | +0.28 | +0.13 | +0.11 | +1.00 | −0.06 | – | +0.00 |
+| 79 | Rakan | +0.26 | +0.27 | +0.36 | +0.34 | +0.02 | +0.35 | +0.00 |
+| 80 | Sivir | +0.25 | +0.31 | +0.33 | +0.25 | +0.06 | +0.33 | +0.00 |
+| 81 | Heimerdinger | +0.23 | +0.17 | +0.07 | +0.62 | +0.15 | +0.28 | +0.00 |
+| 82 | Jinx | +0.22 | +0.13 | +0.56 | −0.13 | +0.05 | +0.60 | +0.00 |
+| 83 | Swain | +0.22 | +0.29 | +0.28 | +0.19 | +0.05 | +0.29 | +0.00 |
+| 84 | Milio | +0.21 | +0.27 | +0.26 | +0.21 | +0.10 | +0.24 | +0.00 |
+| 85 | Karma | +0.20 | +0.22 | +0.26 | +0.24 | +0.05 | +0.26 | +0.00 |
+| 86 | Lucian | +0.19 | −0.05 | −0.09 | +1.00 | +0.03 | +0.25 | +0.00 |
+| 87 | Samira | +0.19 | −0.53 | +0.12 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 88 | Kennen | +0.17 | −0.28 | +0.06 | +1.00 | −0.14 | +0.45 | +0.00 |
+| 89 | Janna | +0.15 | +0.20 | +0.16 | +0.10 | +0.09 | +0.23 | +0.00 |
+| 90 | Briar | +0.14 | −1.00 | +0.72 | +1.00 | +0.01 | – | +0.00 |
+| 91 | Rumble | +0.14 | −0.88 | +0.65 | +1.00 | −0.10 | – | +0.00 |
+| 92 | Morgana | +0.14 | +0.15 | +0.21 | +0.16 | +0.07 | +0.09 | +0.00 |
+| 93 | Annie | +0.14 | +0.20 | +0.14 | +0.13 | +0.06 | +0.22 | +0.00 |
+| 94 | Soraka | +0.12 | +0.16 | +0.13 | +0.20 | +0.01 | +0.09 | +0.00 |
+| 95 | Twitch | +0.10 | +0.07 | +0.57 | −0.80 | +0.02 | +1.00 | +0.00 |
+| 96 | Renekton | +0.10 | +0.15 | +0.19 | +0.12 | −0.13 | – | +0.00 |
+| 97 | Senna | +0.10 | +0.20 | +0.14 | −0.04 | +0.06 | +0.13 | +0.00 |
+| 98 | Lux | +0.09 | +0.11 | +0.13 | +0.03 | +0.09 | +0.08 | +0.00 |
+| 99 | Hwei | +0.08 | +0.05 | +0.14 | +0.08 | +0.05 | +0.09 | +0.00 |
+| 100 | Malphite | +0.08 | +0.12 | +0.09 | +0.10 | −0.02 | – | +0.00 |
+| 101 | Viktor | +0.07 | +0.06 | +0.07 | +0.11 | +0.05 | +0.07 | +0.00 |
+| 102 | Rell | +0.06 | +0.08 | +0.05 | +0.08 | −0.07 | +0.27 | +0.00 |
+| 103 | Braum | +0.06 | +0.08 | +0.13 | +0.12 | −0.14 | – | +0.00 |
+| 104 | Mel | +0.05 | +0.09 | +0.07 | −0.04 | +0.10 | +0.07 | +0.00 |
+| 105 | Sona | +0.05 | +0.10 | +0.06 | +0.02 | +0.05 | −0.02 | +0.00 |
+| 106 | Bard | +0.05 | +0.06 | +0.07 | +0.05 | +0.03 | +0.00 | +0.00 |
+| 107 | Tahm Kench | +0.04 | +0.03 | +0.06 | +0.05 | +0.04 | – | +0.00 |
+| 108 | Nami | +0.04 | +0.06 | +0.09 | −0.04 | +0.02 | +0.04 | +0.00 |
+| 109 | Syndra | +0.03 | −0.01 | −0.01 | +0.08 | +0.07 | +0.12 | +0.00 |
+| 110 | Gragas | +0.03 | +0.05 | +0.06 | −0.00 | −0.02 | – | +0.00 |
+| 111 | Akshan | +0.02 | +0.02 | +0.01 | +0.01 | +0.05 | +0.00 | +0.00 |
+| 112 | Sion | +0.02 | +0.02 | +0.01 | +0.11 | −0.08 | – | +0.00 |
+| 113 | Draven | +0.01 | +0.16 | −0.01 | +0.04 | +0.02 | −0.36 | +0.00 |
+| 114 | Naafiri | −0.00 | +0.00 | +0.03 | +0.02 | −0.10 | – | +0.00 |
+| 115 | Zyra | −0.01 | +0.00 | −0.05 | −0.00 | +0.04 | +0.03 | +0.00 |
+| 116 | Brand | −0.01 | +0.01 | −0.01 | −0.07 | +0.05 | −0.02 | +0.00 |
+| 117 | Vel'Koz | −0.01 | +0.00 | −0.02 | −0.08 | +0.16 | −0.12 | +0.00 |
+| 118 | Zoe | −0.01 | +0.01 | −0.04 | −0.07 | +0.06 | +0.01 | +0.00 |
+| 119 | Singed | −0.02 | −0.02 | −0.01 | +0.09 | −0.19 | – | +0.00 |
+| 120 | Rammus | −0.03 | +0.04 | −0.01 | +0.01 | −0.20 | – | +0.00 |
+| 121 | Veigar | −0.03 | −0.01 | −0.03 | −0.03 | +0.04 | −0.16 | +0.00 |
+| 122 | Nautilus | −0.05 | −0.02 | −0.07 | −0.07 | −0.05 | – | +0.00 |
+| 123 | Urgot | −0.07 | +0.03 | +0.05 | +0.07 | +0.02 | −1.00 | +0.00 |
+| 124 | Anivia | −0.07 | −0.02 | −0.01 | −0.11 | −0.20 | −0.06 | +0.00 |
+| 125 | Ahri | −0.08 | −0.11 | −0.13 | −0.04 | +0.06 | −0.15 | +0.00 |
+| 126 | Amumu | −0.08 | −0.44 | +1.00 | −0.96 | −0.11 | – | +0.00 |
+| 127 | Tristana | −0.09 | −0.94 | −0.56 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 128 | Leona | −0.09 | −0.08 | −0.11 | −0.11 | −0.08 | – | +0.00 |
+| 129 | Galio | −0.10 | −0.13 | −0.13 | −0.13 | −0.02 | – | +0.00 |
+| 130 | Shen | −0.12 | −0.17 | −0.18 | −0.06 | −0.02 | – | +0.00 |
+| 131 | Vladimir | −0.13 | −0.16 | −0.14 | −0.14 | −0.07 | −0.13 | +0.00 |
+| 132 | Vex | −0.14 | −0.08 | −0.07 | −0.06 | +0.01 | −0.88 | +0.00 |
+| 133 | Fiddlesticks | −0.16 | −0.04 | −0.13 | −0.13 | −0.06 | −0.79 | +0.00 |
+| 134 | Nunu & Willump | −0.16 | −0.14 | −0.18 | −0.14 | −0.25 | – | +0.00 |
+| 135 | Zilean | −0.17 | −0.06 | +0.03 | −0.81 | +0.05 | −0.06 | +0.00 |
+| 136 | LeBlanc | −0.20 | −0.47 | −0.14 | −0.13 | −0.11 | −0.01 | +0.00 |
+| 137 | Seraphine | −0.20 | −0.04 | −0.05 | −0.90 | +0.05 | −0.04 | +0.00 |
+| 138 | Karthus | −0.22 | −0.29 | −0.27 | −0.27 | +0.04 | −0.27 | +0.00 |
+| 139 | Rengar | −0.24 | −0.05 | +0.01 | −0.99 | −0.06 | – | +0.00 |
+| 140 | Nidalee | −0.25 | −0.05 | −0.15 | −0.97 | +0.01 | −0.04 | +0.00 |
+| 141 | Yuumi | −0.26 | −0.08 | −0.09 | −0.73 | −0.02 | −0.70 | +0.00 |
+| 142 | Blitzcrank | −0.27 | −0.24 | −0.50 | −0.23 | −0.11 | – | +0.00 |
+| 143 | Lissandra | −0.28 | −0.47 | −0.08 | −0.51 | +0.06 | −0.47 | +0.00 |
+| 144 | Ziggs | −0.29 | −0.30 | −0.80 | −0.09 | +0.09 | −0.12 | +0.00 |
+| 145 | Cassiopeia | −0.34 | −0.91 | −0.05 | −0.11 | +0.11 | −0.92 | +0.00 |
+| 146 | Jhin | −0.34 | −0.42 | −0.02 | −1.00 | +0.20 | −0.63 | +0.00 |
+| 147 | Xerath | −0.34 | −1.00 | −0.14 | −0.18 | +0.01 | −0.22 | +0.00 |
+| 148 | Miss Fortune | −0.47 | +0.25 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 149 | Taliyah | −0.49 | −0.62 | −0.23 | −1.00 | +0.05 | −0.84 | +0.00 |
+| 150 | Sejuani | −0.52 | −1.00 | −0.01 | −1.00 | −0.13 | – | +0.00 |
+| 151 | Malzahar | −0.54 | −0.05 | −0.96 | −1.00 | +0.03 | −0.94 | +0.00 |
+| 152 | Alistar | −0.55 | −1.00 | −0.11 | −1.00 | −0.09 | – | +0.00 |
+| 153 | Akali | −0.58 | −1.00 | −0.17 | −1.00 | −0.19 | – | +0.00 |
+| 154 | Riven | −0.59 | −1.00 | −1.00 | +0.00 | −0.18 | – | +0.00 |
+| 155 | Ryze | −0.61 | −1.00 | −0.36 | −1.00 | +0.05 | −0.75 | +0.00 |
+| 156 | Thresh | −0.63 | −0.64 | −0.62 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 157 | Aurelion Sol | −0.69 | −0.98 | −0.97 | −1.00 | +0.13 | −0.23 | +0.00 |
+| 158 | Fizz | −0.76 | −0.94 | −1.00 | −0.87 | −0.17 | – | +0.00 |
+| 159 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 160 | Hecarim | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 161 | Renata Glasc | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 162 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 163 | Ekko | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 164 | Shaco | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 165 | Caitlyn | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 166 | Katarina | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
+| 167 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
+| 168 | Locke | −0.82 | −1.00 | −1.00 | −1.00 | −0.23 | – | +0.00 |
+| 169 | Zed | −0.82 | −1.00 | −1.00 | −1.00 | −0.25 | – | +0.00 |
+| 170 | Kha'Zix | −0.82 | −1.00 | −1.00 | −1.00 | −0.25 | – | +0.00 |
+| 171 | Qiyana | −0.82 | −1.00 | −1.00 | −1.00 | −0.26 | – | +0.00 |
+| 172 | Pyke | −0.83 | −1.00 | −1.00 | −1.00 | −0.32 | – | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Ornn's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,73 +189,73 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Ornn` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Udyr (net +1.58)
+#### 1. Udyr (net +1.58)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Ornn's Call of the Forge God (airborne, slow, stun). Immune for 1.5 s, long enough to use ahead of Call of the Forge God. (Udyr E Blazing Stampede → Ornn R Call of the Forge God)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Ornn's Searing Charge (airborne, stun). Immune for 1.5 s, long enough to use ahead of Searing Charge. (Udyr E Blazing Stampede → Ornn E Searing Charge)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Ornn's Volcanic Rupture (airborne, slow). Immune for 1.5 s, long enough to use ahead of Volcanic Rupture. (Udyr E Blazing Stampede → Ornn Q Volcanic Rupture)
 
-### 2. Morgana (net +1.57)
+#### 2. Morgana (net +1.57)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Ornn's Call of the Forge God (airborne, slow, stun). Immune for 5 s, long enough to use ahead of Call of the Forge God. (Morgana E Black Shield → Ornn R Call of the Forge God)
 - **0.68** cc immunity: Black Shield makes Morgana immune to Ornn's Searing Charge (airborne, stun). Immune for 5 s, long enough to use ahead of Searing Charge. (Morgana E Black Shield → Ornn E Searing Charge)
 - **0.46** cc immunity: Black Shield makes Morgana immune to Ornn's Volcanic Rupture (airborne, slow). Immune for 5 s, long enough to use ahead of Volcanic Rupture. (Morgana E Black Shield → Ornn Q Volcanic Rupture)
 
-### 3. Fiora (net +1.54)
+#### 3. Fiora (net +1.54)
 
 - **1.00** parry: Riposte parries Ornn's Call of the Forge God and stuns back. Parry for 0.75 s; Call of the Forge God takes 0.69 s to land, enough to react. Negating Call of the Forge God's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Ornn R Call of the Forge God)
 - **0.78** parry: Riposte parries Ornn's Searing Charge and stuns back. Parry for 0.75 s; Searing Charge takes 0.85 s to land, enough to react. Negating Searing Charge's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Ornn E Searing Charge)
 - **0.56** parry: Riposte parries Ornn's Volcanic Rupture and stuns back. Parry for 0.75 s; Volcanic Rupture takes 0.67 s to land, enough to react. Negating Volcanic Rupture's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Ornn Q Volcanic Rupture)
 
-### 4. Lissandra (net +1.49)
+#### 4. Lissandra (net +1.49)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Ornn's Call of the Forge God. Untargetable for 2.5 s, long enough to use ahead of Call of the Forge God. (Lissandra R Frozen Tomb → Ornn R Call of the Forge God)
 - **0.50** dash stop: Frozen Tomb's knockdown can stop Ornn's Call of the Forge God mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Ornn R Call of the Forge God)
 - **0.39** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Ornn's Searing Charge. Untargetable for 2.5 s, long enough to use ahead of Searing Charge. (Lissandra R Frozen Tomb → Ornn E Searing Charge)
 - Watch out: Bellows Breath is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 5. Xayah (net +1.49)
+#### 5. Xayah (net +1.49)
 
 - **1.00** untargetable: Featherstorm makes Xayah untargetable, dodging Ornn's Call of the Forge God. Untargetable for 1.5 s, long enough to use ahead of Call of the Forge God. (Xayah R Featherstorm → Ornn R Call of the Forge God)
 - **0.38** untargetable: Featherstorm makes Xayah untargetable, dodging Ornn's Searing Charge. Untargetable for 1.5 s, long enough to use ahead of Searing Charge. (Xayah R Featherstorm → Ornn E Searing Charge)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 1.5 s, long enough to use ahead of Volcanic Rupture. (Xayah R Featherstorm → Ornn Q Volcanic Rupture)
 
-### 6. Fizz (net +1.48)
+#### 6. Fizz (net +1.48)
 
 - **1.00** untargetable: Playful makes Fizz untargetable, dodging Ornn's Call of the Forge God. Untargetable for 0.75 s; Call of the Forge God takes 0.69 s to land, enough to react. (Fizz E Playful → Ornn R Call of the Forge God)
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Ornn's Searing Charge. Untargetable for 0.75 s; Searing Charge takes 0.85 s to land, enough to react. (Fizz E Playful → Ornn E Searing Charge)
 - **0.65** untargetable: Playful makes Fizz untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 0.75 s; Volcanic Rupture takes 0.67 s to land, enough to react. (Fizz E Playful → Ornn Q Volcanic Rupture)
 - Watch out: Bellows Breath is displacement immune, ignoring Fizz's Chum the Waters (airborne) during it.
 
-### 7. Maokai (net +1.47)
+#### 7. Maokai (net +1.47)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Ornn's Call of the Forge God. Untargetable for 1.4 s; Call of the Forge God takes 0.69 s to land, enough to react. (Maokai W Twisted Advance → Ornn R Call of the Forge God)
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Ornn's Searing Charge. Untargetable for 1.4 s; Searing Charge takes 0.85 s to land, enough to react. (Maokai W Twisted Advance → Ornn E Searing Charge)
 - **0.57** untargetable: Twisted Advance makes Maokai untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 1.4 s; Volcanic Rupture takes 0.67 s to land, enough to react. (Maokai W Twisted Advance → Ornn Q Volcanic Rupture)
 - Watch out: Bellows Breath is displacement immune, ignoring Maokai's Bramble Smash (airborne) during it.
 
-### 8. Aurora (net +1.47)
+#### 8. Aurora (net +1.47)
 
 - **1.00** untargetable: Between Worlds makes Aurora untargetable, dodging Ornn's Call of the Forge God. Untargetable for 0.4 s; Call of the Forge God takes 0.69 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Ornn R Call of the Forge God)
 - **0.38** untargetable: Between Worlds makes Aurora untargetable, dodging Ornn's Searing Charge. Untargetable for 0.4 s; Searing Charge takes 0.85 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Ornn E Searing Charge)
 - **0.31** untargetable: Between Worlds makes Aurora untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 0.4 s; Volcanic Rupture takes 0.67 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Ornn Q Volcanic Rupture)
 
-### 9. Gwen (net +1.43)
+#### 9. Gwen (net +1.43)
 
 - **1.00** untargetable: Hallowed Mist makes Gwen untargetable, dodging Ornn's Call of the Forge God. Untargetable for ?; Call of the Forge God takes 0.69 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Ornn R Call of the Forge God)
 - **0.64** untargetable: Hallowed Mist makes Gwen untargetable, dodging Ornn's Searing Charge. Untargetable for ?; Searing Charge takes 0.85 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Ornn E Searing Charge)
 - **0.44** untargetable: Hallowed Mist makes Gwen untargetable, dodging Ornn's Volcanic Rupture. Untargetable for ?; Volcanic Rupture takes 0.67 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Ornn Q Volcanic Rupture)
 
-### 10. Vladimir (net +1.42)
+#### 10. Vladimir (net +1.42)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ornn's Call of the Forge God. Untargetable for 2 s, long enough to use ahead of Call of the Forge God. (Vladimir W Sanguine Pool → Ornn R Call of the Forge God)
 - **0.68** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ornn's Searing Charge. Untargetable for 2 s, long enough to use ahead of Searing Charge. (Vladimir W Sanguine Pool → Ornn E Searing Charge)
 - **0.46** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 2 s, long enough to use ahead of Volcanic Rupture. (Vladimir W Sanguine Pool → Ornn Q Volcanic Rupture)
 - Watch out: Volcanic Rupture's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

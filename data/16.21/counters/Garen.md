@@ -1,5 +1,186 @@
 # Counters to Garen (patch 26.21)
 
+## Simulated duels
+
+The duel simulator played each of the 172 other champions with a simulator kit against Garen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Garen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Garen --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Trundle | +0.84 | +1.00 | +1.00 | +1.00 | +0.03 | – | +1.00 |
+| 2 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | +0.03 | – | +1.00 |
+| 3 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.32 | – | +0.00 |
+| 4 | Vayne | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 5 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 6 | Neeko | +0.82 | +1.00 | +1.00 | +1.00 | +0.17 | +0.95 | +0.00 |
+| 7 | Ivern | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 8 | Aphelios | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 9 | Quinn | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +0.98 | +0.00 |
+| 10 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 11 | Xayah | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 12 | Kalista | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 13 | Ashe | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 14 | Rakan | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 15 | Darius | +0.80 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 16 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 17 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 18 | Fiora | +0.79 | +1.00 | +1.00 | +1.00 | −0.28 | – | +1.00 |
+| 19 | Sivir | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 20 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 21 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 22 | Yasuo | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 23 | Yunara | +0.78 | +1.00 | +0.86 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 24 | Zeri | +0.78 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 25 | Pantheon | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 26 | Illaoi | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 27 | Lulu | +0.77 | +1.00 | +1.00 | +1.00 | +0.08 | +0.60 | +0.00 |
+| 28 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 29 | Jax | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 30 | Zac | +0.76 | +1.00 | +0.98 | +0.98 | −0.04 | – | +0.00 |
+| 31 | Zaahen | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 32 | Kled | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 33 | Karma | +0.76 | +1.00 | +0.80 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 34 | Xin Zhao | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 35 | Volibear | +0.74 | +1.00 | +0.96 | +1.00 | −0.14 | – | +0.00 |
+| 36 | Morgana | +0.74 | +1.00 | +1.00 | +1.00 | +0.08 | +0.29 | +0.00 |
+| 37 | Milio | +0.74 | +0.74 | +1.00 | +1.00 | +0.12 | +0.81 | +0.00 |
+| 38 | Bel'Veth | +0.57 | +1.00 | +1.00 | +0.00 | +0.09 | – | +0.00 |
+| 39 | Smolder | +0.56 | +1.00 | +0.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 40 | Tahm Kench | +0.50 | −0.05 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 41 | Teemo | +0.45 | +1.00 | +0.00 | +0.50 | +0.01 | +1.00 | +0.00 |
+| 42 | Aatrox | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 43 | Bard | +0.32 | +1.00 | −0.90 | +1.00 | +0.02 | +0.95 | +0.00 |
+| 44 | Hwei | +0.32 | +1.00 | +0.68 | −0.03 | +0.01 | −1.00 | +0.00 |
+| 45 | Draven | +0.32 | −0.40 | +1.00 | +1.00 | +0.09 | −0.48 | +0.00 |
+| 46 | Shyvana | +0.31 | +1.00 | +1.00 | −1.00 | −0.14 | – | +0.00 |
+| 47 | Twisted Fate | +0.31 | +1.00 | −1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 48 | Lux | +0.29 | +0.38 | +0.44 | +0.92 | +0.02 | −1.00 | +0.00 |
+| 49 | Maokai | +0.24 | −1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 50 | Kog'Maw | +0.19 | +1.00 | +0.00 | −1.00 | +0.28 | +1.00 | +0.00 |
+| 51 | Mordekaiser | +0.17 | +0.09 | +0.30 | +0.30 | −0.03 | – | +0.00 |
+| 52 | Lucian | +0.09 | +1.00 | −1.00 | +0.00 | −0.05 | +1.00 | +0.00 |
+| 53 | Singed | +0.09 | +0.15 | +0.07 | +0.16 | −0.06 | – | +0.00 |
+| 54 | Seraphine | +0.06 | +0.71 | −1.00 | +1.00 | +0.00 | −0.68 | +0.00 |
+| 55 | Anivia | +0.04 | +0.07 | +0.01 | +0.14 | −0.15 | +0.14 | +0.00 |
+| 56 | Sion | +0.03 | +0.00 | +0.00 | +0.00 | +0.17 | – | +0.00 |
+| 57 | Zilean | −0.02 | −1.00 | +0.00 | +1.00 | +0.20 | +0.00 | +0.00 |
+| 58 | Aurora | −0.07 | −0.46 | −1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 59 | Azir | −0.13 | +1.00 | −1.00 | −1.00 | −0.03 | +0.75 | +0.00 |
+| 60 | Janna | −0.20 | +0.68 | −1.00 | −1.00 | +0.10 | +0.68 | +0.00 |
+| 61 | Kai'Sa | −0.21 | −1.00 | +1.00 | −1.00 | −0.21 | +0.21 | +0.00 |
+| 62 | Mel | −0.22 | +0.87 | −0.55 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 63 | Diana | −0.22 | −1.00 | +1.00 | −1.00 | +0.01 | – | +0.00 |
+| 64 | Jinx | −0.22 | −0.98 | +0.01 | +0.68 | −0.04 | −0.59 | −1.00 |
+| 65 | Lee Sin | −0.28 | +0.00 | −1.00 | +0.00 | −0.04 | – | +0.00 |
+| 66 | Ziggs | −0.30 | +1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 67 | Miss Fortune | −0.30 | +1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 68 | Vel'Koz | −0.30 | +0.31 | −1.00 | −0.25 | +0.14 | −1.00 | +0.00 |
+| 69 | Gangplank | −0.32 | −1.00 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 70 | Yone | −0.34 | −1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
+| 71 | Nocturne | −0.35 | −1.00 | −1.00 | +1.00 | −0.10 | – | +0.00 |
+| 72 | Elise | −0.35 | +0.60 | −1.00 | −1.00 | +0.08 | −0.64 | +0.00 |
+| 73 | Annie | −0.39 | −1.00 | −1.00 | +0.00 | +0.09 | +1.00 | +0.00 |
+| 74 | Orianna | −0.39 | −1.00 | −1.00 | +1.00 | +0.08 | −1.00 | +0.00 |
+| 75 | Syndra | −0.39 | −1.00 | −1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 76 | Kindred | −0.40 | −1.00 | −1.00 | +1.00 | −0.02 | −1.00 | +0.00 |
+| 77 | Nami | −0.41 | −1.00 | −0.99 | +0.74 | −0.08 | −0.50 | +0.00 |
+| 78 | Ezreal | −0.48 | −0.84 | −0.64 | −0.94 | +0.04 | +0.74 | +0.00 |
+| 79 | Kayn | −0.51 | +0.06 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 80 | Sona | −0.53 | −0.25 | −1.00 | −1.00 | −0.10 | +0.00 | +0.00 |
+| 81 | Jayce | −0.53 | −1.00 | −1.00 | +0.00 | +0.17 | – | +0.00 |
+| 82 | Lillia | −0.55 | +0.07 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 83 | Shen | −0.56 | −1.00 | −1.00 | +0.00 | −0.01 | – | +0.00 |
+| 84 | Viktor | −0.57 | +0.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 85 | Corki | −0.59 | −1.00 | −1.00 | −1.00 | +0.06 | +1.00 | +0.00 |
+| 86 | Zoe | −0.62 | −1.00 | −1.00 | −0.05 | −0.04 | −1.00 | +0.00 |
+| 87 | Tristana | −0.62 | −1.00 | −1.00 | −1.00 | −0.13 | +1.00 | +0.00 |
+| 88 | Varus | −0.68 | −1.00 | −1.00 | −1.00 | −0.10 | +0.38 | +0.00 |
+| 89 | Senna | −0.68 | −0.77 | −1.00 | −1.00 | +0.07 | −0.51 | +0.00 |
+| 90 | Lissandra | −0.70 | −1.00 | −1.00 | −1.00 | +0.00 | −0.04 | +0.00 |
+| 91 | Zyra | −0.71 | −1.00 | −1.00 | −1.00 | +0.02 | −0.18 | +0.00 |
+| 92 | Ornn | −0.74 | −1.00 | −1.00 | −1.00 | +0.22 | – | +0.00 |
+| 93 | Ambessa | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 94 | K'Sante | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 95 | Brand | −0.76 | −1.00 | −1.00 | −0.80 | −0.03 | −0.92 | +0.00 |
+| 96 | Aurelion Sol | −0.76 | −1.00 | −1.00 | −1.00 | +0.28 | −1.00 | +0.00 |
+| 97 | Rengar | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 98 | Yuumi | −0.77 | −1.00 | −0.95 | −1.00 | −0.16 | −0.57 | +0.00 |
+| 99 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 100 | Nunu & Willump | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 101 | Gwen | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 102 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 103 | Master Yi | −0.78 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +1.00 |
+| 104 | Soraka | −0.78 | −1.00 | −1.00 | −0.90 | +0.02 | −1.00 | +0.00 |
+| 105 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 106 | Jhin | −0.78 | −0.94 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 107 | Sylas | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 108 | Sejuani | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 109 | Udyr | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 110 | Gnar | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 111 | Vi | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 112 | Hecarim | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 113 | Viego | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 114 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 115 | Cassiopeia | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 116 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 117 | Gragas | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 118 | Camille | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 119 | Alistar | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 120 | Galio | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 121 | Warwick | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 122 | Jarvan IV | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 123 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 124 | Heimerdinger | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 125 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 126 | Rammus | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 127 | Leona | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 128 | Braum | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 129 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | −0.86 | +0.00 |
+| 130 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 131 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 132 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | −0.05 | −0.88 | +0.00 |
+| 133 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 134 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 135 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 136 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 137 | Ryze | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 138 | Ahri | −0.80 | −1.00 | −1.00 | −0.96 | −0.03 | −1.00 | +0.00 |
+| 139 | Akshan | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 140 | Rell | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 141 | Kassadin | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 142 | Rek'Sai | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 143 | Renata Glasc | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 144 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 145 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 146 | Vex | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 147 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 148 | Swain | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 149 | Fiddlesticks | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 150 | Fizz | −0.81 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 151 | Veigar | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 152 | Naafiri | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 153 | Samira | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 154 | Wukong | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 155 | Caitlyn | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 156 | Malzahar | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 157 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 158 | Nilah | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 159 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 160 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
+| 161 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
+| 162 | Katarina | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
+| 163 | Nidalee | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 164 | Shaco | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 165 | Locke | −0.82 | −1.00 | −1.00 | −1.00 | −0.25 | – | +0.00 |
+| 166 | Qiyana | −0.82 | −1.00 | −1.00 | −1.00 | −0.25 | – | +0.00 |
+| 167 | Talon | −0.82 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 168 | Briar | −0.82 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 169 | Zed | −0.82 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 170 | Pyke | −0.83 | −1.00 | −1.00 | −1.00 | −0.34 | – | +0.00 |
+| 171 | Thresh | −0.84 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | −0.50 |
+| 172 | Graves | −0.89 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Garen's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,75 +189,75 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Garen` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.44)
+#### 1. Sivir (net +1.44)
 
 - **0.81** range: Sivir's basic attacks reach 325 units farther than Garen's (500 vs 175 attack range). Garen has no dash or blink to close the gap. (Sivir basic attacks → Garen basic attacks)
 - **0.55** spell shield: Spell Shield's spell shield blocks Garen's Demacian Justice. Spell shield for 1.5 s, long enough to use ahead of Demacian Justice. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Garen R Demacian Justice)
 - **0.15** spell shield: Spell Shield's spell shield blocks part of Garen's Decisive Strike. Spell shield for 1.5 s, long enough to use ahead of Decisive Strike. A spell shield blocks only the first enemy ability that reaches it. Spell shield will only negate the silence. (Sivir E Spell Shield → Garen Q Decisive Strike)
 
-### 2. Xayah (net +1.06)
+#### 2. Xayah (net +1.06)
 
 - **0.67** range: Xayah's basic attacks reach 350 units farther than Garen's (525 vs 175 attack range). Garen has no dash or blink to close the gap. (Xayah basic attacks → Garen basic attacks)
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Garen's Demacian Justice. Untargetable for 1.5 s, long enough to use ahead of Demacian Justice. (Xayah R Featherstorm → Garen R Demacian Justice)
 - **0.14** untargetable: Featherstorm makes Xayah untargetable, dodging Garen's Basic Attack. Untargetable for 1.5 s, long enough to use ahead of Basic Attack. (Xayah R Featherstorm → Garen basic attacks)
 - Watch out: Courage's 60% tenacity shortens Xayah's Bladecaller (root).
 
-### 3. Teemo (net +1.03)
+#### 3. Teemo (net +1.03)
 
 - **0.59** range: Teemo's basic attacks reach 325 units farther than Garen's (500 vs 175 attack range). Garen has no dash or blink to close the gap. (Teemo basic attacks → Garen basic attacks)
 - **0.57** blind: Blinding Dart's blind makes Garen's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Garen basic attacks)
 - **0.30** blind: Blinding Dart's blind makes Garen's Decisive Strike, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Garen Q Decisive Strike)
 - Watch out: Decisive Strike cleanses Teemo's Noxious Trap (slow) after it lands.
 
-### 4. Kayle (net +0.98)
+#### 4. Kayle (net +0.98)
 
 - **0.72** range: Kayle's basic attacks reach 450 units farther than Garen's (625 vs 175 attack range). Garen has no dash or blink to close the gap. (Kayle basic attacks → Garen basic attacks)
 - **0.28** invulnerable: Divine Judgment makes Kayle invulnerable to Garen's Demacian Justice (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Demacian Justice. (Kayle R Divine Judgment → Garen R Demacian Justice)
 - **0.14** invulnerable: Divine Judgment makes Kayle invulnerable to Garen's Basic Attack. Invulnerable for 2.5 s, long enough to use ahead of Basic Attack. (Kayle R Divine Judgment → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Kayle's Radiant Blast (slow) after it lands.
 
-### 5. Bard (net +0.87)
+#### 5. Bard (net +0.87)
 
 - **0.62** range: Bard's basic attacks reach 325 units farther than Garen's (500 vs 175 attack range). Garen has no dash or blink to close the gap. (Bard basic attacks → Garen basic attacks)
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Garen's Demacian Justice. Untargetable for 2.5 s, long enough to use ahead of Demacian Justice. (Bard R Tempered Fate → Garen R Demacian Justice)
 - **0.14** untargetable: Tempered Fate makes Bard untargetable, dodging Garen's Basic Attack. Untargetable for 2.5 s, long enough to use ahead of Basic Attack. (Bard R Tempered Fate → Garen basic attacks)
 - Watch out: Courage's 60% tenacity shortens Bard's Tempered Fate (stun).
 
-### 6. Vladimir (net +0.81)
+#### 6. Vladimir (net +0.81)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Garen's Demacian Justice. Untargetable for 2 s, long enough to use ahead of Demacian Justice. (Vladimir W Sanguine Pool → Garen R Demacian Justice)
 - **0.30** range: Vladimir's basic attacks reach 275 units farther than Garen's (450 vs 175 attack range). Garen has no dash or blink to close the gap. (Vladimir basic attacks → Garen basic attacks)
 - **0.23** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Garen's Basic Attack. Untargetable for 2 s, long enough to use ahead of Basic Attack. (Vladimir W Sanguine Pool → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Vladimir's Sanguine Pool (slow) after it lands.
 
-### 7. Yuumi (net +0.79)
+#### 7. Yuumi (net +0.79)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Garen's Demacian Justice. Untargetable for ?; Demacian Justice takes 0.43 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Garen R Demacian Justice)
 - **0.54** range: Yuumi's basic attacks reach 250 units farther than Garen's (425 vs 175 attack range). Garen has no dash or blink to close the gap. (Yuumi basic attacks → Garen basic attacks)
 - **0.30** untargetable: You and Me! makes Yuumi untargetable, dodging Garen's Basic Attack. Untargetable for ?, timed to Basic Attack. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Garen basic attacks)
 - Watch out: Decisive Strike's silence interrupts Yuumi's Final Chapter (normal channel).
 
-### 8. Lulu (net +0.75)
+#### 8. Lulu (net +0.75)
 
 - **0.68** range: Lulu's basic attacks reach 375 units farther than Garen's (550 vs 175 attack range). Garen has no dash or blink to close the gap. (Lulu basic attacks → Garen basic attacks)
 - **0.40** disarm: Whimsy disarms Garen for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Lulu's Wild Growth (slow) after it lands.
 
-### 9. Zeri (net +0.71)
+#### 9. Zeri (net +0.71)
 
 - **0.83** range: Zeri's basic attacks reach 375 units farther than Garen's (550 vs 175 attack range). Garen has no dash or blink to close the gap. (Zeri basic attacks → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Zeri's Ultrashock Laser (slow) after it lands.
 
-### 10. Aurora (net +0.69)
+#### 10. Aurora (net +0.69)
 
 - **0.54** range: Aurora's basic attacks reach 375 units farther than Garen's (550 vs 175 attack range). Garen has no dash or blink to close the gap. (Aurora basic attacks → Garen basic attacks)
 - **0.48** untargetable: Between Worlds makes Aurora untargetable, dodging Garen's Demacian Justice. Untargetable for 0.4 s; Demacian Justice takes 0.43 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Garen R Demacian Justice)
 - **0.14** untargetable: Between Worlds makes Aurora untargetable, dodging Garen's Basic Attack. Untargetable for 0.4 s, timed to Basic Attack. Does not destroy inbound projectiles. (Aurora R Between Worlds → Garen basic attacks)
 - Watch out: Demacian Justice reveals Aurora through Across the Veil's stealth.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
