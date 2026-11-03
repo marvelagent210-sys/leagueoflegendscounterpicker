@@ -1,0 +1,323 @@
+{
+  "champion": "XinZhao",
+  "name": "Xin Zhao",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "xin-zhao",
+      "formName": "Xin Zhao",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.08894,
+      "attackDamage": 121.995,
+      "windup": 0.171816,
+      "modifiers": [
+        "Determination"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "XinZhao",
+      "kind": "E",
+      "name": "Audacious Charge",
+      "page": {
+        "title": "Template:Data Xin Zhao/Audacious Charge",
+        "revid": 4088384
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Xin Zhao/Audacious Charge",
+              "revid": 4088384,
+              "quote": "Active: Xin Zhao dashes to the target enemy's location, dealing magic damage to them and nearby enemies and slowing all targets hit by 30% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 30
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0,
+      "range": 650,
+      "speed": 2500,
+      "boostsAttacks": true,
+      "notes": [
+        "The primary target cannot dodge Audacious Charge's effects.\n  - The target will always emit the area of effect from their position."
+      ]
+    },
+    {
+      "champion": "XinZhao",
+      "kind": "I",
+      "name": "Determination",
+      "page": {
+        "title": "Template:Data Xin Zhao/Determination",
+        "revid": 4051470
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Xin Zhao/Determination",
+              "revid": 4051470,
+              "quote": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP)."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The healing and bonus damage work on different stacking systems, each counting its stacks and being consumed separately. While both stack on-hit, the bonus damage stacks are consumed on-attack, and the healing ones on-hit.\n  - The healing stacks are denoted in the buff-bar.\n  - If Guinsoo's Rageblade were to trigger when the stacks are at maximum, they will grant the healing but not the bonus damage, thus causing an out-of-sync between the stacks shown in-game versus when the bonus damage is dealt.",
+        "Stacks of Determination will be gained even if the attack is blocked.",
+        ": Determination's interaction with parrying effects (dodge, blind).",
+        "When applied by a basic attack:\n  - The attack uses a unique animation.\n  - The bonus damage benefits from life steal.\n    - It applies life steal specifically.\n  - Neither the bonus damage or heal will be blocked by spell shield.",
+        "When applied by W:\n  - Triggers against the closest target struck by the first slash/thrust (equals first target to receive spell effects).\n  - Does not benefit from life steal, including not healing from Wind Becomes Lightning's 33% conversion for this bonus damage.\n  - Since proc damage is 'single target', Vamp will heal from 100% of the bonus damage.\n  - The bonus damage will be blocked by spell shield, the heal will not.",
+        "Spell shield will block the mark application from W, but not from basic attacks and E."
+      ]
+    },
+    {
+      "champion": "XinZhao",
+      "kind": "Q",
+      "name": "Three Talon Strike",
+      "page": {
+        "title": "Template:Data Xin Zhao/Three Talon Strike",
+        "revid": 4088383
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Xin Zhao/Three Talon Strike",
+              "revid": 4088383,
+              "quote": "The third attack knocks up the target for 0.75 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield will only block the knock up.",
+        "The attack counter displayed on Xin Zhao's status bar is incremented on-hit."
+      ]
+    },
+    {
+      "champion": "XinZhao",
+      "kind": "R",
+      "name": "Crescent Guard",
+      "page": {
+        "title": "Template:Data Xin Zhao/Crescent Guard",
+        "revid": 4008632
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Xin Zhao/Crescent Guard",
+              "revid": 4008632,
+              "quote": "Active: Xin Zhao sweeps his spear around him, dealing physical damage to nearby enemies, capped at 600 against minions and monsters, and knocking back all targets hit that are not Challenged up-to 700 units over 0.75 seconds, as well as stunning them for the same duration."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.75
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Xin Zhao/Crescent Guard",
+              "revid": 4008632,
+              "quote": "Active: Xin Zhao sweeps his spear around him, dealing physical damage to nearby enemies, capped at 600 against minions and monsters, and knocking back all targets hit that are not Challenged up-to 700 units over 0.75 seconds, as well as stunning them for the same duration."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045,
+              "quote": "Only invulnerable to champions a certain distance away"
+            },
+            {
+              "page": "Template:Data Xin Zhao/Crescent Guard",
+              "revid": 4008632,
+              "quote": "For the next 4 seconds, Xin Zhao is invulnerable against enemy champions far away from him."
+            }
+          ],
+          "duration": 4,
+          "note": "Only invulnerable to champions a certain distance away"
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0.35,
+      "notes": [
+        "Displacement immunity will also resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "XinZhao",
+      "kind": "W",
+      "name": "Wind Becomes Lightning",
+      "page": {
+        "title": "Template:Data Xin Zhao/Wind Becomes Lightning",
+        "revid": 4026481
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Xin Zhao/Wind Becomes Lightning",
+              "revid": 4026481,
+              "quote": "After the remaining cast time, he then thrusts his spear in a line in the target direction, dealing physical damage to enemies hit, increased by 0 / 3.33 / 6.66 / 9.99 / 13.32 / 16.65 / 19.98 / 23.31 / 26.64 / 29.97 / 33.3 (based on critical strike chance)%, and slowing them by 50% for 1.5 (+ 0.5 per 100 AP) seconds."
+            }
+          ],
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Xin Zhao/Wind Becomes Lightning",
+              "revid": 4026481,
+              "quote": "Wind Becomes Lightning's damage heals Xin Zhao for 33.3% of his life steal."
+            },
+            {
+              "page": "Template:Data Xin Zhao/Wind Becomes Lightning",
+              "revid": 4026481,
+              "quote": "Wind Becomes Lightning's damage heals Xin Zhao for 33.3% of his life steal."
+            }
+          ]
+        }
+      ],
+      "cooldown": 8,
+      "castTime": 0.5,
+      "range": 1000,
+      "speed": 6250,
+      "boostsAttacks": true,
+      "notes": [
+        "The self-reveal has not been fully tested for complete confirmation. Is the ability invisible when hitting minions and there is no enemy champion nearby? Is the tip of the ability enough to reveal him? Whether it can hit a minion or not? Just if he's around the exit of the fog of war, and even if he points towards the inside of the fog of war? [https://youtu.be/GvLedSeuQ0s]",
+        "Spell shield will block both the slashes and the thrust.\n  - If the spell shield blocks the first, or sometimes the second slash, it will block the rest of the ability, including the thrust. If it is activated after the first slash, it will only block up to 2 slashes and will not block the trust.",
+        "The second strike's hitbox includes the same 125 radius around Xin Zhao, a missile with 1000 range and 80 total width, and a -60 radius area check upon the end of the missile.\n  - The 125 radius check does not hit champion summoned units."
+      ]
+    }
+  ]
+}

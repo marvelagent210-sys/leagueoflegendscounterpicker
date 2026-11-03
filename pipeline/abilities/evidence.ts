@@ -189,7 +189,7 @@ export const WIKI_ADDITIONS: WikiAddition[] = [
   {
     champion: "Caitlyn",
     ability: "Headshot",
-    source: {"page":{"title":"Template:Data Caitlyn/Headshot","revid":3982560},"text":["|description2 = {{sbc|Headshot:}} '''Caitlyn's''' basic attack is empowered to have an {{tip|uncancellable windup}} and deal {{as|{{pp|key=%|60 to 100 for 3|1 to 13}}|ad}} {{as|(+ {{critical damage|0 to 100|critScaling=true}}) AD}} {{as|'''bonus''' physical damage}}, increased to {{as|110% (+ {{critical damage|0 to 100|critScaling=true}}) AD}} against non-champions."]},
+    source: {"page":{"title":"Template:Data Caitlyn/Headshot","revid":4088336},"text":["|description2 = {{sbc|Headshot:}} '''Caitlyn's''' basic attack is empowered to have an {{tip|uncancellable windup}} and deal {{as|{{pp|key=%|60 to 80 for 3|1 to 13}}|ad}} {{as|(+ {{critical damage|0 to 80|critScaling=true}}) AD}} {{as|'''bonus''' physical damage}}, increased to {{as|110% (+ {{critical damage|0 to 80|critScaling=true}}) AD}} against non-champions."]},
   },
   {
     champion: "Caitlyn",
@@ -244,7 +244,7 @@ export const WIKI_ADDITIONS: WikiAddition[] = [
   {
     champion: "Varus",
     ability: "Piercing Arrow",
-    source: {"page":{"title":"Template:Data Varus/Piercing Arrow","revid":4026469},"text":["Starts post-effect, after charge ends the cooldown is reduced equal to the charge duration","2% per 0.05 seconds. This is capped at 1.25 seconds.","825+70+(116.66 per 0.25 seconds). This is capped at 1.5 seconds."]},
+    source: {"page":{"title":"Template:Data Varus/Piercing Arrow","revid":4089303},"text":["Starts post-effect, after charge ends the cooldown is reduced equal to the charge duration","7% per 0.125 seconds. This is capped at 1.25 seconds.","825+70+(116.66 per 0.25 seconds). This is capped at 1.5 seconds."]},
   },
   {
     champion: "Xayah",
@@ -256,6 +256,13 @@ export const WIKI_ADDITIONS: WikiAddition[] = [
     ability: "Hail of Arrows",
     note: "Curated source conflict: the exact pinned template metadata says damagetype = Magic, while its active text and Physical Damage leveling formula say physical damage. The damageType flag follows the explicit description and formula.",
     anchor: "|damagetype   = Magic",
+  },
+  {
+    champion: "Zoe",
+    ability: "Sleepy Trouble Bubble",
+    // 26.21 moved this note into the template's damage details, which the parser doesn't read.
+    note: "The bonus damage from Sleepy Trouble Bubble is dealt before any triggering damage from Zoe or her allies, and is attributed to Zoe at all times.",
+    anchor: "* The '''bonus''' damage from ''Sleepy Trouble Bubble'' is dealt before '''any''' triggering damage from '''Zoe''' or her allies, and is attributed to '''Zoe''' at all times.",
   },
   ...PRIVATE_ADDITIONS,
 ];

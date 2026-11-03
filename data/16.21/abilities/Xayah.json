@@ -1,0 +1,965 @@
+[
+  {
+    "champion": "Xayah",
+    "kind": "E",
+    "name": "Bladecaller",
+    "page": {
+      "title": "Template:Data Xayah/Bladecaller",
+      "revid": 4002073
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "Global",
+        "values": []
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "4000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Xayah recalls all planted Feathers to shoot back to her, each dealing physical damage to enemies hit, increased by critical strike damage (based on critical strike chance). Bladecaller deals 50% damage to minions.",
+        "leveling": [
+          {
+            "label": "Physical Damage Per Feather",
+            "amount": {
+              "text": "50 / 65 / 80 / 95 / 110 (+ 40% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  65,
+                  80,
+                  95,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage Per Feather",
+            "amount": {
+              "text": "25 / 32.5 / 40 / 47.5 / 55 (+ 20% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  32.5,
+                  40,
+                  47.5,
+                  55
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "An enemy takes 100 / 95 / 90 / 85 / 80 / 75 / 70 / 65 / 60 / 55 / 50 / 45 / 40 / 35 / 30 / 25 / 20 / 15 / 10 (based on previous feathers hit)% damage from a Feather.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "previous feathers hit",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "values": [
+                100,
+                95,
+                90,
+                85,
+                80,
+                75,
+                70,
+                65,
+                60,
+                55,
+                50,
+                45,
+                40,
+                35,
+                30,
+                25,
+                20,
+                15,
+                10
+              ]
+            },
+            "context": "An enemy takes 100 / 95 / 90 / 85 / 80 / 75 / 70 / 65 / 60 / 55 / 50 / 45 / 40 / 35 / 30 / 25 / 20 / 15 / 10 (based on previous feathers hit)% damage from a Feather."
+          }
+        ]
+      },
+      {
+        "text": "A target hit by at least three Feathers is rooted for 1.25 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "A target hit by at least three Feathers is rooted for 1.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "A planted Feather is required to cast this ability. Enemies can be hit by an individual Feather only once per pass.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Feathers that are 'in flight' will be called to Xayah too, but only once they've landed normally first.",
+      "Spell shield will only block a single instance of damage.",
+      "This ability cannot be ranked at Level 1.",
+      "The damage dealt by Bladecaller follows a diminishing returns formula not mentioned in the ability's description, successively reducing extra damage from feathers beyond the first.\n  - This formula is:\n    - For feathers <=19: Damage of one feather × (n−0.05 × (n−1) ÷ 2 × n) where n stands for the number of feathers hit.\n    - For feathers >=20: Damage of one feather × (19−0.05 × (19−1) ÷ 2 × 19 + 0.1 × (n−19)) where n stands for the number of feathers hit.\n  - For example, at rank 1 Bladecaller deals 50 – 517.5 (based on level).",
+      "Bladecaller cannot be cast without a Feather on the ground."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/xayah/xayah.bin.json",
+        "sha256": "c330cc9558791d56a8fcb10ba6a6991ebba7bf3fe588934bdb1c1ecd809feeed",
+        "object": "Characters/Xayah/Spells/XayahEAbility/XayahE",
+        "text": [
+          "mSpell.DataValues.FeatherReturnDelay.values: [0.25,0.25,0.25,0.25,0.25,0.25,0.25]",
+          "mSpell.DataValues.CritRatio.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]",
+          "mSpell.mSpellCalculations.FeatherDamage.mMultiplier: {\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"}",
+          "mSpell.DataValues.FeatherThreshold.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Xayah",
+    "kind": "I",
+    "name": "Clean Cuts",
+    "page": {
+      "title": "Template:Data Xayah/Clean Cuts",
+      "revid": 4070748
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Feather landing location from Xayah's location, taken at the time of the attack dealing damage to main target"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "4000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "false",
+      "projectile": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Feathers shot by Xayah will linger and be planted in the ground at maximum range for 6 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Xayah's ability casts generate 3 stacks of Clean Cuts, lasting for 8 seconds, refreshing on subsequent casts, and stacking up to 5 times. Xayah's basic attacks are empowered to each consume a stack on-attack to instead shoot a Feather that deals the triggering attack's damage to the primary target and 35 / 45 / 55 (based on level)% AD physical damage to other enemies hit. The secondary target damage can critically strike for 200% damage if the triggering attack does.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Xayah's basic attacks are empowered to each consume a stack on-attack to instead shoot a Feather that deals the triggering attack's damage to the primary target and 35 / 45 / 55 (based on level)% AD physical damage to other enemies hit.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "The secondary target damage can critically strike for 200% damage if the triggering attack does.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                35,
+                45,
+                55
+              ]
+            },
+            "context": "Xayah's basic attacks are empowered to each consume a stack on-attack to instead shoot a Feather that deals the triggering attack's damage to the primary target and 35 / 45 / 55 (based on level)% AD physical damage to other enemies hit."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Lover's Leap",
+        "text": "Innate - Lover's Leap: If either Xayah or Rakan is channeling Recall, the other may move nearby and channel their own to join alongside them. Both reach base at the time of which the initiator's Recall completes.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Feathers will stop upon being intercepted by projectile-blocking effects.\n  - : Missile popping before and after striking the primary target.",
+      "After striking their target, the attack will proceed in a line in the same direction it was already flying.\n  - If the target is more than 1000 units from Xayah when the empowered attack hits them, the attack will not keep flying in a line and drop the Feather at their location immediately.\n  - Unlike similar effects, the homing and line trajectories use the same missile.",
+      "All her Feathers on the ground will be destroyed when Xayah dies, and while she is dead, missiles that are still in flight will not spawn new ones, either.",
+      "The empowered attack will not trigger against structures nor wards.\n  - The duration will be refreshed when starting the attack windup against them.",
+      "The number of Clean Cuts stacks available is represented by a feather counter in her ammo bar, visible to the player only."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/xayah/xayah.bin.json",
+        "sha256": "c330cc9558791d56a8fcb10ba6a6991ebba7bf3fe588934bdb1c1ecd809feeed",
+        "object": "Characters/Xayah/Spells/XayahBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2500.0"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Xayah",
+    "kind": "Q",
+    "name": "Double Daggers",
+    "page": {
+      "title": "Template:Data Xayah/Double Daggers",
+      "revid": 4008615
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25 / 0.231 / 0.198 / 0.165 / 0.132 / 0.1 (based on bonus attack speed)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "bonus attack speed",
+              "points": [
+                0,
+                27.15,
+                74.29,
+                121.43,
+                168.58,
+                214.3
+              ],
+              "values": [
+                0.25,
+                0.231,
+                0.198,
+                0.165,
+                0.132,
+                0.1
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "100 + offset",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Xayah barrages two Feathers in the target direction that each deal physical damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Physical Damage Per Hit",
+            "amount": {
+              "text": "45 / 60 / 75 / 90 / 105 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  60,
+                  75,
+                  90,
+                  105
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "90 / 120 / 150 / 180 / 210 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  120,
+                  150,
+                  180,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Targets hit after the first take 50% reduced damage.",
+        "leveling": [
+          {
+            "label": "Reduced Damage per Hit",
+            "amount": {
+              "text": "22.5 / 30 / 37.5 / 45 / 52.5 (+ 25% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  22.5,
+                  30,
+                  37.5,
+                  45,
+                  52.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Reduced Damage",
+            "amount": {
+              "text": "45 / 60 / 75 / 90 / 105 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  60,
+                  75,
+                  90,
+                  105
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Daggers shoot from Xayah's left and right side.",
+      "Because of the usual tick intervals of the server, Double Daggers' minimum cast time is typically reached at 168.58% bonus attack speed already, for a cast time of 0.132 seconds (from the default 0.264), or the duration of 4 game ticks.\n  - If the first 3 game ticks happen to be slightly longer than normal, the minimum cast time of 0.1 seconds can actually be reached in very rare cases because of that.",
+      "Xayah is unable to declare basic attacks for a set duration during the cast time of Double Daggers. The lock out duration is reduced by 0.007 seconds per every 1% bonus attack speed .",
+      "The Feathers will stop upon being intercepted by projectile-blocking effects.",
+      "As the feathers are forming, they will deal damage in a small area around Xayah's before firing.",
+      "Spell shield will only block a single instance of damage.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/xayah/xayah.bin.json",
+        "sha256": "c330cc9558791d56a8fcb10ba6a6991ebba7bf3fe588934bdb1c1ecd809feeed",
+        "object": "Characters/Xayah/Spells/XayahQAbility/XayahQ",
+        "text": [
+          "mSpell.DataValues.Missile1DelayTime.values: [0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115]",
+          "mSpell.DataValues.Missile2DelayTime.values: [0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312]",
+          "mSpell.DataValues.Missile1DelaySpeed.values: [3500.0,3500.0,3500.0,3500.0,3500.0,3500.0,3500.0]",
+          "mSpell.DataValues.Missile2DelaySpeed.values: [3500.0,3500.0,3500.0,3500.0,3500.0,3500.0,3500.0]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Xayah/Double Daggers",
+          "revid": 4008615
+        },
+        "text": [
+          "0.25-(0.07 per 100% bonus attack speed). This is capped at 60% reduction at 214.3% bonus attack speed."
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Xayah",
+    "kind": "R",
+    "name": "Featherstorm",
+    "page": {
+      "title": "Template:Data Xayah/Featherstorm",
+      "revid": 4008617
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 120 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                120,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "1060 • 1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1060
+            },
+            "label": "Measured"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "angle": {
+        "text": "30°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            },
+            "label": "Estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Xayah leaps into the air, becoming ghosted and untargetable for 1.5 seconds. After 1 second, she shoots 5 Feathers in a cone in the target direction that deal physical damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Xayah leaps into the air, becoming ghosted and untargetable for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Xayah leaps into the air, becoming ghosted and untargetable for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Xayah is unable to basic attack or cast abilities during Featherstorm, but can still move.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The individual missiles have 1100 range but start slightly behind Xayah, reducing their total range.",
+      "The following table refers for interactions while Xayah is in Featherstorm:"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/xayah/xayah.bin.json",
+        "sha256": "c330cc9558791d56a8fcb10ba6a6991ebba7bf3fe588934bdb1c1ecd809feeed",
+        "object": "Characters/Xayah/Spells/XayahRAbility/XayahRMissile",
+        "text": [
+          "mSpell.missileSpeed: 4000.0",
+          "mSpell.mMissileSpec.mMissileWidth: 20.0"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Xayah",
+    "kind": "W",
+    "name": "Deadly Plumage",
+    "page": {
+      "title": "Template:Data Xayah/Deadly Plumage",
+      "revid": 4062257
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60 / 55 / 50 / 45 / 40",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                55,
+                50,
+                45,
+                40
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "speed": {
+        "text": "3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Spline missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Rakan"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "projectile": "true",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Xayah enters a frenzy for 4 seconds, gaining bonus attack speed and causing her basic attacks on-attack to be empowered to fire an additional smaller feather at the target on-hit that deals 25% damage of the triggering attack's damage.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "35 / 40 / 45 / 50 / 55%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35,
+                  40,
+                  45,
+                  50,
+                  55
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Active: Xayah enters a frenzy for 4 seconds, gaining bonus attack speed and causing her basic attacks on-attack to be empowered to fire an additional smaller feather at the target on-hit that deals 25% damage of the triggering attack's damage.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Xayah enters a frenzy for 4 seconds, gaining bonus attack speed and causing her basic attacks on-attack to be empowered to fire an additional smaller feather at the target on-hit that deals 25% damage of the triggering attack's damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Whenever Xayah hits an enemy champion with the strike, she gains 30% bonus movement speed for 1.5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If Rakan is nearby upon cast, he also becomes empowered, and gains the bonus movement speed at the same time as Xayah.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The additional missile is visually a smaller feather than the normal feather missiles that are fired by Xayah's basic attacks and does not technically count as a Feather for Clean Cuts.",
+      "Upon casting, missiles that are already in flight will also be empowered to apply the additional feather, but Xayah will not be granted the bonus movement speed from their hit.",
+      "Since the additional missile's damage is based on a percentage of the triggering attack's damage, it will also benefit from the increased damage of triggering attacks that critically strike.\n  - The additional missile itself however cannot critically strike.",
+      "Runaan's Hurricane Wind's Fury interacts with Deadly Plumage by causing the additional bolts to fire their own additional missile that deals a percentage of the triggering bolt's damage.",
+      "Deadly Plumage does not interact with Guinsoo's Rageblade Phantom Hit.",
+      "The empowered attack will not trigger against wards.",
+      "The additional missile is not fired if the triggering basic attack misses while Xayah is blinded.",
+      "Interactions with dodge and block."
+    ]
+  }
+]

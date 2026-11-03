@@ -11,7 +11,7 @@ export const WintersApproach: ItemModule = {
     item.assume(STACKING);
     return {
       mana,
-      ...(fighter.mana ? { hooks: follow(memo(item.name, "health"), "health", (self) => awe * bonusMana(self, fighter.baseMana)) } : {}),
+      ...(fighter.mana ? { hooks: follow(memo(item.name, "health"), "health", (self) => awe * bonusMana(self, fighter.baseMana)), budget: { stats: (self) => [{ stat: "health", value: awe * bonusMana(self, fighter.baseMana) }] } } : {}),
     };
   },
 };

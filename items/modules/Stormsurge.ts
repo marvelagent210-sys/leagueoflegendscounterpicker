@@ -1,6 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { triggers } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -20,6 +21,8 @@ export const Stormsurge: ItemModule = {
     const recent = memo(item.name, "recent");
     const ready = memo(item.name, "ready");
     return {
+      // Once a fight: a duel deals a quarter of the enemy's health quickly.
+      budget: { damage: (self) => ({ magic: (base + ap * derive(self).ap) * triggers(cooldown, window) }) },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.petSource || ctx.tick < until(ctx.self, ready)) return;

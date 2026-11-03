@@ -1,4 +1,5 @@
 import type { ItemModule } from "../equip";
+import { lifelineShield } from "../hints";
 import { bonusHealth } from "../runtime";
 import { decayHooks, itemShield, joinHooks, lifeline } from "./shared";
 
@@ -12,6 +13,7 @@ export const SteraksGage: ItemModule = {
     const seconds = line.quoted(words, 1);
     return {
       bonus: { ad: claws * fighter.spec.base.ad },
+      budget: { shielding: (self, enemy) => lifelineShield(self, enemy, share * bonusHealth(self), seconds, true) },
       hooks: joinHooks(lifeline(item.name, line, (ctx) => itemShield(ctx, item.name, share * bonusHealth(ctx.self), seconds, true)), decayHooks(item.name)),
     };
   },

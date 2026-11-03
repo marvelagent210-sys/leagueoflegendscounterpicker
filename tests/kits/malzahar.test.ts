@@ -36,7 +36,7 @@ function spawnVoidlings(world: World, stacks = 0): void { world.units[0].memory.
 
 describe("Malzahar pinned evidence and finite metadata", () => {
   it("reads all five source revisions and the Voidling article", () => {
-    expect(new Set(malzahar.evidence.filter((entry) => entry.revid > 0).map((entry) => entry.revid))).toEqual(new Set([4015185, 4035856, 3906985, 4015186, 4041818, 4058496]));
+    expect(new Set(malzahar.evidence.filter((entry) => entry.revid > 0).map((entry) => entry.revid))).toEqual(new Set([4015185, 4091727, 3906985, 4015186, 4083425, 4058496]));
     expect(malzahar.assumptions.join(" ")).toContain("absolute quarter-second phase");
     expect(malzahar.assumptions.join(" ")).toContain("level-18 value");
   });
@@ -410,7 +410,7 @@ describe("Malzahar ordinary policy and stat allocation", () => {
     expect(Number.isFinite(damagePerSecond(malzahar.spec, dummy()).magic)).toBe(true);
   });
   it("reflects every full 15,000-gold Darius scenario and both allocated builds", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const darius = kit("Darius").spec, forward = simulateMatchup(malzahar.spec, darius, 15000, prices), reverse = simulateMatchup(darius, malzahar.spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]);
     const reflected = [1, 0, 2, 3, 4, 5];

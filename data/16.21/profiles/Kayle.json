@@ -1,0 +1,210 @@
+{
+  "champion": "Kayle",
+  "name": "Kayle",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "kayle",
+      "formName": "Transcendent (level 16+)",
+      "range": 625,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 5000,
+      "attackSpeed": 0.821748,
+      "attackDamage": 99.1625,
+      "windup": 0.235532,
+      "modifiers": [
+        "Divine Ascent"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Kayle",
+      "kind": "E",
+      "name": "Starfire Spellblade",
+      "page": {
+        "title": "Template:Data Kayle/Starfire Spellblade",
+        "revid": 3982990
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Starfire Spellblade deals:\n  - The physical damage part of both the attack and the explosion deals basic damage and spell damage.\n  - Proc damage for the passive's on-hit effect.\n  - Proc damage for the active's on-hit effect.\n  - All damage dealt to secondary targets by the explosion is additionally tagged as area damage.",
+        "Parry interactions:\n  - Blind: The main target will never receive damage, but the secondary targets will receive the active's spell damage.\n  - Block: Blocking will always negate all damage. Keep in mind that if a secondary target is outside of Spirit's Refuge zone, they won't block damage.\n  - Dodge: Dodging will always negate all damage.",
+        ": All parry interactions are marked for retesting because of patch V11.1 changes.",
+        "To clarify the description, Starfire Spellblade can behave both as a ranged and melee attack based on how far the target is prior to Kayle ascending to Arisen, after which the attack will be always using ranged standards.\n  - If the target is 200 units away or closer, the attack will be considered melee. This also uses her melee animations, not utilizing projectiles even after ascending.\n  - If the target is over 200 units, the attack will be considered ranged.",
+        "To further expand on this: Using the ranged empowered attack will change Kayle's range type to ranged while the projectile is alive. This means that if the target could outrun the projectile, Kayle would be stuck on being ranged, although the bonuses from the active are not kept. While it's unlikely to be on this temporary ranged state for longer than half a seconds during a normal playthrough, it is possible to achieve few seconds when specific conditions are met.",
+        "Keep in mind that while on-hit effects will be applied to all targets in the explosion, on-attack effects are only applied once per basic attack, not per target hit.",
+        "Single-use on-hits, such as Spellblade, will be applied to the main target.\n  - If the main target died prior to the projectile reaching them, or if it was a jungle plant, the effects will be applied to the closest target from the explosion's center."
+      ]
+    },
+    {
+      "champion": "Kayle",
+      "kind": "I",
+      "name": "Divine Ascent",
+      "page": {
+        "title": "Template:Data Kayle/Divine Ascent",
+        "revid": 4051190
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "parry": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Basic attacks within 175 units will still use Kayle's melee basic attack animations and do not utilize projectiles.\n  - They are still classified as ranged attacks.\n  - Due to this fact, projectile-blocking effects cannot intercept basic attacks while Kayle's target is within her \"melee\" range.",
+        "A wave consists of three projectiles for the hitbox and a fourth for visuals.",
+        "The hitbox projectiles spawn 75 units behind Kayle, travel through her, and are destroyed once they've traveled 850 units. Their technical details are:\n  - Range: 850 (755 effective)\n  - Width: 200\n  - Projectile Speed: 2800\n  - Angle: 18° (left and right at 9° to their side, respectively)",
+        "Projectile-blocking effects can block each projectile individually.\n  - It is possible to block the visuals, but still get hit by an unblocked \"invisible\" hitbox projectile.",
+        "Hitting an enemy with multiple projectiles of the same wave will not increase the damage dealt.",
+        "Keep in mind that it's still two damage instances. If one triggers Bone Plating, the other's damage will be blocked."
+      ]
+    },
+    {
+      "champion": "Kayle",
+      "kind": "Q",
+      "name": "Radiant Blast",
+      "page": {
+        "title": "Template:Data Kayle/Radiant Blast",
+        "revid": 4005105
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kayle/Radiant Blast",
+              "revid": 4005105,
+              "quote": "The sword expands upon hitting an enemy, with targets struck in the area dealt magic damage, slowed for 2 seconds, and inflicted with 15% reduced armor and magic resistance for 4 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 45
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "range": 900,
+      "speed": 1600
+    },
+    {
+      "champion": "Kayle",
+      "kind": "R",
+      "name": "Divine Judgment",
+      "page": {
+        "title": "Template:Data Kayle/Divine Judgment",
+        "revid": 3962015
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            },
+            {
+              "page": "Template:Data Kayle/Divine Judgment",
+              "revid": 3962015,
+              "quote": "Active: Kayle grants herself or a target allied champion invulnerability for 2.5 seconds from the start of the cast time, and conjures flaming swords around herself."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.5,
+      "range": 900,
+      "notes": [
+        "While the target is invulnerable, a number indicator will appear beneath them whenever they would receive damage to show the amount that was entirely mitigated. This is calculated pre-mitigation, meaning before resistances and reductions are taken into account.",
+        "The invulnerability can be tracked on the HUD via a buff called Intervention."
+      ]
+    },
+    {
+      "champion": "Kayle",
+      "kind": "W",
+      "name": "Celestial Blessing",
+      "page": {
+        "title": "Template:Data Kayle/Celestial Blessing",
+        "revid": 3997873
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "castTime": 0.25,
+      "range": 900,
+      "notes": [
+        "Celestial Blessing's cast time does not interrupt movement and the effects are applied at the start.",
+        "If cast with auto-targeting, Celestial Blessing may target allies who are untargetable, or allied clones that cannot be targeted by allies (such as Warrior Trickster)."
+      ]
+    }
+  ]
+}

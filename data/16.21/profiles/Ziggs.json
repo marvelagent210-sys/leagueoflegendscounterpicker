@@ -1,0 +1,226 @@
+{
+  "champion": "Ziggs",
+  "name": "Ziggs",
+  "gameplayRadius": 55,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "ziggs",
+      "formName": "Ziggs",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.914005,
+      "attackDamage": 115.962,
+      "windup": 0.218817,
+      "modifiers": [
+        "Short Fuse"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ziggs",
+      "kind": "E",
+      "name": "Hexplosive Minefield",
+      "page": {
+        "title": "Template:Data Ziggs/Hexplosive Minefield",
+        "revid": 4008673
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ziggs/Hexplosive Minefield",
+              "revid": 4008673,
+              "quote": "Each mine within the area explodes upon contact with terrain or an enemy, dealing magic damage and slowing them for 1.5 seconds, as well as granting sight of the area around the explosion for 2 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1550,
+      "notes": [
+        "Spell shield will block the effects of a single detonation."
+      ]
+    },
+    {
+      "champion": "Ziggs",
+      "kind": "I",
+      "name": "Short Fuse",
+      "page": {
+        "title": "Template:Data Ziggs/Short Fuse",
+        "revid": 4005222
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "speed": 1500,
+      "notes": [
+        "Short Fuse will go on cooldown but not deal any damage if the attack misses due to blind.",
+        ": Short Fuse's interactions with dodging and blocking effects."
+      ]
+    },
+    {
+      "champion": "Ziggs",
+      "kind": "Q",
+      "name": "Bouncing Bomb",
+      "page": {
+        "title": "Template:Data Ziggs/Bouncing Bomb",
+        "revid": 4008669
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "range": 1400,
+      "speed": 1700,
+      "notes": [
+        "Spell shield will block the damage of the explosion, but the explosion can still damage other targets in the radius."
+      ]
+    },
+    {
+      "champion": "Ziggs",
+      "kind": "R",
+      "name": "Mega Inferno Bomb",
+      "page": {
+        "title": "Template:Data Ziggs/Mega Inferno Bomb",
+        "revid": 4008677
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 70,
+      "castTime": 0.375,
+      "range": 5000,
+      "speed": 2250,
+      "notes": [
+        "Mega Inferno Bomb takes 2.64 seconds from the start of the cast time to land when cast at maximum range (reduced to 1.617 seconds from the start of the cast time when casting within 2700 units).\n  - When cast within 2700 units, Mega Inferno Bomb has a fixed travel time. Beyond that, the travel time is equal to the cast distance divided by the now-fixed missile speed.",
+        "The area reveal on the target location begins as soon as the cast time is completed and can see into brush and across terrain."
+      ]
+    },
+    {
+      "champion": "Ziggs",
+      "kind": "W",
+      "name": "Satchel Charge",
+      "page": {
+        "title": "Template:Data Ziggs/Satchel Charge",
+        "revid": 4008672
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Ziggs/Satchel Charge",
+              "revid": 4008672,
+              "quote": "Recast: Ziggs detonates the charge, causing it to explode to deal magic damage to nearby enemies and knock them back over 0.5 seconds up to 500 units away from the center of the explosion, though not through terrain."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 1750,
+      "notes": [
+        "Ziggs will not dash from Satchel Charge's detonation while Teleporting but he will while Recalling."
+      ]
+    }
+  ]
+}

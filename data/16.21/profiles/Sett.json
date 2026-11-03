@@ -1,0 +1,311 @@
+{
+  "champion": "Sett",
+  "name": "Sett",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "sett",
+      "formName": "Sett",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.840086,
+      "attackDamage": 138.66,
+      "windup": 0.255076,
+      "modifiers": [
+        "Pit Grit"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Sett",
+      "kind": "E",
+      "name": "Facebreaker",
+      "page": {
+        "title": "Template:Data Sett/Facebreaker",
+        "revid": 4013095
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Sett/Facebreaker",
+              "revid": 4013095,
+              "quote": "Active: Sett pulls in enemies at his front and back along the target direction, dealing physical damage and slowing them by 70% for 0.5 seconds."
+            }
+          ],
+          "variant": "pull",
+          "duration": 0.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sett/Facebreaker",
+              "revid": 4013095,
+              "quote": "Active: Sett pulls in enemies at his front and back along the target direction, dealing physical damage and slowing them by 70% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 70
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Sett/Facebreaker",
+              "revid": 4013095,
+              "quote": "If Facebreaker affects at least one enemy on each side, all enemies are stunned for 1 second upon landing."
+            }
+          ],
+          "duration": 1,
+          "condition": "If Facebreaker affects at least one enemy on each side, all enemies are stunned for 1 second upon landing."
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 450,
+      "notes": [
+        "Targets protected by spell shields don't count toward the requirement to stun."
+      ]
+    },
+    {
+      "champion": "Sett",
+      "kind": "I",
+      "name": "Pit Grit",
+      "page": {
+        "title": "Template:Data Sett/Pit Grit",
+        "revid": 4085310
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Sett/Pit Grit",
+              "revid": 4085310,
+              "quote": "Innate - Heart of the Half-Beast: Sett regenerates an additional 0.075 / 0.25 / 0.5 / 1 / 1.025 / 1.05 (based on level) health every 0.5 seconds per 5% of his missing health."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Sett",
+      "kind": "Q",
+      "name": "Knuckle Down",
+      "page": {
+        "title": "Template:Data Sett/Knuckle Down",
+        "revid": 4024545
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Knuckle Down can be dodged, blocked or missed while Sett is blinded."
+      ]
+    },
+    {
+      "champion": "Sett",
+      "kind": "R",
+      "name": "The Show Stopper",
+      "page": {
+        "title": "Template:Data Sett/The Show Stopper",
+        "revid": 3936244
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sett/The Show Stopper",
+              "revid": 3936244,
+              "quote": "All targets hit are slowed by 99% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 99
+        },
+        {
+          "type": "suppression",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "suppression"
+            },
+            {
+              "page": "Template:Data Sett/The Show Stopper",
+              "revid": 3936244,
+              "quote": "Active: Sett suppresses and reveals the target enemy champion while dashing with displacement immunity to their location and attaching them to himself upon arrival."
+            }
+          ]
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Sett/The Show Stopper",
+              "revid": 3936244,
+              "quote": "Active: Sett suppresses and reveals the target enemy champion while dashing with displacement immunity to their location and attaching them to himself upon arrival."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0,
+      "range": 400,
+      "notes": [
+        "The Show Stopper's attachment depends on the suppression; if the target does not remain suppressed by the end of the dash, they are not attached to Sett when he arrives to them. Similarly, if the suppression is removed, so is the attachment.\n  - Sett will still dash to the target and leap forward from them to trigger the shockwave afterwards even if he fails to attach the target to him.\n  - If the target resists the suppression by being immune to crowd control, displacement immune, or having a spell shield, Sett will not attach them to himself.\n  - If the target removes the suppression by any means, including with an applicable cleanse effect or dispel, they will instantly detach themselves from Sett.\n    - Neither his dash nor leap are interrupted in this case.",
+        "Sett's slide dash after completing the leap dash cannot pass through terrain.",
+        "Sett is displacement immune during both the initial dash and the leap after that dash, as well as for a short duration during his slide beyond on the impact.",
+        "The target is revealed specifically while they are suppressed.",
+        "If the target is untargetable when Sett completes their dash to them, The Show Stopper will be cancelled immediately.\n  - In this case, Sett will not leap forward nor attach to the target to himself and the suppression is removed from the target.",
+        "If the target moves 2000 units or more away from their location at the time of The Show Stopper's cast before Sett completes their dash to them, Sett will fail to attach the target to him.\n  - The target will remain suppressed for 5 seconds if this occurs.",
+        "The Show Stopper will be cancelled if either Sett's dash or leap is cancelled during the ability by any means.\n  - The former causes Sett to not leap forward nor attach to the target to himself and the suppression to be removed from the target.\n  - The latter causes Sett to detach the target from himself instantly and the suppression to be removed from the target.",
+        "At maximum cast range and if the dash is not shortened due to terrain in Sett's way, The Show Stopper's movement takes 1.5 seconds, causing the slam within 1.23 seconds.",
+        "If Sett enters resurrection right before completing his initial dash, he will still leap forward from the target."
+      ]
+    },
+    {
+      "champion": "Sett",
+      "kind": "W",
+      "name": "Haymaker",
+      "page": {
+        "title": "Template:Data Sett/Haymaker",
+        "revid": 4008036
+      },
+      "damageTypes": [
+        "physical",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Sett/Haymaker",
+              "revid": 4008036,
+              "quote": "Additionally, he immediately consumes all of his stored Grit to grant himself a shield at the start of the cast time that is equal to the expended Grit for 3 seconds, decaying in strength over the duration after 0.75 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0.75,
+      "range": 25
+    }
+  ]
+}

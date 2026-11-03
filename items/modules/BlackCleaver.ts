@@ -1,5 +1,6 @@
 import { toTicks } from "../../engine/rules/time";
 import type { ItemModule } from "../equip";
+import { attacks, averageStacks, damagingCasts } from "../hints";
 import { memo, setStat, until } from "../runtime";
 
 export const BlackCleaver: ItemModule = {
@@ -17,6 +18,8 @@ export const BlackCleaver: ItemModule = {
     const expires = memo(item.name, "stacksUntil");
     const frame = memo(item.name, "abilityTick");
     return {
+      // Each basic attack and damaging cast stacks Carve (the kit's abilities taken as physical).
+      budget: { enemyStats: (self) => [{ stat: "armorReductionPercent", value: perStack * averageStacks(maxStacks, attacks(self) * (self.spec.budget?.attackSplit?.physical ?? 1) + damagingCasts(self)) }] },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.damageType !== "physical") return;

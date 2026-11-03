@@ -1,0 +1,226 @@
+{
+  "champion": "Vayne",
+  "name": "Vayne",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "vayne",
+      "formName": "Vayne",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 1.02692,
+      "attackDamage": 106.213,
+      "windup": 0.17084,
+      "modifiers": [
+        "Silver Bolts"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Vayne",
+      "kind": "E",
+      "name": "Condemn",
+      "page": {
+        "title": "Template:Data Vayne/Condemn",
+        "revid": 4008541
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Vayne/Condemn",
+              "revid": 4008541,
+              "quote": "Active: Vayne fires a heavy bolt at the target enemy that deals physical damage and knocks them back 475 units, though not through terrain."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Vayne/Condemn",
+              "revid": 4008541,
+              "quote": "If the target collides with terrain, they take bonus physical damage and become stunned for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "condition": "If the target collides with terrain, they take bonus physical damage and become stunned for 1.5 seconds."
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 550,
+      "speed": 2200,
+      "notes": [
+        "Cleansing the knock back will also end the displacement early.",
+        "Condemn's missile will fail to fire if Vayne is suppressed during the cast time.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Vayne",
+      "kind": "I",
+      "name": "Night Hunter",
+      "page": {
+        "title": "Template:Data Vayne/Night Hunter",
+        "revid": 3920984
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Vayne",
+      "kind": "Q",
+      "name": "Tumble",
+      "page": {
+        "title": "Template:Data Vayne/Tumble",
+        "revid": 4078271
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 2,
+      "castTime": 0,
+      "range": 300,
+      "speed": 500,
+      "boostsAttacks": true,
+      "notes": [
+        "Vayne can cast Final Hour during Tumble. She does not become invisible during the dash."
+      ]
+    },
+    {
+      "champion": "Vayne",
+      "kind": "R",
+      "name": "Final Hour",
+      "page": {
+        "title": "Template:Data Vayne/Final Hour",
+        "revid": 3807995
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Vayne/Final Hour",
+              "revid": 3807995,
+              "quote": "Additionally, Tumble cast grants Vayne invisibility for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "cooldown": 70,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Vayne's animations and basic attack projectiles change slightly during Final Hour.",
+        "Tumble's visual effects can be seen by enemies upon Vayne becoming invisible.",
+        "Using a basic attack breaks the stealth at the start of the attack windup."
+      ]
+    },
+    {
+      "champion": "Vayne",
+      "kind": "W",
+      "name": "Silver Bolts",
+      "page": {
+        "title": "Template:Data Vayne/Silver Bolts",
+        "revid": 4057477
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Stacks are not removed if Vayne switches to attacking a target immune to Silver Bolts (structures, wards).",
+        "The stacks can be consumed even if the target is in stasis."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "champion": "Varus",
+  "name": "Varus",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "varus",
+      "formName": "Varus",
+      "range": 575,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 1.11088,
+      "attackDamage": 125.861,
+      "windup": 0.157927,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Varus",
+      "kind": "E",
+      "name": "Hail of Arrows",
+      "page": {
+        "title": "Template:Data Varus/Hail of Arrows",
+        "revid": 3969402
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Varus/Hail of Arrows",
+              "revid": 3969402,
+              "quote": "The area then becomes desecrated for 4 seconds, slowing enemies within and inflicting them with Grievous Wounds."
+            }
+          ],
+          "amount": 50
+        },
+        {
+          "type": "grievous wounds",
+          "evidence": [
+            {
+              "page": "Grievous Wounds",
+              "revid": 3969410
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.2419,
+      "range": 925
+    },
+    {
+      "champion": "Varus",
+      "kind": "I",
+      "name": "Living Vengeance",
+      "page": {
+        "title": "Template:Data Varus/Living Vengeance",
+        "revid": 4089813
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Varus",
+      "kind": "Q",
+      "name": "Piercing Arrow",
+      "page": {
+        "title": "Template:Data Varus/Piercing Arrow",
+        "revid": 4089303
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 895,
+      "speed": 1900,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The arrow missile range is 825 to 1525; The range increases by 140 per 0.25 seconds for the first 1.25 seconds. Upon reaching its maximum range, it also strikes additional targets in a 70 radius, rounding off the struck area.",
+        "The indicator for the range of the spell will be displayed for the entire channel.",
+        "Piercing Arrow will cast from wherever Varus is at the end of the channel.",
+        "The following table refers for interactions while Varus is channeling:"
+      ]
+    },
+    {
+      "champion": "Varus",
+      "kind": "R",
+      "name": "Chain of Corruption",
+      "page": {
+        "title": "Template:Data Varus/Chain of Corruption",
+        "revid": 4008213
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Varus/Chain of Corruption",
+              "revid": 4008213,
+              "quote": "Active: Varus unleashes a tendril of corruption in the target direction that infects the first enemy champion hit, dealing magic damage and rooting them for 2 seconds, during which they are revealed."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 60,
+      "castTime": 0.2419,
+      "range": 1370,
+      "speed": 1500,
+      "notes": [
+        "The first Blight stack is applied after ~0.65 seconds into the root duration, while the remaining ones are applied in 0.55-second intervals thereafter.\n  - Second and third stacks are applied after ~1.2 seconds and ~1.75 seconds into the root duration, respectively.\n  - If the root's duration is reduced by the target's tenacity, the stacks are applied depending upon if their time application interval is met.\n    - For example, if the root lasts for 1 second, only the first stack is applied since the second and third stacks did not meet their time intervals.\n    - If the root lasts for less than the first stack application time (<0.65 seconds), the first stack will instead be applied at the end of the root duration.\n  - If the target cleanses the root immediately after it is applied, no stacks will be applied.\n    - In cases where the cleanse is activated later into the root duration, stack application is dependent upon their time application interval being met. If removal occurs before an interval after one having been passed, remaining stacks are not applied.",
+        "If the root is not applied, such as by the target negating its application with crowd control immunity or a spell shield, the target will not be inflicted with Blight stacks and the tendril will not root into the ground at their location (thus preventing it from seeking). This applies to both the primary target and secondary targets that were caught by the tendril.",
+        "The tendril cannot seek enemy champions that are untargetable, and will also stop seeking a target if it becomes untargetable (fails to apply its effects even if they remain in the area)."
+      ]
+    },
+    {
+      "champion": "Varus",
+      "kind": "W",
+      "name": "Blighted Quiver",
+      "page": {
+        "title": "Template:Data Varus/Blighted Quiver",
+        "revid": 4088375
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 40,
+      "castTime": 0,
+      "notes": [
+        "Spell shield will not block the on-hit damage but will block the consumption damage if the target is hit by his abilities.",
+        "Blighted Quiver will not apply stacks nor deal on-hit damage if blocked by blind, block or dodge effects.\n  - The consumption damage will not be blocked."
+      ]
+    }
+  ]
+}

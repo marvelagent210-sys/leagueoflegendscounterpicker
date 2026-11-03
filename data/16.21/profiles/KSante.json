@@ -1,0 +1,428 @@
+{
+  "champion": "KSante",
+  "name": "K'Sante",
+  "gameplayRadius": 80,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "k-sante",
+      "formName": "K'Sante",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.995266,
+      "attackDamage": 132.828,
+      "windup": 0.196242,
+      "modifiers": [
+        "Dauntless Instinct"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "KSante",
+      "kind": "E",
+      "name": "Footwork",
+      "page": {
+        "title": "Template:Data K'Sante/Footwork",
+        "revid": 4034698
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location",
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted; (ally cast)"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "condition": "(ally cast)",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data K'Sante/Footwork",
+              "revid": 4034698,
+              "quote": "Active: K'Sante dashes to the target location, though not through terrain, and grants himself a shield for 2 seconds."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 250,
+      "speed": 500,
+      "notes": [
+        "Dashing to the side or behind will cancel current move or attack orders. Exception when attack order was given at melee range from target."
+      ]
+    },
+    {
+      "champion": "KSante",
+      "kind": "I",
+      "name": "Dauntless Instinct",
+      "page": {
+        "title": "Template:Data K'Sante/Dauntless Instinct",
+        "revid": 4038388
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield will block the mark's application, but not the mark's consumption from an attack.",
+        "The empowered attack can be dodged, blocked, and missed while blinded but the mark will not be consumed.",
+        "All Out's bonus damage on abilities only applies to the first target hit when damaging multiple enemies (including minions and monsters).\n  - For most of K'Sante's spells and item effects, in the case of multiple targets being stuck on the same game tick, this refers to the closest target. For non-missile Ntofo Strikes, it instead depends on the order in which the target units were spawned into the match."
+      ]
+    },
+    {
+      "champion": "KSante",
+      "kind": "Q",
+      "name": "Ntofo Strikes",
+      "page": {
+        "title": "Template:Data K'Sante/Ntofo Strikes",
+        "revid": 4007617
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data K'Sante/Ntofo Strikes",
+              "revid": 4007617,
+              "quote": "Empowered Active: K'Sante fires a shockwave in the target direction that applies the same effects to enemies hit, but also pulls them towards him over 0.65 seconds and stuns them for 0.8 seconds."
+            }
+          ],
+          "variant": "pull",
+          "duration": 0.65
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data K'Sante/Ntofo Strikes",
+              "revid": 4007617,
+              "quote": "Active: K'Sante slams his ntofo down in the target direction that deals physical damage to enemies hit and slows them by 80% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 80
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data K'Sante/Ntofo Strikes",
+              "revid": 4007617,
+              "quote": "Empowered Active: K'Sante fires a shockwave in the target direction that applies the same effects to enemies hit, but also pulls them towards him over 0.65 seconds and stuns them for 0.8 seconds."
+            }
+          ],
+          "duration": 0.8
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 3.5,
+      "castTime": 0.45,
+      "range": 465,
+      "boostsAttacks": true,
+      "notes": [
+        "Only the empowered active is a projectile."
+      ]
+    },
+    {
+      "champion": "KSante",
+      "kind": "R",
+      "name": "All Out",
+      "page": {
+        "title": "Template:Data K'Sante/All Out",
+        "revid": 4051537
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data K'Sante/All Out",
+              "revid": 4051537,
+              "quote": "He then shatters his ntofos, pulling the target to a location that is 300 units in the cast direction from their location at the time of cast, during which they are revealed, and blinking 175 units behind that location."
+            }
+          ],
+          "variant": "knock back, knock up"
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data K'Sante/All Out",
+              "revid": 4051537,
+              "quote": "Active: K'Sante roots the target enemy champion for 0.5 seconds and gains displacement immunity over the cast time."
+            }
+          ],
+          "duration": 0.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data K'Sante/All Out",
+              "revid": 4051537,
+              "quote": "The target is dealt physical damage near the end of the displacement and is stunned for 0.3 seconds once it ends."
+            }
+          ],
+          "duration": 0.3
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data K'Sante/All Out",
+              "revid": 4051537,
+              "quote": "Active: K'Sante roots the target enemy champion for 0.5 seconds and gains displacement immunity over the cast time."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.4,
+      "range": 300,
+      "speed": 2000,
+      "boostsAttacks": true,
+      "notes": [
+        "While the target is being pulled over terrain, they are additionally attached to a missile that travels in the same trajectory as the displacement, detaching them afterwards.\n  - Removing the airborne debuff will not cause the target to detach from the missile.\n  - The missile attaches the target to itself a second time at the end of the displacement, before detaching them (for a total of two attach instances).",
+        "If the target resists the pull by having a spell shield or being immune to crowd control or displacement immune, K'Sante will still blink beyond the pull's end location as if the target were displaced.",
+        "All Out's granted untargetability from the vanish during the target's pull does not destroy in-flight projectiles.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "KSante",
+      "kind": "W",
+      "name": "Path Maker",
+      "page": {
+        "title": "Template:Data K'Sante/Path Maker",
+        "revid": 4078257
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes",
+        "disruptable": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data K'Sante/Path Maker",
+              "revid": 4078257,
+              "quote": "Recast: K'Sante dashes in the direction he targeted at the time of cast, though not through terrain, dealing physical damage to enemies he passes through, carrying them alongside him, and stunning them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 / 1.625 / 1.75 (based on Channel duration) seconds."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data K'Sante/Path Maker",
+              "revid": 4078257,
+              "quote": "During this time, he gains displacement immunity and 25% damage reduction; additionally, Path Maker's range, stun duration, and All Out bonus true damage modifier increase over the first 0.9 seconds of the channel."
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data K'Sante/Path Maker",
+              "revid": 4078257,
+              "quote": "During this time, he gains displacement immunity and 25% damage reduction; additionally, Path Maker's range, stun duration, and All Out bonus true damage modifier increase over the first 0.9 seconds of the channel."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 450,
+      "speed": 1300,
+      "channel": [
+        {
+          "type": "uninterruptible",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "uninterruptible"
+            }
+          ]
+        },
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "usableWhileDisabled": {
+        "which": "recast",
+        "evidence": [
+          {
+            "page": "Template:Data K'Sante/Path Maker",
+            "revid": 4078257,
+            "quote": "recast can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "Path Maker cancels any existing movement or attack commands. However, new inputs given during the charge will be retained once the dash ends, except when the dash hits only one enemy champion. If Path Maker hits only one enemy champion K'Sante will be ordered to basic attack them afterwards.",
+        "K'Sante cannot use Flash during Path Maker's dash.",
+        "Path Maker's recast can be used even while grounded or rooted, but the initial cast cannot.",
+        "The following table refers for interactions while K'Sante is channeling:\n  - If the charge is cancelled, he will not automatically use the recast."
+      ]
+    }
+  ]
+}

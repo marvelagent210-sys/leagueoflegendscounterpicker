@@ -6,7 +6,7 @@ import { simulateMatchup } from "../../engine/sim/matchup";
 import { createWorld } from "../../engine/sim/simulate";
 import { kit } from "./helpers";
 
-const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
 
 describe("Darius positioning after swapping champion sides", () => {
   const darius = kit("Darius").spec;

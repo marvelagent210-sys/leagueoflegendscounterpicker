@@ -4,7 +4,7 @@ import { allocate, allocateBoth, BUDGET_STATS, damagePerSecond, PENETRATION_CAPS
 import { boughtPenetration } from "../engine/sim/derived";
 import { ability, fighter } from "./sim/kits";
 
-const rules = JSON.parse(readFileSync(new URL("../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices };
+const rules = JSON.parse(readFileSync(new URL("../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices };
 const prices = rules.statPrices;
 
 const total = (spent: Record<string, number>) => Object.values(spent).reduce((a, b) => a + b, 0);

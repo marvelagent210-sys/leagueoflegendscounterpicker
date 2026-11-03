@@ -1,0 +1,990 @@
+[
+  {
+    "champion": "Kayle",
+    "kind": "E",
+    "name": "Starfire Spellblade",
+    "page": {
+      "title": "Template:Data Kayle/Starfire Spellblade",
+      "revid": 3982990
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7.5 / 7 / 6.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7.5,
+                7,
+                6.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true",
+      "parry": "special",
+      "onHitEffects": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Kayle deals bonus magic damage on-hit.",
+        "leveling": [
+          {
+            "label": "Passive Damage",
+            "amount": {
+              "text": "15 / 20 / 25 / 30 / 35 (+ 10% bonus AD) (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  20,
+                  25,
+                  30,
+                  35
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: Kayle deals bonus magic damage on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Kayle kindles her blade, empowering her next basic attack within 6 seconds to have an uncancellable windup and deal additional bonus magic damage on-hit that is capped at 400 against monsters. If Kayle is not yet Arisen, this attack becomes ranged with 525 range.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "8 / 8.5 / 9 / 9.5 / 10% (+ 1.5% per 100 AP) of target's missing health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  8.5,
+                  9,
+                  9.5,
+                  10
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1.5
+                  },
+                  "text": "(+ 1.5% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMissingHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Kayle kindles her blade, empowering her next basic attack within 6 seconds to have an uncancellable windup and deal additional bonus magic damage on-hit that is capped at 400 against monsters.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Kayle kindles her blade, empowering her next basic attack within 6 seconds to have an uncancellable windup and deal additional bonus magic damage on-hit that is capped at 400 against monsters.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Aflame Bonus",
+        "text": "Aflame Bonus: The attack explodes upon the target, dealing its damage to surrounding enemies and applying on-hit effects. This is affected by critical strike modifiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Aflame Bonus: The attack explodes upon the target, dealing its damage to surrounding enemies and applying on-hit effects.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "This is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Starfire Spellblade resets Kayle's basic attack timer. Starfire Spellblade does not deal bonus damage against structures.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Starfire Spellblade resets Kayle's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Details",
+      "Starfire Spellblade deals:\n  - The physical damage part of both the attack and the explosion deals basic damage and spell damage.\n  - Proc damage for the passive's on-hit effect.\n  - Proc damage for the active's on-hit effect.\n  - All damage dealt to secondary targets by the explosion is additionally tagged as area damage.",
+      "The active's effect shares the same cast instance with the triggering attack (exception: Muramana, see Interactions & Other).",
+      "Parry interactions:\n  - Blind: The main target will never receive damage, but the secondary targets will receive the active's spell damage.\n  - Block: Blocking will always negate all damage. Keep in mind that if a secondary target is outside of Spirit's Refuge zone, they won't block damage.\n  - Dodge: Dodging will always negate all damage.",
+      ": All parry interactions are marked for retesting because of patch V11.1 changes.",
+      "Interactions & Other",
+      "While the active's effect is up, a circle is visible to Kayle, indicating her range, however, this circle only takes into account Divine Ascent effect on her range, not other sources such as Rapid Firecannon.\n  - The increased range (with the item's effect included) will be 675 prior to ascending to Transcendent, after which it's 725.",
+      "To clarify the description, Starfire Spellblade can behave both as a ranged and melee attack based on how far the target is prior to Kayle ascending to Arisen, after which the attack will be always using ranged standards.\n  - If the target is 200 units away or closer, the attack will be considered melee. This also uses her melee animations, not utilizing projectiles even after ascending.\n  - If the target is over 200 units, the attack will be considered ranged.",
+      "To further expand on this: Using the ranged empowered attack will change Kayle's range type to ranged while the projectile is alive. This means that if the target could outrun the projectile, Kayle would be stuck on being ranged, although the bonuses from the active are not kept. While it's unlikely to be on this temporary ranged state for longer than half a seconds during a normal playthrough, it is possible to achieve few seconds when specific conditions are met.",
+      "Keep in mind that while on-hit effects will be applied to all targets in the explosion, on-attack effects are only applied once per basic attack, not per target hit.",
+      "Single-use on-hits, such as Spellblade, will be applied to the main target.\n  - If the main target died prior to the projectile reaching them, or if it was a jungle plant, the effects will be applied to the closest target from the explosion's center.",
+      "Guinsoo's Rageblade Phantom Hit can only be applied to the main target.",
+      "Despite being one cast instance, Starfire Spellblade triggers Muramana Shock twice on each target, dealing normal bonus damage after the basic attack and increased bonus damage after the spell, totalling at 5.2% maximum mana bonus physical damage."
+    ]
+  },
+  {
+    "champion": "Kayle",
+    "kind": "I",
+    "name": "Divine Ascent",
+    "page": {
+      "title": "Template:Data Kayle/Divine Ascent",
+      "revid": 4051190
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "projectile": "special",
+      "parry": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Kayle ascends through four forms that each grant additional bonuses. She ascends upon spending a skill point at levels 1, 6, 11, and 16.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Level 1 - Zealous",
+        "text": "Level 1 - Zealous: Kayle's basic attacks on-attack generate a stack of Zeal for 5 seconds, refreshing on subsequent attacks and stacking up to 5 times. For each stack, she gains 6% bonus attack speed, up to a maximum of 30%. At max stacks, she becomes Exalted, gaining 10% bonus movement speed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Level 1 - Zealous: Kayle's basic attacks on-attack generate a stack of Zeal for 5 seconds, refreshing on subsequent attacks and stacking up to 5 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Level 6 - Arisen",
+        "text": "Level 6 - Arisen: Kayle becomes ranged and gains 350 bonus attack range for a total of 525.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Level 11 - Aflame",
+        "text": "Level 11 - Aflame: Kayle gains 10% bonus size. While Kayle is Exalted, her basic attacks on-attack also launch a wave of fire forward that deals 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 / 53 / 56 / 59 / 62 / 65 / 68 / 71 / 74 / 77 / 80 / 83 / 86 / 89 / 92 / 95 / 98 / 101 / 104 / 107 / 110 / 113 / 116 / 119 / 122 / 125 / 128 / 131 / 134 / 137 / 140 (based on level) (+ 10% bonus AD) (+ 25% AP) magic damage to all enemies it passes through. The wave is affected by critical strike modifiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "size change",
+            "category": "other",
+            "wording": "size",
+            "evidence": "Level 11 - Aflame: Kayle gains 10% bonus size.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "While Kayle is Exalted, her basic attacks on-attack also launch a wave of fire forward that deals 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 / 53 / 56 / 59 / 62 / 65 / 68 / 71 / 74 / 77 / 80 / 83 / 86 / 89 / 92 / 95 / 98 / 101 / 104 / 107 / 110 / 113 / 116 / 119 / 122 / 125 / 128 / 131 / 134 / 137 / 140 (based on level) (+ 10% bonus AD) (+ 25% AP) magic damage to all enemies it passes through.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "The wave is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51
+              ],
+              "values": [
+                20,
+                23,
+                26,
+                29,
+                32,
+                35,
+                38,
+                41,
+                44,
+                47,
+                50,
+                53,
+                56,
+                59,
+                62,
+                65,
+                68,
+                71,
+                74,
+                77,
+                80,
+                83,
+                86,
+                89,
+                92,
+                95,
+                98,
+                101,
+                104,
+                107,
+                110,
+                113,
+                116,
+                119,
+                122,
+                125,
+                128,
+                131,
+                134,
+                137,
+                140
+              ]
+            },
+            "context": "While Kayle is Exalted, her basic attacks on-attack also launch a wave of fire forward that deals 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 / 53 / 56 / 59 / 62 / 65 / 68 / 71 / 74 / 77 / 80 / 83 / 86 / 89 / 92 / 95 / 98 / 101 / 104 / 107 / 110 / 113 / 116 / 119 / 122 / 125 / 128 / 131 / 134 / 137 / 140 (based on level) (+ 10% bonus AD) (+ 25% AP) magic damage to all enemies it passes through."
+          }
+        ]
+      },
+      {
+        "label": "Level 16 - Transcendent",
+        "text": "Level 16 - Transcendent: Kayle gains an additional 100 bonus attack range for a total of 625, and permanently gains the full effects of Zealous.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Zealous",
+      "The stacking bonus attack speed can be tracked on the HUD via a buff called Zeal, while the maximum stacks bonus grants the buff Exalted.",
+      "Subsequent applications will also refresh the duration of all stacks, but all of them are lost when expired.",
+      "If Kayle is in her attack animation after the stacks expire, she gains another 0.5 seconds to refresh/stack Zeal.",
+      "Arisen",
+      "Basic attacks within 175 units will still use Kayle's melee basic attack animations and do not utilize projectiles.\n  - They are still classified as ranged attacks.\n  - Due to this fact, projectile-blocking effects cannot intercept basic attacks while Kayle's target is within her \"melee\" range.",
+      "Aflame",
+      "On becoming Aflame, Kayle's bonus size grows linearly over 1 second.",
+      "Basic attacks against structures do not trigger fire waves.",
+      "While at 4 stacks of Zeal, the next attack on-attack reaching the fifth stack will be empowered by Aflame, releasing the first fire wave.",
+      "Transcendent",
+      "The Zeal and Exalted buffs are replaced by a new buff that grants the benefits of both and it is not visible on Kayle's HUD.",
+      "Fire Waves Details",
+      "A wave consists of three projectiles for the hitbox and a fourth for visuals.",
+      "The hitbox projectiles spawn 75 units behind Kayle, travel through her, and are destroyed once they've traveled 850 units. Their technical details are:\n  - Range: 850 (755 effective)\n  - Width: 200\n  - Projectile Speed: 2800\n  - Angle: 18° (left and right at 9° to their side, respectively)",
+      "The distance of the fire waves scales with bonus attack range.",
+      "Projectile-blocking effects can block each projectile individually.\n  - It is possible to block the visuals, but still get hit by an unblocked \"invisible\" hitbox projectile.",
+      "Hitting an enemy with multiple projectiles of the same wave will not increase the damage dealt.",
+      "The fire wave shares cast instance with the triggering basic attack.\n  - The amount of Conqueror stacks gained will be 2 if the basic attack deals damage first or 2 if the wave does so.",
+      "Keep in mind that it's still two damage instances. If one triggers Bone Plating, the other's damage will be blocked.",
+      "Fire waves roll critical strike chance on each target hit individually.",
+      "A known issue is that despite dealing area spell damage the fire wave does not:\n  - Trigger Manaflow Band.",
+      "Interactions & Other",
+      "Because Kayle is both a melee and ranged champion, she can purchase both ranged and melee exclusive items at anytime, but their effects will function depending on her current range type; the same principle also applies to runes.\n  - However, keep in mind that, prior to ascending to Arisen, Starfire Spellblade also changes this behaviour based on its usage.",
+      "Waves are fired in the direction that Kayle is facing. Changing that during the attack windup via Flash will also change the direction of the wave.",
+      "Each ascension has an unique animation and a voice line. (See: Kayle's quotes)",
+      "The ascensions' animation will override the current one, but it does not cancel Kayle's current action, nor her previous orders."
+    ]
+  },
+  {
+    "champion": "Kayle",
+    "kind": "Q",
+    "name": "Radiant Blast",
+    "page": {
+      "title": "Template:Data Kayle/Radiant Blast",
+      "revid": 4005105
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "Attack Windup Time",
+        "values": []
+      },
+      "range": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Missile range only; See notes"
+          }
+        ]
+      },
+      "width": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kayle conjures a portal in front of her that faces the target direction, from which, after 0.25 seconds, a celestial sword launches forward.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 60% bonus AD) (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "25 / 30 / 35 / 40 / 45%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  30,
+                  35,
+                  40,
+                  45
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The sword expands upon hitting an enemy, with targets struck in the area dealt magic damage, slowed for 2 seconds, and inflicted with 15% reduced armor and magic resistance for 4 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                25,
+                30,
+                35,
+                40,
+                45
+              ]
+            },
+            "evidence": "The sword expands upon hitting an enemy, with targets struck in the area dealt magic damage, slowed for 2 seconds, and inflicted with 15% reduced armor and magic resistance for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Details",
+      "This ability has a cast time and cast delay. The former represents the amount of time Kayle needs to spend to cast and is equal to her attack windup time. The latter is the amount of time the portal needs to launch the sword, which is always 0.264 seconds, starting from the beginning of the cast time.\n  - As implied by the previous point, the portal is created at the start of the cast time and Kayle does not have to be alive for it to launch the sword.\n  - The portal does not follow Kayle's movements, using Flash or getting displaced won't change its position nor direction either.",
+      "The cast time can be calculated by dividing Kayle's windup percent value (0.193555) with her current total attack speed.\n  - Radiant Blast's cast time is 0.33 at base attack speed, is at most 0.99 at the minimum attack speed of 0.2, and is 0.066 at the attack speed cap of 3.003. The cast time can be further decreased with effects that allows the player to bypass the attack speed cap.\n  - Additionally, it should be noted that due to action only taking place on whole game ticks, the cast time can only be changed in fractions of 0.033 seconds. This also means that the lowest possible cast time is 0.033 seconds, requiring at least 5.8652 attack speed.\n  - Important to note that in patch V9.17, Radiant Blast's cast time was changed to be a flat 0.25 seconds, rather than scaling with the attack windup time. In patch V10.4, this was undocumentedly changed back. Whether the change to scale with windup time again was intentional or not is unknown.",
+      "The resistance reduction is applied after the damage has been dealt.",
+      "The expansion consists of 5 hitboxes, forming a cross-like shape centered 100 units ahead from the impact in its direction. Their technical details can be seen below and visualized on the image to the right.\n  - ExplosionCenter: 100 radius\n  - ExplosionLeft: 150 distance, 125 width\n  - ExplosionRight: 150 distance, 125 width\n  - ExplosionBackward: 100 distance, 90 width\n  - ExplosionForward: 400 distance, 90 width",
+      "Interactions & Other",
+      "The visual effects of the explosion shows the blade and guard of Kayle's swords.",
+      "The resistance reduction can be tracked on the HUD as a debuff called Sundered.",
+      "Note that the PsyOps skin still uses the old shred VFX, which also only shows for 3 seconds (effect duration is not affected). This is possibly an oversight as all existing, and at the time released Dragon Slayer, skins were updated properly in V11.18."
+    ]
+  },
+  {
+    "champion": "Kayle",
+    "kind": "R",
+    "name": "Divine Judgment",
+    "page": {
+      "title": "Template:Data Kayle/Divine Judgment",
+      "revid": 3962015
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "160 / 120 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                160,
+                120,
+                80
+              ]
+            },
+            "label": "Begins at the start of cast time"
+          }
+        ]
+      },
+      "cost": {
+        "text": "100 / 50 / 0",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                50,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "675 / 675 / 775",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                675,
+                675,
+                775
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kayle grants herself or a target allied champion invulnerability for 2.5 seconds from the start of the cast time, and conjures flaming swords around herself.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invulnerable",
+            "category": "defense",
+            "wording": "invulnerability",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Kayle grants herself or a target allied champion invulnerability for 2.5 seconds from the start of the cast time, and conjures flaming swords around herself.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After 2.5 seconds, she rains the swords down around the target, dealing magic damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 100% bonus AD) (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Kayle can move during Divine Judgment's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Details",
+      "Divine Judgment's effects persist through the target's death.",
+      "Divine Judgment will prioritize casting on allies over Kayle. This means that if the player is selecting a point with the mouse on which both Kayle's and another valid target's selection areas overlap on the map, the cast will always occur on the ally.",
+      "Prior to becoming Transcended via Divine Ascent, casting Divine Judgment refreshes the duration of Zeal stacks at the start of the cast time to ensure that it does not expire while she can't attack during the cast.",
+      "During cast, an indicator for the damaging area can be seen around the target, however, this is not visible if there is no sight on the them.",
+      "Divine Judgment can be cast on clones too, including Shapesplitter and Warrior Trickster, which are normally not targetable for allies.",
+      "While it's an uncommon occurence, it is possible to cast Divine Judgment on targets who just entered resurrection or zombie state. This is only possible with very strict timing and perhaps high latency.",
+      "It's recommended to avoid both of the afformentioned interactions, as they render the usage of Divine Judgment useless in many cases.",
+      "Interactions & Other",
+      "While the target is invulnerable, a number indicator will appear beneath them whenever they would receive damage to show the amount that was entirely mitigated. This is calculated pre-mitigation, meaning before resistances and reductions are taken into account.",
+      "Rapid Firecannon Energized effect behaves strangely with the set basic attack range:\n  - If the ability is cast while the effect is ready, the range goes from 400 to 385 over 4 stat updates (400 -> 390 -> 387 -> 385). When the cast completes, the proper range needs 2 updates to set in (660 - 675 while Arisen; 710 - 725 while Transcended).\n  - Gaining the effect during the cast will cause the range to cycle between 525 and 550 until the cast finishes, then the proper range is set after 1 update.\n  - Selling the item during the cast causes the range to be set to 250.",
+      "Range values are outdated because of patch V11.18 changes to Kayle.",
+      "The invulnerability can be tracked on the HUD via a buff called Intervention."
+    ]
+  },
+  {
+    "champion": "Kayle",
+    "kind": "W",
+    "name": "Celestial Blessing",
+    "page": {
+      "title": "Template:Data Kayle/Celestial Blessing",
+      "revid": 3997873
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 15
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kayle and the target allied champion are healed and gain bonus movement speed for 2 seconds from the start of the cast time.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "55 / 80 / 105 / 130 / 155 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  80,
+                  105,
+                  130,
+                  155
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "24 / 28 / 32 / 36 / 40% (+ 8% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  24,
+                  28,
+                  32,
+                  36,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Kayle and the target allied champion are healed and gain bonus movement speed for 2 seconds from the start of the cast time.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If cast without a valid target, or self-cast, Celestial Blessing will automatically target the closest allied champion in range, prioritizing the one with the lowest health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Kayle can move during Celestial Blessing's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Details",
+      "Celestial Blessing's cast time does not interrupt movement and the effects are applied at the start.",
+      "Interactions & Other",
+      "If cast with auto-targeting, Celestial Blessing may target allies who are untargetable, or allied clones that cannot be targeted by allies (such as Warrior Trickster)."
+    ]
+  }
+]

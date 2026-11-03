@@ -67,11 +67,11 @@ afterEach(async () => { await rm(checkpoint.directory, { recursive: true, force:
 
 describe("batch simulation worker failure isolation", () => {
   it("rejects the original worker error, stops every sibling and suppresses late progress without discarding saved pairs", async () => {
-    await writeCheckpoint(checkpoint, "16.20", 15000, pairs[0]!, result(0));
+    await writeCheckpoint(checkpoint, "16.21", 15000, pairs[0]!, result(0));
     const file = path.join(checkpoint.directory, (await readdir(checkpoint.directory))[0]!);
     const saved = await readFile(file);
     const progress = vi.fn();
-    const pending = simulatePairs("16.20", 15000, pairs, 3, progress, checkpoint);
+    const pending = simulatePairs("16.21", 15000, pairs, 3, progress, checkpoint);
     const failure = new TypeError("target was removed during a hit");
     const rejection = expect(pending).rejects.toBe(failure);
     control.workers[0]!.emit("message", { completed: 1 });
@@ -88,7 +88,7 @@ describe("batch simulation worker failure isolation", () => {
 
   it("treats a clean exit without final results as failure and cancels the unfinished siblings", async () => {
     const progress = vi.fn();
-    const pending = simulatePairs("16.20", 15000, pairs, 2, progress);
+    const pending = simulatePairs("16.21", 15000, pairs, 2, progress);
     const rejection = expect(pending).rejects.toThrow("Simulation worker stopped (exit code 0) before sending its results");
     control.workers[0]!.emit("exit", 0);
     control.workers[1]!.emit("message", { completed: 1 });
@@ -99,16 +99,16 @@ describe("batch simulation worker failure isolation", () => {
 
   it("stops workers already started when another worker cannot be constructed", async () => {
     control.failConstructionAt = 1;
-    await expect(simulatePairs("16.20", 15000, pairs, 2)).rejects.toBe(control.constructionError);
+    await expect(simulatePairs("16.21", 15000, pairs, 2)).rejects.toBe(control.constructionError);
     expect(control.workers).toHaveLength(1);
     expect(control.workers[0]!.terminated).toBe(true);
   });
 
   it("keeps round-robin tasks, exact result payloads and canonical order when shares complete out of order", async () => {
     const progress = vi.fn();
-    const pending = simulatePairs("16.20", 15000, pairs, 2, progress, checkpoint);
+    const pending = simulatePairs("16.21", 15000, pairs, 2, progress, checkpoint);
     const [first, second] = control.workers;
-    expect(first!.task).toEqual({ dataset: "16.20", gold: 15000, pairs: [[0, ...pairs[0]!], [2, ...pairs[2]!], [4, ...pairs[4]!]], checkpoint });
+    expect(first!.task).toEqual({ dataset: "16.21", gold: 15000, pairs: [[0, ...pairs[0]!], [2, ...pairs[2]!], [4, ...pairs[4]!]], checkpoint });
     expect(second!.task.pairs).toEqual([[1, ...pairs[1]!], [3, ...pairs[3]!], [5, ...pairs[5]!]]);
     second!.emit("message", { completed: 3 });
     second!.emit("message", [result(5), result(3), result(1)]);
@@ -125,14 +125,14 @@ describe("batch simulation worker failure isolation", () => {
     // cross-thread Error/cause serialization without an expensive matchup search.
     const { Worker } = await vi.importActual<typeof import("node:worker_threads")>("node:worker_threads");
     const worker = new Worker(new URL("../pipeline/sim/worker.mjs", import.meta.url), {
-      workerData: { dataset: "16.20", gold: 15000, pairs: [[7, "NonexistentPoolTestChampion", "Darius"]] } satisfies PoolTask,
+      workerData: { dataset: "16.21", gold: 15000, pairs: [[7, "NonexistentPoolTestChampion", "Darius"]] } satisfies PoolTask,
     });
     try {
       const failure = await new Promise<Error>((resolve, reject) => {
         worker.once("error", resolve);
         worker.once("exit", () => reject(new Error("Expected a contextual worker error before exit")));
       });
-      expect(failure.message).toContain("Dataset 16.20: NonexistentPoolTestChampion vs Darius (pair 7) failed:");
+      expect(failure.message).toContain("Dataset 16.21: NonexistentPoolTestChampion vs Darius (pair 7) failed:");
       expect(failure.cause).toBeInstanceOf(Error);
       expect((failure.cause as Error).message).toBe('No champion named "NonexistentPoolTestChampion"');
       expect((failure.cause as Error).stack).toContain("findChampion");

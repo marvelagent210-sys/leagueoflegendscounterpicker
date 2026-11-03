@@ -1,0 +1,232 @@
+{
+  "champion": "Trundle",
+  "name": "Trundle",
+  "gameplayRadius": 65,
+  "moveSpeed": 350,
+  "attacks": [
+    {
+      "form": "trundle",
+      "formName": "Trundle",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.05209,
+      "attackDamage": 156.493,
+      "windup": 0.198018,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Trundle",
+      "kind": "E",
+      "name": "Pillar of Ice",
+      "page": {
+        "title": "Template:Data Trundle/Pillar of Ice",
+        "revid": 4008207
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Trundle/Pillar of Ice",
+              "revid": 4008207,
+              "quote": "Active: Trundle erects a pillar of ice at the target location for 6 seconds, which knocks back units hit up to 225 units from its center."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Trundle/Pillar of Ice",
+              "revid": 4008207,
+              "quote": "The pillar acts as terrain and slows nearby enemies."
+            }
+          ],
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "castTime": 0.25,
+      "range": 1000,
+      "notes": [
+        "Pillar of Ice displaces allied units away from the area but does not render them airborne.\n  - Allied channels (e.g. Recall, Teleport) will be interrupted however."
+      ]
+    },
+    {
+      "champion": "Trundle",
+      "kind": "I",
+      "name": "King's Tribute",
+      "page": {
+        "title": "Template:Data Trundle/King's Tribute",
+        "revid": 3986655
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Trundle/King's Tribute",
+              "revid": 3986655,
+              "quote": "Innate: Whenever a nearby enemy dies, Trundle heals himself for 1.8 – 5.5 (based on level)% of their maximum health."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Trundle",
+      "kind": "Q",
+      "name": "Chomp",
+      "page": {
+        "title": "Template:Data Trundle/Chomp",
+        "revid": 3949665
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Trundle/Chomp",
+              "revid": 3949665,
+              "quote": "Active: Trundle empowers his next basic attack within 7 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 75% for 0.1 seconds."
+            }
+          ],
+          "duration": 0.1,
+          "amount": 75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 3.5,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Chomp will still incur the attack damage increase for Trundle even if the attack is dodged, blocked, missed while he is blinded, or it is blocked by spell shield.",
+        "Spell shield will only block the attack damage reduction and slow."
+      ]
+    },
+    {
+      "champion": "Trundle",
+      "kind": "R",
+      "name": "Subjugate",
+      "page": {
+        "title": "Template:Data Trundle/Subjugate",
+        "revid": 4015247
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Trundle/Subjugate",
+              "revid": 4015247,
+              "quote": "Active: Trundle drains the life force out of the target enemy champion, dealing magic damage and healing himself for the same amount."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 650,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Trundle",
+      "kind": "W",
+      "name": "Frozen Domain",
+      "page": {
+        "title": "Template:Data Trundle/Frozen Domain",
+        "revid": 4057475
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Trundle/Frozen Domain",
+              "revid": 4057475,
+              "quote": "While he is within the area, he gains bonus attack speed, bonus movement speed, and 25% increased healing from all sources."
+            }
+          ]
+        }
+      ],
+      "cooldown": 14,
+      "castTime": 0,
+      "range": 750,
+      "boostsAttacks": true
+    }
+  ]
+}

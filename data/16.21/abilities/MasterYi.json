@@ -1,0 +1,1141 @@
+[
+  {
+    "champion": "MasterYi",
+    "kind": "E",
+    "name": "Wuju Style",
+    "page": {
+      "title": "Template:Data Master Yi/Wuju Style",
+      "revid": 3959670
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 14
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "True"
+      ],
+      "spellEffects": "proc",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Master Yi empowers his basic attacks within the next 5 seconds to deal bonus true damage on-hit.",
+        "leveling": [
+          {
+            "label": "Bonus True Damage",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40 (+ 35% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Master Yi empowers his basic attacks within the next 5 seconds to deal bonus true damage on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Wuju Style can be cast during Alpha Strike.",
+      "Wuju Style cannot be cast while it is already active.",
+      "Wuju Style's bonus true damage does not interact with critical strikes.",
+      "Wuju Style's bonus true damage cannot be blocked but can be dodged and/or missed if Master Yi is blinded.",
+      "The attacks do not deal the bonus damage against structures.",
+      "While Wuju Style is active, the damage will dynamically update its calculations."
+    ]
+  },
+  {
+    "champion": "MasterYi",
+    "kind": "I",
+    "name": "Double Strike",
+    "page": {
+      "title": "Template:Data Master Yi/Double Strike",
+      "revid": 4057839
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Secondary target range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "attack",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Master Yi's basic attacks on-hit generate a stack of Double Strike for 4 seconds, refreshing on subsequent hits and stacking up to 3 times. At 3 stacks, Master Yi's next basic attack on-attack is empowered to consume the stacks on-hit and strike twice, the second strike dealing 50% AD physical damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Master Yi's basic attacks on-hit generate a stack of Double Strike for 4 seconds, refreshing on subsequent hits and stacking up to 3 times.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "At 3 stacks, Master Yi's next basic attack on-attack is empowered to consume the stacks on-hit and strike twice, the second strike dealing 50% AD physical damage.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "At 3 stacks, Master Yi's next basic attack on-attack is empowered to consume the stacks on-hit and strike twice, the second strike dealing 50% AD physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The second strike applies on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "The second strike applies on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "The second strike applies on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "The second strike applies on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Master Yi's primary target is killed before the second strike, he will automatically target another nearby enemy.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The second strike can critically strike against structures.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "The second strike can critically strike against structures.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The second strike separately rolls a critical strike.\n  - The second strike does not trigger Sundered Sky Lightshield Strike.",
+      "If the stacks expire during the empowered attack's first strike animation, the attack cancels and the normal basic attack windup starts.",
+      "Double Strike does not cause Master Yi to attack twice. Effects that trigger on completing the attack windup will only trigger once and thus do not interact with Double Strike. (e.g. Hail of Blades).",
+      "Since Double Strike resets the counter with the first strike, and the second strike applies on-hit effects, the second strike is able to add a stack for the next Double Strike activation.",
+      "If Double Strike's target becomes untargetable shortly after the triggering attack, it will still occur and deal its effects as usual.",
+      "Basic attacks that are dodged, blocked, or missed while Master Yi is blinded will not generate any stacks of Double Strike nor refresh the duration of active stacks.",
+      "Double Strike's interaction with parry effects at 3 stacks (the damage of the strikes is negated in all cases):\n  - If the triggering basic attack is dodged, Master Yi will not perform the second strike nor consume the stacks.\n  - If the triggering basic attack is blocked, Master Yi will perform the second strike but not consume the stacks.\n  - If the triggering basic attack misses while Master Yi is blinded, he will consume the stacks.\n    - The second strike will fail to hit the target at all if the triggering attack misses. On-attack effects do not occur, despite the attack animation playing."
+    ]
+  },
+  {
+    "champion": "MasterYi",
+    "kind": "Q",
+    "name": "Alpha Strike",
+    "page": {
+      "title": "Template:Data Master Yi/Alpha Strike",
+      "revid": 4086259
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 19.5 / 19 / 18.5 / 18",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                19.5,
+                19,
+                18.5,
+                18
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "special",
+      "parry": "special",
+      "grounded": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Master Yi vanishes and becomes unable to act. After 0.231, he marks the target enemy and then proceeds to mark the nearest visible un-marked enemy within 600 units, recurring every 0.231 up to 3 times. If there are no other un-marked targets before then, Master Yi can mark the same enemies again. During Alpha Strike, Master Yi can select a direction from the primary target.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "vanishes",
+            "evidence": "Active: Master Yi vanishes and becomes unable to act.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "Active: Master Yi vanishes and becomes unable to act.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "After 0.231, he marks the target enemy and then proceeds to mark the nearest visible un-marked enemy within 600 units, recurring every 0.231 up to 3 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon finishing marking, Master Yi reappears 75 units in the targeted direction, or in front of the target otherwise, and then becomes able to act again after 0.165. If the primary target dies or is too far away during the delay, Master Yi will reappear at the initial cast location instead.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "reappears",
+            "evidence": "Upon finishing marking, Master Yi reappears 75 units in the targeted direction, or in front of the target otherwise, and then becomes able to act again after 0.165.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Master Yi then detonates the marks to deal physical damage and apply on-hit effects, with on-hit damage reduced to 75% effectiveness. Marks after the first on the same target instead detonate instantly upon application to deal 25% damage and apply on-hit effects, with on-hit damage reduced to 18.75% effectiveness. Alpha Strike deals bonus physical damage to monsters per hit.",
+        "leveling": [
+          {
+            "label": "Primary Physical Damage",
+            "amount": {
+              "text": "20 / 40 / 60 / 80 / 100 (+ 70% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  40,
+                  60,
+                  80,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage per hit",
+            "amount": {
+              "text": "5 / 10 / 15 / 20 / 25 (+ 17.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 17.5
+                  },
+                  "text": "(+ 17.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Single-Target Damage",
+            "amount": {
+              "text": "35 / 70 / 105 / 140 / 175 (+ 122.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35,
+                  70,
+                  105,
+                  140,
+                  175
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 122.5
+                  },
+                  "text": "(+ 122.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Primary Bonus Monster Damage",
+            "amount": {
+              "text": "60 / 85 / 110 / 135 / 160",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  85,
+                  110,
+                  135,
+                  160
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Combined Primary Monster Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 70% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Monster Damage per hit",
+            "amount": {
+              "text": "20 / 31.25 / 42.5 / 53.75 / 65 (+ 17.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  31.25,
+                  42.5,
+                  53.75,
+                  65
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 17.5
+                  },
+                  "text": "(+ 17.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Max Single-Target Monster Damage",
+            "amount": {
+              "text": "140 / 218.75 / 297.5 / 376.25 / 455 (+ 122.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  218.75,
+                  297.5,
+                  376.25,
+                  455
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 122.5
+                  },
+                  "text": "(+ 122.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Master Yi then detonates the marks to deal physical damage and apply on-hit effects, with on-hit damage reduced to 75% effectiveness.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Marks after the first on the same target instead detonate instantly upon application to deal 25% damage and apply on-hit effects, with on-hit damage reduced to 18.75% effectiveness.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 18.75
+            },
+            "context": "Marks after the first on the same target instead detonate instantly upon application to deal 25% damage and apply on-hit effects, with on-hit damage reduced to 18.75% effectiveness."
+          }
+        ]
+      },
+      {
+        "text": "Alpha Strike's primary and lesser damage can critically strike for 200% damage.",
+        "leveling": [
+          {
+            "label": "Critical Primary Physical Damage",
+            "amount": {
+              "text": "40 / 80 / 120 / 160 / 200 (+ 140% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  80,
+                  120,
+                  160,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 140
+                  },
+                  "text": "(+ 140% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Critical Reduced Damage per hit",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 (+ 35% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Critical Single-Target Damage",
+            "amount": {
+              "text": "70 / 140 / 210 / 280 / 350 (+ 245% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  140,
+                  210,
+                  280,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 245
+                  },
+                  "text": "(+ 245% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Alpha Strike's primary and lesser damage can critically strike for 200% damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Basic attacks on-hit reduce Alpha Strike's current cooldown by 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Basic attacks on-hit reduce Alpha Strike's current cooldown by 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Wuju Style and Highlander can be cast during Alpha Strike. Each time Alpha Strike hits a target, the current durations of Wuju Style and Highlander are refreshed. Alpha Strike's cast instance does not trigger its cooldown reduction nor grant a stack of Double Strike when applying on-hit effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Alpha Strike's primary damage applies after Master Yi reappears.",
+      "Alpha Strike's cooldown reduction applies on structures.",
+      "When Master Yi bounces from a unit it will grant vision in a 600 radius around it for up to 0.627 after Alpha Strike ends, including across terrain, though not into brush.\n  - It will always grant vision around the primary target, even if he doesn't bounce off it.",
+      "Alpha Strike's damage is calculated at the moment that each mark is placed. Because of this, it is possible to inflict differing amounts of damage if Master Yi's AD changes between marks.",
+      "Master Yi will follow all his primary target's movements.\n  - Alpha Strike can only follow up-to 2000 units; If the target teleports a very long distance, it will not be followed.",
+      "While vanished, the initial cast location of Alpha Strike counts as Master Yi's position, which is considered for effects such as tethers.",
+      "If the primary target becomes untargetable and there are no other nearby valid targets, Alpha Strike will end prematurely and will not deal the damage occurring after Master Yi's reappearance.",
+      "The choice of exit direction occurs through an indicator anchored to the target during the time that Master Yi is vanished. You are unable to choose the exit direction after the third mark. Selection commands (default: MB1/left click) and movement commands (default: MB2/right click) are both valid.\n  - Multiple commands can be issued, but only the final command before exiting will determine the direction.",
+      "If the primary target is a champion, Master Yi will be automatically ordered to basic attack them after Alpha Strike ends.\n  - Master Yi will not be able to buffer other abilities.",
+      "Only the first instance of damage counts as a hit for effects such as Electrocute and Eclipse Ever Rising Moon.",
+      "Alpha Strike does not interact with Permafrost.",
+      "Alpha Strike does not stack Press the Attack as it is always tagged as dealing AoE damage.",
+      "While basic damage on-hit can stack Conqueror multiple times regardless of cast instance, Alpha Strike is unique in that it is the only multi on-hit effect to stack just once for being a single cast instance and for not being basic damage.",
+      "Spell shield will only block a single instance of damage.",
+      "On-hit damage applied by Alpha Strike will be negated by dodge and block, but not while Master Yi is blinded.\n  - Alpha Strike's own damage will not be negated.",
+      "If Master Yi dies during Alpha Strike and he is only focusing one target, the ability will only deal the reduced damage strikes and not the final tick of damage from reappearing.\n  - If he is striking multiple targets the damage will be dealt immediately when dying, and if he dies before the bounce from the last target, Alpha Strike will deal reduced damage only to all units he already bounced from.",
+      "If Master Yi enters resurrection during Alpha Strike and he is only focusing one target, the ability will deal the reduced damage strikes as normal and the final tick of damage after being resurrected.\n  - If he is striking multiple targets, Alpha Strike will sometimes deal the reduced damage from repeated bounces and the main damage after being resurrected, and sometimes only the reduced damage, unrelated to the number of targets available.",
+      "The following table refers for interactions while Master Yi is performing Alpha Strike:"
+    ]
+  },
+  {
+    "champion": "MasterYi",
+    "kind": "R",
+    "name": "Highlander",
+    "page": {
+      "title": "Template:Data Master Yi/Highlander",
+      "revid": 4060364
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "85",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 85
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Scoring a champion takedown reduces the current cooldowns of Master Yi's basic abilities by 70%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Master Yi cleanses himself from all slows and cripples. For the next 7 seconds, he gains ghosting, bonus attack speed, bonus movement speed, slow immunity, and cripple immunity.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "25 / 45 / 65%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  45,
+                  65
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "40 / 50 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cleanse",
+            "category": "defense",
+            "wording": "cleanses",
+            "evidence": "Active: Master Yi cleanses himself from all slows and cripples.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "evidence": "Active: Master Yi cleanses himself from all slows and cripples.",
+            "conditional": true
+          },
+          {
+            "type": "cripple",
+            "category": "control",
+            "wording": "cripples",
+            "evidence": "Active: Master Yi cleanses himself from all slows and cripples.",
+            "conditional": true
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "For the next 7 seconds, he gains ghosting, bonus attack speed, bonus movement speed, slow immunity, and cripple immunity.",
+            "conditional": false
+          },
+          {
+            "type": "slow-immune",
+            "category": "defense",
+            "wording": "slow immunity",
+            "evidence": "For the next 7 seconds, he gains ghosting, bonus attack speed, bonus movement speed, slow immunity, and cripple immunity.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While active, scoring a champion takedown extends Highlander's duration by 7 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Highlander can be cast during Alpha Strike."
+    ]
+  },
+  {
+    "champion": "MasterYi",
+    "kind": "W",
+    "name": "Meditate",
+    "page": {
+      "title": "Template:Data Master Yi/Meditate",
+      "revid": 4039653
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana (+ 6% maximum mana per second)",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Master Yi channels for up to 4 seconds, healing himself every 0.5 seconds, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on missing health)%.",
+        "leveling": [
+          {
+            "label": "Minimum Heal Per Tick",
+            "amount": {
+              "text": "15 / 25 / 35 / 45 / 55 (+ 12.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  25,
+                  35,
+                  45,
+                  55
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 12.5
+                  },
+                  "text": "(+ 12.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Heal Per Tick",
+            "amount": {
+              "text": "30 / 50 / 70 / 90 / 110 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70,
+                  90,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Total Heal",
+            "amount": {
+              "text": "120 / 200 / 280 / 360 / 440 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  200,
+                  280,
+                  360,
+                  440
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Total Heal",
+            "amount": {
+              "text": "240 / 400 / 560 / 720 / 880 (+ 200% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  240,
+                  400,
+                  560,
+                  720,
+                  880
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Master Yi channels for up to 4 seconds, healing himself every 0.5 seconds, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on missing health)%.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Master Yi channels for up to 4 seconds, healing himself every 0.5 seconds, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on missing health)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            },
+            "context": "Active: Master Yi channels for up to 4 seconds, healing himself every 0.5 seconds, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on missing health)%."
+          }
+        ]
+      },
+      {
+        "text": "While channeling, Master Yi gains 70% damage reduction for the first 0.5 seconds, which is then modified to a reduced amount for the remaining duration of the channel. Meditate's damage reduction is halved against turrets and lingers for 0.5 seconds after the channel ends.",
+        "leveling": [
+          {
+            "label": "Modified Damage Reduction",
+            "amount": {
+              "text": "45 / 47.5 / 50 / 52.5 / 55%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  47.5,
+                  50,
+                  52.5,
+                  55
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Turret Modified Damage Reduction",
+            "amount": {
+              "text": "22.5 / 23.75 / 25 / 26.25 / 27.5%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  22.5,
+                  23.75,
+                  25,
+                  26.25,
+                  27.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Meditate resets Master Yi's basic attack timer, pauses Wuju Style and Highlander duration, and grants one stack of Double Strike per second during the channel.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Meditate resets Master Yi's basic attack timer, pauses Wuju Style and Highlander duration, and grants one stack of Double Strike per second during the channel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Meditate's healing amount updates dynamically as he heals himself, making Master Yi heal for less as his current health increases.",
+      "The first tick of healing may occur at any moment on the first 0.5 seconds of the channel. This means immediately canceling the channel for the attack reset does not guarantee one tick of healing, though it may occur with some chance.",
+      "The following table refers for interactions while Master Yi is channeling:"
+    ]
+  }
+]

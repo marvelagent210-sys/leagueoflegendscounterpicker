@@ -55,7 +55,7 @@ const nidalee: KitModule = {
     const trapMax = bushwhack.levelValue("Up to a maximum of 4 / 6 / 8 / 10 (based on level) traps may be active at once.", 0);
     kit.assume(`Nidalee lays Bushwhack where the enemy will walk: between her and a chasing enemy, or under one held in place. The enemy walks over an armed trap in its path; ${trapMax} may stand at once.`);
 
-    // Primal Surge: 70% attack speed for 7 s, and a heal of 150 (+ 35% AP), up to 100% more with missing health.
+    // Primal Surge: 60% attack speed (26.21) for 7 s, and a heal of 150 (+ 35% AP), up to 100% more with missing health.
     const surgeHeal = surge.formula("Minimum Heal");
     surge.formula("Maximum Heal");
     const surgeGrowth = surge.seriesIn("healing them for an amount that is increased by");

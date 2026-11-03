@@ -1,0 +1,256 @@
+[
+  {
+    "champion": "Naafiri",
+    "name": "Packmate",
+    "page": {
+      "title": "Naafiri",
+      "revid": 4025794
+    },
+    "fields": {
+      "gold": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "cs": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "80 – 301 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                80,
+                89.36,
+                99.175,
+                109.445,
+                120.17,
+                131.35,
+                142.985,
+                155.075,
+                167.62,
+                180.62,
+                194.075,
+                207.985,
+                222.35,
+                237.17,
+                252.445,
+                268.175,
+                284.36,
+                301,
+                318.095,
+                335.645
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "10 – 20 (based on level) (+ 4% bonus AD)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                10.5882352941176,
+                11.1764705882353,
+                11.7647058823529,
+                12.3529411764706,
+                12.9411764705882,
+                13.5294117647059,
+                14.1176470588235,
+                14.7058823529412,
+                15.2941176470588,
+                15.8823529411765,
+                16.4705882352941,
+                17.0588235294118,
+                17.6470588235294,
+                18.2352941176471,
+                18.8235294117647,
+                19.4117647058824,
+                20,
+                20.5882352941176,
+                21.1764705882353
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "0 – 30.6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0,
+                1.296,
+                2.655,
+                4.077,
+                5.562,
+                7.11,
+                8.721,
+                10.395,
+                12.132,
+                13.932,
+                15.795,
+                17.721,
+                19.71,
+                21.762,
+                23.877,
+                26.055,
+                28.296,
+                30.6,
+                32.967,
+                35.397
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "0 – 30.6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0,
+                1.296,
+                2.655,
+                4.077,
+                5.562,
+                7.11,
+                8.721,
+                10.395,
+                12.132,
+                13.932,
+                15.795,
+                17.721,
+                19.71,
+                21.762,
+                23.877,
+                26.055,
+                28.296,
+                30.6,
+                32.967,
+                35.397
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "100% of Naafiri's attack speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "100% of Naafiri's movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "See notes"
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "3",
+      "exp": "0",
+      "cs": "0",
+      "hp": "80 – 301 (based on level)",
+      "damage": "10 – 20 (based on level) (+ 4% bonus AD)",
+      "damagetype": "Physical",
+      "range": "125",
+      "armor": "0 – 30.6 (based on level)",
+      "magicresist": "0 – 30.6 (based on level)",
+      "attackspeed": "100% of Naafiri's attack speed",
+      "radius": "25",
+      "pathingradius": "25",
+      "movespeed": "100% of Naafiri's movement speed",
+      "control": "Naafiri's basic attacks on-hit and ability hits against enemies command Packmates to attack the target for 2 seconds. Subsequent hits against the same target will refresh the duration. Hitting a different target will switch their focus to them from the current target.\n* Darkin Daggers will command them to attack the first visible target hit by the missile that is not a minion.\n** The damage over time effect does not count for triggering this attack command, and thus will not refresh it.\n* Eviscerate will command them to attack the nearest visible target hit by the flurry, prioritizing champions.\n* Hounds' Pursuit will command them to attack the target upon collision of them, if they are visible.",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "onhit": "Packmates' attacks are mitigated by dodge, block, and blind. They also deal 155% damage to monsters and 50% damage to structures.",
+      "spelleffects": "Packmates' attacks apply spell effects as area damage.",
+      "protection": "Packmates take 200% damage from melee champion basic attacks, 76% – 55% (based on level) damage from area damage, and 50% damage from non-epic monsters and minions. Turret attacks will instantly kill Packmates.",
+      "abilities": ";Prey Drive\nAfter Naafiri casts an ability, Packmates deal 30% increased damage on their next basic attack within 3 seconds. They can store up to 3 empowered attacks at a time.\n\n;Pouncing Assault\nPackmates will dash to visible targets hit by Naafiri's basic attacks and abilities within 1300 units. They will also charge alongside Naafiri when she uses Hounds' Pursuit, becoming untargetable in the process.\n\n;Recalling of the Pack\nWhen Naafiri casts The Call of the Pack or Eviscerate, Packmates vanish immediately. They will then reappear near her shortly afterwards.\n\n;Replenish\nPackmates are healed to full health when they reappear from being vanished by Eviscerate.\n\n;Agility\nPackmates gain bonus movement speed during The Call of the Pack.\n\n;Minion Hunter\nPackmates will occasionally score the killing blow on nearby enemy minions that are below 25 – 55 (based on Naafiri's level) health.\n* This has an internal cooldown of 10 seconds.\n* There is a minimum range of 300 units and a maximum range of 800 units around each Packmate for this effect to occur.\n* Packmates will not perform this action while Naafiri is in brush.\n** Enemy vision of the brush may impact whether this behavior is enabled.",
+      "pinnedArticleNotes": "=== Notes ===\n* ''Packmates'' will die with '''Naafiri''' when she does.\n* ''Packmates'' level up with '''Naafiri'''.\n* ''Packmates'' dynamically override their attack speed and movement speed values with '''Naafiri's'''.\n** ''Packmates'' cannot have their attack speed and movement speed values be modified on their own, with one exception:\n*** They gain a movement speed boost when approximately 400-450 or more units away from '''Naafiri''' while she moves away from them. The boost scales based on how far away she is, capping at a total of {{as|1000 movement speed}} with a proximity of 700 units.\n*** When '''Naafiri''' enters a {{tip|brush}}, ''Packmates'' increase their {{as|movement speed}} to {{as|800|ms}} and {{tip|dash}} to the brush's location if it is within approximately 450 units. This dash can surpass terrain although the ''Packmates'' will not dash if they are not already within dash range. In that case, they will navigate and path around the terrain towards the brush.\n* ''Packmates'' are summoned before '''Naafiri''' to the right, left, or backside of her and will follow her in an arrow-like formation that resembles a pack of wolves.\n* If '''Naafiri''' enters {{tip|stealth}}, her ''Packmates'' will do so as well.\n* Whenever '''Naafiri''' {{tip|blink|blinks}}, the ''Packmates'' will do so as well, retaining their relative position to her at the new location.\n* ''Packmates'' cannot perform ''Pouncing Assault'' while {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}}, but they may still {{tip|blink}} from ''{{ai|The Call of the Pack|Naafiri}}'' and ''{{ai|Eviscerate|Naafiri}}''.\n\n",
+      "pinnedRawRevision": "{{Section top}}\n{{Game banner|Naafiri}}\n{{LoL navigation}}\n{{Champion info|Naafiri}}\n\n== Abilities ==\n{{Data Naafiri/I|Ability}}\n{{Data Naafiri/Q|Ability}}\n{{Data Naafiri/W|Ability}}\n{{Data Naafiri/E|Ability}}\n{{Data Naafiri/R|Ability}}\n\n== Pets ==\n{{Infobox/Pet\n|name = Packmate\n|image = File:Naafiri We Are More.png\n|render = Naafiri Packmate Render.png\n|gold = 3\n|exp = 0\n|cs = 0\n|hp = {{as|{{pp|80+13*(x-1)*(0.7025+0.0175*(x-1)) for 20|formula=80 + 13 growth}}|hp}}\n|damage = {{as|{{pp|10 + (20-10)/17*(x-1) for 20}}|physical damage}}<!--has a special formula, this is just placeholder--> {{as|(+ 4% '''bonus''' AD)}}\n|damagetype = Physical\n|range = 125\n|armor = {{as|{{pp|0+1.8*(x-1)*(0.7025+0.0175*(x-1)) for 20|formula=0 + 1.8 growth}}|armor}}\n|magicresist = {{as|{{pp|0+1.8*(x-1)*(0.7025+0.0175*(x-1)) for 20|formula=0 + 1.8 growth}}|mr}}\n|attackspeed = {{as|100% of '''Naafiri's''' attack speed|attack speed}}\n|radius = 25\n|pathingradius = 25\n|movespeed = {{tt|{{as|100% of '''Naafiri's''' movement speed}}|See notes}}\n|control = '''Naafiri's''' basic attacks {{tip|on-hit}} and ability hits against enemies command ''Packmates'' to attack the target for 2 seconds. Subsequent hits against the same target will refresh the duration. Hitting a different target will switch their focus to them from the current target.\n* ''{{ai|Darkin Daggers|Naafiri}}'' will command them to attack the first {{tip|sight|visible}} target hit by the missile that is not a minion.\n** The damage over time effect does not count for triggering this attack command, and thus will not refresh it.\n* ''{{ai|Eviscerate|Naafiri}}'' will command them to attack the nearest {{tip|sight|visible}} target hit by the flurry, prioritizing champions.\n* ''{{ai|Hounds' Pursuit|Naafiri}}'' will command them to attack the target upon collision of them, if they are {{tip|sight|visible}}.\n|targeting = {{tip|Minion}}, does not count towards the minion kill tracking score\n|onhit = ''Packmates' ''attacks are mitigated by {{tip|dodge}}, {{tip|block}}, and {{tip|blind}}. They also deal 155% damage to {{tip|monsters}} and 50% damage to [[structure]]s.\n|spelleffects = ''Packmates' ''attacks apply {{tip|spell effects}} as {{tip|area damage}}.\n|protection = ''Packmates'' take 200% damage from {{tip|melee}} champion basic attacks, {{pp|76 to 55 for 15|1 to 15|key=%}} damage from {{tip|area damage}}, and 50% damage from non-epic monsters and minions. {{tip|Turret}} attacks will instantly kill ''Packmates''.\n|abilities = \n;Prey Drive\nAfter '''Naafiri''' casts an ability, ''Packmates'' deal{{ft|30% increased damage|{{as|{{pp|10*1.3 + (20*1.3-10*1.3)/17*(x-1) for 20}}|physical damage}} {{as|(+ {{ap|4*1.3}}% '''bonus''' AD)}} {{as|physical damage}}}}on their next basic attack within 3 seconds. They can store up to 3 empowered attacks at a time.\n\n;Pouncing Assault\n''Packmates'' will {{tip|dash}} to {{tip|sight|visible}} targets hit by '''Naafiri's''' basic attacks and abilities within 1300 units. They will also charge alongside '''Naafiri''' when she uses ''{{ai|Hounds' Pursuit|Naafiri}}'', becoming {{tip|untargetable}} in the process.\n\n;Recalling of the Pack\nWhen '''Naafiri''' casts ''{{ai|The Call of the Pack|Naafiri}}'' or ''{{ai|Eviscerate|Naafiri}}'', ''Packmates'' {{tip|vanish}} immediately. They will then reappear near her shortly afterwards.\n\n;Replenish\n''Packmates'' are {{tip|heal|healed}} to full health when they reappear from being vanished by ''{{ai|Eviscerate|Naafiri}}''.\n\n;Agility\n''Packmates'' gain {{as|'''bonus''' movement speed}} during ''{{ai|The Call of the Pack|Naafiri}}''.\n\n;Minion Hunter\n''Packmates'' will occasionally score the killing blow on nearby enemy minions that are below {{as|{{pp|25 to 55 for 11|1 to 11|type='''Naafiri's''' level}} health}}. \n* This has an {{tt|internal cooldown|Not visible to the player and not affected by ability haste.}} of 10 seconds.\n* There is a minimum range of 300 units and a maximum range of 800 units around each ''Packmate'' for this effect to occur.\n* ''Packmates'' will not perform this action while '''Naafiri''' is in {{tip|brush}}.\n** {{Pending for test}} Enemy vision of the brush may impact whether this behavior is enabled.\n}}\n=== Notes ===\n* ''Packmates'' will die with '''Naafiri''' when she does.\n* ''Packmates'' level up with '''Naafiri'''.\n* ''Packmates'' dynamically override their attack speed and movement speed values with '''Naafiri's'''.\n** ''Packmates'' cannot have their attack speed and movement speed values be modified on their own, with one exception:\n*** They gain a movement speed boost when approximately 400-450 or more units away from '''Naafiri''' while she moves away from them. The boost scales based on how far away she is, capping at a total of {{as|1000 movement speed}} with a proximity of 700 units.\n*** When '''Naafiri''' enters a {{tip|brush}}, ''Packmates'' increase their {{as|movement speed}} to {{as|800|ms}} and {{tip|dash}} to the brush's location if it is within approximately 450 units. This dash can surpass terrain although the ''Packmates'' will not dash if they are not already within dash range. In that case, they will navigate and path around the terrain towards the brush.\n* ''Packmates'' are summoned before '''Naafiri''' to the right, left, or backside of her and will follow her in an arrow-like formation that resembles a pack of wolves.\n* If '''Naafiri''' enters {{tip|stealth}}, her ''Packmates'' will do so as well.\n* Whenever '''Naafiri''' {{tip|blink|blinks}}, the ''Packmates'' will do so as well, retaining their relative position to her at the new location.\n* ''Packmates'' cannot perform ''Pouncing Assault'' while {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}}, but they may still {{tip|blink}} from ''{{ai|The Call of the Pack|Naafiri}}'' and ''{{ai|Eviscerate|Naafiri}}''.\n\n==Champion skins==\n:''This article section only contains champion skins. For all associated collection items, see [[Naafiri/Cosmetics|Naafiri (Collection)]].''\n{{#invoke:SkinData|skintabber|Naafiri}}\n\n==Trivia==\n* {{Champion without ability power ratio|Naafiri}}\n* Naafiri has a special joke animation which comes in a sequence of three animations, playing the next animation in the sequence once the appropriate key combination is pressed just as the previous animation ends.<ref>[https://www.youtube.com/watch?v=JErn6_Bl09w ''How to give Naafiri the good pets'']</ref>\n** The first animation plays by pressing <code>Ctrl + 1</code> twice, which shows Naafiri being pet on the head by a hand resembling the Legacy cursor.\n** The second animation plays by pressing <code>Ctrl + 2</code> as the first animation ends, with Naafiri being petted on the neck before falling on her back.\n** The third animation plays by pressing <code>Ctrl + 3</code> as the second animation ends, showing Naafiri being rubbed on the belly while still lying down. Pressing <code>Ctrl + 3</code> again during the end of the animation will allow it to be repeated again as many times as the player keeps pressing the key.\n* Naafiri's Series 2 [[Eternals]] make the following references:\n** ''Let the Dogs Out'' is a reference to the song called [https://www.youtube.com/watch?v=ojULkWEUsPs Who Let The Dogs Out] by {{w|Baha Men}}.\n** ''What the dog doin?'' is a reference to the [https://knowyourmeme.com/memes/what-the-dog-doin What the Dog Doin'] meme.\n*Naafiri's in-client biography is currently the only in-client biography to not include the subject champion's name.\n\n==Patch history==\n{{Patch box|Naafiri|Current version}}\n\n==See also==\n{{Champions}}\n\n==References==\n<references/>\n{{Champion categories|Naafiri}}\n[[Category:Dash champion]]\n[[Category:Execution champion]]\n[[Category:Haste champion]]\n[[Category:Pet champion]]\n[[Category:Healer champion]]\n[[Category:Shield champion]]\n[[Category:Slow champion]]\n[[Category:Champion without ability power ratio]]\n[[Category:Untargetable champion]]"
+    }
+  }
+]

@@ -1,0 +1,919 @@
+[
+  {
+    "champion": "Brand",
+    "kind": "E",
+    "name": "Conflagration",
+    "page": {
+      "title": "Template:Data Brand/Conflagration",
+      "revid": 4034693
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12 / 11 / 10 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12,
+                11,
+                10,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "90",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 90
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "675",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 675
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300 • 600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Secondary target spread radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Secondary target spread radius if primary target was Ablaze"
+          }
+        ]
+      },
+      "speed": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Brand sets the target enemy aflame, which creates a blast that deals magic damage to them and causes the flame to spread from the target to nearby enemies, dealing them the same damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "55 / 80 / 105 / 130 / 155 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  80,
+                  105,
+                  130,
+                  155
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Ablaze Bonus",
+        "text": "Ablaze Bonus: Conflagration's spread range is doubled.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The flame spreads to enemies near the primary target at the time of cast.\n  - Enemies that move out of range after the fact will still be hit, as the flame is spread as homing missiles to each of its targets.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Brand",
+    "kind": "I",
+    "name": "Blaze",
+    "page": {
+      "title": "Template:Data Brand/Blaze",
+      "revid": 4052621
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "475",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 475
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Brand's abilities apply a stack of Ablaze to enemies hit for 4 seconds, stacking up to 3 times and refreshing the duration of all stacks with each application. Subsequent abilities used against a target with Ablaze are empowered. Killing an enemy afflicted with Ablaze or any enemy with an ability restores 20 / 25 / 30 / 35 / 40 (based on level) mana.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                9,
+                12,
+                15
+              ],
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40
+              ]
+            },
+            "context": "Killing an enemy afflicted with Ablaze or any enemy with an ability restores 20 / 25 / 30 / 35 / 40 (based on level) mana."
+          }
+        ]
+      },
+      {
+        "label": "Ablaze",
+        "text": "Ablaze: While afflicted with Ablaze, the target is dealt magic damage equal to 2% of their maximum health over 4 seconds. Each stack of Ablaze deals damage to the target individually and applies their damage ticks dependent on the time they were applied, even if the duration of all the stacks are refreshed. Ablaze deals 270% damage per tick to monsters; this damage is capped at 12.5 / 25 / 37.5 (based on Ablaze stacks) per tick against non-epic monsters and 20 / 40 / 60 (based on Ablaze stacks) per tick against epic monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Ablaze stacks",
+              "points": [
+                1,
+                2,
+                3
+              ],
+              "values": [
+                12.5,
+                25,
+                37.5
+              ]
+            },
+            "context": "Ablaze deals 270% damage per tick to monsters; this damage is capped at 12.5 / 25 / 37.5 (based on Ablaze stacks) per tick against non-epic monsters and 20 / 40 / 60 (based on Ablaze stacks) per tick against epic monsters."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Ablaze stacks",
+              "points": [
+                1,
+                2,
+                3
+              ],
+              "values": [
+                20,
+                40,
+                60
+              ]
+            },
+            "context": "Ablaze deals 270% damage per tick to monsters; this damage is capped at 12.5 / 25 / 37.5 (based on Ablaze stacks) per tick against non-epic monsters and 20 / 40 / 60 (based on Ablaze stacks) per tick against epic monsters."
+          }
+        ]
+      },
+      {
+        "text": "Upon applying 3 stacks of Ablaze to a large monster or enemy champion, the fire becomes unstable, causing it to form a fiery ring around the target that grants sight within its radius and, after 2 seconds, consumes their stacks to explode. All enemies within the detonation are applied a stack of Ablaze and dealt magic damage equal to 6 – 12 (based on level)% (+ 2% per 100 AP) of their maximum health, capped at 270 / 355 / 440 / 525 (based on level) against monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Upon applying 3 stacks of Ablaze to a large monster or enemy champion, the fire becomes unstable, causing it to form a fiery ring around the target that grants sight within its radius and, after 2 seconds, consumes their stacks to explode.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                6,
+                6.35294117647059,
+                6.70588235294118,
+                7.05882352941176,
+                7.41176470588235,
+                7.76470588235294,
+                8.11764705882353,
+                8.47058823529412,
+                8.82352941176471,
+                9.17647058823529,
+                9.52941176470588,
+                9.88235294117647,
+                10.2352941176471,
+                10.5882352941176,
+                10.9411764705882,
+                11.2941176470588,
+                11.6470588235294,
+                12,
+                12.3529411764706,
+                12.7058823529412
+              ],
+              "past18": "wiki"
+            },
+            "context": "All enemies within the detonation are applied a stack of Ablaze and dealt magic damage equal to 6 – 12 (based on level)% (+ 2% per 100 AP) of their maximum health, capped at 270 / 355 / 440 / 525 (based on level) against monsters."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                270,
+                355,
+                440,
+                525
+              ]
+            },
+            "context": "All enemies within the detonation are applied a stack of Ablaze and dealt magic damage equal to 6 – 12 (based on level)% (+ 2% per 100 AP) of their maximum health, capped at 270 / 355 / 440 / 525 (based on level) against monsters."
+          }
+        ]
+      },
+      {
+        "text": "Brand cannot stack Ablaze more than once on enemies that have had a ring explode from them in the last 4 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The ring will form even if the target dies to the ability applying the third stack, and will still trigger the explosion if the target dies before it.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The burn deals persistent damage, and the explosion deals area damage; both are additionally tagged as indirect damage.",
+      "Ablaze is a debuff that persists through death.",
+      "Ablaze's damage cap against a monster is applied after the increased monster damage.",
+      "The explosion is not considered a tether effect and will not affect untargetable targets, even if the explosion originated from them.",
+      "Given the behavior of the stacking mechanic, the damage over time will deal varying amounts of damage based on the time the stacks were applied:\n  - At sub-optimal applied times, 2 stacks will deal a minimum of 6% maximum health damage over 4 seconds, but will deal 7% maximum health at optimal applied times.\n  - Against small-medium units 3 stacks will deal a minimum of 9% maximum health at sub-optimal times, but 11% maximum health at optimal times. If these stacks are further refreshed at optimal times they can deal up to 12% maximum health over 4 seconds."
+    ]
+  },
+  {
+    "champion": "Brand",
+    "kind": "Q",
+    "name": "Sear",
+    "page": {
+      "title": "Template:Data Brand/Sear",
+      "revid": 4007576
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7.5 / 7 / 6.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7.5,
+                7,
+                6.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1100 • 1040",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1040
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Brand launches a fireball in the target direction that deals magic damage to the first enemy hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 100 / 130 / 160 / 190 (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  100,
+                  130,
+                  160,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Ablaze Bonus",
+        "text": "Ablaze Bonus: The target is stunned for 1.75 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 1.75
+            },
+            "evidence": "Ablaze Bonus: The target is stunned for 1.75 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "With an ability haste value of 80.2816901408 / 69.014084507 / 57.7464788732 / 46.4788732394 / 35.2112676056 to 161.224489796 / 144.897959184 / 128.571428571 / 112.244897959 / 95.9183673469 based on the ranges of applications from the target, it is possible to apply the stun without having to use other abilities. Sear will apply before the duration of the pre-applied Blaze times out.\n  - The needed ability haste value if you remained at the same range from the target for both casts would be 113.333333333 / 100 / 86.6666666667 / 73.3333333333 / 60.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Brand",
+    "kind": "R",
+    "name": "Pyroclasm",
+    "page": {
+      "title": "Template:Data Brand/Pyroclasm",
+      "revid": 3955099
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 90 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                90,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Bounce range, checked when fireball arrives at a target"
+          }
+        ]
+      },
+      "speed": {
+        "text": "750 - 3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            },
+            "label": "Acceleration 500u/s"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Brand launches a fireball at the target enemy that bounces between nearby enemies and Brand up to four times, dealing magic damage to enemies each time and having a 0.15-second delay between bounces.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 175 / 250 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  175,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Single-Target Damage",
+            "amount": {
+              "text": "300 / 525 / 750 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  525,
+                  750
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Pyroclasm prioritizes Ablaze enemy champions, then other enemy champions, then any valid bounce target, then Brand.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Ablaze Bonus",
+        "text": "Ablaze Bonus: The target is slowed for 0.25 seconds. This can affect the same enemy more than once.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 45 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                45,
+                60
+              ]
+            },
+            "evidence": "Ablaze Bonus: The target is slowed for 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The target does not have to be visible for the fireball to bounce to them.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "The target does not have to be visible for the fireball to bounce to them.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The fireball acquires a new valid, bounce target once the bounce delay finishes.",
+      "If the target the fireball is in flight towards becomes untargetable, the fireball missile will be destroyed but a new missile will be formed at the target's location that is able to bounce for up to the remaining bounces of the previous fireball.\n  - The new missile is only formed if there is a valid target to bounce to at the time of the previous missile being destroyed.\n  - This does not apply if the target is Brand, as the missile would not be destroyed and would bounce from him even if he is untargetable.",
+      "The fireball will still bounce from the target even if they were dead upon arrival.",
+      "The fireball may only bounce to valid targets, including Brand.",
+      "If the initial cast target uses spell shield, Pyroclasm will not bounce. If the bounce is blocked by an enemy's spell shield it will not deal any damage, but it will keep on bouncing.",
+      "Pyroclasm's damage against enemy champions will not aggro nearby enemy minions.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Brand",
+    "kind": "W",
+    "name": "Pillar of Flame",
+    "page": {
+      "title": "Template:Data Brand/Pillar of Flame",
+      "revid": 3955084
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "260",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: After a 0.627 delay, Brand erupts a pillar of flame at the target location that deals magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 120 / 165 / 210 / 255 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  120,
+                  165,
+                  210,
+                  255
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Ablaze Bonus",
+        "text": "Ablaze Bonus: The target takes 25% increased damage.",
+        "leveling": [
+          {
+            "label": "Increased Damage",
+            "amount": {
+              "text": "93.75 / 150 / 206.25 / 262.5 / 318.75 (+ 87.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  93.75,
+                  150,
+                  206.25,
+                  262.5,
+                  318.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 87.5
+                  },
+                  "text": "(+ 87.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The delay before the eruption does not include the cast time. The delay would be a total of 0.891 if it included the cast time."
+    ]
+  }
+]

@@ -1,0 +1,340 @@
+{
+  "champion": "Skarner",
+  "name": "Skarner",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "skarner",
+      "formName": "Skarner",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.870812,
+      "attackDamage": 161.325,
+      "windup": 0.215316,
+      "modifiers": [
+        "Threads of Vibration"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Skarner",
+      "kind": "E",
+      "name": "Ixtal's Impact",
+      "page": {
+        "title": "Template:Data Skarner/Ixtal's Impact",
+        "revid": 4000401
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Skarner/Ixtal's Impact",
+              "revid": 4000401,
+              "quote": "If Skarner's attached target collides with terrain, the charge ends, detaching them from him, dealing physical damage, stunning them for 1.1 seconds, and reducing Ixtal's Impact's cooldown by 35%."
+            }
+          ],
+          "duration": 1.1,
+          "condition": "If Skarner's attached target collides with terrain, the charge ends, detaching them from him, dealing physical damage, stunning them for 1.1 seconds, and reducing Ixtal's Impact's cooldown by 35%."
+        },
+        {
+          "type": "suppression",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "suppression"
+            },
+            {
+              "page": "Template:Data Skarner/Ixtal's Impact",
+              "revid": 4000401,
+              "quote": "If Skarner collides with an enemy champion or large monster, he grabs them with his claws for the time of the remaining charge, attaching them to himself, suppressing them, revealing them, increasing the charge's turn rate to the maximum, and gaining 300 bonus movement speed, with a minimum total of 650 and a maximum total of 1150."
+            }
+          ],
+          "condition": "If Skarner collides with an enemy champion or large monster, he grabs them with his claws for the time of the remaining charge, attaching them to himself, suppressing them, revealing them, increasing the charge's turn rate to the maximum, and gaining 300 bonus movement speed, with a minimum total of 650 and a maximum total of 1150."
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "slow immune",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Slow-immune",
+              "revid": 4060627
+            },
+            {
+              "page": "Template:Data Skarner/Ixtal's Impact",
+              "revid": 4000401,
+              "quote": "Active: Skarner charges forward in the direction of the cursor for up to 2.75 seconds, during which he gains slow immunity, becomes ghosted, ignores terrain collision, and has unobstructed vision of the surrounding 650 units."
+            }
+          ],
+          "duration": 2.75
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "notes": [
+        "Ixtal's Impact's attachment depends on the application of the suppression; if the suppression is not applied, neither is the attachment. Similarly, if the suppression is removed, so is the attachment.\n  - If the target resists the suppression through total crowd control immunity, displacement immunity, or a spell shield. Skarner will not attach them to himself, causing the charge to end instantly.\n  - If the target removes the suppression by any means, including with an applicable cleanse effect or dispel, they will detach themselves from Skarner immediately which forces the charge to end instantly and not apply any damage."
+      ]
+    },
+    {
+      "champion": "Skarner",
+      "kind": "I",
+      "name": "Threads of Vibration",
+      "page": {
+        "title": "Template:Data Skarner/Threads of Vibration",
+        "revid": 4050105
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Basic attacks that are dodged by the target or missed while Skarner is blinded do not apply stacks of Quake. Blocked attacks will still apply stacks.",
+        "Spell shield prevents Quaking's application from Upheaval and Impale only."
+      ]
+    },
+    {
+      "champion": "Skarner",
+      "kind": "Q",
+      "name": "Shattered Earth",
+      "page": {
+        "title": "Template:Data Skarner/Shattered Earth",
+        "revid": 4051324
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Skarner/Shattered Earth",
+              "revid": 4051324,
+              "quote": "The final attack slams the boulder, dealing an additional 11% of each target's maximum health physical damage and slowing afflicted enemies by 40% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0.35,
+      "boostsAttacks": true,
+      "notes": [
+        "The empowered attacks can be parried and will not trigger the area of effect if either the target blocks or dodges the attack, or if the attacks miss while Skarner is blinded.\n  - The attacks will be still consumed in all cases regardless.\n  - Note that if the main target is not blocking or dodging, then the area of effect can still deal damage to those who do.",
+        "Shattered Earth ends prematurely if Skarner initiates a Recall channel.",
+        "The empowered attacks have an uncancellable windup against champions, minions, and turrets only.\n  - Prior to Patch 14.9, the windup was uncancellable regardless of the target's type. It is currently unknown if the change was intentional or not, but seems to be partially intentional based on observation.\n  - Empowered attacks against other units can be interrupted by crowd control or casting Ixtal's Impact, but not by issuing movement commands.",
+        "The attack reset will not save time if Skarner possesses sufficiently high attack speed because of the ability's 0.35 seconds cast time. Starting from around 271.4285% bonus attack speed, basic attacking is fast enough to match the time with the reset and will be even faster with more, causing Shattered Earth to actually slow down the user at that point.\n  - However, this only takes attack speed into account and ignores various other factors, such as the damage and other bonuses from the ability and the fact that Skarner generally does not like building such high amounts of attack speed. Additionally, attempting to do the attack reset at such high attack speed is already a hard task, if not requires frame perfect execution to save any ticks worth of time."
+      ]
+    },
+    {
+      "champion": "Skarner",
+      "kind": "Q",
+      "name": "Upheaval",
+      "page": {
+        "title": "Template:Data Skarner/Upheaval",
+        "revid": 4080170
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 1050,
+      "speed": 1600,
+      "notes": [
+        "While Upheaval can deal damage to structures, the missile can't directly hit them. They have to be within the radius of the explosion.",
+        "Spell shield will not prevent the explosion from occurring.* This ability will cast from wherever the caster is at the end of the cast time.\n  - The direction of cast will be updated to go toward the cast location."
+      ]
+    },
+    {
+      "champion": "Skarner",
+      "kind": "R",
+      "name": "Impale",
+      "page": {
+        "title": "Template:Data Skarner/Impale",
+        "revid": 4059028
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "suppression",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "suppression"
+            },
+            {
+              "page": "Template:Data Skarner/Impale",
+              "revid": 4059028,
+              "quote": "Active: Skarner winds up his stingers over the cast time, then lashes them forward in an isosceles trapezoid in the target direction, dealing magic damage to enemies hit and impaling up to 3 of the closest enemy champions within the area to suppress them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.75,
+      "range": 50,
+      "notes": [
+        "Impale's attachment depends on the application of the suppression; if the suppression is not applied, neither is the attachment. Similarly, if the suppression is removed, so is the attachment.\n  - If a target resists the suppression by being immune to crowd control, displacement immune, or having a spell shield, Skarner will not attach them to himself.\n    - If all targets hit resist the suppression, Skarner will fail to attach any of them to himself and thus will not initiate Impale, causing the ability to behave as if no valid impale targets were hit.\n  - If a target removes the suppression by any means, including with an applicable cleanse effect or dispel, they will detach themselves from Skarner immediately.\n    - If all targets remove the suppression, Impale ends prematurely and is cancelled for Skarner."
+      ]
+    },
+    {
+      "champion": "Skarner",
+      "kind": "W",
+      "name": "Seismic Bastion",
+      "page": {
+        "title": "Template:Data Skarner/Seismic Bastion",
+        "revid": 4008046
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Skarner/Seismic Bastion",
+              "revid": 4008046,
+              "quote": "Active: Skarner slams his claws into the ground, shielding himself equal to 8% of his maximum health for 2.5 seconds and releasing a shockwave that quickly expands in a radius around him to deal magic damage to enemies hit and slow them by 20% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 20
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Skarner/Seismic Bastion",
+              "revid": 4008046,
+              "quote": "Active: Skarner slams his claws into the ground, shielding himself equal to 8% of his maximum health for 2.5 seconds and releasing a shockwave that quickly expands in a radius around him to deal magic damage to enemies hit and slow them by 20% for 1 second."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0.3,
+      "speed": 1650
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import { toTicks } from "../../engine/rules/time";
 import type { ItemModule } from "../equip";
+import { FIGHT } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -14,6 +15,8 @@ export const GuardianAngel: ItemModule = {
     item.assume("Rebirth's resurrection is stasis: invulnerable, untargetable and unable to act. Its 300-second cooldown outlasts any fight, so it happens once.");
     return {
       stasis: true,
+      // Once a fight, the health it comes back with.
+      budget: { shielding: (self) => (share * self.spec.base.hp) / FIGHT },
       hooks: {
         onLethal(ctx) {
           if (ctx.self.memory[ends] !== undefined) return false;

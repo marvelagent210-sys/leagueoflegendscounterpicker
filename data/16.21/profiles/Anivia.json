@@ -1,0 +1,250 @@
+{
+  "champion": "Anivia",
+  "name": "Anivia",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "anivia",
+      "formName": "Anivia",
+      "range": 600,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 0.864483,
+      "attackDamage": 113.928,
+      "windup": 0.231352,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Anivia",
+      "kind": "E",
+      "name": "Frostbite",
+      "page": {
+        "title": "Template:Data Anivia/Frostbite",
+        "revid": 4057862
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "range": 600,
+      "speed": 1600,
+      "notes": [
+        "The damage of Frostbite is calculated once it hits. If the target's mark from being hit by Flash Frost or a fully formed Glacial Storm wears off while the projectile is traveling, the damage is not doubled.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Anivia",
+      "kind": "I",
+      "name": "Rebirth",
+      "page": {
+        "title": "Template:Data Anivia/Rebirth",
+        "revid": 3906517
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "resurrection",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Resurrection",
+              "revid": 4060644
+            },
+            {
+              "page": "Template:Data Anivia/Rebirth",
+              "revid": 3906517,
+              "quote": "Innate: Periodically, upon taking fatal damage, Anivia enters resurrection for 6 seconds and restores all of her health."
+            }
+          ],
+          "duration": 6,
+          "condition": "Only after taking fatal damage."
+        }
+      ],
+      "cooldown": 240,
+      "notes": [
+        "If Rebirth triggers while Anivia is channeling Teleport, her channel won't be interrupted.\n  - All other channels will be interrupted upon triggering Rebirth.",
+        "Interaction table (ct): move=false; cast=false; attack=false; items=false; consume=false; spells=false; interrupts=death."
+      ]
+    },
+    {
+      "champion": "Anivia",
+      "kind": "Q",
+      "name": "Flash Frost",
+      "page": {
+        "title": "Template:Data Anivia/Flash Frost",
+        "revid": 4026612
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Anivia/Flash Frost",
+              "revid": 4026612,
+              "quote": "Active: Anivia launches a chunk of ice in the target direction that deals magic damage to enemies hit and slows them by 20 / 20 / 30 / 40 (based on Glacial Storm's Rank)% for 3 seconds."
+            }
+          ],
+          "duration": 3,
+          "amount": 20
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Anivia/Flash Frost",
+              "revid": 4026612,
+              "quote": "Recast: Anivia shatters the ice, dealing magic damage to nearby enemies and stunning them for a duration, as well as refreshing the slow."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 950,
+      "notes": [
+        "Spell shield can block the effects of either the active or the recast, but not both if the former is blocked."
+      ]
+    },
+    {
+      "champion": "Anivia",
+      "kind": "R",
+      "name": "Glacial Storm",
+      "page": {
+        "title": "Template:Data Anivia/Glacial Storm",
+        "revid": 4006729
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Anivia/Glacial Storm",
+              "revid": 4006729,
+              "quote": "Passive: Flash Frost slow strength is increased."
+            }
+          ],
+          "amount": 20
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 2,
+      "castTime": 0,
+      "range": 750,
+      "notes": [
+        "Glacial Storm's slow leaves a trail that is visible even if the target is stealthed.",
+        "Stasis via Zhonya's Hourglass doesn't interrupt Glacial Storm.\n  - Devour does interrupt (allied and enemy) Glacial Storm."
+      ]
+    },
+    {
+      "champion": "Anivia",
+      "kind": "W",
+      "name": "Crystallize",
+      "page": {
+        "title": "Template:Data Anivia/Crystallize",
+        "revid": 4007565
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Anivia/Crystallize",
+              "revid": 4007565,
+              "quote": "Active: Anivia summons a wall of ice at the target location perpendicular to her facing, knocking all units away from it, though not through terrain."
+            }
+          ],
+          "variant": "knock back"
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 17,
+      "castTime": 0.25,
+      "range": 1000,
+      "notes": [
+        "Player-generated terrain such as Crystallize does not block sight."
+      ]
+    }
+  ]
+}

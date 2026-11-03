@@ -12,6 +12,9 @@ export const LordDominiksRegards: ItemModule = {
     const at = Number(byHealth.points.at(-1));
     item.assume(`Giant Slayer grows evenly with the target's bonus health, to ${top * 100}% at ${at}.`);
     const key = memo(item.name, "damage");
-    return { hooks: { onTick: (ctx) => setStat(ctx.self, key, "damageDealt", top * Math.min(1, Math.max(0, bonusHealth(ctx.enemy)) / at), ctx.tick) } };
+    return {
+      hooks: { onTick: (ctx) => setStat(ctx.self, key, "damageDealt", top * Math.min(1, Math.max(0, bonusHealth(ctx.enemy)) / at), ctx.tick) },
+      budget: { stats: (self, enemy) => [{ stat: "damageDealt", value: top * Math.min(1, Math.max(0, bonusHealth(enemy)) / at) }] },
+    };
   },
 };

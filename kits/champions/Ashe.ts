@@ -1,4 +1,4 @@
-/** Ashe, from the pinned 16.20 ability records. */
+/** Ashe, from the pinned ability records. */
 import type { KitModule } from "../../engine/kits/compile";
 import { capAttackSpeed } from "../../engine/rules/timing";
 import { derive } from "../../engine/sim/derived";

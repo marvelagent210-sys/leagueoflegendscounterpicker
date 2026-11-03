@@ -12,6 +12,7 @@ import type { AbilitySpec } from "../engine/sim/spec";
 import type { SimulationProvenance } from "../engine/sim/precomputed";
 import { type GoldenMatchup, MARGINS } from "../tests/golden/matchups";
 import { wikiUrl } from "../engine/abilityText";
+import { type PairInputs, pairInputsJson } from "./sim/pairKeys";
 import type { PairResult } from "./sim/pool";
 import type { Champion } from "../engine/types";
 
@@ -102,9 +103,23 @@ export interface SimulatedMatrix {
   variants: Map<string, Map<string, Record<string, number>>>;
 }
 
+/** A scenario score as the matrix keeps it: three decimals, rounded alike on both sides (half away from zero). */
+export function scenarioValue(v: number | null): number | null {
+  if (v === null) return null;
+  const rounded = (Math.sign(v) * Math.round(Math.abs(v) * 1000)) / 1000;
+  return rounded === 0 ? 0 : rounded;
+}
+
+/** Gold spent on each stat, to the whole gold piece, as the matrix keeps it. */
+export function wholeGold(spent: Record<BudgetStat, number>): Record<BudgetStat, number> {
+  return Object.fromEntries(BUDGET_STATS.map((stat) => [stat, Math.round(spent[stat] ?? 0)])) as Record<BudgetStat, number>;
+}
+
 /**
  * Fills both directions from one simulation per pair: scores are antisymmetric, and seen from
- * the other side "you engage" and "the enemy engages" swap.
+ * the other side "you engage" and "the enemy engages" swap. The aggregate stays exact; scenario
+ * scores keep three decimals and spending whole gold, as simulated.json and simulated-spent.json
+ * store them, so that every page shows what the files hold and a reused result reads back the same.
  */
 export function simulatedMatrix(champions: string[], gold: number, pairs: Array<[string, string]>, results: PairResult[]): SimulatedMatrix {
   const scores = new Map(champions.map((id) => [id, new Map<string, Array<number | null>>()]));
@@ -115,11 +130,12 @@ export function simulatedMatrix(champions: string[], gold: number, pairs: Array<
     const pair = pairs[i];
     if (!pair || result.index !== i) throw new Error("Simulation results out of order");
     const [you, enemy] = pair;
-    const [engage, engaged, ...rest] = result.scenarios;
-    scores.get(you)?.set(enemy, [result.score, ...result.scenarios]);
+    const scenarios = result.scenarios.map(scenarioValue);
+    const [engage, engaged, ...rest] = scenarios;
+    scores.get(you)?.set(enemy, [result.score, ...scenarios]);
     scores.get(enemy)?.set(you, [negate(result.score), negate(engaged ?? null), negate(engage ?? null), ...rest.map(negate)]);
-    spent.get(you)?.set(enemy, result.spent[0]);
-    spent.get(enemy)?.set(you, result.spent[1]);
+    spent.get(you)?.set(enemy, wholeGold(result.spent[0]));
+    spent.get(enemy)?.set(you, wholeGold(result.spent[1]));
     for (const variant of result.variants ?? []) {
       const [who, against] = variant.side === 0 ? [you, enemy] : [enemy, you];
       if (!variants.has(who)) variants.set(who, new Map());
@@ -129,8 +145,11 @@ export function simulatedMatrix(champions: string[], gold: number, pairs: Array<
   return { champions, gold, scores, spent, variants };
 }
 
-/** simulated.json: one line per champion keeps the file small and its per-patch diffs readable. */
-export function simulatedJson(dataset: string, patch: string, matrix: SimulatedMatrix, simulation?: SimulationProvenance): string {
+/**
+ * simulated.json: one line per champion keeps the file small and its per-patch diffs readable.
+ * `inputs` records what each pairing was computed from, for the next refresh to reuse it.
+ */
+export function simulatedJson(dataset: string, patch: string, matrix: SimulatedMatrix, simulation?: SimulationProvenance, inputs?: PairInputs): string {
   const round = (v: number | null) => (v === null ? null : Math.round(v * 1000) / 1000);
   const lines = matrix.champions.map((you) => {
     // Keep the aggregate exact: rounding it can reverse close ranks or invent ties.
@@ -143,8 +162,22 @@ export function simulatedJson(dataset: string, patch: string, matrix: SimulatedM
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([who, byEnemy]) => `    ${JSON.stringify(who)}: ${JSON.stringify(Object.fromEntries([...byEnemy].sort(([a], [b]) => a.localeCompare(b))))}`);
   const variantsJson = variants.length > 0 ? `,\n  "variants": {\n${variants.join(",\n")}\n  }` : "";
-  const provenanceJson = simulation ? `\n  "simulation": ${JSON.stringify(simulation)},` : "";
+  const provenanceJson = `${simulation ? `\n  "simulation": ${JSON.stringify(simulation)},` : ""}${inputs ? `\n${pairInputsJson(inputs)},` : ""}`;
   return `{\n  "dataset": ${JSON.stringify(dataset)},\n  "patch": ${JSON.stringify(patch)},\n  "confidence": "full",${provenanceJson}\n  "gold": ${matrix.gold},\n  "values": ${JSON.stringify(["score", ...SCENARIOS])},\n  "matchups": {\n${lines.join(",\n")}\n  }${variantsJson}\n}\n`;
+}
+
+/**
+ * simulated-spent.json: the gold each side spent on each stat in each pairing (whole gold), one
+ * line per champion. The simulator report reads it, and a refresh that reuses a pairing's result
+ * takes its spending from here; the app doesn't load it.
+ */
+export function simulatedSpentJson(dataset: string, patch: string, matrix: SimulatedMatrix, simulation: SimulationProvenance): string {
+  const byCode = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+  const rows = matrix.champions.map((you) => {
+    const row = [...(matrix.spent.get(you) ?? [])].sort(([a], [b]) => byCode(a, b)).map(([enemy, spent]) => [enemy, BUDGET_STATS.map((stat) => spent[stat] ?? 0)]);
+    return `    ${JSON.stringify(you)}: ${JSON.stringify(Object.fromEntries(row))}`;
+  });
+  return `{\n  "dataset": ${JSON.stringify(dataset)},\n  "patch": ${JSON.stringify(patch)},\n  "simulation": ${JSON.stringify(simulation)},\n  "stats": ${JSON.stringify(BUDGET_STATS)},\n  "spent": {\n${rows.join(",\n")}\n  }\n}\n`;
 }
 
 function scoreCells(values: Array<number | null>): string {

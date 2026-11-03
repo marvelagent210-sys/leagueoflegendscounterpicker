@@ -1,0 +1,233 @@
+{
+  "champion": "Ryze",
+  "name": "Ryze",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "ryze",
+      "formName": "Ryze",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2400,
+      "attackSpeed": 0.917332,
+      "attackDamage": 113.995,
+      "windup": 0.218024,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ryze",
+      "kind": "E",
+      "name": "Spell Flux",
+      "page": {
+        "title": "Template:Data Ryze/Spell Flux",
+        "revid": 4064864
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 2.5,
+      "castTime": 0.25,
+      "range": 550,
+      "speed": 4000,
+      "notes": [
+        "The \"main\" missile of Spell Flux is blocked by projectile-intercepting effects, while the spreading bounce missiles are not.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Spell Flux|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Ryze\n|skill        = E\n|icon         = Spell Flux.png\n|blurb        = {{sbc|Active:}} {{ci|Ryze}} projects an orb upon the target enemy that deals {{as|magic damage}}.\n|blurb2      = The target and surrounding enemies are also marked with ''Flux'' for a short time. '''Ryze's''' basic abilities against ''Flux'' targets consume the mark to become empowered with an additional effect.\n|blurb4      = {{sbc|{{ai|Spell Flux|Ryze|Flux}} Bonus:}} ''Spell Flux'' spreads farther.\n|description  = {{sbc|Active:}} '''Ryze''' projects an orb upon the target enemy that deals {{as|magic damage}}.\n<br/><br/>The target and surrounding enemies are also marked with ''Flux'' for 4 seconds. '''Ryze's''' basic abilities against ''Flux'' targets consume the mark to become empowered with an additional effect.\n|leveling     = {{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 50% AP)}} {{as|(+ 2% '''bonus''' mana)}}}}\n|description2 = {{sbc|{{ai|Spell Flux|Ryze|Flux}} Bonus:}} ''Spell Flux'' spreads farther.\n|cooldown     = {{ap|3.5 to 2.5}}\n|cost         = {{ap|40 to 80}}\n|costtype     = Mana\n|target range = {{tip|er|icononly = true}} 550\n|effect radius= {{tip|cr|icononly = true}} {{tt|350|Bounce range}}\n|speed        = {{dv|{{tt|4000|Initial orb missile speed}}|{{tt|1500|Spreading bounce missiles speed}}}}\n|cast time    = {{fd|0.25}}\n|queue time   = {{fd|0.5}}\n|targeting    = Unit\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = spell\n|projectile   = special\n|callforhelp  = true\n|notes        = \n* ''Spell Flux's'' second cast on a target will apply a new ''Flux'' debuff as well as triggering the previous one (effectively refreshing the duration).\n* The {{tt|\"main\"|initial cast}} missile of ''Spell Flux'' is blocked by {{tip|projectile|projectile-intercepting}} effects, while the spreading bounce missiles are not.\n* {{pending for test}} bounce range {{tip|er|icononly = true}} to-edge or {{tip|cr|icononly = true}} to-center?\n** Game data notes additional range checks of 400 (bounce range) and 500 (Q damage bounce range) against 'large' enemies.\n{{Unit-targeted cancel conditions}}\n}}"
+      ]
+    },
+    {
+      "champion": "Ryze",
+      "kind": "I",
+      "name": "Arcane Mastery",
+      "page": {
+        "title": "Template:Data Ryze/Arcane Mastery",
+        "revid": 4059875
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Ryze",
+      "kind": "Q",
+      "name": "Overload",
+      "page": {
+        "title": "Template:Data Ryze/Overload",
+        "revid": 4088355
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 1700,
+      "notes": [
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Overload|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Ryze\n|skill        = Q\n|icon         = Overload 4.png\n|blurbicon    = Overload.png\n|blurb        = {{sbc|Passive:}} {{cis|Ryze}} other {{tip|ability|basic ability}} casts {{sti|ah|reset}} ''Overload's'' cooldown and generate a ''{{ai|Overload 3|Ryze|Rune}}'' stack, stacking up to 2 times.\n|blurb2       = {{sbc|Active:}} '''Ryze''' unleashes a runic bolt in the target direction that deals {{as|magic damage}} to the first enemy hit and consumes all ''{{ai|Overload 4|Ryze|Rune}}'' stacks.\n|blurb3      = If '''Ryze''' consumes the maximum ''{{ai|Overload 4|Ryze|Rune}}'' stacks, he gains {{sti|ms|{{as|'''bonus''' movement speed}}}}  for a short time.\n|blurb4      = {{sbc|{{ai|Spell Flux|Ryze|Flux}} Bonus:}} ''Overload'' deals increased damage and spreads to surrounding ''Flux'' enemies.\n|description  = {{sbc|Passive:}} '''Ryze's''' other {{tip|ability|basic ability}} casts reset ''Overload's'' {{sti|cooldown}} and charge a [[File:Overload 3.png|20px|link=]] ''Rune'' {{tip|stack}} for 4 seconds, refreshing on subsequent casts and stacking up to 2 times.\n|icon2        = Overload.png\n|description2 = {{sbc|Active:}} '''Ryze''' unleashes a runic blast in the target direction that deals {{as|magic damage}} to the first enemy hit and consumes all [[File:Overload 4.png|20px|link=]] ''Rune'' stacks.\n|leveling2    = {{st|Magic Damage|{{ap|75 to 155}} {{as|(+ 55% AP)}} {{as|(+ 2% '''bonus''' mana)}}}}\n|icon3        = Overload 3.png\n|description3 = If '''Ryze''' consumed 2 stacks, he gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for 2 seconds.\n|leveling3    = {{st|Bonus Movement Speed|{{ap|30 to 50}}%}}\n|description4 = {{sbc|{{ai|Spell Flux|Ryze|Flux}} Bonus:}} ''Overload'' deals {{pp|type=[[File:Realm Warp.png|20px|border]] ''Realm Warp's'' Rank|key=%|10 to 100 for 4|0 to 3}} {{ccs|increased damage|magic}} and spreads to surrounding ''Fluxed'' enemies.\n|cooldown     = 5\n|cost         = {{ap|40 to 32}}\n|costtype     = Mana\n|target range = {{tip|cr|icononly = true}} 1000\n|width        = {{tip|er|icononly = true}} 110\n|speed        = 1700\n|cast time    = {{fd|0.25}}\n|queue time   = {{fd|0.35}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Special\n|projectile   = True\n|notes        = \n* ''Overload'' can be buffered {{fd|0.5}} seconds before it comes off cooldown.\n* ''Overload'' can be buffered while casting either {{ai|Spell Flux|Ryze}} or {{ai|Rune Prison|Ryze}} to cast immediately after the previous spell's cast time.\n* Applies {{tip|spell damage}} to the primary target and {{tip|area damage}} to secondary targets affected by {{ai|Spell Flux|Ryze|Flux}}.\n{{Effect at cast time start}}\n}}"
+      ]
+    },
+    {
+      "champion": "Ryze",
+      "kind": "R",
+      "name": "Realm Warp",
+      "page": {
+        "title": "Template:Data Ryze/Realm Warp",
+        "revid": 4088357
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Ryze/Realm Warp",
+              "revid": 4088357,
+              "quote": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "cooldown": 140,
+      "castTime": 0,
+      "range": 1000,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Realm Warp will teleport allies even if they are in a zombie state, are untargetable, or are affected by crowd control.",
+        "Realm Warp has various interactions with channeled abilities that are being performed by an ally. Some channels will prevent their caster from being teleported and others will not.\n  - For channels that do not prevent the teleport, Realm Warp will specifically not apply its silence to the caster.\n  - Cast times will not prevent the teleport.\n  - The following channels will prevent the teleport:\n    - R\n    - R\n    - R\n    - R\n    - Q\n    - R\n    - Recall / Empowered Recall\n    - Teleport / Unleashed Teleport",
+        "The following table refers for interactions while Ryze is channeling:",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Realm Warp|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Ryze\n|skill        = R\n|icon         = false\n|blurb        = {{sbc|Passive:}} ''{{ais|Overload|Ryze}}'' ''{{ai|Spell Flux|Ryze|Flux}}'' empowered damage is increased.\n|blurb2       = {{sbc|Active:}} {{ci|Ryze}} {{tip|channel|channels}} for a short time to open a portal beneath him. '''Ryze''' can act during the channel, but the portal will cancel if he is {{tip|interrupt|interrupted}}.\n|blurb3       = Upon completion, allies within the portal will {{tip|blink}} to the target location.\n|description  = {{sbc|Passive:}} ''{{ais|Overload|Ryze}}'' ''{{ai|Spell Flux|Ryze|Flux}}'' empowered damage is increased.\n|leveling     = {{st|Bonus Overload Damage|{{ap|40 to 100}}%}}\n|icon2        = Realm Warp.png\n|description2 = {{sbc|Active:}} '''Ryze''' {{tip|channel|channels}} for 2 seconds to open a portal beneath him, marking the target location as its destination and granting {{tip|sight}} of the target area. '''Ryze''' is able to act while channeling, but the portal will cancel if he is {{tip|interrupt|interrupted}}.\n|description3 = Upon completion, '''Ryze''' and all allied units within the portal will {{tip|blink}} to the location and become {{tip|root|rooted}}, {{tip|disarm|disarmed}}, {{tip|silence|silenced}} and {{tip|untargetable}} for {{tt|{{fd|0.75}}|Estimated}} seconds.\n|cooldown     = {{ap|180 to 140}}\n|cost         = 100\n|cast time    = none\n|costtype     = Mana\n|target range = {{dv|{{tt|1000|Minimum cast range}}|{{tt|3000|Maximum cast range}}}}\n|effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|465|Portal radius}}|{{tip|sight|icononly = true}}{{tt|515|Destination area reveal radius during channel}}}}\n|targeting    = Location\n|affects      = Allies\n|grounded     = true\n|silence      = true\n|outofrange   = cast at max\n|notes        = \n* Blinked units retain the same relative positions to one another upon arrival.\n* ''Realm Warp'' will teleport allies even if they are in a {{tip|zombie state}}, are {{tip|untargetable}}, or are affected by {{tip|crowd control}}.\n* ''Realm Warp'' will not teleport allies that are using an ability that preloads {{tip|unstoppableforcemarker|UnstoppableForceMarker}} or are being affected by another ally's ''Realm Warp'' first.\n* ''Realm Warp'' will still teleport an allied {{ui|Rift Herald}} that is winding up its leap.\n* ''Realm Warp'' has various interactions with {{tip|channel|channeled}} abilities that are being performed by an ally. Some channels will prevent their caster from being teleported and others will not.\n** For channels that do not prevent the teleport, ''Realm Warp'' will specifically not apply its {{tip|silence}} to the caster.\n** Cast times will not prevent the teleport.\n** The following channels will prevent the teleport:\n*** {{cai|R|Caitlyn}}\n*** {{cai|R|Galio}}\n*** {{cai|R|Kayn}}\n*** {{cai|R|Jhin}}\n*** {{cai|Q|Warwick}}\n*** {{cai|R|Xerath}}\n*** {{si|Recall}} / {{si|Empowered Recall}}\n*** {{si|Teleport}} / {{si|Unleashed Teleport}}\n* The following table refers for interactions while '''Ryze''' is {{tip|channel|channeling}}:\n{{ct|channel|attack=true|move=true|cast=true|items=true,,interrupts|spells=true|interrupts=silence,root,revival-false, ground}}\n|flavorsound  = {{sm2|Ryze_Original_R_0.ogg}} ''\"Come. The runes beckon.\"''\n}}"
+      ]
+    },
+    {
+      "champion": "Ryze",
+      "kind": "W",
+      "name": "Rune Prison",
+      "page": {
+        "title": "Template:Data Ryze/Rune Prison",
+        "revid": 4088356
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ryze/Rune Prison",
+              "revid": 4088356,
+              "quote": "Active: Ryze seizes the target enemy, dealing magic damage and slowing them by 50% for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Ryze/Rune Prison",
+              "revid": 4088356,
+              "quote": "Flux Bonus: The target is rooted instead of slowed."
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 550,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Rune Prison|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Ryze\n|skill        = W\n|icon         = Rune Prison.png\n|blurb        = {{sbc|Active:}} {{ci|Ryze}} seizes the target enemy, dealing {{as|magic damage}} and briefly {{tip|slow|slowing}} them.\n|blurb4       = {{sbc|{{ai|Spell Flux|Ryze|Flux}} Bonus:}} The target is {{tip|root|rooted}} instead of {{tip|slow|slowed}}.\n|description  = {{sbc|Active:}} '''Ryze''' seizes the target enemy, dealing {{as|magic damage}} and {{tip|slow|slowing}} them by 50% for {{fd|1.5}} seconds.\n|leveling     = {{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 70% AP)}} {{as|(+ 3% '''bonus''' mana)}}}}\n|description2 = {{sbc|{{ai|Spell Flux|Ryze|Flux}} Bonus:}} The target is {{tip|root|rooted}} instead of {{tip|slow|slowed}}.\n|cooldown     = {{ap|11 to 9}}\n|cost         = {{ap|50 to 90}}\n|costtype     = Mana\n|target range = {{tip|er|icononly = true}} 550\n|cast time    = {{fd|0.25}}\n|queue time   = {{fd|0.35}}\n|targeting    = Unit\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Single target\n|projectile   = \n|callforhelp  = True\n|notes        = \n* ''Rune Prison'' can be buffered {{fd|0.5}} seconds before it comes off cooldown.\n{{Unit-targeted cancel conditions}}\n}}"
+      ]
+    }
+  ]
+}

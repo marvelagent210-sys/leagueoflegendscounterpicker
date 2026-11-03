@@ -1,5 +1,6 @@
 import { toTicks } from "../../engine/rules/time";
 import type { ItemModule } from "../equip";
+import { nearby, triggers, ultimate, usesOf } from "../hints";
 import { memo, until } from "../runtime";
 import { within } from "./aura";
 import { applyFrom, refreshSlow } from "./shared";
@@ -24,6 +25,8 @@ export const ZekesConvergence: ItemModule = {
     const next = memo(item.name, "next");
     return {
       haste: [ultimateHaste(item.effect("Cryocombustion"), "Gain 15 ultimate haste.")],
+      // A storm after each ultimate, once per cooldown.
+      budget: { damage: (self) => ({ magic: damage * (seconds / every) * Math.min(usesOf(self, ultimate), triggers(cooldown)) * nearby(self, radius) }) },
       hooks: {
         onCast(ctx) {
           if (ctx.ability.slot !== "R" || ctx.ability.countsAsCast === false || ctx.tick < until(ctx.self, ready)) return;

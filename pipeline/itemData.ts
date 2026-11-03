@@ -1,7 +1,7 @@
 /** The committed item catalog and item builds on fighters (CLI, tests). */
 import path from "node:path";
 import type { FighterSpec } from "../engine/sim/spec";
-import { type EquippedFighter, equipItems } from "../items/equip";
+import { type EquipOptions, type EquippedFighter, equipItems } from "../items/equip";
 import { ITEM_MODULES } from "../items/modules/index";
 import { datasetDir } from "./config";
 import { readJson } from "./lib/files";
@@ -43,16 +43,17 @@ export interface BuildOptions {
   stacked?: boolean;
 }
 
+/** Every item module the simulator has, with the catalog's wiki source and option overrides. */
+export function equipOptions(catalog: ItemCatalog, options: Record<string, Record<string, number>> = {}): EquipOptions {
+  return { modules: ITEM_MODULES, source: { page: catalog.sources.itemData.title, revid: catalog.sources.itemData.revid, rules: catalog.rulePages }, options };
+}
+
 /** A fighter holding the named items, with every item module the simulator has. */
 export function equipBuild(spec: FighterSpec, names: string[], catalog: ItemCatalog, build: BuildOptions = {}): EquippedFighter {
   const stacked = build.stacked ?? true;
   const records = names.map((name) => findItem(catalog, name));
   const held = records.map((record) => (stacked && record.transformsInto ? findItem(catalog, record.transformsInto) : record));
-  const equipped = equipItems(spec, held, {
-    modules: ITEM_MODULES,
-    source: { page: catalog.sources.itemData.title, revid: catalog.sources.itemData.revid, rules: catalog.rulePages },
-    options: build.options ?? {},
-  });
+  const equipped = equipItems(spec, held, equipOptions(catalog, build.options));
   const transformed = records.filter((record, i) => held[i] !== record);
   if (transformed.length > 0) equipped.assumptions.unshift(`The Tear items are fully stacked: ${transformed.map((record) => `${record.name} is ${record.transformsInto}`).join(", ")}.`);
   return equipped;

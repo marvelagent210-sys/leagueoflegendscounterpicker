@@ -41,8 +41,8 @@ const rammus: KitModule = {
     const wRecastDelay = w.quoted("Defensive Ball Curl can be recast after 1 second");
     const wArmor = w.baseOf("Bonus Armor");
     const wMR = w.baseOf("Bonus Magic Resistance");
-    const wArmorShare = w.quoted("30 / 37.5 / 45 / 52.5 / 60% total armor", 4) / 100;
-    const wMRShare = w.quoted("30 / 37.5 / 45 / 52.5 / 60% total magic resistance", 4) / 100;
+    const wArmorShare = w.quoted("30 / 35 / 40 / 45 / 50% total armor", 4) / 100;
+    const wMRShare = w.quoted("30 / 35 / 40 / 45 / 50% total magic resistance", 4) / 100;
     const reflectBase = w.quoted("are dealt 15 (+ 10% total armor) (+ 10% total magic resistance) magic damage", 0);
     const reflectArmor = w.quoted("are dealt 15 (+ 10% total armor) (+ 10% total magic resistance) magic damage", 1) / 100;
     const reflectMR = w.quoted("are dealt 15 (+ 10% total armor) (+ 10% total magic resistance) magic damage", 2) / 100;
@@ -65,7 +65,9 @@ const rammus: KitModule = {
     q.quote("Powerball is not a movement channel, and so will not be interrupted by root and ground");
     q.quote("The bonus movement speed stacks multiplicatively with other sources of movement speed boosts");
     q.quote("Displacement immunity will also resist the application of the stun");
-    w.quote("The resistance scaling will factor from all sources, including Defensive Ball Curl's flat bonus. This will recalculate over the duration");
+    // The percentage scales total resistances, the ability's own flat bonus included, recalculated as they change (26.21's notes).
+    w.quote("combined with the total resists (excluding the stats from Mountainous Vigor) multiplied by the ability's percentage total resistances increase");
+    w.quote("The resistances gained from Defensive Ball Curl's will recalculate over the duration");
     w.quote("Defensive Ball Curl will return damage from attacks and/or abilities that apply on-hit effects");
     e.quote("Monsters are additionally dealt magic damage");
     r.quote("Spell shield will block the impact (including with Powerball) but not each aftershock");

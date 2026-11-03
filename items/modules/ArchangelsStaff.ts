@@ -11,7 +11,7 @@ export const ArchangelsStaff: ItemModule = {
     item.assume(STACKING);
     return {
       mana,
-      ...(fighter.mana ? { hooks: follow(memo(item.name, "AP"), "AP", (self) => awe * bonusMana(self, fighter.baseMana)) } : {}),
+      ...(fighter.mana ? { hooks: follow(memo(item.name, "AP"), "AP", (self) => awe * bonusMana(self, fighter.baseMana)), budget: { stats: (self) => [{ stat: "AP", value: awe * bonusMana(self, fighter.baseMana) }] } } : {}),
     };
   },
 };

@@ -1,0 +1,78 @@
+[
+  {
+    "champion": "Gangplank",
+    "name": "Powder Keg",
+    "page": {
+      "title": "Gangplank",
+      "revid": 4091402
+    },
+    "fields": {
+      "gold": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "10",
+      "exp": "0",
+      "radius": "65",
+      "pathingradius": "0",
+      "hp": "3",
+      "damagemodifier": "* 1 from champion basic attacks and Parrrley\n* Not a valid target to minions and enemy abilities\n** The only exception is Arise!, which deals 1 damage per soldier in range per attack",
+      "control": "Autonomous (static)",
+      "targeting": "Minion",
+      "abilities": ";Countdown\nThe Powder Keg loses 1 maximum health every 2 / 1 / 0.5 (based on level) seconds (minimum 1 current health).\n\n;Fire in the Hole\nGangplank can attack a Powder Keg with basic attacks and Parrrley. If he destroys it, the keg no longer grants kill gold but instead explodes, inflicting the triggering strike upon all nearby enemies, ignoring a % of their armor, slowing them, dealing bonus physical damage to enemy champions and applying spell effects as area damage. Magic damage effects are not applied. If Gangplank destroys a Powder Keg with Parrrley then every enemy killed by the Powder Keg will also be plundered and grants him Silver Serpents as if he had killed them with the initial ability.\n\n;Powder Trail\nPowder Kegs connect to each other when nearby, and explode when a Powder Keg they are connected to is detonated, though they do not affect enemies hit by one of the previous explosions."
+    }
+  }
+]

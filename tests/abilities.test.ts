@@ -184,7 +184,7 @@ describe("ability dataset", () => {
   });
 
   it("has Darius's cooldowns, costs and ultimate ranks", () => {
-    expect(ability("Darius", "Decimate").fields.cooldown?.values[0]?.series).toEqual({ kind: "rank", values: [9, 8, 7, 6, 5] });
+    expect(ability("Darius", "Decimate").fields.cooldown?.values[0]?.series).toEqual({ kind: "rank", values: [9, 7.75, 6.5, 5.25, 4] });
     expect(ability("Darius", "Decimate").fields.cost?.values[0]?.series).toEqual({ kind: "rank", values: [25, 30, 35, 40, 45] });
     expect(ability("Darius", "Noxian Guillotine").ranks).toBe(3);
     expect(ability("Darius", "Noxian Guillotine").fields.cooldown?.values[0]?.series).toEqual({ kind: "rank", values: [120, 100, 80] });

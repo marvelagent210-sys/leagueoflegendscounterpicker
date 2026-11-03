@@ -1,0 +1,1139 @@
+[
+  {
+    "champion": "Hecarim",
+    "kind": "E",
+    "name": "Devastating Charge",
+    "page": {
+      "title": "Template:Data Hecarim/Devastating Charge",
+      "revid": 3959924
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 19 / 18 / 17 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                19,
+                18,
+                17,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "special",
+      "grounded": "special",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Hecarim becomes ghosted and gains 25 / 28.3333 / 31.6667 / 35 / 38.3333 / 41.6667 / 45 / 48.3333 / 51.6667 / 55 / 58.3333 / 61.6667 / 65 (based on time active)% bonus total movement speed for 4 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Hecarim becomes ghosted and gains 25 / 28.3333 / 31.6667 / 35 / 38.3333 / 41.6667 / 45 / 48.3333 / 51.6667 / 55 / 58.3333 / 61.6667 / 65 (based on time active)% bonus total movement speed for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "time active",
+              "points": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2,
+                2.25,
+                2.5,
+                2.75,
+                3
+              ],
+              "values": [
+                25,
+                28.3333333333333,
+                31.6666666666667,
+                35,
+                38.3333333333333,
+                41.6666666666667,
+                45,
+                48.3333333333333,
+                51.6666666666667,
+                55,
+                58.3333333333333,
+                61.6666666666667,
+                65
+              ]
+            },
+            "context": "Active: Hecarim becomes ghosted and gains 25 / 28.3333 / 31.6667 / 35 / 38.3333 / 41.6667 / 45 / 48.3333 / 51.6667 / 55 / 58.3333 / 61.6667 / 65 (based on time active)% bonus total movement speed for 4 seconds."
+          }
+        ]
+      },
+      {
+        "text": "During this time, Hecarim's next basic attack is replaced by a Devastating Charge, empowering it to gain 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on distance traveled) bonus range and cause him to dash in the target's direction, revealing them for 1 second. If the target remains nearby during the dash, the ghosting and bonus movement speed ends prematurely and Hecarim knocks them back 150 / 175 / 200 / 225 / 250 / 275 / 300 / 325 / 350 (based on distance traveled) units, though not through terrain, stuns them for 0.25 seconds, and deals them modified physical damage, increased by 0 / 12.5 / 25 / 37.5 / 50 / 62.5 / 75 / 87.5 / 100 (based on distance traveled)%.",
+        "leveling": [
+          {
+            "label": "Minimum Physical Damage",
+            "amount": {
+              "text": "30 / 45 / 60 / 75 / 90 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Physical Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "During this time, Hecarim's next basic attack is replaced by a Devastating Charge, empowering it to gain 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on distance traveled) bonus range and cause him to dash in the target's direction, revealing them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "During this time, Hecarim's next basic attack is replaced by a Devastating Charge, empowering it to gain 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on distance traveled) bonus range and cause him to dash in the target's direction, revealing them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "If the target remains nearby during the dash, the ghosting and bonus movement speed ends prematurely and Hecarim knocks them back 150 / 175 / 200 / 225 / 250 / 275 / 300 / 325 / 350 (based on distance traveled) units, though not through terrain, stuns them for 0.25 seconds, and deals them modified physical damage, increased by 0 / 12.5 / 25 / 37.5 / 50 / 62.5 / 75 / 87.5 / 100 (based on distance traveled)%.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "If the target remains nearby during the dash, the ghosting and bonus movement speed ends prematurely and Hecarim knocks them back 150 / 175 / 200 / 225 / 250 / 275 / 300 / 325 / 350 (based on distance traveled) units, though not through terrain, stuns them for 0.25 seconds, and deals them modified physical damage, increased by 0 / 12.5 / 25 / 37.5 / 50 / 62.5 / 75 / 87.5 / 100 (based on distance traveled)%.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "If the target remains nearby during the dash, the ghosting and bonus movement speed ends prematurely and Hecarim knocks them back 150 / 175 / 200 / 225 / 250 / 275 / 300 / 325 / 350 (based on distance traveled) units, though not through terrain, stuns them for 0.25 seconds, and deals them modified physical damage, increased by 0 / 12.5 / 25 / 37.5 / 50 / 62.5 / 75 / 87.5 / 100 (based on distance traveled)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                150,
+                300,
+                450,
+                600,
+                750,
+                900,
+                1050,
+                1200
+              ],
+              "values": [
+                50,
+                75,
+                100,
+                125,
+                150,
+                175,
+                200,
+                225,
+                250
+              ]
+            },
+            "context": "During this time, Hecarim's next basic attack is replaced by a Devastating Charge, empowering it to gain 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on distance traveled) bonus range and cause him to dash in the target's direction, revealing them for 1 second."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                150,
+                300,
+                450,
+                600,
+                750,
+                900,
+                1050,
+                1200
+              ],
+              "values": [
+                150,
+                175,
+                200,
+                225,
+                250,
+                275,
+                300,
+                325,
+                350
+              ]
+            },
+            "context": "If the target remains nearby during the dash, the ghosting and bonus movement speed ends prematurely and Hecarim knocks them back 150 / 175 / 200 / 225 / 250 / 275 / 300 / 325 / 350 (based on distance traveled) units, though not through terrain, stuns them for 0.25 seconds, and deals them modified physical damage, increased by 0 / 12.5 / 25 / 37.5 / 50 / 62.5 / 75 / 87.5 / 100 (based on distance traveled)%."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                150,
+                300,
+                450,
+                600,
+                750,
+                900,
+                1050,
+                1200
+              ],
+              "values": [
+                0,
+                12.5,
+                25,
+                37.5,
+                50,
+                62.5,
+                75,
+                87.5,
+                100
+              ]
+            },
+            "context": "If the target remains nearby during the dash, the ghosting and bonus movement speed ends prematurely and Hecarim knocks them back 150 / 175 / 200 / 225 / 250 / 275 / 300 / 325 / 350 (based on distance traveled) units, though not through terrain, stuns them for 0.25 seconds, and deals them modified physical damage, increased by 0 / 12.5 / 25 / 37.5 / 50 / 62.5 / 75 / 87.5 / 100 (based on distance traveled)%."
+          }
+        ]
+      },
+      {
+        "text": "Devastating Charge can critically strike for 100% AD bonus physical damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Devastating Charge can critically strike for 100% AD bonus physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Devastating Charge resets Hecarim's basic attack timer. Hecarim can cast any of his abilities during the dash. Devastating Charge's duration is paused during Onslaught of Shadows.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Devastating Charge resets Hecarim's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Hecarim can cast any of his abilities while dashing.\n  - Onslaught of Shadows will interrupt the dash.",
+      "If the target does not remain nearby during the dash, Devastating Charge's effect will not be consumed.",
+      "The bonus movement speed stacks multiplicatively with other sources of movement speed boosts.",
+      "The bonus attack range stacks additively with Rapid Firecannon.",
+      "Devastating Charge will still apply its effects to the target even if the dash is interrupted, but not if he goes into resurrection.",
+      "Devastating Charge's damage will apply life steal and will affect structures.",
+      "\"Distance traveled\" can be simple movement as well as dashing and blinking.",
+      "Devastating Charge's damage will not bypass block or dodge but the knock back will still be applied.\n  - Devastating Charge will still deal damage while blinded.",
+      "While grounded or rooted, Hecarim loses the bonus attack range from Devastating Charge.\n  - Hecarim will not use the empowered attack while rooted.",
+      "The dash does not follow targets. The target's position at the time of the enhanced attack is the direction Hecarim will leap to.",
+      "Displacement immunity will not resist the application of the stun."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/hecarim/hecarim.bin.json",
+        "sha256": "dbbfd0b754f4aa9516d8363eb52bd71d3895c113a3f6c16d50894ebf6d971542",
+        "object": "Characters/Hecarim/Spells/HecarimRampAbility/HecarimRamp",
+        "text": [
+          "mSpell.DataValues.TimeToMaxMoveSpeed.values: [2.5,2.5,2.5,2.5,2.5,2.5,2.5]",
+          "mSpell.DataValues.DistanceToMaxDamage.values: [1200,1200,1200,1200,1200,1200,1200]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Hecarim",
+    "kind": "I",
+    "name": "Warpath",
+    "page": {
+      "title": "Template:Data Hecarim/Warpath",
+      "revid": 3985372
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Hecarim gains bonus attack damage equal to 12 / 14 / 16 / 18 / 20 / 22 / 24 (based on level)% of his bonus movement speed.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                3,
+                6,
+                9,
+                12,
+                15,
+                18
+              ],
+              "values": [
+                12,
+                14,
+                16,
+                18,
+                20,
+                22,
+                24
+              ]
+            },
+            "context": "Innate: Hecarim gains bonus attack damage equal to 12 / 14 / 16 / 18 / 20 / 22 / 24 (based on level)% of his bonus movement speed."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Warpath's bonus attack damage will adjust itself to any temporary movement speed buffs and debuffs Hecarim is affected by.\n  - Since this only affects bonus values Hecarim will not dip below his regular attack damage if he is slowed below his base movement speed.",
+      "The amount of movement speed scaling to bonus attack damage is refreshed every 0.25 seconds."
+    ]
+  },
+  {
+    "champion": "Hecarim",
+    "kind": "Q",
+    "name": "Rampage",
+    "page": {
+      "title": "Template:Data Hecarim/Rampage",
+      "revid": 3989863
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "4 / 3.25 / 2.5 / 1.75 (based on Rampage stacks)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Rampage stacks",
+              "points": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "values": [
+                4,
+                3.25,
+                2.5,
+                1.75
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "28 / 26 / 24 / 22 / 20",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                28,
+                26,
+                24,
+                22,
+                20
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Hecarim cleaves his glaive around himself, dealing physical damage to nearby enemies, reduced to 60% against minions.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 90% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion damage",
+            "amount": {
+              "text": "36 / 54 / 72 / 90 / 108 (+ 54% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  36,
+                  54,
+                  72,
+                  90,
+                  108
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 54
+                  },
+                  "text": "(+ 54% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If this damages an enemy, Hecarim gains a stack of Rampage for 8 seconds, refreshing on subsequent damage and stacking up to 3 times. Each stack increases Rampage's damage by 3% (+ 3% per 100 bonus AD) and reduces its base cooldown by 0.75 seconds, up to a 9% (+ 9% per 100 bonus AD) damage increase and a 2.25-second reduction of the base cooldown at maximum stacks. Stacks expire one by one every 1 second when the duration ends.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Hecarim",
+    "kind": "R",
+    "name": "Onslaught of Shadows",
+    "page": {
+      "title": "Template:Data Hecarim/Onslaught of Shadows",
+      "revid": 4007604
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 120 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                120,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "300 - 1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "range": {
+        "text": "1510",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1510
+            },
+            "label": "Spectral riders missile range, estimated"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "315",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 315
+            },
+            "label": "Fear radius around dash end"
+          }
+        ]
+      },
+      "width": {
+        "text": "80 • 480",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Individual spectral riders missile width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 480
+            },
+            "label": "Width of full effect given by outermost riders"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            },
+            "label": "Both dash and spectral riders missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Hecarim dashes with displacement immunity to the target location and summons 5 spectral riders in an arrow formation that charge alongside him in the target direction, dealing magic damage to all enemies in their path and revealing them for 2.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Hecarim dashes with displacement immunity to the target location and summons 5 spectral riders in an arrow formation that charge alongside him in the target direction, dealing magic damage to all enemies in their path and revealing them for 2.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Hecarim dashes with displacement immunity to the target location and summons 5 spectral riders in an arrow formation that charge alongside him in the target direction, dealing magic damage to all enemies in their path and revealing them for 2.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Hecarim dashes with displacement immunity to the target location and summons 5 spectral riders in an arrow formation that charge alongside him in the target direction, dealing magic damage to all enemies in their path and revealing them for 2.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "in an arrow formation",
+            "tip": "see notes"
+          }
+        ]
+      },
+      {
+        "text": "Upon arrival, he fears nearby enemies for 0.75 / 0.825 / 0.9 / 0.975 / 1.05 / 1.125 / 1.2 / 1.275 / 1.35 / 1.425 / 1.5 (based on distance traveled) seconds and slows them by 0 / 0 / 16.5 / 33 / 49.5 / 66 / 82.5 / 99 (based on distance from Hecarim)%.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fears",
+            "duration": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                100,
+                200,
+                300,
+                400,
+                500,
+                600,
+                700,
+                800,
+                900,
+                1000
+              ],
+              "values": [
+                0.75,
+                0.825,
+                0.9,
+                0.975,
+                1.05,
+                1.125,
+                1.2,
+                1.275,
+                1.35,
+                1.425,
+                1.5
+              ]
+            },
+            "evidence": "Upon arrival, he fears nearby enemies for 0.75 / 0.825 / 0.9 / 0.975 / 1.05 / 1.125 / 1.2 / 1.275 / 1.35 / 1.425 / 1.5 (based on distance traveled) seconds and slows them by 0 / 0 / 16.5 / 33 / 49.5 / 66 / 82.5 / 99 (based on distance from Hecarim)%.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "variable",
+              "variable": "distance from Hecarim",
+              "points": [
+                0,
+                150,
+                175,
+                200,
+                225,
+                250,
+                275,
+                300
+              ],
+              "values": [
+                0,
+                0,
+                16.5,
+                33,
+                49.5,
+                66,
+                82.5,
+                99
+              ]
+            },
+            "evidence": "Upon arrival, he fears nearby enemies for 0.75 / 0.825 / 0.9 / 0.975 / 1.05 / 1.125 / 1.2 / 1.275 / 1.35 / 1.425 / 1.5 (based on distance traveled) seconds and slows them by 0 / 0 / 16.5 / 33 / 49.5 / 66 / 82.5 / 99 (based on distance from Hecarim)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                100,
+                200,
+                300,
+                400,
+                500,
+                600,
+                700,
+                800,
+                900,
+                1000
+              ],
+              "values": [
+                0.75,
+                0.825,
+                0.9,
+                0.975,
+                1.05,
+                1.125,
+                1.2,
+                1.275,
+                1.35,
+                1.425,
+                1.5
+              ]
+            },
+            "context": "Upon arrival, he fears nearby enemies for 0.75 / 0.825 / 0.9 / 0.975 / 1.05 / 1.125 / 1.2 / 1.275 / 1.35 / 1.425 / 1.5 (based on distance traveled) seconds and slows them by 0 / 0 / 16.5 / 33 / 49.5 / 66 / 82.5 / 99 (based on distance from Hecarim)%."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance from Hecarim",
+              "points": [
+                0,
+                150,
+                175,
+                200,
+                225,
+                250,
+                275,
+                300
+              ],
+              "values": [
+                0,
+                0,
+                16.5,
+                33,
+                49.5,
+                66,
+                82.5,
+                99
+              ]
+            },
+            "context": "Upon arrival, he fears nearby enemies for 0.75 / 0.825 / 0.9 / 0.975 / 1.05 / 1.125 / 1.2 / 1.275 / 1.35 / 1.425 / 1.5 (based on distance traveled) seconds and slows them by 0 / 0 / 16.5 / 33 / 49.5 / 66 / 82.5 / 99 (based on distance from Hecarim)%."
+          }
+        ]
+      },
+      {
+        "text": "The wave of spectral riders travels independently of Hecarim and will always charge at the same distance.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The spectral rider missiles originate at Hecarim's location, 145 units behind and 100 units to either side of him, and 290 units behind and 200 units to either side. They travel 1510 units forward parallel to Hecarim from their origin each.",
+      "Only the spectral riders deal damage to enemies they pierce, Hecarim only dashes and fears enemies at the end of it.",
+      "The slow improperly counts as an additive percent movement speed modifier rather than a multiplicative one.\n  - The strength is unaffected by slow resist as a result of this behavior.\n  - This means it can unintentionally stack with the effects of other slows."
+    ]
+  },
+  {
+    "champion": "Hecarim",
+    "kind": "W",
+    "name": "Spirit of Dread",
+    "page": {
+      "title": "Template:Data Hecarim/Spirit of Dread",
+      "revid": 4061151
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 14
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "525",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Hecarim surrounds himself with the Spirit of Dread for 4 seconds, dealing magic damage every second to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "20 / 30 / 40 / 50 / 60 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "While active, Hecarim gains bonus armor and bonus magic resistance and is healed for 25% of the post-mitigation damage dealt to enemies within the area from all sources, halved to 12.5% for damage dealt by allies. The healing is capped against minions and monsters.",
+        "leveling": [
+          {
+            "label": "Bonus Resistances",
+            "amount": {
+              "text": "5 / 10 / 15 / 20 / 25",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Capped Healing",
+            "amount": {
+              "text": "120 / 150 / 180 / 210 / 240",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  150,
+                  180,
+                  210,
+                  240
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healed",
+            "evidence": "While active, Hecarim gains bonus armor and bonus magic resistance and is healed for 25% of the post-mitigation damage dealt to enemies within the area from all sources, halved to 12.5% for damage dealt by allies.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12.5
+            },
+            "context": "While active, Hecarim gains bonus armor and bonus magic resistance and is healed for 25% of the post-mitigation damage dealt to enemies within the area from all sources, halved to 12.5% for damage dealt by allies."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The healing cap against minions accounts for every single one regardless of how many are present and/or affected by Spirit of Dread at the time of cast."
+    ]
+  }
+]

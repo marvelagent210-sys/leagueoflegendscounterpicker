@@ -28,10 +28,10 @@ function pet(w: World, x = 150, extra: Parameters<typeof spawnPet>[2] extends in
 const first = 1.0504425, extra = .34981836135;
 
 describe("Graves pinned data and physical shotgun", () => {
-  it("uses exact five primary revisions and fully attributed16.20 binaries", () => {
-    expect(graves.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4038342,4057465,4067475,4049953,4007499]));
+  it("uses exact five primary revisions and fully attributed16.21 binaries", () => {
+    expect(graves.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4038342,4057465,4067475,4080986,4007499]));
     const binary = graves.evidence.filter((e) => e.sourceSha256); expect(binary.length).toBeGreaterThan(4);
-    for (const e of binary) { expect(e.sourceSha256).toBe("02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a"); expect(e.sourceVersion).toBe("16.20.8248524+branch.releases-16-20.content.release"); expect(e.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json"); }
+    for (const e of binary) { expect(e.sourceSha256).toBe("02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a"); expect(e.sourceVersion).toBe("16.21.8342754+branch.releases-16-21.content.release"); expect(e.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json"); }
   });
   it("starts with exactly two shells and no grit", () => { const w=world(); expect(w.units[0].memory["graves:ammo"]).toBe(2);expect(w.units[0].memory["graves:grit"]).toBeUndefined(); });
   it("has a genuine one-tick windup and four emitted projectiles", () => { const w=world();startAttack(w,w.units[0]);expect(w.units[0].action).toMatchObject({kind:"windup",launchTick:1});expect(w.units[0].memory["graves:ammo"]).toBe(2);through(w,1);expect(w.missiles.filter((m)=>m.source==="pellet")).toHaveLength(4);expect(w.units[0].memory["graves:ammo"]).toBe(1); });
@@ -101,7 +101,7 @@ describe("Graves packet classification, persistence and symmetry", () => {
 });
 
 describe("Zeri source attribution and Living Battery spell attacks", () => {
-  it("retains all five exact primary revisions and separately hashed16.20game evidence",()=>{expect(zeri.evidence.map((e)=>e.revid)).toEqual(expect.arrayContaining([4051663,4062236,4060386,4015351,4016978]));for(const e of zeri.evidence.filter((e)=>e.sourceSha256)){expect(e.sourceSha256).toBe("4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7");expect(e.sourceVersion).toBe("16.20.8248524+branch.releases-16-20.content.release");expect(e.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json");}});
+  it("retains all five exact primary revisions and separately hashed16.21game evidence",()=>{expect(zeri.evidence.map((e)=>e.revid)).toEqual(expect.arrayContaining([4051663,4062236,4060386,4091280,4016978]));for(const e of zeri.evidence.filter((e)=>e.sourceSha256)){expect(e.sourceSha256).toBe("4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7");expect(e.sourceVersion).toBe("16.21.8342754+branch.releases-16-21.content.release");expect(e.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/zeri/zeri.bin.json");}});
   it("starts with100charge, no R/E empowerment and no ordinary basic missile",()=>{const w=world(zeri.spec);expect(w.units[0].memory["zeri:charge"]).toBe(100);expect(w.units[0].memory["zeri:overchargeEnd"]).toBeUndefined();expect(w.units[0].memory["zeri:lightningEnd"]).toBeUndefined();shot(w);expect(w.missiles.some((m)=>m.source==="attack")).toBe(false);expect(w.units[0].memory["zeri:charge"]).toBe(0);});
   it("charged zap deals170+110%AP+12.1764705882353%maxHP without ordinary AD",()=>{const w=world(zeri.spec);shot(w);expect(w.units[1].totals.damageTaken).toBeCloseTo(170+110+50000*.121764705882353,7);});
   it("regular zap is27.3514705882353+3%AP and spends10charge",()=>{const w=world(zeri.spec);w.units[0].memory["zeri:charge"]=50;shot(w);expect(w.units[1].totals.damageTaken).toBeCloseTo(30.3514705882353,8);expect(w.units[0].memory["zeri:charge"]).toBe(40);});

@@ -1,6 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
 import { addStatus } from "../../engine/sim/combat";
 import type { ItemModule } from "../equip";
+import { immobilizes, usesOf } from "../hints";
 import { memo, ownStatus } from "../runtime";
 
 export const ImperialMandate: ItemModule = {
@@ -15,6 +16,8 @@ export const ImperialMandate: ItemModule = {
     const key = memo(item.name, "vulnerable");
     return {
       haste: [{ slots: [], haste, immobilizing: true }],
+      // Vulnerable for its seconds after each immobilizing ability.
+      budget: { enemyStats: (self) => [{ state: "damageReduction", value: -share * Math.min(1, usesOf(self, immobilizes) * seconds) }] },
       hooks: {
         onEnemyCCApplied(ctx) {
           if (ctx.source !== ctx.self) return;

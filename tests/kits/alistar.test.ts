@@ -40,7 +40,7 @@ const charge = (world: World) => { cast(world, "E"); through(world, 75); expect(
     expect(new Set(value.evidence.filter(e => e.revid).map(e => e.revid))).toEqual(new Set([4007561, 4075173, 4075174, 4075181, 4075182]));
     const game = value.evidence.filter(e => e.url);
     expect(new Set(game.map(e => e.page)).size).toBe(5);
-    expect(game.every(e => e.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release" && e.sourceSha256 === "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a" && e.url === "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json")).toBe(true);
+    expect(game.every(e => e.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && e.sourceSha256 === "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a" && e.url === "https://raw.communitydragon.org/16.21/game/data/characters/alistar/alistar.bin.json")).toBe(true);
     expect(value.assumptions.join(" ")).toContain("FullChargeDuration"); expect(value.variants).toEqual([]);
   });
   it.each(["I", "Q", "W", "E", "R"])("fails closed when %s loses its exact game evidence", kind => {
@@ -141,13 +141,13 @@ const charge = (world: World) => { cast(world, "E"); through(world, 75); expect(
 
  describe("Alistar full production matchups", () => {
   it("full15000gold six-scenario Darius scores and exact builds reflect", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const opponent = kit("Darius").spec, forward = simulateMatchup(compiled().spec, opponent, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(opponent, compiled().spec, 15000, prices);
     expect(forward.scenarios).toHaveLength(6); expect(forward.builds).toEqual([reverse.builds[1],reverse.builds[0]]); expect(Number.isFinite(forward.score)).toBe(true); expect(Math.abs(forward.score+reverse.score)).toBeLessThanOrEqual(1e-10);
     const reflected=[1,0,2,3,4,5]; for(const [i,scenario] of forward.scenarios.entries()) { const other=reverse.scenarios[reflected[i]!]!; if(scenario.score === undefined) expect(other.score).toBeUndefined(); else expect(Math.abs(scenario.score+other.score!)).toBeLessThanOrEqual(1e-10); expect(scenario.outcomes.every(o=>Number.isFinite(o.seconds)&&o.hp.every(Number.isFinite))).toBe(true); }
   }, 60000);
   it("full15000gold six-scenario Heimerdinger matchup keeps actual pets and finite outcomes", () => {
-    const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices;
+    const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices;
     const opponent=kit("Heimerdinger",{upgrade:2}).spec, world=createWorld({fighters:[compiled().spec,opponent],distance:300,modes:["fight","fight"],settings:{maxSeconds:1,log:true}}); expect(world.pets.length).toBeGreaterThan(0);
     const result=simulateMatchup(compiled().spec,opponent,15000,prices); expect(Number.isFinite(result.score)).toBe(true);expect(result.scenarios).toHaveLength(6);for(const scenario of result.scenarios) for(const outcome of scenario.outcomes) expect(Number.isFinite(outcome.seconds)&&outcome.hp.every(Number.isFinite)).toBe(true);
   }, 60000);

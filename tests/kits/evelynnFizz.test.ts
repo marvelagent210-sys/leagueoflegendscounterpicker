@@ -35,7 +35,7 @@ function wAttack(world: World, pet = false) { cast(world, "W"); const target = p
 describe("Evelynn exact pins and target-local contacts", () => {
   it("retains all six exact wiki revisions and independently attributed game evidence", () => {
     expect(new Set(eve.evidence.map((e) => e.revid))).toEqual(new Set([0, 3984296, 3909221, 4038334, 4012756, 4006700, 4064061]));
-    expect(eve.evidence.some((e) => e.sourceSha256 === "c424d7a6b41894f8f817e49748c860d41e0531ed7d331193d4326ab52939b328")).toBe(true);
+    expect(eve.evidence.some((e) => e.sourceSha256 === "92b1291291e0dd2158d3d9375aefb9a30440081bb9a72cc76d812d08c7e1a12f")).toBe(true);
   });
   it("fails closed when an exact raw source quote is missing", () => {
     const changed = structuredClone(records("Evelynn")); changed.find((a) => a.name === "Whiplash")!.notes = [];
@@ -69,7 +69,7 @@ describe("Evelynn exact pins and target-local contacts", () => {
 });
 
 describe("Fizz pinned damage and empowered contact clocks", () => {
-  it("retains six exact revisions and the lure radius from the versioned binary", () => { expect(new Set(fizz.evidence.map((e) => e.revid))).toEqual(new Set([0, ...records("Fizz").map((r) => r.page.revid)])); expect(fizz.evidence.some((e) => e.sourceSha256 === "7c1dc9f12bb637c53976e52efcf969ab311c70cadcfe1d0975fc101860e121dc")).toBe(true); expect(ability(fizz.spec, "R").delivery).toMatchObject({ radius: 80, speed: 1300 }); });
+  it("retains six exact revisions and the lure radius from the versioned binary", () => { expect(new Set(fizz.evidence.map((e) => e.revid))).toEqual(new Set([0, ...records("Fizz").map((r) => r.page.revid)])); expect(fizz.evidence.some((e) => e.sourceSha256 === "d948b0cc25153e2f9e1f4edb28ec373b1ff7da0c89d584e575e2bb7d50f0de6a")).toBe(true); expect(ability(fizz.spec, "R").delivery).toMatchObject({ radius: 80, speed: 1300 }); });
   it.each([[100, "magic", 95], [6, "physical", 3], [100, "true", 100]] as const)("passive reduces incoming %s %s to %s before resistances", (raw, type, expected) => { const w = arena(fizz.spec); w.units[0].spec = { ...w.units[0].spec, base: { ...w.units[0].spec.base, armor: 0, mr: 0 } }; const before = w.units[0].hp; dealDamage(w, w.units[1], w.units[0], raw, type); expect(before - w.units[0].hp).toBe(expected); });
   it("passive reduction follows actual AP at damage time", () => { const w = arena(fizz.spec); w.units[0].spec = { ...w.units[0].spec, base: { ...w.units[0].spec.base, mr: 0 } }; applyEffect(w, w.units[0], w.units[0], { type: "stat", stat: "AP", amount: { base: 100 }, duration: 5 }, { scale: 1 }); const before = w.units[0].hp; dealDamage(w, w.units[1], w.units[0], 100, "magic"); expect(before - w.units[0].hp).toBe(94); });
   it("Q retains fixed 550 movement, deals physical + magic once and applies bleed", () => { const w = arena(fizz.spec, 300); cast(w, "Q"); expect(w.units[0].action?.kind).toBe("dash"); through(w, 1); expect(w.units[0].x).toBe(550); expect(w.units[1].totals.damageTaken).toBeCloseTo(derive(w.units[0]).ad + 125); expect(w.units[1].statuses.some((s) => s.kind === "dot")).toBe(true); });

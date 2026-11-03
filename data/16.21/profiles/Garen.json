@@ -1,0 +1,268 @@
+{
+  "champion": "Garen",
+  "name": "Garen",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "garen",
+      "formName": "Garen",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.07361,
+      "attackDamage": 157.493,
+      "windup": 0.227829,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Garen",
+      "kind": "A",
+      "name": "Basic Attack",
+      "page": {
+        "title": "Template:Data Garen/Basic Attack",
+        "revid": 3129581
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Garen",
+      "kind": "E",
+      "name": "Judgment",
+      "page": {
+        "title": "Template:Data Garen/Judgment",
+        "revid": 4009435
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Garen",
+      "kind": "I",
+      "name": "Perseverance",
+      "page": {
+        "title": "Template:Data Garen/Perseverance",
+        "revid": 4038338
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Garen/Perseverance",
+              "revid": 4038338,
+              "quote": "Innate: Garen regenerates an additional 1.5 – 10.1 (based on level)% of his maximum health every 5 seconds."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Perseverance does not go on nor refresh its cooldown from damage which was:\n  - Reduced to or equal to 0 damage.\n  - Dealt to shields.\n  - Absorbed by invulnerability."
+      ]
+    },
+    {
+      "champion": "Garen",
+      "kind": "Q",
+      "name": "Decisive Strike",
+      "page": {
+        "title": "Template:Data Garen/Decisive Strike",
+        "revid": 4085605
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "knockdown": "no",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "silence",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "silence"
+            },
+            {
+              "page": "Template:Data Garen/Decisive Strike",
+              "revid": 4085605,
+              "quote": "Additionally, Garen empowers his next basic attack within 4.5 seconds to have an uncancellable windup, lunge at the target, deal bonus physical damage, and silence them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669
+            }
+          ],
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "slow"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        }
+      ],
+      "cooldown": 8,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "The enhanced attack will apply other on-hit effects and can critically strike as normal (the bonus damage does not).\n  - The bonus damage will also apply life steal.\n  - The bonus damage is applied to structures.",
+        "The enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup.",
+        "Spell shield will only negate the silence."
+      ]
+    },
+    {
+      "champion": "Garen",
+      "kind": "R",
+      "name": "Demacian Justice",
+      "page": {
+        "title": "Template:Data Garen/Demacian Justice",
+        "revid": 4042864
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.435,
+      "range": 400,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Garen",
+      "kind": "W",
+      "name": "Courage",
+      "page": {
+        "title": "Template:Data Garen/Courage",
+        "revid": 4064595
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "tenacity",
+          "evidence": [
+            {
+              "page": "Tenacity",
+              "revid": 4021927
+            },
+            {
+              "page": "Template:Data Garen/Courage",
+              "revid": 4064595,
+              "quote": "For the first 0.75 seconds, Garen additionally grants himself a shield and 60% tenacity."
+            },
+            {
+              "page": "Template:Data Garen/Courage",
+              "revid": 4064595,
+              "quote": "For the first 0.75 seconds, Garen additionally grants himself a shield and 60% tenacity."
+            }
+          ],
+          "duration": 0.75,
+          "amount": 60
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Garen/Courage",
+              "revid": 4064595,
+              "quote": "For the first 0.75 seconds, Garen additionally grants himself a shield and 60% tenacity."
+            }
+          ]
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "notes": [
+        "The Tenacity increase stacks additively with the tenacity reduction from Brittle, but multiplicatively with other sources."
+      ]
+    }
+  ]
+}

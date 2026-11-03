@@ -36,7 +36,7 @@ const shield = (unit: Unit) => unit.statuses.filter((s) => s.kind === "shield").
 // Run the ordinary production budget/scenarios before mechanical fixtures.
 describe("Jarvan IV ordinary production matchup", () => {
   it("spends15000 per side, reflects six production scenarios and uses QWER", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const opponent = kit("Darius").spec, forward = simulateMatchup(compiled.spec, opponent, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(opponent, compiled.spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]);
     for (const build of forward.builds) { expect(build.gold).toBe(15000); expect(Object.values(build.spent).reduce((a, b) => a + b, 0)).toBeCloseTo(15000, 8); }
@@ -57,7 +57,7 @@ describe("Jarvan IV exact pinned source contract", () => {
     expect(new Set(compiled.evidence.filter((row) => row.revid).map((row) => row.revid))).toEqual(new Set(records("JarvanIV").map((row) => row.page.revid)));
     for (const row of records("JarvanIV")) { expect(row.sources?.[0]?.text[0]).toContain("|notes"); expect(row.gameSources?.every((source) => source.text[0]?.startsWith("objectPath:") && source.text[1]?.startsWith("{"))).toBe(true); }
     const game = compiled.evidence.filter((row) => row.url); expect(game).toHaveLength(6);
-    expect(game.every((row) => row.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release" && row.sourceSha256 === "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845")).toBe(true);
+    expect(game.every((row) => row.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && row.sourceSha256 === "6438414692fc4aec4a7cbc2654ee2124855ddf891e92c5312e4fd193d74f0fc1")).toBe(true);
   });
   it("fails closed without the pinned exact seven-value dash array", () => {
     const altered = structuredClone(records("JarvanIV")); delete altered.find((row) => row.kind === "E")!.gameSources;

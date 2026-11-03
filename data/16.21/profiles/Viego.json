@@ -1,0 +1,345 @@
+{
+  "champion": "Viego",
+  "name": "Viego",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "viego",
+      "formName": "Viego",
+      "range": 200,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.01384,
+      "attackDamage": 135.66,
+      "windup": 0.162225,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Viego",
+      "kind": "E",
+      "name": "Harrowed Path",
+      "page": {
+        "title": "Template:Data Viego/Harrowed Path",
+        "revid": 4091880
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "projectile": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "camouflage",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(450 unit detection radius)"
+            },
+            {
+              "page": "Template:Data Viego/Harrowed Path",
+              "revid": 4091880,
+              "quote": "While inside the Mist, Viego gains bonus attack speed and, if he does not attack or cast abilities, becomes camouflaged."
+            }
+          ],
+          "duration": 1,
+          "condition": "(450 unit detection radius)"
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 775,
+      "speed": 1600,
+      "boostsAttacks": true,
+      "notes": [
+        "Spectral Maw recast does not incur the 1 second cooldown for regaining the stealth and instead prevents the stealth from being gained until the dash ends, resetting the cooldown if it is active.\n  - The cooldown is not reset if it was incurred by basic attacking a large monster, but is however reset from it being incurred by Spectral Maw channel.",
+        "The buff that grants the camouflage and movement speed is called Lord of the Mist.",
+        "Viego will enter camouflage even while Recalling.",
+        "The initial missile can be destroyed by projectile-blocking effects, but the formed Mist trail will not disappear. The wall spread missiles cannot be destroyed.",
+        "Using a basic attack breaks the stealth at the start of the attack windup.\n  - The stealth regain timer is refreshed from basic attacks at the start of their attack windup."
+      ]
+    },
+    {
+      "champion": "Viego",
+      "kind": "I",
+      "name": "Sovereign's Domination",
+      "page": {
+        "title": "Template:Data Viego/Sovereign's Domination",
+        "revid": 4063480
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "grounded": "no"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles from turrets, special cased to be targetable to turrets"
+            },
+            {
+              "page": "Template:Data Viego/Sovereign's Domination",
+              "revid": 4063480,
+              "quote": "Viego can basic attack a Mist Wraith to consume it: causing him to blink to its location after winding up for 1 second, during which he is untargetable (except to turrets) and unable to act."
+            }
+          ],
+          "duration": 1,
+          "note": "Does not destroy inbound projectiles from turrets, special cased to be targetable to turrets"
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Viego/Sovereign's Domination",
+              "revid": 4063480,
+              "quote": "He then gains Possession and heals himself for 2% (+ 2.5% per 100 bonus AD) (+ 2% per 100 AP) (+ 0.4% per 100 bonus health) (+ 5% per 100% bonus attack speed) of the target's maximum health."
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "Viego gains the bonus movement speed during possession even while moving towards nearby enemy champions that are untargetable.",
+        "The wind up's untargetability does not destroy in-flight projectiles from turrets.",
+        "Once possession ends, Viego returns to his normal state and certain effects gained from the possessed champion's abilities will be immediately removed.\n  - Some buffs will be kept and some buffs will be lost.\n    - Viego will almost always keep shields and spell shields.\n    - Passive effects will be lost by default, as Viego no longer has their abilities.\n  - Channeled and charged abilities maintained will be interrupted, and without granting any cancelation refunds to the respective slot (if applicable).\n  - Toggled abilities will be automatically toggled off.",
+        "If Viego targets a Mist Wraith while already untargetable he will become targetable once again during the cast time.",
+        "If Viego possesses an enemy Fiora and the possession expires while performing Riposte, Spectral Maw will be placed on Riposte's cooldown."
+      ]
+    },
+    {
+      "champion": "Viego",
+      "kind": "Q",
+      "name": "Blade of the Ruined King",
+      "page": {
+        "title": "Template:Data Viego/Blade of the Ruined King",
+        "revid": 4067448
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Viego/Blade of the Ruined King",
+              "revid": 4067448,
+              "quote": "He also heals himself for a portion of the post-mitigation damage dealt by the second strike: 100% against minions, 125% against monsters, and 150% against other targets."
+            }
+          ]
+        }
+      ],
+      "cooldown": 3,
+      "castTime": 140,
+      "range": 25,
+      "boostsAttacks": true,
+      "notes": [
+        "Blade of the Ruined King deals:\n  - Area damage for the thrust.\n  - Basic damage for the second strike.\n  - Proc damage for the on-hit bonus damage.",
+        "Ability damage that applies on-hit effects (e.g., R damage against the primary target) cannot apply the mark but can consume it, as a basic attack would.",
+        "Viego will not perform the second strike if the first attack was dodged, blocked, and missed."
+      ]
+    },
+    {
+      "champion": "Viego",
+      "kind": "R",
+      "name": "Heartbreaker",
+      "page": {
+        "title": "Template:Data Viego/Heartbreaker",
+        "revid": 4001566
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "grounded": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Viego/Heartbreaker",
+              "revid": 4001566,
+              "quote": "Other nearby enemies are knocked back up to 400-units away based on proximity, though not through terrain."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Viego/Heartbreaker",
+              "revid": 4001566,
+              "quote": "Upon arrival, he strikes the most wounded enemy champion nearby, dealing physical damage, slowing them by 99% for 0.25 seconds, and applying on-hit effects."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 99
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Viego/Heartbreaker",
+              "revid": 4001566,
+              "quote": "Active: Viego gains displacement immunity over the cast time, then blinks to the target location."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.5,
+      "range": 500,
+      "boostsAttacks": true,
+      "notes": [
+        "Heartbreaker will cast at maximum range from the end of Spectral Maw dash if it is cast during the dash.",
+        "Heartbreaker's strike to the champion can be dodged and blocked, but not missed."
+      ]
+    },
+    {
+      "champion": "Viego",
+      "kind": "W",
+      "name": "Spectral Maw",
+      "page": {
+        "title": "Template:Data Viego/Spectral Maw",
+        "revid": 4008551
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Viego/Spectral Maw",
+              "revid": 4008551,
+              "quote": "Active: Viego charges while being slowed by 10% for up to 3 seconds to increase Spectral Maw's missile range and stun duration over the first second of the channel."
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 500,
+      "speed": 1000,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "The following table refers for interactions while Viego is channeling:"
+      ]
+    }
+  ]
+}

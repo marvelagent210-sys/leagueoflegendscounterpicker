@@ -89,7 +89,7 @@ describe("Katarina pinned mechanics and formulas", () => {
     const c = compiled(); expect(c.spec.abilities.map((a) => a.key)).toEqual(["Q", "W", "E", "R"]);
     expect(new Set(c.evidence.filter((e) => e.revid > 0).map((e) => e.revid))).toEqual(new Set([4007625, 4038392, 4015158, 4044343, 3845920]));
     const game = c.evidence.filter((e) => e.url); expect(game.length).toBeGreaterThanOrEqual(4);
-    expect(game.every((e) => e.sourceSha256 === "72d8881d64aee1a1bfc90422208060cea535dcf116c9fd882b2a93498b74b9cc" && e.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release")).toBe(true);
+    expect(game.every((e) => e.sourceSha256 === "1e7fb45a5b9f9864e3327074489e5e685971da1190f9d8a0d7ba86c4bb0da066" && e.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release")).toBe(true);
     expect(c.assumptions.join(" ")).toContain("pickup trigger radius");
   });
   it("fails closed if a consumed primary rule or game excerpt disappears", () => {

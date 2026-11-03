@@ -8,7 +8,7 @@ import { kit } from "./helpers";
 
 const lux = kit("Lux").spec;
 const darius = kit("Darius").spec;
-const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
 
 describe("Lux matchup reflection symmetry", () => {
   it("throws Light Binding at the same tick across floating-point sides of an exact 13-tick journey", () => {

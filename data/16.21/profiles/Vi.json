@@ -1,0 +1,313 @@
+{
+  "champion": "Vi",
+  "name": "Vi",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "vi",
+      "formName": "Vi",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.897285,
+      "attackDamage": 137.694,
+      "windup": 0.250756,
+      "modifiers": [
+        "Denting Blows"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Vi",
+      "kind": "E",
+      "name": "Relentless Force",
+      "page": {
+        "title": "Template:Data Vi/Relentless Force",
+        "revid": 3986710
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield will block damage to secondary targets, but not to the primary target."
+      ]
+    },
+    {
+      "champion": "Vi",
+      "kind": "I",
+      "name": "Blast Shield",
+      "page": {
+        "title": "Template:Data Vi/Blast Shield",
+        "revid": 4064865
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Vi/Blast Shield",
+              "revid": 4064865,
+              "quote": "Innate: Periodically, Vi's next ability hit grants her a shield equal to 10% of her maximum health for 3 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 12,
+      "notes": [
+        "Vault Breaker will trigger Blast Shield even if it's blocked by a spell shield.\n  - Cease and Desist will not."
+      ]
+    },
+    {
+      "champion": "Vi",
+      "kind": "Q",
+      "name": "Vault Breaker",
+      "page": {
+        "title": "Template:Data Vi/Vault Breaker",
+        "revid": 3921391
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Vi/Vault Breaker",
+              "revid": 3921391,
+              "quote": "Recast: Vi dashes in the target direction to deal physical damage to enemies within her path, increased by 0 / 15 / 30 / 45 / 60 / 75 / 90 / 105 / 120 / 135 / 150 (based on channel time)%, and pull all non-champions hit towards her."
+            }
+          ],
+          "variant": "knock back"
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 250,
+      "speed": 1450,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        },
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Vault Breaker's dash range extends up to 50 units when going through a wall.",
+        "Casting Flash during the dash will cause enemies at the destination to be hit by Vault Breaker.\n  - As Flash updates Vi's facing direction, affected champions will be knocked back in the direction the summoner spell was cast in.",
+        "Vi may cast spells that change her facing direction during the dash, including certain item actives and her own R, to knock champions she collides with in a different direction.\n  - Items that also initiate their own dash immediately without delay can only redirect targets struck at Vault Breaker's maximum range. These items include:\n    - Hextech Rocketbelt",
+        "Stuck targets (including those that block Vault Breaker with a spell shield) are briefly immune to being affected again by Vault Breaker from this player, for about 1.25 seconds.",
+        "The following table refers for interactions while Vi is channeling:"
+      ]
+    },
+    {
+      "champion": "Vi",
+      "kind": "R",
+      "name": "Cease and Desist",
+      "page": {
+        "title": "Template:Data Vi/Cease and Desist",
+        "revid": 4004943
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock aside"
+            },
+            {
+              "page": "Template:Data Vi/Cease and Desist",
+              "revid": 4004943,
+              "quote": "Upon approaching within 300 units of the target, she dashes through and grabs them over 1.05 seconds, knocking them up for 1.3 seconds and dealing physical damage after 0.75 seconds into the grab duration."
+            }
+          ],
+          "variant": "knock aside, knock up",
+          "duration": 1.3
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Vi/Cease and Desist",
+              "revid": 4004943,
+              "quote": "Enemies she dashes through are dealt the same damage, knocked aside by 350 units over 0.25 seconds, and stunned for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Vi/Cease and Desist",
+              "revid": 4004943,
+              "quote": "Active: Vi singles out the target enemy champion, dashing with displacement immunity towards them and revealing them."
+            }
+          ]
+        }
+      ],
+      "cooldown": 90,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 800,
+      "notes": [
+        "Vi will track the target if they change locations.\n  - She will stop dashing if the target is too far away or moves beyond 1500 units.",
+        "Vi will land to the opposite side of the target from the dash after the grab ends.\n  - She will not dash through the target if she would not be able to land to the opposite side of them, such as by terrain.",
+        "The dash will not be overridden if Vi blinks during it.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate after 0.5 seconds of grabbing the target, or at the end of the dash if Cease and Desist is canceled, whichever comes first.",
+        "Vi's displacement immunity and the target's reveal both last until the grab ends.\n  - If the dash ends from entering resurrection or the target being too far away, the displacement immunity will remain for 7 seconds, and will otherwise be lost.",
+        "The dash speed increases with time travelled.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).** This will also occur for when Vi enters resurrection during the cast time.",
+        "If the target becomes untargetable during the dash, Vi ends the dash prematurely and moves towards the target briefly, ignoring any movement commands. If Vi enters grabbing range, she will apply the airborne effect but not deal any damage.",
+        "Displacement immunity will not resist the application of the stun.",
+        "The following table refers for interactions while Vi is dashing and has grabbed the target:\n  - Flash cannot be used during the grab.\n  - This lockout is removed as soon as the grab ends, after which the the target's remaining airborne time will be 0.25 seconds."
+      ]
+    },
+    {
+      "champion": "Vi",
+      "kind": "W",
+      "name": "Denting Blows",
+      "page": {
+        "title": "Template:Data Vi/Denting Blows",
+        "revid": 3932548
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "The enhanced attack applies other on-hit effects and can both critically strike as normal as well as apply life steal (the bonus damage cannot do either).",
+        "Denting Blows can be blocked but cannot be dodged nor missed while Vi is blinded."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "champion": "Kassadin",
+  "name": "Kassadin",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "kassadin",
+      "formName": "Kassadin",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.10567,
+      "attackDamage": 135.694,
+      "windup": 0.135665,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Kassadin",
+      "kind": "E",
+      "name": "Force Pulse",
+      "page": {
+        "title": "Template:Data Kassadin/Force Pulse",
+        "revid": 4007623
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kassadin/Force Pulse",
+              "revid": 4007623,
+              "quote": "Active: Kassadin emits a pulse of void energy in a cone in the target direction that deals magic damage to enemies hit and slows them for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 70
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 17,
+      "castTime": 0.25,
+      "notes": [
+        "Untargetable champions do not reduce Force Pulse's cooldown upon ability activations."
+      ]
+    },
+    {
+      "champion": "Kassadin",
+      "kind": "I",
+      "name": "Void Stone",
+      "page": {
+        "title": "Template:Data Kassadin/Void Stone",
+        "revid": 3913958
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Kassadin",
+      "kind": "Q",
+      "name": "Null Sphere",
+      "page": {
+        "title": "Template:Data Kassadin/Null Sphere",
+        "revid": 4060362
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "disrupt",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "disrupt"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Kassadin/Null Sphere",
+              "revid": 4060362,
+              "quote": "He also gains a shield that absorbs magic damage for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 650,
+      "speed": 1400
+    },
+    {
+      "champion": "Kassadin",
+      "kind": "R",
+      "name": "Riftwalk",
+      "page": {
+        "title": "Template:Data Kassadin/Riftwalk",
+        "revid": 4060363
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 2,
+      "castTime": 0.25,
+      "range": 500
+    },
+    {
+      "champion": "Kassadin",
+      "kind": "W",
+      "name": "Nether Blade",
+      "page": {
+        "title": "Template:Data Kassadin/Nether Blade",
+        "revid": 4022982
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "The enhanced attack will apply other on-hit effects and can critically strike as normal.",
+        "Nether Blade will not grant mana if the attack is dodged or if it misses, but will do so if the attack is blocked. In all cases the damage is parried.",
+        "Spell shield will block the active damage but not the passive one."
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import type { ItemModule } from "../equip";
+import { energized } from "../hints";
 import { memo } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -11,10 +12,11 @@ export const RapidFirecannon: ItemModule = {
     const share = shooter.quoted("Energized attacks gain 35% bonus range, capped at 150.") / 100;
     const cap = shooter.quoted("Energized attacks gain 35% bonus range, capped at 150.", 1);
     const range = Math.min(cap, share * fighter.spec.attack.range);
-    fighter.energized().add({
+    const pool = fighter.energized();
+    pool.add({
       full: (ctx, on) => ctx.buff(memo(item.name, "range"), "attackRange", on ? range : 0, 1e6),
       onHit: (ctx, scale) => applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.label }, false, scale),
     });
-    return {};
+    return { budget: { damage: (self) => ({ magic: damage * energized(self, pool.rule) }) } };
   },
 };

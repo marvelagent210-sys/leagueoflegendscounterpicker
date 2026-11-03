@@ -998,12 +998,29 @@ export interface BudgetHints {
   attackSplit?: AttackSplit;
   /** Damage per second from hooks, before the target's resistances. */
   damage?: (self: Unit, target: Unit) => Partial<DamageByType>;
-  /** Healing and shielding per second from hooks. */
+  /** Healing and shielding per second from hooks. Healing increases and Grievous Wounds scale it as healing. */
   healing?: (self: Unit, target: Unit) => number;
+  /** Shielding per second from hooks, which healing increases and Grievous Wounds don't change (item shields, for the build search). */
+  shielding?: (self: Unit, target: Unit) => number;
   /** Bought stats the kit's hooks multiply in fights (Living Forge's 30% more bonus armor), for the budget to value them so. */
   statMultipliers?: Partial<Record<"ad" | "ap" | "as" | "crit" | "ah" | "lethality" | "armpen" | "mpenflat" | "mpen" | "hp" | "armor" | "mr", number>>;
   /** Total resistance multipliers from hooks, including base resistance (Poppy, Malphite). Replaces the corresponding purchased-stat multiplier. */
   totalResistanceMultipliers?: Partial<Record<"armor" | "mr", number>>;
+  /** The kit's own fights against the reference's counts (pipeline/items/calibrate.ts): set by the build search's estimate only. */
+  calibration?: BudgetCalibration;
+}
+
+/**
+ * Shares of the stat budget's reference counts that a kit's fights have: of its damage (basic
+ * attacks, abilities and what its hooks add), of its basic attacks and of its casts. The
+ * reference scales its terms by them.
+ */
+export interface BudgetCalibration {
+  damage: number;
+  attacks: number;
+  casts: number;
+  /** When the kit cast in its calibration fights, by ability name: one list per fight. */
+  schedule?: ReadonlyArray<ReadonlyArray<{ at: number; ability: string }>>;
 }
 
 export interface FighterSpec {

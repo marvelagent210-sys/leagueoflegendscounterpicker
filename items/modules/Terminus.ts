@@ -1,5 +1,6 @@
 import { toTicks } from "../../engine/rules/time";
 import type { ItemModule } from "../equip";
+import { attacks, averageStacks } from "../hints";
 import { memo, setStat, until } from "../runtime";
 import { itemDamage } from "./shared";
 
@@ -25,6 +26,13 @@ export const Terminus: ItemModule = {
       return now;
     };
     return {
+      // Each kind stacks on every other attack.
+      budget: {
+        stats(self) {
+          const stacks = averageStacks(maxStacks, attacks(self) / 2);
+          return [{ stat: "armorPen", value: stacks * pen }, { stat: "magicPenPercent", value: stacks * pen }, { stat: "armor", value: stacks * resists }, { stat: "MR", value: stacks * resists }];
+        },
+      },
       onHit: [itemDamage(item.label, "magic", { base: shadow.quoted(words), ratios: { bonusAD: shadow.quoted(words, 1) / 100, AP: shadow.quoted(words, 2) / 100 } }, item.tagged("OnHitAppliesLifeSteal"))],
       hooks: {
         onAttackHit(ctx) {

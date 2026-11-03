@@ -1,4 +1,5 @@
 import type { ItemModule } from "../equip";
+import { lifelineShield } from "../hints";
 import { itemShield, lifeline } from "./shared";
 
 export const ImmortalShieldbow: ItemModule = {
@@ -7,6 +8,9 @@ export const ImmortalShieldbow: ItemModule = {
     const line = item.effect("Lifeline");
     const amount = line.level("you first gain a shield that absorbs", fighter.ranged ? 1 : 0);
     const seconds = line.quoted("damage for 3 seconds.");
-    return { hooks: lifeline(item.name, line, (ctx) => itemShield(ctx, item.name, amount, seconds, false)) };
+    return {
+      hooks: lifeline(item.name, line, (ctx) => itemShield(ctx, item.name, amount, seconds, false)),
+      budget: { shielding: (self, enemy) => lifelineShield(self, enemy, amount, seconds, false) },
+    };
   },
 };

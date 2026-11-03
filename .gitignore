@@ -5,3 +5,4 @@ coverage/
 .DS_Store
 web/public/data/
 .cache/sim/
+.cache/builds/

@@ -1,6 +1,8 @@
 import { toTicks } from "../../engine/rules/time";
 import type { Effect } from "../../engine/sim/spec";
+import { budgetOnHit } from "../../engine/budget";
 import type { ItemModule } from "../equip";
+import { FIGHT, attacks, averageStacks } from "../hints";
 import { memo, until } from "../runtime";
 import { itemDamage } from "./shared";
 
@@ -23,6 +25,17 @@ export const GuinsoosRageblade: ItemModule = {
     const phantom = memo(item.name, "phantom");
     const phantomExpires = memo(item.name, "phantomUntil");
     return {
+      // Its stacks over the fight, and a Phantom Hit every third attack once they are full.
+      budget: {
+        stats: (self) => [{ stat: "attackSpeed", value: perStack * averageStacks(maxStacks, attacks(self)) }],
+        damage(self, enemy) {
+          const rate = attacks(self);
+          if (rate <= 0) return {};
+          const share = Math.max(0, FIGHT - maxStacks / rate) / FIGHT / (maxPhantom + 1);
+          const onHit = budgetOnHit(self, enemy);
+          return { physical: onHit.physical * rate * share, magic: onHit.magic * rate * share, true: onHit.true * rate * share };
+        },
+      },
       onHit: [itemDamage(item.label, "magic", { base: wrath }, item.tagged("OnHitAppliesLifeSteal"))],
       hooks: {
         onAttackLaunch(ctx) {

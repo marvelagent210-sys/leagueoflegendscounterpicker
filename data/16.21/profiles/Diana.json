@@ -1,0 +1,231 @@
+{
+  "champion": "Diana",
+  "name": "Diana",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "diana",
+      "formName": "Diana",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.89795,
+      "attackDamage": 115.995,
+      "windup": 0.23201,
+      "modifiers": [
+        "Moonsilver Blade"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Diana",
+      "kind": "E",
+      "name": "Lunar Rush",
+      "page": {
+        "title": "Template:Data Diana/Lunar Rush",
+        "revid": 3937024
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0,
+      "range": 825,
+      "notes": [
+        "Lunar Rush's cooldown will also be reset if the target dies during the dash while being affected by Moonlight.",
+        "Lunar Rush consumes Moonlight upon ending the dash (even if interrupted).",
+        "Lunar Rush will still deal damage even if the target is untargetable by the end of the dash.",
+        "If Lunar Rush is blocked by spell shield the Moonlight debuff is still consumed but Lunar Rush's cooldown is not reset."
+      ]
+    },
+    {
+      "champion": "Diana",
+      "kind": "I",
+      "name": "Moonsilver Blade",
+      "page": {
+        "title": "Template:Data Diana/Moonsilver Blade",
+        "revid": 4047026
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "When the stacks are consumed on-hit (e.g Guinsoo's Rageblade, Dusk and Dawn), additional damage is only applied to the on-hit target, without triggering the cleave on nearby enemies. [https://www.reddit.com/r/DianaMains/comments/u7hlez/guinsoos_rageblade_interaction_with_dianas/]"
+      ]
+    },
+    {
+      "champion": "Diana",
+      "kind": "Q",
+      "name": "Crescent Strike",
+      "page": {
+        "title": "Template:Data Diana/Crescent Strike",
+        "revid": 4007592
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1900,
+      "notes": [
+        "Even if the target spell shields the bolt, they may still be damaged by the explosion. Moonlight is not applied to the protected target if blocked.",
+        "The bolt consists of two projectiles with slightly different trajectories."
+      ]
+    },
+    {
+      "champion": "Diana",
+      "kind": "R",
+      "name": "Moonfall",
+      "page": {
+        "title": "Template:Data Diana/Moonfall",
+        "revid": 4007593
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Diana/Moonfall",
+              "revid": 4007593,
+              "quote": "Active: Diana pulls all nearby enemies towards her, during which they are revealed, then slows them for 2 seconds."
+            }
+          ],
+          "variant": "pull",
+          "duration": 2
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Diana/Moonfall",
+              "revid": 4007593,
+              "quote": "Active: Diana pulls all nearby enemies towards her, during which they are revealed, then slows them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "notes": [
+        "Crowd control immunity and displacement immunity still count as being \"pulled in\" by the ability.",
+        "The beam of moonlight does not crash down if champions hit blocked the initial effect with spell shield.\n  - Enemy champions protected by spell shield do not count towards the damage increase."
+      ]
+    },
+    {
+      "champion": "Diana",
+      "kind": "W",
+      "name": "Pale Cascade",
+      "page": {
+        "title": "Template:Data Diana/Pale Cascade",
+        "revid": 4078371
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Diana/Pale Cascade",
+              "revid": 4078371,
+              "quote": "Active: Diana grants herself a shield for up to 5 seconds and creates three spheres that orbit her counterclockwise for the same duration, each detonating upon contact with an enemy to deal magic damage to nearby enemies."
+            }
+          ],
+          "duration": 5
+        }
+      ],
+      "cooldown": 9,
+      "castTime": 0,
+      "notes": [
+        "On the second application of Pale Cascade's shield, Shield Power will apply to both the new shield amount and the shield amount remaining from the first shield, which has already benefited from shield power.\n  - Because of this, shield power effectively applies to the second shield twice, but with reduced efficiency, for up to an increase of 50% of shield power (maximum benefit if no damage was mitigated by the first shield). With 10% shield power, the second shield's total amount will be increased by up to an additional 5%, for a total of 15.5% bonus shield.\n  - The formula for the total amount of shield Diana will receive from both shield applications is:\n    - Total Shield = (((Shield Amount × (1 + Shield Power)) - Damage Blocked by Shield) + Shield Amount) × (1 + Shield Power)"
+      ]
+    }
+  ]
+}

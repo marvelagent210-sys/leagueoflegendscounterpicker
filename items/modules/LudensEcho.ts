@@ -1,5 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
+import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { damagingCasts, triggers } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -23,6 +25,7 @@ export const LudensEcho: ItemModule = {
     const cooldown = echo.cooldown();
     const ready = memo(item.name, "ready");
     return {
+      budget: { damage: (self) => ({ magic: (base + ap * derive(self).ap) * Math.min(damagingCasts(self), triggers(cooldown)) }) },
       hooks: {
         onDamageDealt(ctx) {
           if (!fighter.isAbilityDamage(ctx) || ctx.persistent || ctx.tick < until(ctx.self, ready)) return;

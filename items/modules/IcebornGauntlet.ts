@@ -2,7 +2,7 @@ import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
 import { activeKey, memo, until } from "../runtime";
-import { applyFrom, joinHooks, spellblade } from "./shared";
+import { applyFrom, joinHooks, spellblade, spellbladeRate } from "./shared";
 
 export const IcebornGauntlet: ItemModule = {
   item: "Iceborn Gauntlet",
@@ -18,7 +18,9 @@ export const IcebornGauntlet: ItemModule = {
     const ends = memo(item.name, "fieldUntil");
     const slowOf = (ranged: boolean) => (ranged ? slow.ranged : slow.melee) / 100;
     item.assume("Spellblade's frost field is where the target stood when hit; its slow lasts while the target stays inside it, up to the field's 2 seconds.");
+    const procs = spellbladeRate(blade);
     return {
+      budget: { damage: (self) => ({ physical: share * derive(self).baseAd * procs(self) }) },
       hooks: joinHooks(
         spellblade(item.name, blade, {
           onHit(ctx, scale) {

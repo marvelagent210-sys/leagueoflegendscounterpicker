@@ -10,8 +10,13 @@
  * Tear items are fully stacked unless --unstacked; --item-option "Heartsteel.stacked=600"
  * changes an item's option.
  *
+ * With --search, the build search (pipeline/items/search.ts) finds both sides' builds first:
+ * each side's route builds, their fights, and the builds each side takes. --format picks six
+ * items (sixItems, the default) or five items and boots (fiveItemsWithBoots).
+ *
  * Usage: npm run duel -- <your champion> <enemy> [--gold 15000] [--log <scenario>] [--sweep] [--dataset 16.20]
  *        npm run duel -- <your champion> <enemy> --items "<item>, ..." --enemy-items "<item>, ..." [--unstacked] [--item-option <item>.<option>=<value>] [--log <scenario>]
+ *        npm run duel -- <your champion> <enemy> --search [--format sixItems | fiveItemsWithBoots] [--unstacked] [--log <scenario>]
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
 import { type EquippedFighter, matchupSpecs } from "../../items/equip";
@@ -19,9 +24,10 @@ import { SCENARIOS, type ScenarioId, runScenarios } from "../../engine/sim/scena
 import type { FightOutcome } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
 import { bestMatchup } from "../../engine/sim/matchup";
-import { equipBuild, findItem, loadItemCatalog } from "../itemData";
+import { equipBuild, equipOptions, findItem, loadItemCatalog } from "../itemData";
 import type { ItemCatalog } from "../items/records";
-import { BUILD_FORMATS, buildProblems } from "../items/rules";
+import { BUILD_FORMATS, type BuildFormat, buildProblems } from "../items/rules";
+import { names as buildNames, profileOf, searchMatchup } from "../items/search";
 import { loadFighter, loadVariants } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
 
@@ -93,7 +99,7 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option"]);
+  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format"]);
   const names = args.filter((arg, i) => !arg.startsWith("--") && !valued.has(args[i - 1] ?? ""));
   if (names.length !== 2) throw new Error('Usage: npm run duel -- <your champion> <enemy> [--gold 15000 | --items "<item>, ..." --enemy-items "<item>, ..."] [--log <scenario>] [--sweep]');
   const data = await loadSimData(option(args, "--dataset"));
@@ -110,12 +116,33 @@ async function main(): Promise<void> {
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
   // A kit with a choice to make (Udyr's rank split, Heimerdinger's upgrade) plays the option set best for it here.
   const [myVariants, theirVariants] = [await loadVariants(data.dataset, you), await loadVariants(data.dataset, enemy)];
-  const withItems = args.includes("--items") || args.includes("--enemy-items");
+  const search = args.includes("--search");
+  if (search && (args.includes("--items") || args.includes("--enemy-items"))) throw new Error("--search finds the builds; it doesn't go with --items or --enemy-items");
+  const withItems = search || args.includes("--items") || args.includes("--enemy-items");
   if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
   const catalog = withItems ? await loadItemCatalog(data.dataset) : undefined;
   const build = catalog ? { options: itemOptions(args, catalog), stacked: !args.includes("--unstacked") } : {};
-  const myItems = catalog ? itemList(option(args, "--items"), catalog, you.name) : [];
-  const theirItems = catalog ? itemList(option(args, "--enemy-items"), catalog, enemy.name) : [];
+  let myItems = catalog ? itemList(option(args, "--items"), catalog, you.name) : [];
+  let theirItems = catalog ? itemList(option(args, "--enemy-items"), catalog, enemy.name) : [];
+  if (search && catalog) {
+    const format = (option(args, "--format") ?? "sixItems") as BuildFormat;
+    if (!(format in BUILD_FORMATS)) throw new Error(`--format takes one of: ${Object.keys(BUILD_FORMATS).join(", ")}`);
+    const found = searchMatchup(mine.spec, theirs.spec, catalog, equipOptions(catalog, build.options), data.prices, { format, stacked: build.stacked });
+    console.log(`Build search (${BUILD_FORMATS[format].label}): ${found.seconds.calibration.toFixed(1)} s calibrating, ${found.seconds.search.toFixed(1)} s searching (${found.rounds} rounds), ${found.seconds.fights.toFixed(1)} s of fights between the routes`);
+    found.calibrations?.forEach((c, side) => {
+      const share = (x: number) => `${Math.round(x * 100)}%`;
+      console.log(`  ${side === 0 ? you.name : enemy.name}'s fights against the estimate's counts: damage ${share(c.damage)}, attacks ${share(c.attacks)}, casts ${share(c.casts)}`);
+    });
+    found.routes.forEach((routes, side) => {
+      console.log(`${side === 0 ? you.name : enemy.name}'s routes (quick estimate against the other's best):`);
+      routes.forEach((route, i) => console.log(`  ${i + 1}. ${profileOf(route.items)}: ${buildNames(route).join(", ")} (${route.value.toFixed(3)})`));
+    });
+    console.log(`Screen scores for ${you.name}, the all-in scenarios with one branch each (rows: ${you.name}'s routes; columns: ${enemy.name}'s):`);
+    for (const line of found.scores) console.log(`  ${line.map((score) => signed(score)).join("  ")}`);
+    console.log(`Each side takes the route whose worst result is best: ${you.name} ${found.chosen[0] + 1}, ${enemy.name} ${found.chosen[1] + 1}; every scenario played, ${signed(found.score)}.\n`);
+    myItems = buildNames(found.routes[0][found.chosen[0]]!);
+    theirItems = buildNames(found.routes[1][found.chosen[1]]!);
+  }
   if (catalog && (myVariants.length > 1 || theirVariants.length > 1)) {
     // As bestMatchup chooses, with the builds instead of the stat budget: your best worst case, and the enemy's.
     const scores = myVariants.map((x) => theirVariants.map((y) => runScenarios(...matchupSpecs(equipBuild(x.spec, myItems, catalog, build), equipBuild(y.spec, theirItems, catalog, build))).score));

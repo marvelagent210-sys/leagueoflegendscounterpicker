@@ -1,0 +1,539 @@
+{
+  "champion": "Aphelios",
+  "name": "Aphelios",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "aphelios",
+      "formName": "Aphelios",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "attackSpeed": 0.936731,
+      "attackDamage": 100.23,
+      "windup": 0.16369,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Aphelios",
+      "kind": "A",
+      "name": "Calibrum",
+      "page": {
+        "title": "Template:Data Aphelios/Calibrum",
+        "revid": 4034686
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Triggered Marks apply on-hit effects, stack Energized and trigger Runaan's Hurricane, but no other on-attack effects.",
+        "Runaan's Hurricane bolts will use Calibrum's projectiles for Aphelios's attacks with Calibrum.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the empowered attack's cast time, it will still fire despite the target being invalid."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "A",
+      "name": "Crescendum",
+      "page": {
+        "title": "Template:Data Aphelios/Crescendum",
+        "revid": 4064842
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "All Chakram stacks are lost if the Crescendum projectile is destroyed (i.e W, E).",
+        "{{pp|5000 to 5000-6000*0.55|0 to 0.55 by 0.05|label=Missile Speed|label1=Time (s)|formula=5000 u/s initial speed, -6000 u/s² acceleration, and a minimum speed of 1700|showtype=false}}"
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "A",
+      "name": "Gravitum",
+      "page": {
+        "title": "Template:Data Aphelios/Gravitum",
+        "revid": 4064840
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Aphelios/Gravitum",
+              "revid": 4064840,
+              "quote": "Basic attacks with Gravitum slow enemies by 30% for 2.5 seconds, decaying to 15% after 0.7 seconds."
+            }
+          ],
+          "duration": 2.5,
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Gravitum's debuff applies even if the target is immune to slows (via slow immunity or cc-immunity).\n  - The only exception is E, which is special cased to negate the debuff with its slow-immunity.\n  - The target will be affected after losing their immunity.",
+        "Runaan's Hurricane bolts will use Gravitum's projectiles when Aphelios attacks with Gravitum.",
+        "The only exception is {{cai|E|Skarner}}, which is special cased to negate the debuff with its slow-immunity."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "A",
+      "name": "Infernum",
+      "page": {
+        "title": "Template:Data Aphelios/Infernum",
+        "revid": 4046493
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Infernum's attack hit can be dodged by or missed against the primary target.\n  - This will not prevent the missile from dealing damage to secondary targets nor from splashing against additional targets behind the primary target. The damage cannot be dodged as or missed against a secondary target.",
+        "Runaan's Hurricane bolts will use Infernum's projectiles when Aphelios attacks with Infernum.\n  - The bolts' attacks shoot 3 missiles, increased to 5 missiles when they critically strike."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "A",
+      "name": "Severum",
+      "page": {
+        "title": "Template:Data Aphelios/Severum",
+        "revid": 4064839
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Aphelios/Severum",
+              "revid": 4064839,
+              "quote": "Severum's attacks heal Aphelios for 2 – 8 (based on level)% of the post-mitigation damage dealt, increased to 5 – 20 (based on level)% for attacks from abilities."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Aphelios/Severum",
+              "revid": 4064839,
+              "quote": "Healing from Severum in excess of Aphelios' maximum health is converted into a shield for an amount of up to 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 / 120 / 130 / 140 / 150 / 160 (based on level) (+ 6% maximum health), lingering for up to 30 seconds."
+            }
+          ],
+          "duration": 30
+        }
+      ],
+      "notes": [
+        "Runaan's Hurricane bolts will use Severum's attack animation instead of firing projectiles for Aphelios' attacks with Severum.",
+        "Basic attacks with '''Severum''' are {{tip|projectile|non-projectile}} and have an {{tip|uncancellable windup}}. '''Severum's''' attacks {{tip|heal}} '''Aphelios''' for {{pp|key=%|2 to 8|formula=1.647% + 0.3529% * level, capped at level 18|color=heal}}<!--stops at 18-->  of the {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt, increased to {{pp|5 to 20|key=%|formula=4.1176% + 0.8824% * level, capped at level 18|color=heal}}<!--stops at 18--> for attacks from abilities."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "E",
+      "name": "Weapon Queue System",
+      "page": {
+        "title": "Template:Data Aphelios/Weapon Queue System",
+        "revid": 3998993
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "I",
+      "name": "The Hitman and the Seer",
+      "page": {
+        "title": "Template:Data Aphelios/The Hitman and the Seer",
+        "revid": 4022691
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "Q",
+      "name": "Binding Eclipse",
+      "page": {
+        "title": "Template:Data Aphelios/Binding Eclipse",
+        "revid": 3983351
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Aphelios/Binding Eclipse",
+              "revid": 3983351,
+              "quote": "Gravitum - Active: Aphelios expunges all enemies with Gravitum's slow debuff, dealing 50 / 65 / 80 / 95 / 110 / 125 / 140 (based on level) (+ 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on level)% bonus AD) (+ 70% AP) magic damage and rooting them for 1 second."
+            }
+          ],
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Template:Data Aphelios/Binding Eclipse",
+              "revid": 3983351,
+              "quote": "Gravitum - Active: Aphelios expunges all enemies with Gravitum's slow debuff, dealing 50 / 65 / 80 / 95 / 110 / 125 / 140 (based on level) (+ 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on level)% bonus AD) (+ 70% AP) magic damage and rooting them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.3,
+      "notes": [
+        "No compensations are made if Binding Eclipse is used to empower in-flight Gravitum projectiles that are destroyed or have the slow application negated by any means, wasting the effect in the process.",
+        "Binding Eclipse cannot expunge enemies affected by Gravitum that are untargetable."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "Q",
+      "name": "Duskwave",
+      "page": {
+        "title": "Template:Data Aphelios/Duskwave",
+        "revid": 4064841
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.4,
+      "range": 650,
+      "notes": [
+        "The volley of attacks won't deal any damage, if they are dodged, blocked, or if Aphelios is blinded."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "Q",
+      "name": "Moonshot",
+      "page": {
+        "title": "Template:Data Aphelios/Moonshot",
+        "revid": 4064838
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.4,
+      "range": 1450,
+      "speed": 1850
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "Q",
+      "name": "Onslaught",
+      "page": {
+        "title": "Template:Data Aphelios/Onslaught",
+        "revid": 4064859
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Severum's attacks are not intercepted, but the attacks from the off-hand weapon are during Onslaught.",
+        "Aphelios will also not perform the attacks while channeling Recall.",
+        "Crescendum will not deal damage if blocked by Wind Wall, but the stacks will still be gained."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "Q",
+      "name": "Sentry",
+      "page": {
+        "title": "Template:Data Aphelios/Sentry",
+        "revid": 4034689
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "parry": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "slow immune",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Slow-immune",
+              "revid": 4060627
+            }
+          ]
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 475,
+      "boostsAttacks": true,
+      "notes": [
+        "While Sentry's attacks are modified by Severum, it will heal Aphelios for any damage it deals and its attacks cannot be intercepted by Wind Wall and Unbreakable.",
+        "The Sentry will stop upon colliding with Wind Wall. It will be deployed in front of the wall.",
+        "The Sentry's attacks can be dodged and blocked, but not missed from being blinded."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "Q",
+      "name": "Weapons of the Faithful",
+      "page": {
+        "title": "Template:Data Aphelios/Weapons of the Faithful",
+        "revid": 3963883
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "R",
+      "name": "Moonlight Vigil",
+      "page": {
+        "title": "Template:Data Aphelios/Moonlight Vigil",
+        "revid": 4052070
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Template:Data Aphelios/Moonlight Vigil",
+              "revid": 4052070,
+              "quote": "Gravitum Increases the initial slow to 99% and empowers Binding Eclipse to root targets affected by the enhanced slow for 1.35 seconds."
+            }
+          ],
+          "duration": 1.35
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Template:Data Aphelios/Moonlight Vigil",
+              "revid": 4052070,
+              "quote": "Gravitum Increases the initial slow to 99% and empowers Binding Eclipse to root targets affected by the enhanced slow for 1.35 seconds."
+            }
+          ],
+          "duration": 1.35
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Aphelios/Moonlight Vigil",
+              "revid": 4052070,
+              "quote": "Severum Heals Aphelios for 250 / 350 / 450 (based on level) if at least one enemy champion is hit."
+            }
+          ]
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0.6,
+      "range": 1300,
+      "speed": 1000,
+      "boostsAttacks": true,
+      "notes": [
+        "The attacks always count as projectiles unless Severum is being used. The lunar spotlight, however, may always be intercepted regardless of which weapon is in play as the main weapon.\n  - Due to this fact, non-Severum attacks will hit targets that are farther away from the center of the blast at a slightly longer delay.",
+        "Spell shield will block Moonlight Vigil's initial detonation damage but does not prevent the attacks from locking-on.",
+        "Moonlight Vigil's effect radius is centered around the location of the missile as it collides.",
+        "The locked-on attacks' can be dodged and blocked, but won't be prevented if Aphelios is blinded.\n  - Preventing the attack also prevents the additional effect (e.g. marking them with Gravitum or granting spectral chakrams)."
+      ]
+    },
+    {
+      "champion": "Aphelios",
+      "kind": "W",
+      "name": "Phase",
+      "page": {
+        "title": "Template:Data Aphelios/Phase",
+        "revid": 3970739
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 0.8,
+      "castTime": 0,
+      "notes": [
+        "Switching does not interrupt any commands Aphelios was issued before or during Phase."
+      ]
+    }
+  ]
+}

@@ -32,7 +32,8 @@ const onTarget = (world: World, effect: Effect) => applyEffect(world, world.unit
 const clone = (world: World): Pet | undefined => petsOf(world, 0, "decoy")[0];
 const bonusArmor = (unit: Unit) => derive(unit).armor.bonus;
 /** Stone Skin's armor at level 20: 6 to 10 over levels 1-18, carried on to 20. */
-const STONE = 6 + (4 / 17) * 19;
+// Stone Skin: 4.5 – 10 armor a stack by level (26.21), past level 18 at the same rate.
+const STONE = 4.5 + (5.5 / 17) * 19;
 const AD = compiled.spec.base.ad;
 /** A Cyclone pulse on the 20000-health, armorless target: 2% of its maximum health + 34.375% AD. */
 const PULSE = 0.02 * 20000 + 0.34375 * AD;
@@ -52,7 +53,7 @@ describe("Wukong reads the wiki at level 20", () => {
     expect(e).toMatchObject({ cooldown: 7, cost: 50, delivery: { kind: "dash", direction: "target", distance: 650, speed: 1050, hitRadius: 187.5 } });
     expect(e.onHit).toEqual([{ type: "damage", damageType: "magic", amount: { base: 240, ratios: { AP: 1 } }, label: "Nimbus Strike" }]);
     // The dash speed is in no wiki text: the pinned game file.
-    expect(compiled.evidence.find((x) => x.ability === "Nimbus Strike" && x.text.includes("DashSpeed"))).toMatchObject({ url: "https://raw.communitydragon.org/16.20/game/data/characters/monkeyking/monkeyking.bin.json" });
+    expect(compiled.evidence.find((x) => x.ability === "Nimbus Strike" && x.text.includes("DashSpeed"))).toMatchObject({ url: "https://raw.communitydragon.org/16.21/game/data/characters/monkeyking/monkeyking.bin.json" });
     const r = spec.abilities.find((a) => a.key === "R")!;
     expect(r).toMatchObject({ cooldown: 90, cost: 100, cooldownAfter: "state", channel: { duration: 2, interruptible: false, mobile: true, range: 315, pulses: { base: 8 } } });
     expect(r.channel?.onTick).toEqual([{ type: "damage", damageType: "physical", amount: { base: 0, ratios: { targetMaxHP: 0.02, AD: 0.34375 } }, label: "Cyclone" }]);

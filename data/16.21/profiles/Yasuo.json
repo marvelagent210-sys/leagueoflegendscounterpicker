@@ -1,0 +1,269 @@
+{
+  "champion": "Yasuo",
+  "name": "Yasuo",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "yasuo",
+      "formName": "Yasuo",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.15814,
+      "attackDamage": 109.163,
+      "windup": 0.189959,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Yasuo",
+      "kind": "E",
+      "name": "Sweeping Blade",
+      "page": {
+        "title": "Template:Data Yasuo/Sweeping Blade",
+        "revid": 4008638
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true,
+          "interruptedByCC": true
+        }
+      ],
+      "states": [],
+      "cooldown": 0.1,
+      "castTime": 0,
+      "range": 475,
+      "speed": 750,
+      "notes": [
+        "If Steel Tempest has been buffered, Wind Wall may also be cast during the dash.",
+        "Yasuo can use Sweeping Blade's fixed dash distance to cross walls both before and after hitting his target (provided his proximity to the wall and/or target allows it).",
+        "After Sweeping Blade, Yasuo becomes ghosted for a moment to prevent situations where he would face extreme cases of body block.",
+        "Sleep does not count for knocking the dash down."
+      ]
+    },
+    {
+      "champion": "Yasuo",
+      "kind": "I",
+      "name": "Way of the Wanderer",
+      "page": {
+        "title": "Template:Data Yasuo/Way of the Wanderer",
+        "revid": 4051866
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Yasuo/Way of the Wanderer",
+              "revid": 4051866,
+              "quote": "At 100 stacks and upon taking damage from an enemy champion or monster, Yasuo consumes all Flow to grant himself a shield for 125 – 600 (based on level) that lasts for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Yasuo",
+      "kind": "Q",
+      "name": "Steel Tempest",
+      "page": {
+        "title": "Template:Data Yasuo/Steel Tempest",
+        "revid": 4072892
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Yasuo/Steel Tempest",
+              "revid": 4072892,
+              "quote": "Gathering Storm Bonus: Yasuo unleashes a whirlwind in the target direction that applies and triggers the same effects and additionally knocks up enemies hit for 0.9 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.9
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "range": 450,
+      "speed": 1200,
+      "notes": [
+        "If Yasuo becomes unable to cast abilities during Sweeping Blade dash after buffering Steel Tempest, Steel Tempest will not cast, but will still go on cooldown.",
+        "The whirlwind from consuming stacks of Gathering Storm can strike targets whose center is behind Yasuo, unlike most missiles.",
+        "The whirlwind is a missile and can therefore be intercepted.",
+        "Each parry has different interactions with this ability, whether it's the first target of Steel Tempest or the secondary one. In either case Yasuo still gains a stack of Gathering Storm and his whirlwind knock-up cannot be negated by parries:\n  - Dodge: both first target and secondary target do not take damage.\n  - Block: first target does not take damage, secondary target does take damage.\n  - Blind: both first target and secondary target do take damage.",
+        "Spell shield does not prevent a stack of Gathering Storm from being gained."
+      ]
+    },
+    {
+      "champion": "Yasuo",
+      "kind": "R",
+      "name": "Last Breath",
+      "page": {
+        "title": "Template:Data Yasuo/Last Breath",
+        "revid": 4027670
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "grounded": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Yasuo/Last Breath",
+              "revid": 4027670,
+              "quote": "Active: Yasuo blinks to the opposite side of a visible airborne enemy champion nearest to the cursor, instantly generating maximum Flow while resetting Gathering Storm stacks."
+            }
+          ],
+          "variant": "knock up"
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 30,
+      "castTime": 0,
+      "range": 1400,
+      "notes": [
+        "Last Breath requires the target to be affected by airborne from an enemy source, and simultaneously that the target is not considered cc-immune, displacement immune, or untargetable during it.\n  - Last Breath cannot be cast if there are no nearby enemy champions that meet the conditions.\n    - Attempting to cast the ability on an enemy champion that is not airborne will indicate that they \"Must Be Airborne!\".\n    - Spell shield will not prevent Last Breath from being cast and the target will be knocked up and dealt the damage.\n      - The spell shield is still consumed in this case.\n  - Self-applied or allied-applied displacements do not allow Last Breath to target the champion. Those applied by the neutral team (e.g. Dragon initial knock back) can be targeted.\n  - An indicator will be placed towards enemy champions that meet the cast conditions within range of Last Breath to signify the ability can be cast.\n  - The Hextech Ultimatum will prevent Yasuo from casting Last Breath on an airborne enemy champion far outside its borders.\n    - Yasuo can only do so if the airborne enemy champion is positioned slightly outside of the borders.",
+        "Last Breath applies its damage and removes any forced movement on the targets when it ends, including if it is removed early by being cleansed.\n  - This is in contrast to most other effects with airborne, which have their forced movement linger if the disabling debuff is removed and have to be overridden by another movement spell (such as Relentless Pursuit or Flash).",
+        "While blinking, Yasuo creates an untargetable clone of himself that cues a dashing animation (similar to Sweeping Blade) towards the target. This unit's rules do not follow those of a clone's. As such, it is more alike a champion, unless special cased.",
+        "While performing Last Breath, Yasuo is locked out of performing actions.\n  - The lock out will end prematurely if all targets:\n    - Cleanse the knock up.\n    - Move far away from Yasuo.\n    - Leave Yasuo's sight (e.g. by nearsight).\n    - Become untargetable.\n    - Die.\n    - Enter the Realm of Death."
+      ]
+    },
+    {
+      "champion": "Yasuo",
+      "kind": "W",
+      "name": "Wind Wall",
+      "page": {
+        "title": "Template:Data Yasuo/Wind Wall",
+        "revid": 4008635
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "projectile": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "projectile block",
+          "evidence": [
+            {
+              "page": "Projectile",
+              "revid": 3999064
+            },
+            {
+              "page": "Template:Data Yasuo/Wind Wall",
+              "revid": 4008635,
+              "quote": "Active: Yasuo raises a wall of wind in the target direction for 4 seconds that destroys all hostile non-turret projectiles that collide with it and grants sight of its surroundings."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "cooldown": 17,
+      "castTime": 0.013,
+      "range": 0,
+      "notes": [
+        "Wind Wall grants sight in a small static area in front of the cast location.",
+        "Wind Wall starts blocking projectiles on-cast (despite not being fully formed).",
+        "Wind Wall travels via a missile, and thus stops upon colliding with an enemy Wind Wall.",
+        "Yasuo can move during Wind Wall's cast time."
+      ]
+    }
+  ]
+}

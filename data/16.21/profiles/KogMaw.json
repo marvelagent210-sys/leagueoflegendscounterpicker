@@ -1,0 +1,220 @@
+{
+  "champion": "KogMaw",
+  "name": "Kog'Maw",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "kog-maw",
+      "formName": "Kog'Maw",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1800,
+      "attackSpeed": 1.01155,
+      "attackDamage": 121.962,
+      "windup": 0.164326,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "KogMaw",
+      "kind": "E",
+      "name": "Void Ooze",
+      "page": {
+        "title": "Template:Data Kog'Maw/Void Ooze",
+        "revid": 3965135
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kog'Maw/Void Ooze",
+              "revid": 3965135,
+              "quote": "A field of ooze is created in its wake for 3 seconds, slowing enemies within the area every 0.25 seconds."
+            }
+          ],
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 1360,
+      "speed": 1400,
+      "notes": [
+        "Pending for test: The missile leaves a blob of ooze on the ground every 125 units traveled."
+      ]
+    },
+    {
+      "champion": "KogMaw",
+      "kind": "I",
+      "name": "Icathian Surprise",
+      "page": {
+        "title": "Template:Data Kog'Maw/Icathian Surprise",
+        "revid": 4038400
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            },
+            {
+              "page": "Template:Data Kog'Maw/Icathian Surprise",
+              "revid": 4038400,
+              "quote": "While under this state, Kog'Maw becomes invulnerable, untargetable, and immune to crowd control, but is also rendered unable to declare basic attacks, cast abilities, use summoner spells, and activate items."
+            }
+          ],
+          "note": "Does not destroy inbound projectiles",
+          "condition": "Only after taking fatal damage."
+        },
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            },
+            {
+              "page": "Template:Data Kog'Maw/Icathian Surprise",
+              "revid": 4038400,
+              "quote": "While under this state, Kog'Maw becomes invulnerable, untargetable, and immune to crowd control, but is also rendered unable to declare basic attacks, cast abilities, use summoner spells, and activate items."
+            }
+          ],
+          "condition": "Only after taking fatal damage."
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Kog'Maw/Icathian Surprise",
+              "revid": 4038400,
+              "quote": "While under this state, Kog'Maw becomes invulnerable, untargetable, and immune to crowd control, but is also rendered unable to declare basic attacks, cast abilities, use summoner spells, and activate items."
+            }
+          ],
+          "condition": "Only after taking fatal damage."
+        }
+      ],
+      "notes": [
+        "Icathian Surprise's untargetability does not destroy in-flight projectiles.",
+        "If Kog'Maw has the missile from a basic attack in-flight at the same time that he's moving while he dies, as long as the missile hits the target after Icathian Surprise has started, Kog'Maw will be able to use a basic attack once during Icathian Surprise."
+      ]
+    },
+    {
+      "champion": "KogMaw",
+      "kind": "Q",
+      "name": "Caustic Spittle",
+      "page": {
+        "title": "Template:Data Kog'Maw/Caustic Spittle",
+        "revid": 3960434
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "range": 1200,
+      "speed": 1650,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "KogMaw",
+      "kind": "R",
+      "name": "Living Artillery",
+      "page": {
+        "title": "Template:Data Kog'Maw/Living Artillery",
+        "revid": 4007636
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 1,
+      "castTime": 0.25,
+      "range": 1800,
+      "notes": [
+        "Living Artillery will not reveal stealthed champions."
+      ]
+    },
+    {
+      "champion": "KogMaw",
+      "kind": "W",
+      "name": "Bio-Arcane Barrage",
+      "page": {
+        "title": "Template:Data Kog'Maw/Bio-Arcane Barrage",
+        "revid": 4052263
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 17,
+      "castTime": 0
+    }
+  ]
+}

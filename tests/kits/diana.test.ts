@@ -40,9 +40,9 @@ describe("Diana pinned source and numeric contract", () => {
     expect(new Set(compiled.evidence.filter((row) => row.revid).map((row) => row.revid))).toEqual(new Set(records("Diana").map((row) => row.page.revid)));
     const game = compiled.evidence.filter((row) => row.url);
     expect(game.length).toBeGreaterThanOrEqual(15);
-    expect(game.every((row) => row.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release" && row.sourceSha256 === "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed")).toBe(true);
+    expect(game.every((row) => row.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && row.sourceSha256 === "9b2d999ce53563bd2d0e10838c928ed72d062a53f310a93583692fe6617cefbe")).toBe(true);
     expect(game.some((row) => row.text.includes('"mControlPoint2":[-1.3954554796218872,0.0,0.012537208385765553]'))).toBe(true);
-    expect(compiled.assumptions.join(" ")).toContain("earliest30Hz arrival tick");
+    expect(compiled.assumptions.join(" ")).toContain("earliest 30 Hz arrival tick");
     expect(compiled.assumptions.join(" ")).toContain("initial phase and sphere collision radius are unpublished");
   });
   it("reads rank-five/three spell values, ratios, costs and cast times", () => {
@@ -286,7 +286,7 @@ describe("Diana ordinary budgeted duel", () => {
     expect(evaluate(packet.type === "damage" ? packet.amount : { base: 0 }, world.units[0])).toBeCloseTo(190);
   });
   it("uses QWER in ordinary 15000-gold scenarios and reflects matchup scores and builds", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices, opponent = kit("Darius").spec;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices, opponent = kit("Darius").spec;
     const forward = simulateMatchup(compiled.spec, opponent, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(opponent, compiled.spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]); expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-12);
     const reflected = [1, 0, 2, 3, 4, 5];

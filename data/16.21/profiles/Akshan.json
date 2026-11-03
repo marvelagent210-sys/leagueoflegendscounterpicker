@@ -1,0 +1,286 @@
+{
+  "champion": "Akshan",
+  "name": "Akshan",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "akshan",
+      "formName": "Akshan",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.95264,
+      "attackDamage": 110.995,
+      "windup": 0.139927,
+      "modifiers": [
+        "Dirty Fighting"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Akshan",
+      "kind": "E",
+      "name": "Heroic Swing",
+      "page": {
+        "title": "Template:Data Akshan/Heroic Swing",
+        "revid": 4074661
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "yes",
+        "grounded": "partly",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted; (second cast)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(second cast)",
+          "interruptible": true,
+          "interruptedByCC": true
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted; (third cast)"
+            }
+          ],
+          "targeting": "location-targeted",
+          "condition": "(third cast)",
+          "interruptible": true,
+          "interruptedByCC": true
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Akshan/Heroic Swing",
+              "revid": 4074661,
+              "quote": "The shots can critically strike for 150% damage and apply life steal."
+            },
+            {
+              "page": "Template:Data Akshan/Heroic Swing",
+              "revid": 4074661,
+              "quote": "The shots can critically strike for 150% damage and apply life steal."
+            }
+          ]
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 800,
+      "speed": 2500,
+      "notes": [
+        "The second cast's dash will displace Akshan around the terrain in either a clockwise or counterclockwise direction, with the specific direction being determined by the position of the player's cursor relative to his facing direction.\n  - The dash will move clockwise if the player's cursor is anywhere to the left of Akshan from his facing direction (or perspective), and counterclockwise if the cursor is anywhere to his right.",
+        "Akshan will not stop swinging until his dash is stopped.\n  - The swing will end prematurely if the terrain the hook was attached to no longer exists, such as player-generated terrain.",
+        "Heroic Swing grants a buff to Akshan for 2 seconds that indicates and determines the first cast's duration.\n  - This buff starts as soon as the ability is cast, and lingers for 0.125 seconds after it expires.\n    - This means the hook can be attached to terrain for longer if it hits it earlier in the duration, and vice versa.\n  - If Akshan dashes (excluding second cast's dash) or blinks or becomes affected by immobilization, ground, or polymorph in the duration, the buff is removed immediately, causing the first cast to be lost and cancelling Heroic Swing entirely.",
+        "Only Heroic Swing's first cast is disabled while grounded or rooted. The third cast is still usable during those effects.",
+        "Akshan will attempt to basic attack the target he fired at with the last shot after the third cast's dash ends, if there is no other input given.",
+        "Spell shield will only block a single shot.",
+        "Hook range including lollipop against walls and final dash distance and speed.",
+        "It can miss if the user is blinded."
+      ]
+    },
+    {
+      "champion": "Akshan",
+      "kind": "I",
+      "name": "Dirty Fighting",
+      "page": {
+        "title": "Template:Data Akshan/Dirty Fighting",
+        "revid": 4074628
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "speed": 2000,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Akshan",
+      "kind": "Q",
+      "name": "Avengerang",
+      "page": {
+        "title": "Template:Data Akshan/Avengerang",
+        "revid": 4074638
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 850,
+      "speed": 1500,
+      "notes": [
+        "Spell shield will only block a single hit. They do not prevent the initial throw from extending its range."
+      ]
+    },
+    {
+      "champion": "Akshan",
+      "kind": "R",
+      "name": "Comeuppance",
+      "page": {
+        "title": "Template:Data Akshan/Comeuppance",
+        "revid": 4074717
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Akshan/Comeuppance",
+              "revid": 4074717,
+              "quote": "Each bullet's damage applies life steal and executes minions."
+            },
+            {
+              "page": "Template:Data Akshan/Comeuppance",
+              "revid": 4074717,
+              "quote": "Each bullet's damage applies life steal and executes minions."
+            }
+          ]
+        }
+      ],
+      "cooldown": 70,
+      "castTime": 0,
+      "range": 2500,
+      "speed": 3200,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "Akshan's reveal to enemies updates dynamically during the channel, and with each bullet fired afterward.",
+        "Spell shield will not prevent the lock-on and will only block a single bullet.",
+        "Comeuppance will not go on a reduced cooldown if Akshan dies during the channel.",
+        "Comeuppance will cancel if the target becomes untargetable or dies during the channel.",
+        "The following table refers for interactions while Akshan is channeling:",
+        "Comeuppance is interrupted by death or silence."
+      ]
+    },
+    {
+      "champion": "Akshan",
+      "kind": "W",
+      "name": "Going Rogue",
+      "page": {
+        "title": "Template:Data Akshan/Going Rogue",
+        "revid": 3989407
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "camouflage",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(800 unit detection radius)"
+            },
+            {
+              "page": "Template:Data Akshan/Going Rogue",
+              "revid": 3989407,
+              "quote": "Active: Akshan enters camouflage, which lasts indefinitely while he is near terrain or inside brush, and for 2 seconds otherwise."
+            }
+          ],
+          "duration": 2,
+          "condition": "(800 unit detection radius)"
+        }
+      ],
+      "cooldown": 2,
+      "castTime": 0.5,
+      "notes": [
+        "Using a basic attack breaks the stealth at the start of the attack windup."
+      ]
+    }
+  ]
+}

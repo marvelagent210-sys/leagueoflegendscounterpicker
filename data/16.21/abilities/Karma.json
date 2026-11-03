@@ -1,0 +1,1549 @@
+[
+  {
+    "champion": "Karma",
+    "kind": "E",
+    "name": "Defiance",
+    "page": {
+      "title": "Template:Data Karma/Defiance",
+      "revid": 4004072
+    },
+    "ranks": 5,
+    "fields": {
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Shield spread radius to allied champions around primary target"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Mantra - Active",
+        "text": "Mantra - Active: Inspire grants a bonus amount of shielding.\n\nInspire spreads to surrounding allied champions, granting them a shield for 2.5 seconds and 15% bonus movement speed for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Primary Target Shield",
+            "amount": {
+              "text": "45 / 85 / 125 / 165 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  85,
+                  125,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Primary Target Shield",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 45 / 85 / 125 / 165) (+ 105% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      45,
+                      85,
+                      125,
+                      165
+                    ]
+                  },
+                  "text": "(+ 45 / 85 / 125 / 165)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 105
+                  },
+                  "text": "(+ 105% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Secondary Target Shield",
+            "amount": {
+              "text": "45 / 85 / 125 / 165 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  85,
+                  125,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Inspire spreads to surrounding allied champions, granting them a shield for 2.5 seconds and 15% bonus movement speed for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Defiance scales with Mantra rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Defiance has a forgiveness radius of 175 units.",
+      "<!-- The following values are defined as parameters.\nInspire's values must be inputted/updated manually!\n-->{{#vardefine:re_shield_b1|45}}<!-- Rank 1 bonus primary shield\n-->{{#vardefine:re_shield_b5|165}}<!-- Rank 5 bonus primary shield\n-->{{#vardefine:re_shield_ap|45}}<!-- Bonus primary shield AP ratio as a PERCENTAGE\n-->{{#vardefine:re_shield_spreadratio|1.0}}<!-- Ratio of Defiance's bonus shield on secondary targets as a DECIMAL\n-->{{#vardefine:re_ms|15}}<!-- Secondary target movement speed as a PERCENTAGE\n-->{{{{{1<noinclude>|Ability data</noinclude>}}}|Defiance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = E\n|icon         = Defiance.png\n|blurb        = {{sbc|{{ai|Mantra|Karma}} Bonus:}}<br/>\n''Inspire's'' shield is increased, and ''Inspire'' spreads to surrounding allied champions at reduced power.\n|pre-blurb = Karma/Inspire\n|description  = {{sbc|{{ai|Mantra|Karma}} - Active:}} ''Inspire'' grants a bonus amount of shielding.<br/><br/>''Inspire'' spreads to surrounding allied champions, granting them a {{tip|shield}} for {{fd|2.5}} seconds and {{sti|ms|{{as|{{#var:re_ms}}% '''bonus''' movement speed}}}} for 2 seconds.\n|leveling     = {{st|Bonus Primary Target Shield|{{ai|Mantra|Karma|{{ap|{{#var:re_shield_b1}} to {{#var:re_shield_b5}} 4}}}} {{as|(+ {{#var:re_shield_ap}}% AP)}}|Total Primary Target Shield|{{ap|80 to 280}} (+ {{ai|Mantra|Karma|{{ap|{{#var:re_shield_b1}} to {{#var:re_shield_b5}} 4}}}}) {{as|(+ {{ap|60+{{#var:re_shield_ap}}}}% AP)}}}}\n{{st|Secondary Target Shield|{{ai|Mantra|Karma|{{ap|{{#var:re_shield_b1}}*{{#var:re_shield_spreadratio}} to {{#var:re_shield_b5}}*{{#var:re_shield_spreadratio}} 4}}}} {{as|(+ {{ap|{{#var:re_shield_ap}}*{{#var:re_shield_spreadratio}}}}% AP)}}}}\n|description2 = ''Defiance'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|effect radius= {{tip|cr|icononly = true}} {{tt|700|Shield spread radius to allied champions around primary target}}\n|cast time    = none\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Allies\n|spelleffects = \n|notes        = \n* ''Defiance'' has a {{tip|forgiveness radius}} of 175 units.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Defiance",
+          "revid": 4004072
+        },
+        "text": [
+          "<!-- The following values are defined as parameters.\nInspire's values must be inputted/updated manually!\n-->{{#vardefine:re_shield_b1|45}}<!-- Rank 1 bonus primary shield\n-->{{#vardefine:re_shield_b5|165}}<!-- Rank 5 bonus primary shield\n-->{{#vardefine:re_shield_ap|45}}<!-- Bonus primary shield AP ratio as a PERCENTAGE\n-->{{#vardefine:re_shield_spreadratio|1.0}}<!-- Ratio of Defiance's bonus shield on secondary targets as a DECIMAL\n-->{{#vardefine:re_ms|15}}<!-- Secondary target movement speed as a PERCENTAGE\n-->{{{{{1<noinclude>|Ability data</noinclude>}}}|Defiance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = E\n|icon         = Defiance.png\n|blurb        = {{sbc|{{ai|Mantra|Karma}} Bonus:}}<br/>\n''Inspire's'' shield is increased, and ''Inspire'' spreads to surrounding allied champions at reduced power.\n|pre-blurb = Karma/Inspire\n|description  = {{sbc|{{ai|Mantra|Karma}} - Active:}} ''Inspire'' grants a bonus amount of shielding.<br/><br/>''Inspire'' spreads to surrounding allied champions, granting them a {{tip|shield}} for {{fd|2.5}} seconds and {{sti|ms|{{as|{{#var:re_ms}}% '''bonus''' movement speed}}}} for 2 seconds.\n|leveling     = {{st|Bonus Primary Target Shield|{{ai|Mantra|Karma|{{ap|{{#var:re_shield_b1}} to {{#var:re_shield_b5}} 4}}}} {{as|(+ {{#var:re_shield_ap}}% AP)}}|Total Primary Target Shield|{{ap|80 to 280}} (+ {{ai|Mantra|Karma|{{ap|{{#var:re_shield_b1}} to {{#var:re_shield_b5}} 4}}}}) {{as|(+ {{ap|60+{{#var:re_shield_ap}}}}% AP)}}}}\n{{st|Secondary Target Shield|{{ai|Mantra|Karma|{{ap|{{#var:re_shield_b1}}*{{#var:re_shield_spreadratio}} to {{#var:re_shield_b5}}*{{#var:re_shield_spreadratio}} 4}}}} {{as|(+ {{ap|{{#var:re_shield_ap}}*{{#var:re_shield_spreadratio}}}}% AP)}}}}\n|description2 = ''Defiance'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|effect radius= {{tip|cr|icononly = true}} {{tt|700|Shield spread radius to allied champions around primary target}}\n|cast time    = none\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Allies\n|spelleffects = \n|notes        = \n* ''Defiance'' has a {{tip|forgiveness radius}} of 175 units.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShield",
+        "text": [
+          "{\"ObjectName\":\"KarmaSolKimShield\",\"objectPath\":\"Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShield\",\"mScriptName\":\"KarmaSolKimShield\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"KarmaSolKimShield\",\"mSpellTags\":[\"PositiveEffect_Boon\",\"Trait_Shield\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseShield\",\"values\":[30.0,80.0,130.0,180.0,230.0,280.0,330.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldDuration\",\"values\":[2.5,2.5,2.5,2.5,2.5,2.5,2.5],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeed\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalShield\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseShield\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"ShieldRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[10.0,10.0,9.5,9.0,8.5,8.0,8.0],\"Cooldown\":{\"values\":[10.0,10.0,9.5,9.0,8.5,8.0,8.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[800.0,800.0,800.0,800.0,800.0,800.0,800.0],\"castRangeValues\":{\"values\":[800.0,800.0,800.0,800.0,800.0,800.0,800.0],\"{0a3e0478}\":800.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[800.0,800.0,800.0,800.0,800.0,800.0,800.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"mana\":[60.0,65.0,70.0,75.0,80.0,85.0],\"manaValues\":{\"values\":[60.0,65.0,70.0,75.0,80.0,85.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":175.0,\"TargetForgivenessDefinitions\":[{\"mUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\",\"{c02a7870}\"],\"__type\":\"ObjectTags\"},\"__type\":\"HasUnitTagsCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaSolKimShield\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaSolKimShield_Name\",\"keySummary\":\"Spell_KarmaSolKimShield_Summary\",\"keyTooltip\":\"Spell_KarmaSolKimShield_Tooltip\",\"keyTooltipExtended\":\"Spell_KarmaSolKimShield_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseShield\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_ShieldAmount\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[600.0,600.0,600.0,600.0,600.0,600.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_leona_outer.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSolKimShield\",\"__type\":\"BuffData\"},\"BotData\":{\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":2,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":524288,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalShield\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":262144,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalShield\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/ScarmaAwesomeWaveSpeed",
+        "text": [
+          "{\"ObjectName\":\"ScarmaAwesomeWaveSpeed\",\"objectPath\":\"Characters/Karma/Spells/KarmaSolKimShieldAbility/ScarmaAwesomeWaveSpeed\",\"mScriptName\":\"ScarmaAwesomeWaveSpeed\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"Overload\",\"mEffectAmount\":[{\"value\":[35.0,60.0,85.0,110.0,135.0,160.0,185.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.0,2.0,4.0,6.0,8.0,10.0,12.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[6.5,6.5,6.5,6.5,6.5,6.5,6.5],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.4000000059604645,\"mAnimationName\":\"Spell1\",\"mCastTime\":0.25,\"cooldownTime\":[3.5,3.5,3.5,3.5,3.5,3.5,3.5],\"Cooldown\":{\"values\":[3.5,3.5,3.5,3.5,3.5,3.5,3.5],\"{0a3e0478}\":3.5,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"useAnimatorFramerate\":true,\"bHaveHitEffect\":true,\"castRange\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"castRangeValues\":{\"values\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"{0a3e0478}\":650.0,\"__type\":\"{0a0eddc9}\"},\"castConeDistance\":100.0,\"mMissileSpec\":{\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mSpeed\":1400.0,\"__type\":\"FixedSpeedMovement\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":1,\"castFrame\":7.5,\"missileSpeed\":1400.0,\"mMissileEffectKey\":\"Karma_W_Overload_mis_01\",\"mHitEffectKey\":\"Karma_W_Overload_tar_01\",\"bHaveHitBone\":true,\"mHitBoneName\":\"root\",\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,60.0,60.0,60.0,60.0,60.0],\"manaValues\":{\"values\":[60.0,60.0,60.0,60.0,60.0,60.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":1,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShieldLocket",
+        "text": [
+          "{\"ObjectName\":\"KarmaSolKimShieldLocket\",\"objectPath\":\"Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShieldLocket\",\"mScriptName\":\"KarmaSolKimShieldLocket\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1029,\"mAlternateName\":\"KarmaSoulShield\",\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[45.0,80.0,115.0,150.0,185.0,220.0,255.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[30.0,35.0,40.0,45.0,50.0,55.0,60.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.699999988079071,\"mCoefficient2\":0.6000000238418579,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,70.0,80.0,90.0,100.0,110.0],\"manaValues\":{\"values\":[60.0,70.0,80.0,90.0,100.0,110.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[400.0,400.0,400.0,400.0,400.0,400.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_brand.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSolKimShield\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":2,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":0.4000000059604645,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":0.11999999731779099,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":262144,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":150.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":524288,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":150.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra\",\"mScriptName\":\"KarmaMantra\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":15567,\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_Transformation\",\"Trait_Upgrade\"],\"DataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-20.0,40.0,100.0,160.0,220.0,280.0,340.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QBonusAPRatio\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationDamage\",\"values\":[-50.0,40.0,130.0,220.0,310.0,400.0,490.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationAPRatio\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlow\",\"values\":[-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlowDuration\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBonusRoot\",\"values\":[0.25,0.5,0.75,1.0,1.25,1.5,1.75],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBaseHeal\",\"values\":[17.0,17.0,17.0,17.0,17.0,17.0,17.0],\"__type\":\"SpellDataValue\"},{\"name\":\"RWHealRatio\",\"values\":[0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShield\",\"values\":[5.0,45.0,85.0,125.0,165.0,205.0,245.0],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShieldRatio\",\"values\":[0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"REMoveSpeed\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"RESharedRatio\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"ARAM\":{\"SpellDataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-10.0,40.0,90.0,140.0,190.0,240.0,290.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"RQImpactDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QBonusDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QBonusAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RQFieldDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QDetonationDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QDetonationAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"REBonusShield\":{\"mFormulaParts\":[{\"mDataValue\":\"EBonusShield\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"EBonusShieldRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RWHealAmount\":{\"mMultiplier\":{\"mNumber\":0.009999999776482582,\"__type\":\"NumberCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"RWBaseHeal\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"RWHealRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"},\"REBonusShieldArea\":{\"mMultiplier\":{\"mDataValue\":\"RESharedRatio\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"REBonusShield\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"Spell3\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_R.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"Cooldown\":{\"values\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"__type\":\"{0a0eddc9}\"},\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"mSpellRevealsChampion\":false,\"bIsToggleSpell\":true,\"castRange\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"castRangeValues\":{\"values\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"{0a3e0478}\":1100.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"castConeDistance\":100.0,\"castTargetAdditionalUnitsRadius\":250.0,\"mMissileSpec\":{\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"root\",\"mSpeed\":1300.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":750.0,\"__type\":\"Defaultvisibility\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":7.5,\"missileSpeed\":1300.0,\"mMissileEffectKey\":\"Karma_R_mantra_mis_01\",\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaMantra\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaMantra_Name\",\"keySummary\":\"Spell_KarmaMantra_Summary\",\"keyTooltip\":\"Spell_KarmaMantra_Tooltip\",\"keyCost\":\"Spell_Cost_NoCost\"},\"mLists\":{\"LevelUp\":{\"levelCount\":4,\"Elements\":[{\"type\":\"QBonusDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_KarmaSoulflareImpact\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"QDetonationDamage\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_KarmaSoulflareCircleDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"RWBonusRoot\",\"typeIndex\":5,\"nameOverride\":\"Spell_ListType_KarmaRenewalRootExtension\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"EBonusShield\",\"typeIndex\":7,\"nameOverride\":\"Spell_ListType_KarmaDefianceShield\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaMantra\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{38382c53}\":[{\"{e38f54f7}\":1,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":64,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":128,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "E",
+    "name": "Inspire",
+    "page": {
+      "title": "Template:Data Karma/Inspire",
+      "revid": 4008449
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma grants a shield to herself or the target allied champion for 2.5 seconds as well as 40% bonus movement speed for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Karma grants a shield to herself or the target allied champion for 2.5 seconds as well as 40% bonus movement speed for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Inspire has a forgiveness radius of 175 units.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Inspire|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = E\n|icon         = Inspire.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} applies a {{tip|shield}} on herself or the target allied champion for a short time, which briefly grants {{sti|ms|{{as|'''bonus''' movement speed}}}}.\n|post-blurb = Karma/Defiance\n|description  = {{sbc|Active:}} '''Karma''' grants a {{tip|shield}} to herself or the target allied champion for {{fd|2.5}} seconds as well as {{sti|ms|{{as|40% '''bonus''' movement speed}}}} for 2 seconds.\n|leveling    = {{st|Shield Strength|{{ap|80 to 280}} {{as|(+ 60% AP)}}}}\n|target range = {{tip|cr|icononly = true}} 800\n|cooldown     = {{ap|10 to 8}}\n|cost         = {{ap|60 to 80}}\n|cast time = none\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Allies\n|spelleffects = \n|notes        = \n* ''Inspire'' has a {{tip|forgiveness radius}} of 175 units.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Inspire",
+          "revid": 4008449
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Inspire|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = E\n|icon         = Inspire.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} applies a {{tip|shield}} on herself or the target allied champion for a short time, which briefly grants {{sti|ms|{{as|'''bonus''' movement speed}}}}.\n|post-blurb = Karma/Defiance\n|description  = {{sbc|Active:}} '''Karma''' grants a {{tip|shield}} to herself or the target allied champion for {{fd|2.5}} seconds as well as {{sti|ms|{{as|40% '''bonus''' movement speed}}}} for 2 seconds.\n|leveling    = {{st|Shield Strength|{{ap|80 to 280}} {{as|(+ 60% AP)}}}}\n|target range = {{tip|cr|icononly = true}} 800\n|cooldown     = {{ap|10 to 8}}\n|cost         = {{ap|60 to 80}}\n|cast time = none\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Allies\n|spelleffects = \n|notes        = \n* ''Inspire'' has a {{tip|forgiveness radius}} of 175 units.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShield",
+        "text": [
+          "{\"ObjectName\":\"KarmaSolKimShield\",\"objectPath\":\"Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShield\",\"mScriptName\":\"KarmaSolKimShield\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"KarmaSolKimShield\",\"mSpellTags\":[\"PositiveEffect_Boon\",\"Trait_Shield\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseShield\",\"values\":[30.0,80.0,130.0,180.0,230.0,280.0,330.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldDuration\",\"values\":[2.5,2.5,2.5,2.5,2.5,2.5,2.5],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeed\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalShield\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseShield\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"ShieldRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[10.0,10.0,9.5,9.0,8.5,8.0,8.0],\"Cooldown\":{\"values\":[10.0,10.0,9.5,9.0,8.5,8.0,8.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[800.0,800.0,800.0,800.0,800.0,800.0,800.0],\"castRangeValues\":{\"values\":[800.0,800.0,800.0,800.0,800.0,800.0,800.0],\"{0a3e0478}\":800.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[800.0,800.0,800.0,800.0,800.0,800.0,800.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"mana\":[60.0,65.0,70.0,75.0,80.0,85.0],\"manaValues\":{\"values\":[60.0,65.0,70.0,75.0,80.0,85.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":175.0,\"TargetForgivenessDefinitions\":[{\"mUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\",\"{c02a7870}\"],\"__type\":\"ObjectTags\"},\"__type\":\"HasUnitTagsCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaSolKimShield\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaSolKimShield_Name\",\"keySummary\":\"Spell_KarmaSolKimShield_Summary\",\"keyTooltip\":\"Spell_KarmaSolKimShield_Tooltip\",\"keyTooltipExtended\":\"Spell_KarmaSolKimShield_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseShield\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_ShieldAmount\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[600.0,600.0,600.0,600.0,600.0,600.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_leona_outer.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSolKimShield\",\"__type\":\"BuffData\"},\"BotData\":{\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":2,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":524288,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalShield\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":262144,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalShield\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/ScarmaAwesomeWaveSpeed",
+        "text": [
+          "{\"ObjectName\":\"ScarmaAwesomeWaveSpeed\",\"objectPath\":\"Characters/Karma/Spells/KarmaSolKimShieldAbility/ScarmaAwesomeWaveSpeed\",\"mScriptName\":\"ScarmaAwesomeWaveSpeed\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"Overload\",\"mEffectAmount\":[{\"value\":[35.0,60.0,85.0,110.0,135.0,160.0,185.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.0,2.0,4.0,6.0,8.0,10.0,12.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[6.5,6.5,6.5,6.5,6.5,6.5,6.5],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.4000000059604645,\"mAnimationName\":\"Spell1\",\"mCastTime\":0.25,\"cooldownTime\":[3.5,3.5,3.5,3.5,3.5,3.5,3.5],\"Cooldown\":{\"values\":[3.5,3.5,3.5,3.5,3.5,3.5,3.5],\"{0a3e0478}\":3.5,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"useAnimatorFramerate\":true,\"bHaveHitEffect\":true,\"castRange\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"castRangeValues\":{\"values\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"{0a3e0478}\":650.0,\"__type\":\"{0a0eddc9}\"},\"castConeDistance\":100.0,\"mMissileSpec\":{\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mSpeed\":1400.0,\"__type\":\"FixedSpeedMovement\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":1,\"castFrame\":7.5,\"missileSpeed\":1400.0,\"mMissileEffectKey\":\"Karma_W_Overload_mis_01\",\"mHitEffectKey\":\"Karma_W_Overload_tar_01\",\"bHaveHitBone\":true,\"mHitBoneName\":\"root\",\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,60.0,60.0,60.0,60.0,60.0],\"manaValues\":{\"values\":[60.0,60.0,60.0,60.0,60.0,60.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":1,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShieldLocket",
+        "text": [
+          "{\"ObjectName\":\"KarmaSolKimShieldLocket\",\"objectPath\":\"Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShieldLocket\",\"mScriptName\":\"KarmaSolKimShieldLocket\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1029,\"mAlternateName\":\"KarmaSoulShield\",\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[45.0,80.0,115.0,150.0,185.0,220.0,255.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[30.0,35.0,40.0,45.0,50.0,55.0,60.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.699999988079071,\"mCoefficient2\":0.6000000238418579,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,70.0,80.0,90.0,100.0,110.0],\"manaValues\":{\"values\":[60.0,70.0,80.0,90.0,100.0,110.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[400.0,400.0,400.0,400.0,400.0,400.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_brand.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSolKimShield\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":2,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":0.4000000059604645,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":0.11999999731779099,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":262144,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":150.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":524288,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":150.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "I",
+    "name": "Gathering Fire",
+    "page": {
+      "title": "Template:Data Karma/Gathering Fire",
+      "revid": 3985386
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Mantra current cooldown is reduced by 4 seconds for each enemy champion hit by Karma's damaging abilities.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Inner Flame / Soulflare reduces Mantra cooldown per champion hit by either damage instance (up to a maximum total reduction of 40 seconds if 5 enemy champions are hit by both instances of damage).",
+      "Focused Resolve / Renewal reduces Mantra cooldown when initially cast and again after the duration for the tether has expired (for a total reduction of 8 seconds).",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Gathering Fire|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = I\n|icon         = Gathering Fire.png\n|blurb        = {{sbc|Innate:}} ''{{ais|Mantra|Karma}}'' current cooldown is {{sti|cdr|reduced}} by a few seconds for each enemy champion hit by {{cis|Karma}} damaging {{tip|abilities}}.\n|description  = {{sbc|Innate:}} ''{{ais|Mantra|Karma}}'' {{sti|'''current''' cooldown}} is reduced by 4 seconds for each enemy champion hit by '''Karma's''' damaging {{tip|abilities}}.\n|targeting    = Passive\n|affects      = Self\n|notes        = \n* {{ai|Inner Flame|Karma}} / {{ai|Soulflare|Karma}} reduces {{ais|Mantra|Karma}} cooldown per champion hit by either damage instance (up to a maximum total reduction of {{ap|4*10}} seconds if 5 enemy champions are hit by both instances of damage).\n* {{ai|Focused Resolve|Karma}} / {{ai|Renewal|Karma}} reduces {{ais|Mantra|Karma}} cooldown when initially cast and again after the duration for the tether has expired (for a total reduction of {{ap|4*2}} seconds).\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Gathering Fire",
+          "revid": 3985386
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Gathering Fire|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = I\n|icon         = Gathering Fire.png\n|blurb        = {{sbc|Innate:}} ''{{ais|Mantra|Karma}}'' current cooldown is {{sti|cdr|reduced}} by a few seconds for each enemy champion hit by {{cis|Karma}} damaging {{tip|abilities}}.\n|description  = {{sbc|Innate:}} ''{{ais|Mantra|Karma}}'' {{sti|'''current''' cooldown}} is reduced by 4 seconds for each enemy champion hit by '''Karma's''' damaging {{tip|abilities}}.\n|targeting    = Passive\n|affects      = Self\n|notes        = \n* {{ai|Inner Flame|Karma}} / {{ai|Soulflare|Karma}} reduces {{ais|Mantra|Karma}} cooldown per champion hit by either damage instance (up to a maximum total reduction of {{ap|4*10}} seconds if 5 enemy champions are hit by both instances of damage).\n* {{ai|Focused Resolve|Karma}} / {{ai|Renewal|Karma}} reduces {{ais|Mantra|Karma}} cooldown when initially cast and again after the duration for the tether has expired (for a total reduction of {{ap|4*2}} seconds).\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaPassiveAbility/KarmaPassive",
+        "text": [
+          "{\"ObjectName\":\"KarmaPassive\",\"objectPath\":\"Characters/Karma/Spells/KarmaPassiveAbility/KarmaPassive\",\"mScriptName\":\"KarmaPassive\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":9221,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"KarmaPassive\",\"DataValues\":[{\"name\":\"BasicAttackMantraRefund\",\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"SpellMantraRefund\":{\"mFormulaParts\":[{\"mNumber\":4.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_Passive.dds\"],\"spellCastTime\":0.5217499732971191,\"spellTotalTime\":1.533400058746338,\"cooldownTime\":[9.0,8.0,7.0,6.0,5.0,4.0,4.0],\"Cooldown\":{\"values\":[9.0,8.0,7.0,6.0,5.0,4.0,4.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"castRange\":[300.0,300.0,300.0,300.0,300.0,300.0,300.0],\"castRangeValues\":{\"values\":[300.0,300.0,300.0,300.0,300.0,300.0,300.0],\"{0a3e0478}\":300.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castConeDistance\":100.0,\"castFrame\":9.569999694824219,\"missileSpeed\":0.0,\"bHaveHitBone\":true,\"mFloatVarsDecimals\":[0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[40.0,45.0,50.0,55.0,60.0,65.0],\"manaValues\":{\"values\":[40.0,45.0,50.0,55.0,60.0,65.0],\"{0a3e0478}\":40.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaPassive\",\"mFormat\":\"{476ec0b8}\",\"mLocKeys\":{\"keyName\":\"game_character_passiveName_Karma\",\"keyTooltip\":\"Spell_KarmaPassive_Tooltip\",\"keySummary\":\"game_character_passiveDescription_Karma\"},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaPassive\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "Q",
+    "name": "Inner Flame",
+    "page": {
+      "title": "Template:Data Karma/Inner Flame",
+      "revid": 3875842
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8 / 7 / 6 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8,
+                7,
+                6,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 50 / 60 / 70 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "950 / 890",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                950,
+                890
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "280",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            },
+            "label": "Collision detonation radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            },
+            "label": "Missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma fires a bolt in the target direction that explodes on the first enemy hit, dealing magic damage to nearby enemies and slowing them by 40% for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Active: Karma fires a bolt in the target direction that explodes on the first enemy hit, dealing magic damage to nearby enemies and slowing them by 40% for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the initial impact from Inner Flame.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Inner Flame's effect radius is centered around the location of the missile as it collides.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Inner Flame|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = Q\n|icon         = Inner Flame.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} fires a bolt in the target direction that explodes on the first enemy hit, dealing {{as|magic damage}} to nearby enemies and briefly {{tip|slow|slowing}} them.\n|post-blurb = Karma/Soulflare\n|description  = {{sbc|Active:}} '''Karma''' fires a bolt in the target direction that explodes on the first enemy hit, dealing {{as|magic damage}} to nearby enemies and {{tip|slow|slowing}} them by 40% for {{fd|1.5}} seconds.\n|leveling     = {{st|Magic Damage|{{ap|60 to 260}} {{as|(+ 70% AP)}}}}\n|target range = {{tip|cr|icononly = true}} 950 / {{tip|er|icononly = true}} 890\n|width        = {{tip|er|icononly = true}} {{tt|120|Missile width}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|280|Collision detonation radius}}\n|speed        = {{tt|1700|Missile speed}}\n|cooldown     = {{ap|9 to 5}}\n|cost         = {{ap|40 to 80}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Area of effect\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the initial impact from ''Inner Flame''.\n{{Effect at cast time end}}\n* ''Inner Flame's'' effect radius is centered around the location of the missile as it collides.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Inner Flame",
+          "revid": 3875842
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Inner Flame|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = Q\n|icon         = Inner Flame.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} fires a bolt in the target direction that explodes on the first enemy hit, dealing {{as|magic damage}} to nearby enemies and briefly {{tip|slow|slowing}} them.\n|post-blurb = Karma/Soulflare\n|description  = {{sbc|Active:}} '''Karma''' fires a bolt in the target direction that explodes on the first enemy hit, dealing {{as|magic damage}} to nearby enemies and {{tip|slow|slowing}} them by 40% for {{fd|1.5}} seconds.\n|leveling     = {{st|Magic Damage|{{ap|60 to 260}} {{as|(+ 70% AP)}}}}\n|target range = {{tip|cr|icononly = true}} 950 / {{tip|er|icononly = true}} 890\n|width        = {{tip|er|icononly = true}} {{tt|120|Missile width}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|280|Collision detonation radius}}\n|speed        = {{tt|1700|Missile speed}}\n|cooldown     = {{ap|9 to 5}}\n|cost         = {{ap|40 to 80}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Area of effect\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the initial impact from ''Inner Flame''.\n{{Effect at cast time end}}\n* ''Inner Flame's'' effect radius is centered around the location of the missile as it collides.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissile",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissile\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissile\",\"mScriptName\":\"KarmaQMissile\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"VolleyAttack\",\"mAnimationName\":\"Attack2\",\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"castRange\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRangeValues\":{\"values\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"{0a3e0478}\":950.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875],\"castConeDistance\":0.0,\"mMissileSpec\":{\"mMissileWidth\":60.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Bow_01\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"DestroyOnHit\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":15.074999809265137,\"missileSpeed\":1700.0,\"mMissileEffectKey\":\"Karma_Q_Mis\",\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[60.0,60.0,60.0,60.0,60.0,60.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQMissile\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantraSlow",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissileMantraSlow\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantraSlow\",\"mScriptName\":\"KarmaQMissileMantraSlow\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1029,\"mAlternateName\":\"KarmaQMissile\",\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[45.0,80.0,115.0,150.0,185.0,220.0,255.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[30.0,35.0,40.0,45.0,50.0,55.0,60.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.800000011920929,\"mCoefficient2\":0.800000011920929,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,70.0,80.0,90.0,100.0,110.0],\"manaValues\":{\"values\":[60.0,70.0,80.0,90.0,100.0,110.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[400.0,400.0,400.0,400.0,400.0,400.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_brand.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQMissile\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissileMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantra\",\"mScriptName\":\"KarmaQMissileMantra\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"KarmaQMissileMantra\",\"mAnimationName\":\"Attack2\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_Q2.dds\"],\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"castRange\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRangeValues\":{\"values\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"{0a3e0478}\":950.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875],\"castConeDistance\":100.0,\"mMissileSpec\":{\"mMissileWidth\":80.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mTargetHeightAugment\":-50.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Bow_01\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"DestroyOnHit\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":15.074999809265137,\"missileSpeed\":1700.0,\"mMissileEffectKey\":\"Karma_Q_Mis_Ult\",\"mLineWidth\":80.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[80.0,80.0,80.0,80.0,80.0,80.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":1,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":300.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQ",
+        "text": [
+          "{\"ObjectName\":\"KarmaQ\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQ\",\"mScriptName\":\"KarmaQ\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"KarmaQ\",\"mSpellTags\":[\"Trait_DamageAbility\",\"Trait_SignatureSpell\",\"Trait_Ranged_StopsFirstHit\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[10.0,60.0,110.0,160.0,210.0,260.0,310.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowAmount\",\"values\":[-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDuration\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"{087bc3ca}\":{\"tooltipOnly\":true,\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"{5d5198eb}\":{\"tooltipOnly\":true,\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"IsEmpowered\":{\"mSimpleTooltipCalculationDisplay\":5,\"mExpandedTooltipCalculationDisplay\":5,\"tooltipOnly\":true,\"mDefaultGameCalculation\":\"{087bc3ca}\",\"mConditionalGameCalculation\":\"{5d5198eb}\",\"mConditionalCalculationRequirements\":{\"mBuffName\":\"{752d125a}\",\"__type\":\"HasBuffCastRequirement\"},\"__type\":\"GameCalculationConditional\"},\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell1\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_Q1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_Q2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[9.0,9.0,8.0,7.0,6.0,5.0,5.0],\"Cooldown\":{\"values\":[9.0,9.0,8.0,7.0,6.0,5.0,5.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"useAnimatorFramerate\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castConeAngle\":24.31999969482422,\"castConeDistance\":700.0,\"castFrame\":7.5,\"missileSpeed\":902.0,\"mLineWidth\":90.0,\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"mana\":[40.0,50.0,60.0,70.0,80.0,80.0],\"manaValues\":{\"values\":[40.0,50.0,60.0,70.0,80.0,80.0],\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaQ\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaQ_Name\",\"keySummary\":\"Spell_KarmaQ_Summary\",\"keyTooltip\":\"Spell_KarmaQ_Tooltip\",\"keyTooltipExtended\":\"Spell_KarmaQ_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[90.0,90.0,90.0,90.0,90.0,90.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQ\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":1,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":32768,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":90.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileSlow",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissileSlow\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissileSlow\",\"mScriptName\":\"KarmaQMissileSlow\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1029,\"mAlternateName\":\"KarmaSoulShield\",\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[45.0,80.0,115.0,150.0,185.0,220.0,255.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[30.0,35.0,40.0,45.0,50.0,55.0,60.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.800000011920929,\"mCoefficient2\":0.800000011920929,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,70.0,80.0,90.0,100.0,110.0],\"manaValues\":{\"values\":[60.0,70.0,80.0,90.0,100.0,110.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[400.0,400.0,400.0,400.0,400.0,400.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_brand.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQMissile\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "Q",
+    "name": "Soulflare",
+    "page": {
+      "title": "Template:Data Karma/Soulflare",
+      "revid": 3875841
+    },
+    "ranks": 5,
+    "fields": {
+      "effectRadius": {
+        "text": "280",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            },
+            "label": "Field area of effect radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Increased missile width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Mantra Bonus",
+        "text": "Mantra Bonus: Inner Flame deals increased damage, and fires a larger bolt that also explodes at maximum range.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "40 / 100 / 160 / 220 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  100,
+                  160,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 40 / 100 / 160 / 220) (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      40,
+                      100,
+                      160,
+                      220
+                    ]
+                  },
+                  "text": "(+ 40 / 100 / 160 / 220)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The explosion creates a field for 1.5 seconds that slows enemies within by 50%, which then ruptures to deal magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 130 / 220 / 310 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  130,
+                  220,
+                  310
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Bonus Damage",
+            "amount": {
+              "text": "80 / 230 / 380 / 530 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  230,
+                  380,
+                  530
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 80 / 230 / 380 / 530) (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      80,
+                      230,
+                      380,
+                      530
+                    ]
+                  },
+                  "text": "(+ 80 / 230 / 380 / 530)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "The explosion creates a field for 1.5 seconds that slows enemies within by 50%, which then ruptures to deal magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Soulflare scales with Mantra rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the initial impact from either ability but will not block Soulflare's field damage.",
+      "Soulflare's detonation radius is centered around the location of the missile as it collides, while the lingering field will always be created at the impacted enemy's center instead.",
+      "Soulflare will cast from wherever Karma is at the end of the cast time.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Soulflare|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = Q\n|icon         = Soulflare.png\n|blurb= {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Inner Flame'' deals increased damage, and fires a larger bolt that also explodes at max range.\n|blurb2= The explosion briefly creates a field that {{tip|slow|slows}} enemies, which then ruptures to deal {{as|magic damage}}.\n|pre-blurb = Karma/Inner Flame\n|description  = {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Inner Flame'' deals increased damage, and fires a larger bolt that also explodes at maximum range.\n|leveling     = {{st|Bonus Magic Damage|{{ai|Mantra|Karma|{{ap|40 to 220 4}}}} {{as|(+ 30% AP)}}|Total Magic Damage|{{ap|60 to 260 5}} (+ {{ai|Mantra|Karma|{{ap|40 to 220 4}}}}) {{as|(+ {{ap|70+30}}% AP)}}}}\n|description2 = The explosion creates a field for {{fd|1.5}} seconds that {{tip|slow|slows}} enemies within by 50%, which then ruptures to deal {{as|magic damage}}.\n|leveling2    = {{st|Magic Damage|{{ai|Mantra|Karma|{{ap|40 to 310 4}}}} {{as|(+ 50% AP)}}|Total Bonus Damage|{{ai|Mantra|Karma|{{ap|40+40 to 220+310 4}}}} {{as|(+ {{ap|50+30}}% AP)}}|Total Damage|{{ap|60 to 260}} (+ {{ai|Mantra|Karma|{{ap|40+40 to 220+310 4}}}}) {{as|(+ {{ap|70+50+30}}% AP)}}}}\n|description3 = ''Soulflare'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|width        = {{tip|er|icononly = true}} {{tt|160|Increased missile width}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|280|Field area of effect radius}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spellaoe\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the initial impact from either ability but will not block ''Soulflare's'' field damage.\n* ''Soulflare's'' detonation radius is centered around the location of the missile as it collides, while the lingering field will always be created at the impacted enemy's center instead.\n* ''Soulflare'' will cast from wherever '''Karma''' is at the end of the cast time.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Soulflare",
+          "revid": 3875841
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Soulflare|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = Q\n|icon         = Soulflare.png\n|blurb= {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Inner Flame'' deals increased damage, and fires a larger bolt that also explodes at max range.\n|blurb2= The explosion briefly creates a field that {{tip|slow|slows}} enemies, which then ruptures to deal {{as|magic damage}}.\n|pre-blurb = Karma/Inner Flame\n|description  = {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Inner Flame'' deals increased damage, and fires a larger bolt that also explodes at maximum range.\n|leveling     = {{st|Bonus Magic Damage|{{ai|Mantra|Karma|{{ap|40 to 220 4}}}} {{as|(+ 30% AP)}}|Total Magic Damage|{{ap|60 to 260 5}} (+ {{ai|Mantra|Karma|{{ap|40 to 220 4}}}}) {{as|(+ {{ap|70+30}}% AP)}}}}\n|description2 = The explosion creates a field for {{fd|1.5}} seconds that {{tip|slow|slows}} enemies within by 50%, which then ruptures to deal {{as|magic damage}}.\n|leveling2    = {{st|Magic Damage|{{ai|Mantra|Karma|{{ap|40 to 310 4}}}} {{as|(+ 50% AP)}}|Total Bonus Damage|{{ai|Mantra|Karma|{{ap|40+40 to 220+310 4}}}} {{as|(+ {{ap|50+30}}% AP)}}|Total Damage|{{ap|60 to 260}} (+ {{ai|Mantra|Karma|{{ap|40+40 to 220+310 4}}}}) {{as|(+ {{ap|70+50+30}}% AP)}}}}\n|description3 = ''Soulflare'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|width        = {{tip|er|icononly = true}} {{tt|160|Increased missile width}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|280|Field area of effect radius}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spellaoe\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the initial impact from either ability but will not block ''Soulflare's'' field damage.\n* ''Soulflare's'' detonation radius is centered around the location of the missile as it collides, while the lingering field will always be created at the impacted enemy's center instead.\n* ''Soulflare'' will cast from wherever '''Karma''' is at the end of the cast time.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissile",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissile\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissile\",\"mScriptName\":\"KarmaQMissile\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"VolleyAttack\",\"mAnimationName\":\"Attack2\",\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"castRange\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRangeValues\":{\"values\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"{0a3e0478}\":950.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875],\"castConeDistance\":0.0,\"mMissileSpec\":{\"mMissileWidth\":60.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Bow_01\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"DestroyOnHit\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":15.074999809265137,\"missileSpeed\":1700.0,\"mMissileEffectKey\":\"Karma_Q_Mis\",\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[60.0,60.0,60.0,60.0,60.0,60.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQMissile\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantraSlow",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissileMantraSlow\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantraSlow\",\"mScriptName\":\"KarmaQMissileMantraSlow\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1029,\"mAlternateName\":\"KarmaQMissile\",\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[45.0,80.0,115.0,150.0,185.0,220.0,255.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[30.0,35.0,40.0,45.0,50.0,55.0,60.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.800000011920929,\"mCoefficient2\":0.800000011920929,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,70.0,80.0,90.0,100.0,110.0],\"manaValues\":{\"values\":[60.0,70.0,80.0,90.0,100.0,110.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[400.0,400.0,400.0,400.0,400.0,400.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_brand.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQMissile\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissileMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantra\",\"mScriptName\":\"KarmaQMissileMantra\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"KarmaQMissileMantra\",\"mAnimationName\":\"Attack2\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_Q2.dds\"],\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"castRange\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRangeValues\":{\"values\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"{0a3e0478}\":950.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875,299.29998779296875],\"castConeDistance\":100.0,\"mMissileSpec\":{\"mMissileWidth\":80.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mTargetHeightAugment\":-50.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Bow_01\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"DestroyOnHit\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":15.074999809265137,\"missileSpeed\":1700.0,\"mMissileEffectKey\":\"Karma_Q_Mis_Ult\",\"mLineWidth\":80.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[80.0,80.0,80.0,80.0,80.0,80.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":1,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":300.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQ",
+        "text": [
+          "{\"ObjectName\":\"KarmaQ\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQ\",\"mScriptName\":\"KarmaQ\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"KarmaQ\",\"mSpellTags\":[\"Trait_DamageAbility\",\"Trait_SignatureSpell\",\"Trait_Ranged_StopsFirstHit\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[10.0,60.0,110.0,160.0,210.0,260.0,310.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowAmount\",\"values\":[-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645,-0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDuration\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"{087bc3ca}\":{\"tooltipOnly\":true,\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"{5d5198eb}\":{\"tooltipOnly\":true,\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"IsEmpowered\":{\"mSimpleTooltipCalculationDisplay\":5,\"mExpandedTooltipCalculationDisplay\":5,\"tooltipOnly\":true,\"mDefaultGameCalculation\":\"{087bc3ca}\",\"mConditionalGameCalculation\":\"{5d5198eb}\",\"mConditionalCalculationRequirements\":{\"mBuffName\":\"{752d125a}\",\"__type\":\"HasBuffCastRequirement\"},\"__type\":\"GameCalculationConditional\"},\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell1\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_Q1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_Q2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[9.0,9.0,8.0,7.0,6.0,5.0,5.0],\"Cooldown\":{\"values\":[9.0,9.0,8.0,7.0,6.0,5.0,5.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"useAnimatorFramerate\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castConeAngle\":24.31999969482422,\"castConeDistance\":700.0,\"castFrame\":7.5,\"missileSpeed\":902.0,\"mLineWidth\":90.0,\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"mana\":[40.0,50.0,60.0,70.0,80.0,80.0],\"manaValues\":{\"values\":[40.0,50.0,60.0,70.0,80.0,80.0],\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaQ\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaQ_Name\",\"keySummary\":\"Spell_KarmaQ_Summary\",\"keyTooltip\":\"Spell_KarmaQ_Tooltip\",\"keyTooltipExtended\":\"Spell_KarmaQ_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[90.0,90.0,90.0,90.0,90.0,90.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQ\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":1,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":32768,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":90.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileSlow",
+        "text": [
+          "{\"ObjectName\":\"KarmaQMissileSlow\",\"objectPath\":\"Characters/Karma/Spells/KarmaQAbility/KarmaQMissileSlow\",\"mScriptName\":\"KarmaQMissileSlow\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1029,\"mAlternateName\":\"KarmaSoulShield\",\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[45.0,80.0,115.0,150.0,185.0,220.0,255.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[30.0,35.0,40.0,45.0,50.0,55.0,60.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.800000011920929,\"mCoefficient2\":0.800000011920929,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castRadiusSecondary\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,70.0,80.0,90.0,100.0,110.0],\"manaValues\":{\"values\":[60.0,70.0,80.0,90.0,100.0,110.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[400.0,400.0,400.0,400.0,400.0,400.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_brand.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaQMissile\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra\",\"mScriptName\":\"KarmaMantra\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":15567,\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_Transformation\",\"Trait_Upgrade\"],\"DataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-20.0,40.0,100.0,160.0,220.0,280.0,340.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QBonusAPRatio\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationDamage\",\"values\":[-50.0,40.0,130.0,220.0,310.0,400.0,490.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationAPRatio\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlow\",\"values\":[-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlowDuration\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBonusRoot\",\"values\":[0.25,0.5,0.75,1.0,1.25,1.5,1.75],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBaseHeal\",\"values\":[17.0,17.0,17.0,17.0,17.0,17.0,17.0],\"__type\":\"SpellDataValue\"},{\"name\":\"RWHealRatio\",\"values\":[0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShield\",\"values\":[5.0,45.0,85.0,125.0,165.0,205.0,245.0],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShieldRatio\",\"values\":[0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"REMoveSpeed\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"RESharedRatio\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"ARAM\":{\"SpellDataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-10.0,40.0,90.0,140.0,190.0,240.0,290.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"RQImpactDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QBonusDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QBonusAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RQFieldDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QDetonationDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QDetonationAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"REBonusShield\":{\"mFormulaParts\":[{\"mDataValue\":\"EBonusShield\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"EBonusShieldRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RWHealAmount\":{\"mMultiplier\":{\"mNumber\":0.009999999776482582,\"__type\":\"NumberCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"RWBaseHeal\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"RWHealRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"},\"REBonusShieldArea\":{\"mMultiplier\":{\"mDataValue\":\"RESharedRatio\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"REBonusShield\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"Spell3\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_R.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"Cooldown\":{\"values\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"__type\":\"{0a0eddc9}\"},\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"mSpellRevealsChampion\":false,\"bIsToggleSpell\":true,\"castRange\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"castRangeValues\":{\"values\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"{0a3e0478}\":1100.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"castConeDistance\":100.0,\"castTargetAdditionalUnitsRadius\":250.0,\"mMissileSpec\":{\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"root\",\"mSpeed\":1300.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":750.0,\"__type\":\"Defaultvisibility\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":7.5,\"missileSpeed\":1300.0,\"mMissileEffectKey\":\"Karma_R_mantra_mis_01\",\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaMantra\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaMantra_Name\",\"keySummary\":\"Spell_KarmaMantra_Summary\",\"keyTooltip\":\"Spell_KarmaMantra_Tooltip\",\"keyCost\":\"Spell_Cost_NoCost\"},\"mLists\":{\"LevelUp\":{\"levelCount\":4,\"Elements\":[{\"type\":\"QBonusDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_KarmaSoulflareImpact\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"QDetonationDamage\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_KarmaSoulflareCircleDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"RWBonusRoot\",\"typeIndex\":5,\"nameOverride\":\"Spell_ListType_KarmaRenewalRootExtension\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"EBonusShield\",\"typeIndex\":7,\"nameOverride\":\"Spell_ListType_KarmaDefianceShield\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaMantra\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{38382c53}\":[{\"{e38f54f7}\":1,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":64,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":128,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "R",
+    "name": "Mantra",
+    "page": {
+      "title": "Template:Data Karma/Mantra",
+      "revid": 4005102
+    },
+    "ranks": 4,
+    "fields": {
+      "cooldown": {
+        "text": "40 / 38 / 36 / 34",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                38,
+                36,
+                34
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma empowers her next basic ability within 8 seconds for an additional effect.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Karma begins the game with one rank in Mantra. Her empowered abilities scale based on Mantra's rank.\n\nMantra can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Mantra|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = R\n|icon         = Mantra.png\n|blurb        = {{sbc|Active:}} {{ci|Karma}} empowers her next ability within a period to apply an additional effect.\n|blurb4      = '''Karma''' begins the game with one rank in ''Mantra''. Her empowered abilities scale based on ''Mantra's'' rank.\n|description  = {{sbc|Active:}} '''Karma''' empowers her next basic ability within 8 seconds for an additional effect.\n|description2 = '''Karma''' begins the game with one rank in ''Mantra''. Her empowered abilities scale based on ''Mantra's'' rank.<br/><br/>''Mantra can be used while affected by {{tip|cast-inhibiting crowd control}}.''\n|cast time = none\n|cooldown     = {{ap|40 to 34 4}}\n|cdstart      = on-cast\n|targeting    = Auto\n|affects      = Self\n|notes        = \n|flavorsound = {{sm2|Karma_Original_R_1.ogg}} ''\"Sae Eleisa Tera Vi.\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Mantra",
+          "revid": 4005102
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Mantra|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = R\n|icon         = Mantra.png\n|blurb        = {{sbc|Active:}} {{ci|Karma}} empowers her next ability within a period to apply an additional effect.\n|blurb4      = '''Karma''' begins the game with one rank in ''Mantra''. Her empowered abilities scale based on ''Mantra's'' rank.\n|description  = {{sbc|Active:}} '''Karma''' empowers her next basic ability within 8 seconds for an additional effect.\n|description2 = '''Karma''' begins the game with one rank in ''Mantra''. Her empowered abilities scale based on ''Mantra's'' rank.<br/><br/>''Mantra can be used while affected by {{tip|cast-inhibiting crowd control}}.''\n|cast time = none\n|cooldown     = {{ap|40 to 34 4}}\n|cdstart      = on-cast\n|targeting    = Auto\n|affects      = Self\n|notes        = \n|flavorsound = {{sm2|Karma_Original_R_1.ogg}} ''\"Sae Eleisa Tera Vi.\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra\",\"mScriptName\":\"KarmaMantra\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":15567,\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_Transformation\",\"Trait_Upgrade\"],\"DataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-20.0,40.0,100.0,160.0,220.0,280.0,340.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QBonusAPRatio\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationDamage\",\"values\":[-50.0,40.0,130.0,220.0,310.0,400.0,490.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationAPRatio\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlow\",\"values\":[-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlowDuration\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBonusRoot\",\"values\":[0.25,0.5,0.75,1.0,1.25,1.5,1.75],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBaseHeal\",\"values\":[17.0,17.0,17.0,17.0,17.0,17.0,17.0],\"__type\":\"SpellDataValue\"},{\"name\":\"RWHealRatio\",\"values\":[0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShield\",\"values\":[5.0,45.0,85.0,125.0,165.0,205.0,245.0],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShieldRatio\",\"values\":[0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"REMoveSpeed\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"RESharedRatio\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"ARAM\":{\"SpellDataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-10.0,40.0,90.0,140.0,190.0,240.0,290.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"RQImpactDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QBonusDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QBonusAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RQFieldDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QDetonationDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QDetonationAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"REBonusShield\":{\"mFormulaParts\":[{\"mDataValue\":\"EBonusShield\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"EBonusShieldRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RWHealAmount\":{\"mMultiplier\":{\"mNumber\":0.009999999776482582,\"__type\":\"NumberCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"RWBaseHeal\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"RWHealRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"},\"REBonusShieldArea\":{\"mMultiplier\":{\"mDataValue\":\"RESharedRatio\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"REBonusShield\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"Spell3\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_R.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"Cooldown\":{\"values\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"__type\":\"{0a0eddc9}\"},\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"mSpellRevealsChampion\":false,\"bIsToggleSpell\":true,\"castRange\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"castRangeValues\":{\"values\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"{0a3e0478}\":1100.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"castConeDistance\":100.0,\"castTargetAdditionalUnitsRadius\":250.0,\"mMissileSpec\":{\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"root\",\"mSpeed\":1300.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":750.0,\"__type\":\"Defaultvisibility\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":7.5,\"missileSpeed\":1300.0,\"mMissileEffectKey\":\"Karma_R_mantra_mis_01\",\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaMantra\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaMantra_Name\",\"keySummary\":\"Spell_KarmaMantra_Summary\",\"keyTooltip\":\"Spell_KarmaMantra_Tooltip\",\"keyCost\":\"Spell_Cost_NoCost\"},\"mLists\":{\"LevelUp\":{\"levelCount\":4,\"Elements\":[{\"type\":\"QBonusDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_KarmaSoulflareImpact\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"QDetonationDamage\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_KarmaSoulflareCircleDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"RWBonusRoot\",\"typeIndex\":5,\"nameOverride\":\"Spell_ListType_KarmaRenewalRootExtension\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"EBonusShield\",\"typeIndex\":7,\"nameOverride\":\"Spell_ListType_KarmaDefianceShield\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaMantra\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{38382c53}\":[{\"{e38f54f7}\":1,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":64,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":128,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "W",
+    "name": "Focused Resolve",
+    "page": {
+      "title": "Template:Data Karma/Focused Resolve",
+      "revid": 3968365
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "675",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 675
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 65 / 90 / 115 / 140 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  65,
+                  90,
+                  115,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "summon",
+            "category": "other",
+            "wording": "pet",
+            "evidence": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "1.6 / 1.7 / 1.8 / 1.9 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.6,
+                  1.7000000000000002,
+                  1.8,
+                  1.9,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.6,
+                1.7000000000000002,
+                1.8,
+                1.9,
+                2
+              ]
+            },
+            "evidence": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the tether's application and damage but not the aftereffects of one already applied.",
+      "If Karma is tethered to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.",
+      "If the target becomes untargetable, dies, or is no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost.\n  - If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.\n    - Summon Aery will still count as the target being damaged this way.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Focused Resolve|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = W\n|icon         = Focused Resolve.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} deals {{as|magic damage}} and {{tip|tether|tethers}} to the target enemy {{tip|champion}}, {{tip|monster}} or {{tip|pet}}.\n|blurb2= If the tether is not broken after a short time, the target is dealt {{as|magic damage}}, briefly {{tip|root|rooted}}, and {{tip|true sight|revealed}} for a short time.\n|post-blurb = Karma/Renewal\n|description  = {{sbc|Active:}} '''Karma''' deals {{as|magic damage}} to the target enemy {{tip|champion}}, {{tip|monster}} or {{tip|pet}} and forms a {{tip|tether}} between her and them for 2 seconds, during which they are {{tip|true sight|revealed}}.\n|leveling     = {{st|Magic Damage|{{ap|40 to 140}} {{as|(+ 45% AP)}}}}\n|description2 = If the tether is not broken by the end of its duration, the target is dealt the same {{as|magic damage}} again and is {{tip|root|rooted}} for a duration, during which they are {{tip|true sight|revealed}}.\n|leveling2    = {{st|Total Magic Damage|{{ap|40*2 to 140*2}} {{as|(+ 90% AP)}}}}\n{{st|Root Duration|{{ap|1.6 to 2}} seconds}}\n|target range = {{tip|cr|icononly = true}} 675\n|tether radius= {{tip|cr|icononly = true}} 825\n|cooldown     = 12\n|cost         = {{ap|50 to 70}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spell\n|projectile   = False\n|callforhelp  = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the tether's application and damage but not the aftereffects of one already applied.\n* If '''Karma''' is {{tip|tether|tethered}} to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.{{bug}}\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is no longer in {{tip|sight}} during the cast time, this ability will cancel but does not go on {{sti|cooldown}} nor pay its cost.\n** If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.{{bug}}\n*** {{ri|Summon Aery}} will still count as the target being damaged this way.{{bug|2}}\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Focused Resolve",
+          "revid": 3968365
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Focused Resolve|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = W\n|icon         = Focused Resolve.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} deals {{as|magic damage}} and {{tip|tether|tethers}} to the target enemy {{tip|champion}}, {{tip|monster}} or {{tip|pet}}.\n|blurb2= If the tether is not broken after a short time, the target is dealt {{as|magic damage}}, briefly {{tip|root|rooted}}, and {{tip|true sight|revealed}} for a short time.\n|post-blurb = Karma/Renewal\n|description  = {{sbc|Active:}} '''Karma''' deals {{as|magic damage}} to the target enemy {{tip|champion}}, {{tip|monster}} or {{tip|pet}} and forms a {{tip|tether}} between her and them for 2 seconds, during which they are {{tip|true sight|revealed}}.\n|leveling     = {{st|Magic Damage|{{ap|40 to 140}} {{as|(+ 45% AP)}}}}\n|description2 = If the tether is not broken by the end of its duration, the target is dealt the same {{as|magic damage}} again and is {{tip|root|rooted}} for a duration, during which they are {{tip|true sight|revealed}}.\n|leveling2    = {{st|Total Magic Damage|{{ap|40*2 to 140*2}} {{as|(+ 90% AP)}}}}\n{{st|Root Duration|{{ap|1.6 to 2}} seconds}}\n|target range = {{tip|cr|icononly = true}} 675\n|tether radius= {{tip|cr|icononly = true}} 825\n|cooldown     = 12\n|cost         = {{ap|50 to 70}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spell\n|projectile   = False\n|callforhelp  = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the tether's application and damage but not the aftereffects of one already applied.\n* If '''Karma''' is {{tip|tether|tethered}} to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.{{bug}}\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is no longer in {{tip|sight}} during the cast time, this ability will cancel but does not go on {{sti|cooldown}} nor pay its cost.\n** If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.{{bug}}\n*** {{ri|Summon Aery}} will still count as the target being damaged this way.{{bug|2}}\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaWBeamMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"mScriptName\":\"KarmaWBeamMantra\",\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBind",
+        "text": [
+          "{\"ObjectName\":\"KarmaSpiritBind\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBind\",\"mScriptName\":\"KarmaSpiritBind\",\"mSpell\":{\"mAffectsTypeFlags\":6146,\"mAlternateName\":\"KarmaSpiritBind\",\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_ActiveHeal\",\"Trait_Low_Damage\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[15.0,40.0,65.0,90.0,115.0,140.0,165.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"RootDuration\",\"values\":[1.5,1.600000023841858,1.7000000476837158,1.7999999523162842,1.899999976158142,2.0,2.0999999046325684],\"__type\":\"SpellDataValue\"},{\"name\":\"TetherDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"LeashBreakRange\",\"values\":[825.0,825.0,825.0,825.0,825.0,825.0,825.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"InitialDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell2\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_W1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_W2.dds\"],\"mCastTime\":0.25,\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"useAnimatorFramerate\":true,\"bIsToggleSpell\":true,\"castRange\":[675.0,675.0,675.0,675.0,675.0,675.0,675.0],\"castRangeValues\":{\"values\":[675.0,675.0,675.0,675.0,675.0,675.0,675.0],\"{0a3e0478}\":675.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[175.0,175.0,175.0,175.0,175.0,175.0,175.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":2200.0,\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_HEAD_LOC\",\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"mana\":[50.0,55.0,60.0,65.0,70.0,75.0],\"manaValues\":{\"values\":[50.0,55.0,60.0,65.0,70.0,75.0],\"{0a3e0478}\":50.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaSpiritBind\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaSpiritBind_Name\",\"keySummary\":\"Spell_KarmaSpiritBind_Summary\",\"keyTooltip\":\"Spell_KarmaSpiritBind_Tooltip\",\"keyTooltipExtended\":\"Spell_KarmaSpiritBind_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"RootDuration\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_RootDuration\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSpiritBind\",\"PersistentEffectConditions\":[{\"SourceCondition\":{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"Karma_W_beam\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"Karma_W_beam_R\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"championName\":\"Characters/Karma\",\"__type\":\"{635d04b7}\"},{\"mDrivers\":[{\"SkinID\":54,\"__type\":\"{9bc366ca}\"},{\"SkinID\":70,\"__type\":\"{9bc366ca}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"CSTM_Tether_Buffbone_Loc\",\"effectKey\":\"{9539a1b6}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"championName\":\"Characters/Karma\",\"__type\":\"{635d04b7}\"},{\"mDrivers\":[{\"SkinID\":54,\"__type\":\"{9bc366ca}\"},{\"SkinID\":70,\"__type\":\"{9bc366ca}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"CSTM_Tether_Buffbone_Loc\",\"effectKey\":\"{739e563b}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"mDrivers\":[{\"championName\":\"Characters/Sylas\",\"__type\":\"{635d04b7}\"},{\"championName\":\"Characters/Viego\",\"__type\":\"{635d04b7}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"{9539a1b6}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"mDrivers\":[{\"championName\":\"Characters/Sylas\",\"__type\":\"{635d04b7}\"},{\"championName\":\"Characters/Viego\",\"__type\":\"{635d04b7}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"{739e563b}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"}],\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"InitialDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":32,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4096,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBindRoot",
+        "text": [
+          "{\"ObjectName\":\"KarmaSpiritBindRoot\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBindRoot\",\"mScriptName\":\"KarmaSpiritBindRoot\",\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSpiritBindRoot\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam",
+        "text": [
+          "{\"ObjectName\":\"KarmaWBeam\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"mScriptName\":\"KarmaWBeam\",\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "W",
+    "name": "Renewal",
+    "page": {
+      "title": "Template:Data Karma/Renewal",
+      "revid": 4013452
+    },
+    "ranks": 5,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Mantra Bonus",
+        "text": "Mantra Bonus: Focused Resolve's root duration is increased.\n\nKarma heals for 17% (+ 1% per 100 AP) of her missing health once on-cast, and again once the tether lasts its full duration or the target dies while tethered.",
+        "leveling": [
+          {
+            "label": "Root Duration Increase",
+            "amount": {
+              "text": "0.5 / 0.75 / 1 / 1.25 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  0.5,
+                  0.75,
+                  1,
+                  1.25
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Root Duration",
+            "amount": {
+              "text": "1.6 / 1.7 / 1.8 / 1.9 / 2 (+ 0.5 / 0.75 / 1 / 1.25) seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.6,
+                  1.7000000000000002,
+                  1.8,
+                  1.9,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      0.5,
+                      0.75,
+                      1,
+                      1.25
+                    ]
+                  },
+                  "text": "(+ 0.5 / 0.75 / 1 / 1.25)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "root",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                0.5,
+                0.75,
+                1,
+                1.25
+              ]
+            },
+            "evidence": "Mantra Bonus: Focused Resolve's root duration is increased.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Karma heals for 17% (+ 1% per 100 AP) of her missing health once on-cast, and again once the tether lasts its full duration or the target dies while tethered.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Renewal scales with Mantra rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the tether's application and damage but not the aftereffects of one already applied.",
+      "If Karma is tethered to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.",
+      "On cast, Renewal is treated as 2 abilities for Conqueror and Electrocute, instead of 1.",
+      "If the target becomes untargetable, dies, or is no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost.\n  - If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.\n    - Karma is still healed on-cast.\n    - Summon Aery will still count as the target being damaged this way.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Renewal|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = W\n|icon         = Renewal.png\n|blurb = {{sbc|{{ai|Mantra|Karma}} Bonus:}}\n''Focused Resolve's'' {{tip|root}} is increased.\n|blurb2= '''Karma''' {{tip|heal|heals}} herself once on-cast, and again once the target is ''bound'' or dies while tethered.\n|pre-blurb = Karma/Focused Resolve\n|description  = {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Focused Resolve's'' {{tip|root}} duration is increased. <br/><br/>'''Karma''' {{tip|heal|heals}} for {{sti|health|{{as|17% {{as|(+ 1% per 100 AP)}} of her '''missing''' health}}}} once on-cast, and again once the tether lasts its full duration or the target dies while tethered.\n|leveling     = {{st|Root Duration Increase|{{ai|Mantra|Karma|{{ap|0.5 to 1.25 4}}}} seconds|Total Root Duration|{{ap|1.6 to 2}} (+ {{ai|Mantra|Karma|{{ap|0.5 to 1.25 4}}}}) seconds}}\n|description2 = ''Renewal'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|targeting    = Unit\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spell\n|projectile   = False\n|callforhelp  = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the tether's application and damage but not the aftereffects of one already applied.\n* If '''Karma''' is {{tip|tether|tethered}} to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.{{bug}}\n* On cast, ''Renewal'' is treated as 2 [[champion ability|abilities]] for {{ri|Conqueror}} and {{ri|Electrocute}}, instead of 1.{{bug}}\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is no longer in {{tip|sight}} during the cast time, this ability will cancel but does not go on {{sti|cooldown}} nor pay its cost.\n** If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.{{bug}}\n*** '''Karma''' is still healed on-cast.\n*** {{ri|Summon Aery}} will still count as the target being damaged this way.{{bug|2}}\n \n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Karma/Renewal",
+          "revid": 4013452
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Renewal|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = W\n|icon         = Renewal.png\n|blurb = {{sbc|{{ai|Mantra|Karma}} Bonus:}}\n''Focused Resolve's'' {{tip|root}} is increased.\n|blurb2= '''Karma''' {{tip|heal|heals}} herself once on-cast, and again once the target is ''bound'' or dies while tethered.\n|pre-blurb = Karma/Focused Resolve\n|description  = {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Focused Resolve's'' {{tip|root}} duration is increased. <br/><br/>'''Karma''' {{tip|heal|heals}} for {{sti|health|{{as|17% {{as|(+ 1% per 100 AP)}} of her '''missing''' health}}}} once on-cast, and again once the tether lasts its full duration or the target dies while tethered.\n|leveling     = {{st|Root Duration Increase|{{ai|Mantra|Karma|{{ap|0.5 to 1.25 4}}}} seconds|Total Root Duration|{{ap|1.6 to 2}} (+ {{ai|Mantra|Karma|{{ap|0.5 to 1.25 4}}}}) seconds}}\n|description2 = ''Renewal'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|targeting    = Unit\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spell\n|projectile   = False\n|callforhelp  = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the tether's application and damage but not the aftereffects of one already applied.\n* If '''Karma''' is {{tip|tether|tethered}} to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.{{bug}}\n* On cast, ''Renewal'' is treated as 2 [[champion ability|abilities]] for {{ri|Conqueror}} and {{ri|Electrocute}}, instead of 1.{{bug}}\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is no longer in {{tip|sight}} during the cast time, this ability will cancel but does not go on {{sti|cooldown}} nor pay its cost.\n** If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.{{bug}}\n*** '''Karma''' is still healed on-cast.\n*** {{ri|Summon Aery}} will still count as the target being damaged this way.{{bug|2}}\n \n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaWBeamMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"mScriptName\":\"KarmaWBeamMantra\",\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBind",
+        "text": [
+          "{\"ObjectName\":\"KarmaSpiritBind\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBind\",\"mScriptName\":\"KarmaSpiritBind\",\"mSpell\":{\"mAffectsTypeFlags\":6146,\"mAlternateName\":\"KarmaSpiritBind\",\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_ActiveHeal\",\"Trait_Low_Damage\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[15.0,40.0,65.0,90.0,115.0,140.0,165.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"RootDuration\",\"values\":[1.5,1.600000023841858,1.7000000476837158,1.7999999523162842,1.899999976158142,2.0,2.0999999046325684],\"__type\":\"SpellDataValue\"},{\"name\":\"TetherDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"LeashBreakRange\",\"values\":[825.0,825.0,825.0,825.0,825.0,825.0,825.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"InitialDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell2\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_W1.dds\",\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_W2.dds\"],\"mCastTime\":0.25,\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"Cooldown\":{\"values\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"{0a3e0478}\":12.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"useAnimatorFramerate\":true,\"bIsToggleSpell\":true,\"castRange\":[675.0,675.0,675.0,675.0,675.0,675.0,675.0],\"castRangeValues\":{\"values\":[675.0,675.0,675.0,675.0,675.0,675.0,675.0],\"{0a3e0478}\":675.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[175.0,175.0,175.0,175.0,175.0,175.0,175.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":2200.0,\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_HEAD_LOC\",\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"mana\":[50.0,55.0,60.0,65.0,70.0,75.0],\"manaValues\":{\"values\":[50.0,55.0,60.0,65.0,70.0,75.0],\"{0a3e0478}\":50.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaSpiritBind\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaSpiritBind_Name\",\"keySummary\":\"Spell_KarmaSpiritBind_Summary\",\"keyTooltip\":\"Spell_KarmaSpiritBind_Tooltip\",\"keyTooltipExtended\":\"Spell_KarmaSpiritBind_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"RootDuration\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_RootDuration\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSpiritBind\",\"PersistentEffectConditions\":[{\"SourceCondition\":{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"Karma_W_beam\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"Karma_W_beam_R\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"championName\":\"Characters/Karma\",\"__type\":\"{635d04b7}\"},{\"mDrivers\":[{\"SkinID\":54,\"__type\":\"{9bc366ca}\"},{\"SkinID\":70,\"__type\":\"{9bc366ca}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"CSTM_Tether_Buffbone_Loc\",\"effectKey\":\"{9539a1b6}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"championName\":\"Characters/Karma\",\"__type\":\"{635d04b7}\"},{\"mDrivers\":[{\"SkinID\":54,\"__type\":\"{9bc366ca}\"},{\"SkinID\":70,\"__type\":\"{9bc366ca}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"CSTM_Tether_Buffbone_Loc\",\"effectKey\":\"{739e563b}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"mDrivers\":[{\"championName\":\"Characters/Sylas\",\"__type\":\"{635d04b7}\"},{\"championName\":\"Characters/Viego\",\"__type\":\"{635d04b7}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"{9539a1b6}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"},{\"SourceCondition\":{\"mDrivers\":[{\"Spell\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra\",\"__type\":\"HasBuffDynamicMaterialBoolDriver\"},{\"mDrivers\":[{\"championName\":\"Characters/Sylas\",\"__type\":\"{635d04b7}\"},{\"championName\":\"Characters/Viego\",\"__type\":\"{635d04b7}\"}],\"__type\":\"OneTrueMaterialDriver\"}],\"__type\":\"AllTrueMaterialDriver\"},\"ForceRenderVfx\":true,\"PersistentVfxs\":[{\"boneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"targetBoneName\":\"L_BUFFBONE_GLB_HAND_LOC\",\"effectKey\":\"{739e563b}\",\"__type\":\"PersistentVfxData\"}],\"__type\":\"PersistentEffectConditionData\"}],\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"InitialDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":32,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4096,\"EffectCalculation\":{\"mFormulaParts\":[{\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBindRoot",
+        "text": [
+          "{\"ObjectName\":\"KarmaSpiritBindRoot\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBindRoot\",\"mScriptName\":\"KarmaSpiritBindRoot\",\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaSpiritBindRoot\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam",
+        "text": [
+          "{\"ObjectName\":\"KarmaWBeam\",\"objectPath\":\"Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam\",\"mScriptName\":\"KarmaWBeam\",\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json",
+        "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+        "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
+        "text": [
+          "{\"ObjectName\":\"KarmaMantra\",\"objectPath\":\"Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra\",\"mScriptName\":\"KarmaMantra\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":15567,\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_Transformation\",\"Trait_Upgrade\"],\"DataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-20.0,40.0,100.0,160.0,220.0,280.0,340.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QBonusAPRatio\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationDamage\",\"values\":[-50.0,40.0,130.0,220.0,310.0,400.0,490.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QDetonationAPRatio\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlow\",\"values\":[-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RQSlowDuration\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBonusRoot\",\"values\":[0.25,0.5,0.75,1.0,1.25,1.5,1.75],\"__type\":\"SpellDataValue\"},{\"name\":\"RWBaseHeal\",\"values\":[17.0,17.0,17.0,17.0,17.0,17.0,17.0],\"__type\":\"SpellDataValue\"},{\"name\":\"RWHealRatio\",\"values\":[0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShield\",\"values\":[5.0,45.0,85.0,125.0,165.0,205.0,245.0],\"__type\":\"SpellDataValue\"},{\"name\":\"EBonusShieldRatio\",\"values\":[0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"REMoveSpeed\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"RESharedRatio\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"ARAM\":{\"SpellDataValues\":[{\"name\":\"QBonusDamage\",\"values\":[-10.0,40.0,90.0,140.0,190.0,240.0,290.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"RQImpactDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QBonusDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QBonusAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RQFieldDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"QDetonationDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"QDetonationAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"REBonusShield\":{\"mFormulaParts\":[{\"mDataValue\":\"EBonusShield\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"EBonusShieldRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RWHealAmount\":{\"mMultiplier\":{\"mNumber\":0.009999999776482582,\"__type\":\"NumberCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"RWBaseHeal\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"RWHealRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"},\"REBonusShieldArea\":{\"mMultiplier\":{\"mDataValue\":\"RESharedRatio\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"REBonusShield\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"Spell3\",\"mImgIconName\":[\"ASSETS/Characters/Karma/HUD/Icons2D/Karma_R.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"Cooldown\":{\"values\":[40.0,40.0,38.0,36.0,34.0,34.0,34.0],\"__type\":\"{0a0eddc9}\"},\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"mSpellRevealsChampion\":false,\"bIsToggleSpell\":true,\"castRange\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"castRangeValues\":{\"values\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"{0a3e0478}\":1100.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"castConeDistance\":100.0,\"castTargetAdditionalUnitsRadius\":250.0,\"mMissileSpec\":{\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"root\",\"mSpeed\":1300.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":750.0,\"__type\":\"Defaultvisibility\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":7.5,\"missileSpeed\":1300.0,\"mMissileEffectKey\":\"Karma_R_mantra_mis_01\",\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"KarmaMantra\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_KarmaMantra_Name\",\"keySummary\":\"Spell_KarmaMantra_Summary\",\"keyTooltip\":\"Spell_KarmaMantra_Tooltip\",\"keyCost\":\"Spell_Cost_NoCost\"},\"mLists\":{\"LevelUp\":{\"levelCount\":4,\"Elements\":[{\"type\":\"QBonusDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_KarmaSoulflareImpact\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"QDetonationDamage\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_KarmaSoulflareCircleDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"RWBonusRoot\",\"typeIndex\":5,\"nameOverride\":\"Spell_ListType_KarmaRenewalRootExtension\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"EBonusShield\",\"typeIndex\":7,\"nameOverride\":\"Spell_ListType_KarmaDefianceShield\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_KarmaMantra\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{38382c53}\":[{\"{e38f54f7}\":1,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":64,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":128,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  }
+]

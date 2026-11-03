@@ -12,7 +12,7 @@ export const Manamune: ItemModule = {
     item.assume(STACKING);
     return {
       mana,
-      ...(fighter.mana ? { hooks: follow(memo(item.name, "AD"), "AD", (self) => awe * derive(self).maxResource) } : {}),
+      ...(fighter.mana ? { hooks: follow(memo(item.name, "AD"), "AD", (self) => awe * derive(self).maxResource), budget: { stats: (self) => [{ stat: "AD", value: awe * derive(self).maxResource }] } } : {}),
     };
   },
 };

@@ -1,4 +1,4 @@
-/** Vel'Koz, compiled only from the pinned 16.20 records. */
+/** Vel'Koz, compiled only from the pinned records. */
 import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
@@ -18,7 +18,7 @@ const velkoz: KitModule = {
     const p = kit.ability("I"), q = kit.ability("Q"), w = kit.ability("W"), e = kit.ability("E"), r = kit.ability("R");
     const stackSeconds = p.quoted("for 7 seconds");
     const stackMaximum = p.quoted("stacking up to 3 times");
-    const proc: Formula = { base: p.levelValue("bonus true damage"), ratios: { AP: p.quoted("(+ 60% AP)") / 100 } };
+    const proc: Formula = { base: p.levelValue("bonus true damage"), ratios: { AP: p.quoted("(+ 65% AP)") / 100 } };
     p.quote("The stack duration will not be refreshed if the attack misses due to blind");
     const researchSeconds = r.quoted("Researched for 7 seconds");
     r.quote("refreshing on basic attacks and ability hits against them");

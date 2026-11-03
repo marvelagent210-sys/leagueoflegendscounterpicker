@@ -1,6 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { FIGHT } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom, joinHooks, lifeline } from "./shared";
 
@@ -18,6 +19,14 @@ export const ProtoplasmHarness: ItemModule = {
     const perTick = memo(item.name, "healPerTick");
     const ends = memo(item.name, "healUntil");
     return {
+      // Once a fight: its health for the holder to lose, and its heal.
+      budget: {
+        shielding: () => health / FIGHT,
+        healing(self) {
+          const d = derive(self);
+          return (heal + (ratios / 100) * (d.armor.bonus + d.mr.bonus)) / FIGHT;
+        },
+      },
       hooks: joinHooks(
         lifeline(item.name, line, (ctx) => {
           applyFrom(ctx, item.label, { type: "stat", stat: "health", amount: { base: health }, duration: seconds }, true);

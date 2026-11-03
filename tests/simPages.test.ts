@@ -35,7 +35,7 @@ describe("simulator pages", () => {
     expect(matrix.scores.get("A")?.get("B")).toEqual([0.5, 1, -1, 0.5, 0.2, null, 0]);
     // Seen from B: B engaging A is A's "enemy engages", negated.
     expect(matrix.scores.get("B")?.get("A")).toEqual([-0.5, 1, -1, -0.5, -0.2, null, 0]);
-    const json = JSON.parse(simulatedJson("16.20", "26.20", matrix)) as { values: string[]; matchups: Record<string, Record<string, number[]>> };
+    const json = JSON.parse(simulatedJson("16.21", "26.21", matrix)) as { values: string[]; matchups: Record<string, Record<string, number[]>> };
     expect(json.values).toEqual(["score", ...SCENARIOS]);
     expect(json.matchups.B?.A?.[0]).toBe(-0.5);
     const section = simulatedCounterSection("B", matrix, new Map([["A", "Alpha"]]));
@@ -45,7 +45,7 @@ describe("simulator pages", () => {
   it("retains exact aggregate scores so close ranks are never rounded into ties", () => {
     const results: PairResult[] = [{ index: 0, score: 0.1234567890123456, scenarios: [0.123456789, 0, 0, 0, null, 0], spent: [none, none] }];
     const matrix = simulatedMatrix(["A", "B"], 15000, [["A", "B"]], results);
-    const file = JSON.parse(simulatedJson("16.20", "26.20", matrix)) as { matchups: Record<string, Record<string, number[]>> };
+    const file = JSON.parse(simulatedJson("16.21", "26.21", matrix)) as { matchups: Record<string, Record<string, number[]>> };
     expect(file.matchups.A?.B?.[0]).toBe(results[0]?.score);
     expect(file.matchups.B?.A?.[0]).toBe(-(results[0]?.score ?? Number.NaN));
     expect(file.matchups.A?.B?.[1]).toBe(0.123);
@@ -83,13 +83,13 @@ describe("simulator pages", () => {
       },
     ];
     const matrix = simulatedMatrix(["A", "B", "H", "U"], 15000, pairs, results);
-    const json = JSON.parse(simulatedJson("16.20", "26.20", matrix)) as { variants: Record<string, Record<string, Record<string, number>>> };
+    const json = JSON.parse(simulatedJson("16.21", "26.21", matrix)) as { variants: Record<string, Record<string, Record<string, number>>> };
     expect(json.variants).toEqual({ H: { U: { upgrade: 2 } }, U: { A: { rankQ: 6 }, B: { rankQ: 5 }, H: { rankQ: 4 } } });
   });
 });
 
 describe("simulated.json", () => {
-  const file = JSON.parse(readFileSync(new URL("../data/16.20/simulated.json", import.meta.url), "utf8")) as {
+  const file = JSON.parse(readFileSync(new URL("../data/16.21/simulated.json", import.meta.url), "utf8")) as {
     confidence: string;
     matchups: Record<string, Record<string, Array<number | null>>>;
     variants?: Record<string, Record<string, Record<string, number>>>;

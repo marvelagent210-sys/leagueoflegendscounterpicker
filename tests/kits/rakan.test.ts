@@ -28,7 +28,7 @@ const breakShield=(world:World)=>dealDamage(world,world.units[1],world.units[0],
 const tickHook=(world:World)=>world.units[0].spec.hooks!.onTick!(hookContext(world,world.units[0]));
 
 describe("Rakan mechanics source contracts",()=>{
- it("keeps five primary revisions and ten complete exact binary object sources",()=>{expect(new Set(compiled.evidence.filter(row=>row.revid).map(row=>row.revid))).toEqual(new Set([4008001,4016025,3996425,3971183,4007760]));const sources=records("Rakan").flatMap(row=>row.gameSources??[]);expect(sources).toHaveLength(10);for(const source of sources){expect(source.sha256).toBe("ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2");expect(source.version).toBe("16.20.8248524+branch.releases-16-20.content.release");expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object);}expect(ability("Q")).toMatchObject({cooldown:7,cost:45,castTime:.25,delivery:{range:900,width:130,speed:1850}});expect(ability("W")).toMatchObject({cooldown:10,castTime:0});expect(ability("E")).toMatchObject({cooldown:12,cost:60});expect(ability("R")).toMatchObject({cooldown:90,cost:100,castTime:.5});});
+ it("keeps five primary revisions and ten complete exact binary object sources",()=>{expect(new Set(compiled.evidence.filter(row=>row.revid).map(row=>row.revid))).toEqual(new Set([4008001,4016025,3996425,3971183,4007760]));const sources=records("Rakan").flatMap(row=>row.gameSources??[]);expect(sources).toHaveLength(10);for(const source of sources){expect(source.sha256).toBe("ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2");expect(source.version).toBe("16.21.8342754+branch.releases-16-21.content.release");expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object);}expect(ability("Q")).toMatchObject({cooldown:7,cost:45,castTime:.25,delivery:{range:900,width:130,speed:1850}});expect(ability("W")).toMatchObject({cooldown:10,castTime:0});expect(ability("E")).toMatchObject({cooldown:12,cost:60});expect(ability("R")).toMatchObject({cooldown:90,cost:100,castTime:.5});});
  it.each(["I","Q","W","E","R"])("fails closed without %s binary evidence",slot=>{const rows=records("Rakan");delete rows.find(row=>row.kind===slot)!.gameSources;expect(()=>compileKit(championData("Rakan"),rows,Rakan)).toThrow();});
  it("compiles without changing any original input record",()=>{const rows=records("Rakan"),before=structuredClone(rows);compileKit(championData("Rakan"),rows,Rakan);expect(rows).toEqual(before);expect(compiled.variants).toEqual([]);expect(compiled.assumptions).toHaveLength(6);});
 });
@@ -96,14 +96,14 @@ describe("Rakan mechanics behavior",()=>{
 });
 
 describe("Rakan full-budget production",()=>{
- const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
+ const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
  it("production reflects actual15000gold builds and all six Darius scenarios",()=>{const own=compiled.spec,enemy=kit("Darius").spec,a=simulateMatchup(own,enemy,15000,prices,{settings:{log:true}}),b=simulateMatchup(enemy,own,15000,prices);expect(a.builds).toEqual([b.builds[1],b.builds[0]]);for(const build of [...a.builds,...b.builds]){expect(build.gold).toBe(15000);expect(Math.abs(Object.values(build.spent).reduce((sum,value)=>sum+value,0)-15000)).toBeLessThan(1e-10);}expect(a.scenarios).toHaveLength(6);expect(Math.abs(a.score+b.score)).toBeLessThan(1e-10);for(const[index,s]of a.scenarios.entries()){const other=b.scenarios[[1,0,2,3,4,5][index]!]!;if(s.score===undefined)expect(other.score).toBeUndefined();else expect(Math.abs(s.score+other.score!)).toBeLessThan(1e-10);for(const o of s.outcomes)expect([o.seconds,...o.hp,...o.damage].every(Number.isFinite)).toBe(true);}},60000);
  it("production completes actual15000gold scenarios against Heimerdinger summons",()=>{const value=simulateMatchup(compiled.spec,kit("Heimerdinger",{upgrade:2}).spec,15000,prices);expect(value.scenarios).toHaveLength(6);expect(Number.isFinite(value.score)).toBe(true);for(const build of value.builds){expect(build.gold).toBe(15000);expect(Math.abs(Object.values(build.spent).reduce((sum,cost)=>sum+cost,0)-15000)).toBeLessThan(1e-10);}for(const s of value.scenarios)for(const o of s.outcomes)expect([o.seconds,...o.hp,...o.damage].every(Number.isFinite)).toBe(true);},60000);
 });
 
 describe("Rakan and Taric full-budget production reflection",()=>{
  it("reflects all six scenarios including the actual coincident W landing in spacing",()=>{
-  const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
+  const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
   const rakan=kit("Rakan").spec,taric=kit("Taric").spec;
   const forward=simulateMatchup(rakan,taric,15000,prices),reverse=simulateMatchup(taric,rakan,15000,prices);
   expect(forward.builds).toEqual([reverse.builds[1],reverse.builds[0]]);

@@ -1,0 +1,1007 @@
+[
+  {
+    "champion": "Orianna",
+    "kind": "E",
+    "name": "Command: Protect",
+    "page": {
+      "title": "Template:Data Orianna/Command: Protect",
+      "revid": 3804030
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 9
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1120
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Flying ball missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1850
+            },
+            "label": "Flying ball missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: The Ball grants bonus armor and bonus magic resistance to the unit it is attached to.",
+        "leveling": [
+          {
+            "label": "Bonus Resistances",
+            "amount": {
+              "text": "6 / 12 / 18 / 24 / 30",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6,
+                  12,
+                  18,
+                  24,
+                  30
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Orianna commands The Ball to fly to herself or the target allied champion and attach itself to the target, dealing magic damage to enemies it passes through and granting the target a shield for 2.5 seconds upon arrival.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "55 / 90 / 125 / 160 / 195 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  90,
+                  125,
+                  160,
+                  195
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Orianna commands The Ball to fly to herself or the target allied champion and attach itself to the target, dealing magic damage to enemies it passes through and granting the target a shield for 2.5 seconds upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The Ball does not grant sight while in flight, but the sound effect of striking an enemy is audible through the Fog of War.",
+      "Orianna cannot cast her other abilities while the The Ball is moving to the target with Command: Protect.",
+      "Orianna gains Command: Protect's bonus resistances whenever The Ball is attached to her (even if she didn't self-cast).",
+      "The Ball will remain where Command: Protect's target ally died or, if they died or became untargetable before The Ball reaches them, it will instead snap back to Orianna.\n  - The Ball will return to Orianna if Command: Protect's target ally moves too far away from her (The Ball will always respect its leash range, which is increased by 100 when attached to allied champions).",
+      "The Ball will join Command: Protect's target ally in stealth if they are affected by it when Orianna targets them.",
+      "The Ball snaps back to Orianna upon being intercepted by projectile-blocking effects.",
+      "Command: Protect has a forgiveness radius of 175 units.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Protect|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = E\n|icon         = false\n|blurb        = {{sbc|Passive:}} {{ai|Clockwork Windup|Orianna|The Ball}} grants '''bonus''' {{sti|armor|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} to the unit it is attached to.\n|blurb2      = {{sbc|Active:}} {{ci|Orianna}} commands '''The Ball''' to fly and attach to herself or the target allied champion, dealing {{as|magic damage}} to enemies it passes through and {{tip|shield|shielding}} the target for a short time.\n|description = {{sbc|Passive:}} ''{{ai|Clockwork Windup|Orianna|The Ball}}'' grants {{sti|armor|{{as| '''bonus''' armor}}}} and {{sti|mr|{{as|'''bonus''' magic resistance}}}} to the unit it is attached to.\n|leveling     = {{st|Bonus Resistances|{{ap|6 to 30}}}}\n|icon2        = Command Protect.png\n|description2 = {{sbc|Active:}} '''Orianna''' commands ''The Ball'' to fly to herself or the target allied {{tip|champion}} and attach itself to the target, dealing {{as|magic damage}} to enemies it passes through and granting the target a {{tip|shield}} for {{fd|2.5}} seconds upon arrival.\n|leveling2    = {{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 30% AP)}}}}\n{{st|Shield Strength|{{ap|55 to 195}} {{as|(+ 45% AP)}}}}\n|cooldown     = 9\n|cost         = 60\n|costtype     = Mana\n|target range = {{tip|cr|icononly = true}} 1120\n|width        = {{tip|er|icononly = true}} {{tt|160|Flying ball missile width}}\n|speed        = {{tt|1850|Flying ball missile speed}}\n|targeting    = Unit\n|affects      = Enemies, Allies\n|cast time = none\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = aoe\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* ''The Ball'' does not grant {{tip|sight}} while in flight, but the sound effect of striking an enemy is audible through the Fog of War.\n* '''Orianna''' cannot cast her other abilities while the ''The Ball'' is moving to the target with ''Command: Protect''.\n* '''Orianna''' gains ''Command: Protect's'' bonus resistances whenever ''The Ball'' is attached to her (even if she didn't self-cast).\n* ''The Ball'' will remain where ''Command: Protect's'' target ally [[death|died]] or, if they died or became {{tip|untargetable}} before The Ball reaches them, it will instead snap back to '''Orianna'''.\n** ''The Ball'' will return to '''Orianna''' if ''Command: Protect's'' target ally moves too far away from her (''The Ball'' will always respect its [[Pets#Leash range|leash range]], which is increased by 100 when attached to allied champions).\n* ''The Ball'' will join ''Command: Protect's'' target ally in {{tip|stealth}} if they are affected by it when '''Orianna''' targets them.\n* ''The Ball'' snaps back to '''Orianna''' upon being intercepted by {{tip|projectile|projectile-blocking}} effects.\n* ''Command: Protect'' has a {{tip|forgiveness radius}} of 175 units.\n|flavorsound  = {{sm2|Orianna_Original_E_0.ogg}} ''\"Protect.\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Orianna/Command: Protect",
+          "revid": 3804030
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Protect|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = E\n|icon         = false\n|blurb        = {{sbc|Passive:}} {{ai|Clockwork Windup|Orianna|The Ball}} grants '''bonus''' {{sti|armor|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} to the unit it is attached to.\n|blurb2      = {{sbc|Active:}} {{ci|Orianna}} commands '''The Ball''' to fly and attach to herself or the target allied champion, dealing {{as|magic damage}} to enemies it passes through and {{tip|shield|shielding}} the target for a short time.\n|description = {{sbc|Passive:}} ''{{ai|Clockwork Windup|Orianna|The Ball}}'' grants {{sti|armor|{{as| '''bonus''' armor}}}} and {{sti|mr|{{as|'''bonus''' magic resistance}}}} to the unit it is attached to.\n|leveling     = {{st|Bonus Resistances|{{ap|6 to 30}}}}\n|icon2        = Command Protect.png\n|description2 = {{sbc|Active:}} '''Orianna''' commands ''The Ball'' to fly to herself or the target allied {{tip|champion}} and attach itself to the target, dealing {{as|magic damage}} to enemies it passes through and granting the target a {{tip|shield}} for {{fd|2.5}} seconds upon arrival.\n|leveling2    = {{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 30% AP)}}}}\n{{st|Shield Strength|{{ap|55 to 195}} {{as|(+ 45% AP)}}}}\n|cooldown     = 9\n|cost         = 60\n|costtype     = Mana\n|target range = {{tip|cr|icononly = true}} 1120\n|width        = {{tip|er|icononly = true}} {{tt|160|Flying ball missile width}}\n|speed        = {{tt|1850|Flying ball missile speed}}\n|targeting    = Unit\n|affects      = Enemies, Allies\n|cast time = none\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = aoe\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* ''The Ball'' does not grant {{tip|sight}} while in flight, but the sound effect of striking an enemy is audible through the Fog of War.\n* '''Orianna''' cannot cast her other abilities while the ''The Ball'' is moving to the target with ''Command: Protect''.\n* '''Orianna''' gains ''Command: Protect's'' bonus resistances whenever ''The Ball'' is attached to her (even if she didn't self-cast).\n* ''The Ball'' will remain where ''Command: Protect's'' target ally [[death|died]] or, if they died or became {{tip|untargetable}} before The Ball reaches them, it will instead snap back to '''Orianna'''.\n** ''The Ball'' will return to '''Orianna''' if ''Command: Protect's'' target ally moves too far away from her (''The Ball'' will always respect its [[Pets#Leash range|leash range]], which is increased by 100 when attached to allied champions).\n* ''The Ball'' will join ''Command: Protect's'' target ally in {{tip|stealth}} if they are affected by it when '''Orianna''' targets them.\n* ''The Ball'' snaps back to '''Orianna''' upon being intercepted by {{tip|projectile|projectile-blocking}} effects.\n* ''Command: Protect'' has a {{tip|forgiveness radius}} of 175 units.\n|flavorsound  = {{sm2|Orianna_Original_E_0.ogg}} ''\"Protect.\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedactShield",
+        "text": [
+          "{\"ObjectName\":\"OrianaRedactShield\",\"objectPath\":\"Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedactShield\",\"mScriptName\":\"OrianaRedactShield\",\"mBuff\":{\"mDescription\":\"game_buff_tooltip_OrianaRedactShield\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedactCommand",
+        "text": [
+          "{\"ObjectName\":\"OrianaRedactCommand\",\"objectPath\":\"Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedactCommand\",\"mScriptName\":\"OrianaRedactCommand\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"OrianaRedactCommand\",\"mSpellTags\":[\"PositiveEffect_Boon\",\"Trait_DamageAbility\",\"Trait_Shield\",\"Trait_Low_Damage\",\"Trait_AoE\"],\"mEffectAmount\":[{\"value\":[20.0,55.0,90.0,125.0,160.0,195.0,230.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.0,6.0,12.0,18.0,24.0,30.0,36.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[75.0,75.0,75.0,75.0,75.0,75.0,75.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[2.5,2.5,2.5,2.5,2.5,2.5,2.5],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"ShieldAmount\",\"values\":[20.0,55.0,90.0,125.0,160.0,195.0,230.0],\"__type\":\"SpellDataValue\"},{\"name\":\"DefenseBonus\",\"values\":[0.0,6.0,12.0,18.0,24.0,30.0,36.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamage\",\"values\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldDuration\",\"values\":[2.5,2.5,2.5,2.5,2.5,2.5,2.5],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalDamageTooltip\":{\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.30000001192092896,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"TotalShieldTooltip\":{\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mDataValue\":\"ShieldAmount\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.44999998807907104,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mCoefficient\":0.44999998807907104,\"mCoefficient2\":0.30000001192092896,\"mAnimationName\":\"Ult_Loop\",\"mImgIconName\":[\"ASSETS/Characters/Orianna/HUD/Icons2D/OriannaE.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[9.0,9.0,9.0,9.0,9.0,9.0,9.0],\"Cooldown\":{\"values\":[9.0,9.0,9.0,9.0,9.0,9.0,9.0],\"{0a3e0478}\":9.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"castRange\":[1120.0,1120.0,1120.0,1120.0,1120.0,1120.0,1120.0],\"castRangeValues\":{\"values\":[1120.0,1120.0,1120.0,1120.0,1120.0,1120.0,1120.0],\"{0a3e0478}\":1120.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[1095.0,1095.0,1095.0,1095.0,1095.0,1095.0,1095.0],\"castRadius\":[20.0,20.0,20.0,20.0,20.0,20.0,20.0],\"castConeDistance\":100.0,\"castFrame\":1.9800000190734863,\"missileSpeed\":1200.0,\"mLineWidth\":80.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,60.0,60.0,60.0,60.0,60.0],\"manaValues\":{\"values\":[60.0,60.0,60.0,60.0,60.0,60.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":175.0,\"TargetForgivenessDefinitions\":[{\"mUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"__type\":\"HasUnitTagsCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"OrianaRedactCommand\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_OrianaRedactCommand_Name\",\"keySummary\":\"Spell_OrianaRedactCommand_Summary\",\"keyTooltip\":\"Spell_OrianaRedactCommand_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":3,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"DefenseBonus\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_ArmorBonus\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"DefenseBonus\",\"typeIndex\":2,\"nameOverride\":\"Spell_ListType_MagicResistBonus\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"ShieldAmount\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_ShieldAmount\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"startLocator\":{\"basePosition\":1,\"__type\":\"DrawablePositionLocator\"},\"endLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":true,\"lineWidth\":{\"mPerLevelValues\":[50.0,50.0,50.0,50.0,50.0,50.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"overrideBaseRange\":{\"mPerLevelValues\":[2200.0,2200.0,2200.0,2200.0,2200.0,2200.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"},{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamageTooltip\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":262144,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalShieldTooltip\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":524288,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalShieldTooltip\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedact",
+        "text": [
+          "{\"ObjectName\":\"OrianaRedact\",\"objectPath\":\"Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedact\",\"mScriptName\":\"OrianaRedact\",\"mSpell\":{\"flags\":6,\"mAffectsTypeFlags\":7183,\"mAlternateName\":\"OrianaRedactCommand\",\"mEffectAmount\":[{\"value\":[5.0,10.0,15.0,20.0,25.0,30.0,35.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[10.0,24.0,38.0,52.0,66.0,80.0,94.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[20.0,26.0,32.0,38.0,44.0,50.0,56.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.20000000298023224,\"mAnimationName\":\"Idle1\",\"mImgIconName\":[\"MordekaiserCreepingDeath.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[2500.0,2500.0,2500.0,2500.0,2500.0,2500.0,2500.0],\"castRangeValues\":{\"values\":[2500.0,2500.0,2500.0,2500.0,2500.0,2500.0,2500.0],\"{0a3e0478}\":2500.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[300.0,300.0,300.0,300.0,300.0,300.0,300.0],\"castConeDistance\":100.0,\"luaOnMissileUpdateDistanceInterval\":50.099998474121094,\"mMissileSpec\":{\"mMissileWidth\":80.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mStartBoneName\":\"root\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1850.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"__type\":\"EnterFOWVisibility\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":7.934999942779541,\"missileSpeed\":1850.0,\"mMissileEffectKey\":\"Orianna_Q_Ghost_mis_protect\",\"mLineWidth\":80.0,\"mParticleStartOffset\":[0.0,100.0,0.0],\"selectionPriority\":1,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Orianna",
+    "kind": "I",
+    "name": "Clockwork Windup",
+    "page": {
+      "title": "Template:Data Orianna/Clockwork Windup",
+      "revid": 4026443
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1290 • 1355 • 135",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1290
+            },
+            "label": "Standard leash range, estimated"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1355
+            },
+            "label": "Leash range on ally, estimated"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 135
+            },
+            "label": "Ball pickup range, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate - The Ball",
+        "text": "Innate - The Ball: Orianna is accompanied by The Ball, which she commands with her abilities. The Ball incurs a 0.01-second global cooldown on all of her abilities when she casts any ability. Additionally, The Ball attaches to Orianna if she is near it, and snaps back to her if she moves too far away from it, which incurs a 0.75-second cooldown on Command: Shockwave.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Orianna's basic attacks generate a stack of Clockwork Winding for 4 seconds, refreshing on subsequent attacks and stacking up to 2 times. All stacks are lost when attacking a new enemy.\n\n\nClockwork Winding: Orianna's basic attacks are empowered to deal 10 – 50 (based on level) (+ 15% AP) bonus magic damage on-hit, increased by 15% per stack, up to 13 – 65 (based on level) (+ 19.5% AP) total bonus magic damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Clockwork Winding: Orianna's basic attacks are empowered to deal 10 – 50 (based on level) (+ 15% AP) bonus magic damage on-hit, increased by 15% per stack, up to 13 – 65 (based on level) (+ 19.5% AP) total bonus magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                12.3529411764706,
+                14.7058823529412,
+                17.0588235294118,
+                19.4117647058824,
+                21.7647058823529,
+                24.1176470588235,
+                26.4705882352941,
+                28.8235294117647,
+                31.1764705882353,
+                33.5294117647059,
+                35.8823529411765,
+                38.2352941176471,
+                40.5882352941177,
+                42.9411764705882,
+                45.2941176470588,
+                47.6470588235294,
+                50,
+                52.3529411764706,
+                54.7058823529412
+              ],
+              "past18": "wiki"
+            },
+            "context": "Clockwork Winding: Orianna's basic attacks are empowered to deal 10 – 50 (based on level) (+ 15% AP) bonus magic damage on-hit, increased by 15% per stack, up to 13 – 65 (based on level) (+ 19.5% AP) total bonus magic damage."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                13,
+                16.0588235294118,
+                19.1176470588235,
+                22.1764705882353,
+                25.2352941176471,
+                28.2941176470588,
+                31.3529411764706,
+                34.4117647058823,
+                37.4705882352941,
+                40.5294117647059,
+                43.5882352941176,
+                46.6470588235294,
+                49.7058823529412,
+                52.7647058823529,
+                55.8235294117647,
+                58.8823529411765,
+                61.9411764705882,
+                65,
+                68.0588235294118,
+                71.1176470588235
+              ],
+              "past18": "wiki"
+            },
+            "context": "Clockwork Winding: Orianna's basic attacks are empowered to deal 10 – 50 (based on level) (+ 15% AP) bonus magic damage on-hit, increased by 15% per stack, up to 13 – 65 (based on level) (+ 19.5% AP) total bonus magic damage."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 19.5
+            },
+            "context": "Clockwork Winding: Orianna's basic attacks are empowered to deal 10 – 50 (based on level) (+ 15% AP) bonus magic damage on-hit, increased by 15% per stack, up to 13 – 65 (based on level) (+ 19.5% AP) total bonus magic damage."
+          }
+        ]
+      },
+      {
+        "text": "See Pets for more details about The Ball.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Clockwork Winding's stack count can be seen in Orianna's buff bar.",
+      "The Ball will not incur its global cooldown from a Command: Protect cast that is used on a target already attached to it.",
+      "The attacks do not deal the bonus damage against structures.",
+      "Runaan's Hurricane extra bolts will cause Clockwork Winding to reset its stacks, as she hits targets other than her latest one on-hit.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Clockwork Windup|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = I\n|icon         = Clockwork Windup.png\n|blurb        = {{sbc|Innate:}} {{ci|Orianna}} is accompanied by {{ai|Clockwork Windup|Orianna|The Ball}}, which she commands with her {{tip|abilities}}. '''The Ball''' attaches to '''Orianna''' when she approaches it, and snaps back to her when she moves too far away. '''The Ball''' incurs a {{sti|cd|brief}} cooldown on '''Orianna's''' abilities whenever it moves.\n|blurb2      = '''Orianna's''' {{tip|basic attacks}} generate {{tip|stacks}} of ''Clockwork Winding'', which refresh on subsequent hits and stack up to a cap. All stacks are lost when attacking a new enemy.\n|blurb4      = {{sbc|Clockwork Winding:}} '''Orianna's''' basic attacks deal {{as|'''bonus''' magic damage}}, increased for each stack.\n|description  = {{sbc|Innate - The Ball:}} '''Orianna''' is accompanied by ''The Ball'', which she commands with her {{tip|abilities}}. ''The Ball'' incurs a {{sti|cd|{{fd|0.01}}-second}} global cooldown on all of her abilities when she casts any ability. Additionally, ''The Ball'' attaches to '''Orianna''' if she is near it, and snaps back to her if she moves too far away from it, which incurs a {{sti|cd|{{fd|0.75}}-second}} cooldown on ''{{ai|Command: Shockwave|Orianna}}''.\n|icon2        = Clockwork Winding.png\n|description2 = {{sbc|Innate:}} '''Orianna's''' {{tip|basic attacks}} generate a {{tip|stack}} of ''Clockwork Winding'' for 4 seconds, refreshing on subsequent attacks and stacking up to 2 times. All stacks are lost when attacking a new enemy.<br/><br/>\n{{sbc|Clockwork Winding:}} '''Orianna's''' {{tip|basic attacks}} are empowered to deal {{pp|10 + (50-10)/17*(x-1) for 20|color=magic damage}} {{as|(+ 15% AP)}} {{as|'''bonus''' magic damage}} {{tip|on-hit}}, increased by{{ft|15%|{{pp|10*0.15 + (50*0.15-10*0.15)/17*(x-1) for 20|color=magic damage}} {{as|(+ {{ap|15*0.15}}% AP)}}}}per stack, up to {{pp|10*(1+0.15*2) + (50*(1+0.15*2)-10*(1+0.15*2))/17*(x-1) for 20|color=magic damage}} {{as|(+ {{ap|15*(1+0.15*2)}}% AP)}} {{as|'''total bonus''' magic damage}}.\n|description3 = ''See [[Orianna#Pets|Pets]] for more details about The Ball.''\n|effect radius= {{dv|{{tt|1290|Standard leash range, estimated}}|{{tt|1355|Leash range on ally, estimated}}|{{tt|135|Ball pickup range, estimated}}}}\n|targeting    = Passive\n|affects      = Enemies, Self\n|damagetype   = Magic\n|spellshield  = \n|spelleffects = Proc\n|projectile   = \n|grounded     = \n|knockdown    = \n|parry        = True\n|notes        = \n* ''Clockwork Winding's'' stack count can be seen in '''Orianna's''' buff bar.\n* ''The Ball'' will not incur its global cooldown from a ''{{ai|Command: Protect|Orianna}}'' cast that is used on a target already attached to it.\n* The attacks do not deal the '''bonus''' damage against {{tip|structures}}.\n* {{iis|Runaan's Hurricane}} extra bolts will cause ''Clockwork Winding'' to reset its stacks, as she hits targets other than her latest one {{tip|on-hit}}.{{bug|2}}\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Orianna/Clockwork Windup",
+          "revid": 4026443
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Clockwork Windup|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = I\n|icon         = Clockwork Windup.png\n|blurb        = {{sbc|Innate:}} {{ci|Orianna}} is accompanied by {{ai|Clockwork Windup|Orianna|The Ball}}, which she commands with her {{tip|abilities}}. '''The Ball''' attaches to '''Orianna''' when she approaches it, and snaps back to her when she moves too far away. '''The Ball''' incurs a {{sti|cd|brief}} cooldown on '''Orianna's''' abilities whenever it moves.\n|blurb2      = '''Orianna's''' {{tip|basic attacks}} generate {{tip|stacks}} of ''Clockwork Winding'', which refresh on subsequent hits and stack up to a cap. All stacks are lost when attacking a new enemy.\n|blurb4      = {{sbc|Clockwork Winding:}} '''Orianna's''' basic attacks deal {{as|'''bonus''' magic damage}}, increased for each stack.\n|description  = {{sbc|Innate - The Ball:}} '''Orianna''' is accompanied by ''The Ball'', which she commands with her {{tip|abilities}}. ''The Ball'' incurs a {{sti|cd|{{fd|0.01}}-second}} global cooldown on all of her abilities when she casts any ability. Additionally, ''The Ball'' attaches to '''Orianna''' if she is near it, and snaps back to her if she moves too far away from it, which incurs a {{sti|cd|{{fd|0.75}}-second}} cooldown on ''{{ai|Command: Shockwave|Orianna}}''.\n|icon2        = Clockwork Winding.png\n|description2 = {{sbc|Innate:}} '''Orianna's''' {{tip|basic attacks}} generate a {{tip|stack}} of ''Clockwork Winding'' for 4 seconds, refreshing on subsequent attacks and stacking up to 2 times. All stacks are lost when attacking a new enemy.<br/><br/>\n{{sbc|Clockwork Winding:}} '''Orianna's''' {{tip|basic attacks}} are empowered to deal {{pp|10 + (50-10)/17*(x-1) for 20|color=magic damage}} {{as|(+ 15% AP)}} {{as|'''bonus''' magic damage}} {{tip|on-hit}}, increased by{{ft|15%|{{pp|10*0.15 + (50*0.15-10*0.15)/17*(x-1) for 20|color=magic damage}} {{as|(+ {{ap|15*0.15}}% AP)}}}}per stack, up to {{pp|10*(1+0.15*2) + (50*(1+0.15*2)-10*(1+0.15*2))/17*(x-1) for 20|color=magic damage}} {{as|(+ {{ap|15*(1+0.15*2)}}% AP)}} {{as|'''total bonus''' magic damage}}.\n|description3 = ''See [[Orianna#Pets|Pets]] for more details about The Ball.''\n|effect radius= {{dv|{{tt|1290|Standard leash range, estimated}}|{{tt|1355|Leash range on ally, estimated}}|{{tt|135|Ball pickup range, estimated}}}}\n|targeting    = Passive\n|affects      = Enemies, Self\n|damagetype   = Magic\n|spellshield  = \n|spelleffects = Proc\n|projectile   = \n|grounded     = \n|knockdown    = \n|parry        = True\n|notes        = \n* ''Clockwork Winding's'' stack count can be seen in '''Orianna's''' buff bar.\n* ''The Ball'' will not incur its global cooldown from a ''{{ai|Command: Protect|Orianna}}'' cast that is used on a target already attached to it.\n* The attacks do not deal the '''bonus''' damage against {{tip|structures}}.\n* {{iis|Runaan's Hurricane}} extra bolts will cause ''Clockwork Winding'' to reset its stacks, as she hits targets other than her latest one {{tip|on-hit}}.{{bug|2}}\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OriannaPAbility/OriannaPSelf",
+        "text": [
+          "{\"ObjectName\":\"OriannaPSelf\",\"objectPath\":\"Characters/Orianna/Spells/OriannaPAbility/OriannaPSelf\",\"mScriptName\":\"OriannaPSelf\",\"mBuff\":{\"mTooltipData\":{\"mObjectName\":\"OriannaPSelf\",\"mFormat\":\"{b34f999a}\",\"mLocKeys\":{\"keyName\":\"Spell_OriannaP_Name\",\"keyTooltip\":\"Spell_OriannaP_Summary\"},\"__type\":\"TooltipInstanceBuff\"},\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OriannaPAbility/OriannaP",
+        "text": [
+          "{\"ObjectName\":\"OriannaP\",\"objectPath\":\"Characters/Orianna/Spells/OriannaPAbility/OriannaP\",\"mScriptName\":\"OriannaP\",\"mSpell\":{\"DataValues\":[{\"name\":\"StackMult\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"StackCount\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StackDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalDamage\":{\"mSimpleTooltipCalculationDisplay\":6,\"DamageType\":1,\"mFormulaParts\":[{\"mStartValue\":10.0,\"mEndValue\":50.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"StackDamage\":{\"mMultiplier\":{\"mDataValue\":\"StackMult\",\"__type\":\"NamedDataValueCalculationPart\"},\"mSimpleTooltipCalculationDisplay\":6,\"mModifiedGameCalculation\":\"TotalDamage\",\"__type\":\"GameCalculationModified\"},\"StackDamageMax\":{\"mMultiplier\":{\"mPart1\":{\"mDataValue\":\"StackMult\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"mNumber\":2.0,\"__type\":\"NumberCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"},\"mSimpleTooltipCalculationDisplay\":6,\"mModifiedGameCalculation\":\"TotalDamage\",\"__type\":\"GameCalculationModified\"}},\"LastHitData\":[{\"{6166b756}\":\"TotalDamage\",\"__type\":\"LastHitData\"}],\"mImgIconName\":[\"ASSETS/Characters/Orianna/HUD/Icons2D/OriannaP.dds\",\"ASSETS/Characters/Orianna/HUD/Icons2D/OriannaP2.dds\"],\"mSpellPassives\":[{\"mBuff\":\"Characters/Orianna/Spells/OriannaPAbility/OriannaP\",\"mWhenToAddSpell\":0,\"mRemoveWhenOnCooldown\":false,\"mDisplayFlags\":0,\"__type\":\"SpellPassiveData\"}],\"castRange\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"castRangeValues\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"OriannaP\",\"mFormat\":\"{476ec0b8}\",\"mLocKeys\":{\"keyName\":\"Spell_OriannaP_Name\",\"keySummary\":\"Spell_OriannaP_Summary\",\"keyTooltip\":\"Spell_OriannaP_Tooltip\"},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OriannaPAbility/OriannaPStack",
+        "text": [
+          "{\"ObjectName\":\"OriannaPStack\",\"objectPath\":\"Characters/Orianna/Spells/OriannaPAbility/OriannaPStack\",\"mScriptName\":\"OriannaPStack\",\"mBuff\":{\"mTooltipData\":{\"mObjectName\":\"OriannaPStack\",\"mFormat\":\"{b34f999a}\",\"mLocKeys\":{\"keyName\":\"Spell_OriannaP_Name\",\"keyTooltip\":\"Spell_OriannaP_Summary\"},\"__type\":\"TooltipInstanceBuff\"},\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Orianna",
+    "kind": "Q",
+    "name": "Command: Attack",
+    "page": {
+      "title": "Template:Data Orianna/Command: Attack",
+      "revid": 4088350
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6 / 5 / 4 / 3",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6,
+                5,
+                4,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      },
+      "targetRange": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            },
+            "label": "Landing impact radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Flying ball missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            },
+            "label": "Flying ball missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Orianna commands The Ball to fly to the target location and remain there, dealing magic damage to enemies it passes through and nearby enemies upon arrival, reduced to 70% against those hit beyond the first.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "42 / 63 / 84 / 105 / 126 (+ 42% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  42,
+                  63,
+                  84,
+                  105,
+                  126
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 42
+                  },
+                  "text": "(+ 42% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If The Ball is currently on Orianna herself, Command: Attack will have it cast to fly at least 150 units if the player attempts to cast it closer.",
+      "The Ball does not grant sight while in flight, but the sound effect of striking an enemy is audible through the Fog of War.",
+      "Orianna cannot use Command: Protect while The Ball is in transit with Command: Attack but she may buffer Command: Dissonance and Command: Shockwave to cast once it has reached the location.",
+      "The Ball will remain at the target location until Orianna retrieves it or if she goes beyond its leash range.\n  - The Ball will also never exceed its leash range regardless of target direction.",
+      "The Ball will drop to the ground upon colliding with W but not with E.\n  - Blade Whirl?",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Attack|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = Q\n|icon         = Command Attack.png\n|blurb        = {{sbc|Active:}} {{ci|Orianna}} commands {{ai|Clockwork Windup|Orianna|The Ball}} to fly to the target location and remain there, dealing {{as|magic damage}} to enemies it passes through and nearby enemies upon arrival.\n|description  = {{sbc|Active:}} '''Orianna''' commands ''{{ai|Clockwork Windup|Orianna|The Ball}}'' to fly to the target location and remain there, dealing {{as|magic damage}} to enemies it passes through and nearby enemies upon arrival, reduced to 70% against those hit beyond the first.\n|leveling     = {{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 60% AP)}}|Reduced Damage|{{ap|60*0.7 to 180*0.7}} {{as|(+ {{ap|60*0.7}}% AP)}}}}\n|cooldown     = {{ap|7 to 3}}\n|cost         = 35\n|costtype     = Mana\n|cast time    = None\n|target range = 825\n|effect radius= {{tip|cr|icononly = true}} {{tt|175|Landing impact radius}}\n|width        = {{tip|er|icononly = true}} {{tt|160|Flying ball missile width}}\n|speed        = {{tt|1400|Flying ball missile speed}}\n|targeting    = Location\n|outofrange   = walk to location\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Spellaoe\n|projectile   = special\n|grounded     = \n|knockdown    = \n|notes        =\n* If ''The Ball'' is currently on '''Orianna''' herself, ''Command: Attack'' will have it cast to fly at least 150 units if the player attempts to cast it closer.\n* ''The Ball'' does not grant {{tip|sight}} while in flight, but the sound effect of striking an enemy is audible through the Fog of War.\n* '''Orianna''' cannot use {{ai|Command: Protect|Orianna}} while ''The Ball'' is in transit with ''Command: Attack'' but she may buffer {{ai|Command: Dissonance|Orianna}} and {{ai|Command: Shockwave|Orianna}} to cast once it has reached the location.\n* ''The Ball'' will remain at the target location until '''Orianna''' retrieves it or if she goes beyond its leash range.\n** ''The Ball'' will also never exceed its leash range regardless of target direction.\n* {{pending for test}} ''The Ball'' will drop to the ground upon colliding with {{cai|W|Yasuo}} but not with {{cai|E|Braum}}.\n** {{cai|Blade Whirl|Samira}}?\n|flavorsound  = {{sm2|Orianna_Original_Q_0.ogg}} ''\"Ravage.\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Orianna/Command: Attack",
+          "revid": 4088350
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Attack|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = Q\n|icon         = Command Attack.png\n|blurb        = {{sbc|Active:}} {{ci|Orianna}} commands {{ai|Clockwork Windup|Orianna|The Ball}} to fly to the target location and remain there, dealing {{as|magic damage}} to enemies it passes through and nearby enemies upon arrival.\n|description  = {{sbc|Active:}} '''Orianna''' commands ''{{ai|Clockwork Windup|Orianna|The Ball}}'' to fly to the target location and remain there, dealing {{as|magic damage}} to enemies it passes through and nearby enemies upon arrival, reduced to 70% against those hit beyond the first.\n|leveling     = {{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 60% AP)}}|Reduced Damage|{{ap|60*0.7 to 180*0.7}} {{as|(+ {{ap|60*0.7}}% AP)}}}}\n|cooldown     = {{ap|7 to 3}}\n|cost         = 35\n|costtype     = Mana\n|cast time    = None\n|target range = 825\n|effect radius= {{tip|cr|icononly = true}} {{tt|175|Landing impact radius}}\n|width        = {{tip|er|icononly = true}} {{tt|160|Flying ball missile width}}\n|speed        = {{tt|1400|Flying ball missile speed}}\n|targeting    = Location\n|outofrange   = walk to location\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Spellaoe\n|projectile   = special\n|grounded     = \n|knockdown    = \n|notes        =\n* If ''The Ball'' is currently on '''Orianna''' herself, ''Command: Attack'' will have it cast to fly at least 150 units if the player attempts to cast it closer.\n* ''The Ball'' does not grant {{tip|sight}} while in flight, but the sound effect of striking an enemy is audible through the Fog of War.\n* '''Orianna''' cannot use {{ai|Command: Protect|Orianna}} while ''The Ball'' is in transit with ''Command: Attack'' but she may buffer {{ai|Command: Dissonance|Orianna}} and {{ai|Command: Shockwave|Orianna}} to cast once it has reached the location.\n* ''The Ball'' will remain at the target location until '''Orianna''' retrieves it or if she goes beyond its leash range.\n** ''The Ball'' will also never exceed its leash range regardless of target direction.\n* {{pending for test}} ''The Ball'' will drop to the ground upon colliding with {{cai|W|Yasuo}} but not with {{cai|E|Braum}}.\n** {{cai|Blade Whirl|Samira}}?\n|flavorsound  = {{sm2|Orianna_Original_Q_0.ogg}} ''\"Ravage.\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaIzunaCommandAbility/OrianaIzunaCommand",
+        "text": [
+          "{\"ObjectName\":\"OrianaIzunaCommand\",\"objectPath\":\"Characters/Orianna/Spells/OrianaIzunaCommandAbility/OrianaIzunaCommand\",\"mScriptName\":\"OrianaIzunaCommand\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":9221,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"OrianaIzunaCommand\",\"mSpellTags\":[\"Trait_DamageAbility\",\"Trait_SignatureSpell\",\"Trait_Ranged_Zone\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ReducedDamagePercent\",\"values\":[30.0,30.0,30.0,30.0,30.0,30.0,30.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MinimumDamagePercent\",\"values\":[70.0,70.0,70.0,70.0,70.0,70.0,70.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalDamageTooltip\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.6000000238418579,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"MinimumDamageTooltip\":{\"mMultiplier\":{\"mPart1\":{\"mNumber\":0.009999999776482582,\"__type\":\"NumberCalculationPart\"},\"mPart2\":{\"mDataValue\":\"MinimumDamagePercent\",\"__type\":\"NamedDataValueCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"},\"mSimpleTooltipCalculationDisplay\":6,\"mModifiedGameCalculation\":\"TotalDamageTooltip\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"Spell1\",\"mImgIconName\":[\"ASSETS/Characters/Orianna/HUD/Icons2D/OriannaQ.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[7.0,7.0,6.0,5.0,4.0,3.0,3.0],\"Cooldown\":{\"values\":[7.0,7.0,6.0,5.0,4.0,3.0,3.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"castRange\":[825.0,825.0,825.0,825.0,825.0,825.0,825.0],\"castRangeValues\":{\"values\":[825.0,825.0,825.0,825.0,825.0,825.0,825.0],\"{0a3e0478}\":825.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[815.0,815.0,815.0,815.0,815.0,815.0,815.0],\"castRadius\":[145.0,145.0,145.0,145.0,145.0,145.0,145.0],\"castConeDistance\":100.0,\"castTargetAdditionalUnitsRadius\":125.0,\"castFrame\":7.5,\"missileSpeed\":1200.0,\"mLineWidth\":80.0,\"mParticleStartOffset\":[0.0,100.0,0.0],\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[35.0,35.0,35.0,35.0,35.0,35.0],\"manaValues\":{\"values\":[35.0,35.0,35.0,35.0,35.0,35.0],\"{0a3e0478}\":35.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"Area\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"OrianaIzunaCommand\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_OrianaIzunaCommand_Name\",\"keySummary\":\"Spell_OrianaIzunaCommand_Summary\",\"keyTooltip\":\"Spell_OrianaIzunaCommand_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"startLocator\":{\"basePosition\":1,\"__type\":\"DrawablePositionLocator\"},\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":true,\"lineWidth\":{\"mPerLevelValues\":[50.0,50.0,50.0,50.0,50.0,50.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"overrideBaseRange\":{\"mPerLevelValues\":[2000.0,2000.0,2000.0,2000.0,2000.0,2000.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"},{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamageTooltip\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{38382c53}\":[{\"{e38f54f7}\":1,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaIzunaCommandAbility/OrianaIzuna",
+        "text": [
+          "{\"ObjectName\":\"OrianaIzuna\",\"objectPath\":\"Characters/Orianna/Spells/OrianaIzunaCommandAbility/OrianaIzuna\",\"mScriptName\":\"OrianaIzuna\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"OrianaIzunaCommand\",\"mEffectAmount\":[{\"value\":[20.0,65.0,110.0,155.0,200.0,245.0,290.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[20.0,24.0,28.0,32.0,36.0,40.0,44.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.4000000059604645,\"mCoefficient2\":0.30000001192092896,\"mAnimationName\":\"Ult_Loop\",\"mImgIconName\":[\"ASSETS/Characters/Orianna/HUD/Icons2D/OriannaCommandAttack.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"castRange\":[2000.0,2000.0,2000.0,2000.0,2000.0,2000.0,2000.0],\"castRangeValues\":{\"values\":[2000.0,2000.0,2000.0,2000.0,2000.0,2000.0,2000.0],\"{0a3e0478}\":2000.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[220.0,220.0,220.0,220.0,220.0,220.0,220.0],\"castConeDistance\":100.0,\"luaOnMissileUpdateDistanceInterval\":50.099998474121094,\"mMissileSpec\":{\"mMissileWidth\":80.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"L_hand\",\"mSpeed\":1400.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"missileSpeed\":1400.0,\"mMissileEffectKey\":\"Orianna_Q_Ghost_mis\",\"mLineWidth\":80.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"pelvis\",\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mTargetingTypeData\":{\"__type\":\"Direction\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":true,\"lineWidth\":{\"mPerLevelValues\":[80.0,80.0,80.0,80.0,80.0,80.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Orianna",
+    "kind": "R",
+    "name": "Command: Shockwave",
+    "page": {
+      "title": "Template:Data Orianna/Command: Shockwave",
+      "revid": 4026444
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 95 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                95,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "415",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 415
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Orianna commands The Ball to unleash a shockwave that deals magic damage to nearby enemies, stuns them for 0.75 seconds, and pulls them over 325 units, though not through terrain.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "225 / 350 / 475 (+ 110% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  225,
+                  350,
+                  475
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active: Orianna commands The Ball to unleash a shockwave that deals magic damage to nearby enemies, stuns them for 0.75 seconds, and pulls them over 325 units, though not through terrain.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulls",
+            "evidence": "Active: Orianna commands The Ball to unleash a shockwave that deals magic damage to nearby enemies, stuns them for 0.75 seconds, and pulls them over 325 units, though not through terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Command: Shockwave tosses enemies a set distance (those on the edge of the flinging area will be tossed to the center while those close to the middle will go over The Ball towards the edge) and can send them through walls.",
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - Command: Shockwave will cast from wherever the unit the The Ball is attached to is at the end of the cast time, even if the unit exceeds max tether range.",
+      "Displacement immunity will not resist the application of the stun.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Shockwave|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = R\n|icon         = Command Shockwave.png\n|blurb        = {{sbc|Active:}} {{ci|Orianna}} commands {{ai|Clockwork Windup|Orianna|The Ball}} to unleash a shockwave that deals {{as|magic damage}} to nearby enemies, briefly {{tip|stun|stunning}} and {{tip|airborne|pulling}} them inward.\n|description  = {{sbc|Active:}} '''Orianna''' commands ''{{ai|Clockwork Windup|Orianna|The Ball}}'' to unleash a shockwave that deals {{as|magic damage}} to nearby enemies, {{tip|stun|stuns}} them for {{fd|0.75}} seconds, and {{tip|airborne|pulls}} them over 325 units, though not through terrain.\n|leveling     = {{st|Magic Damage|{{ap|225 to 475}} {{as|(+ 110% AP)}}}}\n|cooldown     = {{ap|110 to 80}}\n|cast time    = {{fd|0.5}}\n|cost         = 100\n|costtype     = Mana\n|effect radius= {{tip|cr|icononly = true}} 415\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = Area of effect\n|spellshield  = True\n|projectile   = \n|knockdown    = \n|grounded     = \n|notes        = \n* ''Command: Shockwave'' tosses enemies a set distance (those on the edge of the flinging area will be tossed to the center while those close to the middle will go over ''The Ball'' towards the edge) and can send them through walls.\n{{Effect at cast time end}}\n** ''Command: Shockwave'' will cast from wherever the unit the ''The Ball'' is attached to is at the end of the cast time, even if the unit exceeds max tether range.\n* {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.\n|flavorsound  = {{sm2|Orianna_Original_R_0.ogg}} ''\"Throw.\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Orianna/Command: Shockwave",
+          "revid": 4026444
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Shockwave|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = R\n|icon         = Command Shockwave.png\n|blurb        = {{sbc|Active:}} {{ci|Orianna}} commands {{ai|Clockwork Windup|Orianna|The Ball}} to unleash a shockwave that deals {{as|magic damage}} to nearby enemies, briefly {{tip|stun|stunning}} and {{tip|airborne|pulling}} them inward.\n|description  = {{sbc|Active:}} '''Orianna''' commands ''{{ai|Clockwork Windup|Orianna|The Ball}}'' to unleash a shockwave that deals {{as|magic damage}} to nearby enemies, {{tip|stun|stuns}} them for {{fd|0.75}} seconds, and {{tip|airborne|pulls}} them over 325 units, though not through terrain.\n|leveling     = {{st|Magic Damage|{{ap|225 to 475}} {{as|(+ 110% AP)}}}}\n|cooldown     = {{ap|110 to 80}}\n|cast time    = {{fd|0.5}}\n|cost         = 100\n|costtype     = Mana\n|effect radius= {{tip|cr|icononly = true}} 415\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = Area of effect\n|spellshield  = True\n|projectile   = \n|knockdown    = \n|grounded     = \n|notes        = \n* ''Command: Shockwave'' tosses enemies a set distance (those on the edge of the flinging area will be tossed to the center while those close to the middle will go over ''The Ball'' towards the edge) and can send them through walls.\n{{Effect at cast time end}}\n** ''Command: Shockwave'' will cast from wherever the unit the ''The Ball'' is attached to is at the end of the cast time, even if the unit exceeds max tether range.\n* {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.\n|flavorsound  = {{sm2|Orianna_Original_R_0.ogg}} ''\"Throw.\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaDetonateCommandAbility/OrianaDetonateCommand",
+        "text": [
+          "{\"ObjectName\":\"OrianaDetonateCommand\",\"objectPath\":\"Characters/Orianna/Spells/OrianaDetonateCommandAbility/OrianaDetonateCommand\",\"mScriptName\":\"OrianaDetonateCommand\",\"mSpell\":{\"mAffectsTypeFlags\":13327,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"OrianaDetonateCommand\",\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"Damage\",\"values\":[100.0,225.0,350.0,475.0,600.0,725.0,850.0],\"__type\":\"SpellDataValue\"},{\"name\":\"AoERadius\",\"values\":[415.0,415.0,415.0,415.0,415.0,415.0,415.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StunDuration\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"}],\"{f9c2333e}\":{\"cherry\":{\"value\":[90.0,90.0,80.0,70.0,0.0,0.0,0.0],\"__type\":\"SpellEffectAmount\"}},\"mSpellCalculations\":{\"TotalDamage\":{\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mDataValue\":\"Damage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":1.100000023841858,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mCoefficient\":0.699999988079071,\"mAnimationName\":\"Spell4\",\"mImgIconName\":[\"ASSETS/Characters/Orianna/HUD/Icons2D/OriannaR.dds\"],\"mCastTime\":0.5,\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[110.0,110.0,95.0,80.0,80.0,80.0,80.0],\"Cooldown\":{\"values\":[110.0,110.0,95.0,80.0,80.0,80.0,80.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"useAnimatorFramerate\":true,\"castRange\":[410.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"castRangeValues\":{\"values\":[410.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[410.0,410.0,410.0,410.0,410.0,410.0,410.0],\"castRadius\":[20.0,20.0,20.0,20.0,20.0,20.0,20.0],\"castConeDistance\":100.0,\"castFrame\":12.0,\"missileSpeed\":1200.0,\"mLineWidth\":80.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[100.0,100.0,100.0,100.0,100.0,100.0],\"manaValues\":{\"values\":[100.0,100.0,100.0,100.0,100.0,100.0],\"{0a3e0478}\":100.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"OrianaDetonateCommand\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_OrianaDetonateCommand_Name\",\"keySummary\":\"Spell_OrianaDetonateCommand_Summary\",\"keyTooltip\":\"Spell_OrianaDetonateCommand_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":3,\"Elements\":[{\"type\":\"Damage\",\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"centerLocator\":{\"basePosition\":1,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[410.0,410.0,410.0,410.0,410.0,410.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":2048,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"StunDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4096,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"StunDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":16384,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"StunDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":65536,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"AoERadius\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":1,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaDetonateCommandAbility/OrianaStun",
+        "text": [
+          "{\"ObjectName\":\"OrianaStun\",\"objectPath\":\"Characters/Orianna/Spells/OrianaDetonateCommandAbility/OrianaStun\",\"mScriptName\":\"OrianaStun\",\"mBuff\":{\"mDescription\":\"game_buff_tooltip_OrianaStun\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Orianna",
+    "kind": "W",
+    "name": "Command: Dissonance",
+    "page": {
+      "title": "Template:Data Orianna/Command: Dissonance",
+      "revid": 4088351
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Both damage and persisting field radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Orianna commands The Ball to emit an electric pulse that deals magic damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 85% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 85
+                  },
+                  "text": "(+ 85% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The pulse leaves behind an electric field that last 3 seconds, granting bonus movement speed to Orianna and her allies when they move within. Enemies that move within the field are slowed by the same amount, decaying over 2 seconds after leaving.",
+        "leveling": [
+          {
+            "label": "Movement Speed Modifier",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Enemies that move within the field are slowed by the same amount, decaying over 2 seconds after leaving.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Dissonance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = W\n|icon         = Command Dissonance.png\n|blurb        = {{sbc|Active:}} {{ci|Orianna}} commands {{ai|Clockwork Windup|Orianna|The Ball}} to emit an electric pulse that deals {{as|magic damage}} to nearby enemies.\n|blurb2       = The pulse leaves behind an electric field for a short time, which {{tip|slow|slows}} enemies and grants {{as|'''bonus''' movement speed}} to '''Orianna''' and allied champions.\n|description  = {{sbc|Active:}} '''Orianna''' commands ''{{ai|Clockwork Windup|Orianna|The Ball}}'' to emit an electric pulse that deals {{as|magic damage}} to nearby enemies.\n|leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 85% AP)}}}}\n|description2 = The pulse leaves behind an electric field that last 3 seconds, granting {{sti|ms|{{as|'''bonus''' movement speed}}}} to '''Orianna''' and her allies when they move within. Enemies that move within the field are {{tip|slow|slowed}} by the same amount, decaying over 2 seconds after leaving.\n|leveling2    = {{st|Movement Speed Modifier|{{ap|20 to 40}}%}}\n|cooldown     = 7\n|cost         = {{ap|60 to 80}}\n|cast time = none\n|costtype     = Mana\n|effect radius= {{tip|cr|icononly = true}} {{tt|225|Both damage and persisting field radius}}\n|targeting    = Auto\n|affects      = Enemies, Allies\n|damagetype   = Magic\n|spelleffects = Area of effect\n|spellshield  = True\n|projectile   = \n|knockdown    = \n|grounded     = \n|notes        = \n* No additional notes.\n|flavorsound  = {{sm2|Orianna_Original_W_0.ogg}} ''\"Pulse.\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Orianna/Command: Dissonance",
+          "revid": 4088351
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Command: Dissonance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Orianna\n|skill        = W\n|icon         = Command Dissonance.png\n|blurb        = {{sbc|Active:}} {{ci|Orianna}} commands {{ai|Clockwork Windup|Orianna|The Ball}} to emit an electric pulse that deals {{as|magic damage}} to nearby enemies.\n|blurb2       = The pulse leaves behind an electric field for a short time, which {{tip|slow|slows}} enemies and grants {{as|'''bonus''' movement speed}} to '''Orianna''' and allied champions.\n|description  = {{sbc|Active:}} '''Orianna''' commands ''{{ai|Clockwork Windup|Orianna|The Ball}}'' to emit an electric pulse that deals {{as|magic damage}} to nearby enemies.\n|leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 85% AP)}}}}\n|description2 = The pulse leaves behind an electric field that last 3 seconds, granting {{sti|ms|{{as|'''bonus''' movement speed}}}} to '''Orianna''' and her allies when they move within. Enemies that move within the field are {{tip|slow|slowed}} by the same amount, decaying over 2 seconds after leaving.\n|leveling2    = {{st|Movement Speed Modifier|{{ap|20 to 40}}%}}\n|cooldown     = 7\n|cost         = {{ap|60 to 80}}\n|cast time = none\n|costtype     = Mana\n|effect radius= {{tip|cr|icononly = true}} {{tt|225|Both damage and persisting field radius}}\n|targeting    = Auto\n|affects      = Enemies, Allies\n|damagetype   = Magic\n|spelleffects = Area of effect\n|spellshield  = True\n|projectile   = \n|knockdown    = \n|grounded     = \n|notes        = \n* No additional notes.\n|flavorsound  = {{sm2|Orianna_Original_W_0.ogg}} ''\"Pulse.\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceAlly",
+        "text": [
+          "{\"ObjectName\":\"OrianaDissonanceAlly\",\"objectPath\":\"Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceAlly\",\"mScriptName\":\"OrianaDissonanceAlly\",\"mBuff\":{\"mDescription\":\"game_buff_tooltip_OrianaDissonanceAlly\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceCommand",
+        "text": [
+          "{\"ObjectName\":\"OrianaDissonanceCommand\",\"objectPath\":\"Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceCommand\",\"mScriptName\":\"OrianaDissonanceCommand\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":13327,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mSpellTags\":[\"PositiveEffect_Boon\",\"Trait_DamageAbility\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[30.0,70.0,110.0,150.0,190.0,230.0,270.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.8500000238418579,0.8500000238418579,0.8500000238418579,0.8500000238418579,0.8500000238418579,0.8500000238418579,0.8500000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowAmount\",\"values\":[0.15000000596046448,0.20000000298023224,0.25,0.30000001192092896,0.3499999940395355,0.4000000059604645,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"HasteAmount\",\"values\":[0.15000000596046448,0.20000000298023224,0.25,0.30000001192092896,0.3499999940395355,0.4000000059604645,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"FieldDuration\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowAndHasteDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"APRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"TotalDamage\":{\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell1\",\"mImgIconName\":[\"ASSETS/Characters/Orianna/HUD/Icons2D/OriannaW.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[7.0,7.0,7.0,7.0,7.0,7.0,7.0],\"Cooldown\":{\"values\":[7.0,7.0,7.0,7.0,7.0,7.0,7.0],\"{0a3e0478}\":7.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"castRange\":[10000.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"castRangeValues\":{\"values\":[10000.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"{0a3e0478}\":10000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[225.0,225.0,225.0,225.0,225.0,225.0,225.0],\"castRadius\":[20.0,20.0,20.0,20.0,20.0,20.0,20.0],\"castConeDistance\":100.0,\"castFrame\":1.9800000190734863,\"missileSpeed\":1200.0,\"mLineWidth\":80.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[60.0,65.0,70.0,75.0,80.0,85.0],\"manaValues\":{\"values\":[60.0,65.0,70.0,75.0,80.0,85.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"OrianaDissonanceCommand\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_OrianaDissonanceCommand_Name\",\"keySummary\":\"Spell_OrianaDissonanceCommand_Summary\",\"keyTooltip\":\"Spell_OrianaDissonanceCommand_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"SlowAmount\",\"typeIndex\":2,\"multiplier\":100.0,\"nameOverride\":\"Spell_ListType_Slow\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"HasteAmount\",\"typeIndex\":3,\"multiplier\":100.0,\"nameOverride\":\"Spell_ListType_MovementSpeed\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"centerLocator\":{\"basePosition\":1,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[225.0,225.0,225.0,225.0,225.0,225.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":1,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"SlowAndHasteDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":2,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"SlowAndHasteDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"SlowAndHasteDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/orianna/orianna.bin.json",
+        "sha256": "5737da1b1f5ddd26f3249f78f21411277870a53c2aab6e7f3713d85c4251cc2e",
+        "object": "Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceEnemy",
+        "text": [
+          "{\"ObjectName\":\"OrianaDissonanceEnemy\",\"objectPath\":\"Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceEnemy\",\"mScriptName\":\"OrianaDissonanceEnemy\",\"mBuff\":{\"mDescription\":\"game_buff_tooltip_OrianaDissonanceEnemy\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  }
+]

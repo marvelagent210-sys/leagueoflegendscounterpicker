@@ -9,6 +9,7 @@ import { derive } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, Formula, HookContext, KitHooks } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
 import type { ItemEffectData } from "../context";
+import { spellbladeProcs } from "../hints";
 import { activeKey, championCast, memo, ownStatus, until } from "../runtime";
 
 const sources = new Map<string, AbilitySpec>();
@@ -94,6 +95,12 @@ export function spellblade(item: string, effect: ItemEffectData, options: Spellb
       if (ctx.ability.flags?.appliesOnHit) spend(ctx, ctx.scale * (ctx.ability.onHitScale ?? 1));
     },
   };
+}
+
+/** Spellblade's empowered attacks per second over the reference fight, for an item's hint. */
+export function spellbladeRate(effect: ItemEffectData): (self: Unit) => number {
+  const cooldown = effect.quoted("(1.5 second cooldown, starts after using the empowered attack)");
+  return (self) => spellbladeProcs(self, cooldown);
 }
 
 // ---------------------------------------------------------------------------------------

@@ -1,0 +1,291 @@
+{
+  "champion": "Evelynn",
+  "name": "Evelynn",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "evelynn",
+      "formName": "Evelynn",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.942448,
+      "attackDamage": 119.995,
+      "windup": 0.162697,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Evelynn",
+      "kind": "E",
+      "name": "Empowered Whiplash",
+      "page": {
+        "title": "Template:Data Evelynn/Empowered Whiplash",
+        "revid": 3984296
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "notes": [
+        "Evelynn will track the target if they change locations.\n  - She will dash to the target's previous location if the target moves 2000 or more units away.\n  - She will not stop tracking the target until she reaches them, as there is no maximum tracking distance.",
+        "Empowered Whiplash can be blocked but cannot be dodged and/or missed if Evelynn is blinded.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Evelynn",
+      "kind": "E",
+      "name": "Whiplash",
+      "page": {
+        "title": "Template:Data Evelynn/Whiplash",
+        "revid": 3909221
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 210,
+      "notes": [
+        "Whiplash can be dodged and blocked but may not miss if Evelynn is blinded.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Evelynn",
+      "kind": "I",
+      "name": "Demon Shade",
+      "page": {
+        "title": "Template:Data Evelynn/Demon Shade",
+        "revid": 4038334
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "camouflage",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(700 unit detection radius)"
+            },
+            {
+              "page": "Template:Data Evelynn/Demon Shade",
+              "revid": 4038334,
+              "quote": "From level 6 onward, Demon Shade also grants camouflage."
+            }
+          ],
+          "condition": "(700 unit detection radius)"
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Evelynn/Demon Shade",
+              "revid": 4038334,
+              "quote": "Demon Shade: While below 250 – 590 (based on level) (+ 250% AP) health, Evelynn heals herself for 15 – 150 (based on level) every second."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Upon Evelynn's transition into the stealth, Demon Shade will interrupt her in-progress cast commands for unit-targeted spells, excluding E and its empowered cast.\n  - If Evelynn's last issued order was to cast E, her transition into the stealth will be followed by an automatic command for casting the ability (if no other orders were issued in the meantime).",
+        "Using a basic attack breaks the stealth at the start of the attack windup."
+      ]
+    },
+    {
+      "champion": "Evelynn",
+      "kind": "Q",
+      "name": "Hate Spike",
+      "page": {
+        "title": "Template:Data Evelynn/Hate Spike",
+        "revid": 4012756
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.3,
+      "range": 800,
+      "speed": 2400
+    },
+    {
+      "champion": "Evelynn",
+      "kind": "R",
+      "name": "Last Caress",
+      "page": {
+        "title": "Template:Data Evelynn/Last Caress",
+        "revid": 4006700
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Evelynn/Last Caress",
+              "revid": 4006700,
+              "quote": "Active: Evelynn reveals her true form, becoming untargetable at the start of the cast time and then unleashing her lashers in a cone in the target direction, dealing magic damage to enemies struck within."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.35
+    },
+    {
+      "champion": "Evelynn",
+      "kind": "W",
+      "name": "Allure",
+      "page": {
+        "title": "Template:Data Evelynn/Allure",
+        "revid": 4064061
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "charm",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "charm"
+            },
+            {
+              "page": "Template:Data Evelynn/Allure",
+              "revid": 4064061,
+              "quote": "Empowered Bonus: The target is charmed for a few seconds and the slow duration is increased to the same period."
+            }
+          ],
+          "duration": 2.25
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Evelynn/Allure",
+              "revid": 4064061,
+              "quote": "Evelynn's next basic attack or ability hit against the target consumes the mark, slowing them by 45% for 0.75 seconds and refunding Allure's mana cost."
+            }
+          ],
+          "duration": 0.75,
+          "amount": 45
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 1600,
+      "notes": [
+        "Allure's mark application on a target cannot be blocked by spell shield.\n  - The mark's consumption will not occur if the ability is blocked by a spell shield, causing the mark to remain on the target.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but still go on cooldown and pay its cost.\n  - Allure will restart its cooldown whenever the mark debuff is removed."
+      ]
+    }
+  ]
+}

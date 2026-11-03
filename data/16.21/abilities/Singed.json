@@ -1,0 +1,743 @@
+[
+  {
+    "champion": "Singed",
+    "kind": "E",
+    "name": "Fling",
+    "page": {
+      "title": "Template:Data Singed/Fling",
+      "revid": 4026605
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Singed flings the target enemy 550 units over himself over 0.693, dealing magic damage. The damage based on the target's health ratio is capped at 300 against minions and monsters.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 60 / 70 / 80 / 90 (+ 6 / 6.5 / 7 / 7.5 / 8% of target's maximum health) (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  60,
+                  70,
+                  80,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      6,
+                      6.5,
+                      7,
+                      7.5,
+                      8
+                    ]
+                  },
+                  "text": "(+ 6 / 6.5 / 7 / 7.5 / 8% of target's maximum health)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "flings",
+            "evidence": "Active: Singed flings the target enemy 550 units over himself over 0.693, dealing magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the target lands on Mega Adhesive area of effect after the displacement, they are rooted for a duration.",
+        "leveling": [
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 / 1.75 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5,
+                  1.75,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2
+              ]
+            },
+            "evidence": "If the target lands on Mega Adhesive area of effect after the displacement, they are rooted for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "During Fling cast time (the windup not during the actual fling) the enemy's flash is already locked, making it a non reactable spell.",
+      "Fling can throw enemies over walls (circumstances permitting).",
+      "Slow-immune enemies will not be rooted when flung into Mega Adhesive.",
+      "Fling is special cased to not fling Warwick while Singed is suppressed by Infinite Duress after the cast time.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Singed",
+    "kind": "I",
+    "name": "Noxious Slipstream",
+    "page": {
+      "title": "Template:Data Singed/Noxious Slipstream",
+      "revid": 3985843
+    },
+    "ranks": 1,
+    "fields": {
+      "targetCooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Center-to-edge"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever Singed moves near a champion, he gains a stack of Noxious Slipstream for 2 seconds, refreshing on subsequent passes and stacking up to 25 times.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Noxious Slipstream",
+        "text": "Noxious Slipstream: For each stack, Singed gains 25% bonus movement speed, up to a maximum of 625%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "This effect cannot occur on the same target more than once every few seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Singed",
+    "kind": "Q",
+    "name": "Poison Trail",
+    "page": {
+      "title": "Template:Data Singed/Poison Trail",
+      "revid": 4006737
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "13",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 13
+            }
+          }
+        ]
+      },
+      "costType": "mana per second",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Individual gas clouds"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot"
+    },
+    "parts": [
+      {
+        "label": "Toggle",
+        "text": "Toggle: Singed continually creates a toxic cloud in his wake that lingers for 3.25 seconds. The cloud inflicts poison to enemies within.\n\nPoison Trail is toggled off automatically if Singed becomes unable to pay its mana cost.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "poison",
+            "evidence": "The cloud inflicts poison to enemies within.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "poison",
+        "text": "poison: The target takes magic damage every 0.25 seconds over 2 seconds as well as upon being hit if not currently affected. Subsequent inflictions refresh the duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "5 / 7.5 / 10 / 12.5 / 15 (+ 10.625% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  7.5,
+                  10,
+                  12.5,
+                  15
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10.625
+                  },
+                  "text": "(+ 10.625% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage per Second",
+            "amount": {
+              "text": "20 / 30 / 40 / 50 / 60 (+ 42.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 42.5
+                  },
+                  "text": "(+ 42.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 85% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 85
+                  },
+                  "text": "(+ 85% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "poison",
+            "evidence": "poison: The target takes magic damage every 0.25 seconds over 2 seconds as well as upon being hit if not currently affected.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Singed earns the kill credit of enemy minions that are poisoned and would die to the damage of allied minions within the time before the next damage instance.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "poisoned",
+            "evidence": "Singed earns the kill credit of enemy minions that are poisoned and would die to the damage of allied minions within the time before the next damage instance.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Toggled abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "When Poison Trail's debuff is applied instead of refreshed, the target is dealt one additional instance of the debuff at the same time as the application. This is done by delaying the actual debuff by 0.1 seconds.\n  - If the target is already affected by the debuff, its duration is refreshed to the maximum (2 seconds).",
+      "While active after spawning, a cloud checks for valid targets who remain in or re-enter a cloud every 0.25 seconds.\n  - Valid targets already afflicted with the poison will have their debuff's duration refreshed every 0.25 seconds if applicable.",
+      "If Singed has moved fewer than 90 units since spawning the last poison cloud, it will spawn 35 units in front of him. They also only spawn every 1 second in this case.\n  - When Singed is moving faster than that, the poison clouds spawn more frequently and on top of himself."
+    ]
+  },
+  {
+    "champion": "Singed",
+    "kind": "R",
+    "name": "Insanity Potion",
+    "page": {
+      "title": "Template:Data Singed/Insanity Potion",
+      "revid": 4005000
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Singed empowers himself for 25 seconds with ability power, bonus armor, bonus magic resistance, bonus movement speed, bonus health regeneration, and bonus mana regeneration.",
+        "leveling": [
+          {
+            "label": "Bonus Stats",
+            "amount": {
+              "text": "25 / 55 / 85",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  55,
+                  85
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "HP/Mana Regenerated per 0.5 Seconds",
+            "amount": {
+              "text": "2.5 / 5.5 / 8.5",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.5,
+                  5.5,
+                  8.5
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total HP/Mana Regenerated over the duration",
+            "amount": {
+              "text": "125 / 275 / 425",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  275,
+                  425
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "During this time, Poison Trail additionally applies Grievous Wounds for 1 second, which refreshes every 0.25 seconds while the poison persists.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "grievous wounds",
+            "category": "offense",
+            "wording": "Grievous Wounds",
+            "evidence": "During this time, Poison Trail additionally applies Grievous Wounds for 1 second, which refreshes every 0.25 seconds while the poison persists.",
+            "conditional": false
+          },
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "poison",
+            "evidence": "During this time, Poison Trail additionally applies Grievous Wounds for 1 second, which refreshes every 0.25 seconds while the poison persists.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes."
+    ]
+  },
+  {
+    "champion": "Singed",
+    "kind": "W",
+    "name": "Mega Adhesive",
+    "page": {
+      "title": "Template:Data Singed/Mega Adhesive",
+      "revid": 4001677
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "17 / 16 / 15 / 14 / 13",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                17,
+                16,
+                15,
+                14,
+                13
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "265",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 265
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "false",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Singed spills a potent adhesive that lands at the target location after 0.375 seconds, creating a field for 3 seconds that grounds enemies within and slows them.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "50 / 55 / 60 / 65 / 70%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  55,
+                  60,
+                  65,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounds",
+            "evidence": "Active: Singed spills a potent adhesive that lands at the target location after 0.375 seconds, creating a field for 3 seconds that grounds enemies within and slows them.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            },
+            "evidence": "Active: Singed spills a potent adhesive that lands at the target location after 0.375 seconds, creating a field for 3 seconds that grounds enemies within and slows them.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The goo missile is a projectile. It has a fixed travel time but is independent from when the zone is established. It is destructible by effects such as Wind Wall and will destroy item spell shields if the goo missile is thrown past an enemy champion.",
+      "Mega Adhesive's slow and ground debuffs are each marked as non-dispellable, so they are not removed by most cleanses. Each is however allowed to be removed by cleanses that also grant immunity to the debuff type, such as Ragnarok."
+    ]
+  }
+]

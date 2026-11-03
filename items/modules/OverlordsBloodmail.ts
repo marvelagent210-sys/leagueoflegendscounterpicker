@@ -1,5 +1,6 @@
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { overMissingHealth } from "../hints";
 import { bonusHealth, follow, memo } from "../runtime";
 import { joinHooks } from "./shared";
 
@@ -16,6 +17,14 @@ export const OverlordsBloodmail: ItemModule = {
     item.assume(`Retribution grows evenly with missing health, to ${top * 100}% at ${Math.round(at * 100)}% missing health (the wiki shows it in 1% steps).`);
     const share = (self: Parameters<typeof bonusHealth>[0]) => top * Math.min(1, Math.max(0, 1 - self.hp / derive(self).maxHp) / at);
     return {
+      // Retribution over a fight from full health to none.
+      budget: {
+        stats(self) {
+          const fromHealth = tyranny * bonusHealth(self);
+          return [{ stat: "AD", value: fromHealth + top * overMissingHealth(at) * (derive(self).ad + fromHealth) }];
+        },
+        late: true,
+      },
       hooks: joinHooks(
         follow(memo(item.name, "tyranny"), "AD", (self) => tyranny * bonusHealth(self)),
         follow(memo(item.name, "retribution"), "AD", (self, current) => share(self) * (derive(self).ad - current), 1),

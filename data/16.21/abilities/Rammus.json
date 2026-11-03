@@ -1,0 +1,885 @@
+[
+  {
+    "champion": "Rammus",
+    "kind": "E",
+    "name": "Frenzying Taunt",
+    "page": {
+      "title": "Template:Data Rammus/Frenzying Taunt",
+      "revid": 4052309
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rammus taunts the target enemy champion or monster for a duration. Monsters are additionally dealt magic damage upon being affected.",
+        "leveling": [
+          {
+            "label": "Taunt Duration",
+            "amount": {
+              "text": "1.2 / 1.4 / 1.6 / 1.8 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.2,
+                  1.4,
+                  1.6,
+                  1.8,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Monster Magic Damage",
+            "amount": {
+              "text": "80 / 100 / 120 / 140 / 160 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  100,
+                  120,
+                  140,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "taunt",
+            "category": "control",
+            "wording": "taunts",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.2,
+                1.4,
+                1.6,
+                1.8,
+                2
+              ]
+            },
+            "evidence": "Active: Rammus taunts the target enemy champion or monster for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Rammus",
+    "kind": "I",
+    "name": "Spiked Shell",
+    "page": {
+      "title": "Template:Data Rammus/Spiked Shell",
+      "revid": 3910990
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Rammus gains bonus attack damage equal to the sum of 15% total armor and 15% total magic resistance.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Rammus",
+    "kind": "Q",
+    "name": "Powerball",
+    "page": {
+      "title": "Template:Data Rammus/Powerball",
+      "revid": 3988570
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 10.5 / 9 / 7.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                10.5,
+                9,
+                7.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "effect radius upon collision"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            },
+            "label": "center-to-edge, against champions"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "false",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rammus rolls into an accelerating ball, channeling for up to 6 seconds to gain 25 – 39.1667 (based on level)% bonus total movement speed per second over the duration, up to a maximum of 150 – 235 (based on level)%.\n\nPowerball can be recast after 1 second within the duration, and does so automatically afterwards or upon casting Defensive Ball Curl.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channeling",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "Active: Rammus rolls into an accelerating ball, channeling for up to 6 seconds to gain 25 – 39.1667 (based on level)% bonus total movement speed per second over the duration, up to a maximum of 150 – 235 (based on level)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                25,
+                25.8333333333333,
+                26.6666666666667,
+                27.5,
+                28.3333333333333,
+                29.1666666666667,
+                30,
+                30.8333333333333,
+                31.6666666666667,
+                32.5,
+                33.3333333333333,
+                34.1666666666667,
+                35,
+                35.8333333333333,
+                36.6666666666667,
+                37.5,
+                38.3333333333333,
+                39.1666666666667,
+                40,
+                40.8333333333333
+              ],
+              "past18": "wiki"
+            },
+            "context": "Active: Rammus rolls into an accelerating ball, channeling for up to 6 seconds to gain 25 – 39.1667 (based on level)% bonus total movement speed per second over the duration, up to a maximum of 150 – 235 (based on level)%."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                150,
+                155,
+                160,
+                165,
+                170,
+                175,
+                180,
+                185,
+                190,
+                195,
+                200,
+                205,
+                210,
+                215,
+                220,
+                225,
+                230,
+                235,
+                240,
+                245
+              ],
+              "past18": "wiki"
+            },
+            "context": "Active: Rammus rolls into an accelerating ball, channeling for up to 6 seconds to gain 25 – 39.1667 (based on level)% bonus total movement speed per second over the duration, up to a maximum of 150 – 235 (based on level)%."
+          }
+        ]
+      },
+      {
+        "text": "Rammus stops rolling upon colliding with an enemy, dealing magic damage to all nearby enemies and knocking them back 125 units, though not through terrain. Enemies hit are then stunned and revealed for 0.4 seconds, as well as slowed for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 50 / 60 / 70 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60,
+                  70,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them back",
+            "evidence": "Rammus stops rolling upon colliding with an enemy, dealing magic damage to all nearby enemies and knocking them back 125 units, though not through terrain.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Enemies hit are then stunned and revealed for 0.4 seconds, as well as slowed for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Enemies hit are then stunned and revealed for 0.4 seconds, as well as slowed for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            },
+            "evidence": "Enemies hit are then stunned and revealed for 0.4 seconds, as well as slowed for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.4",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Rammus ends Powerball.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast and the manual recast count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - If the ability is not manually recasted, the secondary effect will trigger without being considered as an ability activation.",
+      "The bonus movement speed stacks multiplicatively with other sources of movement speed boosts.",
+      "Powerball will still collide with enemies if Rammus is ghosted.",
+      "For the purpose of moving closer to an enemy when right clicking them, Powerball also reduces Rammus attack range to 0 for the duration.\n  - Regardless of this, during Powerball Rammus will also always attempt to path towards his target's center instead.",
+      "Rammus will ignore unit collision for the purpose of pathfinding during Powerball.\n  - Rammus acts as if he were ghosted for the duration of Powerball.",
+      "Powerball is not a movement channel, and so will not be interrupted by root and ground.",
+      "Displacement immunity will also resist the application of the stun.",
+      "The following table refers for interactions while Rammus is channeling:"
+    ]
+  },
+  {
+    "champion": "Rammus",
+    "kind": "R",
+    "name": "Soaring Slam",
+    "page": {
+      "title": "Template:Data Rammus/Soaring Slam",
+      "revid": 4008005
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 105 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                105,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800 OR 150% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Maximum dash distance based on the average of this percentage of movement speed in the last second, overrides the base maximum dash distance if the value is greater than 800 (see notes). Updates every 0.25 seconds."
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400 • 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Impact radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Aftershock radius"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Impact epicenter radius when cast with Powerball"
+          }
+        ]
+      },
+      "speed": {
+        "text": "900 • 2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Minimum dash speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Maximum dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "special",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rammus leaps to the target location with immunity to crowd control. Upon arrival, he creates an impact that deals magic damage to nearby enemies and slows them for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 40 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Rammus leaps to the target location with immunity to crowd control.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                40,
+                50
+              ]
+            },
+            "evidence": "Upon arrival, he creates an impact that deals magic damage to nearby enemies and slows them for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Soaring Slam was cast during Powerball, enemies within the epicenter of the impact are also knocked up for 0.75 seconds and are dealt Powerball damage. Powerball will not collide with enemies during the dash, and its channel will be maintained for the dash and end afterwards.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "If Soaring Slam was cast during Powerball, enemies within the epicenter of the impact are also knocked up for 0.75 seconds and are dealt Powerball damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The impact causes 3 aftershocks to burst from the area over 3.5 seconds, each one applying and refreshing the duration of the initial slow.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                40,
+                50
+              ]
+            },
+            "evidence": "The impact causes 3 aftershocks to burst from the area over 3.5 seconds, each one applying and refreshing the duration of the initial slow.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Soaring Slam's damage affects structures and is doubled against turrets.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the impact (including with Powerball) but not each aftershock.",
+      "Rammus is required to have at least 461.5 total movement speed average over the last second to be able to cast Soaring Slam further than its base maximum dash range (>800 units).",
+      "Soaring Slam will not impact nor generate aftershocks if the dash is interrupted.",
+      "The following table refers for interactions while Rammus is dashing:"
+    ]
+  },
+  {
+    "champion": "Rammus",
+    "kind": "W",
+    "name": "Defensive Ball Curl",
+    "page": {
+      "title": "Template:Data Rammus/Defensive Ball Curl",
+      "revid": 4088354
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rammus enters a defensive stance for 7 seconds, gaining bonus armor and bonus magic resistance. While active, enemies that use a basic attack on-hit against Rammus are dealt 15 (+ 10% total armor) (+ 10% total magic resistance) magic damage.",
+        "leveling": [
+          {
+            "label": "Bonus Armor",
+            "amount": {
+              "text": "25 / 30 / 35 / 40 / 45 (+ 30 / 35 / 40 / 45 / 50% total armor)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  30,
+                  35,
+                  40,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:total armor",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      30,
+                      35,
+                      40,
+                      45,
+                      50
+                    ]
+                  },
+                  "text": "(+ 30 / 35 / 40 / 45 / 50% total armor)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Resistance",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40 (+ 30 / 35 / 40 / 45 / 50% total magic resistance)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:total magic resistance",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      30,
+                      35,
+                      40,
+                      45,
+                      50
+                    ]
+                  },
+                  "text": "(+ 30 / 35 / 40 / 45 / 50% total magic resistance)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "While active, enemies that use a basic attack on-hit against Rammus are dealt 15 (+ 10% total armor) (+ 10% total magic resistance) magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Defensive Ball Curl can be recast after 1 second within the duration, and does so automatically upon casting Powerball or Soaring Slam.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Rammus ends Defensive Ball Curl.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Deactivating the ability manually does not.",
+      "Defensive Ball Curl ends immediately if Powerball is cast.",
+      "Defensive Ball Curl will return damage from attacks and/or abilities that apply on-hit effects (Mystic Shot) as well as from Runaan's Hurricane Wind's Fury (will not return damage from turrets, H-28G Evolution Turret, or Jack in the Box).",
+      "Defensive Ball Curl's total resistances and Mountainous Vigor stack multiplicatively\n  - The ability's bonus armor and magic resist flat components are scaled by Jak'Sho, The Protean Voidborn Resilience, and combined with the total resists (excluding the stats from Mountainous Vigor) multiplied by the ability's percentage total resistances increase. The resulting total bonus stats are then multiplied by Mountainous Vigor.",
+      "The resistances gained from Defensive Ball Curl's will recalculate over the duration."
+    ]
+  }
+]

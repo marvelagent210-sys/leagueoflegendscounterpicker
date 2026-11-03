@@ -1,7 +1,9 @@
 import { toTicks } from "../../engine/rules/time";
 import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import type { HookContext } from "../../engine/sim/spec";
+import { budgetDamage } from "../../engine/budget";
 import type { ItemModule } from "../equip";
+import { FIGHT, attacks, damagingCasts } from "../hints";
 import { memo, setStat, until } from "../runtime";
 
 export const ForceOfNature: ItemModule = {
@@ -31,6 +33,15 @@ export const ForceOfNature: ItemModule = {
       show(ctx, now);
     };
     return {
+      // Full stacks once the enemy's magic hits (its damaging casts, and its attacks when they deal magic damage) give them.
+      budget: {
+        stats(self, enemy) {
+          if (budgetDamage(enemy, self).magic <= 0) return [];
+          const hits = Math.min(1 / once, damagingCasts(enemy) + ((enemy.spec.budget?.attackSplit?.magic ?? 0) > 0 ? attacks(enemy) : 0));
+          if (hits <= 0) return [];
+          return [{ stat: "MR", value: mr * Math.max(0, FIGHT - maxStacks / hits) / FIGHT }];
+        },
+      },
       hooks: {
         onDamageTaken(ctx) {
           if (ctx.damageType !== "magic") return;

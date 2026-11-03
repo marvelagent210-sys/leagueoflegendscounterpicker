@@ -81,8 +81,8 @@ describe("strict reading of source text fields", () => {
       ability: "Nether Grasp",
       page: "Characters/Malzahar/Spells/MalzaharRAbility/MalzaharR",
       revid: 0,
-      sourceVersion: "16.20.8248524+branch.releases-16-20.content.release",
-      url: "https://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json",
+      sourceVersion: "16.21.8342754+branch.releases-16-21.content.release",
+      url: "https://raw.communitydragon.org/16.21/game/data/characters/malzahar/malzahar.bin.json",
     });
     expect(evidence?.sourceSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(() => kit.ability("Nether Grasp").quote("mSpell.castRadius: [280,280,280,280,280,280,280]")).toThrow(/wiki no longer says/);
@@ -114,7 +114,7 @@ describe("strict reading of source text fields", () => {
     { field: "sha256", value: "not-a-content-hash" },
     { field: "url", value: "https://raw.communitydragon.org/latest/game/data/characters/malzahar/malzahar.bin.json" },
     { field: "url", value: "https://raw.communitydragon.org/16.19/game/data/characters/malzahar/malzahar.bin.json" },
-    { field: "url", value: "http://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json" },
+    { field: "url", value: "http://raw.communitydragon.org/16.21/game/data/characters/malzahar/malzahar.bin.json" },
     { field: "url", value: undefined },
   ])("rejects incomplete or unversioned game attribution: $field = $value", ({ field, value }) => {
     const ability = context("Malzahar").ability("Nether Grasp");

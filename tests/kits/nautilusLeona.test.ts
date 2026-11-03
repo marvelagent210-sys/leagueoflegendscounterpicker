@@ -329,7 +329,7 @@ describe("Leona's pinned solo-duel mechanics", () => {
     expect(kit.spec.abilities.find((a) => a.key === "E")).toMatchObject({ cooldown: 6, cost: 60, castTime: 0.25, delivery: { kind: "line", range: 900, width: 140, speed: 2000 } });
     expect(kit.spec.abilities.find((a) => a.key === "R")).toMatchObject({ cooldown: 60, cost: 100, delivery: { kind: "circle", range: 1200, radius: 325, delay: 0.625 } });
     expect(kit.assumptions.some((text) => text.includes("never consumed in a solo duel"))).toBe(true);
-    expect(new Set(kit.evidence.map((entry) => entry.revid))).toEqual(new Set([4038401, 4001219, 4042253, 4007645, 4007649]));
+    expect(new Set(kit.evidence.map((entry) => entry.revid))).toEqual(new Set([4038401, 4085325, 4042253, 4007645, 4007649]));
   });
 
   it("Shield of Daybreak resets before and after the empowered attack, stuns for a second, and never procs Sunlight itself", () => {

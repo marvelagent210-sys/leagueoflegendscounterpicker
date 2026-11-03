@@ -1,0 +1,1197 @@
+[
+  {
+    "champion": "Poppy",
+    "kind": "E",
+    "name": "Heroic Charge",
+    "page": {
+      "title": "Template:Data Poppy/Heroic Charge",
+      "revid": 3946254
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "475",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 475
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Poppy dashes to the target enemy's location. If they are in range upon arrival, she deals physical damage and carries them along with her for up to 400 units.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 60% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Poppy dashes to the target enemy's location.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "carries",
+            "evidence": "If they are in range upon arrival, she deals physical damage and carries them along with her for up to 400 units.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the target hits terrain, she stops to deal the same physical damage again and stuns them for a duration.",
+        "leveling": [
+          {
+            "label": "Stun Duration",
+            "amount": {
+              "text": "1.6 / 1.7 / 1.8 / 1.9 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.6,
+                  1.7000000000000002,
+                  1.8,
+                  1.9,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 120% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.6,
+                1.7000000000000002,
+                1.8,
+                1.9,
+                2
+              ]
+            },
+            "evidence": "If the target hits terrain, she stops to deal the same physical damage again and stuns them for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Poppy will be ordered to basic attack the target.",
+      "Heroic Charge can apply spell effects twice (once when Poppy hits her target and once she stuns them against a wall).\n  - Both instances of damage and crowd control are all the same cast instance. Effects that only trigger once per spell cast will not trigger twice.",
+      "Poppy dashes slightly less far than the distance she pushes the target.",
+      "Heroic Charge can interact with player-generated terrain.",
+      "The dash does not follow targets. The target's position at the time of Heroic Charge's cast is the direction Poppy will dash towards.\n  - Poppy does not carry nor deal damage to the target if they have left a certain radius before she collides with them."
+    ]
+  },
+  {
+    "champion": "Poppy",
+    "kind": "I",
+    "name": "Iron Ambassador",
+    "page": {
+      "title": "Template:Data Poppy/Iron Ambassador",
+      "revid": 3994225
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "16 / 12 / 8 / 6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13,
+                19
+              ],
+              "values": [
+                16,
+                12,
+                8,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "Both attack missile and on-kill return missile speeds"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Poppy's next basic attack on-attack is empowered to throw her buckler, gaining 350 bonus range and dealing 20 – 180 (based on level) bonus magic damage. After it hits, the buckler then falls to a location near the target over 1 second, landing and remaining there for up to 4 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Innate: Periodically, Poppy's next basic attack on-attack is empowered to throw her buckler, gaining 350 bonus range and dealing 20 – 180 (based on level) bonus magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                29.4117647058824,
+                38.8235294117647,
+                48.2352941176471,
+                57.6470588235294,
+                67.0588235294118,
+                76.4705882352941,
+                85.8823529411765,
+                95.2941176470588,
+                104.705882352941,
+                114.117647058824,
+                123.529411764706,
+                132.941176470588,
+                142.352941176471,
+                151.764705882353,
+                161.176470588235,
+                170.588235294118,
+                180,
+                189.411764705882,
+                198.823529411765
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Poppy's next basic attack on-attack is empowered to throw her buckler, gaining 350 bonus range and dealing 20 – 180 (based on level) bonus magic damage."
+          }
+        ]
+      },
+      {
+        "text": "Poppy can move over the buckler to retrieve it, gaining a shield for 11 – 20 (based on level)% of her maximum health for 3 seconds. If the buckler kills the target, or if the target is already dead when the buckler hits it, the buckler will bounce back to Poppy instead of falling. Enemy champions can move over the buckler to destroy it.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Poppy can move over the buckler to retrieve it, gaining a shield for 11 – 20 (based on level)% of her maximum health for 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                11,
+                11.5294117647059,
+                12.0588235294118,
+                12.5882352941176,
+                13.1176470588235,
+                13.6470588235294,
+                14.1764705882353,
+                14.7058823529412,
+                15.2352941176471,
+                15.7647058823529,
+                16.2941176470588,
+                16.8235294117647,
+                17.3529411764706,
+                17.8823529411765,
+                18.4117647058824,
+                18.9411764705882,
+                19.4705882352941,
+                20,
+                20.5294117647059,
+                21.0588235294118
+              ],
+              "past18": "wiki"
+            },
+            "context": "Poppy can move over the buckler to retrieve it, gaining a shield for 11 – 20 (based on level)% of her maximum health for 3 seconds."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Poppy will not throw the buckler if she begins her attack windup before Iron Ambassador's cooldown has elapsed.",
+      "Iron Ambassador's buckler attack counts as melee."
+    ]
+  },
+  {
+    "champion": "Poppy",
+    "kind": "Q",
+    "name": "Hammer Shock",
+    "page": {
+      "title": "Template:Data Poppy/Hammer Shock",
+      "revid": 4064860
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7 / 6 / 5 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35 / 40 / 45 / 50 / 55",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                35,
+                40,
+                45,
+                50,
+                55
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.3325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.3325
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "460 • -120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 460
+            },
+            "label": "Forward range, considered edge range but behaves weirdly. Value is for targets of 65 radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Backward range, considered edge range but behaves weirdly. Value is for targets of 65 radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Poppy smashes the area in the target direction, dealing physical damage to enemies hit. Against minions and monsters, the damage based on their health ratio is capped.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "30 / 55 / 80 / 105 / 130 (+ 75% bonus AD) (+ 7 / 7.5 / 8 / 8.5 / 9% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  55,
+                  80,
+                  105,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      7,
+                      7.5,
+                      8,
+                      8.5,
+                      9
+                    ]
+                  },
+                  "text": "(+ 7 / 7.5 / 8 / 8.5 / 9% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Capped Minion/Monster Health Damage",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Minion/Monster Damage",
+            "amount": {
+              "text": "100 / 160 / 220 / 280 / 340 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  160,
+                  220,
+                  280,
+                  340
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The impact creates a field for 1 second that slows enemies within, which then ruptures to deal the same physical damage.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "20 / 23 / 26 / 29 / 32% (+ 0.8% per 100 Poppy's bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  23,
+                  26,
+                  29,
+                  32
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:other:poppy's bonus health",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.8
+                  },
+                  "text": "(+ 0.8% per 100 Poppy's bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 150% bonus AD) (+ 14 / 15 / 16 / 17 / 18% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% bonus AD)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      14,
+                      15,
+                      16,
+                      17,
+                      18
+                    ]
+                  },
+                  "text": "(+ 14 / 15 / 16 / 17 / 18% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Maximum Minion/Monster Damage",
+            "amount": {
+              "text": "200 / 320 / 440 / 560 / 680 (+ 150% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  320,
+                  440,
+                  560,
+                  680
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                20,
+                23,
+                26,
+                29,
+                32
+              ]
+            },
+            "evidence": "The impact creates a field for 1 second that slows enemies within, which then ruptures to deal the same physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shields will block only a single instance of damage.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Poppy",
+    "kind": "R",
+    "name": "Keeper's Verdict",
+    "page": {
+      "title": "Template:Data Poppy/Keeper's Verdict",
+      "revid": 4007992
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 120 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                120,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25 • 0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Uncharged release"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            },
+            "label": "Charged release"
+          }
+        ]
+      },
+      "range": {
+        "text": "500 • 850 / 1025 / 1200 (based on channel time)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Uncharged range"
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0.5,
+                0.75,
+                1
+              ],
+              "values": [
+                850,
+                1025,
+                1200
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "180 • 225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Uncharged radius around Poppy"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Eruption radius upon missile collision"
+          }
+        ]
+      },
+      "width": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Both uncharged area and shockwave missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            },
+            "label": "Shockwave missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto",
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Poppy charges while being slowed by 15% for up to 4 seconds to increase Keeper's Verdict's range and knock back distance over 0.5 seconds after the first 0.5 seconds of the channel. Keeper's Verdict can be recast within the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charges",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Poppy charges while being slowed by 15% for up to 4 seconds to increase Keeper's Verdict's range and knock back distance over 0.5 seconds after the first 0.5 seconds of the channel.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 15
+            },
+            "evidence": "Active: Poppy charges while being slowed by 15% for up to 4 seconds to increase Keeper's Verdict's range and knock back distance over 0.5 seconds after the first 0.5 seconds of the channel.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Poppy charges while being slowed by 15% for up to 4 seconds to increase Keeper's Verdict's range and knock back distance over 0.5 seconds after the first 0.5 seconds of the channel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Poppy releases the charge to launch her hammer upwards, dealing physical damage to enemies nearby and in an area in front of her and knocking them up for 1 second.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "100 / 150 / 200 (+ 45% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Recast: Poppy releases the charge to launch her hammer upwards, dealing physical damage to enemies nearby and in an area in front of her and knocking them up for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Keeper's Verdict was charged for at least 0.5 seconds, it deals 100% increased damage and enemies hit are knocked back up-to 3400 units toward the enemy team's fountain, during which they are revealed and rendered untargetable. Additionally, if no enemies are hit in front of Poppy, she sends a shockwave that travels in the target direction until it collides with an enemy champion, which causes a hammer to erupt. Targets hit by the shockwave or the eruption receive the charged effects.",
+        "leveling": [
+          {
+            "label": "Increased Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 90% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked back",
+            "evidence": "If Keeper's Verdict was charged for at least 0.5 seconds, it deals 100% increased damage and enemies hit are knocked back up-to 3400 units toward the enemy team's fountain, during which they are revealed and rendered untargetable.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "If Keeper's Verdict was charged for at least 0.5 seconds, it deals 100% increased damage and enemies hit are knocked back up-to 3400 units toward the enemy team's fountain, during which they are revealed and rendered untargetable.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "If Keeper's Verdict was charged for at least 0.5 seconds, it deals 100% increased damage and enemies hit are knocked back up-to 3400 units toward the enemy team's fountain, during which they are revealed and rendered untargetable.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "up-to 3400 units",
+            "tip": "Scales up to this value over the first 1 second of the channel"
+          },
+          {
+            "text": "in front",
+            "tip": "Same as uncharged radius"
+          }
+        ]
+      },
+      {
+        "text": "If the charge is interrupted or completes without reactivation, Keeper's Verdict is cancelled and the ability is put on a 30-second cooldown.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "If the charge is interrupted or completes without reactivation, Keeper's Verdict is cancelled and the ability is put on a 30-second cooldown.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The erupting hammer of the charged cast that sends out a missile will be centered on the first champion struck, not at the location the missile collided with them.",
+      "Enemies within the enemy team's fountain (at least 400 units away from the center of the fountain) that are hit by a Keeper's Verdict that would knock them back are instead knocked up for 0.75 seconds and not rendered untargetable, like the uncharged effect. They still receive the full damage.",
+      "Keeper's Verdict does not destroy in-flight projectiles for enemies hit if they are rendered untargetable.",
+      "The knock back will only displace enemies as far as they can go (e.g. to the furthest current spot available of Realm of Death and The Hextech Ultimatum borders and to the corner of the fountain).\n  - The displacement's duration will remain unchanged regardless of if the knock back cannot achieve its full distance due to the affected target being restricted by boundaries they are unable to cross. In order for this to be possible, the speed of the knock back is decreased (based on where the actual landing point is) to match the amount of distance covered to time spent displaced.",
+      "Keeper's Verdict's airborne debuff is non-dispellable and thus cannot be removed by cleansing effects.\n  - The debuff will remove itself automatically when the forced movement ends.",
+      "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest activate after 0.2 seconds into the cast time of Keeper's Verdict's recast. They do not activate if the first cast's channel is interrupted or times out.",
+      "The following table refers for interactions while Poppy is channeling:"
+    ]
+  },
+  {
+    "champion": "Poppy",
+    "kind": "W",
+    "name": "Steadfast Presence",
+    "page": {
+      "title": "Template:Data Poppy/Steadfast Presence",
+      "revid": 4051176
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive - Stubborn to a Fault",
+        "text": "Passive - Stubborn to a Fault: Poppy increases her total armor and total magic resistance by 16%, doubled to 32% while she is below 40% maximum health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Poppy gains 40% bonus movement speed and creates an aura around herself for 2 seconds, causing all enemies who attempt to dash into or within it to be dealt magic damage and knocked up for 0.5 seconds. If a target was successfully interrupted, they become grounded and slowed by 25% for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "Active: Poppy gains 40% bonus movement speed and creates an aura around herself for 2 seconds, causing all enemies who attempt to dash into or within it to be dealt magic damage and knocked up for 0.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Poppy gains 40% bonus movement speed and creates an aura around herself for 2 seconds, causing all enemies who attempt to dash into or within it to be dealt magic damage and knocked up for 0.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "If a target was successfully interrupted, they become grounded and slowed by 25% for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 25
+            },
+            "evidence": "If a target was successfully interrupted, they become grounded and slowed by 25% for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Steadfast Presence can only block a single dash per enemy per cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Stubborn to a Fault's armor amplification stacks with an instance of recursion.",
+      "Steadfast Presence does not stop dashes if the unit is crowd control immune, displacement immune, untargetable, or protected by spell shield in the process (e.g. Death Mark, Stormbringer, Unstoppable Force).\n  - Dashes when the unit is crowd control immune or displacement immune still trigger the aura and take the damage, but do not get knocked up and thus also never become grounded and slowed.\n  - Spell shields deny all the effects if Steadfast Presence is triggered by their holder, and are consumed in the process.\n  - Being untargetable prevents Steadfast Presence from triggering, but this does not prevent it from triggering against another, targetable dash.",
+      "Steadfast Presence does not trigger against lunges."
+    ]
+  }
+]

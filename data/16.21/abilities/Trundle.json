@@ -1,0 +1,849 @@
+[
+  {
+    "champion": "Trundle",
+    "kind": "E",
+    "name": "Pillar of Ice",
+    "page": {
+      "title": "Template:Data Trundle/Pillar of Ice",
+      "revid": 4008207
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "21 / 19.5 / 18 / 16.5 / 15",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                21,
+                19.5,
+                18,
+                16.5,
+                15
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "360 • 225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 360
+            },
+            "label": "Slow zone radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Knockback radius and destination"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Trundle erects a pillar of ice at the target location for 6 seconds, which knocks back units hit up to 225 units from its center. The pillar acts as terrain and slows nearby enemies.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "34 / 38 / 42 / 46 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  34,
+                  38,
+                  42,
+                  46,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks back",
+            "evidence": "Active: Trundle erects a pillar of ice at the target location for 6 seconds, which knocks back units hit up to 225 units from its center.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                34,
+                38,
+                42,
+                46,
+                50
+              ]
+            },
+            "evidence": "The pillar acts as terrain and slows nearby enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Pillar radius",
+        "text": "150"
+      }
+    ],
+    "notes": [
+      "Pillar of Ice displaces allied units away from the area but does not render them airborne.\n  - Allied channels (e.g. Recall, Teleport) will be interrupted however.",
+      "Pillar of Ice cannot be placed inside impassable terrain. Attempting to do so will cause the pillar to spawn in the nearest available spot of accessible terrain.",
+      "Pillar Of Ice triggers effects such as drawing turret aggro, Sudden Impact and applying Elixir of Sorcery by dealing 0 proc true damage."
+    ]
+  },
+  {
+    "champion": "Trundle",
+    "kind": "I",
+    "name": "King's Tribute",
+    "page": {
+      "title": "Template:Data Trundle/King's Tribute",
+      "revid": 3986655
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever a nearby enemy dies, Trundle heals himself for 1.8 – 5.5 (based on level)% of their maximum health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Innate: Whenever a nearby enemy dies, Trundle heals himself for 1.8 – 5.5 (based on level)% of their maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1.8,
+                2.01764705882353,
+                2.23529411764706,
+                2.45294117647059,
+                2.67058823529412,
+                2.88823529411765,
+                3.10588235294118,
+                3.32352941176471,
+                3.54117647058824,
+                3.75882352941176,
+                3.97647058823529,
+                4.19411764705882,
+                4.41176470588235,
+                4.62941176470588,
+                4.84705882352941,
+                5.06470588235294,
+                5.28235294117647,
+                5.5,
+                5.71764705882353,
+                5.93529411764706
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Whenever a nearby enemy dies, Trundle heals himself for 1.8 – 5.5 (based on level)% of their maximum health."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "King's Tribute does not trigger when an enemy structure is destroyed."
+    ]
+  },
+  {
+    "champion": "Trundle",
+    "kind": "Q",
+    "name": "Chomp",
+    "page": {
+      "title": "Template:Data Trundle/Chomp",
+      "revid": 3949665
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "3.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3.5
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Trundle empowers his next basic attack within 7 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 75% for 0.1 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "10 / 30 / 50 / 70 / 90 (+ 15 / 25 / 35 / 45 / 55% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  30,
+                  50,
+                  70,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      15,
+                      25,
+                      35,
+                      45,
+                      55
+                    ]
+                  },
+                  "text": "(+ 15 / 25 / 35 / 45 / 55% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Trundle empowers his next basic attack within 7 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 75% for 0.1 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 0.1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 75
+            },
+            "evidence": "Active: Trundle empowers his next basic attack within 7 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 75% for 0.1 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After using the empowered attack, Trundle gains bonus attack damage for 5 seconds and reduces the target's bonus attack damage by half that amount for the same duration.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Damage",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Attack Damage Reduction",
+            "amount": {
+              "text": "10 / 12.5 / 15 / 17.5 / 20",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  12.5,
+                  15,
+                  17.5,
+                  20
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Chomp resets Trundle's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Chomp resets Trundle's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Chomp will still incur the attack damage increase for Trundle even if the attack is dodged, blocked, missed while he is blinded, or it is blocked by spell shield.",
+      "Spell shield will only block the attack damage reduction and slow.",
+      "If the attack damage reduction would reduce the target's bonus attack damage below 0, the target's base attack damage value is unaffected, but their total attack damage will still be reduced. The target will however retain a bonus attack damage value of 0.\n  - Effects that scale with total attack damage, such as basic attacks, will take the attack damage reduction into account for their calculations.\n    - Those that have a ratio for base attack damage or bonus attack damage do not take the reduction into account."
+    ]
+  },
+  {
+    "champion": "Trundle",
+    "kind": "R",
+    "name": "Subjugate",
+    "page": {
+      "title": "Template:Data Trundle/Subjugate",
+      "revid": 4015247
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Trundle drains the life force out of the target enemy champion, dealing magic damage and healing himself for the same amount. He also reduces 40% of their current armor and magic resistance, while gaining the same amount reduced as bonus armor and bonus magic resistance, respectively, for himself. Additionally, he increases in size by 18% while reducing the target's size by 9.9%.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "20 / 25 / 30% (+ 2% per 100 AP) of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Total Healing",
+            "amount": {
+              "text": "20 / 25 / 30% (+ 2% per 100 AP) of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "Active: Trundle drains the life force out of the target enemy champion, dealing magic damage and healing himself for the same amount.",
+            "conditional": false
+          },
+          {
+            "type": "size change",
+            "category": "other",
+            "wording": "size",
+            "evidence": "Additionally, he increases in size by 18% while reducing the target's size by 9.9%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Half of the drain's total damage, healing, and resistances reduction is applied on-cast, while the other half is applied every second over the next 4 seconds. The size modifiers last for 8 seconds and are applied over the first 2.25 seconds of the duration, both increasing Trundle's size by 2% and reducing the target's size by 1.1% every 0.25 seconds.",
+        "leveling": [
+          {
+            "label": "Initial Magic Damage",
+            "amount": {
+              "text": "10 / 12.5 / 15% (+ 1% per 100 AP) of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  12.5,
+                  15
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Magic Damage Per Second",
+            "amount": {
+              "text": "2.5 / 3.125 / 3.75% (+ 0.25% per 100 AP) of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.5,
+                  3.125,
+                  3.75
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.25
+                  },
+                  "text": "(+ 0.25% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Initial Healing",
+            "amount": {
+              "text": "10 / 12.5 / 15% (+ 1% per 100 AP) of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  12.5,
+                  15
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Healing Per Second",
+            "amount": {
+              "text": "2.5 / 3.125 / 3.75% (+ 0.25% per 100 AP) of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.5,
+                  3.125,
+                  3.75
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.25
+                  },
+                  "text": "(+ 0.25% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The resistances reduction on the target will linger for 4 seconds after the drain has ended.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Subjugate deals persistent damage, additionally tagged as indirect damage, and applies spell effects.",
+      "Subjugate will snapshot the values of the target's current maximum health, total armor, and total magic resistance as soon as it completes its cast. The drain debuff will calculate the remaining half of the damage, healing, and resistances reduction based on these snapshotted values, even if the target's health or resistances change. The snapshot lasts until the debuff expires.",
+      "The target's resistances will be further reduced by 5% per drain tick, up to 20% by the end of the drain (totaling to 40% reduction from the initial 20% reduction on-cast).",
+      "Trundle will gain the reduced resistances of the target for himself for as long as they remain reduced, including while they are lingering after the drain.",
+      "The resistances gained is based on the current reduced resistances of the target; the total amount that would be reduced is not granted to Trundle all at once. In other words, he will initially gain 20% of the target's resistances, then the remaining 20% over the 4 seconds, gaining additional bonus resistances equal to the resistances reduced per drain tick.",
+      "Trundle gains 11.7 extra range on his basic attacks (relative to his and enemy center) as a consequence of his increased size.\n  - So do his enemies.\n  - He gains 3.78 to 6.255 range against the target he subjugated, depending on their base size, and so does the target against him.",
+      "The debuff on the target also persists through death.",
+      "Trundle will lose the buff if the target loses the debuff, for example if it enters resurrection.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Trundle",
+    "kind": "W",
+    "name": "Frozen Domain",
+    "page": {
+      "title": "Template:Data Trundle/Frozen Domain",
+      "revid": 4057475
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "775",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 775
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Trundle coats the target location in ice for 8 seconds. While he is within the area, he gains bonus attack speed, bonus movement speed, and 25% increased healing from all sources.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "30 / 50 / 70 / 90 / 110%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70,
+                  90,
+                  110
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 28 / 36 / 44 / 52%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  28,
+                  36,
+                  44,
+                  52
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "While he is within the area, he gains bonus attack speed, bonus movement speed, and 25% increased healing from all sources.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  }
+]

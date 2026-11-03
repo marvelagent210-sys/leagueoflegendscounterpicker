@@ -1,4 +1,6 @@
+import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { FIGHT, castTimes, coverage, overFights } from "../hints";
 import { memo, setStat } from "../runtime";
 import { applyFrom, joinHooks } from "./shared";
 
@@ -17,6 +19,11 @@ export const LiandrysTorment: ItemModule = {
     const combat = fighter.combat();
     item.assume("Torment burns on the kit's ability damage, its damage over time included; a new burn replaces the one running. Pets' damage doesn't burn: their hits aren't the holder's.");
     return {
+      // The burn while ability damage renews it; Suffering's stacks over the seconds of the fight.
+      budget: {
+        damage: (self, enemy) => ({ magic: (share / interval) * derive(enemy).maxHp * overFights(castTimes(self, (use) => use.damaging), (times) => coverage(times, seconds)) }),
+        stats: () => [{ stat: "damageDealt", value: perStack * Array.from({ length: FIGHT }, (_, second) => Math.min(maxStacks, second)).reduce((a, b) => a + b, 0) / FIGHT }],
+      },
       hooks: joinHooks({
         onDamageDealt(ctx) {
           if (!fighter.isAbilityDamage(ctx)) return;

@@ -1,4 +1,4 @@
-/** Blitzcrank's pinned five templates, with exact 16.20 game-file attribution. */
+/** Blitzcrank's pinned five templates, with exact game-file attribution. */
 import { absorbWithShields } from "../../engine/rules/defense";
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, canStartAttack, inAttackRange, inReach } from "../../engine/sim/actions";
@@ -74,7 +74,7 @@ const blitzcrank: KitModule = {
     r.gameQuote('"name":"ZapCountdown","values":[1.0,1.0,1.0,1.0,1.0,1.0,1.0]', rPath);
     r.gameQuote('"mCoefficient":0.019999999552965164,"__type":"AbilityResourceByCoefficientCalculationPart"', rPath);
     r.gameQuote('"name":"PassiveManaRatio","values":[0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806]', rPath);
-    kit.assume("Mana Barrier uses 35% maximum mana, as the pinned primary template states; the exact 16.20 resource calculation is retained as evidence. No pre-duel damage or resource spending is invented.");
+    kit.assume("Mana Barrier uses 35% maximum mana, as the pinned primary template states; the exact game-file resource calculation is retained as evidence. No pre-duel damage or resource spending is invented.");
     kit.assume("Overdrive follows the pinned template's observed 2.9-second linear decay; the exact game file's MoveSpeedModMinTime is 2.5 seconds. The first simulation stat update retains the full initial bonus.");
     kit.assume("Rocket Grab uses its 1080-unit finite missile, 70-unit collision radius and first actual champion or damageable pet body, followed by the pinned 1115-unit center-range end check. Its one-dimensional rectangle has no lateral coordinate.");
     kit.assume("Power Fist's random lateral knockup displacement has no deterministic lane direction, so its one-second airborne uses zero lane displacement. Structures, plants and wards are unavailable duel bodies.");

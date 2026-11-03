@@ -1,13 +1,16 @@
-/** The enemy picker: every champion ranked against the enemy, by simulated duels and by the ledger. */
+/** The enemy picker: every champion ranked against the enemy, by simulated duels (with item builds or plain stats) and by the ledger. */
 import { useEffect, useMemo, useState } from "react";
 import { compareChampionIds } from "../../../engine/championOrder";
 import { rankCounters } from "../../../engine/ledger/index";
 import { SCENARIO_LABELS, SCENARIOS } from "../../../engine/sim/scenarios";
 import type { Champion } from "../../../engine/types";
+import { type BuildsMatchup, buildsMatchup, shownResults } from "../builds";
 import { ChampionSearch } from "../components/ChampionSearch";
+import { BuildLists, VariantNotes } from "../components/BuildLists";
+import { ResultsToggle } from "../components/ResultsToggle";
 import { Confidence, ErrorBox, Progress, ScaleHead, Score, ScoreBar } from "../components/common";
 import { type AppData, findChampion } from "../data";
-import { lastEnemy, rememberEnemy, useMatchupBatch, useSettings } from "../hooks";
+import { lastEnemy, rememberEnemy, useMatchupBatch, useResults, useSettings } from "../hooks";
 import { routeHash } from "../routes";
 import { needsSimulation } from "../sim/cache";
 
@@ -50,30 +53,45 @@ export function PickerPage({ data, enemyId }: { data: AppData; enemyId?: string 
   );
 }
 
+interface SimulatedRowData {
+  id: string;
+  scenarios: Array<number | null>;
+  score: number;
+  /** The matchup's item builds, when the duels shown are the build matrix's. */
+  builds?: BuildsMatchup;
+}
+
 function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champion; hasKit: boolean }) {
   const { settings } = useSettings();
+  const { wanted } = useResults();
   const others = useMemo(() => data.kitIds.filter((id) => id !== enemy.id), [data, enemy.id]);
-  const custom = hasKit && needsSimulation(settings, data.precomputedCompatible);
+  const builds = shownResults(data.builds, wanted, settings) === "builds" ? data.builds : undefined;
+  const custom = hasKit && !builds && needsSimulation(settings, data.precomputedCompatible);
   const batch = useMatchupBatch(data, others, enemy.id, settings, custom);
   const rows = useMemo(() => {
     if (!hasKit) return [];
     return others
-      .map((id) => {
+      .map((id): SimulatedRowData | undefined => {
+        if (builds) {
+          const matchup = buildsMatchup(builds, id, enemy.id, settings);
+          return matchup ? { id, scenarios: matchup.scenarios, score: matchup.score, builds: matchup } : undefined;
+        }
         const run = custom ? batch.runs.get(id) : undefined;
         const values = custom ? undefined : data.simulated.matchups[id]?.[enemy.id];
         const scenarios = custom ? run?.scenarios.map((s) => s.score) : values?.slice(1);
         const score = custom ? run?.score : values?.[0];
         return scenarios && typeof score === "number" ? { id, scenarios, score } : undefined;
       })
-      .filter((row): row is { id: string; scenarios: Array<number | null>; score: number } => row !== undefined)
+      .filter((row): row is SimulatedRowData => row !== undefined)
       .sort((a, b) => b.score - a.score || compareChampionIds(a.id, b.id));
-  }, [hasKit, others, custom, batch.runs, data, enemy.id, settings.weights]);
+  }, [hasKit, others, builds, custom, batch.runs, data, enemy.id, settings]);
 
   return (
     <section className="section" aria-labelledby="simulated-head">
       <div className="title-row">
         <h3 id="simulated-head">Simulated duels</h3>
         {hasKit ? <Confidence full /> : null}
+        {hasKit && data.builds ? <ResultsToggle /> : null}
       </div>
       {!hasKit ? (
         <p className="note">
@@ -82,10 +100,18 @@ function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champ
         </p>
       ) : (
         <>
-          <p className="note">
-            Each pick fought {enemy.name} through six scenarios, both at level 20 and each spending {settings.gold.toLocaleString("en-US")} gold of plain stats against the
-            other. The score runs from −1 ({enemy.name} wins every time) to +1 (the pick does). Open a row for the scenarios.
-          </p>
+          {builds ? (
+            <p className="note">
+              Each pick fought {enemy.name} through six scenarios, both at level 20 with six finished items: each side's build is the one the build search found to do
+              best against the other's. The score runs from −1 ({enemy.name} wins every time) to +1 (the pick does). Open a row for the scenarios and both builds.
+            </p>
+          ) : (
+            <p className="note">
+              Each pick fought {enemy.name} through six scenarios, both at level 20 and each spending {settings.gold.toLocaleString("en-US")} gold of plain stats against the
+              other. The score runs from −1 ({enemy.name} wins every time) to +1 (the pick does). Open a row for the scenarios.
+              {data.builds && wanted === "builds" ? " The item builds were played at the default fight settings, so with yours the duels are plain stats." : ""}
+            </p>
+          )}
           {batch.error ? <ErrorBox error={batch.error} /> : custom && batch.done < batch.total ? (
             <div className="section" aria-live="polite">
               <p className="note">
@@ -109,10 +135,11 @@ function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champ
   );
 }
 
-function SimulatedRow({ data, enemy, rank, row }: { data: AppData; enemy: Champion; rank: number; row: { id: string; scenarios: Array<number | null>; score: number } }) {
+function SimulatedRow({ data, enemy, rank, row }: { data: AppData; enemy: Champion; rank: number; row: SimulatedRowData }) {
   const [open, setOpen] = useState(false);
   const { settings } = useSettings();
   const name = data.byId.get(row.id)?.name ?? row.id;
+  const variants = row.builds?.variants;
   return (
     <li className="row" data-open={open}>
       <button type="button" className="row-main cols" aria-expanded={open} onClick={() => setOpen(!open)}>
@@ -135,6 +162,8 @@ function SimulatedRow({ data, enemy, rank, row }: { data: AppData; enemy: Champi
               <span className="val">{row.scenarios[i] === null ? "n/a" : <Score value={row.scenarios[i]} />}</span>
             </div>
           ))}
+          {row.builds ? <BuildLists names={[name, enemy.name]} builds={row.builds.builds} /> : null}
+          <VariantNotes names={[name, enemy.name]} ids={[row.id, enemy.id]} variants={variants} />
           <div className="row-links">
             <a href={routeHash({ page: "matchup", you: row.id, enemy: enemy.id })}>
               {name} vs {enemy.name}: fights and numbers

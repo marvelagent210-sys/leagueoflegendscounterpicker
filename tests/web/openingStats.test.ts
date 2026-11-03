@@ -10,7 +10,7 @@ import type { Champion, ChampionDataset } from "../../engine/types";
 import { DEFAULT_APP_SETTINGS, type AppSettings } from "../../web/src/settings";
 import { combatStatSnapshots, kitFor, runMatchup, type MatchupRun, type SimSource } from "../../web/src/sim/run";
 
-const DIR = path.join(import.meta.dirname, "..", "..", "data", "16.20");
+const DIR = path.join(import.meta.dirname, "..", "..", "data", "16.21");
 const read = <T>(file: string): T => JSON.parse(readFileSync(path.join(DIR, file), "utf8")) as T;
 const champions = new Map(read<ChampionDataset>("champions.json").champions.map((champion) => [champion.id, champion]));
 const champion = (id: string): Champion => {

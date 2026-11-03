@@ -1,0 +1,250 @@
+{
+  "champion": "Talon",
+  "name": "Talon",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "talon",
+      "formName": "Talon",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.981428,
+      "attackDamage": 128.962,
+      "windup": 0.126092,
+      "modifiers": [
+        "Blade's End"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Talon",
+      "kind": "E",
+      "name": "Assassin's Path",
+      "page": {
+        "title": "Template:Data Talon/Assassin's Path",
+        "revid": 3907201
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "terrain-targeted"
+            }
+          ],
+          "targeting": "terrain-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 2,
+      "castTime": 0,
+      "range": 725,
+      "speed": 100,
+      "notes": [
+        "When Assassin's Path is cast on terrain that is out of range, Talon will walk to the location where he is able to cast the ability and dash over this area of terrain. If he encounters other terrain along the way, however, he will cast Assassin's Path over the obstructive area of terrain instead.\n  - This override will fail if his path to the location would be obstructed by terrain that is on cooldown. In this case, the ability will not cast at all.",
+        "Talon will stop dashing upon entering stasis but will continue to do so afterwards.",
+        "Talon will reveal himself for 0.6 seconds upon casting Assassin's Path if he is visible to an enemy champion or there is a nearby enemy champion or minion within 400 units of the landing position."
+      ]
+    },
+    {
+      "champion": "Talon",
+      "kind": "I",
+      "name": "Blade's End",
+      "page": {
+        "title": "Template:Data Talon/Blade's End",
+        "revid": 4046483
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Blade End's enhanced attack will still trigger if blocked, but not if they are dodged or missed while Talon is blinded.\n  - Duration of the stacks is not refreshed if the attack is dodged or missed.",
+        "Spell shield prevents Wound stacks from being applied.\n  - Spell shield prevents Blade End's enhanced attack from triggering though still consuming all Wound stacks."
+      ]
+    },
+    {
+      "champion": "Talon",
+      "kind": "Q",
+      "name": "Noxian Diplomacy",
+      "page": {
+        "title": "Template:Data Talon/Noxian Diplomacy",
+        "revid": 4015970
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Talon/Noxian Diplomacy",
+              "revid": 4015970,
+              "quote": "If Noxian Diplomacy kills the target, Talon heals for 9 / 11.7059 / 14.4118 / 17.1176 / 19.8235 / 22.5294 / 25.2353 / 27.9412 / 30.6471 / 33.3529 / 36.0588 / 38.7647 / 41.4706 / 44.1765 / 46.8824 / 49.5882 / 52.2941 / 55 / 57.7059 / 60.4118 (based on level) and the ability's cooldown is reduced by 50%."
+            }
+          ]
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0.198,
+      "range": 575,
+      "speed": 1400,
+      "boostsAttacks": true,
+      "notes": [
+        "Talon will track the target if they change locations with the ranged version of Noxian Diplomacy, landing at an offset of 100 units before reaching them.\n  - He will dash to the target's previous location while still dealing damage if the target is too far away or moves beyond 800 units.",
+        "When cast in close range, Noxian Diplomacy deals its damage at the completion of the cast time, rather than at the dash's completion.\n  - The damage will be dealt even if Talon's dash is interrupted, so long as the cast time is completed.",
+        "Talon will be ordered to basic attack the target at the end of the dash.",
+        "While grounded or rooted, Noxian Diplomacy can only be cast within close range.\n  - Talon will still dash to the target in both cases.",
+        "Noxian Diplomacy will also grant the heal if the target dies upon Talon's completion of the dash.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).** This only applies to the close dash attack."
+      ]
+    },
+    {
+      "champion": "Talon",
+      "kind": "R",
+      "name": "Shadow Assault",
+      "page": {
+        "title": "Template:Data Talon/Shadow Assault",
+        "revid": 4008078
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Talon/Shadow Assault",
+              "revid": 4008078,
+              "quote": "Active: Talon disperses a ring of blades around him that deals physical damage to enemies hit and lingers at maximum range for up to 2.5 seconds, during which he gains invisibility and bonus movement speed."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 60,
+      "castTime": 0,
+      "speed": 2400,
+      "notes": [
+        "Spell shield will block a single pass.",
+        "Using a basic attack breaks the stealth at the end of the attack windup."
+      ]
+    },
+    {
+      "champion": "Talon",
+      "kind": "W",
+      "name": "Rake",
+      "page": {
+        "title": "Template:Data Talon/Rake",
+        "revid": 4008077
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Talon/Rake",
+              "revid": 4008077,
+              "quote": "At maximum range, the daggers linger for 0.7 seconds before homing back to Talon, dealing physical damage to enemies hit and slowing them for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 2571,
+      "notes": [
+        "Casting Rake when an enemy is within 650 radius and 26° angle in front of Talon will reveal him from the fog of war like a targeted cast.\n  - This is because of Rake's internal Cone targeting type, which defaults to \"targeting\" all units in the preset area and thereby trigger revealing the caster if not toggled off for the spell.",
+        "If Talon dies while Rake is mid-air, the projectiles will still complete their travel."
+      ]
+    }
+  ]
+}

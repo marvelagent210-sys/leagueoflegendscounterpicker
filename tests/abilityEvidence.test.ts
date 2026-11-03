@@ -4,7 +4,7 @@ import type { AbilityRecord } from "../engine/abilities";
 import { GAME_EXCERPTS, RECORD_CORRECTIONS, WIKI_ADDITIONS, attachEvidence, fieldAt, rawFieldAt, rawObjectAt, type GameExcerpt } from "../pipeline/abilities/evidence";
 import { records } from "./kits/helpers";
 
-const gameVersion = (JSON.parse(readFileSync(new URL("../data/16.20/manifest.json", import.meta.url), "utf8")) as { cdragon: { version: string } }).cdragon.version;
+const gameVersion = (JSON.parse(readFileSync(new URL("../data/16.21/manifest.json", import.meta.url), "utf8")) as { cdragon: { version: string } }).cdragon.version;
 
 function expectGameExcerpt(excerpt: GameExcerpt, record: AbilityRecord | undefined): void {
   const where = `${excerpt.champion} ${excerpt.ability} ${excerpt.object}`;
@@ -31,7 +31,7 @@ function expectGameExcerpt(excerpt: GameExcerpt, record: AbilityRecord | undefin
   expect(source!.version, where).toBe(gameVersion);
   expect(source!.sha256, where).toMatch(/^[a-f0-9]{64}$/);
   const folder = excerpt.character.toLowerCase();
-  expect(source!.url, where).toBe(`https://raw.communitydragon.org/16.20/game/data/characters/${folder}/${folder}.bin.json`);
+  expect(source!.url, where).toBe(`https://raw.communitydragon.org/16.21/game/data/characters/${folder}/${folder}.bin.json`);
 }
 
 /** The curated evidence (pipeline/abilities/evidence.ts) that the build adds to ability records. */
@@ -68,7 +68,7 @@ describe("curated ability evidence", () => {
     if (problem === "malformed value") source.text = source.text.map((entry) => entry === line ? `${field}: not JSON` : entry);
     if (problem === "different version") source.version = "16.19.1";
     if (problem === "invalid hash") source.sha256 = "not a SHA-256";
-    if (problem === "different file") source.url = "https://raw.communitydragon.org/16.20/game/data/characters/other/other.bin.json";
+    if (problem === "different file") source.url = "https://raw.communitydragon.org/16.21/game/data/characters/other/other.bin.json";
     expect(() => expectGameExcerpt(excerpt, record)).toThrow();
   });
 
@@ -92,7 +92,7 @@ describe("curated ability evidence", () => {
     const addition = WIKI_ADDITIONS.find((a) => a.anchor)!;
     const record = records(addition.champion).find((r) => r.name === addition.ability)!;
     const fresh = (): AbilityRecord[] => [{ ...record, notes: [], sources: undefined, gameSources: undefined }];
-    const input = { bin: () => undefined, wikitext: () => "a page that says something else", revision: () => undefined, version: "16.20.1", dataset: "16.20" };
+    const input = { bin: () => undefined, wikitext: () => "a page that says something else", revision: () => undefined, version: "16.20.1", dataset: "16.21" };
     expect(() => attachEvidence(fresh(), addition.champion, input, [], undefined, [])).toThrow(/no longer says/);
     const excerpt = GAME_EXCERPTS[0]!;
     const excerptRecord = records(excerpt.champion).find((r) => r.name === excerpt.ability)!;
@@ -107,7 +107,7 @@ describe("curated ability evidence", () => {
       const fresh = (): AbilityRecord[] => [{ ...record, notes: [], sources: undefined }];
       const { title, revid } = addition.source!.page;
       const page = `the whole of ${title}`;
-      const input = (revision: number | undefined) => ({ bin: () => undefined, wikitext: (t: string) => (t === title ? page : undefined), revision: (t: string) => (t === title ? revision : undefined), version: "16.20.1", dataset: "16.20" });
+      const input = (revision: number | undefined) => ({ bin: () => undefined, wikitext: (t: string) => (t === title ? page : undefined), revision: (t: string) => (t === title ? revision : undefined), version: "16.20.1", dataset: "16.21" });
       if (addition.unfetched) {
         // The downloads don't have the page: the curated text stands as written.
         const kept = fresh();
@@ -126,7 +126,7 @@ describe("curated ability evidence", () => {
 
   const bin = '{"Other":{"mSpell":{"missileSpeed":1.0}},"Obj":{"mSpell":{"missileSpeed":2250.0,"DataValues":[{"name":"A","values":[1.0,2.5]}],"Calc":{"parts":[{"breakpoints":[{"mLevel":7,"bonus":0.5,"__type":"Breakpoint"}]}]}}}}';
   const synthetic = (): AbilityRecord[] => [{ ...records("Xayah")[0]!, name: "Test", notes: ["x"], sources: undefined, gameSources: undefined }];
-  const binInput = { bin: () => bin, wikitext: () => "{{anchor}}", revision: () => undefined, version: "16.20.1", dataset: "16.20" };
+  const binInput = { bin: () => bin, wikitext: () => "{{anchor}}", revision: () => undefined, version: "16.20.1", dataset: "16.21" };
 
   it("keeps an exact excerpt as the game file writes it, or re-serializes it by default", () => {
     expect(rawFieldAt(bin, "Obj", "mSpell.missileSpeed")).toBe("2250.0");

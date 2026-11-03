@@ -7,7 +7,7 @@ import { SCENARIOS, SCENARIO_WEIGHTS } from "../engine/sim/scenarios";
 import { readCheckpoint, writeCheckpoint, type CheckpointContext } from "../pipeline/sim/checkpoint";
 import type { PairResult } from "../pipeline/sim/pool";
 
-const dataset = "16.20";
+const dataset = "16.21";
 const gold = 15000;
 const pair: [string, string] = ["Aatrox", "Darius"];
 const spent = () => Object.fromEntries(BUDGET_STATS.map((stat) => [stat, stat === "ad" ? gold : 0])) as Record<BudgetStat, number>;

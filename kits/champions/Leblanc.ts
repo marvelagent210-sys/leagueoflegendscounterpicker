@@ -31,7 +31,7 @@ const leblanc: KitModule = {
     // The authored series extends a formula the prose explicitly caps at level 18.
     const minionSeries = q.seriesIn("bonus magic damage against minions");
     if (minionSeries.kind !== "level" || minionSeries.values[17] === undefined) throw new Error("Leblanc: capped minion damage series changed");
-    const minionBonus = q.quoted("orb deals 10 – 146", 1);
+    const minionBonus = q.quoted("with 10 – 146 (based on level) bonus magic damage against minions", 1);
     if (minionSeries.values[17] !== minionBonus) throw new Error("Leblanc: capped minion damage differs from the primary prose");
     const manaRefund = q.quoted("refunds 100% of its mana cost") / 100, cooldownRefund = q.quoted("30% of its remaining cooldown") / 100, qCost = q.cost();
     q.quote("Sigil of Malice and Mimic: Sigil of Malice can detonate each other's marks");

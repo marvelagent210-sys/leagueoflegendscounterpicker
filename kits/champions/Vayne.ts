@@ -1,4 +1,4 @@
-/** Vayne, from the pinned 16.20 ability records. */
+/** Vayne, from the pinned ability records. */
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, inAttackRange } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";

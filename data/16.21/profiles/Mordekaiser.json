@@ -1,0 +1,265 @@
+{
+  "champion": "Mordekaiser",
+  "name": "Mordekaiser",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "mordekaiser",
+      "formName": "Mordekaiser",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.747906,
+      "attackDamage": 139.66,
+      "windup": 0.282558,
+      "modifiers": [
+        "Darkness Rise"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Mordekaiser",
+      "kind": "E",
+      "name": "Death's Grasp",
+      "page": {
+        "title": "Template:Data Mordekaiser/Death's Grasp",
+        "revid": 4070332
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Mordekaiser/Death's Grasp",
+              "revid": 4070332,
+              "quote": "After 0.5 seconds, it deals magic damage to enemies within and pulls them over 250 units."
+            }
+          ],
+          "variant": "pull"
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 700,
+      "speed": 3000
+    },
+    {
+      "champion": "Mordekaiser",
+      "kind": "I",
+      "name": "Darkness Rise",
+      "page": {
+        "title": "Template:Data Mordekaiser/Darkness Rise",
+        "revid": 4070051
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Darkness Rise's bonus damage on-hit is not applied against structures.",
+        "Mordekaiser will still generate Darkness Rise stacks from hitting his abilities even if they deal no damage, such as if the target is invulnerable or blocks an ability with a spell shield.",
+        "Basic attacks do not generate a stack if their damage event does not happen due to the target being invulnerable, or the attack being dodged, blocked, or missed while Mordekaiser is blinded.",
+        "Dusk and Dawn Spellblade on-hit event is special cased to generate an additional Darkness Rise stack.\n  - The on-hit event is not triggered if the triggering attack is dodged, blocked, or missed while Mordekaiser is blinded, thus not generating a Darkness Rise stack. It is still triggered against invulnerable targets, generating a Darkness Rise stack."
+      ]
+    },
+    {
+      "champion": "Mordekaiser",
+      "kind": "Q",
+      "name": "Obliterate",
+      "page": {
+        "title": "Template:Data Mordekaiser/Obliterate",
+        "revid": 4078264
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.5,
+      "range": 22.5
+    },
+    {
+      "champion": "Mordekaiser",
+      "kind": "R",
+      "name": "Realm of Death",
+      "page": {
+        "title": "Template:Data Mordekaiser/Realm of Death",
+        "revid": 4082248
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "attack speed slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "attack speed reduction"
+            }
+          ]
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Mordekaiser/Realm of Death",
+              "revid": 4082248,
+              "quote": "Active: Mordekaiser aims his mace towards the target enemy champion, slowing them by 75% and revealing them over the cast time, and then banishing them with him to the Death Realm for 7 seconds."
+            }
+          ],
+          "duration": 7,
+          "amount": 75
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "berserk",
+            "charm",
+            "fear",
+            "taunt"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Mordekaiser/Realm of Death",
+              "revid": 4082248,
+              "quote": "Mordekaiser also consumes the target's soul for 7 seconds, healing himself for 10% of their maximum health and reducing their current ability power, total attack speed, maximum health, armor, magic resistance, and size by 10% for the duration."
+            }
+          ],
+          "duration": 7
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0.5,
+      "range": 650,
+      "notes": [
+        "The Death Realm is a battlefield that exists outside of the normal realm in an alternate \"dimension\". It exists only for Mordekaiser and his target. It consists of an arena that has a radius of 1200 units and includes any terrain features that would exist in the map of the normal realm, including walls and brushes.\n  - Structures exist in all realms at the same time. Turrets will behave normally as if all units were in the same realm.\n  - The boundaries of the arena are impassable but not considered terrain themselves (Unstoppable Onslaught exception), and enemies that try to move out of the area will be displaced back inside.\n  - Dashes, blinks, displacements and other forms of movement will cap their effect range to the boundary. Targets will stop at the boundary even after it expired.",
+        "Realm of Death will cancel and go on cooldown after its cast time if:\n  - The target is displacement immune, crowd control immune or protected by a spell shield.\n    - Note that all of the above are ineffective if they are applied after the target has been banished.\n  - The target is a clone or Sion when his Glory in Death is active.",
+        "If the target becomes untargetable, dies, is too far away or Mordekaiser loses sight of them due to nearsight during the cast time, this ability will cancel but does not go on cooldown.",
+        "Spell shield will not block the initial slow.",
+        "The reveal effect lasts for 1.25 seconds from the start of the cast time if the cast does not complete. Otherwise, the reveal ends as soon as the cast time completes.",
+        "Camouflaged units will become visible if an enemy champion is within their detection range, even if the champion is in a different realm.",
+        "Realm of Death's maximum health reduction ignores invulnerability effects.",
+        "Entering or leaving the Death Realm will cause all targeted projectiles to be destroyed.",
+        "The transition in and out of the Death Realm doesn't interrupt channels.\n  - Grand Starfall will always be interrupted by the transition into the realm.",
+        "Upon entering the realm, Mordekaiser and the target are cleansed from all forced action effects.\n  - The cleanse will occur even if the source of the crowd control enters the realm.",
+        "Realm of Death's interactions with other elements/abilities (This list might be incomplete, last updated on patch V26.16):\n  - Multiple Death Realms (possible through a hijacked Realm of Death or if multiple Mordekaisers are in the same match) spawned will exist in the same realm, allowing champions to see and interact with champions bound to other circles. Champions are only affected by their boundaries and are not able to see the others.\n    - Devour can carry a target outside of their circle, but they will be displaced back inside once Regurgitated.\n    - An active Cease and Desist on a target outside the perimeter will cause Vi to continue her charge until her circle ends. She can knock back and damage secondary targets multiple times.\n  - Champions inside the Death Realm continue gaining gold and experience from any source, which includes nearby and global bounties as well as neutral buffs.\n  - Turret's Crystalline Overgrowth can still be triggered while inside the Death Realm.\n  - Wards placed in the Death Realm will not be destroyed at its end.\n    - The ward limit for each champion will be separate for the Death Realm.\n  - The faelights and jungle plants (Blast Cone, Honeyfruit, Scryer's Bloom) will not be present in the Death Realm.\n  - Hex-gates on Hextech Rift will not be present between realms.\n    - The Eye of the Herald can still spawn in the Death Realm if its automatically consumed while inside.\n      - The Herald will die at the end of Realm of Death.\n  - Controllable pets and clones can still be commanded between realms.\n  - Mordekaiser will be given gold, if applicable, for pets killed at the end of Realm of Death.\n    - Clones and Tentacles will not be killed at the end of Realm of Death.\n  - Switching realms detaches all attached champions on either of the two champions entering the realm.\n  - The allied health, resource, and ultimate indicators (champion portraits located on the screen) will not update between realms as the players have no vision of them.\n  - Pings used in the Death Realm will appear in the chat and mini-map, but will not appear in the map.\n  - Any spawned terrain while in the Death Realm will remain inside until expired. They will not be destroyed.\n  - Except for some cases, spells that require a target to be cast (e.g Shuriken Flip, Contaminate) will not affect enemies in other realms nor will be castable if there's no targets in the same realm as the caster.\n  - Bandage Toss, Rocket Grab, Zenith Blade, Dredge Line, Bone Skewer and Death Sentence will still hit targets if their caster switches realms before they hit.\n  - The Hextech Ultimatum, Goes Where He Pleases, Biggest Snowball Ever! and Absolute Zero, Death from Below, Realm Warp, Spirit's Refuge, Worked Ground and Shadows will follow their caster between realms.\n  - Orb of Deception will stay in the realm it was cast.\n    - The orb will still go back towards Ahri position.\n  - Avengerang will stay in the realm it was cast.\n    - The boomerang will only go back towards Akshan position if it was already doing so during the realm switch.\n  - Comeuppance bullets will get destroyed if he switches realms, even if its target is Mordekaiser.\n  - Glacial Storm will not be dispelled if Anivia switches realms, but it will only be present in the realm it was cast.\n  - Void Corals will only be present in the realm they spawned in.\n    - If Bel'Veth switches realms while she is consuming a Void Coral, the Void Coral will dissappear and she will not get her True Form nor deal damage to nearby enemies.\n  - Camille will still be able to use Hookshot dash if she switches realms before the spell hits.\n  - Chum the Waters will follow its target between realms.\n  - Test of Spirit tether will be destroyed if her target switches realms.\n    - Test of Spirit target will not be made into a Vessel.\n  - Flawless Duet will be recast automatically when switching realms, and will only affect enemies in the realm it was cast.\n  - Rootcaller can still be recast if the target is in a different realm than him.\n  - Cataclysm deactivation VFX will appear in the realm he is at.\n  - Killer Instinct can only be cast towards enemies in the same realm she is at.\n  - Fate's Call cannot be cast if her oathsworn is in another realm, but if the spell was cast before entering the Death Realm, it will function as normal and will only affect targets in the oathsworn's realm.\n  - Requiem will damage enemies in all realms.\n  - Umbral Trespass will be interrupted and will not deal damage if its target switches realms.\n  - Lilting Lullaby will only affect enemies in the same realm as her.\n  - Glacial Path can still be recast if the spell was initially cast in another realm.\n      - Pix will still be able to return to Lulu as normal, even if her ally's still in the Death Realm.\n  - If Purgatory totem is in the ground, it will follow Locke between realms.\n    - If the totem closes in a different realm than Locke, the totem will be visible in Locke's realm but it will only be pickable in the realm it closed.\n  - Prismatic Barrier will grant her its second shield if she switches realms as the wand is coming back.\n  - Void Shift is special cased to not resist the slow but instead resist the realm switch after the cast completes.\n  - Golden Eclipse will only deal damage to enemies in the same realm she is at the end of the cast.\n  - Hounds' Pursuit dash will still go through if she switches realms during the cast.\n  - Depth Charge will not follow its target between realms.\n  - Inherent Glamour does not copy Mordekaiser's Realm of Death form.\n  - Pop Blossom will follow her between realms but only the leap VFX will be visible.\n  - Apotheosis will only deal damage to enemies in the realm it was cast.\n    - It will still heal/shield targets in Nilah realm at the end of the cast.\n  - Paranoia only applies nearsight to enemy champions in the same realm as him.\n  - Ball will go back to her after switching realms.\n  - Phantom Undertow will not follow him if he switches realms while the Phantom is coming back.\n  - Tunnels will not follow her between realms.\n    - If Rek'Sai is already on a tunnel when switching realms, her dash will not be interrupted.\n  - Wish will heal targets in all realms.\n  - Nevermove can still be recast if the target is in another realm, but nothing will happen.\n  - Abduct will not hit enemies if he switches realms during the spell's animation.\n  - Force of Will will cancel on realm switch.\n  - Unleashed Power will only affect enemies in the realm it was cast, even if its target is Mordekaiser.\n  - Devour target will get spit on realm switch. The target will still be dealt damage by the spit if applicable.\n  - Weaver's Wall will get interrupted on realm switch.\n  - Shadow Assault will follow him between realms but the blades will be invisible. The blades will become visible again on recast.\n  - Bastion link will be temporarily disabled while in the Death Realm. The link will not break.\n  - Dark Passage will go back to him on realm switch.\n  - Wingborne Storm will stay in the realm it was cast.\n    - If the storm's target is sent to a different realm than Udyr, the storm will start following him instead.\n      - The storm's tracking VFX will stay in its target until the end of the spell.\n  - Fear Beyond Death cannot be recast if the target is not in the same realm as him.\n    - If the target is being reeled in however, the execution at the end of the channel will take place regardless of the realm either he or the target is in.\n  - Event Horizon will spawn in Veigar's realm at the end of the cast.\n  - Harrowed Path will follow him between realms.\n    - The ground mist will be visible in all realms.\n  - Arcane Storm can be redirected with its recast even if Viktor is in a different realm from the singularity.\n  - Bladecaller cannot call Feathers between realms.\n  - Last Breath will be interrupted if its target switches realms, unless the target is Mordekaiser.\n  - Soul Unbound cannot be recast inside of the Death Realm.\n  - Dreaded Return will only pull affected enemies in the same realm it was cast.\n  - Cryptbloom nova will spawn at the user's realm and will only affect targets in said realm."
+      ]
+    },
+    {
+      "champion": "Mordekaiser",
+      "kind": "W",
+      "name": "Indestructible",
+      "page": {
+        "title": "Template:Data Mordekaiser/Indestructible",
+        "revid": 4016354
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Mordekaiser/Indestructible",
+              "revid": 4016354,
+              "quote": "Active: Mordekaiser consumes his Potential Shield to grant himself a shield for the same amount for 4 seconds."
+            }
+          ],
+          "duration": 4
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Mordekaiser/Indestructible",
+              "revid": 4016354,
+              "quote": "Recast: Mordekaiser consumes the remaining shield, healing for a portion of the amount."
+            }
+          ]
+        }
+      ],
+      "cooldown": 8,
+      "castTime": 0
+    }
+  ]
+}

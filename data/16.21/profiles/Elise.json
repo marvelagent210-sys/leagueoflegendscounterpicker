@@ -1,0 +1,358 @@
+{
+  "champion": "Elise",
+  "name": "Elise",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "elise",
+      "formName": "Elise",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 0.840086,
+      "attackDamage": 113.995,
+      "windup": 0.223191,
+      "modifiers": [
+        "Spider Queen"
+      ]
+    },
+    {
+      "form": "elise-spider-form",
+      "formName": "Spider Form",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.840086,
+      "attackDamage": 113.995,
+      "windup": 0.223191,
+      "modifiers": [
+        "Spider Queen"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Elise",
+      "kind": "E",
+      "name": "Cocoon",
+      "page": {
+        "title": "Template:Data Elise/Cocoon",
+        "revid": 3906643
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Elise/Cocoon",
+              "revid": 3906643,
+              "quote": "Active: Elise fires a web in the target direction, stunning the first enemy hit for a few seconds, during which they are also revealed."
+            }
+          ],
+          "duration": 2.4
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1600
+    },
+    {
+      "champion": "Elise",
+      "kind": "E",
+      "name": "Rappel",
+      "page": {
+        "title": "Template:Data Elise/Rappel",
+        "revid": 4007596
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location",
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Elise/Rappel",
+              "revid": 4007596,
+              "quote": "Active: Elise and her Spiderlings lift up into the air over 0.6 seconds, immediately becoming untargetable and unable to act, and afterwards vanishing for up to 1.95 seconds and granting sight of the surrounding 900 units for the duration."
+            }
+          ],
+          "duration": 0.6
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "range": 825,
+      "usableWhileDisabled": {
+        "which": "recast",
+        "evidence": [
+          {
+            "page": "Template:Data Elise/Rappel",
+            "revid": 4007596,
+            "quote": "recast can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "When Elise casts Rappel, a circle outlines the area in which a target can be selected to descend upon.\n  - Elise will always attempt to position behind her target at the same offset if she descends within than Rappel's max range (825), provided there is enough space at the other side. If the target is at the edge of the recast's radius, Elise will not appear at the exact offset behind her target but as close to them as possible instead.\n    - For example, if the target's edge is barely within range for the recast, she will appear in front of them.\n  - If Elise's location-targeted recast is used by issuing a movement command within the respective range of Rappel, she will descend as normal but then move to the location that the movement command was issued; her movement commands will not be interrupted from descending."
+      ]
+    },
+    {
+      "champion": "Elise",
+      "kind": "I",
+      "name": "Spider Queen",
+      "page": {
+        "title": "Template:Data Elise/Spider Queen",
+        "revid": 4064845
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Elise/Spider Queen",
+              "revid": 4064845,
+              "quote": "Innate - Spider Form: Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage and heal her for 6 – 12 (based on level) (+ 8% AP) on-hit."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Spider Form's basic attacks will apply other on-hit effects and can critically strike as normal (the bonus damage does not).\n  - Spider Form's bonus damage and healing can be blocked, dodge and are not applied if Elise is blind.",
+        "Applies proc damage on the bonus magic damage on-hit in Spider Form."
+      ]
+    },
+    {
+      "champion": "Elise",
+      "kind": "Q",
+      "name": "Neurotoxin",
+      "page": {
+        "title": "Template:Data Elise/Neurotoxin",
+        "revid": 3982568
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 575,
+      "speed": 2200,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Elise",
+      "kind": "Q",
+      "name": "Venomous Bite",
+      "page": {
+        "title": "Template:Data Elise/Venomous Bite",
+        "revid": 4090548
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 475,
+      "speed": 1150,
+      "notes": [
+        "Elise will not dash if the target is within basic attack range.\n  - This ability is disabled while grounded or rooted even if Elise is in the range in which she does not dash.",
+        "The dash and reveal take place from the start of the cast time.",
+        "If Elise is allowed to dash, Venomous Bite can be used to cross sufficiently thin terrain.",
+        "Spiderlings can cross walls and terrain to reach Venomous Bite's target and will attack provided Elise stays within their leash range.\n  - There is a maximum range in which Spiderlings or Volatile Spiderlings can dash to the target.",
+        "Spiderlings will dash even if they are crowd controlled.",
+        "Venomous Bite will always apply its effects after the cast time, even if the dash is interrupted.",
+        "Venomous Bite's reveal is a small area around the target, making it possible for them to exit the reveal radius and lose vision.",
+        "Venomous Bite will still deal its damage but not apply on-hit effects if it is blocked or dodged. It cannot be missed while Elise is blinded.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Elise",
+      "kind": "R",
+      "name": "Spider Form / Human Form",
+      "page": {
+        "title": "Template:Data Elise/Spider Form / Human Form",
+        "revid": 3979322
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Elise/Spider Form / Human Form",
+              "revid": 3979322,
+              "quote": "Additionally, she summons all stored Spiderlings and heals them to full health."
+            }
+          ]
+        }
+      ],
+      "cooldown": 3,
+      "castTime": 0,
+      "notes": [
+        "If Spider Form is cast during a basic attack windup, Elise will perform a Spider Form basic attack that benefits from the bonus damage and healing from Spider Queen, but remain at Human Form basic attack range, despite not using a projectile. This basic attack is considered a melee attack and thus will not trigger Runaan's Hurricane's Wind's Fury bolts.\n  - Spider Form and Human Form have separate cooldowns."
+      ]
+    },
+    {
+      "champion": "Elise",
+      "kind": "W",
+      "name": "Skittering Frenzy",
+      "page": {
+        "title": "Template:Data Elise/Skittering Frenzy",
+        "revid": 4064846
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Elise",
+      "kind": "W",
+      "name": "Volatile Spiderling",
+      "page": {
+        "title": "Template:Data Elise/Volatile Spiderling",
+        "revid": 3906822
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.125,
+      "range": 950,
+      "notes": [
+        "If Volatile Spiderling dashes to a target due to Venomous Bite, it will not expire before finishing its jump.\n  - It can still collide with enemies while dashing, but since this proximity check is repeated only every so often, it might phase through an enemy on its way without detecting the collision if dashing quickly enough."
+      ]
+    }
+  ]
+}

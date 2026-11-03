@@ -1,0 +1,1037 @@
+[
+  {
+    "champion": "Nilah",
+    "kind": "E",
+    "name": "Slipstream",
+    "page": {
+      "title": "Template:Data Nilah/Slipstream",
+      "revid": 3927625
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "26 / 22.5 / 19 / 15.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                26,
+                22.5,
+                19,
+                15.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana + 1 charge",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Dash distance"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2200
+            },
+            "label": "Dash speed does not scale with Nilah's Move Speed stat"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Radius on dash start location, a width alongside the dash and bugged at the end?"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nilah dashes a fixed distance in the direction of the target unit, dealing physical damage to enemies she passes through.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 70 / 80 / 90 / 100 (+ 20% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  70,
+                  80,
+                  90,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Nilah dashes a fixed distance in the direction of the target unit, dealing physical damage to enemies she passes through.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Nilah periodically stocks a Slipstream charge, up to a maximum of 2.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Slipstream resets Nilah's basic attack timer. Formless Blade and Apotheosis can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Slipstream resets Nilah's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Formless Blade used during Slipstream might not register, rendering it on cooldown without being casted.",
+      "Slipstream has a chance of visually not using charge, causing it to showing one available charge without possibility of using it.",
+      "Dashing to target through a wall within casting range will cancel the dash if wall is longer than dash range."
+    ]
+  },
+  {
+    "champion": "Nilah",
+    "kind": "I",
+    "name": "Joy Unending",
+    "page": {
+      "title": "Template:Data Nilah/Joy Unending",
+      "revid": 3960984
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Healing and shielding interaction radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever Nilah kills a minion, she and the nearest allied champion gain an additional 50% of the experience they would have lost from sharing.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever a nearby allied champion uses an ability to heal or shield either Nilah or themselves, both they and Nilah receive a bonus amount equal to 7.5% of the healing or 15% of the shielding after a 0.5-second delay. Bonus shielding lasts as long as the shield that triggered the effect, up to a maximum duration of 4 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Innate: Whenever a nearby allied champion uses an ability to heal or shield either Nilah or themselves, both they and Nilah receive a bonus amount equal to 7.5% of the healing or 15% of the shielding after a 0.5-second delay.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Innate: Whenever a nearby allied champion uses an ability to heal or shield either Nilah or themselves, both they and Nilah receive a bonus amount equal to 7.5% of the healing or 15% of the shielding after a 0.5-second delay.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Nilah will gain a portion of all healing and all shielding from nearby allies that activate either of the effects on themselves while she is within range of them.\n  - The same applies to allies that grant Nilah a heal or shield; they gain a portion of the heal or shield given to her by them, even if the heal or shield affects both units.",
+      "Heal and shields granted by items, runes, and summoner spells will not trigger the increased amount.",
+      "The heal and shield increases do not trigger from their own heal or shield.",
+      "Nilah may still gain a shield from her allies' shields even if they are longer than 4 seconds, but the buff of the shield will only last for up to 4 seconds.",
+      "Nilah can receive a normal shield from nearby allies that gain physical or magic shields."
+    ]
+  },
+  {
+    "champion": "Nilah",
+    "kind": "Q",
+    "name": "Formless Blade",
+    "page": {
+      "title": "Template:Data Nilah/Formless Blade",
+      "revid": 4007708
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35 / 0.33 / 0.297 / 0.28 (based on bonus attack speed) • None",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "bonus attack speed",
+              "points": [
+                0,
+                13.72,
+                36.358,
+                48
+              ],
+              "values": [
+                0.35,
+                0.33,
+                0.297,
+                0.28
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "0 - 600 • -150 - 500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            },
+            "label": "Rectangle length, starts at 0 distance from Nilah"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Cone attacks hit units between 150 units behind Nilah and 500 before her. Radius center unknown"
+          }
+        ]
+      },
+      "width": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Rectangle width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "false",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Nilah gains 0 / 3 / 6 / 9 / 12 / 15 / 18 / 21 / 24 / 27 / 30 (based on critical strike chance)% armor penetration. Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                3,
+                6,
+                9,
+                12,
+                15,
+                18,
+                21,
+                24,
+                27,
+                30
+              ]
+            },
+            "context": "Passive: Nilah gains 0 / 3 / 6 / 9 / 12 / 15 / 18 / 21 / 24 / 27 / 30 (based on critical strike chance)% armor penetration."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                2,
+                4,
+                6,
+                8,
+                10,
+                12,
+                14,
+                16,
+                18,
+                20
+              ]
+            },
+            "context": "Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Nilah cracks her whip-blade in a line in the target direction that deals physical damage to enemies hit, increased by critical strike damage (based on critical strike chance). Formless Blade can hit structures and applies life steal at 100% effectiveness to one target.",
+        "leveling": [
+          {
+            "label": "Minimum Physical Damage",
+            "amount": {
+              "text": "0 / 10 / 20 / 30 / 40 (+ 100% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  0,
+                  10,
+                  20,
+                  30,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Physical Damage",
+            "amount": {
+              "text": "0 / 19.1 / 38.2 / 57.3 / 76.4 (+ 191% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  0,
+                  19.1,
+                  38.2,
+                  57.300000000000004,
+                  76.4
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 191
+                  },
+                  "text": "(+ 191% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "applies",
+            "evidence": "Formless Blade can hit structures and applies life steal at 100% effectiveness to one target.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Formless Blade can hit structures and applies life steal at 100% effectiveness to one target.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Formless Blade is cast during Slipstream, Nilah leaves behind a wave that is sent towards her location at the end of the dash, dealing the same damage to enemies hit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If Formless Blade hits an enemy, Nilah empowers herself for 4 seconds: gaining 125 bonus attack range and 10 – 60 (based on level)% bonus attack speed, and causing her basic attacks to strike in a cone that deals 100% AD physical damage to enemies hit. Against secondary non-champion targets, this is reduced to 33% AD for minions, and additionally executes minions left below 20 health. On-hit effects are applied only to the primary target.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "On-hit",
+            "evidence": "On-hit effects are applied only to the primary target.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                12.9411764705882,
+                15.8823529411765,
+                18.8235294117647,
+                21.7647058823529,
+                24.7058823529412,
+                27.6470588235294,
+                30.5882352941176,
+                33.5294117647059,
+                36.4705882352941,
+                39.4117647058823,
+                42.3529411764706,
+                45.2941176470588,
+                48.2352941176471,
+                51.1764705882353,
+                54.1176470588235,
+                57.0588235294118,
+                60,
+                62.9412,
+                65.8824
+              ],
+              "past18": "game files"
+            },
+            "context": "If Formless Blade hits an enemy, Nilah empowers herself for 4 seconds: gaining 125 bonus attack range and 10 – 60 (based on level)% bonus attack speed, and causing her basic attacks to strike in a cone that deals 100% AD physical damage to enemies hit."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 33
+            },
+            "context": "Against secondary non-champion targets, this is reduced to 33% AD for minions, and additionally executes minions left below 20 health."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Formless Blade's active cast triggers call for help for dealing damage despite not being a targeted spell.",
+      "Applies area damage on the empowered attacks.",
+      "Spell shield will not block Formless Blade's empowered basic attacks.",
+      "Parrying effects (dodge, block, blind) will negate Formless Blade's empowered attacks only as the primary target.",
+      "Formless Blade's damage to the primary target of the enhanced attacks is affected by Infinity Edge and classified as basic damage.",
+      "The target to which Nilah applies life steal to is unpredictable."
+    ]
+  },
+  {
+    "champion": "Nilah",
+    "kind": "R",
+    "name": "Apotheosis",
+    "page": {
+      "title": "Template:Data Nilah/Apotheosis",
+      "revid": 4007709
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 95 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                95,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "450 • 1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Damage radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Ally heal/shield radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nilah whirls her whip-blade over 1 second, dealing physical damage to nearby enemies every 0.25 seconds. She then unleashes a burst that deals physical damage and pulls them 250 units towards her. Each hit also slows targets by 10% for 3 seconds, refreshing on subsequent hits.",
+        "leveling": [
+          {
+            "label": "Physical Damage per Tick",
+            "amount": {
+              "text": "15 / 25 / 35 (+ 10% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  25,
+                  35
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "60 / 100 / 140 (+ 40% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  100,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Burst Physical Damage",
+            "amount": {
+              "text": "125 / 225 / 325 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  225,
+                  325
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Total Physical Damage",
+            "amount": {
+              "text": "185 / 325 / 465 (+ 140% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  185,
+                  325,
+                  465
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 140
+                  },
+                  "text": "(+ 140% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulls",
+            "evidence": "She then unleashes a burst that deals physical damage and pulls them 250 units towards her.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 10
+            },
+            "evidence": "Each hit also slows targets by 10% for 3 seconds, refreshing on subsequent hits.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                20,
+                23,
+                26,
+                29,
+                32,
+                35,
+                38,
+                41,
+                44,
+                47,
+                50
+              ]
+            },
+            "context": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
+      },
+      {
+        "text": "Nilah is unable to basic attack and cast her other abilities during Apotheosis, but she is able to move.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Apotheosis can pull enemies through walls and can knock them across Nilah's location.",
+      "Spell shield will only block the burst damage.",
+      "Apotheosis shielding reuses indicators from Joy Unending.",
+      "The following table refers for interactions while Nilah is performing Apotheosis:"
+    ]
+  },
+  {
+    "champion": "Nilah",
+    "kind": "W",
+    "name": "Jubilant Veil",
+    "page": {
+      "title": "Template:Data Nilah/Jubilant Veil",
+      "revid": 3845922
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "26 / 25 / 24 / 23 / 22",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                26,
+                25,
+                24,
+                23,
+                22
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "60 / 45 / 30 / 15 / 0",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                45,
+                30,
+                15,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      },
+      "collisionRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Ally buff collision radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nilah envelops herself in mist for 2.25 seconds, during which she becomes ghosted, gains bonus movement speed, reduces all incoming magic damage taken by 25%, and dodges all non-turret basic attacks.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "15 / 17.5 / 20 / 22.5 / 25%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  17.5,
+                  20,
+                  22.5,
+                  25
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 2.25
+            },
+            "evidence": "Active: Nilah envelops herself in mist for 2.25 seconds, during which she becomes ghosted, gains bonus movement speed, reduces all incoming magic damage taken by 25%, and dodges all non-turret basic attacks.",
+            "conditional": false
+          },
+          {
+            "type": "dodge",
+            "category": "defense",
+            "wording": "dodges",
+            "duration": {
+              "kind": "constant",
+              "value": 2.25
+            },
+            "evidence": "Active: Nilah envelops herself in mist for 2.25 seconds, during which she becomes ghosted, gains bonus movement speed, reduces all incoming magic damage taken by 25%, and dodges all non-turret basic attacks.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Allied champions she touches will also be enveloped for 1.5 seconds, gaining the same effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "she touches",
+            "tip": "Being within collision range of them"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Allies may only be affected by Jubilant Veil once every 6 seconds.",
+      "Jubilant Veil's cooldown is not affected by Spear of Shojin Dragonforce."
+    ]
+  }
+]

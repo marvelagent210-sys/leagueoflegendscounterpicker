@@ -1,4 +1,5 @@
 import type { ItemModule } from "../equip";
+import { FIGHT, incoming } from "../hints";
 import { applyFrom } from "./shared";
 
 export const DeathsDance: ItemModule = {
@@ -11,7 +12,16 @@ export const DeathsDance: ItemModule = {
     pain.quote(words);
     const cut = (fighter.ranged ? share.ranged : share.melee) / 100;
     item.assume("Ignore Pain takes its share of each hit after shields, and each hit's stored damage bleeds on its own, a third each second; the holder deals the bleed to itself.");
+    // The damage still stored when the holder falls: its share of what arrives over the bleed's
+    // mean delay (a third after each of 1, 2 and 3 seconds: 2 seconds).
+    const delay = (seconds + 1) / 2;
     return {
+      budget: {
+        shielding(self, enemy) {
+          const coming = incoming(self, enemy);
+          return (cut * delay * (coming.physical + coming.magic)) / FIGHT;
+        },
+      },
       hooks: {
         modifyDamageAfterShields(ctx) {
           if (ctx.damageType === "true" || ctx.amount <= 0) return ctx.amount;

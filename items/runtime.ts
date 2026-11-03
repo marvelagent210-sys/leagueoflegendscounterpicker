@@ -183,6 +183,8 @@ export interface EnergizedPart {
 
 /** The holder's Energized charges, which every Energized item it holds shares. */
 export interface Energized {
+  /** The rule's numbers: the charges an Energized attack needs, and those each basic attack gives. */
+  rule: { full: number; perAttack: number; unitsPerCharge: number };
   add(part: EnergizedPart): void;
   hooks: KitHooks;
   /** Spends full charges outside a basic attack (Voltaic Cyclosword's Galvanize); whether there were any. */
@@ -211,6 +213,7 @@ export function energizedPool(rule: { full: number; perAttack: number; unitsPerC
     for (const part of parts) part.onHit?.(ctx, scale);
   };
   return {
+    rule,
     add: (part) => parts.push(part),
     spend(ctx, scale) {
       if (charges(ctx.self) < rule.full) return false;

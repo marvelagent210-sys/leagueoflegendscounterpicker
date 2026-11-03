@@ -1,5 +1,6 @@
-/** React glue: the route, loading state, the visitor's settings, and simulation results. */
+/** React glue: the route, loading state, the visitor's settings and choice of results, and simulation results. */
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { type ResultsMode, RESULTS_MODES } from "./builds";
 import type { AppData } from "./data";
 import { type Route, parseRoute } from "./routes";
 import { type AppSettings, DEFAULT_APP_SETTINGS, simulationKey, sanitize } from "./settings";
@@ -79,6 +80,42 @@ export function useStoredSettings(): SettingsState {
 
 export function useSettings(): SettingsState {
   return useContext(SettingsContext);
+}
+
+const RESULTS_KEY = "kit-counter-picker:results";
+
+export interface ResultsState {
+  /** The results the visitor wants: item builds unless they chose plain stats. */
+  wanted: ResultsMode;
+  setWanted(next: ResultsMode): void;
+}
+
+export const ResultsContext = createContext<ResultsState>({ wanted: "builds", setWanted: () => {} });
+
+function readResults(): ResultsMode {
+  try {
+    const raw = localStorage.getItem(RESULTS_KEY);
+    return RESULTS_MODES.find((mode) => mode === raw) ?? "builds";
+  } catch {
+    return "builds";
+  }
+}
+
+export function useStoredResults(): ResultsState {
+  const [wanted, set] = useState(readResults);
+  const setWanted = useCallback((next: ResultsMode) => {
+    set(next);
+    try {
+      localStorage.setItem(RESULTS_KEY, next);
+    } catch {
+      // Not remembered; the choice holds until the page closes.
+    }
+  }, []);
+  return useMemo(() => ({ wanted, setWanted }), [wanted, setWanted]);
+}
+
+export function useResults(): ResultsState {
+  return useContext(ResultsContext);
 }
 
 const LAST_ENEMY_KEY = "kit-counter-picker:enemy";

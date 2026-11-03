@@ -1,0 +1,1149 @@
+[
+  {
+    "champion": "Thresh",
+    "kind": "E",
+    "name": "Flay",
+    "page": {
+      "title": "Template:Data Thresh/Flay",
+      "revid": 4057474
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12.25 / 11.5 / 10.75 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12.25,
+                11.5,
+                10.75,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.3889",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.3889
+            },
+            "label": "Effects start immediately"
+          }
+        ]
+      },
+      "range": {
+        "text": "-550 • 525",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            },
+            "label": "Origin behind"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            },
+            "label": "End range in front"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "270",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 270
+            },
+            "label": "Radius around Thresh, estimated"
+          }
+        ]
+      },
+      "width": {
+        "text": "220",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 220
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "false",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Thresh's basic attacks are empowered to deal bonus magic damage, with the AD ratio increasing over 10 seconds without basic attacking enemies.",
+        "leveling": [
+          {
+            "label": "Minimum Bonus Magic Damage",
+            "amount": {
+              "text": "1.7 per Soul collected (+ 0% AD)",
+              "base": {
+                "kind": "constant",
+                "value": 1.7
+              },
+              "unit": "per Soul collected",
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0
+                  },
+                  "text": "(+ 0% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus Magic Damage",
+            "amount": {
+              "text": "1.7 per Soul collected (+ 90 / 120 / 150 / 180 / 210% AD)",
+              "base": {
+                "kind": "constant",
+                "value": 1.7
+              },
+              "unit": "per Soul collected",
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      90,
+                      120,
+                      150,
+                      180,
+                      210
+                    ]
+                  },
+                  "text": "(+ 90 / 120 / 150 / 180 / 210% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Thresh sweeps his chain across the ground in a broad line and a radius around him, starting behind him and towards the target direction. Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "65 / 110 / 155 / 200 / 245 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  110,
+                  155,
+                  200,
+                  245
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40
+              ]
+            },
+            "evidence": "Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Flay's effects start at the start of the cast time. Thresh can cast other spells once the cast time completes, but remains unable to attack and move and use mobility spells (such as Flash) until the chain completed its way entirely.",
+      "Applies area damage on the ability and deals proc damage on the enhanced basic attack.",
+      "The knockback's airborne debuff is set to last longer than the forced movement, but gets removed as soon as the forced movement from Flay ends or is overridden by another.",
+      "Flay's passive's buff icon changes colors depending on charge level. At 100%, Thresh's scythe will glow green and a sound effect will play.",
+      "Thresh Flay 2.png",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Flay|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = E\n|icon         = Flay.gif\n|icon2        = Flay.png\n|blurbicon = Flay.png\n|blurb        = {{sbc|Passive:}} {{cis|Thresh}} {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} based on ''{{ai|Damnation|Thresh|Souls}}'', which increases over a period without basic attacking enemies.\n|blurb2      = {{sbc|Active:}} '''Thresh''' sweeps his chain in a broad area, dealing {{as|magic damage}} to enemies hit and {{tip|airborne|knocking}} them in the target direction, after which they are briefly {{tip|slow|slowed}}.\n|description  = {{sbc|Passive:}} '''Thresh's''' {{tip|basic attacks}} are empowered to deal {{as|'''bonus''' magic damage}}, with the {{sti|{{as|AD}}}} ratio increasing over 10 seconds without basic attacking enemies.\n|leveling     = {{st|Minimum Bonus Magic Damage|{{fd|1.7}} per {{ai|Damnation|Thresh|Soul}} collected {{as|(+ 0% AD)}}}}\n{{st|Maximum Bonus Magic Damage|{{fd|1.7}} per {{ai|Damnation|Thresh|Soul}} collected {{as|(+ {{ap|90 to 210}}% AD)}}}}\n|description2 = {{sbc|Active:}} '''Thresh''' sweeps his chain across the ground in a broad line and a radius around him, starting behind him and towards the target direction. Enemies hit are dealt {{as|magic damage}} and {{tip|airborne|knocked}} 200 units in the target direction, and then are {{tip|slow|slowed}} for 1 second.\n|leveling2    = {{st|Magic Damage|{{ap|65 to 245}} {{as|(+ 60% AP)}}}}{{st|Slow|{{ap|20 to 40}}%}}\n|range = {{dv|{{tip|cr|icononly = true}} {{tt|-550|Origin behind}}|<!--standard missile front collision type-->{{tt|525|End range in front}}}}\n|width        = {{tip|er|icononly = true}} {{tt|220|Missile width}}\n|speed        = {{tt|2000|Missile speed}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|270|Radius around Thresh, estimated}}\n|cooldown     = {{ap|13 to 10}}\n|cost         = {{ap|60 to 80}}\n|cast time    = {{tt|{{fd|0.3889}}|Effects start immediately}}\n|costtype     = Mana\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = special\n|projectile   = false\n|grounded     = \n|knockdown    = \n|parry        = unknown\n|notes        = \n* ''Flay's'' effects start at the start of the cast time. '''Thresh''' can cast other spells once the cast time completes, but remains unable to attack and move and use mobility spells (such as {{si|Flash}}) until the chain completed its way entirely.\n* Applies {{tip|area damage}} on the ability and deals {{tip|proc damage}} on the enhanced basic attack.\n* The knockback's {{tip|airborne}} debuff is set to last longer than the forced movement, but gets removed as soon as the forced movement from ''Flay'' ends or is overridden by another.\n*''Flay's'' passive's buff icon changes colors depending on charge level. At 100%, ''Thresh's'' scythe will glow green and a sound effect will play.\n<center><gallery id=\"noaccent\" columns=\"4\" captionalign=\"center\" widths=\"64\" orientation=\"square\" spacing=\"small\">\nThresh Flay 2.png|0 - 50%\nThresh Flay 3.png|50 - 75%\nThresh Flay 4.png|75% - 100%\nThresh Flay 5.png|100%\n</gallery></center>\n* {{iis|Runaan's Hurricane}} {{nie|Wind's Fury}} will apply ''Flay's'' passive to each enemy hit, with the secondary targets taking minimum damage (charge resets upon hitting the primary target).\n* The enhanced attack applies other [[on-hit effect]]s and can {{tip|critical strike|critically strike}} as normal (the bonus damage cannot).\n* ''Flay's'' passive enhanced attack can be {{tip|dodged}} (the enhanced attack is not consumed and the charge is not reset) and {{tip|blocked}} (the enhanced attack is consumed and the charge is reset).\n* The empowered attack will not trigger against [[structures]] nor [[ward]]s.\n** {{Pending for test}}: Enhanced attack's interactions with {{tip|blind|blinding}} effects (regarding both bonus damage and charge reset).\n{{ct|cast|spells=true,false,false,false,false}}\n|flavorsound  = {{sm2|Thresh_Original_E_5.ogg}} ''\"This way!\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Thresh/Flay",
+          "revid": 4057474
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Flay|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = E\n|icon         = Flay.gif\n|icon2        = Flay.png\n|blurbicon = Flay.png\n|blurb        = {{sbc|Passive:}} {{cis|Thresh}} {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} based on ''{{ai|Damnation|Thresh|Souls}}'', which increases over a period without basic attacking enemies.\n|blurb2      = {{sbc|Active:}} '''Thresh''' sweeps his chain in a broad area, dealing {{as|magic damage}} to enemies hit and {{tip|airborne|knocking}} them in the target direction, after which they are briefly {{tip|slow|slowed}}.\n|description  = {{sbc|Passive:}} '''Thresh's''' {{tip|basic attacks}} are empowered to deal {{as|'''bonus''' magic damage}}, with the {{sti|{{as|AD}}}} ratio increasing over 10 seconds without basic attacking enemies.\n|leveling     = {{st|Minimum Bonus Magic Damage|{{fd|1.7}} per {{ai|Damnation|Thresh|Soul}} collected {{as|(+ 0% AD)}}}}\n{{st|Maximum Bonus Magic Damage|{{fd|1.7}} per {{ai|Damnation|Thresh|Soul}} collected {{as|(+ {{ap|90 to 210}}% AD)}}}}\n|description2 = {{sbc|Active:}} '''Thresh''' sweeps his chain across the ground in a broad line and a radius around him, starting behind him and towards the target direction. Enemies hit are dealt {{as|magic damage}} and {{tip|airborne|knocked}} 200 units in the target direction, and then are {{tip|slow|slowed}} for 1 second.\n|leveling2    = {{st|Magic Damage|{{ap|65 to 245}} {{as|(+ 60% AP)}}}}{{st|Slow|{{ap|20 to 40}}%}}\n|range = {{dv|{{tip|cr|icononly = true}} {{tt|-550|Origin behind}}|<!--standard missile front collision type-->{{tt|525|End range in front}}}}\n|width        = {{tip|er|icononly = true}} {{tt|220|Missile width}}\n|speed        = {{tt|2000|Missile speed}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|270|Radius around Thresh, estimated}}\n|cooldown     = {{ap|13 to 10}}\n|cost         = {{ap|60 to 80}}\n|cast time    = {{tt|{{fd|0.3889}}|Effects start immediately}}\n|costtype     = Mana\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = special\n|projectile   = false\n|grounded     = \n|knockdown    = \n|parry        = unknown\n|notes        = \n* ''Flay's'' effects start at the start of the cast time. '''Thresh''' can cast other spells once the cast time completes, but remains unable to attack and move and use mobility spells (such as {{si|Flash}}) until the chain completed its way entirely.\n* Applies {{tip|area damage}} on the ability and deals {{tip|proc damage}} on the enhanced basic attack.\n* The knockback's {{tip|airborne}} debuff is set to last longer than the forced movement, but gets removed as soon as the forced movement from ''Flay'' ends or is overridden by another.\n*''Flay's'' passive's buff icon changes colors depending on charge level. At 100%, ''Thresh's'' scythe will glow green and a sound effect will play.\n<center><gallery id=\"noaccent\" columns=\"4\" captionalign=\"center\" widths=\"64\" orientation=\"square\" spacing=\"small\">\nThresh Flay 2.png|0 - 50%\nThresh Flay 3.png|50 - 75%\nThresh Flay 4.png|75% - 100%\nThresh Flay 5.png|100%\n</gallery></center>\n* {{iis|Runaan's Hurricane}} {{nie|Wind's Fury}} will apply ''Flay's'' passive to each enemy hit, with the secondary targets taking minimum damage (charge resets upon hitting the primary target).\n* The enhanced attack applies other [[on-hit effect]]s and can {{tip|critical strike|critically strike}} as normal (the bonus damage cannot).\n* ''Flay's'' passive enhanced attack can be {{tip|dodged}} (the enhanced attack is not consumed and the charge is not reset) and {{tip|blocked}} (the enhanced attack is consumed and the charge is reset).\n* The empowered attack will not trigger against [[structures]] nor [[ward]]s.\n** {{Pending for test}}: Enhanced attack's interactions with {{tip|blind|blinding}} effects (regarding both bonus damage and charge reset).\n{{ct|cast|spells=true,false,false,false,false}}\n|flavorsound  = {{sm2|Thresh_Original_E_5.ogg}} ''\"This way!\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshEAbility/ThreshE",
+        "text": [
+          "{\"ObjectName\":\"ThreshE\",\"objectPath\":\"Characters/Thresh/Spells/ThreshEAbility/ThreshE\",\"mScriptName\":\"ThreshE\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"ThreshE\",\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_KnockBack\",\"Trait_Melee_SmallWindup\",\"Trait_AoE\"],\"mEffectAmount\":[{\"value\":[75.0,75.0,120.0,165.0,210.0,255.0,300.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[20.0,20.0,25.0,30.0,35.0,40.0,45.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[80.0,80.0,110.0,140.0,170.0,200.0,225.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellEffectAmount\"},{\"value\":[1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"PassiveADRatioTT\",\"values\":[0.6000000238418579,0.8999999761581421,1.2000000476837158,1.5,1.7999999523162842,2.0999999046325684,2.4000000953674316],\"__type\":\"SpellDataValue\"},{\"name\":\"PassiveADRatio\",\"values\":[60.0,90.0,120.0,150.0,180.0,210.0,240.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"ActiveBaseDamage\",\"values\":[20.0,65.0,110.0,155.0,200.0,245.0,290.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ActiveSlowPercentage\",\"values\":[20.0,20.0,25.0,30.0,35.0,40.0,45.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDuration\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"PassiveDmgPerSoul\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"DmgPerSoul\",\"values\":[1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158,1.7000000476837158],\"__type\":\"SpellDataValue\"},{\"name\":\"FullChargeDuration\",\"values\":[10.0,10.0,10.0,10.0,10.0,10.0,10.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Icon1ThresholdPercentage\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"Icon2ThresholdPercentage\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"Icon3ThresholdPercentage\",\"values\":[0.9750000238418579,0.9750000238418579,0.9750000238418579,0.9750000238418579,0.9750000238418579,0.9750000238418579,0.9750000238418579],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"PassiveADRatioTT\",\"values\":[0.5,1.0,1.5,2.0,2.5,3.0,3.5],\"__type\":\"SpellDataValue\"},{\"name\":\"PassiveADRatio\",\"values\":[50.0,100.0,150.0,200.0,250.0,300.0,350.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421],\"__type\":\"SpellDataValue\"},{\"name\":\"FullChargeDuration\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"PAttackDamageMin\":{\"DamageType\":1,\"mFormulaParts\":[{\"mBuffName\":\"{5fbfbf13}\",\"mIconKey\":\"%i:threshScalingIcon%\",\"mCoefficient\":1.7000000476837158,\"__type\":\"BuffCounterByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"PAttackDamageMax\":{\"tooltipOnly\":true,\"mFormulaParts\":[{\"mBuffName\":\"{5fbfbf13}\",\"mIconKey\":\"%i:threshScalingIcon%\",\"mCoefficient\":1.7000000476837158,\"__type\":\"BuffCounterByCoefficientCalculationPart\"},{\"mStat\":2,\"mDataValue\":\"PassiveADRatioTT\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"ActiveBaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"LastHitData\":[{\"{6166b756}\":\"PAttackDamageMin\",\"Requirements\":[{\"level\":1,\"__type\":\"SpellSlotEqualOrGreaterThanLevelRequirement\"}],\"__type\":\"LastHitData\"}],\"mCoefficient\":0.699999988079071,\"mAnimationName\":\"Spell3\",\"mImgIconName\":[\"ASSETS/Characters/Thresh/HUD/Icons2D/Thresh_E.dds\"],\"spellCastTime\":0.3888999819755554,\"spellTotalTime\":1.333400011062622,\"cooldownTime\":[13.0,13.0,12.25,11.5,10.75,10.0,9.25],\"Cooldown\":{\"values\":[13.0,13.0,12.25,11.5,10.75,10.0,9.25],\"__type\":\"{0a0eddc9}\"},\"mSpellPassives\":[{\"mBuff\":\"Characters/Thresh/Spells/ThreshEAbility/ThreshEPassive\",\"mRemoveWhenOnCooldown\":false,\"mDisplayFlags\":0,\"__type\":\"SpellPassiveData\"}],\"mCantCancelWhileWindingUp\":true,\"alwaysSnapFacing\":true,\"useAnimatorFramerate\":true,\"castRange\":[20000.0,20000.0,20000.0,20000.0,20000.0,20000.0,20000.0],\"castRangeValues\":{\"values\":[20000.0,20000.0,20000.0,20000.0,20000.0,20000.0,20000.0],\"{0a3e0478}\":20000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[500.0,500.0,500.0,500.0,500.0,500.0,500.0],\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castConeDistance\":100.0,\"castFrame\":30.0,\"missileSpeed\":1100.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mana\":[60.0,65.0,70.0,75.0,80.0,85.0],\"manaValues\":{\"values\":[60.0,65.0,70.0,75.0,80.0,85.0],\"{0a3e0478}\":60.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"Direction\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"ThreshE\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_ThreshE_Name\",\"keySummary\":\"Spell_ThreshE_Summary\",\"keyTooltip\":\"Spell_ThreshE_Tooltip\",\"keyTooltipExtendedBelowLine\":\"Spell_ThreshE_TooltipExtendedBelowLine\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"PassiveADRatio\",\"typeIndex\":3,\"nameOverride\":\"Spell_ListType_PassiveDamage\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"ActiveBaseDamage\",\"nameOverride\":\"Spell_ListType_ActiveDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"ActiveSlowPercentage\",\"nameOverride\":\"Spell_ListType_Slow\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"textureOrientation\":3,\"useCasterBoundingBox\":false,\"textureOverrideName\":\"assets/characters/thresh/hud/textures/directionalrectangle_circle.tex\",\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshEAbility/ThreshEMissile1",
+        "text": [
+          "{\"ObjectName\":\"ThreshEMissile1\",\"objectPath\":\"Characters/Thresh/Spells/ThreshEAbility/ThreshEMissile1\",\"mScriptName\":\"ThreshEMissile1\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"ThreshE\",\"mEffectAmount\":[{\"value\":[75.0,250.0,425.0,600.0,0.0,0.0,175.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":1.0,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Spells/Icons2D/Bowmaster_EnchantedArrow.dds\"],\"spellCastTime\":0.375,\"spellTotalTime\":1.5,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"castRange\":[1075.0,1075.0,1075.0,1075.0,1075.0,1075.0,1075.0],\"castRangeValues\":{\"values\":[1075.0,1075.0,1075.0,1075.0,1075.0,1075.0,1075.0],\"{0a3e0478}\":1075.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castConeDistance\":100.0,\"luaOnMissileUpdateDistanceInterval\":100.0,\"mMissileSpec\":{\"mMissileWidth\":110.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mOffsetInitialTargetHeight\":100.0,\"mProjectTargetToCastRange\":true,\"mSpeed\":2000.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":16.0,\"missileSpeed\":2000.0,\"mMissileEffectKey\":\"Thresh_E_mis\",\"mLineWidth\":110.0,\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[110.0,110.0,110.0,110.0,110.0,110.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "I",
+    "name": "Damnation",
+    "page": {
+      "title": "Template:Data Thresh/Damnation",
+      "revid": 4025498
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1900
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Thresh's armor does not increase through growth (per level).",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Enemy champions, large minions and large monsters that die near Thresh drop a Soul for 8 seconds. Epic monsters drop 2 Souls while lesser minions and monsters have a 33.3% chance to drop a Soul.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Thresh automatically collects Souls near him or a placed Dark Passage.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Soul",
+        "text": "Soul: For each stack, Thresh gains 1 ability power and 1 bonus armor.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Souls grant a small area of sight.",
+      "Souls are visible to allies and only become visible to enemies if their team has sight of Thresh.",
+      "The probability for souls dropping from small minions and monsters on Summoner's Rift starts at 33% but adjusts dynamically to match the expected quota of souls dropped (lowers if above, rises if below, remains if even). Souls collected are not considered when adjusting the probability.",
+      "Nunu & Willump drop a soul each.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Damnation|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = I\n|icon          = false\n|blurbicon = Damnation.png\n|blurb        = {{sbc|Innate:}} {{cis|Thresh}} {{as|{{sti|armor}}}} does not increase by {{sti|xp|leveling}} up.\n|blurb2      = {{sbc|Innate:}} Enemy {{tip|champions}} and large enemies that die near '''Thresh''' will drop a ''Soul'' for a period. '''Thresh''' automatically collects ''Souls'' near him or ''{{ai|Dark Passage|Thresh}}''.\n|blurb4      = {{sbc|Soul:}} For each {{tip|stack}}, '''Thresh''' gains {{sti|ap|{{as|ability power}}}} and {{sti|armor|{{as|'''bonus''' armor}}}}.\n|description  = {{sbc|Innate:}} '''Thresh's''' {{as|armor}} does not increase through [[Growth#Increasing_Statistics|growth (per level)]].\n|icon2        = Damnation.png\n|description2 = {{sbc|Innate:}} Enemy {{tip|champions}}, large {{tip|minions}} and large {{tip|monsters}} that die near '''Thresh''' drop a ''Soul'' for 8 seconds. Epic monsters drop 2 ''Souls'' while lesser minions and monsters have a {{fd|33.{{recurring|3}}}}% chance to drop a ''Soul''.\n|description3 = '''Thresh''' automatically collects ''Souls'' near him or a placed ''{{ai|Dark Passage|Thresh}}''.\n|description4 = {{sbc|Soul:}} For each {{tip|stack}}, '''Thresh''' gains {{sti|ap|{{as|1 ability power}}}} and {{sti|armor|{{as|1 '''bonus''' armor}}}}.\n|effect radius= 1900\n|targeting    = Passive\n|affects      = Self\n|notes        = \n* ''Souls'' grant a small area of {{tip|sight}}.\n* ''Souls'' are visible to allies and only become visible to enemies if their team has {{tip|sight}} of '''Thresh'''.\n* The probability for ''souls'' dropping from small minions and monsters on {{tip|Summoner's Rift}} starts at 33% but adjusts dynamically to match the expected quota of ''souls'' dropped (lowers if above, rises if below, remains if even). ''Souls'' collected are not considered when adjusting the probability.\n* {{ci|Nunu|Nunu & Willump}} drop a soul each.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Thresh/Damnation",
+          "revid": 4025498
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Damnation|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = I\n|icon          = false\n|blurbicon = Damnation.png\n|blurb        = {{sbc|Innate:}} {{cis|Thresh}} {{as|{{sti|armor}}}} does not increase by {{sti|xp|leveling}} up.\n|blurb2      = {{sbc|Innate:}} Enemy {{tip|champions}} and large enemies that die near '''Thresh''' will drop a ''Soul'' for a period. '''Thresh''' automatically collects ''Souls'' near him or ''{{ai|Dark Passage|Thresh}}''.\n|blurb4      = {{sbc|Soul:}} For each {{tip|stack}}, '''Thresh''' gains {{sti|ap|{{as|ability power}}}} and {{sti|armor|{{as|'''bonus''' armor}}}}.\n|description  = {{sbc|Innate:}} '''Thresh's''' {{as|armor}} does not increase through [[Growth#Increasing_Statistics|growth (per level)]].\n|icon2        = Damnation.png\n|description2 = {{sbc|Innate:}} Enemy {{tip|champions}}, large {{tip|minions}} and large {{tip|monsters}} that die near '''Thresh''' drop a ''Soul'' for 8 seconds. Epic monsters drop 2 ''Souls'' while lesser minions and monsters have a {{fd|33.{{recurring|3}}}}% chance to drop a ''Soul''.\n|description3 = '''Thresh''' automatically collects ''Souls'' near him or a placed ''{{ai|Dark Passage|Thresh}}''.\n|description4 = {{sbc|Soul:}} For each {{tip|stack}}, '''Thresh''' gains {{sti|ap|{{as|1 ability power}}}} and {{sti|armor|{{as|1 '''bonus''' armor}}}}.\n|effect radius= 1900\n|targeting    = Passive\n|affects      = Self\n|notes        = \n* ''Souls'' grant a small area of {{tip|sight}}.\n* ''Souls'' are visible to allies and only become visible to enemies if their team has {{tip|sight}} of '''Thresh'''.\n* The probability for ''souls'' dropping from small minions and monsters on {{tip|Summoner's Rift}} starts at 33% but adjusts dynamically to match the expected quota of ''souls'' dropped (lowers if above, rises if below, remains if even). ''Souls'' collected are not considered when adjusting the probability.\n* {{ci|Nunu|Nunu & Willump}} drop a soul each.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshPassiveSoulsAbility/ThreshPassiveSouls",
+        "text": [
+          "{\"ObjectName\":\"ThreshPassiveSouls\",\"objectPath\":\"Characters/Thresh/Spells/ThreshPassiveSoulsAbility/ThreshPassiveSouls\",\"mScriptName\":\"ThreshPassiveSouls\",\"mSpell\":{\"DataValues\":[{\"name\":\"StatValuePerSoul\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SoulsToGainOnPickUp\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"URF\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"},\"ARAM\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"},\"ULTBOOK\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"},\"ONEFORALL\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"},\"NEXUSBLITZ\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"},\"{a110bc47}\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"},\"Kiwi\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"},\"cherry\":{\"SpellDataValues\":[{\"name\":\"SoulsToGainOnPickUp\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"CurrentSoulBonus\":{\"tooltipOnly\":true,\"mFormulaParts\":[{\"mBuffName\":\"{5fbfbf13}\",\"mIconKey\":\"%i:threshScalingIcon%\",\"mDataValue\":\"StatValuePerSoul\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mImgIconName\":[\"ASSETS/Characters/Thresh/HUD/Icons2D/Thresh_Passive.dds\"],\"castRange\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"castRangeValues\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"ThreshPassiveSouls\",\"mFormat\":\"{476ec0b8}\",\"mLocKeys\":{\"keyName\":\"Spell_ThreshPassiveSouls_Name\",\"keyTooltip\":\"Spell_ThreshPassiveSouls_Tooltip\",\"keySummary\":\"Spell_ThreshPassiveSouls_Summary\",\"keyTooltipExtended\":\"Spell_ThreshPassiveSouls_TooltipExtended\"},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "Q",
+    "name": "Death Sentence",
+    "page": {
+      "title": "Template:Data Thresh/Death Sentence",
+      "revid": 4091672
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "19 / 16.5 / 14 / 11.5 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                19,
+                16.5,
+                14,
+                11.5,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5 • None",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "label": "Initial cast"
+          }
+        ]
+      },
+      "range": {
+        "text": "1100 • 1040",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1040
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global • 3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "For being able to cast Deathly Leap; estimated"
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1900 • 1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1900
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            },
+            "label": "Dash speed, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "special",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Thresh throws out his scythe in the target direction, becoming unable to move or attack while it is in flight.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Active: Thresh throws out his scythe in the target direction, becoming unable to move or attack while it is in flight.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds. Thresh will also mark the target Shackled for 1.5 seconds, during which he is unable to declare basic attacks, and is slowed by 20% for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 150 / 200 / 250 / 300 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200,
+                  250,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "reveal",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "airborne",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "Thresh will also mark the target Shackled for 1.5 seconds, during which he is unable to declare basic attacks, and is slowed by 20% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.4 seconds",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "text": "While the target is stunned, Thresh tugs his hook towards him twice, once after a 0.1-second delay and again 0.6 seconds after that. With each tug, the target is pulled a short distance towards Thresh. After 0.5 seconds of hitting an enemy, or instantly after hitting a minion or monster, Thresh can recast the ability while the target is Shackled.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "evidence": "While the target is stunned, Thresh tugs his hook towards him twice, once after a 0.1-second delay and again 0.6 seconds after that.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.1-second delay",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.6 seconds",
+            "tip": "Estimated, starting from the end of the initial delay"
+          }
+        ]
+      },
+      {
+        "label": "Recast - Deathly Leap",
+        "text": "Recast - Deathly Leap: Thresh stops tugging his hook and dashes to the Shackled enemy, becoming able to attack again upon arrival. He can cast Dark Passage and Flay during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Recast - Deathly Leap: Thresh stops tugging his hook and dashes to the Shackled enemy, becoming able to attack again upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Thresh will track the target if they change locations.\n  - He will dash to the target's previous location if the target is too far away or moves beyond 2000 units.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The pull that occurs with each of Thresh's tugs is a non-airborne displacement that displaces the target toward him. Thresh will only tug if the target remains stunned and he has not casted Deathly Leap.\n  - Thresh will not tug his hook at all if the stun was not applied to the target.\n  - These displacements will not be resisted by displacement immunity or crowd control immunity.\n  - The first tug occurs after the 0.1-second delay, while the second tug occurs after 0.7 seconds of the target being stunned (or 0.6 seconds from the end of the initial delay).\n  - The initial airborne debuff that is applied to the target upon hitting them is removed if the displacement from the first pull is interrupted.\n  - The target will not be pulled with the tugs if they are too close to Thresh.",
+      "Death Sentence cannot be recast while grounded or rooted.",
+      "Death Sentence can be recast even while the target is untargetable.",
+      "Death Sentence will not stun enemies that are displacement immune or immune to crowd control but the target will still be marked and Thresh is still granted the ability to recast for his dash (except with I).",
+      "Spell shield will block all of Death Sentence's effects, including the mark as well as prevent the cooldown reduction.",
+      "Death Sentence's stun duration is affected by tenacity but the mark will always persist for 1.5 seconds, unless the target uses a cleansing effect, in which case the mark is removed.",
+      "Death Sentence's stun will persist even if Thresh dies before the duration ends. The tugs will not occur as Thresh is not alive.",
+      "The reveal lingers for 0.05 seconds after it ends.",
+      "Deathly Leap has a maximum cast range of ~3000 units. If Thresh or the target move a greater distance than this away from one another while the target is marked, Deathly Leap can still be cast but will fail to trigger the dash.",
+      "Thresh will turn his facing direction towards the cast direction only after Death Sentence's cast is complete.\n  - If Thresh is facing more than 90° away from the cast direction in either direction, he will turn to face exactly 90° away from the cast direction over the cast time, then turn towards the cast direction when the missile is fired.\n  - If Thresh is facing less than 90° away from the cast direction, he will keep his facing direction until the missile is fired.\n  - [http://web.archive.org/web/0/http://na.leagueoflegends.com/board/showthread.php?p=33837947#post33837947 This prevents the enemy from knowing where exactly Thresh is aiming at before the cast animation is complete.]",
+      "Death Sentence triggers on-cast effects (such as Spellblade and triggering Force Pulse passive) once at the start of the cast, and once at the end of the cast. It may trigger on-cast effects a third time when casting Deathly Leap.\n  - This is because a separate spell is cast to prevent Thresh from facing towards the target direction immediately, which is (incorrectly) flagged to trigger on-cast effects.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Death Sentence|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = Q\n|icon         = Death Sentence.png\n|blurb        = {{sbc|Active:}} {{ci|Thresh}} casts out his scythe in the target direction that catches the first enemy hit, dealing {{as|magic damage}}, {{sti|cdr|reducing}} the cooldown, and briefly {{tip|stun|stunning}} and {{tip|true sight|revealing}} them. '''Thresh''' will also mark them ''Shackled'', during which he is briefly {{tip|slow|slowed}} and unable to declare basic attacks.\n|blurb2      = While the target is {{tip|stun|stunned}}, '''Thresh''' {{tip|airborne|pulls}} them twice over a short distance. He can also recast ''Death Sentence''.\n|blurb3      = {{sbc|Recast - Deathly Leap:}} '''Thresh''' {{tip|dashes}} to the ''Shackled'' enemy.\n|description  = {{sbc|Active:}} '''Thresh''' throws out his scythe in the target direction, becoming {{tip|lockout|unable}} to move or attack while it is in flight.\n|description2 = The scythe catches the first enemy hit to deal {{as|magic damage}}, {{tip|stun}} and {{tip|true sight|reveal}} them for {{fd|1.5}} seconds, and render them {{tip|airborne}} for {{tt|{{fd|0.4}} seconds|Estimated}}, as well as reduce ''Death Sentence's'' {{sti|'''current''' cooldown}} by 2 seconds. '''Thresh''' will also mark the target ''Shackled'' for {{fd|1.5}} seconds, during which he is unable to declare basic attacks, and is {{tip|slow|slowed}} by 20% for 1 second.\n|leveling2     = {{st|Magic Damage|{{ap|100 to 300}} {{as|(+ 90% AP)}}}}\n|description3 = While the target is {{tip|stun|stunned}}, '''Thresh''' tugs his hook towards him twice, once after a {{tt|{{fd|0.1}}-second delay|Estimated}} and again {{tt|{{fd|0.6}} seconds|Estimated, starting from the end of the initial delay}} after that. With each tug, the target is pulled a short distance towards '''Thresh'''. After {{fd|0.5}} seconds of hitting an enemy, or instantly after hitting a {{tip|minion}} or {{tip|monster}}, '''Thresh''' can recast the ability while the target is ''Shackled''.\n|icon4        = Deathly Leap.png\n|description4 = {{sbc|Recast - Deathly Leap:}} '''Thresh''' stops tugging his hook and {{tip|dashes}} to the ''Shackled'' enemy, becoming able to attack again upon arrival. He can cast ''{{ai|Dark Passage|Thresh}}'' and ''{{ai|Flay|Thresh}}'' during the dash.\n|range = {{dv|{{tip|cr|icononly = true}} 1100|{{tip|er|icononly = true}} 1040}}\n|width        = {{tip|er|icononly = true}} 140\n|effect radius= {{dv|{{tt|Global|For the stun and pulling}}|{{tt|3000|For being able to cast Deathly Leap; estimated}}}}\n|speed        = {{dv|{{tt|1900|Missile speed}}|{{tt|1400|Dash speed, estimated}}}}\n|cast time    = {{dv|{{tt|{{fd|0.5}}|Initial cast}}|{{tt|None|Recast}}}}\n|cooldown     = {{ap|19 to 9}}\n|cdstart      = on-cast\n|cost         = 70\n|costtype     = Mana\n|targeting    = {{dv|[[Direction-targeted|Direction]]|[[Auto-targeted|Auto]]}}\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = True\n|grounded     = special\n|spelleffects = spell\n|knockdown    = True\n|projectile   = True\n|notes        = \n* '''Thresh''' will track the target if they change locations.\n** He will dash to the target's previous location if the target is too far away or moves beyond {{tt|2000|Estimated}} units.\n{{Effect at cast time end}}\n* The pull that occurs with each of '''Thresh's''' tugs is a non-{{tip|airborne}} displacement that displaces the target toward him. '''Thresh''' will only tug if the target remains {{tip|stun|stunned}} and he has not casted ''Deathly Leap''.\n** '''Thresh''' will not tug his hook at all if the stun was not applied to the target.\n** These displacements will not be resisted by {{tip|displacement immunity}} or {{tip|cc-immune|crowd control immunity}}.{{bug|2}}\n** The first tug occurs after the {{fd|0.1}}-second delay, while the second tug occurs after {{fd|0.7}} seconds of the target being stunned (or {{fd|0.6}} seconds from the end of the initial delay).\n** The initial {{tip|airborne}} debuff that is applied to the target upon hitting them is removed if the displacement from the first pull is interrupted.\n** The target will not be pulled with the tugs if they are too close to '''Thresh'''.\n* ''Death Sentence'' cannot be recast while {{tip|ground|grounded}} or {{tip|root|rooted}}.\n* ''Death Sentence'' can be recast even while the target is {{tip|untargetable}}.\n* ''Death Sentence'' will not {{tip|stun}} enemies that are {{tip|displacement immune}} or {{tip|cc-immune|immune to crowd control}} but the target will still be marked and '''Thresh''' is still granted the ability to recast for his dash (except with {{cai|I|Malzahar}}).\n* {{tip|Spell shield}} will block all of ''Death Sentence's'' effects, including the mark as well as prevent the cooldown reduction.\n* ''Death Sentence's'' {{tip|stun}} duration is affected by {{tip|tenacity}} but the mark will always persist for {{fd|1.5}} seconds, unless the target uses a {{tip|cleanse|cleansing}} effect, in which case the mark is removed.\n* ''Death Sentence's'' {{tip|stun}} will persist even if '''Thresh''' dies before the duration ends. The tugs will not occur as '''Thresh''' is not alive.\n* The reveal lingers for {{fd|0.05}} seconds after it ends.\n* ''Deathly Leap'' has a maximum cast range of ~3000 units. If '''Thresh''' or the target move a greater distance than this away from one another while the target is marked, ''Deathly Leap'' can still be cast but will fail to trigger the dash.{{bug}}\n* '''Thresh''' will turn his facing direction towards the cast direction only after ''Death Sentence's'' cast is complete.\n** If '''Thresh''' is facing '''more''' than 90{{degree}} away from the cast direction in either direction, he will turn to face ''exactly'' 90{{degree}} away from the cast direction over the cast time, then turn towards the cast direction when the missile is fired.\n** If '''Thresh''' is facing '''less''' than 90{{degree}} away from the cast direction, he will keep his facing direction until the missile is fired.\n** [http://web.archive.org/web/0/http://na.leagueoflegends.com/board/showthread.php?p=33837947#post33837947 This prevents the enemy from knowing where exactly '''Thresh''' is aiming at before the cast animation is complete.]\n*''Death Sentence'' triggers on-cast effects (such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive) once at the start of the cast, and once at the end of the cast. It may trigger on-cast effects a third time when casting ''Deathly Leap''.\n** This is because a separate spell is cast to prevent '''Thresh''' from facing towards the target direction immediately, which is (incorrectly) flagged to trigger on-cast effects.{{bug}}\n{{ct|cast|spells=true,false,false,false,false}}\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Thresh/Death Sentence",
+          "revid": 4091672
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Death Sentence|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = Q\n|icon         = Death Sentence.png\n|blurb        = {{sbc|Active:}} {{ci|Thresh}} casts out his scythe in the target direction that catches the first enemy hit, dealing {{as|magic damage}}, {{sti|cdr|reducing}} the cooldown, and briefly {{tip|stun|stunning}} and {{tip|true sight|revealing}} them. '''Thresh''' will also mark them ''Shackled'', during which he is briefly {{tip|slow|slowed}} and unable to declare basic attacks.\n|blurb2      = While the target is {{tip|stun|stunned}}, '''Thresh''' {{tip|airborne|pulls}} them twice over a short distance. He can also recast ''Death Sentence''.\n|blurb3      = {{sbc|Recast - Deathly Leap:}} '''Thresh''' {{tip|dashes}} to the ''Shackled'' enemy.\n|description  = {{sbc|Active:}} '''Thresh''' throws out his scythe in the target direction, becoming {{tip|lockout|unable}} to move or attack while it is in flight.\n|description2 = The scythe catches the first enemy hit to deal {{as|magic damage}}, {{tip|stun}} and {{tip|true sight|reveal}} them for {{fd|1.5}} seconds, and render them {{tip|airborne}} for {{tt|{{fd|0.4}} seconds|Estimated}}, as well as reduce ''Death Sentence's'' {{sti|'''current''' cooldown}} by 2 seconds. '''Thresh''' will also mark the target ''Shackled'' for {{fd|1.5}} seconds, during which he is unable to declare basic attacks, and is {{tip|slow|slowed}} by 20% for 1 second.\n|leveling2     = {{st|Magic Damage|{{ap|100 to 300}} {{as|(+ 90% AP)}}}}\n|description3 = While the target is {{tip|stun|stunned}}, '''Thresh''' tugs his hook towards him twice, once after a {{tt|{{fd|0.1}}-second delay|Estimated}} and again {{tt|{{fd|0.6}} seconds|Estimated, starting from the end of the initial delay}} after that. With each tug, the target is pulled a short distance towards '''Thresh'''. After {{fd|0.5}} seconds of hitting an enemy, or instantly after hitting a {{tip|minion}} or {{tip|monster}}, '''Thresh''' can recast the ability while the target is ''Shackled''.\n|icon4        = Deathly Leap.png\n|description4 = {{sbc|Recast - Deathly Leap:}} '''Thresh''' stops tugging his hook and {{tip|dashes}} to the ''Shackled'' enemy, becoming able to attack again upon arrival. He can cast ''{{ai|Dark Passage|Thresh}}'' and ''{{ai|Flay|Thresh}}'' during the dash.\n|range = {{dv|{{tip|cr|icononly = true}} 1100|{{tip|er|icononly = true}} 1040}}\n|width        = {{tip|er|icononly = true}} 140\n|effect radius= {{dv|{{tt|Global|For the stun and pulling}}|{{tt|3000|For being able to cast Deathly Leap; estimated}}}}\n|speed        = {{dv|{{tt|1900|Missile speed}}|{{tt|1400|Dash speed, estimated}}}}\n|cast time    = {{dv|{{tt|{{fd|0.5}}|Initial cast}}|{{tt|None|Recast}}}}\n|cooldown     = {{ap|19 to 9}}\n|cdstart      = on-cast\n|cost         = 70\n|costtype     = Mana\n|targeting    = {{dv|[[Direction-targeted|Direction]]|[[Auto-targeted|Auto]]}}\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = True\n|grounded     = special\n|spelleffects = spell\n|knockdown    = True\n|projectile   = True\n|notes        = \n* '''Thresh''' will track the target if they change locations.\n** He will dash to the target's previous location if the target is too far away or moves beyond {{tt|2000|Estimated}} units.\n{{Effect at cast time end}}\n* The pull that occurs with each of '''Thresh's''' tugs is a non-{{tip|airborne}} displacement that displaces the target toward him. '''Thresh''' will only tug if the target remains {{tip|stun|stunned}} and he has not casted ''Deathly Leap''.\n** '''Thresh''' will not tug his hook at all if the stun was not applied to the target.\n** These displacements will not be resisted by {{tip|displacement immunity}} or {{tip|cc-immune|crowd control immunity}}.{{bug|2}}\n** The first tug occurs after the {{fd|0.1}}-second delay, while the second tug occurs after {{fd|0.7}} seconds of the target being stunned (or {{fd|0.6}} seconds from the end of the initial delay).\n** The initial {{tip|airborne}} debuff that is applied to the target upon hitting them is removed if the displacement from the first pull is interrupted.\n** The target will not be pulled with the tugs if they are too close to '''Thresh'''.\n* ''Death Sentence'' cannot be recast while {{tip|ground|grounded}} or {{tip|root|rooted}}.\n* ''Death Sentence'' can be recast even while the target is {{tip|untargetable}}.\n* ''Death Sentence'' will not {{tip|stun}} enemies that are {{tip|displacement immune}} or {{tip|cc-immune|immune to crowd control}} but the target will still be marked and '''Thresh''' is still granted the ability to recast for his dash (except with {{cai|I|Malzahar}}).\n* {{tip|Spell shield}} will block all of ''Death Sentence's'' effects, including the mark as well as prevent the cooldown reduction.\n* ''Death Sentence's'' {{tip|stun}} duration is affected by {{tip|tenacity}} but the mark will always persist for {{fd|1.5}} seconds, unless the target uses a {{tip|cleanse|cleansing}} effect, in which case the mark is removed.\n* ''Death Sentence's'' {{tip|stun}} will persist even if '''Thresh''' dies before the duration ends. The tugs will not occur as '''Thresh''' is not alive.\n* The reveal lingers for {{fd|0.05}} seconds after it ends.\n* ''Deathly Leap'' has a maximum cast range of ~3000 units. If '''Thresh''' or the target move a greater distance than this away from one another while the target is marked, ''Deathly Leap'' can still be cast but will fail to trigger the dash.{{bug}}\n* '''Thresh''' will turn his facing direction towards the cast direction only after ''Death Sentence's'' cast is complete.\n** If '''Thresh''' is facing '''more''' than 90{{degree}} away from the cast direction in either direction, he will turn to face ''exactly'' 90{{degree}} away from the cast direction over the cast time, then turn towards the cast direction when the missile is fired.\n** If '''Thresh''' is facing '''less''' than 90{{degree}} away from the cast direction, he will keep his facing direction until the missile is fired.\n** [http://web.archive.org/web/0/http://na.leagueoflegends.com/board/showthread.php?p=33837947#post33837947 This prevents the enemy from knowing where exactly '''Thresh''' is aiming at before the cast animation is complete.]\n*''Death Sentence'' triggers on-cast effects (such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive) once at the start of the cast, and once at the end of the cast. It may trigger on-cast effects a third time when casting ''Deathly Leap''.\n** This is because a separate spell is cast to prevent '''Thresh''' from facing towards the target direction immediately, which is (incorrectly) flagged to trigger on-cast effects.{{bug}}\n{{ct|cast|spells=true,false,false,false,false}}\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshQAbility/ThreshQ",
+        "text": [
+          "{\"ObjectName\":\"ThreshQ\",\"objectPath\":\"Characters/Thresh/Spells/ThreshQAbility/ThreshQ\",\"mScriptName\":\"ThreshQ\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"ThreshQ\",\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_RecastOrReplaceSpell\",\"Trait_SignatureSpell\",\"Trait_Ranged_StopsFirstHit\"],\"mEffectAmount\":[{\"value\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellEffectAmount\"},{\"value\":[75.0,75.0,75.0,75.0,75.0,75.0,75.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[12.0,12.0,12.0,12.0,12.0,12.0,12.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[50.0,100.0,150.0,200.0,250.0,300.0,350.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421],\"__type\":\"SpellDataValue\"},{\"name\":\"TauntLength\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowPercent\",\"values\":[75.0,75.0,75.0,75.0,75.0,75.0,75.0],\"__type\":\"SpellDataValue\"},{\"name\":\"HitBonusCooldown\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"APRatio\",\"values\":[1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"{f9c2333e}\":{\"cherry\":{\"value\":[11.0,11.0,10.5,10.0,9.5,9.0,9.0],\"__type\":\"SpellEffectAmount\"}},\"mSpellCalculations\":{\"TotalDamage\":{\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mCoefficient2\":1.0,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Thresh/HUD/Icons2D/Thresh_Q.dds\"],\"mCastTime\":0.5,\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[19.0,19.0,16.5,14.0,11.5,9.0,9.0],\"Cooldown\":{\"values\":[19.0,19.0,16.5,14.0,11.5,9.0,9.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"useAnimatorFramerate\":true,\"castRange\":[10000.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"castRangeValues\":{\"values\":[10000.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"{0a3e0478}\":10000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[1075.0,1075.0,1075.0,1075.0,1075.0,1075.0,1075.0],\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castConeDistance\":100.0,\"castFrame\":10.5,\"missileSpeed\":1200.0,\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"mFloatVarsDecimals\":[0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[70.0,70.0,70.0,70.0,70.0,70.0],\"manaValues\":{\"values\":[70.0,70.0,70.0,70.0,70.0,70.0],\"{0a3e0478}\":70.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"ThreshQ\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_ThreshQ_Name\",\"keySummary\":\"Spell_ThreshQ_Summary\",\"keyTooltip\":\"Spell_ThreshQ_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[60.0,60.0,60.0,60.0,60.0,60.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_ThreshQ\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshQAbility/ThreshQMissile",
+        "text": [
+          "{\"ObjectName\":\"ThreshQMissile\",\"objectPath\":\"Characters/Thresh/Spells/ThreshQAbility/ThreshQMissile\",\"mScriptName\":\"ThreshQMissile\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mAlternateName\":\"ThreshQ\",\"mEffectAmount\":[{\"value\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1.75,2.0,2.25,2.5,2.75,3.0,3.25],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.8999999761581421,\"mAnimationName\":\"\",\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"castRange\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"castRangeValues\":{\"values\":[1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0],\"{0a3e0478}\":1100.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[1050.0,1050.0,1050.0,1050.0,1050.0,1050.0,1050.0],\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castConeDistance\":100.0,\"luaOnMissileUpdateDistanceInterval\":90.0,\"mMissileSpec\":{\"mMissileWidth\":70.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"root\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1900.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"mHeightOffset\":100.0,\"__type\":\"FollowTerrainHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":7.5,\"missileSpeed\":1900.0,\"mMissileEffectKey\":\"Thresh_Q_whip_beam\",\"mLineWidth\":70.0,\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"Direction\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"lineWidth\":{\"mPerLevelValues\":[70.0,70.0,70.0,70.0,70.0,70.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshQAbility/ThreshQLeap",
+        "text": [
+          "{\"ObjectName\":\"ThreshQLeap\",\"objectPath\":\"Characters/Thresh/Spells/ThreshQAbility/ThreshQLeap\",\"mScriptName\":\"ThreshQLeap\",\"mSpell\":{\"flags\":20,\"mAffectsTypeFlags\":9221,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"AhriSeduce\",\"mSpellTags\":[\"PositiveEffect_MoveBlock\",\"Trait_FreeRecast\"],\"mEffectAmount\":[{\"value\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.75,1.0,1.25,1.5,1.75,2.0,2.25],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.3499999940395355,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Thresh/HUD/Icons2D/Thresh_Q3.dds\"],\"mCastTime\":0.25,\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"cantCastWhileRooted\":true,\"useAnimatorFramerate\":true,\"castRange\":[10000.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"castRangeValues\":{\"values\":[10000.0,10000.0,10000.0,10000.0,10000.0,10000.0,10000.0],\"{0a3e0478}\":10000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[975.0,975.0,975.0,975.0,975.0,975.0,975.0],\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castConeDistance\":100.0,\"missileSpeed\":1200.0,\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"SelfAoe\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"ThreshQLeap\",\"mFormat\":\"{3b504ce3}\",\"mLocKeys\":{\"keyName\":\"Spell_ThreshQLeap_Name\",\"keyTooltip\":\"Spell_ThreshQLeap_Tooltip\",\"keyCost\":\"Spell_Cost_Empty\",\"keyCooldown\":\"Spell_Cost_Empty\"},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "R",
+    "name": "The Box",
+    "page": {
+      "title": "Template:Data Thresh/The Box",
+      "revid": 4024674
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.45",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.45
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Thresh erects a pentagon of spectral walls around him that each last for 5 seconds. A wall will break upon enemy champion contact, dealing magic damage and slowing them by 99% for 2 seconds. After the first wall breaks, the rest will deal no damage and slow for only 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "250 / 400 / 550 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  250,
+                  400,
+                  550
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 99
+            },
+            "evidence": "A wall will break upon enemy champion contact, dealing magic damage and slowing them by 99% for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "evidence": "After the first wall breaks, the rest will deal no damage and slow for only 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies that break a wall cannot do so again for 1 second.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Wall Side length",
+        "text": "470"
+      }
+    ],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time.\n  - Additionally, The Box cannot be interrupted by any means, including death or resurrection. The Box will complete its effect so long as Thresh has initiated its cast.",
+      "The Box always faces the same direction Thresh is facing on cast, placing a corner directly in front of him.\n  - The cast indicator displays the opposite of the true behavior.",
+      "If The Box hits multiple champions with different walls on cast, only one of the walls will deal damage and apply the extended slow duration. This wall is chosen by starting at the wall in front of and to the right of Thresh's facing direction on cast, and progressing clockwise.",
+      "The corners of The Box are placed 400 units around Thresh.\n  - Each wall is 470.228 units long.\n  - Each wall passes 323.607 units from the center of The Box at the closest approach (ignoring its width).\n  - As a regular pentagon, The Box has an angle of 72° between each corner.",
+      "Thresh can see if the walls of The Box are broken even if they are not within sight.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|The Box|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = R\n|icon         = The Box.png\n|blurb        = {{sbc|Active:}} {{ci|Thresh}} erects a pentagon of spectral walls around him that each last a few seconds. A wall will break upon enemy champion contact, dealing {{as|magic damage}} and {{tip|slow|slowing}} them for a short time. Subsequent wall breaks will not deal damage but still {{tip|slow}} enemies briefly.\n|description  = {{sbc|Active:}} '''Thresh''' erects a pentagon of spectral walls around him that each last for 5 seconds. A wall will break upon enemy champion contact, dealing {{as|magic damage}} and {{tip|slow|slowing}} them by 99% for 2 seconds. After the first wall breaks, the rest will deal no damage and {{tip|slow}} for only 1 second.\n|leveling     = {{st|Magic Damage|{{ap|250 to 550}} {{as|(+ 100% AP)}}}}\n|description2 = Enemies that break a wall cannot do so again for 1 second.\n|customlabel  = Wall Side length\n|custominfo   = {{tip|er|icononly = true}} 470\n|width        = {{tip|er|icononly = true}} 30\n|cast time    = {{fd|0.45}}\n|cooldown     = {{ap|120 to 80}}\n|cost         = 100\n|costtype     = Mana\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Area of effect\n|grounded     = \n|knockdown    = \n|notes        = \n{{Effect at cast time start}}\n<!--* ''The Box'' always uses [[quick cast]], regardless of player settings.--> <!-- It used to be direction cast, and then have the box face the target direction. Dunno if this change was intentional but I won't assume a bug here ~Caenen-->\n** Additionally, ''The Box'' cannot be interrupted by any means, including death or {{tip|resurrection}}. ''The Box'' will complete its effect so long as '''Thresh''' has initiated its cast.\n* ''The Box'' always faces the same direction Thresh is facing on cast, placing a corner directly in front of him.\n** The cast indicator displays the opposite of the true behavior.{{bug}}\n* If ''The Box'' hits multiple champions with different walls on cast, only one of the walls will deal damage and apply the extended slow duration. This wall is chosen by starting at the wall in front of and to the right of Thresh's facing direction on cast, and progressing clockwise.\n* The corners of ''The Box'' are placed 400 units around '''Thresh'''.\n** Each wall is {{fd|470.228}} units long.\n** Each wall passes {{fd|323.607}} units from the center of ''The Box'' at the closest approach (ignoring its width).\n** As a regular pentagon, ''The Box'' has an angle of 72{{degree}} between each corner.\n* '''Thresh''' can see if the walls of ''The Box'' are broken even if they are not within {{tip|sight}}.\n|flavorsound  = {{sm2|Thresh_Original_R_3.ogg}} ''\"Nowhere to hide.\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Thresh/The Box",
+          "revid": 4024674
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|The Box|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = R\n|icon         = The Box.png\n|blurb        = {{sbc|Active:}} {{ci|Thresh}} erects a pentagon of spectral walls around him that each last a few seconds. A wall will break upon enemy champion contact, dealing {{as|magic damage}} and {{tip|slow|slowing}} them for a short time. Subsequent wall breaks will not deal damage but still {{tip|slow}} enemies briefly.\n|description  = {{sbc|Active:}} '''Thresh''' erects a pentagon of spectral walls around him that each last for 5 seconds. A wall will break upon enemy champion contact, dealing {{as|magic damage}} and {{tip|slow|slowing}} them by 99% for 2 seconds. After the first wall breaks, the rest will deal no damage and {{tip|slow}} for only 1 second.\n|leveling     = {{st|Magic Damage|{{ap|250 to 550}} {{as|(+ 100% AP)}}}}\n|description2 = Enemies that break a wall cannot do so again for 1 second.\n|customlabel  = Wall Side length\n|custominfo   = {{tip|er|icononly = true}} 470\n|width        = {{tip|er|icononly = true}} 30\n|cast time    = {{fd|0.45}}\n|cooldown     = {{ap|120 to 80}}\n|cost         = 100\n|costtype     = Mana\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Area of effect\n|grounded     = \n|knockdown    = \n|notes        = \n{{Effect at cast time start}}\n<!--* ''The Box'' always uses [[quick cast]], regardless of player settings.--> <!-- It used to be direction cast, and then have the box face the target direction. Dunno if this change was intentional but I won't assume a bug here ~Caenen-->\n** Additionally, ''The Box'' cannot be interrupted by any means, including death or {{tip|resurrection}}. ''The Box'' will complete its effect so long as '''Thresh''' has initiated its cast.\n* ''The Box'' always faces the same direction Thresh is facing on cast, placing a corner directly in front of him.\n** The cast indicator displays the opposite of the true behavior.{{bug}}\n* If ''The Box'' hits multiple champions with different walls on cast, only one of the walls will deal damage and apply the extended slow duration. This wall is chosen by starting at the wall in front of and to the right of Thresh's facing direction on cast, and progressing clockwise.\n* The corners of ''The Box'' are placed 400 units around '''Thresh'''.\n** Each wall is {{fd|470.228}} units long.\n** Each wall passes {{fd|323.607}} units from the center of ''The Box'' at the closest approach (ignoring its width).\n** As a regular pentagon, ''The Box'' has an angle of 72{{degree}} between each corner.\n* '''Thresh''' can see if the walls of ''The Box'' are broken even if they are not within {{tip|sight}}.\n|flavorsound  = {{sm2|Thresh_Original_R_3.ogg}} ''\"Nowhere to hide.\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshRPentaAbility/ThreshRPenta",
+        "text": [
+          "{\"ObjectName\":\"ThreshRPenta\",\"objectPath\":\"Characters/Thresh/Spells/ThreshRPentaAbility/ThreshRPenta\",\"mScriptName\":\"ThreshRPenta\",\"mSpell\":{\"mAffectsTypeFlags\":9221,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mAlternateName\":\"ThreshRPenta\",\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_DamageAbility\",\"Trait_AoE\"],\"mEffectAmount\":[{\"value\":[0.0,250.0,400.0,550.0,175.0,175.0,0.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[99.0,99.0,99.0,99.0,99.0,99.0,99.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"ThreshRCageRadius\",\"values\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ThreshRWallThickness\",\"values\":[30.0,30.0,30.0,30.0,30.0,30.0,30.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ThreshRWallLength\",\"values\":[470.2279968261719,470.2279968261719,470.2279968261719,470.2279968261719,470.2279968261719,470.2279968261719,470.2279968261719],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Damage\",\"values\":[0.0,250.0,400.0,550.0,175.0,175.0,0.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowAmount\",\"values\":[99.0,99.0,99.0,99.0,99.0,99.0,99.0],\"__type\":\"SpellDataValue\"},{\"name\":\"WallDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"APRatio\",\"values\":[1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842],\"__type\":\"SpellDataValue\"},{\"name\":\"Damage\",\"values\":[0.0,350.0,500.0,650.0,0.0,0.0,0.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"{f9c2333e}\":{\"cherry\":{\"value\":[90.0,90.0,60.0,30.0,0.0,0.0,0.0],\"__type\":\"SpellEffectAmount\"}},\"mSpellCalculations\":{\"TotalDamage\":{\"tooltipOnly\":true,\"mFormulaParts\":[{\"mDataValue\":\"Damage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mCoefficient\":1.0,\"mAnimationName\":\"Spell4\",\"mImgIconName\":[\"ASSETS/Characters/Thresh/HUD/Icons2D/Thresh_R.dds\"],\"mCastTime\":0.44999998807907104,\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[120.0,120.0,100.0,80.0,80.0,80.0,80.0],\"Cooldown\":{\"values\":[120.0,120.0,100.0,80.0,80.0,80.0,80.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"bHaveHitEffect\":true,\"mOrientRadiusTextureFromPlayer\":true,\"castRange\":[850.0,850.0,850.0,850.0,850.0,850.0,850.0],\"castRangeValues\":{\"values\":[850.0,850.0,850.0,850.0,850.0,850.0,850.0],\"{0a3e0478}\":850.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[450.0,450.0,450.0,450.0,450.0,450.0,450.0],\"castRadius\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeDistance\":100.0,\"castFrame\":15.0,\"missileSpeed\":0.0,\"mHitEffectName\":\"DATA/Shared/Particles/globalhit_orange_tar.troy\",\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[100.0,100.0,100.0,100.0,100.0,0.0],\"manaValues\":{\"values\":[100.0,100.0,100.0,100.0,100.0,0.0],\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"SelfAoe\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"ThreshRPenta\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_ThreshRPenta_Name\",\"keySummary\":\"Spell_ThreshRPenta_Summary\",\"keyTooltip\":\"Spell_ThreshRPenta_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":3,\"Elements\":[{\"type\":\"Damage\",\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"textureOrientation\":3,\"useCasterBoundingBox\":false,\"textureOverrideName\":\"assets/characters/thresh/hud/textures/pentagram.tex\",\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "W",
+    "name": "Dark Passage",
+    "page": {
+      "title": "Template:Data Thresh/Dark Passage",
+      "revid": 4017821
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "21 / 20 / 19 / 18 / 17",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                21,
+                20,
+                19,
+                18,
+                17
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "350 • 150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Shield granting radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Lantern pickup radius, radius and range behavior pending for test"
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": [],
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Thresh throws his lantern to the target location over 0.5 seconds, lasting for 6 seconds while he remains nearby and granting sight of its surroundings. If Thresh moves too far away from the lantern, it returns back to him immediately.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Thresh throws his lantern to the target location over 0.5 seconds, lasting for 6 seconds while he remains nearby and granting sight of its surroundings.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Thresh and the first allied champion to come near the lantern are granted a shield for 4 seconds. An ally can select the lantern while in proximity of it, dashing to Thresh and gaining the shield.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "50 / 70 / 90 / 110 / 130 (+ 2 per Soul collected)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  70,
+                  90,
+                  110,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:per soul collected",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2 per Soul collected)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Thresh and the first allied champion to come near the lantern are granted a shield for 4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "An ally can select the lantern while in proximity of it, dashing to Thresh and gaining the shield.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "An ally cannot select the lantern while immobilized, grounded, or silenced. The lantern will not expire from Thresh moving too far away if he is dashing with Deathly Leap.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "An ally cannot select the lantern while immobilized, grounded, or silenced.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "evidence": "An ally cannot select the lantern while immobilized, grounded, or silenced.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dashing ally will track Thresh if he changes locations.\n  - They will dash to Thresh's previous location if he is too far away or moves beyond 2200 units.",
+      "The lantern is considered a unit and can be targeted by an allied Teleport, Leap Strike, Shunpo, and Safeguard.\n  - It is untargetable to enemies.\n  - The lantern blocks pathing of units like minions and champions.",
+      "The lantern's duration and maximum leash range are each displayed as a circle on the ground.",
+      "Thresh will gain Dark Passage's shield from moving out of leash range of the lantern.\n  - When the lantern returns to Thresh, the first ally champion to come in contact with Thresh while he has Dark Passage's shield will also gain a shield as long as no other ally has the shield.",
+      "Dark Passage is special cased to trigger Guardian.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Dark Passage|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = W\n|icon         = Dark Passage.png\n|blurb        = {{sbc|Active:}} {{ci|Thresh}} throws his lantern to the target location that remains for a few seconds while he remains nearby. He and the first allied champion to come near the lantern are granted a {{tip|shield}} for a few seconds, with the amount based on ''{{ai|Damnation|Thresh|Souls}}''. \n|blurb2      = An ally can grab the lantern to {{tip|dash}} to '''Thresh''' and gain the shield, but cannot do so while {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}}.\n|description  = {{sbc|Active:}} '''Thresh''' throws his lantern to the target location over {{fd|0.5}} seconds, lasting for 6 seconds while he remains nearby and granting {{tip|sight}} of its surroundings. If '''Thresh''' moves too far away from the lantern, it returns back to him immediately.\n|description2 = '''Thresh''' and the first allied champion to come near the lantern are granted a {{tip|shield}} for 4 seconds. An ally can select the lantern while in proximity of it, {{tip|dash|dashing}} to '''Thresh''' and gaining the shield.\n|leveling2    = {{st|Shield Strength|{{ap|50 to 130}} (+ 2 per {{ai|Damnation|Thresh|Soul}} collected)}}\n|description3 = ''An ally cannot select the lantern while {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}}. The lantern will not expire from '''Thresh''' moving too far away if he is dashing with {{ai|Deathly Leap|Thresh}}.''\n|target range = {{tip|cr|icononly=true}} 950 \n|tether radius= {{tip|cr|icononly=true}} 1500\n|effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|350|Shield granting radius}}|<!--{{tip|?|icononly = true}}-->{{tt|150|Lantern pickup radius, radius and range behavior pending for test}}}}\n|cooldown     = {{ap|21 to 17}}\n|cost         = {{ap|50 to 70}}\n|cast time    = none\n|costtype     = Mana\n|targeting    = Location\n|affects      = Allies\n|damagetype   = \n|spellshield  = \n|spelleffects = \n|grounded     = \n|knockdown    = \n|projectile   = True\n|outofrange   = walk to location\n|notes        = \n* The dashing ally will track '''Thresh''' if he changes locations.\n** They will dash to '''Thresh's''' previous location if he is too far away or moves beyond {{tt|2200|Estimated}} units.\n* The lantern is considered a unit and can be targeted by an allied {{si|Teleport}}, ''{{ai|Leap Strike|Jax}}'', ''{{ai|Shunpo|Katarina}}'', and ''{{ai|Safeguard|Lee Sin}}''.\n** It is {{tip|untargetable}} to enemies.\n** The lantern blocks pathing of units like minions and champions.\n* The lantern's duration and maximum leash range are each displayed as a circle on the ground.\n* '''Thresh''' will gain ''Dark Passage's'' shield from moving out of leash range of the lantern.\n** When the lantern returns to '''Thresh''', the first ally champion to come in contact with '''Thresh''' while he has ''Dark Passage's'' shield will also gain a shield as long as no other ally has the shield.\n* ''Dark Passage'' is special cased to trigger {{ri|Guardian}}.\n|tips=\n* Since the ally needs to select the lantern, enemies may create targetable units on top of the lantern to impede allies from grabbing it (i.e {{ii|Warding Totem}}).\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Thresh/Dark Passage",
+          "revid": 4017821
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Dark Passage|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Thresh\n|skill        = W\n|icon         = Dark Passage.png\n|blurb        = {{sbc|Active:}} {{ci|Thresh}} throws his lantern to the target location that remains for a few seconds while he remains nearby. He and the first allied champion to come near the lantern are granted a {{tip|shield}} for a few seconds, with the amount based on ''{{ai|Damnation|Thresh|Souls}}''. \n|blurb2      = An ally can grab the lantern to {{tip|dash}} to '''Thresh''' and gain the shield, but cannot do so while {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}}.\n|description  = {{sbc|Active:}} '''Thresh''' throws his lantern to the target location over {{fd|0.5}} seconds, lasting for 6 seconds while he remains nearby and granting {{tip|sight}} of its surroundings. If '''Thresh''' moves too far away from the lantern, it returns back to him immediately.\n|description2 = '''Thresh''' and the first allied champion to come near the lantern are granted a {{tip|shield}} for 4 seconds. An ally can select the lantern while in proximity of it, {{tip|dash|dashing}} to '''Thresh''' and gaining the shield.\n|leveling2    = {{st|Shield Strength|{{ap|50 to 130}} (+ 2 per {{ai|Damnation|Thresh|Soul}} collected)}}\n|description3 = ''An ally cannot select the lantern while {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}}. The lantern will not expire from '''Thresh''' moving too far away if he is dashing with {{ai|Deathly Leap|Thresh}}.''\n|target range = {{tip|cr|icononly=true}} 950 \n|tether radius= {{tip|cr|icononly=true}} 1500\n|effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|350|Shield granting radius}}|<!--{{tip|?|icononly = true}}-->{{tt|150|Lantern pickup radius, radius and range behavior pending for test}}}}\n|cooldown     = {{ap|21 to 17}}\n|cost         = {{ap|50 to 70}}\n|cast time    = none\n|costtype     = Mana\n|targeting    = Location\n|affects      = Allies\n|damagetype   = \n|spellshield  = \n|spelleffects = \n|grounded     = \n|knockdown    = \n|projectile   = True\n|outofrange   = walk to location\n|notes        = \n* The dashing ally will track '''Thresh''' if he changes locations.\n** They will dash to '''Thresh's''' previous location if he is too far away or moves beyond {{tt|2200|Estimated}} units.\n* The lantern is considered a unit and can be targeted by an allied {{si|Teleport}}, ''{{ai|Leap Strike|Jax}}'', ''{{ai|Shunpo|Katarina}}'', and ''{{ai|Safeguard|Lee Sin}}''.\n** It is {{tip|untargetable}} to enemies.\n** The lantern blocks pathing of units like minions and champions.\n* The lantern's duration and maximum leash range are each displayed as a circle on the ground.\n* '''Thresh''' will gain ''Dark Passage's'' shield from moving out of leash range of the lantern.\n** When the lantern returns to '''Thresh''', the first ally champion to come in contact with '''Thresh''' while he has ''Dark Passage's'' shield will also gain a shield as long as no other ally has the shield.\n* ''Dark Passage'' is special cased to trigger {{ri|Guardian}}.\n|tips=\n* Since the ally needs to select the lantern, enemies may create targetable units on top of the lantern to impede allies from grabbing it (i.e {{ii|Warding Totem}}).\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshWAbility/ThreshW",
+        "text": [
+          "{\"ObjectName\":\"ThreshW\",\"objectPath\":\"Characters/Thresh/Spells/ThreshWAbility/ThreshW\",\"mScriptName\":\"ThreshW\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1029,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mSpellTags\":[\"PositiveEffect_Boon\",\"Trait_Shield\",\"Trait_Target_Area\",\"Trait_AoE\"],\"mEffectAmount\":[{\"value\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"value\":[6.0,6.0,6.0,6.0,6.0,6.0,6.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"ShieldPerSoul\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"LanternDuration\",\"values\":[6.0,6.0,6.0,6.0,6.0,6.0,6.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseShieldValue\",\"values\":[30.0,50.0,70.0,90.0,110.0,130.0,150.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"}],\"{f9c2333e}\":{\"cherry\":{\"value\":[15.0,15.0,14.0,13.0,12.0,11.0,0.0],\"__type\":\"SpellEffectAmount\"},\"Kiwi\":{\"value\":[19.0,19.0,18.0,17.0,16.0,15.0,14.0],\"__type\":\"SpellEffectAmount\"}},\"mSpellCalculations\":{\"TotalShield\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseShieldValue\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mBuffName\":\"{5fbfbf13}\",\"mIconKey\":\"%i:threshScalingIcon%\",\"mDataValue\":\"ShieldPerSoul\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell3\",\"mImgIconName\":[\"ASSETS/Characters/Thresh/HUD/Icons2D/Thresh_W.dds\"],\"cooldownTime\":[21.0,21.0,20.0,19.0,18.0,17.0,16.0],\"Cooldown\":{\"values\":[21.0,21.0,20.0,19.0,18.0,17.0,16.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"castRange\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRangeValues\":{\"values\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"{0a3e0478}\":950.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[950.0,950.0,950.0,950.0,950.0,950.0,950.0],\"castRadius\":[350.0,350.0,350.0,350.0,350.0,350.0,350.0],\"castConeDistance\":100.0,\"castTargetAdditionalUnitsRadius\":325.0,\"castFrame\":7.5,\"missileSpeed\":150.0,\"mLookAtPolicy\":1,\"mFloatVarsDecimals\":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],\"mana\":[50.0,55.0,60.0,65.0,70.0,75.0],\"manaValues\":{\"values\":[50.0,55.0,60.0,65.0,70.0,75.0],\"{0a3e0478}\":50.0,\"__type\":\"{630af303}\"},\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Area\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"ThreshW\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_ThreshW_Name\",\"keySummary\":\"Spell_ThreshW_Summary\",\"keyTooltip\":\"Spell_ThreshW_Tooltip\",\"keyTooltipExtendedBelowLine\":\"Spell_ThreshW_TooltipExtendedBelowLine\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseShieldValue\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_ShieldAmount\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[300.0,300.0,300.0,300.0,300.0,300.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe.tex\",\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json",
+        "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+        "object": "Characters/Thresh/Spells/ThreshWAbility/ThreshWLanternOut",
+        "text": [
+          "{\"ObjectName\":\"ThreshWLanternOut\",\"objectPath\":\"Characters/Thresh/Spells/ThreshWAbility/ThreshWLanternOut\",\"mScriptName\":\"ThreshWLanternOut\",\"mSpell\":{\"flags\":4194304,\"mAffectsTypeFlags\":23567,\"mEffectAmount\":[{\"value\":[50.0,80.0,110.0,140.0,170.0,200.0,230.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[13.0,12.0,11.0,10.0,9.0,8.0,7.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.4000000059604645,\"mAnimationName\":\"Spell2\",\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"castRange\":[1500.0,1500.0,1500.0,1500.0,1500.0,1500.0,1500.0],\"castRangeValues\":{\"values\":[1500.0,1500.0,1500.0,1500.0,1500.0,1500.0,1500.0],\"{0a3e0478}\":1500.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[225.0,225.0,225.0,225.0,225.0,225.0,225.0],\"castConeDistance\":100.0,\"mMissileSpec\":{\"mMissileWidth\":120.0,\"movementComponent\":{\"mTargetHeightAugment\":60.0,\"mOffsetInitialTargetHeight\":60.0,\"mStartBoneName\":\"L_Hand\",\"mTravelTime\":0.5,\"__type\":\"FixedTimeMovement\"},\"heightSolver\":{\"mGravity\":5000.0,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"{c195fba6}\":true,\"__type\":\"MissileSpecification\"},\"mCastType\":1,\"castFrame\":7.974999904632568,\"missileSpeed\":800.0,\"mMissileEffectKey\":\"Thresh_Lantern_mis\",\"mLineWidth\":120.0,\"bHaveHitBone\":true,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  }
+]

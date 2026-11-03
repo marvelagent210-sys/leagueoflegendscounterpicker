@@ -1,0 +1,231 @@
+{
+  "champion": "Cassiopeia",
+  "name": "Cassiopeia",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "cassiopeia",
+      "formName": "Cassiopeia",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.837849,
+      "attackDamage": 111.995,
+      "windup": 0.229158,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Cassiopeia",
+      "kind": "E",
+      "name": "Twin Fang",
+      "page": {
+        "title": "Template:Data Cassiopeia/Twin Fang",
+        "revid": 4064399
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Cassiopeia/Twin Fang",
+              "revid": 4064399,
+              "quote": "Against a poisoned target, Twin Fang deals bonus magic damage and heals Cassiopeia."
+            }
+          ]
+        }
+      ],
+      "cooldown": 0.75,
+      "castTime": 0.125,
+      "range": 700,
+      "speed": 2500,
+      "notes": [
+        "Using Twin Fang on an out-of-range target after completing a movement order causes Cassiopeia to move back to her original location after casting, if no other order is issued during the entire process.\n  - This may be a consequence of Twing Fang being a \"Walk in range of the target\" ability that does not interrupt movement commands.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Cassiopeia",
+      "kind": "I",
+      "name": "Serpentine Grace",
+      "page": {
+        "title": "Template:Data Cassiopeia/Serpentine Grace",
+        "revid": 4060357
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Cassiopeia",
+      "kind": "Q",
+      "name": "Noxious Blast",
+      "page": {
+        "title": "Template:Data Cassiopeia/Noxious Blast",
+        "revid": 4060358
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3.5,
+      "castTime": 0.25,
+      "range": 850
+    },
+    {
+      "champion": "Cassiopeia",
+      "kind": "R",
+      "name": "Petrifying Gaze",
+      "page": {
+        "title": "Template:Data Cassiopeia/Petrifying Gaze",
+        "revid": 4060360
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Cassiopeia/Petrifying Gaze",
+              "revid": 4060360,
+              "quote": "Active: Cassiopeia blasts enemies in a cone in the target direction, dealing magic damage to enemies struck within and slowing them by 40% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 40
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Cassiopeia/Petrifying Gaze",
+              "revid": 4060360,
+              "quote": "Enemies with their facing direction towards her are instead stunned for the same duration."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.5
+    },
+    {
+      "champion": "Cassiopeia",
+      "kind": "W",
+      "name": "Miasma",
+      "page": {
+        "title": "Template:Data Cassiopeia/Miasma",
+        "revid": 3936292
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "ground",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "ground"
+            },
+            {
+              "page": "Template:Data Cassiopeia/Miasma",
+              "revid": 3936292,
+              "quote": "Enemies within the clouds are poisoned to take magic damage every 0.263158 seconds and become grounded and slowed by an amount that decays over the area's duration."
+            }
+          ]
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Cassiopeia/Miasma",
+              "revid": 3936292,
+              "quote": "Enemies within the clouds are poisoned to take magic damage every 0.263158 seconds and become grounded and slowed by an amount that decays over the area's duration."
+            }
+          ],
+          "amount": 80
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 700,
+      "speed": 3000,
+      "notes": [
+        "Miasma's slow and ground debuffs are each marked as non-dispellable, so they are not removed by most cleanses. Each is however allowed to be removed by cleanses that also grant immunity to the debuff type, such as Ragnarok.",
+        "If a target becomes untargetable while affected by the ground, the debuff will refresh to 0.25 seconds.",
+        "Wind Wall will block the portion of Miasma it destroys."
+      ]
+    }
+  ]
+}

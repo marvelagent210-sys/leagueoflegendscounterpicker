@@ -1,7 +1,16 @@
 /**
  * Rebuild simulator outputs from committed parsed data; no raw downloads or network.
  * Also refresh the interaction ledger outputs from committed profiles and glossary.
- * npm run build:sim -- [--dataset 16.20] [--threads 4] [--check]
+ * npm run build:sim -- [--dataset 16.20] [--threads 4] [--check] [--plan] [--shard i/N] [--recompute A,B]
+ *
+ * Incremental (PLAN.md §13): a pairing whose inputs (pairKeys.ts) equal a stored result's, in
+ * this dataset's simulated.json or the previous dataset's, isn't computed again; the rest are,
+ * and checkpointed as they finish (.cache/sim/), so that a stopped run resumes. `--plan` prints
+ * how many pairings would be computed, as JSON, and writes nothing. `--shard i/N` computes only
+ * the i-th of N even shares of those pairings, into checkpoints, and writes nothing else: shards
+ * run on separate machines, and a final run without --shard reads their checkpoints back and
+ * writes the outputs (.github/workflows/refresh.yml). `--recompute` computes the pairings of the
+ * champions named again, whatever is stored: a check that a refresh reproduces its results.
  */
 import { readFile, rename, rm, writeFile } from "node:fs/promises";
 import { availableParallelism } from "node:os";
@@ -18,8 +27,10 @@ import { loadKit } from "../kitData";
 import { loadLedgerData } from "../ledgerData";
 import { counterPage, ledgerReport } from "../ledgerPages";
 import { loadSimData } from "../simData";
-import { coverageReport, simulatedCounterSection, simulatedJson, simulatedMatrix, simulatorReport, simulatorSection } from "../simPages";
+import { coverageReport, simulatedCounterSection, simulatedJson, simulatedMatrix, simulatedSpentJson, simulatorReport, simulatorSection } from "../simPages";
 import { simulationProvenance } from "./fingerprint";
+import { pairInputs } from "./pairKeys";
+import { SPENT_FILE, parseRecompute, parseShard, plainStores, reusable, reuseSummary, shardOf } from "./reuse";
 import { type PairResult, simulatePairs } from "./pool";
 import { readCheckpoint } from "./checkpoint";
 import { replaceSimulatorSection } from "./sections";
@@ -34,9 +45,14 @@ async function main(): Promise<void> {
     return found;
   };
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === "--dataset" || args[i] === "--threads") i++;
-    else if (args[i] !== "--check") throw new Error(`Unknown argument ${args[i]}`);
+    if (args[i] === "--dataset" || args[i] === "--threads" || args[i] === "--shard" || args[i] === "--recompute") i++;
+    else if (args[i] !== "--check" && args[i] !== "--plan") throw new Error(`Unknown argument ${args[i]}`);
   }
+  const shard = parseShard(value("--shard"));
+  const plan = args.includes("--plan");
+  const log = (message: string) => {
+    if (!plan) console.log(message);
+  };
   const threads = Number(value("--threads") ?? Math.min(4, availableParallelism()));
   if (!Number.isSafeInteger(threads) || threads < 1) throw new Error("--threads must be a positive integer");
   const data = await loadSimData(value("--dataset"));
@@ -58,27 +74,43 @@ async function main(): Promise<void> {
   }
   const ids = [...compiled.keys()];
   const pairs: Array<[string, string]> = ids.flatMap((you, i) => ids.slice(i + 1).map((enemy): [string, string] => [you, enemy]));
-  console.log(`[sim] Dataset ${data.dataset}: ${ids.length} kits, ${pairs.length} matchups, ${threads} workers`);
+  log(`[sim] Dataset ${data.dataset}: ${ids.length} kits, ${pairs.length} matchups, ${threads} workers${shard ? `, shard ${shard.index + 1} of ${shard.count}` : ""}`);
   const started = Date.now();
-  const checkpoint = { directory: path.join(REPO_ROOT, ".cache", "sim", data.dataset, provenance.fingerprint), fingerprint: provenance.fingerprint };
-  const results: PairResult[] = [];
-  const pending: number[] = [];
-  for (const [index, pair] of pairs.entries()) {
-    const saved = await readCheckpoint(checkpoint, data.dataset, DEFAULT_BUDGET, pair);
-    if (saved) results.push({ ...saved, index });
-    else pending.push(index);
+  // Pairings computed before from the same inputs stand; the rest are this run's to compute.
+  const inputs = await pairInputs(data.dataset, "sim");
+  const reuse = reusable(pairs, inputs, await plainStores(data.dataset), parseRecompute(value("--recompute"), ids));
+  const toCompute = pairs.map((_, index) => index).filter((index) => !reuse.results.has(index));
+  if (plan) {
+    console.log(JSON.stringify({ dataset: data.dataset, pairings: pairs.length, reused: reuse.results.size, pending: toCompute.length }));
+    return;
   }
-  const resumed = results.length;
-  if (resumed > 0) console.log(`[sim] Resuming ${resumed}/${pairs.length} verified checkpoints`);
+  log(`[sim] ${reuseSummary(pairs.length, reuse.from)}`);
+  const mine = shardOf(toCompute, shard);
+  const checkpoint = { directory: path.join(REPO_ROOT, ".cache", "sim", data.dataset, provenance.fingerprint), fingerprint: provenance.fingerprint };
+  const results: PairResult[] = [...reuse.results].map(([index, result]) => ({ ...result, index }));
+  const pending: number[] = [];
+  let resumed = 0;
+  for (const index of mine) {
+    const saved = await readCheckpoint(checkpoint, data.dataset, DEFAULT_BUDGET, pairs[index]!);
+    if (saved) {
+      results.push({ ...saved, index });
+      resumed++;
+    } else pending.push(index);
+  }
+  if (resumed > 0) log(`[sim] Resuming ${resumed}/${mine.length} verified checkpoints`);
   let nextProgress = resumed + 50;
   if (pending.length > 0) {
     const fresh = await simulatePairs(data.dataset, DEFAULT_BUDGET, pending.map((index) => pairs[index]!), threads, (completed) => {
       const totalCompleted = resumed + completed;
-      if (totalCompleted < nextProgress && totalCompleted < pairs.length) return;
-      console.log(`[sim] ${totalCompleted}/${pairs.length} matchups computed in ${((Date.now() - started) / 1000).toFixed(1)} s`);
+      if (totalCompleted < nextProgress && totalCompleted < mine.length) return;
+      log(`[sim] ${totalCompleted}/${mine.length} matchups computed in ${((Date.now() - started) / 1000).toFixed(1)} s`);
       nextProgress = totalCompleted + 50;
     }, checkpoint);
     results.push(...fresh.map((result) => ({ ...result, index: pending[result.index]! })));
+  }
+  if (shard) {
+    log(`[sim] Shard ${shard.index + 1} of ${shard.count}: ${mine.length} matchups checkpointed in ${((Date.now() - started) / 1000).toFixed(1)} s; a run without --shard writes the outputs.`);
+    return;
   }
   const matrix = simulatedMatrix(ids, DEFAULT_BUDGET, pairs, results.sort((a, b) => a.index - b.index));
   const names = new Map(data.champions.map((champion) => [champion.id, champion.name]));
@@ -107,7 +139,8 @@ async function main(): Promise<void> {
   outputs.set(ledgerFile, replaceSimulatorSection(freshLedger, "## Effects read only from descriptions", descriptions));
   outputs.set(path.join(dir, "reports", "simulator.md"), simulatorReport(data.patch, matrix, names, GOLDEN));
   outputs.set(path.join(dir, "reports", "coverage.md"), coverageReport(data.champions, compiled));
-  outputs.set(path.join(dir, "simulated.json"), simulatedJson(data.dataset, data.patch, matrix, provenance));
+  outputs.set(path.join(dir, "simulated.json"), simulatedJson(data.dataset, data.patch, matrix, provenance, inputs));
+  outputs.set(path.join(dir, SPENT_FILE), simulatedSpentJson(data.dataset, data.patch, matrix, provenance));
   // A long refresh must never stamp new source revisions onto old calculations.
   if ((await simulationProvenance(data.dataset)).fingerprint !== provenance.fingerprint) {
     await rm(checkpoint.directory, { recursive: true, force: true });
@@ -122,7 +155,7 @@ async function main(): Promise<void> {
       await rm(temporary, { force: true });
     }
   }
-  console.log(`[sim] Refreshed ${outputs.size} simulator and ledger files in ${((Date.now() - started) / 1000).toFixed(1)} s; parsed source data and profiles preserved.`);
+  console.log(`[sim] Refreshed ${outputs.size} simulator and ledger files in ${((Date.now() - started) / 1000).toFixed(1)} s (${reuse.results.size} of ${pairs.length} matchups reused); parsed source data and profiles preserved.`);
 }
 
 main().catch((error: unknown) => {

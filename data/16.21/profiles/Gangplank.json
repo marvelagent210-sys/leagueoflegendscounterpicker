@@ -1,0 +1,231 @@
+{
+  "champion": "Gangplank",
+  "name": "Gangplank",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "gangplank",
+      "formName": "Gangplank",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.0922,
+      "attackDamage": 146.593,
+      "windup": 0.150589,
+      "modifiers": [
+        "Trial by Fire"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Gangplank",
+      "kind": "E",
+      "name": "Powder Keg",
+      "page": {
+        "title": "Template:Data Gangplank/Powder Keg",
+        "revid": 4091400
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gangplank/Powder Keg",
+              "revid": 4091400,
+              "quote": "Enemies caught in an explosion are dealt the triggering attack's damage and slowed for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 80
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 13,
+      "castTime": 0.25,
+      "range": 1000,
+      "notes": [
+        "Specific Spellblade item interactions:\n  - Bloodsong: Dealing damage with kegs to champions won't apply Expose Weakness to them.\n  - Iceborn Gauntlet: The frost field will be created on the location of the keg that is attacked.\n  - Lich Bane: The magic damage will be added to the explosions' damage, but will be dealt as physical damage.\n  - Trinity Force: Attacking kegs grants the movespeed from Quicken; dealing damage with the explosion does not since it does not trigger on-hit effects.",
+        "Placed kegs do not grant vision until they explode, but they are revealed to Gangplank.\n  - If Gangplank loses allied vision, for instance due to nearsight, he will also lose vision on his kegs temporarily.\n  - Kegs prematurely grant sight of their explosion radius (including across terrain and into bushes) if Parrrley or a lit fuse is traveling towards them.\n    - This area reveal happens even if Parrrley is not going to make it explode.",
+        "Attacks against Powder Kegs will apply on-hit effects (such as Tiamat Cleave), but proc damage against the keg itself is reduced to 0.\n  - Damage from on-hit effects will therefore not increase the damage of the explosion.\n  - Spellblade is a special-cased exception.",
+        "Powder Kegs will take damage from effects that apply on-hit effects (eg. Guinsoo's Rageblade Seething Strike ), but will remain at 1 health if they would be killed by them."
+      ]
+    },
+    {
+      "champion": "Gangplank",
+      "kind": "I",
+      "name": "Trial by Fire",
+      "page": {
+        "title": "Template:Data Gangplank/Trial by Fire",
+        "revid": 4038337
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "notes": [
+        "If the attack is dodged or if Gangplank is blinded, the effect is not applied nor does Trial by Fire go on cooldown. If the attack is blocked, the effect is not applied, but Trial by Fire will go on cooldown."
+      ]
+    },
+    {
+      "champion": "Gangplank",
+      "kind": "Q",
+      "name": "Parrrley",
+      "page": {
+        "title": "Template:Data Gangplank/Parrrley",
+        "revid": 4063653
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4.5,
+      "castTime": 0.25,
+      "range": 625,
+      "speed": 2600,
+      "notes": [
+        "On-hit effects that deal damage to secondary targets will allow Parrrley to plunder from enemies killed that way, much like with Powder Kegs.\n  - Ravenous Hydra and Titanic Hydra work like this and will grant additional plunder from enemies they kill when triggered by Parrrley as their cast instance.\n  - Even spell effects such as Luden's Echo will work with this when triggered by Parrrley as their cast instance. Spell effects that do not belong to their triggering cast instance, such as Liandry's Torment damage debuff, do not grant plunder for enemies they kill.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Gangplank",
+      "kind": "R",
+      "name": "Cannon Barrage",
+      "page": {
+        "title": "Template:Data Gangplank/Cannon Barrage",
+        "revid": 4048098
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gangplank/Cannon Barrage",
+              "revid": 4048098,
+              "quote": "Each wave deals magic damage to all enemies within the area and slows them by 30% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 120,
+      "castTime": 0.25
+    },
+    {
+      "champion": "Gangplank",
+      "kind": "W",
+      "name": "Remove Scurvy",
+      "page": {
+        "title": "Template:Data Gangplank/Remove Scurvy",
+        "revid": 4085490
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "airborne",
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        }
+      ],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "notes": [
+        "Remove Scurvy does not remove debuffs other than crowd control, even if both occur from the same effect. For example, Remove Scurvy will dispel the slow from Exhaust, but not its damage reduction.",
+        "Remove Scurvy can remove the underlying stun from airborne, but a blink or dash ability is required to override the displacement."
+      ]
+    }
+  ]
+}

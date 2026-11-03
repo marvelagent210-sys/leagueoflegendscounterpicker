@@ -2,6 +2,7 @@ import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { HookContext } from "../../engine/sim/spec";
 import type { ItemModule } from "../equip";
+import { absorbed, attacks, damagingCasts, incoming, triggers } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom, itemShield } from "./shared";
 
@@ -18,6 +19,11 @@ export const Eclipse: ItemModule = {
     const cooldown = moon.cooldown();
     item.assume("Ever Rising Moon counts each damage instance the holder deals that isn't damage over time, and each crowd control it applies, as a stack; the hits of one cast at the same tick count once.");
     const pick = (pair: { melee: number; ranged: number }) => (fighter.ranged ? pair.ranged : pair.melee);
+    // Two stacks: the time to a second hit, after the cooldown.
+    const procs = (self: Parameters<typeof derive>[0]) => {
+      const hits = attacks(self) + damagingCasts(self);
+      return hits > 0 ? triggers(cooldown, 1 / hits) : 0;
+    };
     const last = memo(item.name, "lastStack");
     const lastSource = memo(item.name, "lastSource");
     const ready = memo(item.name, "ready");
@@ -37,6 +43,13 @@ export const Eclipse: ItemModule = {
       ctx.self.memory[last] = ctx.tick;
     };
     return {
+      budget: {
+        damage: (self, enemy) => ({ physical: (pick(share) / 100) * derive(enemy).maxHp * procs(self) }),
+        shielding(self, enemy) {
+          const coming = incoming(self, enemy);
+          return absorbed(pick(shield) + (pick(ad) / 100) * derive(self).bonusAd, seconds, coming.physical + coming.magic + coming.true, false) * procs(self);
+        },
+      },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.persistent || ctx.petSource || ctx.ability === item.label) return;

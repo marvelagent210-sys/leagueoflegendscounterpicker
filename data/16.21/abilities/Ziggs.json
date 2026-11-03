@@ -1,0 +1,1123 @@
+[
+  {
+    "champion": "Ziggs",
+    "kind": "E",
+    "name": "Hexplosive Minefield",
+    "page": {
+      "title": "Template:Data Ziggs/Hexplosive Minefield",
+      "revid": 4008673
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 16
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 80 / 90 / 100 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "335 • 135",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 335
+            },
+            "label": "Effective minefield radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 135
+            },
+            "label": "Detection and explosion radius of each individual mine"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1550
+            },
+            "label": "Travel speed to cast location"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ziggs scatters a cluster of 11 proximity mines over the target location that grant sight of the area for 2 seconds, arming after 0.5 seconds and lasting for up to 10 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Ziggs scatters a cluster of 11 proximity mines over the target location that grant sight of the area for 2 seconds, arming after 0.5 seconds and lasting for up to 10 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "arming after 0.5 seconds",
+            "tip": "travel time of the mines spreading out plus a brief delay"
+          }
+        ]
+      },
+      {
+        "text": "Each mine within the area explodes upon contact with terrain or an enemy, dealing magic damage and slowing them for 1.5 seconds, as well as granting sight of the area around the explosion for 2 seconds. An enemy takes 40% damage from subsequent mines.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Mine",
+            "amount": {
+              "text": "30 / 70 / 110 / 150 / 190 (+ 25 / 30 / 35 / 40 / 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  70,
+                  110,
+                  150,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      25,
+                      30,
+                      35,
+                      40,
+                      45
+                    ]
+                  },
+                  "text": "(+ 25 / 30 / 35 / 40 / 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage per Mine",
+            "amount": {
+              "text": "12 / 28 / 44 / 60 / 76 (+ 10 / 12 / 14 / 16 / 18% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12,
+                  28,
+                  44,
+                  60,
+                  76
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      10,
+                      12,
+                      14,
+                      16,
+                      18
+                    ]
+                  },
+                  "text": "(+ 10 / 12 / 14 / 16 / 18% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Total Magic Damage",
+            "amount": {
+              "text": "150 / 350 / 550 / 750 / 950 (+ 125 / 150 / 175 / 200 / 225% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  350,
+                  550,
+                  750,
+                  950
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      125,
+                      150,
+                      175,
+                      200,
+                      225
+                    ]
+                  },
+                  "text": "(+ 125 / 150 / 175 / 200 / 225% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                10,
+                20,
+                30,
+                40,
+                50
+              ]
+            },
+            "evidence": "Each mine within the area explodes upon contact with terrain or an enemy, dealing magic damage and slowing them for 1.5 seconds, as well as granting sight of the area around the explosion for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Each mine within the area explodes upon contact with terrain or an enemy, dealing magic damage and slowing them for 1.5 seconds, as well as granting sight of the area around the explosion for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The mine cluster is built of 2 rings, with 3 mines in the inner ring (radius pending for test) and 8 mines on the other ring (200 radius), all equally spaced.\n  - The angular offset is randomized on each cast.\n  - Because of the 135 detonation radius of each mine, the total possible range of a mine from the minefield hitting an enemy from the cast location is 335 units. It will often be slightly less as the minefield is not guaranteed to be angled the right way for this.",
+      "Mines will not explode upon contact with player-generated terrain.",
+      "Spell shield will block the effects of a single detonation."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "ef1256970b02471e648880041fe04baa181fb83bff7a798d1f952b3daf1efcfa",
+        "object": "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE",
+        "text": [
+          "mSpell.DataValues.TriggerRange.values: [135,135,135,135,135,135,135]",
+          "mSpell.DataValues.MinePerceptionBubbleSize.values: [150,150,150,150,150,150,150]",
+          "mSpell.castRadius: [235,235,235,235,235,235,235]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Ziggs",
+    "kind": "I",
+    "name": "Short Fuse",
+    "page": {
+      "title": "Template:Data Ziggs/Short Fuse",
+      "revid": 4005222
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            },
+            "label": "Cooldown starts on-attack"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Attack missile speed, same as basic attacks"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Ziggs empowers his next basic attack to deal 20 – 160 (based on level) (+ 50% AP) bonus magic damage, increased by 75% against structures.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                24,
+                28,
+                32,
+                36,
+                40,
+                48,
+                56,
+                64,
+                72,
+                80,
+                88,
+                100,
+                112,
+                124,
+                136,
+                148,
+                160,
+                172,
+                184
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Ziggs empowers his next basic attack to deal 20 – 160 (based on level) (+ 50% AP) bonus magic damage, increased by 75% against structures."
+          }
+        ]
+      },
+      {
+        "text": "Short Fuse's cooldown is reduced by 4 / 5 / 6 (based on level) seconds whenever Ziggs casts an ability.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                4,
+                5,
+                6
+              ]
+            },
+            "context": "Short Fuse's cooldown is reduced by 4 / 5 / 6 (based on level) seconds whenever Ziggs casts an ability."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The empowered attack will not trigger against wards.",
+      "The cooldown reduction is granted at the start of the abilities' cast time.",
+      "Short Fuse will go on cooldown but not deal any damage if the attack misses due to blind.",
+      ": Short Fuse's interactions with dodging and blocking effects."
+    ]
+  },
+  {
+    "champion": "Ziggs",
+    "kind": "Q",
+    "name": "Bouncing Bomb",
+    "page": {
+      "title": "Template:Data Ziggs/Bouncing Bomb",
+      "revid": 4008669
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6 / 5.5 / 5 / 4.5 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                6,
+                5.5,
+                5,
+                4.5,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            },
+            "label": "Cast range"
+          }
+        ]
+      },
+      "range": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            },
+            "label": "Maximum range with bounces, excluding explosion radius"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            },
+            "label": "Explosion radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            },
+            "label": "Initial missile"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Hit detection on bounces"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ziggs throws a bomb to the target location that bounces forward up to two times, with the distance traveled each time being based on how far it was originally thrown and each bounce occurring over 0.495 seconds regardless of distance.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The bomb explodes upon landing near an enemy, within terrain, or the final bounce, dealing magic damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 60 / 65 / 70 / 75 / 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      60,
+                      65,
+                      70,
+                      75,
+                      80
+                    ]
+                  },
+                  "text": "(+ 60 / 65 / 70 / 75 / 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Bouncing Bomb can be thrown or bounce over units/terrain.",
+      "Spell shield will block the damage of the explosion, but the explosion can still damage other targets in the radius.",
+      "Ziggs will throw the bomb from his location at the end of the cast time, towards the pre-clamped cast location, causing the bounces to adjust their angle accordingly."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "ef1256970b02471e648880041fe04baa181fb83bff7a798d1f952b3daf1efcfa",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQ",
+        "text": [
+          "mSpell.DataValues.MaxRange.values: [850,850,850,850,850,850,850]",
+          "mSpell.DataValues.MaxRangeFirstBounce.values: [325,325,325,325,325,325,325]",
+          "mSpell.DataValues.MaxRangeSecondBounce.values: [225,225,225,225,225,225,225]",
+          "mSpell.DataValues.BombTriggerRange.values: [180,180,180,180,180,180,180]",
+          "mSpell.DataValues.ExplosionRadius.values: [240,240,240,240,240,240,240]",
+          "mSpell.DataValues.BoundingBoxTrigger.values: [70,70,70,70,70,70,70]"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "ef1256970b02471e648880041fe04baa181fb83bff7a798d1f952b3daf1efcfa",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell",
+        "text": [
+          "mSpell.missileSpeed: 1700",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":120,\"movementComponent\":{\"mTargetHeightAugment\":60,\"mOffsetInitialTargetHeight\":60,\"mSpeed\":1700,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"mGravity\":7000,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"{c195fba6}\":true,\"__type\":\"MissileSpecification\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "ef1256970b02471e648880041fe04baa181fb83bff7a798d1f952b3daf1efcfa",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell2",
+        "text": [
+          "mSpell.missileSpeed: 1600",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":120,\"movementComponent\":{\"mTargetHeightAugment\":60,\"mOffsetInitialTargetHeight\":60,\"mTravelTime\":0.47999998927116394,\"__type\":\"FixedTimeMovement\"},\"heightSolver\":{\"mGravity\":5000,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"{c195fba6}\":true,\"__type\":\"MissileSpecification\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "ef1256970b02471e648880041fe04baa181fb83bff7a798d1f952b3daf1efcfa",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell3",
+        "text": [
+          "mSpell.missileSpeed: 1600",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":120,\"movementComponent\":{\"mTargetHeightAugment\":60,\"mOffsetInitialTargetHeight\":60,\"mTravelTime\":0.47999998927116394,\"__type\":\"FixedTimeMovement\"},\"heightSolver\":{\"mGravity\":3000,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"{c195fba6}\":true,\"__type\":\"MissileSpecification\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Ziggs",
+    "kind": "R",
+    "name": "Mega Inferno Bomb",
+    "page": {
+      "title": "Template:Data Ziggs/Mega Inferno Bomb",
+      "revid": 4008677
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 95 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                95,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.375
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "5000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5000
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "525 • 600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            },
+            "label": "Explosion radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Area reveal radius"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2250
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ziggs catapults the Mega Inferno Bomb to the target location, granting sight of the area for 4 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Ziggs catapults the Mega Inferno Bomb to the target location, granting sight of the area for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The bomb explodes upon arrival to deal magic damage to enemies hit, reduced to 65% against those outside of the epicenter.",
+        "leveling": [
+          {
+            "label": "Epicenter Magic Damage",
+            "amount": {
+              "text": "300 / 500 / 700 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  500,
+                  700
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "195 / 325 / 455 (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  195,
+                  325,
+                  455
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Allies cannot see Mega Inferno Bomb's area indicator until shortly before the blast.",
+      "Mega Inferno Bomb takes 2.64 seconds from the start of the cast time to land when cast at maximum range (reduced to 1.617 seconds from the start of the cast time when casting within 2700 units).\n  - When cast within 2700 units, Mega Inferno Bomb has a fixed travel time. Beyond that, the travel time is equal to the cast distance divided by the now-fixed missile speed.",
+      "The area reveal on the target location begins as soon as the cast time is completed and can see into brush and across terrain."
+    ]
+  },
+  {
+    "champion": "Ziggs",
+    "kind": "W",
+    "name": "Satchel Charge",
+    "page": {
+      "title": "Template:Data Ziggs/Satchel Charge",
+      "revid": 4008672
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "325 • 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Satchel explosion radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Satchel sight radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1750
+            },
+            "label": "Missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "special",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ziggs hurls a charge to the target location, remaining there for 4 seconds and granting sight of the area. Satchel Charge can be recast within the duration, and does so automatically afterwards. If recast while in flight, the charge will explode immediately upon landing.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Ziggs hurls a charge to the target location, remaining there for 4 seconds and granting sight of the area.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Ziggs detonates the charge, causing it to explode to deal magic damage to nearby enemies and knock them back over 0.5 seconds up to 500 units away from the center of the explosion, though not through terrain. If this hits Ziggs, he will dash up to 825 units away from the center.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock them back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Recast: Ziggs detonates the charge, causing it to explode to deal magic damage to nearby enemies and knock them back over 0.5 seconds up to 500 units away from the center of the explosion, though not through terrain.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "If this hits Ziggs, he will dash up to 825 units away from the center.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Turret Explosion: The explosion also executes enemy turrets within that are below a maximum health threshold.",
+        "leveling": [
+          {
+            "label": "Demolition Threshold",
+            "amount": {
+              "text": "25 / 27.5 / 30 / 32.5 / 35% of turret's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  27.5,
+                  30,
+                  32.5,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "other:of turret's maximum health"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Ziggs will not dash from the explosion if he is immobilized or grounded. He can cast any of his abilities during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "Ziggs will not dash from the explosion if he is immobilized or grounded.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Ziggs will not dash from the explosion if he is immobilized or grounded.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Detonating the ability manually does not.",
+      "Deals area damage to non-turrets and raw damage to turrets.",
+      "Satchel Charge's distance increases with proximity to the charge, resulting in being knocked straight up when aligned directly on top of it.",
+      "Ziggs will not dash from Satchel Charge's detonation while Teleporting but he will while Recalling."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "ef1256970b02471e648880041fe04baa181fb83bff7a798d1f952b3daf1efcfa",
+        "object": "Characters/Ziggs/Spells/ZiggsWAbility/ZiggsW",
+        "text": [
+          "mSpell.DataValues.KnockbackSpeed.values: [600,600,600,600,600,600,600]",
+          "mSpell.DataValues.KnockbackGravity.values: [50,50,50,50,50,50,50]",
+          "mSpell.DataValues.KnockbackDistance.values: [500,500,500,500,500,500,500]",
+          "mSpell.DataValues.KnockbackDistanceAlly.values: [775,775,775,775,775,775,775]",
+          "mSpell.DataValues.ExplosionRadius.values: [325,325,325,325,325,325,325]",
+          "mSpell.missileSpeed: 1750",
+          "mSpell.mMissileSpec.movementComponent: {\"mTracksTarget\":false,\"mStartBoneName\":\"root\",\"mSpeed\":1750,\"__type\":\"FixedSpeedMovement\"}"
+        ]
+      }
+    ]
+  }
+]

@@ -1812,10 +1812,286 @@ The full suite ran **7,898 tests across 219 files** on one worker in **1,014.5 s
 variant search included within its unchanged 180-second limit. `npm run build:web`
 passes. The Kit Counter Picker's page renders all 173 at 390 pixels with no console error.
 
+## The build matrix, 1–2 November 2026
+
+`npm run build:builds -- --threads 4` played the build search (`pipeline/items/search.ts`)
+for all **14,878 pairings**, six items each, under inputs fingerprint
+`3b4c26efe9c32989484794ee19bec409fec573420da63ad4a2d8461f1f939dab` (the simulation's
+inputs, the item code, the build search and the item catalog).
+
+- **Smoke runs first.** The first smoke run (each kit against the next, 172 pairings)
+  failed for Aurelion Sol's and Azir's pairings: their calibrated estimate of an empty
+  build was inflated, so no item looked useful and the search found no build. The estimate
+  now scales a calibrated kit's own damage the same way with items and without, and the
+  search falls back to every item when too few help alone (a regression test holds both).
+  The second smoke run played all 172 without failures in 12.8 minutes.
+- **The run.** 19.4 hours on four threads, resuming the smoke run's 172 checkpoints:
+  **77.8 processor-hours**, 18.8 s a pairing on its thread (12 s alone). No pairing failed.
+  The process held about 3.2 GB throughout. `npm run build:builds -- --check` passes.
+- **The builds.** 29,756 directed builds, 2,680 of them distinct, from 76 of the catalog's
+  113 items. 94% hold Guardian Angel or Zhonya's Hourglass (29% both): a revive or a stasis
+  decides a duel, as fights showed before the run. Guardian Angel is in 90% of builds,
+  Yun Tal Wildarrows in 72%, Terminus in 62%, Frozen Heart in 41% and Infinity Edge in 40%
+  (`reports/builds.md` has each champion's). Mages whose damage is their abilities build
+  ability power (Cassiopeia, Aurelion Sol, Azir); many others, tanks and some mages among
+  them, build for basic attacks.
+- **Against plain stats.** Over all pairings the scores with builds correlate with the plain
+  matrix's (`d28cd1a6…`, from before M8's changes to the stat budget) at r = 0.65; 2,160
+  pairings change winner where both scores are beyond ±0.2. With builds, Fiora, Aphelios,
+  Yorick, Jax and Nasus lead on average, and Pyke, Thresh, Yuumi, Qiyana and Karthus trail.
+- **Two limits the results show.**
+  - When a matchup is lopsided (71% of directed scores are beyond ±0.5), the losing side's
+    build barely moves it, so the build listed for that side is close to arbitrary. Against
+    Darius's build, Malphite's found build scores +0.77 for Darius; a tank build (Sunfire
+    Aegis, Thornmail, Frozen Heart, Randuin's Omen, Force of Nature, Dead Man's Plate) +0.75;
+    an ability power build with Zhonya's Hourglass, Rabadon's Deathcap and Guardian Angel
+    +0.74.
+  - A ranged champion with a basic-attack build keeps a melee champion out of reach when the
+    melee kit has no gap-closer as long as its range: Annie with a critical strike build
+    beats Darius at +0.91 (−0.14 with plain stats). The duel has no summoner spells,
+    terrain or second dimension to close the gap, and in the six-item format no boots.
+
+The app shows these results by default where the dataset has them (`web/src/builds.ts`),
+with plain stats a toggle away; a headless browser check of the picker and matchup pages
+with this file found the builds, Udyr's rank split and the item catalog's revision in place,
+with no console error.
+
+## Plain-stats refresh after the build search, 2–3 November 2026
+
+The build search changed the stat budget (`engine/budget.ts`: it now reads damage dealt and
+taken modifiers and healing modifiers, as fights apply them), so the plain-stats matrix was
+refreshed under the new inputs fingerprint
+`b9e4777795b1350531f40334eef0e55d25236fc9d8a18bd7ccc9a819399255e7`.
+
+- `npm run build:sim -- --threads 4` computed 14,486 pairs in about 6.7 hours before the
+  container restarted; the relaunched run verified those checkpoints, computed the other
+  392 and wrote 351 simulator and ledger files in 429.8 seconds. Aphelios's pairings, with
+  every weapon variant played, took about 13 s each against about 1.6 s for most.
+- **14,734 of the 14,878 pairings are identical** to the previous matrix (`d28cd1a6…`),
+  every scenario value included. The other **144 all involve Kassadin**, the one kit that
+  starts with a damage modifier (10% less magic damage taken), which the stat budget now
+  reads: both sides of his matchups buy differently, and some of his duels change winner
+  (Amumu against Kassadin from −0.74 to +0.76). The variants played are unchanged.
+- `npm run build:sim -- --check` and `npm run build:builds -- --check` both pass.
+- The full suite ran **7,969 tests across 224 files** on four workers in 218 seconds:
+  **7,964 passed** and the five disputed golden expectations were skipped, the
+  stale-matrix check among those that pass again. Both TypeScript projects and
+  `npm run build:web` pass.
+
+## Incremental refresh, 3 November 2026
+
+Refreshes now reuse every pairing whose inputs are unchanged (`pipeline/sim/pairKeys.ts`,
+`pipeline/sim/reuse.ts`; README, "Incremental refreshes"). What was checked:
+
+- **The keys cover what a fight reads.** The workers read `champions.json`, the stat prices
+  in `rules.json`, `runes.json`, each kit's `abilities/<id>.json` and `pets/<id>.json`, and,
+  for item builds, `items.json`; nothing else (a scan of every module the two workers import
+  for file reads, `require` and computed imports). Kit modules import only the shared
+  `kits/champions/util.ts`, which is in the shared key with the engine, and the kit registry
+  holds only the map from ids to kits. A test holds both committed matrices' recorded inputs
+  to the inputs computed from the current code and data.
+- **Both matrices were stamped while verified current.** Before the inputs were written into
+  `simulated.json` and `simulated-builds.json`, both passed their fingerprint checks; the
+  plain matrix's stat spending (`simulated-spent.json`) came from its 14,878 checkpoints, each
+  checked against the score in the file.
+- **A reused pairing reads back exactly as computing it again writes it.** Six pairings
+  computed again (Darius–Garen, Udyr–Yasuo, Ahri–Kayn, Heimerdinger–Jax, Annie–Malphite,
+  Aphelios–Vayne) gave the reused scores, scenario scores, spending and kit variants
+  exactly; a test repeats this for two of them. Scenario scores are now kept at three
+  decimals with symmetric rounding, and spending in whole gold, in every output: 2,761 of the
+  counter pages' 178,536 scenario cells (1.5%) moved by 0.01 once, from being rounded twice
+  before, and the simulator report's spending moved by up to 1 gold. No aggregate score or
+  rank changed.
+- **A refresh with nothing changed reuses everything.** `npm run build:sim` reused all
+  14,878 pairings and wrote its 352 files in 2.6 seconds; `npm run build:builds` reused all
+  14,878 in about a second. A second run of both left every file in `data/16.20/`
+  byte-for-byte identical. `--check` passes for both, with fingerprints `30202eca…` (plain)
+  and `210a6675…` (builds).
+- **What a patch would reuse.** Against 26.21's data as fetched, with the current kit
+  modules, 69 kits' keys differ from 26.20's, so 9,522 of the 14,878 plain-stats pairings
+  (64%) would be computed again. The item catalog changed too, so the whole build matrix
+  would be.
+- The full suite passed: **7,975 tests across 225 files** on four workers in 220 seconds,
+  with the five disputed golden expectations skipped as before. Both TypeScript projects pass.
+
+## Sharded refresh on GitHub Actions, 3 November 2026
+
+The refresh workflow's first run ([run 41566738646](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/41566738646))
+checked it end to end. Its request had Darius's pairings computed again in both matrices,
+whatever was stored, so that what GitHub's runners compute could be compared with the
+committed results.
+
+- The plan job found 172 pairings to compute in each matrix (14,706 reused) and split them
+  as requested: two plain-stats shards and three item-build shards, each on its own
+  four-core runner.
+- The runners worked out the same fingerprints as local refreshes (`30202eca…` for plain
+  stats, `210a6675…` for builds), so their checkpoints are for the same inputs. Side by side,
+  the plain-stats shards took 1.1 and 2.7 minutes and the item-build shards 2.3, 2.8 and 4.7
+  minutes (0.6 processor-hours for the 172 build pairings, 13.0 s each on average).
+- The last job found every shard's checkpoints (172 for each matrix), wrote the outputs and
+  checked them. **Every pairing computed on the runners equals the committed result**:
+  `simulated.json`, `simulated-spent.json`, `simulated-builds.json`, the counter and kit pages
+  and the simulator report came out byte-for-byte unchanged. The one change, which it
+  committed as `3de79cb`, is the build report's line on how the refresh ran.
+- The outputs were committed six minutes after the push. Both TypeScript projects and the
+  full suite (7,980 tests across 226 files, the five disputed golden expectations skipped)
+  then passed on the runner in another eight minutes.
+
+## Patch 26.21, 3 November 2026
+
+The dataset moved to patch 26.21 (Data Dragon 16.21.1, CommunityDragon 16.21, the wiki as
+fetched on 3 November). `data/16.21/` holds it; `data/16.20/` stays as the previous patch's
+snapshot, and the tests, the app and the kits' tests now read 16.21.
+
+- **Curated evidence.** 27 wiki pages that kits' evidence pins at a revision had new
+  revisions. Each was read again against the previous revision (`pipeline/abilities/`) and
+  re-pinned: 12 carry the patch's number changes, 14 wiki edits (new or reworded notes for
+  Kha'Zix, Rengar, Sejuani, Syndra, Taric, Thresh, Twisted Fate and Zeri; Maokai's
+  restructured Sapling Toss; Vex's reworded blurb), and Neeko's changed revision without
+  changing its text.
+  Caitlyn's and Varus's hand-rendered excerpts take 26.21's text; Taliyah's game-file excerpt
+  lines take the 26.21 file's values, as the build checks them. Zoe's Sleepy Trouble Bubble
+  gets back, as an anchored note, a sentence 26.21 moved where the parser doesn't read.
+- **Kits.** All 173 compile against 26.21. 15 needed their quotes changed for new wording or
+  numbers; four rules changed:
+  - Caitlyn: a champion that springs a trap can't spring another anywhere for 3 seconds (the
+    note that let another spot's trap catch them is gone);
+  - Zoe: the wake-up damage has a fixed window of 3.25 seconds from the sleep's start, which
+    tenacity, a cleanse or an early wake no longer shorten;
+  - Varus: Piercing Arrow's charge raises Blight, the empowered W and the cooldown refund by
+    up to 70% (was 50%), now read from the wiki rather than written in the kit;
+  - Maokai: 26.21 dropped the minion damage row; minions take the ordinary explosion.
+  Compiling each kit whose code didn't change against both patches, every changed value is
+  one the patch notes list (Darius's Q cooldown, Lee Sin's W and R, Locke's mana, W cost and
+  E, Nidalee's E and Pounce, Nunu's R, Orianna's ratios, Qiyana's Q, Yone's Q, the base
+  stats), and values the notes change at ranks a duel doesn't use stay put (Gwen's R at rank
+  3, Tristana's Q and Zyra's W at rank 5). Assumption texts that wrote 26.20's numbers (Lee
+  Sin, Nunu, Ryze, Varus) now read them from the kit's values.
+- **Items.** Bastionbreaker's Shaped Charge (40 / 20), Bloodletter's Curse's Vile Decay (no
+  rate limit on stacks) and Dawncore's First Light (15 AP per 100% base mana regeneration)
+  follow the new text.
+- **Tests.** Every test that pinned a 26.20 value was checked against the patch and moved to
+  26.21; two new tests pin Caitlyn's and Zoe's new rules.
+- **The refresh.** The refresh workflow's
+  [run 41575445956](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/41575445956)
+  computed both matrices on GitHub's runners.
+  - The plan job found 10,222 plain-stats pairings to compute, reusing 4,656 from 26.20, and
+    all 14,878 build pairings, since the item catalog changed.
+  - 76 kits' inputs differ from 26.20's: 68 kits' records changed, and 8 kits (Alistar,
+    Corki, Ekko, Ezreal, Karthus, Kindred, Vayne, Veigar) changed only because a comment or
+    assumption text named 16.20. The engine, stat prices and runes didn't change, so the
+    shared key is 26.20's.
+  - Five plain-stats shards took 36 to 75 minutes and twenty build shards 34 to 76 minutes:
+    24.5 runner-hours, or 98 processor-hours. That is 7.2 processor-seconds a plain pairing
+    (6.7 estimated) and 18.8 a build pairing (as estimated).
+  - The runners took 20 jobs at a time, so five build shards waited 34 to 48 minutes for
+    one. The outputs were committed (`1e2f19e`) two hours after the push; with 20 shards in
+    all, about 75 minutes would have done, which the plan now does (`planShards`).
+  - In the same job, the typecheck passed and the tests failed only on Trundle–Sion (below).
+- **Checks.**
+  - `npm run build:sim -- --check` and `npm run build:builds -- --check` pass locally, with
+    fingerprints `fd1489b1…` (plain stats) and `8f33771f…` (builds).
+  - Runners and local machines agree. The 804 plain-stats pairings computed again only for
+    the eight text-only changes equal 26.20's exactly, in scores, scenarios and kit variants,
+    and so do the 4,656 reused ones. Aphelios–Urgot's build search, run again locally, gives
+    the runners' +0.45.
+- **What moved with plain stats.** 3,243 of the 9,418 pairings with a changed kit record
+  moved (34%): 107 changed winner, and 84 moved by 0.5 or more. None of the other 5,460
+  moved.
+  - Each champion whose average moved most has a matching change in the patch.
+  - Risers: Vel'Koz +0.094 (Organic Deconstruction 35 – 205 (+ 65% AP), was 35 – 180
+    (+ 60% AP)), Miss Fortune +0.058 (Bullet Time's waves crit for 145%, was 130%), Sion
+    +0.044 (health growth), Darius +0.035 (Decimate's cooldown 4 seconds at rank 5, was 5),
+    Nunu +0.028 (Absolute Zero).
+  - Fallers: Rammus −0.057 (Defensive Ball Curl's resistances), Jinx −0.051 (610 base
+    health, was 630; 3 attack damage a level, was 3.25), Lee Sin −0.049 (Dragon's Rage 550
+    at rank 3, was 625), Varus −0.042 (Blighted Quiver's on-hit and maximum-health damage),
+    Caitlyn −0.040 (the trap rule).
+  - One of the largest moves runs against a buff and tips a near tie. Under 26.20, Orianna beat
+    Kassadin in the engage and spacing fights with 0.2% to 3% of her health left
+    (Kassadin's score −0.82). Her 26.21 ability power ratios move about 100 gold of her
+    budget out of attack speed, health and resistances, mostly into ability power, and
+    Kassadin's magic damage now wins those fights first (+0.38).
+- **What moved with item builds.** 2,981 of the 9,418 pairings moved (32%): 234 changed
+  winner, and 250 moved by 0.5 or more. Ryze rose most (+0.076) and Lee Sin fell most
+  (−0.067).
+  - Between kits that didn't change, 183 of 5,460 pairings moved and 6 changed winner. 165
+    of the 183 hold one of the five changed items (Bastionbreaker, Bloodletter's Curse,
+    Dawncore, Gluttonous Greaves, Hubris) in either patch's builds.
+  - In the other 18, the search settled on other builds. Those items are the only inputs
+    that differ, and the search weighs them among its candidates.
+  - Builds move further than plain stats because the search can settle on different builds
+    once a kit changes. Xin Zhao's 26.21 build loses to Jayce's at −0.86; his 26.20 build
+    would hold the same Jayce build to −0.51. The search's limit, listed below, shows
+    whenever a patch moves it.
+- **Golden matchups.** Trundle beats Sion (clear) no longer held, leaving 64 of 69
+  expectations holding:
+  - Trundle wins by +0.18; the expectation needs +0.25, and he won by +0.46 under 26.20.
+  - The brawl, which Trundle used to win, ends with both champions dead, and the
+    enemy-engage scenario falls from +0.85 to +0.66.
+  - Sion's health growth alone accounts for it (95 a level, was 87). With 26.20's 87, the
+    26.21 data gives +0.456 again, whichever patch's abilities Sion has. With 95, it gives
+    +0.181 either way. His R changes (40% bonus AD on the minimum damage, was 60%; 450 / 900
+    / 1350 base maximum, was 400 / 800 / 1200) don't move this matchup.
+  - On review the expectation is now slight: the winner holds, and the patch took the
+    margin. The simulator report shows 65 of 69 holding again. Only the report's golden
+    table and the two matrices' fingerprints changed; every pairing was reused.
+- **Suite and app.**
+  - The full suite ran 7,987 tests across 226 files on four workers: 7,981 passed, the five
+    disputed golden expectations were skipped as before, and Trundle–Sion failed. With its
+    margin at slight, the golden suites pass (64 tested, 5 disputed skipped). Both
+    TypeScript projects pass.
+  - The production build exports 16.21 with both matrices' fingerprints. In Chromium:
+    - the picker lists all 173 champions;
+    - the matchup pages for Trundle–Sion, Kassadin–Orianna and Xin Zhao–Jayce show the
+      stored scores, with builds and with plain stats, without a rerun;
+    - Zoe's, Caitlyn's, Varus's and Sion's kit pages show 26.21's rules;
+    - the matchup page fits a 390-pixel phone;
+    - page, console and HTTP errors are all zero.
+- **Assumption texts.** 35 kits from the imported batches had lost the spacing in their
+  assumption texts, which the kit pages list. Two examples: "for216magic and1.75second stun
+  at level20" and "doesnot resetEcooldown".
+  - The fix follows `571b782`'s. It restores spaces, leading zeros (.5 is 0.5), hyphens
+    before a noun ("a 1.75-second stun") and spaces in sums ("255 + 2.5% own max HP").
+  - It splits run-together words from a reviewed table: 336 splits, found with an English
+    word list. Names, game-file fields (`lineWidth`, `ZoneDuration`) and ability keys
+    ("W2/E2", "Q1/W2/E4/R8") stay as written. Twisted Fate's and Viktor's option labels get
+    the same.
+  - With whitespace and hyphens removed, every compiled text keeps its characters (bar
+    inserted zeros), so no number or claim changed.
+  - Compiled against 16.21, each kit's fight spec is identical to before, with every
+    function's source, its variants and its option defaults.
+  - A kit's key hashes its module, so the refresh workflow's
+    [run 41613091138](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/41613091138)
+    computed the 5,425 pairings in each matrix that involve those kits again.
+  - The plan sized both matrices together for the first time: 3 plain-stats shards and 7
+    build shards, all running at once.
+    - The plain-stats shards took 51 to 69 minutes and the build shards 38 to 86.
+    - That is 10.4 runner-hours, about 7.7 processor-seconds a plain pairing and 19.6 a build
+      pairing.
+    - The outputs were committed (`80926e4`) 1 hour 27 minutes after the push.
+  - Every result came out identical: scores, scenarios, kit variants, stat spending and
+    builds.
+  - Only the 35 kit pages' assumption lists, the kits' input keys, the fingerprints and the
+    build report's line on the refresh changed.
+  - Both matrices pass `--check`, with fingerprints `788b7364…` (plain stats) and
+    `98e3750f…` (builds).
+  - The full suite passes: 7,988 tests across 226 files, with the five disputed golden
+    expectations skipped, on four workers in 327 seconds. The run's own test job passed as
+    well.
+
 ## Remaining limits
 
-- Only 145 of the dataset's 173 champions have simulator kits. Other pairings use the
-  interaction ledger's heuristic estimates.
+- Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
+  interaction ledger's heuristic estimates sit beside the duels, not in their place.
+- Item builds come from a search, not an exhaustive one. In a lopsided matchup the losing
+  side's listed build is close to arbitrary, since its build barely moves the result; and
+  the builds hold at the default fight settings only, since the browser can't search them.
+  A change to either kit, or to any item the search weighs, can make it settle on other
+  builds, so the build matrix moves more than plain stats from one patch to the next.
+- Duels have no summoner spells, and in the six-item format no boots, so a melee kit
+  without a gap-closer as long as the enemy's range can be kept out of reach by a ranged
+  champion's basic attacks (Annie with a critical strike build beats Darius).
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
 - Skillshot branching has a finite limit; minor hits and further branches use expected
@@ -1853,7 +2129,7 @@ passes. The Kit Counter Picker's page renders all 173 at 390 pixels with no cons
   does not quantify R's early-release distance. Malphite's size/cone geometry, Q forward
   missile spawn, and exact armor-recursion behavior remain unmodeled.
 - Renekton's built-in W strikes are modeled individually; additional external on-hit
-  effects still apply once. The current model buys plain stats and has no item effects.
+  effects still apply once.
 - Teemo's Guerrilla Warfare stealth is not modeled. Tryndamere's critical Fury/refunds
   use expected outcomes, facing uses movement/attack direction, and slash speed remains
   an explicit assumption. Tahm Kench's source does not quantify Regurgitate's spit distance.

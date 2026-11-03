@@ -1,0 +1,344 @@
+{
+  "champion": "LeeSin",
+  "name": "Lee Sin",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "lee-sin",
+      "formName": "Lee Sin",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.03506,
+      "attackDamage": 132.861,
+      "windup": 0.188697,
+      "modifiers": [
+        "Flurry"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "LeeSin",
+      "kind": "E",
+      "name": "Cripple",
+      "page": {
+        "title": "Template:Data Lee Sin/Cripple",
+        "revid": 4007641
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Lee Sin/Cripple",
+              "revid": 4007641,
+              "quote": "Active: Lee Sin slows nearby enemies marked by Tempest, decaying in strength over 4 seconds."
+            }
+          ],
+          "duration": 4,
+          "amount": 75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0
+    },
+    {
+      "champion": "LeeSin",
+      "kind": "E",
+      "name": "Tempest",
+      "page": {
+        "title": "Template:Data Lee Sin/Tempest",
+        "revid": 4016969
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "notes": [
+        "Tempest's sight reveal only reveals the affected targets, but visually also lights up the Fog of War in a 400 radius.",
+        "Tempest's sight reveal is not removed when Lee Sin casts Cripple (unlike Sonic Wave)."
+      ]
+    },
+    {
+      "champion": "LeeSin",
+      "kind": "I",
+      "name": "Flurry",
+      "page": {
+        "title": "Template:Data Lee Sin/Flurry",
+        "revid": 4015078
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "LeeSin",
+      "kind": "Q",
+      "name": "Resonating Strike",
+      "page": {
+        "title": "Template:Data Lee Sin/Resonating Strike",
+        "revid": 4026428
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "castTime": 0,
+      "range": 1250,
+      "speed": 1350,
+      "notes": [
+        "Lee Sin will track the target if they change locations.\n  - He will dash to the target's previous location without consuming the mark if the target is too far away or moves beyond 2000 units.",
+        "Lee Sin will attempt to place himself on top of the target upon arrival.\n  - The damage dealt by Resonating Strike can be negated if the target blinks. Sometimes, Lee Sin will end the dash at their last location but appear on top of the target after a short delay.\n  - Originally, Lee Sin would land 50 units in front of his target. Since there are no patch notes where this is noted to have changed, landing on top of his target may be a bug.",
+        "Resonating Strike cannot be cast without the marked target nearby or if the target is untargetable.",
+        "If Resonating Strike interrupts another dash, Tempest and Dragon's Rage can be cast during it (both otherwise cannot be cast)."
+      ]
+    },
+    {
+      "champion": "LeeSin",
+      "kind": "Q",
+      "name": "Sonic Wave",
+      "page": {
+        "title": "Template:Data Lee Sin/Sonic Wave",
+        "revid": 4070797
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 1200,
+      "speed": 1800
+    },
+    {
+      "champion": "LeeSin",
+      "kind": "R",
+      "name": "Dragon's Rage",
+      "page": {
+        "title": "Template:Data Lee Sin/Dragon's Rage",
+        "revid": 4088340
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Lee Sin/Dragon's Rage",
+              "revid": 4088340,
+              "quote": "Active: Lee Sin roots the target enemy champion over the cast time, then roundhouse kicks them to deal physical damage and knock them back up to 800 units over 0.8 seconds, rendering them airborne for 1 second."
+            }
+          ],
+          "variant": "knock back, knock up",
+          "duration": 0.8
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Lee Sin/Dragon's Rage",
+              "revid": 4088340,
+              "quote": "Active: Lee Sin roots the target enemy champion over the cast time, then roundhouse kicks them to deal physical damage and knock them back up to 800 units over 0.8 seconds, rendering them airborne for 1 second."
+            }
+          ],
+          "duration": 0.8
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 60,
+      "castTime": 0.25,
+      "range": 375,
+      "notes": [
+        "Dragon's Rage will knock back killed champions even if they were immune to the displacement at the time of being hit (e.g. with displacement immunity or crowd control immunity).",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "LeeSin",
+      "kind": "W",
+      "name": "Iron Will",
+      "page": {
+        "title": "Template:Data Lee Sin/Iron Will",
+        "revid": 3992654
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Lee Sin/Iron Will",
+              "revid": 3992654,
+              "quote": "Active: Lee Sin gains omnivamp for 4 seconds."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "castTime": 0
+    },
+    {
+      "champion": "LeeSin",
+      "kind": "W",
+      "name": "Safeguard",
+      "page": {
+        "title": "Template:Data Lee Sin/Safeguard",
+        "revid": 4088339
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 700,
+      "speed": 1350,
+      "notes": [
+        "Lee Sin cannot self-cast Safeguard while grounded or rooted.",
+        "If no unit is directly targeted, Safeguard will search for wards in a 100 radius to target.\n  - This aids Lee Sin in performing the dash to a ward he just placed.",
+        "Safeguard will not grant its shield if the dash is interrupted.\n  - If the dash overrides or is overridden by Resonating Strike, he will grant the shield immediately rather than on arrival.",
+        "If Safeguard's dash interrupts another dash, Tempest and Dragon's Rage can be cast during it (both otherwise cannot be cast)."
+      ]
+    }
+  ]
+}

@@ -87,8 +87,8 @@ const GAME_FILE = {
 
 function sampleCatalog(module = MODULE): ItemCatalog {
   return buildItemCatalog({
-    dataset: "16.20",
-    patch: "26.20",
+    dataset: "16.21",
+    patch: "26.21",
     ddragon: shop(),
     gameFile: GAME_FILE,
     cdragonVersion: "16.20.1",
@@ -220,9 +220,9 @@ describe("the committed item catalog", async () => {
     }
   });
 
-  it("pins its sources: Data Dragon 16.20.1, the dataset's game files, and the wiki revision recorded for the dataset", () => {
-    expect(catalog.sources.ddragon).toBe("16.20.1");
-    expect(catalog.sources.cdragon).toMatch(/^16\.20\./);
+  it("pins its sources: Data Dragon 16.21.1, the dataset's game files, and the wiki revision recorded for the dataset", () => {
+    expect(catalog.sources.ddragon).toBe("16.21.1");
+    expect(catalog.sources.cdragon).toMatch(/^16\.21\./);
     expect(revisions[catalog.sources.itemData.title]).toBe(catalog.sources.itemData.revid);
   });
 

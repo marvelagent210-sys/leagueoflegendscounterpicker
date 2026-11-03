@@ -7,7 +7,7 @@ import { KitContext } from "../../engine/kits/context";
 import type { Champion, ChampionDataset } from "../../engine/types";
 import { KITS } from "../../kits/champions/index";
 
-const DATASET_DIR = path.join(import.meta.dirname, "..", "..", "data", "16.20");
+const DATASET_DIR = path.join(import.meta.dirname, "..", "..", "data", "16.21");
 
 let champions: Champion[] | undefined;
 

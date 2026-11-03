@@ -1,10 +1,12 @@
 /** Annul (Banshee's Veil, Edge of Night): a spell shield that comes back once the holder goes unhurt long enough. */
+import { budgetAbilityDamage, budgetCasts, budgetMultipliers } from "../../engine/budget";
 import { toTicks } from "../../engine/rules/time";
 import { addStatus } from "../../engine/sim/combat";
 import type { KitHooks } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
 import type { ItemData } from "../context";
 import type { ItemDefinition } from "../equip";
+import { FIGHT } from "../hints";
 import { activeKey, memo } from "../runtime";
 
 export function annul(item: ItemData): ItemDefinition {
@@ -30,5 +32,15 @@ export function annul(item: ItemData): ItemDefinition {
       if (typeof from === "number" && ctx.tick - from >= toTicks(seconds) && !up(ctx.self.statuses)) grant(ctx);
     },
   };
-  return { hooks };
+  // Once a fight, it blocks one of the enemy's damaging ability uses: their average damage.
+  const budget: ItemDefinition["budget"] = {
+    shielding(self, enemy) {
+      const uses = budgetCasts(enemy).damaging * FIGHT;
+      if (uses <= 0) return 0;
+      const raw = budgetAbilityDamage(enemy, self);
+      const m = budgetMultipliers(enemy, self);
+      return (raw.physical * m.physical + raw.magic * m.magic + raw.true * m.true) / uses;
+    },
+  };
+  return { hooks, budget };
 }

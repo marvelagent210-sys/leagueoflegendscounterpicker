@@ -41,7 +41,7 @@ function grow(w: World, kind: "Q" | "E" = "Q", x = w.units[1].x): Pet {
 describe("Zyra pinned mechanics and seed availability", () => {
   it("compiles all slots with both plant evidence and explicit spatial/timing reductions", () => {
     expect(compiled.spec.abilities.map((spell) => spell.key)).toEqual(["Q", "W", "E", "R"]);
-    expect(compiled.evidence.map((entry) => entry.revid)).toEqual(expect.arrayContaining([3986877, 4013461, 4044057, 4013460, 3945317, 4002566]));
+    expect(compiled.evidence.map((entry) => entry.revid)).toEqual(expect.arrayContaining([3986877, 4013461, 4088388, 4013460, 3945317, 4002566]));
     expect(compiled.assumptions.join(" ")).toContain("server mapping is not explicit");
     expect(compiled.assumptions.join(" ")).toContain("probability pending");
     expect(compiled.assumptions.join(" ")).toContain("one basic-attack notification");
@@ -268,7 +268,7 @@ describe("Zyra ordinary policies and budget symmetry", () => {
     expect(w.units[0].spec.behavior!(perceive(w, 0))).not.toMatchObject({ kind: "cast", ability: "R" });
   });
   it("values AP-sensitive plants once and preserves a full-budget reflected Darius matchup", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const spec = compiled.spec, darius = kit("Darius").spec;
     const w = world({}, 0), before = spec.budget!.damage!(w.units[0], w.units[1]).magic!;
     w.units[0].spec = { ...w.units[0].spec, bonus: { ap: 100 } }; expect(spec.budget!.damage!(w.units[0], w.units[1]).magic!).toBeGreaterThan(before);

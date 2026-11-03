@@ -1,0 +1,208 @@
+{
+  "champion": "Taric",
+  "name": "Taric",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "taric",
+      "formName": "Taric",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.870812,
+      "attackDamage": 123.828,
+      "windup": 0.267676,
+      "modifiers": [
+        "Bravado"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Taric",
+      "kind": "E",
+      "name": "Dazzle",
+      "page": {
+        "title": "Template:Data Taric/Dazzle",
+        "revid": 4088364
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Taric/Dazzle",
+              "revid": 4088364,
+              "quote": "Active: Taric winds up over 1 second, granting ghosting to nearby units, then projects a beam of starlight in the target direction that deals magic damage to enemies hit and stuns them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 575,
+      "notes": [
+        "Dazzle casts work even if the tethered ally is untargetable.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Dazzle|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Taric\n|skill        = E\n|icon         = Dazzle.png\n|blurb        = {{sbc|Active:}} {{ci|Taric}} winds up over a brief moment, then projects a beam of starlight in the target direction that briefly {{tip|stuns}} enemies hit, dealing {{as|magic damage}} based on his {{as|'''bonus''' armor}}.\n|blurb4      = '''Taric''' can move during ''Dazzle''.\n|description  = {{sbc|Active:}} '''Taric''' winds up over 1 second, granting {{tip|ghosting}} to nearby units, then projects a beam of starlight in the target direction that deals {{as|magic damage}} to enemies hit and {{tip|stuns}} them for {{fd|1.5}} seconds.\n|description2 = '''''Taric''' can move during Dazzle.''\n|leveling     = {{st|Magic Damage|{{ap|90 to 250}} {{as|(+ 50% AP)}} {{as|(+ 50% '''bonus''' armor)}}}}\n|cast time    = none\n|range        = {{tip|er|icononly = true}} 575\n|width        = {{tip|er|icononly = true}} 140\n|cost         = 40\n|costtype     = Mana\n|cooldown     = {{ap|16 to 12}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Area of effect\n|projectile   = False\n|grounded     = \n|knockdown    = \n|notes        = \n* ''Dazzle'' casts work even if the tethered ally is {{tip|untargetable}}.\n* ''Dazzle'' will aim towards the target direction on-cast when firing from both his and his {{ai|Bastion 2|Taric|Bastion's}} positions.\n|yvideo       = 4pfky7Eg_2g\n}}"
+      ]
+    },
+    {
+      "champion": "Taric",
+      "kind": "I",
+      "name": "Bravado",
+      "page": {
+        "title": "Template:Data Taric/Bravado",
+        "revid": 4084593
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Bravado's damage can be dodged and blocked but it cannot miss if Taric is blinded. The cooldown reduction still applies when blinded, however it does not apply on dodged or blocked Bravado attacks.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Bravado|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Taric\n|skill        = I\n|icon         = Bravado.png\n|blurb        = {{sbc|Innate:}} After casting an ability, {{ci|Taric}} empowers his next two basic attacks to gain tremendous {{sti|as|{{as|'''total''' attack speed}}}}, deal {{as|'''bonus''' magic damage}} based on {{as|his '''bonus''' armor}}, and {{sti|cdr|reduce}} the cooldowns of his basic abilities.\n|description  = {{sbc|Innate:}} After casting an {{tip|ability}}, '''Taric''' empowers his next two {{tip|basic attacks}} within 5 seconds to each gain {{sti|as|{{as|100% '''total''' attack speed}}}}, deal {{as|{{pp|25 + (93-25)/17*(x-1) for 20}}|magic damage}} {{as|(+ 15% '''bonus''' armor)}} {{as|'''bonus''' magic damage}} {{tip|on-attack}}, and reduce the {{sti|'''remaining''' cooldowns}} of his basic abilities by {{pp|1;( 1 + ( ( x * 10 ) / ( ( x * 10 ) + 100 ) ) );2|0;10 to 100 for 10;∞|label1= AH|type=ability haste|formula= 1 + ( Haste / ( Haste + 100 ) )}}\n seconds.\n|targeting    = Passive\n|affects      = Self\n|damagetype   = Magic\n|spellshield  = \n|spelleffects = proc\n|projectile   = \n|grounded     = \n|knockdown    = \n|parry        = Special\n|notes        = \n* The first attack refreshes ''Bravado's'' duration.\n* Subsequent ability casts will refresh the duration and grant another empowered attack if '''Taric''' has one attack remaining.\n** ''Bravado'' may only grant up to two empowered attacks.\n* The bonus damage will not apply against {{tip|structures}}.\n* ''Bravado's'' damage can be {{tip|dodged}} and {{tip|blocked}} but it cannot ''miss'' if '''Taric''' is {{tip|blind|blinded}}. The cooldown reduction still applies when {{tip|blind|blinded}}, however it does not apply on {{tip|dodged}} or {{tip|blocked}} ''Bravado'' attacks.\n|yvideo       = qTgrm_sZmZ4\n}}"
+      ]
+    },
+    {
+      "champion": "Taric",
+      "kind": "Q",
+      "name": "Starlight's Touch",
+      "page": {
+        "title": "Template:Data Taric/Starlight's Touch",
+        "revid": 4088362
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Taric/Starlight's Touch",
+              "revid": 4088362,
+              "quote": "Active: Taric heals himself and nearby allied champions for 25 (+ 15% AP) (+ 1% of his maximum health) per charge of Starlight's Touch that he periodically stocks, up to a maximum amount."
+            }
+          ]
+        }
+      ],
+      "cooldown": 15,
+      "castTime": 0.25,
+      "notes": [
+        "Starlight's Touch works on untargetable allies.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Starlight's Touch|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Taric\n|skill        = Q\n|icon         = Starlight's Touch.png\n|blurb        = {{sbc|Active:}} {{ci|Taric}} {{tip|heal|heals}} himself and nearby allied champions based on {{as|his '''maximum''' health}} per charge of ''Starlight's Touch'' that he periodically [[ammunition|stocks]], up to a cap. ''{{ai|Bravado|Taric}}''-empowered attacks each grant one charge.\n|description  = {{sbc|Active:}} '''Taric''' {{tip|heals}} himself and nearby allied champions for {{as|25|heal}} {{as|(+ 15% AP)}} {{as|(+ 1% of his '''maximum''' health)}} per charge of ''Starlight's Touch'' that he periodically [[ammunition|stocks]], up to a maximum amount. ''{{ais|Bravado|Taric}}'' empowered attacks each grant one charge. \n|description2 = ''Starlight's Touch'' can heal up to a maximum of {{as|125|heal}} {{as|(+ 75% AP)}} {{as|(+ 5% of '''Taric's''' '''maximum''' health)}} at 5 charges.\n|leveling     = {{st|Maximum Charges|{{ap|1 to 5}}}}\n|effect radius= {{tip|cr|icononly = true}} 325\n|cost         = 60\n|cast time    = {{fd|0.25}}\n|costtype     = Mana + all charges\n|cooldown     = 3\n|recharge     = 15\n|targeting    = Auto\n|affects      = Allies\n|spelleffects = \n|projectile   = \n|grounded     = \n|knockdown    = \n|notes        = \n* ''Starlight's Touch'' works on {{tip|untargetable}} allies.\n* The healing will apply heal effects (such as {{ri|Summon Aery}}) prioritizing targets in '''Taric's''' circle, based on proximity to him, then in the {{ai|Bastion|Taric|Bastioned}} ally's circle, based on proximity to that ally (including it).\n|yvideo       = QF0eGQWp6NU\n}}"
+      ]
+    },
+    {
+      "champion": "Taric",
+      "kind": "R",
+      "name": "Cosmic Radiance",
+      "page": {
+        "title": "Template:Data Taric/Cosmic Radiance",
+        "revid": 4088361
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            },
+            {
+              "page": "Template:Data Taric/Cosmic Radiance",
+              "revid": 4088361,
+              "quote": "Afterwards, he and nearby allied champions become invulnerable for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 120,
+      "castTime": 0.25,
+      "notes": [
+        "Cosmic Radiance works on untargetable allies.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Cosmic Radiance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Taric\n|skill        = R\n|icon         = Cosmic Radiance.png\n|blurb        = {{sbc|Active:}} {{ci|Taric}} calls down a star that descends to him over a short time. Afterwards, he and nearby allied champions become {{tip|invulnerable}} for a short time.\n|description  = {{sbc|Active:}} '''Taric''' calls down a star from above that descends to him over {{fd|2.5}} seconds. Afterwards, he and nearby allied champions become {{tip|invulnerable}} for {{fd|2.5}} seconds.\n|effect radius= {{tip|cr|icononly = true}} 400\n|cost         = 100\n|costtype     = Mana\n|cooldown     = {{ap|180 to 120}}\n|cast time    = {{fd|0.25}}\n|targeting    = Auto\n|affects      = Allies\n|notes        = \n* ''Cosmic Radiance'' works on {{tip|untargetable}} allies.\n|flavorsound  = {{sm2|Taric_Original_R_2.ogg}} ''\"Embrace the cosmos.\"''\n|yvideo       = OSj4r4qwhoQ\n}}"
+      ]
+    },
+    {
+      "champion": "Taric",
+      "kind": "W",
+      "name": "Bastion",
+      "page": {
+        "title": "Template:Data Taric/Bastion",
+        "revid": 3989049
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Taric/Bastion",
+              "revid": 3989049,
+              "quote": "Active: Taric grants himself and the target allied champion a shield for 2.5 seconds, binding them with Bastion."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 15,
+      "castTime": 0.25,
+      "range": 800
+    }
+  ]
+}

@@ -247,8 +247,8 @@ describe("Rammus, pinned resistance/taunt rework", () => {
     const initialSpeed = derive(world.units[0]).moveSpeed;
     cast(world, "W");
     const d = derive(world.units[0]);
-    expect(d.armor.base + d.armor.bonus).toBeCloseTo((rammus.spec.base.armor + 100 + 47) * 1.6, 8);
-    expect(d.mr.base + d.mr.bonus).toBeCloseTo((rammus.spec.base.mr + 50 + 40) * 1.6, 8);
+    expect(d.armor.base + d.armor.bonus).toBeCloseTo((rammus.spec.base.armor + 100 + 45) * 1.5, 8);
+    expect(d.mr.base + d.mr.bonus).toBeCloseTo((rammus.spec.base.mr + 50 + 40) * 1.5, 8);
     expect(d.ad).toBeCloseTo(rammus.spec.base.ad + 0.15 * (d.armor.base + d.armor.bonus + d.mr.base + d.mr.bonus), 8);
     expect(d.moveSpeed).toBe(initialSpeed);
     expect(d.damageReduction).toEqual([]);

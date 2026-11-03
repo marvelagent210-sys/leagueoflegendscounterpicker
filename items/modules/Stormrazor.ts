@@ -1,4 +1,5 @@
 import type { ItemModule } from "../equip";
+import { energized } from "../hints";
 import { memo } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -11,12 +12,13 @@ export const Stormrazor: ItemModule = {
     const damage = bolt.quoted(words);
     const speed = bolt.quoted(words, 1) / 100;
     const seconds = bolt.quoted(words, 2);
-    fighter.energized().add({
+    const pool = fighter.energized();
+    pool.add({
       onHit(ctx, scale) {
         applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.label }, false, scale);
         ctx.buff(memo(item.name, "speed"), "moveSpeedPercent", speed, seconds);
       },
     });
-    return {};
+    return { budget: { damage: (self) => ({ magic: damage * energized(self, pool.rule) }) } };
   },
 };

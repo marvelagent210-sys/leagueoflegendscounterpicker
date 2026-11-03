@@ -1,4 +1,6 @@
+import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { attacks } from "../hints";
 import { applyFrom, inflictGrievous } from "./shared";
 
 export const Thornmail: ItemModule = {
@@ -10,6 +12,10 @@ export const Thornmail: ItemModule = {
     const share = thorns.quoted(words, 1) / 100;
     const seconds = thorns.quoted(words, 2);
     return {
+      budget: {
+        damage: (self, enemy) => ({ magic: (base + share * derive(self).armor.bonus) * attacks(enemy) }),
+        enemyStats: (_self, enemy) => (attacks(enemy) > 0 ? [{ grievousWounds: true }] : []),
+      },
       hooks: {
         onIncomingOnHit(ctx) {
           if (!ctx.attack || ctx.enemy.petId !== undefined) return;

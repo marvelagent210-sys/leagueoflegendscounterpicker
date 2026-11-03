@@ -1,6 +1,8 @@
 import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
+import { averageCritFactor } from "../../engine/rules/defense";
 import type { ItemModule } from "../equip";
+import { FIGHT, ultimate, usesOf } from "../hints";
 import { memo, until } from "../runtime";
 import { ultimateHaste } from "./ultimate";
 
@@ -23,6 +25,16 @@ export const FiendhunterBolts: ItemModule = {
     const ready = memo(item.name, "ready");
     return {
       haste: [ultimateHaste(item.effect("Night Vigil"), "Gain 30 ultimate haste.")],
+      // Its empowered attacks once a fight, from the ultimate's first cast, against the attacks' average critical strike.
+      budget: {
+        damage(self) {
+          if (usesOf(self, ultimate) <= 0) return {};
+          const d = derive(self);
+          const chance = Math.min(1, d.critChance);
+          const empoweredDamage = 1 + empowered + chance * (doubled - empowered);
+          return { physical: (attacks * d.ad * Math.max(0, empoweredDamage - averageCritFactor(chance, d.critDamage))) / FIGHT, true: (attacks * d.ad * chance * extra * (1 + doubled)) / FIGHT };
+        },
+      },
       hooks: {
         onCast(ctx) {
           if (ctx.ability.slot !== "R" || ctx.ability.countsAsCast === false || ctx.tick < until(ctx.self, ready)) return;

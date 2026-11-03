@@ -548,7 +548,7 @@ describe("Kassadin default behavior, budget and reflection", () => {
   it("preserves both builds, every scenario and opposite counter scores at 15,000 gold after reflecting Darius", () => {
     const spec = compiled().spec;
     const darius = kit("Darius").spec;
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const forward = simulateMatchup(spec, darius, 15000, prices);
     const reverse = simulateMatchup(darius, spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]);

@@ -7,7 +7,7 @@ import { type KitVariant, bestMatchup } from "../../engine/sim/matchup";
 import { kit } from "../kits/helpers";
 import { type GoldenMatchup, MARGINS } from "./matchups";
 
-const rules = JSON.parse(readFileSync(path.join(import.meta.dirname, "..", "..", "data", "16.20", "rules.json"), "utf8")) as { statPrices: StatPrices };
+const rules = JSON.parse(readFileSync(path.join(import.meta.dirname, "..", "..", "data", "16.21", "rules.json"), "utf8")) as { statPrices: StatPrices };
 
 const fighters = new Map<string, KitVariant[]>();
 /** The champion's kit, or each of its variants when it has a choice to make (Udyr's rank splits). */

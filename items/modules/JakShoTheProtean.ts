@@ -1,5 +1,6 @@
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { FIGHT } from "../hints";
 import { memo, setStat } from "../runtime";
 
 export const JakShoTheProtean: ItemModule = {
@@ -14,7 +15,15 @@ export const JakShoTheProtean: ItemModule = {
     const mr = memo(item.name, "MR");
     const on = memo(item.name, "on");
     item.assume("Voidborn Resilience's 30% is of the bonus armor and magic resistance the holder has when it reaches maximum stacks.");
+    const up = Math.max(0, FIGHT - stacks) / FIGHT;
     return {
+      // Full stacks after its seconds in combat.
+      budget: {
+        stats(self) {
+          const d = derive(self);
+          return [{ stat: "armor", value: share * d.armor.bonus * up }, { stat: "MR", value: share * d.mr.bonus * up }];
+        },
+      },
       hooks: {
         onTick(ctx) {
           const full = combat.seconds(ctx.self, ctx.tick) >= stacks;

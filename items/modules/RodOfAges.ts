@@ -1,5 +1,6 @@
 import { costOf } from "../../engine/sim/actions";
 import type { ItemModule } from "../equip";
+import { casts } from "../hints";
 import { championCast } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -23,6 +24,8 @@ export const RodOfAges: ItemModule = {
       mana: timeless.quoted(words, 1) * minutes,
       ...(fighter.mana
         ? {
+            // A cast's mana cost is usually enough for the most it heals.
+            budget: { healing: (self) => most * casts(self) },
             hooks: {
               onDamageTaken(ctx) {
                 if (!ctx.petSource && ctx.enemy.side !== ctx.self.side) ctx.apply({ type: "resource", amount: { base: restore * ctx.raw } }, true);

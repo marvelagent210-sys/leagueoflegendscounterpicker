@@ -30,9 +30,9 @@ function hit(world: World, key: string) { const spec = ability(world.units[0].sp
 
 describe("Vel'Koz pinned mechanics", () => {
   it("reads all five revisions and the level-twenty passive value", () => {
-    expect(vel.evidence.map((row) => row.revid)).toEqual(expect.arrayContaining([3986690, 4008544, 4008545, 3952590, 4012050]));
+    expect(vel.evidence.map((row) => row.revid)).toEqual(expect.arrayContaining([4088378, 4088965, 4008545, 3952590, 4012050]));
     const world = worldFor(vel.spec); hit(world, "Q"); hit(world, "W"); hit(world, "E");
-    expect(world.units[1].totals.damageTaken).toBeCloseTo(330 + 130 + 220 + 257.058823529412);
+    expect(world.units[1].totals.damageTaken).toBeCloseTo(330 + 130 + 220 + 290);
     expect(world.units[0].memory["velkoz:deconstruction"]).toBe(0);
     expect(world.units[0].memory["velkoz:research:until"]).toBe(210);
   });
@@ -59,7 +59,7 @@ describe("Vel'Koz pinned mechanics", () => {
   it("one shield negates W ripple while collapse remains independent", () => { const world = worldFor(vel.spec); state(world, "spellShield"); cast(world, "W"); through(world, 30); expect(world.units[1].totals.damageTaken).toBeCloseTo(190); });
   it.each([[0, .25], [150, .25], [475, .40], [800, .55]])("E distance %i uses a sourced/interpolated %f-second flight after casting", (distance, seconds) => { const world = worldFor(vel.spec, Math.max(distance, 1)); cast(world, "E", { direction: 1, distance }); through(world, 8 + Math.ceil(seconds * 30 - 1e-6) - 1); expect(world.units[1].totals.damageTaken).toBe(0); through(world, 8 + Math.ceil(seconds * 30 - 1e-6) + 1); expect(world.units[1].totals.damageTaken).toBeCloseTo(220); });
   it("E displacement immunity retains damage and stacks while suppressing both controls", () => { const world = worldFor(vel.spec); state(world, "displacementImmune"); hit(world, "E"); expect(world.units[1].totals.damageTaken).toBeCloseTo(220); expect(world.units[1].statuses.some((status) => status.kind === "cc")).toBe(false); expect(world.units[0].memory["velkoz:deconstruction"]).toBe(1); });
-  it("R delivers thirteen pulses on a separate three-stack clock", () => { const world = worldFor(vel.spec); cast(world, "R"); through(world, 11); expect(world.units[1].totals.damageTaken).toBe(0); through(world, 84); expect(world.units[0].memory.rayPulses).toBe(13); expect(world.log.filter((entry) => entry.text.includes("Life Form Disintegration Ray deals"))).toHaveLength(13); expect(world.units[1].totals.damageTaken).toBeCloseTo(1050 + 257.058823529412); expect(world.units[0].memory["velkoz:deconstruction"]).toBe(0); });
+  it("R delivers thirteen pulses on a separate three-stack clock", () => { const world = worldFor(vel.spec); cast(world, "R"); through(world, 11); expect(world.units[1].totals.damageTaken).toBe(0); through(world, 84); expect(world.units[0].memory.rayPulses).toBe(13); expect(world.log.filter((entry) => entry.text.includes("Life Form Disintegration Ray deals"))).toHaveLength(13); expect(world.units[1].totals.damageTaken).toBeCloseTo(1050 + 290); expect(world.units[0].memory["velkoz:deconstruction"]).toBe(0); });
   it("R changes future pulse type after independent research and never hits a rival wholly behind", () => { const world = worldFor(vel.spec); cast(world, "R"); through(world, 70); expect(world.log.some((entry) => entry.text.includes("Life Form Disintegration Ray deals") && entry.text.includes("magic damage"))).toBe(true); through(world, 84); expect(world.log.some((entry) => entry.text.includes("Life Form Disintegration Ray deals") && entry.text.includes("true damage"))).toBe(true); const other = worldFor(vel.spec); cast(other, "R"); other.units[1].x = -100; through(other, 84); expect(other.units[1].totals.damageTaken).toBe(0); });
   it("R root does not interrupt, silence does, and recast has a one-second channel lock", () => { const world = worldFor(vel.spec); cast(world, "R"); expect(canCast(world, world.units[0], ability(vel.spec, "Rend"))).toBe(false); world.tick = 36; expect(canCast(world, world.units[0], ability(vel.spec, "Rend"))).toBe(true); applyEffect(world, world.units[1], world.units[0], { type: "cc", cc: "root", duration: 2 }, { scale: 1 }); expect(world.units[0].action?.kind).toBe("channel"); applyEffect(world, world.units[1], world.units[0], { type: "cc", cc: "silence", duration: 2 }, { scale: 1 }); expect(world.units[0].action).toBeUndefined(); });
   it("enemy pets gain their own deconstruction without researching their owner", () => { const world = worldFor(vel.spec, 1500); const pet = spawnPet(world, world.units[1], { kind: "dummy", name: "Dummy pet", hp: 10000, armor: 0, mr: 0, radius: 35, moveSpeed: 0, duration: 20 }, 200); cast(world, "W"); through(world, 30); expect(pet.memory["velkoz:deconstruction:0"]).toBe(2); expect(world.units[0].memory["velkoz:research:until"]).toBeUndefined(); });
@@ -243,7 +243,7 @@ describe("Ziggs pinned mechanics and finite ground objects", () => {
 });
 
 describe("Vel'Koz and Ziggs ordinary budgeted behavior", () => {
-  const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+  const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
   it.each([["Velkoz", vel.spec], ["Ziggs", zig.spec]] as const)("%s stops extending a completed short trade and respects the ordinary clock", (_name, spec) => {
     const world = worldFor(spec); world.modes[0] = "trade"; world.units[0].memory.tradeDone = true;
     expect(spec.behavior!(perceive(world, 0))).toEqual({ kind: "move", direction: -1 });

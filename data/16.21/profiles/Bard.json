@@ -1,0 +1,303 @@
+{
+  "champion": "Bard",
+  "name": "Bard",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "bard",
+      "formName": "Bard",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.916791,
+      "attackDamage": 110.995,
+      "windup": 0.204518,
+      "modifiers": [
+        "Traveler's Call"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Bard",
+      "kind": "E",
+      "name": "Magical Journey",
+      "page": {
+        "title": "Template:Data Bard/Magical Journey",
+        "revid": 4007574
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted; (when clicked)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when clicked)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 900,
+      "notes": [
+        "Bard can cast Magical Journey while grounded or rooted.",
+        "Any abilities that continue during normal movement, such as point blank area of effects and various forms of stealth, will continue during the travel within Magical Journey.",
+        "If a champion's dash is interrupted while inside terrain using Magical Journey, they will be immediately displaced out to the nearest open space, but are not rendered airborne.",
+        "Taking Magical Journey is considered a dash, and so will interact with effects such as Sudden Impact and knockdown."
+      ]
+    },
+    {
+      "champion": "Bard",
+      "kind": "I",
+      "name": "Traveler's Call",
+      "page": {
+        "title": "Template:Data Bard/Traveler's Call",
+        "revid": 4034690
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Bard/Traveler's Call",
+              "revid": 4034690,
+              "quote": "* At 5 Chimes, Meeps slow damaged enemies by 25 / 35 / 45 / 55 / 65 / 75 (based on number of Chimes)% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 50,
+      "notes": [
+        "Only Meep cone attacks are absorbed by spell shields. Those that deal damage together with the basic attack don't.",
+        "If a Meep empowered auto attack is dodged, blocked or when Bard is blinded, the basic attack itself will deal no damage, but the Meep damage will still be applied."
+      ]
+    },
+    {
+      "champion": "Bard",
+      "kind": "Q",
+      "name": "Cosmic Binding",
+      "page": {
+        "title": "Template:Data Bard/Cosmic Binding",
+        "revid": 4037681
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Bard/Cosmic Binding",
+              "revid": 4037681,
+              "quote": "Active: Bard fires an energy bolt in the target direction that deals magic damage to the first enemy hit and slows them by 60% for a duration."
+            }
+          ],
+          "amount": 60
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Bard/Cosmic Binding",
+              "revid": 4037681,
+              "quote": "If the bolt hits terrain or a second enemy, it stuns both targets for the same duration, dealing the same damage to the secondary target."
+            }
+          ],
+          "duration": 1.8,
+          "condition": "If the bolt hits terrain or a second enemy, it stuns both targets for the same duration, dealing the same damage to the secondary target."
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 850,
+      "speed": 1500,
+      "notes": [
+        "Cosmic Binding's interaction with spell shields:\n  - If the first target has a spell shield, they will block the damage but the bolt will still pass through them.\n    - If the bolt hits a second target, only they will be stunned.\n    - If the bolt hits terrain, the first target will be stunned.\n  - If the second target has a spell shield, they will block the stun and damage.\n    - The first target will still be stunned.\n  - If the first target gains a spell shield after being hit, the stun will not be blocked.",
+        "The stun will apply even if the first target becomes untargetable.",
+        "The stun is still applied even if the first or second target dies to the ability itself or before the projectile can bind them."
+      ]
+    },
+    {
+      "champion": "Bard",
+      "kind": "R",
+      "name": "Tempered Fate",
+      "page": {
+        "title": "Template:Data Bard/Tempered Fate",
+        "revid": 4008478
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stasis",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stasis; (self, allies, and enemies)"
+            }
+          ]
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Bard/Tempered Fate",
+              "revid": 4008478,
+              "quote": "Upon impact, it puts all units within into stasis for 2.5 seconds, as well as stunning all enemy champions, minions, and turrets struck for the same duration."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "stasis",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Bard/Tempered Fate",
+              "revid": 4008478,
+              "quote": "Upon impact, it puts all units within into stasis for 2.5 seconds, as well as stunning all enemy champions, minions, and turrets struck for the same duration."
+            }
+          ],
+          "duration": 2.5
+        },
+        {
+          "state": "untargetable",
+          "duration": 2.5,
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.5,
+      "range": 3400,
+      "notes": [
+        "Tempered Fate's stun is affected by Tenacity.\n  - The stasis is unaffected.",
+        "Tempered Fate has no effect on enemies that have displacement immunity or total crowd control immunity, and allies that are immune from using an ability that preloads UnstoppableForceMarker.\n  - The only exceptions are the crowd control immunity that turrets and epic monsters have.",
+        "All champions (including allies) during the stasis are prohibited from activating cleansing effects for its duration.\n  - It will not disable Quicksilver and instead put it on a 3-second cooldown.",
+        "Tempered Fate deals 0 proc true damage, which triggers in-combat effects such as drawing turret and monster aggression, Sudden Impact or applying Elixir of Sorcery.\n  - Elixir of Sorcery deals damage before the target is put into stasis.",
+        "Stasis is applied to allies as a buff."
+      ]
+    },
+    {
+      "champion": "Bard",
+      "kind": "W",
+      "name": "Caretaker's Shrine",
+      "page": {
+        "title": "Template:Data Bard/Caretaker's Shrine",
+        "revid": 3960421
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location",
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Bard/Caretaker's Shrine",
+              "revid": 3960421,
+              "quote": "If the champion is an ally or Bard himself, they are healed for an amount based on the shrine's power and gain bonus movement speed decaying over 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0.25,
+      "range": 800
+    }
+  ]
+}

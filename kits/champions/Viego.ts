@@ -73,12 +73,14 @@ const viego: KitModule = {
 
     // Harrowed Path: a mist trail 775 long for 8 s; in it, 50% attack speed, and 35% (+ 4% per 100 AP) movement speed after 1 s without attacking or casting.
     const mistReach = e.field("range", "Initial missile reach");
-    const mistSeconds = e.quoted("creates a trail of mist in its wake which lasts 8 seconds", 0);
+    const mistSeconds = e.quoted("creates a trail of Mist in its wake which lasts 8 seconds", 0);
     const mistSpeed = e.fraction("Bonus Attack Speed");
     const mistMoveWords = "Bonus Movement Speed: 25 / 27.5 / 30 / 32.5 / 35% (+ 4% per 100 AP)";
     const mistMove: Formula = { base: e.baseOf("Bonus Movement Speed") / 100, ratios: { AP: e.quoted(mistMoveWords, 5) / 100 / 100 } };
-    const mistRest = e.quoted("preventing Viego from gaining them again for 1 second", 0);
+    const mistRest = e.quoted("preventing Viego from regaining it for 1 second", 0);
     e.quote("Harrowed Path can be cast during any of Viego's abilities.");
+    // 26.21: the movement speed comes with the camouflage, and both break and return together.
+    e.quote("While the camouflage is active, he also gains bonus movement speed");
     kit.assume("Harrowed Path's mist runs straight along the duel's line from where Viego casts it (its spread around walls is left out), and its camouflage doesn't hide him at fighting range.");
 
     // Heartbreaker: displacement immunity over a 0.5 s cast, a blink of up to 500, then a strike within 300: 20% (+ 5% per 100 bonus AD) of missing health plus 120% AD (increased by critical strikes), a 99% slow for 0.25 s and on-hit effects.

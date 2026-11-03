@@ -59,7 +59,7 @@ describe("Hecarim reads the wiki at level 20", () => {
     expect(spec.abilities.find((a) => a.key === "R2")).toMatchObject({ chain: { root: "R", index: 2, window: 0, delay: 0, auto: true }, delivery: { kind: "line", range: 1510, width: 480, speed: 1100, piercing: true }, flags: { projectile: true } });
     expect(spec.abilities.find((a) => a.key === "R2")?.onHit).toEqual([{ type: "damage", damageType: "magic", amount: { base: 350, ratios: { AP: 1 } }, label: "Onslaught of Shadows" }]);
     // The run-up's ramp: the wiki's 3 s is used, the pinned game file's 2.5 s recorded.
-    expect(compiled.evidence.find((x) => x.ability === "Devastating Charge" && x.text.includes("TimeToMaxMoveSpeed"))).toMatchObject({ url: "https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json" });
+    expect(compiled.evidence.find((x) => x.ability === "Devastating Charge" && x.text.includes("TimeToMaxMoveSpeed"))).toMatchObject({ url: "https://raw.communitydragon.org/16.21/game/data/characters/hecarim/hecarim.bin.json" });
     expect(compiled.assumptions.some((a) => a.includes("TimeToMaxMoveSpeed is 2.5 seconds"))).toBe(true);
   });
 

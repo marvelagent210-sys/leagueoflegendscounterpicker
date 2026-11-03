@@ -1,4 +1,4 @@
-/** Karthus, compiled exclusively from the pinned 16.20 ability records. */
+/** Karthus, compiled exclusively from the pinned ability records. */
 import type { KitModule } from "../../engine/kits/compile";
 import { KitDataError } from "../../engine/kits/context";
 import { CC_RULES } from "../../engine/rules/crowdControl";

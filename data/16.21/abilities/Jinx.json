@@ -1,0 +1,1096 @@
+[
+  {
+    "champion": "Jinx",
+    "kind": "E",
+    "name": "Flame Chompers!",
+    "page": {
+      "title": "Template:Data Jinx/Flame Chompers!",
+      "revid": 3993368
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "24 / 20.5 / 17 / 13.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                24,
+                20.5,
+                17,
+                13.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "90",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 90
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "925",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 925
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Damage radius"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "115",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 115
+            },
+            "label": "Detection radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jinx tosses out 3 Chompers centered at the target location, landing after 0.4 seconds, arming after 0.5 seconds, and exploding after 5 seconds to deal magic damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "90 / 140 / 190 / 240 / 290 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  140,
+                  190,
+                  240,
+                  290
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Each Chomper explodes on contact with an enemy champion, knocking them down and rooting them for 1.5 seconds. Enemy champions can be affected by only one Chomper.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocking them down",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Each Chomper explodes on contact with an enemy champion, knocking them down and rooting them for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooting",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Each Chomper explodes on contact with an enemy champion, knocking them down and rooting them for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Chompers will halt when encountering Wind Wall and Unbreakable.",
+      "Spell shield does not negate the explosion.",
+      "Each Chomper gives vision of its surrounding area."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "21d6ef0823bddeeb7c476bd888a295170dcaaf5f9f9e3c661d1d8f9fe94bb5a8",
+        "object": "Characters/Jinx/Spells/JinxEAbility/JinxEHit",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent: {\"mTargetHeightAugment\":60.0,\"mOffsetInitialTargetHeight\":60.0,\"mTravelTime\":0.4000000059604645,\"__type\":\"FixedTimeMovement\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Jinx",
+    "kind": "I",
+    "name": "Get Excited!",
+    "page": {
+      "title": "Template:Data Jinx/Get Excited!",
+      "revid": 3973632
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever Jinx scores a takedown against an enemy champion, epic monster, turret, or inhibitor within 3 seconds of damaging them, she gains 175% bonus movement speed decaying over 6 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Additionally, she is allowed to exceed the attack speed cap and gains a stack of Get Excited! for the same duration, stacking up to 5 times. Only takedowns against enemy champions can grant stacks beyond the first.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "attack speed cap",
+            "tip": "normally 3.003 attacks per second"
+          }
+        ]
+      },
+      {
+        "label": "Get Excited!",
+        "text": "Get Excited!: For each stack, Jinx gains 25% total attack speed, up to a maximum of 125%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            },
+            "context": "Get Excited!: For each stack, Jinx gains 25% total attack speed, up to a maximum of 125%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Jinx's attack speed cap is increased to 90.0 for the duration, however this value is already beyond the technical limit for attack speed.",
+      "Jinx will still trigger Get Excited from killing a summoned Rift Herald.",
+      "Jinx will fail to trigger Get Excited in the specific circumstance of killing Baron Nashor while more than ~2500 distance away."
+    ]
+  },
+  {
+    "champion": "Jinx",
+    "kind": "Q",
+    "name": "Switcheroo!",
+    "page": {
+      "title": "Template:Data Jinx/Switcheroo!",
+      "revid": 4090664
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "0.9",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.9
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "costType": "mana per attack with fishbones",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Rocket splash radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Toggle",
+        "text": "Toggle: Jinx switches between Pow-Pow, her minigun, and Fishbones, her rocket launcher.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Pow-Pow",
+        "text": "Pow-Pow: Basic attacks with Pow-Pow generate a stack of Rev'd up for 2.5 seconds, refreshing on subsequent attacks with Pow-Pow and stacking up to 3 times. Each stack of Rev'd up grants bonus attack speed, with all stacks beyond the first one being 50% effective. Stacks expire one by one when the duration ends.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "15 / 27.5 / 40 / 52.5 / 65%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  27.5,
+                  40,
+                  52.5,
+                  65
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Attack Speed per Subsequent Stack",
+            "amount": {
+              "text": "7.5 / 13.75 / 20 / 26.25 / 32.5%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  13.75,
+                  20,
+                  26.25,
+                  32.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Attack Speed",
+            "amount": {
+              "text": "30 / 55 / 80 / 105 / 130%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  55,
+                  80,
+                  105,
+                  130
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Fishbones",
+        "text": "Fishbones: Basic attacks with Fishbones cost mana on-attack to deal 110% AD modified physical damage to the target and nearby enemies. The damage is affected by critical strike modifiers. While Fishbones is equipped, Jinx gains bonus range but loses 10% of her bonus attack speed.",
+        "leveling": [
+          {
+            "label": "Bonus Range",
+            "amount": {
+              "text": "100 / 125 / 150 / 175 / 200",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  125,
+                  150,
+                  175,
+                  200
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Fishbones: Basic attacks with Fishbones cost mana on-attack to deal 110% AD modified physical damage to the target and nearby enemies.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "The damage is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Only the first attack after switching to Fishbones will benefit from Rev'd up.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Toggle abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "Despite Jinx starting the game using Pow-Pow she doesn't receive any bonus attack speed until Switcheroo! has been learned.",
+      "Fishbones splash damage affects structures (minions will target Jinx) but does not affect targets if Jinx's attacks are blocked, dodged, or missed.",
+      "Runaan's Hurricane Wind's Fury bolts are special-cased to generate one Pow-Pow stack per enemy hit.",
+      "Each of Runaan's Hurricane additional bolts apply Fishbones' splash damage, which stacks with each other.",
+      "Both weapons deal basic damage to their primary target (this includes the increased damage of Fishbones), which applies life steal based on the damage dealt (post-mitigation) as usual.",
+      "The splash damage of Fishbones is based on the pre-mitigation damage done to the primary target (which includes critical strikes). It deals proc damage and thus doesn't apply life steal or on-hit effects.\n  - The splash damage of Fishbones will not account for damage modifiers applied to the primary target (e.g. Hexoptics C44 Magnification).",
+      "Fishbones damage calculations:\n  - Basic attack damage: 110% AD\n  - Critical strike damage: 220% AD\n  - Critical strike damage with Infinity Edge: 253% AD\n  - Runaan's Hurricane bolt damage: 66% AD\n  - Bolt critical strike damage: 132% AD\n  - Bolt critical strike damage with Infinity Edge: 151.8% AD\n  - Maximum potential damage with Runaan's Hurricane: 242% AD\n  - Maximum potential critical strike damage with Runaan's Hurricane: 484% AD\n  - Maximum potential critical strike damage with Runaan's Hurricane and Infinity Edge: 556.6% AD"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "21d6ef0823bddeeb7c476bd888a295170dcaaf5f9f9e3c661d1d8f9fe94bb5a8",
+        "object": "Characters/Jinx/Spells/JinxBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2750.0"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "21d6ef0823bddeeb7c476bd888a295170dcaaf5f9f9e3c661d1d8f9fe94bb5a8",
+        "object": "Characters/Jinx/Spells/JinxQAbility/JinxQAttack",
+        "text": [
+          "mSpell.missileSpeed: 2000.0"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "21d6ef0823bddeeb7c476bd888a295170dcaaf5f9f9e3c661d1d8f9fe94bb5a8",
+        "object": "Characters/Jinx/CharacterRecords/Root",
+        "text": [
+          "extraAttacks[6]: {\"mAttackTotalTime\":1.600000023841858,\"mAttackCastTime\":0.27000001072883606,\"mAttackName\":\"JinxQAttack\",\"__type\":\"AttackSlotData\"}",
+          "basicAttack: {\"mAttackTotalTime\":1.600000023841858,\"mAttackCastTime\":0.2833299934864044,\"mAttackProbability\":1.0,\"__type\":\"AttackSlotData\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Jinx",
+    "kind": "R",
+    "name": "Super Mega Death Rocket!",
+    "page": {
+      "title": "Template:Data Jinx/Super Mega Death Rocket!",
+      "revid": 4007616
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "85 / 65 / 45",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                85,
+                65,
+                45
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.6
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "Global",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "400 • 1000 • 1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Explosion radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Missile sight radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Explosion sight radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "280",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700 • 2200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            },
+            "label": "Initial missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2200
+            },
+            "label": "Increased missile speed after travelling over 1350 units"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jinx fires a massive rocket in the target direction, briefly granting sight of its surroundings and exploding upon colliding with an enemy champion. The explosion deals physical damage to nearby enemies and grants sight of the area for 2 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Jinx fires a massive rocket in the target direction, briefly granting sight of its surroundings and exploding upon colliding with an enemy champion.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "The explosion deals physical damage to nearby enemies and grants sight of the area for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Cannot grant sight into brush nor through terrain"
+          },
+          {
+            "text": "nearby",
+            "tip": "centered on the initial target"
+          },
+          {
+            "text": "area",
+            "tip": "Can grant sight into brush and through terrain"
+          }
+        ]
+      },
+      {
+        "text": "Super Mega Death Rocket! deals 10 / 16 / 22 / 28 / 34 / 40 / 46 / 52 / 58 / 64 / 70 / 76 / 82 / 88 / 94 / 100 (based on distance traveled)% damage. This does not affect the bonus damage based on the target's missing health.",
+        "leveling": [
+          {
+            "label": "Maximum Physical Damage",
+            "amount": {
+              "text": "200 / 350 / 500 (+ 120% bonus AD) (+ 25 / 30 / 35% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  350,
+                  500
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% bonus AD)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      25,
+                      30,
+                      35
+                    ]
+                  },
+                  "text": "(+ 25 / 30 / 35% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Physical Damage",
+            "amount": {
+              "text": "20 / 35 / 50 (+ 12% bonus AD) (+ 25 / 30 / 35% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  35,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 12
+                  },
+                  "text": "(+ 12% bonus AD)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      25,
+                      30,
+                      35
+                    ]
+                  },
+                  "text": "(+ 25 / 30 / 35% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                100,
+                200,
+                300,
+                400,
+                500,
+                600,
+                700,
+                800,
+                900,
+                1000,
+                1100,
+                1200,
+                1300,
+                1400,
+                1500
+              ],
+              "values": [
+                10,
+                16,
+                22,
+                28,
+                34,
+                40,
+                46,
+                52,
+                58,
+                64,
+                70,
+                76,
+                82,
+                88,
+                94,
+                100
+              ]
+            },
+            "context": "Super Mega Death Rocket! deals 10 / 16 / 22 / 28 / 34 / 40 / 46 / 52 / 58 / 64 / 70 / 76 / 82 / 88 / 94 / 100 (based on distance traveled)% damage."
+          }
+        ]
+      },
+      {
+        "text": "Enemies surrounding the primary target take 80% damage. The bonus damage based on the target's missing health is capped at 1200 against monsters.",
+        "leveling": [
+          {
+            "label": "Maximum Secondary Damage",
+            "amount": {
+              "text": "160 / 280 / 400 (+ 96% bonus AD) (+ 20 / 24 / 28% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  160,
+                  280,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 96
+                  },
+                  "text": "(+ 96% bonus AD)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      20,
+                      24,
+                      28
+                    ]
+                  },
+                  "text": "(+ 20 / 24 / 28% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Secondary Damage",
+            "amount": {
+              "text": "16 / 28 / 40 (+ 9.6% bonus AD) (+ 20 / 24 / 28% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  16,
+                  28,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 9.6
+                  },
+                  "text": "(+ 9.6% bonus AD)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      20,
+                      24,
+                      28
+                    ]
+                  },
+                  "text": "(+ 20 / 24 / 28% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will not prevent the explosion.",
+      "Super Mega Death Rocket's projectile has an icon on the mini-map while it is in flight. It can be seen by only Jinx and her allies.",
+      "The bonus damage based on missing health is based on each unit's own missing health and not the primary target's.",
+      "Unlike similar spells, Super Mega Death Rocket will not increase it's damage when ranked up while the missile is in flight.\n  - This is because the base damage is fixed at a multiple of the damage the rocket initially started with.\n  - The bonus AD ratio will still update when AD is gained or lost between the cast and hit of the missile.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "21d6ef0823bddeeb7c476bd888a295170dcaaf5f9f9e3c661d1d8f9fe94bb5a8",
+        "object": "Characters/Jinx/Spells/JinxRAbility/JinxR",
+        "text": [
+          "mSpell.castRange: [25000,25000,25000,25000,25000,25000,25000]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Jinx/Super Mega Death Rocket!",
+          "revid": 4007616
+        },
+        "text": [
+          "The maximum damage is reached after traveling 1500 units, which is exactly equal to the range of her Zap!, or roughly 0.85 seconds of travel time. The rocket changes its visual appearance and missile speed slightly earlier, after traveling 1350 units."
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Jinx",
+    "kind": "W",
+    "name": "Zap!",
+    "page": {
+      "title": "Template:Data Jinx/Zap!",
+      "revid": 3907092
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7 / 6 / 5 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.6 / 0.58 / 0.56 / 0.54 / 0.52 / 0.5 / 0.48 / 0.46 / 0.44 / 0.42 / 0.4 (based on bonus attack speed)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "bonus attack speed",
+              "points": [
+                0,
+                25,
+                50,
+                75,
+                100,
+                125,
+                150,
+                175,
+                200,
+                225,
+                250
+              ],
+              "values": [
+                0.6,
+                0.58,
+                0.56,
+                0.54,
+                0.52,
+                0.5,
+                0.48,
+                0.46,
+                0.44,
+                0.42,
+                0.4
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "standard missile end collision behaviour"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "3300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3300
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jinx fires a shock blast in the target direction that deals physical damage to the first enemy it hits and reveals and slows them for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "10 / 60 / 110 / 160 / 210 (+ 140% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  60,
+                  110,
+                  160,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 140
+                  },
+                  "text": "(+ 140% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 50 / 60 / 70 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60,
+                  70,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Jinx fires a shock blast in the target direction that deals physical damage to the first enemy it hits and reveals and slows them for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            },
+            "evidence": "Active: Jinx fires a shock blast in the target direction that deals physical damage to the first enemy it hits and reveals and slows them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  }
+]

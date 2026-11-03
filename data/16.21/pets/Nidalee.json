@@ -1,0 +1,31 @@
+[
+  {
+    "champion": "Nidalee",
+    "name": "Spring Trap",
+    "page": {
+      "title": "Nidalee",
+      "revid": 4008141
+    },
+    "fields": {
+      "hp": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "hp": "6",
+      "damagemodifier": "* 2 from ranged and 3 from melee champion basic attacks",
+      "control": "Autonomous (static)",
+      "targeting": "Ward",
+      "spelleffects": "A trap's debuff applies spell effects as persistent damage.",
+      "abilities": ";Stealth Trap\nThe trap stealths and becomes untargetable after 1.5 seconds, remaining vulnerable to trap-revealing effects at all times.\n\n;Trap Limitation\nOnly up to 4 / 6 / 8 / 10 (based on level) traps may be active at once.\n\n;Toxin\nIf an enemy walks over the spring trap, they are inflicted with a toxin that deals them 40 / 80 / 120 / 160 / 200 (+ 20% AP) total magic damage over 4 seconds. Additionally, they become marked as Hunted for the same duration if they were a monster or champion and Nidalee was nearby."
+    }
+  }
+]

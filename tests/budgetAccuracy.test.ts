@@ -7,7 +7,7 @@ import { derive } from "../engine/sim/derived";
 import { kit } from "./kits/helpers";
 import { ability, fighter } from "./sim/kits";
 
-const prices = (JSON.parse(readFileSync(new URL("../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+const prices = (JSON.parse(readFileSync(new URL("../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
 const totalSpent = (spent: Record<string, number>) => Object.values(spent).reduce((sum, cost) => sum + cost, 0);
 const damage = (amount: number): Effect => ({ type: "damage", damageType: "true", amount: { base: amount } });
 

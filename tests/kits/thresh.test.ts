@@ -32,7 +32,7 @@ function summon(world: World, x: number, extra: Partial<PetSpec> = {}, friendly 
 const contact = (world: World, pet?: Pet) => pet ? abilityHitPet(world, world.units[0], pet, ability("Q"), ability("Q").onHit!, "singleTarget") : abilityHit(world, ...world.units, ability("Q"), ability("Q").onHit!);
 const mark = (target: Unit | Pet) => target.statuses?.find(value => value.memoKey === "thresh:shackle:0");
 const tickHook = (world: World) => world.units[0].spec.hooks!.onTick!(hookContext(world, world.units[0]));
-const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
 
 describe("Thresh unfiltered full-budget production", () => {
   it("reflects exact 15000 gold spending and all six Darius scenarios", () => {
@@ -52,9 +52,9 @@ describe("Thresh unfiltered full-budget production", () => {
 
 describe("Thresh mechanics source contracts", () => {
   it("retains all five exact revision identities and complete binary objects", () => {
-    expect(new Set(current.evidence.filter(value => value.revid).map(value => value.revid))).toEqual(new Set([4025498, 4008201, 4017821, 4057474, 4024674]));
+    expect(new Set(current.evidence.filter(value => value.revid).map(value => value.revid))).toEqual(new Set([4025498, 4091672, 4017821, 4057474, 4024674]));
     let objects = 0;
-    for (const row of records("Thresh")) { expect(row.sources?.some(value => value.page.revid === row.page.revid && value.text.join(" ").includes("|champion"))).toBe(true); for (const source of row.gameSources ?? []) { objects++; expect(source.sha256).toBe("a9d3af3ff303f2c8d636d9121c789b623655809e67f99578393f632fc8f1816c"); expect(source.version).toBe("16.20.8248524+branch.releases-16-20.content.release"); expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object); } }
+    for (const row of records("Thresh")) { expect(row.sources?.some(value => value.page.revid === row.page.revid && value.text.join(" ").includes("|champion"))).toBe(true); for (const source of row.gameSources ?? []) { objects++; expect(source.sha256).toBe("34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920"); expect(source.version).toBe("16.21.8342754+branch.releases-16-21.content.release"); expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object); } }
     expect(objects).toBeGreaterThanOrEqual(9);
   });
   it("reads the exact source values without mutating the records", () => { const rows = records("Thresh"), before = structuredClone(rows); compileKit(championData("Thresh"), rows, Thresh); expect(rows).toEqual(before); expect(ability("Q")).toMatchObject({ cost: 70, cooldown: 9, castTime: .5 }); expect(ability("E")).toMatchObject({ cost: 80, cooldown: 10, castTime: .3889, costAtCastStart: true }); expect(ability("R")).toMatchObject({ cost: 100, cooldown: 80, castTime: .45, costAtCastStart: true }); });

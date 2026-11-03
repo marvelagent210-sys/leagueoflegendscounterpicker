@@ -38,7 +38,7 @@ describe("Sona source and history contracts", () => {
   it("reads five exact primary revisions and exact binary fields without mutating records", () => {
     const data = records("Sona"), before = structuredClone(data), k = compileKit(championData("Sona"), data, Sona);
     expect(data).toEqual(before); expect(data.map(row => row.page.revid).sort()).toEqual([4012188, 4047882, 4049803, 4047883, 4008052].sort());
-    expect(k.evidence.length).toBeGreaterThan(60); expect(k.evidence.some(row => row.sourceVersion?.startsWith("16.20."))).toBe(true);
+    expect(k.evidence.length).toBeGreaterThan(60); expect(k.evidence.some(row => row.sourceVersion?.startsWith("16.21."))).toBe(true);
     for (const row of data) expect(row.sources?.some(source => source.page.revid === row.page.revid && source.text.join("").includes("|champion     = Sona"))).toBe(true);
   });
   it("fails closed on removed selected binary evidence", () => { const data = records("Sona"); delete data.find(row => row.kind === "I")!.gameSources; expect(() => compileKit(championData("Sona"), data, Sona)).toThrow("pinned game data"); });
@@ -107,14 +107,14 @@ describe("Sona Celerity, Crescendo and ordinary policy", () => {
 
 describe("Sona full-budget production", () => {
   it("preserves six full-price reversed Darius scenarios", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const forward = simulateMatchup(compiled.spec, kit("Darius").spec, 15000, prices), reverse = simulateMatchup(kit("Darius").spec, compiled.spec, 15000, prices);
     expect(forward.scenarios).toHaveLength(6); expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]); expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-10);
     for (const [index, scenario] of forward.scenarios.entries()) { const other = reverse.scenarios[[1, 0, 2, 3, 4, 5][index]!]!; if (scenario.score === undefined) expect(other.score).toBeUndefined(); else expect(Math.abs(scenario.score + other.score!)).toBeLessThan(1e-10); for (const result of scenario.outcomes) expect([result.seconds, ...result.hp, ...result.damage].every(Number.isFinite)).toBe(true); }
     for (const build of forward.builds) { expect(build.gold).toBe(15000); expect(Math.abs(Object.values(build.spent).reduce((a, b) => a + b, 0) - 15000)).toBeLessThan(1e-10); }
   }, 60000);
   it("runs all six ordinary full-price scenarios against actual Heimerdinger pets", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const result = simulateMatchup(compiled.spec, kit("Heimerdinger").spec, 15000, prices);
     expect(result.scenarios).toHaveLength(6);
     for (const scenario of result.scenarios) for (const outcome of scenario.outcomes) expect([outcome.seconds, ...outcome.hp, ...outcome.damage].every(Number.isFinite)).toBe(true);

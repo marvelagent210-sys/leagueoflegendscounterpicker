@@ -1,7 +1,9 @@
 import { toTicks } from "../../engine/rules/time";
 import { heal } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
+import { averageCritFactor } from "../../engine/rules/defense";
 import type { ItemModule } from "../equip";
+import { attacks, triggers } from "../hints";
 import { memo, setStat, until } from "../runtime";
 
 export const SunderedSky: ItemModule = {
@@ -16,7 +18,19 @@ export const SunderedSky: ItemModule = {
     item.assume("Lightshield Strike's critical strike deals 160% of the attack's damage whatever the holder's critical strike damage.");
     const ready = memo(item.name, "ready");
     const loaded = memo(item.name, "loaded");
+    const procs = (self: Parameters<typeof attacks>[0]) => (attacks(self) > 0 ? triggers(cooldown, 1 / attacks(self)) : 0);
     return {
+      // Its critical strike instead of the attack's average; the heal at half health missing.
+      budget: {
+        damage(self) {
+          const d = derive(self);
+          return { physical: d.ad * (crit - averageCritFactor(d.critChance, d.critDamage)) * procs(self) };
+        },
+        healing(self) {
+          const d = derive(self);
+          return ((fighter.ranged ? share.ranged : share.melee) / 100 * d.baseAd + missing * 0.5 * d.maxHp) * procs(self);
+        },
+      },
       hooks: {
         onAttack(ctx) {
           if (ctx.targetPet || ctx.tick < until(ctx.self, ready)) return;

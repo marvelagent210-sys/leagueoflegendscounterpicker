@@ -1,0 +1,239 @@
+# Refreshes the simulated matrices on GitHub's runners, split into shards that run side by side
+# (README, "Sharded refreshes"). Pairings whose inputs are unchanged are reused; the rest are
+# split evenly into shards, each a four-core runner computing its share into checkpoints; a last
+# job reads every shard's checkpoints back, writes the outputs, checks them, commits them to the
+# branch it ran on, and runs the tests.
+#
+# Start it by pushing a change to .github/refresh-request.json (any branch), or from the Actions
+# tab. Results are computed by the same Node.js version as local refreshes, so that both give the
+# same numbers to the last bit.
+name: Refresh
+
+on:
+  push:
+    paths: [.github/refresh-request.json]
+  workflow_dispatch:
+    inputs:
+      dataset:
+        description: Dataset, such as 16.20 (default the request file's, else the newest)
+        required: false
+        default: ""
+      matrices:
+        description: "sim, builds or sim,builds (default the request file's, else both)"
+        required: false
+        default: ""
+      recompute:
+        description: Champions whose pairings are computed again whatever is stored, comma-separated
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 22.22.0
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      dataset: ${{ steps.plan.outputs.dataset }}
+      matrices: ${{ steps.plan.outputs.matrices }}
+      recompute: ${{ steps.plan.outputs.recompute }}
+      sim_count: ${{ steps.plan.outputs.sim_count }}
+      sim_pending: ${{ steps.plan.outputs.sim_pending }}
+      sim_shards: ${{ steps.plan.outputs.sim_shards }}
+      builds_count: ${{ steps.plan.outputs.builds_count }}
+      builds_pending: ${{ steps.plan.outputs.builds_pending }}
+      builds_shards: ${{ steps.plan.outputs.builds_shards }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - id: plan
+        name: Count the pairings to compute and split them into shards
+        env:
+          REFRESH_DATASET: ${{ inputs.dataset }}
+          REFRESH_MATRICES: ${{ inputs.matrices }}
+          REFRESH_RECOMPUTE: ${{ inputs.recompute }}
+        run: npx tsx pipeline/sim/ciPlan.ts --request .github/refresh-request.json
+
+  sim:
+    name: plain stats ${{ matrix.shard }}
+    needs: plan
+    if: needs.plan.outputs.sim_count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.sim_shards) }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Compute this shard's pairings
+        env:
+          DATASET: ${{ needs.plan.outputs.dataset }}
+          RECOMPUTE: ${{ needs.plan.outputs.recompute }}
+          SHARD: ${{ matrix.shard }}/${{ needs.plan.outputs.sim_count }}
+        run: |
+          args=(--dataset "$DATASET" --threads 4 --shard "$SHARD")
+          if [ -n "$RECOMPUTE" ]; then args+=(--recompute "$RECOMPUTE"); fi
+          npx tsx pipeline/sim/refresh.ts "${args[@]}"
+          tar -czf "sim-${{ matrix.shard }}.tgz" .cache/sim
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sim-${{ matrix.shard }}
+          path: sim-${{ matrix.shard }}.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  builds:
+    name: item builds ${{ matrix.shard }}
+    needs: plan
+    if: needs.plan.outputs.builds_count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.builds_shards) }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Compute this shard's pairings
+        env:
+          DATASET: ${{ needs.plan.outputs.dataset }}
+          RECOMPUTE: ${{ needs.plan.outputs.recompute }}
+          SHARD: ${{ matrix.shard }}/${{ needs.plan.outputs.builds_count }}
+        run: |
+          args=(--dataset "$DATASET" --threads 4 --shard "$SHARD")
+          if [ -n "$RECOMPUTE" ]; then args+=(--recompute "$RECOMPUTE"); fi
+          npx tsx pipeline/sim/builds.ts "${args[@]}"
+          tar -czf "builds-${{ matrix.shard }}.tgz" .cache/builds
+      - uses: actions/upload-artifact@v4
+        with:
+          name: builds-${{ matrix.shard }}
+          path: builds-${{ matrix.shard }}.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  merge:
+    needs: [plan, sim, builds]
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.sim.result != 'failure' && needs.builds.result != 'failure' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    env:
+      DATASET: ${{ needs.plan.outputs.dataset }}
+      MATRICES: ${{ needs.plan.outputs.matrices }}
+      RECOMPUTE: ${{ needs.plan.outputs.recompute }}
+      SIM_PENDING: ${{ needs.plan.outputs.sim_pending }}
+      BUILDS_PENDING: ${{ needs.plan.outputs.builds_pending }}
+      BRANCH: ${{ github.ref_name }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - if: needs.plan.outputs.sim_count != '0'
+        uses: actions/download-artifact@v4
+        with:
+          pattern: sim-*
+          path: shards
+          merge-multiple: true
+      - if: needs.plan.outputs.builds_count != '0'
+        uses: actions/download-artifact@v4
+        with:
+          pattern: builds-*
+          path: shards
+          merge-multiple: true
+      - name: Unpack every shard's checkpoints
+        run: |
+          shopt -s nullglob
+          for file in shards/*.tgz; do tar -xzf "$file"; done
+          # Each pending pairing is checkpointed by exactly one shard.
+          sim=$(find .cache/sim -name '*.json' 2>/dev/null | wc -l)
+          builds=$(find .cache/builds -name '*.json' 2>/dev/null | wc -l)
+          echo "Checkpoints: $sim plain stats (of $SIM_PENDING), $builds item builds (of $BUILDS_PENDING)"
+          if [ "$sim" -ne "$SIM_PENDING" ] || [ "$builds" -ne "$BUILDS_PENDING" ]; then
+            echo "::error::The shards' checkpoints don't cover the pending pairings"
+            exit 1
+          fi
+      - name: Write the outputs from the checkpoints and check them
+        run: |
+          extra=()
+          if [ -n "$RECOMPUTE" ]; then extra+=(--recompute "$RECOMPUTE"); fi
+          if [[ ",$MATRICES," == *",sim,"* ]]; then
+            npx tsx pipeline/sim/refresh.ts --dataset "$DATASET" --threads 4 "${extra[@]}"
+            npx tsx pipeline/sim/refresh.ts --dataset "$DATASET" --check
+          fi
+          if [[ ",$MATRICES," == *",builds,"* ]]; then
+            npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --threads 4 "${extra[@]}"
+            npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --check
+          fi
+      - name: Commit the outputs to the branch
+        run: |
+          git add -A "data/$DATASET"
+          if git diff --cached --quiet; then
+            echo "The refresh reproduced the committed outputs exactly; nothing to commit."
+            exit 0
+          fi
+          git diff --cached --stat
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          recomputed=""
+          if [ -n "$RECOMPUTE" ]; then recomputed=" (computed again whatever was stored: $RECOMPUTE)"; fi
+          git commit -q -F - <<EOF
+          Refresh $DATASET on GitHub Actions: $SIM_PENDING plain-stats and $BUILDS_PENDING build pairings computed
+
+          The other pairings' inputs were unchanged, so their stored results stand$recomputed.
+          Shards and checks: $RUN_URL
+          EOF
+          git format-patch -1 --stdout > refresh.patch
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:refs/heads/$BRANCH"; then exit 0; fi
+            # The branch moved during the refresh: replay this commit on it, if the outputs are
+            # still its inputs' results.
+            git fetch origin "$BRANCH"
+            if ! git rebase "origin/$BRANCH"; then
+              git rebase --abort
+              echo "::error::The branch's outputs changed during the refresh; the results are in this run's refresh-outputs artifact"
+              exit 1
+            fi
+            if [[ ",$MATRICES," == *",sim,"* ]]; then npx tsx pipeline/sim/refresh.ts --dataset "$DATASET" --check; fi
+            if [[ ",$MATRICES," == *",builds,"* ]]; then npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --check; fi
+          done
+          echo "::error::Could not push the refreshed outputs"
+          exit 1
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: refresh-outputs
+          path: refresh.patch
+          if-no-files-found: ignore
+          retention-days: 30
+      - run: npm run typecheck
+      - run: npm test

@@ -46,12 +46,12 @@ function endDash(world: World): number {
 
 describe("LeBlanc pinned source and finite spell metadata", () => {
   it("reads all primary revisions, the separately pinned pet article and attributed binary evidence", () => {
-    expect(new Set(compiled.evidence.filter((entry) => entry.revid > 0).map((entry) => entry.revid))).toEqual(new Set([3954748, 4035723, 3985524, 4057469, 4057468, 4053330]));
+    expect(new Set(compiled.evidence.filter((entry) => entry.revid > 0).map((entry) => entry.revid))).toEqual(new Set([3954748, 4035723, 4091667, 4057469, 4057468, 4053330]));
     const binary = compiled.evidence.filter((entry) => entry.url);
     expect(binary.length).toBeGreaterThan(8);
     for (const entry of binary) {
-      expect(entry.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json");
-      expect(entry.sourceVersion).toBe("16.20.8248524+branch.releases-16-20.content.release");
+      expect(entry.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json");
+      expect(entry.sourceVersion).toBe("16.21.8342754+branch.releases-16-21.content.release");
       expect(entry.sourceSha256).toBe("c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a");
     }
     expect(compiled.assumptions.join(" ")).toContain("spends zero ammo");

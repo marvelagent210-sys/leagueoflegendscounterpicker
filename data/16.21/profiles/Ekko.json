@@ -1,0 +1,314 @@
+{
+  "champion": "Ekko",
+  "name": "Ekko",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "ekko",
+      "formName": "Ekko",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.09359,
+      "attackDamage": 116.995,
+      "windup": 0.148593,
+      "modifiers": [
+        "Z-Drive Resonance"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ekko",
+      "kind": "E",
+      "name": "Phase Dive",
+      "page": {
+        "title": "Template:Data Ekko/Phase Dive",
+        "revid": 4025604
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        },
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "Blink from using empowered attack"
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0,
+      "range": 325,
+      "boostsAttacks": true,
+      "notes": [
+        "The dash distance can be extended to up-to 550 units when targeting across terrain. It will only extend for the distance needed to cross the wall.",
+        "While grounded or rooted, Ekko loses the bonus attack range from Phase Dive.",
+        "Phase Dive's attack can miss and be blocked and dodged, consuming the basic attack without dealing any damage.",
+        "Phase Dive's attack breaks stealth at the start of its cast time.\n  - This is relevant for external sources of stealth such as Curse of the Black Mist.",
+        "If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed."
+      ]
+    },
+    {
+      "champion": "Ekko",
+      "kind": "I",
+      "name": "Z-Drive Resonance",
+      "page": {
+        "title": "Template:Data Ekko/Z-Drive Resonance",
+        "revid": 4022978
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Resonance stacks will not be applied nor consumed if the basic attack is dodged or blocked or if the attack misses."
+      ]
+    },
+    {
+      "champion": "Ekko",
+      "kind": "Q",
+      "name": "Timewinder",
+      "page": {
+        "title": "Template:Data Ekko/Timewinder",
+        "revid": 4067545
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ekko/Timewinder",
+              "revid": 4067545,
+              "quote": "At 700 units or upon hitting an enemy champion, the grenade slows down for 1.75 seconds to gradually expand into a Temporal Sickness field that slows nearby enemies, travelling for another 190 units."
+            }
+          ],
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1650,
+      "notes": [
+        "Spell shield will block only a single instance of damage."
+      ]
+    },
+    {
+      "champion": "Ekko",
+      "kind": "R",
+      "name": "Chronobreak",
+      "page": {
+        "title": "Template:Data Ekko/Chronobreak",
+        "revid": 4012189
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "stasis",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Ekko/Chronobreak",
+              "revid": 4012189,
+              "quote": "Active: Ekko enters stasis at the start of the cast time, and afterwards heals himself, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on health lost)%, and dashes to his afterimage's location at the time of cast over 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        },
+        {
+          "state": "untargetable",
+          "duration": 0.5,
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Ekko/Chronobreak",
+              "revid": 4012189,
+              "quote": "Active: Ekko enters stasis at the start of the cast time, and afterwards heals himself, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on health lost)%, and dashes to his afterimage's location at the time of cast over 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "cooldown": 50,
+      "castTime": 0.5,
+      "notes": [
+        "Ekko will attempt to basic attack the closest target after appearing at the cast location, but can do so quicker if he manually attack commands after the dash, except if Phase Dive is primed.",
+        "The afterimage's location will explode even if Ekko's dash is interrupted.",
+        "Ekko's dash cannot be interrupted by forced movement displacements since he is immune to them.\n  - This is not to be confused with displacement immunity, which resists airborne displacements plus a number of other cases. Chronobreak provides immunity only to displacements that apply airborne."
+      ]
+    },
+    {
+      "champion": "Ekko",
+      "kind": "W",
+      "name": "Parallel Convergence",
+      "page": {
+        "title": "Template:Data Ekko/Parallel Convergence",
+        "revid": 3956502
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "parry": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ekko/Parallel Convergence",
+              "revid": 3956502,
+              "quote": "After travelling over 1.25 seconds, the device expands into a chronosphere that lasts for 1.5 seconds and which slows enemies within by 40%."
+            }
+          ],
+          "amount": 40
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Ekko/Parallel Convergence",
+              "revid": 3956502,
+              "quote": "If Ekko enters the sphere before it expires, it detonates to grant him a shield for 2 seconds and stun enemies within for 2.25 seconds."
+            }
+          ],
+          "duration": 2.25,
+          "condition": "If Ekko enters the sphere before it expires, it detonates to grant him a shield for 2 seconds and stun enemies within for 2.25 seconds."
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Ekko/Parallel Convergence",
+              "revid": 3956502,
+              "quote": "If Ekko enters the sphere before it expires, it detonates to grant him a shield for 2 seconds and stun enemies within for 2.25 seconds."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 1600,
+      "notes": [
+        "Ekko can detonate the expansion even while untargetable (i.e. Chronobreak dash), but not if he is resurrecting."
+      ]
+    }
+  ]
+}

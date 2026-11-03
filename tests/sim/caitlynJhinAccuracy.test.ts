@@ -49,9 +49,9 @@ describe("Caitlyn and Jhin pinned numeric/evidence contracts", () => {
     const ability = compiled[champion]!.spec.abilities.find((entry) => entry.key === key)!; expect(ability).toMatchObject({ cooldown, cost, castTime });
   });
   it("retains independently attributed pinned game continuation and rejects changed raw critical templates", () => {
-    expect(compiled.Jhin!.evidence.some((entry) => entry.revid === 0 && entry.sourceVersion?.startsWith("16.20.") && entry.url?.includes("/16.20/"))).toBe(true);
+    expect(compiled.Jhin!.evidence.some((entry) => entry.revid === 0 && entry.sourceVersion?.startsWith("16.21.") && entry.url?.includes("/16.21/"))).toBe(true);
     const changed = structuredClone(records("Caitlyn")); changed.find((entry) => entry.kind === "I")!.sources = [];
-    expect(() => compileKit(championData("Caitlyn"), changed, Caitlyn)).toThrow("critical damage|0 to 100");
+    expect(() => compileKit(championData("Caitlyn"), changed, Caitlyn)).toThrow("critical damage|0 to 80");
   });
 });
 
@@ -60,9 +60,9 @@ describe("Caitlyn Headshot single attack packet and target grants", () => {
     const world = worldFor("Caitlyn");
     for (let index = 0; index < 5; index++) attack(world);
     expect(world.units[1].totals.damageTaken).toBe(500); expect(world.units[0].memory.caitlynCount).toBe(5);
-    attack(world); expect(world.units[1].totals.damageTaken).toBe(700); expect(world.units[0].memory.caitlynCount).toBe(0);
+    attack(world); expect(world.units[1].totals.damageTaken).toBe(680); expect(world.units[0].memory.caitlynCount).toBe(0);
   });
-  it.each([[0, 200], [.25, 250], [1, 400]])("averages crit=%s once in ordinary AD plus additive Headshot =>%s", (critChance, expected) => {
+  it.each([[0, 180], [.25, 225], [1, 360]])("averages crit=%s once in ordinary AD plus additive Headshot =>%s", (critChance, expected) => {
     const world = worldFor("Caitlyn", 300, { critChance }); world.units[0].memory.caitlynCount = 5;
     attack(world); expect(world.units[1].totals.damageTaken).toBeCloseTo(expected, 9);
     expect(world.log.filter((entry) => entry.text.includes("physical damage"))).toHaveLength(1);
@@ -72,7 +72,7 @@ describe("Caitlyn Headshot single attack packet and target grants", () => {
     startAttack(world, self); expect(self.action).toMatchObject({ kind: "windup", uncancellable: true, missileSpeed: 3000 });
     applyEffect(world, world.units[1], self, { type: "cc", cc: "stun", duration: .5 }, { scale: 1 }); expect(self.action?.kind).toBe("windup");
     self.spec = { ...self.spec, bonus: { ap: 100, critChance: 0 } }; launchAttack(world, self); through(world, 8);
-    expect(world.units[1].totals.damageTaken).toBe(300);
+    expect(world.units[1].totals.damageTaken).toBe(270);
   });
   it.each(["dodgeAttacks", "parry", "blockAttacks"] as const)("%s prevents the complete Headshot packet", (defense) => {
     const world = worldFor("Caitlyn"); world.units[0].memory.caitlynCount = 5; state(world, defense); attack(world); expect(world.units[1].totals.damageTaken).toBe(0);
@@ -82,7 +82,7 @@ describe("Caitlyn Headshot single attack packet and target grants", () => {
     expect(attackRange(world.units[0], world.units[1])).toBe(1300);
     const summon = pet(world, 1000); expect(attackRange(world.units[0], petFormulaTarget(summon, world.units[0]))).toBe(650);
     const before = world.units[1].totals.damageTaken; attack(world); through(world, world.tick + 12);
-    expect(world.units[1].totals.damageTaken - before).toBe(415); expect(world.units[0].memory.caitlynCount).toBe(3);
+    expect(world.units[1].totals.damageTaken - before).toBe(395); expect(world.units[0].memory.caitlynCount).toBe(3);
     attack(world); through(world, world.tick + 12); expect(world.units[0].memory.caitlynCount).toBe(4); expect(attackRange(world.units[0], world.units[1])).toBe(650);
   });
   it("expires net's extra Headshot exactly after 1.8 seconds", () => {
@@ -98,10 +98,10 @@ describe("Caitlyn Headshot single attack packet and target grants", () => {
 describe("Caitlyn Q, net, finite traps and channel", () => {
   it("Q damages the first pet fully and the following champion for 60%, expanding the missile", () => {
     const world = worldFor("Caitlyn", 600), summon = pet(world, 250); cast(world, "Q"); through(world, 35);
-    expect(summon.hp).toBe(4585); expect(world.units[1].totals.damageTaken).toBe(249);
+    expect(summon.hp).toBe(4565); expect(world.units[1].totals.damageTaken).toBe(261);
   });
   it("Q deals full damage to a champion still trap-revealed after an earlier pet collision", () => {
-    const world = worldFor("Caitlyn", 600); pet(world, 250); hit(world, "W"); cast(world, "Q"); through(world, 35); expect(world.units[1].totals.damageTaken).toBe(415);
+    const world = worldFor("Caitlyn", 600); pet(world, 250); hit(world, "W"); cast(world, "Q"); through(world, 35); expect(world.units[1].totals.damageTaken).toBe(435);
   });
   it("Q retains cast-start origin while net retains completion origin", () => {
     const world = worldFor("Caitlyn", 1000); cast(world, "Q"); world.units[0].x = 300; through(world, 19); expect(world.missiles.find((missile) => missile.source === "Q")?.x).toBe(0);
@@ -127,6 +127,17 @@ describe("Caitlyn Q, net, finite traps and channel", () => {
   it("traps arm after a second, root/reveal on contact and spend one of five charges", () => {
     const world = worldFor("Caitlyn", 300); cast(world, "W"); through(world, 37); expect(world.units[1].statuses.some((status) => status.key === "caitlyn:trap")).toBe(false);
     through(world, 38); expect(world.units[1].statuses.some((status) => status.key === "caitlyn:trap")).toBe(true); expect(world.units[0].charges.W?.count).toBe(4);
+  });
+  it("a sprung trap makes its champion immune to every trap for three seconds, wherever it lies (26.21)", () => {
+    const world = worldFor("Caitlyn", 300); cast(world, "W"); through(world, 38);
+    expect(world.units[1].statuses.some((status) => status.key === "caitlyn:trap")).toBe(true);
+    const until = Number(world.units[0].memory.caitlynTrapImmuneUntil);
+    expect(until).toBe(38 + 90); // sprung at tick 38, immune for 3 s
+    cast(world, "W", 600); through(world, world.tick + 45);
+    world.units[1].x = 600;
+    const second = () => world.zones.some((zone) => zone.ability === "W" && zone.x === 600);
+    through(world, until - 2); expect(second()).toBe(true);
+    through(world, until + 5); expect(second()).toBe(false);
   });
   it("limits persistent traps to five, removing the oldest without a destruction kill", () => {
     const world = worldFor("Caitlyn", 800); world.units[1].x = 3000;
@@ -334,7 +345,7 @@ describe("Caitlyn/Jhin policy, delayed prediction and budget contracts", () => {
   it.each([[0, 650], [1, 845]])("Caitlyn's hook budget includes exactly one crit-scaled R per parent cycle at crit=%s", (critChance, bullet) => {
     const world = worldFor("Caitlyn", 1000, { critChance }); const [self, target] = world.units;
     const hint = self.spec.budget!.damage!(self, target)!;
-    expect(hint.physical).toBeCloseTo(100 * (1 + critChance) * .681 / 6 + bullet / 90.375, 10);
+    expect(hint.physical).toBeCloseTo(100 * (1 + critChance) * .681 * .8 / 6 + bullet / 90.375, 10);
   });
   it("Jhin's four manual recasts never become a spammable one-second budget spell", () => {
     const world = worldFor("Jhin"), [self, target] = world.units;
@@ -354,7 +365,7 @@ describe("Caitlyn/Jhin policy, delayed prediction and budget contracts", () => {
   });
   it.each(["Caitlyn", "Jhin"] as const)("%s spends 15000 on actual stats and reflects every scenario through the normal policy", (champion) => {
     const spec = compiled[champion]!.spec, darius = kit("Darius").spec;
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const forward = simulateMatchup(spec, darius, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(darius, spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]);
     for (const build of forward.builds) expect(Object.values(build.spent).reduce((sum, cost) => sum + cost, 0)).toBeCloseTo(15000, 8);

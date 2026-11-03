@@ -1,0 +1,250 @@
+{
+  "champion": "Smolder",
+  "name": "Smolder",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "smolder",
+      "formName": "Smolder",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1800,
+      "attackSpeed": 1.13985,
+      "attackDamage": 103.23,
+      "windup": 0.139966,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Smolder",
+      "kind": "E",
+      "name": "Flap, Flap, Flap",
+      "page": {
+        "title": "Template:Data Smolder/Flap, Flap, Flap",
+        "revid": 4025347
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "no",
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0,
+      "range": 700,
+      "speed": 1800,
+      "notes": [
+        "Smolder reveals himself while attacking enemies, even inside terrain.",
+        "Spell shield will block only one bolt."
+      ]
+    },
+    {
+      "champion": "Smolder",
+      "kind": "I",
+      "name": "Dragon Practice",
+      "page": {
+        "title": "Template:Data Smolder/Dragon Practice",
+        "revid": 4078266
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Super Scorcher Breath grants a stack if the target dies while the initial missile is in flight.\n  - This happens even if the target dies to Super Scorcher Breath burn, giving him a total of 2 stacks."
+      ]
+    },
+    {
+      "champion": "Smolder",
+      "kind": "Q",
+      "name": "Super Scorcher Breath",
+      "page": {
+        "title": "Template:Data Smolder/Super Scorcher Breath",
+        "revid": 4030432
+      },
+      "damageTypes": [
+        "physical",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Smolder/Super Scorcher Breath",
+              "revid": 4030432,
+              "quote": "Active: Smolder spits a fireball at the target enemy that deals physical damage, increased by critical strike damage (based on critical strike chance); applies on-hit effects; applies life steal at 50% effectiveness; and triggers on-attack effects."
+            },
+            {
+              "page": "Template:Data Smolder/Super Scorcher Breath",
+              "revid": 4030432,
+              "quote": "The explosion benefits from life steal at 50% effectiveness and applies on-hit effects."
+            },
+            {
+              "page": "Template:Data Smolder/Super Scorcher Breath",
+              "revid": 4030432,
+              "quote": "The bolts benefit from life steal at 50% effectiveness and apply on-hit effects."
+            }
+          ]
+        }
+      ],
+      "cooldown": 3.5,
+      "castTime": 0.260538,
+      "range": 550,
+      "speed": 1800,
+      "execute": [
+        {
+          "page": "Template:Data Smolder/Super Scorcher Breath",
+          "revid": 4030432,
+          "quote": "Enemy champions afflicted with the burn are also executed once Smolder deals damage to them that would leave them below 6.5% of their maximum health."
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "Only Smolder's damage counts for triggering the execute.\n  - If the target is below the threshold while afflicted with the burn, they will be executed on the next instance of damage dealt by Smolder, which includes the burn tick.",
+        "If Super Scorcher Breath would damage the target to below the execution threshold, they are executed on the same damage instance.",
+        "Super Scorcher Breath's initial fireball, explosion and extra bolts can all be blocked and dodged.\n  - The application of the burn is negated in all cases."
+      ]
+    },
+    {
+      "champion": "Smolder",
+      "kind": "R",
+      "name": "MMOOOMMMM!",
+      "page": {
+        "title": "Template:Data Smolder/MMOOOMMMM!",
+        "revid": 4078267
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Smolder/MMOOOMMMM!",
+              "revid": 4078267,
+              "quote": "The wave heals Smolder and deals physical damage to enemies hit, with those in the center taking 50% increased damage and becoming slowed by 40% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Smolder/MMOOOMMMM!",
+              "revid": 4078267,
+              "quote": "The wave heals Smolder and deals physical damage to enemies hit, with those in the center taking 50% increased damage and becoming slowed by 40% for 2 seconds."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0.75,
+      "range": 4250,
+      "speed": 1700
+    },
+    {
+      "champion": "Smolder",
+      "kind": "W",
+      "name": "Achooo!",
+      "page": {
+        "title": "Template:Data Smolder/Achooo!",
+        "revid": 4025346
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Smolder/Achooo!",
+              "revid": 4025346,
+              "quote": "Active: Smolder sneezes a fiery glob in the target direction that deals physical damage to enemies hit and slows them by 35% for 1.5 seconds, slowing down in missile speed after travelling 1200 units."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.35,
+      "range": 1500,
+      "speed": 2000,
+      "notes": [
+        "Spell shield can block either the glob or the explosion, but not both."
+      ]
+    }
+  ]
+}

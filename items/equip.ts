@@ -20,9 +20,11 @@ import { CRIT_DAMAGE } from "../engine/rules/defense";
 import { traitsOf } from "../engine/sim/behavior";
 import { addStatus } from "../engine/sim/combat";
 import { ccTypes, derive } from "../engine/sim/derived";
-import type { AbilitySpec, BaseStats, BonusStats, BuffStat, Effect, FighterSpec, HookContext, KitHooks, StateType } from "../engine/sim/spec";
+import type { AbilitySpec, BaseStats, BonusStats, BuffStat, DamageByType, Effect, FighterSpec, HookContext, KitHooks, StateType } from "../engine/sim/spec";
+import type { Unit } from "../engine/sim/state";
 import type { ItemRecord } from "../pipeline/items/records";
 import { ItemContext, type ItemData, ItemDataError, type ItemEvidence, type ItemSource } from "./context";
+import { activeBudget } from "./hints";
 import { type CombatStatus, type Energized, type Hit, activeKey, combatStatus, energizedPool, inItemStasis, isAbilityDamage, isItemActive, memo, omnivampHooks, setStat } from "./runtime";
 
 /** What an item knows about its holder while it is built: one form of the champion, before items. */
@@ -78,10 +80,38 @@ export interface ItemDefinition {
   stasis?: boolean;
   /** What the item does that the simulator leaves out, each with why. */
   unmodeled?: string[];
+  /** What the build search's quick estimate counts of the hooks and actives, which it doesn't play. */
+  budget?: ItemBudget;
 }
 
 /** A permanent stat or state. */
 export type Permanent = { stat: BuffStat; value: number } | { state: StateType; value?: number; charges?: number };
+
+/** A stat or state the quick estimate gives a unit, or Grievous Wounds. */
+export type EstimateStatus = Permanent | { grievousWounds: true };
+
+/**
+ * What the build search's quick estimate (items/estimate.ts) counts of an item's hooks and
+ * actives: their average over the stat budget's ten-second reference fight (engine/budget.ts),
+ * given the holder and the enemy with their whole builds on. Fights play the hooks themselves;
+ * these only rank builds, and tests/items/hints.test.ts checks each against a fight.
+ */
+export interface ItemBudget {
+  /** Stats the holder has on average from the hooks (Rabadon's Deathcap's AP, Liandry's Torment's Suffering). */
+  stats?: (self: Unit, enemy: Unit) => Permanent[];
+  /** Its stats read the other items' hook stats, so they come last (Rabadon's Deathcap's share of all AP). */
+  late?: boolean;
+  /** Statuses the hooks give the enemy on average (Black Cleaver's armor reduction, Grievous Wounds). */
+  enemyStats?: (self: Unit, enemy: Unit) => EstimateStatus[];
+  /** Damage per second the hooks and actives deal, by type, before the enemy's resistances. */
+  damage?: (self: Unit, enemy: Unit) => Partial<DamageByType>;
+  /** Healing per second: healing increases and Grievous Wounds change it. */
+  healing?: (self: Unit, enemy: Unit) => number;
+  /** Shielding per second, and damage the hooks keep from landing (Sterak's Gage's Lifeline: its shield over the ten seconds). */
+  shielding?: (self: Unit, enemy: Unit) => number;
+  /** The kit's ability as the hooks change it (Navori Flickerblade's shorter cooldowns), the same object when they don't. */
+  ability?: (ability: AbilitySpec) => AbilitySpec;
+}
 
 export interface ItemModule {
   /** The item's name in the catalog. */
@@ -261,7 +291,7 @@ function ownDamageOnly(hooks: KitHooks): KitHooks {
  * Item haste for some abilities: the engine divides the cooldown by 1 + haste / 100 of all
  * ability haste, so the cooldown it reads is scaled to come out as divided by the sum.
  */
-function withItemHaste(ability: AbilitySpec, haste: NonNullable<ItemDefinition["haste"]>): AbilitySpec {
+export function withItemHaste(ability: AbilitySpec, haste: NonNullable<ItemDefinition["haste"]>): AbilitySpec {
   if (ability.staticCooldown || isItemActive(ability)) return ability;
   let extra = 0;
   for (const entry of haste) {
@@ -323,11 +353,43 @@ function permanent(item: string, statuses: Permanent[]): KitHooks {
   };
 }
 
-function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext, equip: EquipOptions, options: Record<string, Record<string, number>>, coverage: Map<string, ItemCoverage>): { spec: FighterSpec; enemyHooks: KitHooks[] } {
-  // The kit's ability names, in every form: an item of the same name labels its damage apart.
-  const reserved = new Set(Object.values(form.forms ?? { [form.name]: form }).flatMap((f) => f.abilities.map((ability) => ability.name)));
-  const items = build.map((record) => context.item(record, reserved));
-  const itemNames = new Set(items.map((item) => item.label));
+/** An item's shop stats, sorted by where the simulator keeps them. */
+interface ShopStats {
+  bonus: BonusStats;
+  /** Stats kept as statuses (percentage penetration, movement speed, life steal) and tenacity, in the stats' order. */
+  statuses: Permanent[];
+  critDamage: number;
+  omnivamp: number;
+  hp5: number;
+  mana: number;
+  mp5: number;
+  unmodeled: string[];
+}
+
+function shopStats(record: ItemRecord, form: FighterSpec): ShopStats {
+  const stats: ShopStats = { bonus: {}, statuses: [], critDamage: 0, omnivamp: 0, hp5: 0, mana: 0, mp5: 0, unmodeled: [] };
+  const usesMana = form.resourceType === "Mana";
+  for (const [key, value] of Object.entries(record.stats)) {
+    const bought = BONUS_STATS[key];
+    const status = STATUS_STATS[key];
+    if (bought) stats.bonus[bought[0]] = (stats.bonus[bought[0]] ?? 0) + value / bought[1];
+    else if (status) stats.statuses.push({ stat: status.stat, value: value / status.per });
+    else if (key === "critdamage") stats.critDamage += value / 100;
+    else if (key === "tenacity") stats.statuses.push({ state: "tenacity", value: value / 100 });
+    else if (key === "omnivamp") stats.omnivamp += value / 100;
+    else if (key === "hp5") stats.hp5 += value / 100;
+    else if (key === "mana" || key === "mp5") {
+      if (!usesMana) stats.unmodeled.push(`${key === "mana" ? "Mana" : "Mana regeneration"}: no effect, ${form.name} doesn't use mana.`);
+      else if (key === "mana") stats.mana += value;
+      else stats.mp5 += value / 100;
+    } else if (key === "hsp") stats.unmodeled.push("Heal and shield power: not modeled yet.");
+    else if (!OTHER_STATS.has(key)) throw new ItemDataError(record.name, `the simulator doesn't know the stat "${key}"`);
+  }
+  return stats;
+}
+
+/** What a build's items know about their holder, with the combat status and Energized pool they share once asked for. */
+function itemFighter(form: FighterSpec, build: ItemRecord[], context: ItemContext, itemNames: ReadonlySet<string>): { fighter: ItemFighter; shared: () => { combat?: CombatStatus; energized?: Energized } } {
   let combat: CombatStatus | undefined;
   let energized: Energized | undefined;
   const fighter: ItemFighter = {
@@ -348,6 +410,24 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
       return (energized = energizedPool({ full: rule.quoted("Energized is an effect of certain items and runes that grants Charges, up to 100."), perAttack: rule.quoted(gain), unitsPerCharge: rule.quoted(gain, 2) }));
     },
   };
+  return { fighter, shared: () => ({ ...(combat ? { combat } : {}), ...(energized ? { energized } : {}) }) };
+}
+
+/** The kit's ability names, in every form: an item of the same name labels its damage apart. */
+function reservedNames(form: FighterSpec): Set<string> {
+  return new Set(Object.values(form.forms ?? { [form.name]: form }).flatMap((f) => f.abilities.map((ability) => ability.name)));
+}
+
+/** An item module's options: its defaults, then the given choices. */
+function chosenOptions(module: ItemModule, given: Record<string, number> | undefined): Record<string, number> {
+  return { ...Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, option.default])), ...given };
+}
+
+function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext, equip: EquipOptions, options: Record<string, Record<string, number>>, coverage: Map<string, ItemCoverage>): { spec: FighterSpec; enemyHooks: KitHooks[] } {
+  const reserved = reservedNames(form);
+  const items = build.map((record) => context.item(record, reserved));
+  const itemNames = new Set(items.map((item) => item.label));
+  const { fighter, shared } = itemFighter(form, build, context, itemNames);
   const bonus: BonusStats = { ...form.bonus };
   const base: BaseStats = { ...form.base, attackSpeed: { ...form.base.attackSpeed }, windup: { ...form.base.windup } };
   const first: KitHooks[] = [];
@@ -365,28 +445,21 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     const leaveOut = (text: string) => {
       if (!notes.unmodeled.includes(text)) notes.unmodeled.push(text);
     };
-    for (const [key, value] of Object.entries(record.stats)) {
-      const bought = BONUS_STATS[key];
-      const status = STATUS_STATS[key];
-      if (bought) bonus[bought[0]] = (bonus[bought[0]] ?? 0) + value / bought[1];
-      else if (status) first.push(permanent(record.name, [{ stat: status.stat, value: value / status.per }]));
-      else if (key === "critdamage") critDamage += value / 100;
-      else if (key === "tenacity") first.push(permanent(record.name, [{ state: "tenacity", value: value / 100 }]));
-      else if (key === "omnivamp") omnivamp += value / 100;
-      else if (key === "hp5") regen.hp5 += value / 100;
-      else if (key === "mana" || key === "mp5") {
-        if (!fighter.mana) leaveOut(`${key === "mana" ? "Mana" : "Mana regeneration"}: no effect, ${form.name} doesn't use mana.`);
-        else if (key === "mana") base.resource += value;
-        else regen.mp5 += value / 100;
-      } else if (key === "hsp") leaveOut("Heal and shield power: not modeled yet.");
-      else if (!OTHER_STATS.has(key)) throw new ItemDataError(record.name, `the simulator doesn't know the stat "${key}"`);
-    }
+    const stats = shopStats(record, form);
+    addBonus(bonus, stats.bonus);
+    for (const status of stats.statuses) first.push(permanent(record.name, [status]));
+    critDamage += stats.critDamage;
+    omnivamp += stats.omnivamp;
+    regen.hp5 += stats.hp5;
+    base.resource += stats.mana;
+    regen.mp5 += stats.mp5;
+    for (const text of stats.unmodeled) leaveOut(text);
     const module = equip.modules[record.name];
     if (!module) {
       for (const effect of record.effects) leaveOut(`${effect.name ?? effect.slot}: not modeled yet.`);
       continue;
     }
-    const chosen = { ...Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, option.default])), ...options[record.name] };
+    const chosen = chosenOptions(module, options[record.name]);
     for (const [key, option] of Object.entries(module.options ?? {})) context.assume(`${record.name}: ${option.label}: ${chosen[key]}.`);
     options[record.name] = chosen;
     const definition = module.build(items[index]!, fighter, chosen);
@@ -423,6 +496,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     context.rule("Vamp", "Omnivamp").quote("Omnivamp is a stat which grants healing equal to a percentage of the post-mitigation physical damage, magic damage, and true damage dealt. It stacks additively and does not benefit from heal and shield power.");
     hooks.unshift(omnivampHooks(omnivamp));
   }
+  const { combat, energized } = shared();
   if (combat) hooks.unshift(combat.hooks);
   if (energized) hooks.push(energized.hooks);
   const haste = built.flatMap(({ definition }) => definition.haste ?? []);
@@ -464,6 +538,90 @@ export function equipItems(spec: FighterSpec, build: ItemRecord[], equip: EquipO
   context.seal();
   const evidence = context.evidence.filter((entry, i, all) => all.findIndex((other) => other.item === entry.item && other.effect === entry.effect && other.text === entry.text) === i);
   return { spec: equipped, enemyHooks, items: build, options, evidence, assumptions: context.assumptions, coverage: build.map((record) => coverage.get(record.name)!) };
+}
+
+/**
+ * What one item adds that the build search's quick estimate (items/estimate.ts) values: its shop
+ * stats and fixed passive stats, the stats it keeps as statuses of its own, its critical strike
+ * damage and its on-hit effects. Built for the item alone, so a passive that counts the rest of
+ * the build (Warmog's Vitality) sees only itself.
+ */
+export interface ItemParts {
+  item: string;
+  bonus: BonusStats;
+  statuses: Array<{ stat: BuffStat; value: number }>;
+  critDamage: number;
+  onHit: Effect[];
+  /** Omnivamp from its shop stats, as a fraction. */
+  omnivamp: number;
+  /** Bonus maximum mana from its shop stats and passives, for mana champions. */
+  mana: number;
+  /** Ability haste for some abilities (ItemDefinition.haste). */
+  haste: NonNullable<ItemDefinition["haste"]>;
+  /** Its hint, with what its actives deal and shield per use over the reference fight. */
+  budget?: ItemBudget;
+}
+
+export function itemParts(spec: FighterSpec, record: ItemRecord, equip: EquipOptions): ItemParts {
+  const context = new ItemContext(equip.source);
+  const item = context.item(record, reservedNames(spec));
+  const stats = shopStats(record, spec);
+  const parts: ItemParts = { item: record.name, bonus: { ...stats.bonus }, statuses: [], critDamage: stats.critDamage, onHit: [], omnivamp: stats.omnivamp, mana: stats.mana, haste: [] };
+  const stat = (status: Permanent): status is { stat: BuffStat; value: number } => "stat" in status;
+  parts.statuses.push(...stats.statuses.filter(stat));
+  const module = equip.modules[record.name];
+  if (!module) return parts;
+  const fighter = itemFighter(spec, [record], context, new Set([item.label])).fighter;
+  const definition = module.build(item, fighter, chosenOptions(module, equip.options?.[record.name]));
+  addBonus(parts.bonus, definition.bonus);
+  parts.statuses.push(...(definition.permanent ?? []).filter(stat));
+  parts.onHit.push(...(definition.onHit ?? []).map(atHalfHealth));
+  if (definition.mana && fighter.mana) parts.mana += definition.mana;
+  parts.haste.push(...(definition.haste ?? []));
+  const budget = joinBudgets(definition.budget, activeBudget(definition.actives ?? []));
+  if (budget) parts.budget = budget;
+  return parts;
+}
+
+/**
+ * An on-hit effect as the estimate values it: a share of the target's current health is a share
+ * of half its maximum, the target's average over a fight from full health to none (Blade of the
+ * Ruined King's Mist's Edge). The estimate's target is always at full health.
+ */
+function atHalfHealth(effect: Effect): Effect {
+  if (effect.type !== "damage" || !effect.amount.ratios?.targetCurrentHP) return effect;
+  const { targetCurrentHP, ...ratios } = effect.amount.ratios;
+  return { ...effect, amount: { ...effect.amount, ratios: { ...ratios, targetMaxHP: (ratios.targetMaxHP ?? 0) + targetCurrentHP / 2 } } };
+}
+
+/** Two hints as one: their stats and statuses together, their damage, healing and shields added. */
+export function joinBudgets(a: ItemBudget | undefined, b: ItemBudget | undefined): ItemBudget | undefined {
+  if (!a || !b) return a ?? b;
+  const both = <T>(f: ((self: Unit, enemy: Unit) => T[]) | undefined, g: ((self: Unit, enemy: Unit) => T[]) | undefined) =>
+    f && g ? (self: Unit, enemy: Unit) => [...f(self, enemy), ...g(self, enemy)] : (f ?? g);
+  const sum = (f: ((self: Unit, enemy: Unit) => number) | undefined, g: ((self: Unit, enemy: Unit) => number) | undefined) =>
+    f && g ? (self: Unit, enemy: Unit) => f(self, enemy) + g(self, enemy) : (f ?? g);
+  const damage = a.damage && b.damage
+    ? (self: Unit, enemy: Unit) => {
+        const x = a.damage!(self, enemy);
+        const y = b.damage!(self, enemy);
+        return { physical: (x.physical ?? 0) + (y.physical ?? 0), magic: (x.magic ?? 0) + (y.magic ?? 0), true: (x.true ?? 0) + (y.true ?? 0) };
+      }
+    : (a.damage ?? b.damage);
+  const joined: ItemBudget = {};
+  const stats = both(a.stats, b.stats);
+  const enemyStats = both(a.enemyStats, b.enemyStats);
+  const healing = sum(a.healing, b.healing);
+  const shielding = sum(a.shielding, b.shielding);
+  if (stats) joined.stats = stats;
+  if (a.late || b.late) joined.late = true;
+  const ability = a.ability && b.ability ? (spec: AbilitySpec) => b.ability!(a.ability!(spec)) : (a.ability ?? b.ability);
+  if (ability) joined.ability = ability;
+  if (enemyStats) joined.enemyStats = enemyStats;
+  if (damage) joined.damage = damage;
+  if (healing) joined.healing = healing;
+  if (shielding) joined.shielding = shielding;
+  return joined;
 }
 
 /** Both sides of a matchup, each with the hooks the other's items put on it. */
