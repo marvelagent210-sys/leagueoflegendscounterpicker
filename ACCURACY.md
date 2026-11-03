@@ -1856,6 +1856,24 @@ with plain stats a toggle away; a headless browser check of the picker and match
 with this file found the builds, Udyr's rank split and the item catalog's revision in place,
 with no console error.
 
+## Plain-stats refresh after the build search, 2–3 November 2026
+
+The build search changed the stat budget (`engine/budget.ts`: it now reads damage dealt and
+taken modifiers and healing modifiers, as fights apply them), so the plain-stats matrix was
+refreshed under the new inputs fingerprint
+`b9e4777795b1350531f40334eef0e55d25236fc9d8a18bd7ccc9a819399255e7`.
+
+- `npm run build:sim -- --threads 4` computed 14,486 pairs in about 6.7 hours before the
+  container restarted; the relaunched run verified those checkpoints, computed the other
+  392 and wrote 351 simulator and ledger files in 429.8 seconds. Aphelios's pairings, with
+  every weapon variant played, took about 13 s each against about 1.6 s for most.
+- **14,734 of the 14,878 pairings are identical** to the previous matrix (`d28cd1a6…`),
+  every scenario value included. The other **144 all involve Kassadin**, the one kit that
+  starts with a damage modifier (10% less magic damage taken), which the stat budget now
+  reads: both sides of his matchups buy differently, and some of his duels change winner
+  (Amumu against Kassadin from −0.74 to +0.76). The variants played are unchanged.
+- `npm run build:sim -- --check` and `npm run build:builds -- --check` both pass.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
