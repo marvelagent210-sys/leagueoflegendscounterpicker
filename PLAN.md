@@ -618,7 +618,7 @@ web/        the app
 - **The 1D simplification.** Side-stepping, cones and facing are approximated by the hit model.
 - **Assumptions shape the results.** Reaction time, environment, stacks and behaviors are all explicit, adjustable and shown on every matchup page.
 - **Legal.** The app needs Riot's fan-project disclaimer and attribution under the wiki's license.
-- **Items and runes multiply the computing.** Searching builds and rune pages makes a full refresh an estimated 20 to 80 processor-hours instead of about 5 (M8, §13). Incremental refreshes and a bigger machine are part of that milestone.
+- **Items and runes multiply the computing.** Searching builds and rune pages makes a full refresh an estimated 20 to 80 processor-hours instead of about 5 (M8, §13); the build matrix took 78. Incremental refreshes and shards on GitHub's runners (done on 3 November, §13) bring a full refresh to about an hour.
 
 ## 13. Progress
 
@@ -919,6 +919,7 @@ Progress (20 October, while the remaining kits are written elsewhere):
   - What it saves on a patch: 26.21's data, as fetched, changes the records of 69 kits, so 9,522 of the 14,878 plain-stats pairings (64%) would be recomputed. Only 33 of those champions' numbers changed; the others have edited notes or wording, which a kit's key counts because kits quote notes and descriptions. Keying each kit on what it actually reads would bring that toward the 35% of pairings the number changes touch. Every patch so far changed some item, and the catalog is in the build matrix's shared key, so that matrix is recomputed in full each patch.
   - A reused plain result needs its stat spending, which the simulator report reads: `simulated-spent.json` keeps it, to the whole gold piece. Scenario scores keep three decimals and spending whole gold everywhere now, so that a page shows what the files hold and a reused result reads back exactly. That moved 2,761 of the counter pages' 178,536 scenario cells (1.5%) by 0.01 once, which had been rounded twice; no aggregate score or rank changed.
   - `--plan` prints how many pairings a refresh would compute, and `--shard i/N` computes only the i-th of N shares of them into checkpoints, for machines to split a refresh; a run without it writes the outputs.
+- **Sharded refresh on GitHub Actions (3 November).** `.github/workflows/refresh.yml` runs a refresh on GitHub's runners. A plan job counts the pending pairings and splits each matrix's into shards, one per hour of computing on a four-core runner and at most 20 (`pipeline/sim/ciPlan.ts`); each shard computes its share into checkpoints; a last job reads them all back, writes the outputs, checks them, commits them to the branch and runs the tests. It starts when `.github/refresh-request.json` changes on a branch, or from the Actions tab, and runs the same Node.js version as local refreshes so that both give the same numbers to the last bit. Standard runners are free for a public repository: a full build-matrix refresh (about 78 processor-hours) takes about an hour on twenty of them. This is the computing half of M9; the scheduled refetch and the pull request with a diff report remain.
 - **Not yet:** runes.
 
 See ACCURACY.md for the validation.

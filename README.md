@@ -145,6 +145,16 @@ npm run build:sim -- --shard 0/4  # the first of four shares of the pending pair
 
 `--plan` computes and writes nothing. `--shard i/N` computes only the i-th of N even shares of the pending pairings (counting from 0) and writes only their checkpoints, so that separate machines can split a refresh; a run without `--shard`, given the shards' checkpoints, then writes the outputs. `--recompute Darius,Garen` computes those champions' pairings again whatever is stored, to check that a refresh reproduces its results.
 
+### Sharded refreshes
+
+The [refresh workflow](.github/workflows/refresh.yml) runs a refresh on GitHub's runners, split into shards that run side by side. Push a change to [`.github/refresh-request.json`](.github/refresh-request.json) on a branch, or start the workflow from the Actions tab:
+
+```json
+{ "dataset": "16.21", "matrices": ["sim", "builds"], "recompute": [], "shards": { "builds": 20 } }
+```
+
+Every field is optional: the newest dataset, both matrices, nothing forced. Without a shard count, each shard gets about an hour of computing on a four-core runner, at most 20 shards per matrix (`pipeline/sim/ciPlan.ts`). The plan job counts the pending pairings (`--plan`); each shard computes its share (`--shard i/N`) and uploads its checkpoints; the last job reads them all back, writes the outputs, checks them (`--check`), commits them to the branch and runs the tests. Runners use the same Node.js version as local refreshes, so both give the same numbers to the last bit. On a public repository the standard runners cost nothing, and twenty of them make a full refresh of the build matrix (about 78 processor-hours) take about an hour.
+
 ## Data pipeline
 
 ```sh
