@@ -1,7 +1,5 @@
 {
-  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request checks the workflow end to end: Darius's pairings are computed again on GitHub's runners, in two plain-stats shards and three item-build shards, and must reproduce the committed results.",
-  "dataset": "16.20",
-  "matrices": ["sim", "builds"],
-  "recompute": ["Darius"],
-  "shards": { "sim": 2, "builds": 3 }
+  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request refreshes patch 26.21: the plain-stats pairings whose inputs changed since 26.20, and the whole build matrix, whose item catalog changed. Shards are sized automatically.",
+  "dataset": "16.21",
+  "matrices": ["sim", "builds"]
 }
