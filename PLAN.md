@@ -929,6 +929,8 @@ Progress (20 October, while the remaining kits are written elsewhere):
   - One golden matchup no longer holds as reviewed: Trundle still beats Sion, but by +0.18 rather than the "clear" margin (+0.46 under 26.20). Sion's health growth (95 a level, was 87) accounts for all of it, so on review the expectation is now slight (ACCURACY.md).
   - 8 of the 76 recomputed kits changed only in comments or assumption texts that named 16.20. The kit key hashes the module's source, so it counts them; their 804 pairings came out identical. Kits name no patch now, so this won't recur.
   - GitHub took 20 jobs at a time, so 5 of the 25 shards waited up to 48 minutes for a runner. The plan now sizes the two matrices' shards together, at most 20 in all (`planShards`): for this refresh, 4 plain-stats and 16 build shards of about 72 minutes, about 75 minutes in all.
+  - 35 kits' assumption texts were then respaced (ACCURACY.md). Their fights didn't change, but their keys did, so a refresh computed their 5,425 pairings per matrix again on 3 and 7 shards sized together. All of them came out identical, 1 hour 27 minutes from the push to the commit.
+  - Shards with interleaved shares of the same kind of pairings took from 38 to 86 minutes, so the slowest runner, not the plan, set the time.
 - **Not yet:** runes.
 
 See ACCURACY.md for the validation.

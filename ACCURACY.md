@@ -2048,6 +2048,37 @@ snapshot, and the tests, the app and the kits' tests now read 16.21.
     - Zoe's, Caitlyn's, Varus's and Sion's kit pages show 26.21's rules;
     - the matchup page fits a 390-pixel phone;
     - page, console and HTTP errors are all zero.
+- **Assumption texts.** 35 kits from the imported batches had lost the spacing in their
+  assumption texts, which the kit pages list. Two examples: "for216magic and1.75second stun
+  at level20" and "doesnot resetEcooldown".
+  - The fix follows `571b782`'s. It restores spaces, leading zeros (.5 is 0.5), hyphens
+    before a noun ("a 1.75-second stun") and spaces in sums ("255 + 2.5% own max HP").
+  - It splits run-together words from a reviewed table: 336 splits, found with an English
+    word list. Names, game-file fields (`lineWidth`, `ZoneDuration`) and ability keys
+    ("W2/E2", "Q1/W2/E4/R8") stay as written. Twisted Fate's and Viktor's option labels get
+    the same.
+  - With whitespace and hyphens removed, every compiled text keeps its characters (bar
+    inserted zeros), so no number or claim changed.
+  - Compiled against 16.21, each kit's fight spec is identical to before, with every
+    function's source, its variants and its option defaults.
+  - A kit's key hashes its module, so the refresh workflow's
+    [run 41613091138](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/41613091138)
+    computed the 5,425 pairings in each matrix that involve those kits again.
+  - The plan sized both matrices together for the first time: 3 plain-stats shards and 7
+    build shards, all running at once.
+    - The plain-stats shards took 51 to 69 minutes and the build shards 38 to 86.
+    - That is 10.4 runner-hours, about 7.7 processor-seconds a plain pairing and 19.6 a build
+      pairing.
+    - The outputs were committed (`80926e4`) 1 hour 27 minutes after the push.
+  - Every result came out identical: scores, scenarios, kit variants, stat spending and
+    builds.
+  - Only the 35 kit pages' assumption lists, the kits' input keys, the fingerprints and the
+    build report's line on the refresh changed.
+  - Both matrices pass `--check`, with fingerprints `788b7364…` (plain stats) and
+    `98e3750f…` (builds).
+  - The full suite passes: 7,988 tests across 226 files, with the five disputed golden
+    expectations skipped, on four workers in 327 seconds. The run's own test job passed as
+    well.
 
 ## Remaining limits
 
