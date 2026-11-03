@@ -1,0 +1,319 @@
+{
+  "champion": "Senna",
+  "name": "Senna",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "senna",
+      "formName": "Senna",
+      "range": 600,
+      "ranged": true,
+      "projectile": false,
+      "attackSpeed": 0.829516,
+      "attackDamage": 50,
+      "windup": 0.298225,
+      "modifiers": [
+        "Absolution"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Senna",
+      "kind": "A",
+      "name": "Basic Attack",
+      "page": {
+        "title": "Template:Data Senna/Basic Attack",
+        "revid": 4044104
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Senna",
+      "kind": "E",
+      "name": "Curse of the Black Mist",
+      "page": {
+        "title": "Template:Data Senna/Curse of the Black Mist",
+        "revid": 3994514
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "camouflage",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(400 unit detection radius)"
+            },
+            {
+              "page": "Template:Data Senna/Curse of the Black Mist",
+              "revid": 3994514,
+              "quote": "Active: Senna shrouds herself in an aura of Black Mist and gains camouflage for a duration."
+            }
+          ],
+          "duration": 8,
+          "condition": "(400 unit detection radius)"
+        }
+      ],
+      "cooldown": 20,
+      "castTime": 1,
+      "notes": [
+        "In-game, the 'Cloak of Mist' buff grants camouflage and the 'Wraith Form' buff obscures the unit and grants movement speed. However, 'Cloak of Mist' has the unspecified effect of negating the obscuring effects of 'Wraith Form' (i.e. the unit is not a wraith while inside the mist); the unit has the bonus movement speed even when they are not a wraith (e.g. inside the mist or an enemy is nearby); and 'Wraith Form' also grants the functionality of camouflage (i.e. the unit is treated as a camouflaged unit with regards to True Sight, Control Wards, and enemy champions).\n  - Given this overly complex interaction between the two buffs granted as well as the overlapping effects, it is easier to describe the effects as a single buff that is modified in specific circumstances rather than trying to establish a new game mechanic.\n  - Senna likewise has her aura buff and the 'Wraith Form' buff, but her 'Wraith Form' does not share gameplay functionality with other allies benefiting from Wraith Form. For Senna, the appearance of being a wraith is a form-swap while camouflaged (similar to Demon Shade). Senna will remain in her wraith form when she is detected so long as the camouflage effect isn't broken, and her wraith's appearance is very distinct from other wraiths.",
+        "Allied champions who enter the mist and have stealth of their own will still gain the Wraith Form buff but they will not grant obscured vision of themselves to the enemy while out of the mist nor will they appear as a Wraith.\n  - Allies who have their own camouflage and also have Wraith Form will be revealed to enemies from their stealth's detection range, not Wraith Form's.",
+        "If Senna gains invisibility while camouflaged by Curse of the Black Mist, the visual effects of her aura will be hidden while she is invisible.",
+        "Wraith Form will not be granted to allies that are in a zombie state or are channeling. It will be granted to allies even if they are untargetable.",
+        "Using a basic attack breaks the stealth at the start of the attack windup.\n  - The stealth regain timer is refreshed from basic attacks at the start of their attack windup."
+      ]
+    },
+    {
+      "champion": "Senna",
+      "kind": "I",
+      "name": "Absolution",
+      "page": {
+        "title": "Template:Data Senna/Absolution",
+        "revid": 4091398
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Senna/Absolution",
+              "revid": 4091398,
+              "quote": "This damage applies life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Senna/Absolution",
+              "revid": 4091398,
+              "quote": "This damage applies life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Senna/Absolution",
+              "revid": 4091398,
+              "quote": "Additionally, every 1% critical strike chance in excess of 100% is converted into 0.35% life steal."
+            },
+            {
+              "page": "Template:Data Senna/Absolution",
+              "revid": 4091398,
+              "quote": "The damage applies life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Senna/Absolution",
+              "revid": 4091398,
+              "quote": "The damage applies life steal at 100% effectiveness."
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "Despite the damage text showing 1 to Mist Wraiths, attacking them will calculate the attack's damage (including critical strike modifiers) and any on-hit effects (including her Relic Cannon damage) for the purposes of life steal and drain effects.",
+        "Relic Cannon is only applied if the attack deals more than 0 damage.\n  - Hence, it is not applied if the target is invulnerable or Senna's basic attack's attack damage is reduced to 0 or below.\n  - The bonus damage is also not applied against structures (regardless of their vulnerability).",
+        "Dealing 0 damage is valid for marking and collecting Mist from champions, but dealing no damage at all is not.\n  - Hence, Senna can mark and collect from invulnerable enemies.\n  - Dodge prevents marking and collecting a Mist via Senna's basic attacks and Q.\n  - : Mist interaction with block and blind.",
+        "Mist traveling to Senna can be destroyed as a projectile.",
+        "The bonus on-hit damage applies an additional stack of Black Cleaver Carve."
+      ]
+    },
+    {
+      "champion": "Senna",
+      "kind": "Q",
+      "name": "Piercing Darkness",
+      "page": {
+        "title": "Template:Data Senna/Piercing Darkness",
+        "revid": 4042887
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Senna/Piercing Darkness",
+              "revid": 4042887,
+              "quote": "The shadow ray deals physical damage to enemies hit and slows them by 15% (+ 15% per 100 bonus AD) (+ 7% per 100 AP) for a duration."
+            }
+          ],
+          "duration": 2,
+          "amount": 15
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Senna/Piercing Darkness",
+              "revid": 4042887,
+              "quote": "The damage dealt to enemy champions applies life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Senna/Piercing Darkness",
+              "revid": 4042887,
+              "quote": "The damage dealt to enemy champions applies life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Senna/Piercing Darkness",
+              "revid": 4042887,
+              "quote": "The light ray heals Senna and allied champions hit."
+            }
+          ]
+        }
+      ],
+      "cooldown": 15,
+      "castTime": 80,
+      "range": 1300,
+      "notes": [
+        "Senna can generally target anything that is not either explicitly untargetable or herself.\n  - Valid targets include anything that can be targeted by a basic attack from someone.",
+        "On-hit effects are applied in order of struck units' spawn IDs. This matters for effects that are consumed on-hit (e.g. Spellblade), which are applied to the target with the lowest Spawn ID.\n  - \"Spawn ID\" is an unofficial abbreviation to describe the spawn order for all units at the start of a game, below are some examples.\n  - If Senna targets an enemy champion but hits at least one more enemy champion simultaneously, Press the Attack first stack will be applied to that target. If no champion was targeted, it will default to the champion with the lowest Spawn ID out of the ones struck by the ability. Whether the effect stacks up on a champion or not when multiple enemy champions are stuck also depends on Spawn ID.\n  - If Piercing Darkness struck an enemy champion and turret simultaneously, with Rapid Firecannon fully charged, the passive effect will most likely trigger on the turret since towers are often spawned before champions.",
+        "Spell shield will not prevent on-hit effects from being applied.",
+        "Piercing Darkness interaction with dodging, blocking, and blinding effects."
+      ]
+    },
+    {
+      "champion": "Senna",
+      "kind": "R",
+      "name": "Dawning Shadow",
+      "page": {
+        "title": "Template:Data Senna/Dawning Shadow",
+        "revid": 4008033
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Senna/Dawning Shadow",
+              "revid": 4008033,
+              "quote": "The light wave grants a shield to Senna and allied champions hit for 3 seconds, and grants sight of the area along the path for 2 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 1,
+      "speed": 20000,
+      "notes": [
+        "The broad wave is a singular projectile that can be destroyed.\n  - The narrow wave will be destroyed with it in the process.",
+        "Senna reveals herself during the cast time."
+      ]
+    },
+    {
+      "champion": "Senna",
+      "kind": "W",
+      "name": "Last Embrace",
+      "page": {
+        "title": "Template:Data Senna/Last Embrace",
+        "revid": 4009139
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Senna/Last Embrace",
+              "revid": 4009139,
+              "quote": "After the duration or when the target dies, the Black Mist spreads out of the target, rooting them and surrounding enemies for a few seconds."
+            }
+          ],
+          "duration": 2.25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 1300,
+      "speed": 1200,
+      "notes": [
+        "Last Embrace will not root the primary target if they are untargetable."
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-/** Alistar: pinned 16.20 wiki rules and exact game objects, with actual timed contacts. */
+/** Alistar: pinned wiki rules and exact game objects, with actual timed contacts. */
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, startCast } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";

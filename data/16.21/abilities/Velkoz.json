@@ -1,0 +1,1048 @@
+[
+  {
+    "champion": "Velkoz",
+    "kind": "E",
+    "name": "Tectonic Disruption",
+    "page": {
+      "title": "Template:Data Vel'Koz/Tectonic Disruption",
+      "revid": 3952590
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11.5 / 11 / 10.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11.5,
+                11,
+                10.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 100 / 130 / 160 / 190 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  100,
+                  130,
+                  160,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "cast distance",
+              "points": [
+                0,
+                150,
+                200,
+                250,
+                300,
+                350,
+                400,
+                450,
+                500,
+                550,
+                600,
+                650,
+                700,
+                750,
+                800
+              ],
+              "values": [
+                0.25,
+                0.25,
+                0.273076923076923,
+                0.296153846153846,
+                0.319230769230769,
+                0.342307692307692,
+                0.365384615384615,
+                0.388461538461538,
+                0.411538461538462,
+                0.434615384615385,
+                0.457692307692308,
+                0.480769230769231,
+                0.503846153846154,
+                0.526923076923077,
+                0.55
+              ]
+            },
+            "context": "Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly."
+          }
+        ]
+      },
+      {
+        "text": "If Tectonic Disruption is cast in close proximity of Vel'Koz, the anomaly will also slightly knock back enemies hit in the direction of the cast.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock back",
+            "evidence": "If Tectonic Disruption is cast in close proximity of Vel'Koz, the anomaly will also slightly knock back enemies hit in the direction of the cast.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The required proximity for the knock back is relative to Vel'Koz's position when casting and not his current one.",
+      "While the effect is fully prevented by blocking the missile (e.g. with Unbreakable and Wind Wall), the missile may not be destroyed visually.",
+      "The area of effect indicator appears at the end of the cast time.\n  - It will persist even if the cast cancels (e.g. Vel'Koz dies before cast time completes) despite the projectile not firing.",
+      "Displacement immunity will also resist the application of the stun.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/velkoz/velkoz.bin.json",
+        "sha256": "d5eaa98b64430bd29ae02a96b8d4b584d0077eefd83c3f36d8619f08959ed892",
+        "object": "Characters/Velkoz/Spells/VelkozEAbility/VelkozE",
+        "text": [
+          "mSpell.DataValues.MoveDistance.values: [225,225,225,225,225,225,225]",
+          "mSpell.DataValues.MinDetonationTime.values: [0.25,0.25,0.25,0.25,0.25,0.25,0.25]",
+          "mSpell.DataValues.MaxDetonationTime.values: [0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Velkoz",
+    "kind": "I",
+    "name": "Organic Deconstruction",
+    "page": {
+      "title": "Template:Data Vel'Koz/Organic Deconstruction",
+      "revid": 4088378
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "True"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "true",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Vel'Koz's abilities apply a stack of Deconstruction to enemies hit for 7 seconds, refreshing on basic attacks on-hit and subsequent applications and stacking up to 3 times.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Vel'Koz's abilities apply a stack of Deconstruction to enemies hit for 7 seconds, refreshing on basic attacks on-hit and subsequent applications and stacking up to 3 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The third stack consumes them all to deal 35 – 205 (based on level) (+ 65% AP) bonus true damage.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                35,
+                45,
+                55,
+                65,
+                75,
+                85,
+                95,
+                105,
+                115,
+                125,
+                135,
+                145,
+                155,
+                165,
+                175,
+                185,
+                195,
+                205,
+                215,
+                225
+              ],
+              "past18": "wiki"
+            },
+            "context": "The third stack consumes them all to deal 35 – 205 (based on level) (+ 65% AP) bonus true damage."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The stack duration will not be refreshed if the attack misses due to blind.",
+      "Interaction between duration refresh on basic attacks and parry effects (dodge and block)."
+    ]
+  },
+  {
+    "champion": "Velkoz",
+    "kind": "Q",
+    "name": "Plasma Fission",
+    "page": {
+      "title": "Template:Data Vel'Koz/Plasma Fission",
+      "revid": 4088965
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1100 • 1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            },
+            "label": "Primary missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            },
+            "label": "Split missile range"
+          }
+        ]
+      },
+      "width": {
+        "text": "100 • 90",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Primary missile width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 90
+            },
+            "label": "Split missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1300 • 2100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            },
+            "label": "Primary missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2100
+            },
+            "label": "Split missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vel'Koz fires a plasma bolt in the target direction that deals magic damage to the first enemy hit and slows them by 70% decaying over a duration.\n\n\nPlasma Fission can be recast after 0.25 seconds while the bolt is in flight, and does so automatically upon hitting an enemy or reaching maximum range.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow Duration",
+            "amount": {
+              "text": "1 / 1.4 / 1.8 / 2.2 / 2.6 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.4,
+                  1.8,
+                  2.2,
+                  2.6
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.4,
+                1.8,
+                2.2,
+                2.6
+              ]
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 70
+            },
+            "evidence": "Active: Vel'Koz fires a plasma bolt in the target direction that deals magic damage to the first enemy hit and slows them by 70% decaying over a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Vel'Koz splits the bolt in two over 0.25 seconds, each part firing perpendicularly in opposite directions and applying the same effects to enemies hit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "over 0.25 seconds",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "text": "Whenever Plasma Fission kills an enemy, Vel'Koz restores mana.",
+        "leveling": [
+          {
+            "label": "Mana Restored per Kill",
+            "amount": {
+              "text": "20 / 22.5 / 25 / 27.5 / 30",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  22.5,
+                  25,
+                  27.5,
+                  30
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Mana Restored",
+            "amount": {
+              "text": "60 / 67.5 / 75 / 82.5 / 90",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  67.5,
+                  75,
+                  82.5,
+                  90
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Detonating the ability manually does not.",
+      "Plasma Fission's damage applies before Organic Deconstruction.\n  - This also ensures Vel'Koz does not lose Plasma Fission's restoration effect.",
+      "An enemy cannot be hit by multiple bolts even when having blocked one with a spell shield.",
+      "The split occurs at a location 55 units in front of the primary bolt's final location.",
+      "Plasma Fission can reach a maximum 1595 units diagonally (ignoring the split missile's width and enemy hitbox radius), reaching this distance after a total of about ~1.65 seconds.* This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Velkoz",
+    "kind": "R",
+    "name": "Life Form Disintegration Ray",
+    "page": {
+      "title": "Template:Data Vel'Koz/Life Form Disintegration Ray",
+      "revid": 4012050
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 90 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                90,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "1555",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1555
+            },
+            "label": "Measured"
+          }
+        ]
+      },
+      "width": {
+        "text": "175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic True"
+      ],
+      "spellEffects": "aoedot",
+      "projectile": "false",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive - Researched",
+        "text": "Passive - Researched: Applying 3 Deconstruction stacks to an enemy champion marks them as Researched for 7 seconds, refreshing on basic attacks and ability hits against them.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: After a 0.2-second delay, Vel'Koz channels for up to 2.6 seconds to project an energy beam, during which he can steer the beam in the target direction. Life Form Disintegration Ray can be recast after 1 second during the channel, and does so automatically after the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 2.6
+            },
+            "evidence": "Active: After a 0.2-second delay, Vel'Koz channels for up to 2.6 seconds to project an energy beam, during which he can steer the beam in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The beam deals magic damage to enemies hit every 0.2 seconds, and slows them by 20%, lingering for 1 second. Deconstruction is applied every 0.7 seconds to enemies hit. Researched enemies take true damage instead.",
+        "leveling": [
+          {
+            "label": "Damage Per Tick",
+            "amount": {
+              "text": "34.6154 / 53.8462 / 71.1538 (+ 9.61538% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  34.6153846153846,
+                  53.8461538461538,
+                  71.1538461538461
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 9.61538461538461
+                  },
+                  "text": "(+ 9.61538% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Damage",
+            "amount": {
+              "text": "450 / 700 / 925 (+ 125% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  450,
+                  700,
+                  925
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "The beam deals magic damage to enemies hit every 0.2 seconds, and slows them by 20%, lingering for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Vel'Koz ends Life Form Disintegration Ray.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Life Form Disintegration Ray's direction updates gradually (moving the cursor from one side of Vel'Koz to the other will not make him rotate instantly).",
+      "Vel'Koz will reveal himself if the ray is near an enemy champion.",
+      "The beam hits in a rectangular shape, intersecting with the edge of an enemy gameplay radius.\n  - Because of this, the effect will hit enemies whose center location is to the sides and/or slightly behind Vel'Koz, as long as their radius intersects with the area.",
+      "The following table refers for interactions while Vel'Koz is channeling:"
+    ]
+  },
+  {
+    "champion": "Velkoz",
+    "kind": "W",
+    "name": "Void Rift",
+    "page": {
+      "title": "Template:Data Vel'Koz/Void Rift",
+      "revid": 4008545
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "1.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.5
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "19 / 18 / 17 / 16 / 15",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                19,
+                18,
+                17,
+                16,
+                15
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana + 1 charge",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "1105 • 1105 • -95",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1105
+            },
+            "label": "Ripple missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1105
+            },
+            "label": "Rift collapse distance"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 95
+            },
+            "label": "Rift collapsing backwards distance"
+          }
+        ]
+      },
+      "width": {
+        "text": "175 • 175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            },
+            "label": "Ripple missile width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            },
+            "label": "Rift collapse width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            },
+            "label": "Ripple missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vel'Koz cracks a rift in the target direction that opens after a 0.25-second delay, cascading through the area over 0.65 seconds to deal magic damage to enemies within.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "30 / 50 / 70 / 90 / 110 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70,
+                  90,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "After 0.75 seconds, the rift violently collapses, dealing magic damage to enemies within and granting sight of the surrounding area for 0.25 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "45 / 75 / 105 / 135 / 165 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  75,
+                  105,
+                  135,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "75 / 125 / 175 / 225 / 275 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  125,
+                  175,
+                  225,
+                  275
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "After 0.75 seconds, the rift violently collapses, dealing magic damage to enemies within and granting sight of the surrounding area for 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.75 seconds",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "text": "Vel'Koz periodically stocks a Void Rift charge, up to a maximum of 2.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Unbreakable and Wind Wall will block the ripple and prevent the rift from forming further, but they will not destroy the section that was created already.",
+      "Spell shield only blocks one instance of damage."
+    ]
+  }
+]

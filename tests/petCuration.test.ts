@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import type { PetRecord } from "../engine/abilities";
 import { PET_CURATION, curatePets } from "../pipeline/petCuration";
 
-const pets = (champion: string) => JSON.parse(readFileSync(new URL(`../data/16.20/pets/${champion}.json`, import.meta.url), "utf8")) as PetRecord[];
+const pets = (champion: string) => JSON.parse(readFileSync(new URL(`../data/16.21/pets/${champion}.json`, import.meta.url), "utf8")) as PetRecord[];
 
 describe("curated pet fields", () => {
   it("every curated field is in its committed pet record", () => {

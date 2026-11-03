@@ -530,7 +530,7 @@ describe("Lissandra source-backed kit", () => {
 });
 
 describe("Ahri and Lissandra ordinary budgeted duels", () => {
-  const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+  const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
   it.each([["Ahri", ahri.spec], ["Lissandra", lissandra.spec]] as const)("%s stops extending a completed short trade", (_name, spec) => {
     const world = worldFor(spec); world.modes[0] = "trade"; world.units[0].memory.tradeDone = true;
     expect(spec.behavior!(perceive(world, 0))).toEqual({ kind: "move", direction: -1 });

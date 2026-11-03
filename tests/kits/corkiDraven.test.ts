@@ -32,7 +32,7 @@ describe("Corki pinned current-kit packets", () => {
   it("pins the five current abilities, excluding the obsolete Package replacement", () => {
     expect(corki.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4050625, 4007588, 4007589, 3948411, 4042863]));
     expect(corki.spec.abilities.some((a) => a.name.includes("Special Delivery"))).toBe(false);
-    expect(corki.evidence.some((e) => e.sourceSha256 === "a97cf1a9b02fa58cfe6902f37343774c55d104853e5f287e70b0c54e9088a222")).toBe(true);
+    expect(corki.evidence.some((e) => e.sourceSha256 === "56465a813ed6c235dcaf0c5da89867d9448a263e1b53f599b1aee54925d89ec0")).toBe(true);
   });
   it.each([0, .5, 1])("passive retains physical plus 20%% true with %s critical chance", (critChance) => {
     const world = arena(corki.spec, 300, { ad: 100, critChance }), ad = derive(world.units[0]).ad;
@@ -80,7 +80,7 @@ describe("Corki pinned current-kit packets", () => {
 });
 
 describe("Draven axe contacts and separate ultimate passes", () => {
-  it("records all five pinned revisions and exact versioned game constants", () => { expect(draven.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4040578, 3997560, 3982566, 4034694, 4040576])); expect(draven.evidence.some((e) => e.sourceSha256 === "61c43120cbd4d5bd9b7de3e3e4c20e15a3c1628b0b66528bb4b540c254eca6e1")).toBe(true); });
+  it("records all five pinned revisions and exact versioned game constants", () => { expect(draven.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4040578, 3997560, 3982566, 4034694, 4040576])); expect(draven.evidence.some((e) => e.sourceSha256 === "0a22e8e958843d7fd5d6561961b6ac96a460b9923264748edb79ce7f3aa821ad")).toBe(true); });
   it.each([0, .5, 1])("Q adds a noncritical 175 physical damage at crit chance %s", (critChance) => { const world = arena(draven.spec, 300, { ad: 100, critChance }); cast(world, "Q"); startAttack(world, world.units[0]); through(world, 30); expect(world.units[1].totals.damageTaken).toBeCloseTo(derive(world.units[0]).ad * (1 + critChance) + 175); });
   it("Q's bonus stays in one basic packet for flat damage reduction", () => { const world = arena(draven.spec); state(world, "flatDamageReduction"); world.units[1].statuses.find((s) => s.key === "flatDamageReduction")!.value = 30; cast(world, "Q"); startAttack(world, world.units[0]); through(world, 30); expect(world.units[1].totals.damageTaken).toBeCloseTo(derive(world.units[0]).ad + 175 - 30); });
   it("Q readied during a retained windup modifies the already declared attack", () => { const world = arena(draven.spec); startAttack(world, world.units[0]); const launch = world.units[0].action?.kind === "windup" ? world.units[0].action.launchTick : 0; cast(world, "Q"); expect(world.units[0].action?.kind).toBe("windup"); through(world, launch + 10); expect(world.units[1].totals.damageTaken).toBeCloseTo(derive(world.units[0]).ad + 175); });

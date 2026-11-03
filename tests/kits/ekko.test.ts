@@ -44,7 +44,7 @@ describe("Ekko pinned source contract", () => {
     expect(value.evidence.filter((e) => e.url)).toHaveLength(5);
     expect(value.assumptions.join(" ")).toContain("DelayBeforeDetonation 3");
     expect(value.assumptions.join(" ")).toContain("rank-3 zero");
-    expect(value.assumptions.join(" ")).toContain("Neither it nor the exact 16.20 binary supplies dash speed");
+    expect(value.assumptions.join(" ")).toContain("Neither it nor the exact binary supplies dash speed");
     expect(value.assumptions.join(" ")).toContain("DashDistance array contains seven 350 values");
     expect(value.variants).toEqual([]);
   });
@@ -393,7 +393,7 @@ describe("Ekko normal production behavior", () => {
     expect(self.spec.behavior!(view)).toEqual(defaultBehavior(view));
   });
   it("finishes the complete six-scenario allocated matchup against Heimerdinger's real pets", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const result = simulateMatchup(compiled().spec, kit("Heimerdinger", { upgrade: 2 }).spec, 15000, prices);
     expect(Number.isFinite(result.score)).toBe(true); expect(result.scenarios).toHaveLength(6);
     expect(result.scenarios.every((scenario) => scenario.score === undefined || Number.isFinite(scenario.score))).toBe(true);

@@ -39,7 +39,7 @@ describe("Locke reads the wiki at level 20", () => {
     const spec = compiled.spec;
     expect(spec.abilities.find((a) => a.key === "Q")).toMatchObject({ cooldown: 6, cost: 70, castTime: 0.25, chainCooldown: "first", delivery: { kind: "line", range: 950, width: 100, speed: 1650 } });
     expect(spec.abilities.find((a) => a.key === "Q3")).toMatchObject({ cost: 0, chain: { root: "Q", index: 3, window: 4, delay: 0.5 } });
-    expect(spec.abilities.find((a) => a.key === "W")).toMatchObject({ cooldown: 14, cost: 70 });
+    expect(spec.abilities.find((a) => a.key === "W")).toMatchObject({ cooldown: 14, cost: 80 });
     expect(spec.abilities.find((a) => a.key === "E")).toMatchObject({ cooldown: 10, cost: 70, castTime: 0.5, delivery: { kind: "blink", distance: 375 } });
     expect(spec.abilities.find((a) => a.key === "R")).toMatchObject({ cooldown: 80, cost: 100, castTime: 0.5, delivery: { kind: "circle", range: 950, radius: 400, delay: 0.75 } });
   });
@@ -88,7 +88,7 @@ describe("Ritual Nails", () => {
     expect(nails(w)).toBe(0);
   });
 
-  it("each nail left unused refunds 36.8% (20 – 35 by level) of the cooldown and cost", () => {
+  it("each nail left unused refunds 43.5% (10 – 40 by level) of the cooldown and cost", () => {
     const w = worldFor(500);
     step(w, idle);
     nail(w, "Q");
@@ -96,9 +96,9 @@ describe("Ritual Nails", () => {
     wait(w, 3.2);
     expect(castable(w, "Q")).toBe(false);
     wait(w, 0.6);
-    // Two unused nails take 4.4 s off a 6 s cooldown with 2 s left: it is ready, and 51.5 mana comes back.
+    // Two unused nails take 5.2 s off a 6 s cooldown with 2 s left: it is ready, and 60.9 mana comes back.
     expect(castable(w, "Q")).toBe(true);
-    expect(w.units[0].resource - mana).toBeCloseTo(2 * 0.3676 * 70, 0);
+    expect(w.units[0].resource - mana).toBeCloseTo(2 * 0.4353 * 70, 0);
   });
 });
 
@@ -138,7 +138,7 @@ describe("Ashen Pursuit", () => {
     step(w, idle);
     cast(w, "E", { direction: 1, distance: 375 });
     settle(w);
-    expect(amount(w, "Ashen Pursuit deals")).toBe(80 + 40);
+    expect(amount(w, "Ashen Pursuit deals")).toBe(100 + 50);
   });
 });
 

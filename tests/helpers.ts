@@ -53,7 +53,7 @@ export function makeEntry(overrides: Partial<WikiChampionEntry> = {}): WikiChamp
     resource: "Mana",
     rangeType: "Melee",
     adaptiveType: "Physical",
-    lastChanged: "26.20",
+    lastChanged: "26.21",
     roles: ["Juggernaut"],
     positions: ["Top"],
     stats: makeFormStats(),

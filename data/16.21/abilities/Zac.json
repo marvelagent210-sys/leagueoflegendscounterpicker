@@ -1,0 +1,1290 @@
+[
+  {
+    "champion": "Zac",
+    "kind": "E",
+    "name": "Elastic Slingshot",
+    "page": {
+      "title": "Template:Data Zac/Elastic Slingshot",
+      "revid": 4046591
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "21 / 18 / 15 / 12 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                21,
+                18,
+                15,
+                12,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "4%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            }
+          }
+        ]
+      },
+      "costType": "current health",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1200 / 1350 / 1500 / 1650 / 1800",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                1200,
+                1350,
+                1500,
+                1650,
+                1800
+              ]
+            },
+            "label": "Maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "265",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 265
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1350
+            },
+            "label": "Dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zac charges for up to 4.5 seconds to increase Elastic Slingshot's range over a cone in the target direction.",
+        "leveling": [
+          {
+            "label": "Maximum Range Channel Duration",
+            "amount": {
+              "text": "0.9 / 1 / 1.1 / 1.2 / 1.3 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  0.9,
+                  1,
+                  1.1,
+                  1.2000000000000002,
+                  1.3
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charges",
+            "duration": {
+              "kind": "constant",
+              "value": 4.5
+            },
+            "evidence": "Active: Zac charges for up to 4.5 seconds to increase Elastic Slingshot's range over a cone in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Elastic Slingshot can be recast within the duration. If Zac cancels the channel himself, or the charge completes without reactivation, 50% of Elastic Slingshot's health cost and cooldown are refunded.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "cancels",
+            "tip": "See notes"
+          }
+        ]
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Zac leaps to the target location within the boundaries of the cone. Upon landing, he deals magic damage to nearby enemies and knocks them up and stuns them for 0.5 seconds, increased to 1 second if Elastic Slingshot was charged for more than 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 105 / 150 / 195 / 240 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  105,
+                  150,
+                  195,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Recast: Zac leaps to the target location within the boundaries of the cone.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Upon landing, he deals magic damage to nearby enemies and knocks them up and stuns them for 0.5 seconds, increased to 1 second if Elastic Slingshot was charged for more than 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Upon landing, he deals magic damage to nearby enemies and knocks them up and stuns them for 0.5 seconds, increased to 1 second if Elastic Slingshot was charged for more than 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Quick casting: Elastic Slingshot's channel begins when the key is pressed and held, launching Zac towards the cursor when released.",
+      "Elastic Slingshot will not knock up if the targeted location was directly on top of Zac (in which case he will not dash at all).\n  - The knock up will occasionally end early if the targeted location was slightly away from Zac.",
+      "Displacement immunity will also resist the application of the stun.",
+      "Elastic Slingshot may sometimes fail to indicate Zac's target location.",
+      "Elastic Slingshot may sometimes go on cooldown while not being shown as on cooldown.",
+      "The following table refers for interactions while Zac is channeling:\n  - Recall is disabled for the first 0.9 seconds and otherwise interrupts the channel if used."
+    ]
+  },
+  {
+    "champion": "Zac",
+    "kind": "I",
+    "name": "Cell Division",
+    "page": {
+      "title": "Template:Data Zac/Cell Division",
+      "revid": 4061399
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Maximum straight-line bloblet split range, estimated. Bloblets will not go over terrain if their pathfinding length exceeds this range."
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate - The Secret Weapon",
+        "text": "Innate - The Secret Weapon: Zac gains increased percentage size equal to 1.5% of his bonus health, capped at 35% increased size at 2333.33 bonus health. Zac's size also reduces based on his missing health, down to 70% total size while at 0% health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "size change",
+            "category": "other",
+            "wording": "size",
+            "evidence": "Innate - The Secret Weapon: Zac gains increased percentage size equal to 1.5% of his bonus health, capped at 35% increased size at 2333.33 bonus health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate - Goo",
+        "text": "Innate - Goo: Whenever Zac hits enemies with an ability, he sheds a number of chunks of himself to a nearby location, landing towards nearby visible enemy champions and lasting for 6 seconds.\n* Stretching Strikes: 1 chunk for the initial hit, and 1 chunk if the second hits a different enemy\n* Unstable Matter: 1 chunk if it hits at least one enemy\n* Elastic Slingshot: 1 chunk for each enemy champion hit, with a minimum of 1 if it hits at least one enemy\n* Let's Bounce!: 1 chunk for each bounce that hits at least one enemy",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "Innate - Goo: Whenever Zac hits enemies with an ability, he sheds a number of chunks of himself to a nearby location, landing towards nearby visible enemy champions and lasting for 6 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Both Zac and enemy champions can interact with a chunk by being within 50 units of it: an enemy will destroy it, while Zac will consume it to heal for 4 – 8 (based on level)% of his maximum health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Both Zac and enemy champions can interact with a chunk by being within 50 units of it: an enemy will destroy it, while Zac will consume it to heal for 4 – 8 (based on level)% of his maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                4,
+                4.23529411764706,
+                4.47058823529412,
+                4.70588235294118,
+                4.94117647058824,
+                5.17647058823529,
+                5.41176470588235,
+                5.64705882352941,
+                5.88235294117647,
+                6.11764705882353,
+                6.35294117647059,
+                6.58823529411765,
+                6.82352941176471,
+                7.05882352941176,
+                7.29411764705882,
+                7.52941176470588,
+                7.76470588235294,
+                8,
+                8.23529411764706,
+                8.47058823529412
+              ],
+              "past18": "wiki"
+            },
+            "context": "Both Zac and enemy champions can interact with a chunk by being within 50 units of it: an enemy will destroy it, while Zac will consume it to heal for 4 – 8 (based on level)% of his maximum health."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Cell Division",
+        "text": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration. Zac then splits into four uncontrollable bloblets away from his location, though stopping at terrain. After 1.5 seconds of the bloblets being untargetable, they start moving toward Zac's location over the remaining duration. Any damage the bloblets receive, excluding damage dealt in excess of each bloblet's total maximum health, is also echoed to Zac as true damage. While in resurrection, Zac cannot take damage from sources other than the echoed damage from his bloblets.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "revive",
+            "category": "defense",
+            "wording": "resurrection",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                10,
+                13,
+                17
+              ],
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            },
+            "evidence": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                10,
+                13,
+                17
+              ],
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            },
+            "evidence": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                10,
+                13,
+                17
+              ],
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            },
+            "evidence": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "After 1.5 seconds of the bloblets being untargetable, they start moving toward Zac's location over the remaining duration.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                10,
+                13,
+                17
+              ],
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            },
+            "context": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration."
+          }
+        ],
+        "tips": [
+          {
+            "text": "remaining duration",
+            "tip": "Regardless of distance"
+          }
+        ]
+      },
+      {
+        "text": "After the duration, Zac is revived with 10 – 50% maximum health. Zac will be executed once all bloblets are killed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "execute",
+            "category": "offense",
+            "wording": "executed",
+            "evidence": "Zac will be executed once all bloblets are killed.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "10 – 50%",
+            "tip": "Based on his bloblets' total remaining health. Reaches the maximum amount at full health on all bloblets"
+          }
+        ]
+      },
+      {
+        "text": "See Pets for stats and details for bloblets.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The damage directed to Zac is internal raw damage.",
+      "Zac's health when the bloblets are sent out is set to what it would be if all bloblets recombined, and is actively updated when the bloblets take damage.",
+      "Zac's increased size does not consider his base stats.",
+      "Cell Division's chunks spawn in two versions:\n  - Contestable: They will fall to the ground at a point which is roughly equidistant from Zac and the nearest visible enemy champion within 1000 range of him (dropping slightly in Zac's favor). The location at which they fall to the ground is influenced by the direction in which Zac is currently facing. Cannot be interacted with for the first 0.25 seconds (except during Let's Bounce!).\n  - Uncontestable: They will fall to the ground near Zac and can be picked up immediately (version used by default).",
+      "Zac's untargetability upon triggering Cell Division does not destroy in-flight projectiles.",
+      "Chronoshift and Guardian Angel will take priority over Cell Division.",
+      "Spirit Visage and Heal Power increases the healing of both chunks and bloblets.",
+      "Realm Warp is able to individually teleport Zac or his bloblets during Cell Division.\n  - If Zac is transported to a new location before the bloblets landed, they will travel to form at his new position, adjusting their speed accordingly. If Cell Division's duration permits during this time, Zac will be revived even if the bloblets fail to physically recombine.",
+      "Cell Division's bloblets can be targeted by Teleport and Force of Will.\n  - Other bloblets are not interrupted by the conditions above and will continue to recombine instinctively.",
+      "If Zac's health is higher than it is supposed to be when the bloblets converge on him, his health will be set to the correct value.",
+      "The following table refers for interactions while Zac is in resurrection:"
+    ]
+  },
+  {
+    "champion": "Zac",
+    "kind": "Q",
+    "name": "Stretching Strikes",
+    "page": {
+      "title": "Template:Data Zac/Stretching Strikes",
+      "revid": 4008654
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 12.5 / 11 / 9.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                12.5,
+                11,
+                9.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "8%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "costType": "current health",
+      "castTime": {
+        "text": "0.33",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.33
+            },
+            "label": "Cast time for the activation"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "800 • 80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Initial stretch missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Lollipop at end"
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Initial stretch missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2800
+            },
+            "label": "Initial stretch missile speed"
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "special",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zac stretches his left arm in the target direction that catches the first enemy hit, dealing magic damage, slowing them by 40% for 0.5 seconds, and forming a tether between Zac and the target for 2 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 30% AP) (+ 3% of Zac's bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                },
+                {
+                  "stat": "other:of zac's bonus health",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% of Zac's bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "120 / 180 / 240 / 300 / 360 (+ 60% AP) (+ 6% of Zac's bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  180,
+                  240,
+                  300,
+                  360
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                },
+                {
+                  "stat": "other:of zac's bonus health",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% of Zac's bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Active: Zac stretches his left arm in the target direction that catches the first enemy hit, dealing magic damage, slowing them by 40% for 0.5 seconds, and forming a tether between Zac and the target for 2 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Zac stretches his left arm in the target direction that catches the first enemy hit, dealing magic damage, slowing them by 40% for 0.5 seconds, and forming a tether between Zac and the target for 2 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Zac stretches his left arm in the target direction that catches the first enemy hit, dealing magic damage, slowing them by 40% for 0.5 seconds, and forming a tether between Zac and the target for 2 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While the tether persists, Zac's next basic attack is replaced by a second Stretching Strike, empowering it to have a 0.25-second cast time and gain 25 bonus attack range. This attack triggers on-attack effects, but cannot critically strike nor apply on-hit effects.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "This attack triggers on-attack effects, but cannot critically strike nor apply on-hit effects.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "This attack triggers on-attack effects, but cannot critically strike nor apply on-hit effects.",
+            "conditional": true
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "This attack triggers on-attack effects, but cannot critically strike nor apply on-hit effects.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow. After a 0.4-second delay, Zac displaces them toward each other over 300 units, though not through terrain.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocked down",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow.",
+            "conditional": false
+          },
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "evidence": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5",
+            "tip": "Estimated"
+          },
+          {
+            "text": "secondary target",
+            "tip": "Target hit by the empowered attack (or second Stretching Strike in this context)"
+          },
+          {
+            "text": "0.4-second delay",
+            "tip": "After the attack's cast time"
+          },
+          {
+            "text": "displaces",
+            "tip": "Only move block, does not stun the target's actions (disables attacking and movement only)"
+          }
+        ]
+      },
+      {
+        "text": "If the two targets are within 700 units of each other, they are instead slammed together through the displacement. Upon impact of each other, both targets are knocked up and stunned for 0.25 seconds and all enemies within the impact are dealt the initial magic damage and applied the same slow.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "Upon impact of each other, both targets are knocked up and stunned for 0.25 seconds and all enemies within the impact are dealt the initial magic damage and applied the same slow.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "Upon impact of each other, both targets are knocked up and stunned for 0.25 seconds and all enemies within the impact are dealt the initial magic damage and applied the same slow.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "evidence": "Upon impact of each other, both targets are knocked up and stunned for 0.25 seconds and all enemies within the impact are dealt the initial magic damage and applied the same slow.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Both Stretching Strikes (the cast and the empowered attack) reset Zac's basic attack timer. Zac is unable to move or attack while his left arm is in flight.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "reset",
+            "evidence": "Both Stretching Strikes (the cast and the empowered attack) reset Zac's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If both Stretching Strikes affect the same target, the target will be dealt the damage and applied the slow for both hits.",
+      "The following features were added in patch V7.10 to increase Stretching Strikes reliability and usability:\n  - If the second attack's target would die from the damage, it won't be dealt until they are slammed to the first target.\n  - If the first target is standing on top of other enemies, the second hit will reliably choose a different target from the first.\n  - Non-champion units that are affected by Stretching Strikes displacement are prevented from taking any damage until they are slammed together. Note that this often confuses players who are trying to secure monsters via Smite while Zac is slamming the wanted target, resulting in Smite dealing no damage to it. It is currently unknown whatever the side effects of this feature are intentional or not.",
+      "The second Stretching Strike's empowered attack can trigger Energized effects.",
+      "Spell shield's interactions with Stretching Strikes:\n  - The first Stretching Strike will have its damage, slow, and tether application all blocked.\n  - If as the primary target and affected by the tether already from the first Stretching Strike:\n    - The damage and slow from the empowered attack if targeted again by the second Stretching Strike will be blocked.\n    - The damage, slow, stun, and knock up from the impact of the second Stretching Strike hitting a different target will all be blocked, but not the root and the displacement.\n  - If as the primary target of the second Stretching Strike, the root will be blocked, but the displacement, damage, slow, stun, and knock up afterwards will not.\n  - If as the secondary target of the impact, the damage and slow will be blocked.",
+      "If the tethered target is untargetable during the second Stretching Strike via basic attack, they are completely unaffected by the ability.",
+      "Displacement immunity will also resist the application of the stun.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed.",
+      "If either target dies while being displaced towards the other, no slam occurs."
+    ]
+  },
+  {
+    "champion": "Zac",
+    "kind": "R",
+    "name": "Let's Bounce!",
+    "page": {
+      "title": "Template:Data Zac/Let's Bounce!",
+      "revid": 4013080
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 105 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                105,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "0.3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.3
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Damage, knockback radius, and chunk consumption range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zac bounces after the cast time, then bounces 3 additional times each second over 3 seconds. Each bounce deals magic damage to enemies hit, knocks them back over 1 second, and slows them by 20% for the same duration. An enemy can be hit by multiple bounces, but ones beyond the first deal 50% damage to them and do not apply the knock back.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Hit",
+            "amount": {
+              "text": "120 / 190 / 260 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  190,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage Per Hit",
+            "amount": {
+              "text": "60 / 95 / 130 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "300 / 475 / 650 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  475,
+                  650
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them back",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Each bounce deals magic damage to enemies hit, knocks them back over 1 second, and slows them by 20% for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "Each bounce deals magic damage to enemies hit, knocks them back over 1 second, and slows them by 20% for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock back",
+            "evidence": "An enemy can be hit by multiple bounces, but ones beyond the first deal 50% damage to them and do not apply the knock back.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Zac can move while Let's Bounce! is active, gaining ghosting and 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on duration)% bonus movement speed, but becomes unable to declare basic attacks, Stretching Strikes, and Elastic Slingshot. He also automatically consumes all chunks within the bounce radius.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "is active, gaining ghosting and 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on duration)% bonus movement speed, but becomes unable to declare basic attacks, Stretching Strikes, and Elastic Slingshot.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "duration",
+              "points": [
+                0,
+                0.5,
+                1,
+                1.5,
+                2,
+                2.5,
+                3
+              ],
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "context": "Zac can move while Let's Bounce! is active, gaining ghosting and 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on duration)% bonus movement speed, but becomes unable to declare basic attacks, Stretching Strikes, and Elastic Slingshot."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield only blocks a single instance of damage.",
+      "Entering stasis will end Let's Bounce! prematurely.",
+      "Casting Let's Bounce may cause chunks that are further away to disappear.\n  - how much farther exactly?",
+      "Casting Let's Bounce just before dying may put it on cooldown while not displaying it as on cooldown.",
+      "The following table refers for interactions while Zac is performing Let's Bounce!:"
+    ]
+  },
+  {
+    "champion": "Zac",
+    "kind": "W",
+    "name": "Unstable Matter",
+    "page": {
+      "title": "Template:Data Zac/Unstable Matter",
+      "revid": 4022472
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "4%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            }
+          }
+        ]
+      },
+      "costType": "current health",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zac explodes to deal magic damage to nearby enemies. The damage based on the target's max health ratio is capped at 200 against minions and monsters.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 50 / 60 / 70 / 80 (+ 4 / 5 / 6 / 7 / 8% (+ 3% per 100 AP) of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60,
+                  70,
+                  80
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      4,
+                      5,
+                      6,
+                      7,
+                      8
+                    ]
+                  },
+                  "text": "(+ 4 / 5 / 6 / 7 / 8% (+ 3% per 100 AP) of target's maximum health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:AP",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 3
+                      },
+                      "text": "(+ 3% per 100 AP)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Capped Non-Champion Damage",
+            "amount": {
+              "text": "240 / 250 / 260 / 270 / 280",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  240,
+                  250,
+                  260,
+                  270,
+                  280
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Zac grants ghosting to aggroed monsters hit for 5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Zac grants ghosting to aggroed monsters hit for 5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Unstable Matter's current cooldown is reduced by 1 second whenever Zac collects a Cell Division chunk.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If Unstable Matter is the cause of monster aggro, the monsters will not receive ghosting.\n  - Subsequent uses of Unstable Matter within 5 seconds after the previous will not grant ghosting either."
+    ]
+  }
+]

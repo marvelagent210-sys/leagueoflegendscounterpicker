@@ -1,0 +1,269 @@
+{
+  "champion": "Akali",
+  "name": "Akali",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "akali",
+      "formName": "Akali",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.0183,
+      "attackDamage": 126.895,
+      "windup": 0.136502,
+      "modifiers": [
+        "Assassin's Mark"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Akali",
+      "kind": "E",
+      "name": "Shuriken Flip",
+      "page": {
+        "title": "Template:Data Akali/Shuriken Flip",
+        "revid": 4074602
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted; (second cast)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(second cast)",
+          "interruptible": true
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted; (reverse-targeted in first cast)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(reverse-targeted in first cast)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 825,
+      "speed": 1800,
+      "notes": [
+        "Shuriken Flip's first cast does not interrupt Akali's previous move or attack orders.\n  - The recast does.",
+        "Shuriken Flip cannot be recast if the target is untargetable or is in another realm.",
+        "Akali will be ordered to basic attack the target after the recast's dash ends.",
+        "Akali will dash backwards up-to 400 units in a straight line. This dash can cross terrain if the end point is beyond it. If she would end the dash inside terrain, she will instead look for a location in either direction left or right that is outside of terrain and dash there. If there is no such location, she will dash only up to the wall at her normal speed, ending the dash early.",
+        "This ability will cast from wherever the caster is at the end of the cast time.\n  - The shuriken missile will fire from wherever Akali is at the end of the cast time (usually mid-dash), but always towards and reaching the location that was 825 units in front of her at the start of cast. The only exception is if she moves via Flash, in which case the range of the missile is decreased relative to the distance she blinked.",
+        "Attempting to cast Five Point Strike during either dash will buffer it to cast as soon as the dash ends."
+      ]
+    },
+    {
+      "champion": "Akali",
+      "kind": "I",
+      "name": "Assassin's Mark",
+      "page": {
+        "title": "Template:Data Akali/Assassin's Mark",
+        "revid": 4074464
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Akali",
+      "kind": "Q",
+      "name": "Five Point Strike",
+      "page": {
+        "title": "Template:Data Akali/Five Point Strike",
+        "revid": 4074596
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Akali/Five Point Strike",
+              "revid": 4074596,
+              "quote": "Targets beyond a certain range are also slowed by 50% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 1.5,
+      "castTime": 0.175,
+      "range": 500
+    },
+    {
+      "champion": "Akali",
+      "kind": "R",
+      "name": "Perfect Execution",
+      "page": {
+        "title": "Template:Data Akali/Perfect Execution",
+        "revid": 4074605
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted; (second cast)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(second cast)",
+          "interruptible": true
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted; (first cast)"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "condition": "(first cast)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 60,
+      "castTime": 0.25,
+      "range": 675,
+      "speed": 1500,
+      "notes": [
+        "With the first cast, Akali can dash up to a maximum of 900 units if the first enemy she hit was at the maximum dash range.",
+        "Casting Flash during either dashes will interrupt them, but Akali will deal damage to any enemies she comes in contact with at the new location.\n  - Enemies already hit by either of Perfect Execution's casts cannot be affected more than once by the same cast.",
+        "Shuriken Flip can be used during the initial dash if it is cast after Perfect Execution's cast time finishes."
+      ]
+    },
+    {
+      "champion": "Akali",
+      "kind": "W",
+      "name": "Twilight Shroud",
+      "page": {
+        "title": "Template:Data Akali/Twilight Shroud",
+        "revid": 4007406
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Akali/Twilight Shroud",
+              "revid": 4007406,
+              "quote": "Entering the shroud renders Akali invisible, unless she is dashing."
+            }
+          ],
+          "duration": 7
+        }
+      ],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 250,
+      "notes": [
+        "Akali will also not gain the invisibility if she is Recalling.",
+        "Using a basic attack breaks the stealth at the start of the attack windup."
+      ]
+    }
+  ]
+}

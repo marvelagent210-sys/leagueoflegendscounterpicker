@@ -876,7 +876,7 @@ describe('Hwei finite attached Despair and production policy', () => {
 });
 describe('Hwei full-budget production', () => {
   it('retains exact builds and six reflected15000gold scenarios versus Darius', () => {
-    const prices = (JSON.parse(readFileSync(new URL('../../data/16.20/rules.json', import.meta.url), 'utf8')) as {
+    const prices = (JSON.parse(readFileSync(new URL('../../data/16.21/rules.json', import.meta.url), 'utf8')) as {
         statPrices: StatPrices;
       }).statPrices,
       forward = simulateMatchup(compiled.spec, kit('Darius').spec, 15000, prices),
@@ -892,7 +892,7 @@ describe('Hwei full-budget production', () => {
     for (const build of forward.builds) expect(Math.abs(build.gold - 15000)).toBeLessThan(1e-10);
   }, 60000);
   it('runs six finite production scenarios against actual Heimerdinger turret bodies', () => {
-    const prices = (JSON.parse(readFileSync(new URL('../../data/16.20/rules.json', import.meta.url), 'utf8')) as {
+    const prices = (JSON.parse(readFileSync(new URL('../../data/16.21/rules.json', import.meta.url), 'utf8')) as {
         statPrices: StatPrices;
       }).statPrices,
       result = simulateMatchup(compiled.spec, kit('Heimerdinger').spec, 15000, prices);

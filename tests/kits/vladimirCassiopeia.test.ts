@@ -33,7 +33,7 @@ const tagPoison = (world: World, seconds = 3.25) => applyEffect(world, world.uni
 
 describe("Vladimir's pinned passive and Transfusion", () => {
   it("reads all five pinned revisions and seals every numeric read", () => {
-    const manifest = JSON.parse(readFileSync(new URL("../../data/16.20/wiki-revisions.json", import.meta.url), "utf8"));
+    const manifest = JSON.parse(readFileSync(new URL("../../data/16.21/wiki-revisions.json", import.meta.url), "utf8"));
     for (const id of ["Vladimir", "Cassiopeia"] as const) {
       const built = compile(id);
       expect(new Set(built.evidence.map((entry) => entry.ability)).size).toBe(5);
@@ -602,7 +602,7 @@ describe("normal behavior and reflection", () => {
   });
 
   it.each(["Vladimir", "Cassiopeia"] as const)("%s preserves15,000gold allocations and allsixscores onside swap", (id) => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const built = compile(id).spec, darius = kit("Darius").spec;
     const forward = simulateMatchup(built, darius, 15000, prices);
     const reverse = simulateMatchup(darius, built, 15000, prices);

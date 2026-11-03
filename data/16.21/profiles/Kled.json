@@ -1,0 +1,524 @@
+{
+  "champion": "Kled",
+  "name": "Kled",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "kled-skaarl",
+      "formName": "Kled & Skaarl",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.05517,
+      "attackDamage": 133.828,
+      "windup": 0.16585,
+      "modifiers": [
+        "Dismounted Skaarl the Cowardly Lizard"
+      ]
+    },
+    {
+      "form": "kled",
+      "formName": "Kled",
+      "range": 250,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.05517,
+      "attackDamage": 133.828,
+      "windup": 0.16585,
+      "modifiers": [
+        "Dismounted Skaarl the Cowardly Lizard"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Kled",
+      "kind": "E",
+      "name": "Dismounted Jousting",
+      "page": {
+        "title": "Template:Data Kled/Dismounted Jousting",
+        "revid": 3942228
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Kled",
+      "kind": "E",
+      "name": "Jousting",
+      "page": {
+        "title": "Template:Data Kled/Jousting",
+        "revid": 4070349
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted; (second cast)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(second cast)",
+          "interruptible": true
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted; (first cast)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(first cast)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 550,
+      "speed": 600,
+      "notes": [
+        "Jousting will go on cooldown at the end of its first dash, but its cooldown cannot be reduced by cooldown refunding effects such as Transcendence while its mark is active.",
+        "Casting Chaaaaaaaarge!!! during Jousting will not interrupt the dash.",
+        "When recasting Jousting, Skaarl will Dash to the marked target's location at the time of recasting, then Dash another 200 units.\n  - The 200 unit dash cannot pass through terrain.\n  - If the marked target's location at the time of recasting happens to be inside terrain, Jousting will end upon reaching terrain.",
+        "The speed of the dashes is not updated dynamically during the dash.",
+        "The first dash can pass through terrain if Kled is already inside that terrain.",
+        "The first dash can enter terrain within a short radius.\n  - This allows Kled to sometimes pass through Dark Procession with the first cast of Jousting.\n  - the first dash's terrain forgiveness radius",
+        "Jousting can be recast even while the marked target is untargetable or dead.\n  - If the marked target dies shortly after being marked, the mark will not be visible.",
+        "The following table refers for interactions while Kled is dashing:"
+      ]
+    },
+    {
+      "champion": "Kled",
+      "kind": "I",
+      "name": "Dismounted Skaarl the Cowardly Lizard",
+      "page": {
+        "title": "Template:Data Kled/Dismounted Skaarl the Cowardly Lizard",
+        "revid": 4038397
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "notes": [
+        "Kled will neither gain Courage nor bonus movement speed if his basic attack is dodged, blocked, missed or parried.",
+        "If Kled enters stasis during the first 0.25 seconds of reuniting with Skaarl, the remount will be deferred by another 0.25 seconds.\n  - This is a remnant of the pre-V25.14 behavior, when entering stasis or resurrection during the first 0.25 of the remount sequence would deffer the remount until the end of those effects."
+      ]
+    },
+    {
+      "champion": "Kled",
+      "kind": "I",
+      "name": "Skaarl the Cowardly Lizard",
+      "page": {
+        "title": "Template:Data Kled/Skaarl the Cowardly Lizard",
+        "revid": 4058479
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Kled/Skaarl the Cowardly Lizard",
+              "revid": 4058479,
+              "quote": "Upon dismounting, Kled lunges in the direction of the allied Nexus, though not through terrain, while cleansing himself of all crowd control and becoming unable to act, untargetable, and immune to crowd control for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        },
+        {
+          "state": "cleanse",
+          "removes": [
+            "airborne",
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Kled/Skaarl the Cowardly Lizard",
+              "revid": 4058479,
+              "quote": "Upon dismounting, Kled lunges in the direction of the allied Nexus, though not through terrain, while cleansing himself of all crowd control and becoming unable to act, untargetable, and immune to crowd control for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Kled/Skaarl the Cowardly Lizard",
+              "revid": 4058479,
+              "quote": "While Mounted, healing and health regeneration will first replenish Skaarl health and will only apply to Kled's health while Skaarl is at full health."
+            },
+            {
+              "page": "Template:Data Kled/Skaarl the Cowardly Lizard",
+              "revid": 4058479,
+              "quote": "While Mounted, healing and health regeneration will first replenish Skaarl health and will only apply to Kled's health while Skaarl is at full health."
+            }
+          ]
+        }
+      ],
+      "speed": 400,
+      "notes": [
+        "While untargetable, Kled rapidly destroys enemy projectiles targeting him.",
+        "Dismounting with a spell shield sometimes consumes the spell shield and negates the effects of dismounting.",
+        "If Kled would be executed while Mounted, he is instead only Dismounted."
+      ]
+    },
+    {
+      "champion": "Kled",
+      "kind": "Q",
+      "name": "Bear Trap on a Rope",
+      "page": {
+        "title": "Template:Data Kled/Bear Trap on a Rope",
+        "revid": 4072610
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Kled/Bear Trap on a Rope",
+              "revid": 4072610,
+              "quote": "The tether's radius shrinks over its duration, and if it is not broken before then, Kled pulls the target 150 units toward him, deals physical damage and slows them for 2.5 seconds."
+            }
+          ],
+          "variant": "pull",
+          "duration": 2.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kled/Bear Trap on a Rope",
+              "revid": 4072610,
+              "quote": "The tether's radius shrinks over its duration, and if it is not broken before then, Kled pulls the target 150 units toward him, deals physical damage and slows them for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5,
+          "amount": 50
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 1600,
+      "notes": [
+        "This ability will cast from wherever the caster is at the end of the cast time.\n  - The visual effect of Bear Trap on a Rope will appear at Kled's height at the end of cast time and may not portray its projectile accurately if Kled is dismounting at the end of cast time.[https://www.youtube.com/watch?v=B9uDhx4tS68&t=491s]\n    - Is the same true if Kled is airborne?",
+        "In addition to its projectile, Bear Trap on a Rope will check for enemy champions, large monsters and large pets within a 60-unit center-to-edge radius area from the projectile's origin point.\n  - The projectile interacts with projectile-blocking effects but the area check doesn't.",
+        "Bear Trap on a Rope will not pull the target if they are in stasis.\n  - certain sources of stasis are not affected"
+      ]
+    },
+    {
+      "champion": "Kled",
+      "kind": "Q",
+      "name": "Pocket Pistol",
+      "page": {
+        "title": "Template:Data Kled/Pocket Pistol",
+        "revid": 4070350
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted; (reverse-targeted)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(reverse-targeted)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 700,
+      "speed": 3000,
+      "notes": [
+        "The backwards dash from Pocket Pistol can pass through terrain.",
+        "Pocket Pistol can be cast while grounded or rooted but Kled will not dash backwards.",
+        "In addition to its projectiles, Pocket Pistol will check for enemy champions within a 55-unit center-to-edge radius area from the projectiles' origin point.\n  - The projectiles interact with projectile-blocking effects but the area check doesn't.",
+        "Spell shield will negate multiple pellets if they hit at the same time.\n  - Even if the first pellet is negated, subsequent non-negated pellets will still only deal 20% of the damage.",
+        "Pellets will restore Courage when colliding with units protected by spell shield, but will not restore Courage when colliding with Riposte.",
+        "The following table refers for interactions while Kled is dashing:",
+        "Attempting to use any effect that would be buffered until the end of the cast time will instead delay it until the end of the dash, even if that effect is usable during the dash."
+      ]
+    },
+    {
+      "champion": "Kled",
+      "kind": "R",
+      "name": "Chaaaaaaaarge!!!",
+      "page": {
+        "title": "Template:Data Kled/Chaaaaaaaarge!!!",
+        "revid": 4070347
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Kled/Chaaaaaaaarge!!!",
+              "revid": 4070347,
+              "quote": "Kled & Skaarl will dash toward the first visible enemy champion in range of the charge, revealing the target during the dash and colliding with the first visible enemy champion in their path to deal magic damage, increased by 0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 / 96 / 104 / 112 / 120 / 128 / 136 / 144 / 152 / 160 / 168 / 176 / 184 / 192 / 200 (based on charge time)%, knock them back 150 units, though not through terrain, and end the charge."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted"
+            }
+          ],
+          "targeting": "auto-targeted"
+        }
+      ],
+      "states": [
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Kled/Chaaaaaaaarge!!!",
+              "revid": 4070347,
+              "quote": "Active: Kled & Skaarl charge toward the target location, automatically navigating terrain along the way, during which they are ghosted, immune to crowd control and revealed to enemy champions in a 1250 radius."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Kled/Chaaaaaaaarge!!!",
+              "revid": 4070347,
+              "quote": "While charging, the duo gain an initial shield, plus an additional amount for every 0.25 seconds of traveling, up to a cap at 2 seconds."
+            }
+          ]
+        }
+      ],
+      "cooldown": 110,
+      "castTime": 0,
+      "range": 4500,
+      "speed": 1000,
+      "notes": [
+        "While charging, if any out of sight enemy champions were within 500 range of Kled during the last second, Kled locks on to the closest visible enemy champion within 800 range in his facing direction, and begins dashing toward them.",
+        "Kled will re-path if his current path is blocked by a newly created terrain (either player created or by the Mountainous Rift).",
+        "The Dash",
+        "If Kled passes over the charge's target location, the charge will end even during the dash.",
+        "If the charge ends before, or during the dash, the dash will not:\n  - Generate a shield;\n  - Trail a directional draft, applying Mr. Kled's Wild Ride;\n  - Disable summoner spells and items.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest trigger at the end of the charge or at the end of the dash, whichever comes last, even if the charge ends before or during the dash.",
+        "Kled and Skaarl will track the target if they change locations.\n  - They will dash to the target's previous location if the target moves beyond 2500 units of the dash's beginning location.\n  - If the target moves 2500 or more units away from Kled and Skaarl during the dash, it will be interrupted.\n  - If the dash does not complete within 9 seconds, Kled and Skaarl will continue to track their target, but will be able to cast spells, and will not be able to collide with enemy champions.",
+        "While dashing, Kled will mark his target with an indicator visible to both teams.",
+        "The damage dealt is based on time spent traveling before the beginning of the dash.",
+        "Movement and attack commands, as well as Bear Trap on a Rope and Jousting can be buffered during the dash.",
+        "The following table refers for interactions while Kled is dashing:",
+        "No summoner spells or items are disabled if the charge ends before or during the dash."
+      ]
+    },
+    {
+      "champion": "Kled",
+      "kind": "R",
+      "name": "Dismounted Chaaaaaaaarge!!!",
+      "page": {
+        "title": "Template:Data Kled/Dismounted Chaaaaaaaarge!!!",
+        "revid": 3942225
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Kled",
+      "kind": "W",
+      "name": "Violent Tendencies",
+      "page": {
+        "title": "Template:Data Kled/Violent Tendencies",
+        "revid": 4072987
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "boostsAttacks": true
+    }
+  ]
+}

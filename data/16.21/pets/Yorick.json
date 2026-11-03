@@ -1,0 +1,492 @@
+[
+  {
+    "champion": "Yorick",
+    "name": "Mist Walker",
+    "page": {
+      "title": "Yorick",
+      "revid": 4011713
+    },
+    "fields": {
+      "gold": {
+        "text": "2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "cs": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "100 – 300 (based on level) (+ 15% of Yorick's bonus health)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                100,
+                108.470588235294,
+                117.352941176471,
+                126.647058823529,
+                136.352941176471,
+                146.470588235294,
+                157,
+                167.941176470588,
+                179.294117647059,
+                191.058823529412,
+                203.235294117647,
+                215.823529411765,
+                228.823529411765,
+                242.235294117647,
+                256.058823529412,
+                270.294117647059,
+                284.941176470588,
+                300,
+                315.470588235294,
+                331.352941176471
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "15 – 100 (based on level) (+ 20% of Yorick's bonus AD)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                15,
+                18.6,
+                22.375,
+                26.325,
+                30.45,
+                34.75,
+                39.225,
+                43.875,
+                48.7,
+                53.7,
+                58.875,
+                64.225,
+                69.75,
+                75.45,
+                81.325,
+                87.375,
+                93.6,
+                100,
+                106.575,
+                113.325
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.54 – 0.9 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0.54,
+                0.555247058823529,
+                0.571235294117647,
+                0.587964705882353,
+                0.605435294117647,
+                0.623647058823529,
+                0.6426,
+                0.662294117647059,
+                0.682729411764706,
+                0.703905882352941,
+                0.725823529411765,
+                0.748482352941176,
+                0.771882352941176,
+                0.796023529411765,
+                0.820905882352941,
+                0.846529411764706,
+                0.872894117647059,
+                0.9,
+                0.927847058823529,
+                0.956435294117647
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Increased while Yorick is nearby"
+          }
+        ]
+      },
+      "radius": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "2",
+      "exp": "0",
+      "cs": "0",
+      "hp": "100 – 300 (based on level) (+ 15% of Yorick's bonus health)",
+      "damage": "15 – 100 (based on level) (+ 20% of Yorick's bonus AD)",
+      "damagetype": "Physical",
+      "range": "125",
+      "armor": "0",
+      "magicresist": "0",
+      "attackspeed": "0.54 – 0.9 (based on level)",
+      "movespeed": "325",
+      "radius": "1",
+      "pathingradius": "20",
+      "control": "Autonomous",
+      "targeting": "Minion, does not count towards creep score",
+      "onhit": "Mist Walkers' attacks are mitigated by dodge, block, and blind. They also deal 60% damage against monsters and 50% damage against turrets.",
+      "spelleffects": "Mist Walkers' basic attacks apply spell effects as area damage, including leaping to marked enemies.",
+      "protection": "Mist Walkers receive 60% damage from lane minions; 66% – 40% (based on level) damage from area of effect abilities; 200% damage from melee champion basic attacks; and they are instantly killed by a turret shot.",
+      "abilities": ";Endless March\nMist Walkers remain near Yorick (preferably 200 units behind him) until they enter combat in a lane, whereupon they proceed along the lane and attack any enemy in their path.\n\n;Frenzied\nWhile within 1500 units of an enemy marked as Cursed by Mourning Mist, Mist Walkers benefit from the ability's bonus movement speed, and have the ability to leap to marked enemy champions and large monsters, dealing 100% of their AD upon arrival. While Mist Walkers are targeting a unit due to this effect, an exclamation mark indicator will be visible over their head.\n\n;Hasted\nWhile Mist Walkers are within 1600 units of Yorick, they gain 60 bonus movement speed and benefit from Yorick's flat movement speed bonuses. Phase Rush is a percentual exception. Summons gain bonus movement speed when returning to Yorick. This movement speed bonus is based on the distance between Yorick and the summon.",
+      "notes": "* If Mist Walkers are attacking a jungle monster when Yorick casts Recall, they will continue attacking it until his channel completes, after which they withdraw to him, or they die.\n* Unlike other pets, Mist Walkers are not prioritized by turrets over siege minions, though they are prioritized over the Maiden of the Mist.\n* Mist Walkers will level up with Yorick when he does.\n* Mist Walkers will blink to Yorick's location after he completes a Teleport channel.\n* The attacks of Mist Walkers belong to separate cast instances.\n* The damage done by the Mist Walkers leap shares a cast instance with Mourning Mist."
+    }
+  },
+  {
+    "champion": "Yorick",
+    "name": "Maiden of the Mist",
+    "page": {
+      "title": "Yorick",
+      "revid": 4011713
+    },
+    "fields": {
+      "gold": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "1050 / 1150 / 1250 / 1350 / 1450 / 1650 / 1850 / 2050 / 2250 / 2450 / 2700 / 2950 / 3200 / 3450 / 3700 (based on level) (+ 60% of Yorick's bonus health)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                1050,
+                1150,
+                1250,
+                1350,
+                1450,
+                1650,
+                1850,
+                2050,
+                2250,
+                2450,
+                2700,
+                2950,
+                3200,
+                3450,
+                3700
+              ]
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "50 / 75 / 100 (+ 30% of Yorick's bonus AD)",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                75,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "1.0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Increased while Yorick is nearby"
+          }
+        ]
+      },
+      "radius": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "50",
+      "exp": "0",
+      "hp": "1050 – 3700 (based on level) (+ 60% of Yorick's bonus health)",
+      "damage": "50 / 75 / 100 (+ 30% of Yorick's bonus AD)",
+      "damagetype": "Magic",
+      "range": "600",
+      "armor": "30 – 100 (based on level)",
+      "magicresist": "30 – 100 (based on level)",
+      "attackspeed": "1.0",
+      "movespeed": "300",
+      "radius": "20",
+      "pathingradius": "40",
+      "control": "Autonomous",
+      "targeting": "Minion",
+      "spelleffects": "The Maiden of the Mist's basic attacks apply spell effects as area damage.",
+      "onhit": "The Maiden of the Mist's attacks are mitigated by dodge and blind, but not mitigated by block. They also deal 50% damage against turrets.",
+      "protection": "The Maiden of the Mist takes 30% damage from lane minions.",
+      "abilities": ";Natural Recovery\nThe Maiden of the Mist regenerates 2.5 health per second.\n\n;Endless March\nThe Maiden of the Mist is permanently ghosted and follows Yorick (preferably idle within 100 units of the location 500 units behind him), leashing back to him if he moves 1200 units away from her.\n\n;Touch of the Maiden\nThe Maiden of the Mist's attacks against an enemy champion apply a mark, which is lost from the current target whenever Yorick commands her to a new target or her acquisition of that current target otherwise ends. Yorick's next basic attack or E hit against the marked target consumes the mark to deal bonus magic damage equal to 2 / 2.5 / 3% of the target's maximum health, capped at 30 against monsters.\n\n;Undead Army\nWhenever a nearby enemy dies while there are fewer than 4 Mist Walkers under the Maiden of the Mist's command, she raises another Mist Walker from that enemy's corpse.\n\n;Frenzied\nWhile nearby an enemy marked as Cursed by Mourning Mist, the Maiden of the Mist benefits from the ability's bonus movement speed, and actively seeks to assist Yorick if he is nearby and in combat with an enemy champion. While the Maiden of the Mist is targeting a Cursed unit, an exclamation mark indicator will be visible over her head.\n\n;Hasted\nWhile the Maiden of the Mist is within 2000 units of Yorick, she gains 60 bonus movement speed and benefits from Yorick's flat movement speed bonuses.",
+      "notes": "* Unlike other pets, the Maiden of the Mist is not prioritized by turrets over any type of minion.\n* The Maiden of the Mist will level up with Yorick when he does.\n* The Maiden of the Mist will blink to Yorick's location after he completes a Teleport channel."
+    }
+  }
+]

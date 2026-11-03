@@ -1,4 +1,4 @@
-/** Veigar's level-20 kit, read from the committed 16.20 ability records. */
+/** Veigar's level-20 kit, read from the committed ability records. */
 import type { KitModule } from "../../engine/kits/compile";
 import { KitDataError } from "../../engine/kits/context";
 import { attackRange, canCast, inReach } from "../../engine/sim/actions";

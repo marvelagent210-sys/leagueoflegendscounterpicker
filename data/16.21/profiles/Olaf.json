@@ -1,0 +1,232 @@
+{
+  "champion": "Olaf",
+  "name": "Olaf",
+  "gameplayRadius": 65,
+  "moveSpeed": 350,
+  "attacks": [
+    {
+      "form": "olaf",
+      "formName": "Olaf",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.08848,
+      "attackDamage": 160.425,
+      "windup": 0.215323,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Olaf",
+      "kind": "E",
+      "name": "Reckless Swing",
+      "page": {
+        "title": "Template:Data Olaf/Reckless Swing",
+        "revid": 4060268
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Olaf/Reckless Swing",
+              "revid": 4060268,
+              "quote": "If Reckless Swing kills the target, Olaf heals himself equal to the health cost."
+            }
+          ]
+        }
+      ],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 325,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).** Olaf will also not receive the benefits from killing an enemy if this canceling takes place very shortly before the attack hits the invalidated target, but Reckless Swing's effect will be consumed."
+      ]
+    },
+    {
+      "champion": "Olaf",
+      "kind": "I",
+      "name": "Berserker Rage",
+      "page": {
+        "title": "Template:Data Olaf/Berserker Rage",
+        "revid": 4046494
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Olaf",
+      "kind": "Q",
+      "name": "Undertow",
+      "page": {
+        "title": "Template:Data Olaf/Undertow",
+        "revid": 4068141
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Olaf/Undertow",
+              "revid": 4068141,
+              "quote": "Active: Olaf throws an axe to the target location that deals physical damage to enemies it passes through and slows them for 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 (based on distance traveled) seconds."
+            }
+          ],
+          "duration": 1,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 425,
+      "speed": 1600,
+      "notes": [
+        "Projectile-intercepting effects (e.g. Wind Wall, Unbreakable) cannot destroy the axe, they will instead cause it to stop prematurely and remain on the ground upon collision."
+      ]
+    },
+    {
+      "champion": "Olaf",
+      "kind": "R",
+      "name": "Ragnarok",
+      "page": {
+        "title": "Template:Data Olaf/Ragnarok",
+        "revid": 3939795
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "airborne",
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Olaf/Ragnarok",
+              "revid": 3939795,
+              "quote": "Active: Olaf becomes enraged for 3 seconds, cleansing himself of all crowd control and becoming immune to them, as well as gaining bonus attack damage and 10% increased size."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Ragnarok removes the underlying stun from airborne effects, but not the forced displacement, which requires him to use a blink or dash ability to override it.",
+        "Ragnarok does not negate any debuffs other than crowd control from being applied unless absolutely necessary.",
+        "Ragnarok's duration will not be increased if the basic attack is dodged.",
+        "Ragnarok's duration will be increased if the basic attack is blocked."
+      ]
+    },
+    {
+      "champion": "Olaf",
+      "kind": "W",
+      "name": "Tough It Out",
+      "page": {
+        "title": "Template:Data Olaf/Tough It Out",
+        "revid": 4033201
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Olaf/Tough It Out",
+              "revid": 4033201,
+              "quote": "He also grants himself a shield for 2.5 seconds for an amount that is capped at 70% missing health."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "boostsAttacks": true
+    }
+  ]
+}

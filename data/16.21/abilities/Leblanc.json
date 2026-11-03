@@ -1,0 +1,1054 @@
+[
+  {
+    "champion": "Leblanc",
+    "kind": "E",
+    "name": "Ethereal Chains",
+    "page": {
+      "title": "Template:Data LeBlanc/Ethereal Chains",
+      "revid": 3954748
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13.25 / 12.5 / 11.75 / 11",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13.25,
+                12.5,
+                11.75,
+                11
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "110",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 110
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1750
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "865",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 865
+            },
+            "label": "Equivalent to 995 center-to-center range against the average enemy champion"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: LeBlanc flings an illusory chain in the target direction that deals magic damage to the first enemy it hits and forms a tether between LeBlanc and the target for 1.5 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 70 / 90 / 110 / 130 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  70,
+                  90,
+                  110,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: LeBlanc flings an illusory chain in the target direction that deals magic damage to the first enemy it hits and forms a tether between LeBlanc and the target for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: LeBlanc flings an illusory chain in the target direction that deals magic damage to the first enemy it hits and forms a tether between LeBlanc and the target for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the tether is not broken by the end of its duration, it fractures to deal magic damage to the target and root them for 1.5 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Fracture Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 85% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 85
+                  },
+                  "text": "(+ 85% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Damage",
+            "amount": {
+              "text": "130 / 190 / 250 / 310 / 370 (+ 125% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  130,
+                  190,
+                  250,
+                  310,
+                  370
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "root",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If the tether is not broken by the end of its duration, it fractures to deal magic damage to the target and root them for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If the tether is not broken by the end of its duration, it fractures to deal magic damage to the target and root them for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Both the initial and the delayed damage can detonate Sigil of Malice.",
+      "Ethereal Chains and Mimic: Ethereal Chains are separate debuffs, and can both be tethered to the same target without overriding each other. The root duration for either one are unchanged.",
+      "Spell shield will block the tether's application and initial damage but not the aftereffects of one already applied.",
+      "The tether remains for a minimum of 0.25 seconds regardless of distance.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancEAbility/LeblancE",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Leblanc",
+    "kind": "I",
+    "name": "Mirror Image",
+    "page": {
+      "title": "Template:Data LeBlanc/Mirror Image",
+      "revid": 4035723
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, when LeBlanc is damaged to 40% maximum health, she creates a clone of herself, after which they both instantly become invisible for 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "summon",
+            "category": "other",
+            "wording": "clone",
+            "evidence": "Innate: Periodically, when LeBlanc is damaged to 40% maximum health, she creates a clone of herself, after which they both instantly become invisible for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "invisible",
+            "category": "vision",
+            "wording": "invisible",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Innate: Periodically, when LeBlanc is damaged to 40% maximum health, she creates a clone of herself, after which they both instantly become invisible for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The clone can cast basic attacks with no effect and lasts 8 seconds. Upon spawning, it starts moving up to 1900 units toward a random direction in front of LeBlanc's movement, determined at the moment of its spawning.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "See Pets for more details about LeBlanc's clone.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The clone has a leash range.",
+      "If Mirror Image triggers while LeBlanc is tethering to a target with Ethereal Chains (or its Mimicked version), her clone will not produce a fake tether, giving away which is the real one.",
+      "Using a basic attack breaks the stealth at the end of the attack windup."
+    ]
+  },
+  {
+    "champion": "Leblanc",
+    "kind": "Q",
+    "name": "Sigil of Malice",
+    "page": {
+      "title": "Template:Data LeBlanc/Sigil of Malice",
+      "revid": 4091667
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: LeBlanc projects an orb at the target enemy that deals magic damage and marks them for 3.5 seconds, with 10 – 146 (based on level) bonus magic damage against minions.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "65 / 90 / 115 / 140 / 165 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  90,
+                  115,
+                  140,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                18,
+                26,
+                34,
+                42,
+                50,
+                58,
+                66,
+                74,
+                82,
+                90,
+                98,
+                106,
+                114,
+                122,
+                130,
+                138,
+                146,
+                154,
+                162
+              ],
+              "past18": "game files"
+            },
+            "context": "Active: LeBlanc projects an orb at the target enemy that deals magic damage and marks them for 3.5 seconds, with 10 – 146 (based on level) bonus magic damage against minions."
+          }
+        ]
+      },
+      {
+        "text": "LeBlanc's next damaging ability against the marked target will consume the mark to deal the same magic damage again.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "130 / 180 / 230 / 280 / 330 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  130,
+                  180,
+                  230,
+                  280,
+                  330
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Sigil of Malice's orb refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Sigil of Malice and Mimic: Sigil of Malice can detonate each other's marks.",
+      "The floating damage text upon the mark's detonation currently displays a real critical strike icon instead of a success indicator.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancQAbility/LeblancQ",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Leblanc",
+    "kind": "R",
+    "name": "Mimic",
+    "page": {
+      "title": "Template:Data LeBlanc/Mimic",
+      "revid": 4057469
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "45 / 35 / 25",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                45,
+                35,
+                25
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Varied"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ]
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: LeBlanc casts a mimicked version of her most recently used basic ability, applying the same effects and dealing modified magic damage.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Mimic: Sigil of Malice",
+        "text": "Mimic: Sigil of Malice: The orb deals modified damage, while the mark consumption deals double that amount.",
+        "leveling": [
+          {
+            "label": "Orb Magic Damage",
+            "amount": {
+              "text": "70 / 150 / 230 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  150,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Mark Magic Damage",
+            "amount": {
+              "text": "140 / 300 / 460 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  300,
+                  460
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "210 / 450 / 690 (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  210,
+                  450,
+                  690
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Mimic: Distortion",
+        "text": "Mimic: Distortion: Deals modified damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 315 / 480 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  315,
+                  480
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Mimic: Ethereal Chains",
+        "text": "Mimic: Ethereal Chains: The tether's application deals modified damage, while its fracturing deals double that amount.",
+        "leveling": [
+          {
+            "label": "Application Magic Damage",
+            "amount": {
+              "text": "70 / 150 / 230 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  150,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Fracture Magic Damage",
+            "amount": {
+              "text": "140 / 300 / 460 (+ 85% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  300,
+                  460
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 85
+                  },
+                  "text": "(+ 85% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "210 / 450 / 690 (+ 125% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  210,
+                  450,
+                  690
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Mimic will default to Mimic: Sigil of Malice if LeBlanc ranks up Mimic without having used any abilities beforehand (even if she has not yet learned Sigil of Malice).",
+      "Both Mimic: Ethereal Chains and Mimic: Sigil of Malice will apply damage twice if the original ability's condition to do so is met."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRQAbility/LeblancRQ",
+        "text": [
+          "mSpell.spellCastTime: 0.25",
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancREAbility/LeblancRE",
+        "text": [
+          "mSpell.spellCastTime: 0.25",
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRAbility/LeblancR",
+        "text": [
+          "mSpell.mMaxAmmo: [2,2,2,2,2,2,2]",
+          "mSpell.mAmmoUsed: [0,0,0,0,0,0,0]",
+          "mSpell.mAmmoRechargeTime: [5.0,5.0,5.0,5.0,5.0,5.0,5.0]"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRWAbility/LeblancRWReturn",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRWAbility/LeblancRW",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Leblanc",
+    "kind": "W",
+    "name": "Distortion",
+    "page": {
+      "title": "Template:Data LeBlanc/Distortion",
+      "revid": 4057468
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15 / 13.75 / 12.5 / 11.25 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                15,
+                13.75,
+                12.5,
+                11.25,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "600 • Global",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Maximum dash range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            },
+            "label": "Damage radius around dash destination"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1450
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: LeBlanc dashes to the target location, dealing magic damage to all nearby enemies upon arrival and leaving a return pad at the cast location for 4 seconds. Distortion can be recast after 0.2 seconds of the dash ending for the pad's duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 115 / 155 / 195 / 235 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  115,
+                  155,
+                  195,
+                  235
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: LeBlanc dashes to the target location, dealing magic damage to all nearby enemies upon arrival and leaving a return pad at the cast location for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: LeBlanc blinks to Distortion's return pad, regardless of range.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Recast: LeBlanc blinks to Distortion's return pad, regardless of range.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Distortion has no minimum dash range.",
+      "Distortion will be buffered and cast as soon as the cooldown ends if the player attempts to cast it within 0.5 seconds of the cooldown ending.\n  - The recast will be buffered and cast as soon as it becomes available if the player attempts to cast it within 0.3 seconds of it becoming available to cast.",
+      "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Recasting the ability does not.\n  - Mimic: Distortion has the same properties.",
+      "Distortion and Mimic: Distortion have independent return pads and LeBlanc can travel to both while they are active.",
+      "Distortion's pad duration starts once the dash ends."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancWAbility/LeblancW",
+        "text": [
+          "mSpell.spellCastTime: 0.25",
+          "mSpell.mCastingBreaksStealth: true",
+          "mSpell.castRadius: [220.0,220.0,220.0,220.0,220.0,220.0,220.0]"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancWAbility/LeblancWReturn",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
+    ]
+  }
+]

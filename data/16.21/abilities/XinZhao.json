@@ -1,0 +1,1146 @@
+[
+  {
+    "champion": "XinZhao",
+    "kind": "E",
+    "name": "Audacious Charge",
+    "page": {
+      "title": "Template:Data Xin Zhao/Audacious Charge",
+      "revid": 4088384
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 11
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "650 • 1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "Normal range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            },
+            "label": "Enhanced range against Challenged targets"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Damage radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Xin Zhao dashes to the target enemy's location, dealing magic damage to them and nearby enemies and slowing all targets hit by 30% for 0.5 seconds. Audacious Charge's range is increased against Challenged targets.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Xin Zhao dashes to the target enemy's location, dealing magic damage to them and nearby enemies and slowing all targets hit by 30% for 0.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 30
+            },
+            "evidence": "Active: Xin Zhao dashes to the target enemy's location, dealing magic damage to them and nearby enemies and slowing all targets hit by 30% for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Xin Zhao then gains bonus attack speed for 5 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "38 / 46 / 54 / 62 / 70% (+ 10% per 100 AP) (+ 1% per 4% bonus attack speed from non-buff sources)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  38,
+                  46,
+                  54,
+                  62,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% per 100 AP)"
+                },
+                {
+                  "stat": "other:per 4% bonus attack speed from non-buff sources",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% per 4% bonus attack speed from non-buff sources)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Three Talon Strike and Crescent Guard can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The primary target cannot dodge Audacious Charge's effects.\n  - The target will always emit the area of effect from their position.",
+      "Audacious Charge has a forgiveness radius of 200 units."
+    ]
+  },
+  {
+    "champion": "XinZhao",
+    "kind": "I",
+    "name": "Determination",
+    "page": {
+      "title": "Template:Data Xin Zhao/Determination",
+      "revid": 4051470
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "special",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Xin Zhao's basic attacks on-hit and Wind Becomes Lightning first slash hit and thrust on at least one enemy hit each generate a stack of Determination, stacking up to 3 times. The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP).",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Xin Zhao's basic attacks on-hit and Wind Becomes Lightning first slash hit and thrust on at least one enemy hit each generate a stack of Determination, stacking up to 3 times.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                15,
+                30,
+                45,
+                60
+              ]
+            },
+            "context": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP)."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                5,
+                10,
+                15,
+                20
+              ]
+            },
+            "context": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP)."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                2,
+                3.5,
+                5
+              ]
+            },
+            "context": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP)."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                40,
+                50,
+                70
+              ]
+            },
+            "context": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP)."
+          }
+        ],
+        "tips": [
+          {
+            "text": "consumes them",
+            "tip": "See notes for consumption details"
+          }
+        ]
+      },
+      {
+        "label": "Innate - Challenge",
+        "text": "Innate - Challenge: Wind Becomes Lightning and, if Crescent Guard has been learned, Xin Zhao's basic attacks and Audacious Charge, apply a Challenged mark to certain enemies hit for 3 seconds. Only one enemy can be marked as Challenged at a time; applying the mark to a new target removes it from the previous one. Audacious Charge and Crescent Guard have interactions against Challenged targets.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      ";Determination Details",
+      "The healing and bonus damage work on different stacking systems, each counting its stacks and being consumed separately. While both stack on-hit, the bonus damage stacks are consumed on-attack, and the healing ones on-hit.\n  - The healing stacks are denoted in the buff-bar.\n  - If Guinsoo's Rageblade were to trigger when the stacks are at maximum, they will grant the healing but not the bonus damage, thus causing an out-of-sync between the stacks shown in-game versus when the bonus damage is dealt.",
+      "Only the initial slash of Wind Becomes Lightning can generate a Determination stack. Slashes after the first do not count for stack generation.",
+      "The stack counter displays 1–3 rather than the usual 0–2, meaning that a count of 1 does not translate to having 1 stack.",
+      "Stacks reset when Xin Zhao dies.",
+      "Stacks of Determination will be gained even if the attack is blocked.",
+      ": Determination's interaction with parrying effects (dodge, blind).",
+      "Determination deals proc damage.\n  - Since it is a separate instance of damage when applied by basic attack or either of W strikes, flat damage reduction that applies to both the main and bonus damage such as Tantrum passive will reduce each, for twice the reduction.\n  - The bonus damage cannot critically strike.",
+      "When applied by a basic attack:\n  - The attack uses a unique animation.\n  - The bonus damage benefits from life steal.\n    - It applies life steal specifically.\n  - Neither the bonus damage or heal will be blocked by spell shield.",
+      "When applied by W:\n  - Triggers against the closest target struck by the first slash/thrust (equals first target to receive spell effects).\n  - Does not benefit from life steal, including not healing from Wind Becomes Lightning's 33% conversion for this bonus damage.\n  - Since proc damage is 'single target', Vamp will heal from 100% of the bonus damage.\n  - The bonus damage will be blocked by spell shield, the heal will not.",
+      ";Challenged Details",
+      "Spell shield will block the mark application from W, but not from basic attacks and E."
+    ]
+  },
+  {
+    "champion": "XinZhao",
+    "kind": "Q",
+    "name": "Three Talon Strike",
+    "page": {
+      "title": "Template:Data Xin Zhao/Three Talon Strike",
+      "revid": 4088383
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6.5 / 6 / 5.5 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6.5,
+                6,
+                5.5,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Xin Zhao empowers his next three basic attacks on-attack within 5 seconds to each have an uncancellable windup, deal bonus physical damage and reduce his other abilities' current cooldowns by 1 second. Each attack refreshes the duration.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "15 / 30 / 45 / 60 / 75 (+ 45% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  30,
+                  45,
+                  60,
+                  75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Bonus Physical Damage",
+            "amount": {
+              "text": "45 / 90 / 135 / 180 / 225 (+ 135% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  90,
+                  135,
+                  180,
+                  225
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 135
+                  },
+                  "text": "(+ 135% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Active: Xin Zhao empowers his next three basic attacks on-attack within 5 seconds to each have an uncancellable windup, deal bonus physical damage and reduce his other abilities' current cooldowns by 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Xin Zhao empowers his next three basic attacks on-attack within 5 seconds to each have an uncancellable windup, deal bonus physical damage and reduce his other abilities' current cooldowns by 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The third attack knocks up the target for 0.75 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "The third attack knocks up the target for 0.75 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Three Talon Strike's bonus damage is affected by critical strike modifiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "Three Talon Strike's bonus damage is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Three Talon Strike resets Xin Zhao's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Three Talon Strike resets Xin Zhao's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will only block the knock up.",
+      "The enhanced attacks present input buffering during their wind-up animation (Xin Zhao cannot be issued any commands until after it ends).",
+      "The attack counter displayed on Xin Zhao's status bar is incremented on-hit."
+    ]
+  },
+  {
+    "champion": "XinZhao",
+    "kind": "R",
+    "name": "Crescent Guard",
+    "page": {
+      "title": "Template:Data Xin Zhao/Crescent Guard",
+      "revid": 4008632
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 110 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                110,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "500 • 450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Knockback radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Immunity minimum radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Xin Zhao's basic attacks and Audacious Charge apply the Challenged mark to enemy champions hit, with the latter applying the mark to the farthest champion hit in the area of effect or the primary target if they are a champion.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Xin Zhao sweeps his spear around him, dealing physical damage to nearby enemies, capped at 600 against minions and monsters, and knocking back all targets hit that are not Challenged up-to 700 units over 0.75 seconds, as well as stunning them for the same duration.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "75 / 175 / 275 (+ 100% bonus AD) (+ 110% AP) (+ 15% of target's current health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  175,
+                  275
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AP)"
+                },
+                {
+                  "stat": "targetCurrentHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% of target's current health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active: Xin Zhao sweeps his spear around him, dealing physical damage to nearby enemies, capped at 600 against minions and monsters, and knocking back all targets hit that are not Challenged up-to 700 units over 0.75 seconds, as well as stunning them for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "evidence": "Active: Xin Zhao sweeps his spear around him, dealing physical damage to nearby enemies, capped at 600 against minions and monsters, and knocking back all targets hit that are not Challenged up-to 700 units over 0.75 seconds, as well as stunning them for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "For the next 4 seconds, Xin Zhao is invulnerable against enemy champions far away from him.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invulnerable",
+            "category": "defense",
+            "wording": "invulnerable",
+            "evidence": "For the next 4 seconds, Xin Zhao is invulnerable against enemy champions far away from him.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Pets, traps, ground AoEs, DoTs, and delayed-damage abilities (e.g. Death Mark, Explosive Charge, Hemoplague) will not damage Xin Zhao if the enemy champion source is outside the circle when the damage applies.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Displacement immunity will also resist the application of the stun."
+    ]
+  },
+  {
+    "champion": "XinZhao",
+    "kind": "W",
+    "name": "Wind Becomes Lightning",
+    "page": {
+      "title": "Template:Data Xin Zhao/Wind Becomes Lightning",
+      "revid": 4026481
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1000 • 940",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Thrust range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 940
+            },
+            "label": "Maximum possible range; See notes"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "275 • 125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Slash semi-circle radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            },
+            "label": "Slash and thrust extra check radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Thrust missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "6250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6250
+            },
+            "label": "Thrust missile speed"
+          }
+        ]
+      },
+      "angle": {
+        "text": "160º",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Xin Zhao unleashes 4 slashes in an arc over the first 0.15 seconds of the cast time, each dealing physical damage to enemies within. After the remaining cast time, he then thrusts his spear in a line in the target direction, dealing physical damage to enemies hit, increased by 0 / 3.33 / 6.66 / 9.99 / 13.32 / 16.65 / 19.98 / 23.31 / 26.64 / 29.97 / 33.3 (based on critical strike chance)%, and slowing them by 50% for 1.5 (+ 0.5 per 100 AP) seconds. Wind Becomes Lightning deals 50 – 100 (based on level)% damage to minions.\n\nThe farthest champion or large monster hit within the thrust's area is also marked as Challenged and is revealed for 3 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage per Slash",
+            "amount": {
+              "text": "7.5 / 10 / 12.5 / 15 / 17.5 (+ 7.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  10,
+                  12.5,
+                  15,
+                  17.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 7.5
+                  },
+                  "text": "(+ 7.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slash Total Physical Damage",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70 (+ 30% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Thrust Physical Damage",
+            "amount": {
+              "text": "50 / 85 / 120 / 155 / 190 (+ 90% AD) (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  85,
+                  120,
+                  155,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 120% AD) (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "After the remaining cast time, he then thrusts his spear in a line in the target direction, dealing physical damage to enemies hit, increased by 0 / 3.33 / 6.66 / 9.99 / 13.32 / 16.65 / 19.98 / 23.31 / 26.64 / 29.97 / 33.3 (based on critical strike chance)%, and slowing them by 50% for 1.5 (+ 0.5 per 100 AP) seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "The farthest champion or large monster hit within the thrust's area is also marked as Challenged and is revealed for 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                3.33,
+                6.66,
+                9.99,
+                13.32,
+                16.65,
+                19.98,
+                23.31,
+                26.64,
+                29.97,
+                33.3
+              ]
+            },
+            "context": "After the remaining cast time, he then thrusts his spear in a line in the target direction, dealing physical damage to enemies hit, increased by 0 / 3.33 / 6.66 / 9.99 / 13.32 / 16.65 / 19.98 / 23.31 / 26.64 / 29.97 / 33.3 (based on critical strike chance)%, and slowing them by 50% for 1.5 (+ 0.5 per 100 AP) seconds."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                50,
+                53.3333333333333,
+                56.6666666666667,
+                60,
+                63.3333333333333,
+                66.6666666666667,
+                70,
+                73.3333333333333,
+                76.6666666666667,
+                80,
+                83.3333333333333,
+                86.6666666666667,
+                90,
+                93.3333333333333,
+                96.6666666666667,
+                100
+              ]
+            },
+            "context": "Wind Becomes Lightning deals 50 – 100 (based on level)% damage to minions."
+          }
+        ],
+        "tips": [
+          {
+            "text": "4 slashes",
+            "tip": "First slash happens on-cast instantly, while the remaining 3 are applied every 0.05 seconds thereafter"
+          }
+        ]
+      },
+      {
+        "text": "Wind Becomes Lightning's damage heals Xin Zhao for 33.3% of his life steal.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Wind Becomes Lightning's damage heals Xin Zhao for 33.3% of his life steal.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Wind Becomes Lightning's damage heals Xin Zhao for 33.3% of his life steal.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The durations of Three Talon Strike and Audacious Charge bonus attack speed are delayed relative to Wind Becomes Lightning's cast time.\nXin Zhao reveals himself during the cast if there is an enemy champion nearby.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "evidence": "Xin Zhao reveals himself during the cast if there is an enemy champion nearby.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "nearby",
+            "tip": "see details"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The self-reveal has not been fully tested for complete confirmation. Is the ability invisible when hitting minions and there is no enemy champion nearby? Is the tip of the ability enough to reveal him? Whether it can hit a minion or not? Just if he's around the exit of the fog of war, and even if he points towards the inside of the fog of war? [https://youtu.be/GvLedSeuQ0s]",
+      "Spell shield will block both the slashes and the thrust.\n  - If the spell shield blocks the first, or sometimes the second slash, it will block the rest of the ability, including the thrust. If it is activated after the first slash, it will only block up to 2 slashes and will not block the trust.",
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - The thrust will occur from wherever Xin Zhao is at the end of the cast time.\n  - The slashes will occur from wherever Xin Zhao is at the time during the first 0.15 seconds.",
+      "Wind Becomes Lightning maintains its casting angle direction in relation to Xin Zhao if he moves during the cast time.\n  - The direction of the slashes will not move during the cast time.",
+      "The first strike's hitbox includes a 275 radius 160° cone in front of Xin Zhao and an additional 125 radius around him.",
+      "The second strike's hitbox includes the same 125 radius around Xin Zhao, a missile with 1000 range and 80 total width, and a -60 radius area check upon the end of the missile.\n  - The 125 radius check does not hit champion summoned units.",
+      "Because Wind Becomes Lightning uses an older type of 'healing based on life steal' and not applies life steal, Spirit Visage will amplify the life gain twice (+25% life steal and +25% healing), for a total of +56.25%.",
+      "Each of Wind Becomes Lightning's slashes are applied in a separate damage instance from each other.\n  - This causes effects like Bone Plating to be applied twice and Black Cleaver Carve to be applied multiple times."
+    ]
+  }
+]

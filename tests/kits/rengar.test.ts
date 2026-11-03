@@ -29,9 +29,9 @@ function strike(w: World, key = "Q") { cast(w, key); startAttack(w, w.units[0]);
 
 describe("Rengar source pins and real Ferocity", () => {
  it("reads all five exact primary revisions and the versioned whole-array game excerpts", () => {
-  expect(new Set(compiled.evidence.filter(e => e.revid).map(e => e.revid))).toEqual(new Set([4059878,4052789,4009100,4009137,4052301]));
+  expect(new Set(compiled.evidence.filter(e => e.revid).map(e => e.revid))).toEqual(new Set([4059878,4052789,4009100,4009137,4083958]));
   const game = compiled.evidence.filter(e => e.sourceVersion);
-  expect(game.length).toBeGreaterThanOrEqual(7); expect(game.every(e => e.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release" && e.sourceSha256 === "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e")).toBe(true);
+  expect(game.length).toBeGreaterThanOrEqual(7); expect(game.every(e => e.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && e.sourceSha256 === "af409d5423bac82d896d724f71729763012a048e3b6160fce98bc84fbd2af614")).toBe(true);
   expect(game.some(e => e.text.includes('[4.0,4.0,4.0,4.0,4.0,4.0,4.0]'))).toBe(true);
  });
  it("fails closed without pinned projectile evidence", () => { const altered = records("Rengar"); delete altered.find(a => a.kind === "E")!.gameSources; expect(() => compileKit(championData("Rengar"), altered, Rengar)).toThrow("pinned game data"); });
@@ -94,7 +94,7 @@ describe("Rengar production behavior and symmetry",()=>{
  it.each(["fight","hold","trade"] as const)("an actual ready ultimate is used only in fight, not %s reservation",mode=>{const w=arena(700);w.modes[0]=mode;for(const a of compiled.spec.abilities)if(a.slot!=="R")w.units[0].cooldownReady[a.cooldownKey??a.key]=Infinity;expect(canCast(w,w.units[0],ability("R"))).toBe(true);const cmd=compiled.spec.behavior!(perceive(w,0));expect(cmd?.kind==="cast"&&cmd.ability==="R").toBe(mode==="fight");});
  it("completed trades retreat despite all ordinary abilities being ready",()=>{const w=arena();w.modes[0]="trade";w.units[0].memory.tradeDone=true;expect(compiled.spec.behavior!(perceive(w,0))).toEqual({kind:"move",direction:-1});});
  it("full15000gold six-scenario production scores/builds reflect without loose tolerances",()=>{
- const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices,opponent=kit("Darius").spec;
+ const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices,opponent=kit("Darius").spec;
  const forward=simulateMatchup(compiled.spec,opponent,15000,prices,{settings:{log:true}}),reverse=simulateMatchup(opponent,compiled.spec,15000,prices,{settings:{log:true}});
  expect(forward.scenarios).toHaveLength(6);expect(forward.builds).toEqual([reverse.builds[1],reverse.builds[0]]);expect(Math.abs(forward.score+reverse.score)).toBeLessThan(1e-12);
  const reflected=[1,0,2,3,4,5];for(const [index,scenario]of forward.scenarios.entries()){const other=reverse.scenarios[reflected[index]!]!;if(scenario.score===undefined)expect(other.score).toBeUndefined();else expect(Math.abs(scenario.score+other.score!)).toBeLessThan(1e-12);expect(scenario.outcomes.every(o=>Number.isFinite(o.seconds)&&o.hp.every(Number.isFinite))).toBe(true);}

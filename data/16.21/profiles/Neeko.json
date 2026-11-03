@@ -1,0 +1,263 @@
+{
+  "champion": "Neeko",
+  "name": "Neeko",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "neeko",
+      "formName": "Neeko",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 1.08614,
+      "attackDamage": 97.1625,
+      "windup": 0.184138,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Neeko",
+      "kind": "E",
+      "name": "Tangle-Barbs",
+      "page": {
+        "title": "Template:Data Neeko/Tangle-Barbs",
+        "revid": 4090101
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Neeko/Tangle-Barbs",
+              "revid": 4090101,
+              "quote": "Active: Neeko slings a magical spiral in the target direction that deals magic damage to enemies hit and roots them for a duration."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 1300,
+      "notes": [
+        "Spell shield will not prevent the missile to become empowered."
+      ]
+    },
+    {
+      "champion": "Neeko",
+      "kind": "I",
+      "name": "Inherent Glamour",
+      "page": {
+        "title": "Template:Data Neeko/Inherent Glamour",
+        "revid": 4049951
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "grounded": "no"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "(when transforming into a trap, ward, jungle plant while near them, or a monster while near its jungle camp)"
+            }
+          ],
+          "condition": "(when transforming into a trap, ward, jungle plant while near them, or a monster while near its jungle camp)"
+        },
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "If Neeko is in proximity of a faelight"
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "notes": [
+        "Casting Inherent Glamour does not count as an ability activation for the purposes of on-cast effects such as Spellblade, Force Pulse passive, and does not interrupt the clone's movement orders.",
+        "If Neeko attempts to activate a disguise while near the trap, ward, or jungle plant she stored Sho'Ma from, she will leap to that unit's exact position over 1 second, though not through terrain, and then become disguised. If she does so for a monster and is near its respective jungle camp, she will leap to that monster's usual position in the camp.\n  - If the monster is any Krug, she will leap to the large Krug's position in the camp on the blue side or medium Krug's position on the red side.\n  - If the monster is Rift Scuttler or a lesser Raptor, she will leap to its position at the time of storing Sho'Ma instead.\n  - The leap is interrupted if Neeko attacks, moves, or casts certain abilities and spells.\n    - The disguise will still activate after 1 second if the leap is interrupted by moving or attacking.\n  - Neeko cannot gather Sho'Ma while leaping.\n  - She will fail to activate the disguise after the leap if she is affected by the same conditions that would break a disguise.\n  - Inherent Glamour's leap has a number of interactions that set it apart from other lunges:\n  - # Inherent Glamour's leap does not interact with Voltaic Cyclosword Galvanize passive;\n  - # Inherent Glamour's leap does not override the forced movement inflicted by airborne effects;\n  - # The path of Inherent Glamour's leap will be similar to the path Neeko would take if ordered to move to the unit's position instead.\n  - Neeko will copy the unit's facing direction when disguising after leaping.\n  - If Neeko does not arrive at the unit's position while leaping, she will continue moving toward it.",
+        "While not disguised, attempting to cast Inherent Glamour during a cast time or attack windup puts the ability on cooldown immediately, but postpones the disguise.\n  - Doing so while disguised will not postpone the effect and will interrupt the attack windup.\n  - This allows Neeko to successfully disguise even if she gets affected by effects that would put Inherent Glamour on cooldown during the delay.",
+        "Neeko can activate Inherent Glamour while channeling, and remain in the disguise during the channel.",
+        "A number of attributes she actually adopts are:\n  - Base movement speed if it is lower than Neeko's base\n    - While disguised as a non-champion, Neeko's total movement speed cannot be reduced below 200.\n    - While disguised as a ward or plant, Neeko's total movement speed cannot be increased above 200, except via effects that set movement speed to a certain value (Chaaaaaaaarge!!!).\n      - Is this true for traps?\n  - Classification of the unit (e.g. melee, siege minion; large, small monster; ward)\n    - Neeko is never considered a minion for the purposes of Reinforced Armor.\n  - Base range type of the unit (melee, ranged)\n    - Wards are considered to be melee, while jungle plants and Rift Scuttler are considered to be ranged.\n    - When disguising as Nidalee in Cougar Form or Elise in Spider Form, Neeko is special cased to become melee.\n  - Base attack speed and attack ratio\n    - When disguising as a non-champion, Neeko instead has her total attack speed set to that of the disguise's form, or to 2.0 if the disguise's form's total attack speed is any higher.\n    - Although Jhin gains additional base attack speed through growth, Neeko only inherits his level 1 base attack speed value.\n  - Basic attack damage type (basic damage, ability damage), and subtype (physical damage, magic damage)\n    - For example, many pets deal ability damage instead of basic damage with their basic attacks.\n      - However, critical strikes from non-champions always deal physical basic damage.\n  - The projectile or non-projectile quality of their attack and projectile speed, if applicable\n    - When striking critically as a non-champion with a projectile attack, the attack projectile is invisible and hits near-instantly, but can still be intercepted by Wind Wall and similar abilities.\n  - Base attack range of the unit's base form\n    - For example, in the case of Gnar, she will adopt 175 attack range.\n    - When disguising as Nidalee in Cougar Form or Elise in Spider Form, Neeko is special cased to adopt 125 range as her base range.\n  - Damage dealt to champions (physical, magical) ratio for the purposes of Adaptive Defenses.\n  - Size (including size modifiers and base unit size) at the time of disguising\n  - Pathing radius when disguising as a non-champion\n    - Is the same true for champions?\n  - Voice lines\n  - Base unit model, not accounting for the unit's current except in special cases\n  - Default transformation toggle (non-innate)\n  - Character interactions (jokes, taunts, dances, laughs, toggle effects), as well as their Recall animation\n    - Neeko can copy Samira taunt animation but she will not actually throw the coin via the Taunt ability.\n    - While disguised as a non-champion, Neeko will play her laugh sound when attempting to laugh.\n    - This is an intentional feature, requested by fans when Neeko's V13.9 gameplay update was released.\n      - While disguised as a Packmate, she will play Naafiri laugh instead.",
+        "Disguising as a non-champion interrupts the cast time of Noxian Guillotine if it is targeting Neeko.",
+        "While disguised as a non-champion, allied champions using Shared Riches (World Atlas, Runic Compass) while Neeko is nearby will execute minions and trigger the VFX without spending a charge or awarding gold to Neeko.",
+        "While disguised as Daisy, Neeko's basic attacks will not deal damage.\n  - After gaining the Brushmaker buff for the first time, Neeko's basic attacks while disguised as Daisy will do 100% total AD physical damage, but the damage will be attributed to Ivern, allowing Neeko to attack turrets without breaking the disguise, as well as apply his on-hit effects instead of her own.\n    - This also allows Neeko to apply stacks of Daisy Smash! without consuming any, which can allow Daisy to cast Daisy Smash! multiple times within 3 seconds.",
+        "While disguised as Graves, Neeko's attacks visually imitate New Destiny's pellets, but only deal damage with his invisible missile.",
+        "Inherent Glamour's disguise is broken by the following actions:\n  - Casting Q or E.\n    - Casting R will not break the disguise immediately, but after a delay.\n  - Using Exhaust, Ignite, Smite, Unleashed Smite, Primal Smite, or Mark.\n    - Using Dash will not break the disguise.\n  - Activating the following items:\n    - Hextech Gunblade\n    - Hextech Rocketbelt\n    - Profane Hydra\n    - Randuin's Omen\n    - Ravenous Hydra\n    - Redemption\n    - Stridebreaker\n    - Tiamat\n    - Titanic Hydra"
+      ]
+    },
+    {
+      "champion": "Neeko",
+      "kind": "Q",
+      "name": "Blooming Burst",
+      "page": {
+        "title": "Template:Data Neeko/Blooming Burst",
+        "revid": 3961205
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 2000,
+      "notes": [
+        "Spell shield blocks an instance of damage but does not prevent subsequent Blooms."
+      ]
+    },
+    {
+      "champion": "Neeko",
+      "kind": "R",
+      "name": "Pop Blossom",
+      "page": {
+        "title": "Template:Data Neeko/Pop Blossom",
+        "revid": 4058467
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Neeko/Pop Blossom",
+              "revid": 4058467,
+              "quote": "After winding up, the cast time begins and Neeko leaps upward, knocking up nearby enemies for 0.6 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.6
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Neeko/Pop Blossom",
+              "revid": 4058467,
+              "quote": "When the cast time ends, she lands to emit a burst of energy that deals magic damage to nearby enemies and stuns them for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.6,
+      "notes": [
+        "Spell shield will block either the knock up or damage and stun, but not both.",
+        "Pop Blossom can start its cast time during stasis."
+      ]
+    },
+    {
+      "champion": "Neeko",
+      "kind": "W",
+      "name": "Shapesplitter",
+      "page": {
+        "title": "Template:Data Neeko/Shapesplitter",
+        "revid": 4022848
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "location"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Neeko/Shapesplitter",
+              "revid": 4022848,
+              "quote": "Active: Neeko creates a clone of her current form, after which they both instantly become invisible for 0.5 seconds and gain bonus movement speed for 3 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 900,
+      "notes": [
+        "Using a basic attack breaks stealth at the start of the attack windup.",
+        "The clone benefits from allied Speed Shrine, despite being untargetable to allies."
+      ]
+    }
+  ]
+}

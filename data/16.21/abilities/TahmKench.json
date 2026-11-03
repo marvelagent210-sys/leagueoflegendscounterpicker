@@ -1,0 +1,1102 @@
+[
+  {
+    "champion": "TahmKench",
+    "kind": "E",
+    "name": "Thick Skin",
+    "page": {
+      "title": "Template:Data Tahm Kench/Thick Skin",
+      "revid": 4021898
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            },
+            "label": "Starts upon shield destruction or expiration"
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "2400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2400
+            },
+            "label": "Search radius for enemy champions"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Tahm Kench stores a portion of the post-mitigation damage he takes as grey health on his health bar, increased while there are at least 2 nearby visible enemy champions either dead or alive. He can store up to 300% of his maximum health.",
+        "leveling": [
+          {
+            "label": "Damage Stored into Grey Health",
+            "amount": {
+              "text": "15 / 23 / 31 / 39 / 47%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  23,
+                  31,
+                  39,
+                  47
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Damage Stored into Grey Health",
+            "amount": {
+              "text": "42 / 44 / 46 / 48 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  42,
+                  44,
+                  46,
+                  48,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Passive: Tahm Kench stores a portion of the post-mitigation damage he takes as grey health on his health bar, increased while there are at least 2 nearby visible enemy champions either dead or alive.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
+      },
+      {
+        "text": "While Thick Skin is not on cooldown, and after 4 seconds without taking damage, Tahm Kench rapidly consumes his grey health to restore 60 – 100 (based on level)% of the amount, healing for 10% of his maximum health every 0.264.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "While Thick Skin is not on cooldown, and after 4 seconds without taking damage, Tahm Kench rapidly consumes his grey health to restore 60 – 100 (based on level)% of the amount, healing for 10% of his maximum health every 0.264.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                60,
+                62.3529411764706,
+                64.7058823529412,
+                67.0588235294118,
+                69.4117647058823,
+                71.7647058823529,
+                74.1176470588235,
+                76.4705882352941,
+                78.8235294117647,
+                81.1764705882353,
+                83.5294117647059,
+                85.8823529411765,
+                88.2352941176471,
+                90.5882352941177,
+                92.9411764705882,
+                95.2941176470588,
+                97.6470588235294,
+                100,
+                102.353,
+                104.706
+              ],
+              "past18": "game files"
+            },
+            "context": "While Thick Skin is not on cooldown, and after 4 seconds without taking damage, Tahm Kench rapidly consumes his grey health to restore 60 – 100 (based on level)% of the amount, healing for 10% of his maximum health every 0.264."
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Tahm Kench converts his current grey health into a shield that lasts for 2.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Tahm Kench converts his current grey health into a shield that lasts for 2.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Thick Skin shield value and grey health percentage heal are both boosted by effects that increase heal and shield power. This means Tahm Kench can technically heal more than the normal amount of grey health and get a shield bigger than his maximum health.\n  - At level 18 Tahm Kench would need 53.8461538462% heal power to heal for 100% of the damage he takes, reduced to 34.8601398601% with Revitalize, 23.0769230769% with Spirit Visage, and 6.88811188811% with both.",
+      "Grey health converts all post-mitigation damage, Thick Skin effectively grants Tahm Kench a form of true damage mitigation.",
+      "Grey health can temporarily exceed 100% of his missing health when Tahm Kench heals through other means with a grey health bar at 100%. In that case he will keep the higher grey health value for a few moments until it updates and removes the amount that he healed."
+    ]
+  },
+  {
+    "champion": "TahmKench",
+    "kind": "I",
+    "name": "An Acquired Taste",
+    "page": {
+      "title": "Template:Data Tahm Kench/An Acquired Taste",
+      "revid": 4008458
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Tahm Kench's basic attacks on-hit and Tongue Lash are empowered to deal 5 – 60 (based on level) (+ 1.25% AP per 100 bonus health) (+ 4% of his bonus health) bonus magic damage and apply a stack of An Acquired Taste against enemy champions for 5 seconds, refreshing on subsequent hits and stacking up to 3 times. Stacks expire one by one every 0.67 seconds when the duration ends.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Tahm Kench's basic attacks on-hit and Tongue Lash are empowered to deal 5 – 60 (based on level) (+ 1.25% AP per 100 bonus health) (+ 4% of his bonus health) bonus magic damage and apply a stack of An Acquired Taste against enemy champions for 5 seconds, refreshing on subsequent hits and stacking up to 3 times.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                10,
+                15,
+                20,
+                25,
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "context": "Innate: Tahm Kench's basic attacks on-hit and Tongue Lash are empowered to deal 5 – 60 (based on level) (+ 1.25% AP per 100 bonus health) (+ 4% of his bonus health) bonus magic damage and apply a stack of An Acquired Taste against enemy champions for 5 seconds, refreshing on subsequent hits and stacking up to 3 times."
+          }
+        ]
+      },
+      {
+        "text": "Tongue Lash and Devour gain additional effects against enemies with 3 stacks, consuming them all.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The passive bonus damage applies to turrets.",
+      "When An Acquired Taste is applied by Tongue Lash, the damage is dealt as an additional instance of damage (as opposed to bonus damage when applied by basic attacks).\n  - This causes effects like Bone Plating and Bloodletter's Curse Vile Decay to be applied twice."
+    ]
+  },
+  {
+    "champion": "TahmKench",
+    "kind": "Q",
+    "name": "Tongue Lash",
+    "page": {
+      "title": "Template:Data Tahm Kench/Tongue Lash",
+      "revid": 4078270
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6.5 / 6 / 5.5 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6.5,
+                6,
+                5.5,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 46 / 42 / 38 / 34",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                46,
+                42,
+                38,
+                34
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Increased by size modifiers"
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2800
+            },
+            "label": "Increased by size modifiers"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Tahm Kench lashes his tongue in the target direction that deals magic damage to the first enemy hit and slows them by 50% for 2 seconds. If this hits an enemy champion, Tahm Kench also heals himself.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 120 / 165 / 210 / 255 (+ 100% AP) + [ An Acquired Taste 5 – 60 (based on level) (+ 1.25% AP per 100 bonus health) (+ 4% bonus health) ]",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  120,
+                  165,
+                  210,
+                  255
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                },
+                {
+                  "stat": "other:ap per 100 bonus health",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1.25
+                  },
+                  "text": "(+ 1.25% AP per 100 bonus health)"
+                },
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% bonus health)"
+                }
+              ],
+              "unparsed": "+ [ An Acquired Taste 5 – 60 (based on level) ]"
+            }
+          },
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 (+ 5 / 5.5 / 6 / 6.5 / 7% of missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "missingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      5,
+                      5.5,
+                      6,
+                      6.5,
+                      7
+                    ]
+                  },
+                  "text": "(+ 5 / 5.5 / 6 / 6.5 / 7% of missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "Active: Tahm Kench lashes his tongue in the target direction that deals magic damage to the first enemy hit and slows them by 50% for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "If this hits an enemy champion, Tahm Kench also heals himself.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "An Acquired Taste Bonus",
+        "text": "An Acquired Taste Bonus: The target is stunned for 1.5 seconds. Devour can be cast during Tongue Lash at no cost to pull the target to Tahm Kench before swallowing them.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "An Acquired Taste Bonus: The target is stunned for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Tahm Kench is unable to move, attack, or cast Abyssal Dive or Devour on a different target while his tongue is in flight. Tongue Lash's range and travel speed can be increased by Tahm Kench's size.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Tahm Kench is unable to move, attack, or cast Abyssal Dive or Devour on a different target while his tongue is in flight.",
+            "conditional": false
+          },
+          {
+            "type": "size change",
+            "category": "other",
+            "wording": "size",
+            "evidence": "Tongue Lash's range and travel speed can be increased by Tahm Kench's size.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Tongue Lash's range and speed scale 1:1 alongside any size modifiers to Tahm Kench, but will not be reduced below their base values if his overall size modifier is smaller than 100%.\n  - As the missile range and speed scale simultaneously, Tongue Lash will always take 0.33 to reach its maximum range (no matter the cast range).\n  - Because of this, increasing Tahm Kench's size with items such as Elixir of Iron allows him to hit targets at even the same distance more quickly and giving them less time to dodge.",
+      "Devour can be 'queued' at any point during Tongue Lash (including the wind-up animation) and will not go on cooldown if Tahm Kench fails to hit a valid target with Tongue Lash.",
+      "All three An Acquired Taste stacks will be consumed even if Tongue Lash's stun is negated.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "TahmKench",
+    "kind": "R",
+    "name": "Devour",
+    "page": {
+      "title": "Template:Data Tahm Kench/Devour",
+      "revid": 4063964
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "starts post-effect, but time spent active will be reduced by current cooldown afterwards",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Enemies",
+        "Allies"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Tahm Kench abducts the target champion, pulling them to him over the cast time and then swallowing them to carry them in his belly for up to 3 seconds. While inside, the target is attached to Tahm Kench and is rendered untargetable and displacement immune. Devour can only be cast on enemies with 3 stacks of An Acquired Taste.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attach",
+            "category": "movement",
+            "wording": "attached",
+            "evidence": "While inside, the target is attached to Tahm Kench and is rendered untargetable and displacement immune.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "While inside, the target is attached to Tahm Kench and is rendered untargetable and displacement immune.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immune",
+            "evidence": "While inside, the target is attached to Tahm Kench and is rendered untargetable and displacement immune.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "pulling them",
+            "tip": "See notes"
+          }
+        ]
+      },
+      {
+        "text": "If the target is an ally, they become unable to act and are granted a shield, which decays in strength by 50 every 0.25 seconds after they are Regurgitated. Tahm Kench will also gain 60% bonus movement speed for 3 seconds and is unable to cast movement spells besides Abyssal Dive while an ally is inside of his belly.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "650 / 800 / 950 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  650,
+                  800,
+                  950
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "If the target is an ally, they become unable to act and are granted a shield, which decays in strength by 50 every 0.25 seconds after they are Regurgitated.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "If the target is an ally, they become unable to act and are granted a shield, which decays in strength by 50 every 0.25 seconds after they are Regurgitated.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After 1 second, Tahm Kench can cast Regurgitate while a target is inside of his belly, and automatically does so after the duration. The swallowed ally can also input a movement command to force Tahm Kench to cast Regurgitate in a target direction of their choice, unless they are immobilized.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "input a movement command",
+            "tip": "RMB"
+          }
+        ]
+      },
+      {
+        "label": "An Acquired Taste Bonus",
+        "text": "An Acquired Taste Bonus: The target is suppressed during Devour's cast time and while attached. Tahm Kench will also be grounded and slowed by 40% under those same conditions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "suppression",
+            "category": "control",
+            "wording": "suppressed",
+            "evidence": "An Acquired Taste Bonus: The target is suppressed during Devour's cast time and while attached.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Tahm Kench will also be grounded and slowed by 40% under those same conditions.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Tahm Kench will also be grounded and slowed by 40% under those same conditions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Tahm Kench is performing Abyssal Dive, Regurgitate will not automatically cast until after he finishes Abyssal Dive effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Devour's initial pull is a non-airborne displacement that displaces the target toward Tahm Kench over the ability's cast time.\n  - This is also the same displacement that is used for when Devour is cast with Tongue Lash, though with a greater pull distance as well as faster pull speed to account for Devour's short cast time.\n  - The target will blink to Tahm Kench's location at the end of this displacement, including if it is interrupted.",
+      "The untargetability and displacement immunity is granted to the target during Devour's cast time as well.",
+      "Against enemies, Devour's pull from abducting the target depends on the application of the suppression; if the suppression is not applied, neither is the pull. Similarly, if the suppression is removed, the displacement from the pull plus the untargetability and displacement immunity are instantly stopped.\n  - The attachment also depends upon the occurrence of the pull; if the target is not pulled, they are not attached to Tahm Kench and the swallow fails, cancelling the ability entirely.\n  - If the target resists the suppression by being immune to crowd control, displacement immune, or having a spell shield, Tahm Kench will not pull the target towards him.\n  - If the suppression was removed while the target is attached to Tahm Kench (in other words, inside of his belly), the target will detach themselves from him instantly without Tahm Kench performing Regurgitate.",
+      "Devour's suppression against enemies is removed if Tahm Kench dies, enters resurrection, or transitions in or out of the Death Realm.",
+      "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest trigger after Devour's suppression ends or after Regurgitate displacement, if Regurgitate is cast.",
+      "Enemies will be dealt Regurgitate damage regardless of Tahm Kench casting the ability if Devour's suppression ends by any means other than dismounting (including during Devour's cast time).",
+      "If the target enters resurrection, or they are a Mordekaiser that transitions into a different dimension from Tahm Kench, he will Regurgitate them automatically.",
+      "Devour cannot be used on allies that are channeling or using an ability that preloads UnstoppableForceMarker.",
+      "The self-slow is affected by slow resist.",
+      "Tahm Kench cannot use gates during Devour.",
+      "Allies can see if this spell is ready next to Tahm Kench's health bar.",
+      "The swallowed target is not considered to be vanished. They are instead hidden below the visible map plane, to maintain ongoing effects such as Curse of the Black Mist.",
+      "During Devour's attachment and Regurgitate displacement, the swallowed target's camera is locked and centered on their champion.\n  - This does not affect Tahm Kench.",
+      "Devour's self ground can be cleansed by R.",
+      "The following table refers for interactions while the target is unable to act:"
+    ]
+  },
+  {
+    "champion": "TahmKench",
+    "kind": "R",
+    "name": "Regurgitate",
+    "page": {
+      "title": "Template:Data Tahm Kench/Regurgitate",
+      "revid": 4013502
+    },
+    "ranks": 3,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Tahm Kench detaches the swallowed champion from himself and spits them out in the target direction. If they are an enemy, he deals magic damage to them at the end of the displacement.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 250 / 400 (+ 15% (+ 7% per 100 AP) of the target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  250,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% (+ 7% per 100 AP) of the target's maximum health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:AP",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 7
+                      },
+                      "text": "(+ 7% per 100 AP)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "spits",
+            "evidence": "Active: Tahm Kench detaches the swallowed champion from himself and spits them out in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Tahm Kench is unable to act for 0.4 seconds after casting Regurgitate. If Regurgitate was cast automatically, Tahm Kench spits the target out in his facing direction.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Tahm Kench is unable to act for 0.4 seconds after casting Regurgitate.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The displacement from spitting the target out also uniquely counts as the enemy's dash.",
+      "The target will face in the direction of Regurgitate's cast for the duration of the displacement.",
+      "The target will blink to Tahm Kench's location at the start of Regurgitate's cast time.",
+      "Regurgitate will also automatically cast if the target is affected by Fate's Call or enters resurrection."
+    ]
+  },
+  {
+    "champion": "TahmKench",
+    "kind": "W",
+    "name": "Abyssal Dive",
+    "page": {
+      "title": "Template:Data Tahm Kench/Abyssal Dive",
+      "revid": 4020963
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "21 / 20 / 19 / 18 / 17",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                21,
+                20,
+                19,
+                18,
+                17
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60 / 75 / 90 / 105 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                75,
+                90,
+                105,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1000 / 1050 / 1100 / 1150 / 1200",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                1000,
+                1050,
+                1100,
+                1150,
+                1200
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "275 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Emerging effects radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Sight radius of target location during channel"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Tahm Kench channels for 1.35 seconds as he dives into the waters to emerge at the target location, granting sight of the area during the channel.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 1.35
+            },
+            "evidence": "Active: Tahm Kench channels for 1.35 seconds as he dives into the waters to emerge at the target location, granting sight of the area during the channel.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Tahm Kench channels for 1.35 seconds as he dives into the waters to emerge at the target location, granting sight of the area during the channel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon completion of the channel, Tahm Kench blinks to the target location after a 0.15-second delay, dealing magic damage to nearby enemies and knocking them up and stunning them for 1 second. If at least one enemy champion is hit, 40% of Abyssal Dive's mana cost as well as a percentage of its cooldown are refunded.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 135 / 170 / 205 / 240 (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  135,
+                  170,
+                  205,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Cooldown Refund",
+            "amount": {
+              "text": "40 / 42.5 / 45 / 47.5 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  42.5,
+                  45,
+                  47.5,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Upon completion of the channel, Tahm Kench blinks to the target location after a 0.15-second delay, dealing magic damage to nearby enemies and knocking them up and stunning them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Upon completion of the channel, Tahm Kench blinks to the target location after a 0.15-second delay, dealing magic damage to nearby enemies and knocking them up and stunning them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Upon completion of the channel, Tahm Kench blinks to the target location after a 0.15-second delay, dealing magic damage to nearby enemies and knocking them up and stunning them for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies can see the indicator for Tahm Kench's destination after he has channeled for 0.75 seconds, if they have sight of the area. Tahm Kench remains unable to act for 0.65 seconds after the blink.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Enemies can see the indicator for Tahm Kench's destination after he has channeled for 0.75 seconds, if they have sight of the area.",
+            "conditional": true
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Tahm Kench remains unable to act for 0.65 seconds after the blink.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Tahm Kench is vanished (but does not become untargetable) during the 0.15 seconds delay.",
+      "The following table refers for interactions while Tahm Kench is channeling:",
+      "The following table refers for interactions while Tahm Kench is unable to act after the blink:"
+    ]
+  }
+]

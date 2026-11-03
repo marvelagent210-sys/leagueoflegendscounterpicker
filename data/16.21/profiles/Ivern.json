@@ -1,0 +1,270 @@
+{
+  "champion": "Ivern",
+  "name": "Ivern",
+  "gameplayRadius": 70,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "ivern",
+      "formName": "Ivern",
+      "range": 475,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 1.07458,
+      "attackDamage": 108.995,
+      "windup": 0.186118,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ivern",
+      "kind": "E",
+      "name": "Triggerseed",
+      "page": {
+        "title": "Template:Data Ivern/Triggerseed",
+        "revid": 3994759
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ivern/Triggerseed",
+              "revid": 3994759,
+              "quote": "After 2 seconds, the seed explodes to deal magic damage to nearby enemies and slow them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Ivern/Triggerseed",
+              "revid": 3994759,
+              "quote": "Active: Ivern places a seed on the target allied champion, Daisy, or himself, granting the target a shield for 2 seconds."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 7,
+      "castTime": 0,
+      "range": 750
+    },
+    {
+      "champion": "Ivern",
+      "kind": "I",
+      "name": "Friend of the Forest",
+      "page": {
+        "title": "Template:Data Ivern/Friend of the Forest",
+        "revid": 4038386
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Ivern must be within 275 units of the large monster of the targeted camp to start channeling or collect a grove. The large monsters also must be visible.",
+        "Friend of the Forest can be used while Ivern or the camp is in combat and, once the grove is placed, Smite can be used to instantly claim the camp. Interrupting Ivern's channel is the only way to contest jungle camps, short of killing the camp during the channel time.",
+        "The following table refers for interactions while Ivern is channeling:\n  - Ivern is unable to act during the first 0.15 and last 0.5 seconds of the channel."
+      ]
+    },
+    {
+      "champion": "Ivern",
+      "kind": "Q",
+      "name": "Rootcaller",
+      "page": {
+        "title": "Template:Data Ivern/Rootcaller",
+        "revid": 4009163
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Ivern/Rootcaller",
+              "revid": 4009163,
+              "quote": "Active: Ivern throws a vine in the target direction, dealing magic damage to the first enemy hit and rooting them for a duration, during which they are also revealed."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted; (when clicking a rooted target)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when clicking a rooted target)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1200,
+      "speed": 1300,
+      "notes": [
+        "Daisy dashes to rooted monsters, and enemy champions if within 1200 units when Rootcaller hits.\n  - She does not dash to enemy minions.\n  - Daisy can not dash if she is more than 1200 units from the target hit. She will not dash even if she later walks in range.\n  - Regardless of Daisy's and Ivern's distance from the target hit, Ivern dashing does not affect Daisy in any way.",
+        "Ivern's pull/attack range is determined when he dashes to the target - not from when he initially casts Rootcaller and throws the vine.",
+        "When using an attack order to dash to a target further than 475 units, Ivern may stop at his attack range (475 units).\n  - If he is closer than his attack range from them, Ivern will dash to 425 units away from it instead.\n    - Attack range bonuses affect the offset from the target at a 1:1 ratio.\n    - Ivern will never dash closer than his current distance from the target in this case.",
+        "Rootcaller's dash is disabled while the user is grounded or rooted when targeting via either means (applies to Ivern and his allies).",
+        "Rootcaller's dash does not follow targets, their position at the time of starting the dash is the relative range Ivern and his allies will stop at."
+      ]
+    },
+    {
+      "champion": "Ivern",
+      "kind": "R",
+      "name": "Daisy!",
+      "page": {
+        "title": "Template:Data Ivern/Daisy!",
+        "revid": 3976509
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "location"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            }
+          ],
+          "variant": "knock up"
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 120,
+      "castTime": 0.5,
+      "usableWhileDisabled": {
+        "which": "cast",
+        "evidence": [
+          {
+            "page": "Template:Data Ivern/Daisy!",
+            "revid": 3976509,
+            "quote": "can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "Daisy, when the ability is initially cast, is untargetable until she lands.",
+        "Recasting Daisy! does not interrupt Recall channel."
+      ]
+    },
+    {
+      "champion": "Ivern",
+      "kind": "W",
+      "name": "Brushmaker",
+      "page": {
+        "title": "Template:Data Ivern/Brushmaker",
+        "revid": 4067542
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 20,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 3500
+    }
+  ]
+}

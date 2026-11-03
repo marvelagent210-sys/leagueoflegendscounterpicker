@@ -1,0 +1,1020 @@
+[
+  {
+    "champion": "Renata",
+    "kind": "E",
+    "name": "Loyalty Program",
+    "page": {
+      "title": "Template:Data Renata Glasc/Loyalty Program",
+      "revid": 4053301
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 80 / 90 / 100 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "325 • 225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Initial hit radius around Renata"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Missile explosion radius upon arriving at the target location"
+          }
+        ]
+      },
+      "width": {
+        "text": "220",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 220
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1450
+            },
+            "label": "Missile speed, spawns up-to 200 units closer to the cast location already"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Renata sends out chemtech rockets from either side of her that instantly strike targets around her. After 0.429 they converge and travel to the target location as a single missile, striking targets along its path and exploding upon reaching the target location.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Renata and allies struck are granted a shield for 3 seconds and enemies struck are dealt magic damage and slowed by 30% for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "65 / 95 / 125 / 155 / 185 (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  95,
+                  125,
+                  155,
+                  185
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "50 / 65 / 80 / 95 / 110 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  65,
+                  80,
+                  95,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Renata and allies struck are granted a shield for 3 seconds and enemies struck are dealt magic damage and slowed by 30% for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 30
+            },
+            "evidence": "Renata and allies struck are granted a shield for 3 seconds and enemies struck are dealt magic damage and slowed by 30% for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block either the rockets while they are in-flight or their explosion.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Renata",
+    "kind": "I",
+    "name": "Leverage",
+    "page": {
+      "title": "Template:Data Renata Glasc/Leverage",
+      "revid": 3997432
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "special",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Renata's basic attacks are empowered to apply a mark that lasts 6 seconds, refreshes on subsequent hits and expires when attacking a new enemy. If the enemy was unmarked, the attack also deals bonus magic damage equal to 1 – 2 (based on level)% (+ 2% per 100 AP) of the target's maximum health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1,
+                1.125,
+                1.25,
+                1.375,
+                1.5,
+                1.625,
+                1.75,
+                1.875,
+                2
+              ]
+            },
+            "context": "If the enemy was unmarked, the attack also deals bonus magic damage equal to 1 – 2 (based on level)% (+ 2% per 100 AP) of the target's maximum health."
+          }
+        ]
+      },
+      {
+        "text": "Allied champions' damaging attacks and abilities against a marked target will consume the mark to deal additional bonus magic damage equal to 1 – 2 (based on level)% (+ 2% per 100 AP) of the target's maximum health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1,
+                1.125,
+                1.25,
+                1.375,
+                1.5,
+                1.625,
+                1.75,
+                1.875,
+                2
+              ]
+            },
+            "context": "Allied champions' damaging attacks and abilities against a marked target will consume the mark to deal additional bonus magic damage equal to 1 – 2 (based on level)% (+ 2% per 100 AP) of the target's maximum health."
+          }
+        ]
+      },
+      {
+        "text": "Leverage's damage is capped at 150 against epic monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will not block the mark's application.\n  - : Interaction with mark consumption",
+      "The mark's consumption by an ally respects enchantment redirection.",
+      "Leverage's mark will be applied even if the attack misses due to blind.",
+      "Interaction between mark application and consumption and parry effects (block, dodge, blind*)."
+    ]
+  },
+  {
+    "champion": "Renata",
+    "kind": "Q",
+    "name": "Handshake",
+    "page": {
+      "title": "Template:Data Renata Glasc/Handshake",
+      "revid": 4053296
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 16
+            }
+          }
+        ]
+      },
+      "cooldownStart": "starts post-effect if an enemy is hit, on-cast if not",
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "900 • 275",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Recast throw range"
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1450
+            },
+            "label": "Missile speed"
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Renata fires a hook in the target direction that deals magic damage to the first enemy hit and roots them for 1 second, during which they are revealed.\n\nIf the root was applied, Renata forms a tether between her and the target for the same duration, causing Renata to become unable to declare attacks and have her movement speed reduced by 30%.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "roots",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Renata fires a hook in the target direction that deals magic damage to the first enemy hit and roots them for 1 second, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Renata fires a hook in the target direction that deals magic damage to the first enemy hit and roots them for 1 second, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "root",
+            "evidence": "If the root was applied, Renata forms a tether between her and the target for the same duration, causing Renata to become unable to declare attacks and have her movement speed reduced by 30%.",
+            "conditional": true
+          },
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "evidence": "If the root was applied, Renata forms a tether between her and the target for the same duration, causing Renata to become unable to declare attacks and have her movement speed reduced by 30%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Handshake can be recast while the tether is active.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Renata breaks the tether to knock the target in the target direction, though not through terrain, dealing the same damage to enemies they pass through. If the thrown target is a champion, all secondary targets hit are stunned for 0.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock",
+            "evidence": "Recast: Renata breaks the tether to knock the target in the target direction, though not through terrain, dealing the same damage to enemies they pass through.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "If the thrown target is a champion, all secondary targets hit are stunned for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies spell damage to the primary target and area damage to secondary targets.",
+      "Handshake's interaction between its tether and root:\n  - If the root is not applied, neither is the tether.\n  - The tether's duration lasts the same as the root duration, even if it is modified by tenacity.\n  - If the root is removed, the tether is as well, but not vice versa.",
+      "Spell shield will block the hook but not the recast's effects as the primary target.\n  - As a secondary target, the recast's effects will be blocked.",
+      "Renata may still move while the hook is in flight.\n  - Her facing direction is locked towards the target direction of the hook.",
+      "While the target is hooked, Renata's facing direction is considered to be in their direction and not in the one she is moving.",
+      "The movement speed reduction stacks additively with other movement speed bonuses.\n  - It is a negative bonus, not a slow, and is thus not reduced by slow resist.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Renata",
+    "kind": "R",
+    "name": "Hostile Takeover",
+    "page": {
+      "title": "Template:Data Renata Glasc/Hostile Takeover",
+      "revid": 4050286
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "150 / 130 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                150,
+                130,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.75
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Range of individual cloud missiles"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1000 • 750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Berserker seek target radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            },
+            "label": "Cloud missiles sight radius, pending for test"
+          }
+        ]
+      },
+      "width": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Individual cloud missiles"
+          }
+        ]
+      },
+      "speed": {
+        "text": "650 - 1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "50 U/s acceleration, pending for test"
+          }
+        ]
+      },
+      "angle": {
+        "text": "14°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 14
+            },
+            "label": "Angle at which the outermost cloud missiles fan out from Renata times two, accurate"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Renata launches a cloud of potent chemicals that travels in the target direction, granting sight of its surroundings. Enemy champions and minions hit become berserk for a duration.",
+        "leveling": [
+          {
+            "label": "Berserk Duration",
+            "amount": {
+              "text": "1.25 / 1.75 / 2.25 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.25,
+                  1.75,
+                  2.25
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Renata launches a cloud of potent chemicals that travels in the target direction, granting sight of its surroundings.",
+            "conditional": false
+          },
+          {
+            "type": "berserk",
+            "category": "control",
+            "wording": "berserk",
+            "evidence": "Enemy champions and minions hit become berserk for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Berserked units gain 100% bonus attack speed and 25% increased size. Within their targeting radius, they prioritize attacking the closest unit by the following categories in descending order:\n# Their allied champions\n# Allied non-champions\n# Allied wards\n# Enemy units (including monsters)",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "size change",
+            "category": "other",
+            "wording": "size",
+            "evidence": "Berserked units gain 100% bonus attack speed and 25% increased size.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      ":See Types of Crowd Control#Berserk for specific details on Berserk.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Typically, any enemies killed that directly result from Berserk are credited to Renata Glasc."
+    ]
+  },
+  {
+    "champion": "Renata",
+    "kind": "W",
+    "name": "Bailout",
+    "page": {
+      "title": "Template:Data Renata Glasc/Bailout",
+      "revid": 3908415
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "28 / 27 / 26 / 25 / 24",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                28,
+                27,
+                26,
+                25,
+                24
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            },
+            "label": "Radius for movement speed towards enemies"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Renata infuses herself or the target allied champion with a chemtech formula for 5 seconds, granting the target bonus attack speed and bonus movement speed while they are facing nearby visible enemy champions or minions, with both of the bonuses increasing in effectiveness by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on seconds elapsed)%. Bailout's duration resets whenever the target scores a takedown against an enemy champion within 6 seconds of damaging them.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30% (+ 1% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 30 / 40 / 50 / 60% (+ 2% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "10 / 12.5 / 15 / 17.5 / 20% (+ 1% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  12.5,
+                  15,
+                  17.5,
+                  20
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40% (+ 2% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Active: Renata infuses herself or the target allied champion with a chemtech formula for 5 seconds, granting the target bonus attack speed and bonus movement speed while they are facing nearby visible enemy champions or minions, with both of the bonuses increasing in effectiveness by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on seconds elapsed)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "seconds elapsed",
+              "points": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2,
+                2.25,
+                2.5,
+                2.75,
+                3,
+                3.25,
+                3.5,
+                3.75,
+                4,
+                4.25,
+                4.5,
+                4.75,
+                5
+              ],
+              "values": [
+                0,
+                5,
+                10,
+                15,
+                20,
+                25,
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            },
+            "context": "Active: Renata infuses herself or the target allied champion with a chemtech formula for 5 seconds, granting the target bonus attack speed and bonus movement speed while they are facing nearby visible enemy champions or minions, with both of the bonuses increasing in effectiveness by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on seconds elapsed)%."
+          }
+        ]
+      },
+      {
+        "text": "If the target takes fatal damage while Bailout is active, they are restored to 100% of their maximum health but suffer a true damage burn equal to 10% of their maximum health every 0.264 until they reach 0 health, during which Bailout's duration is reset every 0.25 seconds. This effect may occur only once per application of Bailout while the target already has the buff and is not burning.\n\nThe burn will stop once the target scores a takedown against an enemy champion within 6 seconds of damaging them, setting their current health to 20% of their maximum health immediately afterwards.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Damage taken in excess of the fatal damage taken does not apply to the target's health after it was restored.",
+      "The self-damage taken is considered raw damage and is calculated based on the target's maximum health at the time of taking lethal damage.",
+      "Bailout's bonuses will not reset in effectiveness if its duration is refreshed.",
+      "Bailout takes priority over all resurrection and zombie state effects.",
+      "Bailout will stop refreshing its duration while the target is burning after 250 seconds have elapsed.",
+      "Bailout cannot be used on clones nor zombie state units.",
+      "If Bailout is cast on a target that is already burning from a previous Bailout cast, they can trigger a subsequent health restore as well as be inflicted with another burn. This may occur an infinite number of times as long as the target stays burning and does not reach 0 health.\n  - Casting Bailout on a target that already has the buff will only refresh the duration (without resetting the bonuses).",
+      "If the target takes fatal damage during Bailout, upon destroying a turret while being targeted by it, they will receive their own Shut-Down gold (specifically ignoring the base bounty) instead of being executed."
+    ]
+  }
+]

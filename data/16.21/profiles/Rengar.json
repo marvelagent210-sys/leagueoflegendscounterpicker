@@ -1,0 +1,290 @@
+{
+  "champion": "Rengar",
+  "name": "Rengar",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "rengar",
+      "formName": "Rengar",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.0605,
+      "attackDamage": 126.995,
+      "windup": 0.188591,
+      "modifiers": [
+        "Unseen Predator"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Rengar",
+      "kind": "E",
+      "name": "Bola Strike",
+      "page": {
+        "title": "Template:Data Rengar/Bola Strike",
+        "revid": 4009137
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Rengar/Bola Strike",
+              "revid": 4009137,
+              "quote": "Active: Rengar throws a bola in the target direction that deals physical damage to the first enemy hit and slows them for 1.75 seconds, as well as revealing them for 2 seconds and granting sight of a 150-unit radius around them for the same duration."
+            }
+          ],
+          "duration": 1.75,
+          "amount": 90
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Rengar/Bola Strike",
+              "revid": 4009137,
+              "quote": "The target is rooted instead of slowed."
+            }
+          ]
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 1500
+    },
+    {
+      "champion": "Rengar",
+      "kind": "I",
+      "name": "Unseen Predator",
+      "page": {
+        "title": "Template:Data Rengar/Unseen Predator",
+        "revid": 4059878
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "grounded": "partly",
+        "knockdown": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "range": 745,
+      "speed": 1450,
+      "boostsAttacks": true,
+      "notes": [
+        "While grounded or rooted, Rengar loses the enhanced attack range from Unseen Predator.",
+        "Rengar can freely use any abilities, summoner spells, or item actives while leaping.\n  - Using a dash or blink ability will interrupt the leap.",
+        "The attack from the leap will:\n  - Not go off if the dash was interrupted.\n  - Not go off if the target becomes untargetable.\n  - Go off at the end of the dash even if its normal destination is obstructed by boundaries he cannot cross (e.g. terrain, The Hextech Ultimatum).\n  - Go off regardless of distance the enemy travels away from Rengar's original location.\n  - Go off even if Rengar loses sight of the target."
+      ]
+    },
+    {
+      "champion": "Rengar",
+      "kind": "Q",
+      "name": "Savagery",
+      "page": {
+        "title": "Template:Data Rengar/Savagery",
+        "revid": 4052789
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Casting Savagery does not break stealth."
+      ]
+    },
+    {
+      "champion": "Rengar",
+      "kind": "R",
+      "name": "Thrill of the Hunt",
+      "page": {
+        "title": "Template:Data Rengar/Thrill of the Hunt",
+        "revid": 4083958
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "grounded": "no",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "camouflage",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(710 unit detection radius); does not use the indicator system mentioned above"
+            },
+            {
+              "page": "Template:Data Rengar/Thrill of the Hunt",
+              "revid": 4083958,
+              "quote": "Passive: Rengar also gains Unseen Predator while camouflaged from any source."
+            }
+          ],
+          "duration": 2,
+          "note": "does not use the indicator system mentioned above",
+          "condition": "(710 unit detection radius)"
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0,
+      "notes": [
+        "The ability applies a mark on the target at the start of attack windup that is successively consumed when the basic attack hits to apply the effect.\n  - If the attack is prevented or blocked (e.g. by knocking down Rengar when leaping) then the effect will not be applied.\n    - The mark will however still linger for a very short period after that, allowing Rengar to consume it with a quick basic attack. [https://github.com/ArdaSenyurek/Rengar-Bugs/issues/108]",
+        "Rengar discerns a distinct heart beat instead of the usual true sight indicator. This indicator will be removed when out of range, but the target will remain revealed."
+      ]
+    },
+    {
+      "champion": "Rengar",
+      "kind": "W",
+      "name": "Battle Roar",
+      "page": {
+        "title": "Template:Data Rengar/Battle Roar",
+        "revid": 4009100
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "airborne",
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Rengar/Battle Roar",
+              "revid": 4009100,
+              "quote": "Active: Rengar roars, dealing magic damage to nearby enemies and 65 – 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0
+    }
+  ]
+}

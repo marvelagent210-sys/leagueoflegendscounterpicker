@@ -1,0 +1,21 @@
+{
+  "statPrices": {
+    "ad": 35,
+    "ap": 20,
+    "as": 25,
+    "crit": 40,
+    "ah": 50,
+    "lethality": 30,
+    "armpen": 41.666667,
+    "mpenflat": 46.666667,
+    "mpen": 46.15,
+    "hp": 2.666667,
+    "armor": 20,
+    "mr": 20
+  },
+  "goldValuesChecked": "V14.21",
+  "source": {
+    "page": "Module:Gold value/data",
+    "revid": 4089674
+  }
+}

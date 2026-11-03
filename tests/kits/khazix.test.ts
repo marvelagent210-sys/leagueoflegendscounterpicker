@@ -32,7 +32,7 @@ const ready = (w: World, key: string) => canCast(w, w.units[0], ability(w, key))
 
 describe("Kha'Zix production scenarios", () => {
   it("uses QWER in default six-scenario 15000-gold fights with reflected builds and scores", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const spec = compiled().spec, opponent = kit("Darius").spec;
     const forward = simulateMatchup(spec, opponent, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(opponent, spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]); expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-12);
@@ -63,9 +63,9 @@ describe("Kha'Zix production scenarios", () => {
 describe("Kha'Zix source guards and legal evolutions", () => {
   it("consumes all nine pinned primary revisions and exact game SHA", () => {
     const c = compiled();
-    expect(new Set(c.evidence.filter((e) => e.revid).map((e) => e.revid))).toEqual(new Set([4072116, 4072117, 4064849, 3994647, 4006997, 3906950, 3969560, 4064850, 3971345]));
+    expect(new Set(c.evidence.filter((e) => e.revid).map((e) => e.revid))).toEqual(new Set([4082657, 4091668, 4064849, 3994647, 4006997, 3906950, 3969560, 4064850, 3971345]));
     const sources = c.evidence.filter((e) => e.url); expect(sources.length).toBeGreaterThanOrEqual(6);
-    expect(sources.every((e) => e.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release" && e.sourceSha256 === "a245ce53e1b2e489ba9b359b3e6be299f28aeade045b9e1914a013cceb2de931")).toBe(true);
+    expect(sources.every((e) => e.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && e.sourceSha256 === "3cec77e3ceda2fb85cb66c82216f66ae68c609b435c9bfb441a1b665138f25c8")).toBe(true);
     expect(records("Khazix").every((r) => r.sources?.some((s) => s.page.revid === r.page.revid && s.text.some((t) => t.includes("|notes"))))).toBe(true);
   });
   it("fails closed when consumed source mechanics disappear", () => {

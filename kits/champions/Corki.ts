@@ -1,4 +1,4 @@
-/** Corki's current (post-Package) maximum-rank kit, pinned to dataset 16.20. */
+/** Corki's current (post-Package) maximum-rank kit, pinned to its dataset. */
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, EPSILON, inAttackRange, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";

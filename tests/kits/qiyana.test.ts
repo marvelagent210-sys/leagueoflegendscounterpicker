@@ -33,7 +33,7 @@ describe("Qiyana reads the wiki at level 20", () => {
   it("Edge of Ixtal, Elemental Wrath, Terrashape, Audacity and Supreme Display of Talent", () => {
     const spec = compiled.spec;
     expect(spec.abilities.find((a) => a.key === "Q")).toMatchObject({ cooldown: 7, castTime: 0.25, delivery: { kind: "line", range: 525, width: 140 } });
-    expect(spec.abilities.find((a) => a.key === "Q")?.onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 200, ratios: { bonusAD: 0.9 } } }]);
+    expect(spec.abilities.find((a) => a.key === "Q")?.onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 190, ratios: { bonusAD: 0.9 } } }]);
     expect(spec.abilities.find((a) => a.key === "QE")).toMatchObject({ cooldownKey: "Q", delivery: { kind: "line", range: 865, width: 200, speed: 1600 } });
     expect(spec.abilities.find((a) => a.key === "W")).toMatchObject({ cooldown: 7, delivery: { kind: "dash", distance: 300, speed: 440 } });
     expect(spec.abilities.find((a) => a.key === "E")).toMatchObject({ cooldown: 7, delivery: { kind: "dash", direction: "target", distance: 650, hitRadius: 250 } });
@@ -85,7 +85,7 @@ describe("Elements", () => {
     onTarget(terrain, { type: "cc", cc: "stun", duration: 1 });
     cast(terrain, "QE");
     wait(terrain, 1);
-    expect(logged(terrain, "Elemental Wrath deals 320 physical")).toHaveLength(1);
+    expect(logged(terrain, "Elemental Wrath deals 304 physical")).toHaveLength(1);
   });
 });
 

@@ -42,7 +42,7 @@ function burst(value: World, pet: Pet, targetX = pet.x): number {
 
 // These production tests intentionally retain the full budget, scenario set and tolerance.
 describe("Maokai production", () => {
-  const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+  const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
   it("reflects exact 15000-gold builds and all six Darius scenarios", () => {
     const forward = simulateMatchup(compiled.spec, kit("Darius").spec, 15000, prices, { settings: { log: true } });
     const reverse = simulateMatchup(kit("Darius").spec, compiled.spec, 15000, prices);
@@ -68,12 +68,12 @@ describe("Maokai production", () => {
 
 describe("Maokai mechanics: pinned sources", () => {
   it("retains all five primary revisions, full raw, pet article and exact binary attribution", () => {
-    const data = records("Maokai"); expect(data.map(row => row.page.revid).sort()).toEqual([3681487, 3946300, 4007687, 4038409, 4046583]);
+    const data = records("Maokai"); expect(data.map(row => row.page.revid).sort()).toEqual([3681487, 3946300, 4038409, 4046583, 4091923]);
     expect(data.every(row => row.sources?.some(source => source.page.revid === row.page.revid && source.text.some(text => text.includes("|champion") && text.includes("|notes"))))).toBe(true);
     expect(pets("Maokai")[0]!.page.revid).toBe(4067454); expect(pets("Maokai")[0]!.text.sourceNotes).toContain("== Pets ==");
     expect(data.find(row => row.kind === "E")!.notes.join(" ")).toContain("50*2/3 to 150*2/3");
     const binary = compiled.evidence.filter(row => row.url); expect(binary.length).toBeGreaterThan(5);
-    for (const row of binary) expect(row).toMatchObject({ url: "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json", sourceVersion: "16.20.8248524+branch.releases-16-20.content.release", sourceSha256: "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229" });
+    for (const row of binary) expect(row).toMatchObject({ url: "https://raw.communitydragon.org/16.21/game/data/characters/maokai/maokai.bin.json", sourceVersion: "16.21.8342754+branch.releases-16-21.content.release", sourceSha256: "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229" });
     expect(compiled.assumptions.join(" ")).toContain("central one of five lateral brambles"); expect(compiled.assumptions.join(" ")).toContain("550"); expect(compiled.variants).toEqual([]);
   });
   it("fails closed on missing exact binary movement or incomplete attribution", () => {
@@ -84,7 +84,7 @@ describe("Maokai mechanics: pinned sources", () => {
   });
   it("reads formulas during build without changing the parsed primary", () => {
     const data = records("Maokai"), before = structuredClone(data); compile(data); expect(data).toEqual(before);
-    const row = data.find(row => row.kind === "E")!; expect(row.parts[2]!.leveling[0]!.amount.base).toMatchObject({ values: [33.3333333333333, 49.99999999999997, 66.66666666666666, 83.33333333333333, 100] });
+    const row = data.find(row => row.kind === "E")!; expect(row.parts.flatMap(part => part.leveling).find(level => level.label === "Magic Damage per Instance")!.amount.base).toMatchObject({ values: [33.3333333333333, 49.99999999999997, 66.66666666666666, 83.33333333333333, 100] });
   });
 });
 

@@ -1,4 +1,4 @@
-/** Caitlyn: pinned 16.20 attack overrides, physical projectiles and finite traps. */
+/** Caitlyn: pinned attack overrides, physical projectiles and finite traps. */
 import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, heldUntil, attackTiming, inReach } from "../../engine/sim/actions";
@@ -17,7 +17,7 @@ const caitlyn: KitModule = {
     const p = kit.ability("I"), q = kit.ability("Q"), w = kit.ability("W"), e = kit.ability("E"), r = kit.ability("R");
     const maximum = p.quoted("At 5 stacks"), headshot = p.levelValue("Headshot: Caitlyn's basic attack");
     const nonChampion = p.quoted("increased to 110%");
-    const criticalBonus = p.quoted("{{critical damage|0 to 100|critScaling=true}}", 1) / 100;
+    const criticalBonus = p.quoted("{{critical damage|0 to 80|critScaling=true}}", 1) / 100;
     const extended = p.quoted("at 1300 range"), markSeconds = p.quoted("within 1.8 seconds");
     const headshotSpeed = p.field("speed");
     p.quote("Only the ordinary 100% attack damage portion of the attack can critically strike");
@@ -30,7 +30,7 @@ const caitlyn: KitModule = {
     const trapSeconds = w.number("Trap Duration"), trapMaximum = w.number("Maximum Number of Traps");
     const rootSeconds = w.quoted("rooted for 1.5 seconds"), revealSeconds = w.quoted("revealed for 3 seconds");
     const immunitySeconds = w.quoted("immune to further Yordle Snap Traps for 3 seconds");
-    w.quote("they can still be trap in other place if walk in by themselves");
+    w.quote("preventing them from springing subsequent traps for the duration");
     const netDistance = e.quoted("recoils 390 units"), netSlow = e.quoted("slows them by 50%") / 100, netSeconds = e.quoted("for 1 second");
     const netSpeed = e.field("speed", "Dash speed"), eRange = e.fieldValues("range")[0]!, wRange = w.field("targetRange");
     e.quote("will not recoil after the cast time if she was immobilized or grounded during it");
@@ -95,7 +95,7 @@ const caitlyn: KitModule = {
       return ordinary;
     };
     kit.assume("Headshot starts at zero Count stacks, with no brush on the duel axis. Trap and net independently grant one target-specific 1.8-second Headshot; they preserve Count, still generate one Count stack, and take priority over a ready ordinary Headshot. Their range is 1300, including during the recoil. Headshot is one life-stealing physical packet with only its ordinary AD portion critically striking.");
-    kit.assume("The pinned attack-cooldown refund is explicitly pending for test: this model uses its stated 50% period refund capped to allow an attack within 0.5 seconds of the preceding windup completion. Same-location traps respect the pinned three-second immunity; the note explicitly permits trapping at another location. Initial traps are not provided for free; the policy prefers trapping enemies already held through the one-second arm delay.");
+    kit.assume("The pinned attack-cooldown refund is explicitly pending for test: this model uses its stated 50% period refund capped to allow an attack within 0.5 seconds of the preceding windup completion. A champion that springs a trap can't spring another, anywhere, for the three seconds of immunity that follow, as the trap's description says (26.21; the note that let another location's trap catch them is gone). Initial traps are not provided for free; the policy prefers trapping enemies already held through the one-second arm delay.");
     kit.assume("Piltover Peacemaker uses its 1300-unit targeting/missile range and initial/expanded widths. The first enemy pet or champion consumes full damage even through a spell shield; later enemies take the reduced packet unless still revealed by a trap. Its pinned attack-reset behavior is retained. Net uses its 800-unit range and 140-unit effect diameter; its cast-time suppression failure and recoil cancellation after immobilization are separate. Recoil crosses intervening terrain when its endpoint is clear; an endpoint inside terrain clips to the near edge without extending the dash, a conservative one-dimensional geometry assumption.");
     kit.assume("Ace in the Hole has its 0.375-second cast, one-second immobile channel and homing shot. Target true sight begins at declaration, ends one second after contact/cancel, and expires after four seconds if a projectile is destroyed. There are no other allied champions to intercept its shot. Ordinary self-reveal has no extra effect in the no-fog duel. The policy saves R for a predicted lethal hit.");
     kit.assume("The budget estimates one ordinary Headshot per six continuous attacks average Q damage per cooldown and one Ace in the Hole shot per cooldown plus cast time. It omits conditional net/trap Headshots rather than assuming every telegraphed control hits; actual fights retain charges, mana, interruptions and defenses.");
@@ -107,7 +107,7 @@ const caitlyn: KitModule = {
         onStart(ctx) { ctx.memory.caitlynCount = 0; ctx.memory.caitlynTick = ctx.tick; },
         onTick(ctx) {
           ctx.memory.caitlynTick = ctx.tick;
-          for (const zone of ctx.world.zones) if (zone.owner === ctx.self.side && zone.ability === "W" && zone.kind === "trap" && ctx.tick < Number(ctx.memory.caitlynTrapImmuneUntil ?? -1) && Math.abs(zone.x - Number(ctx.memory.caitlynTrapImmuneX)) < 1e-6) zone.startTick = Math.max(zone.startTick, Number(ctx.memory.caitlynTrapImmuneUntil));
+          for (const zone of ctx.world.zones) if (zone.owner === ctx.self.side && zone.ability === "W" && zone.kind === "trap" && ctx.tick < Number(ctx.memory.caitlynTrapImmuneUntil ?? -1)) zone.startTick = Math.max(zone.startTick, Number(ctx.memory.caitlynTrapImmuneUntil));
           const action = ctx.self.action;
           if (action?.kind !== "channel" || action.ability !== "R") return;
           if (!ctx.enemy.alive || isUntargetable(ctx.enemy, ctx.self) || ctx.self.resurrection) { cancelChannel(ctx); return; }
@@ -152,7 +152,7 @@ const caitlyn: KitModule = {
         },
         onAbilityHit(ctx) { if (ctx.ability.key === "W") grant(ctx, TRAP); else if (ctx.ability.key === "E") grant(ctx, NET); },
         onDamageDealt(ctx) { if (ctx.amount + ctx.absorbed > 0 && ctx.ability === q.name) ctx.self.attackReadyTick = ctx.tick; },
-        onZoneTrigger(ctx) { if (ctx.zone.ability === "W") { ctx.memory.caitlynTrapImmuneX = ctx.zone.x; ctx.memory.caitlynTrapImmuneUntil = ctx.tick + ticks(immunitySeconds); } },
+        onZoneTrigger(ctx) { if (ctx.zone.ability === "W") ctx.memory.caitlynTrapImmuneUntil = ctx.tick + ticks(immunitySeconds); },
         onMissileMove(ctx) {
           if (ctx.missile.source === "Q") for (const pet of ctx.world.pets) if (pet.owner !== ctx.self.side && Math.abs(pet.x - ctx.missile.x) <= pet.spec.radius + (ctx.missile.radius ?? 0) + 1e-6) ctx.memory[`caitlynQBefore:${pet.id}`] = pet.hp;
         },

@@ -15,7 +15,7 @@ import akshan from "../../kits/champions/Akshan";
 import { fighter } from "../sim/kits";
 import { idle, lasting } from "../sim/helpers";
 
-const directory = new URL("../../data/16.20/", import.meta.url);
+const directory = new URL("../../data/16.21/", import.meta.url);
 const champion = (JSON.parse(readFileSync(new URL("champions.json", directory), "utf8")) as ChampionDataset).champions.find((c) => c.id === "Akshan")!;
 const records = () => JSON.parse(readFileSync(new URL("abilities/Akshan.json", directory), "utf8")) as AbilityRecord[];
 const compiled = () => compileKit(champion, records(), akshan);
@@ -42,7 +42,7 @@ describe("Akshan pinned sources and level-20 passive", () => {
     const kit = compiled(); expect(kit.spec.abilities).toHaveLength(13);
     const source = kit.evidence.filter((e) => e.url);
     expect(source.length).toBeGreaterThan(5);
-    expect(source.every((e) => e.sourceSha256 === "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128" && e.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release")).toBe(true);
+    expect(source.every((e) => e.sourceSha256 === "77b84cb5704216da776043377804a9990256d8eae1329d7617cebaa8735d8759" && e.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release")).toBe(true);
   });
   it("fails closed when a consumed rule or pinned numeric excerpt changes", () => {
     const changed = records(); changed.find((a) => a.kind === "I")!.notes = [];

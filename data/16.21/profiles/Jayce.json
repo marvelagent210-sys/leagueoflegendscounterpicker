@@ -1,0 +1,348 @@
+{
+  "champion": "Jayce",
+  "name": "Jayce",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "jayce",
+      "formName": "Jayce",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.04619,
+      "attackDamage": 142.576,
+      "windup": 0.144109,
+      "modifiers": []
+    },
+    {
+      "form": "jayce-cannon-stance",
+      "formName": "Cannon Stance",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "attackSpeed": 1.04619,
+      "attackDamage": 142.576,
+      "windup": 0.144109,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Jayce",
+      "kind": "E",
+      "name": "Acceleration Gate",
+      "page": {
+        "title": "Template:Data Jayce/Acceleration Gate",
+        "revid": 4005101
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0,
+      "range": 650
+    },
+    {
+      "champion": "Jayce",
+      "kind": "E",
+      "name": "Thundering Blow",
+      "page": {
+        "title": "Template:Data Jayce/Thundering Blow",
+        "revid": 3965179
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Jayce/Thundering Blow",
+              "revid": 3965179,
+              "quote": "Active: Jayce roots the target enemy over the cast time, then swings his hammer at them to deal magic damage, capped against monsters, and knock them back 600 units."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Jayce/Thundering Blow",
+              "revid": 3965179,
+              "quote": "Active: Jayce roots the target enemy over the cast time, then swings his hammer at them to deal magic damage, capped against monsters, and knock them back 600 units."
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 240,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Jayce",
+      "kind": "I",
+      "name": "Hextech Capacitor",
+      "page": {
+        "title": "Template:Data Jayce/Hextech Capacitor",
+        "revid": 4042868
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Jayce",
+      "kind": "I",
+      "name": "Hextech Capacitor 2",
+      "page": {
+        "title": "Template:Data Jayce/Hextech Capacitor 2",
+        "revid": 3347927
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Jayce",
+      "kind": "Q",
+      "name": "Shock Blast",
+      "page": {
+        "title": "Template:Data Jayce/Shock Blast",
+        "revid": 4058059
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.2143,
+      "range": 1050,
+      "speed": 1450,
+      "notes": [
+        "Upon touching Acceleration Gate, the enhanced missile gains its remaining range equal to [ 1600 units - travelled distance of the standard missile ].\n  - This means that the range of the enhanced Shock Blast is always the same, regardless of how early or late it interacted with Acceleration Gate.\n  - Supercharging the Shock Blast as soon as possible, however, will improve its average speed significantly.\n    - For this, Jayce must stand inside or very close to the Acceleration Gate, or place it very close to himself right after Shock Blast's cast time.",
+        "Shock Blast's effect radius is centered around the location of the missile as it collides.\n  - Shock Blast will always damage the enemy it collided with, even if it is so large that it is outside the effect radius."
+      ]
+    },
+    {
+      "champion": "Jayce",
+      "kind": "Q",
+      "name": "To the Skies!",
+      "page": {
+        "title": "Template:Data Jayce/To the Skies!",
+        "revid": 4073054
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Jayce/To the Skies!",
+              "revid": 4073054,
+              "quote": "Upon arrival, he smashes his hammer to the ground to deal physical damage to all enemies within an area and slow them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 60
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 600
+    },
+    {
+      "champion": "Jayce",
+      "kind": "R",
+      "name": "Transform Mercury Cannon",
+      "page": {
+        "title": "Template:Data Jayce/Transform Mercury Cannon",
+        "revid": 3989867
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "notes": [
+        "Both Transform on-hit effects have no set duration and will only be consumed when Jayce either lands a basic attack or switches stances.",
+        "The enhanced attack will not be consumed if it is parried (dodge, block, blind, and Riposte)."
+      ]
+    },
+    {
+      "champion": "Jayce",
+      "kind": "R",
+      "name": "Transform Mercury Hammer",
+      "page": {
+        "title": "Template:Data Jayce/Transform Mercury Hammer",
+        "revid": 4065559
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "notes": [
+        "The enhanced attack will not be consumed if it is parried (dodge, block, blind, and Riposte).",
+        "Both Transform on-hit effects have no set duration and will only be consumed when Jayce either lands a basic attack or switches stances."
+      ]
+    },
+    {
+      "champion": "Jayce",
+      "kind": "W",
+      "name": "Hyper Charge",
+      "page": {
+        "title": "Template:Data Jayce/Hyper Charge",
+        "revid": 3965005
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "The last basic attack is checked on-hit rather than on-attack.\n  - If Runaan's Hurricane or Guinsoo's Rageblade hit the target before the basic attack does, the basic attack damage will not be modified."
+      ]
+    },
+    {
+      "champion": "Jayce",
+      "kind": "W",
+      "name": "Lightning Field",
+      "page": {
+        "title": "Template:Data Jayce/Lightning Field",
+        "revid": 3948933
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0
+    }
+  ]
+}

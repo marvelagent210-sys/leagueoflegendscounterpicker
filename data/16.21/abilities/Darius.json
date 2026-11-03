@@ -1,0 +1,963 @@
+[
+  {
+    "champion": "Darius",
+    "kind": "E",
+    "name": "Apprehend",
+    "page": {
+      "title": "Template:Data Darius/Apprehend",
+      "revid": 3906616
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "26 / 23.5 / 21 / 18.5 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                26,
+                23.5,
+                21,
+                18.5,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 60 / 50 / 40 / 30",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                60,
+                50,
+                40,
+                30
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "535",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 535
+            }
+          }
+        ]
+      },
+      "angle": {
+        "text": "50°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Darius gains armor penetration.",
+        "leveling": [
+          {
+            "label": "Armor Penetration",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Darius sweeps his axe in a cone in the target direction, granting sight of the area for 1 second while pulling enemies hit towards him. Upon arrival, they rebound 150 units off of him, remaining airborne and becoming slowed by 40% for 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Darius sweeps his axe in a cone in the target direction, granting sight of the area for 1 second while pulling enemies hit towards him.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulling",
+            "evidence": "Active: Darius sweeps his axe in a cone in the target direction, granting sight of the area for 1 second while pulling enemies hit towards him.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "airborne",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Upon arrival, they rebound 150 units off of him, remaining airborne and becoming slowed by 40% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Upon arrival, they rebound 150 units off of him, remaining airborne and becoming slowed by 40% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "150",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "text": "Darius is unable to move or cast Decimate or Noxian Guillotine for 0.4 seconds after Apprehend's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Enemies hit by Apprehend will quickly be dragged to Darius before rebounding over a longer period.\n  - The slow duration starts as soon as the target rebounds off of Darius.\n  - : The rebound location is determined when the target reaches Darius' location.\n  - The rebound's forced movement's duration is roughly 0.5 seconds, finishing before the airborne duration ends.\n  - : There is no stun applied for the same duration of the airborne, meaning brittle cannot extend the disable duration. It will not increase the slow duration in most situations because of the negative tenacity falling off before the slow is applied.",
+      "After the pull, Darius will attempt to basic attack the closest pulled target, prioritizing enemy champions.",
+      "The armor penetration stacks multiplicatively with other forms of percentage armor penetration.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Darius",
+    "kind": "I",
+    "name": "Hemorrhage",
+    "page": {
+      "title": "Template:Data Darius/Hemorrhage",
+      "revid": 4063939
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "special",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Darius' damaging basic attacks and abilities apply a stack of Hemorrhage to enemies for 5 seconds, refreshing on subsequent applications and stacking up to 5 times.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Hemorrhage",
+        "text": "Hemorrhage: For each stack, the target is dealt 13 – 30 (based on level) (+ 30% bonus AD) total physical damage over the duration, up to a maximum of 65 – 150 (based on level) (+ 150% bonus AD) total physical damage over the duration. Hemorrhage deals 250% damage against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32
+              ],
+              "past18": "wiki"
+            },
+            "context": "Hemorrhage: For each stack, the target is dealt 13 – 30 (based on level) (+ 30% bonus AD) total physical damage over the duration, up to a maximum of 65 – 150 (based on level) (+ 150% bonus AD) total physical damage over the duration."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100,
+                105,
+                110,
+                115,
+                120,
+                125,
+                130,
+                135,
+                140,
+                145,
+                150,
+                155,
+                160
+              ],
+              "past18": "wiki"
+            },
+            "context": "Hemorrhage: For each stack, the target is dealt 13 – 30 (based on level) (+ 30% bonus AD) total physical damage over the duration, up to a maximum of 65 – 150 (based on level) (+ 150% bonus AD) total physical damage over the duration."
+          }
+        ]
+      },
+      {
+        "text": "When Darius kills a champion with Noxian Guillotine, or applies 5 stacks on an enemy champion, he becomes empowered with Noxian Might for 5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Noxian Might",
+        "text": "Noxian Might: Darius gains 30 – 230 (based on level) bonus attack damage and instantly applies 5 Hemorrhage stacks through his usual means.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                85,
+                95,
+                105,
+                130,
+                155,
+                180,
+                205,
+                230,
+                255,
+                280
+              ],
+              "past18": "wiki"
+            },
+            "context": "Noxian Might: Darius gains 30 – 230 (based on level) bonus attack damage and instantly applies 5 Hemorrhage stacks through his usual means."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If Hemorrhage's total post-mitigation damage is higher than the target's current health, a small area of sight is granted around the target for the duration of Hemorrhage and for another 2 seconds after it ends.",
+      "Hemorrhage does not apply to structures nor wards.",
+      "Darius attacks and abilities have to deal damage to apply Hemorrhage.\n  - Hemorrhage cannot be applied to/refreshed against invulnerable targets.\n  - Hemorrhage can be applied to and refreshed against shielded targets.\n  - Hemorrhage can also be applied on-hit, but will specifically not do so if the target is invulnerable.",
+      "Spell shield prevents Hemorrhage's application from abilities only."
+    ]
+  },
+  {
+    "champion": "Darius",
+    "kind": "Q",
+    "name": "Decimate",
+    "page": {
+      "title": "Template:Data Darius/Decimate",
+      "revid": 4088338
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 7.75 / 6.5 / 5.25 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                7.75,
+                6.5,
+                5.25,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "25 / 30 / 35 / 40 / 45",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                25,
+                30,
+                35,
+                40,
+                45
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "460",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 460
+            },
+            "label": "Outer radius"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Darius becomes ghosted for 1 second and hefts his axe for 0.75 seconds, afterward swinging it around himself to deal physical damage to nearby enemies. Enemies within the inner radius take 35% damage.",
+        "leveling": [
+          {
+            "label": "Physical Damage (Blade)",
+            "amount": {
+              "text": "50 / 80 / 110 / 140 / 170 (+ 100 / 110 / 120 / 130 / 140% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  80,
+                  110,
+                  140,
+                  170
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      100,
+                      110,
+                      120,
+                      130,
+                      140
+                    ]
+                  },
+                  "text": "(+ 100 / 110 / 120 / 130 / 140% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage (Handle)",
+            "amount": {
+              "text": "17.5 / 28 / 38.5 / 49 / 59.5 (+ 35 / 38.5 / 42 / 45.5 / 49% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  17.5,
+                  28,
+                  38.5,
+                  49,
+                  59.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      35,
+                      38.5,
+                      42,
+                      45.5,
+                      49
+                    ]
+                  },
+                  "text": "(+ 35 / 38.5 / 42 / 45.5 / 49% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Darius becomes ghosted for 1 second and hefts his axe for 0.75 seconds, afterward swinging it around himself to deal physical damage to nearby enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Against champions and large monsters hit, Darius heals for 17 / 34 / 51 (based on number of targets hit by the outer radius)% of his missing health. Enemies hit by the inner radius do not refresh the duration of or gain a stack of Hemorrhage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Against champions and large monsters hit, Darius heals for 17 / 34 / 51 (based on number of targets hit by the outer radius)% of his missing health.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "number of targets hit by the outer radius",
+              "points": [
+                1,
+                2,
+                "3+"
+              ],
+              "values": [
+                17,
+                34,
+                51
+              ]
+            },
+            "context": "Against champions and large monsters hit, Darius heals for 17 / 34 / 51 (based on number of targets hit by the outer radius)% of his missing health."
+          }
+        ]
+      },
+      {
+        "text": "Darius can move during Decimate, but is unable to declare basic attacks or cast Apprehend or Noxian Guillotine.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Decimate will cancel if Darius enters stasis or uses Dash during the delay.\n  - After the delay, Decimate will be placed on a 1-second cooldown."
+    ]
+  },
+  {
+    "champion": "Darius",
+    "kind": "R",
+    "name": "Noxian Guillotine",
+    "page": {
+      "title": "Template:Data Darius/Noxian Guillotine",
+      "revid": 4004898
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100 / 100 / 0",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                100,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.3667",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.3667
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "475",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 475
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "True"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Darius attempts to execute the target enemy champion, leaping towards them to deal true damage, increased by 0 / 20 / 40 / 60 / 80 / 100 (based on target's Hemorrhage stacks)%, and granting sight of the area around them for 2.5 seconds from the start of the cast time.",
+        "leveling": [
+          {
+            "label": "True Damage",
+            "amount": {
+              "text": "125 / 250 / 375 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  250,
+                  375
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Damage Per Stack",
+            "amount": {
+              "text": "25 / 50 / 75 (+ 15% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  50,
+                  75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum True Damage",
+            "amount": {
+              "text": "250 / 500 / 750 (+ 150% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  250,
+                  500,
+                  750
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaping",
+            "evidence": "Active: Darius attempts to execute the target enemy champion, leaping towards them to deal true damage, increased by 0 / 20 / 40 / 60 / 80 / 100 (based on target's Hemorrhage stacks)%, and granting sight of the area around them for 2.5 seconds from the start of the cast time.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Darius attempts to execute the target enemy champion, leaping towards them to deal true damage, increased by 0 / 20 / 40 / 60 / 80 / 100 (based on target's Hemorrhage stacks)%, and granting sight of the area around them for 2.5 seconds from the start of the cast time.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's  Hemorrhage stacks",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "values": [
+                0,
+                20,
+                40,
+                60,
+                80,
+                100
+              ]
+            },
+            "context": "Active: Darius attempts to execute the target enemy champion, leaping towards them to deal true damage, increased by 0 / 20 / 40 / 60 / 80 / 100 (based on target's Hemorrhage stacks)%, and granting sight of the area around them for 2.5 seconds from the start of the cast time."
+          }
+        ]
+      },
+      {
+        "text": "If the target dies within 0.15 seconds after being hit by Noxian Guillotine, Darius fears nearby minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration. He can also recast the ability within 20 seconds at no cost, which refreshes on further successful executions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fears",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "If the target dies within 0.15 seconds after being hit by Noxian Guillotine, Darius fears nearby minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "If the target dies within 0.15 seconds after being hit by Noxian Guillotine, Darius fears nearby minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "At rank 3, Noxian Guillotine has no mana cost and recast timer.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Darius is unable to cast Decimate or Apprehend for 0.25 seconds after Noxian Guillotine's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Noxian Guillotine's cooldown after the recast or recast window is calculated by taking the values at the end, and using this formula: (Noxian Guillotine's Cooldown - time since first cast) × 100 ÷ (100 + AH).",
+      "Noxian Guillotine applies Hemorrhage after the damage.",
+      "Darius will only leap towards the target if it is at range, or leap backwards if it is very close.\n  - This leap can pass very thin terrain and will otherwise not be able to. In any case, Darius will still hit the target.[https://www.youtube.com/watch?v=jE6vb4IqvC8]\n  - The ability is disabled while grounded or rooted even if Darius is in the range in which he does not leap.",
+      "Noxian Guillotine will not reset nor trigger Noxian Might if used to kill a clone or a target protected by resurrection.",
+      "Noxian Guillotine will reset but not trigger Noxian Might if it finishes off a target that is in a zombie state.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Darius",
+    "kind": "W",
+    "name": "Crippling Strike",
+    "page": {
+      "title": "Template:Data Darius/Crippling Strike",
+      "revid": 4013692
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Structures"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Darius empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 90% for 1 second. This damage is affected by critical strike modifiers.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "40 / 45 / 50 / 55 / 60% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  45,
+                  50,
+                  55,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Darius empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 90% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 90
+            },
+            "evidence": "Active: Darius empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 90% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "This damage is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If this attack kills the target, half of Crippling Strike's cooldown is reduced and its mana cost is refunded.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Crippling Strike resets Darius' basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Crippling Strike resets Darius' basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Crippling Strike deals basic damage but will also trigger spell effects by also being tagged as spell damage.\n  - This includes the basic attack itself.",
+      "Spell shields will negate all effects of Crippling Strike, including the damage of the basic attack itself.",
+      "The attack's animation can be cancelled by casting Decimate, but the attack will still land.",
+      "The cooldown reduction and mana refund will not trigger when killing jungle plants."
+    ]
+  }
+]

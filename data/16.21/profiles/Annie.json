@@ -1,0 +1,196 @@
+{
+  "champion": "Annie",
+  "name": "Annie",
+  "gameplayRadius": 55,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "annie",
+      "formName": "Annie",
+      "range": 625,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.777153,
+      "attackDamage": 102.112,
+      "windup": 0.251939,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Annie",
+      "kind": "E",
+      "name": "Molten Shield",
+      "page": {
+        "title": "Template:Data Annie/Molten Shield",
+        "revid": 4064223
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Annie/Molten Shield",
+              "revid": 4064223,
+              "quote": "Active: Annie grants herself or the target allied champion and Tibbers a shield for 3 seconds and 20 – 50 (based on level)% bonus movement speed that decays over 1.5 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 800,
+      "notes": [
+        "Attacks that are dodged or miss against the shielded target will not cause the shield to deal damage, while blocked attacks still deal damage to the attacker."
+      ]
+    },
+    {
+      "champion": "Annie",
+      "kind": "I",
+      "name": "Pyromania",
+      "page": {
+        "title": "Template:Data Annie/Pyromania",
+        "revid": 3932255
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Annie/Pyromania",
+              "revid": 3932255,
+              "quote": "Energized: Annie empowers her next cast of Disintegrate, Incinerate, or Summon: Tibbers to consume all Pyromania stacks to stun enemies hit for 1.25 / 1.5 / 1.75 (based on level) seconds."
+            }
+          ],
+          "duration": 1.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Stacks are gained even if the ability is blocked by spell shield."
+      ]
+    },
+    {
+      "champion": "Annie",
+      "kind": "Q",
+      "name": "Disintegrate",
+      "page": {
+        "title": "Template:Data Annie/Disintegrate",
+        "revid": 3992633
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "range": 625,
+      "speed": 1400,
+      "notes": [
+        "Disintegrate will also grant the cooldown reduction and mana cost refund if the target is dead upon the missile's arrival.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Annie",
+      "kind": "R",
+      "name": "Summon: Tibbers",
+      "page": {
+        "title": "Template:Data Annie/Summon: Tibbers",
+        "revid": 4012758
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.25,
+      "range": 600,
+      "usableWhileDisabled": {
+        "which": "recast",
+        "evidence": [
+          {
+            "page": "Template:Data Annie/Summon: Tibbers",
+            "revid": 4012758,
+            "quote": "recast can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "Recasting Summon: Tibbers does not interrupt Recall channel."
+      ]
+    },
+    {
+      "champion": "Annie",
+      "kind": "W",
+      "name": "Incinerate",
+      "page": {
+        "title": "Template:Data Annie/Incinerate",
+        "revid": 3952555
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25
+    }
+  ]
+}

@@ -1,0 +1,295 @@
+{
+  "champion": "Naafiri",
+  "name": "Naafiri",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "naafiri",
+      "formName": "Naafiri",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.921103,
+      "attackDamage": 94.33,
+      "windup": 0.187182,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Naafiri",
+      "kind": "E",
+      "name": "Eviscerate",
+      "page": {
+        "title": "Template:Data Naafiri/Eviscerate",
+        "revid": 4007772
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        },
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "Packmates blink to Naafiri after their vanish ends"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Naafiri/Eviscerate",
+              "revid": 4007772,
+              "quote": "They are also healed to full health upon their reappearance."
+            }
+          ]
+        }
+      ],
+      "cooldown": 7,
+      "castTime": 0,
+      "range": 250,
+      "speed": 900
+    },
+    {
+      "champion": "Naafiri",
+      "kind": "I",
+      "name": "We Are More",
+      "page": {
+        "title": "Template:Data Naafiri/We Are More",
+        "revid": 4025780
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 10
+    },
+    {
+      "champion": "Naafiri",
+      "kind": "Q",
+      "name": "Darkin Daggers",
+      "page": {
+        "title": "Template:Data Naafiri/Darkin Daggers",
+        "revid": 4073795
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Naafiri/Darkin Daggers",
+              "revid": 4073795,
+              "quote": "If that target is also a champion or large monster, Naafiri heals herself."
+            }
+          ]
+        }
+      ],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1700,
+      "notes": [
+        "Darkin Daggers' execute against minions considers both the damage of the initial hit of the dagger and any bleed tick for putting the target under the threshold."
+      ]
+    },
+    {
+      "champion": "Naafiri",
+      "kind": "R",
+      "name": "Hounds' Pursuit",
+      "page": {
+        "title": "Template:Data Naafiri/Hounds' Pursuit",
+        "revid": 4046586
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Naafiri/Hounds' Pursuit",
+              "revid": 4046586,
+              "quote": "Upon completion of the channel, they dash to the target; upon arrival Naafiri deals physical damage and slows the target by 99% for 0.25 seconds, whereas each Packmate deals 10% of that damage."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 99
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Naafiri/Hounds' Pursuit",
+              "revid": 4046586,
+              "quote": "Recast: Naafiri immediately grants herself a shield for 3 seconds before mimicking the first cast's effects."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0,
+      "range": 900,
+      "speed": 1800,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Hound's Pursuit's cast and dash do not break stealth.",
+        "Spell shield will block Naafiri's collision damage but cannot prevent collision damage from Packmates.",
+        "Naafiri will track the target if they change locations, up to a maximum distance.\n  - She will dash to the target's previous location if they move too far away during the dash.",
+        "Naafiri will be ordered to basic attack the target at the end of the dash.",
+        "Naafiri will windup a basic attack while dashing.",
+        "The target is revealed for another 1.5 seconds after the channel completes.",
+        "The following table refers for interactions while Naafiri is channeling:\n  - If Naafiri's channel is interrupted, the Packmates' channels will be canceled as well.\n  - The channel is cancelled if the target dies or moves too far away, but not if they become untargetable."
+      ]
+    },
+    {
+      "champion": "Naafiri",
+      "kind": "W",
+      "name": "The Call of the Pack",
+      "page": {
+        "title": "Template:Data Naafiri/The Call of the Pack",
+        "revid": 4058060
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "Packmates blink to Naafiri after their vanish ends"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Naafiri/The Call of the Pack",
+              "revid": 4058060,
+              "quote": "Active: Naafiri goes on the hunt for the next 5 seconds, becoming untargetable and ghosted for the first 1 second and vanishing all of her active Packmates in the first 0.9 seconds."
+            }
+          ],
+          "duration": 5
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0.75,
+      "boostsAttacks": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "champion": "Quinn",
+    "name": "Valor",
+    "page": {
+      "title": "Quinn",
+      "revid": 4009372
+    },
+    "fields": {},
+    "text": {
+      "damagetype": "Physical",
+      "control": "N/A",
+      "targeting": "N/A",
+      "notes": "* Valor inherits changes to Quinn's size."
+    }
+  }
+]

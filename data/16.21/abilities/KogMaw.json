@@ -1,0 +1,922 @@
+[
+  {
+    "champion": "KogMaw",
+    "kind": "E",
+    "name": "Void Ooze",
+    "page": {
+      "title": "Template:Data Kog'Maw/Void Ooze",
+      "revid": 3965135
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 55 / 70 / 85 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                55,
+                70,
+                85,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1360",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1360
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kog'Maw spews a gob of ooze in the target direction that deals magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "A field of ooze is created in its wake for 3 seconds, slowing enemies within the area every 0.25 seconds.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 45 / 50 / 55 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  45,
+                  50,
+                  55,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "evidence": "A field of ooze is created in its wake for 3 seconds, slowing enemies within the area every 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "Pending for test: The missile leaves a blob of ooze on the ground every 125 units traveled."
+    ]
+  },
+  {
+    "champion": "KogMaw",
+    "kind": "I",
+    "name": "Icathian Surprise",
+    "page": {
+      "title": "Template:Data Kog'Maw/Icathian Surprise",
+      "revid": 4038400
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "True"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Upon taking fatal damage, Kog'Maw enters a zombie state for 4 seconds, becoming ghosted and gaining 10% bonus movement speed that increases up to 50% over the duration. At the end of the duration, he explodes to deal 140 – 650 (based on level) true damage to nearby enemies.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "revive",
+            "category": "defense",
+            "wording": "zombie state",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Innate: Upon taking fatal damage, Kog'Maw enters a zombie state for 4 seconds, becoming ghosted and gaining 10% bonus movement speed that increases up to 50% over the duration.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Innate: Upon taking fatal damage, Kog'Maw enters a zombie state for 4 seconds, becoming ghosted and gaining 10% bonus movement speed that increases up to 50% over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                140,
+                170,
+                200,
+                230,
+                260,
+                290,
+                320,
+                350,
+                380,
+                410,
+                440,
+                470,
+                500,
+                530,
+                560,
+                590,
+                620,
+                650,
+                680,
+                710
+              ],
+              "past18": "wiki"
+            },
+            "context": "At the end of the duration, he explodes to deal 140 – 650 (based on level) true damage to nearby enemies."
+          }
+        ]
+      },
+      {
+        "text": "While under this state, Kog'Maw becomes invulnerable, untargetable, and immune to crowd control, but is also rendered unable to declare basic attacks, cast abilities, use summoner spells, and activate items.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invulnerable",
+            "category": "defense",
+            "wording": "invulnerable",
+            "evidence": "While under this state, Kog'Maw becomes invulnerable, untargetable, and immune to crowd control, but is also rendered unable to declare basic attacks, cast abilities, use summoner spells, and activate items.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "While under this state, Kog'Maw becomes invulnerable, untargetable, and immune to crowd control, but is also rendered unable to declare basic attacks, cast abilities, use summoner spells, and activate items.",
+            "conditional": false
+          },
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "immune to crowd control",
+            "evidence": "While under this state, Kog'Maw becomes invulnerable, untargetable, and immune to crowd control, but is also rendered unable to declare basic attacks, cast abilities, use summoner spells, and activate items.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Icathian Surprise's bonus movement speed increases by 2.5% every 0.264 over the duration, up to the maximum of 50%. However, as a result of the ticks being rounded up from 0.25 seconds, the movement speed only reaches up to 45%.",
+      "Icathian Surprise's untargetability does not destroy in-flight projectiles.",
+      "Icathian Surprise will still trigger if Kog'Maw is killed by the Nexus Obelisk.",
+      "If Kog'Maw has the missile from a basic attack in-flight at the same time that he's moving while he dies, as long as the missile hits the target after Icathian Surprise has started, Kog'Maw will be able to use a basic attack once during Icathian Surprise.",
+      "Kog'Maw's usable summoner spells will be placed on a 5 second cooldown upon becoming a zombie.",
+      "During Icathian Surprise, Kog'Maw's attack range is reduced to 0 , making him automatically path near enemies he is trying to target."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kogmaw/kogmaw.bin.json",
+        "sha256": "383c0c6a5dd967cf378f5b176536358e0bdf2c392aeff52f71ba22cb6a5ab2f5",
+        "object": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianDisplay",
+        "text": [
+          "mSpell.mSpellCalculations.PassiveDamage: {\"mFormulaParts\":[{\"mStartValue\":140.0,\"mEndValue\":650.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"}],\"__type\":\"GameCalculation\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "KogMaw",
+    "kind": "Q",
+    "name": "Caustic Spittle",
+    "page": {
+      "title": "Template:Data Kog'Maw/Caustic Spittle",
+      "revid": 3960434
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "Basic attack timer",
+        "values": []
+      },
+      "range": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1650
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Kog'Maw gains bonus attack speed.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "5 / 10 / 15 / 20 / 25%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Kog'Maw ejects a wad of spittle in the target direction that deals magic damage to the first enemy hit and reduces their armor and magic resistance for 4 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Resistances Reduction",
+            "amount": {
+              "text": "16 / 20 / 24 / 28 / 32%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  16,
+                  20,
+                  24,
+                  28,
+                  32
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kogmaw/kogmaw.bin.json",
+        "sha256": "383c0c6a5dd967cf378f5b176536358e0bdf2c392aeff52f71ba22cb6a5ab2f5",
+        "object": "Characters/KogMaw/Spells/KogMawQAbility/KogMawQ",
+        "text": [
+          "mSpell.mUseAutoattackCastTimeData: {\"__type\":\"UseAutoattackCastTimeData\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "KogMaw",
+    "kind": "R",
+    "name": "Living Artillery",
+    "page": {
+      "title": "Template:Data Kog'Maw/Living Artillery",
+      "revid": 4007636
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "2 / 1.5 / 1",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                2,
+                1.5,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 80 / 120 / 160 / 200 / 240 / 280 / 320 / 360 / 400 (based on stacks)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "stacks",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "values": [
+                40,
+                80,
+                120,
+                160,
+                200,
+                240,
+                280,
+                320,
+                360,
+                400
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1300 / 1550 / 1800",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                1300,
+                1550,
+                1800
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kog'Maw spits a globule of acid into the air that drops to the target location after 0.6 seconds, granting sight of the area before dealing magic damage to enemies hit and revealing them for 2 seconds. Living Artillery's damage is increased by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on target's missing health)%, or instead by 100% if the target is below 40% maximum health.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "100 / 140 / 180 (+ 75% bonus AD) (+ 35 / 40 / 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  140,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      35,
+                      40,
+                      45
+                    ]
+                  },
+                  "text": "(+ 35 / 40 / 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "200 / 280 / 360 (+ 150% bonus AD) (+ 70 / 80 / 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  280,
+                  360
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      70,
+                      80,
+                      90
+                    ]
+                  },
+                  "text": "(+ 70 / 80 / 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Kog'Maw spits a globule of acid into the air that drops to the target location after 0.6 seconds, granting sight of the area before dealing magic damage to enemies hit and revealing them for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Kog'Maw spits a globule of acid into the air that drops to the target location after 0.6 seconds, granting sight of the area before dealing magic damage to enemies hit and revealing them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                6,
+                12,
+                18,
+                24,
+                30,
+                36,
+                42,
+                48,
+                54,
+                60
+              ],
+              "values": [
+                0,
+                5,
+                10,
+                15,
+                20,
+                25,
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "context": "Living Artillery's damage is increased by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on target's missing health)%, or instead by 100% if the target is below 40% maximum health."
+          }
+        ]
+      },
+      {
+        "text": "Kog'Maw then generates a stack of Living Artillery for 8 seconds, refreshing on subsequent casts and stacking up to 9 times.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Living Artillery",
+        "text": "Living Artillery: For each stack, Living Artillery's mana cost is increased by 40.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Living Artillery will not reveal stealthed champions.",
+      "Pinging Living Artillery will additionally display the remaining time duration of its stacks."
+    ]
+  },
+  {
+    "champion": "KogMaw",
+    "kind": "W",
+    "name": "Bio-Arcane Barrage",
+    "page": {
+      "title": "Template:Data Kog'Maw/Bio-Arcane Barrage",
+      "revid": 4052263
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "17",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 17
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kog'Maw empowers his basic attacks for the next 8 seconds to gain bonus attack range and deal bonus magic damage on-hit, capped at 100 against minions and monsters.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Range",
+            "amount": {
+              "text": "130 / 150 / 170 / 190 / 210",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  130,
+                  150,
+                  170,
+                  190,
+                  210
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "3 / 3.75 / 4.5 / 5.25 / 6% (+ 1.5% per 100 AP) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  3.75,
+                  4.5,
+                  5.25,
+                  6
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1.5
+                  },
+                  "text": "(+ 1.5% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Kog'Maw empowers his basic attacks for the next 8 seconds to gain bonus attack range and deal bonus magic damage on-hit, capped at 100 against minions and monsters.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The attacks do not deal the bonus damage against structures."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kogmaw/kogmaw.bin.json",
+        "sha256": "383c0c6a5dd967cf378f5b176536358e0bdf2c392aeff52f71ba22cb6a5ab2f5",
+        "object": "Characters/KogMaw/Spells/KogMawBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 1800.0"
+        ]
+      }
+    ]
+  }
+]

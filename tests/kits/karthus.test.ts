@@ -560,7 +560,7 @@ describe("Karthus behavior, allocation and mirrored matchups", () => {
   });
 
   it("preserves both 15,000-gold builds and each of the six scenarios under Darius reflection", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const spec = compiled().spec; const darius = kit("Darius").spec;
     const forward = simulateMatchup(spec, darius, 15000, prices);
     const reverse = simulateMatchup(darius, spec, 15000, prices);

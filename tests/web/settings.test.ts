@@ -11,7 +11,7 @@ interface SimulatedFile {
   matchups: Record<string, Record<string, Array<number | null>>>;
 }
 
-const simulated = JSON.parse(readFileSync(path.join(import.meta.dirname, "..", "..", "data", "16.20", "simulated.json"), "utf8")) as SimulatedFile;
+const simulated = JSON.parse(readFileSync(path.join(import.meta.dirname, "..", "..", "data", "16.21", "simulated.json"), "utf8")) as SimulatedFile;
 
 describe("web settings", () => {
   it("defaults to what the precomputed results use", () => {

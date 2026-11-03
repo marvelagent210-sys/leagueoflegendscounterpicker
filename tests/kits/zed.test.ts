@@ -35,7 +35,7 @@ function rReady(world: World): void { const start = world.tick; cast(world, "R")
 // Run the production route first: default budget, six scenarios, real behavior and reflection.
 describe("Zed full production and reflection", () => {
   it("uses QWER at ordinary 15000 gold and reflects all six scenario scores and builds", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const opponent = kit("Darius").spec, forward = simulateMatchup(compiled.spec, opponent, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(opponent, compiled.spec, 15000, prices);
     expect(forward.scenarios).toHaveLength(6); expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]); expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-12);
     for (const [index, scenario] of forward.scenarios.entries()) {
@@ -52,7 +52,7 @@ describe("Zed pinned source numeric contract", () => {
   it("reads all five ability pins, pet identity and exact game version/hash", () => {
     expect(new Set(compiled.evidence.filter((row) => row.revid).map((row) => row.revid))).toEqual(new Set([...records("Zed").map((r) => r.page.revid), 4026038]));
     const game = compiled.evidence.filter((row) => row.url); expect(game.length).toBeGreaterThanOrEqual(12);
-    expect(game.every((row) => row.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release" && row.sourceSha256 === "475ea0d11b79d2cc4a97e9d41e4da1b7187500feaa02906de3a2650bcf9653fb")).toBe(true);
+    expect(game.every((row) => row.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && row.sourceSha256 === "be0aa960ec320704046d6b7ecdc216c030809c4ec936a52185ccdadd4b24cc35")).toBe(true);
     const ctx = new KitContext(championData("Zed"), records("Zed"));
     expect(ctx.ability("Q").formula("Physical Damage")).toEqual({ base: 240, ratios: { bonusAD: 1 } });
     expect(ctx.ability("E").formula("Physical Damage")).toEqual({ base: 160, ratios: { bonusAD: .7 } });

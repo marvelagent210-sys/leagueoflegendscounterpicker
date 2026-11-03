@@ -1,0 +1,1012 @@
+[
+  {
+    "champion": "Ivern",
+    "kind": "E",
+    "name": "Triggerseed",
+    "page": {
+      "title": "Template:Data Ivern/Triggerseed",
+      "revid": 3994759
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies",
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ivern places a seed on the target allied champion, Daisy, or himself, granting the target a shield for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "75 / 115 / 155 / 195 / 235 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  115,
+                  155,
+                  195,
+                  235
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Ivern places a seed on the target allied champion, Daisy, or himself, granting the target a shield for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After 2 seconds, the seed explodes to deal magic damage to nearby enemies and slow them for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 90 / 110 / 130 / 150 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  90,
+                  110,
+                  130,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 45 / 50 / 55 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  45,
+                  50,
+                  55,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "evidence": "After 2 seconds, the seed explodes to deal magic damage to nearby enemies and slow them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the seed does not damage an enemy champion and the shield persists by the end of the duration, the shield is reapplied for the same strength and duration without the explosion effect.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The explosion occurs regardless of whether the shield is maintained.",
+      "The damage of Triggerseed is attributed to the champion the shield was cast on.\n  - If cast on Daisy or himself, the damage is attributed to Ivern.\n  - The slow debuff is always attributed to Ivern.\n  - Therefore, placing Triggerseed on allied champions:\n    - grants them credit for all kills on enemy units that it causes.\n    - triggers turret aggro on them if it deals damage to an enemy champion.\n    - triggers their spell effects instead of Ivern's.\n    - benefits from their magic penetration stat.\n  - Ivern's player can appreciate the damage Triggerseed from an ally deals via a yellow damage number intended to reflect the damage dealt.\n    - This yellow damage number uses Ivern's magic penetration stat to calculate the expected damage dealt, instead of reflecting the actual damage dealt."
+    ]
+  },
+  {
+    "champion": "Ivern",
+    "kind": "I",
+    "name": "Friend of the Forest",
+    "page": {
+      "title": "Template:Data Ivern/Friend of the Forest",
+      "revid": 4038386
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Monsters"
+      ],
+      "damageType": [],
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Ivern cannot attack nor damage non-epic monsters. Instead, targeting a jungle camp initiates a 2.5 second channel that will plant a grove upon the camp. Placing a grove costs 94.5 – 0.13878 (based on level) health and 90 – 0.3675 (based on level) mana. The channel cannot be cancelled in the first 0.15 seconds and in the last 0.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channel",
+            "evidence": "Instead, targeting a jungle camp initiates a 2.5 second channel that will plant a grove upon the camp.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                94.5,
+                99.0067104,
+                102.714669,
+                105.5321919,
+                107.3675952,
+                108.129195,
+                107.7253074,
+                106.0642485,
+                103.0543344,
+                98.6038812,
+                92.621205,
+                85.0146219,
+                75.692448,
+                64.5629994,
+                51.5345922,
+                36.5155425,
+                19.4141664,
+                0.138780000000005,
+                -21.4023006,
+                -45.3007593
+              ],
+              "past18": "wiki"
+            },
+            "context": "Placing a grove costs 94.5 – 0.13878 (based on level) health and 90 – 0.3675 (based on level) mana."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                90,
+                92.8449,
+                95.04525,
+                96.527025,
+                97.2162,
+                97.03875,
+                95.92065,
+                93.787875,
+                90.5664,
+                86.1822,
+                80.56125,
+                73.629525,
+                65.313,
+                55.53765,
+                44.22945,
+                31.314375,
+                16.7184,
+                0.367499999999979,
+                -17.81235,
+                -37.895175
+              ],
+              "past18": "wiki"
+            },
+            "context": "Placing a grove costs 94.5 – 0.13878 (based on level) health and 90 – 0.3675 (based on level) mana."
+          }
+        ]
+      },
+      {
+        "text": "Ivern cannot place a grove while he is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "evidence": "Ivern cannot place a grove while he is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The grove matures over 40 – 1 (based on level) seconds. When fully matured, Ivern can target the camp again to free it after a 0.5-second cast time, clearing the camp and receiving the full gold and full experience bounties. Using Smite on a monster within the grove will instantly free the camp regardless of maturity.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                38,
+                36,
+                34,
+                32,
+                30,
+                27,
+                24,
+                21,
+                18,
+                15,
+                11,
+                7,
+                3,
+                1
+              ]
+            },
+            "context": "The grove matures over 40 – 1 (based on level) seconds."
+          }
+        ],
+        "tips": [
+          {
+            "text": "full gold and full experience",
+            "tip": "Not full when freeing Krug camp, see notes"
+          }
+        ]
+      },
+      {
+        "text": "If the camp's large monster has already been slain prior to planting a grove, Ivern will free the camp upon completing the channel at no cost. Similarly, the grove will instantly mature if the large monster is slain.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Freeing the Krug camp will only grant the gold and experience of 1 Ancient Krug, 2 Krugs, and 3 Mini Krugs.",
+      "Ivern must be within 275 units of the large monster of the targeted camp to start channeling or collect a grove. The large monsters also must be visible.",
+      "If Ivern cannot afford the cost to place a grove, Friend of the Forest is placed on a cooldown equal to the number of seconds it takes for his health regeneration and/or mana regeneration to restore him to the amount of health and/or mana needed to afford the cost.\n  - The cooldown will update based on Ivern's current health and mana regeneration, as well as his current health and mana.",
+      "If Ivern's level is 19 or higher, he will be healed and receive mana when placing a grove.",
+      "Friend of the Forest can be used while Ivern or the camp is in combat and, once the grove is placed, Smite can be used to instantly claim the camp. Interrupting Ivern's channel is the only way to contest jungle camps, short of killing the camp during the channel time.",
+      "Freeing a grove causes the monsters within the camp to be dealt 5000 true damage in the internalraw damage source type by Ivern, despite his inability to damage them.",
+      "Friend of the Forest will leave Ivern at 1 health if cast with exactly the required amount. Friend of the Forest cannot be cast with less, unlike other abilities with health costs.",
+      "Non-epic monsters can attack Ivern if his allies enter combat with the monster and he manages to receive aggro.\n  - Voidmites uses the allied healthbar-colours whilst still being able to be damaged by Ivern.",
+      "The following table refers for interactions while Ivern is channeling:\n  - Ivern is unable to act during the first 0.15 and last 0.5 seconds of the channel."
+    ]
+  },
+  {
+    "champion": "Ivern",
+    "kind": "Q",
+    "name": "Rootcaller",
+    "page": {
+      "title": "Template:Data Ivern/Rootcaller",
+      "revid": 4009163
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Maximum attack / recast target range"
+          }
+        ]
+      },
+      "range": {
+        "text": "1150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1150
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "special",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ivern throws a vine in the target direction, dealing magic damage to the first enemy hit and rooting them for a duration, during which they are also revealed. Rootcaller can be recast while the target is rooted.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "1.6 / 1.7 / 1.8 / 1.9 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.6,
+                  1.7000000000000002,
+                  1.8,
+                  1.9,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooting",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.6,
+                1.7000000000000002,
+                1.8,
+                1.9,
+                2
+              ]
+            },
+            "evidence": "Active: Ivern throws a vine in the target direction, dealing magic damage to the first enemy hit and rooting them for a duration, during which they are also revealed.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "Active: Ivern throws a vine in the target direction, dealing magic damage to the first enemy hit and rooting them for a duration, during which they are also revealed.",
+            "conditional": false
+          },
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.6,
+                1.7000000000000002,
+                1.8,
+                1.9,
+                2
+              ]
+            },
+            "evidence": "Rootcaller can be recast while the target is rooted.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Ivern and allied champions can issue an attack order against the target rooted by Rootcaller to dash to their location, stopping at their attack range.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.6,
+                1.7000000000000002,
+                1.8,
+                1.9,
+                2
+              ]
+            },
+            "evidence": "Ivern and allied champions can issue an attack order against the target rooted by Rootcaller to dash to their location, stopping at their attack range.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "Ivern and allied champions can issue an attack order against the target rooted by Rootcaller to dash to their location, stopping at their attack range.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "attack order",
+            "tip": "Default: MB2 / right-click"
+          }
+        ]
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Ivern dashes to the rooted target.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Recast: Ivern dashes to the rooted target.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Hitting a non-epic monster reduces Rootcaller's cooldown by 50%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Dash offset",
+        "text": "0 • 475 • Attack range"
+      }
+    ],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "Daisy dashes to rooted monsters, and enemy champions if within 1200 units when Rootcaller hits.\n  - She does not dash to enemy minions.\n  - Daisy can not dash if she is more than 1200 units from the target hit. She will not dash even if she later walks in range.\n  - Regardless of Daisy's and Ivern's distance from the target hit, Ivern dashing does not affect Daisy in any way.",
+      "Rootcaller will hit monsters but does not deal damage to it unless the target is an epic monster.",
+      "Ivern's pull/attack range is determined when he dashes to the target - not from when he initially casts Rootcaller and throws the vine.",
+      "When using an attack order to dash to a target further than 475 units, Ivern may stop at his attack range (475 units).\n  - If he is closer than his attack range from them, Ivern will dash to 425 units away from it instead.\n    - Attack range bonuses affect the offset from the target at a 1:1 ratio.\n    - Ivern will never dash closer than his current distance from the target in this case.",
+      "Rootcaller's dash is disabled while the user is grounded or rooted when targeting via either means (applies to Ivern and his allies).",
+      "Rootcaller's dash does not follow targets, their position at the time of starting the dash is the relative range Ivern and his allies will stop at."
+    ]
+  },
+  {
+    "champion": "Ivern",
+    "kind": "R",
+    "name": "Daisy!",
+    "page": {
+      "title": "Template:Data Ivern/Daisy!",
+      "revid": 3976509
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 130 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                130,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Location"
+      ],
+      "affects": [
+        "None"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spellaoe"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ivern summons his sentinel friend Daisy to his side, who lands 350 units away from him in the target direction and remains on the field for up to 45 seconds as a controllable pet.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "summon",
+            "category": "other",
+            "wording": "pet",
+            "evidence": "Active: Ivern summons his sentinel friend Daisy to his side, who lands 350 units away from him in the target direction and remains on the field for up to 45 seconds as a controllable pet.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Daisy! can be recast at any time while Daisy is alive.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast - Daisy, wait!",
+        "text": "Recast - Daisy, wait!: Ivern commands Daisy to move to the target location. If cast on Ivern, Daisy will follow him.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The recast of Daisy! can be used while affected by cast-inhibiting crowd control. See Pets for more details about Daisy.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Only the initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade.\n  - Recasting the ability does, however, count as casting an ultimate ability for the purposes of Experimental Hexplate Overdrive and similar effects.\n  - What about Force Pulse?",
+      "Daisy, when the ability is initially cast, is untargetable until she lands.",
+      "Recasting Daisy! does not interrupt Recall channel."
+    ]
+  },
+  {
+    "champion": "Ivern",
+    "kind": "W",
+    "name": "Brushmaker",
+    "page": {
+      "title": "Template:Data Ivern/Brushmaker",
+      "revid": 4067542
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "3500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While Ivern is in brush, his basic attacks are empowered to fire a bolt at the target, dealing additional magic damage. This bonus persists for 3 seconds after leaving brush.",
+        "leveling": [
+          {
+            "label": "Additional Magic Damage",
+            "amount": {
+              "text": "20 / 27.5 / 35 / 42.5 / 50 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  27.5,
+                  35,
+                  42.5,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "brush",
+            "category": "other",
+            "wording": "brush",
+            "evidence": "Passive: While Ivern is in brush, his basic attacks are empowered to fire a bolt at the target, dealing additional magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Ivern grows a patch of brush at the target location for 45 seconds, granting sight of the area within and around it for 8 seconds. Brushes despawn instantly after allied vision within them is lost. Spawning brush near terrain or other brush increases its radius.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "brush",
+            "category": "other",
+            "wording": "brush",
+            "evidence": "Active: Ivern grows a patch of brush at the target location for 45 seconds, granting sight of the area within and around it for 8 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 8
+            },
+            "evidence": "Active: Ivern grows a patch of brush at the target location for 45 seconds, granting sight of the area within and around it for 8 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "vision",
+            "evidence": "Brushes despawn instantly after allied vision within them is lost.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While allied champions are in any brush when Ivern is within 1000 units, their basic attacks are empowered to fire a bolt at the target, dealing additional magic damage. This bonus persists for 1.5 seconds after leaving brush.",
+        "leveling": [
+          {
+            "label": "Ally Additional Magic Damage",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30 (+ 10% of Ivern's AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:of ivern's ap",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% of Ivern's AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "brush",
+            "category": "other",
+            "wording": "brush",
+            "evidence": "While allied champions are in any brush when Ivern is within 1000 units, their basic attacks are empowered to fire a bolt at the target, dealing additional magic damage.",
+            "conditional": true
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "1000",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "text": "Ivern periodically stocks a Brushmaker charge, up to a maximum of 3.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The additional damage does not apply to structures.",
+      "The empowerment given to allies respects enchantment redirection.",
+      "A brush is immediately exposed if grown within an enemy turret's sight radius of 1350.",
+      "Epic monsters can not be concealed within brush.\n  - However, it is still possible to deny enemy vision of their area by creating walls of brush at their line of sight.",
+      "Brushmaker locks on allies when hovered.",
+      "The indicator for Brushmaker's cast range has a radius of 1150, where the maximum cast range takes the brush's edge, rather than center, into consideration."
+    ]
+  }
+]

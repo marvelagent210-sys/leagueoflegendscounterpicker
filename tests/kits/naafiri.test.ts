@@ -38,7 +38,7 @@ describe("Naafiri source contract", () => {
 describe("Naafiri ordinary production", () => {
  it("reserves actually ready R in trade and hold and honors completed retreat", () => { for (const mode of ["trade","hold"] as const) { const world=worldFor(150); world.modes[0]=mode; expect(canCast(world,world.units[0],ability("R"))).toBe(true); expect(compiled.spec.behavior!(perceive(world,0))).not.toEqual({kind:"cast",ability:"R"}); world.modes[0]="trade"; world.units[0].memory.tradeDone=true; expect(compiled.spec.behavior!(perceive(world,0))).toEqual({kind:"move",direction:-1}); } });
  it("runs all six full-budget scenarios with strict reflected scores/builds and QWER casts", () => {
-  const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices, opponent=kit("Darius").spec;
+  const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices, opponent=kit("Darius").spec;
   const forward=simulateMatchup(compiled.spec,opponent,15000,prices,{settings:{log:true}}),reverse=simulateMatchup(opponent,compiled.spec,15000,prices);
   expect(forward.builds).toEqual([reverse.builds[1],reverse.builds[0]]); expect(Math.abs(forward.score+reverse.score)).toBeLessThan(1e-12); expect(forward.scenarios).toHaveLength(6);
   for(const [index,scenario] of forward.scenarios.entries()){ const reflected=reverse.scenarios[[1,0,2,3,4,5][index]!]!;if(scenario.score===undefined)expect(reflected.score).toBeUndefined();else expect(Math.abs(scenario.score+reflected.score!)).toBeLessThan(1e-12); expect(scenario.outcomes.every(outcome=>Number.isFinite(outcome.seconds)&&outcome.hp.every(Number.isFinite))).toBe(true); }

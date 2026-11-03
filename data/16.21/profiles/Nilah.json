@@ -1,0 +1,286 @@
+{
+  "champion": "Nilah",
+  "name": "Nilah",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "nilah",
+      "formName": "Nilah",
+      "range": 225,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.861694,
+      "attackDamage": 97.33,
+      "windup": 0.255311,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Nilah",
+      "kind": "E",
+      "name": "Slipstream",
+      "page": {
+        "title": "Template:Data Nilah/Slipstream",
+        "revid": 3927625
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 550,
+      "speed": 2200,
+      "boostsAttacks": true,
+      "notes": [
+        "Dashing to target through a wall within casting range will cancel the dash if wall is longer than dash range."
+      ]
+    },
+    {
+      "champion": "Nilah",
+      "kind": "I",
+      "name": "Joy Unending",
+      "page": {
+        "title": "Template:Data Nilah/Joy Unending",
+        "revid": 3960984
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nilah/Joy Unending",
+              "revid": 3960984,
+              "quote": "Innate: Whenever a nearby allied champion uses an ability to heal or shield either Nilah or themselves, both they and Nilah receive a bonus amount equal to 7.5% of the healing or 15% of the shielding after a 0.5-second delay."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Nilah/Joy Unending",
+              "revid": 3960984,
+              "quote": "Innate: Whenever a nearby allied champion uses an ability to heal or shield either Nilah or themselves, both they and Nilah receive a bonus amount equal to 7.5% of the healing or 15% of the shielding after a 0.5-second delay."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Nilah",
+      "kind": "Q",
+      "name": "Formless Blade",
+      "page": {
+        "title": "Template:Data Nilah/Formless Blade",
+        "revid": 4007708
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nilah/Formless Blade",
+              "revid": 4007708,
+              "quote": "Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds."
+            },
+            {
+              "page": "Template:Data Nilah/Formless Blade",
+              "revid": 4007708,
+              "quote": "Formless Blade can hit structures and applies life steal at 100% effectiveness to one target."
+            },
+            {
+              "page": "Template:Data Nilah/Formless Blade",
+              "revid": 4007708,
+              "quote": "Formless Blade can hit structures and applies life steal at 100% effectiveness to one target."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Nilah/Formless Blade",
+              "revid": 4007708,
+              "quote": "Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds."
+            }
+          ]
+        }
+      ],
+      "cooldown": 4,
+      "castTime": 0.35,
+      "range": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield will not block Formless Blade's empowered basic attacks.",
+        "Parrying effects (dodge, block, blind) will negate Formless Blade's empowered attacks only as the primary target."
+      ]
+    },
+    {
+      "champion": "Nilah",
+      "kind": "R",
+      "name": "Apotheosis",
+      "page": {
+        "title": "Template:Data Nilah/Apotheosis",
+        "revid": 4007709
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Nilah/Apotheosis",
+              "revid": 4007709,
+              "quote": "She then unleashes a burst that deals physical damage and pulls them 250 units towards her."
+            }
+          ],
+          "variant": "pull"
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nilah/Apotheosis",
+              "revid": 4007709,
+              "quote": "Each hit also slows targets by 10% for 3 seconds, refreshing on subsequent hits."
+            }
+          ],
+          "duration": 3,
+          "amount": 10
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nilah/Apotheosis",
+              "revid": 4007709,
+              "quote": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Nilah/Apotheosis",
+              "revid": 4007709,
+              "quote": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield will only block the burst damage."
+      ]
+    },
+    {
+      "champion": "Nilah",
+      "kind": "W",
+      "name": "Jubilant Veil",
+      "page": {
+        "title": "Template:Data Nilah/Jubilant Veil",
+        "revid": 3845922
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "dodge attacks",
+          "evidence": [
+            {
+              "page": "Template:Data Nilah/Jubilant Veil",
+              "revid": 3845922,
+              "quote": "Active: Nilah envelops herself in mist for 2.25 seconds, during which she becomes ghosted, gains bonus movement speed, reduces all incoming magic damage taken by 25%, and dodges all non-turret basic attacks."
+            }
+          ],
+          "duration": 2.25
+        }
+      ],
+      "cooldown": 22,
+      "castTime": 0
+    }
+  ]
+}

@@ -31,7 +31,7 @@ function summon(w: World, x = 200, targetClass: "minion" | "champion" = "minion"
 const mark = (w: World, key = "aphelios:calibrum") => w.units[1].statuses.find((s) => s.key === key);
 
 describe("Aphelios pinned sources and finite preparation", () => {
- it("reads all fifteen exact primary revisions and the separately pinned game file", () => { expect(new Set(base.evidence.filter((e) => e.revid > 0).map((e) => e.revid))).toEqual(new Set(records("Aphelios").map((r) => r.page.revid).concat(pets("Aphelios").map((p) => p.page.revid)))); expect(base.evidence.some((e) => e.sourceSha256 === "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd" && e.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release")).toBe(true); });
+ it("reads all fifteen exact primary revisions and the separately pinned game file", () => { expect(new Set(base.evidence.filter((e) => e.revid > 0).map((e) => e.revid))).toEqual(new Set(records("Aphelios").map((r) => r.page.revid).concat(pets("Aphelios").map((p) => p.page.revid)))); expect(base.evidence.some((e) => e.sourceSha256 === "a52a56d4a748a03bf8435472493030638437da9c1876d6b611cf2c5904d4ec50" && e.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release")).toBe(true); });
  it("searches ten unordered pairs only when unpinned", () => { const search = compileKit(championData("Aphelios"), records("Aphelios"), Aphelios, {}, pets("Aphelios")); expect(search.variants.map((v) => v.startingWeapons)).toEqual([0,1,2,3,4,5,6,7,8,9]); expect(base.variants).toEqual([]); });
  it("rejects impossible pair indices", () => { expect(() => compiled(10)).toThrow("pair index"); });
  it("starts with real canonical ammo and no free marks, shield or Chakrams", () => { const w = world(); expect(w.units[0].memory).toMatchObject({ "aph:main":0,"aph:off":1,"aph:queue":"[2,3,4]","aph:chakrams":0 }); for(let i=0;i<5;i++)expect(w.units[0].memory[`aph:ammo:${i}`]).toBe(50);expect(mark(w)).toBeUndefined();expect(w.units[0].statuses.some((s)=>s.kind==="shield")).toBe(false); });
@@ -171,7 +171,7 @@ describe("Duskwave follow-ups require a surviving real target", () => {
   expect(w.units[0].memory["aph:chakrams"]).toBe(1);
  });
  it("completes the production Infernum/Crescendum matchup against Heimerdinger's upgraded rockets", () => {
-  const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+  const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
   const result = simulateMatchup(compiled(9).spec, kit("Heimerdinger", { upgrade: 2 }).spec, 15000, prices);
   expect(Number.isFinite(result.score)).toBe(true);
   expect(result.scenarios).toHaveLength(6);

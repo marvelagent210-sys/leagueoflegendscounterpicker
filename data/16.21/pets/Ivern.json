@@ -1,0 +1,258 @@
+[
+  {
+    "champion": "Ivern",
+    "name": "Daisy",
+    "page": {
+      "title": "Ivern",
+      "revid": 4015438
+    },
+    "fields": {
+      "gold": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "1000 / 1050 / 1100 / 1150 / 1200 / 1600 / 2000 / 2400 / 2800 / 3200 / 3600 / 4000 / 4400 (based on level) (+ 50% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "values": [
+                1000,
+                1050,
+                1100,
+                1150,
+                1200,
+                1600,
+                2000,
+                2400,
+                2800,
+                3200,
+                3600,
+                4000,
+                4400
+              ]
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "70 / 100 / 130 (+ 15% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                100,
+                130
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.975 / 1.0875 / 1.2 (based on ability rank)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "ability rank",
+              "points": [
+                1,
+                2,
+                3
+              ],
+              "values": [
+                0.975,
+                1.0875,
+                1.2
+              ]
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "430",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 430
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "50",
+      "exp": "0",
+      "leash": "2500",
+      "radius": "100",
+      "pathingradius": "75",
+      "hp": "1000 – 4400 (based on level) (+ 50% AP)",
+      "damage": "70 / 100 / 130 (+ 15% AP)",
+      "damagetype": "Physical",
+      "range": "175",
+      "armor": "30 – 90 (based on level)",
+      "magicresist": "30 – 90 (based on level)",
+      "attackspeed": "0.975 / 1.0875 / 1.2",
+      "movespeed": "430",
+      "control": "R or Alt + Right Click",
+      "targeting": "Minion",
+      "spelleffects": "Daisy's basic attacks apply spell effects as area damage.",
+      "onhit": "Daisy's attacks apply Ivern's on-hit effects and Brushmaker bolts. Her attacks are mitigated by block, dodge, and blind, as well as stopped by Disarm. All damage done by Daisy's attacks is accredited to Ivern for the purposes of effects such as Life steal life steal application, and Titanic Hydra Cleave direction.",
+      "protection": "Daisy takes 25% reduced damage from effects tagged as area of effect and epic monsters.",
+      "abilities": ";Spawn Haste\n: Daisy gains 40% bonus movement speed for the first 5 seconds after spawning. Additionally, she takes 25% reduced damage from all sources.\n\n;Natural Recovery\n: Daisy passively restores 2.5 health per second.\n\n;Ghosting\n: Daisy is permanently ghosted.\n\n;Target Acquisition\n: Daisy will automatically attack the nearest enemy within Ivern's leash range. This is negated while she is fulfilling a move command or following Ivern.\n\n;Friend of the Forest\n: Daisy cannot attack non-epic monsters.\n\n;Daisy Smash!\n: Daisy's basic attacks on-attack apply stacks of Daisy Smash!, resetting whenever she attacks a new target. Against a target with 2 stacks, Daisy's next basic attack gains 325 bonus attack range and is empowered to charge up for 0.625 seconds to send a shockwave in a line ( 800 range, 200 width) toward the target that deals 90 / 140 / 190 (+ 50% AP) magic damage to enemies hit and stuns and knocks them up up for 1 second. Daisy Smash! cannot occur again for 3 seconds.\n: Displacement immunity will also resist the application of the stun.\n: Daisy Smash! is tagged as area damage and considered to be Ivern's champion ability for the purposes of effects including Conqueror, Horizon Focus Hypershot, and Muramana Shock.\n\n;Rootcaller\n: Daisy prioritizes enemy champions and monsters rooted by Rootcaller and benefits from the ability's dash (additional information under details)."
+    }
+  }
+]

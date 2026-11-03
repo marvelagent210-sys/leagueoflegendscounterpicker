@@ -1,0 +1,108 @@
+[
+  {
+    "champion": "Illaoi",
+    "name": "Tentacle",
+    "page": {
+      "title": "Illaoi",
+      "revid": 4065518
+    },
+    "fields": {
+      "gold": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "cs": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "927.75 x 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 927.75
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "1.00",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "0 (Does not move)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "5",
+      "exp": "0",
+      "cs": "0",
+      "sight": "Blind",
+      "hp": "2",
+      "damagemodifier": "1 from champion basic attacks",
+      "ccresist": "Immune to crowd control",
+      "damagetype": "Physical",
+      "range": "927.75 x 200",
+      "attackspeed": "1.00",
+      "movespeed": "0 (Does not move)",
+      "control": "The Tentacle is commanded to attack each time a target in 950 range gets hit by Harsh Lesson.\n\nIts attacks get queued up if it receives more than one attack command. If the target of a queued attack dies before the attack starts, their dead body will be targeted. [https://youtu.be/V4QtaYHSVog] [https://youtu.be/EKSGdm-vnb8]\n\nIf the Tentacle is commanded to attack by a Harsh Lesson while inactive, it will instead queue the attack if it becomes active in the next 0.5 seconds. [https://www.youtube.com/watch?v=yLYMr3IZziU]\n\nIf a Tentacle is killed while attacking, the Tentacle will first finish its attack and then die, without being able to queue up other commands.",
+      "targeting": "Minion (e.g interacts with I and I), but it does not interact with W.",
+      "onhit": "Not mitigated by block or dodge.",
+      "spelleffects": "Applies spell effects as area damage.",
+      "protection": "A single spell shield can block all tentacle attacks that hit at the same time.",
+      "abilities": ";Slam\nThe Tentacle damages all non-structure enemies it hits along its length and heals Illaoi if it hits at least one enemy champion.\n\n;Awakening\n. If dormant for 30 consecutive seconds, the Tentacle disappears.\n\nThe Tentacle is lenient towards becoming dormant when Illaoi dies while the Tentacle is spawning [https://www.youtube.com/watch?v=0eQOqZiyM98] [https://www.youtube.com/watch?v=yLYMr3IZziU], or for 1.5 seconds after hitting Test of Spirit - allowing Tentacles to make a last attack on their targets.\n\n;Enrage\nThe Tentacle is buffed by Leap of Faith.\n\n;Vision\nAll Tentacles around 1000 range of an enemy champion are revealed through the fog of war.\n\nWhen about to slam it reveals the targeted spot to allies.\n\n;General"
+    }
+  }
+]

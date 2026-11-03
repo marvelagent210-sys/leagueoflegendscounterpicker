@@ -1,0 +1,1281 @@
+[
+  {
+    "champion": "Zoe",
+    "kind": "E",
+    "name": "Sleepy Trouble Bubble",
+    "page": {
+      "title": "Template:Data Zoe/Sleepy Trouble Bubble",
+      "revid": 4087351
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "800 + 50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Bounce extra travel distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Bubble trap radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "100 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Initial missile width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Lollipop diameter at end of initial missile trajectory, also edge range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1850
+            },
+            "label": "Initial missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zoe kicks a bubble in the target direction that bursts upon the first enemy hit, otherwise lingering at maximum range while slightly bouncing forward over 1 second, then becoming a trap for 5 seconds that bursts upon contact with an enemy. The bubble can move through terrain only once, but travels the entire distance as bonus range, and will fall short if it would enter terrain again.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The burst deals magic damage to the target and inflicts them with drowsy for 1.4 seconds, which gradually slows them until they fall asleep for 2.25 seconds. While the target is asleep, they are inflicted with 30% magic resistance reduction.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Slow",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "drowsy",
+            "category": "control",
+            "wording": "drowsy",
+            "duration": {
+              "kind": "constant",
+              "value": 1.4
+            },
+            "evidence": "The burst deals magic damage to the target and inflicts them with drowsy for 1.4 seconds, which gradually slows them until they fall asleep for 2.25 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2.25
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                10,
+                15,
+                20,
+                25,
+                30
+              ]
+            },
+            "evidence": "The burst deals magic damage to the target and inflicts them with drowsy for 1.4 seconds, which gradually slows them until they fall asleep for 2.25 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "sleep",
+            "category": "control",
+            "wording": "asleep",
+            "duration": {
+              "kind": "constant",
+              "value": 2.25
+            },
+            "evidence": "The burst deals magic damage to the target and inflicts them with drowsy for 1.4 seconds, which gradually slows them until they fall asleep for 2.25 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "sleep",
+            "category": "control",
+            "wording": "asleep",
+            "evidence": "While the target is asleep, they are inflicted with 30% magic resistance reduction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The next instance of non-persistent damage from champions, large monsters or turrets against the target, within 3.25 seconds of the sleep being applied, ends the sleep prematurely if it is active and deals bonus true damage equal to the post-mitigation damage dealt, capped at Sleepy Trouble Bubble's damage.",
+        "leveling": [
+          {
+            "label": "Bonus Damage Cap",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Mixed Damage",
+            "amount": {
+              "text": "140 / 220 / 300 / 380 / 460 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  220,
+                  300,
+                  380,
+                  460
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "persistent",
+            "evidence": "The next instance of non-persistent damage from champions, large monsters or turrets against the target, within 3.25 seconds of the sleep being applied, ends the sleep prematurely if it is active and deals bonus true damage equal to the post-mitigation damage dealt, capped at Sleepy Trouble Bubble's damage.",
+            "conditional": false
+          },
+          {
+            "type": "sleep",
+            "category": "control",
+            "wording": "sleep",
+            "evidence": "The next instance of non-persistent damage from champions, large monsters or turrets against the target, within 3.25 seconds of the sleep being applied, ends the sleep prematurely if it is active and deals bonus true damage equal to the post-mitigation damage dealt, capped at Sleepy Trouble Bubble's damage.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "3.25 seconds",
+            "tip": "Fixed duration, unaffected by tenacity"
+          },
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
+      },
+      {
+        "text": "Sleepy Trouble Bubble refunds a percentage of its cooldown if the bubble hits an enemy champion.",
+        "leveling": [
+          {
+            "label": "Cooldown Refund",
+            "amount": {
+              "text": "16 / 19.5 / 23 / 26.5 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  16,
+                  19.5,
+                  23,
+                  26.5,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will not prevent falling asleep nor block the wake-up damage.\n  - The bubble's damage and drowsy application will be blocked.",
+      "Sleepy Trouble Bubble's sleep debuff is special cased to be applied to epic monsters in spite of their total cc-immunity, without inflicting them with sleep's disabling effects.",
+      "Zoe will gain obscured vision of the target while they're asleep if they are not visible.",
+      "If exceptionally close to terrain, the bubble will pass through without detection and will still be able to pass through a second piece of terrain - although it sacrifices any range its already used going through the first piece.",
+      "Sleepy Trouble Bubble can interact with player-generated terrain.",
+      "At the end of the path of the initial missile, before continuing with the short bounce, Sleepy Trouble Bubble checks for targets in a 100 radius to immediately collide with.\n  - This \"lollipop\" is one of only a few that is larger than the ability's missile width.",
+      "Sleepy Trouble Bubble can still be collided with during the short bounce between end of initial missile and the trap being formed.\n  - This seems to use a very small or negative collision radius, rather than normal missile collision.",
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - The missile's maximum range location, or end position, is determined at the start of the cast and as such will always be fired to the same spot regardless of where Zoe is at the end of the cast time.\n    - An applicable example of this can be seen in an interaction with her Portal Jump. If Sleepy Trouble Bubble is cast right before she blinks back to Portal Jump's original cast position, the range of the missile will be extended for it to fire to the same end position as if she had not blinked back. This interaction occurs in this manner due to the missile's behavior as explained prior and the fact that Zoe blinks back with Portal Jump before the cast time of Sleepy Trouble Bubble finishes, causing the cast time to finish from Portal Jump's original cast position.",
+      "The bonus damage from Sleepy Trouble Bubble is dealt before any triggering damage from Zoe or her allies, and is attributed to Zoe at all times.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Sleepy Trouble Bubble|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Zoe\n|skill        = E\n|icon         = Sleepy Trouble Bubble.png\n|blurb        = {{sbc|Active:}} {{ci|Zoe}} kicks a bubble in the target direction that bursts upon the first enemy hit. At max range, it will linger as a trap for a few seconds that bursts upon enemy contact.\n|blurb2      = The burst deals {{as|magic damage}} and briefly inflicts {{tip|drowsy}}, which gradually {{tip|slows}} them. Afterwards, the target falls {{tip|sleep|asleep}} for a short time, during which they cannot act. \n|blurb3      = If the target is attacked during {{tip|Sleep}} by an enemy {{tip|champion}}, large {{tip|monster}}, or {{tip|turret}}, they wake up and take {{as|'''bonus''' true damage}} equal to the attack, up to a cap.\n|description  = {{sbc|Active:}} '''Zoe''' kicks a bubble in the target direction that bursts upon the first enemy hit, otherwise lingering at maximum range while slightly bouncing forward over 1 second, then becoming a trap for 5 seconds that bursts upon contact with an enemy. The bubble can move through [[terrain]] only once, but travels the entire distance as '''bonus''' range, and will fall short if it would enter terrain again.\n|description2 = The burst deals {{as|magic damage}} to the target and inflicts them with {{tip|drowsy}} for {{fd|1.4}} seconds, which gradually {{tip|slows}} them until they fall {{tip|sleep|asleep}} for {{fd|2.25}} seconds. While the target is {{tip|sleep|asleep}}, they are inflicted with {{sti|magic penetration|{{as|30% magic resistance reduction}}}}.\n|leveling2    = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 45% AP)}}}}\n{{st|Maximum Slow|{{ap|10 to 30}}%}}\n|description3 = The next instance of non-{{tip|persistent damage|persistent}} damage from {{tip|champions}}, large {{tip|monsters}} or {{tip|turrets}} against the {{tip|sleep|sleeping}} target consumes the debuff to deal {{sti|{{as|'''bonus''' true damage}}}} equal to the {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt, capped at ''Sleepy Trouble Bubble's'' damage. This '''bonus''' damage may also be applied within 1 second of the {{tip|sleep}} ending, if the debuff was not consumed.\n|leveling3    = {{st|Bonus Damage Cap|{{ap|70 to 230}} {{as|(+ 45% AP)}}|Maximum Mixed Damage|{{ap|140 to 460}} {{as|(+ 90% AP)}}}}\n|description4 = ''Sleepy Trouble Bubble'' refunds a percentage of its cooldown if the bubble hits an enemy champion.\n|leveling4    = {{st|Cooldown Refund|{{ap|16 to 30}}%}}\n|cooldown     = {{ap|18 to 14}}\n|cast time    = {{fd|0.25}}\n|cost         = 80\n|costtype     = Mana\n|range        = {{tip|cr|icononly = true}} {{tt|800|Initial missile range}} + {{tt|50|Bounce extra travel distance}}\n|speed        = {{tt|1850|Initial missile speed}}\n|width        = {{dv|{{tip|er|icononly = true}} {{tt|100|Initial missile width}}|{{tt|200|Lollipop diameter at end of initial missile trajectory, also edge range}}}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|250|Bubble trap radius}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = special\n|spelleffects = special\n|projectile   = True\n|notes        = \n* Applies {{tip|spell damage}} for the bubble and {{tip|proc damage}} for the wake-up damage.\n** The wake-up damage is similar to a damage modifier in that it cannot be redirected (i.e {{cai|E|Illaoi}}<!--pending for test?-->, {{cai|I|Zac}}<!--pending for test?-->).\n* {{tip|Spell shield}} will not prevent falling {{tip|sleep|asleep}} nor block the wake-up damage.\n** The bubble's damage and {{tip|drowsy}} application will be blocked.\n* The '''bonus''' damage from ''Sleepy Trouble Bubble'' is dealt before '''any''' triggering damage from '''Zoe''' or her allies, and is attributed to '''Zoe''' at all times.\n** If an ally expunges the {{tip|sleep}} and the bonus damage from ''Sleepy Trouble Bubble'' is enough to kill the target, '''Zoe''' will be credited the kill.\n*** Additionally in this case, the allied champion will '''not''' be credited an [[assist]] at all.{{bug}}\n* '''Zoe''' will gain {{tip|obscured vision}} of the target while they're {{tip|sleep|asleep}} if they are not {{tip|sight|visible}}.\n* If exceptionally close to terrain, the bubble will pass through without detection and will still be able to pass through a second piece of terrain - although it sacrifices any range its already used going through the first piece.\n* ''Sleepy Trouble Bubble'' can interact with [[Terrain#Player-Generated|player-generated terrain]].\n* At the end of the path of the initial missile, before continuing with the short bounce, ''Sleepy Trouble Bubble'' checks for targets in a {{tip|er|icononly = true}} 100 radius to immediately collide with.\n** This \"lollipop\" is one of only a few that is larger than the ability's missile width.\n* ''Sleepy Trouble Bubble'' can still be collided with during the short bounce between end of initial missile and the trap being formed.\n** This seems to use a {{tip|er|icononly = true}} very small or negative collision radius, rather than normal missile collision.\n{{Effect at cast time end}}\n** The missile's maximum range location, or end position, is determined at the start of the cast and as such will always be fired to the same spot regardless of where '''Zoe''' is at the end of the cast time.\n*** An applicable example of this can be seen in an interaction with her {{ai|Portal Jump|Zoe}}. If ''Sleepy Trouble Bubble'' is cast right before she blinks back to ''Portal Jump's'' original cast position, the range of the missile will be extended for it to fire to the same end position as if she had not blinked back. This interaction occurs in this manner due to the missile's behavior as explained prior and the fact that '''Zoe''' blinks back with ''Portal Jump'' before the cast time of ''Sleepy Trouble Bubble'' finishes, causing the cast time to finish from ''Portal Jump's'' original cast position.\n** This will still count as damage dealt by '''Zoe''' in the damage recap.\n{{ct|cast|items=false|consume=false|spells=true,false,false,false,false}}\n}}"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeEAbility/ZoeE",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"PercentPen\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamage\",\"values\":[30.0,70.0,110.0,150.0,190.0,230.0,270.0],\"__type\":\"SpellDataValue\"},{\"name\":\"CooldownRefresh\",\"values\":[0.125,0.1599999964237213,0.19499999284744263,0.23000000417232513,0.26499998569488525,0.30000001192092896,0.33500000834465027],\"__type\":\"SpellDataValue\"},{\"name\":\"TrapLife\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"},{\"name\":\"DrowsySlow\",\"values\":[0.10000000149011612,0.10000000149011612,0.15000000596046448,0.20000000298023224,0.25,0.30000001192092896,0.3499999940395355],\"__type\":\"SpellDataValue\"},{\"name\":\"DrowsyDuration\",\"values\":[1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142],\"__type\":\"SpellDataValue\"},{\"name\":\"SleepDuration\",\"values\":[2.25,2.25,2.25,2.25,2.25,2.25,2.25],\"__type\":\"SpellDataValue\"},{\"name\":\"BrittleLinger\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.missileSpeed: 1700.0",
+          "mSpell.mCastTime: 0.30000001192092896",
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":40.0,\"movementComponent\":{\"mStartBoneName\":\"Glb_Buffbone_Center_Loc\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1850.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"mMaximumDistance\":725.0,\"mMinimumGapBetweenTerrainWalls\":125.0,\"mMaximumTerrainWallsToSkip\":1,\"scanWidthOverride\":75.0,\"mTargeterDefinition\":{\"mEndLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"mBaseTextureName\":\"assets/spells/textures/skillshot_rectangle_base_r01_v01.tex\",\"mTerrainTextureName\":\"assets/spells/textures/skillshot_rectangle_base_r01_v01_highlighted.tex\",\"__type\":\"TargeterDefinitionSkipTerrain\"},\"__type\":\"FixedDistanceIgnoringTerrain\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeEAbility/ZoeEMis",
+        "text": [
+          "mSpell.missileSpeed: 1700.0",
+          "mSpell.mCastTime: 0.30000001192092896",
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":50.0,\"movementComponent\":{\"mStartBoneName\":\"Glb_Buffbone_Center_Loc\",\"mSpeed\":1850.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"DestroyOnHit\"},{\"__type\":\"CastOnHit\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Zoe",
+    "kind": "I",
+    "name": "More Sparkles!",
+    "page": {
+      "title": "Template:Data Zoe/More Sparkles!",
+      "revid": 3986875
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "projectile": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: After casting an ability, Zoe empowers her next basic attack or Spell Thief bolt within 5 seconds to become non-projectile and deal 16 – 130 (based on level) (+ 20% AP) bonus magic damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "projectile",
+            "category": "other",
+            "wording": "non-projectile",
+            "evidence": "Innate: After casting an ability, Zoe empowers her next basic attack or Spell Thief bolt within 5 seconds to become non-projectile and deal 16 – 130 (based on level) (+ 20% AP) bonus magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                16,
+                20,
+                24,
+                28,
+                32,
+                36,
+                42,
+                48,
+                54,
+                60,
+                66,
+                74,
+                82,
+                90,
+                100,
+                110,
+                120,
+                130,
+                140,
+                150
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: After casting an ability, Zoe empowers her next basic attack or Spell Thief bolt within 5 seconds to become non-projectile and deal 16 – 130 (based on level) (+ 20% AP) bonus magic damage."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The empowered attack will trigger but not be consumed against wards.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|More Sparkles!|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Zoe\n|skill        = I\n|icon         = More Sparkles!.png\n|blurb        = {{sbc|Innate:}} After casting an ability, {{cis|Zoe}} next basic attack or ''{{ai|Spell Thief|Zoe}}'' bolt within a few seconds will deal {{as|'''bonus''' magic damage}}.\n|description  = {{sbc|Innate:}} After casting an {{tip|ability}}, '''Zoe''' empowers her next {{tip|basic attack}}<!--not on-hit?--> or ''{{ai|Spell Thief|Zoe}}'' bolt within 5 seconds to become {{tip|projectile|non-projectile}} and deal {{pp|16; then +4*x for 5; then +6*x for 5; then +8*x for 3; then +10*x for 6|color=magic damage|formula=16 base, then +4 per level until level 6, then +6 per level until level 11, then +8 per level until level 14, then +10 per level}} {{as|(+ 20% AP)}} {{as|'''bonus''' magic damage}}.\n|targeting    = Passive\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = False\n|spelleffects = Proc\n|projectile   = False\n|parry        = True\n|notes        = \n* The empowered attack will trigger but not be consumed against {{tip|wards}}.\n|yvideo       = _k94s6IgX1Q\n}}"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 1600.0",
+          "mSpell.mCastTime: 1.0",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":60.0,\"movementComponent\":{\"mTargetBoneName\":\"C_buffbone_Glb_Center_Loc\",\"mSpeed\":1600.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"mInitialTargetHeightOffset\":25.0,\"__type\":\"CurveTheDifferenceHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Zoe",
+    "kind": "Q",
+    "name": "Paddle Star!",
+    "page": {
+      "title": "Template:Data Zoe/Paddle Star!",
+      "revid": 4091881
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8.5 / 8 / 7.5 / 7 / 6.5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8.5,
+                8,
+                7.5,
+                7,
+                6.5
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25 • None",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "First cast"
+          }
+        ]
+      },
+      "range": {
+        "text": "800 • 800 • Global",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Initial missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Redirected missile range from Zoe, continuously updating as she moves"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Explosion radius from collision point, for both initial and redirected star (estimated)"
+          }
+        ]
+      },
+      "width": {
+        "text": "100 • 140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Initial width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            },
+            "label": "Width after redirection"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1200 • 2500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Initial missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            },
+            "label": "Missile speed after redirection"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zoe shoots a star in the target direction that explodes upon hitting an enemy, dealing magic damage to nearby enemies hit.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "2 – 50 (based on level) (+ 50 / 80 / 110 / 140 / 170) (+ 60% AP)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  2,
+                  4,
+                  6,
+                  8,
+                  10,
+                  12,
+                  14,
+                  16,
+                  18,
+                  21,
+                  24,
+                  27,
+                  30,
+                  34,
+                  38,
+                  42,
+                  46,
+                  50,
+                  54,
+                  58
+                ],
+                "past18": "wiki"
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      50,
+                      80,
+                      110,
+                      140,
+                      170
+                    ]
+                  },
+                  "text": "(+ 50 / 80 / 110 / 140 / 170)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "5 – 125 (based on level) (+ 125 / 200 / 275 / 350 / 425) (+ 150% AP)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40,
+                  45,
+                  52.5,
+                  60,
+                  67.5,
+                  75,
+                  85,
+                  95,
+                  105,
+                  115,
+                  125,
+                  135,
+                  145
+                ],
+                "past18": "wiki"
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      125,
+                      200,
+                      275,
+                      350,
+                      425
+                    ]
+                  },
+                  "text": "(+ 125 / 200 / 275 / 350 / 425)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The star lingers at maximum range for 1 second, during which Paddle Star! can be recast after 0.25 seconds in the duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Zoe redirects the star in the target path, empowering it with increased speed and radius. The redirected star can travel until it reaches 800-units outbound from Zoe and its total damage is increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 (based on distance traveled)%, excluding the distance traveled by the initial cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                800,
+                950,
+                1350,
+                1650,
+                1950,
+                2250,
+                2550
+              ],
+              "values": [
+                0,
+                25,
+                50,
+                75,
+                100,
+                125,
+                150
+              ]
+            },
+            "context": "The redirected star can travel until it reaches 800-units outbound from Zoe and its total damage is increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 (based on distance traveled)%, excluding the distance traveled by the initial cast."
+          }
+        ]
+      },
+      {
+        "text": "Paddle Star!'s recast can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Both casts count as ability activations for the purposes of on-cast effects such as More Sparkles!, Spellblade and triggering Force Pulse passive.",
+      "The recast radius matches the initial cast radius of the ability, but Zoe can move any amount of distance away from the projectile before reactivating.",
+      "Paddle Star!'s effect radius is centered around the location of the missile as it collides.",
+      "Paddle Star!'s total damage will be increased for a maximum of 146,6% instead of the expected 150%.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Paddle Star!|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Zoe\n|skill        = Q\n|icon         = Paddle Star!.png\n|blurb        = {{sbc|Active:}} {{ci|Zoe}} shoots a star in the target direction that explodes upon hitting an enemy, dealing {{as|magic damage}} to nearby enemies hit based on the distance travelled.\n|blurb2      = The star will briefly linger at max range, during which ''Paddle Star!'' can be recast.\n|blurb3      = {{sbc|Recast:}} '''Zoe''' redirects the star in the target path, making it larger and faster. It will fizzle upon flying too far outbound from '''Zoe'''.\n|blurb4      = '''Zoe''' can move during ''Paddle Star!''.\n|description  = {{sbc|Active:}} '''Zoe''' shoots a star in the target direction that explodes upon hitting an enemy, dealing {{as|magic damage}} to nearby enemies hit. The '''total''' damage is increased by {{pp|type=distance traveled|key=%|0 to 150 for 7|800;950;1350;1650;1950;2250;2550}}.\n|leveling     = {{st|Minimum Magic Damage|{{pp|2; then +2*x for 8; then +3*x for 4; then +4*x for 7|formula=2 base, then +2 per level until 9, then +3 per level until 13, then +4 per level}} (+ {{ap|50 to 170}}) {{as|(+ 60% AP)}}|Maximum Magic Damage|{{pp|2*2.5; then +(2*2.5)*x for 8; then +(3*2.5)*x for 4; then +(4*2.5)*x for 7|formula=250% of minimum}} (+ {{ap|50*2.5 to 170*2.5}}) {{as|(+ 150% AP)}}}}\n|description2 = The star lingers at maximum range for 1 second, during which ''Paddle Star!'' can be recast after {{fd|0.25}} seconds in the duration.\n|icon3        = Paddle Star! 2.png\n|description3 = {{sbc|Recast:}} '''Zoe''' redirects the star in the target path, empowering it with increased speed and radius, and resetting its damage modifier on cast. The redirected star can travel until it reaches 800-units outbound from '''Zoe'''.\n|description4 = ''Paddle Star!'s recast can be used while affected by {{tip|cast-inhibiting crowd control}}.''\n|cooldown     = {{ap|8.5 to 6.5}}\n|cdstart      = on-cast\n|cast time    = {{dv|{{tt|{{fd|0.25}}|First cast}}|{{tt|None|Recast}}}}\n|cost         = {{ap|40 to 60}}\n|costtype     = Mana\n|range        = {{dv|{{tip|cr|icononly = true}} {{tt|800|Initial missile}}|{{tip|er|icononly = true}} {{tt|800|Redirected missile range from Zoe, continuously updating as she moves}}|{{tt|Global|Potential redirected missile range}}}}\n|width        = {{dv|{{tip|er|icononly = true}} {{tt|100|Initial width}}|{{tt|140|Width after redirection}}}}\n|speed        = {{dv|{{tt|1200|Initial missile}}|{{tt|2500|Missile speed after redirection}}}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|180|Explosion radius from collision point, for both initial and redirected star (estimated)}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Area of effect\n|projectile   = True\n|notes        = \n* Both casts count as ability activations for the purposes of on-cast effects such as {{ai|More Sparkles!|Zoe}}, {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.\n* The recast radius matches the initial cast radius of the ability, but '''Zoe''' can move any amount of distance away from the projectile before reactivating.\n* ''Paddle Star!'s'' effect radius is centered around the location of the missile as it collides.\n* ''Paddle Star!'s'' total damage will be increased for a maximum of 146,6% instead of the expected 150%.{{bug}} \n|yvideo       = 9BgkLJKbj3M\n}}"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeQAbility/ZoeQ",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[20.0,50.0,80.0,110.0,140.0,170.0,200.0],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"MinionDamageMod\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"UnnamedEffectAmount1\",\"__type\":\"SpellDataValue\"}]",
+          "mSpell.missileSpeed: 1200.0",
+          "mSpell.mCantCancelWhileWindingUp: true"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeQAbility/ZoeQRecast",
+        "text": [
+          "mSpell.missileSpeed: 1200.0",
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.canCastWhileDisabled: true"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Zoe",
+    "kind": "R",
+    "name": "Portal Jump",
+    "page": {
+      "title": "Template:Data Zoe/Portal Jump",
+      "revid": 4005248
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 8 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                8,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "575",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 575
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "grounded": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: After a 0.15-second delay, Zoe blinks in the target direction and remains there for 0.95 seconds to 1.25 seconds, during which she sets her movement speed to a static 0 and has unobstructed vision. Afterwards, she blinks back to her casting position.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Active: After a 0.15-second delay, Zoe blinks in the target direction and remains there for 0.95 seconds to 1.25 seconds, during which she sets her movement speed to a static 0 and has unobstructed vision.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "unobstructed vision",
+            "evidence": "Active: After a 0.15-second delay, Zoe blinks in the target direction and remains there for 0.95 seconds to 1.25 seconds, during which she sets her movement speed to a static 0 and has unobstructed vision.",
+            "conditional": false
+          },
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Afterwards, she blinks back to her casting position.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.15-second delay",
+            "tip": "From the end of the cast time, blink occurs after 0.4 seconds from the start of cast"
+          },
+          {
+            "text": "0.95 seconds to 1.25 seconds",
+            "tip": "See notes"
+          }
+        ]
+      },
+      {
+        "text": "Portal Jump resets Zoe's basic attack timer. Zoe briefly becomes unable to act after casting Portal Jump as well as after blinking back.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Portal Jump resets Zoe's basic attack timer.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "Zoe briefly becomes unable to act after casting Portal Jump as well as after blinking back.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "briefly",
+            "tip": "See notes"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Zoe will remain at the blink destination for an inconsistent period of time.",
+      "Portal Jump causes Zoe to become unable to perform any actions for a varied ~0.55-0.75 seconds from the start of the cast time and another time for a varied ~0.3-0.5 seconds starting from right before she blinks back.",
+      "Zoe is able to perform any action while at the blink destination, except practically being unable to move through normal movement due to having 0 movement speed.",
+      "Portal Jump's maximum range location, or end position, is determined at the start of the cast time and as such Zoe will always blink to the determined destination regardless of where she is at the end of the ability's cast time.",
+      "Portal Jump will always cause Zoe to blink back to her casting position regardless of where she is moved to while at the destination.\n  - She will still be considered to blink even if she fails to move her intended location while attached (e.g. if she were affected by The Show Stopper).",
+      "Upon reaching her destination, Zoe will either raspberry at the nearest enemy champion, or lick an ice cream cone when there are no enemy champions in sight.",
+      "Zoe's return position is shifted by 25 units in the target direction from her cast location.",
+      "The following table refers for interactions while Zoe is locked out during the cast time and for certain periods of time during the ability:",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Portal Jump|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Zoe\n|skill        = R\n|icon         = Portal Jump.png\n|blurb        = {{sbc|Active:}} {{ci|Zoe}} {{tip|blinks}} in the target direction, after which she cannot move for a brief moment.\n|blurb2      = Afterwards, she {{tip|blinks}} back to her starting position.\n|description  = {{sbc|Active:}} After a {{tt|{{fd|0.15}}-second delay|From the end of the cast time, blink occurs after 0.4 seconds from the start of cast}}, '''Zoe''' {{tip|blinks}} in the target direction and remains there for {{tt|{{fd|0.95}} seconds to {{fd|1.25}} seconds|See notes}}, during which she sets her {{as|movement speed}} to a {{as|static 0|ms}} and has {{tip|unobstructed vision}}. Afterwards, she {{tip|blinks}} back to her casting position.\n|description2 = ''Portal Jump {{tip|basic attack reset|resets}} '''Zoe's''' basic attack timer. '''Zoe''' {{tt|briefly|See notes}} becomes {{tip|lockout|unable to act}} after casting Portal Jump as well as after blinking back.''\n|cooldown     = {{ap|11 to 5}}\n|cdstart      = post-effect\n|cast time    = {{fd|0.25}}\n|cost         = 40\n|costtype     = Mana\n|range        = 575\n|targeting    = Direction\n|affects      = Self\n|grounded     = true\n|flavorsound  = {{sm2|Zoe Original R 1.ogg}} ''\"Whoop!\"'' \n|notes        = \n* '''Zoe''' will remain at the blink destination for an inconsistent period of time.{{bug|1}}\n* ''Portal Jump'' causes '''Zoe''' to become unable to perform any actions for a varied ~{{fd|0.55}}-{{fd|0.75}} seconds{{bug|1}} from the start of the cast time and another time for a varied ~{{fd|0.3}}-{{fd|0.5}} seconds{{bug|1}} starting from right before she blinks back.\n* '''Zoe''' is able to perform any action while at the blink destination, except practically being unable to move through normal movement due to having 0 movement speed.\n* ''Portal Jump's'' maximum range location, or end position, is determined at the start of the cast time and as such '''Zoe''' will always blink to the determined destination regardless of where she is at the end of the ability's cast time.\n* ''Portal Jump'' will always cause '''Zoe''' to {{tip|blink}} back to her casting position regardless of where she is moved to while at the destination.\n** She will still be considered to blink even if she fails to move her intended location while {{tip|attach|attached}} (e.g. if she were affected by {{ai|The Show Stopper|Sett}}).\n* Upon reaching her destination, '''Zoe''' will either raspberry at the nearest enemy champion, or lick an ice cream cone when there are no enemy champions in {{tip|sight}}.\n* '''Zoe's''' return position is shifted by 25 units in the target direction from her cast location.\n* The following table refers for interactions while '''Zoe''' is locked out during the cast time and for certain periods of time during the ability:\n{{ct|cast=false|move=false|attack=false|items=false|consume=false|spells=true,false,false,false,false|interrupts=death}}\n}}"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeRAbility/ZoeR",
+        "text": [
+          "mSpell.missileSpeed: 0.0",
+          "mSpell.mCastTime: 0.25",
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.mChannelIsInterruptedByDisables: false"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Zoe",
+    "kind": "W",
+    "name": "Spell Thief",
+    "page": {
+      "title": "Template:Data Zoe/Spell Thief",
+      "revid": 4013273
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "costType": "spell shard",
+      "effectRadius": {
+        "text": "Global • 1500 • 525",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Maximum distance from Zoe for minions slain by allies to drop a Spell Shard"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            },
+            "label": "Bolt lock-on range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive - Wheeeee",
+        "text": "Passive - Wheeeee: Whenever Zoe casts Spell Thief or a summoner spell, she gains bonus movement speed for a duration, and summons three bolts that orbit her for the next 10 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed Duration",
+            "amount": {
+              "text": "2 / 2.25 / 2.5 / 2.75 / 3 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2,
+                  2.25,
+                  2.5,
+                  2.75,
+                  3
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If Zoe is not affected by complete crowd control, she shoots one bolt at a time at the nearest non-sleeping enemy in range, prioritizing her attack target, dealing magic damage with each bolt.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Bolt",
+            "amount": {
+              "text": "15 / 25 / 35 / 45 / 55 (+ 10% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  25,
+                  35,
+                  45,
+                  55
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "45 / 75 / 105 / 135 / 165 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  75,
+                  105,
+                  135,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "sleep",
+            "category": "control",
+            "wording": "sleeping",
+            "evidence": "If Zoe is not affected by complete crowd control, she shoots one bolt at a time at the nearest non-sleeping enemy in range, prioritizing her attack target, dealing magic damage with each bolt.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Passive",
+        "text": "Passive: Whenever an enemy champion casts a specific or , regardless of distance, they drop the corresponding onto the ground that grants sight over a 100-radius area and remains for 40 seconds. Enemy minions have a 10% chance to spawn with a random Spell Shard that drops and remains for 20 seconds if Zoe kills them. Allied champions that kill them will cause the Spell Shard to drop only if Zoe is nearby.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Passive: Whenever an enemy champion casts a specific or , regardless of distance, they drop the corresponding onto the ground that grants sight over a 100-radius area and remains for 40 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "specific",
+            "tip": "See notes for applicable spells/item actives"
+          },
+          {
+            "text": "random Spell Shard",
+            "tip": "See notes for applicable spells/actives"
+          }
+        ]
+      },
+      {
+        "text": "Zoe can collect a Spell Shard by moving directly onto it, holding it for up to 60 seconds. Collecting a new Spell Shard replaces the current one.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Zoe mimics the active effect of the collected Spell Shard.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The in-game tooltip for Spell Thief while Zoe has a Spell Shard uses the tooltip of the mimicked spell or item active.",
+      "Zoe will cast Spell Thief in place of her own summoner spells if she has either of them as a collected Spell Shard, even if she tries to cast the summoner spell while it is on cooldown.",
+      "Minions that can drop Spell Shards are marked with a tied cosmic balloon that floats above them.",
+      "Zoe utilizes an attack-like animation whenever one of the bubbles hurls itself at an enemy, making it look as if she can attack while moving.",
+      "Minions holding a Spell Shard will drop their shard if killed by Zoe regardless of her distance to them at the time of their death.",
+      "Minions holding a Spell Shard can drop one of the following summoner spells or item actives:\n  - Applicable summoner spells: Barrier, Cleanse, Exhaust, Ghost, Heal, Ignite, and Unleashed Smite.\n    - All other summoner spells are not applicable for minions to drop, which includes Clarity, Hexflash, Mark / Dash, Smite, Teleport / Unleashed Teleport, and Primal Smite.\n  - Applicable item actives: Hextech Rocketbelt, Locket of the Iron Solari, Profane Hydra, Randuin's Omen, Ravenous Hydra, Shurelya's Battlesong, Stridebreaker, Titanic Hydra, and Youmuu's Ghostblade.",
+      "All summoner spells except Dash and Hexflash are applicable to drop as a Spell Shard when an enemy champion uses them.",
+      "Casting Teleport / Unleashed Teleport acquired through Spell Thief causes the Top Lane Role Quest Unleashed Teleport to go on cooldown.",
+      "The recast duration of a mimicked Mark cast lasts longer than the mark duration.\n  - This allows her to cast Dash while the mark is expired, though the spell will fail to trigger its effects with an attempted cast. Spell Thief's passive effect is still triggered, however.",
+      "Spell Shards may be collected while Zoe can cast Dash from a mimicked Mark cast. The new shard will replace the ability slot once Dash is used or expires.",
+      "Prior to an unknown patch, the maximum distance from Zoe for enemy champions to drop a Spell Shard was 2200.",
+      "The following table lists item actives that can drop as a Spell Shard, as well as those that explicitly do not or are not applicable to drop, when an enemy champion activates them:\n  - Consumable and trinket items are excluded automatically.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Spell Thief|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Zoe\n|skill        = W\n|icon         = Zoe Spell Thief 2.png\n|icon3        = Spell Thief.png\n|description  = {{sbc|Passive - Wheeeee:}} Whenever '''Zoe''' casts ''Spell Thief'' or a summoner spell, she gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for a duration, and summons three bolts that orbit her for the next 10 seconds.\n|leveling     = {{st|Bonus Movement Speed|{{ap|30 to 70}}%}}\n{{st|Bonus Movement Speed Duration|{{ap|2 to 3}} seconds}}\n|description2 = If '''Zoe''' is not affected by {{tip|complete crowd control}}, she shoots one bolt at a time at the nearest non-{{tip|sleep|sleeping}} enemy in range, prioritizing her attack target, dealing {{as|magic damage}} with each bolt.\n|leveling2    = {{st|Magic Damage Per Bolt|{{ap|15 to 55}} {{as|(+ 10% AP)}}|Total Magic Damage|{{ap|15*3 to 55*3}} {{as|(+ {{ap|10*3}}% AP)}}}}\n|description3 = {{sbc|Passive:}} Whenever an enemy champion casts a {{tt|specific|See notes for applicable spells/item actives}} {{ccib|Summoner spell icon.png|summoner spell}} or {{ccib|Active ability item icon.svg|Active ability items|item active}}, regardless of distance, they drop the corresponding ''{{as|{{ccib|Spell Thief Minimap.png||Spell Shard}}|armor}}'' onto the ground that grants {{tip|sight}} over a 100-radius area and remains for 40 seconds. Enemy {{tip|minions}} have a 10% chance to spawn with a {{tt|random ''{{as|Spell Shard|armor}}''|See notes for applicable spells/actives}} that drops and remains for 20 seconds if '''Zoe''' kills them. Allied champions that kill them will cause the ''{{as|Spell Shard|armor}}'' to drop only if '''Zoe''' is nearby.\n|description4 = '''Zoe''' can collect a ''{{as|Spell Shard|armor}}'' by moving directly onto it, holding it for up to 60 seconds. Collecting a new ''{{as|Spell Shard|armor}}'' replaces the current one.\n|description5 = {{sbc|Active:}} '''Zoe''' mimics the active effect of the collected ''{{as|Spell Shard|armor}}''.\n|cooldown     = {{fd|0.25}}\n|costtype     = Spell Shard\n|cost         = 1\n|effect radius= {{dv|{{tt|Global|Range for enemy champions to drop a Spell Shard with their spell casts}}|{{tt|1500|Maximum distance from Zoe for minions slain by allies to drop a Spell Shard}}|{{tip|er|icononly = true}} {{tt|525|Bolt lock-on range}}}}\n|targeting    = Auto\n|affects      = Self, Enemies\n|damagetype   = magic\n|spellshield  = true\n|spelleffects = spell\n|projectile   = true\n|notes        = \n* The in-game tooltip for ''Spell Thief'' while '''Zoe''' has a ''{{as|Spell Shard|armor}}'' uses the tooltip of the mimicked spell or item active.\n* '''Zoe''' will cast ''Spell Thief'' in place of her own summoner spells if she has either of them as a collected ''{{as|Spell Shard|armor}}'', even if she tries to cast the summoner spell while it is on cooldown.\n* Minions that can drop ''{{as|Spell Shards|armor}}'' are marked with a tied cosmic balloon that floats above them.\n* '''Zoe''' utilizes an attack-like animation whenever one of the bubbles hurls itself at an enemy, making it look as if she can attack while moving.\n* Minions holding a ''{{as|Spell Shard|armor}}'' will drop their shard if killed by '''Zoe''' regardless of her distance to them at the time of their death.\n* Minions holding a ''{{as|Spell Shard|armor}}'' can drop one of the following summoner spells or item actives:\n** '''Applicable summoner spells:''' {{si|Barrier}}, {{si|Cleanse}}, {{si|Exhaust}}, {{si|Ghost}}, {{si|Heal}}, {{si|Ignite}}, and {{si|Unleashed Smite}}.\n*** All other summoner spells are not applicable for minions to drop, which includes {{si|Clarity}}, {{si|Hexflash}}, {{si|Mark}} / {{si|Dash}}, {{si|Smite}}, {{si|Teleport}} / {{si|Unleashed Teleport}}, and {{si|Primal Smite}}.\n** '''Applicable item actives:''' {{ii|Hextech Rocketbelt}}, {{ii|Locket of the Iron Solari}}, {{ii|Profane Hydra}}, {{ii|Randuin's Omen}}, {{ii|Ravenous Hydra}}, {{ii|Shurelya's Battlesong}}, {{ii|Stridebreaker}}, {{ii|Titanic Hydra}}, and {{ii|Youmuu's Ghostblade}}.\n* All summoner spells except {{si|Dash}} and {{si|Hexflash}} are applicable to drop as a ''{{as|Spell Shard|armor}}'' when an enemy champion uses them.\n* Casting {{si|Teleport}} / {{si|Unleashed Teleport}} acquired through ''Spell Thief'' causes the Top Lane [[Role Quest]] {{si|Unleashed Teleport}} to go on {{sti|cooldown}}.{{bug}}\n* The recast duration of a mimicked {{si|Mark}} cast lasts longer than the mark duration.{{bug}}\n** This allows her to cast {{si|Dash}} while the mark is expired, though the spell will fail to trigger its effects with an attempted cast. ''Spell Thief's'' passive effect is still triggered, however.\n* ''{{as|Spell Shards|armor}}'' may be collected while '''Zoe''' can cast {{si|Dash}} from a mimicked {{si|Mark}} cast. The new shard will replace the ability slot once {{si|Dash}} is used or expires.\n* Prior to an unknown patch, the maximum distance from Zoe for enemy champions to drop a ''{{as|Spell Shard|armor}}'' was 2200.{{bug|2}}\n* The following table lists item actives that can drop as a ''{{as|Spell Shard|armor}}'', as well as those that explicitly do not or are not applicable to drop, when an enemy champion activates them:\n** [[Consumable item|Consumable]] and [[trinket]] items are excluded automatically.\n{{Zoe Spell Thief list}}\n|yvideo       = oyCUeWfaBBk\n|flavorsound  = {{sm2|Zoe_Original_W_15.ogg}} ''\"You left a copy of your spell here. I took it. 'Kay thanks.\"''\n<!-- Blurb -->\n|blurbicon = Spell Thief.png\n|blurb        = {{sbc|Passive - Wheeeee:}} Whenever {{ci|Zoe}} casts ''Spell Thief'' or a summoner spell, she gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for a short time. She also conjures 3 orbiting bolts for a period that will each shoot to the nearest enemy, dealing {{as|magic damage}}.\n|blurb2       = {{sbc|Passive:}} Whenever an enemy champion casts a {{ccib|Summoner spell icon.png|summoner spell}} or {{ccib|Active ability item icon.svg|Active ability items|item active}}, they drop the corresponding ''{{as|{{ccib|Spell Thief Minimap.png||Spell Shard}}|armor}}'' onto the ground for a while. Enemy {{tip|minions}} have a chance to spawn with random ''{{as|Spell Shards|armor}}'' that drop if '''Zoe''' kills them.<br/><br/>'''Zoe''' can collect a ''{{as|Spell Shard|armor}}'' for a while.\n|blurb3       = {{sbc|Active:}} '''Zoe''' mimics the active of the collected ''{{as|Spell Shard|armor}}''.\n}}"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeWAbility/ZoeW",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"TotalBaseDamage\",\"values\":[5.0,15.0,25.0,35.0,45.0,55.0,65.0],\"__type\":\"SpellDataValue\"},{\"name\":\"TotalAPRatio\",\"values\":[0.10000000149011612,0.10000000149011612,0.10000000149011612,0.10000000149011612,0.10000000149011612,0.10000000149011612,0.10000000149011612],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedMod\",\"values\":[0.20000000298023224,0.30000001192092896,0.4000000059604645,0.5,0.6000000238418579,0.699999988079071,0.800000011920929],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedDuration\",\"values\":[1.75,2.0,2.25,2.5,2.75,3.0,3.25],\"__type\":\"SpellDataValue\"},{\"name\":\"DurationOfSummonerCanCast\",\"values\":[60.0,60.0,60.0,60.0,60.0,60.0,60.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MovementSpeed\",\"values\":[0.30000001192092896,0.30000001192092896,0.4000000059604645,0.5,0.6000000238418579,0.699999988079071,0.800000011920929],\"__type\":\"SpellDataValue\"},{\"name\":\"MSDuration\",\"values\":[2.0,2.0,2.25,2.5,2.75,3.0,3.25],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.missileSpeed: 2000.0",
+          "mSpell.mCastTime: 0.009999999776482582",
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.canCastWhileDisabled: true"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json",
+        "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+        "object": "Characters/Zoe/Spells/ZoeWAbility/ZoeWPassiveMissileTwo",
+        "text": [
+          "mSpell.missileSpeed: 1400.0",
+          "mSpell.mCastTime: 0.25",
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.mMissileSpec: {\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"spine\",\"mSpeed\":1400.0,\"__type\":\"FixedSpeedMovement\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Flash",
+          "revid": 4008665
+        },
+        "text": [
+          "{{article game navigation}}\n{{Spell info|Flash}}\n\n'''Flash''' is a [[location-targeted]] [[summoner spell]] that causes your [[champion]] to [[blink]] to the location in range of your cursor.\n\n== Notes ==\n* '''Flash''' cannot be used while {{tip|root|rooted}}, {{tip|ground|grounded}}, or unable to cast.\n* '''Flash''' additionally changes the user's facing direction to be in the same direction they blinked.\n* With the {{ri|Hextech Flashtraption}} rune, {{si|Hexflash}} replaces '''Flash''' when it's on {{sti|cooldown|link=true}}.\n* '''Flash''' will cast at max range if cast beyond that.\n* '''Flash''' always employs [[Quick cast]].\n{{safesubst:unexpected|desc=\n* If '''Flash''' is cast during an ability's cast time, it will cause the ability's visual effects to spawn lower than normal. [https://github.com/ArdaSenyurek/Rengar-Bugs/issues/118] {{bug|2}}|affectedEffects=Flash|estimatedPatchOrigin=June 12, 2009 Patch|<!--added automatically-->wikiUploadTimestamp=1776215881|<!--added automatically-->pagename=Flash\n}}\n\n== Strategy ==\n* '''Flash''' can easily be used to escape from or catch up with a foe. It can be used to dodge or land abilities.\n* It can also be used to move over walls, either for a quick escape or in response to an opponent's [[dash]].\n* It is an extremely popular summoner spell due to the mobility it offers, and is especially vital on champions that entirely lack mobility abilities, such as {{ci|Ashe}} or {{ci|Cho'Gath}}.\n* '''Flash''' will not interrupt abilities that have a [[cast time]] attached to them like {{cai|Trueshot Barrage|Ezreal}}, or abilities that can be [[Channel#Charged Abilities|charged]] like {{cai|Piercing Arrow|Varus}}. This allows a champion to charge or cast an ability, then flash in for a surprise attack against enemies, as seen in the [[Flash#Media|video]] below.\n\n{{Summoner spell cooldown table}}\n\n== Trivia ==\n* Prior to being a summoner spell, the [[alpha items]] {{ii|Blink Dagger}} and {{ii|Yordle Stompers}} served the same function as '''Flash'''.\n* For a time, the inclusion of '''Flash''' in the game was hotly debated and [[Riot Games Inc.]] even considered removing it from the game entirely, with parts of the community for and against removal. As a result, it has suffered several nerfs.\n* You would need 49 '''Flash''' to go from one fountain to another, which would take 4 hours and 5 minutes.\n* The first icon for {{si|Flash|variant=old}} was recolored blue for the icon for the [[Season One|Season One (2011)]] mastery {{mi1|Blink of an Eye}}.\n\n== Media ==\n<tabber>\nVideos=\n{{#ev:youtube|id=SZp_plh_9cU|dimensions=640px|alignment=center|caption=In game demonstration of flash.}}\n;Related Videos\n{{VideoGallery\n|{{#ev:youtube|id=NayxXhhp3j4|dimensions=240px}}\n}}\n|-|\nOld Icons=\n<gallery captionalign=\"center\">\nFlash old4.png|Flash\nFlash old3.png|Flash\nFlash old2.png|Flash\nFlash old.png|Flash\n</gallery>\n</tabber>\n\n== Sound Effects ==\n;Activation\n* {{sm2|Flash SFX 2.ogg}} Summoner Spell SFX\n* {{sm2|Flash SFX 3.ogg}} Summoner Spell SFX\n* {{sm2|Flash SFX.ogg}} Summoner Spell SFX\n\n== Patch History ==\n{{Scroll box|content=\n;[[V26.04]]\n* {{sbc|Undocumented / Bug Fix:}} Flash VFX at the cast location is now once again visible if an enemy champion uses it to blink into vision.\n\n;[[V25.04]]\n* {{sbc|Undocumented / Bug Fix:}} Is now properly sealed during various movement/{{tip|dash}} lockouts (e.g. {{ai|Ferromancy: Crash Down|Rell}}, {{ai|Shield of Durand|Galio}}, etc).\n\n;[[V25.S1.1]]\n* Updated icon.\n\n;[[V14.12]]\n* {{sbc|Bug Fix:}} Now properly displays its smoke VFX if used by the enemy to blink into the Fog of War.\n\n;Unknown Patch\n* {{sbc|Undocumented / Bug:}} Flash VFX at the cast location is no longer visible if an enemy champion uses it to blink into vision.\n\n;[[V12.17]]\n* {{sbc|Bug Fix:}} Can no longer be used while {{tip|charm|charmed}} after using {{si|Ghost}} or {{si|Heal}}.\n* {{sbc|Bug Fix:}} Casting certain abilities after using it no longer causes it and {{si|Hexflash}} to become disabled.\n\n;[[V7.22]]\n* Level requirement reduced to 7 from 8.\n\n;[[V4.20]]\n* Available at account level 8 instead of 10.\n\n;[[V4.16]]\n* Movement commands now persist after Flashing in the same direction you're moving.\n\n;[[V4.2]]\n* New particles and sound.\n\n;[[V4.1]]\n* Icon updated.\n\n;[[V1.0.0.152]]\n* Cooldown increased to 300 seconds from 265 seconds.\n* {{mi3|Summoner's Insight}} is now calculated after other Summoner Flash cooldown reductions.\n\n;[[V1.0.0.129]]\n* Cooldown increased to 265 seconds from 255 seconds.\n* Range reduced to 400 from 450.\n\n;[[V1.0.0.107]]\n* No longer pops projectiles.\n* Cooldown increased to 255 seconds from 240 seconds.\n\n;[[V1.0.0.103]]\n* No longer breaks stealth.\n\n;[[V1.0.0.100]]\n* Can no longer be cast while rooted.\n\n;[[V1.0.0.97]]\n* {{si|Flash}} now removes stealth when used.\n\n;[[V1.0.0.81]]\n* Range reduced to 425 from 450.\n\n;[[V1.0.0.75]]\n* Cooldown increased to 240 seconds from 210 seconds.\n\n;[[V1.0.0.72]]\n* Cooldown increased to 210 seconds from 195 seconds.\n\n;[[V1.0.0.70]]\n* Cooldown increased to 195 seconds from 180 seconds.\n\n;[[V1.0.0.63]]\n* Changed {{sis|Flash}} targeting type so it no longer requires a location click; now it uses the location of the cursor.\n* Fixed a bug where attempting to cast {{si|Flash}} extremely far distances away would cause the champion to move, instead of teleporting in that direction.\n\n;[[V1.0.0.61]]\n* Range reduced to 450 from 1000.\n* Cooldown reduced to 180 seconds from 360 seconds.\n* {{si|Flash}} now pops incoming projectiles when used.\n\n;[[V0.8.22.115]]\n* Cooldown increased to 360 seconds from 330 seconds.\n\n;[[V0.8.21.110]]\n* Cooldown increased to 330 seconds from 300 seconds.\n* Cast range reduced by 100.\n\n;[[July 10, 2009 Patch]]\n* Cooldown increased to 300 seconds from 270 seconds.\n\n;[[June 26, 2009 Patch]]\n* Cancels channeled abilities upon casting (no more {{ai|Absolute Zero|Nunu}} hopping)\n* {{mi1|Blink of an Eye}}: Reduces the cooldown of {{si|Flash}} by 15 seconds.\n\n;[[June 12, 2009 Patch]]\n* Reworked\n* Reduced range to 800 from 900.\n* Changed functionality: {{si|Flash}} is now cast without the need of a target indicator (i.e. it is cast towards the position of your mouse pointer).\n* {{si|Flash}} will automatically flash to the furthest  valid range in the direction it is cast at.\n* {{si|Flash}} no longer has a cast time (to 0 from {{fd|0.5}}).\n\n;[[May 9, 2009 Patch]]\n* Cooldown reduced to 210 seconds from 240 seconds. \n\n;[[May 1, 2009 Patch]]\n* Reduced cast time to {{fd|0.5}} seconds from {{fd|0.75}} seconds.\n\n;[[Alpha Week 5]]\n* Cooldown increased to 240 seconds from 210 seconds.\n\n;[[Alpha Week 4]]\n* Cooldown increased to 210 seconds from 150 seconds.\n}}\n{{Summoner spells}}\n\n[[es:Destello]]\n[[cs:Flash]]\n[[de:Blitz (Beschwörerzauber)]]\n[[fr:Saut Éclair]]\n[[pl:Błysk]]\n[[ru:Скачок (заклинание призывателя)]]\n[[zh:闪现]]"
+        ]
+      },
+      {
+        "page": {
+          "title": "Module:SpellData/data",
+          "revid": 4089805
+        },
+        "text": [
+          "    [\"Flash\"] = {\n        [\"cooldown\"]    = \"300\",\n        [\"level\"]       = \"7\",\n        [\"range\"]       = \"400 ([[Quick cast]])\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = true,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },",
+          "-- <pre>\nreturn {\n\t[\"A Dance with Death\"] = {\n        [\"link\"]        = \"A Dance with Death (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"70\",\n        [\"range\"]       = \"N/A\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Enter a contract with death for 6 seconds, opening a rift to the underworld beneath you and chaining you to it for the duration, during which you are also {{tip|invulnerable}} and gain a {{tip|minimum health threshold}} equal to {{as|25 health}}. Over the first second, you become {{tip|displacement immune}} and {{tip|lockout|unable to act}}, and afterwards {{tip|blink}} in the target direction. For the remaining duration, you are inflicted with a [[Health#Health_threshold|health threshold]] equal to {{as|{{pp|102-x*2;...;1|0 to 3 by 0.1;...;5|key=%|type=seconds elapsed|label=Maximum health threshold|label1=seconds elapsed}} of your '''maximum''' health}}. If your {{as|'''current''' health}} is above the threshold at each interval, it is reduced to the {{as|'''maximum''' health}} ratio of the threshold.<br><br>If you score a {{tip|takedown}} against a champion within 3 seconds of damaging them before the end of the duration, your contract is fulfilled and this effect ends. The health threshold is removed, you are {{tip|heal|healed}} for {{pp|250 to 1000}} {{as|(+ 10 per 1 lethality)}} {{as|(+ 10 per 1 flat magic penetration)}}, you {{tip|blink}} back to the rift's location, the rift closes, and ''A Dance with Death's'' '''current''' cooldown is reduced by 20 seconds. Otherwise, if the duration expires, you fail your contract and are dragged into the rift, where you are {{tip|execute|executed}} upon arrival.\",\n    },\t\n\t[\"Backtrack\"] = {\n        [\"cooldown\"]    = \"180\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|Shield|Shields}} you for {{pp|75 to 330}}. After {{fd|2.5}} seconds, the shield expires and you are {{tip|cleanse|cleansed}} from all {{tip|crowd control}} and {{tip|dash}} towards your fountain while being {{tip|untargetable}} and {{tip|invulnerability|invulnerable}}. The dash range is increased on {{tip|melee}} champions.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V9.8\",\n    },\n\t[\"Banner of Command\"] = {\n        [\"link\"]        = \"Banner of Command (Arena)\",\n        [\"cooldown\"]    = \"60\",        \n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Grants your ally 15% [[size]], '''bonus''' {{sti|{{as|health}}}}, {{sti|{{as|attack damage}}}}, {{sti|{{as|ability power}}}}, and {{sti|{{as|attack speed}}}} for 10 seconds.\",\n    },    \n    [\"Barrier\"] = {\n        [\"cooldown\"]    = \"180\",\n        [\"level\"]       = \"4\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Grants your [[champion]] a {{tip|shield}} that absorbs {{pp|100 + (460-100)/17*(x-1)|1 to 20 by 1}} damage for {{fd|2.5}} seconds.\",\n        [\"example\"]     = \"Barrier VFX.png\",\n    },\n\t[\"Blade Waltz\"] = {\n        [\"link\"]        = \"Blade Waltz (Arena)\",\n        [\"cooldown\"]    = \"45\",        \n        [\"range\"]       = \"N/A\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|Blink}} to the target enemy champion. You then blink to the nearest other enemy champion every {{fd|0.25}} seconds over the next {{fd|1.25}} seconds, blinking up to 5 additional times. Each time you blink to a target, deal {{as|{{pp|30 to 150}}|physical damage}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 6% AP)}} {{as|physical damage}} to them and apply on-hit effects at 50% effectiveness, up to a total of {{as|{{pp|30*6 to 150*6}}|physical damage}} {{as|(+ {{ap|10*6}}% '''bonus''' AD)}} {{as|(+ {{ap|6*6}}% AP)}}.<br><br>While '''Blade Waltz''' is active, you are {{tip|untargetable}} and {{tip|lockout|unable to act}}. This effect will end prematurely if there are no longer any nearby valid targets to blink to. A target can be blinked to more than once if there are no other valid targets in range.\",\n    },\n    [\"Blasting Smite\"] = {\n        [\"disp_name\"]   = \"Blasting Smite\",\n        [\"link\"]        = \"Smite#Removed upgrades\",\n        [\"cooldown\"]    = \"15\",\n        [\"recharge\"]    = \"90\",\n        [\"charges\"]     = \"2\",\n        [\"level\"]       = \"9\",\n        [\"range\"]       = \"{{tip|er|nolink=true|500}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Deals {{as|{{pp|390;410;430;450;480;510;540;570;600;640;680;720;760;800;850;900;950;1000|formula=370 true damage {{plus}} 20 at levels 1-4, 30 at levels 5-9, 40 at levels 10-14, 50 at levels 15-18}} {{sti|true damage}}}} to the target medium / large [[monster]], enemy [[minion]], or [[Champion summoned units|pet]].\",\n        [\"effect2\"]     = \"''Blasting Smite'' deals 50% splash damage to all surrounding minions and monsters and {{tip|stun|stuns}} all damaged units for {{fd|1.5}} seconds. If cast on a monster, you will also restore 15% of your missing {{as|{{sti|health}}}} and {{as|{{sti|mana}}}}.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V5.22\",       \n        [\"example\"]     = \"Blasting Smite screenshot.jpg\",\n    },\n\t[\"Brass Blast\"] = {\n        [\"link\"]        = \"Brass Blast (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"45\",\n        [\"range\"]       = \"N/A\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} You summon a large trumpet in front of you and begin {{tip|channel|charging}} for a minimum of {{fd|0.25}} seconds and up to {{fd|2.5}} seconds to increase ''Brass Blast's'' range, damage, and knock back distance over the first {{fd|1.5}} seconds of the channel. While charging, you are {{tip|slow|slowed}} by 10% and can reactivate the spell. The recast occurs automatically if the charge reaches its maximum duration or is {{tip|interrupt|interrupted}}.<br><br>{{sbc|Recast:}} After a {{fd|0.5}}-second delay, blow into the trumpet, unleashing a blast of sound in a cone in the target direction that deals between {{pp|120 to 140|color=magic damage}} {{as|(+ 70% '''bonus''' AD)}} {{as|(+ 50% AP)}} to {{pp|200 to 600|color=magic damage}} {{as|(+ 115% '''bonus''' AD)}} {{as|(+ 80% AP)}} {{as|magic damage}} to enemies hit and {{tip|airborne|knocks them back}} up to 500 units over {{fd|0.75}} seconds.<br><br>''If the charge is {{tip|interrupt|interrupted}}, 50% of the cooldown is refunded.''\",\n    },    \n\t[\"Bounce of the Poro King\"] = {\n        [\"link\"]        = \"Bounce of the Poro King (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"45\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Transform into the [[File:Snowdown 2014 - Poro King profileicon.jpg|20px|link=]] '''Poro King''' for 3 seconds, during which you gain 70% damage reduction, {{sti|{{as|40% '''bonus''' movement speed}}}}, {{tip|cc-immune|crowd control immunity}}, and {{tip|ghosting}}, but become {{tip|lockout|unable}} to declare basic attacks and cast abilities. Upon transformation, you also {{tip|cleanse}} yourself of all {{tip|crowd control}}. While transformed, you bounce up and down every 1 second, with each bounce dealing {{as|{{pp|100 to 700}}|physical damage}} {{as|physical damage}} to nearby enemy champions and {{tip|airborne|knocking them back}} upon landing. An enemy champion can be hit by multiple bounces, but ones beyond the first do not apply the knock back.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V26.12\",        \n    },    \n\t[\"Castle\"] = {\n        [\"link\"]        = \"Castle (Arena)\",\n        [\"cooldown\"]    = \"12\",        \n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|Dash}} to your ally's location while they do so to yours, swapping places with them. You then both gain {{sti|{{as|40% '''bonus''' movement speed}}}} and a {{tip|shield}} for {{pp|80 to 250}} {{as|(+ 5% of their '''maximum''' health)}} (respectively), both for 4 seconds. '''Can be used while the ally is dead to dash to their location.'''\",\n    },\n    [\"Challenging Smite\"] = {\n        [\"disp_name\"]   = \"Challenging Smite\",\n        [\"link\"]        = \"Smite#Removed_upgrades\",\n        [\"cooldown\"]    = \"15\",\n        [\"recharge\"]    = \"90\",\n        [\"charges\"]     = \"2\",\n        [\"level\"]       = \"9\",\n        [\"range\"]       = \"{{tip|Edge range|nolink=true|500}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Deals {{as|900 {{sti|true damage}}}} to the target medium / large [[monster]], modified to 500 {{as|(+ 10% of target's '''maximum''' health)}} against enemy [[minion]]s or [[Champion summoned units|pets]].\",\n        [\"effect2\"]     = \"Using '''Smite''' against a medium / large monster {{tip|heal|heals}} for 80 {{as|(+ {{fd|7.5}}% of your '''maximum''' health)}}.\",\n        [\"effect3\"]     = \"''Challenging Smite'' can be cast on enemy [[champion]]s to mark them for 4 seconds, reducing the target's damage dealt to you by 10%, and empowering your basic attacks and [[ability damage]] against them to apply a burn that deals them {{as|{{pp|48 to 125}} {{sti|true damage}}}} over {{fd|3.25}} seconds.\",\n        [\"example\"]     = \"Challenging Smite screenshot.jpg\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V12.22\",\n    },\n    [\"Chemtech Dash\"] = {\n        [\"link\"] \t    = \"Bridge of Progress#Gameplay\",\n        [\"cooldown\"]    = \"0\",\n        [\"level\"]       = \"6\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} [[Dash]] to the target struck by {{si|Chemtech Mark}} while being {{tip|untargetable}}, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to them upon arrival and leaving behind a trail in your path that has a width of 100 units, which lasts for 7 seconds. You and allied champions gain {{tip|ghosting}} and {{sti|{{as|30% '''bonus''' movement speed}}}} while within the area. This also reduces ''Chemtech Mark's'' {{sti|cd|'''remaining'''}} cooldown by 25%.\",\n        [\"effect2\"]     = \"''You lose the ability to cast '''Chemtech Dash''' if the marked target dies or removes the mark.''\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V25.S1.1\",\n    },    \n    [\"Chemtech Mark\"] = {\n        [\"link\"] \t    = \"Bridge of Progress#Gameplay\",   \t\n        [\"cooldown\"]    = \"80\",\n        [\"level\"]       = \"6\",\n        [\"range\"]       = \"1600\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} Throw a chemtech grenade at a long distance in the target direction, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to the first enemy unit hit, {{tip|true sight|revealing}} them for 3 seconds and granting you the ability to cast {{si|Chemtech Dash}} for the next 3 seconds.\",\n        [\"effect2\"]     = \"''Chemtech Mark'' grants {{tip|sight}} of {{tip|Brush}} while passing through.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V25.S1.1\",\n    },    \n    [\"Chilling Smite\"] = {\n        [\"disp_name\"]   = \"Chilling Smite\",\n        [\"link\"]        = \"Smite#Removed upgrades\",\n        [\"cooldown\"]    = \"15\",\n        [\"recharge\"]    = \"90\",\n        [\"charges\"]     = \"2\",\n        [\"level\"]       = \"9\",\n        [\"range\"]       = \"{{tip|Edge range|nolink=true|500}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Deals {{as|900 {{sti|true damage}}}} to the target medium / large [[monster]], modified to 500 {{as|(+ 10% of target's '''maximum''' health)}} against enemy [[minion]]s or [[Champion summoned units|pets]].\",\n        [\"effect2\"]     = \"Using '''Smite''' against a medium / large monster {{tip|heal|heals}} for 80 {{as|(+ {{fd|7.5}}% of your '''maximum''' health)}}.\",\n        [\"effect3\"]     = \"''Chilling Smite'' can be cast on enemy [[champion]]s, dealing {{as|{{pp|20 to 156}} {{sti|true damage}}}} and {{tip|slow|slowing}} the target by 20% for 2 seconds, while also granting you {{as|20% '''bonus''' movement speed}} for the same duration.\",\n        [\"example\"]     = \"Chilling Smite screenshot.jpg\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V12.22\",\n    },\n    [\"Clairvoyance\"] = {\n        [\"cooldown\"]    = \"60\",\n        [\"level\"]       = \"8\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Grants {{tip|sight}} of an area of the map for 5 seconds.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V6.19\",\n        [\"example\"]     = \"Clairvoyance screenshot.jpg\",\n    },\n    [\"Clarity\"] = {\n        [\"cooldown\"]    = \"240\",\n        [\"level\"]       = \"6\",\n        [\"range\"]       = \"600\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = \"unknown\",\n            [\"cs\"]          = \"unknown\",\n        },\n        [\"effect\"]      = \"Restores {{as|{{sti|mana|50% '''maximum''' mana}}}} to your [[champion]] and {{as|25% of target's '''maximum''' mana}} to nearby allied [[champion]]s.\",\n        [\"example\"]     = \"Clarity screenshot.jpg\",\n    },\n    [\"Cleanse\"] = {\n        [\"cooldown\"]    = \"240\",\n        [\"level\"]       = \"9\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = \"unknown\",\n            [\"cs\"]          = \"unknown\",\n        },\n        [\"effect\"]      = \"Removes all {{tip|Crowd control|disables}} (excluding {{tip|Airborne}}, {{tip|Nearsight}}, and {{tip|Suppression}}) and {{ccib|Summoner spell icon.png|summoner spell}} [[debuff]]s (excluding {{si|Mark}}) affecting your [[champion]], and grants you 75% {{tip|tenacity}} for 3 seconds.\",\n        [\"example\"]     = \"Cleanse screenshot.jpg\",\n    },\n    [\"Dash\"] = {\n        [\"link\"] \t    = \"Mark#Dash\",\n        [\"cooldown\"]    = \"0\",\n        [\"level\"]       = \"6\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} [[Dash]] to the target struck by {{si|Mark}} while being {{tip|untargetable}}, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to them upon arrival. This will reduce ''Mark's'' {{sti|cd|'''remaining'''}} cooldown by 25%.\",\n        [\"effect2\"]     = \"''You lose the ability to cast '''Dash''' if the marked target dies or removes the mark.''\",\n        [\"example\"]     = \"Dash active screenshot.png\",\n    },\n    [\"Demonic Clasp\"] = {\n        [\"link\"] \t    = \"Demonic Clasp (Arena)\",\n        [\"cooldown\"]    = \"18\",\n        [\"range\"]       = \"700\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Call {{pp|1;3;5}} claws, each of which pulls enemies towards your direction and deals {{pp|100;200;250}} {{as|(+ 40% AP)}} {{as|magic damage}}.\",\n    },\n\t[\"Droppybara\"] = {\n        [\"link\"]        = \"Droppybara (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"45\",\n        [\"range\"]       = \"1000\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Call upon a massive capybara to land down at the target location after {{fd|2.5}} seconds, dealing {{as|true damage}} equal to the {{as|30% of the target's '''maximum''' health}} to enemies within a 650 radius. Deals 70% damage to minions.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V26.12\",        \n    },    \n    [\"Empowered Recall\"] = {\n        [\"link\"] \t    = \"Recall#Empowered Recall\",\n        [\"cooldown\"]    = \"0\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = \"unknown\",\n        },\n        [\"effect\"]      = \"Your [[champion]] starts to {{tip|channel}} for 4 seconds after a {{fd|0.5}}-second [[cast time]]. If the channel is not {{tip|interrupt|interrupted}}, the champion will [[blink]] to their team's [[spawn|fountain]].\",\n        [\"example\"]     = \"Empowered Recall example.png\",\n    },\n\t[\"Defensive Maneuvers\"] = {\n        [\"link\"]        = \"Defensive Maneuvers (Arena)\",\n        [\"cooldown\"]    = \"40\",        \n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Casts both {{si|Barrier}} and {{si|Heal}} on you and your ally.\",\n        [\"effect2\"]     = \"{{sbc|{{si|Barrier}}:}} Grants a {{pp|110 to 440}} {{tip|shield}} for {{fd|2.5}} seconds.\",\n        [\"effect3\"]     = \"{{sbc|{{si|Heal}}:}} {{tip|Heal|Heals}} for {{pp|80 to 318|color=heal}} and grants {{as|30% '''bonus''' movement speed}} for 1 second.\",\n    },\n\t[\"Die Another Day\"] = {\n        [\"link\"]        = \"Die Another Day (Arena)\",\n        [\"cooldown\"]    = \"60\",        \n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Blesses the ground underneath you, summoning a zone for 4 seconds that grants a {{tip|minimum health threshold}} to all units inside equal to {{as|10% of their '''maximum''' health}}. At the end of the duration, units inside are {{tip|heal|healed}} for 250.\",\n    },\n    [\"Enhanced Recall\"] = {\n        [\"link\"] \t    = \"Recall#Enhanced Recall\",\n        [\"cooldown\"]    = \"0\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Your [[champion]] starts to {{tip|channel}} for {{fd|4.5}} seconds. If the channel is not {{tip|interrupt|interrupted}}, the champion will [[blink]] to their team's [[spawn|fountain]].\",\n        [\"removed\"]     = true,\n    },\n\t[\"Evocation\"] = {\n        [\"link\"]        = \"Evocation (Arena)\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|Channel}} for 4 seconds, restoring 60% of your {{as|'''maximum''' health}} and {{as|'''maximum''' mana}} over the duration. Upon completion, also gain {{as|50% '''bonus''' movement speed}} for 2 seconds.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V13.16\",\n    },\n    [\"Exhaust\"] = {\n        [\"cooldown\"]    = \"240\",\n        [\"level\"]       = \"4\",\n        [\"range\"]       = \"{{tip|cr|icononly = true}} 650\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Weakens the target enemy [[champion]] for 3 seconds, {{tip|slow|slowing}} them by 40% and [[damage modifier|reducing]] their damage dealt by 35%.\",\n        [\"example\"]     = \"Exhaust screenshot.jpg\",\n    },\n    [\"Flash\"] = {\n        [\"cooldown\"]    = \"300\",\n        [\"level\"]       = \"7\",\n        [\"range\"]       = \"400 ([[Quick cast]])\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = true,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"[[Blink]]s your [[champion]] a short distance toward the target location.\",\n        [\"example\"]     = \"Flash screenshot.png\",\n    },\n\t[\"Feel the Burn\"] = {\n        [\"link\"]        = \"Feel the Burn (Arena)\",\n        [\"cooldown\"]    = \"20\",        \n        [\"range\"]       = \"1000\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Casts both {{si|Exhaust}} and {{si|Ignite}} on all enemy champions within 1000 units, with the former having its {{tip|slow}} strength increased to 50% and the latter modified to deal {{as|{{pp|100 to 600}} true damage}} over the duration.\",\n    },\n\t[\"Flee\"] = {\n        [\"link\"]        = \"Flee (Arena)\",\n        [\"cooldown\"]    = \"45\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Grants {{as|40% '''bonus''' movement speed}} for 2 seconds, increased by an additional {{as|20%|ms}} for each enemy champion you are facing away from.\",\n    },\n    [\"Fortify\"] = {\n        [\"cooldown\"]    = \"300\",\n        [\"level\"]       = \"5\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Grants {{tip|invulnerability}} to all allied [[turret]]s and causes them to attack 100% faster for 7 seconds.\",\n        [\"effect2\"]     = \"While ''Fortify'' is ready to cast, you deal 9 bonus damage to [[minion|minions]].\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V1.0.0.129\",\n        [\"example\"]     = \"Fortify screenshot.jpg\",\n    },\n\t[\"Frozen Foundations\"] = {\n        [\"link\"]        = \"Frozen Foundations (Arena)\",\n        [\"cooldown\"]    = \"15\",        \n        [\"range\"]       = \"N/A\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Summons a wall of ice at the target location for 5 seconds, {{tip|airborne|knocking aside}} enemies in the area. The wall has a width of 500 units and a knock back distance of 120 units for champions and 250 units for non-champions.\",\n    },\n    [\"Garrison\"] = {\n        [\"cooldown\"]    = \"210\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"1250\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"{{sbc|Allied [[capture point]]}}: Quickly restores the neutralized portion and increases its {{as|{{sti|attack speed}}}} for 8 seconds. Interrupts nearby enemy champion's neutralization.\",\n        [\"effect2\"]     = \"{{sbc|Enemy [[capture point]]}}: Reduces damage by 80% for 8 seconds.\",\n        [\"effect3\"]     = \"'''''Fortify''' cannot be cast on neutral capture points.''\",\n        [\"removed\"]     = true,\n    },\n\t[\"Get Jinxed!\"] = {\n        [\"link\"]        = \"Get Jinxed! (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"47\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Summon a rocket from beneath you that immediately winds up over {{fd|1.5}} seconds. Afterwards, it propels forward in the direction you targeted at the time of cast, causing you to ride the rocket for up to 15 seconds. The rocket automatically navigates your movement along the way and you are able to steer its trajectory in the direction of your cursor, with a slow turn rate that increases over time. After being in flight for 2 seconds, the rocket decelerates to a very slow speed for {{fd|0.6}} seconds before receiving a massive boost in speed, maintaining its increased speed for the remainder of the flight.<br><br>Upon colliding with an enemy champion or terrain, the rocket explodes in a 400 radius, ending the ride and dealing {{pp|20 to 80|color=physical damage}} {{as|(+ 12% '''bonus''' AD)}} {{as|(+ 8% AP)}} {{as|(+ 3% of target's '''missing''' health)}} {{as|physical damage}} to enemies hit (including {{tip|turrets}}). This damage is increased by {{pp|type=distance the rocket travelled|key=%|0 to 700 for 11|0 to 2000|label1=distance travelled}}, up to {{pp|20*8 to 80*8|color=physical damage}} {{as|(+ {{ap|12*8}}% '''bonus''' AD)}} {{as|(+ {{ap|8*8}}% AP)}} {{as|(+ {{ap|3*8}}% of target's '''missing''' health)}} {{as|physical damage}}.<br><br>During the initial windup and while riding the rocket, you become {{tip|ghosted}} and are {{tip|invulnerable}}, {{tip|untargetable}}, and {{tip|lockout|unable to act}}.\",\n    },    \n    [\"Ghost\"] = {\n        [\"cooldown\"]    = \"240\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Your [[champion]] ignores [[unit collision]] and gains {{as|{{pp|key=%|24 + (48-24)/17*(x-1)|1 to 20 by 1}} {{sti|'''bonus''' movement speed}}}} for 10 seconds.\",\n        [\"example\"]     = \"Ghost example.png\",\n    },\n\t[\"Growth Spurt\"] = {\n        [\"link\"]        = \"Growth Spurt (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"45\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Enlarge yourself, causing you to {{tip|airborne|knock up}} enemies within {{tip|cr|icononly=true}} 400 units for 1 second. For the next 7 seconds, you gain {{sti|{{as|300 (+ 20% '''maximum''' health) '''bonus''' health}}}} and 50% increased size.\",\n    },    \n    [\"Heal\"] = {\n        [\"cooldown\"]    = \"240\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"{{tip|Center range|nolink=true|900}}\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"{{tip|Heals}} your [[champion]] and the allied champion nearest to the cursor for {{pp|80 + (318-80)/17*(x-1)|1 to 20 by 1|color=heal}}, while also granting both of you {{sti|{{as|30% '''bonus total''' movement speed}}}} for 1 second.\",\n        [\"effect2\"]     = \"''Champions affected by '''Heal''' within 35 seconds cause subsequent '''Heal''' casts on them to restore 50% less health. '''Heal''' prioritizes targeting the most wounded allied champion in range if no allied champions are near the cursor.''\",\n        [\"example\"]     = \"Heal screenshot.jpg\",\n    },\n    [\"Hexflash\"] = {\n        [\"link\"]        = \"Hextech Flashtraption#Hexflash\",\n        [\"cooldown\"]    = \"{{Rune data Hextech Flashtraption|pst2|cooldown}}\",\n        [\"level\"]       = \"10 (requires {{si|Flash}} and {{ri|Hextech Flashtraption}})\",\n        [\"range\"]       = \"{{Rune data Hextech Flashtraption|pst2|range}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"{{Rune data Hextech Flashtraption|pst2|description}}\",\n        [\"effect2\"]     = \"{{Rune data Hextech Flashtraption|pst2|description2}}\",\n        [\"effect3\"]     = \"{{Rune data Hextech Flashtraption|pst2|description3}}\",\n        [\"example\"]     = \"Hexflash example.png\",\n    },\n    [\"Hextech Dash\"] = {\n        [\"link\"] \t    = \"Bridge of Progress#Gameplay\",\n        [\"cooldown\"]    = \"0\",\n        [\"level\"]       = \"6\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} [[Dash]] to the target struck by {{si|Hextech Mark}} while being {{tip|untargetable}}, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to them upon arrival and leaving behind a trail in your path that has a width of 100 units, which lasts for 7 seconds. You and allied champions gain {{tip|ghosting}} and {{sti|{{as|30% '''bonus''' movement speed}}}} while within the area. This also reduces ''Hextech Mark's'' {{sti|cd|'''remaining'''}} cooldown by 25%.\",\n        [\"effect2\"]     = \"''You lose the ability to cast '''Hextech Dash''' if the marked target dies or removes the mark.''\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V25.S1.1\",\n    },    \n    [\"Hextech Mark\"] = {\n        [\"link\"] \t    = \"Bridge of Progress#Gameplay\",    \t\n        [\"cooldown\"]    = \"80\",\n        [\"level\"]       = \"6\",\n        [\"range\"]       = \"1600\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} Throw a hextech grenade at a long distance in the target direction, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to the first enemy unit hit, {{tip|true sight|revealing}} them for 3 seconds and granting you the ability to cast {{si|Hextech Dash}} for the next 3 seconds.\",\n        [\"effect2\"]     = \"''Hextech Mark'' grants {{tip|sight}} of {{tip|Brush}} while passing through.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V25.S1.1\",\n    },    \n    [\"Ignite\"] = {\n        [\"cooldown\"]    = \"180\",\n        [\"level\"]       = \"9\",\n        [\"range\"]       = \"{{tip|Center range|nolink=true|600}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Sets the target enemy [[champion]] on fire for 5 seconds, {{tip|standard sight|revealing}} them and dealing {{as|{{pp|70; then +20*x for 4;then +25*x|1 to 20 by 1|formula=70 base, then +20 per level until level 5, then +25 per level.}} {{sti|true damage}}}} over the duration, with the first tick of damage occurring briefly after the cast and subsequent ticks occurring every {{fd|1.056}} seconds after the previous. The target is also inflicted with {{tip|Grievous Wounds}} for the same duration.\",\n        [\"example\"]     = \"Ignite screenshot.jpg\",\n    },\n\t[\"Interference\"] = {\n        [\"link\"]        = \"Interference (Arena)\",\n        [\"cooldown\"]    = \"15 ({{sti|cd|reduced}} by 2 per eliminated team)\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Toss a giant tomato at the target location that drops after {{fd|1.5}} seconds and deals {{as|30% '''current''' health}} {{as|true damage}} to all champions in a 225-unit radius.\",\n    },\n\t[\"Laser Heal\"] = {\n        [\"link\"]        = \"Laser Heal (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"30\",\n        [\"range\"]       = \"1555\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|Channel}} for up to {{fd|2.5}} seconds to project an energy beam in the target direction, during which you can steer the beam in the direction of the cursor. The beam {{tip|heal|heals}} you and allies within for {{pp|200 to 550}} {{as|(+ 70% AP)}} {{as|(+ 50% '''bonus''' health)}} and deals {{as|{{pp|100 to 350}}|magic damage}} {{as|(+ 50% AP)}} {{as|magic damage}} to enemies within, both over the duration. Enemies hit are also {{tip|slow|slowed}} by 20%.<br><br>'''Laser Heal''' can be recast during the channel to end it early.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V26.12\",        \n    },    \n    [\"Mark\"] = {\n        [\"cooldown\"]    = \"80\",\n        [\"level\"]       = \"6\",\n        [\"range\"]       = \"1600\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} Throw a snowball at a long distance in the target direction, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to the first enemy unit hit, {{tip|true sight|revealing}} them for 3 seconds and granting you the ability to cast {{si|Dash}} for the next 3 seconds.\",\n        [\"effect2\"]     = \"''Mark'' will grant {{tip|sight}} of {{tip|Brush}} while passing through.\",\n        [\"example\"]     = \"Mark example screenshot.png\",\n    },\n\t[\"Now You See Me\"] = {\n        [\"link\"]        = \"Now You See Me (Arena)\",\n        [\"cooldown\"]    = \"10\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]       = \"{{sbc|Passive:}} Casting an ability with a {{tip|dash}} or {{tip|blink}} leaves behind a mark at the cast location.\",\n        [\"effect2\"]      = \"{{sbc|Active:}} {{tip|Blink|Blinks}} you to the mark's location and grants you {{as|50% '''bonus''' movement speed}} for 2 seconds.\",\n    },\n    [\"Observer\"] = {\n        [\"cooldown\"]    = \"\",\n        [\"level\"]       = \"[[File:Riot Games logo icon.png|20px|link=Riot Games]]\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Permanently grants {{tip|sight}} of the the entire map exclusively from your perspective and causes your [[champion]] to {{tip|vanish}}.\",\n        [\"removed\"]     = true,\n        [\"example\"]     = \"Observer demonstration.gif\",\n    },\n\t[\"Orbital Laser\"] = {\n        [\"link\"]        = \"Orbital Laser (Arena)\",\n        [\"cooldown\"]    = \"20\",        \n        [\"range\"]       = \"5500\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Call upon an orbital laser to fire down on the target location after {{fd|2.5}} seconds, immediately dealing {{as|true damage}} equal to the {{sti|{{as|30% of the target's '''maximum''' health}}}} then {{as|{{pp|45 to 120}} magic damage}} every {{fd|0.5}} seconds over 3 seconds to enemies within a 550 radius, up to a total of {{as|{{pp|45*6 to 120*6}}|magic damage}}.\",\n    },\n\t[\"Poltergeist\"] = {\n        [\"link\"]        = \"Poltergeist (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"40\",        \n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"false\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Casts both {{si|Barrier}} and {{si|Ghost}} on yourself, both lasting 5 seconds and with the former granting a {{tip|shield}} for {{pp|110 to 440}} and the latter granting {{as|30% '''bonus''' movement speed}}.\",\n    },\n\t[\"Poro Charge\"] = {\n        [\"link\"]        = \"Poro Charge (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"70\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"After a 1-second delay, you unleash a stampede of ''Poros'', summoning a phalanx of 5 massive ''Poros'' that charge forward in the target direction. Enemies hit by the charge are dealt {{pp|100 to 200|color=physical damage}} {{as|(+ 20 per [[File:Poros Love You buff.png|20px|link=]] Poro Love stack)|buzzword}} {{as|physical damage}}, reduced to 15% against {{tip|minions}}, and {{tip|slow|slowed}} by 85% for 2 seconds. Each ''Poro'' stops upon colliding with an enemy champion.<br><br>Fire additional waves of ''Poros'' based on the number of [[File:Poros Love You buff.png|20px|link=]] {{as|Poro Love|buzzword}} stacks you have. Each subsequent wave is fired {{fd|0.75}} seconds after the previous one. Enemy champions take 50% damage from subsequent waves that hit them.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V26.21\",        \n    },    \n    [\"Poro Dash\"] = {\n        [\"link\"]        = \"Legend of the Poro King#Poro Dash\",\n        [\"cooldown\"]    = \"0\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} Your [[champion]] [[Dash|surges]] into the target struck by {{si|Poro Toss}}, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to the target. Dashing to the target will reduce {{sis|Poro Toss}} cooldown by 25%.\",\n        [\"effect2\"]     = \"''You lose the ability to cast '''Poro Dash''' if the marked target dies or removes the mark.''\",\n        [\"removed\"]     = true,        \n    },\n    [\"Poro Toss\"] = {\n        [\"link\"]        = \"Legend of the Poro King#Poro Toss\",\n        [\"cooldown\"]    = \"80\",\n        [\"range\"]       = \"1600\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Active:}} Throws a poro a long distance, dealing {{as|{{pp|15 to 100}} {{sti|true damage}}}} to the first enemy unit hit. If ''Poro Toss'' hits an enemy, you gain the ability to cast {{si|Poro Dash}} for the next 3 seconds.\",\n        [\"effect2\"]     = \"''Poro Toss'' will grant {{tip|sight}} of brush while passing through, and will grant {{tip|true sight}} of a hit target. The {{tip|true sight}} is granted by the ''Poro Toss'' buff, so it is lost when {{si|Poro Dash}} is used.\",\n        [\"effect3\"]     = \"''The poro will bypass {{cai|Wind Wall|Yasuo}}, {{cai|Unbreakable|Braum}} and [[spell shield]]s.''\",\n        [\"removed\"]     = true,\n    },\n    [\"Primal Smite\"] = {\n        [\"maps\"]        = {},\n        [\"effect\"]      = \"{{sbc|Passive:}} Gain a unique bonus effect based on your jungle pet type:<br>• {{bi|Gustwalker's Gait}}<br />• {{bi|Mosstomper's Courage}}<br />• {{bi|Scorchclaw's Slash}}\",\n        [\"effect2\"]     = \"{{sbc|Active:}} Deals {{sti|true damage|{{as|1400 true damage}}}} to the target medium / large [[monster]] or enemy [[minion]] and to all nearby monsters. Can be cast on enemy [[champion]]s or [[champion summoned unit|pets]] to deal {{as|40 true damage}} and {{tip|slow}} the target by 20% for 2 seconds.\",\n        [\"example\"]     = \"Primal Smite VFX.png\",\n    },    \n    [\"Promote\"] = {\n    \t[\"link\"]        = \"Promote\",\n        [\"cooldown\"]    = \"180\",\n        [\"level\"]       = \"8\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = true,\n            [\"cs\"]          = true,\n        },\n        [\"effect\"]      = \"Metamorphoses the nearest allied [[siege minion]] into an [[anti-turret cannon]], healing it, granting bonus stats, and causing it to grant the caster {{g|gold}} for its kills.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V1.0.0.152\",      \n    },\n    [\"Rally\"] = {\n        [\"cooldown\"]    = \"270\",\n        [\"level\"]       = \"8\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Summons a beacon with {{as|{{pp|225 to 650}} {{sti|health}}}} for 15 seconds which increases allied {{as|{{sti|attack damage}} by {{pp|10 to 35|round=0}}}}.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V1.0.0.129\",\n        [\"example\"]     = \"Rally screenshot.jpg\",\n    },\n    [\"Recall\"] = {\n        [\"cooldown\"]    = \"0\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Your [[champion]] starts to {{tip|channel}} for 8 seconds after a {{fd|0.5}}-second [[cast time]]. If the channel is not {{tip|interrupt|interrupted}}, the champion will [[blink]] to their team's [[fountain]].\",\n        [\"example\"]     = \"Recall example.png\",\n    },\n    [\"Resuscitate\"] = {\n        [\"cooldown\"]    = \"100\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|resurrection|Revive}} a fallen crewmate by standing next to them for 2 seconds. Exiting the area does not consume your cooldown.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V8.19\",\n        [\"example\"]     = \"Resuscitate screenshot.jpg\",\n    },\n    [\"Revive\"] = {\n        [\"cooldown\"]    = \"540\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = true,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Instantly revives your champion at your team's [[spawn|summoner platform]] and grants {{as|125% '''bonus''' movement speed}} which decays over 12 seconds.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V5.4\",\n        [\"example\"]     = \"Revive screenshot.jpg\",\n    },\n    [\"Scavenging Smite\"] = {\n        [\"disp_name\"]   = \"Scavenging Smite\",\n        [\"link\"]        = \"Smite#Removed upgrades\",\n        [\"cooldown\"]    = \"15\",\n        [\"recharge\"]    = \"90\",\n        [\"charges\"]     = \"2\",\n        [\"level\"]       = \"9\",\n        [\"range\"]       = \"{{tip|er|nolink=true|500}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Deals {{as|{{pp|390;410;430;450;480;510;540;570;600;640;680;720;760;800;850;900;950;1000|formula=370 true damage {{plus}} 20 at levels 1-4, 30 at levels 5-9, 40 at levels 10-14, 50 at levels 15-18}} {{sti|true damage}}}} to the target medium / large [[monster]], enemy [[minion]], or [[Champion summoned units|pet]].\",\n        [\"effect2\"]     = \"If ''Scavenging Smite'' is used on a large monster in the enemy's jungle, the recharge timer is halved. Upon killing the affected monster, you gain bonus {{g|30}} and {{as|{{sti|175% '''bonus''' movement speed}}}} that decays over 2 seconds.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V5.22\",\n        [\"example\"]     = \"Scavenging Smite screenshot.jpg\",\n    },\n    [\"Smite\"] = {\n        [\"cooldown\"]    = \"15\",\n        [\"recharge\"]    = \"90\",\n        [\"charges\"]     = \"2\",\n        [\"level\"]       = \"3\",\n        [\"range\"]       = \"{{tip|Edge range|nolink=true|500}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Deals {{sti|true damage|{{as|600 true damage}}}} to the target medium / large [[monster]] or enemy [[minion]]. Against [[Champion summoned units|pets]], deals {{as|40 true damage}} instead.\",\n        [\"effect2\"]     = \"''Transforms into {{si|Unleashed Smite}} once a jungle pet is fed 15 treats.''\",\n        [\"example\"]     = \"Smite screenshot.jpg\",\n    },\n    [\"Spellcraft\"] = {\n        [\"cooldown\"]    = \"15\",\n        [\"range\"]       = \"{{tip|Edge range|nolink=true|500}}\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Wind up for {{fd|0.75}} second and unleash a burst of energy to a 35{{degree}} cone with {{tip|cr|icononly=true}} 650 units radius in front of you, dealing 100 {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 15% AP)}} {{as|magic damage}} to enemies within this cone. This deals 200% damage to enemies hit with outer edge, {{tip|slow|slowing}} them by 10% for 2 seconds. Hitting at least one enemy champion with the outer edge {{tip|heal|restores}} {{as|{{sti|5% of your '''missing''' health}}}}.<br>Those effects get enhanced every time you select augments with following modifiers:<br>* Each [[File:SpellcraftRedShard.png]] augment with a red sticker increases the {{as|magic damage}} by 75 {{as|(+ 20% '''bonus''' AD)}} {{as|(+ 30% AP)}}. This value doubles to enemies hit with the outer edge.<br>* Each [[File:SpellcraftBlueShard.png]] augment with a blue sticker increases the {{tip|slow|slow effect}} by 45%.<br>* Each [[File:SpellcraftGreenShard.png]] augment with a green sticker increases the {{tip|heal}} by 20%.<br>''At most 3 modifiers of the same kind can take effect.''\",\n    },\n    [\"Stifle\"] = {\n        [\"cooldown\"]    = \"150\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = \"unknown\",\n            [\"nb\"]          = false,\n            [\"tt\"]          = \"unknown\",\n            [\"cs\"]          = \"unknown\",\n        },\n        [\"effect\"]      = \"{{tip|silence|Silences}} a target enemy [[champion]] for 3 seconds, and removes any beneficial {{tip|buff|buffs}} they have.\",\n        [\"removed\"]     = true,\n    },\n    [\"Surge\"] = {\n        [\"cooldown\"]    = \"180\",\n        [\"level\"]       = \"1\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = \"unknown\",\n            [\"nb\"]          = false,\n            [\"tt\"]          = \"unknown\",\n            [\"cs\"]          = \"unknown\",\n        },\n        [\"effect\"]      = \"Empowers your [[champion]] for 12 seconds, granting {{sti|{{as|{{pp|10 to 78}} ability power}}}} and {{sti|{{as|35% '''bonus''' attack speed}}}}.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V1.0.0.152\",\n        [\"example\"]     = \"Surge screenshot.jpg\",\n    },\n    [\"Teleport\"] = {\n        [\"cooldown\"]    = \"300\",\n        [\"level\"]       = \"7\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = \"unknown\",\n        },\n        [\"effect\"]      = \"After {{tip|channel|channeling}} for 3 seconds, removes any [[homestart]] or [[homeguard]] buff and causes your [[champion]] to {{tip|dash}} to the location of the target allied [[turret]], [[minion]], or [[ward]] at the time of cast over {{pp|round=3|0.5 to (4.5*4500)/5000+0.5 for 10;5|0 to 4500;5000+|type=distance to target|label=Seconds|formula=(5-0.5)*distance/5000+0.5}} seconds, during which they are {{tip|untargetable}} and {{tip|lockout|unable to act}}. ''Upgrades to {{si|Unleashed Teleport}} at 10:00.''\",\n        [\"example\"]     = \"Teleport VFX.png\",\n    },\n\t[\"Time Stop\"] = {\n        [\"link\"]        = \"Time Stop (Arena)\",\n        [\"cooldown\"]    = \"30\",\n        [\"range\"]       = \"{{tt|600|Center-to-edge}}\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Immediately put yourself in {{tip|stasis (buff)|stasis}}, and after a {{fd|0.33}}-second delay, all nearby champions as well. While in stasis, become {{tip|untargetable}} and {{tip|invulnerable}} for the duration but also unable to move, declare [[basic attack]]s, cast [[champion ability|abilities]], use [[summoner spell]]s, or [[active ability items|activate items]]. The stasis lasts {{ap|2.5-0.75}} seconds for yourself, and {{fd|2.5}} seconds for all other champions affected. During the effect, {{tip|heal}} yourself for{{ft|{{as|25% of your '''missing''' health}} over the duration.|{{as|{{ap|25/7|round=3}}% of your '''missing''' health}} (at the time of cast) every {{fd|0.25}} seconds.}}\",\n    },\n    [\"To the King!\"] = {\n        [\"link\"] \t    = \"Legend of the Poro King#To the King!\",\n        [\"cooldown\"]    = \"10\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = true,\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{sbc|Passive:}} Hitting an enemy [[champion]] with a {{ui|Poro}} gives your team a [[File:To the King!.png|20px]] ''Poro Mark''. Upon reaching 10 [[File:To the King!.png|20px]] ''Poro Marks'', your team summons the {{ui|Poro King}} to fight alongside them. While the {{ui|Poro King}} is active, no [[File:To the King!.png|20px]] ''Poro Marks'' can be scored by either team.\",\n        [\"effect2\"]     = \"{{sbc|Active:}}  Quickly [[dash]] to the {{ui|Poro King}}'s side. Can only be cast when the {{ui|Poro King}} is summoned for your team.\",\n        [\"removed\"]     = true,\n    },\n    [\"Unleashed Smite\"] = {\n        [\"maps\"]        = {},\n        [\"effect\"]      = \"Deals {{sti|true damage|{{as|1000 true damage}}}} to the target medium / large [[monster]] or enemy [[minion]]. Can be cast on enemy [[champion]]s or [[champion summoned unit|pets]] to deal {{as|40 true damage}} and {{tip|slow}} the target by 20% for 2 seconds.\",\n        [\"effect2\"]     = \"''Transforms into {{si|Primal Smite}} once a jungle pet is fed 35 treats.''\",\n        [\"example\"]     = \"Unleashed Smite VFX.png\",\n    },\n    [\"Unleashed Teleport\"] = {\n        [\"cooldown\"]    = \"{{pp|330 to 240 for 10|formula=330 - 10 x level up to level 10}}\",\n        [\"level\"]       = \"7\",\n        [\"range\"]       = \"Global\",\n        [\"stealth\"]     = false,\n        [\"maps\"]        = {\n            [\"sr\"]          = true,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = true,\n            [\"tt\"]          = true,\n            [\"cs\"]          = \"unknown\",\n        },\n        [\"effect\"]      = \"After {{tip|channel|channeling}} for 3 seconds, removes any [[homestart]] or [[homeguard]] buff and causes your [[champion]] to {{tip|dash}} to the location of the target allied [[turret]], [[minion]], or [[ward]] at the time of cast over {{pp|round=3|0.5 to (3.5*16500)/18000+0.5 for 12;4|0 to 16500;18000+|type=distance to target|label=Seconds|formula=(4-0.5)*distance/18000+0.5}} seconds, during which they are {{tip|untargetable}} and {{tip|lockout|unable to act}}. Upon arrival, they also gain {{sti|{{as|50% '''bonus total''' movement speed}}}} for 3 seconds.\",\n        [\"example\"]     = \"Teleport VFX.png\",\n    },\n\t[\"Vanish\"] = {\n        [\"link\"]        = \"Vanish (Arena)\",\n        [\"cooldown\"]    = \"30\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Grants {{tip|invisibility}} for 4 seconds. Attacking or casting abilities ends the stealth immediately.\",\n    },\n\t[\"Warmup Routine\"] = {\n        [\"link\"]        = \"Warmup Routine (Arena)\",\n        [\"cooldown\"]    = \"{{tt|1|Affected by ability haste}}\",        \n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|Channel}} for up to 10 seconds to increase your damage output by 2% per second, up to 20%. The damage amplification lasts until the end of the current round phase.\",\n    },\n    [\"Warp\"] = {\n        [\"cooldown\"]    = \"0\",\n        [\"recharge\"]    = \"15\",\n        [\"charges\"]     = \"3\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"{{tip|dash|Dash}} towards the target location while being {{tip|untargetable}} and {{tip|invulnerability|invulnerable}}.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V8.19\",\n        [\"example\"]     = \"Warp screenshot.jpg\",\n    },\n\t[\"When the Darkness Comes\"] = {\n        [\"link\"]        = \"When the Darkness Comes (ARAM: Mayhem)\",\n        [\"cooldown\"]    = \"75\",\n        [\"range\"]       = \"N/A\",\n        [\"stealth\"]     = \"true\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = false,\n            [\"ha\"]          = true,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Sends a bright, cosmic light arcing to the target location over 2 seconds. Upon impact, the light spreads out to cause all units within a 500 radius to be sent to the ''Dark Realm'' for 8 seconds. All units in the ''Dark Realm'' gain {{as|45% '''bonus''' movement speed}}. If you are in the ''Dark Realm'', you gain {{as|{{pp|35 to 150}} '''bonus''' attack damage}}, {{as|{{pp|35 to 150}} ability power}}, {{as|{{pp|300 to 1500}} '''bonus''' health}}, and 35% increased size.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V26.21\",        \n    },    \n\t[\"Zhonya's Epiphany\"] = {\n        [\"link\"]        = \"Zhonya's Epiphany (Arena)\",\n        [\"range\"]       = \"Self\",\n        [\"stealth\"]     = \"unknown\",\n        [\"maps\"]        = {\n            [\"sr\"]          = false,\n            [\"ar\"]          = true,\n            [\"ha\"]          = false,\n            [\"nb\"]          = false,\n            [\"tt\"]          = false,\n            [\"cs\"]          = false,\n        },\n        [\"effect\"]      = \"Put yourself in {{tip|stasis (buff)|stasis}} for 3 seconds, rendering you {{tip|untargetable}} and {{tip|invulnerable}} for the duration but also unable to move, declare basic attacks, cast abilities, use summoner spells, or activate items. Afterwards, reset the cooldowns of all your basic abilities.\",\n        [\"removed\"]     = true,\n        [\"patch\"]       = \"V13.16\",\n    },\n}\n-- </pre>\n-- [[Category:Lua]]"
+        ]
+      }
+    ]
+  }
+]

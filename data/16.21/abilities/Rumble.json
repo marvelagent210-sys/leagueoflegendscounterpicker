@@ -1,0 +1,1785 @@
+[
+  {
+    "champion": "Rumble",
+    "kind": "E",
+    "name": "Electro Harpoon",
+    "page": {
+      "title": "Template:Data Rumble/Electro Harpoon",
+      "revid": 4008020
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "950 • 890",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 890
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rumble generates 20 Heat to shoot a harpoon in the target direction that deals magic damage to the first enemy hit, inflicting them with magic resistance reduction for 4 seconds and slowing them for 2 seconds. These effects stack additively with multiple harpoons, refreshing their duration and stacking up to 2 times.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "55 / 80 / 105 / 130 / 155 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  80,
+                  105,
+                  130,
+                  155
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "110 / 160 / 210 / 260 / 310 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  110,
+                  160,
+                  210,
+                  260,
+                  310
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Resistance Reduction",
+            "amount": {
+              "text": "10 / 12 / 14 / 16 / 18%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  12,
+                  14,
+                  16,
+                  18
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total MR Reduction",
+            "amount": {
+              "text": "20 / 24 / 28 / 32 / 36%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  24,
+                  28,
+                  32,
+                  36
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "15 / 20 / 25 / 30 / 35%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  20,
+                  25,
+                  30,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Slow",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                15,
+                20,
+                25,
+                30,
+                35
+              ]
+            },
+            "evidence": "Active: Rumble generates 20 Heat to shoot a harpoon in the target direction that deals magic damage to the first enemy hit, inflicting them with magic resistance reduction for 4 seconds and slowing them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rumble periodically stocks an Electro Harpoon charge, up to a maximum of 2.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Danger Zone Bonus",
+        "text": "Danger Zone Bonus: Electro Harpoon's effects are increased by 50%.",
+        "leveling": [
+          {
+            "label": "Enhanced Damage",
+            "amount": {
+              "text": "82.5 / 120 / 157.5 / 195 / 232.5 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  82.5,
+                  120,
+                  157.5,
+                  195,
+                  232.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Enhanced Damage",
+            "amount": {
+              "text": "165 / 240 / 315 / 390 / 465 (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  165,
+                  240,
+                  315,
+                  390,
+                  465
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Magic Resistance Reduction",
+            "amount": {
+              "text": "15 / 18 / 21 / 24 / 27%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  18,
+                  21,
+                  24,
+                  27
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Enhanced MR Reduction",
+            "amount": {
+              "text": "30 / 36 / 42 / 48 / 54%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  36,
+                  42,
+                  48,
+                  54
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Slow",
+            "amount": {
+              "text": "22.5 / 30 / 37.5 / 45 / 52.5%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  22.5,
+                  30,
+                  37.5,
+                  45,
+                  52.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Enhanced Slow",
+            "amount": {
+              "text": "45 / 60 / 75 / 90 / 105%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  60,
+                  75,
+                  90,
+                  105
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If Rumble casts Electro Harpoon before his mech becomes Overheated, he may still use another charge within 3 seconds of the initial cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If Electro Harpoon is empowered with Danger Zone's bonus and hits a target that is afflicted with the non-enhanced slow and shred applied by previous, non-empowered Electro Harpoon casts, the effectiveness of both debuffs on the target are increased to their enhanced values for all stacks of each debuff.\n  - This also applies vice versa; a non-empowered Electro Harpoon cast will reduce the enhanced slow and shred applied by previous, empowered Electro Harpoon casts back to the non-enhanced values, for all stacks.",
+      "A buff with the magic resistance reduction tooltip is applied to minions and pets, but their magic resistance is unaffected by Electro Harpoon.",
+      "Each Electro Harpoon cast triggers Spellblade and reduces Force Pulse cooldown.",
+      "Electro Harpoon's missile will fail to fire if Rumble is suppressed during the cast time.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Rumble stocks an Electro Harpoon charge before the ability is even learned."
+    ]
+  },
+  {
+    "champion": "Rumble",
+    "kind": "I",
+    "name": "Junkyard Titan",
+    "page": {
+      "title": "Template:Data Rumble/Junkyard Titan",
+      "revid": 4064861
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Rumble's basic ability casts generate Heat, which decays by 10 Heat per second after not using any basic ability within 4 seconds or The Equalizer within 2 seconds. Rumble's mech enters the Danger Zone when at or above 50 Heat, and becomes Overheated while at 150 Heat.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Danger Zone",
+        "text": "Danger Zone: Rumble's mech enters the Danger Zone, empowering his basic abilities.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Overheated",
+        "text": "Overheated: Rumble's mech becomes Overheated, disabling his abilities as his Heat decays back down to 0 over 4 seconds. During this time, he gains 30 – 100 (based on level)% bonus attack speed and empowers his basic attacks to deal 5 – 40 (based on level) (+ 25% AP) (+ 4% of the target's maximum health) bonus magic damage on-hit. The damage based on the target's health ratio is capped at 90 – 175 (based on level) against monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "During this time, he gains 30 – 100 (based on level)% bonus attack speed and empowers his basic attacks to deal 5 – 40 (based on level) (+ 25% AP) (+ 4% of the target's maximum health) bonus magic damage on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                30,
+                32.9647058823529,
+                36.0735294117647,
+                39.3264705882353,
+                42.7235294117647,
+                46.2647058823529,
+                49.95,
+                53.7794117647059,
+                57.7529411764706,
+                61.8705882352941,
+                66.1323529411765,
+                70.5382352941176,
+                75.0882352941177,
+                79.7823529411765,
+                84.6205882352941,
+                89.6029411764706,
+                94.7294117647059,
+                100,
+                105.414705882353,
+                110.973529411765
+              ],
+              "past18": "wiki"
+            },
+            "context": "During this time, he gains 30 – 100 (based on level)% bonus attack speed and empowers his basic attacks to deal 5 – 40 (based on level) (+ 25% AP) (+ 4% of the target's maximum health) bonus magic damage on-hit."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                7.05882352941176,
+                9.11764705882353,
+                11.1764705882353,
+                13.2352941176471,
+                15.2941176470588,
+                17.3529411764706,
+                19.4117647058824,
+                21.4705882352941,
+                23.5294117647059,
+                25.5882352941176,
+                27.6470588235294,
+                29.7058823529412,
+                31.7647058823529,
+                33.8235294117647,
+                35.8823529411765,
+                37.9411764705882,
+                40,
+                42.0588235294118,
+                44.1176470588235
+              ],
+              "past18": "wiki"
+            },
+            "context": "During this time, he gains 30 – 100 (based on level)% bonus attack speed and empowers his basic attacks to deal 5 – 40 (based on level) (+ 25% AP) (+ 4% of the target's maximum health) bonus magic damage on-hit."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                90,
+                93.6,
+                97.375,
+                101.325,
+                105.45,
+                109.75,
+                114.225,
+                118.875,
+                123.7,
+                128.7,
+                133.875,
+                139.225,
+                144.75,
+                150.45,
+                156.325,
+                162.375,
+                168.6,
+                175,
+                181.575,
+                188.325
+              ],
+              "past18": "wiki"
+            },
+            "context": "The damage based on the target's health ratio is capped at 90 – 175 (based on level) against monsters."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "While Rumble is overheating, a Silenced icon will appear above him to signify he cannot cast abilities. This is visible to all units.",
+      "The attacks do not deal the bonus damage against structures."
+    ]
+  },
+  {
+    "champion": "Rumble",
+    "kind": "Q",
+    "name": "Flamespitter",
+    "page": {
+      "title": "Template:Data Rumble/Flamespitter",
+      "revid": 4034705
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "600 • -50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Cone length"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "label": "Cone origin point behind Rumble's center"
+          }
+        ]
+      },
+      "angle": {
+        "text": "64°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 64
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rumble generates 20 Heat to activate his flamethrower for 3 seconds, spewing forth flames in a frontal cone every 0.25 seconds. Enemies hit by the flame are scorched for 0.6 seconds, taking magic damage every 0.25 seconds as well as upon being hit if not currently scorched, refreshing on subsequent inflictions.\n\nFlamespitter's damage is reduced to 70% against minions.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "12.5 / 18.75 / 25 / 31.25 / 37.5 (+ 26.25% AP) (+ 1.5 / 1.625 / 1.75 / 1.875 / 2% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12.5,
+                  18.75,
+                  25,
+                  31.25,
+                  37.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 26.25
+                  },
+                  "text": "(+ 26.25% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      1.5,
+                      1.625,
+                      1.75,
+                      1.875,
+                      2
+                    ]
+                  },
+                  "text": "(+ 1.5 / 1.625 / 1.75 / 1.875 / 2% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage per Second",
+            "amount": {
+              "text": "16.6667 / 25 / 33.3333 / 41.6667 / 50 (+ 35% AP) (+ 2 / 2.16667 / 2.33333 / 2.5 / 2.66667% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  16.6666666666667,
+                  25.000000000000025,
+                  33.33333333333335,
+                  41.66666666666667,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      2,
+                      2.1666666666666674,
+                      2.333333333333335,
+                      2.5000000000000027,
+                      2.66666666666667
+                    ]
+                  },
+                  "text": "(+ 2 / 2.16667 / 2.33333 / 2.5 / 2.66667% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "4.16667 / 6.25 / 8.33333 / 10.4167 / 12.5 (+ 8.75% AP) (+ 0.5 / 0.541667 / 0.583333 / 0.625 / 0.666667% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4.16666666666667,
+                  6.250000000000002,
+                  8.333333333333336,
+                  10.416666666666668,
+                  12.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8.75
+                  },
+                  "text": "(+ 8.75% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      0.5,
+                      0.5416666666666667,
+                      0.5833333333333335,
+                      0.6250000000000002,
+                      0.666666666666667
+                    ]
+                  },
+                  "text": "(+ 0.5 / 0.541667 / 0.583333 / 0.625 / 0.666667% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "62.5 / 93.75 / 125 / 156.25 / 187.5 (+ 131.25% AP) (+ 7.5 / 8.125 / 8.75 / 9.375 / 10% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  62.5,
+                  93.75,
+                  125,
+                  156.25,
+                  187.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 131.25
+                  },
+                  "text": "(+ 131.25% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      7.5,
+                      8.125,
+                      8.75,
+                      9.375,
+                      10
+                    ]
+                  },
+                  "text": "(+ 7.5 / 8.125 / 8.75 / 9.375 / 10% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Minion Damage",
+            "amount": {
+              "text": "8.75 / 13.125 / 17.5 / 21.875 / 26.25 (+ 18.375% AP) (+ 1.05 / 1.1375 / 1.225 / 1.3125 / 1.4% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8.75,
+                  13.125,
+                  17.5,
+                  21.875,
+                  26.25
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 18.375
+                  },
+                  "text": "(+ 18.375% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      1.05,
+                      1.1375,
+                      1.225,
+                      1.3125,
+                      1.4
+                    ]
+                  },
+                  "text": "(+ 1.05 / 1.1375 / 1.225 / 1.3125 / 1.4% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage per Second",
+            "amount": {
+              "text": "11.6667 / 17.5 / 23.3333 / 29.1667 / 35 (+ 24.5% AP) (+ 1.4 / 1.51667 / 1.63333 / 1.75 / 1.86667% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  11.6666666666667,
+                  17.500000000000025,
+                  23.33333333333335,
+                  29.166666666666675,
+                  35
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 24.5
+                  },
+                  "text": "(+ 24.5% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      1.4,
+                      1.5166666666666675,
+                      1.633333333333335,
+                      1.7500000000000024,
+                      1.86666666666667
+                    ]
+                  },
+                  "text": "(+ 1.4 / 1.51667 / 1.63333 / 1.75 / 1.86667% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage per Tick",
+            "amount": {
+              "text": "2.91667 / 4.375 / 5.83333 / 7.29167 / 8.75 (+ 6.125% AP) (+ 0.35 / 0.379167 / 0.408333 / 0.4375 / 0.466667% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.91666666666667,
+                  4.375000000000003,
+                  5.833333333333336,
+                  7.291666666666668,
+                  8.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6.125
+                  },
+                  "text": "(+ 6.125% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      0.35,
+                      0.37916666666666676,
+                      0.4083333333333335,
+                      0.4375000000000002,
+                      0.466666666666667
+                    ]
+                  },
+                  "text": "(+ 0.35 / 0.379167 / 0.408333 / 0.4375 / 0.466667% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Minion Damage",
+            "amount": {
+              "text": "43.75 / 65.625 / 87.5 / 109.375 / 131.25 (+ 91.875% AP) (+ 5.25 / 5.6875 / 6.125 / 6.5625 / 7% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  43.75,
+                  65.625,
+                  87.5,
+                  109.375,
+                  131.25
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 91.875
+                  },
+                  "text": "(+ 91.875% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      5.25,
+                      5.6875,
+                      6.125,
+                      6.5625,
+                      7
+                    ]
+                  },
+                  "text": "(+ 5.25 / 5.6875 / 6.125 / 6.5625 / 7% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.6
+            },
+            "context": "Enemies hit by the flame are scorched for 0.6 seconds, taking magic damage every 0.25 seconds as well as upon being hit if not currently scorched, refreshing on subsequent inflictions."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            },
+            "context": "Flamespitter's damage is reduced to 70% against minions."
+          }
+        ],
+        "tips": [
+          {
+            "text": "frontal",
+            "tip": "In his facing direction"
+          }
+        ]
+      },
+      {
+        "label": "Danger Zone Bonus",
+        "text": "Danger Zone Bonus: Flamespitter's damage is increased by 50%.\n\nFlamespitter's total damage based on the target's health is capped at 65 – 300 (based on level) against monsters.",
+        "leveling": [
+          {
+            "label": "Minimum Enhanced Damage",
+            "amount": {
+              "text": "18.75 / 28.125 / 37.5 / 46.875 / 56.25 (+ 39.375% AP) (+ 2.25 / 2.4375 / 2.625 / 2.8125 / 3% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  18.75,
+                  28.125,
+                  37.5,
+                  46.875,
+                  56.25
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 39.375
+                  },
+                  "text": "(+ 39.375% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      2.25,
+                      2.4375,
+                      2.625,
+                      2.8125,
+                      3
+                    ]
+                  },
+                  "text": "(+ 2.25 / 2.4375 / 2.625 / 2.8125 / 3% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Damage per Second",
+            "amount": {
+              "text": "25 / 37.5 / 50 / 62.5 / 75 (+ 52.5% AP) (+ 3 / 3.25 / 3.5 / 3.75 / 4% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  37.5,
+                  50,
+                  62.5,
+                  75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 52.5
+                  },
+                  "text": "(+ 52.5% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      3,
+                      3.25,
+                      3.5,
+                      3.75,
+                      4
+                    ]
+                  },
+                  "text": "(+ 3 / 3.25 / 3.5 / 3.75 / 4% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Damage per Tick",
+            "amount": {
+              "text": "6.25 / 9.375 / 12.5 / 15.625 / 18.75 (+ 13.125% AP) (+ 0.75 / 0.8125 / 0.875 / 0.9375 / 1% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6.25,
+                  9.375,
+                  12.5,
+                  15.625,
+                  18.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 13.125
+                  },
+                  "text": "(+ 13.125% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      0.75,
+                      0.8125,
+                      0.875,
+                      0.9375,
+                      1
+                    ]
+                  },
+                  "text": "(+ 0.75 / 0.8125 / 0.875 / 0.9375 / 1% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Enhanced Damage",
+            "amount": {
+              "text": "93.75 / 140.625 / 187.5 / 234.375 / 281.25 (+ 196.875% AP) (+ 11.25 / 12.1875 / 13.125 / 14.0625 / 15% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  93.75,
+                  140.625,
+                  187.5,
+                  234.375,
+                  281.25
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 196.875
+                  },
+                  "text": "(+ 196.875% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      11.25,
+                      12.1875,
+                      13.125,
+                      14.0625,
+                      15
+                    ]
+                  },
+                  "text": "(+ 11.25 / 12.1875 / 13.125 / 14.0625 / 15% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Enhanced Minion Damage",
+            "amount": {
+              "text": "13.125 / 19.6875 / 26.25 / 32.8125 / 39.375 (+ 27.5625% AP) (+ 1.575 / 1.70625 / 1.8375 / 1.96875 / 2.1% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  13.125,
+                  19.6875,
+                  26.25,
+                  32.8125,
+                  39.375
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 27.5625
+                  },
+                  "text": "(+ 27.5625% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      1.575,
+                      1.70625,
+                      1.8375,
+                      1.96875,
+                      2.1
+                    ]
+                  },
+                  "text": "(+ 1.575 / 1.70625 / 1.8375 / 1.96875 / 2.1% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Minion Damage per Second",
+            "amount": {
+              "text": "17.5 / 26.25 / 35 / 43.75 / 52.5 (+ 36.75% AP) (+ 2.1 / 2.275 / 2.45 / 2.625 / 2.8% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  17.5,
+                  26.25,
+                  35,
+                  43.75,
+                  52.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 36.75
+                  },
+                  "text": "(+ 36.75% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      2.1,
+                      2.275,
+                      2.45,
+                      2.625,
+                      2.8
+                    ]
+                  },
+                  "text": "(+ 2.1 / 2.275 / 2.45 / 2.625 / 2.8% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Minion Damage per Tick",
+            "amount": {
+              "text": "4.375 / 6.5625 / 8.75 / 10.9375 / 13.125 (+ 9.1875% AP) (+ 0.525 / 0.56875 / 0.6125 / 0.65625 / 0.7% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4.375,
+                  6.5625,
+                  8.75,
+                  10.9375,
+                  13.125
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 9.1875
+                  },
+                  "text": "(+ 9.1875% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      0.525,
+                      0.56875,
+                      0.6125,
+                      0.65625,
+                      0.7
+                    ]
+                  },
+                  "text": "(+ 0.525 / 0.56875 / 0.6125 / 0.65625 / 0.7% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Enhanced Minion Damage",
+            "amount": {
+              "text": "65.625 / 110.742 / 155.859 / 200.977 / 246.094 (+ 137.813% AP) (+ 7.875 / 8.53125 / 9.1875 / 9.84375 / 10.5% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65.625,
+                  110.7421875,
+                  155.859375,
+                  200.9765625,
+                  246.09375
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 137.8125
+                  },
+                  "text": "(+ 137.813% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      7.875,
+                      8.53125,
+                      9.1875,
+                      9.84375,
+                      10.5
+                    ]
+                  },
+                  "text": "(+ 7.875 / 8.53125 / 9.1875 / 9.84375 / 10.5% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                65,
+                74.9529411764706,
+                85.3897058823529,
+                96.3102941176471,
+                107.714705882353,
+                119.602941176471,
+                131.975,
+                144.830882352941,
+                158.170588235294,
+                171.994117647059,
+                186.301470588235,
+                201.092647058824,
+                216.367647058824,
+                232.126470588235,
+                248.369117647059,
+                265.095588235294,
+                282.305882352941,
+                300,
+                318.177941176471,
+                336.839705882353
+              ],
+              "past18": "wiki"
+            },
+            "context": "Flamespitter's total damage based on the target's health is capped at 65 – 300 (based on level) against monsters."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Flamespitter will deal an additional tick of damage to a minion if it would die to its per-tick damage. This is intended.",
+      "Rumble will instantly turn to face the cursor if he is not moving when Flamespitter is cast. He will also instantly turn when issuing an Attack order on an enemy while Flamespitter is active.\n  - Issuing an Attack Move order at a location will not cause Rumble to instantly turn.\n  - If Rumble does not path to a location after an Attack or Attack Move order, and the player issues a Stop or Hold order immediately afterwards, Rumble will not visually turn completely to face the new direction, but the area will turn to have the correct direction as intended.",
+      "When Flamespitter's debuff is applied instead of refreshed, the target is dealt one additional instance of the debuff at the same time as the application. This is done by delaying the actual debuff by 0.1 seconds.\n  - If the target is already affected by the debuff, its duration is refreshed to the maximum (0.6 seconds)."
+    ]
+  },
+  {
+    "champion": "Rumble",
+    "kind": "R",
+    "name": "The Equalizer",
+    "page": {
+      "title": "Template:Data Rumble/The Equalizer",
+      "revid": 4008021
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "130 / 105 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                130,
+                105,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "None • 0.5833",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5833
+            },
+            "label": "Starts after the spell is cast"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "-175 • 1135",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            },
+            "label": "Damage range behind vector origin"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1135
+            },
+            "label": "Maximum damage range forward, estimated"
+          }
+        ]
+      },
+      "width": {
+        "text": "410 - 368.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 410
+            },
+            "label": "Widest and thinnest point of the chain of circles, respectively"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "Vector deployment speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Vector"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rumble deploys a barrage of rockets from the sky along the target path in a line over 0.75 seconds. Each rocket impacts the ground to create a field of fire that lasts 4.5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies struck by the impact or within the field are marked Burning for 1 second, taking magic damage every 0.25 seconds and being slowed by 35%, refreshing while in the area. Enemies may be Burning for up to 5 seconds, for a total of 20 instances of its effect.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "30 / 50 / 70 (+ 8.75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8.75
+                  },
+                  "text": "(+ 8.75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage per Second",
+            "amount": {
+              "text": "120 / 200 / 280 (+ 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  200,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "600 / 1000 / 1400 (+ 175% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  600,
+                  1000,
+                  1400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 175
+                  },
+                  "text": "(+ 175% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "amount": {
+              "kind": "constant",
+              "value": 35
+            },
+            "evidence": "Enemies struck by the impact or within the field are marked Burning for 1 second, taking magic damage every 0.25 seconds and being slowed by 35%, refreshing while in the area.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The Equalizer's cumulative hitbox consists of a row of six rockets, each having a circular area of effect with a radius of 205 units. Each rocket drops at an offset of 180 units from the previous in the vector of cast.\n  - The missile that manages the rockets being deployed starts 150 units behind the target vector origin, and thus drops the first rocket at 30 units in front of the cast vector origin, which is equivalent to a period of 0.132 from the cast point.",
+      "A given field checks for targets to apply or refresh the debuff on once every 0.25 seconds.",
+      "Due to each field expiring at different points in time, champions moving in the duration of the rockets' launch as they are expiring may sometimes receive 1 more instance of the debuff at most beyond the maximum."
+    ]
+  },
+  {
+    "champion": "Rumble",
+    "kind": "W",
+    "name": "Scrap Shield",
+    "page": {
+      "title": "Template:Data Rumble/Scrap Shield",
+      "revid": 3923327
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rumble generates 20 Heat to grant himself a shield for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "25 / 55 / 85 / 115 / 145 (+ 30% AP) (+ 4% of maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  55,
+                  85,
+                  115,
+                  145
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                },
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% of maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Rumble generates 20 Heat to grant himself a shield for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rumble also gains bonus movement speed for 1 to 1.32 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "1 to 1.32 seconds.",
+            "tip": "See notes"
+          }
+        ]
+      },
+      {
+        "label": "Danger Zone Bonus",
+        "text": "Danger Zone Bonus: Scrap Shield's shield strength and bonus movement speed are increased in effectiveness by 50%.",
+        "leveling": [
+          {
+            "label": "Enhanced Shield Strength",
+            "amount": {
+              "text": "37.5 / 82.5 / 127.5 / 172.5 / 217.5 (+ 45% AP) (+ 6% of maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  37.5,
+                  82.5,
+                  127.5,
+                  172.5,
+                  217.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                },
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% of maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Bonus Movement Speed",
+            "amount": {
+              "text": "15 / 22.5 / 30 / 37.5 / 45%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  22.5,
+                  30,
+                  37.5,
+                  45
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The movement speed buff is supposed to last for 1 second, but due to a bug may last 0.264 longer.\n  - Like most buffs, the stat bonus is already only gained at the next stat update (every 0.264). Despite this, the duration still inconsistent."
+    ]
+  }
+]

@@ -1,0 +1,108 @@
+[
+  {
+    "champion": "Zac",
+    "name": "Bloblet",
+    "page": {
+      "title": "Zac",
+      "revid": 4057435
+    },
+    "fields": {
+      "gold": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "12% of Zac's maximum health",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            },
+            "label": "Plus an additional 1 health"
+          }
+        ]
+      },
+      "armor": {
+        "text": "50% of Zac's armor",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "50% of Zac's magic resistance",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "Variable",
+        "values": []
+      },
+      "radius": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "54.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 54.4
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "0",
+      "exp": "0",
+      "hp": "12% of Zac's maximum health",
+      "armor": "50% of Zac's armor",
+      "magicresist": "50% of Zac's magic resistance",
+      "aoeresist": "33%",
+      "ccresist": "Immune to crowd control (except stasis, still able to move)",
+      "movespeed": "Variable",
+      "control": "Autonomous",
+      "radius": "65",
+      "pathingradius": "54.4",
+      "targeting": "Minion\n* Bloblets can be targeted by Smite and Force of Will.\n** A grabbed Bloblet, while visually separated from the others, will not delay Zac's revival or cause him to recombine with less current health.\n* Bloblets can be targeted by Teleport.\n* Taste Their Fear considers Bloblets 'isolated' when being the last one alive or after having merged with the others right before Zac recombines (A Bloblet is not considered 'isolated' when close enough to the others)\n* Turrets will prioritize Bloblets over other minions."
+    }
+  }
+]

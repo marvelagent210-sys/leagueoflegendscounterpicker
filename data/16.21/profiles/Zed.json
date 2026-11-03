@@ -1,0 +1,246 @@
+{
+  "champion": "Zed",
+  "name": "Zed",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "zed",
+      "formName": "Zed",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.07346,
+      "attackDamage": 129.861,
+      "windup": 0.184072,
+      "modifiers": [
+        "Contempt for the Weak"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Zed",
+      "kind": "E",
+      "name": "Shadow Slash",
+      "page": {
+        "title": "Template:Data Zed/Shadow Slash",
+        "revid": 4016889
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Zed/Shadow Slash",
+              "revid": 4016889,
+              "quote": "Enemies hit by a Shadow's slash are slowed for 1.5 seconds, with multiple slashes dealing no additional damage but the slow's effectiveness being increased by 50%."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0,
+      "notes": [
+        "Spell shield will only block one Shadow Slash even if multiple of them hit at the same time, prioritizing blocking the slash from Zed's Shadow.\n  - The damage from at least one slash will always be blocked but still counts for preventing other slashes from applying the damage (other slashes are considered to be additional slashes which are not eligible for dealing the damage).\n  - The slow will be blocked if hit by Zed's slash and a Shadow's slash, due to the latter slash being blocked.\n  - The slow will be applied at base strength if hit by the slashes of two Shadows, due to at least one slash from a Shadow successfully hitting the target with the other slash being blocked (thus preventing the slow from being enhanced).\n  - The slow will be applied at enhanced strength if hit by the slashes of Zed and two of his Shadows, due at least two of the slashes successfully hitting the target (in this case, the slashes from Zed and one of the Shadows).",
+        "Shadow Slash does not interrupt attack, movement, or cast commands."
+      ]
+    },
+    {
+      "champion": "Zed",
+      "kind": "I",
+      "name": "Contempt for the Weak",
+      "page": {
+        "title": "Template:Data Zed/Contempt for the Weak",
+        "revid": 4052367
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "The enhanced attack applies other on-hit effects and can critically strike as normal (the bonus damage cannot).",
+        "Contempt for the Weak is not consumed when dodged or missed, but it is consumed when blocked."
+      ]
+    },
+    {
+      "champion": "Zed",
+      "kind": "Q",
+      "name": "Razor Shuriken",
+      "page": {
+        "title": "Template:Data Zed/Razor Shuriken",
+        "revid": 4006897
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 925,
+      "speed": 1700,
+      "notes": [
+        "Shurikens blocked by spell shield still count as being hit for the reduced pass-through damage."
+      ]
+    },
+    {
+      "champion": "Zed",
+      "kind": "R",
+      "name": "Death Mark",
+      "page": {
+        "title": "Template:Data Zed/Death Mark",
+        "revid": 4050166
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "grounded": "yes",
+        "knockdown": "partly"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted"
+        },
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "(recast)"
+            }
+          ],
+          "condition": "(recast)"
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Zed/Death Mark",
+              "revid": 4050166,
+              "quote": "Active: Zed becomes untargetable and, after a 0.6-second delay, he dashes to 125 units beyond the target enemy champion from his position at the end of the delay over 0.35 seconds."
+            }
+          ],
+          "duration": 0.6
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 625,
+      "notes": [
+        "Zed will track the target if they change locations.\n  - He will dash through the target's previous location while still applying the mark if they are 2200 or more units away.",
+        "Zed will become targetable, apply the mark, and gain the ghosting as soon as his dash ends.\n  - The mark will not be applied to the target if they are untargetable by the time Zed's dash ends.",
+        "Spell shield will only block the mark's application. They will not prevent Zed from initiating Death Mark against the target nor block the detonation from a mark that is already applied.",
+        "If Zed dies during Death Mark, the ability will cancel instantly and he will reappear at his current location. The cooldown is not refunded.\n  - If he enters resurrection before the dash, Death Mark does not cancel. If he enters it while dashing, the dash is interrupted.",
+        "If the dash is interrupted, Zed stops, places himself to the ground (ends all displacements affecting him, but does not remove airborne effects), and reappears prematurely at his current location. The mark will still be applied regardless.\n  - Zed will remove airborne effects from himself immediately upon starting the dash.",
+        "Once Zed begins the dash, two Shadows will also appear to be dashing through his target, each one spawning a certain distance behind the target (from the right and left). These shadows do not mimic abilities and disappear immediately after they stop dashing but they grant sight of their surroundings.\n  - These shadows have a tracking distance of 2200 and a dash speed of 1750.",
+        "Death Mark does not cancel if the target enters a zombie state before the dash begins."
+      ]
+    },
+    {
+      "champion": "Zed",
+      "kind": "W",
+      "name": "Living Shadow",
+      "page": {
+        "title": "Template:Data Zed/Living Shadow",
+        "revid": 4053262
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location",
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "grounded": "partly"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "(recast)"
+            }
+          ],
+          "condition": "(recast)"
+        }
+      ],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0,
+      "range": 325,
+      "speed": 2500,
+      "notes": [
+        "The energy refund is not granted if the mimicked ability is blocked by a spell shield.",
+        "Living Shadow's recast can be queued to cast while the Shadow is dashing; the recast will occur once it has been placed.",
+        "Living Shadow cannot be recast while grounded or rooted.",
+        "Zed will swap places with the Shadow by all means if he buffers Living Shadow's recast during its dash.\n  - Living Shadow cannot be recast while Zed is marking his target with R, but may still be recast if it was buffered."
+      ]
+    }
+  ]
+}

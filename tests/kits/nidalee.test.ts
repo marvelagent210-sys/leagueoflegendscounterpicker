@@ -39,10 +39,10 @@ describe("Nidalee reads the wiki at level 20", () => {
     expect(spec.attack).toMatchObject({ range: 525, ranged: true });
     expect(spec.forms?.["Cougar Form"]?.attack).toMatchObject({ range: 125, ranged: false });
     expect(spec.abilities.find((a) => a.key === "Q")).toMatchObject({ cooldown: 6, cost: 70, castTime: 0.25, castOrigin: "start", delivery: { kind: "line", range: 1500, width: 80, speed: 1300 } });
-    expect(spec.abilities.find((a) => a.key === "E")?.onSelf).toEqual([{ type: "stat", stat: "attackSpeed", amount: { base: 0.7 }, duration: 7 }]);
+    expect(spec.abilities.find((a) => a.key === "E")?.onSelf).toEqual([{ type: "stat", stat: "attackSpeed", amount: { base: 0.6 }, duration: 7 }]);
     const cougarSpells = spec.forms!["Cougar Form"]!.abilities;
     expect(cougarSpells.find((a) => a.key === "WC")).toMatchObject({ cooldown: 6, delivery: { kind: "dash", distance: 375, time: 0.5, hitRadius: 250 } });
-    expect(cougarSpells.find((a) => a.key === "WC")?.onHit?.[0]).toEqual({ type: "damage", damageType: "magic", amount: { base: 190, ratios: { bonusAD: 0.5, AP: 0.3 } } });
+    expect(cougarSpells.find((a) => a.key === "WC")?.onHit?.[0]).toEqual({ type: "damage", damageType: "magic", amount: { base: 170, ratios: { bonusAD: 0.5, AP: 0.3 } } });
     expect(cougarSpells.find((a) => a.key === "EC")).toMatchObject({ cooldown: 6, castTime: 0.25, delivery: { kind: "area", near: 0, far: 310 } });
     expect(cougarSpells.find((a) => a.key === "QC")).toMatchObject({ cooldown: 6, cooldownAfter: "empower" });
     expect(cougarSpells.find((a) => a.key === "RC")).toMatchObject({ cooldownKey: "R", cooldown: 3 });
@@ -153,7 +153,7 @@ describe("Cougar Form", () => {
     cast(w, "WC");
     settle(w);
     expect(w.units[0].x - from).toBeGreaterThan(500);
-    expect(logged(w, "Pounce deals 190 magic")).toHaveLength(1);
+    expect(logged(w, "Pounce deals 170 magic")).toHaveLength(1);
     expect(w.units[0].cooldownReady.WC! - w.tick).toBeLessThanOrEqual(45);
     const plain = worldFor(700);
     plain.units[0].cooldownReady.R = 0;

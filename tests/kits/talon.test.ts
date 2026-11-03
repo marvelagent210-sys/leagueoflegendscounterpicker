@@ -33,7 +33,7 @@ function wall(world: World, from = 50, to = 150, id = 999) { world.terrain.push(
 
 describe("Talon ordinary production scenarios", () => {
   it("spends full 15000 gold in all six default scenarios with exact reflected scores/builds", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices, opponent = kit("Darius").spec;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices, opponent = kit("Darius").spec;
     const forward = simulateMatchup(compiled.spec, opponent, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(opponent, compiled.spec, 15000, prices);
     expect(forward.scenarios).toHaveLength(6); expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]);
     expect(Number.isFinite(forward.score)).toBe(true); expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-12);
@@ -64,9 +64,9 @@ describe("Talon pinned evidence", () => {
   it("reads all five exact primary revisions plus versioned object-attributed binary quotes", () => {
     expect(new Set(compiled.evidence.filter(e => e.revid > 0).map(e => e.revid))).toEqual(new Set([3907201, 4046483, 4015970, 4008078, 4008077]));
     for (const source of compiled.evidence.filter(e => e.revid === 0)) {
-      expect(source.sourceVersion).toBe("16.20.8248524+branch.releases-16-20.content.release");
+      expect(source.sourceVersion).toBe("16.21.8342754+branch.releases-16-21.content.release");
       expect(source.sourceSha256).toBe("1a2f15a6486fd0ad457d50682257342e165c77e20633f4d798bc361ce6dfac03");
-      expect(source.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json"); expect(source.page).toContain("Characters/Talon/Spells/");
+      expect(source.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/talon/talon.bin.json"); expect(source.page).toContain("Characters/Talon/Spells/");
     }
     for (const row of records("Talon")) { expect(row.sources?.[0]?.page).toEqual(row.page); expect(row.sources?.[0]?.text[0]).toContain("|champion     = Talon"); }
   });

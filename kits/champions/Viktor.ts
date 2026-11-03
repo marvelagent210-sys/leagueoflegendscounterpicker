@@ -31,8 +31,8 @@ const viktor:KitModule={
   const fragments=options.hexFragments??0,mask=(options.augmentMask??-1)===-1?viktorAugmentMasks(fragments).at(-1)!:options.augmentMask!;
   if(!Number.isInteger(fragments)||fragments<0||!legal(mask)||count(mask)*cost>fragments)throw new Error("Viktor: illegal fragment budget or augment prerequisites");
   const qDamage=q.formula("Magic Damage"),discharge=q.formula("Modified Magic Damage");
-  const shield:Formula={base:q.levelValue("He also grants himself a shield"),ratios:{AP:q.quoted("(+ 25% AP)")/100}};
-  const shieldTime=q.quoted("for 2.5 seconds and gains Discharge"),dischargeTime=q.quoted("gains Discharge for 4 seconds"),qBoost=q.quoted("strength is increased by 60%")/100,qMove=q.quoted("gains 30% bonus movement speed")/100,qMoveTime=q.quoted("bonus movement speed for 2.5 seconds");
+  const shield:Formula={base:q.levelValue("He also grants himself a shield"),ratios:{AP:q.quoted("(based on level) (+ 20% AP) for 2 seconds")/100}};
+  const shieldTime=q.quoted("for 2 seconds and gains Discharge"),dischargeTime=q.quoted("gains Discharge for 4 seconds"),qBoost=q.quoted("strength is increased by 60%")/100,qMove=q.quoted("gains 30% bonus movement speed")/100,qMoveTime=q.quoted("bonus movement speed for 2.5 seconds");
   q.quote("Spell shield does not prevent Viktor from gaining Discharge");q.quote("Discharge disables the bonus damage from critical strikes");q.quote("Only the initial projectile can be intercepted");q.quote("not be consumed nor apply its effects against wards");
   q.gameQuote('"mSpeed":2000.0',"Characters/Viktor/Spells/ViktorQAbility/ViktorQReturn");q.gameQuote('"mStat":2,"mCoefficient":1.0');q.gameQuote('"ObjectName":"ViktorQBuff"');
   const wTime=w.quoted("at the target location for 4.5 seconds"),wDelay=w.quoted("After a 0.75-second delay"),wStep=w.quoted("every 0.25 seconds"),wMax=w.quoted("stacking up to 5 times"),wStun=w.quoted("for 1.5 seconds"),wDebuff=w.quoted("The debuff lasts for 1 second"),wSlow=w.fraction("Slow"),wRadius=w.field("effectRadius"),wRange=w.field("targetRange"),augSlow=w.quoted("slow enemies hit by 20% for 1 second")/100;

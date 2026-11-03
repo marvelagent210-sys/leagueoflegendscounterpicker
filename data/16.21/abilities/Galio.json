@@ -1,0 +1,1363 @@
+[
+  {
+    "champion": "Galio",
+    "kind": "E",
+    "name": "Justice Punch",
+    "page": {
+      "title": "Template:Data Galio/Justice Punch",
+      "revid": 4016963
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "250 - 650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "width": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2300
+            },
+            "label": "dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "grounded": "true",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio steps back in the opposite direction over the cast time, then dashes to the target location until he hits an enemy champion or terrain.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "steps back",
+            "evidence": "Active: Galio steps back in the opposite direction over the cast time, then dashes to the target location until he hits an enemy champion or terrain.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Galio steps back in the opposite direction over the cast time, then dashes to the target location until he hits an enemy champion or terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Galio deals magic damage to enemies he passes through, reduced to 80% against non-champions, and knocks them up for 0.75 seconds as well as reveals them for the same duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 135 / 170 / 205 / 240 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  135,
+                  170,
+                  205,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Non-Champion Damage",
+            "amount": {
+              "text": "80 / 108 / 136 / 164 / 192 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  108,
+                  136,
+                  164,
+                  192
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Galio deals magic damage to enemies he passes through, reduced to 80% against non-champions, and knocks them up for 0.75 seconds as well as reveals them for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Galio deals magic damage to enemies he passes through, reduced to 80% against non-champions, and knocks them up for 0.75 seconds as well as reveals them for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Galio will initiate the dash even if his step backwards is knocked down.",
+      "Galio's second dash will always dash the distance of the target direction. Having the step backwards cut short has no effect on the total distance gained.",
+      "The following table refers for interactions during Justice Punch's cast time and dash:",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Justice Punch|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = E\n|icon         = Justice Punch.png\n|description  = {{sbc|Active:}} '''Galio''' {{tip|lunge|steps back}} in the opposite direction over the cast time, then {{tip|dash|dashes}} to the target location until he hits an enemy {{tip|champion}} or [[terrain]].\n|description2 = '''Galio''' deals {{as|magic damage}} to enemies he passes through, reduced to 80% against non-champions, and {{tip|airborne|knocks them up}} for {{fd|0.75}} seconds as well as {{tip|standard sight|reveals}} them for the same duration.\n|leveling2    = {{st|Magic Damage|{{ap|100 to 240}} {{as|(+ 100% AP)}}|Non-Champion Damage|{{ap|100*0.8 to 240*0.8}} {{as|(+ {{ap|100*0.8}}% AP)}}}}\n|target range = {{tt|250 - 650|Minimum and maximum dash distance}}\n|cast time    = {{fd|0.4}}\n|width        = {{tip|cr|icononly = true}} 400\n|speed        = {{tt|2300|dash speed}}\n|cooldown     = {{ap|11 to 7}}\n|cost         = 50\n|costtype     = Mana\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshiel   = True\n|parry        = \n|projectile   = \n|grounded     = True\n|knockdown    = special\n|outofrange   = cast at max\n|notes        = \n* '''Galio''' will initiate the {{tip|dash}} even if his step backwards is {{tip|knockdown|knocked down}}.\n* '''Galio's''' second dash will always dash the distance of the target direction. Having the step backwards cut short has no effect on the total distance gained.\n* The following table refers for interactions during ''Justice Punch's'' cast time and {{tip|dash}}:\n{{ct|cast|spells=true,false,false,true,false}}\n|yvideo       = N5NeKZOYBGw\n<!-- Blurb -->\n|blurb        = {{sbc|Active:}} {{ci|Galio}} briefly {{tip|lunge|steps back}} before {{tip|dash|charging}} to the target location. Enemies he passes through are dealt {{as|magic damage}} and {{tip|airborne|knocked up}}. Hitting an enemy {{tip|champion}} or terrain stops his charge.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Galio/Justice Punch",
+          "revid": 4016963
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Justice Punch|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = E\n|icon         = Justice Punch.png\n|description  = {{sbc|Active:}} '''Galio''' {{tip|lunge|steps back}} in the opposite direction over the cast time, then {{tip|dash|dashes}} to the target location until he hits an enemy {{tip|champion}} or [[terrain]].\n|description2 = '''Galio''' deals {{as|magic damage}} to enemies he passes through, reduced to 80% against non-champions, and {{tip|airborne|knocks them up}} for {{fd|0.75}} seconds as well as {{tip|standard sight|reveals}} them for the same duration.\n|leveling2    = {{st|Magic Damage|{{ap|100 to 240}} {{as|(+ 100% AP)}}|Non-Champion Damage|{{ap|100*0.8 to 240*0.8}} {{as|(+ {{ap|100*0.8}}% AP)}}}}\n|target range = {{tt|250 - 650|Minimum and maximum dash distance}}\n|cast time    = {{fd|0.4}}\n|width        = {{tip|cr|icononly = true}} 400\n|speed        = {{tt|2300|dash speed}}\n|cooldown     = {{ap|11 to 7}}\n|cost         = 50\n|costtype     = Mana\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshiel   = True\n|parry        = \n|projectile   = \n|grounded     = True\n|knockdown    = special\n|outofrange   = cast at max\n|notes        = \n* '''Galio''' will initiate the {{tip|dash}} even if his step backwards is {{tip|knockdown|knocked down}}.\n* '''Galio's''' second dash will always dash the distance of the target direction. Having the step backwards cut short has no effect on the total distance gained.\n* The following table refers for interactions during ''Justice Punch's'' cast time and {{tip|dash}}:\n{{ct|cast|spells=true,false,false,true,false}}\n|yvideo       = N5NeKZOYBGw\n<!-- Blurb -->\n|blurb        = {{sbc|Active:}} {{ci|Galio}} briefly {{tip|lunge|steps back}} before {{tip|dash|charging}} to the target location. Enemies he passes through are dealt {{as|magic damage}} and {{tip|airborne|knocked up}}. Hitting an enemy {{tip|champion}} or terrain stops his charge.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioEAbility/GalioE",
+        "text": [
+          "{\"ObjectName\":\"GalioE\",\"objectPath\":\"Characters/Galio/Spells/GalioEAbility/GalioE\",\"mScriptName\":\"GalioE\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mSpellTags\":[\"PositiveEffect_MoveBlock\",\"Trait_ImmobilizingCCSpell\",\"Trait_PlayerSelectedDashDirection\",\"Trait_DamageAbility\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[65.0,100.0,135.0,170.0,205.0,240.0,275.0],\"__type\":\"SpellDataValue\"},{\"name\":\"KnockupDuration\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"},{\"name\":\"MinRange\",\"values\":[250.0,250.0,250.0,250.0,250.0,250.0,250.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"PVEDamage\":{\"mMultiplier\":{\"mNumber\":0.800000011920929,\"__type\":\"NumberCalculationPart\"},\"mModifiedGameCalculation\":\"TotalDamage\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Galio/HUD/Icons2D/Galio_E.dds\"],\"spellCastTime\":0.4000000059604645,\"spellTotalTime\":0.5,\"cooldownTime\":[11.0,11.0,10.0,9.0,8.0,7.0,7.0],\"Cooldown\":{\"values\":[11.0,11.0,10.0,9.0,8.0,7.0,7.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"cantCastWhileRooted\":true,\"alwaysSnapFacing\":true,\"useAnimatorFramerate\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"castRadius\":[200.0,200.0,200.0,200.0,200.0,200.0,200.0],\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"castFrame\":7.5,\"missileSpeed\":0.0,\"mLineWidth\":160.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mana\":[50.0,50.0,50.0,50.0,50.0,50.0],\"manaValues\":{\"values\":[50.0,50.0,50.0,50.0,50.0,50.0],\"{0a3e0478}\":50.0,\"__type\":\"{630af303}\"},\"selectionPriority\":1,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mDimensionBehavior\":1,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"GalioE\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_GalioE_Name\",\"keySummary\":\"Spell_GalioE_Summary\",\"keyTooltip\":\"Spell_GalioE_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"hideWithLineIndicator\":true,\"overrideBaseRange\":{\"mPerLevelValues\":[650.0,650.0,650.0,650.0,650.0,650.0],\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionRange\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":true,\"minimumDisplayedRange\":250.0,\"lineWidth\":{\"mPerLevelValues\":[160.0,160.0,160.0,160.0,160.0,160.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":128,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"MinRange\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":16777216,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"KnockupDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "I",
+    "name": "Colossal Smash",
+    "page": {
+      "title": "Template:Data Galio/Colossal Smash",
+      "revid": 4038336
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "pending for confirmation"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Galio's next basic attack is empowered to have an uncancellable windup, gain 40% bonus attack speed and deal 15 – 115 (based on level) (+ 100% AD) (+ 40% AP) (+ 60% bonus magic resistance) modified magic damage to the target and all enemies near them.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Innate: Periodically, Galio's next basic attack is empowered to have an uncancellable windup, gain 40% bonus attack speed and deal 15 – 115 (based on level) (+ 100% AD) (+ 40% AP) (+ 60% bonus magic resistance) modified magic damage to the target and all enemies near them.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                15,
+                20.8823529411765,
+                26.7647058823529,
+                32.6470588235294,
+                38.5294117647059,
+                44.4117647058823,
+                50.2941176470588,
+                56.1764705882353,
+                62.0588235294118,
+                67.9411764705882,
+                73.8235294117647,
+                79.7058823529412,
+                85.5882352941177,
+                91.4705882352941,
+                97.3529411764706,
+                103.235294117647,
+                109.117647058824,
+                115,
+                120.882352941176,
+                126.764705882353
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Galio's next basic attack is empowered to have an uncancellable windup, gain 40% bonus attack speed and deal 15 – 115 (based on level) (+ 100% AD) (+ 40% AP) (+ 60% bonus magic resistance) modified magic damage to the target and all enemies near them."
+          }
+        ]
+      },
+      {
+        "text": "Whenever Galio hits at least one enemy champion or epic monster with an ability, Colossal Smash's current cooldown is reduced by 3 seconds. This may occur only once per cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Colossal Smash's damage based on its AD ratio can critically strike for 200% damage to all targets hit.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Colossal Smash's damage based on its AD ratio can critically strike for 200% damage to all targets hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Colossal Smash deals basic damage to the primary target but also triggers spell effects by also being tagged as spell damage, while dealing proc damage also tagged as area of effect to secondary targets.",
+      "Spellblade does not get converted to magic damage and it will deal its damage only to the primary target.",
+      "Colossal Smash applies on-hit effects to its primary target twice.",
+      "The empowered attack will not trigger against wards and plants.",
+      "Galio gains attack speed even on non-empowered attacks as long as the ability is not on cooldown.",
+      "Colossal Smash cannot be triggered against allies.",
+      "Even if the ability hit is spell shielded Colossal Smash's cooldown will still be reduced.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Colossal Smash|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = I\n|icon         = Colossal Smash.png\n|description  = {{sbc|Innate:}} Periodically, '''Galio's''' next {{tip|basic attack}} is empowered to have an {{tip|uncancellable windup}}, gain {{sti|{{as|40% '''bonus''' attack speed}}}} and deal {{pplevel|15 to 115|color=magic damage}} {{as|(+ 100% AD)}} {{as|(+ 40% AP)}} {{as|(+ 60% '''bonus''' magic resistance)}} {{as|'''modified''' magic damage}} to the target and all enemies near them.\n|description2 = Whenever '''Galio''' hits at least one enemy {{tip|champion}} or epic {{tip|monster}} with an {{tip|ability}}, ''Colossal Smash's'' {{sti|'''current''' cooldown}} is reduced by 3 seconds. This may occur only once per cast.\n|description3 = ''Colossal Smash's'' damage based on its {{as|AD ratio}} can {{tip|critical strike|critically strike}} for {{as|{{critical damage|{{ccd|Galio|crit_base}}|100}}|critical damage}} damage to all targets hit.\n|static       = 5\n|effect radius= {{tip|er|icononly = true}} {{tt|250|pending for confirmation}}\n|targeting    = Passive\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = special\n|spellshield  = False\n|occurrence   = On-hit\n|parry        = True\n|projectile   = \n|grounded     = \n|knockdown    = \n|flavorsound  = {{sm2|Galio_Original_PAttack_1.ogg}} ''\"Smash!\"''\n|notes        = \n* ''Colossal Smash'' deals {{tip|basic damage}} to the primary target but also triggers spell effects by also being tagged as {{tip|spell damage}}, while dealing {{tip|proc damage}} also tagged as {{tip|area of effect}} to secondary targets.\n* {{tip|Spellblade}} does not get converted to magic damage and it will deal its damage only to the primary target.\n* ''Colossal Smash'' applies {{tip|on-hit}} effects to its primary target twice.{{bug}}\n* The empowered attack will not trigger against {{tip|wards}} and [[jungle plants|plants]].\n* '''Galio''' gains {{as|attack speed}} even on non-empowered attacks as long as the ability is not on cooldown.\n* ''Colossal Smash'' cannot be triggered against allies.\n* Even if the ability hit is {{tip|spell shield|spell shielded}} ''Colossal Smash's'' cooldown will still be reduced.\n|yvideo       = hjhtAM4VXfE\n<!-- Blurb -->\n|blurb        = {{sbc|Innate:}} Every few seconds, {{cis|Galio}} next {{tip|basic attack}} is modified to gain {{sti|as|{{as|attack speed}}}} and deal {{as|magic damage}} in an area, increased based on his {{sti|mr|{{as|'''bonus''' magic resist}}}}.\n|blurb2       = '''Galio's''' {{tip|ability}} hits against enemy {{tip|champions}} or epic {{tip|monsters}} {{sti|ah|reduce}} ''Colossal Smash's'' {{sti|cd|cooldown}}.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Galio/Colossal Smash",
+          "revid": 4038336
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Colossal Smash|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = I\n|icon         = Colossal Smash.png\n|description  = {{sbc|Innate:}} Periodically, '''Galio's''' next {{tip|basic attack}} is empowered to have an {{tip|uncancellable windup}}, gain {{sti|{{as|40% '''bonus''' attack speed}}}} and deal {{pplevel|15 to 115|color=magic damage}} {{as|(+ 100% AD)}} {{as|(+ 40% AP)}} {{as|(+ 60% '''bonus''' magic resistance)}} {{as|'''modified''' magic damage}} to the target and all enemies near them.\n|description2 = Whenever '''Galio''' hits at least one enemy {{tip|champion}} or epic {{tip|monster}} with an {{tip|ability}}, ''Colossal Smash's'' {{sti|'''current''' cooldown}} is reduced by 3 seconds. This may occur only once per cast.\n|description3 = ''Colossal Smash's'' damage based on its {{as|AD ratio}} can {{tip|critical strike|critically strike}} for {{as|{{critical damage|{{ccd|Galio|crit_base}}|100}}|critical damage}} damage to all targets hit.\n|static       = 5\n|effect radius= {{tip|er|icononly = true}} {{tt|250|pending for confirmation}}\n|targeting    = Passive\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = special\n|spellshield  = False\n|occurrence   = On-hit\n|parry        = True\n|projectile   = \n|grounded     = \n|knockdown    = \n|flavorsound  = {{sm2|Galio_Original_PAttack_1.ogg}} ''\"Smash!\"''\n|notes        = \n* ''Colossal Smash'' deals {{tip|basic damage}} to the primary target but also triggers spell effects by also being tagged as {{tip|spell damage}}, while dealing {{tip|proc damage}} also tagged as {{tip|area of effect}} to secondary targets.\n* {{tip|Spellblade}} does not get converted to magic damage and it will deal its damage only to the primary target.\n* ''Colossal Smash'' applies {{tip|on-hit}} effects to its primary target twice.{{bug}}\n* The empowered attack will not trigger against {{tip|wards}} and [[jungle plants|plants]].\n* '''Galio''' gains {{as|attack speed}} even on non-empowered attacks as long as the ability is not on cooldown.\n* ''Colossal Smash'' cannot be triggered against allies.\n* Even if the ability hit is {{tip|spell shield|spell shielded}} ''Colossal Smash's'' cooldown will still be reduced.\n|yvideo       = hjhtAM4VXfE\n<!-- Blurb -->\n|blurb        = {{sbc|Innate:}} Every few seconds, {{cis|Galio}} next {{tip|basic attack}} is modified to gain {{sti|as|{{as|attack speed}}}} and deal {{as|magic damage}} in an area, increased based on his {{sti|mr|{{as|'''bonus''' magic resist}}}}.\n|blurb2       = '''Galio's''' {{tip|ability}} hits against enemy {{tip|champions}} or epic {{tip|monsters}} {{sti|ah|reduce}} ''Colossal Smash's'' {{sti|cd|cooldown}}.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioPassiveAbility/GalioPassive",
+        "text": [
+          "{\"ObjectName\":\"GalioPassive\",\"objectPath\":\"Characters/Galio/Spells/GalioPassiveAbility/GalioPassive\",\"mScriptName\":\"GalioPassive\",\"mSpell\":{\"DataValues\":[{\"name\":\"ChargeRatePerHit\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"PassiveCooldown\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalDamage\":{\"mFormulaParts\":[{\"mStartValue\":15.0,\"mEndValue\":115.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"},{\"mStat\":2,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mCoefficient\":0.4000000059604645,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mStat\":6,\"mStatFormula\":2,\"mCoefficient\":0.6000000238418579,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"PassiveCooldownModified\":{\"mSimpleTooltipCalculationDisplay\":5,\"mExpandedTooltipCalculationDisplay\":5,\"mFormulaParts\":[{\"mPart1\":{\"__type\":\"CooldownMultiplierCalculationPart\"},\"mPart2\":{\"mDataValue\":\"PassiveCooldown\",\"__type\":\"NamedDataValueCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"mPrecision\":-1,\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Galio/HUD/Icons2D/Galio_Passive.dds\"],\"mSpellPassives\":[{\"mBuff\":\"Characters/Galio/Spells/GalioPassiveAbility/GalioPassive\",\"mWhenToAddSpell\":0,\"mRemoveWhenOnCooldown\":false,\"mDisplayFlags\":0,\"__type\":\"SpellPassiveData\"}],\"mCooldownNotAffectedByCDR\":true,\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"castRange\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"castRangeValues\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"GalioPassive\",\"mFormat\":\"{476ec0b8}\",\"mLocKeys\":{\"keyName\":\"Spell_GalioPassive_Name\",\"keySummary\":\"Spell_GalioPassive_Summary\",\"keyTooltip\":\"Spell_GalioPassive_Tooltip\",\"keyCooldown\":\"Spell_GalioPassive_Cooldown\"},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioPassiveAttack",
+        "text": [
+          "{\"ObjectName\":\"GalioPassiveAttack\",\"objectPath\":\"Characters/Galio/Spells/GalioPassiveAttack\",\"mScriptName\":\"GalioPassiveAttack\",\"mSpell\":{\"mAffectsTypeFlags\":23178,\"mAnimationName\":\"Attack_Passive\",\"spellCastTime\":0.33000001311302185,\"spellTotalTime\":1.600000023841858,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castConeDistance\":100.0,\"castFrame\":10.0,\"missileSpeed\":0.0,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "Q",
+    "name": "Winds of War",
+    "page": {
+      "title": "Template:Data Galio/Winds of War",
+      "revid": 4016962
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Tornado radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Curving missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400 • 50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            },
+            "label": "Curving missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "label": "Tornado speed, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio creates two windblasts 250 units to either side of him that arc out before converging to the target location, dealing magic damage to all enemies they pass through.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "When the blasts meet, the gusts form a tornado that persists for 2 seconds, slowly moving forward and dealing magic damage equal to 2% (+ 1% per 100 AP) of target's maximum health every 0.5 seconds to enemies within the area, capped at 150 per tick against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Deals area damage on the gust, and applies persistent area damage, additionally tagged as indirect damage for the tornado.",
+      "Spell shield will block the gusts damage but not the tornado's.",
+      "Wind Wall and Unbreakable can block each windblast individually.\n  - The tornado will not form if only one windblast reaches the target location.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Winds of War|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = Q\n|icon         = Winds of War.png\n|blurb        = {{sbc|Active:}} {{ci|Galio}} fires two windblasts that converge to the target location, dealing {{as|magic damage}} to enemies hit.\n|blurb2       = Upon converging, the blasts form a tornado that continually deals {{as|magic damage}} to enemies within, based on each {{as|target's '''maximum''' health}}.\n|description  = {{sbc|Active:}} '''Galio''' creates two windblasts 250 units to either side of him that arc out before converging to the target location, dealing {{as|magic damage}} to all enemies they pass through.\n|leveling     = {{st|Magic Damage|{{ap|70 to 210}} {{as|(+ 70% AP)}}}}\n|description2 = When the blasts meet, the gusts form a tornado that persists for 2 seconds, slowly moving forward and dealing {{as|magic damage}} equal to{{ft|{{as|2% {{as|(+ 1% per 100 AP)}} of target's '''maximum''' health}} every {{fd|0.5}} seconds|{{as|8% {{as|(+ 4% per 100 AP)}} of target's '''maximum''' health}} over the duration}}to enemies within the area, capped at{{ft|150 per tick|600 total}}against {{tip|monsters}}.\n|target range = 825\n|effect radius= {{tip|cr|icononly = true}} {{tt|150|Tornado radius}}\n|width        = {{tip|er|icononly = true}} {{tt|120|Curving missile width}}\n|speed        = {{dv|{{tt|1400|Curving missile speed}}|{{tt|50|Tornado speed, estimated}}}}\n|cooldown     = {{ap|11 to 7}}\n|cost         = {{ap|60 to 80}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = special\n|spellshield  = Special\n|parry        = \n|projectile   = True\n|grounded     = \n|knockdown    = \n|outofrange   = cast at max   \n|notes        = \n* Deals {{tip|area damage}} on the gust, and applies {{tip|persistent area damage}}, additionally tagged as {{tip|indirect damage}} for the tornado. \n* {{tip|Spell shield}} will block the gusts damage but not the tornado's.\n* {{cai|Wind Wall|Yasuo}} and {{cai|Unbreakable|Braum}} can block each windblast individually.\n** The tornado will not form if only one windblast reaches the target location.\n{{Effect at cast time end}}\n|yvideo       = xMGd9sEvNcE\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Galio/Winds of War",
+          "revid": 4016962
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Winds of War|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = Q\n|icon         = Winds of War.png\n|blurb        = {{sbc|Active:}} {{ci|Galio}} fires two windblasts that converge to the target location, dealing {{as|magic damage}} to enemies hit.\n|blurb2       = Upon converging, the blasts form a tornado that continually deals {{as|magic damage}} to enemies within, based on each {{as|target's '''maximum''' health}}.\n|description  = {{sbc|Active:}} '''Galio''' creates two windblasts 250 units to either side of him that arc out before converging to the target location, dealing {{as|magic damage}} to all enemies they pass through.\n|leveling     = {{st|Magic Damage|{{ap|70 to 210}} {{as|(+ 70% AP)}}}}\n|description2 = When the blasts meet, the gusts form a tornado that persists for 2 seconds, slowly moving forward and dealing {{as|magic damage}} equal to{{ft|{{as|2% {{as|(+ 1% per 100 AP)}} of target's '''maximum''' health}} every {{fd|0.5}} seconds|{{as|8% {{as|(+ 4% per 100 AP)}} of target's '''maximum''' health}} over the duration}}to enemies within the area, capped at{{ft|150 per tick|600 total}}against {{tip|monsters}}.\n|target range = 825\n|effect radius= {{tip|cr|icononly = true}} {{tt|150|Tornado radius}}\n|width        = {{tip|er|icononly = true}} {{tt|120|Curving missile width}}\n|speed        = {{dv|{{tt|1400|Curving missile speed}}|{{tt|50|Tornado speed, estimated}}}}\n|cooldown     = {{ap|11 to 7}}\n|cost         = {{ap|60 to 80}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = special\n|spellshield  = Special\n|parry        = \n|projectile   = True\n|grounded     = \n|knockdown    = \n|outofrange   = cast at max   \n|notes        = \n* Deals {{tip|area damage}} on the gust, and applies {{tip|persistent area damage}}, additionally tagged as {{tip|indirect damage}} for the tornado. \n* {{tip|Spell shield}} will block the gusts damage but not the tornado's.\n* {{cai|Wind Wall|Yasuo}} and {{cai|Unbreakable|Braum}} can block each windblast individually.\n** The tornado will not form if only one windblast reaches the target location.\n{{Effect at cast time end}}\n|yvideo       = xMGd9sEvNcE\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioQAbility/GalioQ",
+        "text": [
+          "{\"ObjectName\":\"GalioQ\",\"objectPath\":\"Characters/Galio/Spells/GalioQAbility/GalioQ\",\"mScriptName\":\"GalioQ\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mSpellTags\":[\"Trait_DamageAbility\",\"Trait_DoT\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[35.0,70.0,105.0,140.0,175.0,210.0,245.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SuperQDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SuperQMonsterMaxDamage\",\"values\":[50.0,50.0,50.0,50.0,50.0,50.0,50.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SuperQBasePercentage\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"TornadoTicks\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"QMissileDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.699999988079071,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"{85f4c0e9}\":{\"mFormulaParts\":[{\"mDataValue\":\"SuperQBasePercentage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.009999999776482582,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"PercentSuperQDamageTT\":{\"mMultiplier\":{\"mDataValue\":\"TornadoTicks\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"{85f4c0e9}\",\"__type\":\"GameCalculationModified\"},\"SuperQMonsterMaxDamageTotal\":{\"mExpandedTooltipCalculationDisplay\":5,\"mFormulaParts\":[{\"mPart1\":{\"mDataValue\":\"SuperQMonsterMaxDamage\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"mDataValue\":\"TornadoTicks\",\"__type\":\"NamedDataValueCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell1\",\"mImgIconName\":[\"ASSETS/Characters/Galio/HUD/Icons2D/Galio_Q.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[11.0,11.0,10.0,9.0,8.0,7.0,7.0],\"Cooldown\":{\"values\":[11.0,11.0,10.0,9.0,8.0,7.0,7.0],\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"alwaysSnapFacing\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[825.0,825.0,825.0,825.0,825.0,825.0,825.0],\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"castFrame\":7.5,\"missileSpeed\":1300.0,\"mLineWidth\":100.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mana\":[60.0,65.0,70.0,75.0,80.0,80.0],\"manaValues\":{\"values\":[60.0,65.0,70.0,75.0,80.0,80.0],\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"GalioQ\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_GalioQ_Name\",\"keySummary\":\"Spell_GalioQ_Summary\",\"keyTooltip\":\"Spell_GalioQ_Tooltip\",\"keyTooltipExtendedBelowLine\":\"Spell_GalioQ_TooltipExtendedBelowLine\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"nameOverride\":\"Spell_GalioQ_WindblastDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"isConstrainedToRange\":true,\"constraintRange\":{\"mPerLevelValues\":[850.0,850.0,850.0,850.0,850.0,850.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"overrideRadius\":{\"mPerLevelValues\":[225.0,225.0,225.0,225.0,225.0,225.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"textureRadiusOverrideName\":\"assets/spells/textures/aoe_leona_outer.tex\",\"__type\":\"TargeterDefinitionAoe\"},{\"endLocator\":{\"basePosition\":3,\"angleOffsetRadian\":5.0,\"__type\":\"DrawablePositionLocator\"},\"baseTextureName\":\"assets/characters/galio/hud/textures/galio_q_indicatorbase.tex\",\"frontTextureName\":\"assets/characters/galio/hud/textures/galio_q_indicatorfront.tex\",\"splineWidth\":{\"mPerLevelValues\":[120.0,120.0,120.0,120.0,120.0,120.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"overrideSpline\":{\"mStartPositionOffset\":[-250.0,0.0,-100.0],\"mControlPoint1\":[-0.2678755223751068,0.0,1.0750534534454346],\"mControlPoint2\":[0.8422044515609741,0.0,0.13945454359054565],\"__type\":\"HermiteSplineInfo\"},\"isConstrainedToRange\":true,\"constraintRange\":{\"mPerLevelValues\":[825.0,825.0,825.0,825.0,825.0,825.0],\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionSpline\"},{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"baseTextureName\":\"assets/characters/galio/hud/textures/galio_q_indicatorbase.tex\",\"frontTextureName\":\"assets/characters/galio/hud/textures/galio_q_indicatorfront.tex\",\"splineWidth\":{\"mPerLevelValues\":[120.0,120.0,120.0,120.0,120.0,120.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"overrideSpline\":{\"mStartPositionOffset\":[250.0,0.0,-100.0],\"mControlPoint1\":[0.2678755223751068,0.0,1.0750534534454346],\"mControlPoint2\":[-0.8422044515609741,0.0,0.13945454359054565],\"__type\":\"HermiteSplineInfo\"},\"isConstrainedToRange\":true,\"constraintRange\":{\"mPerLevelValues\":[825.0,825.0,825.0,825.0,825.0,825.0],\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionSpline\"},{\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"QMissileDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioQAbility/GalioQMissile",
+        "text": [
+          "{\"ObjectName\":\"GalioQMissile\",\"objectPath\":\"Characters/Galio/Spells/GalioQAbility/GalioQMissile\",\"mScriptName\":\"GalioQMissile\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":6154,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Galio/HUD/Icons2D/Galio_Q.dds\"],\"spellCastTime\":0.33000001311302185,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"alwaysSnapFacing\":true,\"castRange\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"castRangeValues\":{\"values\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"{0a3e0478}\":1200.0,\"__type\":\"{0a0eddc9}\"},\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"mMissileSpec\":{\"mMissileWidth\":60.0,\"movementComponent\":{\"mSplineInfo\":{\"mStartPositionOffset\":[-250.0,0.0,-100.0],\"mControlPoint1\":[-0.2678755223751068,0.0,1.0750534534454346],\"mControlPoint2\":[0.8422044515609741,0.0,0.13945454359054565],\"__type\":\"HermiteSplineInfo\"},\"mUseMissilePositionAsOrigin\":false,\"mSpeed\":1400.0,\"__type\":\"FixedSpeedSplineMovement\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":8,\"castFrame\":10.0,\"missileSpeed\":1400.0,\"mMissileEffectKey\":\"Galio_Q_mis\",\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mTargetingTypeData\":{\"__type\":\"Direction\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioQAbility/GalioQMissileR",
+        "text": [
+          "{\"ObjectName\":\"GalioQMissileR\",\"objectPath\":\"Characters/Galio/Spells/GalioQAbility/GalioQMissileR\",\"mScriptName\":\"GalioQMissileR\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":6154,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Galio/HUD/Icons2D/Galio_Q.dds\"],\"spellCastTime\":0.33000001311302185,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mProjectTargetToCastRange\":true,\"alwaysSnapFacing\":true,\"castRange\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"castRangeValues\":{\"values\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"{0a3e0478}\":1200.0,\"__type\":\"{0a0eddc9}\"},\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"mMissileSpec\":{\"mMissileWidth\":60.0,\"movementComponent\":{\"mSplineInfo\":{\"mStartPositionOffset\":[250.0,0.0,-100.0],\"mControlPoint1\":[0.2720096707344055,0.0,1.0743502378463745],\"mControlPoint2\":[-0.8407477736473083,0.0,0.14737896621227264],\"__type\":\"HermiteSplineInfo\"},\"mUseMissilePositionAsOrigin\":false,\"mSpeed\":1400.0,\"__type\":\"FixedSpeedSplineMovement\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":8,\"castFrame\":10.0,\"missileSpeed\":1400.0,\"mMissileEffectKey\":\"Galio_Q_mis_R\",\"mLineWidth\":60.0,\"bHaveHitBone\":true,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mTargetingTypeData\":{\"__type\":\"Direction\"},\"mClientData\":{\"mTargeterDefinitions\":[{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioQAbility/GalioQSuper",
+        "text": [
+          "{\"ObjectName\":\"GalioQSuper\",\"objectPath\":\"Characters/Galio/Spells/GalioQAbility/GalioQSuper\",\"mScriptName\":\"GalioQSuper\",\"mSpell\":{\"flags\":4,\"mAnimationName\":\"\",\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"mIsDisabledWhileDead\":false,\"castRange\":[120.0,120.0,120.0,120.0,120.0,120.0,120.0],\"castRangeValues\":{\"values\":[120.0,120.0,120.0,120.0,120.0,120.0,120.0],\"{0a3e0478}\":120.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[225.0,225.0,225.0,225.0,225.0,225.0,225.0],\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"mMissileSpec\":{\"mMissileWidth\":10.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mProjectTargetToCastRange\":true,\"mTravelTime\":2.0999999046325684,\"__type\":\"FixedTimeMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"castFrame\":10.0,\"missileSpeed\":60.0,\"mMissileEffectKey\":\"Galio_Q_Mis_Super\",\"mLineWidth\":10.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mTargetingTypeData\":{\"__type\":\"Direction\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "R",
+    "name": "Hero's Entrance",
+    "page": {
+      "title": "Template:Data Galio/Hero's Entrance",
+      "revid": 4017997
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "180 / 160 / 140",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                180,
+                160,
+                140
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "4000 / 4750 / 5500",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                4000,
+                4750,
+                5500
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio prepares to make an entrance, channeling for 2.75 seconds and designating the target allied champion's location at the time of cast as his landing spot. Additionally, he resets Shield of Durand passive shield for himself and grants it to all allied champions within the area for 5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channeling",
+            "duration": {
+              "kind": "constant",
+              "value": 2.75
+            },
+            "evidence": "Active: Galio prepares to make an entrance, channeling for 2.75 seconds and designating the target allied champion's location at the time of cast as his landing spot.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds. Afterwards, he lands and becomes targetable again, dealing magic damage to all nearby enemies upon impact, knocking them back 100 units over 0.75 seconds, and remaining in place for 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 70% AP) (+ 100% bonus magic resistance)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                },
+                {
+                  "stat": "bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus magic resistance)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "crowd control immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Afterwards, he lands and becomes targetable again, dealing magic damage to all nearby enemies upon impact, knocking them back 100 units over 0.75 seconds, and remaining in place for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.8 seconds",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.2 seconds",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.5 seconds",
+            "tip": "Estimated"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Hero's Entrance does not resist allied crowd control.",
+      "Hero's Entrance has a forgiveness radius of 175 units.",
+      "Galio cannot cast Hero's Entrance on allies he cannot see while nearsighted.",
+      "Galio will still cause an impact to occur at the destination even if he is unable to travel the full distance with the dash (e.g. by The Hextech Ultimatum and Realm of Death borders and terrain). Galio will dash as far as he can go, and thus, does not end the dash prematurely.",
+      "Galio will always dash 100 units minimum, and dash over his target's location if they are less than 100 units away from him.",
+      "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel.",
+      "When becoming untargetable, Galio destroys enemy projectiles targeting him.",
+      "The following table refers for interactions while Galio is channeling:",
+      "Hero's Entrance's channel can only be interrupted by crowd control in the first 1.25 seconds.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Hero's Entrance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = R\n|icon         = Hero's Entrance.png\n|blurb        = {{sbc|Active:}} {{ci|Galio}} guards the target allied champion, {{tip|channels|channelling}} for a short time and granting  {{ai|Shield of Durand|Galio|his}} {{as|magic damage}} {{tip|shield}} to himself and all allied {{tip|champions}} in the area. \n|blurb2       = After a short delay, '''Galio''' rises {{tip|cc-immune}} and {{tip|untargetable|intangibly}} before {{tip|dash|crashing}} down onto the target's initial location, dealing {{as|magic damage}} to nearby enemies and {{tip|airborne|knocking them back}}.\n|description  = {{sbc|Active:}} '''Galio''' prepares to make an entrance, {{tip|channel|channeling}} for {{fd|2.75}} seconds and designating the target allied {{tip|champion|champion's}} location at the time of cast as his landing spot. Additionally, he resets ''{{ais|Shield of Durand 2|Galio|Shield of Durand}}'' passive shield for himself and grants it to all allied champions within the area for 5 seconds.\n|description2 = After channeling for {{fd|1.25}} seconds, he gains {{tip|cc-immune|crowd control immunity}} for the remaining duration, becomes {{tip|untargetable}}, and leaps into the air for {{tt|{{fd|0.8 seconds}}|Estimated}} before {{tip|dash|dashing}} to his destination over {{tt|{{fd|0.2 seconds}}|Estimated}}. Afterwards, he lands and becomes targetable again, dealing {{as|magic damage}} to all nearby enemies upon impact, {{tip|airborne|knocking them back}} 100 units over {{fd|0.75}} seconds, and remaining in place for {{tt|{{fd|0.5 seconds}}|Estimated}}.\n|leveling2    = {{st|Magic Damage|{{ap|150 to 350}} {{as|(+ 70% AP)}} {{as|(+ 100% '''bonus''' magic resistance)}}}}\n|target range = {{tip|cr|icononly = true}} {{ap|4000|4750|5500}}\n|effect radius= {{tip|er|icononly = true}} 650\n|cooldown     = {{ap|180 to 140}}\n|cdstart      = on-cast\n|cast time    = none\n|cost         = 100\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Allies, Enemies\n|damagetype   = Magic\n|spelleffects = Area of Effect\n|spellshield  = True\n|parry        = \n|projectile   = \n|grounded     = True\n|knockdown    = False\n|flavorsound  = {{sm2|Galio_Original_R.ogg}} ''{{tt|\"Hi everybody!\"|Voice line plays when channel completes}}''\n|notes        = \n* ''Hero's Entrance'' does not resist allied {{tip|crowd control}}.\n* ''Hero's Entrance'' has a {{tip|forgiveness radius}} of 175 units.\n* '''Galio''' cannot cast ''Hero's Entrance'' on allies he cannot {{tip|sight|see}} while {{tip|Nearsight|nearsighted}}.\n* '''Galio''' will still cause an impact to occur at the destination even if he is unable to travel the full distance with the dash (e.g. by {{ais|The Hextech Ultimatum|Camille}} and {{ais|Realm of Death|Mordekaiser}} borders and terrain). '''Galio''' will dash as far as he can go, and thus, does not end the dash prematurely.\n* '''Galio''' will always dash 100 units minimum, and dash ''over'' his target's location if they are less than 100 units away from him.\n* {{iis|Experimental Hexplate}} {{nie|Overdrive}}, {{iis|Fiendhunter Bolts}} {{nie|Opening Barrage}}, and {{iis|Zeke's Convergence}} {{nie|Frostfire Tempest}} will activate at the end of ''Hero's Entrance's'' {{tip|channel}}.\n* When becoming {{tip|untargetable}}, '''Galio''' {{tip|homing projectile destruction|destroys}} enemy projectiles targeting him.\n* The following table refers for interactions while '''Galio''' is {{tip|channel|channeling}}:\n{{ct|channel|attack=false|cast=false|move=false|items=false, true|spells=true, false, false, false, false|interrupts=death, root, silence, ground}}\n* ''Hero's Entrance's'' channel can only be {{tip|interrupt|interrupted}} by {{tip|crowd control}} in the first {{fd|1.25}} seconds.\n|yvideo       = VpIKl1vDarc\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Galio/Hero's Entrance",
+          "revid": 4017997
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Hero's Entrance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = R\n|icon         = Hero's Entrance.png\n|blurb        = {{sbc|Active:}} {{ci|Galio}} guards the target allied champion, {{tip|channels|channelling}} for a short time and granting  {{ai|Shield of Durand|Galio|his}} {{as|magic damage}} {{tip|shield}} to himself and all allied {{tip|champions}} in the area. \n|blurb2       = After a short delay, '''Galio''' rises {{tip|cc-immune}} and {{tip|untargetable|intangibly}} before {{tip|dash|crashing}} down onto the target's initial location, dealing {{as|magic damage}} to nearby enemies and {{tip|airborne|knocking them back}}.\n|description  = {{sbc|Active:}} '''Galio''' prepares to make an entrance, {{tip|channel|channeling}} for {{fd|2.75}} seconds and designating the target allied {{tip|champion|champion's}} location at the time of cast as his landing spot. Additionally, he resets ''{{ais|Shield of Durand 2|Galio|Shield of Durand}}'' passive shield for himself and grants it to all allied champions within the area for 5 seconds.\n|description2 = After channeling for {{fd|1.25}} seconds, he gains {{tip|cc-immune|crowd control immunity}} for the remaining duration, becomes {{tip|untargetable}}, and leaps into the air for {{tt|{{fd|0.8 seconds}}|Estimated}} before {{tip|dash|dashing}} to his destination over {{tt|{{fd|0.2 seconds}}|Estimated}}. Afterwards, he lands and becomes targetable again, dealing {{as|magic damage}} to all nearby enemies upon impact, {{tip|airborne|knocking them back}} 100 units over {{fd|0.75}} seconds, and remaining in place for {{tt|{{fd|0.5 seconds}}|Estimated}}.\n|leveling2    = {{st|Magic Damage|{{ap|150 to 350}} {{as|(+ 70% AP)}} {{as|(+ 100% '''bonus''' magic resistance)}}}}\n|target range = {{tip|cr|icononly = true}} {{ap|4000|4750|5500}}\n|effect radius= {{tip|er|icononly = true}} 650\n|cooldown     = {{ap|180 to 140}}\n|cdstart      = on-cast\n|cast time    = none\n|cost         = 100\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Allies, Enemies\n|damagetype   = Magic\n|spelleffects = Area of Effect\n|spellshield  = True\n|parry        = \n|projectile   = \n|grounded     = True\n|knockdown    = False\n|flavorsound  = {{sm2|Galio_Original_R.ogg}} ''{{tt|\"Hi everybody!\"|Voice line plays when channel completes}}''\n|notes        = \n* ''Hero's Entrance'' does not resist allied {{tip|crowd control}}.\n* ''Hero's Entrance'' has a {{tip|forgiveness radius}} of 175 units.\n* '''Galio''' cannot cast ''Hero's Entrance'' on allies he cannot {{tip|sight|see}} while {{tip|Nearsight|nearsighted}}.\n* '''Galio''' will still cause an impact to occur at the destination even if he is unable to travel the full distance with the dash (e.g. by {{ais|The Hextech Ultimatum|Camille}} and {{ais|Realm of Death|Mordekaiser}} borders and terrain). '''Galio''' will dash as far as he can go, and thus, does not end the dash prematurely.\n* '''Galio''' will always dash 100 units minimum, and dash ''over'' his target's location if they are less than 100 units away from him.\n* {{iis|Experimental Hexplate}} {{nie|Overdrive}}, {{iis|Fiendhunter Bolts}} {{nie|Opening Barrage}}, and {{iis|Zeke's Convergence}} {{nie|Frostfire Tempest}} will activate at the end of ''Hero's Entrance's'' {{tip|channel}}.\n* When becoming {{tip|untargetable}}, '''Galio''' {{tip|homing projectile destruction|destroys}} enemy projectiles targeting him.\n* The following table refers for interactions while '''Galio''' is {{tip|channel|channeling}}:\n{{ct|channel|attack=false|cast=false|move=false|items=false, true|spells=true, false, false, false, false|interrupts=death, root, silence, ground}}\n* ''Hero's Entrance's'' channel can only be {{tip|interrupt|interrupted}} by {{tip|crowd control}} in the first {{fd|1.25}} seconds.\n|yvideo       = VpIKl1vDarc\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioRAbility/GalioR",
+        "text": [
+          "{\"ObjectName\":\"GalioR\",\"objectPath\":\"Characters/Galio/Spells/GalioRAbility/GalioR\",\"mScriptName\":\"GalioR\",\"mSpell\":{\"mAffectsTypeFlags\":16385,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mSpellTags\":[\"PositiveEffect_MoveBlock\",\"Trait_Ultimate\",\"Trait_ChannelSpell\",\"PositiveEffect_Boon\",\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_Shield\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[50.0,150.0,250.0,350.0,450.0,550.0,650.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StunDurationOuter\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"},{\"name\":\"TemporaryWShieldDuration\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"StunDurationOuter\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamage\",\"values\":[0.0,150.0,300.0,450.0,600.0,750.0,900.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"{f9c2333e}\":{\"{a110bc47}\":{\"value\":[120.0,120.0,110.0,100.0,100.0,100.0,100.0],\"__type\":\"SpellEffectAmount\"}},\"mSpellCalculations\":{\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.699999988079071,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mStat\":6,\"mStatFormula\":2,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mCoefficient\":0.699999988079071,\"mCoefficient2\":0.07999999821186066,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Galio/HUD/Icons2D/Galio_R.dds\"],\"spellCastTime\":0.0,\"spellTotalTime\":0.0,\"mChannelDuration\":[2.75,2.75,2.75,2.75,2.75,2.75,2.75],\"cooldownTime\":[180.0,180.0,160.0,140.0,140.0,140.0,140.0],\"Cooldown\":{\"values\":[180.0,180.0,160.0,140.0,140.0,140.0,140.0],\"__type\":\"{0a0eddc9}\"},\"mSpellPassives\":[{\"mBuff\":\"Characters/Galio/Spells/GalioRAbility/GalioRSpellPassive\",\"mRemoveWhenOnCooldown\":false,\"mDisplayFlags\":0,\"__type\":\"SpellPassiveData\"}],\"mCantCancelWhileWindingUp\":true,\"mCantCancelWhileChanneling\":true,\"cantCastWhileRooted\":true,\"mUseMinimapTargeting\":true,\"castRange\":[4000.0,4000.0,4750.0,5500.0,0.0,0.0,0.0],\"castRangeValues\":{\"values\":[4000.0,4000.0,4750.0,5500.0,0.0,0.0,0.0],\"__type\":\"{0a0eddc9}\"},\"castRadius\":[325.0,325.0,325.0,325.0,325.0,325.0,325.0],\"castRadiusSecondary\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"missileSpeed\":0.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mana\":[100.0,100.0,100.0,100.0,100.0,100.0],\"manaValues\":{\"values\":[100.0,100.0,100.0,100.0,100.0,100.0],\"{0a3e0478}\":100.0,\"__type\":\"{630af303}\"},\"selectionPriority\":2,\"mTargetingTypeData\":{\"__type\":\"TargetOrLocation\"},\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":175.0,\"TargetForgivenessDefinitions\":[{\"mUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\",\"{c02a7870}\"],\"__type\":\"ObjectTags\"},\"__type\":\"HasUnitTagsCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mDimensionBehavior\":1,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"GalioR\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_GalioR_Name\",\"keySummary\":\"Spell_GalioR_Summary\",\"keyTooltip\":\"Spell_GalioR_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":3,\"Elements\":[{\"type\":\"BaseDamage\",\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"CastRange\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"__type\":\"TargeterDefinitionMinimap\"},{\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"overrideRadius\":{\"mPerLevelValues\":[650.0,650.0,650.0,650.0,650.0,650.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":512,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4194304,\"EffectCalculation\":{\"mMultiplier\":{\"mDataValue\":\"StunDurationOuter\",\"__type\":\"NamedDataValueCalculationPart\"},\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "W",
+    "name": "Shield of Durand",
+    "page": {
+      "title": "Template:Data Galio/Shield of Durand",
+      "revid": 3990299
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "175 / 196.875 / 218.75 / 240.625 / 262.5 / 284.375 / 306.25 / 328.125 / 350 (based on channel time)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                175,
+                196.875,
+                218.75,
+                240.625,
+                262.5,
+                284.375,
+                306.25,
+                328.125,
+                350
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Galio gains Anti-Magic Bulwark, and restores it after 12 / 10 / 8 (based on level) seconds without taking damage.\n\nAnti-Magic Bulwark: Gain a shield that absorbs magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Shield Strength",
+            "amount": {
+              "text": "7.5 / 9 / 10.5 / 12 / 13.5% of maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  9,
+                  10.5,
+                  12,
+                  13.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Anti-Magic Bulwark: Gain a shield that absorbs magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                12,
+                10,
+                8
+              ]
+            },
+            "context": "Passive: Galio gains Anti-Magic Bulwark, and restores it after 12 / 10 / 8 (based on level) seconds without taking damage."
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+        "leveling": [
+          {
+            "label": "Physical Damage Reduction",
+            "amount": {
+              "text": "12.5 / 15 / 17.5 / 20 / 22.5% (+ 1.5% per 100 AP) (+ 4% per 100 bonus magic resistance) (+ 0.5% per 100 bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12.5,
+                  15,
+                  17.5,
+                  20,
+                  22.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1.5
+                  },
+                  "text": "(+ 1.5% per 100 AP)"
+                },
+                {
+                  "stat": "per100:bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% per 100 bonus magic resistance)"
+                },
+                {
+                  "stat": "per100:bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.5
+                  },
+                  "text": "(+ 0.5% per 100 bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage Reduction",
+            "amount": {
+              "text": "25 / 30 / 35 / 40 / 45% (+ 4% per 100 AP) (+ 8% per 100 bonus magic resistance) (+ 1% per 100 bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  30,
+                  35,
+                  40,
+                  45
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% per 100 AP)"
+                },
+                {
+                  "stat": "per100:bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% per 100 bonus magic resistance)"
+                },
+                {
+                  "stat": "per100:bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% per 100 bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charges",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "amount": {
+              "kind": "constant",
+              "value": 15
+            },
+            "evidence": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+            "conditional": false
+          },
+          {
+            "type": "taunt",
+            "category": "control",
+            "wording": "taunt",
+            "evidence": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Shield of Durand can be recast within the duration and does so automatically afterwards or if it is interrupted.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "Shield of Durand can be recast within the duration and does so automatically afterwards or if it is interrupted.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "20 / 30 / 40 / 50 / 60 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "taunt",
+            "category": "control",
+            "wording": "taunts",
+            "duration": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                0.5,
+                0.625,
+                0.75,
+                0.875,
+                1,
+                1.125,
+                1.25,
+                1.375,
+                1.5
+              ]
+            },
+            "evidence": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                0,
+                25,
+                50,
+                75,
+                100,
+                125,
+                150,
+                175,
+                200
+              ]
+            },
+            "context": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                0.5,
+                0.625,
+                0.75,
+                0.875,
+                1,
+                1.125,
+                1.25,
+                1.375,
+                1.5
+              ]
+            },
+            "context": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer."
+          }
+        ]
+      },
+      {
+        "text": "Galio is unable to basic attack or cast abilities for 0.4 seconds after the recast.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Galio is unable to basic attack or cast abilities for 0.4 seconds after the recast.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The static movement speed modifier overrides the target's base movement speed value to the modified amount, and their bonus movement speed value to 0.\n  - The modifier is not applied if the target is slow-immune.",
+      "Galio may still buffer his actions during the recast lockout.",
+      "The ability key does not need to be held down when buffered in other abilities except Winds of War.",
+      "The following table refers for interactions while Galio is channeling:",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Shield of Durand|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = W\n|icon         = Shield of Durand 2.png\n|icon3        = Shield of Durand.png\n|description  = {{sbc|Passive:}} '''Galio''' gains ''Anti-Magic Bulwark'', and restores it after {{pp|12 to 8 for 3|1;6;11}} seconds without taking damage.<br/><br/>{{sbc|Anti-Magic Bulwark:}} Gain a {{tip|shield}} that absorbs {{as|magic damage}}.\n|leveling    = {{st|Magic Shield Strength|{{as|{{ap|7.5 to 13.5}}% of '''maximum''' health}}}}\n|description3 = {{sbc|Active:}} '''Galio''' {{tip|channel|charges}} for up to 2 seconds, {{tip|slow|slowing}} himself by 15%, and gaining {{as|physical|physical damage}} and {{as|magic|magic damage}} damage reduction; charging increases ''Shield of Durand's'' radius, damage and {{tip|taunt}} duration over the first {{fd|1.25}} seconds of the channel.\n|leveling3    = {{st|Physical Damage Reduction|{{ap|25/2 to 45/2}}% {{as|(+ {{ap|1.5}}% per 100 AP)}} {{as|(+ {{ap|8/2}}% per 100 '''bonus''' magic resistance)}} {{as|(+ {{ap|1/2}}% per 100 '''bonus''' health)}}}}\n{{st|Magic Damage Reduction|{{ap|25 to 45}}% {{as|(+ 4% per 100 AP)}} {{as|(+ 8% per 100 '''bonus''' magic resistance)}} {{as|(+ {{ap|1}}% per 100 '''bonus''' health)}}}}\n|description4 = ''Shield of Durand'' can be recast within the duration and does so automatically afterwards or if it is {{tip|interrupt|interrupted}}.\n|description5 = {{sbc|Recast:}} '''Galio''' refreshes the [[damage modifier|damage reduction]] for 2 seconds and deals {{as|magic damage}} to nearby enemy champions, increased by {{pp|type=channel time|key=%|0 to 200 for 9|0 to 1.25|formula=100%+(25% per 0.16 seconds channeled).}}, as well as {{tip|taunt|taunts}} them for {{pp|type=channel time|0.5 to 1.5 for 9|0 to 1.25|formula=0.5+(0.125 per 0.16 seconds channeled).}} seconds and, after a brief delay, sets their {{sti|ms|{{as|movement speed}}}} to a {{as|static 60|ms}} for the same duration but slightly longer.\n|leveling5    = {{st|Minimum Magic Damage|{{ap|20 to 60}} {{as|(+ 30% AP)}}|Maximum Magic Damage|{{ap|20*3 to 60*3}} {{as|(+ 90% AP)}}}}\n|effect radius= {{tip|er|icononly = true}} {{pp|type=channel time|175 to 350 for 9|0 to 1.25|formula=175+(21.875 per 0.16 seconds channeled).}}\n|description6 = '''''Galio''' is {{tip|lockout|unable}} to basic attack or cast abilities for {{fd|0.4}} seconds after the recast.''\n|cooldown     = {{ap|18 to 14}}\n|cdstart      = on-cast\n|cast time    = none\n|cost         = 50\n|costtype     = Mana\n|targeting    = Auto\n|affects      = Self / Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshield  = True\n|silence      = true\n|notes        =\n* The static movement speed modifier overrides the target's base movement speed value to the modified amount, and their bonus movement speed value to 0.\n** The modifier is not applied if the target is {{tip|slow-immune}}.\n* '''Galio''' may still buffer his actions during the recast lockout.\n* The ability key does not need to be held down when buffered in other abilities except {{ai|Winds of War|Galio}}.\n* The following table refers for interactions while '''Galio''' is {{tip|channel|channeling}}:\n{{ct|charge|attack=false|cast=false|move=true|items=interrupts,true,,false|consume=true|spells=true,false,false,interrupts,false|interrupts=death, silence}}\n|tips         = \n* Since ''Anti-Magic Bulwark'' is instantly granted upon learning the ability, the {{tip|shield}} may be gained once per game while in combat.\n|yvideo       = 4YjYqgG7j48\n<!-- Blurb -->\n|blurbicon    = Shield of Durand.png\n|blurb        = {{sbc|Passive:}} {{ci|Galio}} gains a {{tip|shield}} that absorbs {{as|magic damage}} based on {{as|his '''maximum''' health}}, and restores it while out of combat.\n|blurb2       = {{sbc|Active:}} '''Galio''' {{tip|channel|charges up}} a defensive stance, moving {{tip|slow|slowly}} while gaining damage reduction. ''Shield of Durand'' can be recast within the duration and does so automatically afterward.\n|blurb3       = {{sbc|Recast:}} '''Galio''' {{tip|taunt|taunts}} nearby enemy champions, dealing {{as|magic damage}}. The effects are increased based on charge time.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Galio/Shield of Durand",
+          "revid": 3990299
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Shield of Durand|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Galio\n|skill        = W\n|icon         = Shield of Durand 2.png\n|icon3        = Shield of Durand.png\n|description  = {{sbc|Passive:}} '''Galio''' gains ''Anti-Magic Bulwark'', and restores it after {{pp|12 to 8 for 3|1;6;11}} seconds without taking damage.<br/><br/>{{sbc|Anti-Magic Bulwark:}} Gain a {{tip|shield}} that absorbs {{as|magic damage}}.\n|leveling    = {{st|Magic Shield Strength|{{as|{{ap|7.5 to 13.5}}% of '''maximum''' health}}}}\n|description3 = {{sbc|Active:}} '''Galio''' {{tip|channel|charges}} for up to 2 seconds, {{tip|slow|slowing}} himself by 15%, and gaining {{as|physical|physical damage}} and {{as|magic|magic damage}} damage reduction; charging increases ''Shield of Durand's'' radius, damage and {{tip|taunt}} duration over the first {{fd|1.25}} seconds of the channel.\n|leveling3    = {{st|Physical Damage Reduction|{{ap|25/2 to 45/2}}% {{as|(+ {{ap|1.5}}% per 100 AP)}} {{as|(+ {{ap|8/2}}% per 100 '''bonus''' magic resistance)}} {{as|(+ {{ap|1/2}}% per 100 '''bonus''' health)}}}}\n{{st|Magic Damage Reduction|{{ap|25 to 45}}% {{as|(+ 4% per 100 AP)}} {{as|(+ 8% per 100 '''bonus''' magic resistance)}} {{as|(+ {{ap|1}}% per 100 '''bonus''' health)}}}}\n|description4 = ''Shield of Durand'' can be recast within the duration and does so automatically afterwards or if it is {{tip|interrupt|interrupted}}.\n|description5 = {{sbc|Recast:}} '''Galio''' refreshes the [[damage modifier|damage reduction]] for 2 seconds and deals {{as|magic damage}} to nearby enemy champions, increased by {{pp|type=channel time|key=%|0 to 200 for 9|0 to 1.25|formula=100%+(25% per 0.16 seconds channeled).}}, as well as {{tip|taunt|taunts}} them for {{pp|type=channel time|0.5 to 1.5 for 9|0 to 1.25|formula=0.5+(0.125 per 0.16 seconds channeled).}} seconds and, after a brief delay, sets their {{sti|ms|{{as|movement speed}}}} to a {{as|static 60|ms}} for the same duration but slightly longer.\n|leveling5    = {{st|Minimum Magic Damage|{{ap|20 to 60}} {{as|(+ 30% AP)}}|Maximum Magic Damage|{{ap|20*3 to 60*3}} {{as|(+ 90% AP)}}}}\n|effect radius= {{tip|er|icononly = true}} {{pp|type=channel time|175 to 350 for 9|0 to 1.25|formula=175+(21.875 per 0.16 seconds channeled).}}\n|description6 = '''''Galio''' is {{tip|lockout|unable}} to basic attack or cast abilities for {{fd|0.4}} seconds after the recast.''\n|cooldown     = {{ap|18 to 14}}\n|cdstart      = on-cast\n|cast time    = none\n|cost         = 50\n|costtype     = Mana\n|targeting    = Auto\n|affects      = Self / Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshield  = True\n|silence      = true\n|notes        =\n* The static movement speed modifier overrides the target's base movement speed value to the modified amount, and their bonus movement speed value to 0.\n** The modifier is not applied if the target is {{tip|slow-immune}}.\n* '''Galio''' may still buffer his actions during the recast lockout.\n* The ability key does not need to be held down when buffered in other abilities except {{ai|Winds of War|Galio}}.\n* The following table refers for interactions while '''Galio''' is {{tip|channel|channeling}}:\n{{ct|charge|attack=false|cast=false|move=true|items=interrupts,true,,false|consume=true|spells=true,false,false,interrupts,false|interrupts=death, silence}}\n|tips         = \n* Since ''Anti-Magic Bulwark'' is instantly granted upon learning the ability, the {{tip|shield}} may be gained once per game while in combat.\n|yvideo       = 4YjYqgG7j48\n<!-- Blurb -->\n|blurbicon    = Shield of Durand.png\n|blurb        = {{sbc|Passive:}} {{ci|Galio}} gains a {{tip|shield}} that absorbs {{as|magic damage}} based on {{as|his '''maximum''' health}}, and restores it while out of combat.\n|blurb2       = {{sbc|Active:}} '''Galio''' {{tip|channel|charges up}} a defensive stance, moving {{tip|slow|slowly}} while gaining damage reduction. ''Shield of Durand'' can be recast within the duration and does so automatically afterward.\n|blurb3       = {{sbc|Recast:}} '''Galio''' {{tip|taunt|taunts}} nearby enemy champions, dealing {{as|magic damage}}. The effects are increased based on charge time.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioWAbility/GalioW",
+        "text": [
+          "{\"ObjectName\":\"GalioW\",\"objectPath\":\"Characters/Galio/Spells/GalioWAbility/GalioW\",\"mScriptName\":\"GalioW\",\"mSpell\":{\"mAffectsTypeFlags\":6666,\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_RecastOrReplaceSpell\",\"Trait_PassiveShield\",\"Trait_Parry\",\"Trait_SignatureSpell\",\"Trait_Low_Damage\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"MinimumWBaseDamage\",\"values\":[10.0,20.0,30.0,40.0,50.0,60.0,70.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MaximumWBaseDamage\",\"values\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellDataValue\"},{\"name\":\"PassiveShieldHealthRatio\",\"values\":[0.05999999865889549,0.07500000298023224,0.09000000357627869,0.10499999672174454,0.11999999731779099,0.13500000536441803,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"MRRatio\",\"values\":[0.0007999999797903001,0.0007999999797903001,0.0007999999797903001,0.0007999999797903001,0.0007999999797903001,0.0007999999797903001,0.0007999999797903001],\"__type\":\"SpellDataValue\"},{\"name\":\"PhysicalDRPercent\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"DamageReductionBase\",\"values\":[0.20000000298023224,0.25,0.30000001192092896,0.3499999940395355,0.4000000059604645,0.44999998807907104,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"MaxChargeDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SelfSlowPercent\",\"values\":[15.0,15.0,15.0,15.0,15.0,15.0,15.0],\"__type\":\"SpellDataValue\"},{\"name\":\"CCDurationMin\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"HpRatio\",\"values\":[9.999999747378752e-05,9.999999747378752e-05,9.999999747378752e-05,9.999999747378752e-05,9.999999747378752e-05,9.999999747378752e-05,9.999999747378752e-05],\"__type\":\"SpellDataValue\"},{\"name\":\"CCDurationMax\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"DRLingerDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ApRatio\",\"values\":[0.00039999998989515007,0.00039999998989515007,0.00039999998989515007,0.00039999998989515007,0.00039999998989515007,0.00039999998989515007,0.00039999998989515007],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalPassiveShield\":{\"mFormulaParts\":[{\"mStat\":12,\"mDataValue\":\"PassiveShieldHealthRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"MagicDamageReduction\":{\"mMultiplier\":{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"DamageReductionBase\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},{\"mStat\":6,\"mStatFormula\":2,\"mDataValue\":\"MRRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},{\"mStat\":12,\"mStatFormula\":2,\"mDataValue\":\"HPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"},\"PhysicalDamageReduction\":{\"mMultiplier\":{\"mDataValue\":\"PhysicalDRPercent\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"MagicDamageReduction\",\"__type\":\"GameCalculationModified\"},\"MinTotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"MinimumWBaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.30000001192092896,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"MaxTotalDamage\":{\"mMultiplier\":{\"mNumber\":3.0,\"__type\":\"NumberCalculationPart\"},\"mModifiedGameCalculation\":\"MinTotalDamage\",\"__type\":\"GameCalculationModified\"},\"PassiveShieldOOCTimer\":{\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mLevel1Value\":12.0,\"mBreakpoints\":[{\"mLevel\":6,\"mAdditionalBonusAtThisLevel\":-1.0,\"__type\":\"Breakpoint\"},{\"mLevel\":11,\"mAdditionalBonusAtThisLevel\":-3.0,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"}],\"__type\":\"GameCalculation\"},\"{7a7521c1}\":{\"mMultiplier\":{\"mNumber\":100.0,\"__type\":\"NumberCalculationPart\"},\"tooltipOnly\":true,\"mModifiedGameCalculation\":\"MagicDamageReduction\",\"__type\":\"GameCalculationModified\"},\"{c9a870dd}\":{\"mMultiplier\":{\"mNumber\":50.0,\"__type\":\"NumberCalculationPart\"},\"tooltipOnly\":true,\"mModifiedGameCalculation\":\"MagicDamageReduction\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Galio/HUD/Icons2D/Galio_W.dds\"],\"spellCastTime\":0.0,\"spellTotalTime\":0.0,\"mChannelDuration\":[1.25,1.25,1.25,1.25,1.25,1.25,1.25],\"cooldownTime\":[18.0,18.0,17.0,16.0,15.0,14.0,14.0],\"Cooldown\":{\"values\":[18.0,18.0,17.0,16.0,15.0,14.0,14.0],\"__type\":\"{0a0eddc9}\"},\"mCastRangeGrowthMax\":[450.0,450.0,450.0,450.0,450.0,450.0,450.0],\"mCastRangeGrowthDuration\":[1.25,1.25,1.25,1.25,1.25,1.25,1.25],\"mCanTriggerChargeSpellWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"mUseChargeChanneling\":true,\"mCanMoveWhileChanneling\":true,\"mDisableCastBar\":true,\"alwaysSnapFacing\":true,\"bIsToggleSpell\":true,\"mDoNotNeedToFaceTarget\":true,\"mHideRangeIndicatorWhenCasting\":true,\"castRange\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"castRangeValues\":{\"values\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"{0a3e0478}\":275.0,\"__type\":\"{0a0eddc9}\"},\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"missileSpeed\":0.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mana\":[50.0,50.0,50.0,50.0,50.0,50.0],\"manaValues\":{\"values\":[50.0,50.0,50.0,50.0,50.0,50.0],\"{0a3e0478}\":50.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"SelfAoe\"},\"{8958fee2}\":{\"__type\":\"{8958fee2}\"},\"mDimensionBehavior\":1,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"GalioW\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_GalioW_Name\",\"keySummary\":\"Spell_GalioW_Summary\",\"keyTooltip\":\"Spell_GalioW_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"PassiveShieldHealthRatio\",\"typeIndex\":5,\"multiplier\":100.0,\"nameOverride\":\"Spell_ListType_ShieldHealthRatio\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"DamageReductionBase\",\"typeIndex\":1,\"multiplier\":100.0,\"nameOverride\":\"Spell_ListType_MagicDamageReduction\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"DamageReductionBase\",\"typeIndex\":1,\"multiplier\":50.0,\"nameOverride\":\"Spell_ListType_PhysicalDamageReduction\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"MaximumWBaseDamage\",\"nameOverride\":\"Spell_ListType_MaximumDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"hasMaxGrowRange\":true,\"rangeGrowthMax\":{\"mPerLevelValues\":[450.0,450.0,450.0,450.0,450.0,450.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionRange\"}],\"mLeftClickSpellAction\":0,\"mRightClickSpellAction\":0,\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"MinTotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":16384,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"CCDurationMin\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":65536,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"CCDurationMin\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":512,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/galio/galio.bin.json",
+        "sha256": "6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe",
+        "object": "Characters/Galio/Spells/GalioWAbility/GalioW2",
+        "text": [
+          "{\"ObjectName\":\"GalioW2\",\"objectPath\":\"Characters/Galio/Spells/GalioWAbility/GalioW2\",\"mScriptName\":\"GalioW2\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":6666,\"mAlternateName\":\"GalioW\",\"mEffectAmount\":[{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"value\":[40.0,40.0,60.0,80.0,100.0,120.0,120.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[20.0,40.0,60.0,80.0,100.0,120.0,140.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseApRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"}],\"mCoefficient\":0.30000001192092896,\"mCoefficient2\":0.8999999761581421,\"mAnimationName\":\"\",\"mImgIconName\":[\"Galio_W2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"cannotBeSuppressed\":true,\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"alwaysSnapFacing\":true,\"useAnimatorFramerate\":true,\"castRange\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"castRangeValues\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"castFrame\":7.5,\"missileSpeed\":0.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mTargetingTypeData\":{\"__type\":\"SelfAoe\"},\"mDimensionBehavior\":1,\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  }
+]

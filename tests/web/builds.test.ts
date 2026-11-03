@@ -28,7 +28,7 @@ const results = [
   result(1, [["Stridebreaker", "Dead Man's Plate"], ["Sunfire Aegis", "Thornmail"]], [{ side: 1, options: { tripleTonic: 1, rankQ: 5, rankW: 5, rankE: 5, rankR: 6 } }]),
   result(2, [["Trinity Force", "Force of Nature"], ["Sunfire Aegis", "Spirit Visage"]]),
 ];
-const file = JSON.parse(simulatedBuildsJson("16.20", "26.20", "sixItems", ids, pairs, results, { schema: 1, fingerprint: "abc" })) as PrecomputedBuilds;
+const file = JSON.parse(simulatedBuildsJson("16.21", "26.21", "sixItems", ids, pairs, results, { schema: 1, fingerprint: "abc" })) as PrecomputedBuilds;
 
 describe("the results the app shows", () => {
   it("are the item builds when the visitor wants them and the fights are the defaults, whatever the plain stats' gold", () => {

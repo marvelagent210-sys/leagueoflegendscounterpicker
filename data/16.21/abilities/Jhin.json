@@ -1,0 +1,1402 @@
+[
+  {
+    "champion": "Jhin",
+    "kind": "A",
+    "name": "Basic Attack",
+    "page": {
+      "title": "Template:Data Jhin/Basic Attack",
+      "revid": 4075435
+    },
+    "ranks": 1,
+    "fields": {
+      "attackRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2600 • 3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2600
+            },
+            "label": "Standard missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Critical strike missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "attack",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "text": "Basic Attack: Jhin fires at the target with Whisper, dealing 100% AD physical damage, applying on-hit effects, and triggering on-attack effects.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Basic Attack: Jhin fires at the target with Whisper, dealing 100% AD physical damage, applying on-hit effects, and triggering on-attack effects.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Basic Attack: Jhin fires at the target with Whisper, dealing 100% AD physical damage, applying on-hit effects, and triggering on-attack effects.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Jhin's critical strikes have slightly increased missile speed, but deal only 150% AD physical damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strikes",
+            "evidence": "Jhin's critical strikes have slightly increased missile speed, but deal only 150% AD physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Jhin's attack speed cannot be reduced, and can only be increased through growth.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The 3000 missile speed for critical strikes also applies to Whisper 4th shot, which is a guaranteed critical strike."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Jhin/Basic Attack",
+          "revid": 4075435
+        },
+        "text": [
+          "|description2 = '''Jhin's''' {{tip|critically strike|critical strikes}} have slightly increased missile speed, but deal only{{ft|{{as|{{critical damage|{{ccd|Jhin|crit_base}}|100|mod={{ccd|Jhin|crit_mod}}}} AD}} {{as|physical damage}}.|{{fd|{{#expr:{{ccd|Jhin|crit_mod}}*100}}}}% of the {{sti|{{as|critical damage}}}} champions usually have.}}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Jhin",
+    "kind": "E",
+    "name": "Captive Audience",
+    "page": {
+      "title": "Template:Data Jhin/Captive Audience",
+      "revid": 4007613
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "24 / 21.5 / 19 / 16.5 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                24,
+                21.5,
+                19,
+                16.5,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana + 1 charge",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "260 • 260",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            },
+            "label": "On-trigger reveal and explosion radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            },
+            "label": "Trap sight radius"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Trigger radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive - Beauty in Death",
+        "text": "Passive - Beauty in Death: Whenever Jhin kills an enemy champion, he summons a Blooming Lotus Trap on their corpse.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Jhin places a Lotus Trap at the target location which, upon landing, becomes stealthed after arming over 1 second, lasting for up to 180 seconds and granting sight within its radius. The Lotus Trap blooms upon enemy contact, with enemies in the area at the time of its trigger becoming revealed for 4 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "trap",
+            "category": "other",
+            "wording": "stealthed",
+            "evidence": "Active: Jhin places a Lotus Trap at the target location which, upon landing, becomes stealthed after arming over 1 second, lasting for up to 180 seconds and granting sight within its radius.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Jhin places a Lotus Trap at the target location which, upon landing, becomes stealthed after arming over 1 second, lasting for up to 180 seconds and granting sight within its radius.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "The Lotus Trap blooms upon enemy contact, with enemies in the area at the time of its trigger becoming revealed for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Jhin periodically stocks a Lotus Trap charge, up to a maximum of 2.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Blooming Lotus Traps slow enemies within the area by 35% for 2 seconds before exploding, dealing magic damage to enemies. Lotus Traps deal 65% damage against minions as well as against champions and monsters who have been struck by another Lotus Trap in the last 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "20 / 80 / 140 / 200 / 260 (+ 120% AD) (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  80,
+                  140,
+                  200,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "13 / 52 / 91 / 130 / 169 (+ 78% AD) (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  13,
+                  52,
+                  91,
+                  130,
+                  169
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 78
+                  },
+                  "text": "(+ 78% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 35
+            },
+            "evidence": "Blooming Lotus Traps slow enemies within the area by 35% for 2 seconds before exploding, dealing magic damage to enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "See Pets for more details about Lotus Traps.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Beauty in Death does not consume Lotus Trap charges.",
+      "The Lotus Trap will stop upon encountering a Wind Wall or Unbreakable.",
+      "Beauty in Death does not trigger after killing a clone.",
+      "The reveal debuff is named Caught Out.\n  - This debuff is shared between Captive Audience and Curtain Call."
+    ]
+  },
+  {
+    "champion": "Jhin",
+    "kind": "I",
+    "name": "Whisper",
+    "page": {
+      "title": "Template:Data Jhin/Whisper",
+      "revid": 4075448
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate - Death In 4 Acts",
+        "text": "Innate - Death In 4 Acts: Jhin's basic attacks consume ammunition within 4 rounds. He will reload over 2.5 seconds immediately after expending all rounds or withholding leftover rounds after 10 seconds of being out of combat and not being affected by crowd control. The latter reload can be interrupted by declaring an attack or casting an ability. Jhin is unable to declare basic attacks during the reload time.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Jhin is unable to declare basic attacks during the reload time.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Jhin's final round attack has an uncancellable windup, always critically strikes, including against structures, and deals bonus physical damage equal to 15 / 20 / 25 (based on level)% of the target's missing health. The damage based on the target's health is capped at 800 against monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Jhin's final round attack has an uncancellable windup, always critically strikes, including against structures, and deals bonus physical damage equal to 15 / 20 / 25 (based on level)% of the target's missing health.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strikes",
+            "evidence": "Jhin's final round attack has an uncancellable windup, always critically strikes, including against structures, and deals bonus physical damage equal to 15 / 20 / 25 (based on level)% of the target's missing health.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                15,
+                20,
+                25
+              ]
+            },
+            "context": "Jhin's final round attack has an uncancellable windup, always critically strikes, including against structures, and deals bonus physical damage equal to 15 / 20 / 25 (based on level)% of the target's missing health."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Every Moment Matters",
+        "text": "Innate - Every Moment Matters: Jhin gains bonus attack damage equal to 4 – 44 (based on level)% (+ 0.35% per 1% critical strike chance) (+ 0.3% per 1% bonus attack speed) AD.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                14,
+                16,
+                20,
+                24,
+                28,
+                32,
+                36,
+                40,
+                44,
+                48,
+                52
+              ],
+              "past18": "game files"
+            },
+            "context": "Innate - Every Moment Matters: Jhin gains bonus attack damage equal to 4 – 44 (based on level)% (+ 0.35% per 1% critical strike chance) (+ 0.3% per 1% bonus attack speed) AD."
+          }
+        ]
+      },
+      {
+        "text": "Additionally, critical strikes against enemies grant Jhin 14% (+ 0.44% per 1% bonus attack speed) bonus movement speed for 2 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strikes",
+            "evidence": "Additionally, critical strikes against enemies grant Jhin 14% (+ 0.44% per 1% bonus attack speed) bonus movement speed for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The missing health damage benefits from life steal.",
+      "The bonus damage based on the target's missing health does not affect structures.",
+      "The 4th attack versus a structure is classified as a critical strike.",
+      "The attack damage multiplier stacks additively with Dragon Slayer's.",
+      "Every Moment Matters' bonus AD will benefit from any amount of bonus attack speed, even in excess of an amount that would usually reach the attacks per second cap (3).\n  - The maximum modifier without attack speed is 79%.\n    - 44% base modifier at level 18.\n    - 35% from critical strike chance on account of the 100% cap.\n    - Sources of cripple will not affect Jhin's bonus attack damage from his passive and will ignore his attack speed as it is fixed.\n      - However, Realm of Death will reduce Jhin's bonus attack damage.",
+      "Attack damage reductions apply before the multiplier causing them to be stronger against Jhin than advertised or versus other champions."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/jhin/jhin.bin.json",
+        "sha256": "2b5b72f08d03023dc56049cc35a49d98dd974e91602ba4c5c52c6dd3df10da95",
+        "object": "Characters/Jhin/Spells/JhinPassiveAbility/JhinPassive",
+        "text": [
+          "mSpell.mSpellCalculations.TotalADPercent: {\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mLevel1Value\":0.03999999910593033,\"mInitialBonusPerLevel\":0.009999999776482582,\"mBreakpoints\":[{\"mLevel\":10,\"mBonusPerLevelAtAndAfter\":0.019999999552965164,\"__type\":\"Breakpoint\"},{\"mLevel\":12,\"mBonusPerLevelAtAndAfter\":0.03999999910593033,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"},{\"mStat\":8,\"mCoefficient\":0.3499999940395355,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mStat\":4,\"mStatFormula\":2,\"mCoefficient\":0.30000001192092896,\"__type\":\"StatByCoefficientCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"}",
+          "mSpell.DataValues.OutOfCombatTimeBeforeReload.values: [8.0,8.0,8.0,8.0,8.0,8.0,8.0]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Jhin",
+    "kind": "Q",
+    "name": "Dancing Grenade",
+    "page": {
+      "title": "Template:Data Jhin/Dancing Grenade",
+      "revid": 4007611
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6.5 / 6 / 5.5 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6.5,
+                6,
+                5.5,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Bounce range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800 • 600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            },
+            "label": "Initial missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Bounce missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jhin throws a grenade at the target enemy that deals physical damage and can bounce to up to three additional nearby enemies, prioritizing the closest enemy that has not been hit.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "44 / 69 / 94 / 119 / 144 (+ 44 / 51.5 / 59 / 66.5 / 74% AD) (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  44,
+                  69,
+                  94,
+                  119,
+                  144
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      44,
+                      51.5,
+                      59,
+                      66.5,
+                      74
+                    ]
+                  },
+                  "text": "(+ 44 / 51.5 / 59 / 66.5 / 74% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The grenade's damage is increased by 35% any time an enemy dies by any means after being hit by the grenade before it strikes its next target.",
+        "leveling": [
+          {
+            "label": "Bonus Damage per Target Death",
+            "amount": {
+              "text": "15.4 / 24.15 / 32.9 / 41.65 / 50.4 (+ 15.4 / 18.025 / 20.65 / 23.275 / 25.9% AD) (+ 21% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15.4,
+                  24.15,
+                  32.9,
+                  41.65,
+                  50.4
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      15.4,
+                      18.025,
+                      20.65,
+                      23.275,
+                      25.9
+                    ]
+                  },
+                  "text": "(+ 15.4 / 18.025 / 20.65 / 23.275 / 25.9% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 21
+                  },
+                  "text": "(+ 21% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Final Bounce Physical Damage",
+            "amount": {
+              "text": "90.2 / 141.45 / 192.7 / 243.95 / 295.2 (+ 90.2 / 105.575 / 120.95 / 136.325 / 151.7% AD) (+ 123% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90.2,
+                  141.45,
+                  192.7,
+                  243.95,
+                  295.2
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      90.2,
+                      105.575,
+                      120.95,
+                      136.325,
+                      151.7
+                    ]
+                  },
+                  "text": "(+ 90.2 / 105.575 / 120.95 / 136.325 / 151.7% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 123
+                  },
+                  "text": "(+ 123% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will not prevent the canister from bouncing.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Jhin",
+    "kind": "R",
+    "name": "Curtain Call",
+    "page": {
+      "title": "Template:Data Jhin/Curtain Call",
+      "revid": 4007615
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 105 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                105,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "1 • 0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            },
+            "label": "Active"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Recast"
+          }
+        ]
+      },
+      "range": {
+        "text": "3500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3500
+            },
+            "label": "Missile range"
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "5000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5000
+            }
+          }
+        ]
+      },
+      "angle": {
+        "text": "60°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            },
+            "label": "Estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jhin channels for up to 10 seconds, transforming his weapon into a cannon and gaining the ability to recast Curtain Call 4 times within the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 10
+            },
+            "evidence": "Active: Jhin channels for up to 10 seconds, transforming his weapon into a cannon and gaining the ability to recast Curtain Call 4 times within the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: After 0.2 seconds into the cast time, Jhin fires a round in the target direction that grants sight around its trajectory for 0.5 seconds and deals physical damage to enemies hit, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on target's missing health)%. The bullet stops upon hitting an enemy champion, slowing them by 80% for 0.5 seconds and revealing them for 2 seconds. Each cast has a static cooldown of 1 second.",
+        "leveling": [
+          {
+            "label": "Minimum Physical Damage per Bullet",
+            "amount": {
+              "text": "64 / 128 / 192 (+ 25% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  64,
+                  128,
+                  192
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Physical Damage per Bullet",
+            "amount": {
+              "text": "256 / 512 / 768 (+ 100% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  256,
+                  512,
+                  768
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Recast: After 0.2 seconds into the cast time, Jhin fires a round in the target direction that grants sight around its trajectory for 0.5 seconds and deals physical damage to enemies hit, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on target's missing health)%.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 80
+            },
+            "evidence": "The bullet stops upon hitting an enemy champion, slowing them by 80% for 0.5 seconds and revealing them for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "The bullet stops upon hitting an enemy champion, slowing them by 80% for 0.5 seconds and revealing them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270,
+                300
+              ]
+            },
+            "context": "Recast: After 0.2 seconds into the cast time, Jhin fires a round in the target direction that grants sight around its trajectory for 0.5 seconds and deals physical damage to enemies hit, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on target's missing health)%."
+          }
+        ],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
+          }
+        ]
+      },
+      {
+        "text": "The fourth shot critically strikes for 200% damage.",
+        "leveling": [
+          {
+            "label": "Minimum Fourth Shot Damage",
+            "amount": {
+              "text": "128 / 256 / 384 (+ 50% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  128,
+                  256,
+                  384
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Fourth Shot Damage",
+            "amount": {
+              "text": "512 / 1024 / 1536 (+ 200% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  512,
+                  1024,
+                  1536
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strikes",
+            "evidence": "The fourth shot critically strikes for 200% damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies spell damage to enemy champions and area damage to other enemy units.",
+      "Each cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "Curtain Call's shooting range is fixed in front of Jhin.",
+      "The opening sound effect and area of range are audible and visible to both teams.",
+      "Leveling up the ability while channeling will change the final cooldown.",
+      "Jhin will turn to face in the target direction whenever he uses a recast.",
+      "Jhin gains a wider field of view during Curtain Call.",
+      "The reveal debuff is named Caught Out.\n  - This debuff is shared between Captive Audience and Curtain Call.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The following table refers for interactions while Jhin is channeling:"
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/jhin/jhin.bin.json",
+        "sha256": "2b5b72f08d03023dc56049cc35a49d98dd974e91602ba4c5c52c6dd3df10da95",
+        "object": "Characters/Jhin/Spells/JhinRAbility/JhinRShot",
+        "text": [
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.mDoesntBreakChannels: true"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Jhin/Curtain Call",
+          "revid": 4007615
+        },
+        "text": [
+          "|description3 = The fourth shot {{tip|critical strike|critically strikes}} for {{as|{{critical damage|200|100}}|critical damage}} damage.",
+          "{{ct|channel|cast=interrupts|items=interrupts,true,,false|spells=true,false,interrupts,interrupts,false}}",
+          "{{ct|cast|spells=true,false,false,false,false}}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Jhin",
+    "kind": "W",
+    "name": "Deadly Flourish",
+    "page": {
+      "title": "Template:Data Jhin/Deadly Flourish",
+      "revid": 4086263
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.75
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "2520 • -20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2520
+            },
+            "label": "Estimated"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            },
+            "label": "Backwards range"
+          }
+        ]
+      },
+      "width": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "text": "Passive: Enemy champions that trigger a Lotus Trap to bloom or are damaged by Jhin or allied champions are marked for 4 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Jhin fires a shot in the target direction that deals physical damage to all enemies in a line until colliding with an enemy champion, reduced by 25% against minions.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210 (+ 50% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage",
+            "amount": {
+              "text": "52.5 / 78.75 / 105 / 131.25 / 157.5 (+ 37.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  52.5,
+                  78.75,
+                  105,
+                  131.25,
+                  157.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 37.5
+                  },
+                  "text": "(+ 37.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Hitting a marked champion roots them for a duration and grants Jhin Every Moment Matters bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "1.25 / 1.5 / 1.75 / 2 / 2.25 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.25,
+                  1.5,
+                  1.75,
+                  2,
+                  2.25
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "roots",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.25,
+                1.5,
+                1.75,
+                2,
+                2.25
+              ]
+            },
+            "evidence": "Hitting a marked champion roots them for a duration and grants Jhin Every Moment Matters bonus movement speed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies spell damage to the enemy champion and area damage to all other enemy units.",
+      "The Caught Out mark only appears if Deadly Flourish can potentially root the target, and will not if the ability's cooldown is longer than 4 seconds or isn't ranked up.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "The ability will not preserve the caster's facing direction when using Flash and similar effects.",
+      "Uniquely, Deadly Flourish is special-cased to be intercepted by valid counters because it looks like a blockable missile, even though it functionally is not a missile.",
+      "Deadly Flourish does not trigger Horizon Focus Hypershot.",
+      "While disguised as a non-champion, Neeko cannot be affected by Deadly Flourish."
+    ]
+  }
+]

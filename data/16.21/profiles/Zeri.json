@@ -1,0 +1,225 @@
+{
+  "champion": "Zeri",
+  "name": "Zeri",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "zeri",
+      "formName": "Zeri",
+      "range": 550,
+      "ranged": true,
+      "projectile": false,
+      "attackSpeed": 0.903813,
+      "attackDamage": 95.33,
+      "windup": 0.172879,
+      "modifiers": [
+        "Living Battery"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Zeri",
+      "kind": "E",
+      "name": "Spark Surge",
+      "page": {
+        "title": "Template:Data Zeri/Spark Surge",
+        "revid": 4091280
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Zeri/Spark Surge",
+              "revid": 4091280,
+              "quote": "Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers."
+            }
+          ]
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "range": 300,
+      "speed": 600,
+      "boostsAttacks": true,
+      "notes": [
+        "Spark Surge's extended dash travels based on the thickness of the terrain, up to a maximum distance.",
+        "The following table refers for interactions while Zeri is dashing:"
+      ]
+    },
+    {
+      "champion": "Zeri",
+      "kind": "I",
+      "name": "Living Battery",
+      "page": {
+        "title": "Template:Data Zeri/Living Battery",
+        "revid": 4051663
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no",
+        "spellShield": "partly",
+        "parry": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Uncharged attacks do not execute enemies that are shielded or invulnerable while below the health threshold.",
+        "Spell shield will only block a fully charged attack. Uncharged attacks are not blocked.",
+        "If Last Hit Indicator enabled, it will indicate Living Battery's execute threshold instead of its usual function."
+      ]
+    },
+    {
+      "champion": "Zeri",
+      "kind": "Q",
+      "name": "Burst Fire",
+      "page": {
+        "title": "Template:Data Zeri/Burst Fire",
+        "revid": 4062236
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 1,
+      "range": 750,
+      "speed": 2600,
+      "boostsAttacks": true,
+      "notes": [
+        "Burst Fire is still locked out while Zeri is affected by any form of other cast-inhibiting crowd control.\n  - Silence is special cased to specifically not disable Burst Fire.\n  - Polymorph, despite functioning identically to silence, will still lock Burst Fire from being cast.",
+        "Burst Fire can hit all enemy units that a basic attack would be able to target. This does include jungle plants, structures, and wards.\n  - Wards will only be hit once by Burst Fire. Stealthed wards and traps will not take damage.\n    - Burst Fire will still apply on-attack effects to stealthed traps and wards.\n    - Neeko will be hit multiple times while disguised as a ward, but any subsequent rounds will continue to travel through.\n  - Champion-summoned units behave differently depending on the unit.\n    - Powder Keg and Dark Procession are hit only once by Burst Fire, and any subsequent rounds not empowered by Spark Surge will stop upon reaching the same object.\n    - Sentinel is hit only once by Burst Fire, but any subsequent rounds will continue to travel through the Sentinel.",
+        "If Burst Fire hits an enemy while Zeri is not visible to enemies, the area around her (400 units) will be revealed for 4.5 seconds.",
+        "Burst Fire is parried by dodge and block.\n  - Blind causes Burst Fire to cast in a random direction. The rounds will still deal damage to enemies hit."
+      ]
+    },
+    {
+      "champion": "Zeri",
+      "kind": "R",
+      "name": "Lightning Crash",
+      "page": {
+        "title": "Template:Data Zeri/Lightning Crash",
+        "revid": 4016978
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 70,
+      "castTime": 0.25,
+      "boostsAttacks": true,
+      "notes": [
+        "Lightning Crash does not interrupt Zeri's previous orders.",
+        "Spell shield blocks Lightning Crash's initial nova but does not prevent Zeri from becoming Overcharged.\n  - It does not block Burst Fire electricity chain."
+      ]
+    },
+    {
+      "champion": "Zeri",
+      "kind": "W",
+      "name": "Ultrashock Laser",
+      "page": {
+        "title": "Template:Data Zeri/Ultrashock Laser",
+        "revid": 4060386
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Zeri/Ultrashock Laser",
+              "revid": 4060386,
+              "quote": "Active: Zeri fires an electric pulse in the target direction that deals physical damage to the first enemy hit and slows them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.55,
+      "range": 1200,
+      "speed": 2500,
+      "notes": [
+        "The pulse missile is blocked by projectile-interception effects but not the laser."
+      ]
+    }
+  ]
+}

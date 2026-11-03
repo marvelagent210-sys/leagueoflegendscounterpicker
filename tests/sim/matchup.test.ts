@@ -6,7 +6,7 @@ import { bestMatchup, simulateMatchup } from "../../engine/sim/matchup";
 import type { AbilitySpec } from "../../engine/sim/spec";
 import { ability, fighter } from "./kits";
 
-const prices = (JSON.parse(readFileSync(path.join(import.meta.dirname, "..", "..", "data", "16.20", "rules.json"), "utf8")) as { statPrices: StatPrices }).statPrices;
+const prices = (JSON.parse(readFileSync(path.join(import.meta.dirname, "..", "..", "data", "16.21", "rules.json"), "utf8")) as { statPrices: StatPrices }).statPrices;
 const nuke = (amount: number): AbilitySpec => ability({ key: "Q", cooldown: 4, delivery: { kind: "target", range: 400 }, onHit: [{ type: "damage", damageType: "true", amount: { base: amount } }] });
 
 describe("matchups with kit variants (Udyr's rank splits)", () => {

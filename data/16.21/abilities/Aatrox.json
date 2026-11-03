@@ -1,0 +1,1230 @@
+[
+  {
+    "champion": "Aatrox",
+    "kind": "E",
+    "name": "Umbral Dash",
+    "page": {
+      "title": "Template:Data Aatrox/Umbral Dash",
+      "revid": 4064836
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8 / 7 / 6 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8,
+                7,
+                6,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "75 - 300 • 500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            },
+            "label": "Minimum and maximum dash distance"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Maximum extended dash distance across terrain"
+          }
+        ]
+      },
+      "speed": {
+        "text": "800 • 1340",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Dash speed, slightly higher when measured"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1340
+            },
+            "label": "Maximum increased dash speed, when dashing through wide terrain"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Aatrox heals for 16% (+ 1.3% per 100 bonus health) of non-persistent post-mitigation damage he deals against enemy champions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Passive: Aatrox heals for 16% (+ 1.3% per 100 bonus health) of non-persistent post-mitigation damage he deals against enemy champions.",
+            "conditional": false
+          },
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "persistent",
+            "evidence": "Passive: Aatrox heals for 16% (+ 1.3% per 100 bonus health) of non-persistent post-mitigation damage he deals against enemy champions.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Aatrox dashes in the target direction.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Aatrox dashes in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Umbral Dash resets Aatrox's basic attack timer and can be cast during his other abilities without cancelling them and vice versa.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Umbral Dash resets Aatrox's basic attack timer and can be cast during his other abilities without cancelling them and vice versa.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dash distance can be extended to up-to 500 units when targeting across terrain. It will only extend for the distance needed to cross the wall.\n  - This may upscale his dash speed so that the dash takes the same total time as the standard maximum-range dash.",
+      "If Umbral Dash is cast towards a movement command's end point, Umbral Dash will re-issue a movement command to that point when the dash ends.\n  - He will be unable to buffer any commands during the dash if it is casted this way.",
+      "Aatrox's model darkens for 1.5 seconds upon casting Umbral Dash, which is a remnant of an attack damage buff he received before it got removed in V9.9."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "I",
+    "name": "Deathbringer Stance",
+    "page": {
+      "title": "Template:Data Aatrox/Deathbringer Stance",
+      "revid": 4076803
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "22 – 10 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                22,
+                21.2941176470588,
+                20.5882352941176,
+                19.8823529411765,
+                19.1764705882353,
+                18.4705882352941,
+                17.7647058823529,
+                17.0588235294118,
+                16.3529411764706,
+                15.6470588235294,
+                14.9411764705882,
+                14.2352941176471,
+                13.5294117647059,
+                12.8235294117647,
+                12.1176470588235,
+                11.4117647058824,
+                10.7058823529412,
+                10,
+                9.29411764705882,
+                8.58823529411765
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Aatrox empowers his next basic attack to gain 50 bonus range and deal bonus magic damage equal to 4 – 10 (based on level)% of the target's maximum health, capped at 100 – 320 (based on level) against monsters. Deathbringer Stance's damage applies life steal.\n\nAatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Deathbringer Stance's damage applies life steal.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Aatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                4,
+                4.35294117647059,
+                4.70588235294118,
+                5.05882352941176,
+                5.41176470588235,
+                5.76470588235294,
+                6.11764705882353,
+                6.47058823529412,
+                6.82352941176471,
+                7.17647058823529,
+                7.52941176470588,
+                7.88235294117647,
+                8.23529411764706,
+                8.58823529411765,
+                8.94117647058824,
+                9.29411764705882,
+                9.64705882352941,
+                10,
+                10.3529411764706,
+                10.7058823529412
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Aatrox empowers his next basic attack to gain 50 bonus range and deal bonus magic damage equal to 4 – 10 (based on level)% of the target's maximum health, capped at 100 – 320 (based on level) against monsters."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                100,
+                112.941176470588,
+                125.882352941176,
+                138.823529411765,
+                151.764705882353,
+                164.705882352941,
+                177.647058823529,
+                190.588235294118,
+                203.529411764706,
+                216.470588235294,
+                229.411764705882,
+                242.352941176471,
+                255.294117647059,
+                268.235294117647,
+                281.176470588235,
+                294.117647058824,
+                307.058823529412,
+                320,
+                332.941176470588,
+                345.882352941176
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Aatrox empowers his next basic attack to gain 50 bonus range and deal bonus magic damage equal to 4 – 10 (based on level)% of the target's maximum health, capped at 100 – 320 (based on level) against monsters."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "context": "Aatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation bonus damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
+      },
+      {
+        "text": "Whenever Aatrox hits at least one enemy champion or large monster with a basic attack on-hit or an ability, Deathbringer Stance's current cooldown is reduced by 2 seconds, doubled to 4 if he hits with the Sweetspot of The Darkin Blade.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Whenever Aatrox hits at least one enemy champion or large monster with a basic attack on-hit or an ability, Deathbringer Stance's current cooldown is reduced by 2 seconds, doubled to 4 if he hits with the Sweetspot of The Darkin Blade.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Aatrox will assume stance when an enemy champion is in range of Infernal Chains.\n  - The toggle expression (default CTRL + 5) switches between stances manually.",
+      "If Deathbringer Stance's empowered attack becomes available during a standard attack's windup, it will not be consumed or trigger the bonus damage.",
+      "The cooldown reduction applies even if an ability's hit is countered by spell shield.",
+      "If available upon death, Deathbringer Stance begins incurring its cooldown, but becomes available upon respawn.",
+      "The empowered attack will not trigger against structures and wards."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "Q",
+    "name": "The Darkin Blade",
+    "page": {
+      "title": "Template:Data Aatrox/The Darkin Blade",
+      "revid": 4074361
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 12 / 10 / 8 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                12,
+                10,
+                8,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "cooldown starts on first cast and restarts on each successive recast",
+      "castTime": {
+        "text": "0.6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.6
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "Varied",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "Varied",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "text": "Aatrox can activate The Darkin Blade three times before the ability goes on cooldown, with a 1-second static cooldown between casts. If Aatrox does not recast the ability within 4 seconds of the previous cast, it goes on cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Aatrox performs a strike with his greatsword for each of the three casts, dealing physical damage to enemies hit within an area. Enemies hit within a Sweetspot of the area take 75% bonus damage and are also knocked up for 0.25 seconds. Each subsequent cast gains 25% more damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "Enemies hit within a Sweetspot of the area take 75% bonus damage and are also knocked up for 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "context": "Each subsequent cast gains 25% more damage."
+          }
+        ]
+      },
+      {
+        "label": "First Cast",
+        "text": "First Cast: Aatrox's first strike affects a 625 × 180-unit rectangular area in the target direction, with him centered on the back line and the Sweetspot at the farthest edge.",
+        "leveling": [
+          {
+            "label": "First Cast Damage",
+            "amount": {
+              "text": "10 / 25 / 40 / 55 / 70 (+ 60 / 67.5 / 75 / 82.5 / 90% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  25,
+                  40,
+                  55,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      60,
+                      67.5,
+                      75,
+                      82.5,
+                      90
+                    ]
+                  },
+                  "text": "(+ 60 / 67.5 / 75 / 82.5 / 90% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "First Sweetspot Damage",
+            "amount": {
+              "text": "17.5 / 43.75 / 70 / 96.25 / 122.5 (+ 105 / 118.125 / 131.25 / 144.375 / 157.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  17.5,
+                  43.75,
+                  70,
+                  96.25,
+                  122.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      105,
+                      118.125,
+                      131.25,
+                      144.375,
+                      157.5
+                    ]
+                  },
+                  "text": "(+ 105 / 118.125 / 131.25 / 144.375 / 157.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Second Cast",
+        "text": "Second Cast: Aatrox's second strike affects a trapezoidal area in the target direction, with the Sweetspot at the farthest edge. The hitbox begins 100-units behind Aatrox and extends 475-units in front of him, measuring between 300 and 500-units wide from behind to in front.",
+        "leveling": [
+          {
+            "label": "Second Cast Damage",
+            "amount": {
+              "text": "12.5 / 31.25 / 50 / 68.75 / 87.5 (+ 75 / 84.375 / 93.75 / 103.125 / 112.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12.5,
+                  31.25,
+                  50,
+                  68.75,
+                  87.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      75,
+                      84.375,
+                      93.75,
+                      103.125,
+                      112.5
+                    ]
+                  },
+                  "text": "(+ 75 / 84.375 / 93.75 / 103.125 / 112.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Second Sweetspot Damage",
+            "amount": {
+              "text": "21.875 / 54.6875 / 87.5 / 120.313 / 153.125 (+ 131.25 / 147.656 / 164.063 / 180.469 / 196.875% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  21.875,
+                  54.6875,
+                  87.5,
+                  120.3125,
+                  153.125
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      131.25,
+                      147.65625,
+                      164.0625,
+                      180.46875,
+                      196.875
+                    ]
+                  },
+                  "text": "(+ 131.25 / 147.656 / 164.063 / 180.469 / 196.875% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Third Cast",
+        "text": "Third Cast: Aatrox's third strike affects a 300-radius circular area centered on a target location that is 200 units in front of him, with a 180-radius Sweetspot within.",
+        "leveling": [
+          {
+            "label": "Third Cast Damage",
+            "amount": {
+              "text": "15 / 37.5 / 60 / 82.5 / 105 (+ 90 / 101.25 / 112.5 / 123.75 / 135% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  37.5,
+                  60,
+                  82.5,
+                  105
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      90,
+                      101.25,
+                      112.5,
+                      123.75,
+                      135
+                    ]
+                  },
+                  "text": "(+ 90 / 101.25 / 112.5 / 123.75 / 135% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Third Sweetspot Damage",
+            "amount": {
+              "text": "26.25 / 65.625 / 105 / 144.375 / 183.75 (+ 157.5 / 177.188 / 196.875 / 216.563 / 236.25% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  26.25,
+                  65.625,
+                  105,
+                  144.375,
+                  183.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      157.5,
+                      177.1875,
+                      196.875,
+                      216.5625,
+                      236.25
+                    ]
+                  },
+                  "text": "(+ 157.5 / 177.188 / 196.875 / 216.563 / 236.25% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The Darkin Blade deals 55 / 60 / 65 / 70 (based on level)% damage against minions. Against monsters, the first cast deals 25 bonus physical damage, which is affected by the subsequent cast and Sweetspot damage modifiers; and the knock up duration from hitting the Sweetspot against them is doubled to 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Maximum Non-Minion Non-Sweetspot Damage",
+            "amount": {
+              "text": "37.5 / 93.75 / 150 / 206.25 / 262.5 (+ 225 / 253.125 / 281.25 / 309.375 / 337.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  37.5,
+                  93.75,
+                  150,
+                  206.25,
+                  262.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      225,
+                      253.125,
+                      281.25,
+                      309.375,
+                      337.5
+                    ]
+                  },
+                  "text": "(+ 225 / 253.125 / 281.25 / 309.375 / 337.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Non-Minion Sweetspot Damage",
+            "amount": {
+              "text": "65.625 / 164.063 / 262.5 / 360.938 / 459.375 (+ 393.75 / 442.969 / 492.188 / 541.406 / 590.625% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65.625,
+                  164.0625,
+                  262.5,
+                  360.9375,
+                  459.375
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      393.75,
+                      442.96875,
+                      492.1875,
+                      541.40625,
+                      590.625
+                    ]
+                  },
+                  "text": "(+ 393.75 / 442.969 / 492.188 / 541.406 / 590.625% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock up",
+            "evidence": "Against monsters, the first cast deals 25 bonus physical damage, which is affected by the subsequent cast and Sweetspot damage modifiers; and the knock up duration from hitting the Sweetspot against them is doubled to 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                55,
+                60,
+                65,
+                70
+              ]
+            },
+            "context": "The Darkin Blade deals 55 / 60 / 65 / 70 (based on level)% damage against minions."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The first and second casts function like any point-blank AOE (ground/area effect centered at or offset to the caster). An enemy is considered to be hit by them based on edge range - i.e. the hit registers if any part of the enemy's gameplay radius is within the hitbox.",
+      "The third cast, as well as the Sweetspot of the first and second cast, register their hit based on center range. The enemy's center must be within the hitbox to apply the effects.",
+      "As implied by the previous point, the Sweetspot for the first and second cast is implemented as separate areas of effect to the main component of the ability. Enemies must be within both areas to trigger the bonus damage, knock up and Deathbringer Stance cooldown reduction.\n  - The 'target hit successfully' SFX plays whenever an enemy is within the Sweetspot - meaning it is possible to trigger the sound effect without affecting an enemy.",
+      "Each cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "The Darkin Blade's angle of cast is fixed during the cast time, i.e. it maintains its direction in relation to Aatrox and does not respect any changes in his facing direction.",
+      "If Aatrox changes his position during The Darkin Blade's cast, his real facing direction for effects such as Petrifying Gaze is the direction he is moving and not the direction the model is facing.",
+      "Aatrox cannot declare basic attacks shortly after casting The Darkin Blade.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "R",
+    "name": "World Ender",
+    "page": {
+      "title": "Template:Data Aatrox/World Ender",
+      "revid": 3959270
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Flee radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aatrox unleashes his true form for 10 seconds, fearing nearby enemy minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration. He also gains bonus movement speed that decays by 10% of the current bonus every 0.25 seconds, lasting until World Ender has ended.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "60 / 80 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fearing",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Aatrox unleashes his true form for 10 seconds, fearing nearby enemy minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Aatrox unleashes his true form for 10 seconds, fearing nearby enemy minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Whenever Aatrox scores a champion takedown, he extends the duration by 5 seconds, up to its original length, and becomes unleashed again.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "During World Ender, Aatrox gains bonus attack damage, has 5% increased size, is ghosted, and receives increased self-healing from all sources.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Damage",
+            "amount": {
+              "text": "20 / 30 / 40% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          },
+          {
+            "label": "Increased Healing",
+            "amount": {
+              "text": "50 / 75 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "During World Ender, Aatrox gains bonus attack damage, has 5% increased size, is ghosted, and receives increased self-healing from all sources.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "self-healing",
+            "evidence": "During World Ender, Aatrox gains bonus attack damage, has 5% increased size, is ghosted, and receives increased self-healing from all sources.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Aatrox can move during World Ender's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "His resource bar indicates the remaining duration of World Ender.",
+      "While World Ender is active, the screen will have a red tint. Near the end of the duration, the tint is intensified.",
+      "World Ender persists through resurrection effects.\n  - World Ender's healing amplification applies to the health gained by resurrecting.",
+      "World Ender will cast from wherever Aatrox is at the end of the cast time.",
+      "Casting World Ender while it is still active removes the timer on the resource bar.\n  - If this happens while using Primordian Aatrox, the intensified tint effect of World Ender will stay on the screen for the rest of the game."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "W",
+    "name": "Infernal Chains",
+    "page": {
+      "title": "Template:Data Aatrox/Infernal Chains",
+      "revid": 4064835
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 16.5 / 15 / 13.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                16.5,
+                15,
+                13.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "825 • 765",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 765
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aatrox sends a chain in the target direction that deals physical damage to the first enemy hit, doubled against minions, and slowing them for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70 (+ 40% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage",
+            "amount": {
+              "text": "60 / 80 / 100 / 120 / 140 (+ 80% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100,
+                  120,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "25 / 27.5 / 30 / 32.5 / 35%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  27.5,
+                  30,
+                  32.5,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                25,
+                27.5,
+                30,
+                32.5,
+                35
+              ]
+            },
+            "evidence": "Active: Aatrox sends a chain in the target direction that deals physical damage to the first enemy hit, doubled against minions, and slowing them for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If this hits an enemy champion or large monster, a tether is formed between the target and the ground beneath them for 1.5 seconds, during which they are revealed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If this hits an enemy champion or large monster, a tether is formed between the target and the ground beneath them for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If this hits an enemy champion or large monster, a tether is formed between the target and the ground beneath them for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the tether is not broken by the end of its duration, the target is dealt the same physical damage again and pulled to the center of the area.",
+        "leveling": [
+          {
+            "label": "Total Damage",
+            "amount": {
+              "text": "60 / 80 / 100 / 120 / 140 (+ 80% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100,
+                  120,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulled",
+            "evidence": "If the tether is not broken by the end of its duration, the target is dealt the same physical damage again and pulled to the center of the area.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The impact area is oriented relative to Aatrox's position when the projectile hits, not where the projectile originated from.",
+      "The location that the target is dragged to is not at the target's original location, but slightly closer towards Aatrox's position when the zone expires.",
+      "Spell shield will block the chain's application and initial damage but not the aftereffects of one already applied.",
+      "This ability's damage is calculated based on the caster's current stats and changes dynamically.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Infernal Chains maintains its casting angle direction in relation to Aatrox if he moves during the cast time."
+    ]
+  }
+]

@@ -1,0 +1,1225 @@
+[
+  {
+    "champion": "Ornn",
+    "kind": "E",
+    "name": "Searing Charge",
+    "page": {
+      "title": "Template:Data Ornn/Searing Charge",
+      "revid": 4007982
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13.5 / 13 / 12.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13.5,
+                13,
+                12.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35 / 40 / 45 / 50 / 55",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                35,
+                40,
+                45,
+                50,
+                55
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "800 • 650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "Dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "360 • 150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 360
+            },
+            "label": "Shockwave radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Terrain collision range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ornn charges in the target direction, dealing physical damage to enemies he passes through and stopping upon colliding with terrain.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 40% bonus armor) (+ 40% bonus magic resistance)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusArmor",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus armor)"
+                },
+                {
+                  "stat": "bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus magic resistance)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "charges",
+            "evidence": "Active: Ornn charges in the target direction, dealing physical damage to enemies he passes through and stopping upon colliding with terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Ornn collides with terrain during the charge, he creates a shockwave that knocks up and stuns nearby enemies for 1.25 seconds and deals the same damage if they were not already hit by the charge.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks up",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "If Ornn collides with terrain during the charge, he creates a shockwave that knocks up and stuns nearby enemies for 1.25 seconds and deals the same damage if they were not already hit by the charge.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "If Ornn collides with terrain during the charge, he creates a shockwave that knocks up and stuns nearby enemies for 1.25 seconds and deals the same damage if they were not already hit by the charge.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The shockwave destroys the pillar formed by Volcanic Rupture and partially destroys terrain created by enemy champions.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Ornn is unable to act for 0.5 seconds after the dash ends.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Ornn is unable to act for 0.5 seconds after the dash ends.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shields may only block one instance of damage.",
+      "The area in which enemies will be knocked up is indicated at Ornns impact location.\n  - The indicator is not shown for player-generated terrain.",
+      "Brittle enemies without Tenacity of their own will be stunned for a total of 1.625 seconds.",
+      "Searing Charge can interact with player-generated terrain.",
+      "Ornn will not dash after the cast time if he is airborne or resurrecting.",
+      "Displacement immunity will also resist the application of the stun.",
+      "The following table refers for interactions while Ornn is in cast time and dashing:\n  - The lockout lingers briefly after the dash ends."
+    ]
+  },
+  {
+    "champion": "Ornn",
+    "kind": "I",
+    "name": "Living Forge",
+    "page": {
+      "title": "Template:Data Ornn/Living Forge",
+      "revid": 4089066
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "true",
+      "parry": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate - Living Forge",
+        "text": "Innate - Living Forge: Ornn can purchase items from the shop even while outside of its range and from anywhere on the battlefield, by forging them. He is able to forge any non-consumable item, and is also presented a Forge Menu to quickly forge his recommended items. Once Ornn attempts to purchase an item, he starts forging it, causing him to channel for 4 seconds. Upon completion of the channel, he builds the item and pays its gold cost. The channel is interrupted if Ornn takes damage from enemy champions or turrets. Living Forge is disabled for 4 seconds after starting the channel.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channel",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Once Ornn attempts to purchase an item, he starts forging it, causing him to channel for 4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "The channel is interrupted if Ornn takes damage from enemy champions or turrets.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate - Master Craftsman",
+        "text": "Innate - Master Craftsman: Ornn uses his craftsmanship in forgery to upgrade most Legendary items that he and his teammates own into Masterwork items, increasing the gold value of all upgradeable stats on the item by exactly 1000, shared equally among them. When Ornn reaches level 13, the first eligible Legendary item in his inventory is upgraded automatically. For each level after 13 and before 18 (levels 14–17, total of 4, once per ally per game), Ornn can upgrade the first eligible Legendary item in an allied champion's inventory into its Masterwork variant. He can do so by selecting the ally while within 600 range, and forges the item's upgrade by performing Living Forge's channel.\n\nAdditionally, Ornn increases his bonus armor, bonus magic resistance and bonus health by 10% from all sources, further increased by 4% each time he upgrades a Legendary item into a Masterwork item, for a total increase of 30% to each stat after the maximum of 5 upgrades.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channel",
+            "evidence": "He can do so by selecting the ally while within 600 range, and forges the item's upgrade by performing Living Forge's channel.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "most",
+            "tip": "See notes"
+          },
+          {
+            "text": "upgradeable stats",
+            "tip": "See notes"
+          }
+        ]
+      },
+      {
+        "label": "Innate - Temper",
+        "text": "Innate - Temper: Ornn applies Brittle to enemies hit by Bellows Breath and Call of the Forge God. His basic attacks on-hit against enemies afflicted with Brittle are empowered to knock them back a short distance over 0.4 seconds. Ornn's and allies' immobilizing effects or silences against Brittle enemies will consume the debuff to deal bonus magic damage equal to 9 – 17 (based on level)% of the target's maximum health, capped at 200 / 260 / 320 / 380 / 440 / 500 (based on Bellows Breath's rank) against monsters, and cause the crowd control to last 30% longer (if applicable).",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "brittle",
+            "category": "other",
+            "wording": "Brittle",
+            "evidence": "Innate - Temper: Ornn applies Brittle to enemies hit by Bellows Breath and Call of the Forge God.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "His basic attacks on-hit against enemies afflicted with Brittle are empowered to knock them back a short distance over 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock them back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "His basic attacks on-hit against enemies afflicted with Brittle are empowered to knock them back a short distance over 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silences",
+            "evidence": "Ornn's and allies' immobilizing effects or silences against Brittle enemies will consume the debuff to deal bonus magic damage equal to 9 – 17 (based on level)% of the target's maximum health, capped at 200 / 260 / 320 / 380 / 440 / 500 (based on Bellows Breath's rank) against monsters, and cause the crowd control to last 30% longer (if applicable).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                9,
+                9.47058823529412,
+                9.94117647058824,
+                10.4117647058824,
+                10.8823529411765,
+                11.3529411764706,
+                11.8235294117647,
+                12.2941176470588,
+                12.7647058823529,
+                13.2352941176471,
+                13.7058823529412,
+                14.1764705882353,
+                14.6470588235294,
+                15.1176470588235,
+                15.5882352941176,
+                16.0588235294118,
+                16.5294117647059,
+                17,
+                17.4705882352941,
+                17.9411764705882
+              ],
+              "past18": "wiki"
+            },
+            "context": "Ornn's and allies' immobilizing effects or silences against Brittle enemies will consume the debuff to deal bonus magic damage equal to 9 – 17 (based on level)% of the target's maximum health, capped at 200 / 260 / 320 / 380 / 440 / 500 (based on Bellows Breath's rank) against monsters, and cause the crowd control to last 30% longer (if applicable)."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Bellows Breath's rank",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "values": [
+                200,
+                260,
+                320,
+                380,
+                440,
+                500
+              ]
+            },
+            "context": "Ornn's and allies' immobilizing effects or silences against Brittle enemies will consume the debuff to deal bonus magic damage equal to 9 – 17 (based on level)% of the target's maximum health, capped at 200 / 260 / 320 / 380 / 440 / 500 (based on Bellows Breath's rank) against monsters, and cause the crowd control to last 30% longer (if applicable)."
+          }
+        ],
+        "tips": [
+          {
+            "text": "0.4 seconds",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "text": "The Masterwork upgrade scans each item slot in the champion's inventory (from slots 1-6) for an eligible Legendary item, upgrading the first eligible item that is found.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Forge Disable Time",
+        "text": "4"
+      }
+    ],
+    "notes": [
+      "Ornn's Forge Menu is a special menu in the HUD which has 5 slots. The player can quickly forge one of the recommended items by left-click clicking on its portrait or via the Champion Specific Interaction hotkeys (default: Shift+F1–F5).",
+      "The item that Ornn upgrades for the ally is decided at the start of the forge channel.\n  - If the ally moves the item into a different slot during the channel, it will still be the item that gets upgraded.",
+      "Masterwork items inherit all properties of their pre-upgrade version, including the cooldowns of their effects. Internally, they are handled through an item modifier. An upgraded item gains the (Masterwork) descriptor next to its name in tooltips as well as a special Masterwork frame overlay on the item's icon itself, both indicating the application of Living Forge's modifier.",
+      "Statistics' gold value and eligible stats to be increased for Masterwork items:\n  - 31.25 per 1 point of ability haste.\n  - 20 per 1 point of ability power.\n  - 35 per 1 point of attack damage.\n  - 30 per 1% of attack speed.\n  - 20 per 1 point of armor.\n  - 18 per 1 point of magic resistance.\n  - 1 point of health has a variable gold value, based on the number of upgradeable stats that exist on the item:\n  - # If health is the item's only upgradeable stat, it receives +375 health and health is valued at 2.6 per point.\n  - # If the item has health and only one other upgradeable stat, it receives +185 health and health is valued at 2.702 per point.\n  - # If the item has health and two other upgradeable stats, it receives +125 health and health is valued at 2.6 per point.\n  - # If the item has health and three other upgradeable stats, it receives +90 health and health is valued at 2.7 per point.\n  - While not currently possible, if an item has no upgradeable stats, 1000 worth of health (valued at 2.6 per point) is added to the item.",
+      "The Masterwork stat increases are rounded down (any decimal values are lost).",
+      "Living Forge's bonus armor and magic resist increase stacks additively with Jak'Sho, The Protean Voidborn Resilience and multiplicatively with Mountainous Vigor.",
+      "Health and mana items built on the field will retain Ornn's previous health and mana percentage. Returning to base still brings health and mana back to full.",
+      "Ornn's basic attacks against Brittle enemies will end the duration of the debuff on-hit prematurely even if the knock back was not applied. This does not trigger the consumed effect that deals the bonus damage, unless the target was an epic monster.",
+      "Brittle's Tenacity reduction will benefit all applicable types of crowd control, not just immobilizes and silences. The following do not consume Brittle but benefit from the reduction: blinds, cripples, disarms, grounds, and slows.",
+      "Spell shield will block both the knock back and the bonus damage from Ornn's empowered brittle attack.",
+      "The bonus magic damage inflicted by Brittle is credited to Ornn, and benefits from his magic penetration.",
+      "The Masterwork item upgrade on an ally will fail if the ally was channeling the Rift Herald Rodeo at the time of the forge's completion.",
+      "The following table refers for interactions while Ornn is channeling:\n  - All of Ornn's actions are disabled during the first 0.5 seconds of the channel."
+    ]
+  },
+  {
+    "champion": "Ornn",
+    "kind": "Q",
+    "name": "Volcanic Rupture",
+    "page": {
+      "title": "Template:Data Ornn/Volcanic Rupture",
+      "revid": 3998234
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8.5 / 8 / 7.5 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8.5,
+                8,
+                7.5,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 45
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "130",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 130
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ornn sends a fissure in the target direction that deals physical damage to enemies hit and slows them by 40% for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "20 / 45 / 70 / 95 / 120 (+ 110% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  45,
+                  70,
+                  95,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Active: Ornn sends a fissure in the target direction that deals physical damage to enemies hit and slows them by 40% for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The fissure stops at maximum range or 200 units behind the first enemy champion struck. After a 1.125-second delay, a magma pillar then erupts at the location to knock aside enemies, though not through terrain, and linger as impassible terrain for 4 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock aside",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "After a 1.125-second delay, a magma pillar then erupts at the location to knock aside enemies, though not through terrain, and linger as impassible terrain for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The pillar will not expire during Searing Charge dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The fissure will move an 200 units beyond the first champion it hits, not exceeding the maximum range of the ability. It can still damage additional targets.",
+      "If launched in a wall, pillar will try to appear on the other side of the wall, if it cannot the pillar will be destroyed.",
+      "Spell shield will not prevent the knock aside from the magma pillar forming.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Ornn",
+    "kind": "R",
+    "name": "Call of the Forge God",
+    "page": {
+      "title": "Template:Data Ornn/Call of the Forge God",
+      "revid": 4007985
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 120 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                120,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Recast dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "3000 • 2550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Elemental incoming range towards Ornn (first pass)"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2550
+            },
+            "label": "Elemental outgoing range after recast collision (second pass)"
+          }
+        ]
+      },
+      "width": {
+        "text": "340",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 340
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600 • 450 • 1250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "Recast dash speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Elemental base speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1250
+            },
+            "label": "Elemental maximum speed, reached in approximately 0.6 seconds (has an inconsistent acceleration)"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Elemental"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true",
+      "grounded": "special",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ornn sounds his horn, summoning a lava elemental at maximum range from the target direction that stampedes towards his casting position at increasing speed. The elemental deals magic damage to enemies it passes through and slows them for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "125 / 175 / 225 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  175,
+                  225
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 50 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60
+              ]
+            },
+            "evidence": "The elemental deals magic damage to enemies it passes through and slows them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Call of the Forge God can be recast after 1.25 seconds while the elemental is active.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "1.25",
+            "tip": "Includes the cast time"
+          }
+        ]
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Ornn dashes in the target direction, though not through terrain. If he collides with the elemental, he sends it stampeding in the same direction. The elemental deals the same damage to enemies it passes through and knocks them up and stuns them for 1 second, reduced to 0.5 seconds after the first enemy champion hit.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "250 / 350 / 450 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  250,
+                  350,
+                  450
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Recast: Ornn dashes in the target direction, though not through terrain.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "The elemental deals the same damage to enemies it passes through and knocks them up and stuns them for 1 second, reduced to 0.5 seconds after the first enemy champion hit.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "The elemental deals the same damage to enemies it passes through and knocks them up and stuns them for 1 second, reduced to 0.5 seconds after the first enemy champion hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Each pass applies Brittle to targets for 3 seconds and can affect enemies only once. The elemental briefly grants sight around its trajectory as it travels.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "brittle",
+            "category": "other",
+            "wording": "Brittle",
+            "evidence": "Each pass applies Brittle to targets for 3 seconds and can affect enemies only once.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "The elemental briefly grants sight around its trajectory as it travels.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Both casts count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Despite this, the effects of both casts count as the same cast instance.",
+      "Call of the Forge God cannot be recast while grounded or rooted.",
+      "Brittle enemies without Tenacity of their own will be stunned for a total of 1.3 seconds.",
+      "Spell shields may only block one pass.",
+      "Ornn becomes locked out of all actions during the recast's dash and for 0.5 seconds afterwards.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "Displacement immunity will also resist the application of the stun."
+    ]
+  },
+  {
+    "champion": "Ornn",
+    "kind": "W",
+    "name": "Bellows Breath",
+    "page": {
+      "title": "Template:Data Ornn/Bellows Breath",
+      "revid": 4011962
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11.5 / 11 / 10.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11.5,
+                11,
+                10.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 / 50 / 55 / 60 / 65",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                45,
+                50,
+                55,
+                60,
+                65
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "500 • 560",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Flame standard length"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 560
+            },
+            "label": "Final gout of flame length"
+          }
+        ]
+      },
+      "range": {
+        "text": "0.75 seconds × 35% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "label": "Lunge distance, see notes"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            },
+            "label": "Flame width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "special",
+      "projectile": "false",
+      "grounded": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ornn marches forward in the target direction over 0.75 seconds, gaining displacement immunity and becoming unable to act for the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "marches",
+            "evidence": "Active: Ornn marches forward in the target direction over 0.75 seconds, gaining displacement immunity and becoming unable to act for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "evidence": "Active: Ornn marches forward in the target direction over 0.75 seconds, gaining displacement immunity and becoming unable to act for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "Active: Ornn marches forward in the target direction over 0.75 seconds, gaining displacement immunity and becoming unable to act for the duration.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Over the march he belches fire over a cone in front of him, dealing magic damage every 0.15 seconds to enemies hit. The final gout of flame can reach slightly farther and will apply Brittle for 3 seconds.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "12 / 13 / 14 / 15 / 16% of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12,
+                  13,
+                  14,
+                  15,
+                  16
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "2.4 / 2.6 / 2.8 / 3 / 3.2% of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.4,
+                  2.6,
+                  2.8,
+                  3,
+                  3.2
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "brittle",
+            "category": "other",
+            "wording": "Brittle",
+            "evidence": "The final gout of flame can reach slightly farther and will apply Brittle for 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Bellows Breath has a minimum damage threshold, which is also the damage dealt to minions, and is capped against monsters.",
+        "leveling": [
+          {
+            "label": "Total Minimum/Minion Damage",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum/Minion Damage Per Tick",
+            "amount": {
+              "text": "16 / 26 / 36 / 46 / 56",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  16,
+                  26,
+                  36,
+                  46,
+                  56
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Monster Damage Cap",
+            "amount": {
+              "text": "260 / 320 / 380 / 440 / 500",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  260,
+                  320,
+                  380,
+                  440,
+                  500
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Monster Damage Cap Per Tick",
+            "amount": {
+              "text": "52 / 64 / 76 / 88 / 100",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  52,
+                  64,
+                  76,
+                  88,
+                  100
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Ornn's lunge distance is based on the distance he would travel in the target direction by standard movement over a time period of 0.75 seconds with 35% of his total movement speed.\n  - His movement speed during the lunge does not actually change in this case and is only used as a scaling.\n    - The scaling is based on the total movement speed Ornn had at the time of casting Bellows Breath.\n      - If his total movement speed was less than or equal to an estimated value of 190, then Ornn will not lunge at all.",
+      "While lunging, special VFX will be played when Ornn is first affected by crowd control, even if that crowd control is not resisted by displacement immunity.",
+      "Spell shield will negate the final instance of damage and prevents Brittle from being applied.",
+      "Ornn can see the on-target VFX on targets that are being struck even while they are in the fog of war.",
+      "Bellows Breath's lunge can pass over thin, player-generated terrain (i.e R) but will otherwise not be able to.",
+      "The following table refers for interactions while Ornn is performing Bellows Breath:"
+    ]
+  }
+]

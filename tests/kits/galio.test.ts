@@ -42,7 +42,7 @@ describe("Galio pinned source and numeric contract",()=>{
  it("retains all five primary pins, parsed fields, full templates and exact game objects",()=>{
   const rows=records("Galio");expect(new Set(compiled.evidence.filter(e=>e.revid).map(e=>e.revid))).toEqual(new Set([4016963,4038336,4016962,4017997,3990299]));
   const game=compiled.evidence.filter(e=>e.url);expect(game.length).toBeGreaterThanOrEqual(18);
-  expect(game.every(e=>e.sourceVersion==="16.20.8248524+branch.releases-16-20.content.release"&&e.sourceSha256==="2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508")).toBe(true);
+  expect(game.every(e=>e.sourceVersion==="16.21.8342754+branch.releases-16-21.content.release"&&e.sourceSha256==="6d9c46336ebaa6e0e8d69a30f747c5aac4d313e0c42acdebf963997a3e81b3fe")).toBe(true);
   for(const row of rows){expect(row.notes.some(note=>note.includes("Ability data"))).toBe(true);expect(row.sources!.some(source=>source.page.revid===row.page.revid&&source.text.join(" ").includes("Ability data"))).toBe(true);expect(row.gameSources!.every(source=>source.object.startsWith("Characters/Galio/")&&source.text.length>0)).toBe(true);}
   const e=rows.find(row=>row.kind==="E")!;expect(e.fields.targetRange!.text).toBe("250 - 650");expect(e.fields.targetRange!.values).toHaveLength(1);
   expect(ability("E").delivery).toMatchObject({kind:"dash",distance:650,minDistance:250,speed:2300});
@@ -181,7 +181,7 @@ describe("Hero's Entrance requires an actual friendly Champion-class target",()=
 describe("Galio ordinary15,000gold scenarios and production regression",()=>{
  it("retreats first after a completed trade and keeps R reserved during hold/trade",()=>{const world=worldFor();world.modes[0]="trade";world.units[0].memory.tradeDone=true;expect(compiled.spec.behavior!(perceive(world,0))).toEqual({kind:"move",direction:-1});for(const mode of ["hold","trade"] as const){world.modes[0]=mode;delete world.units[0].memory.tradeDone;summon(world,200,{targetClass:"champion"},true);expect(compiled.spec.behavior!(perceive(world,0))).not.toEqual({kind:"cast",ability:"R"});}const mix=compiled.spec.budget!.damage!(world.units[0],world.units[1]);expect(Object.values(mix).every(Number.isFinite)).toBe(true);expect(mix.magic).toBeGreaterThan(0);});
  it("production six-scenario Darius reversal preserves exact15,000gold builds and scores",()=>{
-  const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices,opponent=kit("Darius").spec;
+  const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices,opponent=kit("Darius").spec;
   const forward=simulateMatchup(compiled.spec,opponent,15000,prices,{settings:{log:true}}),reverse=simulateMatchup(opponent,compiled.spec,15000,prices);
   expect(forward.scenarios).toHaveLength(6);expect(forward.builds).toEqual([reverse.builds[1],reverse.builds[0]]);expect(Math.abs(forward.score+reverse.score)).toBeLessThanOrEqual(1e-10);
   const reflect=[1,0,2,3,4,5];for(const [index,scenario]of forward.scenarios.entries()){const other=reverse.scenarios[reflect[index]!]!;if(scenario.score===undefined)expect(other.score).toBeUndefined();else expect(Math.abs(scenario.score+other.score!)).toBeLessThanOrEqual(1e-10);expect(scenario.outcomes.every(outcome=>Number.isFinite(outcome.seconds)&&outcome.hp.every(Number.isFinite))).toBe(true);}

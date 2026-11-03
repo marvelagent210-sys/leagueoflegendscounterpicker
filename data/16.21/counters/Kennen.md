@@ -1,0 +1,243 @@
+# Counters to Kennen (patch 26.21)
+
+Every champion ranked by what its kit does against Kennen's, from the interaction ledger: projectile blocks, spell shields,
+parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
+interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
+
+"For" sums the interactions in the champion's favor, "against" those in Kennen's; net = for − against.
+A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
+Run `npm run matchup -- <champion> Kennen` for the full ledger of a matchup, with sources.
+
+## Top 10
+
+### 1. Sivir (net +0.75)
+
+- **0.55** spell shield: Spell Shield's spell shield blocks Kennen's Slicing Maelstrom. Spell shield for 1.5 s, long enough to use ahead of Slicing Maelstrom. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kennen R Slicing Maelstrom)
+- **0.40** spell shield: Spell Shield's spell shield blocks Kennen's Mark of the Storm. Spell shield for 1.5 s, long enough to use ahead of Mark of the Storm. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kennen I Mark of the Storm)
+
+### 2. Fizz (net +0.69)
+
+- **0.55** untargetable: Playful makes Fizz untargetable, dodging Kennen's Mark of the Storm. Untargetable for 0.75 s, timed to Mark of the Storm. (Fizz E Playful → Kennen I Mark of the Storm)
+- **0.55** untargetable: Playful makes Fizz untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 0.75 s; Slicing Maelstrom takes 0.25 s to land, enough to react. (Fizz E Playful → Kennen R Slicing Maelstrom)
+- Watch out: Kennen's basic attacks reach 375 units farther than Fizz's (550 vs 175 attack range).
+
+### 3. Kayle (net +0.69)
+
+- **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Kennen's Slicing Maelstrom. Invulnerable for 2.5 s, long enough to use ahead of Slicing Maelstrom. (Kayle R Divine Judgment → Kennen R Slicing Maelstrom)
+- **0.14** range: Kayle's basic attacks reach 75 units farther than Kennen's (625 vs 550 attack range). Kennen has no dash or blink to close the gap. (Kayle basic attacks → Kennen basic attacks)
+
+### 4. Aurora (net +0.68)
+
+- **0.55** untargetable: Between Worlds makes Aurora untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 0.4 s; Slicing Maelstrom takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Kennen R Slicing Maelstrom)
+- **0.25** untargetable: Between Worlds makes Aurora untargetable, dodging Kennen's Mark of the Storm. Untargetable for 0.4 s, timed to Mark of the Storm. Does not destroy inbound projectiles. (Aurora R Between Worlds → Kennen I Mark of the Storm)
+
+### 5. Bard (net +0.68)
+
+- **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 2.5 s, long enough to use ahead of Slicing Maelstrom. (Bard R Tempered Fate → Kennen R Slicing Maelstrom)
+- **0.26** untargetable: Tempered Fate makes Bard untargetable, dodging Kennen's Mark of the Storm. Untargetable for 2.5 s, long enough to use ahead of Mark of the Storm. (Bard R Tempered Fate → Kennen I Mark of the Storm)
+
+### 6. Lissandra (net +0.68)
+
+- **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 2.5 s, long enough to use ahead of Slicing Maelstrom. (Lissandra R Frozen Tomb → Kennen R Slicing Maelstrom)
+- **0.26** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Kennen's Mark of the Storm. Untargetable for 2.5 s, long enough to use ahead of Mark of the Storm. (Lissandra R Frozen Tomb → Kennen I Mark of the Storm)
+
+### 7. Xayah (net +0.68)
+
+- **0.55** untargetable: Featherstorm makes Xayah untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 1.5 s, long enough to use ahead of Slicing Maelstrom. (Xayah R Featherstorm → Kennen R Slicing Maelstrom)
+- **0.25** untargetable: Featherstorm makes Xayah untargetable, dodging Kennen's Mark of the Storm. Untargetable for 1.5 s, long enough to use ahead of Mark of the Storm. (Xayah R Featherstorm → Kennen I Mark of the Storm)
+
+### 8. Vladimir (net +0.55)
+
+- **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 2 s, long enough to use ahead of Slicing Maelstrom. (Vladimir W Sanguine Pool → Kennen R Slicing Maelstrom)
+- **0.43** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kennen's Mark of the Storm. Untargetable for 2 s, long enough to use ahead of Mark of the Storm. (Vladimir W Sanguine Pool → Kennen I Mark of the Storm)
+- Watch out: Kennen's basic attacks reach 100 units farther than Vladimir's (550 vs 450 attack range).
+
+### 9. Fiora (net +0.54)
+
+- **0.55** parry: Riposte parries Kennen's Slicing Maelstrom. Parry for 0.75 s; Slicing Maelstrom takes 0.25 s to land, enough to react. (Fiora W Riposte → Kennen R Slicing Maelstrom)
+- **0.53** parry: Riposte parries Kennen's Mark of the Storm and stuns back. Parry for 0.75 s, timed to Mark of the Storm. Negating Mark of the Storm's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Kennen I Mark of the Storm)
+- **0.07** attack speed slow: Riposte cuts Kennen's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Kennen basic attacks)
+- Watch out: Kennen's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range).
+
+### 10. Maokai (net +0.54)
+
+- **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Kennen's Mark of the Storm. Untargetable for 1.4 s, timed to Mark of the Storm. (Maokai W Twisted Advance → Kennen I Mark of the Storm)
+- **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 1.4 s; Slicing Maelstrom takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Kennen R Slicing Maelstrom)
+- Watch out: Kennen's basic attacks reach 425 units farther than Maokai's (550 vs 125 attack range).
+
+## Full ranking
+
+| # | Champion | Net | For | Against | Hard counters |
+|--:|---|--:|--:|--:|---|
+| 1 | Sivir | +0.75 | 0.75 | 0.00 |  |
+| 2 | Fizz | +0.69 | 0.83 | 0.14 |  |
+| 3 | Kayle | +0.69 | 0.69 | 0.00 |  |
+| 4 | Aurora | +0.68 | 0.68 | 0.00 |  |
+| 5 | Bard | +0.68 | 0.68 | 0.00 |  |
+| 6 | Lissandra | +0.68 | 0.68 | 0.00 |  |
+| 7 | Xayah | +0.68 | 0.68 | 0.00 |  |
+| 8 | Vladimir | +0.55 | 0.77 | 0.22 |  |
+| 9 | Fiora | +0.54 | 0.83 | 0.29 |  |
+| 10 | Maokai | +0.54 | 0.83 | 0.29 |  |
+| 11 | Camille | +0.54 | 0.68 | 0.14 |  |
+| 12 | Nocturne | +0.51 | 0.80 | 0.29 |  |
+| 13 | Rek'Sai | +0.50 | 0.68 | 0.18 |  |
+| 14 | Evelynn | +0.49 | 0.68 | 0.19 |  |
+| 15 | Shaco | +0.49 | 0.68 | 0.19 |  |
+| 16 | Zed | +0.49 | 0.68 | 0.19 |  |
+| 17 | Gwen | +0.46 | 0.75 | 0.29 |  |
+| 18 | Samira | +0.40 | 0.40 | 0.00 |  |
+| 19 | Mel | +0.39 | 0.39 | 0.00 |  |
+| 20 | Teemo | +0.38 | 0.38 | 0.00 |  |
+| 21 | Yuumi | +0.33 | 0.83 | 0.50 |  |
+| 22 | Braum | +0.32 | 0.61 | 0.29 | projectile block (Unbreakable) |
+| 23 | Morgana | +0.29 | 0.43 | 0.14 |  |
+| 24 | Xin Zhao | +0.28 | 0.55 | 0.27 |  |
+| 25 | Yasuo | +0.28 | 0.46 | 0.18 |  |
+| 26 | Milio | +0.28 | 0.28 | 0.00 |  |
+| 27 | Lulu | +0.27 | 0.27 | 0.00 |  |
+| 28 | Tristana | +0.27 | 0.27 | 0.00 |  |
+| 29 | Udyr | +0.26 | 0.55 | 0.29 |  |
+| 30 | Master Yi | +0.25 | 0.75 | 0.50 |  |
+| 31 | Kalista | +0.20 | 0.20 | 0.00 |  |
+| 32 | Kled | +0.14 | 0.25 | 0.11 |  |
+| 33 | Zaahen | +0.08 | 0.26 | 0.18 |  |
+| 34 | Annie | +0.08 | 0.08 | 0.00 |  |
+| 35 | Kayn | +0.05 | 0.68 | 0.63 |  |
+| 36 | Nilah | +0.03 | 0.27 | 0.24 |  |
+| 37 | Jax | +0.02 | 0.31 | 0.29 |  |
+| 38 | Ahri | 0.00 | 0.00 | 0.00 |  |
+| 39 | Anivia | 0.00 | 0.00 | 0.00 |  |
+| 40 | Aphelios | 0.00 | 0.00 | 0.00 |  |
+| 41 | Ashe | 0.00 | 0.00 | 0.00 |  |
+| 42 | Azir | 0.00 | 0.00 | 0.00 |  |
+| 43 | Brand | 0.00 | 0.00 | 0.00 |  |
+| 44 | Cassiopeia | 0.00 | 0.00 | 0.00 |  |
+| 45 | Corki | 0.00 | 0.00 | 0.00 |  |
+| 46 | Draven | 0.00 | 0.00 | 0.00 |  |
+| 47 | Elise | 0.00 | 0.00 | 0.00 |  |
+| 48 | Ezreal | 0.00 | 0.00 | 0.00 |  |
+| 49 | Gnar | 0.00 | 0.00 | 0.00 |  |
+| 50 | Heimerdinger | 0.00 | 0.00 | 0.00 |  |
+| 51 | Hwei | 0.00 | 0.00 | 0.00 |  |
+| 52 | Jayce | 0.00 | 0.00 | 0.00 |  |
+| 53 | Jinx | 0.00 | 0.00 | 0.00 |  |
+| 54 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
+| 55 | Karma | 0.00 | 0.00 | 0.00 |  |
+| 56 | Kindred | 0.00 | 0.00 | 0.00 |  |
+| 57 | Kog'Maw | 0.00 | 0.00 | 0.00 |  |
+| 58 | LeBlanc | 0.00 | 0.00 | 0.00 |  |
+| 59 | Lux | 0.00 | 0.00 | 0.00 |  |
+| 60 | Nami | 0.00 | 0.00 | 0.00 |  |
+| 61 | Neeko | 0.00 | 0.00 | 0.00 |  |
+| 62 | Nidalee | 0.00 | 0.00 | 0.00 |  |
+| 63 | Orianna | 0.00 | 0.00 | 0.00 |  |
+| 64 | Renata Glasc | 0.00 | 0.00 | 0.00 |  |
+| 65 | Senna | 0.00 | 0.00 | 0.00 |  |
+| 66 | Seraphine | 0.00 | 0.00 | 0.00 |  |
+| 67 | Smolder | 0.00 | 0.00 | 0.00 |  |
+| 68 | Sona | 0.00 | 0.00 | 0.00 |  |
+| 69 | Soraka | 0.00 | 0.00 | 0.00 |  |
+| 70 | Swain | 0.00 | 0.00 | 0.00 |  |
+| 71 | Syndra | 0.00 | 0.00 | 0.00 |  |
+| 72 | Twitch | 0.00 | 0.00 | 0.00 |  |
+| 73 | Vayne | 0.00 | 0.00 | 0.00 |  |
+| 74 | Veigar | 0.00 | 0.00 | 0.00 |  |
+| 75 | Vex | 0.00 | 0.00 | 0.00 |  |
+| 76 | Viktor | 0.00 | 0.00 | 0.00 |  |
+| 77 | Yunara | 0.00 | 0.00 | 0.00 |  |
+| 78 | Zeri | 0.00 | 0.00 | 0.00 |  |
+| 79 | Ziggs | 0.00 | 0.00 | 0.00 |  |
+| 80 | Zilean | 0.00 | 0.00 | 0.00 |  |
+| 81 | Zoe | 0.00 | 0.00 | 0.00 |  |
+| 82 | Zyra | 0.00 | 0.00 | 0.00 |  |
+| 83 | Thresh | -0.05 | 0.00 | 0.05 |  |
+| 84 | Graves | -0.06 | 0.00 | 0.06 |  |
+| 85 | Alistar | -0.08 | 0.21 | 0.29 |  |
+| 86 | Aurelion Sol | -0.08 | 0.00 | 0.08 |  |
+| 87 | Malphite | -0.10 | 0.19 | 0.29 |  |
+| 88 | Caitlyn | -0.10 | 0.18 | 0.28 |  |
+| 89 | Varus | -0.11 | 0.00 | 0.11 |  |
+| 90 | Malzahar | -0.12 | 0.28 | 0.40 |  |
+| 91 | Rakan | -0.12 | 0.00 | 0.12 |  |
+| 92 | Pantheon | -0.13 | 0.55 | 0.68 |  |
+| 93 | Rengar | -0.14 | 0.44 | 0.58 |  |
+| 94 | Briar | -0.14 | 0.00 | 0.14 |  |
+| 95 | Jarvan IV | -0.14 | 0.00 | 0.14 |  |
+| 96 | K'Sante | -0.14 | 0.00 | 0.14 |  |
+| 97 | Sylas | -0.14 | 0.00 | 0.14 |  |
+| 98 | Urgot | -0.14 | 0.00 | 0.14 |  |
+| 99 | Yone | -0.14 | 0.00 | 0.14 |  |
+| 100 | Lillia | -0.16 | 0.00 | 0.16 |  |
+| 101 | Hecarim | -0.18 | 0.00 | 0.18 |  |
+| 102 | Wukong | -0.18 | 0.00 | 0.18 |  |
+| 103 | Ornn | -0.18 | 0.00 | 0.18 |  |
+| 104 | Rell | -0.18 | 0.00 | 0.18 |  |
+| 105 | Akali | -0.19 | 0.00 | 0.19 |  |
+| 106 | Ambessa | -0.19 | 0.00 | 0.19 |  |
+| 107 | Bel'Veth | -0.19 | 0.00 | 0.19 |  |
+| 108 | Ekko | -0.19 | 0.00 | 0.19 |  |
+| 109 | Lee Sin | -0.19 | 0.00 | 0.19 |  |
+| 110 | Qiyana | -0.19 | 0.00 | 0.19 |  |
+| 111 | Quinn | -0.19 | 0.00 | 0.19 |  |
+| 112 | Riven | -0.19 | 0.00 | 0.19 |  |
+| 113 | Talon | -0.19 | 0.00 | 0.19 |  |
+| 114 | Volibear | -0.19 | 0.00 | 0.19 |  |
+| 115 | Ivern | -0.20 | 0.00 | 0.20 |  |
+| 116 | Gangplank | -0.22 | 0.36 | 0.58 |  |
+| 117 | Irelia | -0.25 | 0.00 | 0.25 |  |
+| 118 | Rammus | -0.27 | 0.29 | 0.56 |  |
+| 119 | Aatrox | -0.27 | 0.00 | 0.27 |  |
+| 120 | Nautilus | -0.27 | 0.00 | 0.27 |  |
+| 121 | Tryndamere | -0.27 | 0.00 | 0.27 |  |
+| 122 | Akshan | -0.28 | 0.00 | 0.28 |  |
+| 123 | Jhin | -0.28 | 0.00 | 0.28 |  |
+| 124 | Lucian | -0.28 | 0.00 | 0.28 |  |
+| 125 | Miss Fortune | -0.28 | 0.00 | 0.28 |  |
+| 126 | Vel'Koz | -0.28 | 0.00 | 0.28 |  |
+| 127 | Nasus | -0.29 | 0.29 | 0.58 |  |
+| 128 | Amumu | -0.29 | 0.00 | 0.29 |  |
+| 129 | Diana | -0.29 | 0.00 | 0.29 |  |
+| 130 | Illaoi | -0.29 | 0.00 | 0.29 |  |
+| 131 | Kassadin | -0.29 | 0.00 | 0.29 |  |
+| 132 | Kha'Zix | -0.29 | 0.00 | 0.29 |  |
+| 133 | Leona | -0.29 | 0.00 | 0.29 |  |
+| 134 | Locke | -0.29 | 0.00 | 0.29 |  |
+| 135 | Renekton | -0.29 | 0.00 | 0.29 |  |
+| 136 | Sejuani | -0.29 | 0.00 | 0.29 |  |
+| 137 | Sett | -0.29 | 0.00 | 0.29 |  |
+| 138 | Shyvana | -0.29 | 0.00 | 0.29 |  |
+| 139 | Olaf | -0.32 | 0.26 | 0.58 |  |
+| 140 | Xerath | -0.32 | 0.00 | 0.32 |  |
+| 141 | Pyke | -0.34 | 0.00 | 0.34 |  |
+| 142 | Shen | -0.35 | 0.29 | 0.64 |  |
+| 143 | Ryze | -0.35 | 0.00 | 0.35 |  |
+| 144 | Twisted Fate | -0.35 | 0.00 | 0.35 |  |
+| 145 | Viego | -0.35 | 0.00 | 0.35 |  |
+| 146 | Sion | -0.39 | 0.28 | 0.67 |  |
+| 147 | Garen | -0.40 | 0.14 | 0.54 |  |
+| 148 | Janna | -0.40 | 0.00 | 0.40 |  |
+| 149 | Karthus | -0.42 | 0.00 | 0.42 |  |
+| 150 | Fiddlesticks | -0.45 | 0.00 | 0.45 |  |
+| 151 | Gragas | -0.45 | 0.00 | 0.45 |  |
+| 152 | Mordekaiser | -0.47 | 0.07 | 0.54 |  |
+| 153 | Taliyah | -0.48 | 0.00 | 0.48 |  |
+| 154 | Poppy | -0.49 | 0.00 | 0.49 |  |
+| 155 | Darius | -0.54 | 0.00 | 0.54 |  |
+| 156 | Trundle | -0.54 | 0.00 | 0.54 |  |
+| 157 | Yorick | -0.54 | 0.00 | 0.54 |  |
+| 158 | Warwick | -0.57 | 0.27 | 0.84 |  |
+| 159 | Katarina | -0.57 | 0.00 | 0.57 |  |
+| 160 | Vi | -0.57 | 0.00 | 0.57 |  |
+| 161 | Blitzcrank | -0.58 | 0.00 | 0.58 |  |
+| 162 | Cho'Gath | -0.58 | 0.00 | 0.58 |  |
+| 163 | Dr. Mundo | -0.58 | 0.00 | 0.58 |  |
+| 164 | Rumble | -0.58 | 0.00 | 0.58 |  |
+| 165 | Singed | -0.58 | 0.00 | 0.58 |  |
+| 166 | Skarner | -0.58 | 0.00 | 0.58 |  |
+| 167 | Taric | -0.58 | 0.00 | 0.58 |  |
+| 168 | Naafiri | -0.59 | 0.00 | 0.59 |  |
+| 169 | Zac | -0.74 | 0.00 | 0.74 |  |
+| 170 | Tahm Kench | -0.77 | 0.00 | 0.77 |  |
+| 171 | Galio | -0.78 | 0.00 | 0.78 |  |
+| 172 | Nunu & Willump | -1.07 | 0.00 | 1.07 |  |

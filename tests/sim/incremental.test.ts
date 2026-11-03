@@ -85,11 +85,11 @@ describe("pair keys", () => {
 
 describe("the committed matrices", () => {
   it("were computed from the current inputs, pairing by pairing", async () => {
-    const dir = path.join(DATA_DIR, "16.20");
+    const dir = path.join(DATA_DIR, "16.21");
     const simulated = JSON.parse(await readFile(path.join(dir, "simulated.json"), "utf8")) as { inputs: PairInputs; simulation: { fingerprint: string } };
-    expect(simulated.inputs).toEqual(await pairInputs("16.20", "sim"));
+    expect(simulated.inputs).toEqual(await pairInputs("16.21", "sim"));
     const builds = JSON.parse(await readFile(path.join(dir, "simulated-builds.json"), "utf8")) as { inputs: PairInputs };
-    expect(builds.inputs).toEqual(await pairInputs("16.20", "builds", "sixItems"));
+    expect(builds.inputs).toEqual(await pairInputs("16.21", "builds", "sixItems"));
     expect(Object.keys(simulated.inputs.kits).sort()).toEqual(Object.keys(KITS).sort());
     const spent = JSON.parse(await readFile(path.join(dir, SPENT_FILE), "utf8")) as { simulation: { fingerprint: string }; stats: string[]; spent: Record<string, Record<string, number[]>> };
     expect(spent.simulation.fingerprint).toBe(simulated.simulation.fingerprint);
@@ -101,9 +101,9 @@ describe("the committed matrices", () => {
   it("give back a reused pairing exactly as computing it again writes it, kit variants included", async () => {
     const pairs: Array<[string, string]> = [["Darius", "Garen"], ["Heimerdinger", "Jax"]];
     const ids = [...new Set(pairs.flat())];
-    const { results } = reusable(pairs, await pairInputs("16.20", "sim"), await plainStores("16.20"));
+    const { results } = reusable(pairs, await pairInputs("16.21", "sim"), await plainStores("16.21"));
     expect(results.size).toBe(pairs.length);
-    const fresh = await simulatePairs("16.20", DEFAULT_BUDGET, pairs, 2);
+    const fresh = await simulatePairs("16.21", DEFAULT_BUDGET, pairs, 2);
     const written = (matrix: SimulatedMatrix) => JSON.stringify([matrix.scores, matrix.spent, matrix.variants].map((rows) => [...rows].map(([id, row]) => [id, [...row]])));
     const reused = simulatedMatrix(ids, DEFAULT_BUDGET, pairs, pairs.map((_, index) => ({ ...results.get(index)!, index })));
     const computed = simulatedMatrix(ids, DEFAULT_BUDGET, pairs, fresh.sort((a, b) => a.index - b.index));

@@ -1,0 +1,243 @@
+{
+  "champion": "Azir",
+  "name": "Azir",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "azir",
+      "formName": "Azir",
+      "range": 525,
+      "ranged": true,
+      "projectile": false,
+      "attackSpeed": 1.30738,
+      "attackDamage": 124.828,
+      "windup": 0.119514,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Azir",
+      "kind": "E",
+      "name": "Shifting Sands",
+      "page": {
+        "title": "Template:Data Azir/Shifting Sands",
+        "revid": 4022609
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted; (only after using"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "condition": "(only after using",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Azir/Shifting Sands",
+              "revid": 4022609,
+              "quote": "Active: Azir grants himself a shield for 1.5 seconds and dashes to the Sand Soldier closest to the cursor, dealing magic damage to enemies within his path."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 16,
+      "castTime": 0,
+      "range": 1100
+    },
+    {
+      "champion": "Azir",
+      "kind": "I",
+      "name": "Shurima's Legacy",
+      "page": {
+        "title": "Template:Data Azir/Shurima's Legacy",
+        "revid": 3962342
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no",
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "range": 700,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Azir",
+      "kind": "Q",
+      "name": "Conquering Sands",
+      "page": {
+        "title": "Template:Data Azir/Conquering Sands",
+        "revid": 4051339
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Azir/Conquering Sands",
+              "revid": 4051339,
+              "quote": "Active: Azir orders all Sand Soldiers to dash toward the target location, dealing magic damage to all enemies they pass through as well as those in front of them upon arrival, and slowing them by 25% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 740,
+      "notes": [
+        "Sand Soldiers dash about 50 units further away from Azir than the target location, making them stab targets slightly further away.",
+        "Sand Soldiers will stop their movement upon colliding with Wind Wall or Rebuttal, but not Unbreakable.",
+        "Sand Soldiers will automatically turn to face nearby enemy champions after the dash.\n  - This happens even if they're in stealth."
+      ]
+    },
+    {
+      "champion": "Azir",
+      "kind": "R",
+      "name": "Emperor's Divide",
+      "page": {
+        "title": "Template:Data Azir/Emperor's Divide",
+        "revid": 4042859
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Azir/Emperor's Divide",
+              "revid": 4042859,
+              "quote": "Enemies impacted by the charge are dealt magic damage and knocked away over 1 second to a line 650 units in front of Azir."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.5,
+      "range": 400,
+      "speed": 1000,
+      "notes": [
+        "The soldier units are spawned only 175 units behind Azir, but do not control the knock back directly. Each comes with a missile that travels the same path and conveys the damage and knockback effect.\n  - The furthest area (from 325 to 175 units behind Azir) is covered by a separate set of missiles with the same effects.\n  - All of the soldiers and their missiles will end the charge prematurely when one encounters Wind Wall / Unbreakable / Blade Whirl / Rebuttal or upon colliding with terrain that they cannot charge through.",
+        "When the dash of the soldiers comes to a halt, all not-yet-affected enemies on top of the soldiers' landing locations (125 radius) are also knocked back.",
+        "While the soldiers are charging forward, the wall is not impassable terrain.\n  - This means enemies that are immune to airborne effects can pass through the wall while its moving."
+      ]
+    },
+    {
+      "champion": "Azir",
+      "kind": "W",
+      "name": "Arise!",
+      "page": {
+        "title": "Template:Data Azir/Arise!",
+        "revid": 4044339
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted; )"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "condition": ")"
+        }
+      ],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 525,
+      "notes": [
+        "Azir can only command his soldiers to attack if he is able to declare basic attack commands himself, meaning crowd control effects that disable attacking, such as disarm, do not allow him to order his soldiers to attack in his stead."
+      ]
+    }
+  ]
+}

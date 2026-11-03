@@ -18,7 +18,7 @@ import { championData, kit, pets, records, runes } from "./helpers";
 
 const compile = (stacks = 0) => compileKit(championData("Veigar"), records("Veigar"), Veigar, { phenomenalEvilStacks: stacks }, pets("Veigar"), runes());
 const veigar = compile();
-const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
 const ability = (spec: FighterSpec, key: string) => spec.abilities.find((a) => a.key === key)!;
 const dummy = () => fighter({ base: { hp: 10000, armor: 0, mr: 0, moveSpeed: 0, hpRegen: 0 } });
 function worldFor(stacks = 0, ap = 100): World {
@@ -45,7 +45,7 @@ function defend(world: World, state: "spellShield" | "parry" | "untargetable" | 
 describe("Veigar source-backed values and Phenomenal Evil", () => {
   it("retains all five pinned ability revisions and explicit unresolved assumptions", () => {
     expect(veigar.spec.abilities.map((a) => a.slot)).toEqual(["Q", "W", "E", "R"]);
-    expect(new Set(veigar.evidence.map((e) => e.revid))).toEqual(new Set([3932550, 4050924, 3991312, 4016714, 4004085]));
+    expect(new Set(veigar.evidence.map((e) => e.revid))).toEqual(new Set([3932550, 4050924, 4086048, 4016714, 4004085]));
     expect(veigar.assumptions.join(" ")).toContain("missile speed is absent");
     expect(veigar.assumptions.join(" ")).toContain("discrete 50-stack thresholds");
     expect(veigar.assumptions.join(" ")).toContain("center-based boundary intervals");

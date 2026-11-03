@@ -25,7 +25,7 @@ const zoe: KitModule = {
     const qRange=q.field("range","Initial missile"),qReach=q.field("range","Redirected missile range"),qRadius=q.field("effectRadius"),qWidth=q.field("width","Initial width"),qWidth2=q.field("width","after redirection"),qSpeed=q.field("speed","Initial missile"),qSpeed2=q.field("speed","after redirection"),qLinger=q.quoted("lingers at maximum range for 1 second"),qRecast=q.quoted("after 0.25 seconds"),qScale=q.seriesIn("total damage is increased");
     const qCap=Number(q.quote("146,6%").replace(",",".").replace("%",""))/100;
     q.quote("resetting its damage modifier on cast");q.quote("can be used while affected by cast-inhibiting crowd control");
-    const eDamage=e.formula("Magic Damage"),eCap=e.formula("Bonus Damage Cap"),eRange=e.fieldNumbers("range")[0]!,eBounce=e.fieldNumbers("range")[1]!,eRadius=e.field("effectRadius"),eWidth=e.field("width","Initial missile"),eLollipop=e.field("width","Lollipop")/2,eSpeed=e.field("speed"),eBounceSeconds=e.quoted("over 1 second"),eTrapSeconds=e.quoted("trap for 5 seconds"),eDrowsy=e.quoted("drowsy for 1.4 seconds"),eSleep=e.quoted("asleep for 2.25 seconds"),eSlow=e.fraction("Maximum Slow"),eShred=e.quoted("30% magic resistance reduction")/100,eTail=e.quoted("within 1 second of the sleep ending"),eRefund=e.fraction("Cooldown Refund");
+    const eDamage=e.formula("Magic Damage"),eCap=e.formula("Bonus Damage Cap"),eRange=e.fieldNumbers("range")[0]!,eBounce=e.fieldNumbers("range")[1]!,eRadius=e.field("effectRadius"),eWidth=e.field("width","Initial missile"),eLollipop=e.field("width","Lollipop")/2,eSpeed=e.field("speed"),eBounceSeconds=e.quoted("over 1 second"),eTrapSeconds=e.quoted("trap for 5 seconds"),eDrowsy=e.quoted("drowsy for 1.4 seconds"),eSleep=e.quoted("asleep for 2.25 seconds"),eSlow=e.fraction("Maximum Slow"),eShred=e.quoted("30% magic resistance reduction")/100,eWindow=e.quoted("within 3.25 seconds of the sleep being applied"),eRefund=e.fraction("Cooldown Refund");
     e.quote("Spell shield will not prevent falling asleep nor block the wake-up damage");e.quote("damage and drowsy application will be blocked");e.quote("before any triggering damage");e.quote("can interact with player-generated terrain");
     const wSpeed=w.fraction("Bonus Movement Speed"),wSeconds=w.number("Bonus Movement Speed Duration"),wBolts=w.quoted("conjures 3 orbiting bolts");
     const wLife=w.quoted("next 10 seconds"),wHeld=w.quoted("up to 60 seconds"),wRange=w.field("effectRadius","Bolt lock-on"),wDamage=w.formula("Magic Damage Per Bolt"),wMissile=w.gameQuoted("mSpell.missileSpeed: 1400.0");
@@ -76,7 +76,8 @@ const zoe: KitModule = {
       target.memory[`${key}:sleepStarted`]=true;
       if(applyCC(ctx.world,ctx.self,target,"sleep",eSleep,0,false,sleep.key)){
         const status=target.statuses.findLast(s=>s.kind==="cc"&&s.key==="sleep"&&s.source===ctx.self.side&&s.ability===sleep.key)!;
-        mark.endTick=status.endTick+ticks(eTail);target.memory[`${key}:sleepEnd`]=status.endTick;
+        // 26.21: the wake-up damage has a fixed window from the sleep's start, however the sleep ends.
+        mark.endTick=ctx.tick+ticks(eWindow);target.memory[`${key}:sleepEnd`]=status.endTick;
         target.statuses.push({kind:"stat",key:"mrReductionPercent",source:ctx.self.side,startTick:ctx.tick,endTick:status.endTick,value:eShred,ability:sleep.key,whileCC:"sleep",memoKey:`${key}:shred`});
         target.statuses.push({kind:"state",key:"standardSight",source:ctx.self.side,startTick:ctx.tick,endTick:status.endTick,value:0,ability:sleep.key,revealWhileCC:"sleep",memoKey:`${key}:sight`});
       }else target.statuses=target.statuses.filter(s=>s!==mark);
@@ -92,9 +93,6 @@ const zoe: KitModule = {
           if(ctx.tick<=mark.value&&!drowsy)target.memory[`${key}:valid`]=false;
           if(drowsy)drowsy.value=eSlow*Math.min(1,(ctx.tick-drowsy.startTick)/Math.max(1,ticks(eDrowsy)));
           startSleep(ctx,target,pet);
-        }else{
-          const sleeping=target.statuses.some(s=>s.kind==="cc"&&s.key==="sleep"&&s.ability===sleep.key&&s.source===ctx.self.side&&s.endTick>ctx.tick);
-          if(!sleeping&&!target.memory[`${key}:tailStarted`]){target.memory[`${key}:tailStarted`]=true;mark.endTick=Math.min(mark.endTick,ctx.tick+ticks(eTail));}
         }
         sync(target,pet);
       }
@@ -196,7 +194,7 @@ const zoe: KitModule = {
         // status into that transfer phase, so cleanses can remove it, without
         // extending gameplay: startSleep removes it at this original deadline.
         const sleepAt=drowsy.endTick;drowsy.endTick=sleepAt+1;
-        const key=`${E}:${ctx.self.side}`;target.statuses=target.statuses.filter(s=>!(s.kind==="mark"&&s.key===key));target.statuses.push({kind:"mark",key,source:ctx.self.side,startTick:ctx.tick,endTick:sleepAt+ticks(eSleep)+ticks(eTail),value:sleepAt});target.memory[`${key}:valid`]=true;target.memory[`${key}:sleepStarted`]=false;target.memory[`${key}:tailStarted`]=false;target.memory[`${key}:cap`]=evaluate(eCap,ctx.self,target);sync(target,pet);
+        const key=`${E}:${ctx.self.side}`;target.statuses=target.statuses.filter(s=>!(s.kind==="mark"&&s.key===key));target.statuses.push({kind:"mark",key,source:ctx.self.side,startTick:ctx.tick,endTick:sleepAt+ticks(eWindow),value:sleepAt});target.memory[`${key}:valid`]=true;target.memory[`${key}:sleepStarted`]=false;target.memory[`${key}:cap`]=evaluate(eCap,ctx.self,target);sync(target,pet);
       },
       onBeforeDamageObserved(ctx){
         if(ctx.target.side===ctx.self.side||ctx.source.side!==ctx.self.side||ctx.persistent||ctx.ability===wake.key||ctx.ability===wake.name||ctx.amount<=0||hasState(ctx.target,"parry"))return;

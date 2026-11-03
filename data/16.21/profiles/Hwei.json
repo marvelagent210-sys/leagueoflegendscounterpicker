@@ -1,0 +1,591 @@
+{
+  "champion": "Hwei",
+  "name": "Hwei",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "hwei",
+      "formName": "Hwei",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2800,
+      "attackSpeed": 1.01349,
+      "attackDamage": 118.895,
+      "windup": 0.184798,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Crushing Maw",
+      "page": {
+        "title": "Template:Data Hwei/Crushing Maw",
+        "revid": 4008532
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Hwei/Crushing Maw",
+              "revid": 4008532,
+              "quote": "Enemies that are not standing at the center when the jaw snaps are pulled there."
+            }
+          ],
+          "variant": "pull",
+          "condition": "Enemies that are not standing at the center when the jaw snaps are pulled there."
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Crushing Maw",
+              "revid": 4008532,
+              "quote": "Active - EE: Hwei conjures a jaw at the target location that snaps after 0.6 seconds, dealing magic damage to enemies in the area and slowing them by an amount that decays over 1.25 seconds."
+            }
+          ],
+          "duration": 1.25,
+          "amount": 70
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.35,
+      "range": 800
+    },
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Molten Fissure",
+      "page": {
+        "title": "Template:Data Hwei/Molten Fissure",
+        "revid": 4026407
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Molten Fissure",
+              "revid": 4026407,
+              "quote": "A fissure lasts for 2.5 seconds, dealing magic damage every 0.25 seconds to enemies within the area and slowing them by 35%."
+            }
+          ],
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.35,
+      "range": 1200,
+      "notes": [
+        "Spell shield will block an explosion but not the persistent lava damage.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Molten Fissure|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = E\n|icon         = Hwei Molten Fissure.png\n|blurb        = {{sbc|Active - QE:}} {{ci|Hwei}} marks a blazing path in a direction that erupts after a delay into explosions. Each explosion deals {{as|magic damage}} and leaves behind a volcanic fissure that continually deals {{as|magic damage}} and {{tip|slow|slows}} enemies within.\n|description  = {{sbc|Active - QE:}} '''Hwei''' marks a blazing path in the target direction. After {{tt|{{fd|0.6}} seconds|From start of cast time}}, the path erupts into volcanic explosions every {{tt|{{fd|0.2}} seconds|Estimated}} from the point of cast, for a total of 7 explosions. Each explosion creates a shockwave that deals {{as|magic damage}} to nearby enemies.\n|leveling     = {{st|Magic Damage|{{ap|20 to 80}} {{as|(+ 30% AP)}}}}\n|description2 = Each explosion also leaves a lava fissure in its wake. A fissure lasts for {{fd|2.5}} seconds, dealing {{as|magic damage}} every {{fd|0.25}} seconds to enemies within the area and {{tip|slow|slowing}} them by 35%. Enemies may be damaged by multiple fissures at once.\n|leveling2    = {{st|Magic Damage per Tick|{{ap|50/10 to 200/10}} {{as|(+ {{ap|60/10}}% AP)}}|Total Fissure Magic Damage|{{ap|50 to 200}} {{as|(+ 60% AP)}}}}\n|description3 = ''Molten Fissure's'' damage is reduced to 60% against {{tip|minions}} and increased to 135% against {{tip|monsters}}.\n|description4 = ''Molten Fissure's {{tip|slow}} stacks multiplicatively with the slows applied by {{ai|Grim Visage|Hwei}}, {{ai|Crushing Maw|Hwei}}, and {{ai|Spiraling Despair|Hwei}}.''\n|range        = 1200\n|effect radius= {{tip|cr|icononly=true}} 225\n|speed        =\n|width        = {{tip|cr|icononly=true}} 225\n|cooldown     = \n|cdstart      = \n|queue time   = {{fd|0.25}}\n|targeting    = Direction\n|cast time    = {{fd|0.35}}\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = special\n|spellshield  = special\n|projectile   = true\n|notes        = \n* Applies {{tip|area damage}} for the explosions and deals {{tip|persistent area damage}} for the lava.\n* The shockwaves can only hit each enemy once.\n* {{tip|Spell shield}} will block an explosion but not the persistent lava damage.\n{{Effect at cast time start}}\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Stirring Lights",
+      "page": {
+        "title": "Template:Data Hwei/Stirring Lights",
+        "revid": 3927605
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0,
+      "notes": [
+        "Spell shield will not block the bonus damage even if it is applied by an ability.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Stirring Lights|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = E\n|icon         = Hwei Stirring Lights.png\n|blurb        = {{sbc|Active - WE:}} {{ci|Hwei}} surrounds himself in swirling flares that empower his next 3 basic attacks or abilities to deal {{as|'''bonus''' magic damage}} and restore {{sti|{{as|mana}}}}.\n|description  = {{sbc|Active - WE:}} '''Hwei''' surrounds himself in swirling flares that empower his next 3 [[basic attacks]] or [[champion ability|ability]] hits within 9 seconds to each deal {{as|'''bonus''' magic damage}} and restore {{sti|{{as|mana}}}}.\n|leveling     = {{st|Bonus Magic Damage|{{ap|20 to 60}} {{as|(+ 15% AP)}}|Maximum Magic Damage|{{ap|20*3 to 60*3}} {{as|(+ {{ap|15*3}}% AP)}}}}\n{{st|Mana Restore|{{ap|135/3 to 195/3}}|Total Mana Restore|{{ap|135 to 195}}}}\n|description2 = ''Stirring Lights' '' '''bonus''' damage is reduced to 50% against {{tip|minions}} or {{tip|monsters}} if applied by his area of effect abilities.\n|leveling2    = {{st|Reduced Bonus Damage|{{ap|20*0.5 to 60*0.5}} {{as|(+ {{ap|15*0.5}}% AP)}}}}\n|cooldown     = \n|cdstart      = \n|queue time   = {{fd|0.25}}\n|targeting    = Auto\n|cast time    = none\n|affects      = Self, Enemies\n|damagetype   = Magic\n|spelleffects = proc\n|spellshield  = false\n|notes        = \n* ''Stirring Lights' '' bonus damage to non-champions is reduced if applied by ''{{ai|Devastating Fire|Hwei}}'', ''{{ai|Severing Bolt|Hwei}}'', ''{{ai|Molten Fissure|Hwei}}'', ''{{ai|Crushing Maw|Hwei}}'', or ''{{ai|Spiraling Despair|Hwei}}''.\n* {{tip|Spell shield}} will not block the bonus damage even if it is applied by an ability.{{bug}}\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Subject: Torment",
+      "page": {
+        "title": "Template:Data Hwei/Subject: Torment",
+        "revid": 4026410
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0
+    },
+    {
+      "champion": "Hwei",
+      "kind": "I",
+      "name": "Signature of the Visionary",
+      "page": {
+        "title": "Template:Data Hwei/Signature of the Visionary",
+        "revid": 4038347
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield will block both the mark and its consumption as well as the detonation.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Signature of the Visionary|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = I\n|icon         = Hwei Signature of the Visionary.png\n|description  = {{sbc|Innate:}} '''Hwei's''' damaging {{tip|abilities}} mark enemies hit for 4 seconds. Subsequent damaging abilities against marked targets consume the mark to create an explosion beneath them, dealing {{as|{{pplevel|40 to 285}}|magic damage}} {{as|(+ 35% AP)}} {{as|'''bonus''' magic damage}} to enemies in the area after a {{fd|0.85}}-second delay.\n|effect radius= {{tip|er|icononly = true}} {{tt|285|Center of marked champion to edge of other units}}\n|cooldown     = \n|targeting    = Passive\n|affects      = Self, Enemies\n|damagetype   = Magic\n|spelleffects = aoe\n|spellshield  = true\n|notes        = \n* The ability that consumes the mark cannot apply it on the same {{tip|cast instance}}.\n* The mark '''cannot''' be triggered from the same cast instance of an ability, even if the triggering ability was empowered by ''{{ai|Stirring Lights|Hwei}}''.\n* The explosion occurs around the marked target from where they were when the ability damaged them to consume the mark.\n** In other words, the explosion is at the location of where they were hit, not where they are at the end of the delay.\n*** The target who had their mark consumed is able to escape the area of the explosion within the delay period.\n* Enemies can be damaged by multiple explosions at once.\n* {{tip|Spell shield}} will block both the mark and its consumption as well as the detonation.\n* The indicator for the effect telegraphs an unusually smaller radius than it actually hits.{{bug|1}}\n<!-- Blurb -->\n|blurb        = {{sbc|Innate:}} {{cis|Hwei}} damaging abilities mark enemies hit for a short time. Damaging them with a different ability consumes the mark to create an explosion at their location that deals {{as|magic damage}} in an area.\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Devastating Fire",
+      "page": {
+        "title": "Template:Data Hwei/Devastating Fire",
+        "revid": 4026403
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 2000,
+      "notes": [
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Devastating Fire|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = Q\n|icon         = Hwei Devastating Fire.png\n|blurb        = {{sbc|Active - QQ:}} {{ci|Hwei}} slings a fireball in the target direction, dealing {{as|magic damage}} to enemies hit.\n|description  = {{sbc|Active - QQ:}} '''Hwei''' slings a fireball in the target direction that explodes upon colliding with the first enemy or reaching maximum range, dealing {{as|magic damage}} to all nearby enemies. The damage based on the target's health ratio is capped at 250 against {{tip|monsters}}.\n|leveling     = {{st|Magic Damage|{{ap|50 to 170}} {{as|(+ 80% AP)}} {{as|(+ {{ap|3 to 7}}% of target's '''maximum''' health)}}}}\n|range        = {{dv|{{tip|cr|icononly = true}} 800|{{tip|er|icononly = true}} {{tt|1075|Range + explosion at end that is located 100 units past the missile end position}}}}\n|effect radius= {{tip|er|icononly = true}} {{tt|175|Explosion at end}}\n|collisionradius=\n|speed        = 2000\n|width        = {{tip|er|icononly = true}} 140\n|queue time   = {{fd|0.25}}\n|targeting    = Direction\n|cast time    = {{fd|0.25}}\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshield  = true\n|projectile   = true\n|notes        = \n{{Effect at cast time end}}\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Fleeting Current",
+      "page": {
+        "title": "Template:Data Hwei/Fleeting Current",
+        "revid": 3959274
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 1200,
+      "notes": [
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Fleeting Current|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = Q\n|icon         = Hwei Fleeting Current.png\n|blurb        = {{sbc|Active - WQ:}} {{ci|Hwei}} forms a current of water in the target direction that grants him and allied {{tip|champions}} {{sti|{{as|'''bonus''' movement speed}}}} and {{tip|ghosting}} while within it.\n|description  = {{sbc|Active - WQ:}} '''Hwei''' forms a current of water in the target direction, creating a path for a duration that grants him and allied {{tip|champions}} {{sti|{{as|'''bonus''' movement speed}}}} and {{tip|ghosting}} for {{fd|0.5}} seconds, with the bonus refreshing every {{fd|0.125}} seconds while they remain in the area.\n|leveling     = {{st|Path Duration|{{ap|4 to 6}} seconds}}\n{{st|Bonus Movement Speed|{{ap|30 to 40}}% {{as|(+ 3% per 100 AP)}}}}\n|description2 = '''''Hwei''' can move during Fleeting Current's cast time.''\n|range        = 1200\n|effect radius= \n|width        = {{tt|225|Estimated}}\n|speed        = \n|cooldown     = \n|cdstart      = \n|queue time   = {{fd|0.25}}\n|targeting    = Direction \n|cast time    = {{fd|0.25}}\n|affects      = Self, Allies\n|projectile   = false\n|notes        = \n{{Effect at cast time start}}\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Grim Visage",
+      "page": {
+        "title": "Template:Data Hwei/Grim Visage",
+        "revid": 4021906
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Hwei/Grim Visage",
+              "revid": 4021906,
+              "quote": "Active - EQ: Hwei launches a terrifying grin in the target direction that deals magic damage to the first enemy hit, knocks them down, and fears them for a duration, as well as slows them by 70 / 78 / 86 / 94 / 99 (based on distance from Hwei)% for the same duration."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Hwei/Grim Visage",
+              "revid": 4021906,
+              "quote": "Active - EQ: Hwei launches a terrifying grin in the target direction that deals magic damage to the first enemy hit, knocks them down, and fears them for a duration, as well as slows them by 70 / 78 / 86 / 94 / 99 (based on distance from Hwei)% for the same duration."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Grim Visage",
+              "revid": 4021906,
+              "quote": "Active - EQ: Hwei launches a terrifying grin in the target direction that deals magic damage to the first enemy hit, knocks them down, and fears them for a duration, as well as slows them by 70 / 78 / 86 / 94 / 99 (based on distance from Hwei)% for the same duration."
+            }
+          ],
+          "amount": 70,
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1300,
+      "notes": [
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Grim Visage|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = Q\n|icon         = Hwei Grim Visage.png\n|blurb        = {{sbc|Active - EQ:}} {{ci|Hwei}} launches a terrifying grin in the target direction that deals {{as|magic damage}} to the first enemy hit, {{tip|knockdown|knocking them down}} and {{tip|fear|fearing}} and {{tip|slow|slowing}} them.\n|description  = {{sbc|Active - EQ:}} '''Hwei''' launches a terrifying grin in the target direction that deals {{as|magic damage}} to the first enemy hit, {{tip|knockdown|knocks them down}}, and {{tip|fear|fears}} them for a duration, as well as {{tip|slow|slows}} them by {{pp|type=distance from '''Hwei'''|70;78;86;94;99|0;300;600;900;1100|key=%|changedisplay=true|formula=70% + 1% for every 38 units the target is away from Hwei at the time of being hit}} for the same duration.\n|leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 65% AP)}}}}\n{{st|Disable Duration|{{ap|1 to 1.5}} seconds}}\n|description2 = ''Grim Visage's {{tip|slow}} stacks multiplicatively with the slows applied by {{ai|Molten Fissure|Hwei}}, {{ai|Crushing Maw|Hwei}}, and {{ai|Spiraling Despair|Hwei}}.''\n|range        = 1100\n|speed        = 1300\n|width        = {{tip|er|icononly=true}} 140\n|cooldown     = \n|cdstart      = \n|queue time   = {{fd|0.25}}\n|targeting    = Direction\n|cast time    = {{fd|0.25}}\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = spell\n|spellshield  = true\n|projectile   = true\n|notes        = \n{{Effect at cast time end}}\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Subject: Disaster",
+      "page": {
+        "title": "Template:Data Hwei/Subject: Disaster",
+        "revid": 3970734
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0
+    },
+    {
+      "champion": "Hwei",
+      "kind": "R",
+      "name": "Spiraling Despair",
+      "page": {
+        "title": "Template:Data Hwei/Spiraling Despair",
+        "revid": 4008531
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Spiraling Despair",
+              "revid": 4008531,
+              "quote": "Despair: For each stack, the target is slowed by 10% for 0.25 seconds, stacking up to 12 times."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 10
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 1340,
+      "speed": 1400,
+      "notes": [
+        "Spell shield can block the aura, explosion, and the application of the first Despair stack.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Spiraling Despair|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = R\n|icon         = Hwei Spiraling Despair.png\n|description  = {{sbc|Active:}} '''Hwei''' launches a globule of pure despair in the target direction that collides with the first enemy {{tip|champion}} hit, afflicting them with an [[aura]] that grows over 3 seconds, {{tip|true sight|reveals}} the target, and grants {{tip|sight}} within its radius. Enemies within are both dealt {{as|magic damage}} and applied a {{tip|stack}} of ''Despair'' every {{fd|0.25}} seconds.\n|leveling     = {{st|Magic Damage per Tick|{{ap|10/4 to 30/4}} {{as|(+ {{ap|5/4}}% AP)}}|Total Magic Damage|{{ap|10*3 to 30*3}} {{as|(+ {{ap|5*3}}% AP)}}}}\n|description2 = {{sbc|Despair:}} For each stack, the target is {{tip|slow|slowed}} by 10% for {{fd|0.25}} seconds, stacking up to 12 times.\n|description3 = At the end of the duration or when the target dies, the aura explodes to deal {{as|magic damage}} to enemies within and remove all ''Despair'' stacks from affected enemies.\n|leveling3    = {{st|Magic Damage|{{ap|200 to 450}} {{as|(+ 80% AP)}}|Maximum Total Damage|{{ap|200+10*3 to 450+30*3}} {{as|(+ {{ap|80+5*3}}% AP)}}}}\n|description4 = ''Spiraling Despair can only be cast if '''Hwei''' has not entered a mood.<br>Spiraling Despair's {{tip|slow}} stacks multiplicatively with the slows applied by {{ai|Molten Fissure|Hwei}}, {{ai|Grim Visage|Hwei}}, and {{ai|Crushing Maw|Hwei}}.''\n|range        = {{tip|er|icononly = true}} {{tt|1340|1300 missile travel distance plus 40 to-edge radius check if nothing has been hit yet}}\n|cast time    = {{fd|0.25}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|500|Aura maximum radius/detonation radius when aura times out}}<!--What's the base/initial radius of the aura? Also need the aura radius growth formula to format this into a pp template-->\n|collisionradius=\n|speed        = 1400\n|width        = {{tip|er|icononly = true}} {{tt|180|Missile full width}}\n|cooldown     = {{ap|120 to 80}}\n|cost         = 100\n|costtype     = Mana\n|cdstart      = \n|queue time   = {{fd|0.25}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = special\n|spellshield  = special\n|projectile   = true\n|notes        = \n* Applies {{tip|persistent area damage}} for the aura and deals {{tip|area damage}} for the explosion.\n* {{tip|Spell shield}} can block the aura, explosion, and the application of the first ''Despair'' stack.\n{{Effect at cast time end}}\n<!-- Blurb -->\n|blurbicon = Hwei Spiraling Despair.png\n|blurb        = {{sbc|Active:}} {{ci|Hwei}} launches a globule in the target direction that collides with the first enemy {{tip|champion}} hit, afflicting them with an [[aura]] that grows over a few seconds. Enemies within are continually dealt {{as|magic damage}} and gradually {{tip|slow|slowed}}.\n|blurb2      = After the duration ends or when the target dies, the aura explodes to deal {{as|magic damage}} to all enemies within.\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "R",
+      "name": "Wash Brush",
+      "page": {
+        "title": "Template:Data Hwei/Wash Brush",
+        "revid": 3970738
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0,
+      "usableWhileDisabled": {
+        "which": "cast",
+        "evidence": [
+          {
+            "page": "Template:Data Hwei/Wash Brush",
+            "revid": 3970738,
+            "quote": "can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Wash Brush|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = R\n|icon         = Hwei Wash Brush.png\n|description  = {{sbc|Toggle - QR, WR, ER:}} '''Hwei''' exits his current ''mood'' without incurring its ability cost or cooldown, toggling it off.\n|description2 = ''Wash Brush can only be cast if '''Hwei''' has entered a mood, and can be used while affected by {{tip|cast-inhibiting crowd control}}.''\n|cast time    = none\n|targeting    = Auto\n|affects      = Self\n|notes        = \n* Toggled abilities do not count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.\n<!-- Blurb -->\n|blurbcon     = Hwei Wash Brush.png\n|blurb        = {{sbc|Active:}} {{ci|Hwei}} exits his current ''mood'' without incurring its ability cost or cooldown.\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Gaze of the Abyss",
+      "page": {
+        "title": "Template:Data Hwei/Gaze of the Abyss",
+        "revid": 4010562
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Hwei/Gaze of the Abyss",
+              "revid": 4010562,
+              "quote": "Once locked on, the eye launches itself at the target after a 0.3-second delay and collides with the first enemy hit to deal magic damage, reveal them for 2.5 seconds, and root them for a duration."
+            }
+          ],
+          "duration": 2.5
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1700,
+      "notes": [
+        "The target that the eye locks onto and launches towards is revealed during the missile's flight.",
+        "The lock-on missile's path is indicated by a dashed line.\n  - Its launch range is about as wide as its vision range.\n  - This is not to be confused with the eye's border which is the trigger range.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Gaze of the Abyss|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Hwei\n|skill        = W\n|icon         = Hwei Gaze of the Abyss.png\n|blurb        = {{sbc|Active - EW:}} {{ci|Hwei}} tosses an eyeball to the target location that expands into a dark gaze, granting {{tip|sight}} in a larger area and locking onto the nearest visible enemy {{tip|champion}}. The eye then launches itself at the locked-on target, dealing {{as|magic damage}} to the first enemy it collides with, {{tip|root|rooting}} and {{tip|true sight|revealing}} them.\n|description  = {{sbc|Active - EW:}} '''Hwei''' tosses an eyeball to the target location. Upon arrival, it expands over {{fd|0.2}} seconds into a dark gaze that lasts 3 seconds and grants {{tip|sight}} of the {{tt|area|Can see into brush and terrain}}. After {{fd|0.7}} seconds of being placed, the eye locks onto the nearest visible enemy champion or otherwise remains there until an enemy champion is in range. Once locked on, the eye launches itself at the target after a {{fd|0.3}}-second delay and collides with the first enemy hit to deal {{as|magic damage}}, {{tip|true sight|reveal}} them for {{fd|2.5}} seconds, and {{tip|root}} them for a duration.\n|leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 65% AP)}}}}\n{{st|Root Duration|{{ap|1.2 to 2}} seconds}}\n|target range = 900\n|effect radius= {{dv|{{tt|350|Trigger radius}}|{{tt|600|Maximum launch range}}|{{tip|sight|icononly=true}}{{tt|450|Sight radius}}}}\n|collisionradius=\n|speed        = {{tt|1700|Launch speed}}\n|cooldown     = \n|cdstart      = \n|targeting    = Location\n|cast time    = {{fd|0.25}}\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = spell\n|spellshield  = true\n|projectile   = true\n|outofrange   = walk to location\n|notes        = \n* The target that the eye locks onto and launches towards is {{tip|true sight|revealed}} during the missile's flight.\n* The lock-on missile's path is indicated by a dashed line.\n** Its launch range is about as wide as its vision range.\n** This is not to be confused with the eye's border which is the trigger range.\n}}"
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Pool of Reflection",
+      "page": {
+        "title": "Template:Data Hwei/Pool of Reflection",
+        "revid": 3992645
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Hwei/Pool of Reflection",
+              "revid": 3992645,
+              "quote": "Active - WW: Hwei summons a pool of water at the target location, creating a protective zone for 3 seconds that grants him and allied champions a shield at the start of the cast time and for 0.5 seconds while within the area."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "castTime": 0.3,
+      "range": 650
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Severing Bolt",
+      "page": {
+        "title": "Template:Data Hwei/Severing Bolt",
+        "revid": 4026406
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0.5,
+      "range": 1900
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Subject: Serenity",
+      "page": {
+        "title": "Template:Data Hwei/Subject: Serenity",
+        "revid": 3970735
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0
+    }
+  ]
+}

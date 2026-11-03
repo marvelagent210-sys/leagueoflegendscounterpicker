@@ -105,7 +105,8 @@ const sion: KitModule = {
     const pullRadius = r.tipped("smaller radius");
     const slamMin = r.formula("Minimum Physical Damage");
     const slamMax = r.formula("Maximum Physical Damage");
-    const growth = r.seriesIn("The base damage increases by", 0);
+    // 26.21: one increase for base damage and scaling alike (0 to 200% over 3 seconds), so the maximum is three times the minimum.
+    const growth = r.seriesIn("are dealt physical damage, increased by", 0);
     const growthCap = growth.kind === "variable" ? Math.max(...growth.points.map(Number)) : 3;
     const slamAt = (seconds: number) => between(slamMin, slamMax, Math.min(seconds, growthCap) / growthCap);
     const slamStuns = r.seriesIn("become stunned after a brief delay for", 0);

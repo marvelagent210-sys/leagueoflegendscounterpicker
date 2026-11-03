@@ -10,7 +10,7 @@ export const Bastionbreaker: ItemModule = {
   build(item, fighter) {
     const charge = item.effect("Shaped Charge");
     charge.quote("Your next instance of ability damage to a champion or epic monster with a champion ability deals");
-    const base = charge.meleeRanged("deals 50 (melee) / 25 (ranged)");
+    const base = charge.meleeRanged("deals 40 (melee) / 20 (ranged)");
     const perLethality = charge.meleeRanged("(+ 1.5 (melee) / 0.75 (ranged) per 1 lethality) bonus true damage.");
     const cooldown = charge.cooldown();
     const pick = (pair: { melee: number; ranged: number }) => (fighter.ranged ? pair.ranged : pair.melee);

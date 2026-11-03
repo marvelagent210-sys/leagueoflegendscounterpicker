@@ -1,0 +1,836 @@
+[
+  {
+    "champion": "Malphite",
+    "kind": "E",
+    "name": "Ground Slam",
+    "page": {
+      "title": "Template:Data Malphite/Ground Slam",
+      "revid": 3985874
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.2419",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.2419
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Malphite slams the ground beneath him, dealing magic damage to nearby enemies and crippling them for 3 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 95 / 130 / 165 / 200 (+ 60% AP) (+ 40% armor)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130,
+                  165,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                },
+                {
+                  "stat": "armor",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% armor)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Cripple Strength",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cripple",
+            "category": "control",
+            "wording": "crippling",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Active: Malphite slams the ground beneath him, dealing magic damage to nearby enemies and crippling them for 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The cripple stacks multiplicatively with other sources of attack speed reductions.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Malphite",
+    "kind": "I",
+    "name": "Granite Shield",
+    "page": {
+      "title": "Template:Data Malphite/Granite Shield",
+      "revid": 3973718
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "8 / 7 / 6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate - Shard of the Monolith",
+        "text": "Innate - Shard of the Monolith: Malphite gains increased percentage size equal to 8% of his total armor, capped at 35% increased size at 437.5 armor.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - Granite Shield",
+        "text": "Innate - Granite Shield: Malphite grants himself a shield equal to 10% of his maximum health. The shield lasts until it is broken, and replenishes to full strength after a few seconds of not taking damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Innate - Granite Shield: Malphite grants himself a shield equal to 10% of his maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Malphite's increased size is affected by his base armor and growth, but also reduced by Black Cleaver. His increased size does not consider Thunderclap bonus armor.\n  - The bonus will become a size reduction if Malphite is dropped to negative armor values.",
+      "Granite Shield does not refresh its cooldown from damage that is mitigated by shields."
+    ]
+  },
+  {
+    "champion": "Malphite",
+    "kind": "Q",
+    "name": "Seismic Shard",
+    "page": {
+      "title": "Template:Data Malphite/Seismic Shard",
+      "revid": 4003493
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 625
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "single",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Malphite sends a shard to the target enemy that deals magic damage and slows them for 3 seconds upon impact.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 120 / 170 / 220 / 270 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  120,
+                  170,
+                  220,
+                  270
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40
+              ]
+            },
+            "evidence": "Active: Malphite sends a shard to the target enemy that deals magic damage and slows them for 3 seconds upon impact.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Malphite also gains bonus movement speed equal to the raw amount of movement speed the target lost from the slow for the duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [],
+        "tips": [
+          {
+            "text": "raw",
+            "tip": "before movement speed soft caps"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The rock spawns 100 units in front of Malphite.",
+      "Malphite will gain the bonus movement speed for the full duration as long as Seismic Shard impacts the target.\n  - Both a buff shown in the hotbar and duration bar above the ability icon will indicate the remaining duration.",
+      "Seismic Shard's movement speed gain is based off the target's movement speed raw total movement speed lost at the time of impact.\n  - For example, targets that were already slowed by another effect will grant Malphite diminished movement speed, while targets that are slowed by another effect after being impacted by Seismic Shard will not.\n  - Slow-resistant and slow-immune targets will reduce or nullify Malphite's gain.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Malphite",
+    "kind": "R",
+    "name": "Unstoppable Force",
+    "page": {
+      "title": "Template:Data Malphite/Unstoppable Force",
+      "revid": 4074437
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "130 / 115 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                130,
+                115,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1500 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Malphite dashes with displacement immunity to the target location. Upon arrival, he deals magic damage to nearby enemies and knocks them up for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Malphite dashes with displacement immunity to the target location.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "evidence": "Active: Malphite dashes with displacement immunity to the target location.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Upon arrival, he deals magic damage to nearby enemies and knocks them up for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Unstoppable Force has no minimum dash range.",
+      "The dash speed can be up-to doubled if Unstoppable Force is targeted at the middle of a wall so that his destination ends up on the other side.\n  - It will be decreased if his destination ends up closer to him than his target location.",
+      "If Malphite dies during his dash, the ability cancels.\n  - If the dash is interrupted without Malphite dying, for instance when he enters resurrection during Unstoppable Force, he halts and the ability instead affects enemies at the stopped location."
+    ]
+  },
+  {
+    "champion": "Malphite",
+    "kind": "W",
+    "name": "Thunderclap",
+    "page": {
+      "title": "Template:Data Malphite/Thunderclap",
+      "revid": 4091409
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "30 / 35 / 40 / 45 / 50",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Malphite gains bonus armor, tripled while Granite Shield is active.",
+        "leveling": [
+          {
+            "label": "Bonus Armor",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30% armor",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "armor"
+            }
+          },
+          {
+            "label": "Increased Bonus Armor",
+            "amount": {
+              "text": "30 / 45 / 60 / 75 / 90% armor",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "armor"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Malphite empowers his next basic attack within 6 seconds to have an uncancellable windup, gain 50 bonus range, and deal additional physical damage on-hit.",
+        "leveling": [
+          {
+            "label": "Additional Physical Damage",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70 (+ 20% AP) (+ 15% armor)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                },
+                {
+                  "stat": "armor",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% armor)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Malphite empowers his next basic attack within 6 seconds to have an uncancellable windup, gain 50 bonus range, and deal additional physical damage on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Malphite empowers his next basic attack within 6 seconds to have an uncancellable windup, gain 50 bonus range, and deal additional physical damage on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Malphite's basic attacks on-hit for the next 5 seconds are empowered to trigger a cone in the direction of the target that deals physical damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "15 / 25 / 35 / 45 / 55 (+ 30% AP) (+ 15% armor)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  25,
+                  35,
+                  45,
+                  55
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                },
+                {
+                  "stat": "armor",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% armor)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Additionally, Malphite's basic attacks on-hit for the next 5 seconds are empowered to trigger a cone in the direction of the target that deals physical damage to enemies hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Thunderclap deals 180% damage against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Thunderclap resets Malphite's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Thunderclap resets Malphite's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The main target is dealt basic damage, though without applying life steal, while the cone deals area non-proc damage without applying spell effects.\n  - The cone will trigger E damage reduction, Cheap Shot, Conqueror, Dark Harvest, Electrocute, Summon Aery, Eclipse, World Atlas enemy champion proc, and Ocean Dragon Soul.\n    - It is also special cased to trigger Tear of the Goddess.\n  - The cone does not benefit from Spear of Shojin damage amp.",
+      "The passive will amplify negative armor, too, if Malphite's armor is dropped that low.",
+      "The passive's bonus armor stacks multiplicatively with Jak'Sho, The Protean Voidborn Resilience and Mountainous Vigor and stacks recursively with Conditioning.",
+      "The empowered attack:\n  - Benefits from Thunderclap's cone effect.\n  - Prevents Malphite from casting Seismic Shard and Ground Slam during its windup.\n  - Cannot have its windup canceled by new movement or attack commands, or casting Unstoppable Force.\n  - Can have its windup canceled by casting Hextech Rocketbelt.",
+      "The cone starts from Malphite's location.\n  - Unlike similar spells, it does not deal its damage separately to the primary target of the attack(s); if the target is outside the area of effect when struck, it will not take the additional damage."
+    ]
+  }
+]

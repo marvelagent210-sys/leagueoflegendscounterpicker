@@ -51,7 +51,7 @@ const locke: KitModule = {
     const recastWindow = q.quoted(recastWords, 0);
     const recastDelay = q.quoted(recastWords, 1);
     const nail = q.formula("Magic Damage per Nail");
-    // Unused recasts refund 35% (at 18; 36.8% at 20) of the cooldown and cost each.
+    // Unused recasts refund part of the cooldown and cost each, by level (26.21: 10 – 40%, 43.5% at 20).
     const refundShare = q.levelValue("For each recast not used when Ritual Nails ends", 0) / 100;
     // His next damaging attack or Ashen Pursuit consumes the Soul Nails for bonus magic damage.
     const consume: Formula[] = [q.formula("One Stack Bonus Damage"), q.formula("Two Stacks Bonus Damage"), q.formula("Three Stacks Bonus Damage")];
@@ -66,7 +66,7 @@ const locke: KitModule = {
     const igniteDecay = w.quoted(igniteWords, 7);
     const igniteHold = w.quoted(igniteWords, 8);
 
-    // Ashen Pursuit: a blink of up to 375 for 80 (+ 40% AP) around him; 0.1 s later his next attack within 4 s gains 275 range and becomes a dash strike for 120 (+ 40% AP), with on-hit effects.
+    // Ashen Pursuit: a blink of up to 375 for 100 (+ 50% AP) around him (26.21); 0.1 s later his next attack within 4 s gains 275 range and becomes a dash strike for 120 (+ 40% AP), with on-hit effects.
     const blinkRange = e.field("targetRange");
     const pursuitWords = "After a 0.1-second delay, he empowers his next attack command within 4 seconds to gain 275 bonus range and cause him to dash in the target's direction, dealing magic damage to nearby enemies along the way, and applying on-hit effects to the primary target hit.";
     const pursuitDelay = e.quoted(pursuitWords, 0);

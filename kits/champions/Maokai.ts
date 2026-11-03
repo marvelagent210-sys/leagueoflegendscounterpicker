@@ -45,15 +45,18 @@ const maokai: KitModule = {
     w.quote("Maokai will track the target if they change locations"); w.quote("will fail to deal damage and apply the root if the target is untargetable upon arrival");
     const eRange = e.field("targetRange"), eRadius = e.field("effectRadius", "explosion"), eDetect = e.field("effectRadius", "detection");
     const eLife = e.quoted("remains stationary for 30 seconds"), eChase = e.quoted("chasing them for up to 2.5 seconds");
-    const eBrushLife = e.quoted("lasting 30 (+ 1.5% bonus health) seconds", 1) / 100;
+    const eBrushLife = e.quoted("lasts 30 (+ 1.5% bonus health) seconds", 1) / 100;
     const eSlow = e.quoted("slowing them by 45% for 2 seconds") / 100, eSlowTime = e.quoted("slowing them by 45% for 2 seconds", 1);
     const eSlowBonus = e.quoted("45% (+ 1% per 100 bonus health) (+ 1% per 100 AP)", 1) / (100 * e.quoted("45% (+ 1% per 100 bonus health) (+ 1% per 100 AP)", 2));
-    const eReveal = e.quoted("reveal them for 3 seconds"), eGap = e.quoted("every 0.75 seconds"), eBurnTime = e.quoted("attach two Saplings to them for 1.5 seconds");
-    e.quote("Targets can only be attached to two Saplings at a time");
+    const eReveal = e.quoted("reveal them for 3 seconds"), eGap = e.quoted("every 0.75 seconds"), eBurnTime = e.quoted("attaches two Saplings to them for 1.5 seconds");
+    e.quote("Targets can only be attached by two Saplings at a time"); e.quote("subsequent empowered Sapling explosions on a target will refresh the duration and only attach a Sapling if one has exploded on them already");
     const eStacks = Math.round(eBurnTime / eGap);
-    const eDamage = e.formula("Magic Damage"), ePacket = e.formula("Magic Damage per Instance"), eMinion = e.formula("Minion Damage");
-    e.formula("Total Attached Sapling Damage"); e.formula("Total Magic Damage");
-    const eCap = e.quoted("capped at 300 against non-champions"), eBrushCap = e.quoted("total damage is capped at 600 against non-champions");
+    const eDamage = e.formula("Magic Damage"), ePacket = e.formula("Magic Damage per Instance");
+    // 26.21 gives no minion row: only non-minions take the empowered explosion's reduced share, so minions take its ordinary damage.
+    e.quote("Against non-minion targets, the explosion deals 66.7% damage");
+    const eMinion = eDamage;
+    e.formula("Total Attached Sapling Damage"); e.formula("Non-Minion Total Magic Damage");
+    const eCap = e.quoted("capped at 300 against non-champions"), eBrushCap = e.quoted("The total damage cap is increased to 600 against non-champions");
     const eFlightPath = "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissile";
     const eFlight = e.gameQuoted("mSpell.mMissileSpec.movementComponent.mTravelTime: 0.8500000238418579", 0, eFlightPath);
     const eArm = e.gameQuoted('"name":"GrowthDuration","values":[0.5,0.5,0.5,0.5,0.5,0.5,0.5]');

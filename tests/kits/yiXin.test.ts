@@ -45,7 +45,7 @@ describe("Master Yi source-backed kit", () => {
     const k = compile("MasterYi");
     expect(k.spec.abilities.filter((a) => a.key.length === 1).map((a) => a.key)).toEqual(["Q", "W", "E", "R"]);
     expect(k.spec.abilities[0]).toMatchObject({ cooldown: 18, cost: 70, delivery: { kind: "target", range: 600 }, channel: { manualStart: true, interruptible: false } });
-    expect(k.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4057839, 4064856, 4039653, 3959670, 4060364]));
+    expect(k.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4057839, 4086259, 4039653, 3959670, 4060364]));
     expect(k.assumptions.some((s) => s.includes("four times"))).toBe(true);
   });
 
@@ -318,7 +318,7 @@ describe("Master Yi source-backed kit", () => {
 describe("Xin Zhao source-backed kit", () => {
   it("reads level-20 passive breakpoints and records the source/game-file mana conflict", () => {
     const k = compile("XinZhao");
-    expect(k.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4051470, 3986754, 4026481, 4026484, 4008632]));
+    expect(k.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4051470, 4088383, 4026481, 4088384, 4008632]));
     expect(k.assumptions.some((s) => s.includes("game files disagree"))).toBe(true);
     expect(k.spec.abilities.map((a) => a.cost)).toEqual([30, 60, 60, 100]);
   });
@@ -377,7 +377,7 @@ describe("Xin Zhao source-backed kit", () => {
       attackHit(w, self, enemy, false, action.onHit, undefined, false, { critChance: action.critChance });
     }
     const ad = derive(self).ad;
-    expect(enemy.totals.damageTaken).toBeCloseTo(3 * (ad + 115) * derive(self).critDamage + .6 * ad);
+    expect(enemy.totals.damageTaken).toBeCloseTo(3 * (ad + 120) * derive(self).critDamage + .6 * ad);
     expect([self.cooldownReady.W, self.cooldownReady.E, self.cooldownReady.R]).toEqual([510, 510, 510]);
     expect(enemy.statuses.some((s) => s.key === "airborne")).toBe(false);
     expect(hasState(enemy, "spellShield")).toBe(false);
@@ -433,7 +433,7 @@ describe("Xin Zhao source-backed kit", () => {
     through(w, 20);
     expect(enemy.totals.damageTaken).toBe(0);
     const buff = self.statuses.find((s) => s.memoKey === "buff:xin:charge")!;
-    expect(buff.value).toBeCloseTo(.7 + .1 + .2 * (self.spec.base.attackSpeed.bonus + .5));
+    expect(buff.value).toBeCloseTo(.7 + .1 + .25 * (self.spec.base.attackSpeed.bonus + .5));
     expect(buff.endTick - buff.startTick).toBe(150);
     expect(enemy.statuses.find((s) => s.key === "xin:challenge")?.endTick).toBeGreaterThan(90);
   });

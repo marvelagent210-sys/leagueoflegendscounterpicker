@@ -1,0 +1,233 @@
+{
+  "champion": "Mel",
+  "name": "Mel",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "mel",
+      "formName": "Mel",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 0.932266,
+      "attackDamage": 118.895,
+      "windup": 0.167334,
+      "modifiers": [
+        "Searing Brilliance"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Mel",
+      "kind": "E",
+      "name": "Solar Snare",
+      "page": {
+        "title": "Template:Data Mel/Solar Snare",
+        "revid": 4007692
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Mel/Solar Snare",
+              "revid": 4007692,
+              "quote": "Enemies within the field are dealt magic damage and slowed by 30% every 0.125 seconds, lingering for 0.25 seconds after exiting."
+            }
+          ],
+          "amount": 30
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Mel/Solar Snare",
+              "revid": 4007692,
+              "quote": "Enemies hit by the orb are dealt magic damage and rooted for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 1100,
+      "notes": [
+        "Spell shield will only block the orb (root portion).\n  - Solar Snare's lollipop roots targets in its area without triggering spell shield."
+      ]
+    },
+    {
+      "champion": "Mel",
+      "kind": "I",
+      "name": "Searing Brilliance",
+      "page": {
+        "title": "Template:Data Mel/Searing Brilliance",
+        "revid": 4062268
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Effects that inherit properties from the origin basic attack (e.g Runaan's Hurricane) will also be able to apply Overwhelm stacks.\n  - Effects that apply on-hits (e.g Guinsoo's Rageblade) will not apply stacks."
+      ]
+    },
+    {
+      "champion": "Mel",
+      "kind": "Q",
+      "name": "Radiant Volley",
+      "page": {
+        "title": "Template:Data Mel/Radiant Volley",
+        "revid": 4042677
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.35,
+      "range": 950,
+      "speed": 3800,
+      "notes": [
+        "Spell shield will only block a single explosion.",
+        "For the given number of Radiant Volley bolts, the spread will result in the same individual areas being affected over the duration invariably.\n  - Each individual missile is explicitly assigned an explosion location at a small offset from the cast location. This varies by missile, which results in their combined area of effect distributing over a total radius of [explosion radius + maximum spread] = 200 + 50 = 250 units.\n    - This means that the distribution area is not random.\n    - The order of bolts however, which will determine the order of individual areas to be affected per explosion, is random.\n      - Mel launching the missiles in the same arcing motion for every Radiant Volley cast does not correlate with which missile is being fired at the time. The height and gravity of each missile are irrelevant.\n    - Note that the combined area of effect may not always be the maximum possible (circle with radius of 250 units); this drawback diminishes with a higher number of bolts as the new missiles fill the gaps within."
+      ]
+    },
+    {
+      "champion": "Mel",
+      "kind": "R",
+      "name": "Golden Eclipse",
+      "page": {
+        "title": "Template:Data Mel/Golden Eclipse",
+        "revid": 4036107
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.75,
+      "notes": [
+        "Golden Eclipse can be cast even if all affected targets are untargetable.",
+        "Golden Eclipse does not deal damage against enemies that are untargetable."
+      ]
+    },
+    {
+      "champion": "Mel",
+      "kind": "W",
+      "name": "Rebuttal",
+      "page": {
+        "title": "Template:Data Mel/Rebuttal",
+        "revid": 4050141
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "projectile block",
+          "evidence": [
+            {
+              "page": "Projectile",
+              "revid": 3999064
+            },
+            {
+              "page": "Template:Data Mel/Rebuttal",
+              "revid": 4050141,
+              "quote": "Active: Mel forms a protective barrier around herself for 0.75 seconds, granting herself a shield for the duration, and gaining 40% bonus movement speed that decays over 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Mel/Rebuttal",
+              "revid": 4050141,
+              "quote": "Active: Mel forms a protective barrier around herself for 0.75 seconds, granting herself a shield for the duration, and gaining 40% bonus movement speed that decays over 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "cooldown": 26,
+      "castTime": 0,
+      "notes": [
+        "Rebuttal's barrier will also instantly destroy missiles that are already within its radius when the ability is cast.",
+        "The replicated missile will mimic all of the original missile's properties, which includes its range, width, speed, acceleration, angle (if a cone), height, and sight radius.\n  - Spell effects, as well as interactions with spell shield and projectile-interception effects, all vary based on the original missile that was replicated.\n  - The only exception to this is the copied missile's path, or trajectory, which is based on the targeting paradigm that the original missile used when fired by its source. The replicated missile acquires the original missile source as the target.\n    - If the original missile was fired by a unit or auto-targeted effect, the replicated missile will be fired as a homing missile with the target being the original missile source.\n      - Healing projectiles, such as Rejuvenation and Aria of Perseverance, will instead target Mel.\n    - If the original missile was fired via any other targeting paradigm, the replicated missile will by default fire in the direction of the original missile source at the time of replication. This includes vector-targeted projectiles (currently only Hextech Ray), for which the origin will always be Mel's center (since she cannot control the cast point).",
+        "The replicated missile will mimic all of the functions of and copy the behavior of the original missile, unless otherwise stated. This includes every aspect and effect of the missile conforming to the attack or spell from which the missile originated.\n  - The scaling of the effects of the copied missile is calculated using the original missile source's attributes (namely their stats). The damage of the missile only benefits from Mel's damage modifiers and magic penetration, and not the original source's.",
+        "The following missiles are destroyed, but not replicated:\n  - Whirling Death on its way back to him.\n  - Boomerang Throw on its way back to him.\n  - Test of Spirit\n  - Boomerang Blade on its way back to her.\n  - Hijack\n  - Mercy\n  - Bladecaller and Featherstorm\n  - Stretching Strikes\n  - Missiles fired from auto-targeted abilities that target each unit in an area and aren't targeting Mel.\n    - Examples include R, R, R, and E.",
+        "Mel may occasionally fail to attribute Echoes of Helia Soul Siphon damage projectile to herself.\n  - This can cause the enemy to be able to kill their own allies, and gain all the kill's rewards.",
+        "Rebuttal will play distinct sound cues from destroying and replicating projectiles fired from specific types of abilities:\n  - Non-ultimate ability missile:\n  - Ultimate ability missile:\n  - Ability with global or near-global range missile:"
+      ]
+    }
+  ]
+}

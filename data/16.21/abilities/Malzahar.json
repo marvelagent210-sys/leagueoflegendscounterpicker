@@ -1,0 +1,994 @@
+[
+  {
+    "champion": "Malzahar",
+    "kind": "E",
+    "name": "Malefic Visions",
+    "page": {
+      "title": "Template:Data Malzahar/Malefic Visions",
+      "revid": 4015185
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Bounce range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Malzahar infects the target enemy's mind, dealing magic damage every 0.25 seconds over 4 seconds, which refreshes upon damaging them with Call of the Void or Nether Grasp. Malefic Visions executes minions if they would be damaged below 10 – 30 (based on level) health.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 115 / 150 / 185 / 220 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  115,
+                  150,
+                  185,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "5 / 7.1875 / 9.375 / 11.5625 / 13.75 (+ 5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  7.1875,
+                  9.375,
+                  11.5625,
+                  13.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                12,
+                14,
+                16,
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ]
+            },
+            "context": "Malefic Visions executes minions if they would be damaged below 10 – 30 (based on level) health."
+          }
+        ]
+      },
+      {
+        "text": "If the target dies while infected, they spread Malefic Visions onto the closest nearby enemy and Malzahar restores 2% of his maximum mana.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Malefic Visions deals persistent damage, additionally tagged as indirect damage, and applies spell effects.",
+      "Malefic Vision's cast is special cased to not be cancelled if the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time.\n  - The debuff is not applied if the target is untargetable by the time the cast completes."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/malzahar/malzahar.bin.json",
+        "sha256": "28fb1aa2d693c4d293cf75e4b18c8de3bf75c1d07a941cbdb83fc0805411f104",
+        "object": "Characters/Malzahar/Spells/MalzaharEAbility/MalzaharE",
+        "text": [
+          "mSpell.mSpellCalculations.MinionExecuteThreshold: {\"mFormulaParts\":[{\"mLevel1Value\":10,\"mInitialBonusPerLevel\":2,\"mBreakpoints\":[{\"mLevel\":12,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"}],\"__type\":\"GameCalculation\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Malzahar",
+    "kind": "I",
+    "name": "Void Shift",
+    "page": {
+      "title": "Template:Data Malzahar/Void Shift",
+      "revid": 4091727
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "30 / 24 / 18 / 12 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                30,
+                24,
+                18,
+                12
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Malzahar gains Void Shift until he takes non-minion damage or negates a crowd control effect, to which it then lingers for 0.25 seconds before expiring.\n\nVoid Shift: Malzahar gains crowd control immunity and reduces incoming damage from non-minions by 90%.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "crowd control immunity",
+            "evidence": "Void Shift: Malzahar gains crowd control immunity and reduces incoming damage from non-minions by 90%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Void Shift's cooldown refreshes whenever Malzahar takes non-minion damage or is affected by a crowd control effect, and resets upon respawning.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Void Shift will not resist allied crowd control nor will it be deactivated by them.",
+      "Void Shift will not mitigate true damage but the buff will still be consumed.\n  - It does not deactivate against the Nexus Obelisk.",
+      "Shields will take priority over Void Shift, but the buff is always consumed, even if the shield fully mitigates the damage.\n  - However, if Malzahar has a spell shield and is hit by an effect that isn't negated by the spell shield, then if the shield fully mitigates the damage, Void Shift will not be consumed.",
+      "Spell shields take priority over Void Shift for abilities that contain a crowd control effect.",
+      "Void Shift will specifically not deactivate if Malzahar eats Honeyfruit or is within a hostile Frozen Heart passive aura.",
+      "Void Shift is special cased to prevent Chum the Waters, and Death Sentence from attaching to Malzahar.",
+      "Void Shift does not prevent E trap drowsy. [https://www.reddit.com/r/zoemains/comments/1mfs9ib/did_you_know_malzahar_could_get_asleep_when/]"
+    ]
+  },
+  {
+    "champion": "Malzahar",
+    "kind": "Q",
+    "name": "Call of the Void",
+    "page": {
+      "title": "Template:Data Malzahar/Call of the Void",
+      "revid": 3906985
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Cast range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Malzahar opens two portals to the void centered at the target location, granting sight of the area in between. After 0.4 seconds, enemies between the portals are dealt magic damage and silenced for a duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210 (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Silence Duration",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 / 1.75 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5,
+                  1.75,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Malzahar opens two portals to the void centered at the target location, granting sight of the area in between.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2
+              ]
+            },
+            "evidence": "After 0.4 seconds, enemies between the portals are dealt magic damage and silenced for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will prevent Call of the Void's refresh on Malefic Visions.\n  - Malefic Visions debuff will also be removed."
+    ]
+  },
+  {
+    "champion": "Malzahar",
+    "kind": "R",
+    "name": "Nether Grasp",
+    "page": {
+      "title": "Template:Data Malzahar/Nether Grasp",
+      "revid": 4015186
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 110 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                110,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.005",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.005
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "1250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1250
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "false",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Malzahar tethers to the target enemy champion, knocking them down. He then channels for up to 2.5 seconds, suppressing and revealing the target and dealing them magic damage every 0.25 seconds, revealing himself in the process.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "125 / 200 / 275 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  200,
+                  275
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "12.5 / 20 / 27.5 (+ 8% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12.5,
+                  20,
+                  27.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tethers",
+            "evidence": "Active: Malzahar tethers to the target enemy champion, knocking them down.",
+            "conditional": false
+          },
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocking them down",
+            "evidence": "Active: Malzahar tethers to the target enemy champion, knocking them down.",
+            "conditional": false
+          },
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "He then channels for up to 2.5 seconds, suppressing and revealing the target and dealing them magic damage every 0.25 seconds, revealing himself in the process.",
+            "conditional": false
+          },
+          {
+            "type": "suppression",
+            "category": "control",
+            "wording": "suppressing",
+            "evidence": "He then channels for up to 2.5 seconds, suppressing and revealing the target and dealing them magic damage every 0.25 seconds, revealing himself in the process.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "He then channels for up to 2.5 seconds, suppressing and revealing the target and dealing them magic damage every 0.25 seconds, revealing himself in the process.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "He then channels for up to 2.5 seconds, suppressing and revealing the target and dealing them magic damage every 0.25 seconds, revealing himself in the process.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Malzahar will continue to channel as long as the tether is not broken, even if the suppression is removed.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Additionally, a Null Zone is opened beneath the target's location at the time of cast that lasts 5 seconds, dealing magic damage every 0.5 seconds to enemies within, capped at 120 per tick against minions and monsters.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "10 / 15 / 20% (+ 2.5% per 100 AP) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2.5
+                  },
+                  "text": "(+ 2.5% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "1 / 1.5 / 2% (+ 0.25% per 100 AP) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.5,
+                  2
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.25
+                  },
+                  "text": "(+ 0.25% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Null Zone will persist even if the channel is interrupted.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies persistent damage for the tether, and persistent area damage additionally tagged as indirect to enemies within the Null Zone.",
+      "Spell shield prevents both the tether and the Null Zone from appearing, however Malzahar will continue to channel. [https://www.reddit.com/r/Sivir/comments/g7yt38/if_you_shield_malzahar_ult_he_ironically_gets_ccd/]",
+      "The tether will not break if the target enters a zombie state or enters resurrection.",
+      "As long as the target is within the tether radius, they will take the full tether damage over 2.5 seconds even if they are not tethered due to the tether being broken early into the channel.\n  - This occurs regardless of how the tether was broken.\n  - If the target exits tether range they will stop taking damage, but can be damaged again by the remaining ticks if they re-enter the tether range within the duration.",
+      "Removing the suppression will also remove the reveal.",
+      "Malzahar places himself onto the ground and interrupts displacements affecting him upon starting the channel.",
+      "If a target is currently being affected by Malefic Visions, casting Nether Grasp on them will grant 2 stacks toward effects such as Electrocute.\n  - This is, correctly, not the case if Nether Grasp is cast before Malefic Visions.",
+      "The following table refers for interactions while Malzahar is channeling:\n  - The channel will be interrupted if the tether is broken.",
+      "Interaction table (ct): attack=Disabled if attacking Nether Grasp target. Otherwise interrupts after 0.5 seconds of channeling.; cast=interrupts; move=Disabled for the first 0.5 seconds. Interrupts afterwards.; consume=true; items=interrupts,true,interrupts,false,interrupts; spells=true,interrupts,interrupts,interrupts."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/malzahar/malzahar.bin.json",
+        "sha256": "28fb1aa2d693c4d293cf75e4b18c8de3bf75c1d07a941cbdb83fc0805411f104",
+        "object": "Characters/Malzahar/Spells/MalzaharRAbility/MalzaharR",
+        "text": [
+          "mSpell.castRadius: [280,280,280,280,280,280,280]",
+          "mSpell.mClientData.mTargeterDefinitions[0]: {\"centerLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"constraintPosLocator\":{\"basePosition\":2,\"__type\":\"DrawablePositionLocator\"},\"constraintRange\":{\"mPerLevelValues\":[280,280,280,280,280,280],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionAoe\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Malzahar",
+    "kind": "W",
+    "name": "Void Swarm",
+    "page": {
+      "title": "Template:Data Malzahar/Void Swarm",
+      "revid": 4083425
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Malzahar generates a stack of Zz'Rot Swarm when he casts another ability, up to a maximum of 2.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Malzahar consumes all Zz'Rot Swarm stacks and, after a 0.5-second delay, summons a Voidling at the target location. Additional Voidlings are then summoned for each Zz'Rot Swarm stack consumed, with each Voidling being summoned 0.5 seconds after the previous one.",
+        "leveling": [
+          {
+            "label": "Voidling Duration",
+            "amount": {
+              "text": "8 / 8 / 9 / 9 / 10 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  8,
+                  9,
+                  9,
+                  10
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Voidlings deal magic damage with their attacks, reduced by 50% against epic monsters and increased by 200% to enemy minions infected by Malefic Visions.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "5 – 64.5 (based on level) (+ 12 / 14 / 16 / 18 / 20) (+ 40% bonus AD) (+ 20% AP)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  5,
+                  7.52,
+                  10.1625,
+                  12.9275,
+                  15.815,
+                  18.825,
+                  21.9575,
+                  25.2125,
+                  28.59,
+                  32.09,
+                  35.7125,
+                  39.4575,
+                  43.325,
+                  47.315,
+                  51.4275,
+                  55.6625,
+                  60.02,
+                  64.5,
+                  69.1025,
+                  73.8275
+                ],
+                "past18": "game files"
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      12,
+                      14,
+                      16,
+                      18,
+                      20
+                    ]
+                  },
+                  "text": "(+ 12 / 14 / 16 / 18 / 20)"
+                },
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage",
+            "amount": {
+              "text": "15 – 193.5 (based on level) (+ 36 / 42 / 48 / 54 / 60) (+ 120% bonus AD) (+ 60% AP)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  15,
+                  22.56,
+                  30.4875,
+                  38.7825,
+                  47.445,
+                  56.475,
+                  65.8725,
+                  75.6375,
+                  85.77,
+                  96.27,
+                  107.1375,
+                  118.3725,
+                  129.975,
+                  141.945,
+                  154.2825,
+                  166.9875,
+                  180.06,
+                  193.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      36,
+                      42,
+                      48,
+                      54,
+                      60
+                    ]
+                  },
+                  "text": "(+ 36 / 42 / 48 / 54 / 60)"
+                },
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "See Pets for more details about Voidlings.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Malzahar loses all stacks upon death.",
+      "Zz'Rot Swarm stacks are gained per cast and not per ability activation. For example, if Malefic Visions is cast and the ability cancels under certain circumstances, a Zz'Rot Swarm stack will still be granted despite the ability's failure to complete."
+    ]
+  }
+]

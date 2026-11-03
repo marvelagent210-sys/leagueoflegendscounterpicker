@@ -1,0 +1,181 @@
+{
+  "champion": "Corki",
+  "name": "Corki",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "corki",
+      "formName": "Corki",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.998599,
+      "attackDamage": 101.163,
+      "windup": 0.116067,
+      "modifiers": [
+        "Hextech Munitions"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Corki",
+      "kind": "E",
+      "name": "Gatling Gun",
+      "page": {
+        "title": "Template:Data Corki/Gatling Gun",
+        "revid": 3948411
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0
+    },
+    {
+      "champion": "Corki",
+      "kind": "I",
+      "name": "Hextech Munitions",
+      "page": {
+        "title": "Template:Data Corki/Hextech Munitions",
+        "revid": 4050625
+      },
+      "damageTypes": [
+        "physical",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "The mixed damage is dealt in two simultaneous instances of damage, but will pretend to be a single instance for most effects (such as Conqueror stacking).\n  - The true damage is dealt in an instance before the physical damage.\n  - Both instances deal basic damage and thus natively apply life steal.\n  - The attack applies on-hit effects only once, right at the start.\n  - Even if the target dies from the true damage, the physical damage will still be applied to it.\n    - If the target dies from on-hit damage, the true damage portion will be skipped and only the physical damage applied."
+      ]
+    },
+    {
+      "champion": "Corki",
+      "kind": "Q",
+      "name": "Phosphorus Bomb",
+      "page": {
+        "title": "Template:Data Corki/Phosphorus Bomb",
+        "revid": 4007588
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 825,
+      "speed": 1100,
+      "notes": [
+        "The missile has a minimum travel time of 0.227 seconds."
+      ]
+    },
+    {
+      "champion": "Corki",
+      "kind": "R",
+      "name": "Missile Barrage",
+      "page": {
+        "title": "Template:Data Corki/Missile Barrage",
+        "revid": 4042863
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 20,
+      "castTime": 0.175,
+      "range": 1300,
+      "speed": 2000,
+      "boostsAttacks": true,
+      "notes": [
+        "Once Corki has learned the ability:\n  - He receives a buff that counts a cycle of the number of times Missile Barrage has been used since the last Big One.\n  - An indicator becomes visible below his health bar that tracks the number of missiles in reserve and whether a Big One is available. They are spent from left to right.",
+        "Missile Barrage's effect radius is centered around the location of the missile as it collides.",
+        "Malignance damage from Missile Barrage does not count toward Eclipse passive."
+      ]
+    },
+    {
+      "champion": "Corki",
+      "kind": "W",
+      "name": "Valkyrie",
+      "page": {
+        "title": "Template:Data Corki/Valkyrie",
+        "revid": 4007589
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 300,
+      "speed": 650
+    }
+  ]
+}

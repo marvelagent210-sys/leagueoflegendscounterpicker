@@ -1,0 +1,1004 @@
+[
+  {
+    "champion": "Renekton",
+    "kind": "E",
+    "name": "Slice and Dice",
+    "page": {
+      "title": "Template:Data Renekton/Slice and Dice",
+      "revid": 3943397
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 14.5 / 13 / 11.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                14.5,
+                13,
+                11.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "760 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 760
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active - Slice",
+        "text": "Active - Slice: Renekton dashes a fixed distance in the target direction, dealing physical damage to enemies he passes through.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "40 / 70 / 100 / 130 / 160 (+ 90% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  70,
+                  100,
+                  130,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active - Slice: Renekton dashes a fixed distance in the target direction, dealing physical damage to enemies he passes through.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Renekton hits an enemy, he can recast Slice and Dice within the next 4 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast - Dice",
+        "text": "Recast - Dice: Renekton repeats the first cast's effects.",
+        "leveling": [
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "80 / 140 / 200 / 260 / 320 (+ 180% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  140,
+                  200,
+                  260,
+                  320
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 180
+                  },
+                  "text": "(+ 180% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Both casts generate 2 Fury for each non-champion hit and 10 Fury for each champion hit, up to 30 total per cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Reign of Anger Bonus",
+        "text": "Reign of Anger Bonus: Dice, the recast, deals bonus physical damage and inflicts armor reduction to enemies hit for 4 seconds.",
+        "leveling": [
+          {
+            "label": "Enhanced Physical Damage",
+            "amount": {
+              "text": "70 / 115 / 160 / 205 / 250 (+ 135% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  115,
+                  160,
+                  205,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 135
+                  },
+                  "text": "(+ 135% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Enhanced Damage",
+            "amount": {
+              "text": "110 / 185 / 260 / 335 / 410 (+ 225% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  110,
+                  185,
+                  260,
+                  335,
+                  410
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 225
+                  },
+                  "text": "(+ 225% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Armor Reduction",
+            "amount": {
+              "text": "25 / 27.5 / 30 / 32.5 / 35%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  27.5,
+                  30,
+                  32.5,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Renekton",
+    "kind": "I",
+    "name": "Reign of Anger",
+    "page": {
+      "title": "Template:Data Renekton/Reign of Anger",
+      "revid": 3961774
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Renekton's basic attacks generate 5 Fury on-hit. After 12 seconds of being out of combat and not basic attacking, he loses 1 Fury every 0.25 seconds.\n\nEntering combat or using an attack will stop the Fury loss and refresh the timer. Additionally, while Dominus is active, the timer is continuously refreshed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Renekton's basic attacks generate 5 Fury on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While Renekton has at least 50 Fury, his next basic ability, excluding Slice, consumes 50 Fury to become empowered with an additional effect. Empowered abilities do not generate Fury.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Renekton generates 50% bonus Fury from all sources while below 50% of his maximum health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Basic attacks against any enemy that is not a structure will generate the Fury.\n  - Renekton can generate Fury by collecting Honeyfruit and Health Relics (interacts with Reign of Anger's bonus generation).",
+      "Fury generation with parrying effects (blind, dodge, block)"
+    ]
+  },
+  {
+    "champion": "Renekton",
+    "kind": "Q",
+    "name": "Cull the Meek",
+    "page": {
+      "title": "Template:Data Renekton/Cull the Meek",
+      "revid": 4008014
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "400 • 480",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Standard cleave radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 480
+            },
+            "label": "Enhanced cleave radius during Dominus"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Renekton cleaves around himself, dealing physical damage to nearby enemies and healing himself for each enemy hit, up to a cap.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Damage",
+            "amount": {
+              "text": "90 / 135 / 180 / 225 / 270 (+ 140% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  135,
+                  180,
+                  225,
+                  270
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 140
+                  },
+                  "text": "(+ 140% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Healing Cap",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Healing Cap",
+            "amount": {
+              "text": "200 / 300 / 400 / 500 / 600",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400,
+                  500,
+                  600
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Non-Champion Healing",
+            "amount": {
+              "text": "2 / 3 / 4 / 5 / 6 (+ 2% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Non-Champion Healing",
+            "amount": {
+              "text": "6 / 9 / 12 / 15 / 18 (+ 6% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6,
+                  9,
+                  12,
+                  15,
+                  18
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "Active: Renekton cleaves around himself, dealing physical damage to nearby enemies and healing himself for each enemy hit, up to a cap.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Against champions, the healing is increased.",
+        "leveling": [
+          {
+            "label": "Champion Healing",
+            "amount": {
+              "text": "12 / 20 / 28 / 36 / 44 (+ 17% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12,
+                  20,
+                  28,
+                  36,
+                  44
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 17
+                  },
+                  "text": "(+ 17% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Champion Healing",
+            "amount": {
+              "text": "36 / 60 / 84 / 108 / 132 (+ 51% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  36,
+                  60,
+                  84,
+                  108,
+                  132
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 51
+                  },
+                  "text": "(+ 51% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Renekton generates 2.5 Fury for each non-champion hit and 10 Fury for each champion hit, up to 30 total per cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Reign of Anger Bonus",
+        "text": "Reign of Anger Bonus: Cull the Meek has increased damage, tripled total healing, and a quadrupled healing cap.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Renekton cannot basic attack nor cast Slice and Dice or Dominus for 0.25 seconds after Cull the Meek's activation.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Healing modifiers such as Spirit Visage and Grievous Wounds take effect after Cull the Meek's healing cap."
+    ]
+  },
+  {
+    "champion": "Renekton",
+    "kind": "R",
+    "name": "Dominus",
+    "page": {
+      "title": "Template:Data Renekton/Dominus",
+      "revid": 3963895
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Renekton empowers himself for 15 seconds, gaining bonus health, 20% increased size, 25 bonus attack range, and 20 Fury, as well as increasing Cull the Meek effect radius.",
+        "leveling": [
+          {
+            "label": "Bonus Health",
+            "amount": {
+              "text": "300 / 500 / 700",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  500,
+                  700
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "During this time, he deals magic damage every 0.5 seconds to nearby enemies and generates 5 Fury per second, up to a maximum of 75 Fury.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "30 / 75 / 120 (+ 5% bonus AD) (+ 5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  75,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "900 / 2250 / 3600 (+ 150% bonus AD) (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  900,
+                  2250,
+                  3600
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Dominus' cooldown is not refunded if Renekton dies during the cast animation.",
+      "Dominus' bonus health gain does not interact with Spirit Visage or Grievous Wounds.\n  - Renekton retains Dominus' bonus health (if not over his normal maximum) once the duration ends."
+    ]
+  },
+  {
+    "champion": "Renekton",
+    "kind": "W",
+    "name": "Ruthless Predator",
+    "page": {
+      "title": "Template:Data Renekton/Ruthless Predator",
+      "revid": 4065616
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 14 / 12 / 10 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                14,
+                12,
+                10,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Renekton empowers his next basic attack within 7 seconds to have a 0.2-second cast time, have 175 range and strike the target twice, dealing modified physical damage and stunning them for 0.75 seconds. Each strike applies on-hit effects and generates Fury. Hitting an enemy champion generates 10 bonus Fury.",
+        "leveling": [
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "10 / 40 / 70 / 100 / 130 (+ 150% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  40,
+                  70,
+                  100,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Physical Damage Per Hit",
+            "amount": {
+              "text": "5 / 20 / 35 / 50 / 65 (+ 75% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  20,
+                  35,
+                  50,
+                  65
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active: Renekton empowers his next basic attack within 7 seconds to have a 0.2-second cast time, have 175 range and strike the target twice, dealing modified physical damage and stunning them for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Each strike applies on-hit effects and generates Fury.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.2-second cast time",
+            "tip": "(Estimated)"
+          }
+        ]
+      },
+      {
+        "text": "Ruthless Predator's first strike can critically strike for 100% AD bonus physical damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Ruthless Predator's first strike can critically strike for 100% AD bonus physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Reign of Anger Bonus",
+        "text": "Reign of Anger Bonus: Renekton instead strikes 3 times, completely destroying damage-mitigating shields on the target upon the first strike if they are not a monster, as well as increasing the stun duration to 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "15 / 60 / 105 / 150 / 195 (+ 225% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  60,
+                  105,
+                  150,
+                  195
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 225
+                  },
+                  "text": "(+ 225% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shields",
+            "evidence": "Reign of Anger Bonus: Renekton instead strikes 3 times, completely destroying damage-mitigating shields on the target upon the first strike if they are not a monster, as well as increasing the stun duration to 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "evidence": "Reign of Anger Bonus: Renekton instead strikes 3 times, completely destroying damage-mitigating shields on the target upon the first strike if they are not a monster, as well as increasing the stun duration to 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Ruthless Predator resets Renekton's basic attack timer. After Ruthless Predator's standard and empowered attack cast time, Renekton cannot move nor cast Cull the Meek or Slice and Dice for 0.528. Casting Dominus ends this lockout prematurely.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Ruthless Predator resets Renekton's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Each strike of Ruthless Predator deals basic damage, but the first strike also triggers spell effects by also being tagged as spell damage.",
+      "If the target becomes untargetable or dies during the empowered attack's cast time, it is cancelled but not consumed.",
+      "Each strike of Ruthless Predator counts as a separate cast instance for effects such as Electrocute and Eclipse Ever Rising Moon.",
+      "The empowered attack will not trigger against structures.",
+      "Even if empowered Ruthless Predator is blocked by a spell shield, it will still destroy any existing damage shields on the target.",
+      "Ruthless Predator does not cause Renekton to attack twice/thrice. Effects that trigger on-attack or interact with the attack windup will only trigger once and thus do not interact with Ruthless Predator. (e.g. Lethal Tempo, Hail of Blades)."
+    ]
+  }
+]

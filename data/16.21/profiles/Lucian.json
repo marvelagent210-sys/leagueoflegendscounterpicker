@@ -1,0 +1,234 @@
+{
+  "champion": "Lucian",
+  "name": "Lucian",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "lucian",
+      "formName": "Lucian",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2800,
+      "attackSpeed": 0.951657,
+      "attackDamage": 117.029,
+      "windup": 0.15762,
+      "modifiers": [
+        "Lightslinger"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Lucian",
+      "kind": "E",
+      "name": "Relentless Pursuit",
+      "page": {
+        "title": "Template:Data Lucian/Relentless Pursuit",
+        "revid": 4008455
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0,
+      "range": 200,
+      "speed": 1350,
+      "boostsAttacks": true,
+      "notes": [
+        "Additional on-hits during Lightslinger are not considered for the cooldown reduction (i.e Runaan's Hurricane, Guinsoo's Rageblade).",
+        "Unlike some dashes, Lucian's dash speed does not scale with his movement speed.",
+        "Relentless Pursuit's dash can go through terrain, but will not be extended further if the target location is within terrain, unlike other dashes, like Ekko's Phase Dive.",
+        "Casting Relentless Pursuit directly after attacking with Lightslinger will reduce Relentless Pursuit's cooldown when the projectiles hit the target."
+      ]
+    },
+    {
+      "champion": "Lucian",
+      "kind": "I",
+      "name": "Lightslinger",
+      "page": {
+        "title": "Template:Data Lucian/Lightslinger",
+        "revid": 4064854
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Lucian/Lightslinger",
+              "revid": 4064854,
+              "quote": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers."
+            },
+            {
+              "page": "Template:Data Lucian/Lightslinger",
+              "revid": 4064854,
+              "quote": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers."
+            },
+            {
+              "page": "Template:Data Lucian/Lightslinger",
+              "revid": 4064854,
+              "quote": "Innate - Vigilance: Whenever Lucian is healed or shielded by an ally, or an enemy champion within 1000 units is immobilized, his next two shots within 6 seconds are empowered to deal 5 (+ 15% AD) bonus magic damage on-hit."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Lucian/Lightslinger",
+              "revid": 4064854,
+              "quote": "Innate - Vigilance: Whenever Lucian is healed or shielded by an ally, or an enemy champion within 1000 units is immobilized, his next two shots within 6 seconds are empowered to deal 5 (+ 15% AD) bonus magic damage on-hit."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Lucian",
+      "kind": "Q",
+      "name": "Piercing Light",
+      "page": {
+        "title": "Template:Data Lucian/Piercing Light",
+        "revid": 4064855
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 1000,
+      "notes": [
+        "Piercing Light will attempt to lead the target if it is moving but does not adjust further during the cast time (enemies can dodge the laser if they change their position by a sufficient amount during the cast time)."
+      ]
+    },
+    {
+      "champion": "Lucian",
+      "kind": "R",
+      "name": "The Culling",
+      "page": {
+        "title": "Template:Data Lucian/The Culling",
+        "revid": 4007670
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0,
+      "range": 1200,
+      "speed": 2800,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "The Culling creates the shots at an offset of 35 units to the front plus 35 units towards each side of Lucian (sides alternating, first shot fired from Lucian's right gun), unlike the missiles of most abilities.",
+        "Lucian can interact with Dark Passage or allied Devour without interrupting The Culling.",
+        "The damage dealt by each bullet of The Culling is calculated when the bullet reaches a target, just like single missile abilities.",
+        "Spell shield only blocks one instance of damage.",
+        "The following table refers for interactions while Lucian is channeling:"
+      ]
+    },
+    {
+      "champion": "Lucian",
+      "kind": "W",
+      "name": "Ardent Blaze",
+      "page": {
+        "title": "Template:Data Lucian/Ardent Blaze",
+        "revid": 3594941
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1600,
+      "notes": [
+        "This ability will cast from wherever the caster is at the end of the cast time.\n  - Like most missiles, it will not collide with enemies whose center is beyond the maximum range (not behind Lucian), but this determines only the center and timing of the explosion.",
+        "Lucian will not gain Ardent Blaze's bonus movement speed if attacks on marked targets are dodged, blocked, or if missed while the attacker is blinded.",
+        "Spell shield will not prevent the mark."
+      ]
+    }
+  ]
+}

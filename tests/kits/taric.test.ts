@@ -31,21 +31,21 @@ const shield=(target:Unit)=>target.statuses.filter(s=>s.kind==="shield"&&s.key==
 
 describe("Taric full-budget production",()=>{
  it("runs six strict reversed 15000-gold production scenarios against Darius",()=>{
-  const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
+  const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
   const forward=simulateMatchup(compiled.spec,kit("Darius").spec,15000,prices),reverse=simulateMatchup(kit("Darius").spec,compiled.spec,15000,prices);
   expect(forward.scenarios).toHaveLength(6);expect(forward.builds).toEqual([reverse.builds[1],reverse.builds[0]]);expect(compiled.variants).toEqual([]);expect(kit("Darius").variants).toEqual([]);expect(Math.abs(forward.score+reverse.score)).toBeLessThan(1e-10);
   for(const[i,s]of forward.scenarios.entries()){const other=reverse.scenarios[[1,0,2,3,4,5][i]!]!;if(s.score===undefined)expect(other.score).toBeUndefined();else expect(Math.abs(s.score+other.score!)).toBeLessThan(1e-10);expect(s.outcomes.every(o=>[o.seconds,...o.hp,...o.damage].every(Number.isFinite))).toBe(true);}
   for(const build of forward.builds){expect(build.gold).toBe(15000);expect(Math.abs(Object.values(build.spent).reduce((a,b)=>a+b,0)-15000)).toBeLessThan(1e-10);}
  },60000);
  it("runs six ordinary 15000-gold scenarios against actual Heimerdinger pets",()=>{
-  const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices,result=simulateMatchup(compiled.spec,kit("Heimerdinger").spec,15000,prices);
+  const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices,result=simulateMatchup(compiled.spec,kit("Heimerdinger").spec,15000,prices);
   expect(result.scenarios).toHaveLength(6);for(const scenario of result.scenarios)for(const outcome of scenario.outcomes)expect([outcome.seconds,...outcome.hp,...outcome.damage].every(Number.isFinite)).toBe(true);
   for(const build of result.builds){expect(build.gold).toBe(15000);expect(Math.abs(Object.values(build.spent).reduce((a,b)=>a+b,0)-15000)).toBeLessThan(1e-10);}
  },60000);
 });
 
 describe("Taric mechanics source contracts",()=>{
- it("retains all exact primary pins and seven complete binary objects",()=>{const rows=records("Taric");expect(rows.map(r=>r.page.revid).sort()).toEqual([3907336,3986177,3996427,3907334,3989049].sort());expect(rows.flatMap(r=>r.gameSources??[])).toHaveLength(7);for(const row of rows){expect(row.sources?.some(s=>s.page.revid===row.page.revid&&s.text.some(t=>t.includes("|champion     = Taric")))).toBe(true);for(const source of row.gameSources!){expect(source.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json");expect(source.version).toBe("16.20.8248524+branch.releases-16-20.content.release");expect(source.sha256).toBe("c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb");expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object);}}});
+ it("retains all exact primary pins and seven complete binary objects",()=>{const rows=records("Taric");expect(rows.map(r=>r.page.revid).sort()).toEqual([4088364,4084593,4088362,4088361,3989049].sort());expect(rows.flatMap(r=>r.gameSources??[])).toHaveLength(7);for(const row of rows){expect(row.sources?.some(s=>s.page.revid===row.page.revid&&s.text.some(t=>t.includes("|champion     = Taric")))).toBe(true);for(const source of row.gameSources!){expect(source.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/taric/taric.bin.json");expect(source.version).toBe("16.21.8342754+branch.releases-16-21.content.release");expect(source.sha256).toBe("609245ccd434ab30729762ab234fabc1bdc14210e79425d87cd8081daabcbfaf");expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object);}}});
  it("fails closed on lost primary or selected binary evidence",()=>{const rows=records("Taric");delete rows[0]!.gameSources;expect(()=>compile(rows)).toThrow("pinned game data");const changed=records("Taric"),dazzle=changed.find(r=>r.kind==="E")!;dazzle.gameSources![0]!.text=dazzle.gameSources![0]!.text.map(t=>t.replace('"values":[1.0,1.0,1.0,1.0,1.0,1.0,1.0]','"values":[2.0,2.0,2.0,2.0,2.0,2.0,2.0]'));expect(()=>compile(changed)).toThrow("pinned game data");});
  it("does not mutate source data and has no fabricated ally variant",()=>{const rows=records("Taric"),before=structuredClone(rows),k=compile(rows);expect(rows).toEqual(before);expect(k.options).toEqual({});expect(k.variants).toEqual([]);expect(k.assumptions.join(" ")).toContain("no allied champion is fabricated");});
 });

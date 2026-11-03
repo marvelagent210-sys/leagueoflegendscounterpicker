@@ -1,0 +1,195 @@
+{
+  "champion": "Veigar",
+  "name": "Veigar",
+  "gameplayRadius": 55,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "veigar",
+      "formName": "Veigar",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.90031,
+      "attackDamage": 105.096,
+      "windup": 0.21208,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Veigar",
+      "kind": "E",
+      "name": "Event Horizon",
+      "page": {
+        "title": "Template:Data Veigar/Event Horizon",
+        "revid": 4016714
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Veigar/Event Horizon",
+              "revid": 4016714,
+              "quote": "Enemies that collide with the edges of the cage are knocked down and stunned for a duration."
+            }
+          ],
+          "duration": 2.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Veigar/Event Horizon",
+              "revid": 4016714,
+              "quote": "Enemies that collide with the edges of the cage are knocked down and stunned for a duration."
+            }
+          ],
+          "duration": 2.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 725,
+      "notes": [
+        "The stun and the knockdown are applied to units that are within a certain distance interval from the center of the area of effect.",
+        "Units that negate the stun will still count as passing through the edges. They will become immune to the effects of Event Horizon for the period even after negating them.",
+        "Displacement immune enemies will still be stunned, but not knocked down."
+      ]
+    },
+    {
+      "champion": "Veigar",
+      "kind": "I",
+      "name": "Phenomenal Evil Power",
+      "page": {
+        "title": "Template:Data Veigar/Phenomenal Evil Power",
+        "revid": 3932550
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Veigar",
+      "kind": "Q",
+      "name": "Baleful Strike",
+      "page": {
+        "title": "Template:Data Veigar/Baleful Strike",
+        "revid": 4050924
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "range": 1050,
+      "speed": 2200,
+      "notes": [
+        "The stacks are added immediately on enemy kill (on next game tick).\n  - If the first target was killed, the second hit may deal 1 damage more on enemies further along the missile's flight path."
+      ]
+    },
+    {
+      "champion": "Veigar",
+      "kind": "R",
+      "name": "Primordial Burst",
+      "page": {
+        "title": "Template:Data Veigar/Primordial Burst",
+        "revid": 4004085
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 60,
+      "castTime": 0.25,
+      "range": 650,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Veigar",
+      "kind": "W",
+      "name": "Dark Matter",
+      "page": {
+        "title": "Template:Data Veigar/Dark Matter",
+        "revid": 4086048
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 950
+    }
+  ]
+}

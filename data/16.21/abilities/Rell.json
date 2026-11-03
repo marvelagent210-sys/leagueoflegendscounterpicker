@@ -1,0 +1,1258 @@
+[
+  {
+    "champion": "Rell",
+    "kind": "E",
+    "name": "Full Tilt",
+    "page": {
+      "title": "Template:Data Rell/Full Tilt",
+      "revid": 4008009
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300 • 2200 • 1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Explosion radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2200
+            },
+            "label": "Empowered ally detection range for granting the enhanced MS, estimated"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "Enemy champion detection range for granting the enhanced MS, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rell powers up herself and the target allied champion for 3 seconds, both gaining 15% bonus movement speed, increased to 30% while facing the empowered ally or a visible enemy champion.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Active: Rell powers up herself and the target allied champion for 3 seconds, both gaining 15% bonus movement speed, increased to 30% while facing the empowered ally or a visible enemy champion.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Rell's next basic attack or Shattering Strike within 5 seconds creates an explosion around the target that deals bonus magic damage, capped at 150 – 300 (based on level) against monsters and structures.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "5 / 5.5 / 6 / 6.5 / 7% (+ 3% per 100 AP) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  5.5,
+                  6,
+                  6.5,
+                  7
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                150,
+                158.823529411765,
+                167.647058823529,
+                176.470588235294,
+                185.294117647059,
+                194.117647058824,
+                202.941176470588,
+                211.764705882353,
+                220.588235294118,
+                229.411764705882,
+                238.235294117647,
+                247.058823529412,
+                255.882352941176,
+                264.705882352941,
+                273.529411764706,
+                282.352941176471,
+                291.176470588235,
+                300,
+                308.823529411765,
+                317.647058823529
+              ],
+              "past18": "wiki"
+            },
+            "context": "Additionally, Rell's next basic attack or Shattering Strike within 5 seconds creates an explosion around the target that deals bonus magic damage, capped at 150 – 300 (based on level) against monsters and structures."
+          }
+        ],
+        "tips": [
+          {
+            "text": "the target",
+            "tip": "See Notes"
+          }
+        ]
+      },
+      {
+        "text": "If cast without a valid target, or self-cast, Full Tilt will automatically target the closest allied champion in range.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If Shattering Strike hits more than one enemy, the Full Tilt explosion will be centered around the unit with the lowest Spawn ID.\n  - \"Spawn ID\" is an unofficial abbreviation to describe the spawn order for all units at the beginning of games.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Full Tilt|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = E\n|icon         = Full Tilt.png\n|description  = {{sbc|Active:}} '''Rell''' powers up herself and the target allied {{tip|champion}} for 3 seconds, both gaining {{as|15% '''bonus''' movement speed}}, increased to {{as|30%|ms}} while facing the empowered ally or a {{tip|sight|visible}} enemy champion.\n|description2 = Additionally, '''Rell's''' next {{tip|basic attack}} or ''{{ai|Shattering Strike|Rell}}'' within 5 seconds creates an explosion around {{tt|the target|See Notes}} that deals {{as|'''bonus''' magic damage}}, capped at {{pp|150 + (300-150)/17*(x-1) for 20}} against {{tip|monsters}} and {{tip|structures}}.\n|leveling2    = {{st|Bonus Magic Damage|{{as|{{ap|5 to 7}}% {{as|(+ 3% per 100 AP)}} of target's '''maximum''' health}}}}\n|description3 = If cast without a valid target, or [[self-targeted|self-cast]], ''Full Tilt'' will automatically target the closest allied champion in range.\n|cooldown     = {{ap|14 to 10}}\n|cost         = 40\n|costtype     = Mana\n|target range = {{tip|cr|icononly=true}} 1200\n|effect radius= {{dv|{{tip|cr|icononly=true}} {{tt|300|Explosion radius}}|{{tt|2200|Empowered ally detection range for granting the enhanced MS, estimated}}|{{tt|1600|Enemy champion detection range for granting the enhanced MS, estimated}}}}\n|cast time    = none\n|queue time   = {{fd|0.5}}\n|targeting    = {{dv|[[Unit-targeted|Unit]]|[[Auto-targeted|Auto]]}}\n|affects      = Self, Allies, Enemies\n|damagetype   = Magic\n|spellshield  = true\n|spelleffects = spellaoe\n|outofrange   = If targeting an ally, walk in range of the target unit to cast\n|notes        = \n* If ''{{ai|Shattering Strike|Rell}}'' hits more than one enemy, the ''Full Tilt'' explosion will be centered around the unit with the lowest {{tt|Spawn ID|among enemy champions, this would also be the enemy first pick in Blind Pick mode}}.\n** \"Spawn ID\" is an unofficial abbreviation to describe the spawn order for all units at the beginning of games.\n<!--Blurb-->\n|blurb        = {{sbc|Active:}} {{ci|Rell}} empowers herself and an allied {{tip|champion}} with {{as|'''bonus''' movement speed}} for a few seconds, which is increased when moving towards the empowered ally or an enemy champion.\n|blurb2       = '''Rell's''' next basic attack or {{ai|Shattering Strike|Rell}} within 5 seconds will also explode around the target, dealing {{as|magic damage}} to nearby enemies.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rell/Full Tilt",
+          "revid": 4008009
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Full Tilt|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = E\n|icon         = Full Tilt.png\n|description  = {{sbc|Active:}} '''Rell''' powers up herself and the target allied {{tip|champion}} for 3 seconds, both gaining {{as|15% '''bonus''' movement speed}}, increased to {{as|30%|ms}} while facing the empowered ally or a {{tip|sight|visible}} enemy champion.\n|description2 = Additionally, '''Rell's''' next {{tip|basic attack}} or ''{{ai|Shattering Strike|Rell}}'' within 5 seconds creates an explosion around {{tt|the target|See Notes}} that deals {{as|'''bonus''' magic damage}}, capped at {{pp|150 + (300-150)/17*(x-1) for 20}} against {{tip|monsters}} and {{tip|structures}}.\n|leveling2    = {{st|Bonus Magic Damage|{{as|{{ap|5 to 7}}% {{as|(+ 3% per 100 AP)}} of target's '''maximum''' health}}}}\n|description3 = If cast without a valid target, or [[self-targeted|self-cast]], ''Full Tilt'' will automatically target the closest allied champion in range.\n|cooldown     = {{ap|14 to 10}}\n|cost         = 40\n|costtype     = Mana\n|target range = {{tip|cr|icononly=true}} 1200\n|effect radius= {{dv|{{tip|cr|icononly=true}} {{tt|300|Explosion radius}}|{{tt|2200|Empowered ally detection range for granting the enhanced MS, estimated}}|{{tt|1600|Enemy champion detection range for granting the enhanced MS, estimated}}}}\n|cast time    = none\n|queue time   = {{fd|0.5}}\n|targeting    = {{dv|[[Unit-targeted|Unit]]|[[Auto-targeted|Auto]]}}\n|affects      = Self, Allies, Enemies\n|damagetype   = Magic\n|spellshield  = true\n|spelleffects = spellaoe\n|outofrange   = If targeting an ally, walk in range of the target unit to cast\n|notes        = \n* If ''{{ai|Shattering Strike|Rell}}'' hits more than one enemy, the ''Full Tilt'' explosion will be centered around the unit with the lowest {{tt|Spawn ID|among enemy champions, this would also be the enemy first pick in Blind Pick mode}}.\n** \"Spawn ID\" is an unofficial abbreviation to describe the spawn order for all units at the beginning of games.\n<!--Blurb-->\n|blurb        = {{sbc|Active:}} {{ci|Rell}} empowers herself and an allied {{tip|champion}} with {{as|'''bonus''' movement speed}} for a few seconds, which is increased when moving towards the empowered ally or an enemy champion.\n|blurb2       = '''Rell's''' next basic attack or {{ai|Shattering Strike|Rell}} within 5 seconds will also explode around the target, dealing {{as|magic damage}} to nearby enemies.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json",
+        "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+        "object": "Characters/Rell/Spells/RellEAbility/RellE",
+        "text": [
+          "{\"ObjectName\":\"RellE\",\"objectPath\":\"Characters/Rell/Spells/RellEAbility/RellE\",\"mScriptName\":\"RellE\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":1,\"mSpellTags\":[\"PositiveEffect_Boon\"],\"DataValues\":[{\"name\":\"MaxMS\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"MinMS\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"Duration\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MSModPhase1\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ExplosionRadius\",\"values\":[300.0,300.0,300.0,300.0,300.0,300.0,300.0],\"__type\":\"SpellDataValue\"},{\"name\":\"PercentHealthDamage\",\"values\":[0.04500000178813934,0.05000000074505806,0.054999999701976776,0.05999999865889549,0.06499999761581421,0.07000000029802322,0.07500000298023224],\"__type\":\"SpellDataValue\"},{\"name\":\"PassiveMSCombatPenalty\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"EmpowermentBuffer\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Phase2Start\",\"__type\":\"SpellDataValue\"},{\"name\":\"Phase3Start\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"MaxHealthDamageCalc\":{\"mFormulaParts\":[{\"mDataValue\":\"PercentHealthDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.0003000000142492354,\"__type\":\"StatByCoefficientCalculationPart\"}],\"mDisplayAsPercent\":true,\"mPrecision\":1,\"__type\":\"GameCalculation\"},\"PercentHealthDamageCap\":{\"mFormulaParts\":[{\"mStartValue\":150.0,\"mEndValue\":300.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell3_Activate\",\"mImgIconName\":[\"ASSETS/Characters/Rell/HUD/Icons2D/RellE.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":0.0,\"cooldownTime\":[14.0,14.0,13.0,12.0,11.0,10.0,10.0],\"Cooldown\":{\"values\":[14.0,14.0,13.0,12.0,11.0,10.0,10.0],\"__type\":\"{0a0eddc9}\"},\"mCharacterPassiveBuffs\":[{\"mParentPassiveBuff\":\"Characters/Rell/Spells/RellEAbility/RellE_Passive\",\"__type\":\"CharacterPassiveData\"}],\"mCantCancelWhileWindingUp\":true,\"mCantCancelWhileWindingUpTargetingChampion\":true,\"mUseMinimapTargeting\":true,\"mDoNotNeedToFaceTarget\":true,\"castRange\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"castRangeValues\":{\"values\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"{0a3e0478}\":1200.0,\"__type\":\"{0a0eddc9}\"},\"castFrame\":8.0,\"mana\":[40.0,40.0,40.0,40.0,40.0,40.0],\"manaValues\":{\"values\":[40.0,40.0,40.0,40.0,40.0,40.0],\"{0a3e0478}\":40.0,\"__type\":\"{630af303}\"},\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":200.0,\"TargetForgivenessDefinitions\":[{\"mInvertResult\":true,\"mUnit\":\"Characters/Rell/CharacterRecords/Root\",\"__type\":\"IsSpecifiedUnitCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"},{\"ForgivenessRange\":200000.0,\"TargetForgivenessDefinitions\":[{\"mUnit\":\"Characters/Rell/CharacterRecords/Root\",\"__type\":\"IsSpecifiedUnitCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mSpellCooldownOrSealedQueueThreshold\":0.5,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RellE\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RellE_Name\",\"keyTooltip\":\"Spell_RellE_Tooltip\",\"keySummary\":\"Spell_RellE_Summary\",\"keyTooltipExtendedBelowLine\":\"Spell_RellE_TooltipExtendedBelowLine\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"PercentHealthDamage\",\"multiplier\":100.0,\"nameOverride\":\"Spell_ListType_Damage\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"MaxHealthDamageCalc\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":2,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"MaxMS\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"MaxMS\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "I",
+    "name": "Break the Mold",
+    "page": {
+      "title": "Template:Data Rell/Break the Mold",
+      "revid": 4050368
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Rell's basic attacks deal bonus magic damage on-hit equal to the sum of 5% of her total armor and 5% of her total magic resistance.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Rell's basic attacks deal bonus magic damage on-hit equal to the sum of 5% of her total armor and 5% of her total magic resistance.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Rell's basic attacks on-hit and abilities against non-minions apply a stack of Break The Mold for 5 seconds, refreshing on subsequent hits and stacking up to 5 times. Each stack reduces the target's armor and magic resistance by 3% for a maximum of 15% reduction.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Rell's basic attacks on-hit and abilities against non-minions apply a stack of Break The Mold for 5 seconds, refreshing on subsequent hits and stacking up to 5 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rell gains bonus armor and bonus magic resistance equal to the sum of resistances reduced from all afflicted enemies.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Break the Mold will reduce the target's armor and magic resistance by a minimum of 1.5 – 3 (based on level).",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1.5,
+                1.58823529411765,
+                1.67647058823529,
+                1.76470588235294,
+                1.85294117647059,
+                1.94117647058824,
+                2.02941176470588,
+                2.11764705882353,
+                2.20588235294118,
+                2.29411764705882,
+                2.38235294117647,
+                2.47058823529412,
+                2.55882352941176,
+                2.64705882352941,
+                2.73529411764706,
+                2.82352941176471,
+                2.91176470588235,
+                3,
+                3.08823529411765,
+                3.17647058823529
+              ],
+              "past18": "wiki"
+            },
+            "context": "Break the Mold will reduce the target's armor and magic resistance by a minimum of 1.5 – 3 (based on level)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The attacks do not affect structures.",
+      "The first stack of Break the Mold that is applied to a target will snapshot the targets current armor and magic resistance. All subsequent stacks will reduce the targets resistances based on the snapshotted amount, even if the target's total resistances change. This snapshot lasts until the debuff expires.\n  - For example, applying a stack of Break the Mold to a champion with 100 armor and magic resistance will reduce their resistance by 3 and grant Rell the lost stats. If their resistances are then boosted to 500 before another stack is applied, the subsequent stack will only reduce their resistance by a further 3 despite 3% of 500 being 15.\n  - Another example, when a target has temporarily gained increased resistances before Rell applies the first stack of Break the Mold then the snapshot of the target's stats will be of the increased amount. This can result in targets losing significantly more resistances after the duration of the increase ends, for as long as the stacks don't fall off.\n  - If a target has 100 base resistances, and they are increased to 500 temporarily before Break the Mold is applied, then the target will lose a total of 15 resistances, up to a total of 75 resistances at 5 stacks, and when the target's resistance buff ends they would only have 25 remaining.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Break the Mold|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = I\n|icon         = Break the Mold.png\n|blurb        = {{sbc|Innate:}} {{cis|Rell}} {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} {{tip|on-hit}} equal to a percentage of her {{as|'''total''' armor}} and {{as|'''total''' magic resistance}}.\n|blurb2       = '''Rell's''' basic attacks and abilities apply a {{tip|stack}} of ''Break The Mold'' to enemies hit for a few seconds. Each stack reduces the target's {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} and increases '''Rell's''' {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} by the same amount.\n|description  = {{sbc|Innate:}} '''Rell's''' {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} {{tip|on-hit}} equal to the sum of {{as|5% of her '''total''' armor}} and {{as|5% of her '''total''' magic resistance}}.\n|description2 = {{sbc|Innate:}} '''Rell's''' {{tip|basic attacks}} {{tip|on-hit}} and {{tip|abilities}} against non-{{tip|minions}} apply a {{tip|stack}} of ''Break The Mold'' for 5 seconds, refreshing on subsequent hits and stacking up to 5 times. Each stack reduces the target's {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}} by 3% for a maximum of 15% reduction.\n|description3 = '''Rell''' gains {{as|'''bonus''' armor}} and {{as|'''bonus''' magic resistance}} equal to the sum of resistances reduced from all afflicted enemies.\n|description4 = ''Break the Mold'' will reduce the target's {{as|armor}} and {{as|magic resistance}} by a minimum of {{pp|1.5 + (3-1.5)/17*(x-1) for 20}}.\n|cooldown     = \n|target range = \n|effect radius= \n|speed        = \n|width        = \n|angle        = \n|cast time    = \n|targeting    = Passive\n|affects      = Self, Enemies\n|damagetype   = magic\n|spellshield  = false\n|spelleffects = proc\n|projectile   = \n|parry        = true\n|callforhelp  = \n|notes        = \n* The attacks do not affect [[structures]].\n* The first stack of ''Break the Mold'' that is applied to a target will snapshot the targets current {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}}. All subsequent stacks will reduce the targets resistances based on the snapshotted amount, even if the target's total resistances change. This snapshot lasts until the debuff expires.\n** For example, applying a stack of ''Break the Mold'' to a champion with 100 {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}} will reduce their resistance by 3 and grant '''Rell''' the lost stats. If their resistances are then boosted to 500 before another stack is applied, the subsequent stack will only reduce their resistance by a further 3 despite 3% of 500 being 15.\n** Another example, when a target has temporarily gained increased resistances before '''Rell''' applies the first stack of ''Break the Mold'' then the snapshot of the target's stats will be of the increased amount. This can result in targets losing significantly more resistances after the duration of the increase ends, for as long as the stacks don't fall off. \n** If a target has 100 base resistances, and they are increased to 500 temporarily before ''Break the Mold'' is applied, then the target will lose a total of 15 resistances, up to a total of 75 resistances at 5 stacks, and when the target's resistance buff ends they would only have 25 remaining.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rell/Break the Mold",
+          "revid": 4050368
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Break the Mold|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = I\n|icon         = Break the Mold.png\n|blurb        = {{sbc|Innate:}} {{cis|Rell}} {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} {{tip|on-hit}} equal to a percentage of her {{as|'''total''' armor}} and {{as|'''total''' magic resistance}}.\n|blurb2       = '''Rell's''' basic attacks and abilities apply a {{tip|stack}} of ''Break The Mold'' to enemies hit for a few seconds. Each stack reduces the target's {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} and increases '''Rell's''' {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resist}}}} by the same amount.\n|description  = {{sbc|Innate:}} '''Rell's''' {{tip|basic attacks}} deal {{as|'''bonus''' magic damage}} {{tip|on-hit}} equal to the sum of {{as|5% of her '''total''' armor}} and {{as|5% of her '''total''' magic resistance}}.\n|description2 = {{sbc|Innate:}} '''Rell's''' {{tip|basic attacks}} {{tip|on-hit}} and {{tip|abilities}} against non-{{tip|minions}} apply a {{tip|stack}} of ''Break The Mold'' for 5 seconds, refreshing on subsequent hits and stacking up to 5 times. Each stack reduces the target's {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}} by 3% for a maximum of 15% reduction.\n|description3 = '''Rell''' gains {{as|'''bonus''' armor}} and {{as|'''bonus''' magic resistance}} equal to the sum of resistances reduced from all afflicted enemies.\n|description4 = ''Break the Mold'' will reduce the target's {{as|armor}} and {{as|magic resistance}} by a minimum of {{pp|1.5 + (3-1.5)/17*(x-1) for 20}}.\n|cooldown     = \n|target range = \n|effect radius= \n|speed        = \n|width        = \n|angle        = \n|cast time    = \n|targeting    = Passive\n|affects      = Self, Enemies\n|damagetype   = magic\n|spellshield  = false\n|spelleffects = proc\n|projectile   = \n|parry        = true\n|callforhelp  = \n|notes        = \n* The attacks do not affect [[structures]].\n* The first stack of ''Break the Mold'' that is applied to a target will snapshot the targets current {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}}. All subsequent stacks will reduce the targets resistances based on the snapshotted amount, even if the target's total resistances change. This snapshot lasts until the debuff expires.\n** For example, applying a stack of ''Break the Mold'' to a champion with 100 {{sti|ar|{{as|armor}}}} and {{sti|mr|{{as|magic resistance}}}} will reduce their resistance by 3 and grant '''Rell''' the lost stats. If their resistances are then boosted to 500 before another stack is applied, the subsequent stack will only reduce their resistance by a further 3 despite 3% of 500 being 15.\n** Another example, when a target has temporarily gained increased resistances before '''Rell''' applies the first stack of ''Break the Mold'' then the snapshot of the target's stats will be of the increased amount. This can result in targets losing significantly more resistances after the duration of the increase ends, for as long as the stacks don't fall off. \n** If a target has 100 base resistances, and they are increased to 500 temporarily before ''Break the Mold'' is applied, then the target will lose a total of 15 resistances, up to a total of 75 resistances at 5 stacks, and when the target's resistance buff ends they would only have 25 remaining.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json",
+        "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+        "object": "Characters/Rell/Spells/RellPAbility/RellP",
+        "text": [
+          "{\"ObjectName\":\"RellP\",\"objectPath\":\"Characters/Rell/Spells/RellPAbility/RellP\",\"mScriptName\":\"RellP\",\"mSpell\":{\"DataValues\":[{\"name\":\"RefreshDuration\",\"values\":[3.5,3.5,3.5,3.5,3.5,3.5,3.5],\"__type\":\"SpellDataValue\"},{\"name\":\"StealPercent\",\"values\":[0.029999999329447746,0.029999999329447746,0.029999999329447746,0.029999999329447746,0.029999999329447746,0.029999999329447746,0.029999999329447746],\"__type\":\"SpellDataValue\"},{\"name\":\"ShredDuration\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MaxStacks\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MaxPercentTooltipOnly\",\"values\":[15.0,15.0,15.0,15.0,15.0,15.0,15.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"StealPercent\",\"values\":[0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"StealFloor\":{\"mFormulaParts\":[{\"mStartValue\":1.5,\"mEndValue\":3.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"}],\"mPrecision\":1,\"__type\":\"GameCalculation\"},\"OnHitDamage\":{\"DamageType\":1,\"mFormulaParts\":[{\"mStat\":1,\"mCoefficient\":0.05000000074505806,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mStat\":6,\"mCoefficient\":0.05000000074505806,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"LastHitData\":[{\"{6166b756}\":\"OnHitDamage\",\"__type\":\"LastHitData\"}],\"mImgIconName\":[\"ASSETS/Characters/Rell/HUD/Icons2D/RellP.dds\"],\"castRange\":[1500.0,1500.0,1500.0,1500.0,1500.0,1500.0,1500.0],\"castRangeValues\":{\"values\":[1500.0,1500.0,1500.0,1500.0,1500.0,1500.0,1500.0],\"{0a3e0478}\":1500.0,\"__type\":\"{0a0eddc9}\"},\"mFloatVarsDecimals\":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RellP\",\"mFormat\":\"{476ec0b8}\",\"mLocKeys\":{\"keyName\":\"Spell_RellP_Name\",\"keyTooltip\":\"Spell_RellP_Tooltip\",\"keyTooltipExtended\":\"Spell_RellP_TooltipExtended\",\"keySummary\":\"Spell_RellP_Summary\"},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "Q",
+    "name": "Shattering Strike",
+    "page": {
+      "title": "Template:Data Rell/Shattering Strike",
+      "revid": 4008008
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10.5 / 10 / 9.5 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10.5,
+                10,
+                9.5,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "520 • -220",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 520
+            },
+            "label": "Rectangle forward range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 220
+            },
+            "label": "Rectangle backward range"
+          }
+        ]
+      },
+      "width": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Rectangle width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 100 / 140 / 180 / 220 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  100,
+                  140,
+                  180,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "lunging",
+            "evidence": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shields",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it. She is also unable to act for 0.35 seconds after the cast time.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "lunge",
+            "evidence": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "evidence": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "constant",
+              "value": 0.35
+            },
+            "evidence": "She is also unable to act for 0.35 seconds after the cast time.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Shattering Strike|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = Q\n|icon         = Shattering Strike.png\n|blurb        = {{sbc|Active:}} {{ci|Rell}} thrusts her lance in the target direction that destroys damage {{tip|shield|shields}} of enemies hit before dealing {{as|magic damage}} and {{tip|stun|stunning}}.\n|description  = {{sbc|Active:}} '''Rell''' thrusts her lance in the target direction, {{tip|lunge|lunging}} forward 100 units and destroying the damage-mitigating {{tip|shield|shields}} of all enemies hit (excluding the shields of {{tip|monsters}}) before dealing them {{as|magic damage}} and {{tip|stun|stunning}} them for {{fd|0.65}} seconds.\n|description2 = '''''Rell''' will not {{tip|lunge}} forward after the cast time if she was {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}} during it. She is also {{tip|lockout|unable to act}} for {{fd|0.35}} seconds after the cast time.'' \n|leveling     = {{st|Magic Damage|{{ap|60 to 220}} {{as|(+ 60% AP)}}}}\n|cooldown     = {{ap|11 to 9}}\n|cost         = 50\n|costtype     = mana\n|range        = {{dv|{{tip|er|icononly = true}} {{tt|520|Rectangle forward range}}|{{tip|er|icononly=true}} {{tt|-220|Rectangle backward range}}}}\n|width        = {{tip|er|icononly = true}} {{tt|150|Rectangle width}}\n|cast time    = {{fd|0.4}}\n|queue time   = {{fd|0.25}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = magic\n|spellshield  = true\n|spelleffects = spellaoe\n|projectile   = false\n|callforhelp  = \n|notes        = \n{{Effect at cast time end}}\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rell/Shattering Strike",
+          "revid": 4008008
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Shattering Strike|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = Q\n|icon         = Shattering Strike.png\n|blurb        = {{sbc|Active:}} {{ci|Rell}} thrusts her lance in the target direction that destroys damage {{tip|shield|shields}} of enemies hit before dealing {{as|magic damage}} and {{tip|stun|stunning}}.\n|description  = {{sbc|Active:}} '''Rell''' thrusts her lance in the target direction, {{tip|lunge|lunging}} forward 100 units and destroying the damage-mitigating {{tip|shield|shields}} of all enemies hit (excluding the shields of {{tip|monsters}}) before dealing them {{as|magic damage}} and {{tip|stun|stunning}} them for {{fd|0.65}} seconds.\n|description2 = '''''Rell''' will not {{tip|lunge}} forward after the cast time if she was {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|silence|silenced}} during it. She is also {{tip|lockout|unable to act}} for {{fd|0.35}} seconds after the cast time.'' \n|leveling     = {{st|Magic Damage|{{ap|60 to 220}} {{as|(+ 60% AP)}}}}\n|cooldown     = {{ap|11 to 9}}\n|cost         = 50\n|costtype     = mana\n|range        = {{dv|{{tip|er|icononly = true}} {{tt|520|Rectangle forward range}}|{{tip|er|icononly=true}} {{tt|-220|Rectangle backward range}}}}\n|width        = {{tip|er|icononly = true}} {{tt|150|Rectangle width}}\n|cast time    = {{fd|0.4}}\n|queue time   = {{fd|0.25}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = magic\n|spellshield  = true\n|spelleffects = spellaoe\n|projectile   = false\n|callforhelp  = \n|notes        = \n{{Effect at cast time end}}\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json",
+        "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+        "object": "Characters/Rell/Spells/RellQAbility/RellQ",
+        "text": [
+          "{\"ObjectName\":\"RellQ\",\"objectPath\":\"Characters/Rell/Spells/RellQAbility/RellQ\",\"mScriptName\":\"RellQ\",\"mSpell\":{\"flags\":16,\"mAffectsTypeFlags\":8192,\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_Target_Directional\",\"Trait_Melee_SmallWindup\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[20.0,60.0,100.0,140.0,180.0,220.0,260.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StunDuration\",\"values\":[0.6499999761581421,0.6499999761581421,0.6499999761581421,0.6499999761581421,0.6499999761581421,0.6499999761581421,0.6499999761581421],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"Damage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.6000000238418579,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell1\",\"mImgIconName\":[\"ASSETS/Characters/Rell/HUD/Icons2D/RellQ.dds\"],\"mCastTime\":0.4000000059604645,\"spellCastTime\":0.3499999940395355,\"spellTotalTime\":0.6000000238418579,\"cooldownTime\":[11.0,11.0,10.5,10.0,9.5,9.0,8.0],\"Cooldown\":{\"values\":[11.0,11.0,10.5,10.0,9.5,9.0,8.0],\"__type\":\"{0a0eddc9}\"},\"mPostCastLockoutDeltaTime\":0.5,\"mCasterPositionEndOfCastUpdate\":1,\"canCastOrQueueWhileCasting\":true,\"mCantCancelWhileWindingUp\":true,\"mCantCancelWhileWindingUpTargetingChampion\":true,\"mProjectTargetToCastRange\":true,\"alwaysSnapFacing\":true,\"mDoNotNeedToFaceTarget\":true,\"castRange\":[5000.0,5000.0,5000.0,5000.0,5000.0,5000.0,5000.0],\"castRangeValues\":{\"values\":[5000.0,5000.0,5000.0,5000.0,5000.0,5000.0,5000.0],\"{0a3e0478}\":5000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castFrame\":12.0,\"mana\":[50.0,50.0,50.0,50.0,50.0,50.0],\"manaValues\":{\"values\":[50.0,50.0,50.0,50.0,50.0,50.0],\"{0a3e0478}\":50.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Direction\"},\"mSpellCooldownOrSealedQueueThreshold\":0.25,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RellQ\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RellQ_Name\",\"keyTooltip\":\"Spell_RellQ_Tooltip\",\"keySummary\":\"Spell_RellQ_Summary\",\"keyTooltipExtendedBelowLine\":\"Spell_RellQ_TooltipBelowLine\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"nameOverride\":\"Spell_ListType_Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineStopsAtEndPosition\":false,\"minimumDisplayedRange\":360.0,\"arrowSize\":40.0,\"lineWidth\":{\"mPerLevelValues\":[80.0,80.0,80.0,80.0,80.0,80.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"},{\"hideWithLineIndicator\":true,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"Damage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":128,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":2048,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"StunDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4096,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"StunDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":16384,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"StunDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "R",
+    "name": "Magnet Storm",
+    "page": {
+      "title": "Template:Data Rell/Magnet Storm",
+      "revid": 4008010
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "450 • 375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Initial knockup radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            },
+            "label": "Continous kinetics effect radius, center to edge"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Pulls target into at least this radius, continuous kinetics does not affect targets already in this radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Kinematic attraction speed, in units per second"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rell erupts with magnetic fury, pulling nearby enemies inward and creating a gravitational field around her for the next 2 seconds that deals magic damage every 0.25 seconds to nearby enemies and drags them towards her.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "18.75 / 31.25 / 43.75 (+ 13.75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  18.75,
+                  31.25,
+                  43.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 13.75
+                  },
+                  "text": "(+ 13.75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 110% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulling",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Rell erupts with magnetic fury, pulling nearby enemies inward and creating a gravitational field around her for the next 2 seconds that deals magic damage every 0.25 seconds to nearby enemies and drags them towards her.",
+            "conditional": false
+          },
+          {
+            "type": "drag",
+            "category": "control",
+            "wording": "drags",
+            "evidence": "Active: Rell erupts with magnetic fury, pulling nearby enemies inward and creating a gravitational field around her for the next 2 seconds that deals magic damage every 0.25 seconds to nearby enemies and drags them towards her.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "inward",
+            "tip": "to a ring 225 units around Rell, but minimum 100 pull distance"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Magnet Storm will not drag units that are:\n  - Dashing.\n  - Being displaced (e.g. by airborne effects)\n  - Attached.\n  - Displacement immune.\n  - Immune to crowd control.",
+      "Spell shield will block the initial pull but not the dragging effect.",
+      "Magnet Storm cannot be cast again while it is active.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Magnet Storm|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = R\n|icon         = Magnet Storm.png\n|blurb        = {{sbc|Active:}} {{ci|Rell}} erupts in magnetic fury, {{tip|airborne|pulling}} nearby enemies inward. She then emits a {{tip|Kinematics|Kinematic}} field that continually deals {{as|magic damage}} over a short time.\n|blurb4      = {{sbc|{{tip|Kinematics|nolink=true}}:}} Kinematics drags enemies toward the '''Source''', but does not disable their actions nor intercept other forms of movement.\n|description  = {{sbc|Active:}} '''Rell''' erupts with magnetic fury, {{tip|airborne|pulling}} nearby enemies {{tt|inward|to a ring 225 units around Rell, but minimum 100 pull distance}} and creating a gravitational field around her for the next 2 seconds that deals {{as|magic damage}} every {{fd|0.25}} seconds to nearby enemies and {{tip|kinematics|drags}} them towards her.\n|leveling     = {{st|Magic Damage Per Tick|{{ap|150/8 to 350/8}} {{as|(+ {{ap|110/8}}% AP)}}|Total Magic Damage|{{ap|150 to 350}} {{as|(+ 110% AP)}}}}\n|cooldown     = {{ap|120 to 80}}\n|cdstart      = on-cast\n|cost         = 100\n|costtype     = Mana\n|target range = \n|effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|450|Initial knockup radius}}|{{tip|er|icononly = true}} {{tt|375|Continous kinetics effect radius, center to edge}}}}\n|inner radius = {{tip|cr|icononly = true}} {{tt|225|Pulls target into at least this radius, continuous kinetics does not affect targets already in this radius}}\n|width        = \n|angle        = \n|cast time    = {{fd|0.25}}\n|speed        = {{tt|300|Kinematic attraction speed, in units per second}}\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = special\n|spelleffects = aoedot\n|projectile   = \n|callforhelp  = \n|notes        = \n{{Effect at cast time end}}\n* ''Magnet Storm'' will '''not''' drag units that are:\n** {{tip|Dash|Dashing}}.\n** Being displaced (e.g. by {{tip|airborne}} effects)\n** {{tip|Attach|Attached}}.\n** {{tip|Displacement immune|Displacement immune}}.\n** {{tip|cc-immune|Immune to crowd control}}.\n* {{tip|Spell shield}} will block the initial {{tip|airborne|pull}} but not the dragging effect.\n* ''Magnet Storm'' cannot be cast again while it is active.\n|flavorsound  = {{sm2|Rell_Original_R_0.ogg}} ''\"Nobody leaves!\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rell/Magnet Storm",
+          "revid": 4008010
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Magnet Storm|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = R\n|icon         = Magnet Storm.png\n|blurb        = {{sbc|Active:}} {{ci|Rell}} erupts in magnetic fury, {{tip|airborne|pulling}} nearby enemies inward. She then emits a {{tip|Kinematics|Kinematic}} field that continually deals {{as|magic damage}} over a short time.\n|blurb4      = {{sbc|{{tip|Kinematics|nolink=true}}:}} Kinematics drags enemies toward the '''Source''', but does not disable their actions nor intercept other forms of movement.\n|description  = {{sbc|Active:}} '''Rell''' erupts with magnetic fury, {{tip|airborne|pulling}} nearby enemies {{tt|inward|to a ring 225 units around Rell, but minimum 100 pull distance}} and creating a gravitational field around her for the next 2 seconds that deals {{as|magic damage}} every {{fd|0.25}} seconds to nearby enemies and {{tip|kinematics|drags}} them towards her.\n|leveling     = {{st|Magic Damage Per Tick|{{ap|150/8 to 350/8}} {{as|(+ {{ap|110/8}}% AP)}}|Total Magic Damage|{{ap|150 to 350}} {{as|(+ 110% AP)}}}}\n|cooldown     = {{ap|120 to 80}}\n|cdstart      = on-cast\n|cost         = 100\n|costtype     = Mana\n|target range = \n|effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|450|Initial knockup radius}}|{{tip|er|icononly = true}} {{tt|375|Continous kinetics effect radius, center to edge}}}}\n|inner radius = {{tip|cr|icononly = true}} {{tt|225|Pulls target into at least this radius, continuous kinetics does not affect targets already in this radius}}\n|width        = \n|angle        = \n|cast time    = {{fd|0.25}}\n|speed        = {{tt|300|Kinematic attraction speed, in units per second}}\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = special\n|spelleffects = aoedot\n|projectile   = \n|callforhelp  = \n|notes        = \n{{Effect at cast time end}}\n* ''Magnet Storm'' will '''not''' drag units that are:\n** {{tip|Dash|Dashing}}.\n** Being displaced (e.g. by {{tip|airborne}} effects)\n** {{tip|Attach|Attached}}.\n** {{tip|Displacement immune|Displacement immune}}.\n** {{tip|cc-immune|Immune to crowd control}}.\n* {{tip|Spell shield}} will block the initial {{tip|airborne|pull}} but not the dragging effect.\n* ''Magnet Storm'' cannot be cast again while it is active.\n|flavorsound  = {{sm2|Rell_Original_R_0.ogg}} ''\"Nobody leaves!\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json",
+        "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+        "object": "Characters/Rell/Spells/RellRAbility/RellR",
+        "text": [
+          "{\"ObjectName\":\"RellR\",\"objectPath\":\"Characters/Rell/Spells/RellRAbility/RellR\",\"mScriptName\":\"RellR\",\"mSpell\":{\"mAffectsTypeFlags\":8192,\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_DoT\",\"Trait_Kinematic\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"Duration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamagePerSecond\",\"values\":[25.0,75.0,125.0,175.0,225.0,275.0,325.0],\"__type\":\"SpellDataValue\"},{\"name\":\"GravityHorizon\",\"values\":[225.0,225.0,225.0,225.0,225.0,225.0,225.0],\"__type\":\"SpellDataValue\"},{\"name\":\"GravityRadius\",\"values\":[375.0,375.0,375.0,375.0,375.0,375.0,375.0],\"__type\":\"SpellDataValue\"},{\"name\":\"GravityForce\",\"values\":[300.0,300.0,300.0,300.0,300.0,300.0,300.0],\"__type\":\"SpellDataValue\"},{\"name\":\"InitialRadius\",\"values\":[425.0,425.0,425.0,425.0,425.0,425.0,425.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"DamagePerSecond\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamagePerSecond\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.550000011920929,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"TotalDamage\":{\"mMultiplier\":{\"mDataValue\":\"Duration\",\"__type\":\"NamedDataValueCalculationPart\"},\"tooltipOnly\":true,\"mModifiedGameCalculation\":\"DamagePerSecond\",\"__type\":\"GameCalculationModified\"}},\"mAnimationName\":\"Spell4\",\"mImgIconName\":[\"ASSETS/Characters/Rell/HUD/Icons2D/RellR.dds\"],\"mCastTime\":0.25,\"spellCastTime\":0.0,\"spellTotalTime\":0.0,\"cooldownTime\":[120.0,120.0,100.0,80.0,80.0,80.0,80.0],\"Cooldown\":{\"values\":[120.0,120.0,100.0,80.0,80.0,80.0,80.0],\"__type\":\"{0a0eddc9}\"},\"mCanTriggerChargeSpellWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"alwaysSnapFacing\":true,\"useAnimatorFramerate\":true,\"bIsToggleSpell\":true,\"mDoNotNeedToFaceTarget\":true,\"mHideRangeIndicatorWhenCasting\":true,\"castRange\":[200.0,200.0,200.0,200.0,200.0,200.0,200.0],\"castRangeValues\":{\"values\":[200.0,200.0,200.0,200.0,200.0,200.0,200.0],\"{0a3e0478}\":200.0,\"__type\":\"{0a0eddc9}\"},\"mana\":[100.0,100.0,100.0,100.0,100.0,100.0],\"manaValues\":{\"values\":[100.0,100.0,100.0,100.0,100.0,100.0],\"{0a3e0478}\":100.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"SelfAoe\"},\"mDimensionBehavior\":1,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RellR\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RellR_Name\",\"keyTooltip\":\"Spell_RellR_Tooltip\",\"keySummary\":\"Spell_RellR_Summary\"},\"mLists\":{\"LevelUp\":{\"levelCount\":3,\"Elements\":[{\"type\":\"Cooldown\",\"nameOverride\":\"Spell_ListType_Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"BaseDamagePerSecond\",\"multiplier\":2.0,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"overrideBaseRange\":{\"mPerLevelValues\":[400.0,400.0,400.0,400.0,400.0,400.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"buff_desc_RellR\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":65536,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":33554432,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamagePerSecond\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "W",
+    "name": "Ferromancy: Crash Down",
+    "page": {
+      "title": "Template:Data Rell/Ferromancy: Crash Down",
+      "revid": 4007762
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.625
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "100 - 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Minimum and maximum initial dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            }
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Sliding dash collision radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive - Mounted Alacrity",
+        "text": "Passive - Mounted Alacrity: While Rell is Mounted, she gains bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Rell becomes Dismounted and leaps to the target location over the cast time, granting herself a shield that lasts until destroyed or casting Ferromancy: Mount Up. Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds. She will continue sliding forward another 320 units over 0.5 seconds, though not through terrain, affecting further enemies along her path.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "20 / 40 / 60 / 80 / 100 (+ 11% maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  40,
+                  60,
+                  80,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 11
+                  },
+                  "text": "(+ 11% maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Rell becomes Dismounted and leaps to the target location over the cast time, granting herself a shield that lasts until destroyed or casting Ferromancy: Mount Up.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Active: Rell becomes Dismounted and leaps to the target location over the cast time, granting herself a shield that lasts until destroyed or casting Ferromancy: Mount Up.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "sliding",
+            "evidence": "She will continue sliding forward another 320 units over 0.5 seconds, though not through terrain, affecting further enemies along her path.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5 seconds",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "text": "While Rell is Dismounted, she can cast Ferromancy: Mount Up. Upon completing a Recall channel or respawning, Rell will automatically revert to Mounted form without casting the ability and reset Ferromancy: Mount Up cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "This ability can be cast only while Rell is Mounted. Rell can cast Magnet Storm during the dash, and is considered to be dismounted at the start of the cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Mounted Alacrity grants 15 bonus movement speed if the ability has not been learned (rank 0).",
+      "Rell slides between 250 and 350 units in testing, depending on how far the spell was targeted. It is not known where this is intended.",
+      "If Rell dashes before a wall on the map, the slide will cover a shorter distance to the terrain over the same time, moving slower.\n  - Interaction with player-made walls.",
+      "The following table refers for interactions while Rell is dashing/in cast time:",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Ferromancy: Crash Down|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = W\n|icon         = Ferromancy Crash Down.png\n|description  = {{sbc|Passive - Mounted Alacrity:}} While '''Rell''' is {{sbc|Mounted}}, she gains {{as|'''bonus''' movement speed}}.\n|leveling     = {{st|Bonus Movement Speed|{{ap|20 to 40}}}}\n|description2 = {{sbc|Active:}} '''Rell''' becomes {{sbc|Dismounted}} and {{tip|dash|leaps}} to the target location over the cast time, granting herself a {{tip|shield}} that lasts until destroyed or casting ''{{ai|Ferromancy: Mount Up|Rell}}''. Upon arrival, she deals {{as|magic damage}} to nearby enemies, {{tip|stun|stuns}} them for {{fd|0.8}} seconds, and {{tip|airborne|knocks them up}} for {{fd|0.4}} seconds. She will continue {{tip|dash|sliding}} forward another 320 units over {{tt|{{fd|0.5}} seconds|Estimated}}, though not through terrain, affecting further enemies along her path.\n|leveling2    = {{st|Shield Strength|{{ap|20 to 100}} {{as|(+ 11% '''maximum''' health)}}}}\n{{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 60% AP)}}}}\n|description3 = While '''Rell''' is {{sbc|Dismounted}}, she can cast ''{{ai|Ferromancy: Mount Up|Rell}}''. Upon completing a {{si|Recall}} channel or respawning, '''Rell''' will automatically revert to {{sbc|Mounted}} form without casting the ability and reset ''{{ais|Ferromancy: Mount Up|Rell}}'' {{sti|cooldown}}.\n|description4 = ''This ability can be cast only while Rell is {{sbc|Mounted}}. '''Rell''' can cast {{ai|Magnet Storm|Rell}} during the dash, and is considered to be dismounted at the start of the cast time.''\n|cooldown     = 10\n|cost         = 40\n|costtype     = Mana\n|target range = {{tt|100 - 400|Minimum and maximum initial dash distance}}\n|effect radius= 180\n|collision radius= {{tip|er|icononly = true}} {{tt|200|Sliding dash collision radius}}\n|cast time    = {{fd|0.625}}\n|speed        =\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = true\n|spelleffects = spellaoe\n|grounded     = true\n|knockdown    = true\n|projectile   = \n|callforhelp  = \n|outofrange   = cast at max\n|notes        = \n* ''Mounted Alacrity'' grants 15 {{as|'''bonus''' movement speed}} if the ability has not been learned (rank 0).\n* '''Rell''' {{tip|dash|slides}} between 250 and 350 units in testing, depending on how far the spell was targeted. It is not known where this is intended.\n* If '''Rell''' dashes before a wall on the map, the slide will cover a shorter distance to the terrain over the same time, moving slower.\n** {{pending for test}} Interaction with player-made walls.\n* The following table refers for interactions while '''Rell''' is dashing/in cast time:\n{{ct|attack=false|move=false|cast={{ai|Q|Rell}} is disabled. {{ai|E|Rell}} and {{ai|R|Rell}} are usable.|items=true,,,false|spells=true,false,false,false,false|interrupts=death}}\n|flavorsound  = {{sm2|Rell_Original_W_Dismount_4.ogg}} ''\"Armoring up!\"''\n<!-- Blurb -->\n|blurb        = {{sbc|Passive - Mounted Alacrity:}} While {{ci|Rell}} is {{sbc|Mounted}}, she gains {{as|'''bonus''' movement speed}}.\n|blurb2       = {{sbc|Active:}} '''Rell''' becomes {{sbc|Dismounted}} and {{tip|dash|leaps}} to the target location, gaining a {{tip|shield}} that lasts until destroyed or casting ''{{ai|Ferromancy: Mount Up|Rell}}''.\n|blurb3       = Upon arrival, she deals {{as|magic damage}} and briefly {{tip|airborne|knocks up}} and {{tip|stun|stuns}} enemies hit. She will continue {{tip|dash|sliding}} forward to affect further enemies along her path.\n|blurb4       = While '''Rell''' is {{sbc|Dismounted}}, she can cast ''{{ai|Ferromancy: Mount Up|Rell}}''. She will revert to {{sbc|Mounted}} form after {{si|Recall|recalling}} or respawning.\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rell/Ferromancy: Crash Down",
+          "revid": 4007762
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Ferromancy: Crash Down|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = W\n|icon         = Ferromancy Crash Down.png\n|description  = {{sbc|Passive - Mounted Alacrity:}} While '''Rell''' is {{sbc|Mounted}}, she gains {{as|'''bonus''' movement speed}}.\n|leveling     = {{st|Bonus Movement Speed|{{ap|20 to 40}}}}\n|description2 = {{sbc|Active:}} '''Rell''' becomes {{sbc|Dismounted}} and {{tip|dash|leaps}} to the target location over the cast time, granting herself a {{tip|shield}} that lasts until destroyed or casting ''{{ai|Ferromancy: Mount Up|Rell}}''. Upon arrival, she deals {{as|magic damage}} to nearby enemies, {{tip|stun|stuns}} them for {{fd|0.8}} seconds, and {{tip|airborne|knocks them up}} for {{fd|0.4}} seconds. She will continue {{tip|dash|sliding}} forward another 320 units over {{tt|{{fd|0.5}} seconds|Estimated}}, though not through terrain, affecting further enemies along her path.\n|leveling2    = {{st|Shield Strength|{{ap|20 to 100}} {{as|(+ 11% '''maximum''' health)}}}}\n{{st|Magic Damage|{{ap|60 to 180}} {{as|(+ 60% AP)}}}}\n|description3 = While '''Rell''' is {{sbc|Dismounted}}, she can cast ''{{ai|Ferromancy: Mount Up|Rell}}''. Upon completing a {{si|Recall}} channel or respawning, '''Rell''' will automatically revert to {{sbc|Mounted}} form without casting the ability and reset ''{{ais|Ferromancy: Mount Up|Rell}}'' {{sti|cooldown}}.\n|description4 = ''This ability can be cast only while Rell is {{sbc|Mounted}}. '''Rell''' can cast {{ai|Magnet Storm|Rell}} during the dash, and is considered to be dismounted at the start of the cast time.''\n|cooldown     = 10\n|cost         = 40\n|costtype     = Mana\n|target range = {{tt|100 - 400|Minimum and maximum initial dash distance}}\n|effect radius= 180\n|collision radius= {{tip|er|icononly = true}} {{tt|200|Sliding dash collision radius}}\n|cast time    = {{fd|0.625}}\n|speed        =\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = true\n|spelleffects = spellaoe\n|grounded     = true\n|knockdown    = true\n|projectile   = \n|callforhelp  = \n|outofrange   = cast at max\n|notes        = \n* ''Mounted Alacrity'' grants 15 {{as|'''bonus''' movement speed}} if the ability has not been learned (rank 0).\n* '''Rell''' {{tip|dash|slides}} between 250 and 350 units in testing, depending on how far the spell was targeted. It is not known where this is intended.\n* If '''Rell''' dashes before a wall on the map, the slide will cover a shorter distance to the terrain over the same time, moving slower.\n** {{pending for test}} Interaction with player-made walls.\n* The following table refers for interactions while '''Rell''' is dashing/in cast time:\n{{ct|attack=false|move=false|cast={{ai|Q|Rell}} is disabled. {{ai|E|Rell}} and {{ai|R|Rell}} are usable.|items=true,,,false|spells=true,false,false,false,false|interrupts=death}}\n|flavorsound  = {{sm2|Rell_Original_W_Dismount_4.ogg}} ''\"Armoring up!\"''\n<!-- Blurb -->\n|blurb        = {{sbc|Passive - Mounted Alacrity:}} While {{ci|Rell}} is {{sbc|Mounted}}, she gains {{as|'''bonus''' movement speed}}.\n|blurb2       = {{sbc|Active:}} '''Rell''' becomes {{sbc|Dismounted}} and {{tip|dash|leaps}} to the target location, gaining a {{tip|shield}} that lasts until destroyed or casting ''{{ai|Ferromancy: Mount Up|Rell}}''.\n|blurb3       = Upon arrival, she deals {{as|magic damage}} and briefly {{tip|airborne|knocks up}} and {{tip|stun|stuns}} enemies hit. She will continue {{tip|dash|sliding}} forward to affect further enemies along her path.\n|blurb4       = While '''Rell''' is {{sbc|Dismounted}}, she can cast ''{{ai|Ferromancy: Mount Up|Rell}}''. She will revert to {{sbc|Mounted}} form after {{si|Recall|recalling}} or respawning.\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json",
+        "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+        "object": "Characters/Rell/Spells/RellW_DismountAbility/RellW_Dismount",
+        "text": [
+          "{\"ObjectName\":\"RellW_Dismount\",\"objectPath\":\"Characters/Rell/Spells/RellW_DismountAbility/RellW_Dismount\",\"mScriptName\":\"RellW_Dismount\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":8192,\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"PositiveEffect_MoveBlock\",\"Trait_PlayerSelectedDashDirection\",\"Trait_DamageAbility\",\"Trait_Shield\",\"Trait_SignatureSpell\",\"Trait_AoE\"],\"DataValues\":[{\"name\":\"CrashDownDamage\",\"values\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellDataValue\"},{\"name\":\"CrashDownKnockupDuration\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"CrashDownStunDuration\",\"values\":[0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929],\"__type\":\"SpellDataValue\"},{\"name\":\"SlideDistance\",\"values\":[320.0,320.0,320.0,320.0,320.0,320.0,320.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ResistanceIncrease\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldBase\",\"values\":[20.0,20.0,40.0,60.0,80.0,100.0,120.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldHealthRatio\",\"values\":[0.10999999940395355,0.10999999940395355,0.10999999940395355,0.10999999940395355,0.10999999940395355,0.10999999940395355,0.10999999940395355],\"__type\":\"SpellDataValue\"},{\"name\":\"DismountedASBoost\",\"values\":[0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224],\"__type\":\"SpellDataValue\"},{\"name\":\"DismountedRangeBoost\",\"values\":[75.0,75.0,75.0,75.0,75.0,75.0,75.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MountUpDamage\",\"values\":[10.0,10.0,25.0,40.0,55.0,70.0,85.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MountUpSpeed\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"MountUpSpeedDuration\",\"values\":[3.5,3.5,3.5,3.5,3.5,3.5,3.5],\"__type\":\"SpellDataValue\"},{\"name\":\"MountedMoveSpeed\",\"values\":[15.0,20.0,25.0,30.0,35.0,40.0,45.0],\"__type\":\"SpellDataValue\"},{\"name\":\"FlipBaseDamage\",\"values\":[-5.0,10.0,25.0,40.0,55.0,70.0,85.0],\"__type\":\"SpellDataValue\"},{\"name\":\"FlipKnockupDuration\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"FlipStunDuration\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"DismountDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"CrashDownDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.6000000238418579,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"Shield\":{\"mFormulaParts\":[{\"mDataValue\":\"ShieldBase\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":12,\"mDataValue\":\"ShieldHealthRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"FlipDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"MountUpDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.4000000059604645,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"{a71a11d7}\":{\"mFormulaParts\":[{\"mCeiling\":1.0,\"mFloor\":0.20000000298023224,\"mSubparts\":[{\"buffName\":\"{5a8747c2}\",\"Coefficient\":2.0,\"__type\":\"PercentageOfBuffNameElapsed\"}],\"__type\":\"ClampSubPartsCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mImgIconName\":[\"ASSETS/Characters/Rell/HUD/Icons2D/RellW.dds\",\"ASSETS/Characters/Rell/HUD/Icons2D/RellMount.dds\"],\"mSpellPassives\":[{\"mBuff\":\"Characters/Rell/Spells/RellW_DismountAbility/RellW_MountedBuff\",\"mWhenToAddSpell\":0,\"mRemoveWhenOnCooldown\":false,\"__type\":\"SpellPassiveData\"}],\"cantCastWhileRooted\":true,\"castRangeDisplayOverride\":[450.0,450.0,450.0,450.0,450.0,450.0,450.0],\"mana\":[40.0,40.0,40.0,40.0,40.0,40.0],\"manaValues\":{\"values\":[40.0,40.0,40.0,40.0,40.0,40.0],\"{0a3e0478}\":40.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"AreaClamped\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RellW_Dismount\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RellW_Dismount_Name\",\"keyTooltip\":\"Spell_RellW_Dismount_Tooltip\",\"keySummary\":\"Spell_RellW_Dismount_Summary\",\"keyTooltipExtended\":\"Spell_RellW_Dismount_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"CrashDownDamage\",\"nameOverride\":\"Spell_ListType_RellW_DismountDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"ShieldBase\",\"nameOverride\":\"Spell_ListType_Shield\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"MountUpDamage\",\"nameOverride\":\"Spell_ListType_RellW_FlipDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"MountedMoveSpeed\",\"nameOverride\":\"Spell_ListType_PassiveMovementSpeed\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"indicatorType\":{\"__type\":\"IndicatorTypeLocal\"},\"startLocator\":{\"basePosition\":3,\"orientationType\":3,\"__type\":\"DrawablePositionLocator\"},\"endLocator\":{\"basePosition\":3,\"distanceOffset\":500.0,\"orientationType\":3,\"__type\":\"DrawablePositionLocator\"},\"alwaysDraw\":true,\"arrowSize\":100.0,\"lineWidth\":{\"mPerLevelValues\":[200.0,200.0,200.0,200.0,200.0,200.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"overrideBaseRange\":{\"mPerLevelValues\":[450.0,450.0,450.0,450.0,450.0,450.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionLine\"},{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"isConstrainedToRange\":true,\"constraintRange\":{\"mPerLevelValues\":[550.0,550.0,550.0,550.0,550.0,550.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"overrideRadius\":{\"mPerLevelValues\":[200.0,200.0,200.0,200.0,200.0,200.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionAoe\"},{\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"DismountDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":524288,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"Shield\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":128,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":16777216,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"FlipDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "W",
+    "name": "Ferromancy: Mount Up",
+    "page": {
+      "title": "Template:Data Rell/Ferromancy: Mount Up",
+      "revid": 3976244
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "true",
+      "grounded": "false",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While Rell is Dismounted, she gains 15% bonus armor, 15% bonus magic resistance, 20% bonus attack speed, and 75 bonus attack range.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Rell becomes Mounted, gaining 30% bonus movement speed decaying over 2 seconds and empowering her next basic attack within 3.5 seconds to have a 0.2-second cast time, gain 100 bonus attack range and 40% bonus attack speed, and cause her to charge at the target's location. Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "10 / 25 / 40 / 55 / 70 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  25,
+                  40,
+                  55,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "charge",
+            "evidence": "Active: Rell becomes Mounted, gaining 30% bonus movement speed decaying over 2 seconds and empowering her next basic attack within 3.5 seconds to have a 0.2-second cast time, gain 100 bonus attack range and 40% bonus attack speed, and cause her to charge at the target's location.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.6
+            },
+            "evidence": "Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "flings",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While Rell is Mounted, she can cast Ferromancy: Crash Down.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Ferromancy: Mount Up resets Rell's basic attack timer. This ability can be cast only while Rell is Dismounted.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Ferromancy: Mount Up resets Rell's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Rell will always respawn and start the game as mounted.",
+      "The basic attack reset is not considered one for Hail of Blades.",
+      "Rell can use the empowered attack even while grounded or rooted.",
+      "The dash can be knocked down but the attack's effects will still be applied.",
+      "Displacement immunity will not resist the application of the stun.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the empowered attack's cast time, it is cancelled but not consumed.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Ferromancy: Mount Up|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = W\n|icon         = false\n|blurb        = {{sbc|Passive:}} While {{ci|Rell}} is {{sbc|Dismounted}}, she gains {{sti|ar|{{as|'''bonus''' armor}}}} and {{sti|mr|{{as|'''bonus''' magic resist}}}}.\n|blurb2      = {{sbc|Active:}} '''Rell''' becomes {{sbc|Mounted}} and gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for a short time, increased while moving towards enemy {{tip|champions}}.\n|blurb3      = During this time, '''Rell's''' next basic attack will gain {{sti|range|'''bonus''' attack range}} and causes her to {{tip|dash|charge}} to the target, dealing {{as|'''bonus''' magic damage}} before briefly {{tip|stun|stunning}} and {{tip|airborne|flinging}} them over.\n|blurb4      = While '''Rell''' is {{sbc|Mounted}}, she can cast ''{{ai|Ferromancy: Crash Down|Rell}}''.\n|description  = {{sbc|Passive:}} While '''Rell''' is {{sbc|Dismounted}}, she gains {{sti|{{as|15% '''bonus''' armor}}}}, {{sti|{{as|15% '''bonus''' magic resistance}}}}, {{sti|{{as|20% '''bonus''' attack speed}}}}, and {{sti|75 '''bonus''' attack range}}.\n|icon2        = Ferromancy Mount Up.png\n|description2 = {{sbc|Active:}} '''Rell''' becomes {{sbc|Mounted}}, gaining {{sti|ms|{{as|30% '''bonus''' movement speed}}}} decaying over 2 seconds and empowering her next basic attack within {{fd|3.5}} seconds to have a {{fd|0.2}}-second cast time, gain {{sti|100 '''bonus''' attack range}} and {{as|40% '''bonus''' attack speed}}, and cause her to {{tip|dash|charge}} at the target's location. Upon arrival or collision of the charge, her basic attack deals {{as|'''bonus''' magic damage}}, {{tip|stun|stuns}} the target for {{fd|0.6}} seconds, and {{tip|airborne|flings}} them 150 units over herself, though not through terrain, over {{fd|0.4}} seconds.\n|leveling2    = {{st|Bonus Magic Damage|{{ap|10 to 70}} {{as|(+ 40% AP)}}}}\n|description3 = While '''Rell''' is {{sbc|Mounted}}, she can cast ''{{ai|Ferromancy: Crash Down|Rell}}''.\n|description4 = ''Ferromancy: Mount Up {{tip|basic attack reset|resets}} '''Rell's''' basic attack timer. This ability can be cast only while '''Rell''' is {{sbc|Dismounted}}.''\n|cooldown     = 10\n|target range = \n|effect radius= \n|width        = \n|angle        = \n|cast time    = none\n|speed        = <!--{{tt|X|Dash speed}} / {{tt|Y|Knockback speed}}-->\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = true\n|spelleffects = spell\n|parry        = true\n|grounded     = false\n|knockdown    = special\n|projectile   = \n|callforhelp  = \n|notes        = \n* '''Rell''' will always respawn and start the game as mounted.\n* The basic attack reset is not considered one for {{ri|Hail of Blades}}.\n* '''Rell''' can use the empowered attack even while {{tip|ground|grounded}} or {{tip|root|rooted}}.\n* The {{tip|dash}} can be {{tip|knockdown|knocked down}} but the attack's effects will still be applied.\n* {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is too far away or no longer in {{tip|sight}} during the empowered attack's cast time, it is cancelled but not consumed.\n|flavorsound  = {{sm2|Rell_Original_W_MountUp_4.ogg}} ''\"Mount up!\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rell/Ferromancy: Mount Up",
+          "revid": 3976244
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Ferromancy: Mount Up|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rell\n|skill        = W\n|icon         = false\n|blurb        = {{sbc|Passive:}} While {{ci|Rell}} is {{sbc|Dismounted}}, she gains {{sti|ar|{{as|'''bonus''' armor}}}} and {{sti|mr|{{as|'''bonus''' magic resist}}}}.\n|blurb2      = {{sbc|Active:}} '''Rell''' becomes {{sbc|Mounted}} and gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for a short time, increased while moving towards enemy {{tip|champions}}.\n|blurb3      = During this time, '''Rell's''' next basic attack will gain {{sti|range|'''bonus''' attack range}} and causes her to {{tip|dash|charge}} to the target, dealing {{as|'''bonus''' magic damage}} before briefly {{tip|stun|stunning}} and {{tip|airborne|flinging}} them over.\n|blurb4      = While '''Rell''' is {{sbc|Mounted}}, she can cast ''{{ai|Ferromancy: Crash Down|Rell}}''.\n|description  = {{sbc|Passive:}} While '''Rell''' is {{sbc|Dismounted}}, she gains {{sti|{{as|15% '''bonus''' armor}}}}, {{sti|{{as|15% '''bonus''' magic resistance}}}}, {{sti|{{as|20% '''bonus''' attack speed}}}}, and {{sti|75 '''bonus''' attack range}}.\n|icon2        = Ferromancy Mount Up.png\n|description2 = {{sbc|Active:}} '''Rell''' becomes {{sbc|Mounted}}, gaining {{sti|ms|{{as|30% '''bonus''' movement speed}}}} decaying over 2 seconds and empowering her next basic attack within {{fd|3.5}} seconds to have a {{fd|0.2}}-second cast time, gain {{sti|100 '''bonus''' attack range}} and {{as|40% '''bonus''' attack speed}}, and cause her to {{tip|dash|charge}} at the target's location. Upon arrival or collision of the charge, her basic attack deals {{as|'''bonus''' magic damage}}, {{tip|stun|stuns}} the target for {{fd|0.6}} seconds, and {{tip|airborne|flings}} them 150 units over herself, though not through terrain, over {{fd|0.4}} seconds.\n|leveling2    = {{st|Bonus Magic Damage|{{ap|10 to 70}} {{as|(+ 40% AP)}}}}\n|description3 = While '''Rell''' is {{sbc|Mounted}}, she can cast ''{{ai|Ferromancy: Crash Down|Rell}}''.\n|description4 = ''Ferromancy: Mount Up {{tip|basic attack reset|resets}} '''Rell's''' basic attack timer. This ability can be cast only while '''Rell''' is {{sbc|Dismounted}}.''\n|cooldown     = 10\n|target range = \n|effect radius= \n|width        = \n|angle        = \n|cast time    = none\n|speed        = <!--{{tt|X|Dash speed}} / {{tt|Y|Knockback speed}}-->\n|targeting    = Auto\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = true\n|spelleffects = spell\n|parry        = true\n|grounded     = false\n|knockdown    = special\n|projectile   = \n|callforhelp  = \n|notes        = \n* '''Rell''' will always respawn and start the game as mounted.\n* The basic attack reset is not considered one for {{ri|Hail of Blades}}.\n* '''Rell''' can use the empowered attack even while {{tip|ground|grounded}} or {{tip|root|rooted}}.\n* The {{tip|dash}} can be {{tip|knockdown|knocked down}} but the attack's effects will still be applied.\n* {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is too far away or no longer in {{tip|sight}} during the empowered attack's cast time, it is cancelled but not consumed.\n|flavorsound  = {{sm2|Rell_Original_W_MountUp_4.ogg}} ''\"Mount up!\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json",
+        "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+        "object": "Characters/Rell/Spells/RellW_DismountAbility/RellW_MountUp",
+        "text": [
+          "{\"ObjectName\":\"RellW_MountUp\",\"objectPath\":\"Characters/Rell/Spells/RellW_DismountAbility/RellW_MountUp\",\"mScriptName\":\"RellW_MountUp\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":8192,\"mSpellTags\":[\"Trait_ImmobilizingCCSpell\",\"Trait_FreeRecast\",\"Trait_AttackReset\",\"Trait_DamageAbility\"],\"DataValues\":[{\"name\":\"CrashDownTooltip\",\"values\":[30.0,60.0,90.0,120.0,150.0,180.0,210.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldBaseTooltip\",\"values\":[20.0,20.0,40.0,60.0,80.0,100.0,120.0],\"__type\":\"SpellDataValue\"},{\"name\":\"FlipAttackTooltip\",\"values\":[-5.0,10.0,25.0,40.0,55.0,70.0,85.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedTooltip\",\"values\":[15.0,20.0,25.0,30.0,35.0,40.0,45.0],\"__type\":\"SpellDataValue\"},{\"name\":\"HasteTooltip\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"{a71a11d7}\":{\"mFormulaParts\":[{\"mCeiling\":1.0,\"mFloor\":0.20000000298023224,\"mSubparts\":[{\"buffName\":\"{5a8747c2}\",\"Coefficient\":2.0,\"__type\":\"PercentageOfBuffNameElapsed\"}],\"__type\":\"ClampSubPartsCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell2_Mount\",\"mImgIconName\":[\"ASSETS/Characters/Rell/HUD/Icons2D/RellMount.dds\"],\"mSpellPassives\":[{\"mBuff\":\"Characters/Rell/Spells/RellW_DismountAbility/RellW_DismountedBuff\",\"mRemoveWhenOnCooldown\":false,\"__type\":\"SpellPassiveData\"}],\"castRange\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"castRangeValues\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RellW_MountUp\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RellW_MountUp_Name2\",\"keyTooltip\":\"Spell_RellW_MountUp_Tooltip2\",\"keySummary\":\"Spell_RellW_Dismount_Summary\",\"keyTooltipExtended\":\"Spell_RellW_MountUp_TooltipExtended\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"FlipAttackTooltip\",\"nameOverride\":\"Spell_ListType_RellW_FlipDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"MoveSpeedTooltip\",\"nameOverride\":\"Spell_ListType_PassiveMovementSpeed\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"CrashDownTooltip\",\"nameOverride\":\"Spell_ListType_RellW_DismountDamage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"ShieldBaseTooltip\",\"nameOverride\":\"Spell_ListType_Shield\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":2,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"HasteTooltip\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":128,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":16384,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":4096,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":2048,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":16777216,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"FlipAttackTooltip\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":524288,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"ShieldBaseTooltip\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json",
+        "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+        "object": "Characters/Rell/Spells/RellW_DismountAbility/RellWEmpoweredAttack",
+        "text": [
+          "{\"ObjectName\":\"RellWEmpoweredAttack\",\"objectPath\":\"Characters/Rell/Spells/RellW_DismountAbility/RellWEmpoweredAttack\",\"mScriptName\":\"RellWEmpoweredAttack\",\"mSpell\":{\"mAffectsTypeFlags\":23210,\"mAlternateName\":\"Spell2_Flip\",\"mAnimationName\":\"\",\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUpTargetingChampion\":true,\"alwaysSnapFacing\":true,\"bHaveHitEffect\":true,\"mConsideredAsAutoAttack\":true,\"mRollForCriticalHit\":true,\"castRange\":[125.0,125.0,125.0,125.0,125.0,125.0,125.0],\"castRangeValues\":{\"values\":[125.0,125.0,125.0,125.0,125.0,125.0,125.0],\"{0a3e0478}\":125.0,\"__type\":\"{0a0eddc9}\"},\"mHitEffectKey\":\"globalhit_physical\",\"bHaveHitBone\":true,\"mHitBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"buff_desc_RellWEmpoweredAttack\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  }
+]

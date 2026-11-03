@@ -1,0 +1,952 @@
+[
+  {
+    "champion": "Ashe",
+    "kind": "E",
+    "name": "Hawkshot",
+    "page": {
+      "title": "Template:Data Ashe/Hawkshot",
+      "revid": 4089701
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "90 / 80 / 70 / 60 / 50",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                90,
+                80,
+                70,
+                60,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "costType": "charge",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "Global",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Vision bubble radiuses"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "false",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ashe sends a hawk spirit to a location, granting sight of the area along its path repeatedly for 0.5 seconds after every 100 units traveled and at its destination for 5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Ashe sends a hawk spirit to a location, granting sight of the area along its path repeatedly for 0.5 seconds after every 100 units traveled and at its destination for 5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Ashe periodically stocks a Hawkshot charge, up to a maximum of 2.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Hawkshot's recharge timer seems to start at the beginning of the game, even prior to ranking the ability, but upon actually ranking the ability, it starts with one charge and the recharge timer starts from 0.",
+      "Hawkshot will ping enemy champions it spots if allies didn't already have vision of them, and put a 'revealed' visual effect on them for 2.75 seconds, but does not actually reveal the units in particular, and is removed if the champion leaves the area.",
+      "Allies can still see Hawkshot ping even if they're affect by nearsighted, which allows allies to know the position of unspecified enemies during Nocturne's Paranoia.",
+      "Ashe marks enemy champions who were previously unseen but were revealed Hawkshot in order to gain assist credit, lasting for the standard credit timer.",
+      "Hawkshot will trigger upon colliding with Blade Whirl or Wind Wall but not Unbreakable.",
+      "Hawkshot will grant 0.33 points of vision score for each champion revealed."
+    ]
+  },
+  {
+    "champion": "Ashe",
+    "kind": "I",
+    "name": "Frost Shot",
+    "page": {
+      "title": "Template:Data Ashe/Frost Shot",
+      "revid": 4062251
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "basic",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Ashe's basic attacks deal bonus physical damage equal to critical strike damage (based on critical strike chance) of the attack's damage. Critical strikes do not deal any additional damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "Critical strikes",
+            "evidence": "Critical strikes do not deal any additional damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate - Frost Shot",
+        "text": "Innate - Frost Shot: Ashe's basic attacks and ability hits apply Frost to enemies for 2 seconds, which slows them by 20 – 30 (based on level)% for the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "level",
+              "values": [
+                20,
+                20.5882352941176,
+                21.1764705882353,
+                21.7647058823529,
+                22.3529411764706,
+                22.9411764705882,
+                23.5294117647059,
+                24.1176470588235,
+                24.7058823529412,
+                25.2941176470588,
+                25.8823529411765,
+                26.4705882352941,
+                27.0588235294118,
+                27.6470588235294,
+                28.2352941176471,
+                28.8235294117647,
+                29.4117647058824,
+                30,
+                30.5882352941176,
+                31.1764705882353
+              ],
+              "past18": "wiki"
+            },
+            "evidence": "Innate - Frost Shot: Ashe's basic attacks and ability hits apply Frost to enemies for 2 seconds, which slows them by 20 – 30 (based on level)% for the duration.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                20.5882352941176,
+                21.1764705882353,
+                21.7647058823529,
+                22.3529411764706,
+                22.9411764705882,
+                23.5294117647059,
+                24.1176470588235,
+                24.7058823529412,
+                25.2941176470588,
+                25.8823529411765,
+                26.4705882352941,
+                27.0588235294118,
+                27.6470588235294,
+                28.2352941176471,
+                28.8235294117647,
+                29.4117647058824,
+                30,
+                30.5882352941176,
+                31.1764705882353
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate - Frost Shot: Ashe's basic attacks and ability hits apply Frost to enemies for 2 seconds, which slows them by 20 – 30 (based on level)% for the duration."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Critical Slow",
+        "text": "Innate - Critical Slow: Ashe's critical strikes double Frost's slow strength to 40 – 60 (based on level)%, decaying over the first second of the duration to its normal strength.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strikes",
+            "evidence": "Innate - Critical Slow: Ashe's critical strikes double Frost's slow strength to 40 – 60 (based on level)%, decaying over the first second of the duration to its normal strength.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                41.1764705882353,
+                42.3529411764706,
+                43.5294117647059,
+                44.7058823529412,
+                45.8823529411765,
+                47.0588235294118,
+                48.2352941176471,
+                49.4117647058824,
+                50.5882352941176,
+                51.7647058823529,
+                52.9411764705882,
+                54.1176470588235,
+                55.2941176470588,
+                56.4705882352941,
+                57.6470588235294,
+                58.8235294117647,
+                60,
+                61.1764705882353,
+                62.3529411764706
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate - Critical Slow: Ashe's critical strikes double Frost's slow strength to 40 – 60 (based on level)%, decaying over the first second of the duration to its normal strength."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Ashe's critical strikes are still considered critical strike damage and thus will be reduced by Randuin's Omen Resilience.",
+      "Runaan's Hurricane will also be empowered to deal bonus damage at the cost of not dealing additional damage on critical strikes.",
+      "Cheap Shot will trigger on a subsequent basic attack even when the target is no longer slowed."
+    ]
+  },
+  {
+    "champion": "Ashe",
+    "kind": "Q",
+    "name": "Ranger's Focus",
+    "page": {
+      "title": "Template:Data Ashe/Ranger's Focus",
+      "revid": 4053426
+    },
+    "ranks": 5,
+    "fields": {
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana + 4 focus",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While Ranger's Focus is inactive, Ashe's basic attacks on-attack generate a stack of Focus for 4 seconds, refreshing on subsequent attacks and stacking up to 4 times. Stacks expire one by one every second when the duration ends.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Passive: While Ranger's Focus is inactive, Ashe's basic attacks on-attack generate a stack of Focus for 4 seconds, refreshing on subsequent attacks and stacking up to 4 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: For 6 seconds, Ashe gains bonus attack speed and empowers her basic attacks to fire a flurry of five arrows that deal modified physical damage. The flurries apply life steal and Frost Shot per arrow, but apply on-hit effects only once.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 30 / 40 / 50 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Physical Damage Per Arrow",
+            "amount": {
+              "text": "22 / 23 / 24 / 25 / 26% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  22,
+                  23,
+                  24,
+                  25,
+                  26
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          },
+          {
+            "label": "Total Damage Per Flurry",
+            "amount": {
+              "text": "110 / 115 / 120 / 125 / 130% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  110,
+                  115,
+                  120,
+                  125,
+                  130
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "apply",
+            "evidence": "The flurries apply life steal and Frost Shot per arrow, but apply on-hit effects only once.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "The flurries apply life steal and Frost Shot per arrow, but apply on-hit effects only once.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "The flurries apply life steal and Frost Shot per arrow, but apply on-hit effects only once.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Ranger's Focus resets Ashe's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Ranger's Focus resets Ashe's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The flurries deal 1 instance of basic damage followed by 4 instances of a non-reactive type of damage (either default or proc).\n  - The flurries are classified as a basic attack on a script level, but are considered an ability for other effects (e.g. Sap Magic).",
+      "The first flurry of a Ranger's Focus cast fires one additional arrow, dealing 20% increased total damage.",
+      "Ranger's Focus works against structures.",
+      "Flat damage reductions (e.g. Tantrum, Nimble Fighter, or Eclipse) apply per arrow, resulting in extremely increased effectiveness against Ranger's Focus.\n  - The sole exception is Warden's Mail Rock Solid, as that applies per cast instance rather than per damage instance.",
+      "A flurry can apply 5 stacks of Black Cleaver Carve to a single target as it deals 5 instances of physical damage.",
+      "Ranger's Focus also empowers Runaan's Hurricane Wind's Fury bolts to become a flurry of 5 bolts each as well.\n  - The empowered bolts use Ashe's attack projectile, including her missile speed (2500 compared to their default 2000).\n  - The bolts are evenly distributed among the targets, but a single target cannot be hit by more than 5 bolts.\n  - These flurries also apply on-hit effects only once to each target hit.",
+      "Because Focus stacks are generated on-attack, Runaan's Hurricane Wind's Fury bolts will not generate any."
+    ]
+  },
+  {
+    "champion": "Ashe",
+    "kind": "R",
+    "name": "Enchanted Crystal Arrow",
+    "page": {
+      "title": "Template:Data Ashe/Enchanted Crystal Arrow",
+      "revid": 4026934
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 80 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                80,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "Global",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "400 • 350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Radius of explosion"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Missile sight radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "260",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1500 – 2100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1500,
+                1700,
+                1900,
+                2100
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ashe fires a massive arrow of ice in the target direction, briefly granting sight of the area it flies through. The arrow shatters upon hitting an enemy champion, dealing them magic damage, stunning them for 1 / 1 / 1 / 1 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 / 3.5 (based on distance traveled) seconds, and granting sight of the area around them for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 400 / 600 (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  400,
+                  600
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Ashe fires a massive arrow of ice in the target direction, briefly granting sight of the area it flies through.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                200,
+                400,
+                600,
+                800,
+                1000,
+                1200,
+                1400,
+                1600,
+                1800,
+                2000,
+                2200,
+                2400,
+                2600,
+                2800
+              ],
+              "values": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2,
+                2.25,
+                2.5,
+                2.75,
+                3,
+                3.25,
+                3.5
+              ]
+            },
+            "evidence": "The arrow shatters upon hitting an enemy champion, dealing them magic damage, stunning them for 1 / 1 / 1 / 1 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 / 3.5 (based on distance traveled) seconds, and granting sight of the area around them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "The arrow shatters upon hitting an enemy champion, dealing them magic damage, stunning them for 1 / 1 / 1 / 1 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 / 3.5 (based on distance traveled) seconds, and granting sight of the area around them for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                200,
+                400,
+                600,
+                800,
+                1000,
+                1200,
+                1400,
+                1600,
+                1800,
+                2000,
+                2200,
+                2400,
+                2600,
+                2800
+              ],
+              "values": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2,
+                2.25,
+                2.5,
+                2.75,
+                3,
+                3.25,
+                3.5
+              ]
+            },
+            "context": "The arrow shatters upon hitting an enemy champion, dealing them magic damage, stunning them for 1 / 1 / 1 / 1 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 / 3.5 (based on distance traveled) seconds, and granting sight of the area around them for 1 second."
+          }
+        ],
+        "tips": [
+          {
+            "text": "area",
+            "tip": "Cannot grant sight through terrain and can only grant sight into brush when the missile flies through that brush"
+          }
+        ]
+      },
+      {
+        "text": "Enemies surrounding the primary target are dealt the same damage and afflicted with Frost Shot.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Enchanted Crystal Arrow's projectile has an icon on the mini-map while it is in flight. It can be seen by only Ashe and her allies.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "The effect will be centered on the first champion struck, not at the location the missile collided with them."
+    ]
+  },
+  {
+    "champion": "Ashe",
+    "kind": "W",
+    "name": "Volley",
+    "page": {
+      "title": "Template:Data Ashe/Volley",
+      "revid": 4007430
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 14.5 / 11 / 7.5 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                14.5,
+                11,
+                7.5,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "75 / 70 / 65 / 60 / 55",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                75,
+                70,
+                65,
+                60,
+                55
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Not including the offset, see notes"
+          }
+        ]
+      },
+      "width": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            },
+            "label": "Each missile"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      },
+      "angle": {
+        "text": "27.75 / 37 / 37 / 46.25 / 46.25° • 4.625°",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                27.75,
+                37,
+                37,
+                46.25,
+                46.25
+              ]
+            },
+            "label": "Full cone"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4.625
+            },
+            "label": "Angle between individual missiles"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ashe shoots a volley of arrows in a cone in the target direction, each dealing physical damage to the first enemy hit, and applying Critical Slow to enemy champions hit.",
+        "leveling": [
+          {
+            "label": "Arrows",
+            "amount": {
+              "text": "7 / 8 / 9 / 10 / 11",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7,
+                  8,
+                  9,
+                  10,
+                  11
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 95 / 130 / 165 / 200 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130,
+                  165,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies can intercept multiple arrows but do not take damage from any beyond the first.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The missiles are spawned in a straight horizontal line 75 units in front of Ashe, with a total width of 75/100/100/123/123 units.\n  - Between each missile spawn location is a distance of 12.5 units, except for the two outermost ones at the last two ranks (which are 11.5 units from the closest other one), and the two centermost missiles at ranks 2 and 4 (which have 20 units between them and 15 units to the next missile, respectively).\n  - This inconsistent behaviour of spawn locations means the angle between each missile can vary off of 4.625° slighty.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  }
+]

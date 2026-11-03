@@ -1,0 +1,313 @@
+{
+  "champion": "Fizz",
+  "name": "Fizz",
+  "gameplayRadius": 55,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "fizz",
+      "formName": "Fizz",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.05913,
+      "attackDamage": 116.995,
+      "windup": 0.191667,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Fizz",
+      "kind": "E",
+      "name": "Playful",
+      "page": {
+        "title": "Template:Data Fizz/Playful",
+        "revid": 4008451
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Fizz/Playful",
+              "revid": 4008451,
+              "quote": "He then begins to hop off of his trident over 0.5 seconds, during which he gains 50% bonus movement speed, and afterwards becoming targetable and landing to create a splash that deals magic damage to nearby enemies and slows them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 60
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted"
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Fizz/Playful",
+              "revid": 4008451,
+              "quote": "Active: Fizz dashes to the target location while becoming untargetable, balancing on his trident for 0.75 seconds, during which he can cast Trickster after 0.15 seconds into the duration."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 25,
+      "notes": [
+        "If Playful is cast while under the effect of a move block, Fizz will not become untargetable and will initiate the hop instantly.\n  - If Trickster is cast, the splash will not occur.",
+        "If Fizz casts Playful on top of himself after blinking and not moving from the blinked-to spot, the minimum dash distance of 25 units will not apply (casts at 0 range).",
+        "If Fizz enters stasis during either Playful or Trickster, the splash occurs after the stasis ends."
+      ]
+    },
+    {
+      "champion": "Fizz",
+      "kind": "E",
+      "name": "Trickster",
+      "page": {
+        "title": "Template:Data Fizz/Trickster",
+        "revid": 4007741
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "range": 75,
+      "notes": [
+        "Both Playful and Trickster's dashes may be directed separately.",
+        "Flash cannot be used during the dash.",
+        "The splash occurs immediately if Fizz encounters terrain that cannot be dashed through (he has to be particularly close to the wall)."
+      ]
+    },
+    {
+      "champion": "Fizz",
+      "kind": "I",
+      "name": "Nimble Fighter",
+      "page": {
+        "title": "Template:Data Fizz/Nimble Fighter",
+        "revid": 4042251
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Fizz",
+      "kind": "Q",
+      "name": "Urchin Strike",
+      "page": {
+        "title": "Template:Data Fizz/Urchin Strike",
+        "revid": 3948968
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 550,
+      "notes": [
+        "Urchin Strike only damages targets if within 200 units of their original location upon completion of the dash.",
+        "Urchin Strike does not deal damage if the target is untargetable."
+      ]
+    },
+    {
+      "champion": "Fizz",
+      "kind": "R",
+      "name": "Chum the Waters",
+      "page": {
+        "title": "Template:Data Fizz/Chum the Waters",
+        "revid": 4010638
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Fizz/Chum the Waters",
+              "revid": 4010638,
+              "quote": "Active: Fizz throws down a lure at the target location that attracts a shark, granting sight of the area before it emerges to chomp at the lure after 2 seconds, dealing magic damage to nearby enemies, knocking them back, though not through terrain, and slowing them for 2 seconds."
+            }
+          ],
+          "variant": "knock back, knock up",
+          "duration": 2
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Fizz/Chum the Waters",
+              "revid": 4010638,
+              "quote": "Active: Fizz throws down a lure at the target location that attracts a shark, granting sight of the area before it emerges to chomp at the lure after 2 seconds, dealing magic damage to nearby enemies, knocking them back, though not through terrain, and slowing them for 2 seconds."
+            }
+          ],
+          "duration": 2
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 1300,
+      "speed": 1300,
+      "notes": [
+        "Chum the Waters will not attach the lure to an enemy champion if they have a spell shield as well as against an enemy Malzahar with his Void Shift active (mitigation effect is consumed in both cases).\n  - The area of effect for the eruption will be at the target's location at the time of the attachment being blocked; the target will intercept the lure without getting attached to it.",
+        "Chum the Waters' lure missile will stop its movement upon colliding with Blade Whirl or Wind Wall specifically, creating the area of effect for the eruption prematurely without destroying the missile. Collision with Rebuttal will destroy it altogether, however."
+      ]
+    },
+    {
+      "champion": "Fizz",
+      "kind": "W",
+      "name": "Seastone Trident",
+      "page": {
+        "title": "Template:Data Fizz/Seastone Trident",
+        "revid": 4015181
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Applies spell damage on the empowered attack, persistent damage additionally tagged as indirect damage on the damage over time effect, and proc damage on the bonus damage on-hit.",
+        "Seastone Trident's interactions with dodging, blocking, and blinding effects.\n  - The passive bonus damage gets negated by dodging or blocking the attack, or if Fizz is blinded.\n  - The active:\n    - If the attacked enemy is dodging or if Fizz is blinded, the empowered attack won't deal any damage, but the empowered attack won't be consumed.\n    - If the attacked enemy is blocking, the empowered attack won't deal any damage despite being consumed. But the attack will apply the passive bonus damage of Seastone Trident."
+      ]
+    }
+  ]
+}

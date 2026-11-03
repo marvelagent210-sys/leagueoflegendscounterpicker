@@ -22,7 +22,7 @@ const kaisa: KitModule = {
     const flatBase = p.at20(p.seriesIn("additional magic damage plus", 0), "Caustic Wounds flat"), stackBase = p.at20(p.seriesIn("additional magic damage plus", 1), "Caustic Wounds per prior stack");
     const flatAP = p.quoted("(+ 12% AP) additional magic damage") / 100, stackAP = p.quoted("(+ 3% AP) additional magic damage per Plasma stack") / 100;
     const ruptureBase = p.quoted("15% (+ 6% per 100 AP) of the target's missing health") / 100, ruptureAP = p.quoted("15% (+ 6% per 100 AP) of the target's missing health", 1) / 10000;
-    p.quote("before a triggering basic attack's"); p.quote("remaining stacks are reapplied afterwards"); p.quote("permanent stats from items and stat growth"); p.quote("Adaptive force from items does not count");
+    p.quote("before a triggering basic attack's"); p.quote("the remaining stacks of Plasma after the detonation are reapplied on the target"); p.quote("permanent stats from items and stat growth"); p.quote("Adaptive force from items does not count");
     const qMissiles = q.quoted("swarm of 6 missiles"), evolvedQMissiles = q.quoted("instead fires 12 missiles"), qDelay = q.quoted("after 0.4 seconds"), qReleaseSeconds = q.quoted("takes 1 second for all missiles"), qRepeat = q.quoted("Non-minions take 25% damage") / 100, qDamage = q.formula("Physical Damage Per Missile"), qRange = q.field("targetRange");
     const qMinionThreshold = q.quoted("Minions below 35% health take double damage") / 100;
     q.gameQuote('"mTravelTime":0.4000000059604645,"__type":"FixedTimeSplineMovement"');

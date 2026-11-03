@@ -1,0 +1,359 @@
+{
+  "champion": "Karma",
+  "name": "Karma",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "karma",
+      "formName": "Karma",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.907684,
+      "attackDamage": 107.995,
+      "windup": 0.177879,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Karma",
+      "kind": "E",
+      "name": "Defiance",
+      "page": {
+        "title": "Template:Data Karma/Defiance",
+        "revid": 4004072
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Karma/Defiance",
+              "revid": 4004072,
+              "quote": "Inspire spreads to surrounding allied champions, granting them a shield for 2.5 seconds and 15% bonus movement speed for 2 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "castTime": 0
+    },
+    {
+      "champion": "Karma",
+      "kind": "E",
+      "name": "Inspire",
+      "page": {
+        "title": "Template:Data Karma/Inspire",
+        "revid": 4008449
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Karma/Inspire",
+              "revid": 4008449,
+              "quote": "Active: Karma grants a shield to herself or the target allied champion for 2.5 seconds as well as 40% bonus movement speed for 2 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 800
+    },
+    {
+      "champion": "Karma",
+      "kind": "I",
+      "name": "Gathering Fire",
+      "page": {
+        "title": "Template:Data Karma/Gathering Fire",
+        "revid": 3985386
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Karma",
+      "kind": "Q",
+      "name": "Inner Flame",
+      "page": {
+        "title": "Template:Data Karma/Inner Flame",
+        "revid": 3875842
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Karma/Inner Flame",
+              "revid": 3875842,
+              "quote": "Active: Karma fires a bolt in the target direction that explodes on the first enemy hit, dealing magic damage to nearby enemies and slowing them by 40% for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 890,
+      "speed": 1700,
+      "notes": [
+        "Spell shield will block the initial impact from Inner Flame.",
+        "Inner Flame's effect radius is centered around the location of the missile as it collides.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Inner Flame|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = Q\n|icon         = Inner Flame.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} fires a bolt in the target direction that explodes on the first enemy hit, dealing {{as|magic damage}} to nearby enemies and briefly {{tip|slow|slowing}} them.\n|post-blurb = Karma/Soulflare\n|description  = {{sbc|Active:}} '''Karma''' fires a bolt in the target direction that explodes on the first enemy hit, dealing {{as|magic damage}} to nearby enemies and {{tip|slow|slowing}} them by 40% for {{fd|1.5}} seconds.\n|leveling     = {{st|Magic Damage|{{ap|60 to 260}} {{as|(+ 70% AP)}}}}\n|target range = {{tip|cr|icononly = true}} 950 / {{tip|er|icononly = true}} 890\n|width        = {{tip|er|icononly = true}} {{tt|120|Missile width}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|280|Collision detonation radius}}\n|speed        = {{tt|1700|Missile speed}}\n|cooldown     = {{ap|9 to 5}}\n|cost         = {{ap|40 to 80}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = True\n|spelleffects = Area of effect\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the initial impact from ''Inner Flame''.\n{{Effect at cast time end}}\n* ''Inner Flame's'' effect radius is centered around the location of the missile as it collides.\n}}"
+      ]
+    },
+    {
+      "champion": "Karma",
+      "kind": "Q",
+      "name": "Soulflare",
+      "page": {
+        "title": "Template:Data Karma/Soulflare",
+        "revid": 3875841
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Karma/Soulflare",
+              "revid": 3875841,
+              "quote": "The explosion creates a field for 1.5 seconds that slows enemies within by 50%, which then ruptures to deal magic damage."
+            }
+          ],
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield will block the initial impact from either ability but will not block Soulflare's field damage.",
+        "Soulflare's detonation radius is centered around the location of the missile as it collides, while the lingering field will always be created at the impacted enemy's center instead.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Soulflare|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = Q\n|icon         = Soulflare.png\n|blurb= {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Inner Flame'' deals increased damage, and fires a larger bolt that also explodes at max range.\n|blurb2= The explosion briefly creates a field that {{tip|slow|slows}} enemies, which then ruptures to deal {{as|magic damage}}.\n|pre-blurb = Karma/Inner Flame\n|description  = {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Inner Flame'' deals increased damage, and fires a larger bolt that also explodes at maximum range.\n|leveling     = {{st|Bonus Magic Damage|{{ai|Mantra|Karma|{{ap|40 to 220 4}}}} {{as|(+ 30% AP)}}|Total Magic Damage|{{ap|60 to 260 5}} (+ {{ai|Mantra|Karma|{{ap|40 to 220 4}}}}) {{as|(+ {{ap|70+30}}% AP)}}}}\n|description2 = The explosion creates a field for {{fd|1.5}} seconds that {{tip|slow|slows}} enemies within by 50%, which then ruptures to deal {{as|magic damage}}.\n|leveling2    = {{st|Magic Damage|{{ai|Mantra|Karma|{{ap|40 to 310 4}}}} {{as|(+ 50% AP)}}|Total Bonus Damage|{{ai|Mantra|Karma|{{ap|40+40 to 220+310 4}}}} {{as|(+ {{ap|50+30}}% AP)}}|Total Damage|{{ap|60 to 260}} (+ {{ai|Mantra|Karma|{{ap|40+40 to 220+310 4}}}}) {{as|(+ {{ap|70+50+30}}% AP)}}}}\n|description3 = ''Soulflare'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|width        = {{tip|er|icononly = true}} {{tt|160|Increased missile width}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|280|Field area of effect radius}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spellaoe\n|projectile   = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the initial impact from either ability but will not block ''Soulflare's'' field damage.\n* ''Soulflare's'' detonation radius is centered around the location of the missile as it collides, while the lingering field will always be created at the impacted enemy's center instead.\n* ''Soulflare'' will cast from wherever '''Karma''' is at the end of the cast time.\n}}"
+      ]
+    },
+    {
+      "champion": "Karma",
+      "kind": "R",
+      "name": "Mantra",
+      "page": {
+        "title": "Template:Data Karma/Mantra",
+        "revid": 4005102
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 34,
+      "castTime": 0,
+      "usableWhileDisabled": {
+        "which": "cast",
+        "evidence": [
+          {
+            "page": "Template:Data Karma/Mantra",
+            "revid": 4005102,
+            "quote": "can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Mantra|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = R\n|icon         = Mantra.png\n|blurb        = {{sbc|Active:}} {{ci|Karma}} empowers her next ability within a period to apply an additional effect.\n|blurb4      = '''Karma''' begins the game with one rank in ''Mantra''. Her empowered abilities scale based on ''Mantra's'' rank.\n|description  = {{sbc|Active:}} '''Karma''' empowers her next basic ability within 8 seconds for an additional effect.\n|description2 = '''Karma''' begins the game with one rank in ''Mantra''. Her empowered abilities scale based on ''Mantra's'' rank.<br/><br/>''Mantra can be used while affected by {{tip|cast-inhibiting crowd control}}.''\n|cast time = none\n|cooldown     = {{ap|40 to 34 4}}\n|cdstart      = on-cast\n|targeting    = Auto\n|affects      = Self\n|notes        = \n|flavorsound = {{sm2|Karma_Original_R_1.ogg}} ''\"Sae Eleisa Tera Vi.\"''\n}}"
+      ]
+    },
+    {
+      "champion": "Karma",
+      "kind": "W",
+      "name": "Focused Resolve",
+      "page": {
+        "title": "Template:Data Karma/Focused Resolve",
+        "revid": 3968365
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Karma/Focused Resolve",
+              "revid": 3968365,
+              "quote": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed."
+            }
+          ],
+          "duration": 2,
+          "condition": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed."
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 675,
+      "notes": [
+        "Spell shield will block the tether's application and damage but not the aftereffects of one already applied.",
+        "If the target becomes untargetable, dies, or is no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost.\n  - If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.\n    - Summon Aery will still count as the target being damaged this way.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Focused Resolve|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = W\n|icon         = Focused Resolve.png\n|blurb = {{sbc|Active:}} {{ci|Karma}} deals {{as|magic damage}} and {{tip|tether|tethers}} to the target enemy {{tip|champion}}, {{tip|monster}} or {{tip|pet}}.\n|blurb2= If the tether is not broken after a short time, the target is dealt {{as|magic damage}}, briefly {{tip|root|rooted}}, and {{tip|true sight|revealed}} for a short time.\n|post-blurb = Karma/Renewal\n|description  = {{sbc|Active:}} '''Karma''' deals {{as|magic damage}} to the target enemy {{tip|champion}}, {{tip|monster}} or {{tip|pet}} and forms a {{tip|tether}} between her and them for 2 seconds, during which they are {{tip|true sight|revealed}}.\n|leveling     = {{st|Magic Damage|{{ap|40 to 140}} {{as|(+ 45% AP)}}}}\n|description2 = If the tether is not broken by the end of its duration, the target is dealt the same {{as|magic damage}} again and is {{tip|root|rooted}} for a duration, during which they are {{tip|true sight|revealed}}.\n|leveling2    = {{st|Total Magic Damage|{{ap|40*2 to 140*2}} {{as|(+ 90% AP)}}}}\n{{st|Root Duration|{{ap|1.6 to 2}} seconds}}\n|target range = {{tip|cr|icononly = true}} 675\n|tether radius= {{tip|cr|icononly = true}} 825\n|cooldown     = 12\n|cost         = {{ap|50 to 70}}\n|cast time    = {{fd|0.25}}\n|costtype     = Mana\n|targeting    = Unit\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spell\n|projectile   = False\n|callforhelp  = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the tether's application and damage but not the aftereffects of one already applied.\n* If '''Karma''' is {{tip|tether|tethered}} to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.{{bug}}\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is no longer in {{tip|sight}} during the cast time, this ability will cancel but does not go on {{sti|cooldown}} nor pay its cost.\n** If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.{{bug}}\n*** {{ri|Summon Aery}} will still count as the target being damaged this way.{{bug|2}}\n}}"
+      ]
+    },
+    {
+      "champion": "Karma",
+      "kind": "W",
+      "name": "Renewal",
+      "page": {
+        "title": "Template:Data Karma/Renewal",
+        "revid": 4013452
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Karma/Renewal",
+              "revid": 4013452,
+              "quote": "Mantra Bonus: Focused Resolve's root duration is increased."
+            }
+          ],
+          "duration": 1.25
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Karma/Renewal",
+              "revid": 4013452,
+              "quote": "Karma heals for 17% (+ 1% per 100 AP) of her missing health once on-cast, and again once the tether lasts its full duration or the target dies while tethered."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Spell shield will block the tether's application and damage but not the aftereffects of one already applied.",
+        "If the target becomes untargetable, dies, or is no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost.\n  - If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.\n    - Karma is still healed on-cast.\n    - Summon Aery will still count as the target being damaged this way.",
+        "{{{{{1<noinclude>|Ability data</noinclude>}}}|Renewal|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Karma\n|skill        = W\n|icon         = Renewal.png\n|blurb = {{sbc|{{ai|Mantra|Karma}} Bonus:}}\n''Focused Resolve's'' {{tip|root}} is increased.\n|blurb2= '''Karma''' {{tip|heal|heals}} herself once on-cast, and again once the target is ''bound'' or dies while tethered.\n|pre-blurb = Karma/Focused Resolve\n|description  = {{sbc|{{ai|Mantra|Karma}} Bonus:}} ''Focused Resolve's'' {{tip|root}} duration is increased. <br/><br/>'''Karma''' {{tip|heal|heals}} for {{sti|health|{{as|17% {{as|(+ 1% per 100 AP)}} of her '''missing''' health}}}} once on-cast, and again once the tether lasts its full duration or the target dies while tethered.\n|leveling     = {{st|Root Duration Increase|{{ai|Mantra|Karma|{{ap|0.5 to 1.25 4}}}} seconds|Total Root Duration|{{ap|1.6 to 2}} (+ {{ai|Mantra|Karma|{{ap|0.5 to 1.25 4}}}}) seconds}}\n|description2 = ''Renewal'' scales with ''{{ais|Mantra|Karma}}'' rank.\n|targeting    = Unit\n|affects      = Enemies / Self\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = spell\n|projectile   = False\n|callforhelp  = True\n|grounded     = \n|knockdown    = \n|notes        = \n* {{tip|Spell shield}} will block the tether's application and damage but not the aftereffects of one already applied.\n* If '''Karma''' is {{tip|tether|tethered}} to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.{{bug}}\n* On cast, ''Renewal'' is treated as 2 [[champion ability|abilities]] for {{ri|Conqueror}} and {{ri|Electrocute}}, instead of 1.{{bug}}\n* If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is no longer in {{tip|sight}} during the cast time, this ability will cancel but does not go on {{sti|cooldown}} nor pay its cost.\n** If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.{{bug}}\n*** '''Karma''' is still healed on-cast.\n*** {{ri|Summon Aery}} will still count as the target being damaged this way.{{bug|2}}\n \n}}"
+      ]
+    }
+  ]
+}

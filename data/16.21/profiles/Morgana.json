@@ -1,0 +1,244 @@
+{
+  "champion": "Morgana",
+  "name": "Morgana",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "morgana",
+      "formName": "Morgana",
+      "range": 450,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 0.813047,
+      "attackDamage": 124.828,
+      "windup": 0.172192,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Morgana",
+      "kind": "E",
+      "name": "Black Shield",
+      "page": {
+        "title": "Template:Data Morgana/Black Shield",
+        "revid": 4050925
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Morgana/Black Shield",
+              "revid": 4050925,
+              "quote": "Active: Morgana grants a shield to the target allied champion or herself for 5 seconds, which absorbs incoming magic damage and grants crowd control immunity while it holds."
+            }
+          ],
+          "duration": 5
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Morgana/Black Shield",
+              "revid": 4050925,
+              "quote": "Active: Morgana grants a shield to the target allied champion or herself for 5 seconds, which absorbs incoming magic damage and grants crowd control immunity while it holds."
+            }
+          ],
+          "duration": 5
+        }
+      ],
+      "cooldown": 16,
+      "castTime": 0,
+      "range": 800,
+      "notes": [
+        "Black Shield will not resist self nor allied crowd control (including e.g. an allied Tempered Fate).",
+        "Black Shield negates crowd control effects before any magic damage is absorbed; even if the shield is broken by an enemy dealing enough damage, its associated disables will not apply. Shield-destroying effects bypass this however, since they destroy the shield before applying their effects.",
+        "Although not considered a crowd control effect, Black Shield is special-cased to block Test of Spirit spirit pull, but does not prevent R tether, R, W, R.",
+        "Black Shield takes priority over other sources of crowd control immunity and those that grant immunity to specific types of crowd control (displacement immunity and slow immunity).",
+        "Spell shield will take priority over Black Shield."
+      ]
+    },
+    {
+      "champion": "Morgana",
+      "kind": "I",
+      "name": "Soul Siphon",
+      "page": {
+        "title": "Template:Data Morgana/Soul Siphon",
+        "revid": 3985603
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Morgana/Soul Siphon",
+              "revid": 3985603,
+              "quote": "Innate: Morgana heals herself for 18% of the post-mitigation damage dealt by her abilities against champions, large minions, and medium and large monsters."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Morgana",
+      "kind": "Q",
+      "name": "Dark Binding",
+      "page": {
+        "title": "Template:Data Morgana/Dark Binding",
+        "revid": 3936353
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Morgana/Dark Binding",
+              "revid": 3936353,
+              "quote": "Active: Morgana throws a sphere of dark magic in the target direction that deals magic damage to the first enemy hit and roots them for a duration."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1300,
+      "speed": 1200
+    },
+    {
+      "champion": "Morgana",
+      "kind": "R",
+      "name": "Soul Shackles",
+      "page": {
+        "title": "Template:Data Morgana/Soul Shackles",
+        "revid": 4020315
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Morgana/Soul Shackles",
+              "revid": 4020315,
+              "quote": "Active: Morgana latches chains of energy onto nearby enemy champions over the cast time, dealing magic damage and forming a tether between herself and each target for 3 seconds, during which she gains bonus movement speed and the targets are revealed and slowed by 20%."
+            }
+          ],
+          "amount": 20
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Morgana/Soul Shackles",
+              "revid": 4020315,
+              "quote": "If a target does not break their tether by the end of its duration, they are dealt the same magic damage again and become stunned for a duration, during which they are revealed."
+            }
+          ],
+          "duration": 2,
+          "condition": "If a target does not break their tether by the end of its duration, they are dealt the same magic damage again and become stunned for a duration, during which they are revealed."
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.35,
+      "notes": [
+        "Spell shield will block the tether's application and initial damage but not the aftereffects of one already applied."
+      ]
+    },
+    {
+      "champion": "Morgana",
+      "kind": "W",
+      "name": "Tormented Shadow",
+      "page": {
+        "title": "Template:Data Morgana/Tormented Shadow",
+        "revid": 4065640
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 900
+    }
+  ]
+}

@@ -33,14 +33,14 @@ const summon=(world:World,x:number,owner:0|1=1,extra:Partial<PetSpec>={}):Pet=>s
 
 describe("Braum unfiltered full-budget production",()=>{
  it("runs six scenarios with exact reversed builds and strict scores against Darius",()=>{
-  const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
+  const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices;
   const forward=simulateMatchup(compiled.spec,kit("Darius").spec,15000,prices),reverse=simulateMatchup(kit("Darius").spec,compiled.spec,15000,prices);
   expect(forward.scenarios).toHaveLength(6);expect(forward.builds).toEqual([reverse.builds[1],reverse.builds[0]]);expect(Math.abs(forward.score+reverse.score)).toBeLessThan(1e-10);
   for(const[i,s]of forward.scenarios.entries()){const other=reverse.scenarios[[1,0,2,3,4,5][i]!]!;if(s.score===undefined)expect(other.score).toBeUndefined();else expect(Math.abs(s.score+other.score!)).toBeLessThan(1e-10);expect(s.outcomes.every(o=>[o.seconds,...o.hp,...o.damage].every(Number.isFinite))).toBe(true);}
   for(const build of forward.builds){expect(build.gold).toBe(15000);expect(Math.abs(Object.values(build.spent).reduce((a,b)=>a+b,0)-15000)).toBeLessThan(1e-10);}
  },60000);
  it("runs ordinary six-scenario production against actual Heimerdinger pets",()=>{
-  const prices=(JSON.parse(readFileSync(new URL("../../data/16.20/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices,result=simulateMatchup(compiled.spec,kit("Heimerdinger").spec,15000,prices);
+  const prices=(JSON.parse(readFileSync(new URL("../../data/16.21/rules.json",import.meta.url),"utf8"))as{statPrices:StatPrices}).statPrices,result=simulateMatchup(compiled.spec,kit("Heimerdinger").spec,15000,prices);
   expect(result.scenarios).toHaveLength(6);for(const s of result.scenarios)for(const o of s.outcomes)expect([o.seconds,...o.hp,...o.damage].every(Number.isFinite)).toBe(true);
  },60000);
 });
@@ -48,7 +48,7 @@ describe("Braum unfiltered full-budget production",()=>{
 describe("Braum source contract",()=>{
  it("retains all five exact pins and complete attributed binary arrays",()=>{
   const rows=records("Braum");expect(rows.map(r=>r.page.revid).sort()).toEqual([4012056,4038222,4007579,4007580,3906582].sort());
-  for(const row of rows){expect(row.sources?.some(s=>s.page.revid===row.page.revid&&s.text.some(t=>t.includes("|champion     = Braum")&&t.includes("|notes")))).toBe(true);for(const source of row.gameSources!){expect(source.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json");expect(source.version).toBe("16.20.8248524+branch.releases-16-20.content.release");expect(source.sha256).toBe("021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6");expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object);}}
+  for(const row of rows){expect(row.sources?.some(s=>s.page.revid===row.page.revid&&s.text.some(t=>t.includes("|champion     = Braum")&&t.includes("|notes")))).toBe(true);for(const source of row.gameSources!){expect(source.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/braum/braum.bin.json");expect(source.version).toBe("16.21.8342754+branch.releases-16-21.content.release");expect(source.sha256).toBe("021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6");expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object);}}
   expect(rows.flatMap(r=>r.gameSources??[])).toHaveLength(7);expect(compiled.assumptions.join(" ")).toContain("unsupported boundary");
  });
  it("fails closed if exact game evidence is missing",()=>{const rows=records("Braum");delete rows[0]!.gameSources;expect(()=>compile(rows)).toThrow("pinned game data");});

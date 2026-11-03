@@ -1,0 +1,1250 @@
+[
+  {
+    "champion": "Graves",
+    "kind": "E",
+    "name": "Quickdraw",
+    "page": {
+      "title": "Template:Data Graves/Quickdraw",
+      "revid": 4080986
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 15 / 14 / 13 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                15,
+                14,
+                13,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "275 - 375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Graves dashes to the target location, reloading one shell while generating a stack of True Grit for 4 seconds, stacking up to 8 times. Dashing towards an enemy champion generates 2 stacks of True Grit.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Graves dashes to the target location, reloading one shell while generating a stack of True Grit for 4 seconds, stacking up to 8 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Quickdraw's current cooldown is reduced by 0.5 seconds for every pellet impacting an enemy.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "True Grit",
+        "text": "True Grit: For each stack, Graves gains bonus armor, and bonus magic resistance equal to 50% of that amount. Subsequent casts of Quickdraw and damage versus non-minions will refresh the duration of True Grit.",
+        "leveling": [
+          {
+            "label": "Bonus Armor",
+            "amount": {
+              "text": "7 / 10 / 13 / 16 / 19",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7,
+                  10,
+                  13,
+                  16,
+                  19
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus Armor",
+            "amount": {
+              "text": "56 / 80 / 104 / 128 / 152",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  56,
+                  80,
+                  104,
+                  128,
+                  152
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Resistance",
+            "amount": {
+              "text": "3.5 / 5 / 6.5 / 8 / 9.5",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3.5,
+                  5,
+                  6.5,
+                  8,
+                  9.5
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus MR",
+            "amount": {
+              "text": "28 / 40 / 52 / 64 / 76",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  28,
+                  40,
+                  52,
+                  64,
+                  76
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Quickdraw resets Graves basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Quickdraw resets Graves basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Mountainous Vigor and Jak'Sho, The Protean Voidborn Resilience multipliers apply additively to bonus armor and magic resist from True Grit. This is different from their normal interaction, which is multiplicative.",
+      "If Graves dashes while reloading, he can cast any of his abilities during the dash.",
+      "Graves gains the one additional stack of True Grit from Quickdraw if at any point during the dash a visible enemy champion is in front of Graves within 1300 distance.\n  - Enemy champions have to be targetable to grant the additional stack.\n  - The additional stack of True Grit is gained when dashing towards clones just like actual champions.\n  - This check never happens if Graves dashes 0 distance (impossible outside of bugs), and will not always repeat a final time at the very end of the dash. Otherwise, it occurs continously while Graves is dashing.\n  - This works for a 180 degree sector from Graves to the Champion, as such dashing parallel to the champ will also give a bonus stack."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesMoveAbility/GravesMove",
+        "text": [
+          "mSpell.DataValues[DashSpeed].values: [750.0,750.0,750.0,750.0,750.0,750.0,750.0]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Graves",
+    "kind": "I",
+    "name": "New Destiny",
+    "page": {
+      "title": "Template:Data Graves/New Destiny",
+      "revid": 4038342
+    },
+    "ranks": 1,
+    "fields": {
+      "targetRange": {
+        "text": "range 425",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 425
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "625 • 565",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 625
+            },
+            "label": "Pellet reach"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 565
+            },
+            "label": "Pellet collision reach, effective to-edge reach"
+          }
+        ]
+      },
+      "width": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            },
+            "label": "Individual pellets missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "3800 • 3000 • 3400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3800
+            },
+            "label": "Pellets missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Invisible missile, used for certain attack effects and against wards/plants"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3400
+            },
+            "label": "Invisible missile when critting"
+          }
+        ]
+      },
+      "angle": {
+        "text": "24° • 30°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 24
+            },
+            "label": "Basic attack spread"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate - Double Barrel",
+        "text": "Innate - Double Barrel: Graves basic attacks fire his shotgun to consume ammunition within 2 shells. He will reload over a few seconds immediately after expending all shells, or after withholding a leftover shell for a while. The reload time is reduced by Graves level and bonus attack speed, and is cancelled if Graves reloads a shell with Quickdraw or expends a leftover shell. Graves is unable to declare basic attacks during the reload time if he has expended all shells.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Graves is unable to declare basic attacks during the reload time if he has expended all shells.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "a few seconds",
+            "tip": "See notes"
+          },
+          {
+            "text": "for a while",
+            "tip": "See notes"
+          },
+          {
+            "text": "reduced",
+            "tip": "See notes"
+          }
+        ]
+      },
+      {
+        "label": "Innate - 12-Gauge",
+        "text": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target. Pellets deal 25% reduced damage against structures.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                70.000175,
+                71.129775,
+                72.3388,
+                73.62725,
+                74.995125,
+                76.442425,
+                77.96915,
+                79.5753,
+                81.260875,
+                83.025875,
+                84.8703,
+                86.79415,
+                88.797425,
+                90.880125,
+                93.04225,
+                95.2838,
+                97.604775,
+                100.005175,
+                102.485,
+                105.04425
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                23.3114582785,
+                23.6876376705,
+                24.090267176,
+                24.519346795,
+                24.9748765275,
+                25.4568563735,
+                25.965286333,
+                26.500166406,
+                27.0614965925,
+                27.6492768925,
+                28.263507306,
+                28.904187833,
+                29.5713184735,
+                30.2648992275,
+                30.984930095,
+                31.731411076,
+                32.5043421705,
+                33.3037233785,
+                34.1295547,
+                34.981836135
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                139.9345498355,
+                142.1926880115,
+                144.609601528,
+                147.185290385,
+                149.9197545825,
+                152.8129941205,
+                155.865008999,
+                159.075799218,
+                162.4453647775,
+                165.9737056775,
+                169.660821918,
+                173.506713499,
+                177.5113804205,
+                181.6748226825,
+                185.997040285,
+                190.478033228,
+                195.1178015115,
+                199.9163451355,
+                204.8736641,
+                209.989758405
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target."
+          }
+        ]
+      },
+      {
+        "text": "Critical strikes spray 6 pellets over a 25% wider cone, with each pellet dealing 50% increased damage, resulting in 199.976% (+ Infinity Edge *0.5*(1+5*0.33302)/(1+3*0.33302)%) total damage if all pellets hit a single target.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "Critical strikes",
+            "evidence": "Critical strikes spray 6 pellets over a 25% wider cone, with each pellet dealing 50% increased damage, resulting in 199.976% (+ Infinity Edge *0.5*(1+5*0.33302)/(1+3*0.33302)%) total damage if all pellets hit a single target.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 199.976488949806
+            },
+            "context": "Critical strikes spray 6 pellets over a 25% wider cone, with each pellet dealing 50% increased damage, resulting in 199.976% (+ Infinity Edge *0.5*(1+5*0.33302)/(1+3*0.33302)%) total damage if all pellets hit a single target."
+          }
+        ]
+      },
+      {
+        "text": "Pellets apply life steal. Only the first pellet to hit each enemy applies on-hit effects.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "apply",
+            "evidence": "Pellets apply life steal.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Pellets apply life steal.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Only the first pellet to hit each enemy applies on-hit effects.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate - Buckshot",
+        "text": "Innate - Buckshot: Non-champion units hit by more than one pellet are knocked back, though not through terrain.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked back",
+            "evidence": "Innate - Buckshot: Non-champion units hit by more than one pellet are knocked back, though not through terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Graves takes 2.08 seconds to reload 2 shells (when the clip is empty) and 1.3 seconds to reload 1 shell. He must idle with 1 shell for 2.08 seconds before he starts reloading. These values can be improved with bonus attack speed.\n  - Values of bonus attack speed between 150% and 200% have a negative effect on Graves' reload speed.\n  - Attack speed growth will always have a positive effect on Graves' reload speed and is not counted toward the 150% and 200% attack speed thresholds. For example, Graves gains 58.995% bonus attack speed from attack speed growth at level 20; meaning the thresholds at level 20 are at 208.995% and 258.995% respectively.\n  - Maximum reload speed is 0.65114 – 0.89119 (based on level), which equates to a reload timer of 1.5357680376 – 1.12209517611 (based on level) seconds, which is the shortest reload time at the 150% threshold.\n    - Precise formula is unknown, but it is confirmed to be confusing. [https://www.youtube.com/watch?v=WXmXsCdqAyw&t=520s]",
+      "The in-game HUD for the champion's stat panel incorrectly displays Graves \"reload speed\" for reloading 2 shells as his attack speed, instead of displaying his actual attack speed which behaves normally like any other champion. This displayed value more accurately represents his reloads per second, and not attacks per second as the attack speed tooltip in the HUD would suggest.",
+      "Graves can hit multiple individual enemies with a single shot from his basic attack. The first pellet hitting an enemy:\n  - Deals the highest damage out of all other pellets.\n  - Applies and triggers on-hit effects.\n    - \"Single-use\" on-hit effects such as Spellblade items will be applied to the very first enemy hit by a pellet (closest one in this case).\n  - Applies basic damage, while all additional pellets deal default damage.\n  - Is reduced by Warden's Mail Rock Solid.",
+      "Graves attack windup is based on such a low value that it will always take only 1 game tick, even at the lowest possible attack speed of 0.2.",
+      "When Graves has his attack range increased by 35% to 573.75 via Rapid Firecannon Sharpshooter, it has special effects on the cone spread of his basic attack:\n  - The reach of the individual missiles is also increased by 35% to 843.75 / 783.75.\n  - The spread of the individual missiles is decreased by 35% (angle × 1/1.35) to 17.7° / 22.2°.",
+      "Pellets will not hit wards nor jungle plants.\n  - When Graves performs a basic attack against these units, he will fire a standard ranged homing missile at the target to successfully hit it.\n    - This same missile is also used for when his basic attack is empowered by an Energized effect.",
+      "Pellets can be dodged and blocked, but not missed while Graves is blinded.\n  - While Graves is blinded, the pellets are special cased to fire in a random direction that is always away from the primary target of his basic attack.\n    - Enemies within range of the pellets in their randomly fired direction will be hit as the pellets cannot be missed.",
+      "Basic attack resets other than Quickdraw do not affect Graves basic attack timer.",
+      "Structures can be hit by multiple pellets, as with other valid targets.\n  - If Graves' basic attack critically strikes against an enemy behind their structure, and this structure is hit by all pellets, the damage dealt to the structure is increased by 33.3%.",
+      "On-attack effects such as Help, Pix! and Runaan's Hurricane Wind's Fury will be triggered as usual from the completion of Graves' basic attack windup. They will obey their standard target-acquisition rules in spite of Graves' special basic attack behavior.\n  - Runaan's Hurricane Wind's Fury can still fire its bolts at secondary targets even if they were already hit by the pellets of Graves' basic attack.",
+      "Black Cleaver Carve will be applied for the physical damage dealt by each pellet, meaning that each of Graves' basic attacks can apply up to 4 stacks of the effect, increased to the maximum of 5 with a critical strike.",
+      "Sundered Sky Lightshield Strike will function normally with Graves' basic attacks, causing the pellets to critically strike if the primary target was also a target of the item's effect.\n  - If none of the pellets hit the target of Lightshield Strike's effect, however, the item's effect will not be consumed on the target thus not triggering the heal nor applying the on-target-cooldown, but still causing Graves' basic attack to critically strike as if the effect was successfully consumed.\n    - His basic attacks against the marked target will be guaranteed to critically strike until the item's effect has been consumed by at least one pellet hitting them.\n  - Pellets will not consume the item's effect on secondary targets that are also targets of the item's effect; they will not consume the mark of enemies near the primary target that are marked by Lightshield Strike.",
+      "Randuin's Omen Resilience will reduce the critical damage dealt by every pellet, resulting in each pellet dealing less damage than if they were to not critically strike.",
+      "Kraken Slayer Bring It Down VFX for its missile appears to fire at the primary target, but will always collide with the target hit by the first pellet."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesPassiveAbility/GravesPassive",
+        "text": [
+          "mSpell.mSpellCalculations.MultiBulletDamage.mMultiplier.mNumber: 0.3330000042915344"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Graves/New Destiny",
+          "revid": 4038342
+        },
+        "text": [
+          "Maximum reload speed formula tooltip: 0.65114 + (0.89119 - 0.65114) / 17 * (x - 1). Formula decimals are estimated to match the ingame rounded values.",
+          "Reload Speed Cap is 0.65114 to 0.89119 (based on level); shortest reload timer is 1 / Reload Speed Cap at the 150% threshold.",
+          "Critical strikes footnote: each pellet deals increased damage equal to 50% bonus critical damage."
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Graves",
+    "kind": "Q",
+    "name": "End of the Line",
+    "page": {
+      "title": "Template:Data Graves/End of the Line",
+      "revid": 4057465
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 11.25 / 9.5 / 7.75 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                11.25,
+                9.5,
+                7.75,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "800 • 900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Initial shell missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Total forward range including explosion"
+          }
+        ]
+      },
+      "width": {
+        "text": "80 • 500 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Initial shell missile width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Explosion rectangle width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Powder trail return missile width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Graves fires a round in the target direction that deals physical damage to enemies it passes through and leaves behind a powder trail.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 55% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "After 2 seconds, or 0.231 upon colliding with terrain, the round detonates to deal physical damage to enemies within a wide perpendicular area and in a reverse wave along the powder trail.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 45 / 60 / 75 / 90 / 105% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      45,
+                      60,
+                      75,
+                      90,
+                      105
+                    ]
+                  },
+                  "text": "(+ 45 / 60 / 75 / 90 / 105% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "130 / 200 / 270 / 340 / 410 (+ 100 / 115 / 130 / 145 / 160% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  130,
+                  200,
+                  270,
+                  340,
+                  410
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      100,
+                      115,
+                      130,
+                      145,
+                      160
+                    ]
+                  },
+                  "text": "(+ 100 / 115 / 130 / 145 / 160% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies can only be hit once per pass.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shields can only block one instance of the ability's damage.",
+      "Wind Wall will destroy the projectile entirely and mitigate all effects, including the trail on the ground.",
+      "Unbreakable is considered to be terrain for the purposes of the projectile, triggering its second effect.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesQLineSpellAbility/GravesQLineMis",
+        "text": [
+          "mSpell.missileSpeed: 3000.0"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesQLineSpellAbility/GravesQReturn",
+        "text": [
+          "mSpell.missileSpeed: 1600.0"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesQLineSpellAbility/GravesQLineSpell",
+        "text": [
+          "mSpell.DataValues[TerrainCollisionDelay].values: [0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224,0.20000000298023224]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Graves",
+    "kind": "R",
+    "name": "Collateral Damage",
+    "page": {
+      "title": "Template:Data Graves/Collateral Damage",
+      "revid": 4007499
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 80 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                80,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1100 • 1690",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            },
+            "label": "Shell missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1690
+            },
+            "label": "Maximum range including collateral cone, estimated"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "740",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 740
+            },
+            "label": "Collateral end cone width, estimated"
+          }
+        ]
+      },
+      "width": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Shell missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2100
+            },
+            "label": "Shell missile speed. The explosion is instantaneous"
+          }
+        ]
+      },
+      "angle": {
+        "text": "60°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            },
+            "label": "Collateral cone angle, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true",
+      "grounded": "special",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Graves fires an explosive shell in the target direction that deals physical damage to enemies hit and causes him to recoil 400 units in the opposite direction.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "275 / 425 / 575 (+ 150% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  275,
+                  425,
+                  575
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "recoil",
+            "evidence": "Active: Graves fires an explosive shell in the target direction that deals physical damage to enemies hit and causes him to recoil 400 units in the opposite direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon hitting an enemy champion or reaching the end of its range, the shell explodes in a cone to deal reduced damage to additional enemies.",
+        "leveling": [
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "200 / 320 / 440 (+ 120% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  320,
+                  440
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies spell damage to the target hit by the shell (including to non-champions struck before exploding) and area damage to targets within the explosion cone.",
+      "The projectile will still explode early if the champion hit by the shell is protected by a spell shield.",
+      "The explosion cone is anchored on the location of the shell missile when it collided with a champion, or otherwise its maximum cast range.",
+      "The cone damage is always located 150 units behind, based off its direction",
+      "Collateral Damage is not disabled while grounded or rooted, but Graves will not dash after the cast time while affected by them.",
+      "Graves will not dash after the cast time if he is airborne.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Graves",
+    "kind": "W",
+    "name": "Smoke Screen",
+    "page": {
+      "title": "Template:Data Graves/Smoke Screen",
+      "revid": 4067475
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "26 / 24 / 22 / 20 / 18",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                26,
+                24,
+                22,
+                20,
+                18
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Canister landing damage radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Starts traveling at the start of the cast time"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Graves fires a smoke canister at the target location that upon impact deals magic damage to enemies within the area and slows them by 50% for 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "Active: Graves fires a smoke canister at the target location that upon impact deals magic damage to enemies within the area and slows them by 50% for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The canister creates a cloud of smoke for 4 seconds that applies nearsight of outside the area to all enemies within every 0.25 seconds, reducing their sight radius to 250 units relative to the center.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "nearsight",
+            "category": "control",
+            "wording": "nearsight",
+            "evidence": "The canister creates a cloud of smoke for 4 seconds that applies nearsight of outside the area to all enemies within every 0.25 seconds, reducing their sight radius to 250 units relative to the center.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "The canister creates a cloud of smoke for 4 seconds that applies nearsight of outside the area to all enemies within every 0.25 seconds, reducing their sight radius to 250 units relative to the center.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "250 units",
+            "tip": "Estimated"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Smoke Screen will nearsight untargetable units.",
+      "Spell shields will block the instance of damage and slow, but will not mitigate the persistent area of effect.",
+      "Crowd control immunity and cleanses have no effect on the user's sight radius reduction despite the nearsight being resisted / removed. Loss of allied vision will still be affected.\n  - Removing or resisting the nearsight will prevent it from being reapplied while staying inside the area (leaving and coming back inside will not).",
+      "The nearsight debuff applies to non-champions but it does not inherently stop them from performing actions that require sight, such as basic attacking.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Graves/Smoke Screen",
+          "revid": 4067475
+        },
+        "text": [
+          "Smoke Screen speed tooltip: 1500. Starts traveling at the start of the cast time.",
+          "Smoke Screen sight radius tooltip: 250 units. Estimated."
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json",
+        "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+        "object": "Characters/Graves/Spells/GravesSmokeGrenadeAbility/GravesSmokeGrenade",
+        "text": [
+          "mSpell.DataValues.SmokeRadius.values: [200.0,200.0,200.0,200.0,200.0,200.0,200.0]"
+        ]
+      }
+    ]
+  }
+]

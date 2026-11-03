@@ -1,0 +1,248 @@
+{
+  "champion": "Leblanc",
+  "name": "LeBlanc",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "leblanc",
+      "formName": "LeBlanc",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1700,
+      "attackSpeed": 0.842359,
+      "attackDamage": 98.263,
+      "windup": 0.197857,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Leblanc",
+      "kind": "E",
+      "name": "Ethereal Chains",
+      "page": {
+        "title": "Template:Data LeBlanc/Ethereal Chains",
+        "revid": 3954748
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data LeBlanc/Ethereal Chains",
+              "revid": 3954748,
+              "quote": "If the tether is not broken by the end of its duration, it fractures to deal magic damage to the target and root them for 1.5 seconds, during which they are revealed."
+            }
+          ],
+          "duration": 1.5,
+          "condition": "If the tether is not broken by the end of its duration, it fractures to deal magic damage to the target and root them for 1.5 seconds, during which they are revealed."
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 1750,
+      "notes": [
+        "Spell shield will block the tether's application and initial damage but not the aftereffects of one already applied."
+      ]
+    },
+    {
+      "champion": "Leblanc",
+      "kind": "I",
+      "name": "Mirror Image",
+      "page": {
+        "title": "Template:Data LeBlanc/Mirror Image",
+        "revid": 4035723
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data LeBlanc/Mirror Image",
+              "revid": 4035723,
+              "quote": "Innate: Periodically, when LeBlanc is damaged to 40% maximum health, she creates a clone of herself, after which they both instantly become invisible for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "cooldown": 60,
+      "notes": [
+        "Using a basic attack breaks the stealth at the end of the attack windup."
+      ]
+    },
+    {
+      "champion": "Leblanc",
+      "kind": "Q",
+      "name": "Sigil of Malice",
+      "page": {
+        "title": "Template:Data LeBlanc/Sigil of Malice",
+        "revid": 4091667
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 700,
+      "speed": 2000,
+      "notes": [
+        "The floating damage text upon the mark's detonation currently displays a real critical strike icon instead of a success indicator.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Leblanc",
+      "kind": "R",
+      "name": "Mimic",
+      "page": {
+        "title": "Template:Data LeBlanc/Mimic",
+        "revid": 4057469
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted"
+        },
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "(recast)"
+            }
+          ],
+          "condition": "(recast)"
+        }
+      ],
+      "states": [],
+      "cooldown": 25
+    },
+    {
+      "champion": "Leblanc",
+      "kind": "W",
+      "name": "Distortion",
+      "page": {
+        "title": "Template:Data LeBlanc/Distortion",
+        "revid": 4057468
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        },
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "/"
+            }
+          ],
+          "condition": "/"
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 600,
+      "speed": 1450,
+      "notes": [
+        "Distortion has no minimum dash range.",
+        "Distortion's pad duration starts once the dash ends."
+      ]
+    }
+  ]
+}

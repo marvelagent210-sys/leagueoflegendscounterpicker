@@ -1,0 +1,1086 @@
+[
+  {
+    "champion": "Kindred",
+    "kind": "E",
+    "name": "Mounting Dread",
+    "page": {
+      "title": "Template:Data Kindred/Mounting Dread",
+      "revid": 4078261
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 12.5 / 11 / 9.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                12.5,
+                11,
+                9.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "500 / 575 / 600 / 625 / 650 / 675 / 700 / 725 / 750 (based on Marks)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Marks",
+              "points": [
+                0,
+                4,
+                7,
+                10,
+                13,
+                16,
+                19,
+                22,
+                25
+              ],
+              "values": [
+                500,
+                575,
+                600,
+                625,
+                650,
+                675,
+                700,
+                725,
+                750
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lamb fires a shot at the target enemy that slows them by 30% (+ 5% per 100 AP) for 1.5 seconds and marks them for 4 seconds. Her basic attacks against the marked target each apply a stack, refreshing the duration and stacking up to 3 times.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 30
+            },
+            "evidence": "Active: Lamb fires a shot at the target enemy that slows them by 30% (+ 5% per 100 AP) for 1.5 seconds and marks them for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The third stack directs Wolf to pounce on the target, consuming all stacks to deal additional physical damage, increased by critical strike damage (based on critical strike chance).",
+        "leveling": [
+          {
+            "label": "Additional Physical Damage",
+            "amount": {
+              "text": "80 / 110 / 140 / 170 / 200 (+ 100% bonus AD) (+ 5% (+ 0.5% per Mark) of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  110,
+                  140,
+                  170,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% (+ 0.5% per Mark) of target's missing health)",
+                  "modifiers": [
+                    {
+                      "stat": "other:per mark",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 0.5
+                      },
+                      "text": "(+ 0.5% per Mark)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The damage based on the missing health ratio is capped at 200 against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Mounting Dread cannot target small monsters.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel and not pay its cost but still go on cooldown.",
+      "This ability cannot target a unit with Mounting Dread stacks.",
+      "Mounting Dread will prioritize casting on the closest champion within 100 radius of the cursor, even if other eligible targets are closer.\n  - As a consequence of this mechanic, Mounting Dread can still be cast on champions with Mounting Dread stacks.\n    - Reapplying Mounting Dread through this method will apply the slow, but will not reset the stack count.",
+      "Reapplying Mounting Dread against disguised Neeko will reset the stack count."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kindred/Mounting Dread",
+          "revid": 4078261
+        },
+        "text": [
+          "{{critical damage|0 to 50|critScaling=true}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "9bb04067d6acfa67defc1899a540acf5f0fd7c499e101f9acd51bd83220045ea",
+        "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredE",
+        "text": [
+          "\"missileSpeed\":1600.0"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "9bb04067d6acfa67defc1899a540acf5f0fd7c499e101f9acd51bd83220045ea",
+        "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredEWolfMissile",
+        "text": [
+          "\"missileSpeed\":2000.0"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "9bb04067d6acfa67defc1899a540acf5f0fd7c499e101f9acd51bd83220045ea",
+        "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredEWrapper",
+        "text": [
+          "\"mSpellCalculations\":{\"BaseBiteDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritMod\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"BonusADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"PercentBiteDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritMod\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BasePercentDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mBuffName\":\"{64290302}\",\"mIconKey\":\"%i:kindredPassiveIcon%\",\"mCoefficient\":0.004999999888241291,\"__type\":\"BuffCounterByCoefficientCalculationPart\"}],\"mDisplayAsPercent\":true,\"mPrecision\":1,\"__type\":\"GameCalculation\"},\"CritDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.5,\"__type\":\"NumberCalculationPart\"},{\"mStat\":9,\"mStatFormula\":2,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mModifiedGameCalculation\":\"PercentBiteDamage\",\"__type\":\"GameCalculationModified\"},\"TotalSlow\":{\"mFormulaParts\":[{\"mDataValue\":\"SlowAmount\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"SlowAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Kindred",
+    "kind": "I",
+    "name": "Mark of the Kindred",
+    "page": {
+      "title": "Template:Data Kindred/Mark of the Kindred",
+      "revid": 4069806
+    },
+    "ranks": 1,
+    "fields": {
+      "targetCooldown": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            },
+            "label": "Lamb's mark"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Both Lamb and Wolf mark targets to hunt. Scoring a takedown against a hunted target collects a stack of Mark of the Kindred.\n\nMark of the Kindred: Lamb gains 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on marks) bonus range on her basic attacks and Mounting Dread.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "marks",
+              "points": [
+                4,
+                7,
+                10,
+                13,
+                16,
+                19,
+                22,
+                25
+              ],
+              "values": [
+                75,
+                100,
+                125,
+                150,
+                175,
+                200,
+                225,
+                250
+              ]
+            },
+            "context": "Mark of the Kindred: Lamb gains 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on marks) bonus range on her basic attacks and Mounting Dread."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Lamb",
+        "text": "Innate - Lamb: Lamb is offered a selection of enemy champions to hunt if she has not been in combat with them in the last 6 seconds. Once selected, the mark is applied after an 8-second delay and thereafter it can be collected by Kindred. Lamb gains the ability to select a new target every 75 seconds. Targets successfully hunted cannot be marked again for 4 minutes.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - Wolf",
+        "text": "Innate - Wolf: Starting at 2:53, Wolf periodically marks a random large monster within the enemy team's jungle for 180 seconds. The hunted camp is highlighted on the mini map to both teams. Once the hunted target is slain or the mark expires, Wolf will wait 45 seconds before selecting a new target.\nThe type of monster that Wolf can mark changes based on Kindred's current Mark of the Kindred stacks:\n* 0 : Rift Scuttler\n* 1 – 3: Rift Scuttler, Crimson Raptor, Gromp\n* 4 – 7: Ancient Krug, Blue Sentinel, Greater Murk Wolf, or Red Brambleback\n* 8 + : Rift Herald or Baron Nashor, Dragon or Elder Dragon",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The selection of enemy champions to mark is offered through a special menu in the HUD that displays the portraits of up to 5 enemy champions. The player can mark an enemy by left-click clicking on their portrait or via the Champion Specific Interaction hotkeys (default: Shift+F1–F5).\n  - Marked enemies have a trim around their portrait. Unavailable selections are greyed out.\n  - The portraits are ordered based on their spawn ID.",
+      "Takedowns on monsters occur if Kindred had damaged them within the last 6 seconds.\n  - This only includes if the monster was slain by Kindred or an ally.",
+      "Only killing the large monster is required to claim Wolf's mark.",
+      "Gaining stacks from champions that would change what constitutes a valid target for Wolf will not affect Kindred's ability to claim Wolf's current target.",
+      "Wolf cannot mark monsters that have been slain, even if Kindred's team doesn't know that the camp has been slain.",
+      "Wolf's cooldown is not displayed in-game. Combined with the above point and the target restrictions, Wolf may go extended periods of time without seeming to do anything.",
+      "Wolf's marked target will always have its mark removed from the map 15 seconds after dying for both teams, regardless of whether they have vision of it or not."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kindred/Mark of the Kindred",
+          "revid": 4069806
+        },
+        "text": [
+          "formula=+75 at 4 stacks, and +25 every 3 stacks thereafter, up to 250 bonus range at 25 stacks."
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Kindred",
+    "kind": "Q",
+    "name": "Dance of Arrows",
+    "page": {
+      "title": "Template:Data Kindred/Dance of Arrows",
+      "revid": 4007746
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 9
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "300 • 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Maximum dash distance"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Maximum extended dash distance across terrain"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "500 (+ 100% bonus attack range)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Always equal to Kindred's attack range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "500 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lamb dashes toward the target location, gaining 35% (+ 5% per mark) bonus attack speed for 4 seconds and firing an arrow at up to 3 nearby visible enemies that deals physical damage. Her current attack target within any proximity will be prioritized by one of the arrows.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "40 / 65 / 90 / 115 / 140 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  65,
+                  90,
+                  115,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Lamb dashes toward the target location, gaining 35% (+ 5% per mark) bonus attack speed for 4 seconds and firing an arrow at up to 3 nearby visible enemies that deals physical damage.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Active: Lamb dashes toward the target location, gaining 35% (+ 5% per mark) bonus attack speed for 4 seconds and firing an arrow at up to 3 nearby visible enemies that deals physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Dance of Arrows' total cooldown is reduced to an amount while Lamb is within the area of Wolf's Frenzy. Casting Wolf's Frenzy reduces Dance of Arrows' current cooldown to the same amount.",
+        "leveling": [
+          {
+            "label": "Static Cooldown",
+            "amount": {
+              "text": "4 / 3.5 / 3 / 2.5 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4,
+                  3.5,
+                  3,
+                  2.5,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Dance of Arrows resets Lamb's basic attack timer. Lamb can cast any of her abilities during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Dance of Arrows resets Lamb's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Dance of Arrows has no minimum dash range.",
+      "This ability always employs quick cast.",
+      "The cooldown will not be modified if it cannot be reduced (the current cooldown would have to be less than the reduction amount in this case)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "9bb04067d6acfa67defc1899a540acf5f0fd7c499e101f9acd51bd83220045ea",
+        "object": "Characters/Kindred/Spells/KindredQAbility/KindredQMissile",
+        "text": [
+          "\"missileSpeed\":1600.0"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Kindred",
+    "kind": "R",
+    "name": "Lamb's Respite",
+    "page": {
+      "title": "Template:Data Kindred/Lamb's Respite",
+      "revid": 4024177
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "160 / 140 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                160,
+                140,
+                120
+              ]
+            },
+            "label": "Begins at start of cast time"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "535",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 535
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lamb blesses the ground underneath herself, creating a sacred zone at the location that lasts for 4 seconds. All units inside the zone gain a minimum health threshold equal to 10% of their maximum health, and will also become invulnerable while remaining in the area when they reach or are at the threshold, during which they also cannot be healed, but can still regenerate health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invulnerable",
+            "category": "defense",
+            "wording": "invulnerable",
+            "evidence": "All units inside the zone gain a minimum health threshold equal to 10% of their maximum health, and will also become invulnerable while remaining in the area when they reach or are at the threshold, during which they also cannot be healed, but can still regenerate health.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healed",
+            "evidence": "All units inside the zone gain a minimum health threshold equal to 10% of their maximum health, and will also become invulnerable while remaining in the area when they reach or are at the threshold, during which they also cannot be healed, but can still regenerate health.",
+            "conditional": true
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "regenerate health",
+            "evidence": "All units inside the zone gain a minimum health threshold equal to 10% of their maximum health, and will also become invulnerable while remaining in the area when they reach or are at the threshold, during which they also cannot be healed, but can still regenerate health.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "All units",
+            "tip": "Ally, enemy, and neutral"
+          }
+        ]
+      },
+      {
+        "text": "All targetable units within the zone are healed when the blessing ends.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "225 / 300 / 375",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  225,
+                  300,
+                  375
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healed",
+            "evidence": "All targetable units within the zone are healed when the blessing ends.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Lamb's Respite's effects are applied before the cast time.",
+      "Lamb's Respite will affect all champions, minions, and monsters, but not wards, turrets, or jungle plants.",
+      "Lamb's Respite will affect untargetable units but does not grant them the heal at the end of the blessing.\n  - It will specifically not affect champions that are resurrecting from Guardian Angel.",
+      "Health costs will ignore Lamb's Respite's threshold.\n  - The cost will not be paid if the caster is below the threshold.",
+      "Lamb's Respite has no effect on zombie state or clone units.",
+      "Lamb's Respite will have no effect if cast while Kindred is untargetable."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kindred/kindred.bin.json",
+        "sha256": "9bb04067d6acfa67defc1899a540acf5f0fd7c499e101f9acd51bd83220045ea",
+        "object": "Characters/Kindred/Spells/KindredRAbility/KindredR",
+        "text": [
+          "\"DataValues\":[{\"name\":\"HealFlat\",\"values\":[150.0,225.0,300.0,375.0,450.0,525.0,600.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BuffDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"},{\"name\":\"AoERadius\",\"values\":[530.0,530.0,530.0,530.0,530.0,530.0,530.0],\"__type\":\"SpellDataValue\"}]"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Kindred",
+    "kind": "W",
+    "name": "Wolf's Frenzy",
+    "page": {
+      "title": "Template:Data Kindred/Wolf's Frenzy",
+      "revid": 4078260
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast, see notes",
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Lamb generates 1 stack of Hunter's Vigor for every 27 units she travels by any means and 5 stacks on-attack, up to a maximum of 100 stacks. At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level). The heal is not triggered if Kindred is at full health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Passive: Lamb generates 1 stack of Hunter's Vigor for every 27 units she travels by any means and 5 stacks on-attack, up to a maximum of 100 stacks.",
+            "conditional": true
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Missing health",
+              "points": [
+                0,
+                20,
+                40,
+                60,
+                80
+              ],
+              "values": [
+                0,
+                25,
+                50,
+                75,
+                100
+              ]
+            },
+            "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level)."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                47,
+                49,
+                51,
+                53,
+                55,
+                57,
+                59,
+                61,
+                63,
+                65,
+                67,
+                69,
+                71,
+                73,
+                75,
+                77,
+                79,
+                81,
+                83,
+                85
+              ],
+              "past18": "wiki"
+            },
+            "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level)."
+          }
+        ],
+        "tips": [
+          {
+            "text": "27 units",
+            "tip": "Estimated"
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Wolf dashes to the target location, then claims the surrounding area as his territory for the next 8.5 seconds, separating from Lamb. He automatically attacks the closest nearby visible enemy within the area, prioritizing the last enemy Lamb has attacked, then enemy champions, then non-champions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Wolf dashes to the target location, then claims the surrounding area as his territory for the next 8.5 seconds, separating from Lamb.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "He automatically attacks the closest nearby visible enemy within the area, prioritizing the last enemy Lamb has attacked, then enemy champions, then non-champions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Wolf's attacks deal magic damage and the rate at which he attacks scale with 25% of Kindred's bonus attack speed. Against monsters, his attacks deal 165% damage and slow the target by 50% for 2 seconds. The damage based on the target's health ratio is capped at 112.5 (+ 15 per mark) against monsters.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "25 / 30 / 35 / 40 / 45 (+ 20% bonus AD) (+ 20% AP) (+ 1.5% (+ 1% per mark) of target's current health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  30,
+                  35,
+                  40,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                },
+                {
+                  "stat": "targetCurrentHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1.5
+                  },
+                  "text": "(+ 1.5% (+ 1% per mark) of target's current health)",
+                  "modifiers": [
+                    {
+                      "stat": "other:per mark",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 1
+                      },
+                      "text": "(+ 1% per mark)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Monster Damage",
+            "amount": {
+              "text": "41.25 / 49.5 / 57.75 / 66 / 74.25 (+ 33% bonus AD) (+ 33% AP) (+ 2.475% (+ 1.65% per mark) of target's current health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  41.25,
+                  49.5,
+                  57.75,
+                  66,
+                  74.25
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 33
+                  },
+                  "text": "(+ 33% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 33
+                  },
+                  "text": "(+ 33% AP)"
+                },
+                {
+                  "stat": "targetCurrentHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2.475
+                  },
+                  "text": "(+ 2.475% (+ 1.65% per mark) of target's current health)",
+                  "modifiers": [
+                    {
+                      "stat": "other:per mark",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 1.65
+                      },
+                      "text": "(+ 1.65% per mark)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "Against monsters, his attacks deal 165% damage and slow the target by 50% for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Wolf's Frenzy ends immediately if Lamb leaves the area or dies.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Hunter's Vigor's heal is not triggered on attacks against structures and wards.",
+      "Wolf is untargetable and ghosted but he cannot move through terrain other than the initial dash on activation.",
+      "Wolf is not able to re-target Rift Scuttler if he loses sight of her while he's attacking it.",
+      "Wolf grants the same vision as a champion.",
+      "Wolf's Frenzy does not end if Lamb enters resurrection.",
+      "Wolf's Frenzy applies ability haste to its cooldown post-effect.\n  - Given a base cooldown of 14 seconds at rank 5 with 100 ability haste, casting the ability and then ending it after 4 seconds will result in a remaining cooldown of (14 - 4) \\times 0.5 = 5 seconds, where 0.5 is derived from ability haste.\n  - Because of this, there will always be some cooldown time remaining post-effect regardless of the amount of ability haste, unlike certain other abilities with cooldowns that start on-cast.",
+      ": Interaction with enemy vision and spectator mode."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kindred/Wolf's Frenzy",
+          "revid": 4078260
+        },
+        "text": [
+          "formula= 1.25% per 1% of '''Kindred's missing''' health. ''This is capped at 80% '''missing''' health.''"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kindredwolf/kindredwolf.bin.json",
+        "sha256": "893932abab7632401551a31e4e593c7a15c4ccbbfc488f75e1c2fa5540a246cd",
+        "object": "Characters/KindredWolf/CharacterRecords/Root",
+        "text": [
+          "\"attackSpeedModifiable\":{\"baseValue\":0.5580000281333923,\"__type\":\"ModifiableFloat\"}",
+          "\"attackRangeModifiable\":{\"baseValue\":200.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseMoveSpeedModifiable\":{\"baseValue\":275.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseHPModifiable\":{\"baseValue\":300.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseArmorModifiable\":{\"baseValue\":13.0,\"__type\":\"ModifiableFloat\"}",
+          "\"baseMR\":{\"baseValue\":30.0,\"__type\":\"ModifiableFloat\"}",
+          "\"selectionRadius\":0.0"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/kindredwolf/kindredwolf.bin.json",
+        "sha256": "893932abab7632401551a31e4e593c7a15c4ccbbfc488f75e1c2fa5540a246cd",
+        "object": "Characters/KindredWolf/Spells/KindredWolfBasicAttack",
+        "text": [
+          "\"spellCastTime\":0.31610000133514404"
+        ]
+      }
+    ]
+  }
+]

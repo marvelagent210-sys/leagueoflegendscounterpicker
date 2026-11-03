@@ -1,0 +1,332 @@
+{
+  "champion": "Pantheon",
+  "name": "Pantheon",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "pantheon",
+      "formName": "Pantheon",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.03972,
+      "attackDamage": 128.894,
+      "windup": 0.183043,
+      "modifiers": [
+        "Mortal Will"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Pantheon",
+      "kind": "E",
+      "name": "Aegis Assault",
+      "page": {
+        "title": "Template:Data Pantheon/Aegis Assault",
+        "revid": 4049965
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly",
+        "disruptable": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045,
+              "quote": "Only invulnerable to non-turret damage coming from a specific direction"
+            },
+            {
+              "page": "Template:Data Pantheon/Aegis Assault",
+              "revid": 4049965,
+              "quote": "Active: Pantheon braces his shield in the target direction and channels for 1.5 seconds, during which he becomes invulnerable to non-turret damage dealt by enemies from the target direction."
+            }
+          ],
+          "duration": 1.5,
+          "note": "Only invulnerable to non-turret damage coming from a specific direction"
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0.25,
+      "channel": [
+        {
+          "type": "uninterruptible",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "uninterruptible"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Pantheon retains his invulnerability during the recast's cast time.",
+        "Spell shield will only block the slam's damage.",
+        "The following table refers for interactions while Pantheon is channeling:"
+      ]
+    },
+    {
+      "champion": "Pantheon",
+      "kind": "I",
+      "name": "Mortal Will",
+      "page": {
+        "title": "Template:Data Pantheon/Mortal Will",
+        "revid": 3963570
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Pantheon",
+      "kind": "Q",
+      "name": "Comet Spear",
+      "page": {
+        "title": "Template:Data Pantheon/Comet Spear",
+        "revid": 4016044
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.2,
+      "range": 40,
+      "speed": 2700,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Only the ranged version of Comet Spear can be intercepted.",
+        "The following table refers for interactions while Pantheon is channeling:\n  - Item actives that interrupt and those with cast times as well as Titanic Hydra, Hexflash, and Recall will cause Comet Spear to recast automatically and the active or spell to buffer to cast afterwards.\n    - Teleport will cancel the channel entirely."
+      ]
+    },
+    {
+      "champion": "Pantheon",
+      "kind": "R",
+      "name": "Grand Starfall",
+      "page": {
+        "title": "Template:Data Pantheon/Grand Starfall",
+        "revid": 4046502
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "disruptable": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Pantheon/Grand Starfall",
+              "revid": 4046502,
+              "quote": "After 0.8 seconds into the channel, Pantheon hurls his spear to the target location over 0.2 seconds that deals 40 / 70 / 100 / 130 / 160 / 190 (based on Comet Spear's rank) (+ 115% bonus AD) (+ 50% AP) physical damage to enemies near the impact and slows them by 50% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 50
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Pantheon/Grand Starfall",
+              "revid": 4046502,
+              "quote": "Active: Pantheon channels for 2 seconds before leaping into the sky, causing him to vanish and become immune to crowd control."
+            }
+          ],
+          "duration": 2
+        },
+        {
+          "state": "minimum health",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Minimum health threshold",
+              "revid": 3375621
+            }
+          ]
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Pantheon/Grand Starfall",
+              "revid": 4046502,
+              "quote": "Active: Pantheon channels for 2 seconds before leaping into the sky, causing him to vanish and become immune to crowd control."
+            },
+            {
+              "page": "Template:Data Pantheon/Grand Starfall",
+              "revid": 4046502,
+              "quote": "Upon completion of the channel, Pantheon will lose the crowd control immunity and reappear at the target location, as well as gain maximum stacks of Mortal Will."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 150,
+      "castTime": 0.1,
+      "range": 5500,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Grand Starfall's first channel can be interrupted by cast-inhibiting crowd control, but its second channel cannot because Pantheon gains crowd control immunity during it.",
+        "During the second channel, Pantheon gains a minimum health threshold of 1.\n  - Pantheon will instantly die upon reappearing if he reaches this threshold.",
+        "Pantheon is considered to be in his original casting position even after leaping, but he will blink to the target location the moment the second channel completes.",
+        "If Pantheon leaves the Death Realm during Grand Starfall's shockwave, its hitbox will become invisible but it will still deal damage.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest activate at the end of Grand Starfall's second channel, or at the end of the initial channel if it was interrupted.",
+        "The following table refers for interactions while Pantheon is channeling (first channel):",
+        "The cast time and second channel have the same interactions except they can only be interrupted by death.",
+        "Grand Starfall's first channel will also be interrupted if he enters or leaves the Death Realm."
+      ]
+    },
+    {
+      "champion": "Pantheon",
+      "kind": "W",
+      "name": "Shield Vault",
+      "page": {
+        "title": "Template:Data Pantheon/Shield Vault",
+        "revid": 4026707
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Pantheon/Shield Vault",
+              "revid": 4026707,
+              "quote": "If the target is within 800 units upon arrival, he deals physical damage and stuns them for 1 second."
+            }
+          ],
+          "duration": 1,
+          "condition": "If the target is within 800 units upon arrival, he deals physical damage and stuns them for 1 second."
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 600,
+      "boostsAttacks": true,
+      "notes": [
+        "The 3 strikes that occur after Empowered Shield Vault each apply a stack of Mortal Will, even if the attacks are dodged, blocked, or missed while Pantheon is blinded."
+      ]
+    }
+  ]
+}

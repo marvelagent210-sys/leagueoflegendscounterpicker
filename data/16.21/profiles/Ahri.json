@@ -1,0 +1,246 @@
+{
+  "champion": "Ahri",
+  "name": "Ahri",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "ahri",
+      "formName": "Ahri",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1750,
+      "attackSpeed": 0.938394,
+      "attackDamage": 111.995,
+      "windup": 0.21313,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ahri",
+      "kind": "E",
+      "name": "Charm",
+      "page": {
+        "title": "Template:Data Ahri/Charm",
+        "revid": 4074445
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "charm",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "charm"
+            },
+            {
+              "page": "Template:Data Ahri/Charm",
+              "revid": 4074445,
+              "quote": "Active: Ahri blows forth a kiss in the target direction that deals magic damage to the first enemy hit, knocking them down and charming and slowing them by 65% for a duration."
+            }
+          ],
+          "duration": 1.8
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Ahri/Charm",
+              "revid": 4074445,
+              "quote": "Active: Ahri blows forth a kiss in the target direction that deals magic damage to the first enemy hit, knocking them down and charming and slowing them by 65% for a duration."
+            }
+          ],
+          "duration": 1.8
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ahri/Charm",
+              "revid": 4074445,
+              "quote": "Active: Ahri blows forth a kiss in the target direction that deals magic damage to the first enemy hit, knocking them down and charming and slowing them by 65% for a duration."
+            }
+          ],
+          "amount": 65
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 1550,
+      "notes": [
+        "Charm is able to slow targets otherwise immune to slows upon charming them."
+      ]
+    },
+    {
+      "champion": "Ahri",
+      "kind": "I",
+      "name": "Essence Theft",
+      "page": {
+        "title": "Template:Data Ahri/Essence Theft",
+        "revid": 4038191
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Ahri/Essence Theft",
+              "revid": 4038191,
+              "quote": "At 9 stacks, she consumes them to heal herself for 35 – 95 (based on level) (+ 20% AP)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Ahri",
+      "kind": "Q",
+      "name": "Orb of Deception",
+      "page": {
+        "title": "Template:Data Ahri/Orb of Deception",
+        "revid": 4074380
+      },
+      "damageTypes": [
+        "magic",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1550,
+      "notes": [
+        "Orb of Deception will hit additional units around the return point in a small circle when the orb turns around.\n  - This applies both to the initial and return missile's respective areas of effect (though the initial missile only registers a hit around the return point if the unit was not hit by it already, since it can only register once per pass)."
+      ]
+    },
+    {
+      "champion": "Ahri",
+      "kind": "R",
+      "name": "Spirit Rush",
+      "page": {
+        "title": "Template:Data Ahri/Spirit Rush",
+        "revid": 4074438
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 500,
+      "speed": 1200,
+      "notes": [
+        "There exists a slight delay before a champion gains vision of the fog of war once inside it. Because of this, if Ahri dashes into it, it is possible that Spirit Rush will not target any enemy in range.",
+        "The bolts do not fire if Ahri dies while dashing.\n  - The bolts will fire if the dash is interrupted by other means, including by entering resurrection."
+      ]
+    },
+    {
+      "champion": "Ahri",
+      "kind": "W",
+      "name": "Fox-Fire",
+      "page": {
+        "title": "Template:Data Ahri/Fox-Fire",
+        "revid": 4074423
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "speed": 75.92,
+      "notes": [
+        "Each missile of Fox-Fire has its own shorter non-priority range."
+      ]
+    }
+  ]
+}

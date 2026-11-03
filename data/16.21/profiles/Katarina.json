@@ -1,0 +1,199 @@
+{
+  "champion": "Katarina",
+  "name": "Katarina",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "katarina",
+      "formName": "Katarina",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.01254,
+      "attackDamage": 120.928,
+      "windup": 0.148142,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Katarina",
+      "kind": "E",
+      "name": "Shunpo",
+      "page": {
+        "title": "Template:Data Katarina/Shunpo",
+        "revid": 4007625
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "grounded": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.15,
+      "range": 725,
+      "boostsAttacks": true,
+      "notes": [
+        "Shunpo will still deal damage but not apply on-hit effects if dodged. It cannot be blocked nor can it be missed while Katarina is blinded."
+      ]
+    },
+    {
+      "champion": "Katarina",
+      "kind": "I",
+      "name": "Voracity",
+      "page": {
+        "title": "Template:Data Katarina/Voracity",
+        "revid": 4038392
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Daggers will still deal damage but not apply on-hit effects if dodged. They cannot be blocked nor can they be missed while Katarina is blinded.",
+        "Single-use on-hit effects, such as Spellblade, will apply to the closest target to Katarina when she uses a Dagger."
+      ]
+    },
+    {
+      "champion": "Katarina",
+      "kind": "Q",
+      "name": "Bouncing Blade",
+      "page": {
+        "title": "Template:Data Katarina/Bouncing Blade",
+        "revid": 4015158
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 625,
+      "speed": 1600,
+      "notes": [
+        "Valid targets are determined after each bounce.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Katarina",
+      "kind": "R",
+      "name": "Death Lotus",
+      "page": {
+        "title": "Template:Data Katarina/Death Lotus",
+        "revid": 4044343
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "no",
+        "disruptable": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "grievous wounds",
+          "evidence": [
+            {
+              "page": "Grievous Wounds",
+              "revid": 3969410
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 45,
+      "castTime": 0,
+      "speed": 2400,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "In addition to already revealing herself, Katarina will reveal her location (400 radius) for 4.5 seconds every time she throws a dagger at an enemy while the enemy team does not otherwise have vision of her.\n  - Because of this, the vision on Katarina's location will persist for up-to 4.5 seconds after the channel ends.",
+        "Spell shield will block and be consumed by only one dagger.",
+        "The following table refers for interactions while Katarina is channeling:\n  - Trying to cast a disabled active (excluding Hextech Rocketbelt) will buffer it to cast at the completion of the channel.",
+        "{{ct|channel|cast=interrupts|move=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|attack=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|items=interrupts,true,,false,,false,false,false,melee|spells=true,interrupts,interrupts,false,false}}"
+      ]
+    },
+    {
+      "champion": "Katarina",
+      "kind": "W",
+      "name": "Preparation",
+      "page": {
+        "title": "Template:Data Katarina/Preparation",
+        "revid": 3845920
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0
+    }
+  ]
+}

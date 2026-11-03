@@ -1,0 +1,895 @@
+[
+  {
+    "champion": "Gragas",
+    "kind": "E",
+    "name": "Body Slam",
+    "page": {
+      "title": "Template:Data Gragas/Body Slam",
+      "revid": 4007602
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13.5 / 13 / 12.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13.5,
+                13,
+                12.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "180 • 180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Center-to-center collision radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Center-to-edge collision lollipop. This lollipop it located 30 units in front of his dash end location."
+          }
+        ]
+      },
+      "speed": {
+        "text": "910",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 910
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Gragas charges in the target direction and stops upon colliding with an enemy, dealing magic damage to all nearby enemies, knocking them back, though not through terrain, and stunning them for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "charges",
+            "evidence": "Active: Gragas charges in the target direction and stops upon colliding with an enemy, dealing magic damage to all nearby enemies, knocking them back, though not through terrain, and stunning them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them back",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Gragas charges in the target direction and stops upon colliding with an enemy, dealing magic damage to all nearby enemies, knocking them back, though not through terrain, and stunning them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Gragas charges in the target direction and stops upon colliding with an enemy, dealing magic damage to all nearby enemies, knocking them back, though not through terrain, and stunning them for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Body Slam's current cooldown is reduced by 40% if Gragas hits an enemy.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Barrel Roll and Explosive Cask can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Flash can be casted during Body Slam, instantly ending it and affecting enemies at the flash location.",
+      "Units hit by Body Slam turn away from Gragas.",
+      "Displacement immunity will not resist the application of the stun."
+    ]
+  },
+  {
+    "champion": "Gragas",
+    "kind": "I",
+    "name": "Happy Hour",
+    "page": {
+      "title": "Template:Data Gragas/Happy Hour",
+      "revid": 3985369
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "12 / 10 / 8 / 6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                12,
+                10,
+                8,
+                6
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, after casting an ability, Gragas heals himself for 5.5% of his maximum health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Innate: Periodically, after casting an ability, Gragas heals himself for 5.5% of his maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Gragas",
+    "kind": "Q",
+    "name": "Barrel Roll",
+    "page": {
+      "title": "Template:Data Gragas/Barrel Roll",
+      "revid": 3907002
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Gragas rolls a cask to the target location, remaining there for 4 seconds and granting sight of the area. Upon arrival, the cask starts to ferment over the first 2 seconds of its duration to increase its damage and the effectiveness of its slow, up to a maximum of 150% of their initial values. Barrel Roll can be recast at any time within its duration after the cask has fully travelled, and does so automatically after its duration ends.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Gragas rolls a cask to the target location, remaining there for 4 seconds and granting sight of the area.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "evidence": "Upon arrival, the cask starts to ferment over the first 2 seconds of its duration to increase its damage and the effectiveness of its slow, up to a maximum of 150% of their initial values.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Gragas detonates the cask, dealing magic damage to nearby enemies, reduced by 30% against minions, and slowing them for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "120 / 180 / 240 / 300 / 360 (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  180,
+                  240,
+                  300,
+                  360
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Minion Damage",
+            "amount": {
+              "text": "56 / 84 / 112 / 140 / 168 (+ 56% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  56,
+                  84,
+                  112,
+                  140,
+                  168
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 56
+                  },
+                  "text": "(+ 56% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Minion Damage",
+            "amount": {
+              "text": "84 / 126 / 168 / 210 / 252 (+ 84% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  84,
+                  126,
+                  168,
+                  210,
+                  252
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 84
+                  },
+                  "text": "(+ 84% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Slow",
+            "amount": {
+              "text": "40 / 45 / 50 / 55 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  45,
+                  50,
+                  55,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Slow",
+            "amount": {
+              "text": "60 / 67.5 / 75 / 82.5 / 90%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  67.5,
+                  75,
+                  82.5,
+                  90
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "evidence": "Recast: Gragas detonates the cask, dealing magic damage to nearby enemies, reduced by 30% against minions, and slowing them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Deactivating the ability manually does not.",
+      "The cask ignores unit and terrain collision therefore it will only stop once it reaches the target location.\n  - On arrival the cask will begin to glow ever brighter as it ferments until it turns bright red.",
+      "Barrel Roll has an internal cooldown while traveling so that Gragas may only make it explode on arrival.",
+      "The charge-up countdown will only start once the cask stops rolling.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The ability will not preserve the caster's facing direction when using Flash and similar effects."
+    ]
+  },
+  {
+    "champion": "Gragas",
+    "kind": "R",
+    "name": "Explosive Cask",
+    "page": {
+      "title": "Template:Data Gragas/Explosive Cask",
+      "revid": 3906845
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 85 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                85,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Gragas hurls a cask that travels to the target location over 0.5 seconds, exploding on impact to deal magic damage to all enemies within the area and knock them back 900 units, though not through terrain, from the epicenter of the explosion, as well as granting sight of the area for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock them back",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Gragas hurls a cask that travels to the target location over 0.5 seconds, exploding on impact to deal magic damage to all enemies within the area and knock them back 900 units, though not through terrain, from the epicenter of the explosion, as well as granting sight of the area for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Gragas hurls a cask that travels to the target location over 0.5 seconds, exploding on impact to deal magic damage to all enemies within the area and knock them back 900 units, though not through terrain, from the epicenter of the explosion, as well as granting sight of the area for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Gragas",
+    "kind": "W",
+    "name": "Drunken Rage",
+    "page": {
+      "title": "Template:Data Gragas/Drunken Rage",
+      "revid": 4013236
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            },
+            "label": "Starts post-effect"
+          }
+        ]
+      },
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "parry": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Gragas channels for 0.75 seconds, drinking out of his brew, and gains damage reduction for 2.5 seconds.",
+        "leveling": [
+          {
+            "label": "Damage Reduction",
+            "amount": {
+              "text": "10 / 14 / 18 / 22 / 26% (+ 4% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  14,
+                  18,
+                  22,
+                  26
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active: Gragas channels for 0.75 seconds, drinking out of his brew, and gains damage reduction for 2.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon completing the channel, Gragas empowers his next basic attack within 5 seconds to have an uncancellable windup, gain 50 bonus range and deal bonus magic damage to the target and nearby enemies, reduced to 50% against structures. The damage based on the target's health ratio is capped at 300 against monsters.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "20 / 50 / 80 / 110 / 140 (+ 7% of target's maximum health) (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  50,
+                  80,
+                  110,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 7
+                  },
+                  "text": "(+ 7% of target's maximum health)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Upon completing the channel, Gragas empowers his next basic attack within 5 seconds to have an uncancellable windup, gain 50 bonus range and deal bonus magic damage to the target and nearby enemies, reduced to 50% against structures.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The enhanced attack will apply other on-hit effects and can critically strike as normal.",
+      "The empowered attack will trigger against structures.",
+      "The empowered attack will trigger against wards but not be consumed nor apply its effects against wards.",
+      "The following table refers for interactions while Gragas is channeling:"
+    ]
+  }
+]

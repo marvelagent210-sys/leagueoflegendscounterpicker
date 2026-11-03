@@ -1,4 +1,4 @@
-/** Ezreal's maximum-rank kit, read from the pinned 16.20 revisions. */
+/** Ezreal's maximum-rank kit, read from the pinned revisions. */
 import type { KitModule } from "../../engine/kits/compile";
 import { capAttackSpeed } from "../../engine/rules/timing";
 import { canCast, inAttackRange, inReach } from "../../engine/sim/actions";

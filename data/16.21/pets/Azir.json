@@ -1,0 +1,317 @@
+[
+  {
+    "champion": "Azir",
+    "name": "Sand Soldiers",
+    "page": {
+      "title": "Azir",
+      "revid": 4052902
+    },
+    "fields": {
+      "range": {
+        "text": "375 / 425",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                375,
+                425
+              ]
+            },
+            "label": "Damage range"
+          }
+        ]
+      },
+      "damage": {
+        "text": "0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 (based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 40 / 45 / 50 / 55% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                0,
+                8,
+                16,
+                24,
+                32,
+                40,
+                48,
+                56,
+                64,
+                72,
+                80,
+                88
+              ]
+            }
+          },
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                65,
+                80,
+                95,
+                110
+              ]
+            }
+          },
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                35,
+                40,
+                45,
+                50,
+                55
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "range": "375 / 425",
+      "damage": "0 – 88 (based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 40 / 45 / 50 / 55% AP)",
+      "damagetype": "magic",
+      "control": "Attacks whenever Azir inputs an attack command on a target near them.",
+      "targeting": "Minion (untargetable)",
+      "onhit": "Sand Soldiers' attacks are mitigated by block or dodge, likewise while Azir is blinded.",
+      "spelleffects": "Sand Soldiers' attacks apply spell effects as area damage.",
+      "abilities": ";Spear Attack\nSand Soldiers will strike their spear in a line in the target's direction, dealing damage to all enemies within the area. Their attack passes through by 50 units. There is a brief delay between the command and the attack occurring.\n\n;Lifetime\nSand Soldiers expire twice as fast while within range of a nearby enemy turret, and expires instantly when Azir is too far away.\n\n;Imperative\nWhenever Azir declares an attack on a target within 375 units of one of his Sand Soldiers, he instead commands all Sand Soldiers in range to attack."
+    }
+  },
+  {
+    "champion": "Azir",
+    "name": "Sun Disc",
+    "page": {
+      "title": "Azir",
+      "revid": 4052902
+    },
+    "fields": {
+      "gold": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "1750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1750
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "230 / 245 / 260 / 275 / 290 / 305 / 320 / 335 / 350 / 365 / 380 / 395 / 410 / 425 / 440 (based on level) (+ 40% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                230,
+                245,
+                260,
+                275,
+                290,
+                305,
+                320,
+                335,
+                350,
+                365,
+                380,
+                395,
+                410,
+                425,
+                440
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.833",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.833
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "50",
+      "exp": "0",
+      "hp": "1750",
+      "damage": "230 – 440 (based on level) (+ 40% AP)",
+      "damagetype": "Magic",
+      "range": "750",
+      "armor": "30 – 100 (based on level)",
+      "magicresist": "30 – 100 (based on level)",
+      "ccresist": "Immune to crowd control except stasis",
+      "attackspeed": "0.833",
+      "control": "Turret (static)",
+      "targeting": "Structure",
+      "spelleffects": "The Sun Disc's basic attacks apply spell effects as spell damage.",
+      "onhit": "The Sun Disc's attacks cannot be mitigated by block and dodge.",
+      "abilities": ";Fleeting Mirage\nThe Sun Disc's health depletes at a rate of 2.22% of its total health per second.\n\n;Dodge Piercing\nThe Sun Disc's attacks cannot be evaded except by effects with homing projectile destruction.\n\n;Warden's Eye\nThe Sun Disc gains true sight; it can see stealthed units within a 1000 radius of it.\n\n;Deserter\nIf Azir is dead or not within approximately 2000 units, the Sun Disc's armor and magic resistance is reduced by 100.\n\n===General===\n* The Sun Disc can be targeted by Demolish.\n* The Sun Disc's damage applies spell effects.\n* The Sun Disc's health scaling based on the number of enemy champions in the game (1750 – 3000 (based on enemy champions in the game)) was incorrectly removed in V26.09."
+    }
+  }
+]

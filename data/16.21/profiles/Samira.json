@@ -1,0 +1,298 @@
+{
+  "champion": "Samira",
+  "name": "Samira",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "samira",
+      "formName": "Samira",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2800,
+      "attackSpeed": 1.08501,
+      "attackDamage": 115.995,
+      "windup": 0.138248,
+      "modifiers": [
+        "Daredevil Impulse"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Samira",
+      "kind": "E",
+      "name": "Wild Rush",
+      "page": {
+        "title": "Template:Data Samira/Wild Rush",
+        "revid": 4067464
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 650,
+      "speed": 1600,
+      "boostsAttacks": true,
+      "notes": [
+        "Samira gains the attack speed buff at the start of the dash.",
+        "Inferno Trigger will be buffered to cast at the end of the dash if Flair was cast during the dash.",
+        "Casting Flash during Wild Rush will interrupt the dash but deal damage to nearby enemies at the location.\n  - If Flair was cast during this time, an explosive will also be placed at that location."
+      ]
+    },
+    {
+      "champion": "Samira",
+      "kind": "I",
+      "name": "Daredevil Impulse",
+      "page": {
+        "title": "Template:Data Samira/Daredevil Impulse",
+        "revid": 4051977
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly",
+        "parry": "yes",
+        "grounded": "partly",
+        "knockdown": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Samira/Daredevil Impulse",
+              "revid": 4051977,
+              "quote": "If the target is a monster or is airborne, the attack also knocks them up for 0.5 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.5,
+          "condition": "If the target is a monster or is airborne, the attack also knocks them up for 0.5 seconds."
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Samira/Daredevil Impulse",
+              "revid": 4051977,
+              "quote": "Samira's basic attack against an immobilized target is empowered to have an uncancellable windup and fire 6 bolts over 0.5 seconds, each dealing 17% AD physical damage and applying life steal."
+            },
+            {
+              "page": "Template:Data Samira/Daredevil Impulse",
+              "revid": 4051977,
+              "quote": "Samira's basic attack against an immobilized target is empowered to have an uncancellable windup and fire 6 bolts over 0.5 seconds, each dealing 17% AD physical damage and applying life steal."
+            }
+          ]
+        }
+      ],
+      "range": 950,
+      "speed": 2050,
+      "boostsAttacks": true,
+      "notes": [
+        "Abilities blocked by spell shields will still grant Samira Style stacks.",
+        "The blade attack bonus applies after the primary damage of the attack and is not an on-hit effect.",
+        "The empowered attack will not trigger against crowd control immune and displacement immune targets.",
+        "Riposte can resist the knock up from Daredevil Impulse, but the ability will not trigger its on-immobilization empowerment condition from the attack alone.",
+        "Samira may dash and have her dash to an immobilized target canceled an indefinite number of times, so long as the empowered attack has not triggered. When the empowered attack begins, Daredevil Impulse's cooldown is applied on the target which also prevents her from initiating the dash and the attack again on them for the duration.",
+        "The on-target cooldown will start even if the empowered attack is parried.",
+        "While grounded or rooted, Samira cannot dash into range to use the empowered attack. She can only use it if her target is within her attack range while under this condition.",
+        "The empowered attack cannot be used against a target with a spell shield.",
+        "The application of the knock up effect can occur on any of the bolts of the empowered attack if it had not already occurred on the first.\n  - A missile that is parried by Riposte or is dodged, blocked, or misses while Samira is blinded cannot apply the knock up in any way.",
+        "If Samira is outside maximum initiation range for the dash when targeting an immobilized target, the player must input a new Attack order on the target upon entering initiation range in order to actually initiate the dash.\n  - However if Samira enters the bolts' cast range via her movement while the target is still immobilized without issuing any other commands, the empowered attack will cast without requiring a new order (without the dash).",
+        "The empowered attack removes any forced movement affecting the target once its knock up ends.\n  - Does this also happen if it's cleansed."
+      ]
+    },
+    {
+      "champion": "Samira",
+      "kind": "Q",
+      "name": "Flair",
+      "page": {
+        "title": "Template:Data Samira/Flair",
+        "revid": 4008027
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Samira/Flair",
+              "revid": 4008027,
+              "quote": "Flair can critically strike for 150% damage and will apply life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Samira/Flair",
+              "revid": 4008027,
+              "quote": "Flair can critically strike for 150% damage and will apply life steal at 100% effectiveness."
+            }
+          ]
+        }
+      ],
+      "cooldown": 2,
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 2600,
+      "notes": [
+        "Only the shot will be destroyed by projectile-intercepting effects.",
+        "The explosive placement is illustrated in Wild Rush regardless of whether Flair is available.\n  - The VFX always covers the the full dash's distance even if Wild Rush is interrupted mid-dash."
+      ]
+    },
+    {
+      "champion": "Samira",
+      "kind": "R",
+      "name": "Inferno Trigger",
+      "page": {
+        "title": "Template:Data Samira/Inferno Trigger",
+        "revid": 3992663
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Samira/Inferno Trigger",
+              "revid": 3992663,
+              "quote": "This damage is affected by critical strike modifiers and applies life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Samira/Inferno Trigger",
+              "revid": 3992663,
+              "quote": "This damage is affected by critical strike modifiers and applies life steal at 100% effectiveness."
+            }
+          ]
+        }
+      ],
+      "cooldown": 5,
+      "castTime": 0,
+      "notes": [
+        "Spell shield will block the damage of one shot."
+      ]
+    },
+    {
+      "champion": "Samira",
+      "kind": "W",
+      "name": "Blade Whirl",
+      "page": {
+        "title": "Template:Data Samira/Blade Whirl",
+        "revid": 3936240
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "projectile block",
+          "evidence": [
+            {
+              "page": "Projectile",
+              "revid": 3999064
+            },
+            {
+              "page": "Template:Data Samira/Blade Whirl",
+              "revid": 3936240,
+              "quote": "Active: Samira spins her blade over 0.75 seconds, destroying all hostile non-turret projectiles within the area for the duration."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "cooldown": 22,
+      "castTime": 0.1,
+      "notes": [
+        "Spell shield will block the damage from one slash.",
+        "Entering stasis will also end Blade Whirl early.\n  - Other item actives and channeling Teleport or Recall will not end the effect early."
+      ]
+    }
+  ]
+}

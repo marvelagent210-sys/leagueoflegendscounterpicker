@@ -1,0 +1,183 @@
+{
+  "champion": "Sivir",
+  "name": "Sivir",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "sivir",
+      "formName": "Sivir",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1750,
+      "attackSpeed": 0.82165,
+      "attackDamage": 109.163,
+      "windup": 0.146048,
+      "modifiers": [
+        "Fleet of Foot"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Sivir",
+      "kind": "E",
+      "name": "Spell Shield",
+      "page": {
+        "title": "Template:Data Sivir/Spell Shield",
+        "revid": 3788826
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "spell shield",
+          "evidence": [
+            {
+              "page": "Spell shield",
+              "revid": 3981674
+            },
+            {
+              "page": "Template:Data Sivir/Spell Shield",
+              "revid": 3788826,
+              "quote": "Active: Sivir gains a spell shield for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Sivir/Spell Shield",
+              "revid": 3788826,
+              "quote": "Upon successfully blocking a hostile effect, she heals herself and activates Fleet of Foot after 0.25 seconds."
+            }
+          ]
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "notes": [
+        "Spell Shield will heal and activate Fleet of Foot if any effect is blocked. This includes effects such as champion abilities, item effects, Dragon basic attacks, as well as the abilities of Baron Nashor and Rift Herald.",
+        "Spell Shield will still block abilities that have already been applied to Sivir if the delayed effects of that ability is area of effect (e.g. Blaze's explosion, Chum the Waters, and Time Bomb)."
+      ]
+    },
+    {
+      "champion": "Sivir",
+      "kind": "I",
+      "name": "Fleet of Foot",
+      "page": {
+        "title": "Template:Data Sivir/Fleet of Foot",
+        "revid": 3985850
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Fleet of Foot will trigger even if the attack is dodged, blocked or misses due to blind or if the ability is negated by a spell shield."
+      ]
+    },
+    {
+      "champion": "Sivir",
+      "kind": "Q",
+      "name": "Boomerang Blade",
+      "page": {
+        "title": "Template:Data Sivir/Boomerang Blade",
+        "revid": 4068684
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 1250,
+      "speed": 1450,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield only blocks one instance of damage."
+      ]
+    },
+    {
+      "champion": "Sivir",
+      "kind": "R",
+      "name": "On the Hunt",
+      "page": {
+        "title": "Template:Data Sivir/On the Hunt",
+        "revid": 3936364
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0
+    },
+    {
+      "champion": "Sivir",
+      "kind": "W",
+      "name": "Ricochet",
+      "page": {
+        "title": "Template:Data Sivir/Ricochet",
+        "revid": 4062258
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "spellShield": "no",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "speed": 1750,
+      "boostsAttacks": true,
+      "notes": [
+        ": Ricochet's interactions with dodging, blocking, and blinding effects."
+      ]
+    }
+  ]
+}

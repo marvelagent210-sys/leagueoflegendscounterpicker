@@ -34,7 +34,7 @@ function pet(w: World, x = 150, hp = 5000) { return spawnPet(w, w.units[1], { ki
 describe("Ezreal pinned numeric and contact contracts", () => {
   it("reads every pinned ability revision and exact versioned global-range evidence", () => {
     expect(ez.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([3932280, 4064006, 4059864, 3989862, 4013235]));
-    expect(ez.evidence.some((e) => e.sourceVersion === "16.20.8248524+branch.releases-16-20.content.release" && e.sourceSha256?.length === 64)).toBe(true);
+    expect(ez.evidence.some((e) => e.sourceVersion === "16.21.8342754+branch.releases-16-21.content.release" && e.sourceSha256?.length === 64)).toBe(true);
     expect(ability(ez.spec, "R").delivery).toMatchObject({ range: 25000, piercing: true });
   });
   it("Q deals 120 + 130% total AD + 40% AP without critical amplification", () => {
@@ -144,7 +144,7 @@ describe("Ezreal pinned numeric and contact contracts", () => {
 describe("Lucian pinned shots and channels", () => {
   it("retains all five wiki revisions and independently attributed versioned level-19 evidence", () => {
     expect(lu.evidence.map((e) => e.revid)).toEqual(expect.arrayContaining([4064854, 4064855, 3594941, 4008455, 4007670]));
-    expect(lu.evidence.find((e) => e.text.includes('"mLevel":19'))).toMatchObject({ revid: 0, sourceSha256: "5fb83f89c40863507666081dfa5a5f5bfe24ebf3e6622e79b78386006b82b0a0" });
+    expect(lu.evidence.find((e) => e.text.includes('"mLevel":19'))).toMatchObject({ revid: 0, sourceSha256: "0d87cb65af12309b40ea7a52bd8ff2187d23db5fb62b013e492cbe490bd43c3d" });
   });
   it("Q deals 250 + 100% bonus AD and has the level-eighteen 0.25-second cast time", () => {
     const w = worldFor(lu.spec); hit(w, "Q"); expect(w.units[1].totals.damageTaken).toBe(350); expect(ability(lu.spec, "Q").castTime).toBe(.25);
@@ -268,7 +268,7 @@ describe("Lucian pinned shots and channels", () => {
     for (const [spec, key] of [[ez.spec, "Wpop"], [lu.spec, "Rbullet"]] as const) { const w = worldFor(spec); expect(canCast(w, w.units[0], ability(spec, key))).toBe(false); }
   });
   it.each([["Ezreal", ez.spec], ["Lucian", lu.spec]] as const)("%s spends the full real budget, preserves reflection and uses all four slots", (_name, spec) => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
     const darius = kit("Darius").spec, forward = simulateMatchup(spec, darius, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(darius, spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]); for (const build of forward.builds) expect(Object.values(build.spent).reduce((s, v) => s + v, 0)).toBeCloseTo(15000, 8);
     expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-12); const reflected = [1, 0, 2, 3, 4, 5];

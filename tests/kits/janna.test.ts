@@ -31,7 +31,7 @@ const qLaunch = (world: World, charge = 0) => { cast(world, "Q"); if (charge > 0
 const sh = (target: Unit) => target.statuses.find(s => s.kind === "shield" && s.key === "E");
 
 describe("Janna full-budget production", () => {
-  const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+  const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
   it("runs all six ordinary15000gold scenarios and exact reversed Darius builds/scores", () => {
     const forward = simulateMatchup(compiled.spec, kit("Darius").spec, 15000, prices), reverse = simulateMatchup(kit("Darius").spec, compiled.spec, 15000, prices);
     expect(forward.scenarios).toHaveLength(6); expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]); expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-10);
@@ -48,7 +48,7 @@ describe("Janna full-budget production", () => {
 describe("Janna source and reference contracts", () => {
   it("retains five exact full raw revision pins and selected versioned binary evidence", () => {
     const rows = records("Janna"); expect(rows).toHaveLength(5);
-    for (const row of rows) { expect(row.sources?.some(s => s.page.revid === row.page.revid && s.text.some(t => t.includes("|champion     = Janna")))).toBe(true); for (const source of row.gameSources ?? []) { expect(source.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json"); expect(source.sha256).toMatch(/^[a-f0-9]{64}$/); expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object); } }
+    for (const row of rows) { expect(row.sources?.some(s => s.page.revid === row.page.revid && s.text.some(t => t.includes("|champion     = Janna")))).toBe(true); for (const source of row.gameSources ?? []) { expect(source.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/janna/janna.bin.json"); expect(source.sha256).toMatch(/^[a-f0-9]{64}$/); expect(JSON.parse(source.text[0]!).objectPath).toBe(source.object); } }
     expect(compiled.evidence.length).toBeGreaterThan(50); expect(compiled.variants).toEqual([]);
   });
   it("fails closed if selected exact binary proof is lost", () => { const rows = records("Janna"); delete rows.find(r => r.kind === "Q")!.gameSources; expect(() => compile(rows)).toThrow("pinned game data"); });

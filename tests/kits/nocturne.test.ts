@@ -39,13 +39,13 @@ describe("Nocturne production and source contract", () => {
     const world = worldFor(); expect(ability(world,"Q")).toMatchObject({ cooldown:8,cost:80,castTime:.25,deliveryAtCastStart:true }); expect(ability(world,"E")).toMatchObject({cooldown:11,cost:80,castTime:0}); expect(ability(world,"W")).toMatchObject({cooldown:12,cost:50}); expect(ability(world,"R")).toMatchObject({cooldown:100,cost:100,castTime:0});
   });
   it("finishes all six 15000-gold scenarios against actual Heimerdinger pets", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices;
     const result = simulateMatchup(compiled().spec,kit("Heimerdinger",{upgrade:2}).spec,15000,prices);
     expect(Number.isFinite(result.score)).toBe(true); expect(result.scenarios).toHaveLength(6);
     for(const scenario of result.scenarios) for(const outcome of scenario.outcomes) expect(Number.isFinite(outcome.seconds)).toBe(true);
   },120000);
   it("reflects full 15000-gold production builds and all six scores exactly against Darius", () => {
-    const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices;
+    const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url),"utf8")) as {statPrices:StatPrices}).statPrices;
     const spec = compiled().spec, opponent = kit("Darius").spec;
     const forward = simulateMatchup(spec, opponent, 15000, prices, { settings: { log: true } }), reverse = simulateMatchup(opponent, spec, 15000, prices);
     expect(forward.builds).toEqual([reverse.builds[1], reverse.builds[0]]);

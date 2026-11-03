@@ -1,0 +1,201 @@
+{
+  "champion": "Lux",
+  "name": "Lux",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "lux",
+      "formName": "Lux",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 1.03772,
+      "attackDamage": 118.895,
+      "windup": 0.150571,
+      "modifiers": [
+        "Illumination"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Lux",
+      "kind": "E",
+      "name": "Lucent Singularity",
+      "page": {
+        "title": "Template:Data Lux/Lucent Singularity",
+        "revid": 4007677
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Lux/Lucent Singularity",
+              "revid": 4007677,
+              "quote": "Active: Lux sends a lucent singularity to the target location, remaining there for 5 seconds to grant sight of the area and slow nearby enemies."
+            }
+          ],
+          "amount": 45
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1200
+    },
+    {
+      "champion": "Lux",
+      "kind": "I",
+      "name": "Illumination",
+      "page": {
+        "title": "Template:Data Lux/Illumination",
+        "revid": 4059694
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield prevents Final Spark from consuming the mark.\n  - The on-hit damage from Illumination via basic attack cannot be blocked by spell shield.",
+        "Illumination will be consumed but not deal any damage if the basic attack is blocked.",
+        "Illumination will not be consumed if the basic attack misses due to blind.",
+        "Illumination will not be consumed if the basic attack misses due to dodge."
+      ]
+    },
+    {
+      "champion": "Lux",
+      "kind": "Q",
+      "name": "Light Binding",
+      "page": {
+        "title": "Template:Data Lux/Light Binding",
+        "revid": 4007675
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Lux/Light Binding",
+              "revid": 4007675,
+              "quote": "Active: Lux shoots a sphere of light in the target direction that deals magic damage to the first two enemies hit and roots them for 2 seconds."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1300,
+      "speed": 1200,
+      "notes": [
+        "Targets immune to the root still count towards Light Binding's two-target limit.",
+        "Light Binding spawns an additional missile at the same location and vector as the main missile. This additional \"Dummy\" missile has the same visual effects as the main missile and gets destroyed when it hits a single enemy, thereby making the surviving VFX of the single missile weaker in intensity.\n  - This hacky solution also causes Lux Q to count as two skillshots for things such as \"skillshots dodged\" Eternals."
+      ]
+    },
+    {
+      "champion": "Lux",
+      "kind": "R",
+      "name": "Final Spark",
+      "page": {
+        "title": "Template:Data Lux/Final Spark",
+        "revid": 3919833
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 40,
+      "castTime": 1,
+      "range": 3400
+    },
+    {
+      "champion": "Lux",
+      "kind": "W",
+      "name": "Prismatic Barrier",
+      "page": {
+        "title": "Template:Data Lux/Prismatic Barrier",
+        "revid": 3992656
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "projectile": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1175,
+      "speed": 2400,
+      "notes": [
+        "Both passes of Prismatic Barrier cannot hit units whose center is beyond the missile range or behind its origin, even if their hitbox radius overlaps.\n  - At the return location, this behaviour is overridden by an additional center check with the same diameter as the missile width.",
+        "There is an additional circle check at the end of the missile's length that allows it to hit the edge of an ally's radius. This is intended.",
+        "Prismatic Barrier is destroyed by Wind Wall, Blade Whirl, and Rebuttal but not Unbreakable."
+      ]
+    }
+  ]
+}

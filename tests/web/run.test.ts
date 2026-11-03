@@ -15,7 +15,7 @@ interface SimulatedFile {
   variants?: Record<string, Record<string, Record<string, number>>>;
 }
 
-const DIR = path.join(import.meta.dirname, "..", "..", "data", "16.20");
+const DIR = path.join(import.meta.dirname, "..", "..", "data", "16.21");
 const read = <T>(file: string): T => JSON.parse(readFileSync(path.join(DIR, file), "utf8")) as T;
 
 const champions = new Map(read<ChampionDataset>("champions.json").champions.map((c) => [c.id, c]));

@@ -74,7 +74,7 @@ npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabad
 npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
 ```
 
-With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.20/reports/item-effects.md)).
+With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.21/reports/item-effects.md)).
 
 With `--search`, the build search (`pipeline/items/search.ts`, PLAN.md M8) picks both builds: it fills each side's build slot by slot by a quick estimate, keeping the best build of each profile (AD, crit, attack speed, AP, tank) as a route; the sides answer each other's best build until a pair of best builds comes back; then each side's routes fight the other's in a screen of the all-in scenarios, each side takes the route whose worst result is best, and that pair plays every scenario. The quick estimate counts items' stats, stat statuses, critical strike damage and on-hit effects, and what their passives and actives give on average over a ten-second fight (`items/hints.ts`), with each kit's damage, attacks and casts calibrated first to a fight of its own (`pipeline/items/calibrate.ts`); the fights between routes settle the rest.
 
@@ -83,7 +83,7 @@ npm run build:builds -- --smoke --threads 4   # each kit against the next (172 p
 npm run build:builds -- --threads 4           # all 14,878 pairings, resuming from checkpoints
 ```
 
-`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.20/reports/builds.md): each champion's most-built items across its matchups. A pairing takes about 19 s on one of four threads, so a full run takes about 19 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item code, the build search and the item catalog. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
+`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.21/reports/builds.md): each champion's most-built items across its matchups. A pairing takes about 19 s on one of four threads, so a full run takes about 19 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item code, the build search and the item catalog. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
 
 The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats, with penetration capped near what items give. Each prints a score from -1 to +1 for these scenarios:
 
@@ -120,7 +120,7 @@ All 173 champions fight with their abilities (`kits/champions/`):
 - expansion batch 18: Fiddlesticks, Renata Glasc, Shaco, Sylas, Viego and Zilean.
 - expansion batch 19: Aurelion Sol, Azir, Bard, Ivern, Locke, Mel, Milio, Seraphine, Yunara and Yuumi.
 
-Implemented coverage is all 173 champions, with 14,878 unordered simulated pairings. Batches 7 to 15 were written in the private workspace and merged here, except Gragas, Hecarim, Warwick and Wukong, which use this repository's own kits; batches 16 to 19 were written here. The generated [coverage report](data/16.20/reports/coverage.md) lists each kit's source values and assumptions. Coverage does not certify every mechanic; each kit retains its source evidence and assumptions. Source audits are recorded in [docs/next-wave](docs/next-wave/README.md).
+Implemented coverage is all 173 champions, with 14,878 unordered simulated pairings. Batches 7 to 15 were written in the private workspace and merged here, except Gragas, Hecarim, Warwick and Wukong, which use this repository's own kits; batches 16 to 19 were written here. The generated [coverage report](data/16.21/reports/coverage.md) lists each kit's source values and assumptions. Coverage does not certify every mechanic; each kit retains its source evidence and assumptions. Source audits are recorded in [docs/next-wave](docs/next-wave/README.md).
 
 Kit values come from the pinned sources; the kit page lists their revisions and the kit's assumptions. Some kits have a choice to make (Udyr's rank split, Heimerdinger's upgrade, Kayn's form): both sides choose their best conservative variant across the opponent's choices, and `simulated.json` records the actual pairing. This does not establish a mixed-strategy equilibrium. A manual duel always plays both champions' kits.
 
@@ -135,10 +135,10 @@ Both refreshes, and `npm run build:data`, compute only the pairings whose inputs
 - one key for what every fight shares: the code the fight runs (the worker and every module it imports, kit modules aside), the stat prices and the runes, and for item builds the item catalog and the build format;
 - one key per kit: its module, and its champion, ability and pet records.
 
-Provenance enters neither: wiki revision ids, game-file versions, URLs and hashes, and the patch a champion last changed in. A refresh takes a pairing's result from the dataset's own matrix, or else from the previous dataset's, when the shared key and both kits' keys are unchanged, and computes the rest (`pipeline/sim/reuse.ts`). So a refetch that changes no data computes nothing, a change to one kit recomputes its 172 pairings, and a change to the engine (or, for item builds, to any item) recomputes all of them. A kit's key covers its whole records, so a wiki edit to an ability's notes counts as a change even when the kit reads nothing of it: of patch 26.21's data, 69 kits' records differ from 26.20's, which touches 64% of the pairings.
+Provenance enters neither: wiki revision ids, game-file versions, URLs and hashes, and the patch a champion last changed in. A refresh takes a pairing's result from the dataset's own matrix, or else from the previous dataset's, when the shared key and both kits' keys are unchanged, and computes the rest (`pipeline/sim/reuse.ts`). So a refetch that changes no data computes nothing, a change to one kit recomputes its 172 pairings, and a change to the engine (or, for item builds, to any item) recomputes all of them. A kit's key covers its whole records, so a wiki edit to an ability's notes counts as a change even when the kit reads nothing of it: moving to patch 26.21 changed 76 kits (their records, or their modules for the new wording), so 10,222 of the 14,878 plain-stats pairings (69%) were computed again and 4,656 reused.
 
 ```sh
-npm run build:sim -- --plan       # {"dataset":"16.20","pairings":14878,"reused":14878,"pending":0}
+npm run build:sim -- --plan       # 26.21 before its refresh: {"dataset":"16.21","pairings":14878,"reused":4656,"pending":10222}
 npm run build:builds -- --plan    # the same for the build matrix
 npm run build:sim -- --shard 0/4  # the first of four shares of the pending pairings, into checkpoints only
 ```
@@ -166,7 +166,7 @@ npm run build:data   # rebuild data/<dataset>/ from those downloads, with the pa
 npm run build:items  # rebuild the item catalog (items.json, reports/items.md, reports/item-effects.md)
 ```
 
-Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/` for patch 26.20. It contains:
+Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/` for patch 26.21; the previous patch's folder stays as it was, and a new patch's refresh reuses its results. It contains:
 
 | File | Contents |
 |---|---|

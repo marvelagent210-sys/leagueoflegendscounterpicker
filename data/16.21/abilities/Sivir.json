@@ -1,0 +1,874 @@
+[
+  {
+    "champion": "Sivir",
+    "kind": "E",
+    "name": "Spell Shield",
+    "page": {
+      "title": "Template:Data Sivir/Spell Shield",
+      "revid": 3788826
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "24 / 22.5 / 21 / 19.5 / 18",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                24,
+                22.5,
+                21,
+                19.5,
+                18
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Sivir gains a spell shield for 1.5 seconds. Upon successfully blocking a hostile effect, she heals herself and activates Fleet of Foot after 0.25 seconds.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "60 / 65 / 70 / 75 / 80% AD (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  65,
+                  70,
+                  75,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "spell shield",
+            "category": "defense",
+            "wording": "spell shield",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Sivir gains a spell shield for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Upon successfully blocking a hostile effect, she heals herself and activates Fleet of Foot after 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell Shield will heal and activate Fleet of Foot if any effect is blocked. This includes effects such as champion abilities, item effects, Dragon basic attacks, as well as the abilities of Baron Nashor and Rift Herald.",
+      "Spell Shield will still block abilities that have already been applied to Sivir if the delayed effects of that ability is area of effect (e.g. Blaze's explosion, Chum the Waters, and Time Bomb)."
+    ]
+  },
+  {
+    "champion": "Sivir",
+    "kind": "I",
+    "name": "Fleet of Foot",
+    "page": {
+      "title": "Template:Data Sivir/Fleet of Foot",
+      "revid": 3985850
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellShield": "false",
+      "parry": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Sivir's basic attacks on-attack and ability hits against enemy champions grant her 55 / 60 / 65 / 70 / 75 (based on level) bonus movement speed decaying over 1.5 seconds, refreshing on subsequent hits.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Innate: Sivir's basic attacks on-attack and ability hits against enemy champions grant her 55 / 60 / 65 / 70 / 75 (based on level) bonus movement speed decaying over 1.5 seconds, refreshing on subsequent hits.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16,
+                18
+              ],
+              "values": [
+                55,
+                60,
+                65,
+                70,
+                75
+              ]
+            },
+            "context": "Innate: Sivir's basic attacks on-attack and ability hits against enemy champions grant her 55 / 60 / 65 / 70 / 75 (based on level) bonus movement speed decaying over 1.5 seconds, refreshing on subsequent hits."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Fleet of Foot will trigger even if the attack is dodged, blocked or misses due to blind or if the ability is negated by a spell shield."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/sivir/sivir.bin.json",
+        "sha256": "e41dd51b70b5a334fe7b149ce9f9566ba620e225521e3e9b0b7ebf0597d72700",
+        "object": "Characters/Sivir/Spells/SivirBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 1750.0"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Sivir",
+    "kind": "Q",
+    "name": "Boomerang Blade",
+    "page": {
+      "title": "Template:Data Sivir/Boomerang Blade",
+      "revid": 4068684
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "55 / 60 / 65 / 70 / 75",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                55,
+                60,
+                65,
+                70,
+                75
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25 / 0.231 / 0.198 / 0.165 / 0.132 / 0.1 (based on bonus attack speed)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "bonus attack speed",
+              "points": [
+                0,
+                15.2,
+                41.6,
+                68,
+                94.4,
+                120
+              ],
+              "values": [
+                0.25,
+                0.231,
+                0.198,
+                0.165,
+                0.132,
+                0.1
+              ]
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1250
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "180 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Outgoing missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Returning missile"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1450 • 1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1450
+            },
+            "label": "Outgoing missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Returning missile"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Sivir hurls her crossblade in the target direction, dealing physical damage to enemies within its path, increased by critical strike damage (based on critical strike chance).",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 85 / 110 / 135 / 160 (+ 70% bonus AD) (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  85,
+                  110,
+                  135,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Boomerang Blade's damage is reduced by 0 / 15 / 30 / 45 / 60 (based on non-champions hit)%. Upon reaching maximum range, the crossblade returns to her, resetting the damage modifier and dealing the same damage to enemies on its way back.",
+        "leveling": [
+          {
+            "label": "Minimum Damage",
+            "amount": {
+              "text": "24 / 34 / 44 / 54 / 64 (+ 28% bonus AD) (+ 24% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  24,
+                  34,
+                  44,
+                  54,
+                  64
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 28
+                  },
+                  "text": "(+ 28% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 24
+                  },
+                  "text": "(+ 24% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Maximum Champion Damage",
+            "amount": {
+              "text": "120 / 170 / 220 / 270 / 320 (+ 140% bonus AD) (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  170,
+                  220,
+                  270,
+                  320
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 140
+                  },
+                  "text": "(+ 140% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "non-champions hit",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "values": [
+                0,
+                15,
+                30,
+                45,
+                60
+              ]
+            },
+            "context": "Boomerang Blade's damage is reduced by 0 / 15 / 30 / 45 / 60 (based on non-champions hit)%."
+          }
+        ]
+      },
+      {
+        "text": "Enemies can be hit only once per pass.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Due to the cast time effectively rounding up to full game ticks, at undisturbed game tick interval times the technical minimum cast time is 0.198 reached at 99.8% bonus attack speed.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The damage reduction per unit hit resets back to full damage upon changing direction.",
+      "Boomerang Blade will still return to Sivir even if she dies before it changes direction.",
+      "Spell shield only blocks one instance of damage."
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/sivir/sivir.bin.json",
+        "sha256": "e41dd51b70b5a334fe7b149ce9f9566ba620e225521e3e9b0b7ebf0597d72700",
+        "object": "Characters/Sivir/Spells/SivirQAbility/SivirQ",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[35.0,60.0,85.0,110.0,135.0,160.0,185.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ADRatio\",\"values\":[0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071],\"__type\":\"SpellDataValue\"},{\"name\":\"FallOffRatio\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"FallOffMinimum\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"QAttackSpeedCastReductionPercent\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"QBaseCastTime\",\"values\":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],\"__type\":\"SpellDataValue\"},{\"name\":\"QAttackSpeedCastReductionMax\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"CritRatio\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations.TotalDamage: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Sivir",
+    "kind": "R",
+    "name": "On the Hunt",
+    "page": {
+      "title": "Template:Data Sivir/On the Hunt",
+      "revid": 3936364
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Sivir gains On the Hunt for a duration and grants it to nearby allied champions for the remaining duration.",
+        "leveling": [
+          {
+            "label": "Buff Duration",
+            "amount": {
+              "text": "8 / 10 / 12 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  10,
+                  12
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "On the Hunt",
+        "text": "On the Hunt: Gain bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 25 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "While active, Sivir's basic attacks on-attack reduce her basic abilities' current cooldowns by 0.5 seconds each.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "While active, Sivir's basic attacks on-attack reduce her basic abilities' current cooldowns by 0.5 seconds each.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Sivir can refresh the duration of her On the Hunt buff whenever she scores a takedown against an enemy champion within 3 seconds of damaging them.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes."
+    ]
+  },
+  {
+    "champion": "Sivir",
+    "kind": "W",
+    "name": "Ricochet",
+    "page": {
+      "title": "Template:Data Sivir/Ricochet",
+      "revid": 4062258
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Bounce range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1750 • 1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1750
+            },
+            "label": "Attack missile speed, same as basic attack"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Bounced missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "unknown",
+      "onHitEffects": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Sivir empowers her crossblade for the next 4 seconds, gaining bonus attack speed and causing her basic attacks to bounce to additional surrounding enemies, dealing physical damage to them. If the triggering attack critically strikes, the bounces will do so as well for 200% damage. Ricochet deals 65% damage against minions and executes them if they would be left below 15 health.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bounce Damage",
+            "amount": {
+              "text": "40 / 42.5 / 45 / 47.5 / 50% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  42.5,
+                  45,
+                  47.5,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          },
+          {
+            "label": "Bounce Critical Damage",
+            "amount": {
+              "text": "80 / 85 / 90 / 95 / 100% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  85,
+                  90,
+                  95,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          },
+          {
+            "label": "Minion Bounce Damage",
+            "amount": {
+              "text": "26 / 27.625 / 29.25 / 30.875 / 32.5% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  26,
+                  27.625,
+                  29.25,
+                  30.875,
+                  32.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          },
+          {
+            "label": "Minion Bounce Critical Damage",
+            "amount": {
+              "text": "52 / 55.25 / 58.5 / 61.75 / 65% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  52,
+                  55.25,
+                  58.5,
+                  61.75,
+                  65
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strikes",
+            "evidence": "If the triggering attack critically strikes, the bounces will do so as well for 200% damage.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Bounces occur only up to 8 times and can target each enemy up to one additional time per empowered attack. They prioritize the nearest new target, then the nearest target if no new targets are available.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Ricochet resets Sivir's basic attack timer if it was not already active. The target does not have to be visible to be bounced to.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Ricochet resets Sivir's basic attack timer if it was not already active.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "The target does not have to be visible to be bounced to.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "not already active",
+            "tip": "See notes"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Ricochet-enhanced basic attacks can bounce from structures onto secondary targets but not from nearby units onto structures.",
+      ": Ricochet's interactions with dodging, blocking, and blinding effects.",
+      "Ricochet do not apply to additional targets with Runaan's Hurricane.",
+      "Sivir's attack timer will only reset from casting Ricochet if the ability's buff was not already active on her. Refreshing the buff will not grant an attack reset."
+    ]
+  }
+]

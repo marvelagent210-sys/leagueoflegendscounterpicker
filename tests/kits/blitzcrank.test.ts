@@ -20,7 +20,7 @@ const compiled = () => compileKit(championData("Blitzcrank"), records("Blitzcran
 const compiledKit = compiled();
 const ability = (key: string) => compiledKit.spec.abilities.find(a => a.key === key)!;
 const idle: Behavior = () => undefined;
-const prices = (JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
+const prices = (JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices }).statPrices;
 const subject = (bonus: FighterSpec["bonus"] = {}) => ({ ...compiledKit.spec, bonus, base: { ...compiledKit.spec.base, hpRegen: 0, resourceRegen: 0 } });
 function worldFor(x = 100, bonus: FighterSpec["bonus"] = {}): World {
   const world = createWorld({ fighters: [subject(bonus), fighter({ id: "target", base: { hp: 100000, hpRegen: 0, resourceRegen: 0, armor: 0, mr: 0, moveSpeed: 0 } })], distance: 0, modes: ["idle", "idle"], settings: { log: true, maxSeconds: 100, maxBranches: 1, reactionTime: 10 } });
@@ -43,15 +43,15 @@ function summon(world: World, x: number, extra: Partial<PetSpec> = {}): Pet {
 const bolts = (world: World) => world.missiles.filter(m => m.source === "R-passive");
 
 describe("Blitzcrank source contract", () => {
-  it("pins all five raw templates and exact 16.20 objects without altering parsed primary formulas", () => {
+  it("pins all five raw templates and exact 16.21 objects without altering parsed primary formulas", () => {
     expect(new Set(compiledKit.evidence.filter(row => row.revid).map(row => row.revid))).toEqual(new Set([4041159, 3908089, 4026708, 3956748, 3906572]));
     for (const row of records("Blitzcrank")) {
       expect(row.sources?.some(source => source.page.revid === row.page.revid && source.text.some(text => text.includes("<noinclude>")))).toBe(true);
       expect(row.gameSources?.length).toBeGreaterThan(0);
       for (const source of row.gameSources ?? []) {
-        expect(source.url).toBe("https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json");
-        expect(source.version).toBe("16.20.8248524+branch.releases-16-20.content.release");
-        expect(source.sha256).toBe("290a6b00f9a4615935bc1e8cd58ab6f31c417b76fb6351ce8bd121e429e7d187");
+        expect(source.url).toBe("https://raw.communitydragon.org/16.21/game/data/characters/blitzcrank/blitzcrank.bin.json");
+        expect(source.version).toBe("16.21.8342754+branch.releases-16-21.content.release");
+        expect(source.sha256).toBe("3168cb5f3841c1b74db02b9b7752b25b86fa5210effdcaa369d830b4b2d43522");
         expect(source.text.join(" ")).toContain(source.object);
       }
     }

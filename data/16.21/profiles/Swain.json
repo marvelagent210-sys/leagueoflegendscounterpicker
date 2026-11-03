@@ -1,0 +1,279 @@
+{
+  "champion": "Swain",
+  "name": "Swain",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "swain",
+      "formName": "Swain",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1800,
+      "attackSpeed": 0.884332,
+      "attackDamage": 111.096,
+      "windup": 0.158312,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Swain",
+      "kind": "E",
+      "name": "Nevermove",
+      "page": {
+        "title": "Template:Data Swain/Nevermove",
+        "revid": 4008056
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Swain/Nevermove",
+              "revid": 4008056,
+              "quote": "Recast: Swain pulls the rooted champions over 290 units and collects a Soul Fragment from each of them, revealing himself for 5 seconds."
+            }
+          ],
+          "variant": "knock back, pull",
+          "duration": 5
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Swain/Nevermove",
+              "revid": 4008056,
+              "quote": "At maximum range, the wave homes back to Swain and detonates upon the first enemy hit, dealing magic damage to nearby enemies and rooting them for 1.5 seconds, during which they are revealed."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 850,
+      "speed": 1125,
+      "notes": [
+        "Nevermove's missiles have their speed update to accelerate at specific times by the server. The client applies these speed increases after additional specified delays, while the hitbox behaviour itself only uses the timings noted above.",
+        "Spell shield will block either the detonation on the first cast or the pull from the recast.\n  - If the recast is blocked, the target will also prevent a Soul Fragment being collected from them.",
+        "If the root is not applied to, removed or its targets blink or dash, the recast becomes unavailable.",
+        "The pull will interrupt channels at the very beginning, but does not keep the target stunned for the rest of the movement.\n  - Channels can be started successfully during the pull, provided the previous crowd control does not prevent them still."
+      ]
+    },
+    {
+      "champion": "Swain",
+      "kind": "I",
+      "name": "Ravenous Flock",
+      "page": {
+        "title": "Template:Data Swain/Ravenous Flock",
+        "revid": 4008055
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Swain/Ravenous Flock",
+              "revid": 4008055,
+              "quote": "Upon claiming a fragment, he will heal for 6% of his maximum health."
+            }
+          ]
+        }
+      ],
+      "speed": 1200
+    },
+    {
+      "champion": "Swain",
+      "kind": "Q",
+      "name": "Death's Hand",
+      "page": {
+        "title": "Template:Data Swain/Death's Hand",
+        "revid": 4042686
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0.25,
+      "notes": [
+        "Spell shield will block all bolts."
+      ]
+    },
+    {
+      "champion": "Swain",
+      "kind": "R",
+      "name": "Demonflare",
+      "page": {
+        "title": "Template:Data Swain/Demonflare",
+        "revid": 4002226
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Swain/Demonflare",
+              "revid": 4002226,
+              "quote": "Active: Swain releases a nova of soulfire that deals magic damage to nearby enemies and slows them by 50%, decaying over 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "speed": 3000,
+      "notes": [
+        "Demonflare passes through champions. Effects like Wind Wall and Unbreakable will block the portion of the nova they intercept."
+      ]
+    },
+    {
+      "champion": "Swain",
+      "kind": "R",
+      "name": "Demonic Ascension",
+      "page": {
+        "title": "Template:Data Swain/Demonic Ascension",
+        "revid": 4020887
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Swain/Demonic Ascension",
+              "revid": 4020887,
+              "quote": "Demonic Ascension: Swain is ghosted and drains the lifeforce of nearby enemies, both dealing magic damage and healing himself every 0.5 seconds per target affected."
+            }
+          ]
+        }
+      ],
+      "cooldown": 120,
+      "castTime": 0.5
+    },
+    {
+      "champion": "Swain",
+      "kind": "W",
+      "name": "Vision of Empire",
+      "page": {
+        "title": "Template:Data Swain/Vision of Empire",
+        "revid": 4078269
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Swain/Vision of Empire",
+              "revid": 4078269,
+              "quote": "Active: Swain summons a demonic eye at the target location that grants sight of the area for 2 seconds and explodes after 1.5 seconds, dealing magic damage to enemies within, halved against minions, and slowing them by 50% for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 7500,
+      "notes": [
+        "Enemy champions protected by a spell shield do not have a Soul Fragment collected from them but are revealed anyway."
+      ]
+    }
+  ]
+}

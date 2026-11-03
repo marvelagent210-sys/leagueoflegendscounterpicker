@@ -1,0 +1,719 @@
+[
+  {
+    "champion": "Karthus",
+    "kind": "E",
+    "name": "Defile",
+    "page": {
+      "title": "Template:Data Karthus/Defile",
+      "revid": 4006733
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "30 / 42 / 54 / 66 / 78",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                42,
+                54,
+                66,
+                78
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana per second",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Karthus restores mana whenever he kills an enemy.",
+        "leveling": [
+          {
+            "label": "Mana Restored",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Toggle",
+        "text": "Toggle: Karthus surrounds himself in a necrotic aura that deals magic damage every 0.25 seconds to all nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "7.5 / 12.5 / 17.5 / 22.5 / 27.5 (+ 5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  12.5,
+                  17.5,
+                  22.5,
+                  27.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Damage Per Second",
+            "amount": {
+              "text": "30 / 50 / 70 / 90 / 110 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70,
+                  90,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Toggling Defile off triggers a final tick of damage. Defile is toggled off automatically if Karthus becomes unable to pay its mana cost.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Defile cannot be toggled off during Death Defied.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Toggled abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "Defile will restore mana if Karthus destroys an enemy structure.",
+      "Defile re-calculates its damage with each tick based on changes in Karthus's ability power or an increase in the rank of Defile without the need to toggle it off and on again.",
+      "Defile will toggle off automatically if Karthus enters resurrection."
+    ]
+  },
+  {
+    "champion": "Karthus",
+    "kind": "I",
+    "name": "Death Defied",
+    "page": {
+      "title": "Template:Data Karthus/Death Defied",
+      "revid": 3985387
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Upon taking fatal damage, Karthus enters a zombie state for 7 seconds, during which he can cast his abilities at no cost. If Defile has been learned, it will remain toggled on for Death Defied's entire duration. Requiem becomes disabled after 4 seconds of the duration have elapsed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "revive",
+            "category": "defense",
+            "wording": "zombie state",
+            "duration": {
+              "kind": "constant",
+              "value": 7
+            },
+            "evidence": "Innate: Upon taking fatal damage, Karthus enters a zombie state for 7 seconds, during which he can cast his abilities at no cost.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While under this state, Karthus becomes untargetable and immune to crowd control as well as prevents all incoming damage, but is also rendered unable to move, declare basic attacks, use summoner spells, and activate items.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "While under this state, Karthus becomes untargetable and immune to crowd control as well as prevents all incoming damage, but is also rendered unable to move, declare basic attacks, use summoner spells, and activate items.",
+            "conditional": false
+          },
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "immune to crowd control",
+            "evidence": "While under this state, Karthus becomes untargetable and immune to crowd control as well as prevents all incoming damage, but is also rendered unable to move, declare basic attacks, use summoner spells, and activate items.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Death Defied's untargetability does not destroy in-flight projectiles.",
+      "Karthus cannot be executed by the Aspect of the Dragon during Death Defied.",
+      "At the start of Death Defied, Karthus is set to 1 health.\n  - Karthus can still regenerate his health over the duration, but he will always die at the end of it.",
+      "After Death Defied ends, the corpse of Karthus will retain unit collision despite being dead on the ground.",
+      "Karthus' mana bar drains over the duration of Death Defied as an indicator of his time remaining in this state."
+    ]
+  },
+  {
+    "champion": "Karthus",
+    "kind": "Q",
+    "name": "Lay Waste",
+    "page": {
+      "title": "Template:Data Karthus/Lay Waste",
+      "revid": 4011136
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "20 / 25 / 30 / 35 / 40",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "875",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 875
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karthus conjures a blast at the target location that detonates after 0.528−0.759, granting sight of the area and dealing magic damage to all enemies within, doubled when only one target is struck.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 59 / 78 / 97 / 116 (+ 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  59,
+                  78,
+                  97,
+                  116
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Isolated Enhanced Damage",
+            "amount": {
+              "text": "80 / 118 / 156 / 194 / 232 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  118,
+                  156,
+                  194,
+                  232
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Karthus conjures a blast at the target location that detonates after 0.528−0.759, granting sight of the area and dealing magic damage to all enemies within, doubled when only one target is struck.",
+            "conditional": false
+          }
+        ],
+        "values": [],
+        "tips": [
+          {
+            "text": "0.528−0.759",
+            "tip": "See notes"
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "The delay between the cast and the detonation is inconsistent, but always matches up with the VFX.\n  - Defile ticks beyond the first has a similar issue.",
+      "Applies spell damage if it hits a single target and area damage if it hits multiple targets.\n  - Lay Waste also plays a different sound effect when it only hits one target."
+    ]
+  },
+  {
+    "champion": "Karthus",
+    "kind": "R",
+    "name": "Requiem",
+    "page": {
+      "title": "Template:Data Karthus/Requiem",
+      "revid": 4015394
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "200 / 180 / 160",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                200,
+                180,
+                160
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karthus channels for 3 seconds, then deals magic damage to all targetable enemy champions upon completion.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 350 / 500 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  350,
+                  500
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Karthus channels for 3 seconds, then deals magic damage to all targetable enemy champions upon completion.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Requiem's channel is telegraphed to all enemy champions by a beam of light that descends on all targets, including if they are untargetable or even dead.",
+      "Requiem will affect clones.",
+      "The damage will apply spell effects to targets in order of being spawned. Single target spell effects (such as Luden's Echo) are thus triggered on the leftmost champion on the loading screen.",
+      "Requiem will not affect Neeko if she's disguised as a non-champion if Karthus is affected by Death Defied.",
+      "The following table refers for interactions while Karthus is channeling:"
+    ]
+  },
+  {
+    "champion": "Karthus",
+    "kind": "W",
+    "name": "Wall of Pain",
+    "page": {
+      "title": "Template:Data Karthus/Wall of Pain",
+      "revid": 3990033
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 15
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karthus erects a wall of pain at the target location perpendicular to his facing that lasts 5 seconds, granting sight around its pillars and center.",
+        "leveling": [
+          {
+            "label": "Wall Length",
+            "amount": {
+              "text": "800 / 900 / 1000 / 1100 / 1200 units",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  800,
+                  900,
+                  1000,
+                  1100,
+                  1200
+                ]
+              },
+              "unit": "units",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Karthus erects a wall of pain at the target location perpendicular to his facing that lasts 5 seconds, granting sight around its pillars and center.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies that touch the wall are inflicted with 25% magic resistance reduction and become slowed for 5 seconds, decaying over the duration. This can affect enemies only once per cast.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 50 / 60 / 70 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60,
+                  70,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Slow",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            },
+            "evidence": "Enemies that touch the wall are inflicted with 25% magic resistance reduction and become slowed for 5 seconds, decaying over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  }
+]

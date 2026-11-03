@@ -1,0 +1,1055 @@
+[
+  {
+    "champion": "Rakan",
+    "kind": "E",
+    "name": "Battle Dance",
+    "page": {
+      "title": "Template:Data Rakan/Battle Dance",
+      "revid": 4008001
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "700 • 1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Standard range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Enhanced range on Xayah"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1250 + 80% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1250
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rakan grants a shield to the target allied champion for 3 seconds and then dashes to and around them. Battle Dance can be recast within 5 seconds at no additional cost.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Rakan grants a shield to the target allied champion for 3 seconds and then dashes to and around them.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Rakan grants a shield to the target allied champion for 3 seconds and then dashes to and around them.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Rakan mimics the first cast's effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Rakan will be knocked down by any immobilizing or polymorphing crowd control during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocked down",
+            "evidence": "Rakan will be knocked down by any immobilizing or polymorphing crowd control during the dash.",
+            "conditional": true
+          },
+          {
+            "type": "polymorph",
+            "category": "control",
+            "wording": "polymorphing",
+            "evidence": "Rakan will be knocked down by any immobilizing or polymorphing crowd control during the dash.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Xayah is the target, Battle Dance can be cast from an increased range.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Both casts count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "The shields do not stack if Battle Dance is cast on the same target twice. Only the duration and shield amount is refreshed.",
+      "Battle Dance, its recast, and its empowered version on Xayah all have a forgiveness radius of 175 units.",
+      "Sleep does not count for knocking the dash down.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Battle Dance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = E\n|icon         = Battle Dance.png\n|icon2        = Battle Dance 2.png\n|blurb        = {{sbc|Passive:}} {{ci|Rakan}} can cast or re-cast ''Battle Dance'' at an increased {{sti|range}} when targeting {{ci|Xayah}}.\n|blurb2       = {{sbc|Active:}} '''Rakan''' {{tip|shield|shields}} the target allied champion for a short time, then {{tip|dash|dashes}} to them. ''Battle Dance'' can be recast once with no cost.\n|blurb3       = {{sbc|Recast:}} '''Rakan''' mimics the first cast.\n|description  = {{sbc|Active:}} '''Rakan''' grants a {{tip|shield}} to the target allied champion for 3 seconds and then {{tip|dash|dashes}} to and around them. ''Battle Dance'' can be recast within 5 seconds at no additional cost.\n|leveling     = {{st|Shield Strength|{{ap|50 to 150}} {{as|(+ 70% AP)}}}}\n|description2 = {{sbc|Recast:}} '''Rakan''' mimics the first cast's effects.\n|description3 = '''''Rakan''' will be {{tip|knockdown|knocked down}} by any {{tip|immobilize|immobilizing}} or {{tip|polymorph|polymorphing}} crowd control during the dash.''\n|description4 = ''If {{ci|Xayah}} is the target, Battle Dance can be cast from an increased range.''\n|cost         = {{ap|40 to 60}}\n|costtype     = Mana\n|cast time = none\n|cooldown     = {{ap|20 to 12}}\n|cdstart      = on-cast\n|target range = {{dv|{{tt|700|Standard range}}|{{tt|1000|Enhanced range on Xayah}}}}\n|targeting    = Unit\n|speed        = 1250 {{as|+ 80% movement speed}}\n|affects      = Allies\n|spelleffects = \n|grounded     = True\n|knockdown    = True\n|notes        = \n* Both casts count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.\n* The shields do not stack if ''Battle Dance'' is cast on the same target twice. Only the duration and shield amount is refreshed.\n* ''Battle Dance'', its recast, and its empowered version on {{ci|Xayah}} all have a {{tip|forgiveness radius}} of 175 units. \n* {{tip|Sleep}} does not count for knocking the dash down.{{bug}}\n|yvideo       = TU9PghCne4w\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rakan/Battle Dance",
+          "revid": 4008001
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Battle Dance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = E\n|icon         = Battle Dance.png\n|icon2        = Battle Dance 2.png\n|blurb        = {{sbc|Passive:}} {{ci|Rakan}} can cast or re-cast ''Battle Dance'' at an increased {{sti|range}} when targeting {{ci|Xayah}}.\n|blurb2       = {{sbc|Active:}} '''Rakan''' {{tip|shield|shields}} the target allied champion for a short time, then {{tip|dash|dashes}} to them. ''Battle Dance'' can be recast once with no cost.\n|blurb3       = {{sbc|Recast:}} '''Rakan''' mimics the first cast.\n|description  = {{sbc|Active:}} '''Rakan''' grants a {{tip|shield}} to the target allied champion for 3 seconds and then {{tip|dash|dashes}} to and around them. ''Battle Dance'' can be recast within 5 seconds at no additional cost.\n|leveling     = {{st|Shield Strength|{{ap|50 to 150}} {{as|(+ 70% AP)}}}}\n|description2 = {{sbc|Recast:}} '''Rakan''' mimics the first cast's effects.\n|description3 = '''''Rakan''' will be {{tip|knockdown|knocked down}} by any {{tip|immobilize|immobilizing}} or {{tip|polymorph|polymorphing}} crowd control during the dash.''\n|description4 = ''If {{ci|Xayah}} is the target, Battle Dance can be cast from an increased range.''\n|cost         = {{ap|40 to 60}}\n|costtype     = Mana\n|cast time = none\n|cooldown     = {{ap|20 to 12}}\n|cdstart      = on-cast\n|target range = {{dv|{{tt|700|Standard range}}|{{tt|1000|Enhanced range on Xayah}}}}\n|targeting    = Unit\n|speed        = 1250 {{as|+ 80% movement speed}}\n|affects      = Allies\n|spelleffects = \n|grounded     = True\n|knockdown    = True\n|notes        = \n* Both casts count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.\n* The shields do not stack if ''Battle Dance'' is cast on the same target twice. Only the duration and shield amount is refreshed.\n* ''Battle Dance'', its recast, and its empowered version on {{ci|Xayah}} all have a {{tip|forgiveness radius}} of 175 units. \n* {{tip|Sleep}} does not count for knocking the dash down.{{bug}}\n|yvideo       = TU9PghCne4w\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanEAbility/RakanE",
+        "text": [
+          "{\"ObjectName\":\"RakanE\",\"objectPath\":\"Characters/Rakan/Spells/RakanEAbility/RakanE\",\"mScriptName\":\"RakanE\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":16385,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mSpellTags\":[\"PositiveEffect_MoveBlock\",\"PositiveEffect_Boon\",\"Trait_RecastOrReplaceSpell\",\"Trait_Shield\"],\"mEffectAmount\":[{\"__type\":\"SpellEffectAmount\"},{\"value\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[20.0,20.0,18.0,16.0,14.0,12.0,12.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[40.0,40.0,45.0,50.0,55.0,60.0,110.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1150.0,1150.0,1150.0,1150.0,1150.0,1150.0,1150.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1250.0,1250.0,1250.0,1250.0,1250.0,1250.0,1250.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"BaseShield\",\"values\":[25.0,50.0,75.0,100.0,125.0,150.0,175.0],\"__type\":\"SpellDataValue\"},{\"name\":\"RecastWindow\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Duration\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Cooldown\",\"values\":[20.0,20.0,18.0,16.0,14.0,12.0,12.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BonusDashSpeed\",\"values\":[1150.0,1150.0,1150.0,1150.0,1150.0,1150.0,1150.0],\"__type\":\"SpellDataValue\"},{\"name\":\"XayahBonusDashSpeed\",\"values\":[1250.0,1250.0,1250.0,1250.0,1250.0,1250.0,1250.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalShield\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseShield\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.699999988079071,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Idle1\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_E.dds\",\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mAmmoUsed\":[0,0,0,0,0,0,0],\"mAmmoRechargeTime\":[22.0,20.0,18.0,16.0,14.0,12.0,12.0],\"mAmmoNotAffectedByCDR\":true,\"mAmmoCountHiddenInUI\":true,\"mCantCancelWhileWindingUp\":true,\"cantCastWhileRooted\":true,\"mSpellRevealsChampion\":false,\"mDoesNotConsumeMana\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"castRadius\":[175.0,175.0,175.0,175.0,175.0,175.0,175.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mLineWidth\":50.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[40.0,45.0,50.0,55.0,60.0,65.0],\"manaValues\":{\"values\":[40.0,45.0,50.0,55.0,60.0,65.0],\"{0a3e0478}\":40.0,\"__type\":\"{630af303}\"},\"manaUiOverride\":[40.0,45.0,50.0,55.0,60.0,65.0],\"mTargetingTypeData\":{\"__type\":\"TargetOrLocation\"},\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":175.0,\"TargetForgivenessDefinitions\":[{\"mUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\",\"{c02a7870}\"],\"__type\":\"ObjectTags\"},\"__type\":\"HasUnitTagsCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RakanE\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RakanE_Name\",\"keySummary\":\"Spell_RakanE_Summary\",\"keyTooltip\":\"Spell_RakanE_Tooltip\",\"keyCooldown\":\"Spell_RakanE_Cooldown\",\"keyTooltipExtendedBelowLine\":\"Spell_RakanE_TooltipExtendedBelowLine\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseShield\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_ShieldHealth\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"typeIndex\":4,\"nameOverride\":\"Spell_ListType_Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"typeIndex\":5,\"nameOverride\":\"Spell_ListType_Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"useCasterBoundingBox\":false,\"overrideBaseRange\":{\"mPerLevelValues\":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":262144,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalShield\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":512,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanEAbility/RakanECast",
+        "text": [
+          "{\"ObjectName\":\"RakanECast\",\"objectPath\":\"Characters/Rakan/Spells/RakanEAbility/RakanECast\",\"mScriptName\":\"RakanECast\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":9221,\"mAffectsStatusFlags\":8,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mSpellTags\":[\"PositiveEffect_MoveBlock\"],\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[5.0,10.0,15.0,20.0,25.0,30.0,35.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[18.0,16.0,14.0,12.0,10.0,8.0,6.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.800000011920929,\"mCoefficient2\":0.800000011920929,\"mAnimationName\":\"React\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_E.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mMaxAmmo\":[0,0,0,0,0,0,0],\"mAmmoUsed\":[0,0,0,0,0,0,0],\"mCantCancelWhileWindingUp\":true,\"cantCastWhileRooted\":true,\"mSpellRevealsChampion\":false,\"bIsToggleSpell\":true,\"mDoesNotConsumeMana\":true,\"castRange\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"castRangeValues\":{\"values\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"{0a3e0478}\":700.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mLineWidth\":50.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mTargetingTypeData\":{\"__type\":\"TargetOrLocation\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanEAbility/RakanECastXaya",
+        "text": [
+          "{\"ObjectName\":\"RakanECastXaya\",\"objectPath\":\"Characters/Rakan/Spells/RakanEAbility/RakanECastXaya\",\"mScriptName\":\"RakanECastXaya\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":9221,\"mAffectsStatusFlags\":8,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mSpellTags\":[\"PositiveEffect_MoveBlock\"],\"mEffectAmount\":[{\"value\":[40.0,80.0,120.0,160.0,200.0,240.0,280.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[5.0,10.0,15.0,20.0,25.0,30.0,35.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[18.0,16.0,14.0,12.0,10.0,8.0,6.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.800000011920929,\"mCoefficient2\":0.800000011920929,\"mAnimationName\":\"React\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_E.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mMaxAmmo\":[0,0,0,0,0,0,0],\"mAmmoUsed\":[0,0,0,0,0,0,0],\"mCantCancelWhileWindingUp\":true,\"cantCastWhileRooted\":true,\"mSpellRevealsChampion\":false,\"bIsToggleSpell\":true,\"mDoesNotConsumeMana\":true,\"castRange\":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],\"castRangeValues\":{\"values\":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],\"{0a3e0478}\":1000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":20.0,\"mLineWidth\":50.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mTargetingTypeData\":{\"__type\":\"TargetOrLocation\"},\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":175.0,\"TargetForgivenessDefinitions\":[{\"__type\":\"SameTeamCastRequirement\"},{\"mUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\",\"{c02a7870}\"],\"__type\":\"ObjectTags\"},\"__type\":\"HasUnitTagsCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_VayneTumble\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanEAbility/RakanERecast",
+        "text": [
+          "{\"ObjectName\":\"RakanERecast\",\"objectPath\":\"Characters/Rakan/Spells/RakanEAbility/RakanERecast\",\"mScriptName\":\"RakanERecast\",\"mSpell\":{\"flags\":4,\"mAffectsTypeFlags\":17413,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mSpellTags\":[\"PositiveEffect_MoveBlock\",\"PositiveEffect_Boon\"],\"mCoefficient\":0.800000011920929,\"mCoefficient2\":0.800000011920929,\"mAnimationName\":\"Idle1\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_E2.dds\"],\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mAmmoUsed\":[0,0,0,0,0,0,0],\"mAmmoRechargeTime\":[22.0,20.0,18.0,16.0,14.0,12.0,12.0],\"mAmmoNotAffectedByCDR\":true,\"mAmmoCountHiddenInUI\":true,\"mCantCancelWhileWindingUp\":true,\"cantCastWhileRooted\":true,\"mSpellRevealsChampion\":false,\"mDoesNotConsumeMana\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"castRadius\":[175.0,175.0,175.0,175.0,175.0,175.0,175.0],\"castFrame\":7.5,\"missileSpeed\":20.0,\"mLineWidth\":50.0,\"mFloatVarsDecimals\":[0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2],\"TargetingForgivenessDefinitions\":[{\"ForgivenessRange\":175.0,\"TargetForgivenessDefinitions\":[{\"__type\":\"SameTeamCastRequirement\"},{\"mUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\",\"{c02a7870}\"],\"__type\":\"ObjectTags\"},\"__type\":\"HasUnitTagsCastRequirement\"}],\"__type\":\"TargetingForgivenessDefinitions\"}],\"mCastingBreaksStealth\":true,\"mClientData\":{\"mUseTooltipFromAnotherSpell\":\"Characters/Rakan/Spells/RakanEAbility/RakanE\",\"mTargeterDefinitions\":[{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"useCasterBoundingBox\":false,\"overrideBaseRange\":{\"mPerLevelValues\":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_RakanERecast\",\"__type\":\"BuffData\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":262144,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":512,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rakan",
+    "kind": "I",
+    "name": "Fey Feathers",
+    "page": {
+      "title": "Template:Data Rakan/Fey Feathers",
+      "revid": 4016025
+    },
+    "ranks": 1,
+    "fields": {
+      "cooldown": {
+        "text": "40 – 14.5 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                38.5,
+                37,
+                35.5,
+                34,
+                32.5,
+                31,
+                29.5,
+                28,
+                26.5,
+                25,
+                23.5,
+                22,
+                20.5,
+                19,
+                17.5,
+                16,
+                14.5,
+                13.625,
+                12.75
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellShield": "false",
+      "parry": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Rakan grants himself a shield for 30 – 225 (based on level) (+ 95% AP) that lasts until broken. After being out of combat for 5 seconds, any leftover shield will be restored to maximum value.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Innate: Periodically, Rakan grants himself a shield for 30 – 225 (based on level) (+ 95% AP) that lasts until broken.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                30,
+                41.4705882352941,
+                52.9411764705882,
+                64.4117647058823,
+                75.8823529411765,
+                87.3529411764706,
+                98.8235294117647,
+                110.294117647059,
+                121.764705882353,
+                133.235294117647,
+                144.705882352941,
+                156.176470588235,
+                167.647058823529,
+                179.117647058824,
+                190.588235294118,
+                202.058823529412,
+                213.529411764706,
+                225,
+                236.470588235294,
+                247.941176470588
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Rakan grants himself a shield for 30 – 225 (based on level) (+ 95% AP) that lasts until broken."
+          }
+        ]
+      },
+      {
+        "text": "Rakan's basic attacks and ability hits reduce Fey Feathers' cooldown by 1 second for each enemy champion hit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - Lover's Leap",
+        "text": "Innate - Lover's Leap: If either Rakan or Xayah is channeling Recall, the other may move nearby and channel their own to join alongside them. Both reach base at the time of which the initiator's Recall completes.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Revitalize will record bonus shielding when a new shield is created, but not when it regenerates. In either case, there is no bonus shielding received.",
+      "The cooldown reduction is granted even if the ability is blocked by a spell shield or Riposte.",
+      "The cooldown reduction is granted even if the attack is blocked, dodged, or misses due to blind.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Fey Feathers|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = I\n|blurb        = {{sbc|Innate:}} Periodically, {{ci|Rakan}} generates a {{tip|shield}} that regenerates out of combat if not broken.\n|blurb2       = '''Rakan's''' basic attacks and ability hits against enemy {{tip|champions}} {{sti|ah|reduce}} this ability's cooldown.\n|blurb3       = {{sbc|Innate - Lover's Leap:}} '''Rakan''' and {{ci|Xayah}} may {{si|recall|Recall}} together by {{tip|channel|channeling}} their ''Recalls'' beside each other.\n|icon         = Fey Feathers.png\n|description  = {{sbc|Innate:}} Periodically, '''Rakan''' grants himself a {{tip|shield}} for {{pp|30 + (225-30)/17*(x-1) for 20}} {{as|(+ 95% AP)}} that lasts until broken. After being [[out of combat]] for 5 seconds, any leftover shield will be restored to '''maximum''' value.\n|description2 = '''Rakan's''' {{tip|basic attacks}} <!--{{tip|on-attack}}?--> and {{tip|ability}} hits reduce ''Fey Feathers' '' {{sti|cooldown}} by 1 second for each enemy {{tip|champion}} hit.\n|description3 = {{sbc|Innate - Lover's Leap:}} If either '''Rakan''' or {{ci|Xayah}} is channeling {{si|Recall}}, the other may move nearby and channel their own to join alongside them. '''Both''' reach base at the time of which the initiator's {{si|Recall}} completes.\n|cooldown     = {{pp|40 to 14.5 for 18; then -0.875*x for 2|formula=40 - 1.5 * level until level 18, then -0.875 per level}}\n|range        = \n|targeting    = Passive\n|affects      = Self\n|damagetype   =\n|spelleffects = \n|spellshield  = false\n|parry        = false\n|projectile   =\n|grounded     =\n|knockdown    =\n|notes        = \n* {{ri|Revitalize}} will record bonus shielding when a new shield is created, but not when it regenerates. In either case, there is no bonus shielding received.\n* The cooldown reduction is granted even if the ability is blocked by a {{tip|spell shield}} or {{ai|Riposte|Fiora}}.\n* The cooldown reduction is granted even if the attack is {{tip|blocked}}, {{tip|dodged}}, or misses due to {{tip|blind}}.\n|yvideo       = u22-li_gDAw\n|yvideo2      = c-52Kgq7dEU\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rakan/Fey Feathers",
+          "revid": 4016025
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Fey Feathers|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = I\n|blurb        = {{sbc|Innate:}} Periodically, {{ci|Rakan}} generates a {{tip|shield}} that regenerates out of combat if not broken.\n|blurb2       = '''Rakan's''' basic attacks and ability hits against enemy {{tip|champions}} {{sti|ah|reduce}} this ability's cooldown.\n|blurb3       = {{sbc|Innate - Lover's Leap:}} '''Rakan''' and {{ci|Xayah}} may {{si|recall|Recall}} together by {{tip|channel|channeling}} their ''Recalls'' beside each other.\n|icon         = Fey Feathers.png\n|description  = {{sbc|Innate:}} Periodically, '''Rakan''' grants himself a {{tip|shield}} for {{pp|30 + (225-30)/17*(x-1) for 20}} {{as|(+ 95% AP)}} that lasts until broken. After being [[out of combat]] for 5 seconds, any leftover shield will be restored to '''maximum''' value.\n|description2 = '''Rakan's''' {{tip|basic attacks}} <!--{{tip|on-attack}}?--> and {{tip|ability}} hits reduce ''Fey Feathers' '' {{sti|cooldown}} by 1 second for each enemy {{tip|champion}} hit.\n|description3 = {{sbc|Innate - Lover's Leap:}} If either '''Rakan''' or {{ci|Xayah}} is channeling {{si|Recall}}, the other may move nearby and channel their own to join alongside them. '''Both''' reach base at the time of which the initiator's {{si|Recall}} completes.\n|cooldown     = {{pp|40 to 14.5 for 18; then -0.875*x for 2|formula=40 - 1.5 * level until level 18, then -0.875 per level}}\n|range        = \n|targeting    = Passive\n|affects      = Self\n|damagetype   =\n|spelleffects = \n|spellshield  = false\n|parry        = false\n|projectile   =\n|grounded     =\n|knockdown    =\n|notes        = \n* {{ri|Revitalize}} will record bonus shielding when a new shield is created, but not when it regenerates. In either case, there is no bonus shielding received.\n* The cooldown reduction is granted even if the ability is blocked by a {{tip|spell shield}} or {{ai|Riposte|Fiora}}.\n* The cooldown reduction is granted even if the attack is {{tip|blocked}}, {{tip|dodged}}, or misses due to {{tip|blind}}.\n|yvideo       = u22-li_gDAw\n|yvideo2      = c-52Kgq7dEU\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanPassiveAbility/RakanPassive",
+        "text": [
+          "{\"ObjectName\":\"RakanPassive\",\"objectPath\":\"Characters/Rakan/Spells/RakanPassiveAbility/RakanPassive\",\"mScriptName\":\"RakanPassive\",\"mSpell\":{\"DataValues\":[{\"name\":\"HitCooldown\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"HitCooldown\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"TotalShield\":{\"mFormulaParts\":[{\"mStartValue\":30.0,\"mEndValue\":225.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"},{\"mCoefficient\":0.949999988079071,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"ShieldCooldown\":{\"mFormulaParts\":[{\"mLevel1Value\":40.0,\"mInitialBonusPerLevel\":-1.5,\"mBreakpoints\":[{\"mLevel\":19,\"mBonusPerLevelAtAndAfter\":-0.875,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"}],\"mPrecision\":1,\"__type\":\"GameCalculation\"}},\"mCoefficient\":0.8999999761581421,\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_P.dds\"],\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mIsDisabledWhileDead\":false,\"mSpellRevealsChampion\":false,\"mShowChannelBar\":false,\"castRange\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"castRangeValues\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"mFloatVarsDecimals\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RakanPassive\",\"mFormat\":\"{476ec0b8}\",\"mLocKeys\":{\"keyName\":\"Spell_RakanPassive_Name\",\"keyTooltip\":\"Spell_RakanPassive_Tooltip\",\"keySummary\":\"Spell_RakanPassive_Summary\",\"keyCooldown\":\"Spell_RakanP_CD\"},\"__type\":\"TooltipInstanceSpell\"},\"mLeftClickSpellAction\":0,\"mRightClickSpellAction\":0,\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_character_passiveDescription_Rakan\",\"__type\":\"BuffData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rakan",
+    "kind": "Q",
+    "name": "Gleaming Quill",
+    "page": {
+      "title": "Template:Data Rakan/Gleaming Quill",
+      "revid": 3996425
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            },
+            "label": "Starts once the projectile vanishes"
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "45",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 45
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "130",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 130
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1850
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rakan slings an enchanted feather in the target direction that deals magic damage to the first enemy hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 115 / 160 / 205 / 250 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  115,
+                  160,
+                  205,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If the target was an enemy champion or epic monster, a radius is marked around Rakan. After 3 seconds or if an allied champion enters the radius, Rakan heals himself and nearby allied champions for 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 / 120 / 130 / 140 / 150 / 160 / 170 / 180 / 190 / 200 / 210 / 220 / 230 (based on level) (+ 55% AP).",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "After 3 seconds or if an allied champion enters the radius, Rakan heals himself and nearby allied champions for 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 / 120 / 130 / 140 / 150 / 160 / 170 / 180 / 190 / 200 / 210 / 220 / 230 (based on level) (+ 55% AP).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110,
+                120,
+                130,
+                140,
+                150,
+                160,
+                170,
+                180,
+                190,
+                200,
+                210,
+                220,
+                230
+              ]
+            },
+            "context": "After 3 seconds or if an allied champion enters the radius, Rakan heals himself and nearby allied champions for 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 / 120 / 130 / 140 / 150 / 160 / 170 / 180 / 190 / 200 / 210 / 220 / 230 (based on level) (+ 55% AP)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The trigger radius is slightly smaller than the heal radius.",
+      "Spell shield will not prevent the marked area from being formed.",
+      "The heal can activate immediately after the projectile hits the target, before the healing return animation completes.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The heal will trigger and affect Rakan even if he is untargetable.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Gleaming Quill|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = Q\n|icon         = Gleaming Quill.png\n|blurb        = {{sbc|Active:}} {{ci|Rakan}} slings an enchanted feather in the target direction that deals {{as|magic damage}} to the first enemy hit.\n|blurb2       = If the feather hits an enemy {{tip|champion}} or epic {{tip|monster}}, '''Rakan''' winds up a circular mark around him over a few seconds. When the mark completes, Rakan {{tip|heal|heals}} himself.\n|blurb3       = If '''Rakan''' collides with an allied champion, the mark instantly completes to grant an increased heal to all champions within the circle.\n|description  = {{sbc|Active:}} '''Rakan''' slings an enchanted feather in the target direction that deals {{as|magic damage}} to the first enemy hit.\n|leveling     = {{st|Magic Damage|{{ap|70 to 250}} {{as|(+ 70% AP)}}}}\n|description2 = If the target was an enemy {{tip|champion}} or epic {{tip|monster}}, a radius is marked around '''Rakan'''. After 3 seconds or if an allied champion enters the radius, '''Rakan''' {{tip|heals}} himself and nearby allied champions for {{pp|40 + (210-40)*(x-1)/17|1 to 20 by 1|color=heal}} {{as|(+ 55% AP)}}.\n|target range = 900\n|effect radius= 200\n|width        = {{tip|er|icononly=true}} 130\n|speed        = 1850\n|cooldown     = {{tt|{{ap|11 to 7}}|Starts once the projectile vanishes}}\n|cdstart      = post-effect\n|cast time    = {{fd|0.25}}\n|cost         = 45\n|costtype     = Mana\n|targeting    = Direction\n|affects      = Enemies / Allies\n|damagetype   = Magic\n|spelleffects = spell\n|spellshield  = Special\n|projectile   = True\n|notes        = \n* The trigger radius is slightly smaller than the heal radius.\n* {{tip|Spell shield}} will not prevent the marked area from being formed.\n* The heal can activate immediately after the projectile hits the target, before the healing return animation completes.\n{{Effect at cast time end}}\n* The heal will trigger and affect '''Rakan''' even if he is {{tip|untargetable}}.\n|yvideo       = cpcKa3EHtcM\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rakan/Gleaming Quill",
+          "revid": 3996425
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Gleaming Quill|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = Q\n|icon         = Gleaming Quill.png\n|blurb        = {{sbc|Active:}} {{ci|Rakan}} slings an enchanted feather in the target direction that deals {{as|magic damage}} to the first enemy hit.\n|blurb2       = If the feather hits an enemy {{tip|champion}} or epic {{tip|monster}}, '''Rakan''' winds up a circular mark around him over a few seconds. When the mark completes, Rakan {{tip|heal|heals}} himself.\n|blurb3       = If '''Rakan''' collides with an allied champion, the mark instantly completes to grant an increased heal to all champions within the circle.\n|description  = {{sbc|Active:}} '''Rakan''' slings an enchanted feather in the target direction that deals {{as|magic damage}} to the first enemy hit.\n|leveling     = {{st|Magic Damage|{{ap|70 to 250}} {{as|(+ 70% AP)}}}}\n|description2 = If the target was an enemy {{tip|champion}} or epic {{tip|monster}}, a radius is marked around '''Rakan'''. After 3 seconds or if an allied champion enters the radius, '''Rakan''' {{tip|heals}} himself and nearby allied champions for {{pp|40 + (210-40)*(x-1)/17|1 to 20 by 1|color=heal}} {{as|(+ 55% AP)}}.\n|target range = 900\n|effect radius= 200\n|width        = {{tip|er|icononly=true}} 130\n|speed        = 1850\n|cooldown     = {{tt|{{ap|11 to 7}}|Starts once the projectile vanishes}}\n|cdstart      = post-effect\n|cast time    = {{fd|0.25}}\n|cost         = 45\n|costtype     = Mana\n|targeting    = Direction\n|affects      = Enemies / Allies\n|damagetype   = Magic\n|spelleffects = spell\n|spellshield  = Special\n|projectile   = True\n|notes        = \n* The trigger radius is slightly smaller than the heal radius.\n* {{tip|Spell shield}} will not prevent the marked area from being formed.\n* The heal can activate immediately after the projectile hits the target, before the healing return animation completes.\n{{Effect at cast time end}}\n* The heal will trigger and affect '''Rakan''' even if he is {{tip|untargetable}}.\n|yvideo       = cpcKa3EHtcM\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanQAbility/RakanQ",
+        "text": [
+          "{\"ObjectName\":\"RakanQ\",\"objectPath\":\"Characters/Rakan/Spells/RakanQAbility/RakanQ\",\"mScriptName\":\"RakanQ\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mSpellTags\":[\"PositiveEffect_Boon\",\"Trait_DamageAbility\",\"Trait_ActiveHeal\",\"Trait_Ranged_StopsFirstHit\"],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[25.0,70.0,115.0,160.0,205.0,250.0,295.0],\"__type\":\"SpellDataValue\"},{\"name\":\"HealDelay\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseCDActual\",\"values\":[12.0,11.0,10.0,9.0,8.0,7.0,6.0],\"__type\":\"SpellDataValue\"},{\"name\":\"DamageAPRatio\",\"values\":[0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071],\"__type\":\"SpellDataValue\"},{\"name\":\"HealAPRatio\",\"values\":[0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929],\"__type\":\"SpellDataValue\"}],\"DataValuesModeOverride\":{\"cherry\":{\"SpellDataValues\":[{\"name\":\"DamageAPRatio\",\"values\":[0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929,0.800000011920929],\"__type\":\"SpellDataValue\"},{\"name\":\"HealAPRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamage\",\"values\":[50.0,95.0,140.0,185.0,230.0,275.0,320.0],\"__type\":\"SpellDataValue\"}],\"__type\":\"SpellDataValueVector\"}},\"mSpellCalculations\":{\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mDataValue\":\"DamageAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"TotalHeal\":{\"mFormulaParts\":[{\"mStartValue\":40.0,\"mEndValue\":210.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"},{\"mDataValue\":\"HealAPRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"{b88e1204}\":{\"mFormulaParts\":[{\"mPart1\":{\"mDataValue\":\"BaseCDActual\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"__type\":\"CooldownMultiplierCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mAnimationName\":\"Spell1\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_Q.dds\"],\"mCastTime\":0.25,\"spellCastTime\":0.25,\"spellTotalTime\":1.0,\"cooldownTime\":[11.0,11.0,10.0,9.0,8.0,7.0,6.0],\"Cooldown\":{\"values\":[11.0,11.0,10.0,9.0,8.0,7.0,6.0],\"__type\":\"{0a0eddc9}\"},\"mAmmoUsed\":[0,0,0,0,0,0,0],\"mAmmoNotAffectedByCDR\":true,\"mAmmoCountHiddenInUI\":true,\"mCantCancelWhileWindingUp\":true,\"useAnimatorFramerate\":true,\"bIsToggleSpell\":true,\"mIgnoreRangeCheck\":true,\"mPingableWhileDisabled\":true,\"mDoesNotConsumeCooldown\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[850.0,850.0,850.0,850.0,850.0,850.0,850.0],\"castRadius\":[175.0,175.0,175.0,175.0,175.0,175.0,175.0],\"castRadiusSecondary\":[300.0,300.0,300.0,300.0,300.0,300.0,300.0],\"missileSpeed\":1850.0,\"mLineWidth\":65.0,\"mFloatVarsDecimals\":[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"mana\":[45.0,45.0,45.0,45.0,45.0,45.0],\"manaValues\":{\"values\":[45.0,45.0,45.0,45.0,45.0,45.0],\"{0a3e0478}\":45.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RakanQ\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RakanQ_Name\",\"keySummary\":\"Spell_RakanQ_Summary\",\"keyTooltip\":\"Spell_RakanQ_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"typeIndex\":1,\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"typeIndex\":5,\"nameOverride\":\"Spell_ListType_Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":8,\"EffectCalculation\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalHeal\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":32768,\"EffectCalculation\":{\"mFormulaParts\":[{\"mNumber\":65.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"{38382c53}\":[{\"{e38f54f7}\":1,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanQAbility/RakanQMis",
+        "text": [
+          "{\"ObjectName\":\"RakanQMis\",\"objectPath\":\"Characters/Rakan/Spells/RakanQAbility/RakanQMis\",\"mScriptName\":\"RakanQMis\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mEffectAmount\":[{\"value\":[40.0,60.0,80.0,100.0,120.0,140.0,160.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[-0.05000000074505806,-0.10000000149011612,-0.15000000596046448,-0.20000000298023224,-0.25,-0.30000001192092896,-0.3499999940395355],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.4000000059604645,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_Q.dds\"],\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"mCantCancelWhileWindingUp\":true,\"castRange\":[900.0,900.0,900.0,900.0,900.0,900.0,900.0],\"castRangeValues\":{\"values\":[900.0,900.0,900.0,900.0,900.0,900.0,900.0],\"{0a3e0478}\":900.0,\"__type\":\"{0a0eddc9}\"},\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"mMissileSpec\":{\"mMissileWidth\":65.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"{03046674}\":true,\"mTracksTarget\":false,\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mProjectTargetToCastRange\":true,\"mSpeed\":1850.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"},\"mCastType\":3,\"missileSpeed\":1850.0,\"mMissileEffectKey\":\"Rakan_Q_mis\",\"mLineWidth\":65.0,\"mTargetingTypeData\":{\"__type\":\"Location\"},\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rakan",
+    "kind": "R",
+    "name": "The Quickness",
+    "page": {
+      "title": "Template:Data Rakan/The Quickness",
+      "revid": 3971183
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "130 / 110 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                130,
+                110,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rakan breaks into a captivating sprint for 4 seconds, gaining ghosting and 75% bonus movement speed for the duration. During this time, he deals magic damage to enemies he collides with and charms and slows them by 75% for a duration. This cannot affect the same enemy more than once.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 200 / 300 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  200,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Disable Duration",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Rakan breaks into a captivating sprint for 4 seconds, gaining ghosting and 75% bonus movement speed for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "charm",
+            "category": "control",
+            "wording": "charms",
+            "evidence": "During this time, he deals magic damage to enemies he collides with and charms and slows them by 75% for a duration.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 75
+            },
+            "evidence": "During this time, he deals magic damage to enemies he collides with and charms and slows them by 75% for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Colliding with an enemy champion extends The Quickness' duration by 0.25 seconds, which can occur once per champion. When Rakan collides with his first enemy champion, he gains an additional 75% bonus movement speed that decays after 0.5 seconds by 20% every 0.5 seconds, then by 15% after decaying by 60% over 1.5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "During The Quickness, Rakan cannot basic attack enemy champions he did not collide with, unless the attack command was inputted before the ability was activated.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The following table refers for interactions while Rakan is in cast time:",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|The Quickness|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = R\n|icon         = The Quickness.png\n|blurb        = {{sbc|Active:}} {{ci|Rakan}} breaks into a captivating sprint, becoming {{tip|ghosted}} and gaining {{sti|ms|{{as|'''bonus''' movement speed}}}} for a few seconds. '''Rakan''' deals {{as|magic damage}} to enemies he touches, briefly {{tip|charm|charming}} and {{tip|slow|slowing}} them.\n|blurb2       = Unique enemy {{tip|champion}} collisions slightly extend ''The Quickness' ''duration. The first enemy {{tip|champion|champion}} '''Rakan''' touches also grants him a burst of {{sti|ms|{{as|'''bonus''' movement speed}}}}.\n|description  = {{sbc|Active:}} '''Rakan''' breaks into a captivating sprint for 4 seconds, gaining {{tip|ghosting}} and {{sti|ms|{{as|75% '''bonus''' movement speed}}}} for the duration. During this time, he deals {{as|magic damage}} to enemies he collides with and {{tip|charm|charms}} and {{tip|slow|slows}} them by 75% for a duration. This cannot affect the same enemy more than once. \n|leveling    = {{st|Magic Damage|{{ap|100 to 300}} {{as|(+ 50% AP)}}}}\n{{st|Disable Duration|{{ap|1 to 1.5}} seconds}}\n|description2  = Colliding with an enemy {{tip|champion}} extends ''The Quickness' ''duration by {{fd|0.25}} seconds, which can occur once per champion. When '''Rakan''' collides with his first enemy champion, he gains an additional {{as|75% '''bonus''' movement speed}} that decays after {{fd|0.5}} seconds by 20% every {{fd|0.5}} seconds, then by 15% after decaying by 60% over {{fd|1.5}} seconds.\n|description4 = ''During The Quickness, '''Rakan''' cannot basic attack enemy champions he did not collide with, unless the attack command was inputted before the ability was activated.''\n|collision radius= 150\n|cooldown     = {{ap|130 to 90}}\n|cdstart      = on-cast\n|cost         = 100\n|costtype     = Mana\n|targeting    = Auto\n|cast time    = 0.5\n|affects      = Self, Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshield  = True\n|grounded     = \n|knockdown    = \n|notes        =\n* The following table refers for interactions while '''Rakan''' is in cast time:\n{{ct|cast|attack=true|cast=[[File: Grand Entrance.png|20px|link=]] ''Grand Entrance'' is disabled but can still be buffered. [[File: Gleaming Quill.png|20px|link=]] ''Gleaming Quill'' and [[File: Battle Dance.png|20px|link=]] ''Battle Dance'' are usable.|move=true|items=true|consume=true|spells=true,false,true,true,true}}\n|yvideo       = Jjeix7M4CSw\n|flavorsound  = {{sm2|Rakan_Original_R_0.ogg}} ''\"Party starter!\"''\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rakan/The Quickness",
+          "revid": 3971183
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|The Quickness|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = R\n|icon         = The Quickness.png\n|blurb        = {{sbc|Active:}} {{ci|Rakan}} breaks into a captivating sprint, becoming {{tip|ghosted}} and gaining {{sti|ms|{{as|'''bonus''' movement speed}}}} for a few seconds. '''Rakan''' deals {{as|magic damage}} to enemies he touches, briefly {{tip|charm|charming}} and {{tip|slow|slowing}} them.\n|blurb2       = Unique enemy {{tip|champion}} collisions slightly extend ''The Quickness' ''duration. The first enemy {{tip|champion|champion}} '''Rakan''' touches also grants him a burst of {{sti|ms|{{as|'''bonus''' movement speed}}}}.\n|description  = {{sbc|Active:}} '''Rakan''' breaks into a captivating sprint for 4 seconds, gaining {{tip|ghosting}} and {{sti|ms|{{as|75% '''bonus''' movement speed}}}} for the duration. During this time, he deals {{as|magic damage}} to enemies he collides with and {{tip|charm|charms}} and {{tip|slow|slows}} them by 75% for a duration. This cannot affect the same enemy more than once. \n|leveling    = {{st|Magic Damage|{{ap|100 to 300}} {{as|(+ 50% AP)}}}}\n{{st|Disable Duration|{{ap|1 to 1.5}} seconds}}\n|description2  = Colliding with an enemy {{tip|champion}} extends ''The Quickness' ''duration by {{fd|0.25}} seconds, which can occur once per champion. When '''Rakan''' collides with his first enemy champion, he gains an additional {{as|75% '''bonus''' movement speed}} that decays after {{fd|0.5}} seconds by 20% every {{fd|0.5}} seconds, then by 15% after decaying by 60% over {{fd|1.5}} seconds.\n|description4 = ''During The Quickness, '''Rakan''' cannot basic attack enemy champions he did not collide with, unless the attack command was inputted before the ability was activated.''\n|collision radius= 150\n|cooldown     = {{ap|130 to 90}}\n|cdstart      = on-cast\n|cost         = 100\n|costtype     = Mana\n|targeting    = Auto\n|cast time    = 0.5\n|affects      = Self, Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshield  = True\n|grounded     = \n|knockdown    = \n|notes        =\n* The following table refers for interactions while '''Rakan''' is in cast time:\n{{ct|cast|attack=true|cast=[[File: Grand Entrance.png|20px|link=]] ''Grand Entrance'' is disabled but can still be buffered. [[File: Gleaming Quill.png|20px|link=]] ''Gleaming Quill'' and [[File: Battle Dance.png|20px|link=]] ''Battle Dance'' are usable.|move=true|items=true|consume=true|spells=true,false,true,true,true}}\n|yvideo       = Jjeix7M4CSw\n|flavorsound  = {{sm2|Rakan_Original_R_0.ogg}} ''\"Party starter!\"''\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanRAbility/RakanR",
+        "text": [
+          "{\"ObjectName\":\"RakanR\",\"objectPath\":\"Characters/Rakan/Spells/RakanRAbility/RakanR\",\"mScriptName\":\"RakanR\",\"mSpell\":{\"flags\":20,\"mAffectsTypeFlags\":9221,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mPlatformSpellInfo\":{\"mAvatarLevelRequired\":1,\"mSpellID\":6,\"mPlatformEnabled\":true,\"__type\":\"PlatformSpellInfo\"},\"mSpellTags\":[\"Trait_Ultimate\",\"Trait_ImmobilizingCCSpell\",\"Trait_DamageAbility\",\"Trait_AoE\"],\"mEffectAmount\":[{\"value\":[100.0,100.0,200.0,300.0,0.0,0.0,0.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[1.0,1.0,1.25,1.5,0.0,0.0,0.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],\"__type\":\"SpellEffectAmount\"},{\"value\":[75.0,75.0,75.0,75.0,75.0,75.0,75.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[130.0,130.0,110.0,90.0,0.0,0.0,0.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[100.0,100.0,200.0,300.0,0.0,0.0,0.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Duration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"},{\"name\":\"CharmDuration\",\"values\":[1.0,1.0,1.25,1.5,0.0,0.0,0.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BuffExtensionDuration\",\"values\":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],\"__type\":\"SpellDataValue\"},{\"name\":\"InitialCastSpeed\",\"values\":[75.0,75.0,75.0,75.0,75.0,75.0,75.0],\"__type\":\"SpellDataValue\"},{\"name\":\"TouchSpeed\",\"values\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"__type\":\"SpellDataValue\"},{\"name\":\"TouchRadius\",\"values\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalDamageTooltip\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.5,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mCoefficient\":0.5,\"mAnimationName\":\"\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_R.dds\",\"Rakan_R_Cancel.dds\"],\"spellCastTime\":0.25,\"cooldownTime\":[130.0,130.0,110.0,90.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[130.0,130.0,110.0,90.0,0.0,0.0,0.0],\"__type\":\"{0a0eddc9}\"},\"mAmmoUsed\":[0,0,0,0,0,0,0],\"mAmmoNotAffectedByCDR\":true,\"mAmmoCountHiddenInUI\":true,\"mCantCancelWhileWindingUp\":true,\"bIsToggleSpell\":true,\"castRange\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"castRangeValues\":{\"values\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"{0a3e0478}\":150.0,\"__type\":\"{0a0eddc9}\"},\"castConeDistance\":100.0,\"castFrame\":25.0,\"missileSpeed\":0.0,\"mana\":[100.0,100.0,100.0,100.0,100.0,100.0],\"manaValues\":{\"values\":[100.0,100.0,100.0,100.0,100.0,100.0],\"{0a3e0478}\":100.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RakanR\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RakanR_Name\",\"keySummary\":\"Spell_RakanR_Summary\",\"keyTooltip\":\"Spell_RakanR_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":3,\"Elements\":[{\"type\":\"CharmDuration\",\"nameOverride\":\"Spell_ListType_CharmDuration\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"BaseDamage\",\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"__type\":\"TargeterDefinitionRange\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"mBuff\":{\"mDescription\":\"game_buff_tooltip_RakanR\",\"__type\":\"BuffData\"},\"BotData\":{\"{38382c53}\":[{\"{e38f54f7}\":1,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4096,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":2048,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":4,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":1024,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"},{\"{e38f54f7}\":8192,\"{0717e686}\":false,\"__type\":\"{150d1b92}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  },
+  {
+    "champion": "Rakan",
+    "kind": "W",
+    "name": "Grand Entrance",
+    "page": {
+      "title": "Template:Data Rakan/Grand Entrance",
+      "revid": 4007760
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50 / 60 / 70 / 80 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                60,
+                70,
+                80,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "Maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "275",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rakan dashes to the target location. After a 0.35-second delay upon arrival, he deals magic damage to nearby enemies and knocks them up for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 120 / 170 / 220 / 270 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  120,
+                  170,
+                  220,
+                  270
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Rakan dashes to the target location.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "After a 0.35-second delay upon arrival, he deals magic damage to nearby enemies and knocks them up for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rakan will be knocked down by any immobilizing or polymorphing crowd control during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocked down",
+            "evidence": "Rakan will be knocked down by any immobilizing or polymorphing crowd control during the dash.",
+            "conditional": true
+          },
+          {
+            "type": "polymorph",
+            "category": "control",
+            "wording": "polymorphing",
+            "evidence": "Rakan will be knocked down by any immobilizing or polymorphing crowd control during the dash.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Grand Entrance has no minimum dash range.",
+      "Sleep does not count for knocking the dash down.",
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Grand Entrance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = W\n|icon         = Grand Entrance.png\n|blurb        = {{sbc|Active:}} {{ci|Rakan}} {{tip|dashes}} to the target location.\n|blurb2       = After a brief delay, he deals {{as|magic damage}} and briefly {{tip|airborne|knocks up}} nearby enemies.\n|description  = {{sbc|Active:}} '''Rakan''' {{tip|dashes}} to the target location. After a {{fd|0.35}}-second delay upon arrival, he deals {{as|magic damage}} to nearby enemies and {{tip|airborne|knocks them up}} for 1 second.\n|leveling     = {{st|Magic Damage|{{ap|70 to 270}} {{as|(+ 80% AP)}}}}\n|description2 = '''''Rakan''' will be {{tip|knockdown|knocked down}} by any {{tip|immobilize|immobilizing}} or {{tip|polymorph|polymorphing}} crowd control during the dash.''\n|target range = {{tt|650|Maximum dash distance}}\n|effect radius= 275\n|cast time = none\n|speed        = 1700\n|cooldown     = {{ap|14 to 10}}\n|cdstart      = on-cast\n|cost         = {{ap|50 to 90}}\n|costtype     = Mana\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshield  = True\n|grounded     = True\n|knockdown    = True\n|outofrange   = cast at max\n|notes        = \n* ''Grand Entrance'' has no minimum dash range.\n* {{tip|Sleep}} does not count for knocking the dash down.{{bug}}\n|yvideo       = ddC8dxtbx8g\n}}"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Rakan/Grand Entrance",
+          "revid": 4007760
+        },
+        "text": [
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Grand Entrance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Rakan\n|skill        = W\n|icon         = Grand Entrance.png\n|blurb        = {{sbc|Active:}} {{ci|Rakan}} {{tip|dashes}} to the target location.\n|blurb2       = After a brief delay, he deals {{as|magic damage}} and briefly {{tip|airborne|knocks up}} nearby enemies.\n|description  = {{sbc|Active:}} '''Rakan''' {{tip|dashes}} to the target location. After a {{fd|0.35}}-second delay upon arrival, he deals {{as|magic damage}} to nearby enemies and {{tip|airborne|knocks them up}} for 1 second.\n|leveling     = {{st|Magic Damage|{{ap|70 to 270}} {{as|(+ 80% AP)}}}}\n|description2 = '''''Rakan''' will be {{tip|knockdown|knocked down}} by any {{tip|immobilize|immobilizing}} or {{tip|polymorph|polymorphing}} crowd control during the dash.''\n|target range = {{tt|650|Maximum dash distance}}\n|effect radius= 275\n|cast time = none\n|speed        = 1700\n|cooldown     = {{ap|14 to 10}}\n|cdstart      = on-cast\n|cost         = {{ap|50 to 90}}\n|costtype     = Mana\n|targeting    = Location\n|affects      = Enemies\n|damagetype   = Magic\n|spelleffects = spellaoe\n|spellshield  = True\n|grounded     = True\n|knockdown    = True\n|outofrange   = cast at max\n|notes        = \n* ''Grand Entrance'' has no minimum dash range.\n* {{tip|Sleep}} does not count for knocking the dash down.{{bug}}\n|yvideo       = ddC8dxtbx8g\n}}"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanWAbility/RakanW",
+        "text": [
+          "{\"ObjectName\":\"RakanW\",\"objectPath\":\"Characters/Rakan/Spells/RakanWAbility/RakanW\",\"mScriptName\":\"RakanW\",\"mSpell\":{\"mAffectsTypeFlags\":6154,\"mSpellTags\":[\"PositiveEffect_MoveBlock\",\"Trait_ImmobilizingCCSpell\",\"Trait_PlayerSelectedDashDirection\",\"Trait_DamageAbility\",\"Trait_SignatureSpell\",\"Trait_Target_Area\",\"Trait_AoE\"],\"mEffectAmount\":[{\"value\":[70.0,70.0,120.0,170.0,220.0,270.0,320.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"value\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"DataValues\":[{\"name\":\"BasicBootsSpeedBonus\",\"__type\":\"SpellDataValue\"},{\"name\":\"CompletedBootsSpeedBonus\",\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDashSpeed\",\"values\":[1700.0,1700.0,1700.0,1700.0,1700.0,1700.0,1700.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamage\",\"values\":[20.0,70.0,120.0,170.0,220.0,270.0,320.0],\"__type\":\"SpellDataValue\"},{\"name\":\"KnockupDuration\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mCoefficient\":0.800000011920929,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mCoefficient\":0.699999988079071,\"mAnimationName\":\"Idle1\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_W.dds\"],\"spellCastTime\":0.0,\"spellTotalTime\":1.0,\"cooldownTime\":[14.0,14.0,13.0,12.0,11.0,10.0,10.0],\"Cooldown\":{\"values\":[14.0,14.0,13.0,12.0,11.0,10.0,10.0],\"__type\":\"{0a0eddc9}\"},\"mAmmoUsed\":[0,0,0,0,0,0,0],\"cantCastWhileRooted\":true,\"mSpellRevealsChampion\":false,\"mShowChannelBar\":false,\"mIgnoreRangeCheck\":true,\"castRange\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"castRangeValues\":{\"values\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"{0a3e0478}\":650.0,\"__type\":\"{0a0eddc9}\"},\"castRangeDisplayOverride\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRadius\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"castRadiusSecondary\":[275.0,275.0,275.0,275.0,275.0,275.0,275.0],\"castConeAngle\":0.0,\"castConeDistance\":0.0,\"castFrame\":5.170000076293945,\"missileSpeed\":0.0,\"mFloatVarsDecimals\":[2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2],\"mana\":[50.0,60.0,70.0,80.0,90.0,100.0],\"manaValues\":{\"values\":[50.0,60.0,70.0,80.0,90.0,100.0],\"{0a3e0478}\":50.0,\"__type\":\"{630af303}\"},\"mTargetingTypeData\":{\"__type\":\"Location\"},\"mCastingBreaksStealth\":true,\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"RakanW\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_RakanW_Name\",\"keySummary\":\"Spell_RakanW_Summary\",\"keyTooltip\":\"Spell_RakanW_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"BaseDamage\",\"nameOverride\":\"Spell_ListType_Damage\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"nameOverride\":\"Spell_ListType_Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"BaseCost\",\"nameOverride\":\"Spell_ListType_ManaCost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"overrideBaseRange\":{\"mPerLevelValues\":[650.0,650.0,650.0,650.0,650.0,650.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"isConstrainedToRange\":true,\"constraintRange\":{\"mPerLevelValues\":[650.0,650.0,650.0,650.0,650.0,650.0],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"overrideRadius\":{\"mPerLevelValues\":[275.0,275.0,275.0,275.0,275.0,275.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionAoe\"}],\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"},\"BotData\":{\"DamageTag\":1,\"{6d548702}\":{\"mFormulaParts\":[{\"mSpellCalculationKey\":\"TotalDamage\",\"__type\":\"{f3cbe7b2}\"}],\"__type\":\"GameCalculation\"},\"{ec17e271}\":[{\"EffectTag\":128,\"EffectCalculation\":{\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"},{\"EffectTag\":16777216,\"EffectCalculation\":{\"mFormulaParts\":[{\"mDataValue\":\"KnockupDuration\",\"__type\":\"NamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"__type\":\"{b09016f6}\"}],\"__type\":\"BotsSpellData\"},\"__type\":\"SpellObject\"}"
+        ]
+      },
+      {
+        "version": "16.21.8342754+branch.releases-16-21.content.release",
+        "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json",
+        "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+        "object": "Characters/Rakan/Spells/RakanWAbility/RakanWCast",
+        "text": [
+          "{\"ObjectName\":\"RakanWCast\",\"objectPath\":\"Characters/Rakan/Spells/RakanWAbility/RakanWCast\",\"mScriptName\":\"RakanWCast\",\"mSpell\":{\"flags\":32,\"mAffectsTypeFlags\":9221,\"mRequiredUnitTags\":{\"mObjectTagList\":[\"{ea595ca6}\"],\"__type\":\"ObjectTags\"},\"mEffectAmount\":[{\"value\":[20.0,50.0,80.0,110.0,140.0,170.0,200.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[2.25,2.25,2.25,2.25,2.25,2.25,2.25],\"__type\":\"SpellEffectAmount\"},{\"value\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[60.0,80.0,100.0,120.0,140.0,160.0,180.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"mCoefficient\":0.5,\"mCoefficient2\":0.017999999225139618,\"mAnimationName\":\"Idle1\",\"mImgIconName\":[\"ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_W.dds\"],\"mCastTime\":0.3499999940395355,\"spellCastTime\":0.3499999940395355,\"spellTotalTime\":0.3500000238418579,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"canCastWhileDisabled\":true,\"canCastOrQueueWhileCasting\":true,\"mCantCancelWhileWindingUp\":true,\"mSpellRevealsChampion\":false,\"mDisableCastBar\":true,\"mDoNotNeedToFaceTarget\":true,\"castRange\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"castRangeValues\":{\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"{0a3e0478}\":600.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[285.0,285.0,285.0,285.0,285.0,285.0,285.0],\"castConeDistance\":100.0,\"castFrame\":7.5,\"missileSpeed\":0.0,\"mTargetingTypeData\":{\"__type\":\"Self\"},\"mCastingBreaksStealth\":true,\"__type\":\"SpellDataResource\"},\"__type\":\"SpellObject\"}"
+        ]
+      }
+    ]
+  }
+]

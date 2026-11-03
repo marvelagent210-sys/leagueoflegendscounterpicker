@@ -1,0 +1,501 @@
+{
+  "champion": "Briar",
+  "name": "Briar",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "briar",
+      "formName": "Briar",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.907118,
+      "attackDamage": 109.163,
+      "windup": 0.212954,
+      "modifiers": [
+        "Crimson Curse"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Briar",
+      "kind": "E",
+      "name": "Chilling Scream",
+      "page": {
+        "title": "Template:Data Briar/Chilling Scream",
+        "revid": 4007450
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "disruptable": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Briar/Chilling Scream",
+              "revid": 4007450,
+              "quote": "If Chilling Scream was charged for its full duration, enemies hit are also knocked back 575 units."
+            }
+          ],
+          "variant": "knock back",
+          "condition": "If Chilling Scream was charged for its full duration, enemies hit are also knocked back 575 units."
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Briar/Chilling Scream",
+              "revid": 4007450,
+              "quote": "Recast: Briar unleashes the scream in the direction she targeted at the time of cast, dealing magic damage to enemies hit and slowing them by 80% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 80
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Briar/Chilling Scream",
+              "revid": 4007450,
+              "quote": "If they collide with terrain, they will rebound to take bonus magic damage and become knocked up for 0.5 seconds and stunned for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "condition": "If they collide with terrain, they will rebound to take bonus magic damage and become knocked up for 0.5 seconds and stunned for 1.5 seconds."
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Briar/Chilling Scream",
+              "revid": 4007450,
+              "quote": "Active: Briar prepares to unleash a scream in the target direction, charging for up to 1 second, during which she increases Chilling Scream's damage and range, and gains 35% damage reduction and heals herself every 0.25 seconds."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "cooldown": 16,
+      "castTime": 0.15,
+      "range": 100,
+      "speed": 1900,
+      "channel": [
+        {
+          "type": "uninterruptible",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "uninterruptible"
+            }
+          ]
+        },
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The following table refers for interactions while Briar is channeling:"
+      ]
+    },
+    {
+      "champion": "Briar",
+      "kind": "I",
+      "name": "Crimson Curse",
+      "page": {
+        "title": "Template:Data Briar/Crimson Curse",
+        "revid": 4038287
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Briar/Crimson Curse",
+              "revid": 4038287,
+              "quote": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+            },
+            {
+              "page": "Template:Data Briar/Crimson Curse",
+              "revid": 4038287,
+              "quote": "Briar has no base health regeneration, but she increases healing from all sources by 0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 (based on missing health)% (+ 0 / 0.25 / 0.5 / 0.75 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 (based on missing health)% per 100 bonus health)."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The bleed always heals Briar for 25% of the pre-mitigation damage dealt.\n  - Because of this, Briar will not heal on invulnerable targets."
+      ]
+    },
+    {
+      "champion": "Briar",
+      "kind": "Q",
+      "name": "Head Rush",
+      "page": {
+        "title": "Template:Data Briar/Head Rush",
+        "revid": 3989856
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Briar/Head Rush",
+              "revid": 3989856,
+              "quote": "If the target is an enemy, she deals physical damage, applies on-hit effects, triggers on-attack effects, stuns them for 0.85 seconds, and reduces their armor and magic resistance for 5 seconds."
+            }
+          ],
+          "duration": 0.85,
+          "condition": "If the target is an enemy, she deals physical damage, applies on-hit effects, triggers on-attack effects, stuns them for 0.85 seconds, and reduces their armor and magic resistance for 5 seconds."
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 475,
+      "speed": 600,
+      "boostsAttacks": true,
+      "notes": [
+        "Head Rush is a non-following dash.\n  - It picks its dash destination ~100 units in front of enemy targets, 75 units in front of enemy targets when already very close to them, 75 units in front of allied targets.\n  - If already within 75 units of her target, she dashes to her current location, which takes 0 time but still triggers dash effects such as Sudden Impact."
+      ]
+    },
+    {
+      "champion": "Briar",
+      "kind": "R",
+      "name": "Certain Death",
+      "page": {
+        "title": "Template:Data Briar/Certain Death",
+        "revid": 4051322
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "disrupt",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "disrupt"
+            }
+          ]
+        },
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Briar/Certain Death",
+              "revid": 4051322,
+              "quote": "Upon arrival, she creates an explosion around the marked target that deals magic damage to them and nearby enemies and fears all non-marked targets for 1.5 seconds, during which they are slowed by 35%."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Briar/Certain Death",
+              "revid": 4051322,
+              "quote": "Upon arrival, she creates an explosion around the marked target that deals magic damage to them and nearby enemies and fears all non-marked targets for 1.5 seconds, during which they are slowed by 35%."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 35
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted; (second cast)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(second cast)",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "airborne",
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Briar/Certain Death",
+              "revid": 4051322,
+              "quote": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity."
+            }
+          ]
+        },
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Briar/Certain Death",
+              "revid": 4051322,
+              "quote": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity."
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Briar/Certain Death",
+              "revid": 4051322,
+              "quote": "Hematomania: Briar gains all effects of Blood Frenzy as well as bonus armor and bonus magic resistance equal to 20% AD, life steal, and additional bonus movement speed."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 1,
+      "range": 12000,
+      "speed": 2000,
+      "notes": [
+        "The dash is considered an ability activation for the purposes of Sheen and Force Pulse.",
+        "Briar will track the target with the dash if they change locations.\n  - She will not stop tracking the target until she reaches them, as there is no maximum tracking distance.",
+        "Briar lands 100 units in front of her target at the end of the dash.",
+        "Briar will not initiate the second cast if she is being suppressed, is under resurrection, or is in the Realm of Death when her target is hit by the missile in the normal realm.\n  - Since Certain Death cleanses herself from all crowd control when the first cast hits, she will be able to start the second cast due to removing the suppression effect.",
+        "Briar will still dash to the target even if they die before she reaches them.",
+        "Briar will transition from having total crowd control immunity during the cast time of the dash, to having displacement immunity during the dash.",
+        "Briar will place herself onto the ground and interrupt displacements affecting her upon starting the second cast time.",
+        "Starting the second cast interrupts any spells that Briar is channeling.",
+        "Casting Blood Frenzy during Hematomania will not grant any additional bonuses nor will it override Hematomania's effects.\n  - Gaining Hematomania while Blood Frenzy is active will override the previous buff.\n  - Casting Blood Frenzy during Hematomania does allow the use of Snack Attack. However, both Blood Frenzys effects and the ability to use Snack Attack are immediately interrupted upon exiting Hematomania.",
+        "The disrupt is 'wrapped' into a status effect that causes the affected champion to display the \"Silenced\" UI on their health bar for 0.25 seconds, without actually applying the disabling effects of the silence crowd control type (functions as an indicator of the target becoming disrupted). This however ensures that the disrupt is also prevented by effects that would negate silences (such as crowd control immunity).",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Certain Death's initial cast time. If the missile hits a target, the buff's duration is refreshed at the end of the dash.",
+        "The following table refers for interactions while Briar is dashing:"
+      ]
+    },
+    {
+      "champion": "Briar",
+      "kind": "W",
+      "name": "Blood Frenzy",
+      "page": {
+        "title": "Template:Data Briar/Blood Frenzy",
+        "revid": 4072099
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 75,
+      "speed": 1200,
+      "boostsAttacks": true,
+      "notes": [
+        "Blood Frenzy acquires targets regardless of if they are visible or not.\n  - This does not apply to stealthed targets.\n  - It cannot acquire wards, jungle plants, or structures however.",
+        "The target priority shift from casting Q on a minion or monster will occur even if the dash is interrupted.",
+        "The following table refers for interactions while Briar is in her frenzy:\n  - While in the frenzy, Briar cannot control her movement nor declare who she attacks. She will automatically acquire a nearby enemy as her attack target based on a priority system, becoming forced to basic attack the target and consequently move into her attack range of them to do so.\n    - Disarming crowd control as well as any other lockout that would disable basic attacking will disable the forced attacks.\n    - Forced action crowd control will cause her forced attacks to be either overridden or disabled, depending on the actions being forced by the debuff."
+      ]
+    },
+    {
+      "champion": "Briar",
+      "kind": "W",
+      "name": "Snack Attack",
+      "page": {
+        "title": "Template:Data Briar/Snack Attack",
+        "revid": 4015000
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Briar/Snack Attack",
+              "revid": 4015000,
+              "quote": "Active: Briar empowers her next basic attack within 5 seconds during Blood Frenzy to take a bite out of the target enemy, gaining 50 bonus range, dealing bonus physical damage and healing her for 5% of her maximum health plus a percentage of the post-mitigation damage dealt."
+            }
+          ]
+        }
+      ],
+      "castTime": 0,
+      "boostsAttacks": true
+    }
+  ]
+}

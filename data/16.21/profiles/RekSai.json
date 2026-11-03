@@ -1,0 +1,360 @@
+{
+  "champion": "RekSai",
+  "name": "Rek'Sai",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "rek-sai",
+      "formName": "Rek'Sai",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.929331,
+      "attackDamage": 120.995,
+      "windup": 0.249065,
+      "modifiers": [
+        "Fury of the Xer'Sai"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "RekSai",
+      "kind": "E",
+      "name": "Furious Bite",
+      "page": {
+        "title": "Template:Data Rek'Sai/Furious Bite",
+        "revid": 4034704
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 225,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "RekSai",
+      "kind": "E",
+      "name": "Tunnel",
+      "page": {
+        "title": "Template:Data Rek'Sai/Tunnel",
+        "revid": 4007778
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "auto-targeted; (when clicking an existing tunnel)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when clicking an existing tunnel)",
+          "interruptible": true
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "direction-targeted; (when creating a tunnel)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(when creating a tunnel)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0,
+      "range": 850,
+      "speed": 500,
+      "notes": [
+        "Rek'Sai will dash to the Tunnel's selected entrance before entering it only if she is not close enough to it already. If she is on top of the entrance, she will initiate the dash through the Tunnel instantly after selecting it.\n  - If she selects an entrance while Un-Burrowed, her dash toward it will last a fixed 0.6 seconds instead of the normal dash speed.",
+        "Tunnel entrances are visible on allied champions' minimaps, while enemies must first gain sight of one before it becomes visible on theirs (the opposite entrance is not revealed).",
+        "Rek'Sai can Tunnel through terrain if she dashes close to them and the wall is thin enough to allow the opposite entrance to spawn on the other side.",
+        "If Rek'Sai issues an attack command while the dash passes by an enemy, the target will be knocked up but Rek'Sai will still complete the movement."
+      ]
+    },
+    {
+      "champion": "RekSai",
+      "kind": "I",
+      "name": "Fury of the Xer'Sai",
+      "page": {
+        "title": "Template:Data Rek'Sai/Fury of the Xer'Sai",
+        "revid": 4007776
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Rek'Sai/Fury of the Xer'Sai",
+              "revid": 4007776,
+              "quote": "When Rek'Sai becomes Burrowed, she consumes her current Fury over 3 seconds to heal for 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on Fury)% of 9 – 20 (based on level)% maximum health, stopping once fully consumed or she reaches full health."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Fury generation with parrying effects (blind, dodge, block)"
+      ]
+    },
+    {
+      "champion": "RekSai",
+      "kind": "Q",
+      "name": "Prey Seeker",
+      "page": {
+        "title": "Template:Data Rek'Sai/Prey Seeker",
+        "revid": 3961898
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.125,
+      "range": 1500,
+      "speed": 1950,
+      "notes": [
+        "Prey Seeker's effect radius is centered around the location of the missile as it collides."
+      ]
+    },
+    {
+      "champion": "RekSai",
+      "kind": "Q",
+      "name": "Queen's Wrath",
+      "page": {
+        "title": "Template:Data Rek'Sai/Queen's Wrath",
+        "revid": 3983369
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 2,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "When dodged or blocked, or if Rek'Sai is blinded, the damage dealt to the primary target is nullified, but the damage around her will still occur."
+      ]
+    },
+    {
+      "champion": "RekSai",
+      "kind": "R",
+      "name": "Void Rush",
+      "page": {
+        "title": "Template:Data Rek'Sai/Void Rush",
+        "revid": 4004938
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4091669,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": false
+        },
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Rek'Sai/Void Rush",
+              "revid": 4004938,
+              "quote": "Active: Rek'Sai singles out the target enemy champion Marked as Prey, becoming displacement immune and unable to act and vanishing into the ground, as well as revealing the target for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Rek'Sai/Void Rush",
+              "revid": 4004938,
+              "quote": "Active: Rek'Sai singles out the target enemy champion Marked as Prey, becoming displacement immune and unable to act and vanishing into the ground, as well as revealing the target for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 1500,
+      "speed": 1400,
+      "notes": [
+        "Rek'Sai will track the target if they change locations while dashing to them. Once she has started to dash through the target however, she will no longer track them.\n  - She will dash through the target's previous location without dealing damage if the target moves beyond 1750 units.",
+        "If the target moves 1000 or more units away right before being struck, they will not be dealt the damage.\n  - In this case, the target is displaced in the moment when Rek'Sai starts to dash through and prepares to strike them.",
+        "Void Rush will be cancelled and placed on a 5-second cooldown if the target dies or moves too far away during the cast time or while Rek'Sai is vanished, or if they are no longer in sight during the cast time.\n  - If the ability is cancelled while Rek'Sai is vanished, she will reappear and emerge from the ground without performing the dash once the 0.9-second delay has elapsed.\n  - If the ability is cancelled from losing sight of the target, Rek'Sai will not vanish into the ground after the cast time (but still becoming untargetable) and will remain in place while unable to act for 0.5 seconds.\n  - The ability will not be cancelled if the target becomes untargetable during the cast time or while Rek'Sai is vanished.\n    - She will still dash to the target even if they are untargetable.",
+        "Rek'Sai gains the displacement immunity from the start of the cast time, and loses it once her dash ends.",
+        "Void Rush will not deal damage if the target is untargetable by the time Rek'Sai reaches them."
+      ]
+    },
+    {
+      "champion": "RekSai",
+      "kind": "W",
+      "name": "Burrow",
+      "page": {
+        "title": "Template:Data Rek'Sai/Burrow",
+        "revid": 3980688
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0
+    },
+    {
+      "champion": "RekSai",
+      "kind": "W",
+      "name": "Unburrow",
+      "page": {
+        "title": "Template:Data Rek'Sai/Unburrow",
+        "revid": 4008007
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Rek'Sai/Unburrow",
+              "revid": 4008007,
+              "quote": "Active: Rek'Sai becomes Un-Burrowed, gaining access to her Un-Burrowed abilities and emerging from the ground to deal magic damage to nearby enemies and knock them up for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 1,
+      "castTime": 0
+    }
+  ]
+}

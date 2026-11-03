@@ -34,7 +34,7 @@ function hit(world: World, key: string) { const spell = ability(world, key); abi
 function shield(world: World) { applyEffect(world, world.units[1], world.units[1], { type: "state", state: "spellShield", duration: 5 }, { scale: 1 }); }
 const iced = (world: World) => world.units[1].statuses.find((status) => status.kind === "mark" && status.key === "aniviaIced");
 const storm = (world: World) => world.zones.find((zone) => zone.ability === "R" && zone.kind === "field");
-const prices = JSON.parse(readFileSync(new URL("../../data/16.20/rules.json", import.meta.url), "utf8")).statPrices as StatPrices;
+const prices = JSON.parse(readFileSync(new URL("../../data/16.21/rules.json", import.meta.url), "utf8")).statPrices as StatPrices;
 
 describe("Anivia audited source and finite metadata", () => {
   it("reads every pinned slot and states unresolved source geometry and clocks", () => {

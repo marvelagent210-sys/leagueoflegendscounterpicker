@@ -42,7 +42,7 @@ const qiyana: KitModule = {
     edge.quote("Gathering an Element with Terrashape resets Edge of Ixtal's cooldown and upgrades it into Elemental Wrath.");
     kit.assume("There is always River and Terrain near enough for Terrashape. Qiyana starts holding Terrain, and gathers River for its root while the enemy is above half health, Terrain for its bonus damage below; Brush's invisibility is left out.");
 
-    // Edge of Ixtal: a 525 slash for 200 (+ 90% bonus AD); Elemental Wrath hurls it 865, spending the Element.
+    // Edge of Ixtal: a 525 slash for 190 (+ 90% bonus AD) (26.21); Elemental Wrath hurls it 865, spending the Element.
     const blade = edge.formula("Physical Damage");
     const riverWords = "The blast roots enemies hit for 0.5 seconds, then slows them by 20% for 1 second.";
     const riverRoot = wrath.quoted(riverWords, 0);
