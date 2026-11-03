@@ -8,9 +8,10 @@
  * REFRESH_RECOMPUTE) take precedence over it. It names the dataset (the newest by default), the
  * matrices ("sim" for plain stats, "builds" for item builds; both by default), the champions
  * whose pairings are computed again whatever is stored, and optionally each matrix's shard
- * count. Without one, a matrix gets a shard per hour of computing on a four-core runner, at most
- * MAX_SHARDS. The plan goes to $GITHUB_OUTPUT and $GITHUB_STEP_SUMMARY when they are set, and
- * to stdout as JSON.
+ * count. The matrices without one share MAX_SHARDS shards: a shard per hour of computing on a
+ * four-core runner, at most MAX_SHARDS in all, split so that every shard has about as much to
+ * compute (`planShards`). The plan goes to $GITHUB_OUTPUT and $GITHUB_STEP_SUMMARY when they
+ * are set, and to stdout as JSON.
  */
 import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
@@ -27,7 +28,10 @@ export const SECONDS_PER_PAIRING: Readonly<Record<Matrix, number>> = { sim: 6.7,
 export const THREADS = 4;
 /** The computing a shard gets by default, well inside a job's six-hour limit. */
 export const TARGET_SECONDS = 3600;
-/** Shards per matrix by default: twenty jobs run at once on GitHub's free plan; more would queue. */
+/**
+ * Shards by default, all matrices together: twenty jobs run at once on GitHub's free plan, and
+ * more would queue (26.21's 25 shards made five wait up to 48 minutes for a runner).
+ */
 export const MAX_SHARDS = 20;
 /** GitHub runs at most 256 jobs from one matrix. */
 const MATRIX_LIMIT = 256;
@@ -85,6 +89,42 @@ export function shardCount(pending: number, secondsPerPairing: number, requested
   return Math.max(1, Math.min(wanted, pending, MATRIX_LIMIT));
 }
 
+/** What a matrix has to compute: its pending pairings and what one costs on average, in processor-seconds. */
+export interface MatrixWork {
+  pending: number;
+  secondsPerPairing: number;
+}
+
+/**
+ * Each matrix's shard count for one refresh. Requested counts stand (`shardCount`). The other
+ * matrices share the jobs that run at once: together they get a shard per TARGET_SECONDS of
+ * computing, at most MAX_SHARDS, and each shard beyond the first of each matrix goes to the
+ * matrix whose shards would otherwise run longest, so that they all end at about the same time.
+ * A matrix with pairings gets at least one shard, and no more shards than pairings.
+ */
+export function planShards(work: Partial<Record<Matrix, MatrixWork>>, requested: Partial<Record<Matrix, number>> = {}): Record<Matrix, number> {
+  const counts: Record<Matrix, number> = { sim: 0, builds: 0 };
+  const shared: Matrix[] = [];
+  for (const matrix of MATRICES) {
+    const pending = work[matrix]?.pending ?? 0;
+    if (pending <= 0) continue;
+    if (requested[matrix] !== undefined) counts[matrix] = shardCount(pending, work[matrix]!.secondsPerPairing, requested[matrix]);
+    else shared.push(matrix);
+  }
+  if (shared.length === 0) return counts;
+  const seconds = (matrix: Matrix) => work[matrix]!.pending * work[matrix]!.secondsPerPairing;
+  const total = shared.reduce((sum, matrix) => sum + seconds(matrix), 0);
+  const budget = Math.max(shared.length, Math.min(MAX_SHARDS, Math.ceil(total / (THREADS * TARGET_SECONDS))));
+  for (const matrix of shared) counts[matrix] = 1;
+  for (let given = shared.length; given < budget; given++) {
+    const open = shared.filter((matrix) => counts[matrix] < Math.min(work[matrix]!.pending, MATRIX_LIMIT));
+    if (open.length === 0) break;
+    const longest = open.reduce((a, b) => (seconds(b) / counts[b] > seconds(a) / counts[a] ? b : a));
+    counts[longest] += 1;
+  }
+  return counts;
+}
+
 interface MatrixPlan {
   pairings: number;
   reused: number;
@@ -117,9 +157,12 @@ async function main(): Promise<void> {
     const plan = matrixPlan(matrix, request);
     dataset ??= plan.dataset;
     if (plan.dataset !== dataset) throw new Error(`The ${matrix} plan is for ${plan.dataset}, not ${dataset}`);
-    plans[matrix] = { pairings: plan.pairings, reused: plan.reused, pending: plan.pending, shards: shardCount(plan.pending, SECONDS_PER_PAIRING[matrix], request.shards[matrix]) };
+    plans[matrix] = { pairings: plan.pairings, reused: plan.reused, pending: plan.pending, shards: 0 };
   }
   if (!dataset) throw new Error("No dataset to refresh");
+  const work = Object.fromEntries(request.matrices.map((matrix) => [matrix, { pending: plans[matrix]!.pending, secondsPerPairing: SECONDS_PER_PAIRING[matrix] }]));
+  const counts = planShards(work, request.shards);
+  for (const matrix of request.matrices) plans[matrix]!.shards = counts[matrix];
 
   const outputs: Record<string, string> = { dataset, matrices: request.matrices.join(","), recompute: request.recompute.join(",") };
   for (const matrix of MATRICES) {

@@ -1986,7 +1986,7 @@ snapshot, and the tests, the app and the kits' tests now read 16.21.
     (6.7 estimated) and 18.8 a build pairing (as estimated).
   - The runners took 20 jobs at a time, so five build shards waited 34 to 48 minutes for
     one. The outputs were committed (`1e2f19e`) two hours after the push; with 20 shards in
-    all, about 75 minutes would have done.
+    all, about 75 minutes would have done, which the plan now does (`planShards`).
   - In the same job, the typecheck passed and the tests failed only on Trundle–Sion (below).
 - **Checks.**
   - `npm run build:sim -- --check` and `npm run build:builds -- --check` pass locally, with
