@@ -25,6 +25,7 @@ npm run build:sim -- --threads 4   # refresh duels, counter pages, ledger rankin
 npm run build:sim -- --check       # check whether committed duel results match current inputs
 npm run build:builds -- --threads 4   # the duels with item builds: the build search for every pairing (about 19 hours on four threads)
 npm run build:builds -- --check       # check whether the committed build matrix matches current inputs
+npm run build:sim -- --plan        # how many pairings a refresh would compute; unchanged ones are reused
 npm test
 ```
 
@@ -127,6 +128,23 @@ Kit values come from the pinned sources; the kit page lists their revisions and 
 npm run golden       # every golden matchup (tests/golden/matchups.ts) with its simulated score
 ```
 
+### Incremental refreshes
+
+Both refreshes, and `npm run build:data`, compute only the pairings whose inputs changed. Each matrix records the inputs its pairings were computed from (`inputs`, `pipeline/sim/pairKeys.ts`):
+
+- one key for what every fight shares: the code the fight runs (the worker and every module it imports, kit modules aside), the stat prices and the runes, and for item builds the item catalog and the build format;
+- one key per kit: its module, and its champion, ability and pet records.
+
+Provenance enters neither: wiki revision ids, game-file versions, URLs and hashes, and the patch a champion last changed in. A refresh takes a pairing's result from the dataset's own matrix, or else from the previous dataset's, when the shared key and both kits' keys are unchanged, and computes the rest (`pipeline/sim/reuse.ts`). So a refetch that changes no data computes nothing, a change to one kit recomputes its 172 pairings, and a change to the engine (or, for item builds, to any item) recomputes all of them. A kit's key covers its whole records, so a wiki edit to an ability's notes counts as a change even when the kit reads nothing of it: of patch 26.21's data, 69 kits' records differ from 26.20's, which touches 64% of the pairings.
+
+```sh
+npm run build:sim -- --plan       # {"dataset":"16.20","pairings":14878,"reused":14878,"pending":0}
+npm run build:builds -- --plan    # the same for the build matrix
+npm run build:sim -- --shard 0/4  # the first of four shares of the pending pairings, into checkpoints only
+```
+
+`--plan` computes and writes nothing. `--shard i/N` computes only the i-th of N even shares of the pending pairings (counting from 0) and writes only their checkpoints, so that separate machines can split a refresh; a run without `--shard`, given the shards' checkpoints, then writes the outputs. `--recompute Darius,Garen` computes those champions' pairings again whatever is stored, to check that a refresh reproduces its results.
+
 ## Data pipeline
 
 ```sh
@@ -134,7 +152,7 @@ npm run fetch        # download the current patch's sources into data/raw/ (not 
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
 npm run fetch -- --only items      # refetch just the item catalog's sources
 npm run fetch -- --only item-rules # refetch just the wiki rule pages item effects quote (Energized, combat status, ...)
-npm run build:data   # rebuild data/<dataset>/ from those downloads, including all 14,878 pairings
+npm run build:data   # rebuild data/<dataset>/ from those downloads, with the pairings whose inputs changed
 npm run build:items  # rebuild the item catalog (items.json, reports/items.md, reports/item-effects.md)
 ```
 
@@ -150,8 +168,9 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `profiles/<champion>.json` | What each ability does in a fight: how it's delivered, the crowd control it applies, how it moves, what it protects against; and basic attacks at level 20 |
 | `counters/<champion>.md` | Every champion ranked against this one: by simulated duels, and by interaction estimates, with the strongest reasons |
 | `rankings.json` | The ledger rankings, machine-readable |
-| `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, and the options played by kits with a choice |
-| `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build, and the options played by kits with a choice |
+| `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, the options played by kits with a choice, and the inputs each matchup was computed from |
+| `simulated-spent.json` | The gold each side spent on each stat in each simulated matchup, to the whole gold piece: the simulator report reads it, and a refresh reuses it with the matchups it reuses |
+| `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build, the options played by kits with a choice, and the inputs each matchup was computed from |
 | `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel` and the build matrix |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
@@ -168,8 +187,9 @@ Tests run offline against the committed data.
 
 See [ACCURACY.md](ACCURACY.md) for the validation workflow, source-backed corrections,
 and the model's remaining limits. Rebuild the committed rankings with `npm run build:sim`
-after changing simulator inputs; `npm run build:sim -- --check` detects stale results, and
-`npm run build:builds -- --check` a stale build matrix.
+after changing simulator inputs: it recomputes only the matchups the change affects.
+`npm run build:sim -- --check` detects stale results, and `npm run build:builds -- --check`
+a stale build matrix.
 
 ## Data sources and attribution
 

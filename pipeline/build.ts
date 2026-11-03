@@ -10,7 +10,10 @@
  *   data/<dataset>/counters/<id>.md      every champion ranked against each enemy by the ledger (partial),
  *                                        and by the duel simulator when both have simulator kits (full)
  *   data/<dataset>/rankings.json         the ledger rankings, machine-readable
- *   data/<dataset>/simulated.json        every simulated matchup between champions with simulator kits
+ *   data/<dataset>/simulated.json        every simulated matchup between champions with simulator kits;
+ *                                        a matchup whose inputs are unchanged since this dataset's or the
+ *                                        previous dataset's results is reused, not computed again
+ *   data/<dataset>/simulated-spent.json  the gold each side spent by stat in each matchup
  *   data/<dataset>/reports/*.md          reports for review
  *
  * Usage: npm run build:data [-- --dataset 16.20]
@@ -51,7 +54,9 @@ import { KITS } from "../kits/champions/index";
 import { GOLDEN } from "../tests/golden/matchups";
 import { simulatePairs } from "./sim/pool";
 import { simulationProvenance } from "./sim/fingerprint";
-import { type SimulatedMatrix, coverageReport, simulatedCounterSection, simulatedJson, simulatedMatrix, simulatorReport, simulatorSection } from "./simPages";
+import { pairInputs } from "./sim/pairKeys";
+import { SPENT_FILE, plainStores, reusable, reuseSummary } from "./sim/reuse";
+import { type SimulatedMatrix, coverageReport, simulatedCounterSection, simulatedJson, simulatedMatrix, simulatedSpentJson, simulatorReport, simulatorSection } from "./simPages";
 import type { DDragonChampionFull } from "./sources/ddragon";
 import type { WikiPage } from "./sources/wiki";
 
@@ -189,10 +194,18 @@ async function main(): Promise<void> {
   const pairs: Array<[string, string]> = simulated.flatMap((you, i) => simulated.slice(i + 1).map((enemy): [string, string] => [you, enemy]));
   const simulation = await simulationProvenance(dataset);
   const started = Date.now();
-  const matrix: SimulatedMatrix = simulatedMatrix(simulated, DEFAULT_BUDGET, pairs, await simulatePairs(dataset, DEFAULT_BUDGET, pairs));
+  // Pairings computed before from the same inputs, in this dataset's results or the previous dataset's, stand (pairKeys.ts).
+  const inputs = await pairInputs(dataset, "sim");
+  const reuse = reusable(pairs, inputs, await plainStores(dataset));
+  const pending = pairs.map((_, index) => index).filter((index) => !reuse.results.has(index));
+  log(`Simulator: ${reuseSummary(pairs.length, reuse.from)}`);
+  const fresh = pending.length > 0 ? await simulatePairs(dataset, DEFAULT_BUDGET, pending.map((index) => pairs[index]!)) : [];
+  const results = [...[...reuse.results].map(([index, result]) => ({ ...result, index })), ...fresh.map((result) => ({ ...result, index: pending[result.index]! }))].sort((a, b) => a.index - b.index);
+  const matrix: SimulatedMatrix = simulatedMatrix(simulated, DEFAULT_BUDGET, pairs, results);
   if ((await simulationProvenance(dataset)).fingerprint !== simulation.fingerprint) throw new Error("Simulator inputs changed during the build; retry after edits finish.");
-  await writeText(path.join(out, "simulated.json"), simulatedJson(dataset, manifest.patch, matrix, simulation));
-  log(`Simulator: ${pairs.length} matchups between ${simulated.length} champions with kits in ${((Date.now() - started) / 1000).toFixed(0)} s (see simulated.json and reports/simulator.md)`);
+  await writeText(path.join(out, "simulated.json"), simulatedJson(dataset, manifest.patch, matrix, simulation, inputs));
+  await writeText(path.join(out, SPENT_FILE), simulatedSpentJson(dataset, manifest.patch, matrix, simulation));
+  log(`Simulator: ${pairs.length} matchups between ${simulated.length} champions with kits (${pending.length} computed) in ${((Date.now() - started) / 1000).toFixed(0)} s (see simulated.json and reports/simulator.md)`);
 
   for (const champion of champions) {
     const records = abilities.records.filter((record) => record.champion === champion.id);

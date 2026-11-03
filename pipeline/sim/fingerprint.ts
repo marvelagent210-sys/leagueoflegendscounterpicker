@@ -56,7 +56,7 @@ async function simulationInputs(dataset: string): Promise<Array<[string, Uint8Ar
       "pipeline/build.ts", "pipeline/simPages.ts", "pipeline/ledgerPages.ts",
       "pipeline/sim/worker.ts", "pipeline/sim/worker.mjs", "pipeline/sim/pool.ts",
       "pipeline/sim/refresh.ts", "pipeline/sim/fingerprint.ts", "web/src/settings.ts",
-      "pipeline/sim/checkpoint.ts",
+      "pipeline/sim/checkpoint.ts", "pipeline/sim/pairKeys.ts", "pipeline/sim/reuse.ts",
       "tests/golden/matchups.ts",
     ].map((file) => path.join(REPO_ROOT, file)),
   ];

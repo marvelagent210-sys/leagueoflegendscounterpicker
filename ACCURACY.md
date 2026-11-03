@@ -1878,6 +1878,42 @@ refreshed under the new inputs fingerprint
   stale-matrix check among those that pass again. Both TypeScript projects and
   `npm run build:web` pass.
 
+## Incremental refresh, 3 November 2026
+
+Refreshes now reuse every pairing whose inputs are unchanged (`pipeline/sim/pairKeys.ts`,
+`pipeline/sim/reuse.ts`; README, "Incremental refreshes"). What was checked:
+
+- **The keys cover what a fight reads.** The workers read `champions.json`, the stat prices
+  in `rules.json`, `runes.json`, each kit's `abilities/<id>.json` and `pets/<id>.json`, and,
+  for item builds, `items.json`; nothing else (a scan of every module the two workers import
+  for file reads, `require` and computed imports). Kit modules import only the shared
+  `kits/champions/util.ts`, which is in the shared key with the engine, and the kit registry
+  holds only the map from ids to kits. A test holds both committed matrices' recorded inputs
+  to the inputs computed from the current code and data.
+- **Both matrices were stamped while verified current.** Before the inputs were written into
+  `simulated.json` and `simulated-builds.json`, both passed their fingerprint checks; the
+  plain matrix's stat spending (`simulated-spent.json`) came from its 14,878 checkpoints, each
+  checked against the score in the file.
+- **A reused pairing reads back exactly as computing it again writes it.** Six pairings
+  computed again (Darius–Garen, Udyr–Yasuo, Ahri–Kayn, Heimerdinger–Jax, Annie–Malphite,
+  Aphelios–Vayne) gave the reused scores, scenario scores, spending and kit variants
+  exactly; a test repeats this for two of them. Scenario scores are now kept at three
+  decimals with symmetric rounding, and spending in whole gold, in every output: 2,761 of the
+  counter pages' 178,536 scenario cells (1.5%) moved by 0.01 once, from being rounded twice
+  before, and the simulator report's spending moved by up to 1 gold. No aggregate score or
+  rank changed.
+- **A refresh with nothing changed reuses everything.** `npm run build:sim` reused all
+  14,878 pairings and wrote its 352 files in 2.6 seconds; `npm run build:builds` reused all
+  14,878 in about a second. A second run of both left every file in `data/16.20/`
+  byte-for-byte identical. `--check` passes for both, with fingerprints `30202eca…` (plain)
+  and `210a6675…` (builds).
+- **What a patch would reuse.** Against 26.21's data as fetched, with the current kit
+  modules, 69 kits' keys differ from 26.20's, so 9,522 of the 14,878 plain-stats pairings
+  (64%) would be computed again. The item catalog changed too, so the whole build matrix
+  would be.
+- The full suite passed: **7,975 tests across 225 files** on four workers in 220 seconds,
+  with the five disputed golden expectations skipped as before. Both TypeScript projects pass.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

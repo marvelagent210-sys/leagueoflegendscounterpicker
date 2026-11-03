@@ -3,13 +3,18 @@
  * finds for its two sides, instead of plain stats. Writes data/<dataset>/simulated-builds.json
  * and reports/builds.md from committed parsed data; no downloads.
  *
- *   npm run build:builds -- [--dataset 16.20] [--threads 4] [--format sixItems] [--smoke] [--check]
+ *   npm run build:builds -- [--dataset 16.20] [--threads 4] [--format sixItems] [--smoke] [--check] [--plan] [--shard i/N] [--recompute A,B]
  *
- * Each pairing is checkpointed as it finishes (.cache/builds/), so that a run that stops resumes
- * where it was. A pairing that fails is reported and the rest go on; nothing is written until
- * every pairing has a result. `--smoke` plays each kit against the next one only (173
- * pairings, kept for the full run), to find failures before the full run's hours. `--check`
- * verifies that the committed file is the current inputs' (buildsProvenance).
+ * Incremental (PLAN.md §13): a pairing whose inputs (pairKeys.ts) equal a stored result's, in
+ * this dataset's simulated-builds.json or the previous dataset's, isn't computed again. The rest
+ * are checkpointed as they finish (.cache/builds/), so that a run that stops resumes where it
+ * was. A pairing that fails is reported and the rest go on; nothing is written until every
+ * pairing has a result. `--smoke` plays each kit against the next one only (173 pairings, kept
+ * for the full run), to find failures before the full run's hours. `--check` verifies that the
+ * committed file is the current inputs' (buildsProvenance). `--plan` prints how many pairings
+ * would be computed, as JSON. `--shard i/N` computes only the i-th of N even shares of them, into
+ * checkpoints; a run without --shard then writes the outputs (.github/workflows/refresh.yml).
+ * `--recompute A,B` computes those champions' pairings again whatever is stored.
  */
 import { readFile, rename, rm, writeFile } from "node:fs/promises";
 import { availableParallelism } from "node:os";
@@ -24,6 +29,8 @@ import { loadSimData } from "../simData";
 import { type BuildsCheckpointContext, type BuildsPairResult, readBuildsCheckpoint } from "./buildsCheckpoint";
 import type { BuildsMessage, BuildsTask } from "./buildsWorker";
 import { buildsProvenance } from "./fingerprint";
+import { type PairInputs, pairInputs, pairInputsJson } from "./pairKeys";
+import { buildsStores, parseRecompute, parseShard, reusable, reuseSummary, shardOf } from "./reuse";
 
 export const BUILDS_FILE = "simulated-builds.json";
 
@@ -84,7 +91,7 @@ async function playPairs(task: Omit<BuildsTask, "pairs">, pairs: Array<[string, 
 }
 
 /** simulated-builds.json: one line per champion for its scores, and one for its builds. */
-export function simulatedBuildsJson(dataset: string, patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], simulation: SimulationProvenance): string {
+export function simulatedBuildsJson(dataset: string, patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], simulation: SimulationProvenance, inputs?: PairInputs): string {
   const scores = new Map(ids.map((id) => [id, new Map<string, Array<number | null>>()]));
   const builds = new Map(ids.map((id) => [id, new Map<string, string[]>()]));
   const variants = new Map<string, Map<string, Record<string, number>>>();
@@ -116,6 +123,7 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
     `  "patch": ${JSON.stringify(patch)},`,
     `  "format": ${JSON.stringify(format)},`,
     `  "simulation": ${JSON.stringify(simulation)},`,
+    ...(inputs ? [`${pairInputsJson(inputs)},`] : []),
     `  "values": ${JSON.stringify(["score", ...SCENARIOS])},`,
     `  "items": ${JSON.stringify(items)},`,
     "  \"matchups\": {",
@@ -130,7 +138,7 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
 }
 
 /** reports/builds.md: how the run went, and each champion's items across its matchups. */
-export function buildsReport(patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], names: Map<string, string>): string {
+export function buildsReport(patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], names: Map<string, string>, reused = 0): string {
   const counts = new Map(ids.map((id) => [id, new Map<string, number>()]));
   results.forEach((result, i) => {
     const [you, enemy] = pairs[i]!;
@@ -139,6 +147,7 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
   const total = new Map<string, number>();
   for (const row of counts.values()) for (const [item, n] of row) total.set(item, (total.get(item) ?? 0) + n);
   const seconds = results.reduce((sum, result) => sum + result.seconds, 0);
+  const computed = results.length - reused;
   const builds = 2 * results.length;
   const name = (id: string) => names.get(id) ?? id;
   const top = (row: Map<string, number>, n: number, of: number) => [...row].sort(([a, x], [b, y]) => y - x || a.localeCompare(b)).slice(0, n).map(([item, k]) => `${item} ${Math.round((100 * k) / of)}%`).join(", ");
@@ -147,7 +156,9 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
     "",
     `Patch ${patch}, ${BUILD_FORMATS[format as BuildFormat]?.label ?? format}. Generated by \`npm run build:builds\` (PLAN.md §13, M8): every pairing played with the item builds the build search finds for its two sides.`,
     "",
-    `${results.length} pairings in ${(seconds / 3600).toFixed(1)} processor-hours (${(seconds / results.length).toFixed(1)} s each on average).`,
+    reused === 0
+      ? `${results.length} pairings in ${(seconds / 3600).toFixed(1)} processor-hours (${(seconds / results.length).toFixed(1)} s each on average).`
+      : `${results.length} pairings: ${computed} computed by this refresh${computed > 0 ? ` in ${(seconds / 3600).toFixed(1)} processor-hours (${(seconds / computed).toFixed(1)} s each on average)` : ""}, ${reused} reused unchanged from earlier results with the same inputs.`,
     "",
     "## Items across all builds",
     "",
@@ -174,9 +185,14 @@ async function main(): Promise<void> {
     return found;
   };
   for (let i = 0; i < args.length; i++) {
-    if (["--dataset", "--threads", "--format"].includes(args[i]!)) i++;
-    else if (args[i] !== "--check" && args[i] !== "--smoke") throw new Error(`Unknown argument ${args[i]}`);
+    if (["--dataset", "--threads", "--format", "--shard", "--recompute"].includes(args[i]!)) i++;
+    else if (!["--check", "--smoke", "--plan"].includes(args[i]!)) throw new Error(`Unknown argument ${args[i]}`);
   }
+  const shard = parseShard(value("--shard"));
+  const plan = args.includes("--plan");
+  const log = (message: string) => {
+    if (!plan) console.log(message);
+  };
   const threads = Number(value("--threads") ?? Math.min(4, availableParallelism()));
   if (!Number.isSafeInteger(threads) || threads < 1) throw new Error("--threads must be a positive integer");
   const format = (value("--format") ?? "sixItems") as BuildFormat;
@@ -195,31 +211,46 @@ async function main(): Promise<void> {
   const smoke = args.includes("--smoke");
   const pairs = smoke ? ids.slice(0, -1).map((id, i): [string, string] => [id, ids[i + 1]!]) : all;
   const checkpoint: BuildsCheckpointContext = { directory: path.join(REPO_ROOT, ".cache", "builds", data.dataset, format, provenance.fingerprint), fingerprint: provenance.fingerprint, format };
-  console.log(`[builds] Dataset ${data.dataset}: ${ids.length} kits, ${pairs.length} pairings${smoke ? " (smoke: each kit against the next)" : ""}, ${threads} workers, inputs ${provenance.fingerprint.slice(0, 8)}`);
+  log(`[builds] Dataset ${data.dataset}: ${ids.length} kits, ${pairs.length} pairings${smoke ? " (smoke: each kit against the next)" : ""}, ${threads} workers, inputs ${provenance.fingerprint.slice(0, 8)}${shard ? `, shard ${shard.index + 1} of ${shard.count}` : ""}`);
   const started = Date.now();
-  const saved = new Map<number, BuildsPairResult>();
+  // Pairings computed before from the same inputs stand; the rest are this run's to compute.
+  const inputs = await pairInputs(data.dataset, "builds", format);
+  const reuse = reusable(pairs, inputs, await buildsStores(data.dataset, format), parseRecompute(value("--recompute"), ids));
+  const toCompute = pairs.map((_, index) => index).filter((index) => !reuse.results.has(index));
+  if (plan) {
+    console.log(JSON.stringify({ dataset: data.dataset, format, pairings: pairs.length, reused: reuse.results.size, pending: toCompute.length }));
+    return;
+  }
+  log(`[builds] ${reuseSummary(pairs.length, reuse.from)}`);
+  const saved = new Map<number, BuildsPairResult>([...reuse.results].map(([index, result]) => [index, { ...result, index }]));
+  const mine = shardOf(toCompute, shard);
   const pending: number[] = [];
-  for (const [index, pair] of pairs.entries()) {
-    const result = await readBuildsCheckpoint(checkpoint, data.dataset, pair);
+  for (const index of mine) {
+    const result = await readBuildsCheckpoint(checkpoint, data.dataset, pairs[index]!);
     if (result) saved.set(index, { ...result, index });
     else pending.push(index);
   }
-  if (saved.size) console.log(`[builds] Resuming: ${saved.size}/${pairs.length} pairings checkpointed`);
-  let next = saved.size + 25;
+  const resumed = mine.length - pending.length;
+  if (resumed) log(`[builds] Resuming: ${resumed}/${mine.length} pairings checkpointed`);
+  let next = resumed + 25;
   const { results, failures } = pending.length
     ? await playPairs({ dataset: data.dataset, format, checkpoint }, pending.map((index) => pairs[index]!), threads, (done) => {
-        const total = saved.size + done;
-        if (total < next && total < pairs.length) return;
+        const total = resumed + done;
+        if (total < next && total < mine.length) return;
         const elapsed = (Date.now() - started) / 1000;
         const left = done > 0 ? ((pending.length - done) * elapsed) / done : 0;
-        console.log(`[builds] ${total}/${pairs.length} pairings in ${(elapsed / 60).toFixed(1)} min, about ${(left / 3600).toFixed(1)} h left`);
+        console.log(`[builds] ${total}/${mine.length} pairings in ${(elapsed / 60).toFixed(1)} min, about ${(left / 3600).toFixed(1)} h left`);
         next = total + 25;
       })
     : { results: [], failures: [] };
   for (const result of results) saved.set(pending[result.index]!, { ...result, index: pending[result.index]! });
   if (failures.length) {
-    console.error(`[builds] ${failures.length} pairings failed; nothing written. Fix them and run again: the other ${saved.size} are checkpointed.`);
+    console.error(`[builds] ${failures.length} pairings failed; nothing written. Fix them and run again: the other ${saved.size - reuse.results.size} are checkpointed.`);
     process.exitCode = 1;
+    return;
+  }
+  if (shard) {
+    log(`[builds] Shard ${shard.index + 1} of ${shard.count}: ${mine.length} pairings checkpointed in ${((Date.now() - started) / 60000).toFixed(1)} min; a run without --shard writes the outputs.`);
     return;
   }
   if (smoke) {
@@ -231,8 +262,8 @@ async function main(): Promise<void> {
   if ((await buildsProvenance(data.dataset)).fingerprint !== provenance.fingerprint) throw new Error("The build matrix's inputs changed during the run. Nothing was written; its checkpoints stay under the old inputs.");
   const names = new Map(data.champions.map((champion) => [champion.id, champion.name]));
   const outputs = new Map([
-    [path.join(dir, BUILDS_FILE), simulatedBuildsJson(data.dataset, data.patch, format, ids, pairs, ordered, provenance)],
-    [path.join(dir, "reports", "builds.md"), buildsReport(data.patch, format, ids, pairs, ordered, names)],
+    [path.join(dir, BUILDS_FILE), simulatedBuildsJson(data.dataset, data.patch, format, ids, pairs, ordered, provenance, inputs)],
+    [path.join(dir, "reports", "builds.md"), buildsReport(data.patch, format, ids, pairs, ordered, names, reuse.results.size)],
   ]);
   for (const [file, content] of outputs) {
     const temporary = `${file}.${process.pid}.tmp`;
@@ -243,7 +274,7 @@ async function main(): Promise<void> {
       await rm(temporary, { force: true });
     }
   }
-  console.log(`[builds] Wrote ${BUILDS_FILE} and reports/builds.md: ${pairs.length} pairings, ${((Date.now() - started) / 3600000).toFixed(1)} h.`);
+  console.log(`[builds] Wrote ${BUILDS_FILE} and reports/builds.md: ${pairs.length} pairings (${reuse.results.size} reused), ${((Date.now() - started) / 3600000).toFixed(1)} h.`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {

@@ -158,6 +158,26 @@ function catalogContent(catalog: Record<string, unknown>): unknown {
   return withoutProvenance({ ...rest, sources: { itemData: { title: itemData?.title } } });
 }
 
+/** What a kit's key is made of: its module's source, and its champion record, ability records and pets as the dataset has them. */
+export interface KitParts {
+  module: string | Uint8Array;
+  champion: unknown;
+  abilities: unknown;
+  pets: unknown;
+}
+
+/** A kit's key: its parts, without provenance, metadata or the pets' audit pages. */
+export function kitKey(parts: KitParts): string {
+  return sha256(
+    canonicalJson({
+      module: sha256(parts.module),
+      champion: withoutProvenance(parts.champion, CHAMPION_METADATA),
+      abilities: withoutProvenance(parts.abilities),
+      pets: withoutProvenance(parts.pets, PET_AUDIT),
+    }),
+  );
+}
+
 /**
  * The inputs a matrix's pairings are computed from, under the current code and dataset: the
  * shared key, and each kit's key. `format` is the build format, for item builds.
@@ -186,14 +206,12 @@ export async function pairInputs(dataset: string, kind: MatrixKind, format?: str
   for (const [id, file] of [...kits].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))) {
     const champion = champions.get(id);
     if (!champion) continue;
-    keys[id] = sha256(
-      canonicalJson({
-        module: sha256(await readFile(path.join(REPO_ROOT, file))),
-        champion: withoutProvenance(champion, CHAMPION_METADATA),
-        abilities: withoutProvenance(await readJsonFile(path.join(dir, "abilities", `${id}.json`))),
-        pets: withoutProvenance(await readOptionalJson(path.join(dir, "pets", `${id}.json`)), PET_AUDIT),
-      }),
-    );
+    keys[id] = kitKey({
+      module: await readFile(path.join(REPO_ROOT, file)),
+      champion,
+      abilities: await readJsonFile(path.join(dir, "abilities", `${id}.json`)),
+      pets: await readOptionalJson(path.join(dir, "pets", `${id}.json`)),
+    });
   }
   return { schema: 1, shared: sha256(canonicalJson(shared)), kits: keys };
 }
