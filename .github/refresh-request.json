@@ -1,5 +1,5 @@
 {
-  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request refreshes patch 26.21: the plain-stats pairings whose inputs changed since 26.20, and the whole build matrix, whose item catalog changed. Shards are sized automatically.",
+  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request refreshes 16.21 after 35 kits' assumption texts were respaced: their pairings' inputs changed although their fights didn't, so both matrices compute them again and should come out unchanged. Shards are sized together, at most 20 in all.",
   "dataset": "16.21",
   "matrices": ["sim", "builds"]
 }
