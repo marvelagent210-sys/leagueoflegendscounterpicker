@@ -12,8 +12,9 @@ import type { Status, Unit } from "../engine/sim/state";
 /** The ability key of an item's active, set apart from the kit's abilities. */
 export const activeKey = (item: string) => `item:${item}`;
 
+/** An item's active, or a summoner spell's (summoners/equip.ts): not one of the kit's abilities. */
 export function isItemActive(ability: AbilitySpec | undefined): boolean {
-  return ability?.key.startsWith("item:") === true;
+  return ability?.key.startsWith("item:") === true || ability?.key.startsWith("summoner:") === true;
 }
 
 /** A champion ability cast, as passives that trigger "after using an ability" count them: no item actives or toggles that aren't casts. */

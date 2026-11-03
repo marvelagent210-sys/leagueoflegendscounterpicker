@@ -41,8 +41,16 @@ const ARTICLES = [
 
 const championData = { name: () => undefined, get: () => undefined, apiname: () => undefined } as never;
 
+/** The rule pages the spell effects quote, cut down to a sentence each. */
+const GLOSSARY = [
+  page("Template:Tip data/Cast-inhibiting crowd control", "{{Tip data|description = {{tip|Stasis}} and {{tip|Suppression}} disable all {{ccib|Summoner spell icon.png|summoner spells}}.}}", 21),
+  page("Template:Tip data/Spell shield", "{{Tip data|description = A spell shield blocks almost none from [[summoner spell]]s.}}", 22),
+  page("Stealth", "Exhaust and Ignite break stealth.", 23),
+  page("Damage", "* '''Item:''' this includes [[summoner spell]] damage against champions.", 24),
+];
+
 function catalog(ddragon = DDRAGON, articles = ARTICLES): SpellCatalog {
-  return buildSpellCatalog({ dataset: "16.21", patch: "26.21", ddragon, spellData: page("Module:SpellData/data", MODULE, 10), articles, championData });
+  return buildSpellCatalog({ dataset: "16.21", patch: "26.21", ddragon, spellData: page("Module:SpellData/data", MODULE, 10), articles, glossary: GLOSSARY, championData });
 }
 
 /** A series' value at a champion level: one value a level, or values at listed levels ("1 to 20 by 1"). */
@@ -94,6 +102,16 @@ describe("summoner spell records", () => {
 
   it("compares cooldowns and numeric ranges with Data Dragon", () => {
     expect(catalog().checks).toEqual({ compared: 4, differences: ["Flash: the range is 400 on the wiki, 425 in Data Dragon"] });
+  });
+
+  it("keeps the rule pages the spell effects quote, with their revisions", () => {
+    expect(catalog().rulePages.map((rule) => [rule.title, rule.revid, rule.text])).toEqual([
+      ["Template:Tip data/Cast-inhibiting crowd control", 21, "Stasis and Suppression disable all summoner spells."],
+      ["Template:Tip data/Spell shield", 22, "A spell shield blocks almost none from summoner spells."],
+      ["Stealth", 23, "Exhaust and Ignite break stealth."],
+      ["Damage", 24, "* Item: this includes summoner spell damage against champions."],
+    ]);
+    expect(() => buildSpellCatalog({ dataset: "16.21", patch: "26.21", ddragon: DDRAGON, spellData: page("Module:SpellData/data", MODULE, 10), articles: ARTICLES, glossary: GLOSSARY.slice(1), championData })).toThrow("The glossary downloads lack Template:Tip data/Cast-inhibiting crowd control");
   });
 });
 

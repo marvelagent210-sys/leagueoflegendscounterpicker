@@ -33,9 +33,12 @@ async function main(): Promise<void> {
   const missing = () => {
     throw new Error("Missing the summoner spell sources; run npm run fetch -- --only spells");
   };
-  const [ddragon, pages, championData] = await Promise.all([
+  const [ddragon, pages, glossary, championData] = await Promise.all([
     readJson<DDragonSummoners>(path.join(raw, "ddragon", "summoner.json")).catch(missing),
     readJson<WikiPage[]>(path.join(raw, "wiki", "spell-pages.json")).catch(missing),
+    readJson<WikiPage[]>(path.join(raw, "wiki", "glossary.json")).catch(() => {
+      throw new Error("Missing the glossary pages; run npm run fetch -- --only glossary");
+    }),
     readText(path.join(raw, "wiki", "ChampionData.lua")),
   ]);
   const pinned = (title: string, revid: number) => {
@@ -49,6 +52,7 @@ async function main(): Promise<void> {
     ddragon,
     spellData: pinned(sources.spellData.title, sources.spellData.revid),
     articles: sources.articles.map(({ title, revid }) => pinned(title, revid)),
+    glossary,
     championData: championLookup(championData),
   });
   await writeJson(path.join(out, "summoners.json"), catalog);

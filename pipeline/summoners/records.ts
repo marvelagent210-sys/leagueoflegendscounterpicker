@@ -7,6 +7,7 @@ import type { Series } from "../../engine/abilities";
 import { descriptionValues } from "../abilities/build";
 import type { ChampionLookup } from "../abilities/championLookup";
 import { renderMarked } from "../abilities/marked";
+import { type RulePage, rulePage } from "../items/records";
 import { type LuaTable, type LuaValue, parseLuaModule } from "../parse/lua";
 import type { DDragonSummoners } from "../sources/ddragon";
 import type { WikiPage } from "../sources/wiki";
@@ -44,6 +45,8 @@ export interface SpellCatalog {
   patch: string;
   sources: { ddragon: string; spellData: { title: string; revid: number } };
   spells: SpellRecord[];
+  /** The wiki's rule pages the spell effects quote (SPELL_RULE_PAGES): which crowd control stops them, what they get past. */
+  rulePages: RulePage[];
   /** Data Dragon's cooldowns and numeric ranges compared with the wiki's, and every difference found. */
   checks: { compared: number; differences: string[] };
 }
@@ -55,8 +58,23 @@ export interface SpellSources {
   spellData: WikiPage;
   /** Each spell's article, titled by its name. */
   articles: WikiPage[];
+  /** The glossary pages (data/raw/<dataset>/wiki/glossary.json), which hold SPELL_RULE_PAGES. */
+  glossary: WikiPage[];
   championData: ChampionLookup;
 }
+
+/**
+ * Glossary pages (WIKI_GLOSSARY_PAGES) whose rules the spell effects follow: which crowd control
+ * stops summoner spells, that spell shields don't block them, which of them break stealth, and
+ * that their damage is the wiki's "Item" damage rather than a champion's.
+ */
+export const SPELL_RULE_PAGES = ["Template:Tip data/Cast-inhibiting crowd control", "Template:Tip data/Spell shield", "Stealth", "Damage"];
+
+/**
+ * The wiki's summoner spell data (cooldowns, ranges, effects), read with each spell's article.
+ * Kept out of pipeline/config.ts, which every fight's code imports (pipeline/sim/pairKeys.ts).
+ */
+export const WIKI_SPELL_DATA_PAGE = "Module:SpellData/data";
 
 /** The game mode of Summoner's Rift in Data Dragon's summoner list. */
 const CLASSIC = "CLASSIC";
@@ -161,11 +179,17 @@ export function buildSpellCatalog(sources: SpellSources): SpellCatalog {
       ddragon,
     };
   });
+  const rulePages = SPELL_RULE_PAGES.map((title) => {
+    const page = sources.glossary.find((candidate) => candidate.title === title);
+    if (!page) throw new Error(`The glossary downloads lack ${title}; run npm run fetch -- --only glossary`);
+    return rulePage({ ...page, content: iconText(page.content) }, ctx);
+  });
   return {
     dataset: sources.dataset,
     patch: sources.patch,
     sources: { ddragon: sources.ddragon.version, spellData: { title: sources.spellData.title, revid: sources.spellData.revid } },
     spells,
+    rulePages,
     checks: { compared, differences },
   };
 }

@@ -24,8 +24,6 @@ export const WIKI_CHAMPION_DATA_PAGE = "Module:ChampionData/data";
  * "Module:ItemData/data/<item>" are an older copy that this module has moved past.
  */
 export const WIKI_ITEM_DATA_PAGE = "Module:ItemData/data";
-/** The wiki's summoner spell data (cooldowns, ranges, effects), read with each spell's article. */
-export const WIKI_SPELL_DATA_PAGE = "Module:SpellData/data";
 
 /**
  * The game rules item effects follow that their own text leaves out: how Energized charges

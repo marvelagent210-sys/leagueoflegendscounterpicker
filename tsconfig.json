@@ -24,6 +24,7 @@
     "engine",
     "kits",
     "items",
+    "summoners",
     "tests",
     "vitest.config.ts"
   ]

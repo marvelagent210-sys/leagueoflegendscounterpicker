@@ -14,17 +14,22 @@
  * each side's route builds, their fights, and the builds each side takes. --format picks six
  * items (sixItems, the default) or five items and boots (fiveItemsWithBoots).
  *
+ * --spells and --enemy-spells give the sides summoner spells (summoners/), two at most, with
+ * item builds or without any items (not with the stat budget): "Flash, Ignite".
+ *
  * Usage: npm run duel -- <your champion> <enemy> [--gold 15000] [--log <scenario>] [--sweep] [--dataset 16.20]
  *        npm run duel -- <your champion> <enemy> --items "<item>, ..." --enemy-items "<item>, ..." [--unstacked] [--item-option <item>.<option>=<value>] [--log <scenario>]
  *        npm run duel -- <your champion> <enemy> --search [--format sixItems | fiveItemsWithBoots] [--unstacked] [--log <scenario>]
+ *        npm run duel -- <your champion> <enemy> [--items "<item>, ..."] --spells "<spell>, <spell>" [--enemy-spells "<spell>, <spell>"]
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
-import { type EquippedFighter, matchupSpecs } from "../../items/equip";
+import { matchupSpecs } from "../../items/equip";
 import { SCENARIOS, type ScenarioId, runScenarios } from "../../engine/sim/scenarios";
 import type { FightOutcome } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
 import { bestMatchup } from "../../engine/sim/matchup";
-import { equipBuild, equipOptions, findItem, loadItemCatalog } from "../itemData";
+import { type BuildOptions, type LoadoutFighter, equipBuild, equipOptions, findItem, loadItemCatalog, loadSpellCatalog } from "../itemData";
+import type { SpellCatalog } from "../summoners/records";
 import type { ItemCatalog } from "../items/records";
 import { BUILD_FORMATS, type BuildFormat, buildProblems } from "../items/rules";
 import { names as buildNames, profileOf, searchMatchup } from "../items/search";
@@ -77,13 +82,19 @@ function itemOptions(args: string[], catalog: ItemCatalog): Record<string, Recor
   return options;
 }
 
-function describeBuild(name: string, fighter: EquippedFighter): string[] {
+/** The summoner spell names of a --spells list. */
+function spellList(text: string | undefined): string[] {
+  return text === undefined ? [] : text.split(",").map((name) => name.trim()).filter(Boolean);
+}
+
+function describeBuild(name: string, fighter: LoadoutFighter): string[] {
   const gold = fighter.items.reduce((sum, record) => sum + record.gold, 0);
   // A full build names its format: six items, or five items and boots.
   const boots = fighter.items.filter((record) => record.kind === "boots").length;
   const format = Object.values(BUILD_FORMATS).find((f) => f.boots === boots && f.finished === fighter.items.length - boots);
-  const lines = [`${name} holds ${fighter.items.map((record) => record.name).join(", ") || "no items"} (${format ? `${format.label}, ` : ""}${gold.toLocaleString("en-US")} gold)`];
-  const left = fighter.coverage.flatMap((entry) => entry.unmodeled.map((text) => `${entry.item}: ${text}`));
+  const spells = fighter.spells?.spells.map((record) => record.name) ?? [];
+  const lines = [`${name} holds ${fighter.items.map((record) => record.name).join(", ") || "no items"} (${format ? `${format.label}, ` : ""}${gold.toLocaleString("en-US")} gold)${spells.length > 0 ? `, with ${spells.join(" and ")}` : ""}`];
+  const left = [...fighter.coverage.flatMap((entry) => entry.unmodeled.map((text) => `${entry.item}: ${text}`)), ...(fighter.spells?.coverage ?? []).flatMap((entry) => entry.unmodeled.map((text) => `${entry.spell}: ${text}`))];
   if (left.length > 0) lines.push(...left.map((text) => `  not modeled: ${text}`));
   return lines;
 }
@@ -99,7 +110,7 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format"]);
+  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--spells", "--enemy-spells"]);
   const names = args.filter((arg, i) => !arg.startsWith("--") && !valued.has(args[i - 1] ?? ""));
   if (names.length !== 2) throw new Error('Usage: npm run duel -- <your champion> <enemy> [--gold 15000 | --items "<item>, ..." --enemy-items "<item>, ..."] [--log <scenario>] [--sweep]');
   const data = await loadSimData(option(args, "--dataset"));
@@ -118,10 +129,15 @@ async function main(): Promise<void> {
   const [myVariants, theirVariants] = [await loadVariants(data.dataset, you), await loadVariants(data.dataset, enemy)];
   const search = args.includes("--search");
   if (search && (args.includes("--items") || args.includes("--enemy-items"))) throw new Error("--search finds the builds; it doesn't go with --items or --enemy-items");
-  const withItems = search || args.includes("--items") || args.includes("--enemy-items");
-  if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
+  const withSpells = args.includes("--spells") || args.includes("--enemy-spells");
+  const withItems = search || args.includes("--items") || args.includes("--enemy-items") || withSpells;
+  if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds or summoner spells`);
   const catalog = withItems ? await loadItemCatalog(data.dataset) : undefined;
+  const spellCatalog: SpellCatalog | undefined = withSpells ? await loadSpellCatalog(data.dataset) : undefined;
   const build = catalog ? { options: itemOptions(args, catalog), stacked: !args.includes("--unstacked") } : {};
+  // Each side's build options: the shared item options, and its own summoner spells.
+  const sideBuild = (flag: "--spells" | "--enemy-spells"): BuildOptions => (spellCatalog && args.includes(flag) ? { ...build, spells: { names: spellList(option(args, flag)), catalog: spellCatalog } } : build);
+  const [myBuild, theirBuild] = [sideBuild("--spells"), sideBuild("--enemy-spells")];
   let myItems = catalog ? itemList(option(args, "--items"), catalog, you.name) : [];
   let theirItems = catalog ? itemList(option(args, "--enemy-items"), catalog, enemy.name) : [];
   if (search && catalog) {
@@ -145,7 +161,7 @@ async function main(): Promise<void> {
   }
   if (catalog && (myVariants.length > 1 || theirVariants.length > 1)) {
     // As bestMatchup chooses, with the builds instead of the stat budget: your best worst case, and the enemy's.
-    const scores = myVariants.map((x) => theirVariants.map((y) => runScenarios(...matchupSpecs(equipBuild(x.spec, myItems, catalog, build), equipBuild(y.spec, theirItems, catalog, build))).score));
+    const scores = myVariants.map((x) => theirVariants.map((y) => runScenarios(...matchupSpecs(equipBuild(x.spec, myItems, catalog, myBuild), equipBuild(y.spec, theirItems, catalog, theirBuild))).score));
     const row = scores.reduce((best, line, i) => (Math.min(...line) > Math.min(...scores[best]!) + 1e-12 ? i : best), 0);
     const column = theirVariants.reduce((best, _, j) => (Math.max(...scores.map((line) => line[j]!)) < Math.max(...scores.map((line) => line[best]!)) - 1e-12 ? j : best), 0);
     mine.spec = myVariants[row]!.spec;
@@ -171,11 +187,13 @@ async function main(): Promise<void> {
   let a: FighterSpec;
   let b: FighterSpec;
   if (catalog) {
-    const yours = equipBuild(mine.spec, myItems, catalog, build);
-    const theirsEquipped = equipBuild(theirs.spec, theirItems, catalog, build);
+    const yours = equipBuild(mine.spec, myItems, catalog, myBuild);
+    const theirsEquipped = equipBuild(theirs.spec, theirItems, catalog, theirBuild);
     for (const line of [...describeBuild(you.name, yours), ...describeBuild(enemy.name, theirsEquipped)]) console.log(line);
     const assumptions = [...new Set([...yours.assumptions, ...theirsEquipped.assumptions])];
     if (assumptions.length > 0) console.log(["Item assumptions:", ...assumptions.map((text) => `  ${text}`)].join("\n"));
+    const spellAssumptions = [...new Set([...(yours.spells?.assumptions ?? []), ...(theirsEquipped.spells?.assumptions ?? [])])];
+    if (spellAssumptions.length > 0) console.log(["Summoner spell assumptions:", ...spellAssumptions.map((text) => `  ${text}`)].join("\n"));
     console.log("");
     [a, b] = matchupSpecs(yours, theirsEquipped);
   } else {

@@ -1,11 +1,14 @@
-/** The committed item catalog and item builds on fighters (CLI, tests). */
+/** The committed item catalog and summoner spell catalog, and loadouts on fighters (CLI, tests). */
 import path from "node:path";
 import type { FighterSpec } from "../engine/sim/spec";
 import { type EquipOptions, type EquippedFighter, equipItems } from "../items/equip";
 import { ITEM_MODULES } from "../items/modules/index";
+import { type EquippedSpells, spellLoadout } from "../summoners/equip";
+import { SPELL_MODULES } from "../summoners/modules/index";
 import { datasetDir } from "./config";
 import { readJson } from "./lib/files";
 import type { ItemCatalog, ItemRecord } from "./items/records";
+import type { SpellCatalog } from "./summoners/records";
 
 const catalogs = new Map<string, Promise<ItemCatalog>>();
 
@@ -17,6 +20,20 @@ export function loadItemCatalog(dataset: string): Promise<ItemCatalog> {
       throw new Error(`data/${dataset}/items.json is missing; run npm run build:items`);
     });
     catalogs.set(dataset, catalog);
+  }
+  return catalog;
+}
+
+const spellCatalogs = new Map<string, Promise<SpellCatalog>>();
+
+/** The dataset's summoner spell catalog (data/<dataset>/summoners.json), read once. */
+export function loadSpellCatalog(dataset: string): Promise<SpellCatalog> {
+  let catalog = spellCatalogs.get(dataset);
+  if (!catalog) {
+    catalog = readJson<SpellCatalog>(path.join(datasetDir(dataset), "summoners.json")).catch(() => {
+      throw new Error(`data/${dataset}/summoners.json is missing; run npm run build:summoners`);
+    });
+    spellCatalogs.set(dataset, catalog);
   }
   return catalog;
 }
@@ -41,6 +58,13 @@ export interface BuildOptions {
    * Default true: a level-20 champion has had a long game to stack them.
    */
   stacked?: boolean;
+  /** Summoner spells the fighter holds, by name, from the spell catalog. */
+  spells?: { names: readonly string[]; catalog: SpellCatalog };
+}
+
+/** A fighter holding a build, and the summoner spells it holds, if any. */
+export interface LoadoutFighter extends EquippedFighter {
+  spells?: EquippedSpells;
 }
 
 /** Every item module the simulator has, with the catalog's wiki source and option overrides. */
@@ -48,13 +72,15 @@ export function equipOptions(catalog: ItemCatalog, options: Record<string, Recor
   return { modules: ITEM_MODULES, source: { page: catalog.sources.itemData.title, revid: catalog.sources.itemData.revid, rules: catalog.rulePages }, options };
 }
 
-/** A fighter holding the named items, with every item module the simulator has. */
-export function equipBuild(spec: FighterSpec, names: string[], catalog: ItemCatalog, build: BuildOptions = {}): EquippedFighter {
+/** A fighter holding the named items and summoner spells, with every item and spell module the simulator has. */
+export function equipBuild(spec: FighterSpec, names: string[], catalog: ItemCatalog, build: BuildOptions = {}): LoadoutFighter {
   const stacked = build.stacked ?? true;
   const records = names.map((name) => findItem(catalog, name));
   const held = records.map((record) => (stacked && record.transformsInto ? findItem(catalog, record.transformsInto) : record));
-  const equipped = equipItems(spec, held, equipOptions(catalog, build.options));
+  const spells = build.spells ? spellLoadout(build.spells.names, build.spells.catalog, SPELL_MODULES) : undefined;
+  const equipped: LoadoutFighter = equipItems(spec, held, { ...equipOptions(catalog, build.options), ...(spells ? { extras: (form: FighterSpec) => spells.part(form) } : {}) });
   const transformed = records.filter((record, i) => held[i] !== record);
   if (transformed.length > 0) equipped.assumptions.unshift(`The Tear items are fully stacked: ${transformed.map((record) => `${record.name} is ${record.transformsInto}`).join(", ")}.`);
+  if (spells) equipped.spells = spells.finish();
   return equipped;
 }

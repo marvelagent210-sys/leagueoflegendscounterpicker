@@ -72,9 +72,13 @@ npm run duel -- Garen Darius --sweep         # plus the score at budgets from 0 
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
 npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
+npm run duel -- Garen Morgana --spells "Flash, Cleanse" --enemy-spells "Barrier, Ignite" --log youEngage
+                                             # summoner spells, with item builds or without items
 ```
 
 With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.21/reports/item-effects.md)).
+
+With `--spells` and `--enemy-spells`, each side holds up to two summoner spells (`summoners/`), with an item build or without items, not with the stat budget. Each spell's effect comes from the wiki's spell data at level 20, and its rules from the wiki: stasis and suppression stop every summoner spell, the other crowd control that stops casting stops only Flash, and spell shields don't block them. Ignite burns for 525 true damage over five seconds with Grievous Wounds; Exhaust slows by 40% and cuts damage dealt by 35% (not true damage) for three seconds; Barrier shields 502; Heal restores 346; Ghost gives 50.8% movement speed for ten seconds; Cleanse removes crowd control but knock-ups, nearsight and suppression, and Ignite's burn and Exhaust; Flash blinks 400 units. The default behavior casts them like the kit's abilities of the same kind: Ignite and Exhaust as soon as the enemy is in range, Barrier and Heal in combat below 90% health, Ghost to close the gap, Cleanse under half a second or more of crowd control, and Flash to dodge a decisive skillshot or to get away. Smite and Teleport do nothing in a duel. The output lists each spell's simplifications ([summoner spells](data/16.21/reports/summoners.md)).
 
 With `--search`, the build search (`pipeline/items/search.ts`, PLAN.md M8) picks both builds: it fills each side's build slot by slot by a quick estimate, keeping the best build of each profile (AD, crit, attack speed, AP, tank) as a route; the sides answer each other's best build until a pair of best builds comes back; then each side's routes fight the other's in a screen of the all-in scenarios, each side takes the route whose worst result is best, and that pair plays every scenario. The quick estimate counts items' stats, stat statuses, critical strike damage and on-hit effects, and what their passives and actives give on average over a ten-second fight (`items/hints.ts`), with each kit's damage, attacks and casts calibrated first to a fight of its own (`pipeline/items/calibrate.ts`); the fights between routes settle the rest.
 
@@ -162,8 +166,10 @@ npm run fetch        # download the current patch's sources into data/raw/ (not 
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
 npm run fetch -- --only items      # refetch just the item catalog's sources
 npm run fetch -- --only item-rules # refetch just the wiki rule pages item effects quote (Energized, combat status, ...)
+npm run fetch -- --only spells     # refetch just the summoner spells' sources
 npm run build:data   # rebuild data/<dataset>/ from those downloads, with the pairings whose inputs changed
 npm run build:items  # rebuild the item catalog (items.json, reports/items.md, reports/item-effects.md)
+npm run build:summoners # rebuild the summoner spell catalog (summoners.json, reports/summoners.md)
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/` for patch 26.21; the previous patch's folder stays as it was, and a new patch's refresh reuses its results. It contains:
@@ -182,6 +188,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `simulated-spent.json` | The gold each side spent on each stat in each simulated matchup, to the whole gold piece: the simulator report reads it, and a refresh reuses it with the matchups it reuses |
 | `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build, the options played by kits with a choice, and the inputs each matchup was computed from |
 | `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel` and the build matrix |
+| `summoners.json` | The summoner spell catalog: the nine spells Summoner's Rift offers, with cooldowns, ranges, effects (values by level), each article's notes, the wiki rule pages spell effects quote, and Data Dragon's cooldowns and ranges compared. Summoner spells use it in `npm run duel` |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
@@ -191,6 +198,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `reports/simulator.md` | The simulated standings, the golden matchups with their scores, and what the stat budget buys each champion |
 | `reports/items.md` | The item catalog, readable: how it's chosen, the one-per-build groups, the cross-check against the game file, and every item's stats and effects |
 | `reports/item-effects.md` | What the simulator makes of each item: the effects it models, what it leaves out and why, its simplifications and options |
+| `reports/summoners.md` | The summoner spell catalog, readable: every spell's cooldown, range, effect and notes, and where Data Dragon differs from the wiki |
 | `reports/builds.md` | The build matrix's run, and each champion's most-built items across its matchups |
 
 Tests run offline against the committed data.

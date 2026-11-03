@@ -22,7 +22,6 @@ import {
   WIKI_LEVEL20_PAGE,
   WIKI_LICENSE,
   WIKI_RUNE_PAGES,
-  WIKI_SPELL_DATA_PAGE,
   datasetDir,
   datasetName,
   patchName,
@@ -34,7 +33,7 @@ import { readJson, readText, writeJson, writeText } from "./lib/files";
 import { mapLimit } from "./lib/http";
 import type { Manifest } from "./manifest";
 import { parseChampionData } from "./parse/championData";
-import { classicSpells } from "./summoners/records";
+import { WIKI_SPELL_DATA_PAGE, classicSpells } from "./summoners/records";
 import * as cdragon from "./sources/cdragon";
 import * as ddragon from "./sources/ddragon";
 import * as wiki from "./sources/wiki";
