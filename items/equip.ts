@@ -180,6 +180,24 @@ export interface LoadoutPart {
   onHit?: Effect[];
 }
 
+/** Several loadout parts as one (summoner spells and a rune page): their lists joined, their stats and mana added. */
+export function joinParts(parts: ReadonlyArray<LoadoutPart | undefined>): LoadoutPart {
+  const joined: LoadoutPart = { abilities: [], hooks: [], first: [], enemyHooks: [], labels: [], bonus: {}, haste: [], mana: 0, onHit: [] };
+  for (const part of parts) {
+    if (!part) continue;
+    joined.abilities.push(...part.abilities);
+    joined.hooks.push(...part.hooks);
+    joined.first!.push(...(part.first ?? []));
+    joined.enemyHooks.push(...part.enemyHooks);
+    for (const label of part.labels) if (!joined.labels.includes(label)) joined.labels.push(label);
+    addBonus(joined.bonus!, part.bonus);
+    joined.haste!.push(...(part.haste ?? []));
+    joined.mana! += part.mana ?? 0;
+    joined.onHit!.push(...(part.onHit ?? []));
+  }
+  return joined;
+}
+
 // ---------------------------------------------------------------------------------------
 // Stats
 

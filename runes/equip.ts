@@ -256,7 +256,9 @@ export function runeLoadout(spec: FighterSpec, page: RunePage, catalog: RuneCata
         const notes = coverage.get(key) ?? { rune: key, modeled: false, unmodeled: [] };
         coverage.set(key, notes);
         for (const text of [...(definition.outsideDuels ? [definition.outsideDuels] : []), ...(definition.unmodeled ?? [])]) if (!notes.unmodeled.includes(text)) notes.unmodeled.push(text);
-        notes.modeled ||= definition.outsideDuels === undefined;
+        // Modeled: it adds something to the fight.
+        const acts = definition.bonus !== undefined || (definition.permanent?.length ?? 0) > 0 || (definition.onHit?.length ?? 0) > 0 || definition.hooks !== undefined || definition.enemyHooks !== undefined || (definition.haste?.length ?? 0) > 0 || (definition.mana ?? 0) > 0;
+        notes.modeled ||= acts;
         for (const [stat, value] of Object.entries(definition.bonus ?? {}) as Array<[keyof BonusStats, number]>) part.bonus![stat] = (part.bonus![stat] ?? 0) + value;
         if (definition.permanent?.length) part.first!.push(permanentHooks(`rune:${key}`, definition.permanent));
         part.onHit!.push(...(definition.onHit ?? []));

@@ -60,7 +60,7 @@ export const LethalTempo: RuneModule = {
     const bolt = rune.level("At maximum stacks, basic attacks are empowered to fire a bolt at the target on-attack", fighter.ranged ? 1 : 0);
     rune.quote("bonus adaptive damage upon arrival, increased by 1% per 1% bonus attack speed.");
     rune.noted("Lethal Tempo's own attack speed stacks count toward the bonus attack speed that scales the bolt.");
-    const step = rune.quoted("When the duration ends, one stack expires immediately and the rest expire one by one every 0.3 seconds.", 1);
+    const step = rune.quoted("When the duration ends, one stack expires immediately and the rest expire one by one every 0.3 seconds.");
     rune.assume("the attack that brings it to maximum stacks fires the first bolt, which lands with the attack.");
     const [stacks, until, loaded] = [runeMemo(rune.name, "stacks"), runeMemo(rune.name, "until"), runeMemo(rune.name, "loaded")];
     const set = (ctx: HookContext, count: number) => {
@@ -120,7 +120,7 @@ export const Conqueror: RuneModule = {
   rune: "Conqueror",
   build(rune, fighter) {
     const words = "Dealing damage to enemy champions generates stacks of Conqueror, lasting for 5 seconds, refreshing on subsequent damage against champions, and stacking up to 12 times.";
-    const [seconds, most] = [rune.quoted(words), rune.quoted(words, 2)];
+    const [seconds, most] = [rune.quoted(words), rune.quoted(words, 1)];
     const onHit = rune.meleeRanged("Gain 2 (melee) / 1 (ranged) stacks for basic damage on-hit.");
     const perAttack = fighter.ranged ? onHit.ranged : onHit.melee;
     const otherWords = "Otherwise, gain 2 stacks for any damage that is neither basic nor non-pet proc damage, up to once every 4 seconds per cast instance.";
@@ -165,7 +165,8 @@ export const Conqueror: RuneModule = {
 
 /** A Legend rune's stacks: all of them, which a level-20 champion has had a long game to collect, like Tear stacks. */
 function legendStacks(rune: RuneData, most: string): number {
-  const stacks = rune.quoted(most);
+  // "for every 100 points earned, up to 10": the second number.
+  const stacks = rune.quoted(most, 1);
   rune.assume(`fully stacked (${stacks} Legend stacks): a level-20 champion has had a long game to collect them.`);
   return stacks;
 }
@@ -241,3 +242,24 @@ export const PRECISION_OUTSIDE: RuneModule[] = [
   { rune: "Absorb Life", build: (rune) => (rune.quote("Killing an enemy heals you for"), { outsideDuels: "It heals on a kill, and a duel ends at the first." }) },
   { rune: "Triumph", build: (rune) => (rune.quote("Scoring a takedown against an enemy champion heals you"), { outsideDuels: "It heals on a takedown, and a duel ends at the first." }) },
 ];
+
+export const PresenceOfMind: RuneModule = {
+  rune: "Presence of Mind",
+  build(rune, fighter) {
+    const words = "Damaging an enemy champion restores";
+    const mana = rune.level(words, fighter.ranged ? 1 : 0);
+    const energy = rune.quoted("mana or 6 energy (8 second cooldown).");
+    const wait = cooldown(rune.name, rune.quoted("mana or 6 energy (8 second cooldown).", 1));
+    const amount = fighter.spec.resourceType === "Energy" ? energy : mana;
+    return {
+      unmodeled: ["Its takedown restore: a duel ends at the first takedown."],
+      hooks: {
+        onDamageDealt(ctx) {
+          if (!wait.ready(ctx.self, ctx.tick)) return;
+          wait.start(ctx.self, ctx.tick);
+          ctx.apply({ type: "resource", amount: { base: amount } }, true);
+        },
+      },
+    };
+  },
+};

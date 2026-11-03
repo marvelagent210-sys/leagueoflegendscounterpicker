@@ -56,7 +56,7 @@ export const ArcaneComet: RuneModule = {
   rune: "Arcane Comet",
   build(rune, fighter) {
     const words = "Dealing ability damage or pet damage to an enemy champion hurls an Arcane Comet at their current location that lands after 0.825, dealing";
-    const delay = rune.quoted(words, 1);
+    const delay = rune.quoted(words);
     const damage = rune.level(words);
     const ratios = "(+ 10% bonus AD) (+ 5% AP) of either physical or magic damage to enemies within a 140 radius upon impact.";
     const [ad, ap, radius] = [rune.quoted(ratios) / 100, rune.quoted(ratios, 1) / 100, rune.quoted(ratios, 2)];

@@ -31,15 +31,21 @@ export interface RuneEvidence {
 
 const normalize = (text: string) => text.replace(/\s+/g, " ").trim();
 
-/** A series at level 20 (items/context.ts reads item series the same way). */
-export function valueAt20(series: Series, what: string, fail: (message: string) => never): number {
+/**
+ * A series at level 20 (items/context.ts reads item series the same way): a series that stops
+ * at level 18 gives its level-18 value, which `assume` records.
+ */
+export function valueAt20(series: Series, what: string, fail: (message: string) => never, assume: (text: string) => void = () => {}): number {
   switch (series.kind) {
     case "constant":
       return series.value;
     case "level": {
       const value = series.values[TOP_LANE_MAX_LEVEL - 1];
-      if (value === undefined) fail(`${what} has no value at level ${TOP_LANE_MAX_LEVEL}`);
-      return value;
+      if (value !== undefined) return value;
+      const last = series.values.at(-1);
+      if (last === undefined) fail(`${what} has no level values`);
+      assume(`${what} has no value past level ${series.values.length}; its level-${series.values.length} value is used at 20.`);
+      return last;
     }
     case "variable": {
       if (/^level$/i.test(series.variable.trim())) {
@@ -133,7 +139,7 @@ export class RuneData {
     const value = this.record.values.filter((v) => v.context.includes(wanted))[index];
     if (!value) this.fail(`no value ${index + 1} in a sentence containing "${wanted}"`);
     this.note(this.page, value.context);
-    return valueAt20(value.series, `${this.name}: "${wanted}"`, (message) => this.fail(message));
+    return valueAt20(value.series, `"${wanted}"`, (message) => this.fail(message), (text) => this.assume(text));
   }
 
   /** The cooldown in seconds, at level 20 when it depends on level, as the template gives it. */

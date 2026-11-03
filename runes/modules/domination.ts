@@ -1,4 +1,5 @@
 /** The Domination path's runes. */
+import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { toTicks } from "../../engine/rules/time";
 import { traitsOf } from "../../engine/sim/behavior";
 import { derive } from "../../engine/sim/derived";
@@ -170,3 +171,103 @@ export const DOMINATION_OUTSIDE: RuneModule[] = [
   { rune: "Deep Ward", build: (rune) => (rune.quote("Stealth Wards and Totem Wards placed in the enemy jungle are considered Deep."), { outsideDuels: "It strengthens wards, and a duel has none." }) },
   { rune: "Treasure Hunter", build: (rune) => (rune.quote("per unique takedown"), { outsideDuels: "It gives gold for takedowns, and a duel's builds are bought whole." }) },
 ];
+
+export const CheapShot: RuneModule = {
+  rune: "Cheap Shot",
+  build(rune, fighter) {
+    const damage = rune.level("Non-proc damage sources deal");
+    rune.quote("Valid Crowd Control: * Immobilizes * Blind * Disarm * Ground * Nearsight * Polymorph * Silence * Slow");
+    rune.quote("The target must already be impaired prior to the damaging attack or spell in order to trigger the bonus damage.");
+    rune.noted("Cripple does not count as a valid crowd control for Cheap Shot.");
+    const valid = new Set<string>(["blind", "disarm", "ground", "nearsight", "polymorph", "silence", "slow", ...IMMOBILIZING]);
+    const wait = cooldown(rune.name, rune.cooldown());
+    return {
+      hooks: {
+        onDamageDealt(ctx) {
+          if (isProc(fighter, ctx) || !wait.ready(ctx.self, ctx.tick)) return;
+          // Impaired before this tick: crowd control from the same hit doesn't count.
+          if (!ctx.enemy.statuses.some((status) => status.kind === "cc" && valid.has(status.key) && status.startTick < ctx.tick)) return;
+          wait.start(ctx.self, ctx.tick);
+          applyRune(ctx, rune.label, { type: "damage", damageType: "true", amount: { base: damage }, label: rune.label, noLifeSteal: true });
+        },
+      },
+    };
+  },
+};
+
+export const TasteOfBlood: RuneModule = {
+  rune: "Taste of Blood",
+  build(rune) {
+    const heal = rune.level("Damaging an enemy champion heals you for");
+    const ratios = "(+ 10% bonus AD) (+ 5% AP).";
+    const [ad, ap] = [rune.quoted(ratios) / 100, rune.quoted(ratios, 1) / 100];
+    rune.quote("Does not trigger at full health.");
+    const wait = cooldown(rune.name, rune.cooldown());
+    return {
+      hooks: {
+        onDamageDealt(ctx) {
+          if (ctx.self.hp >= derive(ctx.self).maxHp || !wait.ready(ctx.self, ctx.tick)) return;
+          wait.start(ctx.self, ctx.tick);
+          applyRune(ctx, rune.label, { type: "heal", amount: { base: heal, ratios: { bonusAD: ad, AP: ap } } }, true);
+        },
+      },
+    };
+  },
+};
+
+export const SuddenImpact: RuneModule = {
+  rune: "Sudden Impact",
+  build(rune) {
+    const words = "Dealing damage to an enemy champion within 4 seconds of using a dash or blink, or exiting from stealth, deals";
+    const window = rune.quoted(words);
+    const damage = rune.level(words);
+    rune.noted("Sudden Impact deals proc damage, and thus will not trigger spell effects.");
+    const wait = cooldown(rune.name, rune.cooldown());
+    const [readyUntil, hidden] = [runeMemo(rune.name, "until"), runeMemo(rune.name, "hidden")];
+    const arm = (ctx: { self: { memory: Record<string, number | string | boolean> }; tick: number }) => {
+      ctx.self.memory[readyUntil] = ctx.tick + toTicks(window);
+    };
+    return {
+      hooks: {
+        onDashEnd: arm,
+        onBlinkEnd: arm,
+        onTick(ctx) {
+          const stealthed = ctx.self.statuses.some((status) => status.kind === "state" && (status.key === "invisible" || status.key === "camouflage"));
+          if (ctx.self.memory[hidden] && !stealthed) arm(ctx);
+          if (stealthed) ctx.self.memory[hidden] = true;
+          else delete ctx.self.memory[hidden];
+        },
+        onDamageDealt(ctx) {
+          if (ctx.ability === rune.label || ctx.tick > Number(ctx.self.memory[readyUntil] ?? -1) || !wait.ready(ctx.self, ctx.tick)) return;
+          wait.start(ctx.self, ctx.tick);
+          delete ctx.self.memory[readyUntil];
+          applyRune(ctx, rune.label, { type: "damage", damageType: "true", amount: { base: damage }, label: rune.label, noLifeSteal: true });
+        },
+      },
+    };
+  },
+};
+
+const BOUNTY = { stacks: { label: "Bounty Hunter stacks before the fight (one per enemy champion taken down, 5 at most)", default: 0 } };
+
+export const RelentlessHunter: RuneModule = {
+  rune: "Relentless Hunter",
+  options: BOUNTY,
+  build(rune, fighter, options) {
+    const words = "Gain 8 bonus movement speed while out of combat per Bounty Hunter stack, up to 40 at 5 stacks.";
+    const [per, most] = [rune.quoted(words), rune.quoted(words, 2)];
+    const speed = per * Math.min(most, options.stacks ?? 0);
+    const combat = fighter.items.combat();
+    return { hooks: { onTick: (ctx) => runeStat(ctx, rune.name, "moveSpeedFlat", combat.inCombat(ctx.self, ctx.tick) ? 0 : speed) } };
+  },
+};
+
+export const UltimateHunter: RuneModule = {
+  rune: "Ultimate Hunter",
+  options: BOUNTY,
+  build(rune, _fighter, options) {
+    const words = "Gain 6 (+ 5 per Bounty Hunter stack) ultimate haste, up to 31 at 5 stacks.";
+    const [base, per, most] = [rune.quoted(words), rune.quoted(words, 1), rune.quoted(words, 3)];
+    return { haste: [{ slots: ["R"], haste: base + per * Math.min(most, options.stacks ?? 0) }] };
+  },
+};
