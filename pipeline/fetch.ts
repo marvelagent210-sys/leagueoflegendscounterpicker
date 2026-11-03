@@ -10,6 +10,7 @@
  *        npm run fetch -- --only items      (refetch just the item catalog's sources)
  *        npm run fetch -- --only item-rules (refetch just the rule pages item effects quote)
  *        npm run fetch -- --only spells     (refetch just the summoner spells' sources)
+ *        npm run fetch -- --only rune-catalog (refetch just the rune catalog's sources)
  */
 import path from "node:path";
 import {
@@ -33,6 +34,7 @@ import { readJson, readText, writeJson, writeText } from "./lib/files";
 import { mapLimit } from "./lib/http";
 import type { Manifest } from "./manifest";
 import { parseChampionData } from "./parse/championData";
+import { WIKI_RUNE_DATA_PREFIX, WIKI_RUNE_RULE_PAGES, currentRunes, runePage } from "./runeCatalog/records";
 import { WIKI_SPELL_DATA_PAGE, classicSpells } from "./summoners/records";
 import * as cdragon from "./sources/cdragon";
 import * as ddragon from "./sources/ddragon";
@@ -123,6 +125,43 @@ function spellSources(ddragonVersion: string, spells: { data: wiki.WikiPage; art
   return { ddragonVersion, spellData: { title: spells.data.title, revid: spells.data.revid }, articles: spells.articles.map(({ title, revid }) => ({ title, revid })), fetchedAt: spells.fetchedAt };
 }
 
+/**
+ * The rune catalog's sources: Data Dragon's rune list for the dataset's version (the runes
+ * Summoner's Rift offers), the client's perk data for the stat shards, each rune's wiki data
+ * template (titled by its name, case aside) and article, and WIKI_RUNE_RULE_PAGES. Every one
+ * must exist.
+ */
+async function fetchRuneCatalog(raw: string, ddragonVersion: string): Promise<{ templates: wiki.WikiPage[]; articles: wiki.WikiPage[]; rules: wiki.WikiPage[]; fetchedAt: string }> {
+  const fetchedAt = new Date().toISOString();
+  const reforged = await ddragon.runesReforgedText(ddragonVersion);
+  await writeText(path.join(raw, "ddragon", "runesReforged.json"), reforged);
+  await writeText(path.join(raw, "cdragon", "perks.json"), await cdragon.perksText());
+  await writeText(path.join(raw, "cdragon", "perkstyles.json"), await cdragon.perkStylesText());
+  const runes = currentRunes(JSON.parse(reforged) as ddragon.DDragonRunePath[]);
+  // Data Dragon's names can differ from the wiki's in case ("Jack Of All Trades").
+  const listed = (await wiki.listPages(TEMPLATE_NAMESPACE, WIKI_RUNE_DATA_PREFIX.slice("Template:".length))).map((title) => ({ title, pageid: 0, revid: 0, timestamp: "", content: "" }));
+  const templateTitles = runes.map((rune) => {
+    const found = runePage(listed, rune.name, WIKI_RUNE_DATA_PREFIX);
+    if (!found) throw new Error(`No wiki data template for the rune ${rune.name}`);
+    return found.title;
+  });
+  const articleTitles = templateTitles.map((title) => title.slice(WIKI_RUNE_DATA_PREFIX.length));
+  const titles = [...templateTitles, ...articleTitles, ...WIKI_RUNE_RULE_PAGES];
+  const { pages, missing } = await wiki.getPages(titles);
+  if (missing.length > 0) throw new Error(`Wiki pages not found: ${missing.join(", ")}`);
+  const byTitle = (title: string) => pages.find((page) => page.title === title)!;
+  const [templates, articles, rules] = [templateTitles.map(byTitle), articleTitles.map(byTitle), WIKI_RUNE_RULE_PAGES.map(byTitle)];
+  await writeJson(path.join(raw, "wiki", "rune-catalog.json"), [...templates, ...articles, ...rules]);
+  log(`Rune catalog: Data Dragon ${ddragonVersion}, ${templates.length} rune data templates and articles, ${rules.length} rule pages`);
+  return { templates, articles, rules, fetchedAt };
+}
+
+/** The manifest's record of the rune catalog's sources. */
+function runeCatalogSources(ddragonVersion: string, runes: { templates: wiki.WikiPage[]; articles: wiki.WikiPage[]; rules: wiki.WikiPage[]; fetchedAt: string }): NonNullable<Manifest["runeCatalog"]> {
+  const pinned = (pages: wiki.WikiPage[]) => pages.map(({ title, revid }) => ({ title, revid }));
+  return { ddragonVersion, templates: pinned(runes.templates), articles: pinned(runes.articles), rules: pinned(runes.rules), fetchedAt: runes.fetchedAt };
+}
+
 /** Writes new wiki revisions into a dataset's wiki-revisions.json, keeping the rest. */
 async function addRevisions(out: string, pages: wiki.WikiPage[]): Promise<void> {
   const revisions = await readJson<Record<string, number>>(path.join(out, "wiki-revisions.json"));
@@ -201,6 +240,20 @@ async function spellsOnly(): Promise<void> {
   await addRevisions(out, [spells.data, ...spells.articles]);
 }
 
+/** Refetches only the rune catalog's sources into the latest dataset and updates its provenance files. */
+async function runeCatalogOnly(): Promise<void> {
+  const dataset = await latestDataset(RAW_DIR, "ddragon");
+  const out = datasetDir(dataset);
+  const manifest = await readJson<Manifest>(path.join(out, "manifest.json"));
+  // CommunityDragon serves only the latest client files.
+  const cdragonVersion = await cdragon.contentVersion();
+  if (datasetName(cdragonVersion) !== dataset) throw new Error(`CommunityDragon is on ${cdragonVersion}, not dataset ${dataset}: its perk data would mix patches.`);
+  const runes = await fetchRuneCatalog(rawDir(dataset), manifest.ddragon.version);
+  manifest.runeCatalog = runeCatalogSources(manifest.ddragon.version, runes);
+  await writeJson(path.join(out, "manifest.json"), manifest);
+  await addRevisions(out, [...runes.templates, ...runes.articles, ...runes.rules]);
+}
+
 /** Refetches only the glossary pages into the latest dataset and updates its provenance files. */
 async function glossaryOnly(): Promise<void> {
   const dataset = await latestDataset(RAW_DIR, "ddragon");
@@ -220,6 +273,7 @@ async function main(): Promise<void> {
   if (only === "items") return itemsOnly();
   if (only === "item-rules") return itemRulesOnly();
   if (only === "spells") return spellsOnly();
+  if (only === "rune-catalog") return runeCatalogOnly();
   if (only !== undefined) throw new Error(`Unknown --only value: ${only}`);
 
   const ddragonVersion = await ddragon.latestVersion();
@@ -290,6 +344,7 @@ async function main(): Promise<void> {
   const runes = await fetchRunePages(raw);
   const items = await fetchItems(raw, ddragonVersion, cdragonVersion);
   const spells = await fetchSpells(raw, ddragonVersion);
+  const runeCatalog = await fetchRuneCatalog(raw, ddragonVersion);
 
   const manifest: Manifest = {
     dataset,
@@ -309,6 +364,7 @@ async function main(): Promise<void> {
     },
     items: { ddragonVersion, cdragonVersion, itemData: { title: items.page.title, revid: items.page.revid }, rules: items.rules.map(({ title, revid }) => ({ title, revid })), fetchedAt: items.fetchedAt },
     spells: spellSources(ddragonVersion, spells),
+    runeCatalog: runeCatalogSources(ddragonVersion, runeCatalog),
   };
   const out = datasetDir(dataset);
   await writeJson(path.join(out, "manifest.json"), manifest);
@@ -316,7 +372,7 @@ async function main(): Promise<void> {
   const revisions = Object.fromEntries(
     [
       [WIKI_LEVEL20_PAGE, level20.revid] as const,
-      ...[championData, ...templates.pages, ...glossary.pages, ...pets.pages, ...runes.pages, items.page, ...items.rules, spells.data, ...spells.articles].map((page) => [page.title, page.revid] as const),
+      ...[championData, ...templates.pages, ...glossary.pages, ...pets.pages, ...runes.pages, items.page, ...items.rules, spells.data, ...spells.articles, ...runeCatalog.templates, ...runeCatalog.articles, ...runeCatalog.rules].map((page) => [page.title, page.revid] as const),
     ].sort(([a], [b]) => a.localeCompare(b)),
   );
   await writeJson(path.join(out, "wiki-revisions.json"), revisions);

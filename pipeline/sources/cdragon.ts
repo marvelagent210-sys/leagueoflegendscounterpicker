@@ -30,3 +30,13 @@ export function characterBinText(name: string): Promise<string> {
 export function itemsBinText(): Promise<string> {
   return fetchText(`${CDRAGON}/game/items.cdtb.bin.json`);
 }
+
+/** The client's perk data: every rune's and stat shard's ID, name and descriptions. */
+export function perksText(): Promise<string> {
+  return fetchText(`${GAME_DATA}/perks.json`);
+}
+
+/** The client's rune paths: their slots, the stat shard slots among them. */
+export function perkStylesText(): Promise<string> {
+  return fetchText(`${GAME_DATA}/perkstyles.json`);
+}

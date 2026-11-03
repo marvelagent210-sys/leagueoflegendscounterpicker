@@ -47,4 +47,16 @@ export interface Manifest {
     articles: Array<{ title: string; revid: number }>;
     fetchedAt: string;
   };
+  /**
+   * The rune catalog's sources: Data Dragon's rune list, each rune's wiki data template and
+   * article, and the wiki's pages on rune pages and adaptive force. Fetched with the rest, or
+   * alone with --only rune-catalog.
+   */
+  runeCatalog?: {
+    ddragonVersion: string;
+    templates: Array<{ title: string; revid: number }>;
+    articles: Array<{ title: string; revid: number }>;
+    rules: Array<{ title: string; revid: number }>;
+    fetchedAt: string;
+  };
 }

@@ -12,6 +12,7 @@
     "build:data": "tsx pipeline/build.ts",
     "build:items": "tsx pipeline/items/build.ts",
     "build:summoners": "tsx pipeline/summoners/build.ts",
+    "build:runes": "tsx pipeline/runeCatalog/build.ts",
     "build:sim": "tsx pipeline/sim/refresh.ts",
     "build:builds": "tsx pipeline/sim/builds.ts",
     "matchup": "tsx pipeline/cli/matchup.ts",

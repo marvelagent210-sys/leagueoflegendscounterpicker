@@ -294,5 +294,527 @@
       }
     ],
     "fetchedAt": "2026-11-03T15:20:24.823Z"
+  },
+  "runeCatalog": {
+    "ddragonVersion": "16.21.1",
+    "templates": [
+      {
+        "title": "Template:Rune data Electrocute",
+        "revid": 4060699
+      },
+      {
+        "title": "Template:Rune data Dark Harvest",
+        "revid": 4046509
+      },
+      {
+        "title": "Template:Rune data Hail of Blades",
+        "revid": 4060661
+      },
+      {
+        "title": "Template:Rune data Cheap Shot",
+        "revid": 3992989
+      },
+      {
+        "title": "Template:Rune data Taste of Blood",
+        "revid": 3997097
+      },
+      {
+        "title": "Template:Rune data Sudden Impact",
+        "revid": 3825916
+      },
+      {
+        "title": "Template:Rune data Sixth Sense",
+        "revid": 4017988
+      },
+      {
+        "title": "Template:Rune data Grisly Mementos",
+        "revid": 3855346
+      },
+      {
+        "title": "Template:Rune data Deep Ward",
+        "revid": 3855345
+      },
+      {
+        "title": "Template:Rune data Treasure Hunter",
+        "revid": 3825922
+      },
+      {
+        "title": "Template:Rune data Relentless Hunter",
+        "revid": 3825911
+      },
+      {
+        "title": "Template:Rune data Ultimate Hunter",
+        "revid": 3825925
+      },
+      {
+        "title": "Template:Rune data Glacial Augment",
+        "revid": 4033154
+      },
+      {
+        "title": "Template:Rune data Unsealed Spellbook",
+        "revid": 3960876
+      },
+      {
+        "title": "Template:Rune data First Strike",
+        "revid": 4058238
+      },
+      {
+        "title": "Template:Rune data Hextech Flashtraption",
+        "revid": 4011828
+      },
+      {
+        "title": "Template:Rune data Magical Footwear",
+        "revid": 3825896
+      },
+      {
+        "title": "Template:Rune data Cash Back",
+        "revid": 3989897
+      },
+      {
+        "title": "Template:Rune data Triple Tonic",
+        "revid": 3961243
+      },
+      {
+        "title": "Template:Rune data Time Warp Tonic",
+        "revid": 3825920
+      },
+      {
+        "title": "Template:Rune data Biscuit Delivery",
+        "revid": 4037523
+      },
+      {
+        "title": "Template:Rune data Cosmic Insight",
+        "revid": 3825866
+      },
+      {
+        "title": "Template:Rune data Approach Velocity",
+        "revid": 3980961
+      },
+      {
+        "title": "Template:Rune data Jack of All Trades",
+        "revid": 4046578
+      },
+      {
+        "title": "Template:Rune data Press the Attack",
+        "revid": 4015574
+      },
+      {
+        "title": "Template:Rune data Lethal Tempo",
+        "revid": 4065934
+      },
+      {
+        "title": "Template:Rune data Fleet Footwork",
+        "revid": 4051351
+      },
+      {
+        "title": "Template:Rune data Conqueror",
+        "revid": 4060685
+      },
+      {
+        "title": "Template:Rune data Absorb Life",
+        "revid": 3997095
+      },
+      {
+        "title": "Template:Rune data Triumph",
+        "revid": 3825924
+      },
+      {
+        "title": "Template:Rune data Presence of Mind",
+        "revid": 3985219
+      },
+      {
+        "title": "Template:Rune data Legend: Alacrity",
+        "revid": 3958705
+      },
+      {
+        "title": "Template:Rune data Legend: Haste",
+        "revid": 3958696
+      },
+      {
+        "title": "Template:Rune data Legend: Bloodline",
+        "revid": 3971359
+      },
+      {
+        "title": "Template:Rune data Coup de Grace",
+        "revid": 3859780
+      },
+      {
+        "title": "Template:Rune data Cut Down",
+        "revid": 3859781
+      },
+      {
+        "title": "Template:Rune data Last Stand",
+        "revid": 3859782
+      },
+      {
+        "title": "Template:Rune data Grasp of the Undying",
+        "revid": 4058228
+      },
+      {
+        "title": "Template:Rune data Aftershock",
+        "revid": 4022990
+      },
+      {
+        "title": "Template:Rune data Guardian",
+        "revid": 4022993
+      },
+      {
+        "title": "Template:Rune data Demolish",
+        "revid": 4058470
+      },
+      {
+        "title": "Template:Rune data Font of Life",
+        "revid": 3996429
+      },
+      {
+        "title": "Template:Rune data Shield Bash",
+        "revid": 4044093
+      },
+      {
+        "title": "Template:Rune data Conditioning",
+        "revid": 3825864
+      },
+      {
+        "title": "Template:Rune data Second Wind",
+        "revid": 3960974
+      },
+      {
+        "title": "Template:Rune data Bone Plating",
+        "revid": 3985159
+      },
+      {
+        "title": "Template:Rune data Overgrowth",
+        "revid": 3825902
+      },
+      {
+        "title": "Template:Rune data Revitalize",
+        "revid": 3825912
+      },
+      {
+        "title": "Template:Rune data Unflinching",
+        "revid": 3958701
+      },
+      {
+        "title": "Template:Rune data Summon Aery",
+        "revid": 4062237
+      },
+      {
+        "title": "Template:Rune data Arcane Comet",
+        "revid": 4060639
+      },
+      {
+        "title": "Template:Rune data Stormraider's Surge",
+        "revid": 4042210
+      },
+      {
+        "title": "Template:Rune data Deathfire Touch",
+        "revid": 4023190
+      },
+      {
+        "title": "Template:Rune data Axiom Arcanist",
+        "revid": 3948848
+      },
+      {
+        "title": "Template:Rune data Manaflow Band",
+        "revid": 4058510
+      },
+      {
+        "title": "Template:Rune data Nimbus Cloak",
+        "revid": 4023241
+      },
+      {
+        "title": "Template:Rune data Transcendence",
+        "revid": 3825921
+      },
+      {
+        "title": "Template:Rune data Celerity",
+        "revid": 3825860
+      },
+      {
+        "title": "Template:Rune data Absolute Focus",
+        "revid": 3986945
+      },
+      {
+        "title": "Template:Rune data Scorch",
+        "revid": 3985169
+      },
+      {
+        "title": "Template:Rune data Waterwalking",
+        "revid": 3986946
+      },
+      {
+        "title": "Template:Rune data Gathering Storm",
+        "revid": 4011483
+      }
+    ],
+    "articles": [
+      {
+        "title": "Electrocute",
+        "revid": 4015230
+      },
+      {
+        "title": "Dark Harvest",
+        "revid": 4015232
+      },
+      {
+        "title": "Hail of Blades",
+        "revid": 4088333
+      },
+      {
+        "title": "Cheap Shot",
+        "revid": 4023785
+      },
+      {
+        "title": "Taste of Blood",
+        "revid": 3997098
+      },
+      {
+        "title": "Sudden Impact",
+        "revid": 4091670
+      },
+      {
+        "title": "Sixth Sense",
+        "revid": 4017990
+      },
+      {
+        "title": "Grisly Mementos",
+        "revid": 3980962
+      },
+      {
+        "title": "Deep Ward",
+        "revid": 3980963
+      },
+      {
+        "title": "Treasure Hunter",
+        "revid": 3980912
+      },
+      {
+        "title": "Relentless Hunter",
+        "revid": 3980913
+      },
+      {
+        "title": "Ultimate Hunter",
+        "revid": 4000983
+      },
+      {
+        "title": "Glacial Augment",
+        "revid": 4015113
+      },
+      {
+        "title": "Unsealed Spellbook",
+        "revid": 4059845
+      },
+      {
+        "title": "First Strike",
+        "revid": 4065516
+      },
+      {
+        "title": "Hextech Flashtraption",
+        "revid": 4003846
+      },
+      {
+        "title": "Magical Footwear",
+        "revid": 3986720
+      },
+      {
+        "title": "Cash Back",
+        "revid": 3991600
+      },
+      {
+        "title": "Triple Tonic",
+        "revid": 3989900
+      },
+      {
+        "title": "Time Warp Tonic",
+        "revid": 3980957
+      },
+      {
+        "title": "Biscuit Delivery",
+        "revid": 3980958
+      },
+      {
+        "title": "Cosmic Insight",
+        "revid": 3980959
+      },
+      {
+        "title": "Approach Velocity",
+        "revid": 3980960
+      },
+      {
+        "title": "Jack of All Trades",
+        "revid": 4047523
+      },
+      {
+        "title": "Press the Attack",
+        "revid": 4082445
+      },
+      {
+        "title": "Lethal Tempo",
+        "revid": 4060427
+      },
+      {
+        "title": "Fleet Footwork",
+        "revid": 4052588
+      },
+      {
+        "title": "Conqueror",
+        "revid": 4085479
+      },
+      {
+        "title": "Absorb Life",
+        "revid": 3980915
+      },
+      {
+        "title": "Triumph",
+        "revid": 3980916
+      },
+      {
+        "title": "Presence of Mind",
+        "revid": 4062635
+      },
+      {
+        "title": "Legend: Alacrity",
+        "revid": 3980881
+      },
+      {
+        "title": "Legend: Haste",
+        "revid": 3980882
+      },
+      {
+        "title": "Legend: Bloodline",
+        "revid": 4021767
+      },
+      {
+        "title": "Coup de Grace",
+        "revid": 3860002
+      },
+      {
+        "title": "Cut Down",
+        "revid": 4014921
+      },
+      {
+        "title": "Last Stand",
+        "revid": 3926332
+      },
+      {
+        "title": "Grasp of the Undying",
+        "revid": 4052352
+      },
+      {
+        "title": "Aftershock",
+        "revid": 4023199
+      },
+      {
+        "title": "Guardian",
+        "revid": 4022966
+      },
+      {
+        "title": "Demolish",
+        "revid": 4058471
+      },
+      {
+        "title": "Font of Life",
+        "revid": 4015111
+      },
+      {
+        "title": "Shield Bash",
+        "revid": 4015237
+      },
+      {
+        "title": "Conditioning",
+        "revid": 3980942
+      },
+      {
+        "title": "Second Wind",
+        "revid": 4012933
+      },
+      {
+        "title": "Bone Plating",
+        "revid": 4072632
+      },
+      {
+        "title": "Overgrowth",
+        "revid": 4002405
+      },
+      {
+        "title": "Revitalize",
+        "revid": 3997189
+      },
+      {
+        "title": "Unflinching",
+        "revid": 4053306
+      },
+      {
+        "title": "Summon Aery",
+        "revid": 4058483
+      },
+      {
+        "title": "Arcane Comet",
+        "revid": 4024412
+      },
+      {
+        "title": "Stormraider's Surge",
+        "revid": 4065358
+      },
+      {
+        "title": "Deathfire Touch",
+        "revid": 4064330
+      },
+      {
+        "title": "Axiom Arcanist",
+        "revid": 4050881
+      },
+      {
+        "title": "Manaflow Band",
+        "revid": 4058511
+      },
+      {
+        "title": "Nimbus Cloak",
+        "revid": 4023242
+      },
+      {
+        "title": "Transcendence",
+        "revid": 3813921
+      },
+      {
+        "title": "Celerity",
+        "revid": 4047756
+      },
+      {
+        "title": "Absolute Focus",
+        "revid": 3813854
+      },
+      {
+        "title": "Scorch",
+        "revid": 4024859
+      },
+      {
+        "title": "Waterwalking",
+        "revid": 3980932
+      },
+      {
+        "title": "Gathering Storm",
+        "revid": 3980933
+      }
+    ],
+    "rules": [
+      {
+        "title": "Rune",
+        "revid": 4091810
+      },
+      {
+        "title": "Adaptive force",
+        "revid": 4063874
+      },
+      {
+        "title": "Template:Adaptive",
+        "revid": 4009298
+      },
+      {
+        "title": "Template:Tip data/Adaptive damage",
+        "revid": 4015091
+      }
+    ],
+    "fetchedAt": "2026-11-03T15:56:06.524Z"
   }
 }

@@ -47,3 +47,16 @@ export interface DDragonSummoners {
   version: string;
   data: Record<string, { id: string; name: string; description: string; cooldown: number[]; range: number[]; modes: string[] }>;
 }
+
+/** Every rune of the version, by path and row (the stat shards aren't in it). */
+export function runesReforgedText(version: string): Promise<string> {
+  return fetchText(`${DDRAGON}/cdn/${version}/data/en_US/runesReforged.json`);
+}
+
+/** One rune path of Data Dragon's runesReforged.json: its keystone row first, then the lesser rows. */
+export interface DDragonRunePath {
+  id: number;
+  key: string;
+  name: string;
+  slots: Array<{ runes: Array<{ id: number; key: string; name: string }> }>;
+}

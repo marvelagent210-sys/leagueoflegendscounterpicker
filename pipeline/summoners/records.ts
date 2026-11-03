@@ -129,7 +129,7 @@ export function articleNotes(article: string, ctx: EvalContext): { notes: string
  * The shared evaluator shows {{ccib|icon|link|text}} as its icon alone; a spell's effect
  * names a kind of debuff with it ("summoner spell debuffs"), so it reads like {{cci}}: its text.
  */
-const iconText = (wikitext: string) => wikitext.replace(/\{\{\s*ccib\s*\|/gi, "{{cci|");
+export const iconText = (wikitext: string) => wikitext.replace(/\{\{\s*ccib\s*\|/gi, "{{cci|");
 
 export function buildSpellCatalog(sources: SpellSources): SpellCatalog {
   const ctx = createContext(sources.championData);

@@ -167,9 +167,11 @@ npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
 npm run fetch -- --only items      # refetch just the item catalog's sources
 npm run fetch -- --only item-rules # refetch just the wiki rule pages item effects quote (Energized, combat status, ...)
 npm run fetch -- --only spells     # refetch just the summoner spells' sources
+npm run fetch -- --only rune-catalog # refetch just the rune catalog's sources
 npm run build:data   # rebuild data/<dataset>/ from those downloads, with the pairings whose inputs changed
 npm run build:items  # rebuild the item catalog (items.json, reports/items.md, reports/item-effects.md)
 npm run build:summoners # rebuild the summoner spell catalog (summoners.json, reports/summoners.md)
+npm run build:runes  # rebuild the rune catalog (rune-catalog.json, reports/runes.md)
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/` for patch 26.21; the previous patch's folder stays as it was, and a new patch's refresh reuses its results. It contains:
@@ -189,6 +191,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build, the options played by kits with a choice, and the inputs each matchup was computed from |
 | `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel` and the build matrix |
 | `summoners.json` | The summoner spell catalog: the nine spells Summoner's Rift offers, with cooldowns, ranges, effects (values by level), each article's notes, the wiki rule pages spell effects quote, and Data Dragon's cooldowns and ranges compared. Summoner spells use it in `npm run duel` |
+| `rune-catalog.json` | The rune catalog: the 62 runes Summoner's Rift offers by path and row, with each one's effect (values by level, melee and ranged values, adaptive force) and its article's notes; the stat shards from the wiki's Rune article, named and checked against the client's perk data; the runes a champion gets in place of others; and the wiki rule pages rune effects quote. (`runes.json` holds the one rune kits read, Udyr's Triple Tonic.) |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
@@ -199,6 +202,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `reports/items.md` | The item catalog, readable: how it's chosen, the one-per-build groups, the cross-check against the game file, and every item's stats and effects |
 | `reports/item-effects.md` | What the simulator makes of each item: the effects it models, what it leaves out and why, its simplifications and options |
 | `reports/summoners.md` | The summoner spell catalog, readable: every spell's cooldown, range, effect and notes, and where Data Dragon differs from the wiki |
+| `reports/runes.md` | The rune catalog, readable: the stat shards, the substitutions, and every rune's effect and notes by path |
 | `reports/builds.md` | The build matrix's run, and each champion's most-built items across its matchups |
 
 Tests run offline against the committed data.
