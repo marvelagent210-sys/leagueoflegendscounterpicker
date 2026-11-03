@@ -869,6 +869,12 @@ export interface KitHooks {
   onDisrupted?(ctx: HookContext & { source: Unit; ability?: string }): void;
   /** An enemy champion received hostile immobilization, after its own accepted-CC callback. */
   onEnemyCCApplied?(ctx: HookContext & { target: Unit; cc: CCType; source: Unit; ability?: string }): void;
+  /**
+   * An enemy champion received hostile crowd control of any type, slows and silences included,
+   * after its own accepted-CC callback (Electrocute's and Font of Life's triggers); before
+   * onEnemyCCApplied when it immobilizes.
+   */
+  onEnemyCrowdControlled?(ctx: HookContext & { target: Unit; cc: CCType; source: Unit; ability?: string }): void;
   onTargetResurrection?(ctx: HookContext & { target: Unit }): void;
   onKill?(ctx: HookContext & { victim: Unit | Pet; pet?: Pet; damage?: { ability?: string; persistent?: boolean } }): void;
   /** One actual hostile combat death, once; expiry/replacement/despawn is excluded. */

@@ -5,7 +5,7 @@ import { traitsOf } from "../../engine/sim/behavior";
 import { derive } from "../../engine/sim/derived";
 import type { HookContext } from "../../engine/sim/spec";
 import type { RuneFighter, RuneModule } from "../equip";
-import { adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
+import { LATE_GAME_ESTIMATE, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
 
 /** Proc damage of the holder's items, runes or summoner spells: neither basic damage, nor the kit's, nor a pet's. */
 function isProc(fighter: RuneFighter, hit: { attack: boolean; ability?: string; persistent: boolean; petSource?: boolean }): boolean {
@@ -63,7 +63,7 @@ export const Electrocute: RuneModule = {
             stack(ctx, `${ctx.petSource ? "pet " : ""}${ctx.ability ?? "ability"}`);
           }
         },
-        onEnemyCCApplied(ctx) {
+        onEnemyCrowdControlled(ctx) {
           if (!invalid.has(ctx.cc)) stack(ctx, ctx.ability ?? `cc ${ctx.cc}`);
         },
         onCast(ctx) {
@@ -77,7 +77,7 @@ export const Electrocute: RuneModule = {
 
 export const DarkHarvest: RuneModule = {
   rune: "Dark Harvest",
-  options: { souls: { label: "Souls reaped before the fight", default: 0 } },
+  options: { souls: { label: "Souls reaped before the fight", default: 20, basis: LATE_GAME_ESTIMATE } },
   build(rune, fighter, options) {
     const words = "Dealing pet or non-proc damage against enemy champions below 50% of their maximum health deals 30 (+ 11 per Soul) (+ 10% bonus AD) (+ 5% AP) bonus adaptive damage";
     const [below, base, perSoul, ad, ap] = [rune.quoted(words), rune.quoted(words, 1), rune.quoted(words, 2), rune.quoted(words, 3), rune.quoted(words, 4)];
@@ -248,7 +248,7 @@ export const SuddenImpact: RuneModule = {
   },
 };
 
-const BOUNTY = { stacks: { label: "Bounty Hunter stacks before the fight (one per enemy champion taken down, 5 at most)", default: 0 } };
+const BOUNTY = { stacks: { label: "Bounty Hunter stacks before the fight (one per enemy champion taken down, 5 at most)", default: 4, basis: LATE_GAME_ESTIMATE } };
 
 export const RelentlessHunter: RuneModule = {
   rune: "Relentless Hunter",

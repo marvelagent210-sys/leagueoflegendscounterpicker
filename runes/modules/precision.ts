@@ -4,7 +4,7 @@ import { derive } from "../../engine/sim/derived";
 import type { HookContext } from "../../engine/sim/spec";
 import type { RuneData } from "../context";
 import type { RuneModule } from "../equip";
-import { adaptiveStat, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
+import { GAME_MINUTES, adaptiveStat, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
 
 /** Whether a hit is proc damage of the holder's items, runes or summoner spells (not basic damage, not the kit's). */
 const isProc = (fighter: { items: { isAbilityDamage: (hit: { attack: boolean; ability?: string; persistent: boolean }) => boolean } }, ctx: { attack: boolean; ability?: string; persistent: boolean; petSource?: boolean }) =>
@@ -167,7 +167,7 @@ export const Conqueror: RuneModule = {
 function legendStacks(rune: RuneData, most: string): number {
   // "for every 100 points earned, up to 10": the second number.
   const stacks = rune.quoted(most, 1);
-  rune.assume(`fully stacked (${stacks} Legend stacks): a level-20 champion has had a long game to collect them.`);
+  rune.assume(`fully stacked (${stacks} Legend stacks): in a typical ${GAME_MINUTES}-minute game, a level-20 champion has had time to collect them.`);
   return stacks;
 }
 

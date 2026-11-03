@@ -8,6 +8,15 @@ import type { Unit } from "../engine/sim/state";
 import { setStat } from "../items/runtime";
 import type { RuneFighter } from "./equip";
 
+/**
+ * The game a fight comes in, for what runes collect before it and what grows with game time
+ * (Gathering Storm): a typical late game of 30 minutes, at level 20. The stacks collected in it
+ * are estimates for such a game, each option's `basis`.
+ */
+export const GAME_MINUTES = 30;
+/** What an option's default is, when it is an estimate for that game. */
+export const LATE_GAME_ESTIMATE = `an estimate for a typical ${GAME_MINUTES}-minute game`;
+
 /** A rune's key, set apart from the kit's abilities, item actives and summoner spells. */
 export const runeKey = (rune: string) => `rune:${rune}`;
 /** A rune's own memory key. */

@@ -65,8 +65,11 @@ export interface RuneDefinition {
 export interface RuneModule {
   /** The rune's (or stat shard's) name in the catalog. */
   rune: string;
-  /** Assumptions the user can change (stacks collected before the fight). */
-  options?: Record<string, { label: string; default: number }>;
+  /**
+   * Assumptions the user can change (stacks collected before the fight), each with what its
+   * default rests on (`basis`: an estimate for a typical game, runes/shared.ts).
+   */
+  options?: Record<string, { label: string; default: number; basis?: string }>;
   build(rune: RuneData, fighter: RuneFighter, options: Record<string, number>): RuneDefinition;
 }
 
@@ -250,7 +253,10 @@ export function runeLoadout(spec: FighterSpec, page: RunePage, catalog: RuneCata
       const add = (key: string, data: RuneData, module: RuneModule | undefined) => {
         if (!module) throw new Error(`No module for the rune ${key}`);
         const chosen = { ...Object.fromEntries(Object.entries(module.options ?? {}).map(([name, option]) => [name, option.default])), ...settings.options?.[key] };
-        for (const [name, option] of Object.entries(module.options ?? {})) context.assume(`${key}: ${option.label}: ${chosen[name]}.`);
+        for (const [name, option] of Object.entries(module.options ?? {})) {
+          const given = settings.options?.[key]?.[name] !== undefined;
+          context.assume(`${key}: ${option.label}: ${chosen[name]}${!given && option.basis ? ` (${option.basis})` : ""}.`);
+        }
         options[key] = chosen;
         const definition = module.build(data, fighter, chosen);
         const notes = coverage.get(key) ?? { rune: key, modeled: false, unmodeled: [] };

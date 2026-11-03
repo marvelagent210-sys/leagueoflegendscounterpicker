@@ -6,7 +6,7 @@ import { derive } from "../../engine/sim/derived";
 import { hitChance } from "../../engine/sim/hitModel";
 import type { AbilitySpec, HookContext } from "../../engine/sim/spec";
 import type { RuneFighter, RuneModule } from "../equip";
-import { adaptiveBonus, adaptiveStat, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
+import { GAME_MINUTES, adaptiveBonus, adaptiveStat, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
 import { variableType } from "./domination";
 
 /** Ability or pet damage of the kit's: not basic damage, not the proc damage of items, runes and summoner spells. */
@@ -196,7 +196,7 @@ export const ManaflowBand: RuneModule = {
     const most = rune.quoted(words, 1);
     const restore = "After reaching 250 bonus mana, permanently restore 1% of your missing mana every 5 seconds.";
     const [share, every] = [rune.quoted(restore, 1) / 100, rune.quoted(restore, 2)];
-    rune.assume(`fully stacked (${most} bonus mana): a level-20 champion has had a long game to damage champions with its abilities.`);
+    rune.assume(`fully stacked (${most} bonus mana): in a typical ${GAME_MINUTES}-minute game, a level-20 champion has had time to damage champions with its abilities.`);
     const next = runeMemo(rune.name, "next");
     return {
       mana: most,
@@ -268,7 +268,7 @@ export const AbsoluteFocus: RuneModule = {
 
 export const GatheringStorm: RuneModule = {
   rune: "Gathering Storm",
-  options: { minutes: { label: "Minutes of game time before the fight", default: 0 } },
+  options: { minutes: { label: "Minutes of game time before the fight", default: GAME_MINUTES, basis: `a typical ${GAME_MINUTES}-minute game` } },
   build(rune, fighter, options) {
     const growth = rune.record.values.filter((value) => value.context.includes("Gain increasing adaptive Force every 10 minutes"));
     const series = growth[fighter.adaptive === "ad" ? 0 : 1]?.series;

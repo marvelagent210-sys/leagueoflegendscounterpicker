@@ -7,64 +7,13 @@
 import { describe, expect, it } from "vitest";
 import { defaultBehavior } from "../../engine/sim/behavior";
 import { derive } from "../../engine/sim/derived";
-import { createWorld, step } from "../../engine/sim/simulate";
-import type { FighterSpec } from "../../engine/sim/spec";
-import type { Mode, World } from "../../engine/sim/state";
-import { matchupSpecs } from "../../items/equip";
-import { DATA_DIR } from "../../pipeline/config";
-import { latestDataset } from "../../pipeline/datasets";
-import { type LoadoutFighter, equipBuild, loadItemCatalog, loadRuneCatalog } from "../../pipeline/itemData";
+import { step } from "../../engine/sim/simulate";
 import { RuneContext } from "../../runes/context";
 import { type RunePage, pageProblems, substitutePage } from "../../runes/equip";
 import { RUNE_MODULES } from "../../runes/modules/index";
 import { castWhenReady, idle } from "../sim/helpers";
 import { RANGED, ability, fighter } from "../sim/kits";
-
-const dataset = await latestDataset(DATA_DIR, "rune-catalog.json");
-const [items, catalog] = await Promise.all([loadItemCatalog(dataset), loadRuneCatalog(dataset)]);
-
-/** Lesser runes and shards that do nothing in these fights, by path and row. */
-const QUIET: Record<string, string[]> = {
-  Precision: ["Triumph", "Legend: Haste", "Last Stand"],
-  Domination: ["Sudden Impact", "Sixth Sense", "Treasure Hunter"],
-  Sorcery: ["Nimbus Cloak", "Transcendence", "Waterwalking"],
-  Resolve: ["Demolish", "Conditioning", "Revitalize"],
-  Inspiration: ["Cash Back", "Time Warp Tonic", "Cosmic Insight"],
-};
-const QUIET_SHARDS = ["Ability Haste", "Move Speed", "Tenacity and Slow Resist"];
-const pathOf = (name: string) => catalog.runes.find((entry) => entry.name === name)!.path;
-
-/** A page with `keystone` and quiet runes, and `lesser` runes in their rows (of the keystone's path, or else of the secondary path). */
-function pageWith(keystone: string, lesser: string[] = [], shards = QUIET_SHARDS): RunePage {
-  const path = pathOf(keystone);
-  const primary = [...QUIET[path]!];
-  const secondaryPath = path === "Domination" ? "Inspiration" : "Domination";
-  const secondary = QUIET[secondaryPath]!.slice(path === "Domination" ? 0 : 1);
-  for (const name of lesser) {
-    const entry = catalog.runes.find((rune) => rune.name === name)!;
-    if (entry.path === path) primary[entry.row - 1] = name;
-    else secondary[0] = name;
-  }
-  return { keystone, primary, secondary: secondary.slice(0, 2), shards };
-}
-
-const holding = (spec: FighterSpec, page: RunePage, build: string[] = [], adaptiveType: "Physical" | "Magic" = "Physical", options?: Record<string, Record<string, number>>): LoadoutFighter =>
-  equipBuild(spec, build, items, { runes: { page, catalog, adaptiveType, ...(options ? { options } : {}) } });
-
-function world(a: LoadoutFighter | FighterSpec, b: LoadoutFighter | FighterSpec = fighter({ id: "enemy" }), modes: [Mode, Mode] = ["fight", "idle"], distance = 0): World {
-  const spec = (x: LoadoutFighter | FighterSpec) => ("spec" in x ? x.spec : x);
-  const [left, right] = "spec" in a && "spec" in b ? matchupSpecs(a as LoadoutFighter, b as LoadoutFighter) : [spec(a), spec(b)];
-  return createWorld({ fighters: [left, right], distance, modes, settings: { log: true } });
-}
-
-/** Steps the fight; the default behavior plays each side's mode ("idle" does nothing). */
-function run(w: World, seconds: number, behaviors: Parameters<typeof step>[1] = [defaultBehavior, defaultBehavior]): World {
-  for (let tick = 0; tick < seconds * 30 && w.units.every((unit) => unit.alive); tick++) step(w, behaviors);
-  return w;
-}
-
-/** A side's damage numbers from a source, as the log shows them. */
-const hits = (w: World, side: 0 | 1, source: string) => w.log.filter((entry) => entry.side === side && entry.text.startsWith(`${source} deals `)).map((entry) => Number(/deals (\d+)/.exec(entry.text)?.[1]));
+import { QUIET_SHARDS, STILL_SHARDS, castingFirst, catalog, hits, holding, items, pageWith, run, world } from "./helpers";
 
 describe("rune modules", () => {
   it("cover every rune and shard of the catalog, and build from it for melee and ranged, attack damage and ability power holders", () => {
@@ -132,13 +81,32 @@ describe("a rune page", () => {
   });
 
   it("records each rune's evidence and its options, and what it leaves out", () => {
-    const harvest = holding(fighter(), pageWith("Dark Harvest"), [], "Physical", { "Dark Harvest": { souls: 20 } }).runes!;
-    expect(harvest.options["Dark Harvest"]).toEqual({ souls: 20 });
-    expect(harvest.assumptions).toContain("Dark Harvest: Souls reaped before the fight: 20.");
+    const harvest = holding(fighter(), pageWith("Dark Harvest"), [], "Physical", { "Dark Harvest": { souls: 25 } }).runes!;
+    expect(harvest.options["Dark Harvest"]).toEqual({ souls: 25 });
+    expect(harvest.assumptions).toContain("Dark Harvest: Souls reaped before the fight: 25.");
     expect(harvest.evidence.some((entry) => entry.rune === "Dark Harvest" && entry.page === "Template:Rune data Dark Harvest")).toBe(true);
     expect(harvest.coverage.find((entry) => entry.rune === "Treasure Hunter")).toEqual({ rune: "Treasure Hunter", modeled: false, unmodeled: ["It gives gold for takedowns, and a duel's builds are bought whole."] });
     const resolve = holding(fighter(), pageWith("Grasp of the Undying")).runes!;
     expect(resolve.coverage.find((entry) => entry.rune === "Revitalize")).toEqual({ rune: "Revitalize", modeled: false, unmodeled: ["Its heal and shield power: the simulator has none yet."] });
+  });
+});
+
+describe("what runes collect before a fight", () => {
+  it("defaults to a typical 30-minute game, the stacks labeled as estimates for it", () => {
+    const harvest = holding(fighter(), pageWith("Dark Harvest", ["Ultimate Hunter"])).runes!;
+    expect(harvest.options).toMatchObject({ "Dark Harvest": { souls: 20 }, "Ultimate Hunter": { stacks: 4 } });
+    expect(harvest.assumptions).toContain("Dark Harvest: Souls reaped before the fight: 20 (an estimate for a typical 30-minute game).");
+    expect(harvest.assumptions).toContain("Ultimate Hunter: Bounty Hunter stacks before the fight (one per enemy champion taken down, 5 at most): 4 (an estimate for a typical 30-minute game).");
+    const grasp = holding(fighter(), pageWith("Grasp of the Undying", ["Overgrowth"])).runes!;
+    expect(grasp.options).toMatchObject({ "Grasp of the Undying": { procs: 30 }, Overgrowth: { stacks: 30 } });
+    const storm = holding(fighter(), pageWith("Arcane Comet", ["Gathering Storm"])).runes!;
+    expect(storm.options["Gathering Storm"]).toEqual({ minutes: 30 });
+    expect(storm.assumptions).toContain("Gathering Storm: Minutes of game time before the fight: 30 (a typical 30-minute game).");
+  });
+
+  it("Grasp of the Undying's procs before the fight give their bonus health: 30 melee procs of 5", () => {
+    expect(derive(world(holding(fighter(), pageWith("Grasp of the Undying"))).units[0]).maxHp).toBe(2150);
+    expect(derive(world(holding(fighter({ attack: RANGED }), pageWith("Grasp of the Undying"))).units[0]).maxHp).toBe(2060);
   });
 });
 
@@ -165,11 +133,31 @@ describe("Precision keystones", () => {
     expect(derive(w.units[0]).bonusAttackSpeed).toBeCloseTo(0.36, 6);
     expect(hits(w, 0, "Lethal Tempo").length).toBeGreaterThan(0);
   });
+
+  it("Fleet Footwork's Energized attack, the first, heals a melee holder for 182.7 at level 20 and gives 20% movement speed for 1 second", () => {
+    const w = world(holding(fighter(), pageWith("Fleet Footwork", [], STILL_SHARDS)));
+    w.units[0].hp = 1000;
+    // The first attack hits at 0.48 seconds; the next, at 2.08, isn't Energized.
+    run(w, 0.6);
+    expect(w.units[0].hp).toBeCloseTo(1182.73, 1);
+    expect(derive(w.units[0]).rawMoveSpeed).toBeCloseTo(350 * 1.2, 6);
+    run(w, 2);
+    expect(derive(w.units[0]).rawMoveSpeed).toBe(350);
+    expect(w.units[0].hp).toBeCloseTo(1182.73, 1);
+  });
 });
 
 describe("Domination keystones", () => {
   it("Electrocute strikes after three hits within 3 seconds: 260 magic damage (130 through 100 magic resistance), then waits 20 seconds", () => {
     const w = run(world(holding(fighter({ bonus: { attackSpeed: 0.5 } }), pageWith("Electrocute"))), 8);
+    expect(hits(w, 0, "Electrocute")).toEqual([130]);
+  });
+
+  it("Electrocute counts crowd control of any type as a stack: a slow and two attacks within 3 seconds", () => {
+    // Attacks alone, at 0.48, 2.08 and 3.68 seconds, are too far apart.
+    expect(hits(run(world(holding(fighter(), pageWith("Electrocute"))), 4), 0, "Electrocute")).toEqual([]);
+    const slower = fighter({ abilities: [ability({ key: "Q", cooldown: 30, delivery: { kind: "target", range: 700 }, onHit: [{ type: "cc", cc: "slow", duration: 1, strength: 0.2 }] })] });
+    const w = run(world(holding(slower, pageWith("Electrocute"))), 3, [castingFirst("Q"), defaultBehavior]);
     expect(hits(w, 0, "Electrocute")).toEqual([130]);
   });
 
@@ -186,9 +174,53 @@ describe("Domination keystones", () => {
   });
 });
 
+/** A fighter whose Q hits the enemy for `amount` magic damage from up to 700 units, after `cc` (none by default). */
+const caster = (amount: number, cc: Array<{ type: "cc"; cc: "stun" | "slow"; duration: number; strength?: number }> = [], delivery: Parameters<typeof ability>[0]["delivery"] = { kind: "target", range: 700 }) =>
+  fighter({ abilities: [ability({ key: "Q", cooldown: 30, delivery, onHit: [...cc, ...(amount > 0 ? [{ type: "damage" as const, damageType: "magic" as const, amount: { base: amount } }] : [])] })] });
+/** The enemy with no magic resistance: magic damage numbers as dealt. */
+const unwarded = () => fighter({ id: "enemy", base: { mr: 0 } });
+/** `w` played with the holder casting Q whenever it is ready, against an idle enemy. */
+const casting = (w: ReturnType<typeof world>, seconds: number) => run(w, seconds, [castWhenReady("Q"), idle]);
+
+describe("Sorcery keystones", () => {
+  it("Summon Aery strikes 0.45 seconds after a damaging attack for 54.7 adaptive damage (27 through 100 armor), and again only once she is back", () => {
+    // Attacks hit at 0.48, 2.08, 3.68 and 5.28 seconds; she is back 3.45 seconds after the first (2 seconds lingering, her return assumed 1).
+    const w = run(world(holding(fighter(), pageWith("Summon Aery"))), 6);
+    expect(hits(w, 0, "Summon Aery")).toEqual([27, 27]);
+  });
+
+  it("Arcane Comet lands 0.825 seconds after ability damage for 110 magic damage, 80% more from 600 units away (99 through 100 magic resistance)", () => {
+    // 600 units center to center: 470 edge to edge. The stun holds the enemy in place, so the comet lands.
+    const w = casting(world(holding(caster(100, [{ type: "cc", cc: "stun", duration: 2 }]), pageWith("Arcane Comet")), fighter({ id: "enemy" }), ["fight", "idle"], 470), 1.5);
+    expect(hits(w, 0, "Arcane Comet")).toEqual([99]);
+    // Basic attacks don't hurl it.
+    expect(hits(run(world(holding(fighter(), pageWith("Arcane Comet"))), 3), 0, "Arcane Comet")).toEqual([]);
+  });
+
+  it("Stormraider's Surge gives 48% movement speed and 50% slow resist for 4 seconds once 25% of the enemy's maximum health is dealt within 3 seconds", () => {
+    // 1,000 magic damage through 100 magic resistance is 500, a quarter of 2,000.
+    const w = casting(world(holding(caster(1000), pageWith("Stormraider's Surge", [], STILL_SHARDS)), fighter({ id: "enemy" }), ["fight", "idle"], 300), 0.2);
+    expect(derive(w.units[0]).rawMoveSpeed).toBeCloseTo(350 * 1.48, 6);
+    w.units[0].statuses.push({ kind: "cc", key: "slow", source: 1, startTick: w.tick, endTick: w.tick + 30, value: 0.5 });
+    expect(derive(w.units[0]).rawMoveSpeed).toBeCloseTo(350 * 1.48 * (1 - 0.5 * 0.5), 6);
+    casting(w, 4);
+    expect(derive(w.units[0]).rawMoveSpeed).toBe(350);
+    // 450 is short of it.
+    const short = casting(world(holding(caster(900), pageWith("Stormraider's Surge", [], STILL_SHARDS)), fighter({ id: "enemy" }), ["fight", "idle"], 300), 0.2);
+    expect(derive(short.units[0]).rawMoveSpeed).toBe(350);
+  });
+
+  it("Deathfire Touch burns for 6.53 magic damage every 0.5 seconds, 4 seconds after spell damage and 2 after area damage, 75% more once it has lingered 3 seconds", () => {
+    const w = casting(world(holding(caster(10), pageWith("Deathfire Touch")), unwarded(), ["fight", "idle"], 300), 5);
+    expect(hits(w, 0, "Deathfire Touch")).toEqual([7, 7, 7, 7, 7, 11, 11, 11]);
+    const area = casting(world(holding(caster(10, [], { kind: "aura", radius: 300 }), pageWith("Deathfire Touch")), unwarded(), ["fight", "idle"], 100), 5);
+    expect(hits(area, 0, "Deathfire Touch")).toEqual([7, 7, 7, 7]);
+  });
+});
+
 describe("Resolve keystones and runes", () => {
   it("Grasp of the Undying's attack after 4 seconds in combat deals 3.5% of maximum health as magic damage and gives 5 bonus health", () => {
-    const w = run(world(holding(fighter(), pageWith("Grasp of the Undying"))), 6);
+    const w = run(world(holding(fighter(), pageWith("Grasp of the Undying"), [], "Physical", { "Grasp of the Undying": { procs: 0 } })), 6);
     expect(hits(w, 0, "Grasp of the Undying")[0]).toBe(Math.round((0.035 * 2000) / 2));
     expect(derive(w.units[0]).maxHp).toBe(2005);
   });
@@ -217,6 +249,13 @@ describe("Resolve keystones and runes", () => {
 });
 
 describe("Inspiration keystones", () => {
+  it("Glacial Augment slows an immobilized enemy by 20% in its ray toward the holder, for 3 seconds and the immobilize's 1", () => {
+    const w = casting(world(holding(caster(0, [{ type: "cc", cc: "stun", duration: 1 }]), pageWith("Glacial Augment")), fighter({ id: "enemy" }), ["fight", "idle"], 300), 2);
+    expect(derive(w.units[1]).rawMoveSpeed).toBeCloseTo(350 * 0.8, 6);
+    casting(w, 2.3);
+    expect(derive(w.units[1]).rawMoveSpeed).toBe(350);
+  });
+
   it("First Strike, striking first, adds 7% of its damage as true damage for 3 seconds", () => {
     const w = run(world(holding(fighter(), pageWith("First Strike"))), 3);
     expect(hits(w, 0, "First Strike")[0]).toBe(Math.round(0.07 * 50));

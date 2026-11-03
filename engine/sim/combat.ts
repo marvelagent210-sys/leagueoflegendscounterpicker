@@ -647,11 +647,16 @@ export function applyCC(world: World, source: Unit, target: Unit, type: CCType, 
   return true;
 }
 
-/** Only accepted hostile champion immobilizations notify the opposing champion's observer. */
+/**
+ * Accepted hostile crowd control on a champion notifies the opposing champion's observer: of
+ * every type (onEnemyCrowdControlled), and of immobilizations (onEnemyCCApplied).
+ */
 function notifyCCApplied(world: World, source: Unit, target: Unit, cc: CCType, ability?: string): void {
   target.spec.hooks?.onCCApplied?.({ ...hookContext(world, target, undefined, source), cc, source, ...(ability ? { ability } : {}) });
-  if (target !== world.units[target.side] || source.side === target.side || !IMMOBILIZING.has(cc)) return;
+  if (target !== world.units[target.side] || source.side === target.side) return;
   const observer = world.units[other(target.side)];
+  observer.spec.hooks?.onEnemyCrowdControlled?.({ ...hookContext(world, observer, undefined, target), target, cc, source, ...(ability ? { ability } : {}) });
+  if (!IMMOBILIZING.has(cc)) return;
   observer.spec.hooks?.onEnemyCCApplied?.({ ...hookContext(world, observer, undefined, target), target, cc, source, ...(ability ? { ability } : {}) });
 }
 

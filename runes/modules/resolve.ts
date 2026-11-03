@@ -4,11 +4,11 @@ import { toTicks } from "../../engine/rules/time";
 import { ccTypes, derive } from "../../engine/sim/derived";
 import type { HookContext } from "../../engine/sim/spec";
 import type { RuneModule } from "../equip";
-import { adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
+import { GAME_MINUTES, LATE_GAME_ESTIMATE, adaptiveType, applyRune, cooldown, runeMemo, runeStat } from "../shared";
 
 export const GraspOfTheUndying: RuneModule = {
   rune: "Grasp of the Undying",
-  options: { procs: { label: "Grasp procs before the fight (each gives its permanent bonus health)", default: 0 } },
+  options: { procs: { label: "Grasp procs before the fight (each gives its permanent bonus health)", default: 30, basis: LATE_GAME_ESTIMATE } },
   build(rune, fighter, options) {
     const words = "Entering combat generates 1 stack every second for the next 3 seconds, refreshing the duration with each instance of combat and stacking the effect up to 4 times.";
     const most = rune.quoted(words, 2);
@@ -130,7 +130,7 @@ export const FontOfLife: RuneModule = {
     const wait = cooldown(rune.name, rune.cooldown());
     return {
       hooks: {
-        onEnemyCCApplied(ctx) {
+        onEnemyCrowdControlled(ctx) {
           if ((ctx.cc !== "slow" && !IMMOBILIZING.has(ctx.cc)) || !wait.ready(ctx.self, ctx.tick)) return;
           wait.start(ctx.self, ctx.tick);
           applyRune(ctx, rune.label, { type: "heal", amount: { base: heal } }, true);
@@ -181,7 +181,7 @@ export const Conditioning: RuneModule = {
   rune: "Conditioning",
   build(rune) {
     const words = "After 12 minutes, gain 8 bonus armor and 8 bonus magic resistance and your total armor and total magic resistance are increased by 3%.";
-    rune.assume("a level-20 fight comes after 12 minutes.");
+    rune.assume(`the fight comes after 12 minutes, in a typical ${GAME_MINUTES}-minute game.`);
     const percent = rune.quoted(words, 3) / 100;
     return { bonus: { armor: rune.quoted(words, 1), mr: rune.quoted(words, 2) }, permanent: [{ stat: "armorPercent", value: percent }, { stat: "mrPercent", value: percent }] };
   },
@@ -250,7 +250,7 @@ export const BonePlating: RuneModule = {
 
 export const Overgrowth: RuneModule = {
   rune: "Overgrowth",
-  options: { stacks: { label: "Overgrowth stacks before the fight (one per 8 monsters or minions dying nearby)", default: 0 } },
+  options: { stacks: { label: "Overgrowth stacks before the fight (one per 8 monsters or minions dying nearby)", default: 30, basis: LATE_GAME_ESTIMATE } },
   build(rune, fighter, options) {
     const words = "Every 8 monsters or enemy minions that die near you permanently generates a stack. Each stack grants 3 bonus health.";
     const perStack = rune.quoted(words, 1);
