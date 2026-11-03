@@ -1873,6 +1873,10 @@ refreshed under the new inputs fingerprint
   reads: both sides of his matchups buy differently, and some of his duels change winner
   (Amumu against Kassadin from −0.74 to +0.76). The variants played are unchanged.
 - `npm run build:sim -- --check` and `npm run build:builds -- --check` both pass.
+- The full suite ran **7,969 tests across 224 files** on four workers in 218 seconds:
+  **7,964 passed** and the five disputed golden expectations were skipped, the
+  stale-matrix check among those that pass again. Both TypeScript projects and
+  `npm run build:web` pass.
 
 ## Remaining limits
 
