@@ -25,6 +25,7 @@
     "kits",
     "items",
     "summoners",
+    "runes",
     "tests",
     "vitest.config.ts"
   ]

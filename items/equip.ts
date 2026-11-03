@@ -148,8 +148,11 @@ export interface EquipOptions {
   source: ItemSource;
   /** Option overrides, by item name and option. */
   options?: Record<string, Record<string, number>>;
-  /** The rest of the loadout (summoner spells), built for each form of the champion and equipped with the items. */
-  extras?: (form: FighterSpec) => LoadoutPart;
+  /**
+   * The rest of the loadout (summoner spells, the rune page), built for each form of the
+   * champion after its items, with the bonus stats they give and what they know of the holder.
+   */
+  extras?: (form: FighterSpec, items: { bonus: BonusStats; fighter: ItemFighter }) => LoadoutPart;
 }
 
 /**
@@ -165,6 +168,16 @@ export interface LoadoutPart {
   enemyHooks: KitHooks[];
   /** The names its effects label their damage with. */
   labels: string[];
+  /** Stats fixed for the fight (a shard's adaptive force). */
+  bonus?: BonusStats;
+  /** Statuses from the start, set before the kit's onStart (permanentHooks). */
+  first?: KitHooks[];
+  /** Ability haste for some abilities only (Ultimate Hunter's ultimate haste). */
+  haste?: NonNullable<ItemDefinition["haste"]>;
+  /** Bonus maximum mana, for mana champions (Manaflow Band). */
+  mana?: number;
+  /** Effects every basic attack applies on hit. */
+  onHit?: Effect[];
 }
 
 // ---------------------------------------------------------------------------------------
@@ -358,8 +371,8 @@ function lockedInStasis(ability: AbilitySpec): AbilitySpec {
   return { ...ability, usable: (unit, world) => !inItemStasis(unit) && (own?.(unit, world) ?? true) };
 }
 
-/** Permanent statuses of an item, added before the fight (and the kit's onStart) under the item's own keys. */
-function permanent(item: string, statuses: Permanent[]): KitHooks {
+/** Permanent statuses of an item (or rune), added before the fight (and the kit's onStart) under its own keys. */
+export function permanentHooks(item: string, statuses: Permanent[]): KitHooks {
   return {
     onStart(ctx) {
       for (const status of statuses) {
@@ -443,9 +456,8 @@ function chosenOptions(module: ItemModule, given: Record<string, number> | undef
 function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext, equip: EquipOptions, options: Record<string, Record<string, number>>, coverage: Map<string, ItemCoverage>): { spec: FighterSpec; enemyHooks: KitHooks[] } {
   const reserved = reservedNames(form);
   const items = build.map((record) => context.item(record, reserved));
-  const extra = equip.extras?.(form);
-  // What isn't the kit's ability damage: the items', and the rest of the loadout's.
-  const itemNames = new Set([...items.map((item) => item.label), ...(extra?.labels ?? [])]);
+  // What isn't the kit's ability damage: the items', and the rest of the loadout's (added once it's built).
+  const itemNames = new Set(items.map((item) => item.label));
   const { fighter, shared } = itemFighter(form, build, context, itemNames);
   const bonus: BonusStats = { ...form.bonus };
   const base: BaseStats = { ...form.base, attackSpeed: { ...form.base.attackSpeed }, windup: { ...form.base.windup } };
@@ -466,7 +478,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     };
     const stats = shopStats(record, form);
     addBonus(bonus, stats.bonus);
-    for (const status of stats.statuses) first.push(permanent(record.name, [status]));
+    for (const status of stats.statuses) first.push(permanentHooks(record.name, [status]));
     critDamage += stats.critDamage;
     omnivamp += stats.omnivamp;
     regen.hp5 += stats.hp5;
@@ -490,7 +502,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     }
     addBonus(bonus, definition.bonus);
     if (definition.mana && fighter.mana) base.resource += definition.mana;
-    if (definition.permanent?.length) first.push(permanent(record.name, definition.permanent));
+    if (definition.permanent?.length) first.push(permanentHooks(record.name, definition.permanent));
     onHit.push(...(definition.onHit ?? []));
     if (definition.hooks) hooks.push(definition.hooks);
     if (definition.enemyHooks) enemyHooks.push(definition.enemyHooks);
@@ -515,14 +527,20 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     context.rule("Vamp", "Omnivamp").quote("Omnivamp is a stat which grants healing equal to a percentage of the post-mitigation physical damage, magic damage, and true damage dealt. It stacks additively and does not benefit from heal and shield power.");
     hooks.unshift(omnivampHooks(omnivamp));
   }
+  const extra = equip.extras?.(form, { bonus: { ...bonus }, fighter });
+  if (extra) {
+    for (const label of extra.labels) itemNames.add(label);
+    addBonus(bonus, extra.bonus);
+    first.push(...(extra.first ?? []));
+    hooks.push(...extra.hooks);
+    enemyHooks.push(...extra.enemyHooks);
+    if (extra.mana && fighter.mana) base.resource += extra.mana;
+    onHit.push(...(extra.onHit ?? []));
+  }
   const { combat, energized } = shared();
   if (combat) hooks.unshift(combat.hooks);
   if (energized) hooks.push(energized.hooks);
-  if (extra) {
-    hooks.push(...extra.hooks);
-    enemyHooks.push(...extra.enemyHooks);
-  }
-  const haste = built.flatMap(({ definition }) => definition.haste ?? []);
+  const haste = [...built.flatMap(({ definition }) => definition.haste ?? []), ...(extra?.haste ?? [])];
   const stasis = built.some(({ definition }) => definition.stasis);
   const others = [...actives, ...(extra?.abilities ?? [])];
   const abilities = [...form.abilities.map((ability) => withItemHaste(ability, haste)), ...others].map((ability) => (stasis ? lockedInStasis(ability) : ability));
