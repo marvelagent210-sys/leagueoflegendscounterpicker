@@ -2080,6 +2080,33 @@ snapshot, and the tests, the app and the kits' tests now read 16.21.
     expectations skipped, on four workers in 327 seconds. The run's own test job passed as
     well.
 
+## Rune catalog and page structure (4 November 2026)
+
+The rune foundation contains 62 runes across five paths and seven stat shards,
+with layout from versioned Data Dragon 16.21.1 and CommunityDragon 16.21 sources.
+All 62 wiki rune templates and the Rune rules article are retained in full,
+with revision IDs, timestamps and content hashes. The deterministic offline build
+checks source-file hashes, versioned URLs, cross-source rune IDs, paths and rows.
+Its check mode rejects stale catalog/report output without writing either file.
+
+The page validator checks one primary selection in each of four rows, two
+secondary lesser runes in different rows of an allowed second path, and one shard
+per slot. Reusing the same shard across two eligible rows is valid. Validation
+is structural only: it does not apply the rules article's champion-specific
+substitutions or equip a rune in a fight.
+
+Original client markup, unresolved placeholders and wiki formulas remain intact.
+The sources disagree on the scaling-health shard: the rules article specifies
+10 health per level through level 20 (200), while the client says 10–180.
+Neither description is silently converted into a combat bonus by this catalog.
+Each new rune remains explicitly unimplemented; Triple Tonic's status means only
+its existing Udyr-specific behavior. Numeric effects, timing, history-dependent
+stacks, rune-page search and UI selections require later implementation and tests.
+
+The legacy combat `runes.json`, champion kits, engine runtime and both committed
+matchup matrices are unchanged by this foundation. The [rune audit](docs/runes/README.md)
+provides commands, provenance details and the next implementation steps.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

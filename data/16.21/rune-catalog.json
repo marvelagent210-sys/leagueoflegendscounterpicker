@@ -1,0 +1,1469 @@
+{
+  "schema": 1,
+  "dataset": "16.21",
+  "patch": "26.21",
+  "ddragonVersion": "16.21.1",
+  "communityDragonVersion": "16.21",
+  "paths": [
+    {
+      "id": 8000,
+      "key": "Precision",
+      "name": "Precision",
+      "icon": "perk-images/Styles/7201_Precision.png",
+      "slots": [
+        [
+          8005,
+          8008,
+          8021,
+          8010
+        ],
+        [
+          9101,
+          9111,
+          8009
+        ],
+        [
+          9104,
+          9105,
+          9103
+        ],
+        [
+          8014,
+          8017,
+          8299
+        ]
+      ],
+      "allowedSecondaryPathIds": [
+        8200,
+        8400,
+        8300,
+        8100
+      ]
+    },
+    {
+      "id": 8100,
+      "key": "Domination",
+      "name": "Domination",
+      "icon": "perk-images/Styles/7200_Domination.png",
+      "slots": [
+        [
+          8112,
+          8128,
+          9923
+        ],
+        [
+          8126,
+          8139,
+          8143
+        ],
+        [
+          8137,
+          8140,
+          8141
+        ],
+        [
+          8135,
+          8105,
+          8106
+        ]
+      ],
+      "allowedSecondaryPathIds": [
+        8300,
+        8400,
+        8200,
+        8000
+      ]
+    },
+    {
+      "id": 8200,
+      "key": "Sorcery",
+      "name": "Sorcery",
+      "icon": "perk-images/Styles/7202_Sorcery.png",
+      "slots": [
+        [
+          8214,
+          8229,
+          8230,
+          8992
+        ],
+        [
+          8224,
+          8226,
+          8275
+        ],
+        [
+          8210,
+          8234,
+          8233
+        ],
+        [
+          8237,
+          8232,
+          8236
+        ]
+      ],
+      "allowedSecondaryPathIds": [
+        8000,
+        8300,
+        8400,
+        8100
+      ]
+    },
+    {
+      "id": 8300,
+      "key": "Inspiration",
+      "name": "Inspiration",
+      "icon": "perk-images/Styles/7203_Whimsy.png",
+      "slots": [
+        [
+          8351,
+          8360,
+          8369
+        ],
+        [
+          8306,
+          8304,
+          8321
+        ],
+        [
+          8313,
+          8352,
+          8345
+        ],
+        [
+          8347,
+          8410,
+          8316
+        ]
+      ],
+      "allowedSecondaryPathIds": [
+        8100,
+        8200,
+        8400,
+        8000
+      ]
+    },
+    {
+      "id": 8400,
+      "key": "Resolve",
+      "name": "Resolve",
+      "icon": "perk-images/Styles/7204_Resolve.png",
+      "slots": [
+        [
+          8437,
+          8439,
+          8465
+        ],
+        [
+          8446,
+          8463,
+          8401
+        ],
+        [
+          8429,
+          8444,
+          8473
+        ],
+        [
+          8451,
+          8453,
+          8242
+        ]
+      ],
+      "allowedSecondaryPathIds": [
+        8000,
+        8100,
+        8200,
+        8300
+      ]
+    }
+  ],
+  "runes": [
+    {
+      "id": 8005,
+      "key": "PressTheAttack",
+      "name": "Press the Attack",
+      "pathId": 8000,
+      "slot": 0,
+      "icon": "perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png",
+      "shortDescription": "Hitting an enemy champion 3 consecutive times deals bonus damage and amplifies your damage until you leave combat with champions.",
+      "longDescription": "Hitting an enemy champion with 3 consecutive basic attacks deals 40 - 160 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword> (based on level) and amplifies your damage dealt by 8% until you leave combat with champions.",
+      "clientDescription": "Hitting an enemy champion with 3 consecutive basic attacks deals 40 - 160 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword> (based on level) and amplifies your damage dealt by 8% until you leave combat with champions.",
+      "wiki": {
+        "title": "Template:Rune data Press the Attack",
+        "revid": 4015574,
+        "timestamp": "2026-05-05T16:25:24Z",
+        "sha256": "97024c78c4ac7f912a2856a3c0218df4b958b3a5cebe7dcb2c2a3e3652b859d2",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Press the Attack|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} {{tip|Basic attacks}} {{tip|on-hit}} against enemy {{tip|champion|champions}} apply a {{tip|stack}} for 4 seconds, refreshing on subsequent applications, expiring upon attacking a new champion, and stacking up to 3 times. The third stack consumes all stacks to deal {{pp|40 + (160-40)/17*(x-1)|1 to 20 by 1}} '''bonus''' {{tip|adaptive damage}} and grant you 8% increased damage against champions until 5 seconds after exiting [[combat status|combat]] with them.\n|description2 = {{Tip data/Adaptive damage|pst2|description}}\n|range        = \n|cooldown     = {{tt|6|Starts after consuming a target's stacks}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8008,
+      "key": "LethalTempo",
+      "name": "Lethal Tempo",
+      "pathId": 8000,
+      "slot": 0,
+      "icon": "perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png",
+      "shortDescription": "Attacking an enemy champion grants you Attack Speed, up to 6 stacks. At max stacks, deal <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>bonus adaptive damage</font></lol-uikit-tooltipped-keyword> On-Attack.",
+      "longDescription": "Attacking an enemy champion grants you [6% Melee || 4% Ranged] Attack Speed for 6 seconds, up to 6. At max stacks, deal [9 - 30 Melee || 6 - 24 Ranged] <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>bonus adaptive damage On-Attack, increased by 1% per 1% Bonus Attack Speed</lol-uikit-tooltipped-keyword>.",
+      "clientDescription": "Attacking an enemy champion grants you [6% Melee || 4% Ranged] Attack Speed for 6 seconds, up to 6. At max stacks, deal [9 - 30 Melee || 6 - 24 Ranged] <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>bonus adaptive damage On-Attack, increased by 1% per 1% Bonus Attack Speed</lol-uikit-tooltipped-keyword>.",
+      "wiki": {
+        "title": "Template:Rune data Lethal Tempo",
+        "revid": 4065934,
+        "timestamp": "2026-09-24T08:48:40Z",
+        "sha256": "360eb66df82e0fe0c92ba4c0fb2714225147916404eccd9e8c53a38d677dde27",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Lethal Tempo|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Basic attacks {{tip|on-attack}} against enemy {{tip|champion|champions}} grant a {{tip|stack}} for 6 seconds, refreshing on subsequent attacks and stacking up to 6 times. Gain {{as|{{rd|6%|{{ap|6*0.8}}%}} '''bonus''' attack speed|as}} for each stack, up to {{as|{{rd|36%|{{ap|36*0.8}}%}}|as}} at maximum stacks.\n|description2 = At maximum stacks, basic attacks are empowered to fire a bolt at the target {{tip|on-attack}} that deals them {{rd|9 + (30-9)/17*(x-1) for 20|(9 + (30-9)/17*(x-1))*0.667 for 20|pp=true}} '''bonus''' {{tip|adaptive damage}} upon arrival, increased by 1% per {{as|1% '''bonus''' attack speed}}.\n|description3 = When the duration ends, one stack expires immediately and the rest expire one by one every {{fd|0.3}} seconds.\n|description4 = {{Tip data/Adaptive damage|pst2|description}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8009,
+      "key": "PresenceOfMind",
+      "name": "Presence of Mind",
+      "pathId": 8000,
+      "slot": 1,
+      "icon": "perk-images/Styles/Precision/PresenceOfMind/PresenceOfMind.png",
+      "shortDescription": "Restore a small amount of mana or energy when damaging an enemy champion. Takedowns restore mana or energy.",
+      "longDescription": "Damaging an enemy champion restores 6-50 (80% for ranged) mana or 6 energy.<br><br>Takedowns restore 15% of your maximum mana or energy. <br><br>Cooldown for damage restoration: 8s",
+      "clientDescription": "Damaging an enemy champion restores 6-50 (80% for ranged) mana or 6 energy.<br><br>Takedowns restore 15% of your maximum mana or energy. <br><br>Cooldown for damage restoration: 8s",
+      "wiki": {
+        "title": "Template:Rune data Presence of Mind",
+        "revid": 3985219,
+        "timestamp": "2026-01-18T23:26:04Z",
+        "sha256": "a27418c682b63ac7087aeae94dd4aaf7c30fa058ec5aed57f982ae223285351f",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Presence of Mind|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 1\n|description  = {{sbc|Passive:}} Scoring a {{tip|takedown}} against an enemy champion restores {{as|15% of your '''maximum''' mana}} or {{as|15% of your '''maximum''' energy}} after a 1-second delay.\n|description2 = Damaging an enemy champion restores {{as|{{rd|6; then +0.8*x for 5; then +2*x for 5; then +3.2*x for 5; then +4*x for 2; then +8; then +4|6*0.8; then +0.8*0.8*x for 5; then +2*0.8*x for 5; then +3.2*0.8*x for 5; then +4*0.8*x for 2; then +8*0.8; then +4*0.8|pp=true}} mana}} or {{as|6 energy}} (8 second cooldown).\n|range        = \n|cooldown     = <!--formula=6 base, then +0.8 per level until level 6, then +2 per level until level 11, then +3.2 per level until level 16, then +4 per level until level 18, then +8 per level until level 19, then +4 per level.-->\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8010,
+      "key": "Conqueror",
+      "name": "Conqueror",
+      "pathId": 8000,
+      "slot": 0,
+      "icon": "perk-images/Styles/Precision/Conqueror/Conqueror.png",
+      "shortDescription": "Gain stacks of adaptive force when attacking enemy champions. After reaching 12 stacks, heal for a portion of damage you deal to champions.",
+      "longDescription": "Basic attacks or spells that deal damage to an enemy champion grant 2 stacks of Conqueror for 5s, gaining 1.8-4 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword> per stack. Stacks up to 12 times. Ranged champions gain only 1 stack per basic attack.<br><br>When fully stacked, heal for 8% of the damage you deal to champions (5% for ranged champions).",
+      "clientDescription": "Basic attacks or spells that deal damage to an enemy champion grant 2 stacks of Conqueror for 5s, gaining 1.8-4 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword> per stack. Stacks up to 12 times. Ranged champions gain only 1 stack per basic attack.<br><br>When fully stacked, heal for 8% of the damage you deal to champions (5% for ranged champions).",
+      "wiki": {
+        "title": "Template:Rune data Conqueror",
+        "revid": 4060685,
+        "timestamp": "2026-09-10T03:45:55Z",
+        "sha256": "32841990cc6ba88c6299c5739d5e2a82c95c94cdf9d74fefa84a5d2db2b0f0b0",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Conqueror|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Dealing damage to enemy {{tip|champions}} generates {{tip|stacks}} of ''Conqueror'', lasting for 5 seconds, refreshing on subsequent damage against champions, and stacking up to 12 times. Gain {{rd|2|1}} stacks for {{tip|basic damage}} {{tip|on-hit}}. Otherwise, gain 2 stacks for any damage that is neither {{tip|basic damage|basic}} nor non-{{tip|pet damage|pet}} {{tip|proc damage}}, up to once every 4 seconds per {{tip|cast instance}}.\n|description2 = Each stack of ''Conqueror'' grants {{adaptive|1.8 + (4-1.8)/17*(x-1)|20}}, up to {{adaptive|1.8*12 + (4*12-1.8*12)/17*(x-1)|20}} at maximum stacks, at which you also {{tip|heal}} for {{rd|8%|5%}} of the {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt against enemy champions.\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8014,
+      "key": "CoupDeGrace",
+      "name": "Coup de Grace",
+      "pathId": 8000,
+      "slot": 3,
+      "icon": "perk-images/Styles/Precision/CoupDeGrace/CoupDeGrace.png",
+      "shortDescription": "Deal more damage to low health enemy champions.",
+      "longDescription": "Deal 8% more damage to champions who have less than 40% health.",
+      "clientDescription": "Deal 8% more damage to champions who have less than 40% health.",
+      "wiki": {
+        "title": "Template:Rune data Coup de Grace",
+        "revid": 3859780,
+        "timestamp": "2025-02-06T03:21:10Z",
+        "sha256": "655a20b9492a1379d2f5606565b21f4ce4836070021bf2e887a4c7e9996418b5",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Coup de Grace|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 3\n|description  = {{sbc|Passive:}} Deal 8% increased damage to champions below {{as|40% '''maximum''' health}}.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8017,
+      "key": "CutDown",
+      "name": "Cut Down",
+      "pathId": 8000,
+      "slot": 3,
+      "icon": "perk-images/Styles/Precision/CutDown/CutDown.png",
+      "shortDescription": "Deal more damage to high health enemy champions.",
+      "longDescription": "Deal 8% more damage to champions who have more than 60% health.",
+      "clientDescription": "Deal 8% more damage to champions who have more than 60% health.",
+      "wiki": {
+        "title": "Template:Rune data Cut Down",
+        "revid": 3859781,
+        "timestamp": "2025-02-06T03:21:31Z",
+        "sha256": "a31f78f4e97fa4e2b9b1484a3bf25f9d9cfdb8dc275bfbee41be2848636cfa0c",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Cut Down|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 3\n|description  = {{sbc|Passive:}} Deal 8% increased damage to champions above {{as|60% '''maximum''' health}}.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8021,
+      "key": "FleetFootwork",
+      "name": "Fleet Footwork",
+      "pathId": 8000,
+      "slot": 0,
+      "icon": "perk-images/Styles/Precision/FleetFootwork/FleetFootwork.png",
+      "shortDescription": "Attacking and moving builds Energy stacks. At 100 stacks, your next attack heals you and grants increased <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword>.",
+      "longDescription": "Attacking and moving builds Energy stacks. At 100 stacks, your next attack is Energized<br><br>Energized attacks heal you for 15 - 160 (+0.1 Bonus AD, +0.05 AP) and grant <speed>20% Move Speed</speed> for 1s.<br><br>For Ranged Champions, Healing is 60% effective and Move Speed is 75% effective. All healing is 15% effective against Minions.",
+      "clientDescription": "Attacking and moving builds Energy stacks. At 100 stacks, your next attack is Energized<br><br>Energized attacks heal you for 15 - 160 (+0.1 Bonus AD, +0.05 AP) and grant <speed>20% Move Speed</speed> for 1s.<br><br>For Ranged Champions, Healing is 60% effective and Move Speed is 75% effective. All healing is 15% effective against Minions.",
+      "wiki": {
+        "title": "Template:Rune data Fleet Footwork",
+        "revid": 4051351,
+        "timestamp": "2026-08-12T12:30:53Z",
+        "sha256": "ccd55ed138876771618b0a5691a952bc43f76d83a3a391034a59a506a129943e",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Fleet Footwork|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{Unique|Energized|Moving and basic attacking generates ''Charges'', up to 100.}}\n|description2 = At 100 ''Charges'', become {{tip|Energized}}, empowering your next {{tip|basic attack}} to {{tip|heal}} you for {{rd|15+(145/17)*(x-1)*(0.7025+0.0175*(x-1)) for 20|15*0.6+((145*0.6)/17)*(x-1)*(0.7025+0.0175*(x-1)) for 20|color=heal|pp=true}} {{as|(+ {{rd|10%|6%}} '''bonus''' AD)}} {{as|(+ {{rd|5%|3%}} AP)}} and grant {{as|{{rd|20%|15%}}|ms}} {{sti|{{as|'''bonus''' movement speed}}}} for 1 second. Against {{tip|minion|minions}}, the healing is 15% effective.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8105,
+      "key": "RelentlessHunter",
+      "name": "Relentless Hunter",
+      "pathId": 8100,
+      "slot": 3,
+      "icon": "perk-images/Styles/Domination/RelentlessHunter/RelentlessHunter.png",
+      "shortDescription": "<b>Unique</b> <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword> grant permanent <b>out of combat <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword></b>. ",
+      "longDescription": "Gain <speed>8 Move Speed</speed> out of combat per <i>Bounty Hunter</i> stack. <i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+      "clientDescription": "Gain <speed>8 Move Speed</speed> out of combat per <i>Bounty Hunter</i> stack. <i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+      "wiki": {
+        "title": "Template:Rune data Relentless Hunter",
+        "revid": 3825911,
+        "timestamp": "2024-11-27T23:39:07Z",
+        "sha256": "f777e79e8611b630dc19c7244b85a206c87c6d421acbb191c1a51078b48d8dc7",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Relentless Hunter|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 3\n|description  = {{sbc|Passive:}} Gain {{sti|{{as|8 '''bonus''' movement speed}}}} while [[combat status|out of combat]] per ''Bounty Hunter'' stack, up to {{as|40|ms}} at 5 stacks.\n|description2 = Earn a ''Bounty Hunter'' [[stack]] whenever scoring a {{tip|takedown}} against an enemy champion, up to one per unique champion.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8106,
+      "key": "UltimateHunter",
+      "name": "Ultimate Hunter",
+      "pathId": 8100,
+      "slot": 3,
+      "icon": "perk-images/Styles/Domination/UltimateHunter/UltimateHunter.png",
+      "shortDescription": "<b>Unique</b> <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword> grant permanent cooldown reduction on your Ultimate. ",
+      "longDescription": "Your ultimate gains <attention>6</attention> Ability Haste, plus an additional <attention>5</attention> Ability Haste per <i>Bounty Hunter</i> stack. <i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+      "clientDescription": "Your ultimate gains <attention>6</attention> Ability Haste, plus an additional <attention>5</attention> Ability Haste per <i>Bounty Hunter</i> stack. <i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+      "wiki": {
+        "title": "Template:Rune data Ultimate Hunter",
+        "revid": 3825925,
+        "timestamp": "2024-11-27T23:39:50Z",
+        "sha256": "c0fbac905cf32b510073afe59656707654afd13d3e034ccd43dd1e40f2323360",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Ultimate Hunter|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 3\n|description  = Gain 6 (+ 5 per ''Bounty Hunter'' [[stack]]) [[ultimate haste]], up to 31 at 5 stacks.\n|description2 = Earn a ''Bounty Hunter'' stack whenever scoring a {{tip|takedown}} against an enemy {{tip|champion}}, up to one per unique champion.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8112,
+      "key": "Electrocute",
+      "name": "Electrocute",
+      "pathId": 8100,
+      "slot": 0,
+      "icon": "perk-images/Styles/Domination/Electrocute/Electrocute.png",
+      "shortDescription": "Hitting a champion with 3 <b>separate</b> attacks or abilities in 3s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword>.",
+      "longDescription": "Hitting a champion with 3 <b>separate</b> attacks or abilities within 3s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword>.<br><br>Damage: 70 - 240 (+0.1 bonus AD, +0.05 AP) damage.<br>Cooldown: 20s<br><br><i>'We called them the Thunderlords, for to speak of their lightning was to invite disaster.'</i>",
+      "clientDescription": "Hitting a champion with 3 <b>separate</b> attacks or abilities within 3s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword>.<br><br>Damage: 70 - 240 (+0.1 bonus AD, +0.05 AP) damage.<br>Cooldown: 20s<br><br><i>'We called them the Thunderlords, for to speak of their lightning was to invite disaster.'</i>",
+      "wiki": {
+        "title": "Template:Rune data Electrocute",
+        "revid": 4060699,
+        "timestamp": "2026-09-10T03:46:00Z",
+        "sha256": "767320bab00f40fde2af1a8f25bfe37b5b15914d7d27499e1920690fe26a4c59",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Electrocute|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Damaging {{tip|basic attacks}}, {{tip|abilities}}, [[Named item effect|item effects]], and [[summoner spell]]s, as well as the application of {{tip|crowd control}} and {{tip|damage over time}} effects, apply {{tip|stacks}} against enemy {{tip|champion|champions}}, up to one per {{tip|cast instance}} per champion. Applying 3 stacks to a target within a 3 second period causes them to be struck by lightning after a {{fd|0.25}}-second delay, dealing them {{pp|60 + 10 * x|1 to 20 by 1}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}} of either {{as|physical|physical damage}} or {{as|magic damage}}.\n|description2 = {{sbc|Variable Damage:}} This effect deals either {{as|physical|physical damage}} or {{as|magic damage}} depending on the damage contribution from your {{as|{{sti|attack damage}}}} and {{as|{{sti|ability power}}}} to the effect's damage formula.<ul><li>Greater '''bonus damage''' from the {{as|{{sti|AD ratio}}}} → {{as|Physical damage}}</li><li>Greater '''bonus damage''' from the {{as|{{sti|AP ratio}}}} → {{as|Magic damage}}</li></ul>If the damage contribution of {{as|{{sti|AD}}}} and {{as|{{sti|AP}}}} are zero or otherwise equal, the damage type defaults to {{as|magic damage}}.\n|cooldown     = 20\n|caption      = {{quote|\"We called them the Thunderlords, for to speak of their lightning was to invite disaster.\"|''Rune caption''}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8126,
+      "key": "CheapShot",
+      "name": "Cheap Shot",
+      "pathId": 8100,
+      "slot": 1,
+      "icon": "perk-images/Styles/Domination/CheapShot/CheapShot.png",
+      "shortDescription": "Deal bonus true damage to enemy champions with <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_ImpairAct'>impaired movement or actions</lol-uikit-tooltipped-keyword>. ",
+      "longDescription": "Damaging champions with <b>impaired movement or actions</b> deals 10 - 45 bonus true damage (based on level).<br><br>Cooldown: 4s<br><rules>Activates on damage occurring after the impairment.</rules>",
+      "clientDescription": "Damaging champions with <b>impaired movement or actions</b> deals 10 - 45 bonus true damage (based on level).<br><br>Cooldown: 4s<br><rules>Activates on damage occurring after the impairment.</rules>",
+      "wiki": {
+        "title": "Template:Rune data Cheap Shot",
+        "revid": 3992989,
+        "timestamp": "2026-02-20T14:45:45Z",
+        "sha256": "5ba0e564f6f207fe54748eb9ae56e32d8d7d372bcd61d96f885328b195a4480c",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Cheap Shot|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 1\n|description  = {{sbc|Passive:}} Non-{{tip|proc damage|proc}} damage sources deal {{as|{{pp|10 + (45-10)/17*(x-1)|1 to 20 by 1}}|true damage}} {{as|'''bonus''' true damage}} to enemy {{tip|champion|champions}} affected by certain {{tip|crowd control}} effects.\n|description2 = {{sbc|Valid Crowd Control:}}\n* {{tip|Immobilize|Immobilizes}}\n* {{tip|Blind}}\n* {{tip|Disarm}}\n* {{tip|Ground}}\n* {{tip|Nearsight}}\n* {{tip|Polymorph}}\n* {{tip|Silence}}\n* {{tip|Slow}}\n|description3 = The target must already be impaired prior to the damaging attack or spell in order to trigger the '''bonus''' damage.\n|range        = \n|cooldown     = 4\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8128,
+      "key": "DarkHarvest",
+      "name": "Dark Harvest",
+      "pathId": 8100,
+      "slot": 0,
+      "icon": "perk-images/Styles/Domination/DarkHarvest/DarkHarvest.png",
+      "shortDescription": "Damaging a low health champion inflicts <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword> and harvests a soul from the victim.",
+      "longDescription": "Damaging a Champion below 50% health deals <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword> and harvests their soul, permanently increasing Dark Harvest's damage by 11.<br><br>Dark Harvest damage: 30 (+11 damage per soul) (+0.1 bonus AD) (+0.05 AP)<br>Cooldown: 35s (resets to 1.0s on takedown)",
+      "clientDescription": "Damaging a Champion below 50% health deals <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword> and harvests their soul, permanently increasing Dark Harvest's damage by 11.<br><br>Dark Harvest damage: 30 (+11 damage per soul) (+0.1 bonus AD) (+0.05 AP)<br>Cooldown: 35s (resets to 1.0s on takedown)",
+      "wiki": {
+        "title": "Template:Rune data Dark Harvest",
+        "revid": 4046509,
+        "timestamp": "2026-07-28T15:00:23Z",
+        "sha256": "f4574fc2018c1163f4cac48bb10a629dfcfb1079590dec69b752c27e363c1458",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Dark Harvest|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Dealing {{tip|pet damage|pet}} or non-{{tip|proc damage|proc}} damage against enemy {{tip|champions}} below {{as|50% of their '''maximum''' health}} deals 30 {{as|(+ 11 per Soul)}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}} '''bonus''' {{tip|adaptive damage}} and, after a {{fd|1.75}}-second delay, reap {{as|1 Soul}}. This cannot occur again for 35 seconds, resetting to 1 second upon scoring a {{tip|takedown}} against an enemy champion.\n|description2 = While not on cooldown, also reap {{as|1 Soul}} from receiving the kill credit of a champion killed by a {{tip|minion}}, {{tip|monster}}, or {{tip|turret}}.\n|description3 = {{Tip data/Adaptive damage|pst2|description}}\n|range        = \n|cooldown     = 35\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8135,
+      "key": "TreasureHunter",
+      "name": "Treasure Hunter",
+      "pathId": 8100,
+      "slot": 3,
+      "icon": "perk-images/Styles/Domination/TreasureHunter/TreasureHunter.png",
+      "shortDescription": "<b>Unique</b> <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword> grant additional gold the first time they are collected. ",
+      "longDescription": "Gain an additional <gold>50 gold</gold> the next time you collect a <i>Bounty Hunter</i> stack. Increase the gold gained by <gold>20 gold</gold> for each <i>Bounty Hunter</i> stack, up to <gold>130 gold</gold>.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+      "clientDescription": "Gain an additional <gold>50 gold</gold> the next time you collect a <i>Bounty Hunter</i> stack. Increase the gold gained by <gold>20 gold</gold> for each <i>Bounty Hunter</i> stack, up to <gold>130 gold</gold>.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+      "wiki": {
+        "title": "Template:Rune data Treasure Hunter",
+        "revid": 3825922,
+        "timestamp": "2024-11-27T23:39:43Z",
+        "sha256": "61400a7e74fd6015c4fdf80e9e1dfeee31eb6db8e4879dbc42f77f6905e6e448",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Treasure Hunter|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2022\n|path         = Domination\n|slot         = 3\n|description  = Gain {{g|50}} (+ {{g|20}} per ''Bounty Hunter'' stack) per unique takedown, up to {{g|{{ap|(50*5)+(20*10)}}}} at 5 unique takedowns.\n|description2 = 1st unique takedown: {{g|50}}, 2nd: {{g|{{ap|50+20}}}}, 3rd: {{g|{{ap|50+(20*2)}}}}, 4th: {{g|{{ap|50+(20*3)}}}}, 5th: {{g|{{ap|50+(20*4)}}}}.\n|description3 = Earn a ''Bounty Hunter'' [[stack]] whenever scoring a {{tip|takedown}} against an enemy champion, up to one per unique champion.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8137,
+      "key": "SixthSense",
+      "name": "Sixth Sense",
+      "pathId": 8100,
+      "slot": 2,
+      "icon": "perk-images/Styles/Domination/SixthSense/SixthSense.png",
+      "shortDescription": "On a long Cooldown, automatically sense a nearby untracked and unseen ward, tracking it for the team. <br><br>Level 11: Also reveal the ward for 10s.",
+      "longDescription": "Automatically sense a nearby untracked and unseen ward, tracking it for the team. <br><br>Level 11: Also reveal the ward for 10s.<br><br>This effect has a 250 second Cooldown.",
+      "clientDescription": "Automatically sense a nearby untracked and unseen ward, tracking it for the team. <br><br>Level 11: Also reveal the ward for 10s.<br><br>This effect has a 250 second Cooldown.",
+      "wiki": {
+        "title": "Template:Rune data Sixth Sense",
+        "revid": 4017988,
+        "timestamp": "2026-05-14T10:51:36Z",
+        "sha256": "6c79533b9d8687d172ed01971e083ce44b279d1312deb49ff0e85c6e4cada1ae",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Sixth Sense|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = 2025 Annual Cycle\n|path         = Domination\n|slot         = 2\n|description  = {{sbc|Passive:}} Upon moving near an un-tracked enemy {{tip|ward}}, it is automatically tracked with a [[File:Enemy Ward time indicator.png|30px|link=]] [[Ward#Ward_Timers|ward timer]].\n|description2 = At level 11, also {{tip|true sight|reveals}} the ward for 10 seconds upon being triggered.\n|range        = 900\n|cooldown     = 250\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8139,
+      "key": "TasteOfBlood",
+      "name": "Taste of Blood",
+      "pathId": 8100,
+      "slot": 1,
+      "icon": "perk-images/Styles/Domination/TasteOfBlood/GreenTerror_TasteOfBlood.png",
+      "shortDescription": "Heal when you damage an enemy champion.",
+      "longDescription": "Heal when you damage an enemy champion.<br><br>Healing: 16-40 (+0.1 bonus AD, +0.05 AP) health (based on level)<br><br>Cooldown: 20s",
+      "clientDescription": "Heal when you damage an enemy champion.<br><br>Healing: 16-40 (+0.1 bonus AD, +0.05 AP) health (based on level)<br><br>Cooldown: 20s",
+      "wiki": {
+        "title": "Template:Rune data Taste of Blood",
+        "revid": 3997097,
+        "timestamp": "2026-03-06T17:28:40Z",
+        "sha256": "54581e5030c0120ad313bd7cebd899ad39bdf83dd81f68bf51460b1cf7a40c18",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Taste of Blood|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 1\n|description  = {{sbc|Passive:}} Damaging an enemy {{tip|champion}} {{tip|heal|heals}} you for {{pp|16 + (40-16)/17*(x-1)|1 to 20 by 1|color=heal}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}}.\n|description2 = Does not trigger at full health.\n|range        = \n|cooldown     = 20\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8140,
+      "key": "GrislyMementos",
+      "name": "Grisly Mementos",
+      "pathId": 8100,
+      "slot": 2,
+      "icon": "perk-images/Styles/Domination/GrislyMementos/GrislyMementos.png",
+      "shortDescription": "Collect 1 memento on champion <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword>, up to 18 total.<br><br>Gain 6 Trinket Haste for each collected.",
+      "longDescription": "Collect 1 memento on champion <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword>, up to 18 total.<br><br>Gain 6 Trinket Haste for each collected. In game modes where vision Trinkets do not exist, instead gain 3 Summoner Spell Haste.",
+      "clientDescription": "Collect 1 memento on champion <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword>, up to 18 total.<br><br>Gain 6 Trinket Haste for each collected. In game modes where vision Trinkets do not exist, instead gain 3 Summoner Spell Haste.",
+      "wiki": {
+        "title": "Template:Rune data Grisly Mementos",
+        "revid": 3855346,
+        "timestamp": "2025-01-22T22:10:05Z",
+        "sha256": "32bd7816a937a7ab4988132d83d3b727a60f476aca0c2cf37f4c2339aaf09807",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Grisly Mementos|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = 2025 Annual Cycle\n|path         = Domination\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain 6 [[trinket haste]] per ''Memento'' stack, up to 108 haste at maximum stacks.\n|description2 = Earn a ''Memento'' stack whenever scoring a champion {{tip|takedown}}, up to 18 stacks.\n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8141,
+      "key": "DeepWard",
+      "name": "Deep Ward",
+      "pathId": 8100,
+      "slot": 2,
+      "icon": "perk-images/Styles/Domination/DeepWard/DeepWard.png",
+      "shortDescription": "Your wards in the enemy jungle are <keywordMajor>Deep</keywordMajor>, gaining Health and Duration.<br><br>Level 9: Wards in the river are also <keywordMajor>Deep</keywordMajor>.",
+      "longDescription": "Your wards in the enemy jungle are <keywordMajor>Deep</keywordMajor>. <keywordMajor>Deep</keywordMajor> wards gain +1 extra Health and +[30 - 45]s increased duration (+[45 - 150]s for Trinket stealth wards).<br><br>Level 9: Wards in the river are also <keywordMajor>Deep</keywordMajor>.",
+      "clientDescription": "Your wards in the enemy jungle are <keywordMajor>Deep</keywordMajor>. <keywordMajor>Deep</keywordMajor> wards gain +1 extra Health and +[30 - 45]s increased duration (+[45 - 150]s for Trinket stealth wards).<br><br>Level 9: Wards in the river are also <keywordMajor>Deep</keywordMajor>.",
+      "wiki": {
+        "title": "Template:Rune data Deep Ward",
+        "revid": 3855345,
+        "timestamp": "2025-01-22T22:09:31Z",
+        "sha256": "4260b7519976a41dc79202d3ba073671e55c02504cc09e9cfcf9ac08ba049f31",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Deep Ward|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = 2025 Annual Cycle\n|path         = Domination\n|slot         = 2\n|description  = {{sbc|Passive:}} {{tip|Stealth Ward|Stealth Wards}} and {{tip|Totem Ward|Totem Wards}} placed in the enemy jungle are considered ''Deep''. All ''Deep'' wards are granted {{as|1 '''bonus''' health}}, ''Deep'' {{tip|Stealth Ward|Stealth Wards}} last {{pp|30 to 45|type=average champion level}} seconds longer, and ''Deep'' {{tip|Totem Ward|Totem Wards}} last {{pp|45 to 150|type=average champion level}} seconds longer.\n|description2 = At level 9, wards placed in the river will also be considered ''Deep''.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8143,
+      "key": "SuddenImpact",
+      "name": "Sudden Impact",
+      "pathId": 8100,
+      "slot": 1,
+      "icon": "perk-images/Styles/Domination/SuddenImpact/SuddenImpact.png",
+      "shortDescription": "Damaging basic attacks and abilities deal bonus true damage to enemy champions after using a dash, leap, blink, teleport, or when leaving stealth.",
+      "longDescription": "Damaging basic attacks and abilities deal a bonus <trueDamage>20 - 80 True Damage</trueDamage> based on level to enemy champions after using a dash, leap, blink, teleport, or when leaving stealth for 4s.<br><br>Cooldown: 10s",
+      "clientDescription": "Damaging basic attacks and abilities deal a bonus <trueDamage>20 - 80 True Damage</trueDamage> based on level to enemy champions after using a dash, leap, blink, teleport, or when leaving stealth for 4s.<br><br>Cooldown: 10s",
+      "wiki": {
+        "title": "Template:Rune data Sudden Impact",
+        "revid": 3825916,
+        "timestamp": "2024-11-27T23:39:24Z",
+        "sha256": "6506d4e64970eb4e18ace2bd1278d0e4a0e48b1b779ad7aa131ecba8d52db89f",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Sudden Impact|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 1\n|description  = {{sbc|Passive:}} Dealing damage to an enemy {{tip|champion}} within 4 seconds of using a {{tip|dash}} or {{tip|blink}}, or exiting from {{tip|stealth}}, deals {{as|{{pp|20 to 80}} '''bonus''' true damage}} to them.\n|range        = \n|cooldown     = {{tt|10|Starts post-effect (after bonus damage is applied or expires)}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8210,
+      "key": "Transcendence",
+      "name": "Transcendence",
+      "pathId": 8200,
+      "slot": 2,
+      "icon": "perk-images/Styles/Sorcery/Transcendence/Transcendence.png",
+      "shortDescription": "Gain bonuses upon reaching the following levels:<br>Level 5: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 8: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 11: On Champion takedown, reduce the remaining cooldown of basic abilities by 20%.",
+      "longDescription": "Gain bonuses upon reaching the following levels:<br>Level 5: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 8: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 11: On Champion takedown, reduce the remaining cooldown of basic abilities by 20%.",
+      "clientDescription": "Gain bonuses upon reaching the following levels:<br>Level 5: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 8: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 11: On Champion takedown, reduce the remaining cooldown of basic abilities by 20%.",
+      "wiki": {
+        "title": "Template:Rune data Transcendence",
+        "revid": 3825921,
+        "timestamp": "2024-11-27T23:39:41Z",
+        "sha256": "a0d710c34868e53e173cd732ccc5b194cec69b0006e7d8cdfcca7e3cf3192898",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Transcendence|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain '''bonuses''' upon reaching the following levels:\n* Level 5: + 5 [[ability haste]].\n* Level 8: + 5 [[ability haste]].\n* Level 11: Scoring a {{tip|takedown}} against an enemy {{tip|champion}} reduces the '''current''' cooldowns of your basic [[champion ability|abilities]] by 20%.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8214,
+      "key": "SummonAery",
+      "name": "Summon Aery",
+      "pathId": 8200,
+      "slot": 0,
+      "icon": "perk-images/Styles/Sorcery/SummonAery/SummonAery.png",
+      "shortDescription": "Your attacks and abilities send Aery to a target, damaging enemies or shielding allies.",
+      "longDescription": "Damaging enemy champions with basic attacks or abilities sends Aery to them, dealing 10 - 50 based on level (+<scaleAP>0.05 AP</scaleAP>) (+<scaleAD>0.1 bonus AD</scaleAD>).<br><br>Empowering or protecting allies with abilities sends Aery to them, shielding them for 20 - 100 based on level (+<scaleAP>0.05 AP</scaleAP>) (+<scaleAD>0.1 bonus AD</scaleAD>).<br><br>Aery cannot be sent out again until she returns to you.",
+      "clientDescription": "Damaging enemy champions with basic attacks or abilities sends Aery to them, dealing 10 - 50 based on level (+<scaleAP>0.05 AP</scaleAP>) (+<scaleAD>0.1 bonus AD</scaleAD>).<br><br>Empowering or protecting allies with abilities sends Aery to them, shielding them for 20 - 100 based on level (+<scaleAP>0.05 AP</scaleAP>) (+<scaleAD>0.1 bonus AD</scaleAD>).<br><br>Aery cannot be sent out again until she returns to you.",
+      "wiki": {
+        "title": "Template:Rune data Summon Aery",
+        "revid": 4062237,
+        "timestamp": "2026-09-13T07:33:43Z",
+        "sha256": "96764b8042693c22bc21a2487b1f061fdf15b49eeca08de4897e578eefe6661c",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Summon Aery|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Damaging {{tip|basic attacks}}, {{tip|abilities}}, and [[Named item effect|item effects]] against an enemy {{tip|champion}} signal ''Aery'' to pounce at them over {{fd|0.45}} seconds, dealing {{pp|10 + (40/17)*(x-1)|1 to 20 by 1}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}} {{tip|adaptive damage}}. {{tip|Healing}}, {{tip|shield|shielding}}, or {{tip|buff|buffing}} an allied champion signals ''Aery'' to leap to their side over {{fd|0.35}} seconds, {{tip|shield|shielding}} them for {{pp|20 + (100-20)/17*(x-1)|1 to 20 by 1}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}} for {{fd|2.5}} seconds.\n|description2 = ''Aery'' applies her effects to the affected champion upon arrival. She then lingers on the target for {{tt|2 seconds|Slightly less than this duration}} before flying back to the user, and cannot be sent out again until she returns. While on her way back, she is {{tt|initially very slow|return speed's initial value is 200 at levels 1-5, 300 at levels 6-10 and 600 at level 11+}}, but {{tt|gradually accelerates|+10 speed per 51 units she travels}}, and {{tt|can be picked up by moving near her|+2000 speed per 51 units traveled after coming within 200 units of the user}}.\n|description3 = Does '''not''' trigger on {{tip|persistent damage|persistent}} {{tip|proc damage}}.\n|description4 = {{Tip data/Adaptive damage|pst2|description}}\n|range        = Global\n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8224,
+      "key": "NullifyingOrb",
+      "name": "Axiom Arcanist",
+      "pathId": 8200,
+      "slot": 1,
+      "icon": "perk-images/Styles/Sorcery/NullifyingOrb/Axiom_Arcanist.png",
+      "shortDescription": "Your Ultimate has increased damage, healing, and shielding. Scoring a takedown on an enemy champion reduces your Ultimate's current cooldown.",
+      "longDescription": "Your Ultimate has 12% increased damage, healing, and shielding. <br>(AoE damage is reduced to a 8% increase)<br><br>Scoring a takedown on an enemy champion reduces your Ultimate's current cooldown by 7%.",
+      "clientDescription": "Your Ultimate has 12% increased damage, healing, and shielding. <br>(AoE damage is reduced to a 8% increase)<br><br>Scoring a takedown on an enemy champion reduces your Ultimate's current cooldown by 7%.",
+      "wiki": {
+        "title": "Template:Rune data Axiom Arcanist",
+        "revid": 3948848,
+        "timestamp": "2025-08-20T05:39:40Z",
+        "sha256": "9eaf3b15f2246891146eb99bc056e2661c1e9ba62841ab48d8f6e91528b2ed6a",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Axiom Arcanist|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = 2025 Annual Cycle\n|path         = Sorcery\n|slot         = 1\n|description  = {{sbc|Passive:}} Your ultimate has 12% increased damage (reduced to 8% for [[area of effect]] abilities), {{tip|heal|healing}} and {{tip|shield|shielding}}.\n|description2 = Scoring an enemy champion {{tip|takedown}} reduces your ultimate ability's '''current''' cooldown by 7%.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8226,
+      "key": "ManaflowBand",
+      "name": "Manaflow Band",
+      "pathId": 8200,
+      "slot": 1,
+      "icon": "perk-images/Styles/Sorcery/ManaflowBand/ManaflowBand.png",
+      "shortDescription": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.",
+      "longDescription": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.<br><br>Cooldown: 15 seconds",
+      "clientDescription": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.<br><br>Cooldown: 15 seconds",
+      "wiki": {
+        "title": "Template:Rune data Manaflow Band",
+        "revid": 4058510,
+        "timestamp": "2026-09-03T22:37:00Z",
+        "sha256": "f4bea209285070765cbe6df8daf3abf845f3f9070ca6b0bc5ee4e22e89c5039b",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Manaflow Band|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 1\n|description  = {{sbc|Passive:}} Dealing {{tip|ability damage}} to an enemy {{tip|champion}} with a non-innate {{tip|ability}} {{tip|cast instance}}, or dealing them {{tip|pet damage}}, or applying them certain [[debuff]]s, permanently increases your {{sti|mana|{{as|'''maximum''' mana by 25}}}}, up to {{as|250 mana}}. {{as|Mana}} gained from this effect preserves your {{as|'''current''' mana}}.\n|description2 = After reaching {{as|250 '''bonus''' mana}}, permanently restore {{as|1% of your '''missing''' mana}} every 5 seconds.\n|range        = \n|cooldown     = 15\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8229,
+      "key": "ArcaneComet",
+      "name": "Arcane Comet",
+      "pathId": 8200,
+      "slot": 0,
+      "icon": "perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png",
+      "shortDescription": "Damaging a champion with an ability hurls a damaging comet at their location.",
+      "longDescription": "Damaging a champion with an ability hurls a comet at their location, dealing increased damage based on distance.<br><br><lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>Adaptive Damage</font></lol-uikit-tooltipped-keyword>: 15 - 100 based on level (<scaleAP>+0.05 AP</scaleAP> and <scaleAD>+0.1 bonus AD</scaleAD>)<br>Cooldown: 20 - 8s<br><rules><br>Damage amplification scales up to 100% at 750 range.<br></rules>",
+      "clientDescription": "Damaging a champion with an ability hurls a comet at their location, dealing increased damage based on distance.<br><br><lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>Adaptive Damage</font></lol-uikit-tooltipped-keyword>: 15 - 100 based on level (<scaleAP>+0.05 AP</scaleAP> and <scaleAD>+0.1 bonus AD</scaleAD>)<br>Cooldown: 20 - 8s<br><rules><br>Damage amplification scales up to 100% at 750 range.<br></rules>",
+      "wiki": {
+        "title": "Template:Rune data Arcane Comet",
+        "revid": 4060639,
+        "timestamp": "2026-09-10T03:45:39Z",
+        "sha256": "2e3f171777c3418e0742f4b85910165838b42b7d2f7ea0b33355371a3e4ed42a",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Arcane Comet|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Dealing {{tip|ability damage}} or {{tip|pet damage}} to an enemy {{tip|champion}} hurls an ''Arcane Comet'' at their current location that lands after {{rutngt|0.8}}, dealing {{pp|15 + (100-15)/17*(x-1)|1 to 20 by 1}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}} of either {{as|physical|physical damage}} or {{as|magic damage}} to enemies within a {{tip|er|icononly = true}} 140 radius upon impact. This damage is increased by {{pp|0 to 100 by 5|0 to 750|key=%|label1=units|type=distance the comet travelled|label=damage increase}}, up to a {{ccs||physical}}{{ccs|maximum|magic}} of {{pp|15*2 + (200-30)/17*(x-1)|1 to 20 by 1}} {{as|(+ {{ap|10*2}}% '''bonus''' AD)}} {{as|(+ {{ap|5*2}}% AP)}} at maximum range.\n|description2 = {{sbc|Variable Damage:}} This effect deals either {{as|physical|physical damage}} or {{as|magic damage}} depending on the damage contribution from your {{as|{{sti|attack damage}}}} and {{as|{{sti|ability power}}}} to the effect's damage formula.<ul><li>Greater '''bonus damage''' from the {{as|{{sti|AD ratio}}}} → {{as|Physical damage}}</li><li>Greater '''bonus damage''' from the {{as|{{sti|AP ratio}}}} → {{as|Magic damage}}</li></ul>If the damage contribution of {{as|{{sti|AD}}}} and {{as|{{sti|AP}}}} are zero or otherwise equal, the damage type defaults to {{as|magic damage}}.\n|range        = Global\n|cooldown     = {{pp|20 - (20-8)/17*(x-1)|1 to 20 by 1}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8230,
+      "key": "PhaseRush",
+      "name": "Stormraider's Surge",
+      "pathId": 8200,
+      "slot": 0,
+      "icon": "perk-images/Styles/Sorcery/PhaseRush/StormraidersSurgeRuneIcon2.png",
+      "shortDescription": "Dealing 25% of a champion's maximum health grants a burst of <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword> and Slow Resist. ",
+      "longDescription": "Dealing 25% of a champion's maximum health within 3s grants <speed>48% Move Speed</speed> and <status>50% Slow Resistance</status> for 4s. Move Speed is 75% effective for ranged champions.<br>Cooldown: 20s - 10s",
+      "clientDescription": "Dealing 25% of a champion's maximum health within 3s grants <speed>48% Move Speed</speed> and <status>50% Slow Resistance</status> for 4s. Move Speed is 75% effective for ranged champions.<br>Cooldown: 20s - 10s",
+      "wiki": {
+        "title": "Template:Rune data Stormraider's Surge",
+        "revid": 4042210,
+        "timestamp": "2026-07-13T04:40:32Z",
+        "sha256": "80818ef73695cf8f329a4ee003899f413dd1bdbe1779ce46f7c20fdef593d2bc",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Stormraider's Surge|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = 2026 Annual Cycle\n|path         = Sorcery\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Dealing {{tt|damage|post-mitigation damage}} to an enemy champion equal to {{as|25% of their '''maximum''' health}} within 3 seconds grants you {{as|{{rd|48%|36%}} '''bonus''' movement speed}} and 50% {{tip|slow resist}} for 4 seconds.\n|cooldown     = {{pp|20-10/17*(x-1)|1 to 20 by 1}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8232,
+      "key": "Waterwalking",
+      "name": "Waterwalking",
+      "pathId": 8200,
+      "slot": 3,
+      "icon": "perk-images/Styles/Sorcery/Waterwalking/Waterwalking.png",
+      "shortDescription": "Gain <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword> and AP or AD, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>adaptive</lol-uikit-tooltipped-keyword> in the river.",
+      "longDescription": "Gain <speed>10 Move Speed</speed> and <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>13 - 30 Adaptive Force</font></lol-uikit-tooltipped-keyword> (based on level) when in the river.<br><br><i>May you be as swift as the rushing river and agile as a startled Rift Scuttler.</i>",
+      "clientDescription": "Gain <speed>10 Move Speed</speed> and <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>13 - 30 Adaptive Force</font></lol-uikit-tooltipped-keyword> (based on level) when in the river.<br><br><i>May you be as swift as the rushing river and agile as a startled Rift Scuttler.</i>",
+      "wiki": {
+        "title": "Template:Rune data Waterwalking",
+        "revid": 3986946,
+        "timestamp": "2026-01-23T16:32:16Z",
+        "sha256": "5859f79b2efc3063cd7f1363859e0ca33db3b29819584e058a697a5e39690d5b",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Waterwalking|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 3\n|description  = {{sbc|Passive:}} While in the [[Summoner's Rift|river]], you gain {{sti|{{as|10|ms}} {{as|'''bonus''' movement speed}}}} and {{adaptive|13 + (30-13)/17*(x-1)|20}}.\n|description2 = {{sbc|Adaptive:}} Grants bonuses based on which stat you already have the most bonuses for. ''Defaults to the first listed.''\n|range        = \n|cooldown     = \n|caption      = {{quote|May you be as swift as the rushing river and agile as a startled {{ui|Rift Scuttler}}.|''Rune caption''}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8233,
+      "key": "AbsoluteFocus",
+      "name": "Absolute Focus",
+      "pathId": 8200,
+      "slot": 2,
+      "icon": "perk-images/Styles/Sorcery/AbsoluteFocus/AbsoluteFocus.png",
+      "shortDescription": "While above 70% health, gain extra <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword>.",
+      "longDescription": "While above 70% health, gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of up to 18 Attack Damage or 30 Ability Power (based on level). <br><br>Grants 1.8 Attack Damage or 3 Ability Power at level 1. ",
+      "clientDescription": "While above 70% health, gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of up to 18 Attack Damage or 30 Ability Power (based on level). <br><br>Grants 1.8 Attack Damage or 3 Ability Power at level 1. ",
+      "wiki": {
+        "title": "Template:Rune data Absolute Focus",
+        "revid": 3986945,
+        "timestamp": "2026-01-23T16:32:14Z",
+        "sha256": "e96a35bf7d013dd9c74be55c3e192da93cff7e89c407d5235095d7a036d34eb2",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Absolute Focus|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain {{adaptive|3 + (30-3)/17*(x-1)|20}} while above {{as|70% of your '''maximum''' health}}.\n|description2 = {{sbc|Adaptive:}} Grants bonuses based on which stat you already have the most bonuses for. ''Defaults to the first listed.''\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8234,
+      "key": "Celerity",
+      "name": "Celerity",
+      "pathId": 8200,
+      "slot": 2,
+      "icon": "perk-images/Styles/Sorcery/Celerity/CelerityTemp.png",
+      "shortDescription": "All <speed>Move Speed</speed> bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>.",
+      "longDescription": "All movement bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>.",
+      "clientDescription": "All movement bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>.",
+      "wiki": {
+        "title": "Template:Rune data Celerity",
+        "revid": 3825860,
+        "timestamp": "2024-11-27T23:35:36Z",
+        "sha256": "186f76311734d2f2e41d1db96aab5d550def91f5859d3b9666760b6733d55a64",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Celerity|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 2\n|description  = {{sbc|Passive:}} All [[movement speed]] '''bonuses''' increase in effectiveness by 7%.\n|description2 = Additionally, you gain {{sti|{{as|1% '''bonus''' movement speed}}}}.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8236,
+      "key": "GatheringStorm",
+      "name": "Gathering Storm",
+      "pathId": 8200,
+      "slot": 3,
+      "icon": "perk-images/Styles/Sorcery/GatheringStorm/GatheringStorm.png",
+      "shortDescription": "Gain increasing amounts of AD or AP, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>adaptive</lol-uikit-tooltipped-keyword> over the course of the game.",
+      "longDescription": "Every 10 min gain AP or AD, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword>.<br><br><i>10 min</i>: + 8 AP or 5 AD <br><i>20 min</i>: + 24 AP or 14 AD<br><i>30 min</i>: + 48 AP or 29 AD<br><i>40 min</i>: + 80 AP or 48 AD<br><i>50 min</i>: + 120 AP or 72 AD<br><i>60 min</i>: + 168 AP or 101 AD<br>etc...",
+      "clientDescription": "Every 10 min gain AP or AD, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword>.<br><br><i>10 min</i>: + 8 AP or 5 AD <br><i>20 min</i>: + 24 AP or 14 AD<br><i>30 min</i>: + 48 AP or 29 AD<br><i>40 min</i>: + 80 AP or 48 AD<br><i>50 min</i>: + 120 AP or 72 AD<br><i>60 min</i>: + 168 AP or 101 AD<br>etc...",
+      "wiki": {
+        "title": "Template:Rune data Gathering Storm",
+        "revid": 4011483,
+        "timestamp": "2026-04-22T10:07:16Z",
+        "sha256": "512c7bd971e25de8ac5cae0949fc225171bf47d53befda09783a31d587d475e2",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Gathering Storm|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 3\n|description  = {{sbc|Passive:}} Gain increasing {{tip|adaptive Force}} every 10 minutes that grants a total of {{as|{{pp|(4*0.6)*x*(x-1);∞|0 to 70 for 8;∞|type=minutes|formula=2.4 * m * (m-1), where m = 1 + (1 per 10 minutes of game time)|changedisplay=true}} '''bonus''' Attack Damage}} or {{as|{{pp|4*x*(x-1);∞|0 to 70 for 8;∞|type=minutes|formula=4 * m * (m-1), where m = 1 + (1 per 10 minutes of game time)|changedisplay=true}} Ability Power}}.\n|description2 = {{sbc|Adaptive:}} Grants bonuses based on which stat you already have the most bonuses for. ''Defaults to the first listed.''\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8237,
+      "key": "Scorch",
+      "name": "Scorch",
+      "pathId": 8200,
+      "slot": 3,
+      "icon": "perk-images/Styles/Sorcery/Scorch/Scorch.png",
+      "shortDescription": "Your first damaging ability hit every 10s burns champions.",
+      "longDescription": "Your next damaging ability hit sets champions on fire dealing 20 - 40 bonus magic damage based on level after 1s.<br><br>Cooldown: 10s",
+      "clientDescription": "Your next damaging ability hit sets champions on fire dealing 20 - 40 bonus magic damage based on level after 1s.<br><br>Cooldown: 10s",
+      "wiki": {
+        "title": "Template:Rune data Scorch",
+        "revid": 3985169,
+        "timestamp": "2026-01-18T21:40:49Z",
+        "sha256": "e9a01bb5a987ae6331c33370765b91b629f4b4e685965b6f03b3d8c58e401e77",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Scorch|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 3\n|description  = {{sbc|Passive:}} Dealing {{tip|ability damage}} to an enemy {{tip|champion|champion}} sets them on fire, dealing them {{as|{{pp|20 + (40-20)/17*(x-1)|1 to 20 by 1}}|magic damage}} {{as|'''bonus''' magic damage}} after 1 second.\n|range        = \n|cooldown     = 10\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8242,
+      "key": "Unflinching",
+      "name": "Unflinching",
+      "pathId": 8400,
+      "slot": 3,
+      "icon": "perk-images/Styles/Sorcery/Unflinching/Unflinching.png",
+      "shortDescription": "Gain Armor and Magic Resist when receiving crowd control.",
+      "longDescription": "Gain 10 Armor and Magic Resist when crowd controlled and for 2 seconds after.",
+      "clientDescription": "Gain 10 Armor and Magic Resist when crowd controlled and for 2 seconds after.",
+      "wiki": {
+        "title": "Template:Rune data Unflinching",
+        "revid": 3958701,
+        "timestamp": "2025-10-10T09:32:20Z",
+        "sha256": "2de8704b788ca75740cd0ab0081e75b25d23fbd60ba7904f8034ca5c4a8c9c10",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Unflinching|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 3\n|description  = {{sbc|Passive:}} While afflicted with {{tip|crowd control}} sourced from enemy {{tip|champion|champions}}, gain {{as|{{#vardefineecho:armorunflinching|10}} '''bonus''' armor}} and {{as|{{#vardefineecho:mrunflinching|10}} '''bonus''' magic resistance}}, lingering for 2 seconds after the impairment ends.\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8275,
+      "key": "NimbusCloak",
+      "name": "Nimbus Cloak",
+      "pathId": 8200,
+      "slot": 1,
+      "icon": "perk-images/Styles/Sorcery/NimbusCloak/6361.png",
+      "shortDescription": "After casting a Summoner Spell, gain a short <speed>Move Speed</speed> increase that allows you to pass through units.",
+      "longDescription": "After casting a Summoner Spell, gain a <speed>Move Speed</speed> increase that lasts for 2s and allows you to pass through units.<br><br>Increase: <speed>15% - 45% Move Speed</speed> based on the Summoner Spell's cooldown. (Higher cooldown Summoner Spells grant more <speed>Move Speed</speed>). ",
+      "clientDescription": "After casting a Summoner Spell, gain a <speed>Move Speed</speed> increase that lasts for 2s and allows you to pass through units.<br><br>Increase: <speed>15% - 45% Move Speed</speed> based on the Summoner Spell's cooldown. (Higher cooldown Summoner Spells grant more <speed>Move Speed</speed>). ",
+      "wiki": {
+        "title": "Template:Rune data Nimbus Cloak",
+        "revid": 4023241,
+        "timestamp": "2026-05-28T09:20:39Z",
+        "sha256": "957f33a92de90cdd0dd6d2113e8c9515281aed989721f15d031e2b99054d8b2f",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Nimbus Cloak|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 1\n|description  = {{sbc|Passive:}} Using a [[summoner spell]] grants {{tip|ghosted|ghosting}} and {{sti|ms|{{pp|type=summoner spell cooldown|key=%|15;35;45|0;100;250|color=ms|showtype=false|changedisplay=true}}}} {{as|(based on summoner spell cooldown)|ms}} {{as|'''bonus''' movement speed}} decaying over 2 seconds.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8299,
+      "key": "LastStand",
+      "name": "Last Stand",
+      "pathId": 8000,
+      "slot": 3,
+      "icon": "perk-images/Styles/Sorcery/LastStand/LastStand.png",
+      "shortDescription": "Deal more damage to champions while you are low on health.",
+      "longDescription": "Deal 5% - 11% increased damage to champions while you are below 60% health. Max damage gained at 30% health.",
+      "clientDescription": "Deal 5% - 11% increased damage to champions while you are below 60% health. Max damage gained at 30% health.",
+      "wiki": {
+        "title": "Template:Rune data Last Stand",
+        "revid": 3859782,
+        "timestamp": "2025-02-06T03:22:08Z",
+        "sha256": "669d1b6c2f5b77093f61ab19ffec1b17b4ba770badb6a7c082eea6ed296f877e",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Last Stand|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 3\n|description  = {{sbc|Passive:}} Deal 5% increased damage to champions while below {{as|60% '''maximum''' health}}. This increases further based on your {{as|'''missing''' health}}, up to 11% increased damage while below {{as|30% '''maximum''' health}}.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8304,
+      "key": "MagicalFootwear",
+      "name": "Magical Footwear",
+      "pathId": 8300,
+      "slot": 1,
+      "icon": "perk-images/Styles/Inspiration/MagicalFootwear/MagicalFootwear.png",
+      "shortDescription": "You get free boots at 12 min but you cannot buy boots before then. Each <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedown</lol-uikit-tooltipped-keyword> you get makes your boots come 45s sooner.",
+      "longDescription": "You get free Slightly Magical Footwear at 12 min, but you cannot buy boots before then. For each takedown you acquire the boots 45s sooner.<br><br>Slightly Magical Footwear grants you an additional <speed>10 Move Speed</speed>.",
+      "clientDescription": "You get free Slightly Magical Footwear at 12 min, but you cannot buy boots before then. For each takedown you acquire the boots 45s sooner.<br><br>Slightly Magical Footwear grants you an additional <speed>10 Move Speed</speed>.",
+      "wiki": {
+        "title": "Template:Rune data Magical Footwear",
+        "revid": 3825896,
+        "timestamp": "2024-11-27T23:37:07Z",
+        "sha256": "d6397df29d423737aacdd5d6f23d47e8d4cbf03a16c5ee6971e6007568f63c69",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Magical Footwear|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = 1\n|description  = {{sbc|Passive:}} After 12 minutes (reduced by 45 seconds whenever scoring a {{tip|takedown}} against an enemy champion), you gain {{ii|Slightly Magical Boots}} for {{g|free}}. ''Slightly Magical Boots'' are identical to {{ii|Boots}} and can be upgraded as if it were the item. If the inventory is full while receiving the boots, they will appear as soon as a slot in the inventory is available.\n|description2 = Additionally, your boots grant an additional {{sti|{{as|10 '''bonus''' movement speed}}}}.\n|description3 = You cannot purchase {{ii|Boots}} nor any Tier-2 [[boots]] prior to obtaining ''Slightly Magical Boots''.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8306,
+      "key": "HextechFlashtraption",
+      "name": "Hextech Flashtraption",
+      "pathId": 8300,
+      "slot": 1,
+      "icon": "perk-images/Styles/Inspiration/HextechFlashtraption/HextechFlashtraption.png",
+      "shortDescription": "While Flash is on cooldown it is replaced by <i>Hexflash</i>.<br><br><i>Hexflash</i>: Channel, then blink to a new location.",
+      "longDescription": "While Flash is on cooldown it is replaced by <i>Hexflash</i>.<br><br><i>Hexflash</i>: Channel for 2s to blink to a new location.<br><br>Cooldown: 20s. Goes on a 10s cooldown when you enter champion combat.",
+      "clientDescription": "While Flash is on cooldown it is replaced by <i>Hexflash</i>.<br><br><i>Hexflash</i>: Channel for 2s to blink to a new location.<br><br>Cooldown: 20s. Goes on a 10s cooldown when you enter champion combat.",
+      "wiki": {
+        "title": "Template:Rune data Hextech Flashtraption",
+        "revid": 4011828,
+        "timestamp": "2026-04-23T11:24:58Z",
+        "sha256": "aa11e6ba49a2d50e1a1f8a3a9483fd6a66e94286c8a5d767442f8f278ac6a551",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Hextech Flashtraption|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = 1\n|description  = {{sbc|Passive:}} While {{si|Flash}} has a remaining cooldown greater than 2 seconds, it is replaced by ''{{si|Hexflash}}''.\n|description2 = {{sbc|Active:}} You begin {{tip|channel|charging}} for up to 2 seconds, setting your {{sti|ms|{{as|movement speed}}}} to a {{as|static 0|ms}}, and increasing ''Hexflash's'' range over the duration. After at least 1 second, you can reactivate the spell, which is automatically done so when the charge completes without reactivation. Releasing the charge earlier than 1 second or entering combat with an enemy {{tip|champion}} will put ''Hexflash'' on {{sti|cooldown}} for 10 seconds.\n|description3 = {{sbc|Recast:}} You {{tip|blink}} to the target location within range and gain {{sti|ms|{{as|{{tt|50%}} '''bonus''' movement speed}}}} for up to {{tt|{{fd|0.25}}|random, estimated}} seconds.\n|description4 = ''Uses Quick Casting by default, which requires the Active to be held and the Recast to occur on release.''\n|range        = {{pp|type=channel time|200 to 400 for 6|1 to 2.5|formula=200 + 40 every 0.3 seconds}}\n|cooldown     = {{tt|20|Starts after channel's completion}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8313,
+      "key": "PerfectTiming",
+      "name": "Triple Tonic",
+      "pathId": 8300,
+      "slot": 2,
+      "icon": "perk-images/Styles/Inspiration/PerfectTiming/AlchemistCabinet.png",
+      "shortDescription": "Upon reaching level 3, gain an Elixir of Avarice.<br>Upon reaching level 6, gain an Elixir of Force.<br>Upon reaching level 9, gain an Elixir of Skill. ",
+      "longDescription": "Upon reaching level 3, gain an Elixir of Avarice.<br>Upon reaching level 6, gain an Elixir of Force.<br>Upon reaching level 9, gain an Elixir of Skill. ",
+      "clientDescription": "Upon reaching level 3, gain an Elixir of Avarice.<br>Upon reaching level 6, gain an Elixir of Force.<br>Upon reaching level 9, gain an Elixir of Skill. ",
+      "wiki": {
+        "title": "Template:Rune data Triple Tonic",
+        "revid": 3961243,
+        "timestamp": "2025-10-26T17:59:30Z",
+        "sha256": "9e451c63d8aa31a18a66358d7cb77ed52abd8b157c924e031d61da780479c946",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Triple Tonic|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2024\n|path         = Inspiration\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain an ''Elixir'' upon reaching each of the following levels:\n* Level 3: {{ii|Elixir of Avarice}}\n* Level 6: {{ii|Elixir of Force}}\n* Level 9: {{ii|Elixir of Skill}}\n|description2 = If the inventory is full upon the user becoming eligible to receive {{ii|Elixir of Avarice}} or {{ii|Elixir of Force}}, each item will be granted as soon as an empty slot is available. If the inventory is full upon becoming eligible to receive {{ii|Elixir of Skill}}, the item is consumed automatically.\n}}"
+      },
+      "combatStatus": "legacy-udyr-only"
+    },
+    {
+      "id": 8316,
+      "key": "JackOfAllTrades",
+      "name": "Jack Of All Trades",
+      "pathId": 8300,
+      "slot": 3,
+      "icon": "perk-images/Styles/Inspiration/JackOfAllTrades/JackofAllTrades2.png",
+      "shortDescription": "For each different stat gained from items, gain one Jack stack. Each stack grants you <speed>1 Ability Haste</speed>.<br><br>Gain bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>Adaptive Force</lol-uikit-tooltipped-keyword> at 5 and 10 stacks.",
+      "longDescription": "For each different stat gained from items, gain one Jack stack. Each stack grants you <speed>1 Ability Haste</speed>.<br><br>Gain 8 or 20 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>Adaptive Force</lol-uikit-tooltipped-keyword> at 5 and 10 stacks, respectively.",
+      "clientDescription": "For each different stat gained from items, gain one Jack stack. Each stack grants you <speed>1 Ability Haste</speed>.<br><br>Gain 8 or 20 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>Adaptive Force</lol-uikit-tooltipped-keyword> at 5 and 10 stacks, respectively.",
+      "wiki": {
+        "title": "Template:Rune data Jack of All Trades",
+        "revid": 4046578,
+        "timestamp": "2026-07-28T19:57:30Z",
+        "sha256": "566185c98adc2ac0a24f5715c62283a00af0d7244c1592162dea5f517a35428f",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Jack of All Trades|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2024\n|path         = Inspiration\n|slot         = 3\n|description  = {{sbc|Passive:}} Earn 1 ''Jack'' stack for each unique [[champion statistic|stat type]] currently gained from [[item]]s.\n|description2 = {{sbc|Jack:}} For each ''Jack'' stack, gain {{as|1 ability haste}}. At 5 ''Jack'' stacks, gain {{adaptive|8}}. At 10 ''Jack'' stacks, gain an additional {{adaptive|12}}, for a total of {{adaptive|20}} at 10 ''Jack'' stacks.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8321,
+      "key": "CashBack",
+      "name": "Cash Back",
+      "pathId": 8300,
+      "slot": 1,
+      "icon": "perk-images/Styles/Inspiration/CashBack/CashBack2.png",
+      "shortDescription": "Get some gold back when you purchase Legendary Items.",
+      "longDescription": "Get 7.5% Gold back when you purchase Legendary Items.",
+      "clientDescription": "Get 7.5% Gold back when you purchase Legendary Items.",
+      "wiki": {
+        "title": "Template:Rune data Cash Back",
+        "revid": 3989897,
+        "timestamp": "2026-02-03T23:48:56Z",
+        "sha256": "2893f5ec29281685aae6a6932fdf12a0f21129f09a74a844a82ef0ee7a7b7c04",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Cash Back|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2024\n|path         = Inspiration\n|slot         = 1\n|description  = {{sbc|Passive:}} Upon purchasing a [[Legendary item]], you are automatically refunded {{fd|7.5}}% of its total {{g|gold}} cost.\n|description2 = ''Selling or undoing the item's purchase will cancel the refund, reducing your current {{g|gold}} equal to the refunded amount.''\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8345,
+      "key": "BiscuitDelivery",
+      "name": "Biscuit Delivery",
+      "pathId": 8300,
+      "slot": 2,
+      "icon": "perk-images/Styles/Inspiration/BiscuitDelivery/BiscuitDelivery.png",
+      "shortDescription": "Gain a free Biscuit every 2 min, until 6 min. Consuming or selling a Biscuit permanently increases your max health and restores health.",
+      "longDescription": "Biscuit Delivery: Gain a Total Biscuit of Everlasting Will every 2 mins, until 6 min.<br><br>Biscuits restore 20 + 2% of your maximum health, increased by up to 100% based on missing Health. Consuming or selling a Biscuit permanently increases your max health by 30. ",
+      "clientDescription": "Biscuit Delivery: Gain a Total Biscuit of Everlasting Will every 2 mins, until 6 min.<br><br>Biscuits restore 20 + 2% of your maximum health, increased by up to 100% based on missing Health. Consuming or selling a Biscuit permanently increases your max health by 30. ",
+      "wiki": {
+        "title": "Template:Rune data Biscuit Delivery",
+        "revid": 4037523,
+        "timestamp": "2026-06-29T08:27:56Z",
+        "sha256": "c232d84539c13f5c4f91d11e31e386a4e9be34edcab871c926aabddbb9f7beb5",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Biscuit Delivery|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = 2\n|description  = {{sbc|Passive:}} Receive a {{ii|Total Biscuit of Everlasting Will}} at {{sbc|2:00}}, {{sbc|4:00}}, and {{sbc|6:00}}. If the inventory is full while receiving a biscuit, the biscuit(s) will appear as soon as a slot in the inventory is available.\n|description2 = Consuming a ''Biscuit'' will permanently increase your {{as|{{sti|'''maximum''' health}}}} by {{as|30|health}}, in addition to its effects. You will also gain the increased health if you sell the biscuit for {{g|5}}.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8347,
+      "key": "CosmicInsight",
+      "name": "Cosmic Insight",
+      "pathId": 8300,
+      "slot": 3,
+      "icon": "perk-images/Styles/Inspiration/CosmicInsight/CosmicInsight.png",
+      "shortDescription": "+<attention>18</attention> Summoner Spell Haste<br>+<attention>10</attention> Item Haste",
+      "longDescription": "+<attention>18</attention> Summoner Spell Haste<br>+<attention>10</attention> Item Haste",
+      "clientDescription": "+<attention>18</attention> Summoner Spell Haste<br>+<attention>10</attention> Item Haste",
+      "wiki": {
+        "title": "Template:Rune data Cosmic Insight",
+        "revid": 3825866,
+        "timestamp": "2024-11-27T23:35:48Z",
+        "sha256": "8193e5ffd9440261f114f3cbf1afc05762e7752343aa01e540613c0ecad3e82d",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Cosmic Insight|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = 3\n|description  = {{sbc|Passive:}} Gain 18 [[ability haste#Increasing summoner spell haste|summoner spell haste]] and 10 [[ability haste#Increasing item haste|item haste]].\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8351,
+      "key": "GlacialAugment",
+      "name": "Glacial Augment",
+      "pathId": 8300,
+      "slot": 0,
+      "icon": "perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png",
+      "shortDescription": "Immobilizing an enemy champion will cause 3 glacial rays that slow nearby enemies and reduce their damage to your allies.",
+      "longDescription": "Immobilizing an enemy champion will cause 3 glacial rays to emanate from them towards you and other nearby champions, creating frozen zones for 3 (+ the immobilizing effect's duration) seconds that slow enemies for 20% (+90% per 100% Heal and Shield Power) (+6% per 100 Ability Power) (+7% per 100 bonus Attack Damage) and reduce their damage by 15% against your allies (not including yourself). <br><br>Cooldown: 25s",
+      "clientDescription": "Immobilizing an enemy champion will cause 3 glacial rays to emanate from them towards you and other nearby champions, creating frozen zones for 3 (+ the immobilizing effect's duration) seconds that slow enemies for 20% (+90% per 100% Heal and Shield Power) (+6% per 100 Ability Power) (+7% per 100 bonus Attack Damage) and reduce their damage by 15% against your allies (not including yourself). <br><br>Cooldown: 25s",
+      "wiki": {
+        "title": "Template:Rune data Glacial Augment",
+        "revid": 4033154,
+        "timestamp": "2026-06-21T08:32:08Z",
+        "sha256": "b6401f747c7c223cc86586e9cc59102ff7cb46d6c974299f065bcffdd4d7f1dd",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Glacial Augment|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = Keystone\n|description  = {{sbc|Passive:}} {{tip|immobilize|Immobilizing}} an enemy {{tip|champion}} will cause 3 glacial rays to emanate from them towards you and other nearby enemy champions, creating icy zones with a 700 unit radius that last for 3 (+ 100% of the {{tt|immobilizing effect's duration|Duration after being modified by tenacity}}) seconds.\n|description2 = Enemies within the icy zones, which have a width of 80 units, are {{tip|slow|slowed}} by 20% {{as|(+ 7% per 100 '''bonus''' AD)}} {{as|(+ 6% per 100 AP)}} {{as|(+ 9% per 10% heal and shield power)}} and have their damage reduced by 15% against your allies, excluding yourself.\n|range        = \n|cooldown     = 25\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8352,
+      "key": "TimeWarpTonic",
+      "name": "Time Warp Tonic",
+      "pathId": 8300,
+      "slot": 2,
+      "icon": "perk-images/Styles/Inspiration/TimeWarpTonic/TimeWarpTonic.png",
+      "shortDescription": "Potions grant some restoration immediately.",
+      "longDescription": "Consuming a potion grants 40% of its health restoration immediately.",
+      "clientDescription": "Consuming a potion grants 40% of its health restoration immediately.",
+      "wiki": {
+        "title": "Template:Rune data Time Warp Tonic",
+        "revid": 3825920,
+        "timestamp": "2024-11-27T23:39:38Z",
+        "sha256": "1b9dd887067de4163bd396889336070819114f4a824646873b1e10a1dcb5ca90",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Time Warp Tonic|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = 2\n|description  = {{sbc|Passive:}} Upon consuming a potion ({{ii|Health Potion|icononly=true}}{{ii|Refillable Potion|icononly=true}}), you additionally {{tip|heal}} equal to 40% of its '''total''' health restoration.\n|description2 = If a health potion is consumed while one is already active, this effect will trigger on the activation of the next potion once the restoration of the current one ends.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8360,
+      "key": "UnsealedSpellbook",
+      "name": "Unsealed Spellbook",
+      "pathId": 8300,
+      "slot": 0,
+      "icon": "perk-images/Styles/Inspiration/UnsealedSpellbook/UnsealedSpellbook.png",
+      "shortDescription": "Swap Summoner Spells while out of combat. Swapping to unique Summoner Spells will increase the rate at which you can make future swaps.",
+      "longDescription": "Swap one of your equipped Summoner Spells to a new, single use Summoner Spell. Each unique Summoner Spell you swap to permanently decreases your swap cooldown by 25s (initial swap cooldown is @f3@ seconds). <br><br>Your first swap becomes available at 6 mins. <br><rules><br>Summoner Spells can only be swapped while out of combat. <br>After using a swapped Summoner Spell you must swap 3 more times before the first can be selected again.<br>Smite damage increases after two Summoner Spell swaps. </rules>",
+      "clientDescription": "Swap one of your equipped Summoner Spells to a new, single use Summoner Spell. Each unique Summoner Spell you swap to permanently decreases your swap cooldown by 25s (initial swap cooldown is @f3@ seconds). <br><br>Your first swap becomes available at 6 mins. <br><rules><br>Summoner Spells can only be swapped while out of combat. <br>After using a swapped Summoner Spell you must swap 3 more times before the first can be selected again.<br>Smite damage increases after two Summoner Spell swaps. </rules>",
+      "wiki": {
+        "title": "Template:Rune data Unsealed Spellbook",
+        "revid": 3960876,
+        "timestamp": "2025-10-24T00:28:13Z",
+        "sha256": "460622c3797e34ec1a9aa4db08c3c622475b9fc748f47b4b97d2acd8bd315f09",
+        "content": "<!-- The following values are defined as parameters\n-->{{#vardefine:initialcd|360}}<!-- Cooldown for first swap to become available\n-->{{#vardefine:cdb|270}}<!-- Internal starting cooldown at 0 swaps (seconds) - this is NOT the initial cooldown at the start of the game\n-->{{#vardefine:cdm|25}}<!-- Cooldown reduction per unique swap (seconds)\n-->{{#vardefine:cdcap|6}}<!-- Number of swaps to reduce the cooldown to the minimum\n-->{{{{{1<noinclude>|Rune data</noinclude>}}}|Unsealed Spellbook|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = Keystone\n|description  = {{sbc|Passive:}} While not channeling {{si|Teleport}} and being [[combat status|out-of-combat]] for 5 seconds, you can swap one of your equipped [[summoner spell]]s to a new, single use summoner spell. You cannot select a summoner spell you have already equipped.\n|description2 = Your first swap becomes available at {{sbc|{{MinuteDisplay|{{#var:initialcd}}}}}}. Swaps have an initial cooldown of {{#var:cdb}} seconds; selecting a unique summoner spell reduces the swap cooldown by {{#var:cdm}} seconds. You must swap to 3 different summoner spells before returning to one you have already used.\n|description3 = Selecting a summoner spell places it on a 5-second cooldown. Using a selected summoner spell places the summoner spell in the same slot on a 10-second cooldown.\n|range        = \n|cooldown     = {{pp|type=unique swaps|{{#var:cdb}}-{{#var:cdm}} to {{#var:cdb}}-{{#var:cdm}}*{{#var:cdcap}} for {{#var:cdcap}}|1 to {{#var:cdcap}}|formula={{#var:cdb}} base - {{#var:cdm}} per unique swap. ''This is capped at {{#expr:{{#var:cdb}}-{{#var:cdm}}*{{#var:cdcap}}}} seconds at {{#var:cdcap}} swaps.''}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8369,
+      "key": "FirstStrike",
+      "name": "First Strike",
+      "pathId": 8300,
+      "slot": 0,
+      "icon": "perk-images/Styles/Inspiration/FirstStrike/FirstStrike.png",
+      "shortDescription": "When you initiate champion combat, deal 7% extra damage for 3 seconds and gain gold based on damage dealt.",
+      "longDescription": "Attacks or abilities against an enemy champion within 0.25s of entering champion combat grant 10 gold and <b>First Strike</b> for 3 seconds, causing you to deal <truedamage>7%</truedamage> extra <truedamage> damage</truedamage> against champions, and granting <gold>50% (35% for ranged champions)</gold> of bonus damage dealt as <gold>gold</gold>.<br><br>Cooldown: <scaleLevel>25 - 15</scaleLevel>s",
+      "clientDescription": "Attacks or abilities against an enemy champion within 0.25s of entering champion combat grant 10 gold and <b>First Strike</b> for 3 seconds, causing you to deal <truedamage>7%</truedamage> extra <truedamage> damage</truedamage> against champions, and granting <gold>50% (35% for ranged champions)</gold> of bonus damage dealt as <gold>gold</gold>.<br><br>Cooldown: <scaleLevel>25 - 15</scaleLevel>s",
+      "wiki": {
+        "title": "Template:Rune data First Strike",
+        "revid": 4058238,
+        "timestamp": "2026-09-02T16:10:54Z",
+        "sha256": "9e2ba52ba47551f3e7374df4706d55cdb2ee438d6a833c9654b5a4a4e4ca17c8",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|First Strike|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2022\n|path         = Inspiration\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Initiating [[combat]] with an enemy {{tip|champion}} within the first {{fd|0.25}} seconds of champion combat, grants {{g|10}} and ''First Strike'' for 3 seconds, causing all of your {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt against champions to deal {{as|7% '''bonus''' true damage}}. Afterwards, you are granted {{g|gold}} equal to {{rd|50%|35%}} of all '''bonus''' damage dealt within the duration.\n|description2 = ''First Strike'' will be placed on full cooldown without activating its effects after being struck by an enemy champion before you strike them.\n|range        = \n|cooldown     = {{pp|25 to 15}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8401,
+      "key": "ShieldBash",
+      "name": "Shield Bash",
+      "pathId": 8400,
+      "slot": 1,
+      "icon": "perk-images/Styles/Resolve/MirrorShell/MirrorShell.png",
+      "shortDescription": "Whenever you gain a shield, your next basic attack against a champion deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.",
+      "longDescription": "Whenever you gain a new shield,  your next basic attack against a champion deals <scaleLevel>5 - 30</scaleLevel> <scaleHealth>(+2.5% Bonus Health)</scaleHealth> <scaleMana>(+15.0% New Shield Amount)</scaleMana> bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.<br><br>You have up to 2s after the shield expires to use this effect.",
+      "clientDescription": "Whenever you gain a new shield,  your next basic attack against a champion deals <scaleLevel>5 - 30</scaleLevel> <scaleHealth>(+2.5% Bonus Health)</scaleHealth> <scaleMana>(+15.0% New Shield Amount)</scaleMana> bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.<br><br>You have up to 2s after the shield expires to use this effect.",
+      "wiki": {
+        "title": "Template:Rune data Shield Bash",
+        "revid": 4044093,
+        "timestamp": "2026-07-17T22:53:29Z",
+        "sha256": "ca2f9a6467c1de3f2d7a69356ba0dec2bc69b6130d3f1c215c5d2b65b22bba7a",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Shield Bash|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2019\n|path         = Resolve\n|slot         = 1\n|description  = {{sbc|Passive:}} Whenever you gain a {{tip|shield}}, your next attack against an enemy {{tip|champion}} is empowered to deal {{pp|5 + (30-5)/17*(x-1)|1 to 20 by 1}} {{as|(+ {{fd|2.5}}% '''bonus''' health)}} {{as|(+ 15% shield amount)}} '''bonus''' {{tip|adaptive damage}} [[on-hit]]. The empowered attack lasts for up to 2 seconds after the shield expires.\n|description2 = {{Tip data/Adaptive damage|pst2|description}}\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8410,
+      "key": "ApproachVelocity",
+      "name": "Approach Velocity",
+      "pathId": 8300,
+      "slot": 3,
+      "icon": "perk-images/Styles/Resolve/ApproachVelocity/ApproachVelocity.png",
+      "shortDescription": "Bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword> towards nearby enemy champions that are <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_ImpairMov'>movement impaired</lol-uikit-tooltipped-keyword>, increased for enemy champions that you impair.",
+      "longDescription": "Gain <speed>7.5% Move Speed</speed> towards nearby enemy champions that are movement impaired. This bonus is increased to <speed>15% Move Speed</speed> for any enemy champion that you impair. <br><br>Activation Range for CC from allies: 1000",
+      "clientDescription": "Gain <speed>7.5% Move Speed</speed> towards nearby enemy champions that are movement impaired. This bonus is increased to <speed>15% Move Speed</speed> for any enemy champion that you impair. <br><br>Activation Range for CC from allies: 1000",
+      "wiki": {
+        "title": "Template:Rune data Approach Velocity",
+        "revid": 3980961,
+        "timestamp": "2026-01-02T13:38:28Z",
+        "sha256": "0e5523a0db67fd54cf2da7caa49ffbc1cad5d19022af6380b063eb4a851ce092",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Approach Velocity|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Inspiration\n|slot         = 3\n|description  = {{sbc|Passive:}} Gain {{sti|{{as|{{fd|7.5}}% '''bonus total''' movement speed}}}} while facing {{tip|sight|visible}} enemy {{tip|champions}} that are {{tip|immobilize|immobilized}}, {{tip|ground|grounded}}, or {{tip|slow|slowed}} within {{tip|cr|icononly = true}} 1000 range.\n|description2 = This bonus is doubled to {{as|15%|ms}} and does not have a range cap nor require {{tip|sight|vision}} toward enemy champions whose movement you impaired when they were {{tip|sight|visible}}.{{bug|2}}\n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8429,
+      "key": "Conditioning",
+      "name": "Conditioning",
+      "pathId": 8400,
+      "slot": 2,
+      "icon": "perk-images/Styles/Resolve/Conditioning/Conditioning.png",
+      "shortDescription": "After 12 min gain +8 Armor and +8 Magic Resist and increase your Armor and Magic Resist by 3%.",
+      "longDescription": "After 12 min gain +8 Armor and +8 Magic Resist and increase your Armor and Magic Resist by 3%.",
+      "clientDescription": "After 12 min gain +8 Armor and +8 Magic Resist and increase your Armor and Magic Resist by 3%.",
+      "wiki": {
+        "title": "Template:Rune data Conditioning",
+        "revid": 3825864,
+        "timestamp": "2024-11-27T23:35:44Z",
+        "sha256": "063e3a352086ebae810285fd0ddb09118d6b5dff628d4eea83289c2253ca14fb",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Conditioning|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 2\n|description  = {{sbc|Passive:}} After 12 minutes, gain {{sti|armor|{{as|8 '''bonus''' armor}}}} and {{sti|mr|{{as|8 '''bonus''' magic resistance}}}} and your {{as|'''total''' armor}} and {{as|'''total''' magic resistance}} are increased by 3%.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8437,
+      "key": "GraspOfTheUndying",
+      "name": "Grasp of the Undying",
+      "pathId": 8400,
+      "slot": 0,
+      "icon": "perk-images/Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.png",
+      "shortDescription": "Every 4s your next attack on a champion deals bonus magic damage, heals you, and permanently increases your health.",
+      "longDescription": "Every 4s in combat, your next basic attack on a champion will:<li>Deal bonus magic damage equal to 3.5% of your max health<li>Heal you for 1.3% of your max health<li>Permanently increase your health by 5<br><rules><i>Ranged Champions:</i> Damage, healing, and permanent health gained are 40% effective.</rules>",
+      "clientDescription": "Every 4s in combat, your next basic attack on a champion will:<li>Deal bonus magic damage equal to 3.5% of your max health<li>Heal you for 1.3% of your max health<li>Permanently increase your health by 5<br><rules><i>Ranged Champions:</i> Damage, healing, and permanent health gained are 40% effective.</rules>",
+      "wiki": {
+        "title": "Template:Rune data Grasp of the Undying",
+        "revid": 4058228,
+        "timestamp": "2026-09-02T10:12:14Z",
+        "sha256": "016d11d96f6099062907667bfe767ec5c911a96695615c34fc0eff39e8d955a1",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Grasp of the Undying|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Entering [[Combat status|combat]] generates 1 [[stack]] every second for the next 3 seconds, refreshing the duration with each instance of combat and stacking the effect up to 4 times. At maximum stacks, your next [[basic attack]] {{tip|on-hit}} within 5 seconds against an enemy {{tip|champion}} consumes all stacks to deal {{as|'''bonus''' magic damage}} equal to {{as|{{rd|{{fd|3.5}}%|{{fd|1.4}}%}} of your '''maximum''' health}}, {{tip|heal}} you for {{as|{{rd|{{fd|1.3}}%|{{fd|0.52}}%}} of your '''maximum''' health)}}, and permanently grant you {{as|{{rd|5|2}} '''bonus''' health}}.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8439,
+      "key": "Aftershock",
+      "name": "Aftershock",
+      "pathId": 8400,
+      "slot": 0,
+      "icon": "perk-images/Styles/Resolve/VeteranAftershock/VeteranAftershock.png",
+      "shortDescription": "After <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Immobilize'>immobilizing</lol-uikit-tooltipped-keyword> an enemy champion gain defenses and later deal a burst of magic damage around you.",
+      "longDescription": "After immobilizing an enemy champion, increase your Armor and Magic Resist by 45 + 75% of your Bonus Resists for 2.5s. Then explode, dealing magic damage to nearby enemies.<br><br>Damage: 25 - 120 (+8% of your bonus health)<br>Cooldown: 20s<br><br>Resistance bonus from Aftershock capped at: 80-150 (based on level)<br>",
+      "clientDescription": "After immobilizing an enemy champion, increase your Armor and Magic Resist by 45 + 75% of your Bonus Resists for 2.5s. Then explode, dealing magic damage to nearby enemies.<br><br>Damage: 25 - 120 (+8% of your bonus health)<br>Cooldown: 20s<br><br>Resistance bonus from Aftershock capped at: 80-150 (based on level)<br>",
+      "wiki": {
+        "title": "Template:Rune data Aftershock",
+        "revid": 4022990,
+        "timestamp": "2026-05-27T21:25:51Z",
+        "sha256": "7484070a7ee08dd8940edc74607ae1e8b0afec2d3b795b1765aede073dcf4d50",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Aftershock|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = Keystone\n|description  = {{sbc|Passive:}} {{tip|Immobilize|Immobilizing}} an enemy {{tip|champion}} grants you a static {{as|45|armor}} {{as|(+ 75% '''bonus''' armor)}} {{as|'''bonus''' armor}} and {{as|45|mr}} {{as|(+ 75% '''bonus''' magic resistance)}} {{as|'''bonus''' magic resistance}} for {{fd|2.5}} seconds. The '''bonus''' resistances are each capped at {{pp|80 to 150}}.\n|description2 = After the duration, you release a shockwave that deals {{as|{{pp|25 to 120}}|magic damage}} {{as|(+ 8% of your '''bonus''' health)}} {{as|magic damage}} to enemy champions and {{tip|monster|monsters}} within a {{tip|cr|icononly=true}} 350 radius.\n|range        = \n|cooldown     = 20\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8444,
+      "key": "SecondWind",
+      "name": "Second Wind",
+      "pathId": 8400,
+      "slot": 2,
+      "icon": "perk-images/Styles/Resolve/SecondWind/SecondWind.png",
+      "shortDescription": "After taking damage from an enemy champion heal back some missing health over time. ",
+      "longDescription": "After taking damage from an enemy champion, heal for 4% of your missing health over 10s.",
+      "clientDescription": "After taking damage from an enemy champion, heal for 4% of your missing health over 10s.",
+      "wiki": {
+        "title": "Template:Rune data Second Wind",
+        "revid": 3960974,
+        "timestamp": "2025-10-24T16:06:20Z",
+        "sha256": "b51dc3b87c2cbf6dbf23723d33d3dc05093d3ba1026d4b3d1fa0246df5215e4f",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Second Wind|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 2\n|description  = {{sbc|Passive:}} After taking damage from an enemy {{tip|champion}}, {{sti|health regeneration|link=true|regenerate}} {{as|4% of your '''missing''' health}} over 10 seconds, refreshing on subsequent damage.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8446,
+      "key": "Demolish",
+      "name": "Demolish",
+      "pathId": 8400,
+      "slot": 1,
+      "icon": "perk-images/Styles/Resolve/Demolish/Demolish.png",
+      "shortDescription": "Your third attack against turrets deals bonus damage.",
+      "longDescription": "Your third attack against towers deals [85 (+28% max Health) Melee || 50 (+20% max Health) Ranged] bonus physical damage.<br><br>Cooldown: 30s",
+      "clientDescription": "Your third attack against towers deals [85 (+28% max Health) Melee || 50 (+20% max Health) Ranged] bonus physical damage.<br><br>Cooldown: 30s",
+      "wiki": {
+        "title": "Template:Rune data Demolish",
+        "revid": 4058470,
+        "timestamp": "2026-09-03T14:38:46Z",
+        "sha256": "1d156a6a05182402b35dd8d9fbdd003bde17882c00207aaaddac2061eeacc450",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Demolish|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 1\n|description  = {{sbc|Passive:}} Basic attacks {{tip|on-hit}} against {{tip|turrets}} apply a stack of ''Demolish'', stacking up to 3 times. The third stack against a turret consumes them all to deal {{as|{{rd|85|50}}|physical damage}} {{as|(+ {{rd|28%|20%}} of your '''maximum''' health)}} {{ccs|{{as|'''bonus''' physical damage}}|physical}}.\n|description2 = ''Demolish'' cannot be triggered on the same turret by any of its users more than once every 3 seconds.\n|range        = \n|cooldown     = {{tt|30|Global cooldown on all turrets, starts after consuming stacks on a turret}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8451,
+      "key": "Overgrowth",
+      "name": "Overgrowth",
+      "pathId": 8400,
+      "slot": 3,
+      "icon": "perk-images/Styles/Resolve/Overgrowth/Overgrowth.png",
+      "shortDescription": "Gain permanent max health when minions or monsters die near you.",
+      "longDescription": "Absorb life essence from monsters or enemy minions that die near you, permanently gaining 3 maximum health for every 8.<br><br>When you've absorbed 120 monsters or enemy minions, gain an additional 3.5% maximum health.",
+      "clientDescription": "Absorb life essence from monsters or enemy minions that die near you, permanently gaining 3 maximum health for every 8.<br><br>When you've absorbed 120 monsters or enemy minions, gain an additional 3.5% maximum health.",
+      "wiki": {
+        "title": "Template:Rune data Overgrowth",
+        "revid": 3825902,
+        "timestamp": "2024-11-27T23:37:55Z",
+        "sha256": "55957f17d94a3bd2875606453fc089977fb650ece00d22bfab6cc31086143363",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Overgrowth|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 3\n|description  = {{sbc|Passive:}} Every 8 {{tip|monster|monsters}} or enemy {{tip|minion|minions}} that die near you permanently generates a [[stack]]. Each stack grants {{as|3 '''bonus''' health}}. This effect can stack indefinitely.\n|description2 = After reaching 15 stacks (120 monsters or minions), your {{as|'''base'''|health}} and {{as|'''bonus''' health}} are permanently increased by {{fd|3.5}}%.\n|range        = 1400\n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8453,
+      "key": "Revitalize",
+      "name": "Revitalize",
+      "pathId": 8400,
+      "slot": 3,
+      "icon": "perk-images/Styles/Resolve/Revitalize/Revitalize.png",
+      "shortDescription": "Gain 5% Heal and Shield Power.<br><br>Heals and shields you cast or receive are 10% stronger on targets below 40% health.",
+      "longDescription": "Gain 5% Heal and Shield Power.<br><br>Heals and shields you cast or receive are 10% stronger on targets below 40% health.",
+      "clientDescription": "Gain 5% Heal and Shield Power.<br><br>Heals and shields you cast or receive are 10% stronger on targets below 40% health.",
+      "wiki": {
+        "title": "Template:Rune data Revitalize",
+        "revid": 3825912,
+        "timestamp": "2024-11-27T23:39:10Z",
+        "sha256": "7b3651b2733853e3dfc1afec2fb908078fa5840f46cfc2c1d122c7b8277517c0",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Revitalize|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 3\n|description  = {{sbc|Passive:}} Grants {{sti|heal and shield power|5% [[Heal and shield power]]}}.\n|description2 = Outgoing {{tip|heal|healing}} and outgoing {{tip|shield|shielding}} are increased by 10% on targets {{as|below 40% of their '''maximum''' health}}.\n|description3 = Incoming healing, incoming shielding, self-healing and self-shielding are increased by 10% while '''you''' are {{as|below 40% of your '''maximum''' health}}.\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8463,
+      "key": "FontOfLife",
+      "name": "Font of Life",
+      "pathId": 8400,
+      "slot": 1,
+      "icon": "perk-images/Styles/Resolve/FontOfLife/FontOfLife.png",
+      "shortDescription": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_ImpairMov'>Impairing</lol-uikit-tooltipped-keyword> the movement of an enemy champion heals nearby allied champions. ",
+      "longDescription": "Impairing the movement of an enemy champion restores <healing>@BaseHeal@ Health</healing> to you and the lowest health nearby allied champion.<br><br>70% effect for Ranged Users.<br><br>Cooldown: 20s",
+      "clientDescription": "Impairing the movement of an enemy champion restores Health to you and the lowest health nearby allied champion.<br><br>70% effect for Ranged Users.<br><br>Cooldown: 20s",
+      "wiki": {
+        "title": "Template:Rune data Font of Life",
+        "revid": 3996429,
+        "timestamp": "2026-03-04T16:57:40Z",
+        "sha256": "fca775707e709fe845743ce422de697386857bb3d9e5edce8203610272535119",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Font of Life|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 1\n|description  = {{sbc|Passive:}} {{tip|slow|Slowing}} or {{tip|immobilize|immobilizing}} an enemy {{tip|champion}} {{tip|heals}} you and the nearest and most wounded allied champion within {{tip|cr|icononly=true}} 1000 units for {{rd|10 + (50-10)/17*(x-1) for 20|10*0.7 + (50*0.7-10*0.7)/17*(x-1) for 20|pp=true|type=your level|color=heal}}.\n|range        = \n|cooldown     = 20\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8465,
+      "key": "Guardian",
+      "name": "Guardian",
+      "pathId": 8400,
+      "slot": 0,
+      "icon": "perk-images/Styles/Resolve/Guardian/Guardian.png",
+      "shortDescription": "Guard allies you cast spells on and those that are very nearby. If you or a guarded ally would take damage based on level, you're both granted a shield.",
+      "longDescription": "<i>Guard</i> allies within 350 units of you, and allies you target with spells for 2.5s. While <i>Guarding</i>, if you or the ally take more than a small amount of damage over the duration of the <i>Guard</i>, both of you gain a shield for 1.5s.<br><br>Cooldown: <scaleLevel>75 - 40</scaleLevel> seconds<br>Shield: <scaleLevel>40 - 150</scaleLevel> + <scaleAP>20%</scaleAP> of your ability power + <scalehealth>6%</scalehealth> of your bonus health<br>Proc Threshold: <scaleLevel>50 - 165</scaleLevel> postmitigation damage",
+      "clientDescription": "<i>Guard</i> allies within 350 units of you, and allies you target with spells for 2.5s. While <i>Guarding</i>, if you or the ally take more than a small amount of damage over the duration of the <i>Guard</i>, both of you gain a shield for 1.5s.<br><br>Cooldown: <scaleLevel>75 - 40</scaleLevel> seconds<br>Shield: <scaleLevel>40 - 150</scaleLevel> + <scaleAP>20%</scaleAP> of your ability power + <scalehealth>6%</scalehealth> of your bonus health<br>Proc Threshold: <scaleLevel>50 - 165</scaleLevel> postmitigation damage",
+      "wiki": {
+        "title": "Template:Rune data Guardian",
+        "revid": 4022993,
+        "timestamp": "2026-05-27T21:28:28Z",
+        "sha256": "82696b6e6af22eebaa2f1493a2853a5da21a9e9755f7c0a1bfc8d6e83100e467",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Guardian|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = Keystone\n|description  = {{sbc|Passive:}} While within 350 units of an allied {{tip|champion}}, you raise your ''Guard''. Allied champions you affect with [[unit-targeted]] [[champion ability|abilities]] are also ''Guarded'' for 3 seconds, regardless of distance.\n|description2 = If you or a ''Guarded'' ally would take {{pp|50 + (165-50)/17*(x-1) for 20}} damage within {{fd|2.5}} seconds or lethal damage from an enemy champion, {{tip|monster}} or {{tip|turret}}, you both gain a {{tip|shield}} for {{pp|40 + (150-40)/17*(x-1) for 20}} {{as|(+ 20% of your AP)}} {{as|(+ 6% of your '''bonus''' health)}} for 2 seconds.\n|description3 = ''Guardian'' only goes on {{sti|cooldown}} when the shield is triggered.\n|range        = 350 / {{tt|Global|Targeted Guard}}\n|cooldown     = {{pp|75 + (40-75)/17*(x-1) for 20}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8473,
+      "key": "BonePlating",
+      "name": "Bone Plating",
+      "pathId": 8400,
+      "slot": 2,
+      "icon": "perk-images/Styles/Resolve/BonePlating/BonePlating.png",
+      "shortDescription": "After taking damage from an enemy champion, the next 3 spells or attacks you receive from them deal 30-60 (based on level) less damage.<br><br>Duration: 1.5s<br>Cooldown: 55s",
+      "longDescription": "After taking damage from an enemy champion, the next 3 spells or attacks you receive from them deal 30-60 (based on level) less damage.<br><br>Duration: 1.5s<br>Cooldown: 55s",
+      "clientDescription": "After taking damage from an enemy champion, the next 3 spells or attacks you receive from them deal 30-60 (based on level) less damage.<br><br>Duration: 1.5s<br>Cooldown: 55s",
+      "wiki": {
+        "title": "Template:Rune data Bone Plating",
+        "revid": 3985159,
+        "timestamp": "2026-01-18T21:02:07Z",
+        "sha256": "cee96bd9ecf4c9cc4c31e2085f3d8dfbfd1ad3022fd18542a75b52fce840f54e",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Bone Plating|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 2\n|description  = {{sbc|Passive:}} After taking damage from an enemy {{tip|champion}}, activate ''Bone Plating'' for {{fd|1.5}} seconds. While active, the next 3 spells or attacks you receive from the enemy champion that triggered this effect deal {{pp|30 + (60-30)/17*(x-1)|1 to 20 by 1}} less damage (including {{tip|true damage}}).\n|range        = \n|cooldown     = 55\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 8992,
+      "key": "DeathfireTouch",
+      "name": "Deathfire Touch",
+      "pathId": 8200,
+      "slot": 0,
+      "icon": "perk-images/Styles/Sorcery/DeathfireTouch/DEATHFIRE_TOUCH_KEYSTONE.png",
+      "shortDescription": "Damaging a champion with an ability burns them over time.",
+      "longDescription": "Damaging a champion with an ability burns them for 3 - 12 based on level (+<scaleAP>2.5% AP</scaleAP>) (+<scaleAD>7% bonus AD</scaleAD>)  magic damage per second. After burning for 3 seconds, the damage of the burn increases by 75% while they remain on fire.<br><rules><br>Duration:<br>Single Target: 4s<br>Area of Effect: 2s<br>Damage over Time: 1s<br></rules>",
+      "clientDescription": "Damaging a champion with an ability burns them for 3 - 12 based on level (+<scaleAP>2.5% AP</scaleAP>) (+<scaleAD>7% bonus AD</scaleAD>)  magic damage per second. After burning for 3 seconds, the damage of the burn increases by 75% while they remain on fire.<br><rules><br>Duration:<br>Single Target: 4s<br>Area of Effect: 2s<br>Damage over Time: 1s<br></rules>",
+      "wiki": {
+        "title": "Template:Rune data Deathfire Touch",
+        "revid": 4023190,
+        "timestamp": "2026-05-28T03:33:15Z",
+        "sha256": "b37a7b3724848d75f38ad19f31919f8dd2cffa27aa536d0cc410f3576e393255",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Deathfire Touch|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = 2026 Annual Cycle\n|path         = Sorcery\n|slot         = Keystone\n|description  = Dealing {{tip|ability damage}} or {{tip|pet damage}} to enemy {{tip|champions}} inflicts a burn that deals {{pp|(3/2) + ((12/2)-(3/2))/17*(x-1) for 20|color=magic damage}} {{as|(+ {{ap|7/2}}% '''bonus''' AD)}} {{as|(+ {{ap|2.5/2}}% AP)}} {{as|magic damage}} every {{fd|0.5}} seconds over the duration. After the burn has lingered on a target for 3 seconds, its damage to them is increased{{ft|by 75%|to {{pp|(3*1.75/2) + ((12*1.75/2)-(3*1.75/2))/17*(x-1) for 20|color=magic damage}} {{as|(+ {{ap|7*1.75/2|round=3}}% '''bonus''' AD)}} {{as|(+ {{ap|2.5*1.75/2|round=3}}% AP)}} per tick}}while it lasts.\n|description2 = The burn's duration is based on the form of ability damage dealt to the target and is refreshed on subsequent applications:\n* {{tip|Spell damage}}: 4 seconds.\n* {{tip|Area damage}}: 2 seconds.\n* {{tip|Persistent damage}}: 1 second.\n* {{tip|Persistent area damage}}: 1 second.\n* {{tip|Pet damage}}: 1 second.\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 9101,
+      "key": "AbsorbLife",
+      "name": "Absorb Life",
+      "pathId": 8000,
+      "slot": 1,
+      "icon": "perk-images/Styles/Precision/AbsorbLife/AbsorbLife.png",
+      "shortDescription": "Killing a target heals you.",
+      "longDescription": "Killing a target heals you for @HealAmount@.",
+      "clientDescription": "Killing a target restores 1 - 23 Health based on level.",
+      "wiki": {
+        "title": "Template:Rune data Absorb Life",
+        "revid": 3997095,
+        "timestamp": "2026-03-06T17:27:29Z",
+        "sha256": "d494e4a0c5f9b2262e2426108789ea4da00007d7b3ebf9b4323fa29dfe5aa538",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Absorb Life|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2024\n|path         = Precision\n|slot         = 1\n|description  = {{sbc|Passive:}} Killing an enemy {{tip|heals}} you for {{pp|1; then +0.25*x for 4;then +1*x for 5; then +2*x|1 to 20 by 1|formula=1, +0.25 per level until level 5, then +1 per level until level 10, then +2 per level|color=heal}}.\n|range        =\n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 9103,
+      "key": "LegendBloodline",
+      "name": "Legend: Bloodline",
+      "pathId": 8000,
+      "slot": 2,
+      "icon": "perk-images/Styles/Precision/LegendBloodline/LegendBloodline.png",
+      "shortDescription": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> on enemies grant permanent<b> Life Steal</b>, up to a cap. Once the cap is reached, increase your max health. Weaker earlier but stronger later game than other Legend Runes.",
+      "longDescription": "Gain <scaleAD>0.45% Life Steal</scaleAD> for every <i>Legend</i> stack (<statGood>max 15 stacks</statGood>). At maximum <i>Legend</i> stacks, gain <scaleHealth>85 max health</scaleHealth>.<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+      "clientDescription": "Gain <scaleAD>0.45% Life Steal</scaleAD> for every <i>Legend</i> stack (<statGood>max 15 stacks</statGood>). At maximum <i>Legend</i> stacks, gain <scaleHealth>85 max health</scaleHealth>.<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+      "wiki": {
+        "title": "Template:Rune data Legend: Bloodline",
+        "revid": 3971359,
+        "timestamp": "2025-12-02T21:39:42Z",
+        "sha256": "c9f5c1ca762b135a41c6be7f42555b471231b304ad7761237d89c9ad229e13c7",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Legend: Bloodline|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain {{as|{{sti|life steal|{{fd|{{#vardefineecho:scalingbloodline|0.45}}% life steal}}}}}} per ''Legend'' {{tip|stack}}, up to {{as|{{fd|{{#expr:{{#var:scalingbloodline}}*15}}}}%|life steal}} at maximum stacks, at which you also gain {{as|{{#vardefineecho:hpbloodline|85}} '''bonus''' health}}.\n|description2 = {{sbc|Legend:}} Gain ''Legend'' stacks for every 100 points earned, up to 15:\n* 100 points for champion {{tip|takedown|takedowns}}\n* 100 points for epic monster {{tip|takedown|takedowns}}\n* 25 points for large monster kills\n* 4 points for minion kills\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 9104,
+      "key": "LegendAlacrity",
+      "name": "Legend: Alacrity",
+      "pathId": 8000,
+      "slot": 2,
+      "icon": "perk-images/Styles/Precision/LegendAlacrity/LegendAlacrity.png",
+      "shortDescription": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> on enemies grant permanent <b>Attack Speed</b>. ",
+      "longDescription": "Gain 3% attack speed plus an additional 1.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+      "clientDescription": "Gain 3% attack speed plus an additional 1.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+      "wiki": {
+        "title": "Template:Rune data Legend: Alacrity",
+        "revid": 3958705,
+        "timestamp": "2025-10-10T09:39:17Z",
+        "sha256": "7813d6e3c06cfdceec4e376be6909ccc618ea41ee52d21ed904010a09868056e",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Legend: Alacrity|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain {{sti|{{as|{{#vardefineecho:basealacrity|3}}%|attack speed}} (+ {{as|{{fd|{{#vardefineecho:scalingalacrity|1.5}}}}%|attack speed}} per ''Legend'' {{tip|stack}}) {{as|'''bonus''' attack speed}}}}, up to {{as|{{#expr:{{#var:basealacrity}}+{{#var:scalingalacrity}}*10}}%|attack speed}} at maximum stacks.\n|description2 = {{sbc|Legend:}} Gain ''Legend'' stacks for every 100 points earned, up to 10:\n* 100 points for champion {{tip|takedown|takedowns}}\n* 100 points for epic monster {{tip|takedown|takedowns}}\n* 25 points for large monster kills\n* 4 points for minion kills\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 9105,
+      "key": "LegendHaste",
+      "name": "Legend: Haste",
+      "pathId": 8000,
+      "slot": 2,
+      "icon": "perk-images/Styles/Precision/LegendHaste/LegendHaste.png",
+      "shortDescription": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> on enemies grant permanent Basic Ability <b>Haste</b>. ",
+      "longDescription": "Gain 1.5 basic ability haste for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+      "clientDescription": "Gain 1.5 basic ability haste for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+      "wiki": {
+        "title": "Template:Rune data Legend: Haste",
+        "revid": 3958696,
+        "timestamp": "2025-10-10T09:26:49Z",
+        "sha256": "892804ab9e9eb64530b55b4b89b2cc7df78b7dee878eb2119d65de9d713711be",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Legend: Haste|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2024\n|path         = Precision\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain {{sti|ability haste|icononly=true}} {{as|{{fd|1.5}} basic ability haste}} per ''Legend'' {{tip|stack}}, up to {{as|15|ability haste}} at maximum stacks.\n|description2 = {{sbc|Legend:}} Gain ''Legend'' stacks for every 100 points earned, up to 10:\n* 100 points for champion {{tip|takedown|takedowns}}\n* 100 points for epic monster {{tip|takedown|takedowns}}\n* 25 points for large monster kills\n* 4 points for minion kills\n|range        = \n|cooldown     = \n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 9111,
+      "key": "Triumph",
+      "name": "Triumph",
+      "pathId": 8000,
+      "slot": 1,
+      "icon": "perk-images/Styles/Precision/Triumph.png",
+      "shortDescription": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> restore 5% of your missing health and grant an additional 20 gold. ",
+      "longDescription": "Takedowns restore 5% of your missing health, 2.5% of your max health, and grant an additional 20 gold. <br><br><hr><br><i>'The most dangerous game brings the greatest glory.' <br>—Noxian Reckoner</i>",
+      "clientDescription": "Takedowns restore 5% of your missing health, 2.5% of your max health, and grant an additional 20 gold. <br><br><hr><br><i>'The most dangerous game brings the greatest glory.' <br>—Noxian Reckoner</i>",
+      "wiki": {
+        "title": "Template:Rune data Triumph",
+        "revid": 3825924,
+        "timestamp": "2024-11-27T23:39:48Z",
+        "sha256": "45f9059f1e4828ca23955f2eacf7a8555f5589e2aec5f29f7b89937a3e9d13f6",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Triumph|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 1\n|description  = {{sbc|Passive:}} Scoring a {{tip|takedown}} against an enemy champion {{tip|heals}} you for {{as|{{fd|2.5}}% of your '''maximum''' health}} {{as|(+ 5% of your '''missing''' health)}} and grants you an additional {{g|20}}, both after a 1-second delay.\n|range        = \n|cooldown     = \n|caption      = {{quote|\"The most dangerous game brings the greatest glory.\"|Noxian [[Reckoners|Reckoner]]|Rune caption}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    },
+    {
+      "id": 9923,
+      "key": "HailOfBlades",
+      "name": "Hail of Blades",
+      "pathId": 8100,
+      "slot": 0,
+      "icon": "perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png",
+      "shortDescription": "Gain a large amount of Attack Speed and <trueDamage>bonus true damage</trueDamage> for the first 3 attacks made against enemy champions.",
+      "longDescription": "Gain 90% (60% for ranged champions) Attack Speed and <trueDamage>bonus true damage</trueDamage> when you attack an enemy champion for up to 3 attacks.<br><br>No more than 3s can elapse between attacks or this effect will end.<br><br>Cooldown: 10s.<br>On-Hit Damage: 2 - 20 (+0.12 bonus AD, +0.1 AP) damage.<br><br><rules>Attack resets increase the attack limit by 1.<br>Allows you to temporarily exceed the Attack Speed limit.</rules>",
+      "clientDescription": "Gain 90% (60% for ranged champions) Attack Speed and <trueDamage>bonus true damage</trueDamage> when you attack an enemy champion for up to 3 attacks.<br><br>No more than 3s can elapse between attacks or this effect will end.<br><br>Cooldown: 10s.<br>On-Hit Damage: 2 - 20 (+0.12 bonus AD, +0.1 AP) damage.<br><br><rules>Attack resets increase the attack limit by 1.<br>Allows you to temporarily exceed the Attack Speed limit.</rules>",
+      "wiki": {
+        "title": "Template:Rune data Hail of Blades",
+        "revid": 4060661,
+        "timestamp": "2026-09-10T03:45:47Z",
+        "sha256": "317c008f2e4555a1d360aea2558e06a5954c461f454a4daa040b0deb05e06132",
+        "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Hail of Blades|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Starting an {{tip|attack windup}} against an enemy {{tip|champion}} triggers ''Hail of Blades'', and if the windup completes, you gain 2 stacks of the effect for 3 seconds, with the duration refreshing on basic attacks {{tip|on-attack}} against enemy champions until all stacks are consumed. Stacks are consumed per basic attack on-attack and you generate an additional stack of the effect each time you activate an effect that has a {{tip|basic attack reset}}, up to 2 times.\n|description2 = While ''Hail of Blades'' is active, you gain {{as|{{rd|90%|60%}} {{sti|'''bonus''' attack speed}}|as}}, are allowed to exceed the {{tt|attack speed cap|normally 3.003 attacks per second}}, and basic attacks deal {{pp|2 + (20-2)/17*(x-1) for 20|color=true damage}} {{as|(+ 12% '''bonus''' AD)}} {{as|(+ 10% AP)}} {{as|{{sti|'''bonus''' true damage}}}}.<br><br>''The triggering attack benefits from Hail of Blades.''\n|cooldown     = {{tt|10|Starts after the effect ends.}}\n}}"
+      },
+      "combatStatus": "not-implemented"
+    }
+  ],
+  "shardSlots": [
+    [
+      5008,
+      5005,
+      5007
+    ],
+    [
+      5008,
+      5010,
+      5001
+    ],
+    [
+      5011,
+      5013,
+      5001
+    ]
+  ],
+  "shards": [
+    {
+      "id": 5001,
+      "name": "Health Scaling",
+      "icon": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsHealthPlusIcon.png",
+      "shortDescription": "+10-180 Health (based on level)",
+      "longDescription": "+10-180 Health (based on level)",
+      "tooltip": "<scaleHealth>+@f1@ Health</scaleHealth> (based on level)"
+    },
+    {
+      "id": 5005,
+      "name": "Attack Speed",
+      "icon": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsAttackSpeedIcon.png",
+      "shortDescription": "+10% Attack Speed",
+      "longDescription": "+10% Attack Speed",
+      "tooltip": "+10% Attack Speed"
+    },
+    {
+      "id": 5007,
+      "name": "Ability Haste",
+      "icon": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsCDRScalingIcon.png",
+      "shortDescription": "+8 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> ",
+      "longDescription": "+8 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> ",
+      "tooltip": "<attention>+8 Ability Haste</attention>"
+    },
+    {
+      "id": 5008,
+      "name": "Adaptive Force",
+      "icon": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsAdaptiveForceIcon.png",
+      "shortDescription": "+9 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword>",
+      "longDescription": "+9 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword>",
+      "tooltip": "<scaleAD>+@f2@ Attack Damage</scaleAD>"
+    },
+    {
+      "id": 5010,
+      "name": "Move Speed",
+      "icon": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsMovementSpeedIcon.png",
+      "shortDescription": "+2.5% <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>Move Speed</lol-uikit-tooltipped-keyword>",
+      "longDescription": "+2.5% <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>Move Speed</lol-uikit-tooltipped-keyword>",
+      "tooltip": "<speed>+2.5% Move Speed</speed>"
+    },
+    {
+      "id": 5011,
+      "name": "Health",
+      "icon": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsHealthScalingIcon.png",
+      "shortDescription": "+65 Health",
+      "longDescription": "+65 Health",
+      "tooltip": "<scaleHealth>+65 Health</scaleHealth>"
+    },
+    {
+      "id": 5013,
+      "name": "Tenacity and Slow Resist",
+      "icon": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsTenacityIcon.png",
+      "shortDescription": "+15% Tenacity and Slow Resist",
+      "longDescription": "+15% Tenacity and Slow Resist",
+      "tooltip": "+15% Tenacity and Slow Resist"
+    }
+  ],
+  "rules": {
+    "title": "Rune",
+    "revid": 4091810,
+    "timestamp": "2026-11-01T20:58:39Z",
+    "sha256": "a9b4ad8e0885e65fd73e7926eaf608c5312a4507d7f115bcd2bf0c0c222a8e31",
+    "content": "{{article game navigation}}\n: ''{{Hatnote|You may also be looking for [[Rune (Historical)]], a retired feature of the game.}}''\n[[File:Runes 2018.jpg|thumb|360px]]'''Runes''' are enhancements that add new abilities or buffs to the champion. The player can choose their loadout of runes before the match begins, during champion select, or their Collection tab.\n\nRunes Reforged (the current system of runes) was introduced in Pre-[[Season 2018]], supplanting the previous system of [[Runes (Historical)|Runes]] and [[Summoner Mastery|Masteries]], hence the name '''Reforged'''.<ref>[https://web.archive.org/web/0/http://na.leagueoflegends.com/en/featured/preseason-update Preseason Update]</ref><ref>[https://web.archive.org/web/0/https://na.leagueoflegends.com/en/news/game-updates/patch/patch-722-notes#patch-experience Patch 7.22 notes]</ref><ref>[https://web.archive.org/web/0/http://na.leagueoflegends.com/en/featured/preseason-update/8200-8230 Check out my build]</ref>\n\n== Rune Pages ==\n[[File:Rune_pages_inventory.jpg|thumb|right|400px|Rune page inventory]] \nA player can have a maximum of 25 custom [[Rune Book|rune pages]], which are separate from the recommended rune page which cannot be edited and only exists per-game. Players in [[Experience (summoner)| levels 1 to 9]] cannot create nor edit rune pages.\n\nNew accounts have two empty rune pages available; additional pages are purchased in the store for {{RP|590}} or {{BE|6300}} each.\n\nIt is not possible to enter a match without an active, valid rune page. In such a case, the game will automatically assign the player with the recommended rune page for their champion and role, upon game start. \n{{clr}}\n=== Rune Recommender ===\n[[File:Rune recommender.png|thumb|right|350px|Rune recommender]]\nHovering or locking in a champion in the Champion Selection screen allows you to access the Rune Recommender button on the left side of the loadout. The Rune Recommender automatically determines and recommends the best rune sets for your chosen champion and role, and presents up to three different sets. You can select a set in order to apply it to your loadout.\n* These recommended rune sets are updated per-patch based on current data and the best runes available for each champion in each role.\n* Optionally, the Rune Recommender can also recommend [[Summoner spell|summoner spell]] loadouts. The option can be enabled or disabled at will by clicking on the slider at the bottom of the Rune Recommender (this option persists through Champion Selection lobbies).\n{{clr}}\n\n== Rune paths ==\nRunes are divided into five ''paths'':\n[[File:Rune icon.png|right|100px]]\n* [[File:Precision icon.png|20px|link=]] '''Precision''' - Improved attacks and sustained damage\n* [[File:Domination icon.png|20px|link=]] '''Domination''' - Burst damage and target access\n* [[File:Sorcery icon.png|20px|link=]] '''Sorcery''' - Empowered abilities and resource manipulation\n* [[File:Resolve icon.png|20px|link=]] '''Resolve''' - Durability and crowd control\n* [[File:Inspiration icon.png|20px|link=]] '''Inspiration''' - Creative tools and rule bending\n\n[[File:In-Game Runes.png|thumb|right|250px]] Each rune page contains runes from two paths: one primary and one secondary. The primary path has one keystone and three lesser runes. The secondary path has two lesser runes. There are also three ''Shard'' slots alongside the Primary and Secondary paths that follow a path separate from the five. Each individual slot can be filled with one selection.\n{{clr}}\n=== Trees ===\n{| border=\"0\" cellpadding=\"1\" cellspacing=\"1\" class=\"article-table rune-table\" width=\"100%\" style=\"font-size:14px; text-align:center; background:transparent;\"\n! width=\"100px\" style=\"text-align:center;\" | Paths\n! width=\"20%\" style=\"text-align:center;\" | Keystone\n! width=\"20%\" style=\"text-align:center;\" | Slot 1\n! width=\"20%\" style=\"text-align:center;\" | Slot 2\n! width=\"20%\" style=\"text-align:center;\" | Slot 3\n{{Rune table row|Precision}}\n{{Rune table row|Domination}}\n{{Rune table row|Sorcery}}\n{{Rune table row|Resolve}}\n{{Rune table row|Inspiration}}\n|}\n\n=== Shards ===\n{|class=\"article-table\" width=\"100%\" style=\"text-align:center;\"\n!\n! <center>Option 1</center>\n! <center>Option 2</center>\n! <center>Option 3</center>\n|-\n! align=\"center\" | Slot 1<br />{{sbc|Offense}}\n| [[File:Rune shard Adaptive Force.png|30px|link=]]<br />{{adaptive|9}}\n| [[File:Rune shard Attack Speed.png|30px|link=]]<br />{{as|10% '''bonus''' attack speed}}\n| [[File:Rune shard Cooldown Reduction.png|30px|link=]]<br />8 ability haste\n|-\n! align=\"center\" | Slot 2<br />{{sbc|Flex}}\n| [[File:Rune shard Adaptive Force.png|30px|link=]]<br />{{adaptive|9}}\n| [[File:Rune shard Movement Speed.png|30px|link=]]<br />{{as|{{fd|2.5}}% '''bonus''' movement speed}}\n| [[File:Rune shard Health Scaling.png|30px|link=]]<br />{{pp|10 * x for 20|color=health}} {{as|'''bonus''' health}}\n|-\n! align=\"center\" | Slot 3<br />{{sbc|Defense}}\n| [[File:Rune shard Health.png|30px|link=]]<br />{{as|65 '''bonus''' health}}\n| [[File:Rune shard Tenacity and Slow Resist.png|30px|link=]]<br />15% {{tip|tenacity}} and {{tip|slow resist}}\n| [[File:Rune shard Health Scaling.png|30px|link=]]<br />{{pp|10 * x for 20|color=health}} {{as|'''bonus''' health}}\n|}\n\n=== Substitutions ===\nThere are game modes and champions in which certain runes are essentially useless. The game will substitute unusable runes automatically upon the game start and print a chat message to the player with the change.\n:''Last updated: [[V26.06]]''\n* In modes without the river, {{ri|Waterwalking}} is exchanged with {{ri|Scorch}}.\n* In modes without [[structures]] or where structures are impervious, {{ri|Demolish}} is exchanged with {{ri|Font of Life}}.\n* In modes without [[ward]]s, {{ri|Deep Ward}} and {{ri|Sixth Sense}} are exchanged with {{ri|Grisly Mementos}}.\n* For champions without {{tip|mana}}, {{ri|Manaflow Band}} is exchanged with {{ri|Axiom Arcanist}}.\n* For champions without {{tip|mana}} nor {{tip|energy}}, {{ri|Presence of Mind}} is exchanged with {{ri|Triumph}}.\n* For champions without immobilizing effects, {{ri|Aftershock}} is exchanged with {{ri|Grasp of the Undying}} and {{ri|Glacial Augment}} is exchanged with {{ri|First Strike}}.\n** {{ci|Yorick}} is an exception to this rule and considered to not have an immobilizing effect despite having an immobilize on his {{ai|W|Yorick}}.\n* For champions that do not equip {{si|Flash}}, {{ri|Hextech Flashtraption}} is exchanged with {{ri|Cash Back}}.\n* For {{ci|Bel'Veth}}, {{ri|Ultimate Hunter}} is exchanged with {{ri|Relentless Hunter}}.\n* For {{ci|Samira}}, {{ri|Ultimate Hunter}} is exchanged with {{ri|Treasure Hunter}}.\n* For {{ci|Elise}}, {{ci|Jayce}}, {{ci|Nidalee}} and {{ci|Zoe}}, {{ri|Axiom Arcanist}} is exchanged with {{ri|Nimbus Cloak}}.\n* In [[Ultra Rapid Fire|URF]]:\n** {{ri|Unsealed Spellbook}} is exchanged with {{ri|First Strike}}.\n** {{ri|Manaflow Band}} is exchanged with {{ri|Axiom Arcanist}}.\n** {{ri|Presence of Mind}} is exchanged with {{ri|Triumph}}.\n* In [[Ultimate Spellbook]]:\n** {{ri|Unsealed Spellbook}} is exchanged with {{ri|First Strike}}.\n\n== Trivia ==\n[[File:Sorcery Path Animation.gif|center]]\n* During development, Precision and Sorcery were originally going to be Primary path only.<ref>[https://web.archive.org/web/0/http://na.leagueoflegends.com/en/news/game-updates/features/coming-preseason-runes-reforged Announcement]</ref>\n* Runes are referred to internally as \"perks\".<ref>[https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/ CommunityDragon]</ref>\n* Runes and their surrounding areas have distinct visual appearances which bear similarities to certain Runeterran factions. This may be intentional in order to reflect the location of the World Runes:\n** [[File: Precision icon.png|20px|link=]] Precision - Golden cityscape of {{fi|Demacia}}\n** [[File: Domination icon.png|20px|link=]] Domination - {{fi|Noxus|Noxian}} fortification\n** [[File: Sorcery icon.png|20px|link=]] Sorcery - Mountains of {{fi|Icathia}}\n** [[File: Resolve icon.png|20px|link=]] Resolve - Riverlands of Southern {{fi|Freljord}}\n** [[File: Inspiration icon.png|20px|link=]] Inspiration - Beneath the heavens atop {{fi|Mount Targon}}\n* Every rune that gives bonus Adaptive AD or AP, will always grant about 60% of the amount of AP as AD, or about {{fd|166.{{recurring|6}}}}% of the amount of AD as AP.\n<!-- This table can be updated using the rune path data templates-->\n\n{{Rune combinations table}}\n\n== Media ==\n<tabber>\nMusic=\n{{#ev:youtube|id=AXM-iSG-hMI|alignment=center|dimensions=640px}}\n|-|\nVideos=\n{{#ev:youtube|id=0xR_w2Avw-o|alignment=center|dimensions=640px}}\n;Related Videos\n{{VideoGallery\n|{{#ev:youtube|id=CIipUGzCQow|dimensions=240px}}\n|{{#ev:youtube|id=kdWkAykcWyY|dimensions=240px}}\n|{{#ev:youtube|id=aGTBknj7Y68|dimensions=240px}}\n|{{#ev:youtube|id=icOMIvQj4C8|dimensions=240px}}\n|{{#ev:youtube|id=946KgF83UlQ|dimensions=240px}}\n|{{#ev:youtube|id=-sMwUTAj0LQ|dimensions=240px}}\n}}\n|-|\nGallery=\n<gallery position=\"center\" spacing=\"small\" captionalign=\"center\">\nSeason 2018.jpg|Season 2018 Promo\nRunes 2018 announcement.jpg|Announcement image\nRunes 2018 concept art 1.jpg|Domination crest Concept\nRunes 2018 concept art 2.jpg|Resolve crest Concept\nRunes 2018 concept art 3.jpg|Domination, Precision and Resolve crests Concept\nRunes_2018_paths.jpg|Domination, Precision, Resolve and Inspiration Concept\nSorcery Splash.jpg|Sorcery splash art\nSorcery Splash 2.png|Sorcery splash art 2\nResolve Splash.jpg|Resolve splash art\nResolve Splash 2.png|Resolve splash art 2\nPrecision Splash.jpg|Precision splash art\nPrecision Splash 2.png|Precision splash art 2\nDomination Splash.jpg|Domination splash art\nDomination Splash 2.png|Domination splash art 2\nInspiration Splash.jpg|Inspiration splash art\nInspiration Splash 2.jpg|Inspiration splash art 2\nRunes Reforged 2017 Icon concept 01.jpg|Runes Reforged 2017 Icon Concept (by Riot Artist [[Steve Zheng]])\n</gallery>\n</tabber>\n\n== History ==\n<tabber>\nHide=\n|-|\nShow=\n=== Removed runes ===\n{{Column|2|\n* {{ri|Celestial Body}} (replaced by {{ri|Time Warp Tonic}})\n* {{ri|Chrysalis}} (replaced by {{ri|Bone Plating}})\n* {{ri|Eyeball Collection}} (replaced by {{ri|Deep Ward}})\n* {{ri|Iron Skin}} (replaced by {{ri|Chrysalis}})\n* {{ri|Future's Market}} (replaced by {{ri|Cash Back}})\n* {{ri|Ghost Poro}} (replaced by {{ri|Grisly Mementos}})\n* {{ri|Ingenious Hunter}}\n* {{ri|Kleptomancy}} (replaced by {{ri|Prototype: Omnistone}})\n* {{ri|Legend: Tenacity}} (replaced by {{ri|Legend: Haste}})\n* {{ri|Minion Dematerializer}}\n* {{ri|Mirror Shell}} (replaced by {{ri|Chrysalis}})\n* {{ri|Nullifying Orb}} (replaced by {{ri|Axiom Arcanist}})\n* {{ri|Overheal}} (replaced by {{ri|Absorb Life}})\n* {{ri|Perfect Timing}} (replaced by {{ri|Triple Tonic}})\n* {{ri|Predator}}\n* {{ri|Prototype: Omnistone}} (replaced by {{ri|First Strike}})\n* {{ri|Ravenous Hunter}} (replaced by {{ri|Treasure Hunter}})\n* {{ri|The Ultimate Hat}} (replaced by {{ri|Ultimate Hunter}})\n* {{ri|Zombie Ward}} (replaced by {{ri|Sixth Sense}})\n}}\n\n=== Rune presets ===\nPrior to the introduction of the Rune Recommender in [[V12.23]], the client offered five ''preset'' rune pages that could not be edited, but were viewable in the player's Collection tab. Also, if an invalid rune page was selected, it was substituted for one of the preset rune pages upon game start. The preset selection depended on your champion's traits.\n<gallery captionalign=\"center\">\nThe Timeless (Preset).png|{{sbc|Inspiration: The Timeless}} (Inspiration + Resolve)\nThe Prefect (Preset).png|{{sbc|Precision: The Perfect}} (Precision + Sorcery)\nThe Executioner (Preset).png|{{sbc|Domination: The Executioner}} (Domination + Precision)\nThe Colossus (Preset).png|{{sbc|Resolve: The Colossus}} (Resolve + Sorcery)\nThe Calamity (Preset).png|{{sbc|Sorcery: The Calamity}} (Sorcery + Domination)\nExample_Rune_Page.png|Personalized Rune Page\n</gallery>\n* 'The Perfect' preset was originally called 'The Prefect,' as with the Set Title. It is unknown why this was changed.\n\n=== Rune traits ===\nPrior to the introduction of Shards in [[V8.23]], players received a bonus based on the combination of their sets (e.g. Sorcery + Precision). These combinations had specific Titles, which are shared with the corresponding presets. The following is listed for archive purposes:\n\n{| border=\"0\" cellpadding=\"1\" cellspacing=\"1\" class=\"article-table\" width=\"100%\" style=\"font-size:12px; text-align:center;\"\n! style=\"width:80px;\" | Secondary ►\n! rowspan=\"2\" style=\"width:100px;\" | Precision\n! rowspan=\"2\" style=\"width:100px;\" | Domination\n! rowspan=\"2\" style=\"width:100px;\" | Sorcery\n! rowspan=\"2\" style=\"width:100px;\" | Resolve\n! rowspan=\"2\" style=\"width:100px;\" | Inspiration\n|-\n! Primary ▼\n|-\n! style=\"height:2em;\" | Precision\n! style=\"text-align:center; background: #050c13;\" | —\n| {{sbc|{{Rune path infobox/Precision|pst2|domination}}}}\n| {{sbc|{{Rune path infobox/Precision|pst2|sorcery}}}}\n| {{sbc|{{Rune path infobox/Precision|pst2|resolve}}}}\n| {{sbc|{{Rune path infobox/Precision|pst2|inspiration}}}}\n|-\n! style=\"height:2em;\" | Domination\n| {{sbc|{{Rune path infobox/Domination|pst2|precision}}}}\n! style=\"text-align:center; background: #050c13;\" | —\n| {{sbc|{{Rune path infobox/Domination|pst2|sorcery}}}}\n| {{sbc|{{Rune path infobox/Domination|pst2|resolve}}}}\n| {{sbc|{{Rune path infobox/Domination|pst2|inspiration}}}}\n|-\n! style=\"height:2em;\" | Sorcery\n| {{sbc|{{Rune path infobox/Sorcery|pst2|precision}}}}\n| {{sbc|{{Rune path infobox/Sorcery|pst2|domination}}}}\n! style=\"text-align:center; background: #050c13;\" | —\n| {{sbc|{{Rune path infobox/Sorcery|pst2|resolve}}}}\n| {{sbc|{{Rune path infobox/Sorcery|pst2|inspiration}}}}\n|-\n! style=\"height:2em;\" | Resolve\n| {{sbc|{{Rune path infobox/Resolve|pst2|precision}}}}\n| {{sbc|{{Rune path infobox/Resolve|pst2|domination}}}}\n| {{sbc|{{Rune path infobox/Resolve|pst2|sorcery}}}}\n! style=\"text-align:center; background: #050c13;\" | —\n| {{sbc|{{Rune path infobox/Resolve|pst2|inspiration}}}}\n|-\n! style=\"height:2em;\" | Inspiration\n| {{sbc|{{Rune path infobox/Inspiration|pst2|precision}}}}\n| {{sbc|{{Rune path infobox/Inspiration|pst2|domination}}}}\n| {{sbc|{{Rune path infobox/Inspiration|pst2|sorcery}}}}\n| {{sbc|{{Rune path infobox/Inspiration|pst2|resolve}}}}\n! style=\"text-align:center; background: #050c13;\" | —\n|}\n\n=== Champion stat adjustments ===\nAfter the launch of Runes Reforged, the balance of champion stats was heavily impacted due to their dependence on the old Rune system's direct stat buffs.\n* The following generalize the changes made to compensate for the loss of attack damage from ''marks'' and health or armor from ''seals'', which were almost unanimously used due to the lack of options (and thus the game has been balanced, for example, around most champions having 9 bonus armor from ''seals''). The exact values may vary for specific cases, as Riot also took this opportunity to better distinguish classes (e.g., tanks from non-tanks; ranged from melee), as well as buff or nerf specific champions.\n** AD champions had the base damage on their abilities increased by 5.\n*** Ranged AD champions also had their '''base''' attack damage increased by 8.\n** Most champions had their '''base''' armor increased by 9.\n*** Most mages had their '''base''' health increased by 12, instead. ''Primarily excluding junglers.''\n*** Melee supports had their '''base''' armor increased by 20, instead.\n</tabber>\n{{Clr}}\n\n== Patch History ==\n{{scroll box|content=\n;[[V25.22]]\n* Stat Shards\n** Bonus movement speed increased to {{fd|2.5}}% from 2%.\n** Tenacity and slow resist increased to 15% from 10%.\n\n;[[V25.S1.1]]\n* {{sbc|New:}} {{ri|Axiom Arcanist}}, {{ri|Deep Ward}}, {{ri|Grisly Mementos}}, {{ri|Sixth Sense}}.\n* {{sbc|Removed:}} {{ri|Eyeball Collection}}, {{ri|Ghost Poro}}, {{ri|Nullifying Orb}}, {{ri|Zombie Ward}}.\n\n;[[V14.19]]\n* {{sbc|Re-added:}} {{ri|Lethal Tempo}}.\n\n;[[V14.10]]\n* {{sbc|New:}} {{ri|Absorb Life}}, {{ri|Cash Back}}, {{ri|Jack of All Trades}}, {{ri|Legend: Haste}}.\n* {{sbc|Removed:}} {{ri|Future's Market}}, {{ri|Ingenious Hunter}}, {{ri|Legend: Tenacity}}, {{ri|Lethal Tempo}}, {{ri|Minion Dematerializer}}, {{ri|Overheal}}, {{ri|Predator}}.\n\n;[[V14.2]]\n* Slot 2 option 2 changed to [[File:Rune shard Movement Speed.png|20px|link=]] 2% bonus movement speed from [[File:Rune shard Armor.png|20px|link=]] 6 bonus armor.\n* Slot 2 option 3 changed to [[File:Rune shard Health Scaling.png|20px|link=]] {{pp|10 to 180}} bonus health from [[File:Rune shard Magic Resistance.png|20px|link=]] 8 bonus magic resistance.\n* [[File:Rune shard Health.png|20px|link=]] Slot 3 option 1 bonus health changed to 65 at all levels from {{pp|15 to 140}}.\n* Slot 3 option 2 changed to [[File:Rune shard Tenacity and Slow Resist.png|20px|link=]] 10% tenacity and slow resist from [[File:Rune shard Armor.png|20px|link=]] 6 bonus armor.\n* Slot 3 option 3 changed to [[File:Rune shard Health Scaling.png|20px|link=]] {{pp|10 to 180}} bonus health from [[File:Rune shard Magic Resistance.png|20px|link=]] 8 bonus magic resistance.\n\n;[[V14.1]]\n* {{sbc|New:}} {{ri|Triple Tonic}}.\n* {{sbc|Removed:}} {{ri|Perfect Timing}}.\n\n;[[V12.23]]\n* {{sbc|New:}} Rune Recommender.\n* {{sbc|Removed:}} Preset Rune pages.\n\n;[[V12.6]]\n* {{sbc|New:}} {{ri|Treasure Hunter}}.\n* {{sbc|Removed:}} {{ri|Ravenous Hunter}}.\n\n;[[V11.23]]\n* {{sbc|New:}} {{ri|First Strike}}.\n* {{sbc|Removed:}} {{ri|Prototype: Omnistone}}.\n\n;[[V11.21]]\n* [[File:Rune shard Health.png|20px|link=]] Slot 3 bonus health increased to {{pp|15 to 140}} from {{pp|15 to 90}}.\n\n;[[V10.23]]\n* [[File:Rune shard Cooldown Reduction.png|20px|link=]] Slot 1 cooldown reduction shard now grants 8 ability haste at all levels, instead of {{pp|1 to 10|key=%}} cooldown reduction.\n\n;[[V9.23]]\n* {{sbc|New:}} {{ri|Prototype: Omnistone}}.\n* {{sbc|Removed:}} {{ri|Kleptomancy}}.\n\n;[[V9.2]]\n* Slot 1 and 2 adaptive shard reduced to ({{fd|5.4}} '''bonus''' AD or 9 AP) from (6 '''bonus''' AD or 10 AP).\n* Slot 2 and 3 armor shard increased to 6 '''bonus''' armor from 5.\n* Slot 2 and 3 magic resistance shard increased to 8 '''bonus''' magic resistance from 6.\n\n;[[V9.1]]\n* Offense attack speed shard increased to 10% '''bonus''' attack speed from 9%.\n\n;[[V8.23]]\n* {{sbc|New:}} {{ri|Shield Bash}}\n* {{sbc|New:}} Rune shards\n* {{sbc|Removed:}} {{ri|Trait: Domination}}.\n* {{sbc|Removed:}} {{ri|Trait: Inspiration}}.\n* {{sbc|Removed:}} {{ri|Trait: Precision}}.\n* {{sbc|Removed:}} {{ri|Trait: Resolve}}.\n* {{sbc|Removed:}} {{ri|Trait: Sorcery}}.\n* {{sbc|Removed:}} {{ri|Chrysalis}}.\n\n;[[V8.11]]\n* {{sbc|New:}} {{ri|Hail of Blades}}.\n* {{sbc|New:}} {{ri|Nimbus Cloak}}.\n* {{sbc|New:}} {{ri|Ultimate Hunter}}.\n* {{sbc|Removed:}} {{ri|The Ultimate Hat}}.\n\n;[[V8.6]]\n* {{sbc|New:}} {{ri|Chrysalis}}.\n* {{sbc|New:}} {{ri|Conqueror}}.\n* {{sbc|Removed:}} {{ri|Iron Skin}}.\n* {{sbc|Removed:}} {{ri|Mirror Shell}}.\n\n;[[V8.4]]\n* {{sbc|New:}} {{ri|Bone Plating}}.\n* {{sbc|New:}} {{ri|Time Warp Tonic}}.\n* {{sbc|Removed:}} {{ri|Celestial Body}}.\n\n;[[V7.23]]\n* Added an option to hide preset pages.\n\n;[[V7.22]] - Added\n* Added to the live servers.\n* Any [[Rune Book|Rune Pages]] the player owned in the previous system have been transferred across to the new system, in addition to the currency compensation received.\n* ''Individual rune changes are documented on the respective rune's page.''\n}}\n{{References}}\n\n[[de:Runen]]\n[[es:Runas Reforjadas]]\n[[fr:Rune]]\n[[it:Rune Riforgiate]]\n[[pl:Runy]]\n[[pt-br:Runa]]\n[[ru:Руна]]\n[[zh:符文]]\n\n{{Runes}}\n[[Category:Runes]]"
+  },
+  "sources": {
+    "runesReforged.json": {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/runesReforged.json",
+      "sha256": "74d1e211982f4c976f2c76c1229f5c09b6eabdf2bf76b8f1bbd6d7248a60fc44"
+    },
+    "perks.json": {
+      "url": "https://raw.communitydragon.org/16.21/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "sha256": "dd0948288ac0293caf71675cabbd138a7ad512b7a7cbb15c084fa9662233c13a"
+    },
+    "perkstyles.json": {
+      "url": "https://raw.communitydragon.org/16.21/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json",
+      "sha256": "aa6bebc26efebd49587530d2284e84202686ea4c67febcc2f8d8b29b7d91a81b"
+    },
+    "wiki-pages.json": {
+      "url": "https://wiki.leagueoflegends.com/en-us/api.php",
+      "sha256": "366aaba013e8c363bda735ccaf085fbf1fb223acf7f0ede7cb8ff18be02677be"
+    }
+  },
+  "limitations": [
+    "This is a source catalog and page-layout inventory. It does not equip a rune page, apply shard stats, implement rune effects, or search rune pages.",
+    "Triple Tonic remains modeled only by the existing Udyr option and its separately preserved legacy rune data; this catalog does not enable it for other champions.",
+    "Client descriptions may contain unresolved runtime placeholders. Their exact text and the full wiki revisions are retained; no numeric effect is inferred from them.",
+    "The scaling-health shard's client description gives 10–180 health, while the Rune article's shard formula is 10 times level through level 20 (200 health). Both sources are retained without choosing a combat value.",
+    "The Rune article records champion and game-mode substitutions. Structural page validation does not apply these contextual replacements or certify a page for a particular champion.",
+    "Rune effects that depend on elapsed game time, preduel stacks, takedowns, farm, allies, wards, structures or summoner spells require explicit assumptions and source-backed implementation before use."
+  ]
+}

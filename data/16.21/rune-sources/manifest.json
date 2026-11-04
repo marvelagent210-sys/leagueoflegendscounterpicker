@@ -1,0 +1,24 @@
+{
+  "dataset": "16.21",
+  "patch": "26.21",
+  "ddragonVersion": "16.21.1",
+  "communityDragonVersion": "16.21",
+  "files": {
+    "runesReforged.json": {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/runesReforged.json",
+      "sha256": "74d1e211982f4c976f2c76c1229f5c09b6eabdf2bf76b8f1bbd6d7248a60fc44"
+    },
+    "perks.json": {
+      "url": "https://raw.communitydragon.org/16.21/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "sha256": "dd0948288ac0293caf71675cabbd138a7ad512b7a7cbb15c084fa9662233c13a"
+    },
+    "perkstyles.json": {
+      "url": "https://raw.communitydragon.org/16.21/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json",
+      "sha256": "aa6bebc26efebd49587530d2284e84202686ea4c67febcc2f8d8b29b7d91a81b"
+    },
+    "wiki-pages.json": {
+      "url": "https://wiki.leagueoflegends.com/en-us/api.php",
+      "sha256": "366aaba013e8c363bda735ccaf085fbf1fb223acf7f0ede7cb8ff18be02677be"
+    }
+  }
+}
