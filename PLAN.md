@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14. The private workspace's batches 7 to 15 were merged into this branch on 30 October, with this branch's own Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 145 of 173 champions. Batches 16 to 19, written here on 31 October, add the last 28: every champion has a kit, with 14,878 unordered pairings. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are M8 (§13), in progress: the item catalog and every item's effects are done, duels can be played with fixed builds, the build search finds both sides' builds, and the matrix with builds, computed for all 14,878 pairings on 1 and 2 November, is what the app shows by default. Runes are next.
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14. The private workspace's batches 7 to 15 were merged into this branch on 30 October, with this branch's own Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 145 of 173 champions. Batches 16 to 19, written here on 31 October, add the last 28: every champion has a kit, with 14,878 unordered pairings. Current data sources use patch 26.21 (Data Dragon 16.21.1). Items and runes are M8 (§13), in progress: the item catalog and every item's effects are done, duels can be played with fixed builds, the build search finds both sides' builds, and the matrix with builds, computed for all 14,878 pairings on 1 and 2 November, is what the app shows by default. The rune source catalog and page-layout validation are implemented; rune effects and search are next.
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -931,7 +931,8 @@ Progress (20 October, while the remaining kits are written elsewhere):
   - GitHub took 20 jobs at a time, so 5 of the 25 shards waited up to 48 minutes for a runner. The plan now sizes the two matrices' shards together, at most 20 in all (`planShards`): for this refresh, 4 plain-stats and 16 build shards of about 72 minutes, about 75 minutes in all.
   - 35 kits' assumption texts were then respaced (ACCURACY.md). Their fights didn't change, but their keys did, so a refresh computed their 5,425 pairings per matrix again on 3 and 7 shards sized together. All of them came out identical, 1 hour 27 minutes from the push to the commit.
   - Shards with interleaved shares of the same kind of pairings took from 38 to 86 minutes, so the slowest runner, not the plan, set the time.
-- **Not yet:** runes.
+- **Rune sources and page structure (4 November).** The separate `rune-catalog.json` contains all 62 current runes in five paths and seven stat shards. Its offline build verifies pinned Data Dragon 16.21.1 and CommunityDragon 16.21 inputs against 63 complete wiki revisions, retaining source hashes, path/row membership and original descriptions. `npm run build:runes -- --check` detects changed sources or stale catalog/report output. `npm run runes:page -- --file page.json` validates primary, secondary and shard selections structurally. New rune effects, champion-specific substitutions and page search are not applied. The existing combat `runes.json` and both matrices remain separate. The [rune audit](docs/runes/README.md) records the scaling-health conflict: the wiki reaches 200 at level 20, while the client tooltip stops at 180.
+- **Not yet:** rune combat effects, champion-specific page substitutions and rune-page search.
 
 See ACCURACY.md for the validation.
 
@@ -951,7 +952,7 @@ See ACCURACY.md for the validation.
     - Tenacity groups: the wiki adds the groups (Mercury's Treads' 30% and Courage's 60% are 90%); the engine multiplies them (72%).
     - The engine's own stasis state lets a unit act (Lissandra's Frozen Tomb on herself). Item stasis stops attacks, walking and casts itself.
 - **Runes** (about 1 week).
-  - `runes.json` holds only Triple Tonic. Fetch the rest: about 60 runes and the stat shards.
+  - The source catalog now holds all 62 runes and seven stat shards, with exact raw inputs and source revisions. Combat `runes.json` still holds only Triple Tonic until the new effects are implemented.
   - About half matter in a level-20 1v1. The others are recorded as having no effect, with the reason.
   - Runes that stack over a game (Legend, Conditioning, Eyeball Collection) need stated assumptions about what they have gathered by level 20.
 - **Item rules** (confirmed on 20 October). A build holds at most one item from each group:

@@ -24,6 +24,7 @@
     "engine",
     "kits",
     "items",
+    "runes",
     "tests",
     "vitest.config.ts"
   ]
