@@ -12,9 +12,18 @@
  *   movement speed, tenacity nor mana, so the runes and shards that give only those are never
  *   chosen over ones that give something it values.
  * - A fight for a candidate is a screen against the enemy's loadout: the all-in scenarios with one
- *   branch each, as the build search's route screen plays them, with each fight's health margin.
- *   The sides answer each other's loadout in turn for two rounds; in the second, a side fights
- *   again only its first round's best keystones and spells.
+ *   branch each, as the build search's route screen plays them, one fight each, with each
+ *   fight's health margin. The sides answer each other's loadout in turn for two rounds; in the
+ *   second, a side fights again only its first round's best keystones and spells.
+ *
+ * Checked against every scenario played (PLAN.md §13), on the keystone of one side in three
+ * samples of 10 pairings, the rest of both loadouts fixed: the keystone a brawl alone picked
+ * scored 0.11 to 0.15 below the best keystone's full score on average; the all-in screen's,
+ * 0.04 to 0.12; with health margins, as a fair pair, 0.03 to 0.15; and as one fight a scenario,
+ * as here, 0.07 on the sample it was measured on, where the others were 0.12 to 0.17 below. The
+ * samples are small and their spread wide: a screen guides the choice, and the matchup's result
+ * then plays every scenario. On 8 pairings the loadout search added 68% to the build search's
+ * time.
  *
  * The result is the best loadout found within the model, not a guaranteed optimum.
  */

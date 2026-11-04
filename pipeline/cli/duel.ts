@@ -11,8 +11,10 @@
  * changes an item's option.
  *
  * With --search, the build search (pipeline/items/search.ts) finds both sides' builds first:
- * each side's route builds, their fights, and the builds each side takes. --format picks six
- * items (sixItems, the default) or five items and boots (fiveItemsWithBoots).
+ * each side's route builds, their fights, and the builds each side takes; then the loadout
+ * search (pipeline/loadouts/search.ts) finds their summoner spells and rune pages, printing its
+ * screens. --format picks six items (sixItems, the default) or five items and boots
+ * (fiveItemsWithBoots).
  *
  * --spells and --enemy-spells give the sides summoner spells (summoners/), two at most, with
  * item builds or without any items (not with the stat budget): "Flash, Ignite". --runes and
@@ -164,11 +166,12 @@ async function main(): Promise<void> {
   if (search && (args.includes("--items") || args.includes("--enemy-items"))) throw new Error("--search finds the builds; it doesn't go with --items or --enemy-items");
   const withSpells = args.includes("--spells") || args.includes("--enemy-spells");
   const withRunes = args.includes("--runes") || args.includes("--enemy-runes");
+  if (search && (withSpells || withRunes)) throw new Error("--search finds the summoner spells and rune pages too; it doesn't go with --spells, --runes or the enemy's");
   const withItems = search || args.includes("--items") || args.includes("--enemy-items") || withSpells || withRunes;
   if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds or summoner spells`);
   const catalog = withItems ? await loadItemCatalog(data.dataset) : undefined;
-  const spellCatalog: SpellCatalog | undefined = withSpells ? await loadSpellCatalog(data.dataset) : undefined;
-  const runeCatalog: RuneCatalog | undefined = withRunes ? await loadRuneCatalog(data.dataset) : undefined;
+  const spellCatalog: SpellCatalog | undefined = withSpells || search ? await loadSpellCatalog(data.dataset) : undefined;
+  const runeCatalog: RuneCatalog | undefined = withRunes || search ? await loadRuneCatalog(data.dataset) : undefined;
   const build = catalog ? { options: itemOptions(args, catalog), stacked: !args.includes("--unstacked") } : {};
   const runeOverrides = runeOptions(args);
   // Each side's build options: the shared item options, and its own summoner spells and rune page.
@@ -177,13 +180,13 @@ async function main(): Promise<void> {
     ...(spellCatalog && args.includes(spellFlag) ? { spells: { names: spellList(option(args, spellFlag)), catalog: spellCatalog } } : {}),
     ...(runeCatalog && args.includes(runeFlag) ? { runes: { page: runeList(option(args, runeFlag)), catalog: runeCatalog, adaptiveType, options: runeOverrides } } : {}),
   });
-  const [myBuild, theirBuild] = [sideBuild("--spells", "--runes", you.adaptiveType), sideBuild("--enemy-spells", "--enemy-runes", enemy.adaptiveType)];
+  let [myBuild, theirBuild] = [sideBuild("--spells", "--runes", you.adaptiveType), sideBuild("--enemy-spells", "--enemy-runes", enemy.adaptiveType)];
   let myItems = catalog ? itemList(option(args, "--items"), catalog, you.name) : [];
   let theirItems = catalog ? itemList(option(args, "--enemy-items"), catalog, enemy.name) : [];
   if (search && catalog) {
     const format = (option(args, "--format") ?? "sixItems") as BuildFormat;
     if (!(format in BUILD_FORMATS)) throw new Error(`--format takes one of: ${Object.keys(BUILD_FORMATS).join(", ")}`);
-    const found = searchMatchup(mine.spec, theirs.spec, catalog, equipOptions(catalog, build.options), data.prices, { format, stacked: build.stacked });
+    const found = searchMatchup(mine.spec, theirs.spec, catalog, equipOptions(catalog, build.options), data.prices, { format, stacked: build.stacked, loadouts: { runes: runeCatalog!, spells: spellCatalog!, adaptiveTypes: [you.adaptiveType, enemy.adaptiveType] } });
     console.log(`Build search (${BUILD_FORMATS[format].label}): ${found.seconds.calibration.toFixed(1)} s calibrating, ${found.seconds.search.toFixed(1)} s searching (${found.rounds} rounds), ${found.seconds.fights.toFixed(1)} s of fights between the routes`);
     found.calibrations?.forEach((c, side) => {
       const share = (x: number) => `${Math.round(x * 100)}%`;
@@ -195,9 +198,24 @@ async function main(): Promise<void> {
     });
     console.log(`Screen scores for ${you.name}, the all-in scenarios with one branch each (rows: ${you.name}'s routes; columns: ${enemy.name}'s):`);
     for (const line of found.scores) console.log(`  ${line.map((score) => signed(score)).join("  ")}`);
-    console.log(`Each side takes the route whose worst result is best: ${you.name} ${found.chosen[0] + 1}, ${enemy.name} ${found.chosen[1] + 1}; every scenario played, ${signed(found.score)}.\n`);
+    console.log(`Each side takes the route whose worst result is best: ${you.name} ${found.chosen[0] + 1}, ${enemy.name} ${found.chosen[1] + 1}.`);
     myItems = buildNames(found.routes[0][found.chosen[0]]!);
     theirItems = buildNames(found.routes[1][found.chosen[1]]!);
+    const searched = found.loadouts!;
+    console.log(`Loadout search: ${searched.seconds.toFixed(1)} s, ${searched.fights} screens (the all-in scenarios with one branch each, each fight's health margin added):`);
+    searched.screens.forEach((rounds, side) =>
+      rounds.forEach((round, r) => {
+        const listed = (entries: Array<{ candidate: string; score: number }>) => [...entries].sort((x, y) => y.score - x.score).map((entry) => `${entry.candidate} ${signed(entry.score)}`).join(", ");
+        console.log(`  ${side === 0 ? you.name : enemy.name}, round ${r + 1}: keystones ${listed(round.keystones)}; second spells ${listed(round.spells)}`);
+      }),
+    );
+    searched.loadouts.forEach((loadout, side) => {
+      const { page } = loadout;
+      console.log(`  ${side === 0 ? you.name : enemy.name} takes ${loadout.spells.join(" and ")}; ${page.keystone}, ${page.primary.join(", ")} / ${page.secondary.join(", ")} / ${page.shards.join(", ")}`);
+    });
+    console.log(`Every scenario played with the builds and loadouts: ${signed(found.score)}.\n`);
+    const holding = (side: 0 | 1, own: BuildOptions, adaptiveType: "Physical" | "Magic"): BuildOptions => ({ ...own, spells: { names: searched.loadouts[side].spells, catalog: spellCatalog! }, runes: { page: searched.loadouts[side].page, catalog: runeCatalog!, adaptiveType, options: runeOverrides } });
+    [myBuild, theirBuild] = [holding(0, myBuild, you.adaptiveType), holding(1, theirBuild, enemy.adaptiveType)];
   }
   if (catalog && (myVariants.length > 1 || theirVariants.length > 1)) {
     // As bestMatchup chooses, with the builds instead of the stat budget: your best worst case, and the enemy's.
