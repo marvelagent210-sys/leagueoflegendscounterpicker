@@ -55,8 +55,8 @@ Each champion's average score against the others (−1 to +1).
 | 45 | Orianna | +0.27 |
 | 46 | Xin Zhao | +0.26 |
 | 47 | Gnar | +0.26 |
-| 48 | Taric | +0.26 |
-| 49 | Garen | +0.26 |
+| 48 | Garen | +0.26 |
+| 49 | Taric | +0.26 |
 | 50 | Kalista | +0.25 |
 | 51 | Gwen | +0.25 |
 | 52 | Malphite | +0.25 |
