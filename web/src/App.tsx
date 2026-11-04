@@ -51,6 +51,17 @@ export function App() {
                     {items.title}
                   </a>{" "}
                   (revision {items.revid}) and Data Dragon {items.ddragon}.
+                  {items.spellData ? (
+                    <>
+                      {" "}
+                      Summoner spell data from the wiki's{" "}
+                      <a href={wikiUrl(items.spellData.title, items.spellData.revid)} target="_blank" rel="noreferrer">
+                        {items.spellData.title}
+                      </a>{" "}
+                      (revision {items.spellData.revid}).
+                    </>
+                  ) : null}
+                  {items.cdragon ? <> Rune data from the wiki's rune data templates, checked against Community Dragon {items.cdragon}.</> : null}
                 </>
               ) : null}
             </p>

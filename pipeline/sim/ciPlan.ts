@@ -22,8 +22,12 @@ import { REPO_ROOT } from "../config";
 export type Matrix = "sim" | "builds";
 export const MATRICES: readonly Matrix[] = ["sim", "builds"];
 
-/** Processor-seconds a pairing takes on average: the 26.20 refreshes took 6.9 and 19.4 hours on four threads. */
-export const SECONDS_PER_PAIRING: Readonly<Record<Matrix, number>> = { sim: 6.7, builds: 18.8 };
+/**
+ * Processor-seconds a pairing takes on average: the 26.20 refreshes took 6.9 and 19.4 hours on
+ * four threads (6.7 and 18.8 seconds a pairing), and the loadout search (pipeline/loadouts/
+ * search.ts) adds about 68% to a build pairing's, as measured on eight pairings.
+ */
+export const SECONDS_PER_PAIRING: Readonly<Record<Matrix, number>> = { sim: 6.7, builds: 31.6 };
 /** Threads per shard: GitHub's standard Linux runner for a public repository has four cores. */
 export const THREADS = 4;
 /** The computing a shard gets by default, well inside a job's six-hour limit. */

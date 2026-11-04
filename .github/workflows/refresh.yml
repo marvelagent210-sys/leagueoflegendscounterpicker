@@ -134,9 +134,12 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  # With nothing pending (every pairing's inputs unchanged, as after merging a branch whose
+  # refresh already ran), there is nothing to write: rewriting the outputs would only commit a
+  # report that says so.
   merge:
     needs: [plan, sim, builds]
-    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.sim.result != 'failure' && needs.builds.result != 'failure' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.sim.result != 'failure' && needs.builds.result != 'failure' && (needs.plan.outputs.sim_pending != '0' || needs.plan.outputs.builds_pending != '0') }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     permissions:

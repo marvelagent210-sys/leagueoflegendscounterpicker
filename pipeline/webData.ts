@@ -71,14 +71,27 @@ async function exportSnapshot(dataset: string, source: string, output: string): 
     const profiles = await Promise.all(profileFiles.map(async (file) => JSON.parse(await readFile(path.join(source, "profiles", file), "utf8")) as unknown));
     await writeText(path.join(out, "profiles.json"), JSON.stringify(profiles));
     if ((await simulationProvenance(dataset)).fingerprint !== simulation.fingerprint) return false;
-    // The builds name items from the catalog: its wiki revision and Data Dragon version, for the attribution.
+    // The builds name items, summoner spells and runes from the catalogs: their wiki revisions and game data versions, for the attribution.
     const itemSources = builds ? (await readJson<{ sources: { ddragon: string; itemData: { title: string; revid: number } } }>(path.join(source, "items.json"))).sources : undefined;
+    const spellSources = builds ? (await readJson<{ sources: { spellData: { title: string; revid: number } } }>(path.join(source, "summoners.json"))).sources : undefined;
+    const runeSources = builds ? (await readJson<{ sources: { cdragon: string } }>(path.join(source, "rune-catalog.json"))).sources : undefined;
     if (builds && (await buildsProvenance(dataset)).fingerprint !== builds.fingerprint) return false;
     await writeJson(path.join(staging, "index.json"), {
       dataset,
       patch: manifest.patch,
       simulationFingerprint: simulation.fingerprint,
-      ...(builds && itemSources ? { buildsFingerprint: builds.fingerprint, itemSources: { title: itemSources.itemData.title, revid: itemSources.itemData.revid, ddragon: itemSources.ddragon } } : {}),
+      ...(builds && itemSources
+        ? {
+            buildsFingerprint: builds.fingerprint,
+            itemSources: {
+              title: itemSources.itemData.title,
+              revid: itemSources.itemData.revid,
+              ddragon: itemSources.ddragon,
+              ...(spellSources ? { spellData: { title: spellSources.spellData.title, revid: spellSources.spellData.revid } } : {}),
+              ...(runeSources ? { cdragon: runeSources.cdragon } : {}),
+            },
+          }
+        : {}),
     });
     // Serve the previous complete export until its replacement is fully written.
     await rm(backup, { recursive: true, force: true });

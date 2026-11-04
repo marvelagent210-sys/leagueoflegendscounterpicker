@@ -73,7 +73,7 @@ describe("web export snapshots", () => {
     expect(JSON.parse(await readFile(path.join(temporary, backups[0]!, "index.json"), "utf8"))).toEqual({ previous: true });
   });
 
-  it("publishes the build matrix with its inputs' fingerprint and the item catalog's sources when the dataset has one, and nothing of it otherwise", async () => {
+  it("publishes the build matrix with its inputs' fingerprint and the item, summoner spell and rune catalogs' sources when the dataset has one, and nothing of it otherwise", async () => {
     vi.spyOn(fingerprint, "simulationProvenance").mockResolvedValue({ schema: 1, fingerprint: "stable" });
     vi.spyOn(fingerprint, "buildsProvenance").mockResolvedValue({ schema: 1, fingerprint: "builds" });
     await exportWebData("16.21", output);
@@ -83,7 +83,7 @@ describe("web export snapshots", () => {
     if (existsSync(path.join(DATA_DIR, "16.21", "simulated-builds.json"))) {
       expect(exported).toBe(true);
       expect(index.buildsFingerprint).toBe("builds");
-      expect(index.itemSources).toEqual({ title: "Module:ItemData/data", revid: expect.any(Number), ddragon: expect.any(String) });
+      expect(index.itemSources).toEqual({ title: "Module:ItemData/data", revid: expect.any(Number), ddragon: expect.any(String), spellData: { title: "Module:SpellData/data", revid: expect.any(Number) }, cdragon: expect.any(String) });
     } else {
       expect(exported).toBe(false);
       expect(index).not.toHaveProperty("buildsFingerprint");

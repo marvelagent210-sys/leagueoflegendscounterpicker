@@ -1,5 +1,8 @@
 {
-  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request refreshes 16.21 after 35 kits' assumption texts were respaced: their pairings' inputs changed although their fights didn't, so both matrices compute them again and should come out unchanged. Shards are sized together, at most 20 in all.",
+  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request refreshes 16.21 with summoner spells and rune pages: the engine changed (summoner spells cast while busy, Ignite unamplified, cleanses spent only on what they remove, crowd control of any type for Electrocute and Font of Life), so every plain-stats pairing is computed again, and every build pairing is computed again with the loadout search. Shards are sized together, at most 20 in all.",
   "dataset": "16.21",
-  "matrices": ["sim", "builds"]
+  "matrices": [
+    "sim",
+    "builds"
+  ]
 }

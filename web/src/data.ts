@@ -41,10 +41,15 @@ export interface AppData {
   itemSources?: ItemSources;
 }
 
+/** Where the builds' items, summoner spells and runes come from, for the attribution. */
 export interface ItemSources {
   title: string;
   revid: number;
   ddragon: string;
+  /** The summoner spells' wiki module and revision. */
+  spellData?: { title: string; revid: number };
+  /** The Community Dragon version the rune catalog was checked against. */
+  cdragon?: string;
 }
 
 /** The build format the build matrix plays: six items. */
