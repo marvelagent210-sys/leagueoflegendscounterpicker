@@ -25,6 +25,7 @@ const UNSUPPORTED: Readonly<Record<string, string>> = {
   "Rabadon's Deathcap": "Magical Opus needs source-qualified AP amplification, including otherwise excluded passive AP and excluding adaptive force itself",
   "Overlord's Bloodmail": "Tyranny and Retribution need dynamic eligible AD and adaptive-type reevaluation",
   "Blackfire Torch": "Blackfire needs dynamic eligible AP and adaptive-type reevaluation",
+  "Mejai's Soulstealer": "Glory stack gains and losses need dynamic eligible AP and adaptive-type reevaluation",
   "Hubris": "Eminence's pre-fight AD buff is not represented by the current item module",
 };
 
@@ -56,9 +57,9 @@ async function implementationHash(): Promise<string> {
 }
 
 /**
- * The reviewed fixed passives (Sterak, Mejai, Rod and Dawncore) enter spec.bonus.
+ * The reviewed fixed passives (Sterak, Rod and Dawncore) enter spec.bonus.
  * Excluded Awe/Void Infusion/Rapids stats stay outside that pool. Champion
- * passives are also outside it. The four exceptions above must remain explicit
+ * passives are also outside it. The five exceptions above must remain explicit
  * until their source-qualified eligible contributions can be evaluated correctly.
  * This helper does not equip items or grant any stats.
  */

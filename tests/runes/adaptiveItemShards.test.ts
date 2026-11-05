@@ -77,13 +77,12 @@ describe("adaptive shards on reviewed fixed item builds", () => {
     expect(world.units[0].spec.bonus?.ap).toBe(30);
   });
 
-  it.each([[0, "Physical", 20], [12, "Magic", 80]] as const)
-  ("counts Mejai's Glory at %s stacks when choosing %s", async (stacks, expected, itemAp) => {
-    const world = arena(await equipped(fighter(), ["Mejai's Soulstealer", "Infinity Edge"], "Physical", {
+  it.each([0, 12])("rejects Mejai's dynamic Glory even with %s pre-fight stacks", async (stacks) => {
+    // Zero starting stacks can still gain AP after killing a protected-death
+    // opponent; nonzero stacks can also lose AP while launched packets remain.
+    await expect(equipped(fighter(), ["Mejai's Soulstealer", "Infinity Edge"], "Physical", {
       options: { "Mejai's Soulstealer": { stacks } },
-    }));
-    expect(runeType(world)).toBe(expected);
-    expect(world.units[0].spec.bonus?.ap).toBe(itemAp + (expected === "Magic" ? 18 : 0));
+    })).rejects.toThrow(/Mejai.*not supported/);
   });
 
   it.each([[9, "Physical", 72], [10, "Magic", 75]] as const)
@@ -152,8 +151,8 @@ describe("adaptive shards on reviewed fixed item builds", () => {
   });
 
   it.each([
-    [["Rod of Ages", "Mejai's Soulstealer"], 95, 2],
-    [["Nashor's Tooth", "Mejai's Soulstealer"], 100, 3],
+    [["Void Staff"], 95, 2],
+    [["Lich Bane"], 100, 3],
   ] as const)("Kai'Sa W retains %s item stats' %s AP eligibility and %s Plasma stacks", async (names, ap, stacks) => {
     const world = arena(await equipped(kit("Kaisa").spec, [...names], championData("Kaisa").adaptiveType));
     expect(runeType(world)).toBe("Magic");

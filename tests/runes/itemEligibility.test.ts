@@ -12,14 +12,14 @@ const catalog = await loadItemCatalog("16.21");
 afterEach(() => vi.mocked(readFile).mockClear());
 
 describe("reviewed fixed-item eligibility for adaptive shards", () => {
-  it("accepts every reviewed catalog item except four explicit source limitations", async () => {
-    const blocked = new Set(["Rabadon's Deathcap", "Overlord's Bloodmail", "Blackfire Torch", "Hubris"]);
+  it("accepts every reviewed catalog item except five explicit source limitations", async () => {
+    const blocked = new Set(["Rabadon's Deathcap", "Overlord's Bloodmail", "Blackfire Torch", "Hubris", "Mejai's Soulstealer"]);
     for (const item of [...catalog.items, ...catalog.transforms]) {
       if (blocked.has(item.name)) continue;
       const reviewed = await reviewAdaptiveItemBuild(catalog, [item.name]);
       expect(reviewed.items).toEqual([item.transformsInto ?? item.name]);
     }
-    expect(catalog.items.length - blocked.size).toBe(109);
+    expect(catalog.items.length - blocked.size).toBe(108);
   });
 
   it("accepts an empty side's fixed build without inventing stats", async () => {
@@ -30,8 +30,8 @@ describe("reviewed fixed-item eligibility for adaptive shards", () => {
   });
 
   it("accepts fixed eligible passive stats and canonicalizes item spellings", async () => {
-    const result = await reviewAdaptiveItemBuild(catalog, ["steraksgage", "mejais soulstealer", "Rod of Ages", "Dawncore"]);
-    expect(result.items).toEqual(["Sterak's Gage", "Mejai's Soulstealer", "Rod of Ages", "Dawncore"]);
+    const result = await reviewAdaptiveItemBuild(catalog, ["steraksgage", "Rod of Ages", "Dawncore"]);
+    expect(result.items).toEqual(["Sterak's Gage", "Rod of Ages", "Dawncore"]);
     expect(Object.isFrozen(result)).toBe(true);
     expect(Object.isFrozen(result.items)).toBe(true);
   });
@@ -48,6 +48,7 @@ describe("reviewed fixed-item eligibility for adaptive shards", () => {
     ["Overlord's Bloodmail", /dynamic eligible AD/],
     ["Blackfire Torch", /dynamic eligible AP/],
     ["Hubris", /pre-fight AD buff/],
+    ["Mejai's Soulstealer", /Glory stack gains and losses/],
   ] as const)("rejects unsupported adaptive eligibility for %s", async (name, reason) => {
     await expect(reviewAdaptiveItemBuild(catalog, [name])).rejects.toThrow(reason);
   });

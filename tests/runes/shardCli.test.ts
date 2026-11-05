@@ -98,6 +98,7 @@ describe("manual duels with stat shards", () => {
     [["--items", "Overlord's Bloodmail", "--shards", "5008,5001,5001"], /Overlord's Bloodmail.*not supported/],
     [["--items", "Blackfire Torch", "--shards", "5008,5001,5001"], /Blackfire Torch.*not supported/],
     [["--items", "Hubris", "--shards", "5008,5001,5001"], /Hubris.*not supported/],
+    [["--items", "Mejai's Soulstealer", "--shards", "5008,5001,5001"], /Mejai's Soulstealer.*not supported/],
     [["--enemy-items", "Rabadon's Deathcap", "--enemy-shards", "5008,5001,5001"], /Rabadon's Deathcap.*not supported/],
     [["--search", "--shards", "5005,5001,5001"], /not supported by --search/],
     [["--shards=5005,5001,5001"], /Unknown option/],

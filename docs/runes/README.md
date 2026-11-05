@@ -120,20 +120,21 @@ reviewed hashes before equipment; changed or future inputs require another
 review. The other six shard effects retain their existing fixed-item support.
 
 Eligible fixed passives already enter the purchased-stat pool: Sterak’s Claws,
-Mejai’s Glory, Rod of Ages’ Timeless and Dawncore’s First Light. Awe and Riftmaker’s
+Rod of Ages’ Timeless and Dawncore’s First Light. Awe and Riftmaker’s
 Void Infusion remain excluded from the adaptive choice, while their combat
 bonuses still apply. Fully stacked Tear transformations and explicit unstacked
 builds use the same item resolution as equipment. Each side’s adaptive choice
 uses its own reviewed build and item options.
 
-Four items remain unsupported with adaptive shards: **Rabadon’s Deathcap,
-Overlord’s Bloodmail, Blackfire Torch and Hubris**. The first three require
+Five items remain unsupported with adaptive shards: **Rabadon’s Deathcap,
+Overlord’s Bloodmail, Blackfire Torch, Hubris and Mejai’s Soulstealer**. The first three require
 source-qualified dynamic AD/AP and amplification accounting; Hubris’s Eminence
-AD buff is not modelled. Rabadon’s amplification of otherwise excluded passive
+AD buff is not modelled. Mejai’s Glory can gain or lose stacks while
+post-death combat continues, but its current module fixes pre-fight stacks. Rabadon’s amplification of otherwise excluded passive
 AP can qualify, while the adaptive shard and its own amplification must be
 excluded, so merely comparing derived AD/AP would be incorrect. Sterak’s Gage
 with forms whose base AD changes also rejects until form changes can update its
-eligible Claws contribution. The reviewed set covers 109 purchasable catalog
+eligible Claws contribution. The reviewed set covers 108 purchasable catalog
 entries and three transformed entries, subject to normal build rules.
 
 Kai'Sa supports all seven shard types in plain-stat duels and reviewed fixed
@@ -144,7 +145,7 @@ time. Purchased stats and level growth retain their eligibility. This follows
 her current passive source (revision 4089050): permanent item and growth stats
 qualify, while adaptive force does not. Item-passive stats outside the direct
 bonus pool retain the kit's existing limitation. Adaptive item builds follow
-the four-item and changing-base-AD Sterak restrictions above.
+the five-item and changing-base-AD Sterak restrictions above.
 
 The plain-stat allocation remains the existing no-shard reference: it buys stats
 before the free shard bonuses are applied. Actual fights and kit-variant

@@ -2162,7 +2162,7 @@ retained. The source's adaptive-force item exclusion and the current limitation
 for item-passive stats outside the direct bonus pool remain explicit.
 
 All seven shard types can therefore be selected for Kai'Sa in plain-stat manual
-duels and reviewed fixed item builds. The four-item and changing-base-AD Sterak
+duels and reviewed fixed item builds. The five-item and changing-base-AD Sterak
 restrictions below remain explicit, as does the shard build-search restriction.
 Default workers select no shards.
 
@@ -2176,7 +2176,7 @@ so their no-shard allocation and qualifying stat pool remain unchanged.
 Adaptive force can now accompany fixed item builds whose eligible AD/AP is
 represented by the direct bonus pool. The pinned Adaptive force source
 (revision 4063874) includes fixed item passives, excludes champion passives and
-specifically excludes Awe and Void Infusion. Sterak, Mejai, Rod of Ages and
+specifically excludes Awe and Void Infusion. Sterak, Rod of Ages and
 Dawncore have eligible fixed bonuses in the pool; excluded conversions retain
 their combat effects as separate statuses. Both shards share one choice made
 before either is added. Each side and each kit variant uses its own build.
@@ -2187,14 +2187,16 @@ transformations using the equipment rules. The returned descriptor is an API
 contract for the caller's matching build, not authentication of arbitrary
 external fighter specs. The CLI supplies the same names and Tear-stacking choice
 to review and equipment; equipment applies item options to the eligible bonus
-pool. The supported set contains 109 purchasable catalog entries plus three
+pool. The supported set contains 108 purchasable catalog entries plus three
 transformed entries, subject to ordinary build legality.
 
 Rabadon's Deathcap, Overlord's Bloodmail and Blackfire Torch need dynamic
 source-qualified selection and remain blocked. Rabadon's amplification of
 otherwise excluded passive AP qualifies, while amplification of the adaptive
 shard itself must be excluded; the current total derived stat is insufficient.
-Hubris also remains blocked because its Eminence AD buff is unmodelled. Sterak
+Hubris also remains blocked because its Eminence AD buff is unmodelled.
+Mejai also rejects: Glory gains and losses can change AP during post-death
+combat, while the current module fixes its initial stacks. Sterak
 with different-base-AD forms rejects because the current form-switch path
 carries the old bonus pool rather than updating Claws. These restrictions apply
 to adaptive choices; nonadaptive shards retain their existing item behavior.

@@ -171,7 +171,7 @@ export function equipShards(
     "The spacing scenario qualifies using base movement speeds; movement-speed shards change movement during fights but do not create a new spacing scenario.",
   ];
   if (options.withItems && selection.includes(5008)) {
-    assumptions.push("Adaptive selection uses the reviewed fixed build's eligible AD/AP pool. Awe and Void Infusion do not qualify. Rabadon's Deathcap, Overlord's Bloodmail, Blackfire Torch and Hubris require additional passive eligibility support and are rejected.");
+    assumptions.push("Adaptive selection uses the reviewed fixed build's eligible AD/AP pool. Awe and Void Infusion do not qualify. Rabadon's Deathcap, Overlord's Bloodmail, Blackfire Torch, Hubris and Mejai's Soulstealer require additional passive eligibility support and are rejected.");
   }
   if (Object.values(spec.forms ?? { main: spec }).some((form) => form.id === "kai-sa")) {
     assumptions.push("Rune AD, AP and attack speed improve combat stats but do not qualify for Kai'Sa's Living Weapon evolutions; attack-speed shards still shorten Supercharge's charge time.");
