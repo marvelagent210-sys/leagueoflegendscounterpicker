@@ -2,6 +2,7 @@
 import { TOP_LANE_MAX_LEVEL } from "../engine/stats";
 import type { BonusStats, FighterSpec, HookContext } from "../engine/sim/spec";
 import type { Status } from "../engine/sim/state";
+import type { AdaptiveItemEligibility } from "../pipeline/runes/itemEligibility";
 import { mapForms } from "../items/equip";
 import type { RuneCatalog } from "./catalog";
 import type { ShardEvidence, ShardRules } from "./shardRules";
@@ -11,6 +12,8 @@ export type ShardSelection = [number, number, number];
 export interface ShardEquipOptions {
   adaptiveType: "Physical" | "Magic";
   withItems?: boolean;
+  /** Reviewed fixed build; only needed for adaptive shards in item mode. */
+  adaptiveItemEligibility?: AdaptiveItemEligibility;
 }
 
 export interface EquippedShards {
@@ -94,7 +97,19 @@ export function equipShards(
     || (options.withItems !== undefined && typeof options.withItems !== "boolean")) throw new Error("A champion's valid adaptive type and item mode are required");
   const adaptiveType = options.adaptiveType;
   if (options.withItems && selection.includes(5008)) {
-    throw new Error("Adaptive shard 5008 with item builds is not supported yet: eligible item-passive stats require separate source-qualified selection");
+    const review = options.adaptiveItemEligibility;
+    if (!review || review.schema !== 1 || review.dataset !== catalog.dataset
+      || !Array.isArray(review.items) || review.items.some((name) => typeof name !== "string" || !name.trim())
+      || new Set(review.items).size !== review.items.length
+      || !/^[a-f0-9]{64}$/.test(review.catalogSHA256) || !/^[a-f0-9]{64}$/.test(review.implementationSHA256)) {
+      throw new Error("Adaptive shard 5008 with item builds requires a reviewed fixed build: eligible item-passive stats must be source-qualified before equipment");
+    }
+    // Sterak's Claws follows base AD. The current form-switch path carries the
+    // old bonus pool, so a changing-base-AD form needs dynamic item accounting.
+    if (review.items.includes("Sterak's Gage")
+      && new Set(Object.values(spec.forms ?? { main: spec }).map((form) => form.base.ad)).size > 1) {
+      throw new Error("Adaptive shards with Sterak's Gage and forms with different base AD are not supported yet: Claws needs dynamic form-aware stat eligibility");
+    }
   }
   if (Object.values(spec.forms ?? { main: spec }).some((form) => (form as ShardSpec)[EQUIPPED])) {
     throw new Error("Stat shards have already been equipped on this fighter");
@@ -151,10 +166,13 @@ export function equipShards(
   const assumptions = [
     "Stat shards are applied at level 20. Full rune-page effects and champion-specific rune substitutions are not selected by these shard options.",
     "The plain-stat budget remains its no-shard reference allocation; actual fights and variant comparisons include the selected shards. This is not a shard-aware allocation or build search.",
-    "Adaptive shards compare raw purchased bonus AD with AP before adding any adaptive shard; champion passive stats are excluded, and equal purchased stats use the champion's recorded adaptive type.",
+    "Adaptive shards compare raw purchased bonus AD with AP, including reviewed fixed item passives, before adding any adaptive shard; champion passive stats are excluded, and equal purchased stats use the champion's recorded adaptive type.",
     "The scaling-health shard uses the pinned Rune article's 10 health per level through level 20 (200), rather than the client tooltip's 180 endpoint.",
     "The spacing scenario qualifies using base movement speeds; movement-speed shards change movement during fights but do not create a new spacing scenario.",
   ];
+  if (options.withItems && selection.includes(5008)) {
+    assumptions.push("Adaptive selection uses the reviewed fixed build's eligible AD/AP pool. Awe and Void Infusion do not qualify. Rabadon's Deathcap, Overlord's Bloodmail, Blackfire Torch, Hubris and Mejai's Soulstealer require additional passive eligibility support and are rejected.");
+  }
   if (Object.values(spec.forms ?? { main: spec }).some((form) => form.id === "kai-sa")) {
     assumptions.push("Rune AD, AP and attack speed improve combat stats but do not qualify for Kai'Sa's Living Weapon evolutions; attack-speed shards still shorten Supercharge's charge time.");
   }
