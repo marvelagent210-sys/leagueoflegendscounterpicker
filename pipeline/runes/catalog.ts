@@ -261,7 +261,7 @@ export function runesReport(catalog: RuneCatalog): string {
       }
     }
   }
-  lines.push("", "## Stat shards", "", "Client text is preserved as supplied, including unresolved tooltip placeholders. No shard stats are applied to fighters.", "",
+  lines.push("", "## Stat shards", "", "Client text is preserved as supplied, including unresolved tooltip placeholders. No shard stats are applied to fighters by this catalog build. Explicit manual-duel shard options use the separate source-backed shard equipment; see [the rune audit](../../../docs/runes/README.md).", "",
     "| Slot | Shard | ID | Client description |", "|---|---|--:|---|");
   for (const [index, row] of catalog.shardSlots.entries()) {
     for (const shardId of row) {

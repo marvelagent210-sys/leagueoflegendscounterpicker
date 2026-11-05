@@ -2107,6 +2107,49 @@ The legacy combat `runes.json`, champion kits, engine runtime and both committed
 matchup matrices are unchanged by this foundation. The [rune audit](docs/runes/README.md)
 provides commands, provenance details and the next implementation steps.
 
+## Stat shards in manual duels (5 November 2026)
+
+All seven stat-shard types can be selected explicitly for either side of a
+manual duel. Their numeric rules and stacking semantics are read from six complete
+pinned revisions, whose content hashes and exact formula excerpts are checked
+before use. The existing catalog's Rune article is bound to the same raw revision.
+
+Shard bonuses are applied once before the kit's initialization. They do not
+replace innate health/AD start effects, and existing stat conversions see them.
+Permanent movement, tenacity and slow-resist statuses have their own keys and
+survive protected death. Forms and branched worlds retain independent state.
+
+Adaptive shards compare raw purchased bonus AD with purchased AP, excluding
+champion passive stats. Equal purchases use the champion's adaptive type; all
+adaptive shards share the choice before any is added. Item passive eligibility
+has several source-specific exceptions, so adaptive shards with item builds are
+rejected in this batch. Nonadaptive shards work with fixed items. Shards with
+build search are rejected until its valuation accounts for them.
+
+Kai'Sa's adaptive and attack-speed shards are rejected until her evolution checks
+can distinguish rune stats from eligible item and growth stats. Her other five
+shard types remain supported. This prevents false evolution unlocks without
+silently changing her existing kit or default matchup results.
+
+The plain-stat allocation remains its no-shard reference; actual fights and
+kit-variant comparisons include the selected shards. This is an explicit
+allocation approximation, not a shard-aware optimal allocation. Scaling health
+follows the wiki's level-20 formula (200 per selection) while retaining the client
+180-endpoint discrepancy. Tenacity follows the existing newer Courage-specific
+exception rather than silently changing the simulator's grouping model.
+
+Default simulation workers, legacy rune data and both precomputed matchup
+matrices are unchanged. The manual CLI and its explicit flags use the new code;
+full rune-page effects, shard controls in the browser and rune-page search remain
+future work. Numeric reads, duplicate/unknown selections, source drift, adaptive
+choices, fixed items, crowd control, slow resistance, Ornn/Jhin, forms, branch
+isolation and protected death have targeted regression tests.
+
+Spacing applicability still uses base movement speed. The movement-speed shard
+affects actual movement in fights but does not make a previously inapplicable
+spacing scenario qualify. The CLI prints this inherited scorer limitation along
+with the allocation approximation.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
