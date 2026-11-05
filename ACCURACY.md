@@ -2126,10 +2126,9 @@ has several source-specific exceptions, so adaptive shards with item builds are
 rejected in this batch. Nonadaptive shards work with fixed items. Shards with
 build search are rejected until its valuation accounts for them.
 
-Kai'Sa's adaptive and attack-speed shards are rejected until her evolution checks
-can distinguish rune stats from eligible item and growth stats. Her other five
-shard types remain supported. This prevents false evolution unlocks without
-silently changing her existing kit or default matchup results.
+The initial shard batch rejected Kai'Sa's adaptive and attack-speed shards to
+avoid false evolution unlocks. The follow-up below replaces that restriction
+with explicit rune-origin accounting.
 
 The plain-stat allocation remains its no-shard reference; actual fights and
 kit-variant comparisons include the selected shards. This is an explicit
@@ -2149,6 +2148,27 @@ Spacing applicability still uses base movement speed. The movement-speed shard
 affects actual movement in fights but does not make a previously inapplicable
 spacing scenario qualify. The CLI prints this inherited scorer limitation along
 with the allocation approximation.
+
+## Kai'Sa shard evolution eligibility (5 November 2026)
+
+Kai'Sa's current passive source (revision 4089050) restricts Living Weapon to
+permanent stats from items and stat growth. Rune AD, AP and attack speed now
+retain separate scalar origin records in each unit's memory. Her Q/W/E
+qualification checks subtract exactly those contributions from the bonus pool.
+Combat damage, Plasma scaling and Supercharge charge timing continue to use all
+combat stats. Existing purchased-stat thresholds and growth contributions are
+retained. The source's adaptive-force item exclusion and the current limitation
+for item-passive stats outside the direct bonus pool remain explicit.
+
+All seven shard types can therefore be selected for Kai'Sa in plain-stat manual
+duels; nonadaptive shards can also accompany fixed item builds. Adaptive shards
+with items and all shards with build search still reject until those modes have
+complete source eligibility and valuation. Default workers select no shards.
+
+The origin amounts initialize once before kit setup, remain private to each
+world, and survive branch cloning, form changes and protected death through the
+existing unit-memory contract. Budget reference worlds disable initialization,
+so their no-shard allocation and qualifying stat pool remain unchanged.
 
 ## Remaining limits
 

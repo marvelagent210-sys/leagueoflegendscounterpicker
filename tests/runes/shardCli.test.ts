@@ -33,13 +33,14 @@ function duel(...args: string[]) {
 }
 
 describe("manual duels with stat shards", () => {
-  it("refuses Kai'Sa shard combinations that require evolution-stat provenance", () => {
+  it.each(["5005,5001,5001", "5008,5008,5011"])("runs Kai'Sa with explicit shards %s and reports evolution eligibility", (selection) => {
     const result = spawnSync(process.execPath, ["--import", path.join(REPO_ROOT, "node_modules/tsx/dist/loader.mjs"),
-      path.join(REPO_ROOT, "pipeline/cli/duel.ts"), "Kaisa", "Garen", "--dataset", "16.21", "--gold", "0", "--shards", "5005,5001,5001"],
+      path.join(REPO_ROOT, "pipeline/cli/duel.ts"), "Kaisa", "Garen", "--dataset", "16.21", "--gold", "0", "--shards", selection],
     { cwd: REPO_ROOT, encoding: "utf8", timeout: 25_000 });
-    expect(result.status).toBe(1);
-    expect(result.stderr).toMatch(/Kai'Sa.*Living Weapon/);
-    expect(result.stdout).not.toContain("Counter score");
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain("stat shards:");
+    expect(result.stdout).toContain("do not qualify for Kai'Sa's Living Weapon");
+    expect(result.stdout).toContain("Counter score");
   });
 
   it("runs both sides' selected shards through actual scenarios without enabling full rune pages", () => {

@@ -159,10 +159,13 @@ describe("adaptive force uses purchased raw stat inputs", () => {
     expect(() => equip(fighter(), [5007, 5010, 5011], "Magic", true)).not.toThrow();
   });
 
-  it("rejects shard stats that could falsely unlock Kai'Sa evolutions", () => {
+  it("supports all Kai'Sa shard selections with separate rune stat origins", () => {
     const kaisa = kit("Kaisa").spec;
-    expect(() => equip(kaisa, [5008, 5001, 5011])).toThrow(/Living Weapon requires source-qualified/);
-    expect(() => equip(kaisa, [5005, 5001, 5011])).toThrow(/Living Weapon requires source-qualified/);
+    const adaptive = world(equip(kaisa, [5008, 5001, 5011]).spec).units[0];
+    expect(adaptive.memory["rune-shards:ad"]).toBeCloseTo(5.4, 10);
+    expect(adaptive.memory["rune-shards:ap"]).toBe(0);
+    const as = world(equip(kaisa, [5005, 5001, 5011]).spec).units[0];
+    expect(as.memory["rune-shards:attackSpeed"]).toBe(0.1);
     expect(() => equip(kaisa, [5007, 5010, 5013])).not.toThrow();
     expect(() => equip(kaisa, [5007, 5001, 5011])).not.toThrow();
   });
@@ -286,6 +289,26 @@ describe("kit initialization, forms and runtime isolation", () => {
     expect(beginDeathDefied(w, w.units[0], { duration: 3 })).toBe(true);
     expect(w.units[0].statuses.filter((entry) => entry.memoKey?.startsWith("rune-shards:"))).toHaveLength(3);
     expect(derive(w.units[0]).tenacity).toBeCloseTo(0.15, 10);
+  });
+
+  it("carries rune-origin amounts through form changes, cloned branches and protected death", () => {
+    const small: FighterSpec = { ...fighter({ id: "small" }), form: "small" };
+    const big: FighterSpec = { ...fighter({ id: "big" }), form: "big" };
+    const forms = { small, big }; small.forms = forms; big.forms = forms;
+    const w = world(equip(small, [5005, 5008, 5011]).spec), unit = w.units[0];
+    setForm(w, unit, "big");
+    expect(unit.memory["rune-shards:ad"]).toBeCloseTo(5.4, 10);
+    expect(unit.memory["rune-shards:ap"]).toBe(0);
+    expect(unit.memory["rune-shards:attackSpeed"]).toBe(0.1);
+    const clone = cloneWorld(w);
+    clone.units[0].memory["rune-shards:attackSpeed"] = 0;
+    expect(unit.memory["rune-shards:attackSpeed"]).toBe(0.1);
+    expect(beginDeathDefied(w, unit, { duration: 3 })).toBe(true);
+    setForm(w, unit, "small");
+    expect(unit.memory["rune-shards:ad"]).toBeCloseTo(5.4, 10);
+    expect(unit.memory["rune-shards:attackSpeed"]).toBe(0.1);
+    expect(unit.spec.bonus?.ad).toBeCloseTo(5.4, 10);
+    expect(unit.spec.bonus?.attackSpeed).toBe(0.1);
   });
 
   it("lets Ornn's setup amplify shard health and Jhin convert the attack-speed shard", () => {
