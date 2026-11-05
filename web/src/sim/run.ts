@@ -15,6 +15,8 @@ import type { FighterSpec } from "../../../engine/sim/spec";
 import { type LogEntry, type Unit, newUnit } from "../../../engine/sim/state";
 import type { Champion } from "../../../engine/types";
 import { KITS } from "../../../kits/champions/index";
+import type { StatShardData } from "../../../runes/shardData";
+import { equipShards } from "../../../runes/shards";
 import { type AppSettings, kitOptionsFor, scenarioOptions } from "../settings";
 import type { MatchupVariant } from "./protocol";
 
@@ -82,6 +84,8 @@ export interface SimSource {
   /** The runes the simulator models (Triple Tonic). */
   runes: RuneRecord[];
   prices: StatPrices;
+  /** Compact, source-validated shard rules, loaded only for an explicit selection. */
+  statShards?(): Promise<StatShardData>;
 }
 
 // The same champion and options on another patch are different kits. WeakMap also lets
@@ -113,11 +117,17 @@ export function kitFor(source: SimSource, id: string, settings: AppSettings): Pr
 
 const sameOptions = (a: Record<string, number>, b: Record<string, number>) => Object.keys({ ...a, ...b }).every((key) => a[key] === b[key]);
 
+interface SideKit {
+  kit: CompiledKit;
+  variant: KitVariant;
+  shardAssumptions?: string[];
+}
+
 /**
  * The kits a side may play: its variants when its kit has a choice (Udyr's rank splits), or
  * the kit itself. Cached variant hints never restrict the options of a new run.
  */
-async function sideKits(source: SimSource, id: string, settings: AppSettings): Promise<Array<{ kit: CompiledKit; variant: KitVariant }>> {
+async function sideKits(source: SimSource, id: string, settings: AppSettings): Promise<SideKit[]> {
   const kit = await kitFor(source, id, settings);
   if (kit.variants.length === 0) return [{ kit, variant: { spec: kit.spec } }];
   return Promise.all(
@@ -166,8 +176,24 @@ export function combatStatSnapshots(fighters: [FighterSpec, FighterSpec], settin
 }
 
 export async function runMatchup(source: SimSource, you: string, enemy: string, settings: AppSettings, log: boolean, _hints: MatchupVariant[] = []): Promise<MatchupRun> {
-  const mine = await sideKits(source, you, settings);
-  const theirs = await sideKits(source, enemy, settings);
+  const selections = [settings.shards?.you, settings.shards?.enemy] as const;
+  const wantsShards = selections.some((selection) => selection !== null && selection !== undefined);
+  if (wantsShards && !source.statShards) throw new Error("Stat-shard data is unavailable for this dataset; disable the shard selections or use a dataset with reviewed shard rules");
+  const shardData = wantsShards ? await source.statShards!() : undefined;
+  const addShards = (kits: SideKit[], id: string, side: 0 | 1): SideKit[] => {
+    const selection = selections[side];
+    if (selection === null || selection === undefined) return kits;
+    if (!shardData) throw new Error("Stat-shard data is unavailable for the requested selections");
+    return kits.map((entry) => {
+      const equipped = equipShards(entry.variant.spec, selection, shardData.catalog, shardData.rules, {
+        adaptiveType: source.champion(id).adaptiveType,
+      });
+      const names = equipped.selection.map((id) => `${shardData.catalog.shards.find((shard) => shard.id === id)!.name} (${id})`).join(", ");
+      return { ...entry, variant: { ...entry.variant, spec: equipped.spec }, shardAssumptions: [`Stat shards: ${names}.`, ...equipped.assumptions] };
+    });
+  };
+  const mine = addShards(await sideKits(source, you, settings), you, 0);
+  const theirs = addShards(await sideKits(source, enemy, settings), enemy, 1);
   const options = scenarioOptions(settings);
   const result = bestMatchup(
     mine.map((m) => m.variant),
@@ -177,7 +203,7 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
     { ...options, settings: { ...options.settings, log } },
   );
   // The kits that played: the chosen variant's when a side had several, else its one kit (the hinted variant's, if any).
-  const played = (side: 0 | 1, kits: Array<{ kit: CompiledKit; variant: KitVariant }>) => {
+  const played = (side: 0 | 1, kits: SideKit[]) => {
     const chosen = result.variants?.find((v) => v.side === side);
     return (chosen ? kits.find((k) => k.variant.options && sameOptions(k.variant.options, chosen.options)) : undefined) ?? kits[0];
   };
@@ -189,8 +215,8 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
     ...(b.variant.options ? [{ side: 1 as const, options: b.variant.options }] : []),
   ];
   const statSnapshots = combatStatSnapshots([
-    { ...a.kit.spec, bonus: result.builds[0].bonus },
-    { ...b.kit.spec, bonus: result.builds[1].bonus },
+    { ...a.variant.spec, bonus: result.builds[0].bonus },
+    { ...b.variant.spec, bonus: result.builds[1].bonus },
   ], settings);
   return {
     you,
@@ -214,7 +240,7 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
     })),
     spent: [result.builds[0].spent, result.builds[1].spent],
     ...statSnapshots,
-    assumptions: [a.kit.assumptions, b.kit.assumptions],
+    assumptions: [[...a.kit.assumptions, ...(a.shardAssumptions ?? [])], [...b.kit.assumptions, ...(b.shardAssumptions ?? [])]],
     ...(variants.length > 0 ? { variants } : {}),
   };
 }

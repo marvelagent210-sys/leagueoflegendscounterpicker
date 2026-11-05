@@ -7,6 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DATA_DIR } from "../../pipeline/config";
 import * as fingerprint from "../../pipeline/sim/fingerprint";
 import { exportWebData } from "../../pipeline/webData";
+import { validateStatShardData } from "../../runes/shardData";
 
 vi.mock("node:fs/promises", async (importOriginal) => {
   const actual = await importOriginal<typeof import("node:fs/promises")>();
@@ -32,6 +33,62 @@ afterEach(async () => {
 });
 
 describe("web export snapshots", () => {
+  it("exports compact reviewed stat shards bound to the same dataset revision", async () => {
+    vi.spyOn(fingerprint, "simulationProvenance").mockResolvedValue({ schema: 1, fingerprint: "shard-model" });
+    await exportWebData("16.21", output);
+    const index = JSON.parse(await readFile(path.join(output, "index.json"), "utf8")) as Record<string, unknown>;
+    const text = await readFile(path.join(output, "16.21", "stat-shards.json"), "utf8");
+    const data = validateStatShardData(JSON.parse(text), "16.21", "26.21", "shard-model");
+    expect(index.statShards).toBe(true);
+    expect(data.catalog.shards).toHaveLength(7);
+    expect(data.catalog.shardSlots).toEqual([[5008, 5005, 5007], [5008, 5010, 5001], [5011, 5013, 5001]]);
+    expect(data.rules.healthPerLevel).toBe(10);
+    expect(data.rules.evidence.length).toBeGreaterThan(0);
+    expect(Object.keys(data.catalog).sort()).toEqual(["dataset", "patch", "schema", "shardSlots", "shards"]);
+    expect(text.length).toBeLessThan(20000);
+    expect(data.catalog).not.toHaveProperty("runes");
+    expect(data.catalog).not.toHaveProperty("rules");
+  });
+
+  it("keeps legacy datasets without shard sources usable without advertising shard controls", async () => {
+    vi.spyOn(fingerprint, "simulationProvenance").mockResolvedValue({ schema: 1, fingerprint: "legacy-model" });
+    await exportWebData("16.20", output);
+    expect(JSON.parse(await readFile(path.join(output, "index.json"), "utf8"))).not.toHaveProperty("statShards");
+    expect(existsSync(path.join(output, "16.20", "stat-shards.json"))).toBe(false);
+  });
+
+  it("rejects partial shard sources before publishing over an existing export", async () => {
+    const actual = (await vi.importActual<typeof fs>("node:fs/promises")).readFile;
+    vi.spyOn(fs, "readFile").mockImplementation(((file: Parameters<typeof readFile>[0], ...args: unknown[]) => {
+      if (String(file) === path.join(DATA_DIR, "16.21", "rune-shard-sources.json")) {
+        return Promise.reject(Object.assign(new Error("missing shard source"), { code: "ENOENT" }));
+      }
+      return Reflect.apply(actual, fs, [file, ...args]);
+    }) as typeof readFile);
+    await expect(exportWebData("16.21", output)).rejects.toThrow(/incomplete source bundle.*rune-shard-sources/);
+    expect(JSON.parse(await readFile(path.join(output, "index.json"), "utf8"))).toEqual({ previous: true });
+    expect(await readdir(temporary)).toEqual(["data"]);
+  });
+
+  it("rejects a stale committed catalog and changed raw shard evidence without replacing the prior export", async () => {
+    const actual = (await vi.importActual<typeof fs>("node:fs/promises")).readFile;
+    for (const filename of ["rune-catalog.json", "rune-shard-sources.json"]) {
+      vi.spyOn(fs, "readFile").mockImplementation(((file: Parameters<typeof readFile>[0], ...args: unknown[]) => {
+        return Reflect.apply(actual, fs, [file, ...args]).then((value: string | Buffer) => {
+          if (String(file) !== path.join(DATA_DIR, "16.21", filename)) return value;
+          const data = JSON.parse(value.toString()) as { shards: Array<{ name: string }>; pages: Array<{ content: string }> };
+          if (filename === "rune-catalog.json") data.shards[0]!.name += " changed";
+          else data.pages[0]!.content += " changed";
+          const changed = JSON.stringify(data, null, 2) + "\n";
+          return typeof value === "string" ? changed : Buffer.from(changed);
+        });
+      }) as typeof readFile);
+      await expect(exportWebData("16.21", output)).rejects.toThrow(filename === "rune-catalog.json" ? /catalog is stale/ : /content hash differs/);
+      expect(JSON.parse(await readFile(path.join(output, "index.json"), "utf8"))).toEqual({ previous: true });
+      vi.mocked(fs.readFile).mockRestore();
+    }
+  });
+
   it("discards changed snapshots before publishing, then retries against stable inputs", async () => {
     let reads = 0;
     vi.spyOn(fingerprint, "simulationProvenance").mockImplementation(async () => {

@@ -2207,6 +2207,35 @@ eligibility outside her direct bonus pool remains an explicit limitation.
 Shard-aware build search, dynamic adaptive reevaluation, full rune pages and
 browser rune controls remain future work.
 
+## Browser stat-shard selections (5 November 2026)
+
+Both sides can select all seven reviewed shard types in browser Settings. These
+choices trigger live plain-stat duels, enter the result cache key and disable
+both precomputed modes for that run. Legacy stored settings with no selection
+keep their default fight key. Settings are validated row by row as a complete
+three-choice selection, and clearing/resetting restores the default path.
+
+Every candidate variant is wrapped before best-matchup selection. Stat snapshots
+use that wrapped variant, so Fight setup includes actual shard bonuses while
+Equipped remains the purchased-stat reference. Per-side assumptions identify the
+selected names and IDs. Side swapping moves selections with the champions.
+Scaling-health labels use the compiled wiki value of 200 at level 20, rather than
+the retained conflicting client tooltip endpoint of 180.
+
+The export compiles a compact seven-shard bundle from the exact retained catalog
+and six-page rules bundle. Its revision must match the app or worker’s requested
+model. Changed, incomplete or invalid sources preserve the previous atomic web
+export. Lazy worker loads retry failures and isolate source caches by revision;
+legacy default runs never require optional shard data. Full rune pages,
+shard-aware budget allocation and item-build shard search remain unfinished.
+
+Global provenance now includes the browser worker’s complete runtime import
+closure, the shard compiler, export code and all seven retained shard input
+files. This covers transitive form-mapping code and prevents stale live caches.
+The default pipeline workers have unchanged inputs, so a normal incremental
+refresh reuses every default pairing while regenerating current provenance.
+No results are manually restamped.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

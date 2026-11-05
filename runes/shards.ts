@@ -4,7 +4,7 @@ import type { BonusStats, FighterSpec, HookContext } from "../engine/sim/spec";
 import type { Status } from "../engine/sim/state";
 import type { AdaptiveItemEligibility } from "../pipeline/runes/itemEligibility";
 import { mapForms } from "../items/equip";
-import type { RuneCatalog } from "./catalog";
+import type { RuneShardCatalog } from "./shardData";
 import type { ShardEvidence, ShardRules } from "./shardRules";
 
 export type ShardSelection = [number, number, number];
@@ -31,7 +31,7 @@ type ShardSpec = FighterSpec & { [EQUIPPED]?: true };
 const positiveId = (value: unknown): value is number => typeof value === "number" && Number.isSafeInteger(value) && value > 0;
 
 /** One ID per source-defined row; identical IDs in different eligible rows are valid. */
-export function validateShardSelection(catalog: RuneCatalog, value: unknown): ShardSelection {
+export function validateShardSelection(catalog: RuneShardCatalog, value: unknown): ShardSelection {
   if (!catalog || catalog.schema !== 1 || !Array.isArray(catalog.shardSlots) || catalog.shardSlots.length !== 3
     || !Array.isArray(catalog.shards)) throw new Error("Invalid shard catalog: three rows and a shard inventory are required");
   const inventory = Array.from(catalog.shards, (shard) => shard?.id);
@@ -87,7 +87,7 @@ function permanent(ctx: HookContext, kind: "state" | "stat", key: string, value:
 export function equipShards(
   spec: FighterSpec,
   value: unknown,
-  catalog: RuneCatalog,
+  catalog: RuneShardCatalog,
   sourceRules: ShardRules,
   options: ShardEquipOptions,
 ): EquippedShards {

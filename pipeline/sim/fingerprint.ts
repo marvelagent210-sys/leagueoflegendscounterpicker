@@ -5,6 +5,7 @@ import path from "node:path";
 import type { SimulationProvenance } from "../../engine/sim/precomputed";
 import { KITS } from "../../kits/champions/index";
 import { REPO_ROOT, datasetDir } from "../config";
+import { codeClosure } from "./pairKeys";
 
 export function fingerprintEntries(entries: Array<[string, Uint8Array | string]>): string {
   const hash = createHash("sha256");
@@ -41,30 +42,49 @@ export async function buildsProvenance(dataset: string): Promise<SimulationProve
   ];
   const items = [path.join(datasetDir(dataset), "items.json")];
   const entries = await Promise.all([...code, ...items].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
-  return { schema: 1, fingerprint: fingerprintEntries([...(await simulationInputs(dataset)), ...entries]) };
+  return { schema: 1, fingerprint: fingerprintEntries([...new Map([...(await simulationInputs(dataset)), ...entries])]) };
+}
+
+/** Optional on legacy datasets; partial source sets are rejected by the exporter. */
+async function shardInputs(dir: string): Promise<string[]> {
+  const files = ["rune-catalog.json", "rune-shard-sources.json",
+    ...["manifest.json", "runesReforged.json", "perks.json", "perkstyles.json", "wiki-pages.json"].map((file) => `rune-sources/${file}`)];
+  const found = await Promise.all(files.map(async (name) => {
+    const file = path.join(dir, name);
+    try { await readFile(file); return file; }
+    catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined; throw error; }
+  }));
+  return found.filter((file): file is string => file !== undefined);
 }
 
 async function simulationInputs(dataset: string): Promise<Array<[string, Uint8Array]>> {
   const dir = datasetDir(dataset);
   const ids = Object.keys(KITS).sort();
+  // Browser-only shard equipment and its transitive dependencies (including
+  // mapForms) must invalidate live result caches too. This does not alter the
+  // pipeline workers' independent keys for reusing unchanged default fights.
+  const browserCode = await codeClosure(["web/src/sim/worker.ts", "pipeline/runes/shardRules.ts"]);
   const code = [
     ...await sources(path.join(REPO_ROOT, "engine")),
     ...await sources(path.join(REPO_ROOT, "kits")),
     ...await sources(path.join(REPO_ROOT, "web", "src", "sim")),
+    ...browserCode.map((file) => path.join(REPO_ROOT, file)),
     ...[
       "pipeline/kitData.ts", "pipeline/simData.ts", "pipeline/ledgerData.ts",
       "pipeline/build.ts", "pipeline/simPages.ts", "pipeline/ledgerPages.ts",
       "pipeline/sim/worker.ts", "pipeline/sim/worker.mjs", "pipeline/sim/pool.ts",
       "pipeline/sim/refresh.ts", "pipeline/sim/fingerprint.ts", "web/src/settings.ts",
       "pipeline/sim/checkpoint.ts", "pipeline/sim/pairKeys.ts", "pipeline/sim/reuse.ts",
+      "pipeline/webData.ts",
       "tests/golden/matchups.ts",
     ].map((file) => path.join(REPO_ROOT, file)),
   ];
   const data = [
     ...["champions.json", "rules.json", "runes.json", "glossary.json"].map((file) => path.join(dir, file)),
+    ...await shardInputs(dir),
     ...ids.map((id) => path.join(dir, "abilities", `${id}.json`)),
     ...(await readdir(path.join(dir, "pets"))).filter((file) => file.endsWith(".json")).map((file) => path.join(dir, "pets", file)),
     ...(await readdir(path.join(dir, "profiles"))).filter((file) => file.endsWith(".json")).map((file) => path.join(dir, "profiles", file)),
   ];
-  return Promise.all([...code, ...data].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
+  return Promise.all([...new Set([...code, ...data])].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
 }

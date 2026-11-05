@@ -10,7 +10,7 @@ import { MatchupPage } from "./pages/MatchupPage";
 import { PickerPage } from "./pages/PickerPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { type Route, routeHash } from "./routes";
-import { type AppSettings, DEFAULT_APP_SETTINGS, fightsChanged, weightsChanged } from "./settings";
+import { type AppSettings, DEFAULT_APP_SETTINGS, fightsChanged, shardsSelected, weightsChanged } from "./settings";
 
 export function App() {
   const settings = useStoredSettings();
@@ -87,6 +87,7 @@ function Masthead({ route, patch }: { route: Route; patch: string | undefined })
 
 /** What the visitor's settings change, for the results shown. */
 function customText(settings: AppSettings, builds: PrecomputedBuilds | undefined, wanted: ResultsMode): string | undefined {
+  if (shardsSelected(settings)) return "Your stat shards apply to plain-stat duels calculated in this browser.";
   if (shownResults(builds, wanted, settings) === "builds") {
     if (weightsChanged(settings)) return "Scores use your scenario weights; the builds were searched with the default ones.";
     return fightsChanged(settings) ? "Your gold is for plain stats: the item builds buy their own items." : undefined;

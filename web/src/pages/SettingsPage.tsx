@@ -1,6 +1,7 @@
 /** The settings a visitor can change; the precomputed results use the defaults. */
 import { SCENARIO_LABELS, SCENARIOS } from "../../../engine/sim/scenarios";
 import { ResultsToggle } from "../components/ResultsToggle";
+import { StatShardControls } from "../components/StatShardControls";
 import type { AppData } from "../data";
 import { useSettings } from "../hooks";
 import { type AppSettings, DEFAULT_APP_SETTINGS, GOLD_RANGE, KIT_OPTIONS, REACTION_RANGE } from "../settings";
@@ -51,6 +52,8 @@ export function SettingsPage({ data }: { data: AppData }) {
           </p>
         </section>
       ) : null}
+
+      <StatShardControls data={data.statShards} settings={settings} onChange={(shards) => update({ shards })} />
 
       <section className="panel" aria-labelledby="budget-head">
         <h3 id="budget-head">Stat budget</h3>

@@ -1,7 +1,7 @@
 # Runes: sources, page structure and stat shards
 
 The source catalog and page validator describe the current rune system. Explicit
-manual-duel options now apply all seven stat shards. Full rune-page effects and
+manual-duel options and browser plain-stat duels now apply all seven stat shards. Full rune-page effects and
 rune-page search remain unfinished. The existing Udyr-specific Triple Tonic
 behavior still reads its original `runes.json`; default matchup matrices keep
 their existing settings without these optional shard selections.
@@ -153,7 +153,7 @@ comparisons include the shards, including each budget in `--sweep`. This does no
 claim a shard-aware optimal stat allocation. `--search` with shards is rejected
 until the build search can value and carry them consistently. These options do
 not select a keystone or the other runes of a page, and they do not change the
-precomputed picker rankings or add shard controls to the browser.
+precomputed picker rankings. The browser can calculate separate plain-stat results with explicit selections below.
 
 The inherited spacing scenario still qualifies from base movement speeds and
 attack ranges. A movement-speed shard changes movement during fights, but cannot
@@ -166,3 +166,29 @@ Shard slow resist multiplies with Boots of Swiftness: 15% and 25% produce 36.25%
 The existing specific Courage rule is retained: its 60% tenacity and the shard
 produce 66%. That newer ability note conflicts with the generic tenacity table's
 grouping; both sources remain recorded, and this model choice stays explicit.
+
+## Choose shards in the browser
+
+Open **Settings → Stat shards**, enable either side, and choose one shard in each
+of its three rows. Your choices apply to every counter candidate; the enemy
+choices apply to the champion you face. The controls show the compiled effects
+at level 20, including 200 health per scaling-health selection.
+
+With shards selected, the picker and matchup pages calculate plain-stat duels in
+browser workers. Cached item-build and default plain-stat scores do not describe
+these choices, so they are bypassed. Selections stay in this browser. **Swap
+sides** carries the shard selections with the champions, and **Reset to defaults**
+clears both sides. The matchup’s Fight setup numbers and assumptions include the
+selected effects.
+
+Shard bonuses use the existing no-shard reference allocation of the stat budget;
+they affect actual fights and variant selection. Spacing admission still uses
+base movement speeds. These controls select stat shards; full rune-page effects
+and item-build shard search remain unfinished.
+
+The browser downloads a compact seven-shard bundle with compiled rules and source
+references. The atomic export checks the complete retained source catalog and
+binds the bundle to the model revision. Invalid, stale or missing selected data
+produces an error; it is never silently replaced by an unmodified duel. Legacy
+datasets without shard sources keep their existing settings and can clear stored
+choices.
