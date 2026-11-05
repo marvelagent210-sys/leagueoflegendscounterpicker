@@ -2,7 +2,7 @@
   "dataset": "16.21",
   "patch": "26.21",
   "confidence": "full",
-  "simulation": {"schema":1,"fingerprint":"13e9cdd2ba9df1ee64b1eea659856c321efe0f91695b7a7d28ad6d293339231f"},
+  "simulation": {"schema":1,"fingerprint":"d3bf3616a27645179ef5b2819b93ae8bc4166746e0a526a5d06aaed3f7baa695"},
   "inputs": {
     "schema": 1,
     "shared": "3177dc4caf863a729764ff46951e3b8b6b5ebf1c4f4d5f46d628be1cee0d81d9",
@@ -63,7 +63,7 @@
       "Jhin": "95152b4498b2316ef6568379892beff2cb7b4bbf65c3bdc46e7d8a60f2d85ff4",
       "Jinx": "dc88ea4220f1548e2ba9b414f4b00d984c8fd00849151862e88c026ae88a9eae",
       "KSante": "7d7e8b42505b99934e3a39c790f36426a3e4bacf293d1c581826819a4f4bcc14",
-      "Kaisa": "cbd743f46fbd69eda86221f4046bb6a75227fbfb311b61cceead75bd04a4f5f7",
+      "Kaisa": "c71f1c5e358bcf1d3e300241b7c8037d6753ff94e1e497763d222c5476b83128",
       "Kalista": "931bc2e6312bd4fad4948a7a5880d421f326f906bf5ba8a795c02fa469c3acd6",
       "Karma": "fa5fa9dedd71856fa0111a20083d946d04e8daa84d2ccc9ea151ef1d8d0c0881",
       "Karthus": "91ef64533be6af47705f99ae9d282b7b5991dffab64cfc3d6a968d0c93a8ad02",
