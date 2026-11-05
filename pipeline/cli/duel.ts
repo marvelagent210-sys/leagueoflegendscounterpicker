@@ -17,6 +17,7 @@
  * Usage: npm run duel -- <your champion> <enemy> [--gold 15000] [--log <scenario>] [--sweep] [--dataset 16.20]
  *        npm run duel -- <your champion> <enemy> --items "<item>, ..." --enemy-items "<item>, ..." [--unstacked] [--item-option <item>.<option>=<value>] [--log <scenario>]
  *        npm run duel -- <your champion> <enemy> --search [--format sixItems | fiveItemsWithBoots] [--unstacked] [--log <scenario>]
+ *        npm run duel -- <your champion> <enemy> --shards 5005,5001,5001 --enemy-shards 5008,5008,5011
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
 import { type EquippedFighter, matchupSpecs } from "../../items/equip";
@@ -30,6 +31,12 @@ import { BUILD_FORMATS, type BuildFormat, buildProblems } from "../items/rules";
 import { names as buildNames, profileOf, searchMatchup } from "../items/search";
 import { loadFighter, loadVariants } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
+import path from "node:path";
+import { datasetDir } from "../config";
+import { loadRuneCatalog } from "../runes/catalog";
+import { loadShardRules } from "../runes/shardRules";
+import { shardOption } from "../runes/shardOptions";
+import { equipShards, type ShardSelection } from "../../runes/shards";
 
 function option(args: string[], flag: string): string | undefined {
   const index = args.indexOf(flag);
@@ -99,7 +106,17 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format"]);
+  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--shards", "--enemy-shards"]);
+  const switches = new Set(["--search", "--unstacked", "--sweep"]);
+  for (let index = 0; index < args.length; index++) {
+    const arg = args[index]!;
+    if (!arg.startsWith("--")) continue;
+    if (valued.has(arg)) {
+      const next = args[index + 1];
+      if (next === undefined || next.startsWith("--")) throw new Error(`${arg} requires a value`);
+      index++;
+    } else if (!switches.has(arg)) throw new Error(`Unknown option ${arg}`);
+  }
   const names = args.filter((arg, i) => !arg.startsWith("--") && !valued.has(args[i - 1] ?? ""));
   if (names.length !== 2) throw new Error('Usage: npm run duel -- <your champion> <enemy> [--gold 15000 | --items "<item>, ..." --enemy-items "<item>, ..."] [--log <scenario>] [--sweep]');
   const data = await loadSimData(option(args, "--dataset"));
@@ -110,15 +127,41 @@ async function main(): Promise<void> {
   const logScenario = option(args, "--log") as ScenarioId | undefined;
   if (logScenario && !SCENARIOS.includes(logScenario)) throw new Error(`--log takes one of: ${SCENARIOS.join(", ")}`);
 
+  const search = args.includes("--search");
+  const withItems = search || args.includes("--items") || args.includes("--enemy-items");
+  const hasShards = args.includes("--shards") || args.includes("--enemy-shards");
+  if (hasShards && search) throw new Error("Stat shards are not supported by --search yet; use the plain-stat budget or fixed item builds");
+  const runeCatalog = hasShards ? await loadRuneCatalog(path.join(datasetDir(data.dataset), "rune-sources")) : undefined;
+  if (runeCatalog && runeCatalog.dataset !== data.dataset) throw new Error("Rune shard sources do not match the requested dataset");
+  const shardRules = runeCatalog ? await loadShardRules(data.dataset, runeCatalog) : undefined;
+  const myShards = runeCatalog ? shardOption(args, "--shards", runeCatalog) : undefined;
+  const enemyShards = runeCatalog ? shardOption(args, "--enemy-shards", runeCatalog) : undefined;
+  const shardAssumptions = new Set<string>();
+  const withShards = (spec: FighterSpec, selection: ShardSelection | undefined, adaptiveType: "Physical" | "Magic") => {
+    if (!selection || !runeCatalog || !shardRules) return spec;
+    const equipped = equipShards(spec, selection, runeCatalog, shardRules, { adaptiveType, withItems });
+    for (const assumption of equipped.assumptions) shardAssumptions.add(assumption);
+    return equipped.spec;
+  };
+
   const mine = await loadFighter(data.dataset, you);
   const theirs = await loadFighter(data.dataset, enemy);
+  mine.spec = withShards(mine.spec, myShards, you.adaptiveType);
+  theirs.spec = withShards(theirs.spec, enemyShards, enemy.adaptiveType);
   const describe = (name: string, kit: unknown) => (kit ? `${name} (kit)` : `${name} (base stats and basic attacks only: no kit yet)`);
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
   // A kit with a choice to make (Udyr's rank split, Heimerdinger's upgrade) plays the option set best for it here.
-  const [myVariants, theirVariants] = [await loadVariants(data.dataset, you), await loadVariants(data.dataset, enemy)];
-  const search = args.includes("--search");
+  const myVariants = (await loadVariants(data.dataset, you)).map((variant) => ({ ...variant, spec: withShards(variant.spec, myShards, you.adaptiveType) }));
+  const theirVariants = (await loadVariants(data.dataset, enemy)).map((variant) => ({ ...variant, spec: withShards(variant.spec, enemyShards, enemy.adaptiveType) }));
   if (search && (args.includes("--items") || args.includes("--enemy-items"))) throw new Error("--search finds the builds; it doesn't go with --items or --enemy-items");
-  const withItems = search || args.includes("--items") || args.includes("--enemy-items");
+  if (runeCatalog) {
+    for (const [name, selection] of [[you.name, myShards], [enemy.name, enemyShards]] as const) {
+      if (selection) console.log(`${name} stat shards: ${selection.map((id) => `${runeCatalog.shards.find((shard) => shard.id === id)!.name} (${id})`).join(", ")}`);
+    }
+    console.log("Stat-shard effects only; full rune-page effects are not enabled.");
+    for (const assumption of shardAssumptions) console.log(`  ${assumption}`);
+    console.log("");
+  }
   if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
   const catalog = withItems ? await loadItemCatalog(data.dataset) : undefined;
   const build = catalog ? { options: itemOptions(args, catalog), stacked: !args.includes("--unstacked") } : {};
