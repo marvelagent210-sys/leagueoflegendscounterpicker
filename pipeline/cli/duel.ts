@@ -36,6 +36,7 @@ import { datasetDir } from "../config";
 import { loadRuneCatalog } from "../runes/catalog";
 import { loadShardRules } from "../runes/shardRules";
 import { shardOption } from "../runes/shardOptions";
+import { reviewAdaptiveItemBuild, type AdaptiveItemEligibility } from "../runes/itemEligibility";
 import { equipShards, type ShardSelection } from "../../runes/shards";
 
 function option(args: string[], flag: string): string | undefined {
@@ -136,23 +137,32 @@ async function main(): Promise<void> {
   const shardRules = runeCatalog ? await loadShardRules(data.dataset, runeCatalog) : undefined;
   const myShards = runeCatalog ? shardOption(args, "--shards", runeCatalog) : undefined;
   const enemyShards = runeCatalog ? shardOption(args, "--enemy-shards", runeCatalog) : undefined;
+  if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
+  const catalog = withItems ? await loadItemCatalog(data.dataset) : undefined;
+  const build = catalog ? { options: itemOptions(args, catalog), stacked: !args.includes("--unstacked") } : {};
+  let myItems = catalog ? itemList(option(args, "--items"), catalog, you.name) : [];
+  let theirItems = catalog ? itemList(option(args, "--enemy-items"), catalog, enemy.name) : [];
+  const [myEligibility, theirEligibility] = await Promise.all([
+    catalog && myShards?.includes(5008) ? reviewAdaptiveItemBuild(catalog, myItems, { stacked: build.stacked }) : undefined,
+    catalog && enemyShards?.includes(5008) ? reviewAdaptiveItemBuild(catalog, theirItems, { stacked: build.stacked }) : undefined,
+  ]);
   const shardAssumptions = new Set<string>();
-  const withShards = (spec: FighterSpec, selection: ShardSelection | undefined, adaptiveType: "Physical" | "Magic") => {
+  const withShards = (spec: FighterSpec, selection: ShardSelection | undefined, adaptiveType: "Physical" | "Magic", adaptiveItemEligibility?: AdaptiveItemEligibility) => {
     if (!selection || !runeCatalog || !shardRules) return spec;
-    const equipped = equipShards(spec, selection, runeCatalog, shardRules, { adaptiveType, withItems });
+    const equipped = equipShards(spec, selection, runeCatalog, shardRules, { adaptiveType, withItems, adaptiveItemEligibility });
     for (const assumption of equipped.assumptions) shardAssumptions.add(assumption);
     return equipped.spec;
   };
 
   const mine = await loadFighter(data.dataset, you);
   const theirs = await loadFighter(data.dataset, enemy);
-  mine.spec = withShards(mine.spec, myShards, you.adaptiveType);
-  theirs.spec = withShards(theirs.spec, enemyShards, enemy.adaptiveType);
+  mine.spec = withShards(mine.spec, myShards, you.adaptiveType, myEligibility);
+  theirs.spec = withShards(theirs.spec, enemyShards, enemy.adaptiveType, theirEligibility);
   const describe = (name: string, kit: unknown) => (kit ? `${name} (kit)` : `${name} (base stats and basic attacks only: no kit yet)`);
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
   // A kit with a choice to make (Udyr's rank split, Heimerdinger's upgrade) plays the option set best for it here.
-  const myVariants = (await loadVariants(data.dataset, you)).map((variant) => ({ ...variant, spec: withShards(variant.spec, myShards, you.adaptiveType) }));
-  const theirVariants = (await loadVariants(data.dataset, enemy)).map((variant) => ({ ...variant, spec: withShards(variant.spec, enemyShards, enemy.adaptiveType) }));
+  const myVariants = (await loadVariants(data.dataset, you)).map((variant) => ({ ...variant, spec: withShards(variant.spec, myShards, you.adaptiveType, myEligibility) }));
+  const theirVariants = (await loadVariants(data.dataset, enemy)).map((variant) => ({ ...variant, spec: withShards(variant.spec, enemyShards, enemy.adaptiveType, theirEligibility) }));
   if (search && (args.includes("--items") || args.includes("--enemy-items"))) throw new Error("--search finds the builds; it doesn't go with --items or --enemy-items");
   if (runeCatalog) {
     for (const [name, selection] of [[you.name, myShards], [enemy.name, enemyShards]] as const) {
@@ -162,11 +172,6 @@ async function main(): Promise<void> {
     for (const assumption of shardAssumptions) console.log(`  ${assumption}`);
     console.log("");
   }
-  if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
-  const catalog = withItems ? await loadItemCatalog(data.dataset) : undefined;
-  const build = catalog ? { options: itemOptions(args, catalog), stacked: !args.includes("--unstacked") } : {};
-  let myItems = catalog ? itemList(option(args, "--items"), catalog, you.name) : [];
-  let theirItems = catalog ? itemList(option(args, "--enemy-items"), catalog, enemy.name) : [];
   if (search && catalog) {
     const format = (option(args, "--format") ?? "sixItems") as BuildFormat;
     if (!(format in BUILD_FORMATS)) throw new Error(`--format takes one of: ${Object.keys(BUILD_FORMATS).join(", ")}`);

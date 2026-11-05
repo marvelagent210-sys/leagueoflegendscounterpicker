@@ -60,6 +60,32 @@ describe("manual duels with stat shards", () => {
     expect(result.stdout).toContain("Counter score for Darius:");
   });
 
+  it("supports adaptive shards from the holder's reviewed build while an unsharded opponent holds Deathcap", () => {
+    const result = duel("--items", "Frozen Heart", "--enemy-items", "Rabadon's Deathcap", "--shards", "5008,5008,5011");
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain("Darius stat shards: Adaptive Force");
+    expect(result.stdout).toContain("Awe and Void Infusion do not qualify");
+    expect(result.stdout).toContain("Counter score for Darius:");
+  });
+
+  it("reviews and applies both sides' adaptive builds with fixed passive options", () => {
+    const result = duel("--items", "Rod of Ages", "--enemy-items", "Sterak's Gage", "--item-option", "Rod of Ages.minutes=5",
+      "--shards", "5008,5008,5011", "--enemy-shards", "5008,5001,5011");
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain("Darius stat shards:");
+    expect(result.stdout).toContain("Garen stat shards:");
+    expect(result.stdout).toContain("Rod of Ages");
+    expect(result.stdout).toContain("Sterak's Gage");
+    expect(result.stdout).toContain("Counter score for Darius:");
+  });
+
+  it("permits an empty adaptive side when only the opponent selects items", () => {
+    const result = duel("--enemy-items", "Frozen Heart", "--shards", "5008,5001,5011");
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain("Darius holds no items");
+    expect(result.stdout).toContain("Counter score for Darius:");
+  });
+
   it("keeps the ordinary duel available when neither side selects shards", () => {
     const result = duel("--gold", "0");
     expect(result.status, result.stderr).toBe(0);
@@ -68,7 +94,11 @@ describe("manual duels with stat shards", () => {
   });
 
   it.each([
-    [["--items", "Frozen Heart", "--shards", "5008,5001,5001"], /Adaptive shard 5008 with item builds/],
+    [["--items", "Rabadon's Deathcap", "--shards", "5008,5001,5001"], /Rabadon's Deathcap.*not supported/],
+    [["--items", "Overlord's Bloodmail", "--shards", "5008,5001,5001"], /Overlord's Bloodmail.*not supported/],
+    [["--items", "Blackfire Torch", "--shards", "5008,5001,5001"], /Blackfire Torch.*not supported/],
+    [["--items", "Hubris", "--shards", "5008,5001,5001"], /Hubris.*not supported/],
+    [["--enemy-items", "Rabadon's Deathcap", "--enemy-shards", "5008,5001,5001"], /Rabadon's Deathcap.*not supported/],
     [["--search", "--shards", "5005,5001,5001"], /not supported by --search/],
     [["--shards=5005,5001,5001"], /Unknown option/],
     [["--enemy-shards"], /requires a value/],

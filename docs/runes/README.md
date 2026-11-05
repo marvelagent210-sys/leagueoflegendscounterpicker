@@ -87,6 +87,7 @@ Wiki-derived data follows the [data attribution and license](../../data/README.m
 ```sh
 npm run duel -- Darius Garen --shards 5005,5001,5001 --enemy-shards 5008,5008,5011
 npm run duel -- Darius Garen --items "Mercury's Treads" --shards 5007,5010,5013
+npm run duel -- Kaisa Garen --items "Guinsoo's Rageblade" --shards 5008,5008,5011
 ```
 
 Each flag takes three IDs in offense, flex and defense order. Omit a side's flag
@@ -113,19 +114,37 @@ bonuses without equipping them twice.
 Adaptive force compares the raw purchased bonus AD with purchased AP before any
 adaptive shard is added. Champion passive AD/AP is excluded. A tie uses the
 champion's recorded adaptive type. Both adaptive shards share that one choice.
-Item passives have several source-specific eligibility exceptions, so adaptive
-shard 5008 with item builds is rejected in this first implementation. The other
-six shard effects can be used with fixed item builds.
+Adaptive shards also work with reviewed fixed item builds. The complete
+16.21 item catalog and 114 item implementation files are checked against their
+reviewed hashes before equipment; changed or future inputs require another
+review. The other six shard effects retain their existing fixed-item support.
 
-Kai'Sa supports all seven shard types in plain-stat duels, and nonadaptive
-shards with fixed items. Exact rune AD, AP and attack-speed contributions are
+Eligible fixed passives already enter the purchased-stat pool: Sterak’s Claws,
+Mejai’s Glory, Rod of Ages’ Timeless and Dawncore’s First Light. Awe and Riftmaker’s
+Void Infusion remain excluded from the adaptive choice, while their combat
+bonuses still apply. Fully stacked Tear transformations and explicit unstacked
+builds use the same item resolution as equipment. Each side’s adaptive choice
+uses its own reviewed build and item options.
+
+Four items remain unsupported with adaptive shards: **Rabadon’s Deathcap,
+Overlord’s Bloodmail, Blackfire Torch and Hubris**. The first three require
+source-qualified dynamic AD/AP and amplification accounting; Hubris’s Eminence
+AD buff is not modelled. Rabadon’s amplification of otherwise excluded passive
+AP can qualify, while the adaptive shard and its own amplification must be
+excluded, so merely comparing derived AD/AP would be incorrect. Sterak’s Gage
+with forms whose base AD changes also rejects until form changes can update its
+eligible Claws contribution. The reviewed set covers 109 purchasable catalog
+entries and three transformed entries, subject to normal build rules.
+
+Kai'Sa supports all seven shard types in plain-stat duels and reviewed fixed
+item builds. Exact rune AD, AP and attack-speed contributions are
 recorded separately in unit memory and excluded from Living Weapon's evolution
 thresholds. They still increase combat damage and shorten Supercharge's charge
 time. Purchased stats and level growth retain their eligibility. This follows
 her current passive source (revision 4089050): permanent item and growth stats
 qualify, while adaptive force does not. Item-passive stats outside the direct
-bonus pool retain the kit's existing limitation; adaptive shards with items
-remain unsupported.
+bonus pool retain the kit's existing limitation. Adaptive item builds follow
+the four-item and changing-base-AD Sterak restrictions above.
 
 The plain-stat allocation remains the existing no-shard reference: it buys stats
 before the free shard bonuses are applied. Actual fights and kit-variant

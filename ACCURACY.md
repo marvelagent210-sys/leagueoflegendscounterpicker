@@ -2122,8 +2122,9 @@ survive protected death. Forms and branched worlds retain independent state.
 Adaptive shards compare raw purchased bonus AD with purchased AP, excluding
 champion passive stats. Equal purchases use the champion's adaptive type; all
 adaptive shards share the choice before any is added. Item passive eligibility
-has several source-specific exceptions, so adaptive shards with item builds are
-rejected in this batch. Nonadaptive shards work with fixed items. Shards with
+has several source-specific exceptions. The initial batch rejected adaptive
+shards with item builds; the fixed-item follow-up below adds reviewed support.
+Nonadaptive shards work with fixed items. Shards with
 build search are rejected until its valuation accounts for them.
 
 The initial shard batch rejected Kai'Sa's adaptive and attack-speed shards to
@@ -2161,14 +2162,48 @@ retained. The source's adaptive-force item exclusion and the current limitation
 for item-passive stats outside the direct bonus pool remain explicit.
 
 All seven shard types can therefore be selected for Kai'Sa in plain-stat manual
-duels; nonadaptive shards can also accompany fixed item builds. Adaptive shards
-with items and all shards with build search still reject until those modes have
-complete source eligibility and valuation. Default workers select no shards.
+duels and reviewed fixed item builds. The four-item and changing-base-AD Sterak
+restrictions below remain explicit, as does the shard build-search restriction.
+Default workers select no shards.
 
 The origin amounts initialize once before kit setup, remain private to each
 world, and survive branch cloning, form changes and protected death through the
 existing unit-memory contract. Budget reference worlds disable initialization,
 so their no-shard allocation and qualifying stat pool remain unchanged.
+
+## Adaptive shards with reviewed fixed items (5 November 2026)
+
+Adaptive force can now accompany fixed item builds whose eligible AD/AP is
+represented by the direct bonus pool. The pinned Adaptive force source
+(revision 4063874) includes fixed item passives, excludes champion passives and
+specifically excludes Awe and Void Infusion. Sterak, Mejai, Rod of Ages and
+Dawncore have eligible fixed bonuses in the pool; excluded conversions retain
+their combat effects as separate statuses. Both shards share one choice made
+before either is added. Each side and each kit variant uses its own build.
+
+The reviewer pins the complete 16.21 catalog and 114 item implementation files.
+It rejects changed sources/code, unknown items and duplicates, and resolves Tear
+transformations using the equipment rules. The returned descriptor is an API
+contract for the caller's matching build, not authentication of arbitrary
+external fighter specs. The CLI supplies the same names and Tear-stacking choice
+to review and equipment; equipment applies item options to the eligible bonus
+pool. The supported set contains 109 purchasable catalog entries plus three
+transformed entries, subject to ordinary build legality.
+
+Rabadon's Deathcap, Overlord's Bloodmail and Blackfire Torch need dynamic
+source-qualified selection and remain blocked. Rabadon's amplification of
+otherwise excluded passive AP qualifies, while amplification of the adaptive
+shard itself must be excluded; the current total derived stat is insufficient.
+Hubris also remains blocked because its Eminence AD buff is unmodelled. Sterak
+with different-base-AD forms rejects because the current form-switch path
+carries the old bonus pool rather than updating Claws. These restrictions apply
+to adaptive choices; nonadaptive shards retain their existing item behavior.
+
+Kai'Sa's source-qualified rune accounting continues to exclude adaptive rune
+AD/AP from evolutions while retaining combat scaling. Item-passive evolution
+eligibility outside her direct bonus pool remains an explicit limitation.
+Shard-aware build search, dynamic adaptive reevaluation, full rune pages and
+browser rune controls remain future work.
 
 ## Remaining limits
 
