@@ -7,6 +7,13 @@ import { DEFAULT_BUDGET } from "../../engine/budget";
 import { SCENARIO_WEIGHTS, SCENARIOS, type ScenarioId, type ScenarioOptions } from "../../engine/sim/scenarios";
 import { DEFAULT_SETTINGS } from "../../engine/sim/state";
 import { KITS } from "../../kits/champions/index";
+import { sanitizeShardSelection } from "../../runes/shardData";
+import type { ShardSelection } from "../../runes/shards";
+
+export interface ShardSettings {
+  you: ShardSelection | null;
+  enemy: ShardSelection | null;
+}
 
 export interface AppSettings {
   /** Gold each side spends on plain stats. */
@@ -18,6 +25,8 @@ export interface AppSettings {
   weights: Record<ScenarioId, number>;
   /** Kit assumptions changed from their defaults, by champion. */
   kitOptions: Record<string, Record<string, number>>;
+  /** Optional for stored settings from before stat-shard controls existed. */
+  shards?: ShardSettings;
 }
 
 export const GOLD_RANGE = { min: 0, max: 20000, step: 500 } as const;
@@ -34,6 +43,7 @@ export const DEFAULT_APP_SETTINGS: AppSettings = {
   },
   weights: { ...SCENARIO_WEIGHTS },
   kitOptions: {},
+  shards: { you: null, enemy: null },
 };
 
 /** Kit assumptions a visitor can change: each kit's options with their labels and defaults. */
@@ -52,6 +62,7 @@ export function sanitize(raw: unknown): AppSettings {
   const weights = (r.weights && typeof r.weights === "object" ? r.weights : {}) as Record<string, unknown>;
   const kitOptions: AppSettings["kitOptions"] = {};
   const rawOptions = (r.kitOptions && typeof r.kitOptions === "object" ? r.kitOptions : {}) as Record<string, unknown>;
+  const rawShards = (r.shards && typeof r.shards === "object" && !Array.isArray(r.shards) ? r.shards : {}) as Record<string, unknown>;
   for (const option of KIT_OPTIONS) {
     const value = (rawOptions[option.champion] as Record<string, unknown> | undefined)?.[option.key];
     if (typeof value === "number" && Number.isFinite(value) && value >= 0 && value !== option.default) {
@@ -71,6 +82,7 @@ export function sanitize(raw: unknown): AppSettings {
     },
     weights: Object.fromEntries(SCENARIOS.map((id) => [id, clamp(weights[id], 0, 1, d.weights[id])])) as Record<ScenarioId, number>,
     kitOptions,
+    shards: { you: sanitizeShardSelection(rawShards.you), enemy: sanitizeShardSelection(rawShards.enemy) },
   };
 }
 
@@ -88,7 +100,26 @@ export function fightKey(s: AppSettings): string {
   const options = Object.keys(s.kitOptions)
     .sort()
     .map((champion) => `${champion}:${Object.entries(s.kitOptions[champion] ?? {}).sort().map(([k, v]) => `${k}=${v}`).join(",")}`);
-  return [s.gold, s.reactionTime, s.environment.walls, s.environment.minions, s.environment.laneSetup, s.environment.brush, ...options].join("|");
+  const base = [s.gold, s.reactionTime, s.environment.walls, s.environment.minions, s.environment.laneSetup, s.environment.brush, ...options].join("|");
+  return shardsSelected(s) ? `${base}|shards:${JSON.stringify(shardSelections(s))}` : base;
+}
+
+/** Role-based selections: your choice applies to each counter candidate in the picker. */
+export function shardSelections(s: AppSettings): ShardSettings {
+  return { you: s.shards?.you ?? null, enemy: s.shards?.enemy ?? null };
+}
+
+export function shardsSelected(s: AppSettings): boolean {
+  return Boolean(s.shards?.you || s.shards?.enemy);
+}
+
+/** Keep choices attached to their champions when the matchup swaps perspective. */
+export function swapShardSides(s: AppSettings): AppSettings {
+  const current = shardSelections(s);
+  return { ...s, shards: {
+    you: current.enemy ? [...current.enemy] : null,
+    enemy: current.you ? [...current.you] : null,
+  } };
 }
 
 /** Variant optimization depends on weights as well as the physical fight settings. */

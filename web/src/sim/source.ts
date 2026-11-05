@@ -2,6 +2,7 @@
 import type { AbilityRecord, PetRecord, RuneRecord } from "../../../engine/abilities";
 import type { StatPrices } from "../../../engine/budget";
 import type { ChampionDataset } from "../../../engine/types";
+import { validateStatShardData, type StatShardData } from "../../../runes/shardData";
 import type { SimSource } from "./run";
 
 export type JsonLoader = <T>(url: string) => Promise<T>;
@@ -28,6 +29,7 @@ export function createSourceLoader(fetcher: JsonLoader = fetchJson): (dataUrl: s
       ]);
       const byId = new Map(dataset.champions.map((champion) => [champion.id, champion]));
       const records = new Map<string, Promise<AbilityRecord[]>>();
+      let statShards: Promise<StatShardData> | undefined;
       return {
         champion(id) {
           const champion = byId.get(id);
@@ -45,6 +47,14 @@ export function createSourceLoader(fetcher: JsonLoader = fetchJson): (dataUrl: s
         prices: rules.statPrices,
         pets: (id) => pets[id] ?? [],
         runes,
+        statShards() {
+          if (statShards) return statShards;
+          const loaded = fetcher<unknown>(`${dataUrl}stat-shards.json`)
+            .then((raw) => validateStatShardData(raw, dataset.dataset, dataset.patch, fingerprint));
+          statShards = loaded;
+          void loaded.catch(() => { if (statShards === loaded) statShards = undefined; });
+          return loaded;
+        },
       };
     })();
     sources.set(key, source);
