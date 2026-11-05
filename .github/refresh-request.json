@@ -1,5 +1,12 @@
 {
-  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request refreshes 16.21 after 35 kits' assumption texts were respaced: their pairings' inputs changed although their fights didn't, so both matrices compute them again and should come out unchanged. Shards are sized together, at most 20 in all.",
+  "note": "Refresh both matrices after Kai'Sa's evolution predicates gained rune-origin accounting. Default workers select no shards; recompute her 172 pairings per matrix and reuse only unchanged pair inputs through the normal pipeline.",
   "dataset": "16.21",
-  "matrices": ["sim", "builds"]
+  "matrices": [
+    "sim",
+    "builds"
+  ],
+  "shards": {
+    "sim": 2,
+    "builds": 6
+  }
 }

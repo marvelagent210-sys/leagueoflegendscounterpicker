@@ -117,11 +117,15 @@ Item passives have several source-specific eligibility exceptions, so adaptive
 shard 5008 with item builds is rejected in this first implementation. The other
 six shard effects can be used with fixed item builds.
 
-Kai'Sa's adaptive and attack-speed shard selections are also rejected for now.
-Her Living Weapon evolutions require item and growth stats, while the existing
-kit reads a combined bonus-stat pool. Allowing those shards could falsely unlock
-an evolution near its threshold. Her other five shard types remain supported;
-source-aware evolution accounting is required before lifting this guard.
+Kai'Sa supports all seven shard types in plain-stat duels, and nonadaptive
+shards with fixed items. Exact rune AD, AP and attack-speed contributions are
+recorded separately in unit memory and excluded from Living Weapon's evolution
+thresholds. They still increase combat damage and shorten Supercharge's charge
+time. Purchased stats and level growth retain their eligibility. This follows
+her current passive source (revision 4089050): permanent item and growth stats
+qualify, while adaptive force does not. Item-passive stats outside the direct
+bonus pool retain the kit's existing limitation; adaptive shards with items
+remain unsupported.
 
 The plain-stat allocation remains the existing no-shard reference: it buys stats
 before the free shard bonuses are applied. Actual fights and kit-variant

@@ -96,14 +96,6 @@ export function equipShards(
   if (options.withItems && selection.includes(5008)) {
     throw new Error("Adaptive shard 5008 with item builds is not supported yet: eligible item-passive stats require separate source-qualified selection");
   }
-  // Living Weapon counts permanent item and growth stats. The existing Kai'Sa
-  // kit reads those from bonus, so mixing rune AD/AP/AS into that pool would
-  // incorrectly unlock evolutions. Keep this unsupported combination explicit
-  // until the kit can distinguish stat origins. 'kai-sa' is its source form ID.
-  if ((selection.includes(5008) || selection.includes(5005))
-    && Object.values(spec.forms ?? { main: spec }).some((form) => form.id === "kai-sa")) {
-    throw new Error("Kai'Sa adaptive and attack-speed shards are not supported yet: Living Weapon requires source-qualified item and growth stats");
-  }
   if (Object.values(spec.forms ?? { main: spec }).some((form) => (form as ShardSpec)[EQUIPPED])) {
     throw new Error("Stat shards have already been equipped on this fighter");
   }
@@ -132,11 +124,20 @@ export function equipShards(
           const physical = boughtAd === boughtAp ? adaptiveType === "Physical" : boughtAd > boughtAp;
           const bonus: BonusStats = { ...previous };
           const add = (key: keyof BonusStats, amount: number) => { if (amount) bonus[key] = (bonus[key] ?? 0) + amount; };
-          add(physical ? "ad" : "ap", adaptive * (physical ? rules.adaptiveAdRatio : 1));
+          const ad = physical ? adaptive * rules.adaptiveAdRatio : 0;
+          const ap = physical ? 0 : adaptive;
+          add("ad", ad);
+          add("ap", ap);
           add("hp", hp);
           add("attackSpeed", attackSpeed);
           add("abilityHaste", abilityHaste);
           ctx.self.spec = { ...ctx.self.spec, bonus };
+          // Exact contributions already included in bonus, not another stat grant.
+          // Living Weapon excludes these rune stats. Scalar unit memory follows
+          // forms/death and is copied by branch cloning without sharing objects.
+          ctx.memory["rune-shards:ad"] = ad;
+          ctx.memory["rune-shards:ap"] = ap;
+          ctx.memory["rune-shards:attackSpeed"] = attackSpeed;
           ctx.memory[INITIALIZED] = true;
           if (adaptive) ctx.memory["rune-shards:adaptive-type"] = physical ? "Physical" : "Magic";
           permanent(ctx, "stat", "moveSpeedPercent", moveSpeed);
@@ -154,6 +155,9 @@ export function equipShards(
     "The scaling-health shard uses the pinned Rune article's 10 health per level through level 20 (200), rather than the client tooltip's 180 endpoint.",
     "The spacing scenario qualifies using base movement speeds; movement-speed shards change movement during fights but do not create a new spacing scenario.",
   ];
+  if (Object.values(spec.forms ?? { main: spec }).some((form) => form.id === "kai-sa")) {
+    assumptions.push("Rune AD, AP and attack speed improve combat stats but do not qualify for Kai'Sa's Living Weapon evolutions; attack-speed shards still shorten Supercharge's charge time.");
+  }
   if (selection.includes(5013)) assumptions.push("Shard tenacity is a separate multiplicative source. The existing newer Courage-specific exception is retained where it conflicts with the generic tenacity grouping table.");
   return { spec: equipped, selection: [...selection], evidence: rules.evidence.map((entry) => ({ ...entry })), assumptions };
 }
