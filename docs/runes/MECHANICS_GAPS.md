@@ -104,7 +104,7 @@ follow actual cleanse or early termination rather than the originally scheduled
 expiry. A source-qualified event-phase contract and CC-removal notification are
 needed. Unflinching remains unimplemented.
 
-## Legend runes and the existing Garen attack-speed defect
+## Legend runes and Garen attack-speed eligibility
 
 The retained [Alacrity template 3958705](https://wiki.leagueoflegends.com/en-us/?oldid=3958705)
 and [article 3980881](https://wiki.leagueoflegends.com/en-us/?oldid=3980881) agree
@@ -122,16 +122,37 @@ Bloodline health must exist before Ornn's innate setup and initial health-based
 shields. Alacrity must affect combat attack speed and Kai'Sa E timing without
 qualifying for Living Weapon evolutions.
 
-There is also an **existing Garen defect**, not a fix delivered by this batch:
+The known **Garen attack-speed shard defect is corrected** in the follow-up to
+the Absorb Life batch:
 [Judgment revision 4009435](https://wiki.leagueoflegends.com/en-us/?oldid=4009435)
-limits spin scaling to item attack speed and level growth. The current
-[Garen kit](../../kits/champions/Garen.ts) uses derived bonus attack speed for
-channel pulses, so attack-speed stat shards can incorrectly add spins. Alacrity
-would inherit the same error. Repair needs a source-qualified permanent
-attack-speed value and a channel pulse-count callback or equivalent engine
-support, with regressions for shard and item contributions. Changes to that
-shared runtime require a genuine recomputation of affected matrix pairings;
-provenance must not be restamped to retain old results.
+limits spin scaling to item attack speed and level growth. The
+[Garen kit](../../kits/champions/Garen.ts) now subtracts the recorded
+`rune-shards:attackSpeed` contribution when calculating Judgment pulses. The
+shard still improves basic attacks. A shared channel pulse-count callback is
+used by actual cast scheduling and budget estimates; ordinary formula and
+interval channels retain their existing path.
+
+This is a narrow correction for an already recorded rune origin. It is not a
+complete source classifier for every attack-speed status, and it does not
+implement Legend: Alacrity. A future Alacrity implementation must exclude its
+own rune-origin contribution as well.
+
+Existing item-passive behavior is preserved. [Garen's patch history,
+revision 4051881](https://wiki.leagueoflegends.com/en-us/?oldid=4051881), explicitly
+records a V11.2 fix making Trinity Force's former Mythic passive count toward
+spins, so a blanket exclusion of all item passives would be unsupported.
+The current [Guinsoo's Rageblade revision 4065931](https://wiki.leagueoflegends.com/en-us/?oldid=4065931)
+does not establish whether temporary Seething Strike attack speed qualifies.
+That eligibility remains unverified. Capturing the count once at cast also
+retains the simulator's timing assumption; the full checked sources do not
+establish live-game snapshot or mid-channel update timing.
+
+The [full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42225042960)
+computed all 14,878 unordered pairings in each default matrix. All 22 jobs
+succeeded, including the combined TypeScript checks and full test suite. Default
+scores, scenarios, builds, variants and spending match the previous baseline;
+the new calculation keys and provenance identify the corrected runtime. The
+[accuracy log](../../ACCURACY.md) records refresh and release validation.
 
 These gaps keep step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress.
 They do not change the current manual inventory or claim that deferred runes

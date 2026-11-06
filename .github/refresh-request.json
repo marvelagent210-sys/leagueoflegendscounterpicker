@@ -1,12 +1,8 @@
 {
-  "note": "Refresh both matrices after correcting Kai'Sa's assumption text to describe reviewed adaptive-shard fixed item support. Default workers select no shards and the fight logic is unchanged; her source key still requires172 actual pairings per matrix. Reuse only unchanged inputs through the normal pipeline.",
+  "note": "Refresh both matrices after source-qualified channel pulse callbacks and the Garen attack-speed shard exclusion. The shared engine dependency keys change, so every pending pair must be computed by the real workers. Reuse only unchanged inputs; do not restamp scores.",
   "dataset": "16.21",
   "matrices": [
     "sim",
     "builds"
-  ],
-  "shards": {
-    "sim": 2,
-    "builds": 6
-  }
+  ]
 }

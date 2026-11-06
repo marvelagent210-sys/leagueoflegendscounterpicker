@@ -20,6 +20,7 @@ import { petFormulaTarget } from "./petTarget";
 import { projectileBlocked, projectileBlockPoint } from "./projectileBlock";
 import { interceptProjectile } from "./projectileIntercept";
 import { channelIn, clearChannel } from "./channelState";
+import { channelPulseCount } from "./channelPulses";
 
 export const EPSILON = 1e-6;
 
@@ -988,9 +989,9 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
     }
   }
   if (!earlyDelivery && ability.channel && !ability.channel.manualStart) {
-    const intervalTicks = channelInterval(ability, unit);
+    const pulseCount = channelPulseCount(ability.channel, unit);
+    const intervalTicks = channelInterval(ability, pulseCount);
     const durationTicks = toTicks(ability.channel.duration);
-    const pulseCount = ability.channel.pulses ? Math.max(1, Math.floor(evaluate(ability.channel.pulses, unit) + EPSILON)) : undefined;
     const channelAction: Extract<Action, { kind: "channel" }> = {
       kind: "channel",
       ability: ability.key,
@@ -1009,12 +1010,11 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
 }
 
 /** Ticks between a channel's pulses: from its pulse count when it has one, else its interval. */
-function channelInterval(ability: AbilitySpec, unit: Unit): number {
+function channelInterval(ability: AbilitySpec, pulseCount?: number): number {
   const channel = ability.channel;
   if (!channel) return Number.POSITIVE_INFINITY;
-  if (channel.pulses) {
-    const pulses = Math.max(1, Math.floor(evaluate(channel.pulses, unit) + EPSILON));
-    return Math.max(1, Math.floor(toTicks(channel.duration) / pulses));
+  if (pulseCount !== undefined) {
+    return Math.max(1, Math.floor(toTicks(channel.duration) / pulseCount));
   }
   return channel.interval ? Math.max(1, toTicks(channel.interval)) : Number.POSITIVE_INFINITY;
 }
