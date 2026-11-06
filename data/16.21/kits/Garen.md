@@ -253,7 +253,7 @@ What the duel simulator fights with (`kits/champions/Garen.ts`): values come fro
 |---|---|--:|--:|---|---|---|---|
 | Q | Decisive Strike | 8 (starts after the empowered attacks) | 0 | – | self | – | cleanses slow; moveSpeedPercent 0.35 for 3.6 s; next 1 attack within 4.5 s: 150 + 50% AD physical damage; silence for 1.5 s (resets the attack timer, uncancellable) |
 | W | Courage | 12 | 0 | – | self | – | damageReduction 0.41 for 4 s; shield of 145 + 18% bonus health for 0.75 s; tenacity 0.6 for 0.75 s |
-| E | Judgment | 6 (starts after the channel) | 0 | – | self; channel 3 s, 7 + 400% bonus attack speed pulses | each pulse: 20 + 65% AD physical damage, can crit | – |
+| E | Judgment | 6 (starts after the channel) | 0 | – | self; channel 3 s, source-qualified pulses at cast | each pulse: 20 + 65% AD physical damage, can crit | – |
 | R | Demacian Justice | 80 | 0.435 | – | targeted, 400 range | 275 + 35% target's missing health true damage | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
@@ -263,8 +263,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Courage stacks collected by level 20 (0.2 armor and magic resistance each, up to 150): 150.
 - Decisive Strike's lunge toward its target isn't modeled (the wiki gives no distance).
 - Judgment always hits Garen's only enemy, the nearest one, for 25% more damage.
+- Judgment excludes the recorded attack-speed shard from spin scaling. Other current attack-speed sources retain the existing model; temporary item-passive eligibility, including Guinsoo's Seething Strike, remains unverified. The spin count is captured once at cast, retaining the simulator's timing assumption rather than establishing live-game snapshot timing.
 
-### Source values read (30)
+### Source values read (31)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -273,6 +274,8 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Courage | Garen gains 0.2 bonus armor and 0.2 bonus magic resistance | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
 | Judgment | Enemy champions hit 6 times by Judgment | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
 | Judgment | are inflicted with 25% armor reduction for 6 seconds | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | Judgment only scales with bonus attack speed from items and growth (per level). | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
 | Decisive Strike | cooldown: 8 | [4085605](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4085605) |
 | Decisive Strike | castTime: none | [4085605](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4085605) |
 | Decisive Strike | gains 35% bonus movement speed | [4085605](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4085605) |
@@ -291,7 +294,6 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Judgment | castTime: none | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
 | Judgment | times over 3 seconds | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
 | Judgment | effectRadius: 325 | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
-| Judgment | spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
 | Judgment | Increased Damage Per Spin: 5 / 8.75 / 12.5 / 16.25 / 20 (+ 50 / 53.75 / 57.5 / 61.25 / 65% AD) | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
 | Judgment | Judgment can critically strike for 130% damage | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
 | Demacian Justice | cooldown: 120 / 100 / 80 | [4042864](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Demacian_Justice?oldid=4042864) |

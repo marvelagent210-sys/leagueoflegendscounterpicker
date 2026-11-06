@@ -46,7 +46,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Fizz | Fizz | 83 | 6 |
 | Galio | Galio | 111 | 5 |
 | Gangplank | Gangplank | 58 | 5 |
-| Garen | Garen | 32 | 3 |
+| Garen | Garen | 35 | 4 |
 | Gnar | Gnar | 70 | 7 |
 | Gragas | Gragas | 57 | 3 |
 | Graves | Graves | 90 | 7 |
