@@ -1,10 +1,13 @@
-# Runes: sources, page structure and stat shards
+# Runes: sources, page structure and partial combat effects
 
 The source catalog and page validator describe the current rune system. Explicit
-manual-duel options and browser plain-stat duels now apply all seven stat shards. Full rune-page effects and
-rune-page search remain unfinished. The existing Udyr-specific Triple Tonic
-behavior still reads its original `runes.json`; default matchup matrices keep
-their existing settings without these optional shard selections.
+manual-duel options and browser plain-stat duels apply all seven stat shards.
+Manual plain-stat duels also support four partial combat effects, listed below.
+Full rune pages and rune-page search remain unfinished. The existing
+Udyr-specific Triple Tonic behavior still reads its original `runes.json`;
+default matchup matrices keep their existing settings without these optional
+selections. Full rune combat is step 1 of the [ordered improvement
+roadmap](../IMPROVEMENT_ROADMAP.md) and remains in progress.
 
 For dataset 16.21 (patch 26.21), the catalog contains **62 runes in five paths**,
 **seven distinct stat shards**, and **three shard rows**. In particular, the
@@ -73,14 +76,91 @@ level 20: **200 health at level 20**. The versioned client description says
 "10-180 Health". Both are retained. Explicit shard equipment follows the reviewed
 wiki formula; the catalog build itself applies no health bonus.
 
-Before adding full rune effects, each rune needs its own numeric reads, trigger and timing
-tests, interaction checks, and any historical-stack assumptions. Unimplemented
+Each additional rune needs its own numeric reads, trigger and timing tests,
+interaction checks, and any historical-stack assumptions. Unimplemented
 effects are marked as such; they are not declared ineffective in a duel. Triple
 Tonic's status means only the existing Udyr-specific support, not a general page
 implementation. Later milestones will equip effects, search pages with item
 builds, refresh affected pairings and expose the selected pages in the app.
 
 Wiki-derived data follows the [data attribution and license](../../data/README.md).
+
+## Apply partial combat effects in a manual duel
+
+```sh
+npm run duel -- Darius Garen --combat-runes 8299,8444 --enemy-combat-runes 8014
+npm run duel -- Darius Garen --combat-runes 8017 --enemy-combat-runes 8444 --log brawl
+npm run duel -- Darius Garen --combat-runes 8299,8444 --shards 5005,5001,5001
+```
+
+Each flag takes comma-separated rune IDs for that side. Only these four effects
+are supported in this first partial implementation:
+
+| Rune | ID | Implemented rule |
+|---|--:|---|
+| Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
+| Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
+| Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: 5% at that boundary, scaling linearly to 11% at 30% health or lower. |
+| Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
+
+The three Precision runes occupy the same source-defined row, so select at most
+one of them. Second Wind can accompany any one. Unknown or unimplemented IDs,
+duplicates and selections that cannot fit a legal page fail. The validator may
+use other runes to prove page compatibility, but those fillers are never equipped.
+Omitting a side's flag applies none of these optional effects to that side. This
+does not remove Udyr's existing separately configured Triple Tonic behavior.
+
+Combat-rune flags support plain-stat duels, including `--log` and `--sweep`, and
+can accompany explicit stat shards. They reject fixed item builds and `--search`
+until item-amplifier composition and search valuation are reviewed. Each kit
+variant receives the correct side's selection before variant comparisons. The
+plain-stat allocation remains its no-rune reference; it does not optimize
+purchases for the selected effects. These flags do not change precomputed
+rankings or add combat-rune controls to the browser.
+
+The offline compiler checks twelve complete Wiki revisions in
+`data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
+`perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
+full-content hashes, exact revisions and excerpts, binds the four templates to
+the catalog, and cross-checks the numeric rules against current game fields.
+Cut Down's obsolete health-difference fields are retained as source data but
+are not used for its current 8% rule.
+
+Compatibility limits remain explicit:
+
+- Health conditions use each damage packet's pre-hit health. A hit that first
+  crosses Coup de Grace's threshold is not retroactively amplified. Owned-pet
+  damage uses the owner's health for Last Stand, while damage to pets does not
+  receive these champion-target amplifiers.
+- The recipient must be the actual champion body: clone and pet targets do not
+  receive these amplifiers or their own Second Wind regeneration. Owned-pet
+  damage sources do count. The reviewed pages do not establish full clone
+  eligibility, which remains outside this partial implementation.
+- Eligible champion true damage is amplified under the retained V25.S1.3 rule.
+  Exact `Smite` and `Ignite` labels are excluded. This is not a general summoner
+  or jungle-damage implementation; those modes need explicit classifications.
+- Outgoing increases share the engine's additive `damageDealt` bucket. The
+  pinned V26.09 note also specifies separate amplifier damage instances, which
+  this aggregate model does not represent. Interactions with pre-modifier
+  mechanics such as Illaoi E and Zed R therefore remain approximations. The
+  engine's existing flat-reduction and victim-hook order is retained rather
+  than independently established by these rune sources. If an existing
+  outgoing multiplier is nonpositive and the rune would restore positive
+  damage, the adapter rejects that unsupported case rather than dropping the
+  amplification silently.
+- Second Wind's HP5 formula and general half-second regeneration cadence are
+  sourced. Sampling current missing health at each pulse, placing the first
+  pulse half a second after the trigger, and refreshing duration without
+  postponing the active clock are model interpretations, not measured live-game
+  timing. Shield-only, zero and invulnerable damage do not trigger it. It uses
+  regeneration rather than a heal event, respects the existing regeneration
+  modifiers, and clears when the champion is dead or fallen.
+
+Full pages, keystones, history-dependent stacks, champion-specific substitutions,
+item compatibility, separate amplifier packets and automatic rune selection
+require further implementation and validation. These four catalog entries are
+marked `manual-effects`; that status identifies this limited manual interface,
+not complete rune-page fidelity.
 
 ## Apply stat shards in a manual duel
 

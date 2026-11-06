@@ -18,6 +18,7 @@
  *        npm run duel -- <your champion> <enemy> --items "<item>, ..." --enemy-items "<item>, ..." [--unstacked] [--item-option <item>.<option>=<value>] [--log <scenario>]
  *        npm run duel -- <your champion> <enemy> --search [--format sixItems | fiveItemsWithBoots] [--unstacked] [--log <scenario>]
  *        npm run duel -- <your champion> <enemy> --shards 5005,5001,5001 --enemy-shards 5008,5008,5011
+ *        npm run duel -- <your champion> <enemy> --combat-runes 8014,8444 --enemy-combat-runes 8299
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
 import { type EquippedFighter, matchupSpecs } from "../../items/equip";
@@ -38,6 +39,9 @@ import { loadShardRules } from "../runes/shardRules";
 import { shardOption } from "../runes/shardOptions";
 import { reviewAdaptiveItemBuild, type AdaptiveItemEligibility } from "../runes/itemEligibility";
 import { equipShards, type ShardSelection } from "../../runes/shards";
+import { equipRuneEffects, runeMatchupSpecs, type EquippedRuneEffects } from "../../runes/effects";
+import { loadCombatRuneRules } from "../runes/effects";
+import { combatRuneOption } from "../runes/effectOptions";
 
 function option(args: string[], flag: string): string | undefined {
   const index = args.indexOf(flag);
@@ -107,7 +111,7 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--shards", "--enemy-shards"]);
+  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--shards", "--enemy-shards", "--combat-runes", "--enemy-combat-runes"]);
   const switches = new Set(["--search", "--unstacked", "--sweep"]);
   for (let index = 0; index < args.length; index++) {
     const arg = args[index]!;
@@ -131,10 +135,15 @@ async function main(): Promise<void> {
   const search = args.includes("--search");
   const withItems = search || args.includes("--items") || args.includes("--enemy-items");
   const hasShards = args.includes("--shards") || args.includes("--enemy-shards");
+  const hasRuneEffects = args.includes("--combat-runes") || args.includes("--enemy-combat-runes");
   if (hasShards && search) throw new Error("Stat shards are not supported by --search yet; use the plain-stat budget or fixed item builds");
-  const runeCatalog = hasShards ? await loadRuneCatalog(path.join(datasetDir(data.dataset), "rune-sources")) : undefined;
+  if (hasRuneEffects && withItems) throw new Error("Combat-rune selections currently support plain-stat duels only; item amplifier composition and --search are not reviewed yet");
+  const runeCatalog = hasShards || hasRuneEffects ? await loadRuneCatalog(path.join(datasetDir(data.dataset), "rune-sources")) : undefined;
   if (runeCatalog && runeCatalog.dataset !== data.dataset) throw new Error("Rune shard sources do not match the requested dataset");
-  const shardRules = runeCatalog ? await loadShardRules(data.dataset, runeCatalog) : undefined;
+  const shardRules = hasShards && runeCatalog ? await loadShardRules(data.dataset, runeCatalog) : undefined;
+  const combatRules = hasRuneEffects && runeCatalog ? await loadCombatRuneRules(data.dataset, runeCatalog) : undefined;
+  const myRunes = runeCatalog ? combatRuneOption(args, "--combat-runes", runeCatalog) : undefined;
+  const enemyRunes = runeCatalog ? combatRuneOption(args, "--enemy-combat-runes", runeCatalog) : undefined;
   const myShards = runeCatalog ? shardOption(args, "--shards", runeCatalog) : undefined;
   const enemyShards = runeCatalog ? shardOption(args, "--enemy-shards", runeCatalog) : undefined;
   if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
@@ -147,6 +156,13 @@ async function main(): Promise<void> {
     catalog && enemyShards?.includes(5008) ? reviewAdaptiveItemBuild(catalog, theirItems, { stacked: build.stacked }) : undefined,
   ]);
   const shardAssumptions = new Set<string>();
+  const runeAssumptions = new Set<string>();
+  const withRuneEffects = (spec: FighterSpec, selection: number[] | undefined): EquippedRuneEffects => {
+    if (!selection || !runeCatalog || !combatRules) return { spec, selection: [], enemyHooks: [], evidence: [], assumptions: [] };
+    const equipped = equipRuneEffects(spec, selection, runeCatalog, combatRules);
+    for (const assumption of equipped.assumptions) runeAssumptions.add(assumption);
+    return equipped;
+  };
   const withShards = (spec: FighterSpec, selection: ShardSelection | undefined, adaptiveType: "Physical" | "Magic", adaptiveItemEligibility?: AdaptiveItemEligibility) => {
     if (!selection || !runeCatalog || !shardRules) return spec;
     const equipped = equipShards(spec, selection, runeCatalog, shardRules, { adaptiveType, withItems, adaptiveItemEligibility });
@@ -156,20 +172,33 @@ async function main(): Promise<void> {
 
   const mine = await loadFighter(data.dataset, you);
   const theirs = await loadFighter(data.dataset, enemy);
-  mine.spec = withShards(mine.spec, myShards, you.adaptiveType, myEligibility);
-  theirs.spec = withShards(theirs.spec, enemyShards, enemy.adaptiveType, theirEligibility);
+  const mineRunes = withRuneEffects(withShards(mine.spec, myShards, you.adaptiveType, myEligibility), myRunes);
+  const theirRunes = withRuneEffects(withShards(theirs.spec, enemyShards, enemy.adaptiveType, theirEligibility), enemyRunes);
+  [mine.spec, theirs.spec] = runeMatchupSpecs(mineRunes, theirRunes);
   const describe = (name: string, kit: unknown) => (kit ? `${name} (kit)` : `${name} (base stats and basic attacks only: no kit yet)`);
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
   // A kit with a choice to make (Udyr's rank split, Heimerdinger's upgrade) plays the option set best for it here.
-  const myVariants = (await loadVariants(data.dataset, you)).map((variant) => ({ ...variant, spec: withShards(variant.spec, myShards, you.adaptiveType, myEligibility) }));
-  const theirVariants = (await loadVariants(data.dataset, enemy)).map((variant) => ({ ...variant, spec: withShards(variant.spec, enemyShards, enemy.adaptiveType, theirEligibility) }));
+  const myVariants = (await loadVariants(data.dataset, you)).map((variant) => ({ ...variant, spec: runeMatchupSpecs(
+    withRuneEffects(withShards(variant.spec, myShards, you.adaptiveType, myEligibility), myRunes), theirRunes,
+  )[0] }));
+  const theirVariants = (await loadVariants(data.dataset, enemy)).map((variant) => ({ ...variant, spec: runeMatchupSpecs(
+    mineRunes, withRuneEffects(withShards(variant.spec, enemyShards, enemy.adaptiveType, theirEligibility), enemyRunes),
+  )[1] }));
   if (search && (args.includes("--items") || args.includes("--enemy-items"))) throw new Error("--search finds the builds; it doesn't go with --items or --enemy-items");
-  if (runeCatalog) {
+  if (hasShards && runeCatalog) {
     for (const [name, selection] of [[you.name, myShards], [enemy.name, enemyShards]] as const) {
       if (selection) console.log(`${name} stat shards: ${selection.map((id) => `${runeCatalog.shards.find((shard) => shard.id === id)!.name} (${id})`).join(", ")}`);
     }
-    console.log("Stat-shard effects only; full rune-page effects are not enabled.");
+    console.log(hasRuneEffects ? "Selected stat shards accompany the explicit partial combat-rune selection." : "Stat-shard effects only; full rune-page effects are not enabled.");
     for (const assumption of shardAssumptions) console.log(`  ${assumption}`);
+    console.log("");
+  }
+  if (hasRuneEffects && runeCatalog) {
+    for (const [name, selection] of [[you.name, myRunes], [enemy.name, enemyRunes]] as const) {
+      if (selection) console.log(`${name} combat runes (partial selection): ${selection.map((id) => `${runeCatalog.runes.find((rune) => rune.id === id)!.name} (${id})`).join(", ")}`);
+    }
+    console.log("Only the explicit partial selection is equipped; a complete rune page is not implied.");
+    for (const assumption of runeAssumptions) console.log(`  ${assumption}`);
     console.log("");
   }
   if (search && catalog) {

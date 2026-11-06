@@ -28,7 +28,7 @@ export interface CatalogRune {
   longDescription: string;
   clientDescription: string;
   wiki: RuneWikiSource;
-  combatStatus: "not-implemented" | "legacy-udyr-only";
+  combatStatus: "not-implemented" | "legacy-udyr-only" | "manual-effects";
 }
 
 export interface CatalogShard {

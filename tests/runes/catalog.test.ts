@@ -76,9 +76,10 @@ describe("patch 26.21 rune source catalog", () => {
     expect(() => build(client)).toThrow(/reviewed client scaling-health shard description changed/);
   });
 
-  it("labels new rune combat effects as unimplemented and preserves the narrow Triple Tonic status", () => {
+  it("distinguishes partial manual effects, unimplemented runes and the narrow Triple Tonic status", () => {
     const catalog = build();
-    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(61);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(57);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "manual-effects").map((entry) => entry.id).sort((a, b) => a - b)).toEqual([8014, 8017, 8299, 8444]);
     expect(catalog.runes.filter((entry) => entry.combatStatus === "legacy-udyr-only").map((entry) => entry.name)).toEqual(["Triple Tonic"]);
     expect(catalog.limitations.join("\n")).toContain("does not equip a rune page");
     expect(catalog.limitations.join("\n")).toContain("contextual replacements");
