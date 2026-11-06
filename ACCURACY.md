@@ -2236,6 +2236,51 @@ The default pipeline workers have unchanged inputs, so a normal incremental
 refresh reuses every default pairing while regenerating current provenance.
 No results are manually restamped.
 
+## First partial manual combat-rune effects (6 November 2026)
+
+Manual plain-stat duels accept explicit selections of Coup de Grace (8014),
+Cut Down (8017), Last Stand (8299) and Second Wind (8444) for each side.
+Selections must fit a source-defined legal page; the three Precision choices
+share a row and cannot be combined. Compatibility fillers are not equipped.
+Actual fights and kit-variant comparisons include the selections, while the
+purchased-stat allocation keeps its no-rune reference. Fixed items and build
+search reject combat-rune selections pending item-amplifier composition review.
+Full pages, keystones, browser combat effects and rune search remain unfinished.
+
+The compiler reads twelve complete pinned Wiki revisions and the full versioned
+16.21 CommunityDragon perks file. It verifies the retained content hashes,
+versions, exact excerpts and catalog bindings, and cross-checks current numeric
+fields. Cut Down's obsolete health-difference fields are not used. The
+[rune audit](docs/runes/README.md) records commands and exact rules.
+
+Health-threshold conditions use pre-packet champion health, including the owner
+health for Last Stand when an owned pet deals damage. Eligible true damage
+follows the retained V25.S1.3 amplification rule, with exact Smite and Ignite
+labels excluded. Recipients must be the actual champion body; clone and pet
+targets do not receive these amplifiers or their own Second Wind. Owned-pet
+damage sources count. Full clone eligibility is not established by the reviewed
+pages. Additional summoner and jungle classifications are unsupported.
+The amplifier adapter adds to the engine's existing outgoing-damage status
+bucket. It retains the existing flat-reduction and victim-hook order. It rejects
+the unsupported case where the existing outgoing multiplier is nonpositive but
+the rune would restore positive damage.
+
+The retained V26.09 source also specifies separate amplifier damage instances.
+The engine still aggregates these effects, so pre-modifier interactions such as
+Illaoi E and Zed R remain approximate. This batch does not establish full
+amplifier-event fidelity or item-amplifier compatibility.
+
+Second Wind uses its HP5 formula and the general half-second regeneration
+cadence. Current missing health at each pulse, the first pulse half a second
+after the first trigger, and duration refresh without postponing an active
+clock are declared interpretations, not live-game measurements. Positive actual
+health damage triggers it; shield-only, zero and invulnerable damage do not.
+Regeneration uses existing modifiers and death handling rather than heal events.
+
+This is the first partial batch of step 1 in the [ordered improvement
+roadmap](docs/IMPROVEMENT_ROADMAP.md), not completion of full rune combat or the
+eleven-step roadmap.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

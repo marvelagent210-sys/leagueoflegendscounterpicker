@@ -20,9 +20,9 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Precision | 2 | Legend: Alacrity | 9104 | Not implemented | [3958705](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Alacrity?oldid=3958705) |
 | Precision | 2 | Legend: Haste | 9105 | Not implemented | [3958696](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Haste?oldid=3958696) |
 | Precision | 2 | Legend: Bloodline | 9103 | Not implemented | [3971359](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Bloodline?oldid=3971359) |
-| Precision | 3 | Coup de Grace | 8014 | Not implemented | [3859780](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Coup_de_Grace?oldid=3859780) |
-| Precision | 3 | Cut Down | 8017 | Not implemented | [3859781](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Cut_Down?oldid=3859781) |
-| Precision | 3 | Last Stand | 8299 | Not implemented | [3859782](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Last_Stand?oldid=3859782) |
+| Precision | 3 | Coup de Grace | 8014 | Explicit partial manual selection | [3859780](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Coup_de_Grace?oldid=3859780) |
+| Precision | 3 | Cut Down | 8017 | Explicit partial manual selection | [3859781](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Cut_Down?oldid=3859781) |
+| Precision | 3 | Last Stand | 8299 | Explicit partial manual selection | [3859782](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Last_Stand?oldid=3859782) |
 | Domination | Keystone | Electrocute | 8112 | Not implemented | [4060699](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Electrocute?oldid=4060699) |
 | Domination | Keystone | Dark Harvest | 8128 | Not implemented | [4046509](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Dark_Harvest?oldid=4046509) |
 | Domination | Keystone | Hail of Blades | 9923 | Not implemented | [4060661](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Hail_of_Blades?oldid=4060661) |
@@ -67,7 +67,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Resolve | 1 | Font of Life | 8463 | Not implemented | [3996429](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Font_of_Life?oldid=3996429) |
 | Resolve | 1 | Shield Bash | 8401 | Not implemented | [4044093](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Shield_Bash?oldid=4044093) |
 | Resolve | 2 | Conditioning | 8429 | Not implemented | [3825864](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conditioning?oldid=3825864) |
-| Resolve | 2 | Second Wind | 8444 | Not implemented | [3960974](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Second_Wind?oldid=3960974) |
+| Resolve | 2 | Second Wind | 8444 | Explicit partial manual selection | [3960974](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Second_Wind?oldid=3960974) |
 | Resolve | 2 | Bone Plating | 8473 | Not implemented | [3985159](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Bone_Plating?oldid=3985159) |
 | Resolve | 3 | Overgrowth | 8451 | Not implemented | [3825902](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Overgrowth?oldid=3825902) |
 | Resolve | 3 | Revitalize | 8453 | Not implemented | [3825912](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Revitalize?oldid=3825912) |

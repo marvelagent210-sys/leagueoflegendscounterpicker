@@ -11,9 +11,13 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
+- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus four partial combat effects in manual plain-stat duels; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
+
+The [ordered improvement roadmap](docs/IMPROVEMENT_ROADMAP.md) starts with full
+rune combat, then in-game validation, summoner spells and the remaining accuracy
+and usability improvements. Step 1 is in progress.
 
 ## Setup
 
@@ -72,6 +76,8 @@ npm run duel -- Garen Darius --log brawl     # plus the timeline of one fight
 npm run duel -- Garen Darius --sweep         # plus the score at budgets from 0 to 20,000 gold
 npm run duel -- Darius Garen --shards 5005,5001,5001 --enemy-shards 5008,5008,5011
                                              # explicit stat shards; see docs/runes for supported modes and allocation assumptions
+npm run duel -- Darius Garen --combat-runes 8299,8444 --enemy-combat-runes 8014
+                                             # partial rune effects in plain-stat duels; no inferred full page
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
 npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)

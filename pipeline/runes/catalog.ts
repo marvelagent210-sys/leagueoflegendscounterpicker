@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { CatalogRune, RuneCatalog, RuneWikiSource } from "../../runes/catalog";
+import { MANUAL_COMBAT_RUNE_IDS } from "../../runes/effectIds";
 import { type TemplateNode, type WikiNode, parseWikitext, preprocess } from "../wikitext/parse";
 
 export const RUNE_SOURCE_FILES = ["runesReforged.json", "perks.json", "perkstyles.json", "wiki-pages.json"] as const;
@@ -186,7 +187,8 @@ export function buildRuneCatalog(manifest: RuneSourceManifest, files: Record<str
           icon: text(rune.icon, `${runeName} icon`), shortDescription: text(rune.shortDesc, `${runeName} short description`),
           longDescription: text(rune.longDesc, `${runeName} long description`),
           clientDescription: text(clientRune.longDesc, `${runeName} client description`), wiki: source,
-          combatStatus: runeName === "Triple Tonic" ? "legacy-udyr-only" : "not-implemented" });
+          combatStatus: runeName === "Triple Tonic" ? "legacy-udyr-only"
+            : (MANUAL_COMBAT_RUNE_IDS as readonly number[]).includes(runeId) ? "manual-effects" : "not-implemented" });
       }
       return rowIds;
     });
@@ -257,7 +259,7 @@ export function runesReport(catalog: RuneCatalog): string {
     for (let slot = 0; slot < runePath.slots.length; slot++) {
       for (const runeId of runePath.slots[slot]!) {
         const rune = catalog.runes.find((candidate) => candidate.id === runeId)!;
-        lines.push(`| ${runePath.name} | ${slot === 0 ? "Keystone" : slot} | ${plain(rune.name)} | ${rune.id} | ${rune.combatStatus === "legacy-udyr-only" ? "Existing Udyr option only" : "Not implemented"} | [${rune.wiki.revid}](${wikiLink(rune.wiki)}) |`);
+        lines.push(`| ${runePath.name} | ${slot === 0 ? "Keystone" : slot} | ${plain(rune.name)} | ${rune.id} | ${rune.combatStatus === "legacy-udyr-only" ? "Existing Udyr option only" : rune.combatStatus === "manual-effects" ? "Explicit partial manual selection" : "Not implemented"} | [${rune.wiki.revid}](${wikiLink(rune.wiki)}) |`);
       }
     }
   }
