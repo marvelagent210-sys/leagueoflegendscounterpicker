@@ -9,6 +9,7 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  absorbLife: { heal: number };
   coupDeGrace: { healthThreshold: number; damageIncrease: number };
   cutDown: { healthThreshold: number; damageIncrease: number };
   lastStand: {

@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { applyEffect } from "../../engine/sim/combat";
+import { applyEffect, dealDamage } from "../../engine/sim/combat";
 import { setForm } from "../../engine/sim/forms";
 import { createWorld } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
@@ -21,6 +21,7 @@ const rules: CombatRuneRules = {
   cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
+  absorbLife: { heal: 27 },
   evidence: [{ title: "Synthetic equipment fixture", revid: 1, text: "Synthetic combat rules isolate equipment and side binding." }],
 };
 const equip = (spec = fighter(), selected: number[] = []) => equipRuneEffects(spec, selected, catalog, rules);
@@ -41,7 +42,7 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely the eight legal subsets of the initial four implemented effects", () => {
+  it("accepts precisely the sixteen legal subsets of the five implemented effects", () => {
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
@@ -51,7 +52,7 @@ describe("explicit partial combat-rune selections", () => {
         accepted++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(/same path row/);
     }
-    expect(accepted).toBe(8);
+    expect(accepted).toBe(16);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],
@@ -152,6 +153,19 @@ describe("combat-rune equipment and opposing-hook composition", () => {
     expect(own.spec.hooks!.onDamageTaken).not.toBe(input.hooks!.onDamageTaken);
   });
 
+  it.each([0, 1] as const)("keeps side %s's Absorb Life and kit kill callback together through equipment", (side) => {
+    const spec = fighter({ hooks: { onKill(ctx) { ctx.memory.kitKills = Number(ctx.memory.kitKills ?? 0) + 1; } } });
+    const a = equip(spec, [8014, 9101]), b = equip(spec, [8444, 9101]);
+    const world = arena(runeMatchupSpecs(a, b)), target = side === 0 ? 1 : 0;
+    world.units[side].hp = 1000;
+    dealDamage(world, world.units[side], world.units[target], 5000, "true");
+    expect(world.units[side].hp).toBe(1027);
+    expect(world.units[side].totals.healing).toBe(27);
+    expect(world.units[side].memory.kitKills).toBe(1);
+    expect(world.units[target].totals.healing).toBe(0);
+    expect(spec.hooks).not.toHaveProperty("onDamageTaken");
+  });
+
   it("snapshots caller rules, choices and evidence before reuse in multiple worlds", () => {
     const input = structuredClone(rules), choices = [8014];
     const own = equipRuneEffects(fighter(), choices, catalog, input), other = equip(fighter());
@@ -211,6 +225,7 @@ describe("combat-rune equipment and opposing-hook composition", () => {
     expect(() => equipRuneEffects(fighter(), [8014], catalog, { ...rules, coupDeGrace: { ...rules.coupDeGrace, damageIncrease: NaN } })).toThrow(/coupDeGrace.damageIncrease/);
     expect(() => equipRuneEffects(fighter(), [8014], catalog, { ...rules, lastStand: { ...rules.lastStand, maximumHealthThreshold: 0.7 } })).toThrow(/Last Stand threshold/);
     expect(() => equipRuneEffects(fighter(), [8014], catalog, { ...rules, secondWind: { ...rules.secondWind, tickInterval: 11 } })).toThrow(/Second Wind regeneration/);
+    expect(() => equipRuneEffects(fighter(), [9101], catalog, { ...rules, absorbLife: { heal: 0 } })).toThrow(/absorbLife.heal/);
     expect(() => equipRuneEffects(fighter(), [8014], catalog, { ...rules, evidence: [] })).toThrow(/source evidence/);
   });
 });

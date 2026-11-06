@@ -14,7 +14,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Precision | Keystone | Lethal Tempo | 8008 | Not implemented | [4065934](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Lethal_Tempo?oldid=4065934) |
 | Precision | Keystone | Fleet Footwork | 8021 | Not implemented | [4051351](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Fleet_Footwork?oldid=4051351) |
 | Precision | Keystone | Conqueror | 8010 | Not implemented | [4060685](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conqueror?oldid=4060685) |
-| Precision | 1 | Absorb Life | 9101 | Not implemented | [3997095](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Absorb_Life?oldid=3997095) |
+| Precision | 1 | Absorb Life | 9101 | Explicit partial manual selection | [3997095](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Absorb_Life?oldid=3997095) |
 | Precision | 1 | Triumph | 9111 | Not implemented | [3825924](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Triumph?oldid=3825924) |
 | Precision | 1 | Presence of Mind | 8009 | Not implemented | [3985219](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Presence_of_Mind?oldid=3985219) |
 | Precision | 2 | Legend: Alacrity | 9104 | Not implemented | [3958705](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Alacrity?oldid=3958705) |

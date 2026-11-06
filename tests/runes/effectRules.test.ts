@@ -14,14 +14,23 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8014, 8017, 8299, 8444];
+const selected = [8014, 8017, 8299, 8444, 9101];
 const gamePaths = [
   "Perks/Styles/Precision/CoupDeGrace", "Perks/Styles/Precision/CutDown",
   "Perks/Styles/Precision/LastStand", "Perks/Styles/Resolve/SecondWind",
+  "Perks/Styles/Precision/AbsorbLife",
 ] as const;
+interface HealBreakpoint { __type: string; mLevel: number; mBonusPerLevelAtAndAfter: number }
+interface HealPart {
+  __type: string; mLevel1Value: number; mInitialBonusPerLevel: number; mBreakpoints: HealBreakpoint[];
+}
+interface HealCalculation { __type: string; mFormulaParts: HealPart[] }
 interface GamePerk {
   mPerkId: number;
-  mScript: { mSpellScriptData: { mEffectAmount: Record<string, number> } };
+  mScript: { mSpellScriptData: {
+    mEffectAmount: Record<string, number>;
+    mCalculations?: { HealAmount: HealCalculation };
+  } };
 }
 type Game = Record<string, GamePerk>;
 
@@ -49,6 +58,7 @@ describe("reviewed combat rune numeric rules", () => {
   it("reads the current Wiki formulas and cross-checks their client float32 values", () => {
     expect(build()).toMatchObject({
       schema: 1, dataset: "16.21", patch: "26.21",
+      absorbLife: { heal: 27 },
       coupDeGrace: { healthThreshold: 0.4, damageIncrease: 0.08 },
       cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
       lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
@@ -58,28 +68,51 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(["manual-effects", "manual-effects", "manual-effects", "manual-effects"]);
+      .toEqual(["manual-effects", "manual-effects", "manual-effects", "manual-effects", "manual-effects"]);
   });
 
-  it("binds all twelve complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all seventeen complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
+      ["Absorb Life", 3980915],
       ["Coup de Grace", 3860002], ["Cut Down", 4014921], ["Damage", 4084890], ["Damage modifier", 4050138],
-      ["Health regeneration", 4073061], ["Last Stand", 3926332], ["Second Wind", 4012933],
+      ["Healing", 4041638], ["Health regeneration", 4073061], ["Kill", 4053216], ["Last Stand", 3926332], ["Second Wind", 4012933],
+      ["Template:Rune data Absorb Life", 3997095],
       ["Template:Rune data Coup de Grace", 3859780], ["Template:Rune data Cut Down", 3859781],
       ["Template:Rune data Last Stand", 3859782], ["Template:Rune data Second Wind", 3960974], ["True damage", 4052642],
+      ["Unit", 4085583],
     ]);
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(12);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(17);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
       expect(source.content).toContain(excerpt.text);
     }
     expect(new Set(evidence.map((entry) => JSON.stringify(entry))).size).toBe(evidence.length);
+  });
+
+  it("uses Absorb Life's explicit level-20 piecewise calculation rather than its level-18 tooltip endpoint", () => {
+    const game = JSON.parse(originalGame) as Game;
+    const perk = game[gamePaths[4]]!.mScript.mSpellScriptData;
+    expect(perk.mEffectAmount.TooltipMaxHeal).toBe(23);
+    expect(perk.mCalculations!.HealAmount.mFormulaParts).toEqual([{
+      mLevel1Value: 1, mInitialBonusPerLevel: 0.25,
+      mBreakpoints: [
+        { mLevel: 6, mBonusPerLevelAtAndAfter: 1, __type: "Breakpoint" },
+        { mLevel: 11, mBonusPerLevelAtAndAfter: 2, __type: "Breakpoint" },
+      ], __type: "ByCharLevelBreakpointsCalculationPart",
+    }]);
+    expect(build().absorbLife.heal).toBe(1 + 4 * 0.25 + 5 + 10 * 2);
+    const evidence = build().evidence.map((entry) => entry.text).join("\n");
+    expect(evidence).toContain("1 to 20 by 1");
+    expect(evidence).toContain("reducing their health to zero does <u>not</u> count as a kill");
+    expect(evidence).toContain("[[Ward]] kills");
+    expect(evidence).toContain("* {{tip|Ward}}");
+    expect(evidence).toContain("'''Healing''' cannot increase a unit's current health over its maximum");
   });
 
   it("retains source rules for additive outgoing modifiers, true damage exclusions, and regeneration", () => {
@@ -121,11 +154,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all twelve complete/);
+    expect(() => build(missing)).toThrow(/all seventeen complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all twelve complete/);
+    expect(() => build(extra)).toThrow(/all seventeen complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -214,6 +247,85 @@ describe("dataset and version binding", () => {
 });
 
 describe("re-pinned semantic changes", () => {
+  it.each([
+    ["1; then", "2; then", "mLevel1Value"],
+    ["+0.25*x", "+0.5*x", "mInitialBonusPerLevel"],
+    ["for 4;", "for 3;", "first breakpoint Wiki/game mLevel"],
+    ["+1*x", "+1.5*x", "first breakpoint Wiki/game mBonusPerLevelAtAndAfter"],
+    ["for 5;", "for 4;", "second breakpoint Wiki/game mLevel"],
+    ["+2*x", "+3*x", "second breakpoint Wiki/game mBonusPerLevelAtAndAfter"],
+  ])("cross-checks Absorb Life's changed piecewise term %s against client breakpoints", (old, next, field) => {
+    const input = fixture(); editDescription(input, "Absorb Life", old, next);
+    expect(() => build(input)).toThrow(new RegExp(`${field} disagree`));
+  });
+
+  it("requires an explicit level-20 domain rather than extrapolating a level-18 description", () => {
+    const input = fixture(); editDescription(input, "Absorb Life", "1 to 20 by 1", "1 to 18 by 1");
+    expect(() => build(input)).toThrow(/explicit level-20 formula/);
+  });
+
+  it.each(["mLevel1Value", "mInitialBonusPerLevel"] as const)("cross-checks Absorb Life client %s", (key) => {
+    const input = fixture(); editGame(input, (game) => {
+      game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations!.HealAmount.mFormulaParts[0]![key] += 1;
+    });
+    expect(() => build(input)).toThrow(new RegExp(`Absorb Life Wiki/game ${key} disagree`));
+  });
+
+  it.each([0, 1])("cross-checks Absorb Life client breakpoint %s levels and rates", (index) => {
+    for (const key of ["mLevel", "mBonusPerLevelAtAndAfter"] as const) {
+      const input = fixture(); editGame(input, (game) => {
+        game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations!.HealAmount.mFormulaParts[0]!.mBreakpoints[index]![key] += 1;
+      });
+      expect(() => build(input)).toThrow(new RegExp(`breakpoint Wiki/game ${key} disagree`));
+    }
+  });
+
+  it("rejects missing, duplicate and unreviewed Absorb Life calculation structures", () => {
+    const missing = fixture(); editGame(missing, (game) => {
+      delete game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations;
+    });
+    expect(() => build(missing)).toThrow(/Absorb Life game calculations must be an object/);
+    const calculation = fixture(); editGame(calculation, (game) => {
+      game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations!.HealAmount.__type = "UnreviewedCalculation";
+    });
+    expect(() => build(calculation)).toThrow(/exactly one reviewed HealAmount/);
+    for (const count of [0, 2]) {
+      const parts = fixture(); editGame(parts, (game) => {
+        const calculation = game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations!.HealAmount;
+        calculation.mFormulaParts = Array.from({ length: count }, () => structuredClone(calculation.mFormulaParts[0]!));
+      });
+      expect(() => build(parts)).toThrow(/exactly one reviewed HealAmount/);
+    }
+    const part = fixture(); editGame(part, (game) => {
+      game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations!.HealAmount.mFormulaParts[0]!.__type = "ByCharLevelInterpolationCalculationPart";
+    });
+    expect(() => build(part)).toThrow(/reviewed character-level breakpoint/);
+    const breakpoints = fixture(); editGame(breakpoints, (game) => {
+      game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations!.HealAmount.mFormulaParts[0]!.mBreakpoints.pop();
+    });
+    expect(() => build(breakpoints)).toThrow(/reviewed character-level breakpoint/);
+    const breakpointType = fixture(); editGame(breakpointType, (game) => {
+      game[gamePaths[4]]!.mScript.mSpellScriptData.mCalculations!.HealAmount.mFormulaParts[0]!.mBreakpoints[0]!.__type = "UnreviewedBreakpoint";
+    });
+    expect(() => build(breakpointType)).toThrow(/reviewed level breakpoint types/);
+  });
+
+  it("retains the complete client source even for the unused level-18 Absorb Life display endpoint", () => {
+    const input = fixture(); editGame(input, (game) => {
+      game[gamePaths[4]]!.mScript.mSpellScriptData.mEffectAmount.TooltipMaxHeal = 27;
+    });
+    expect(() => build(input)).toThrow(/complete reviewed game source changed/);
+  });
+
+  it("checks Absorb Life's kill eligibility evidence rather than silently narrowing it to champions", () => {
+    const kill = fixture(); editWiki(kill, "Kill", (text) => text.replace("A '''kill''' is the event of inflicting the final blow on an enemy unit", "A '''kill''' is the event of inflicting the final blow on an enemy champion"));
+    expect(() => build(kill)).toThrow(/hostile-unit definition is required/);
+    const wards = fixture(); editWiki(wards, "Unit", (text) => text.replace("* {{tip|Ward}}\n", ""));
+    expect(() => build(wards)).toThrow(/Unit reviewed rule changed/);
+    const healing = fixture(); editWiki(healing, "Healing", (text) => text.replace("'''Healing''' cannot increase a unit's current health over its maximum.", "Healing can exceed maximum health."));
+    expect(() => build(healing)).toThrow(/Healing reviewed rule changed/);
+  });
+
   it.each([
     ["Coup de Grace", "Deal 8%", "Deal 9%", "BonusPercentDamage"],
     ["Coup de Grace", "{{as|40%", "{{as|45%", "EnemyHealthPercentageThreshold"],

@@ -21,6 +21,7 @@ describe("explicit duel combat-rune arguments", () => {
     expect(combatRuneOption([], "--combat-runes", catalog)).toBeUndefined();
     expect(combatRuneOption(["--combat-runes", "8444, 8014"], "--combat-runes", catalog)).toEqual([8014, 8444]);
     expect(combatRuneOption(["--enemy-combat-runes", "8299"], "--enemy-combat-runes", catalog)).toEqual([8299]);
+    expect(combatRuneOption(["--combat-runes", "9101,8014,8444"], "--combat-runes", catalog)).toEqual([8014, 8444, 9101]);
     expect(combatRuneOption(["--combat-runes", "8444"], "--enemy-combat-runes", catalog)).toBeUndefined();
   });
 
@@ -71,16 +72,16 @@ describe("manual duels with partial combat-rune effects", () => {
     const mine = await loadFighter(data.dataset, you), theirs = await loadFighter(data.dataset, enemy);
     const selections: [ShardSelection, ShardSelection] = [[5005, 5001, 5001], [5008, 5008, 5011]];
     const a = equipRuneEffects(equipShards(mine.spec, selections[0], catalog, shardRules, { adaptiveType: you.adaptiveType }).spec,
-      [8014, 8444], catalog, combatRules);
+      [8014, 8444, 9101], catalog, combatRules);
     const b = equipRuneEffects(equipShards(theirs.spec, selections[1], catalog, shardRules, { adaptiveType: enemy.adaptiveType }).spec,
       [8299, 8444], catalog, combatRules);
     const expected = simulateMatchup(...runeMatchupSpecs(a, b), 0, data.prices);
     const baseline = simulateMatchup(mine.spec, theirs.spec, 0, data.prices);
     expect(expected.scenarios).not.toEqual(baseline.scenarios);
-    const result = duel(["Darius", "Garen"], "--gold", "0", "--combat-runes", "8444,8014", "--enemy-combat-runes", "8299,8444",
+    const result = duel(["Darius", "Garen"], "--gold", "0", "--combat-runes", "9101,8444,8014", "--enemy-combat-runes", "8299,8444",
       "--shards", selections[0].join(","), "--enemy-shards", selections[1].join(","));
     expect(result.status, result.stderr).toBe(0);
-    expect(result.stdout).toContain("Darius combat runes (partial selection): Coup de Grace (8014), Second Wind (8444)");
+    expect(result.stdout).toContain("Darius combat runes (partial selection): Coup de Grace (8014), Second Wind (8444), Absorb Life (9101)");
     expect(result.stdout).toContain("Garen combat runes (partial selection): Last Stand (8299), Second Wind (8444)");
     expect(result.stdout).toContain("Selected stat shards accompany the explicit partial combat-rune selection.");
     expect(result.stdout).toContain("a complete rune page is not implied");

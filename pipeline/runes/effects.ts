@@ -1,9 +1,10 @@
-/** Compile the first four combat effects from complete, reviewed Wiki and client inputs. */
+/** Compile supported manual combat effects from complete, reviewed Wiki and client inputs. */
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { RuneCatalog, RuneWikiSource } from "../../runes/catalog";
 import type { CombatRuneRules, RuneEffectEvidence } from "../../runes/effectRules";
+import { TOP_LANE_MAX_LEVEL } from "../../engine/stats";
 import { datasetDir } from "../config";
 import { loadRuneCatalog } from "./catalog";
 
@@ -18,6 +19,11 @@ export interface CombatRuneSourceBundle {
 export const COMBAT_RUNE_GAME_URL = "https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json";
 const GAME_SHA256 = "f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f";
 const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha256: string }>> = {
+  "Absorb Life": {
+    "revid": 3980915,
+    "timestamp": "2026-01-02T12:22:36Z",
+    "sha256": "66bdc1876b2f0fe619f648366e4d9a521602d62d1b93ec285e994ac73aa95e3d"
+  },
   "Coup de Grace": {
     "revid": 3860002,
     "timestamp": "2025-02-06T18:25:06Z",
@@ -43,6 +49,16 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "timestamp": "2026-10-02T13:17:00Z",
     "sha256": "3dafb693e2297ad5f7c8f8ab4fab6eff20507f03cbc2822a99455f177b61779a"
   },
+  "Healing": {
+    "revid": 4041638,
+    "timestamp": "2026-07-10T06:45:09Z",
+    "sha256": "ca0a5ee26be2bea722614b78de604547314e8b0a92fa1ba08c087382ad99c9d4"
+  },
+  "Kill": {
+    "revid": 4053216,
+    "timestamp": "2026-08-23T01:05:22Z",
+    "sha256": "8568c501e84f3e775932fd0282a3c7d94794f962f81792820b1803a903a984b2"
+  },
   "Last Stand": {
     "revid": 3926332,
     "timestamp": "2025-07-12T00:22:31Z",
@@ -52,6 +68,11 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 4012933,
     "timestamp": "2026-04-27T18:00:51Z",
     "sha256": "41854e8f0f75189d5bb725f460616874bffd9b38b1ef1b4eac35522418dbe98b"
+  },
+  "Template:Rune data Absorb Life": {
+    "revid": 3997095,
+    "timestamp": "2026-03-06T17:27:29Z",
+    "sha256": "d494e4a0c5f9b2262e2426108789ea4da00007d7b3ebf9b4323fa29dfe5aa538"
   },
   "Template:Rune data Coup de Grace": {
     "revid": 3859780,
@@ -77,9 +98,15 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 4052642,
     "timestamp": "2026-08-19T15:41:09Z",
     "sha256": "a2beab5644f87926658a3e991ee31f647934b6a7bf372a669a00b47fdadb381f"
+  },
+  "Unit": {
+    "revid": 4085583,
+    "timestamp": "2026-10-15T15:33:50Z",
+    "sha256": "1d753f71725a446cbb4fe8d2c0e7866fc46a9077f032f10ecea1db2fe12c253a"
   }
 };
 const RUNE_SOURCES = [
+  { id: 9101, name: "Absorb Life", path: 8000, slot: 1, game: "Perks/Styles/Precision/AbsorbLife" },
   { id: 8014, name: "Coup de Grace", path: 8000, slot: 3, game: "Perks/Styles/Precision/CoupDeGrace" },
   { id: 8017, name: "Cut Down", path: 8000, slot: 3, game: "Perks/Styles/Precision/CutDown" },
   { id: 8299, name: "Last Stand", path: 8000, slot: 3, game: "Perks/Styles/Precision/LastStand" },
@@ -102,7 +129,7 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     && catalog.ddragonVersion === "16.21.1" && catalog.communityDragonVersion === "16.21", "catalog versions differ from the reviewed inputs");
   const gameSource = record(input.gameData, "game source");
   requireThat(gameSource.url === COMBAT_RUNE_GAME_URL && gameSource.sha256 === GAME_SHA256, "game source version or hash needs review");
-  requireThat(Array.isArray(input.pages) && input.pages.length === Object.keys(REVIEWED).length, "all twelve complete Wiki sources are required");
+  requireThat(Array.isArray(input.pages) && input.pages.length === Object.keys(REVIEWED).length, "all seventeen complete Wiki sources are required");
   const pages = new Map<string, RuneWikiSource>();
   for (const value of input.pages) {
     const page = record(value, "Wiki source");
@@ -149,18 +176,53 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(values.every(Number.isFinite), `${name} contains an invalid formula value`);
     return values;
   };
-  const client = (name: typeof RUNE_SOURCES[number]["name"]): Record<string, unknown> => {
+  const clientData = (name: typeof RUNE_SOURCES[number]["name"]): Record<string, unknown> => {
     const rule = RUNE_SOURCES.find((entry) => entry.name === name)!;
     const perk = record(game[rule.game], `${name} game perk`);
     requireThat(perk.mPerkId === rule.id, `${name} game ID differs`);
-    return record(record(record(perk.mScript, `${name} game script`).mSpellScriptData, `${name} game script data`).mEffectAmount, `${name} game amounts`);
+    return record(record(perk.mScript, `${name} game script`).mSpellScriptData, `${name} game script data`);
   };
+  const client = (name: typeof RUNE_SOURCES[number]["name"]): Record<string, unknown> =>
+    record(clientData(name).mEffectAmount, `${name} game amounts`);
   const agree = (name: string, amounts: Record<string, unknown>, key: string, expected: number): void => {
     const actual = amounts[key];
     // Client numbers are stored as float32; this is representation error, not a balance tolerance.
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const absorb = description("Absorb Life");
+  const [healBase, firstRate, firstLevels, secondRate, secondLevels, finalRate, formulaMaximum] = matchNumbers("Absorb Life", absorb.text,
+    /Killing an enemy \{\{tip\|heals\}\} you for \{\{pp\|([\d.]+); then \+([\d.]+)\*x for (\d+);then \+([\d.]+)\*x for (\d+); then \+([\d.]+)\*x\|1 to (\d+) by 1\|/);
+  requireThat(TOP_LANE_MAX_LEVEL === 20 && formulaMaximum === TOP_LANE_MAX_LEVEL
+    && firstLevels! > 0 && secondLevels! > 0 && firstLevels! + secondLevels! < formulaMaximum! - 1,
+  "Absorb Life needs its explicit level-20 formula and reviewed breakpoints");
+  const healAt = (level: number) => healBase!
+    + Math.min(level - 1, firstLevels!) * firstRate!
+    + Math.min(Math.max(0, level - 1 - firstLevels!), secondLevels!) * secondRate!
+    + Math.max(0, level - 1 - firstLevels! - secondLevels!) * finalRate!;
+  const absorbData = clientData("Absorb Life");
+  const calculation = record(record(absorbData.mCalculations, "Absorb Life game calculations").HealAmount, "Absorb Life HealAmount calculation");
+  requireThat(calculation.__type === "GameCalculation" && Array.isArray(calculation.mFormulaParts)
+    && calculation.mFormulaParts.length === 1, "Absorb Life needs exactly one reviewed HealAmount calculation part");
+  const part = record(calculation.mFormulaParts[0], "Absorb Life HealAmount formula part");
+  requireThat(part.__type === "ByCharLevelBreakpointsCalculationPart" && Array.isArray(part.mBreakpoints)
+    && part.mBreakpoints.length === 2, "Absorb Life needs the reviewed character-level breakpoint calculation");
+  agree("Absorb Life", part, "mLevel1Value", healBase!);
+  agree("Absorb Life", part, "mInitialBonusPerLevel", firstRate!);
+  const firstBreakpoint = record(part.mBreakpoints[0], "Absorb Life first breakpoint");
+  const secondBreakpoint = record(part.mBreakpoints[1], "Absorb Life second breakpoint");
+  requireThat(firstBreakpoint.__type === "Breakpoint" && secondBreakpoint.__type === "Breakpoint",
+    "Absorb Life needs reviewed level breakpoint types");
+  agree("Absorb Life first breakpoint", firstBreakpoint, "mLevel", firstLevels! + 2);
+  agree("Absorb Life first breakpoint", firstBreakpoint, "mBonusPerLevelAtAndAfter", secondRate!);
+  agree("Absorb Life second breakpoint", secondBreakpoint, "mLevel", firstLevels! + secondLevels! + 2);
+  agree("Absorb Life second breakpoint", secondBreakpoint, "mBonusPerLevelAtAndAfter", finalRate!);
+  // TooltipMaxHeal is a level-18 display endpoint, not a level-20 formula cap.
+  // The explicit Wiki level domain and complete client breakpoint calculation
+  // supply the actual rule used by this level-20 simulator.
+  const absorbHeal = healAt(TOP_LANE_MAX_LEVEL);
+  requireThat(Number.isFinite(absorbHeal) && absorbHeal > 0, "Absorb Life needs finite positive level-20 healing");
 
   const coup = description("Coup de Grace"), cut = description("Cut Down"), last = description("Last Stand"), wind = description("Second Wind");
   const [coupPercent, coupHealth] = matchNumbers("Coup de Grace", coup.text, /Deal ([\d.]+)% increased damage to champions below \{\{as\|([\d.]+)%/);
@@ -181,6 +243,17 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   agree("Second Wind", windGame, "RegenSeconds", windSeconds!);
   agree("Second Wind", windGame, "RegenPercentMax", windPercent! / 100);
   agree("Second Wind", windGame, "RegenFlat", 0);
+
+  quote(pages.get("Absorb Life")!, "* {{sbc|Bug Fix:}} Shared minions killed through {{iis|World Atlas}} and {{iis|Runic Compass}} execute effects now properly count as a unit kill for the ally.");
+  const kill = pages.get("Kill")!;
+  const killDefinition = kill.content.split("\n").find((line) => line.startsWith("A '''kill''' is the event of inflicting the final blow on an enemy unit"));
+  requireThat(killDefinition, "Kill's hostile-unit definition is required"); quote(kill, killDefinition);
+  quote(kill, "If the champion is protected by certain effects (e.g. {{tip|resurrection}}), reducing their health to zero does <u>not</u> count as a kill.");
+  quote(kill, "* [[Ward]] kills grant no experience and only dispense gold to the killer.");
+  quote(kill, "=== Runes ===\n* {{ri|Absorb Life}}");
+  quote(pages.get("Unit")!, "* {{tip|Champion}}\n* {{tip|Minion}}\n* {{tip|Monster}}\n* {{tip|Ward}}\n* [[Champion summoned units|Summon]] ([[Terrain#Player-Generated|champion-generated terrain]] and {{tip|pets}})");
+  quote(pages.get("Healing")!, "'''Healing''' cannot increase a unit's current health over its maximum.");
+  quote(pages.get("Healing")!, "* {{ri|Absorb Life}}");
 
   quote(pages.get("Coup de Grace")!, "* '''Coup de Grace''' only triggers on damage dealt after the champion is brought {{as|below 40% health}}.");
   const trueAmplification = "* Now affects {{sti|true damage}} dealt, excluding {{si|Smite}}.";
@@ -211,6 +284,7 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    absorbLife: { heal: absorbHeal },
     coupDeGrace: { healthThreshold: coupHealth! / 100, damageIncrease: coupPercent! / 100 },
     cutDown: { healthThreshold: cutHealth! / 100, damageIncrease: cutPercent! / 100 },
     lastStand: { healthThreshold: lastHealth! / 100, maximumHealthThreshold: lastMaxHealth! / 100,
