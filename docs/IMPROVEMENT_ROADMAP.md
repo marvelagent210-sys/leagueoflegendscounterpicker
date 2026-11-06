@@ -30,8 +30,12 @@ Absorb Life uses actual hostile combat kill events and heals 27 health at level
 20; it does not add assumed farm. The [mechanics gap audit](runes/MECHANICS_GAPS.md)
 records unresolved packet semantics, Conditioning's resistance classes and
 recursion, Unflinching's CC phases, and Legend/Garen stat-origin requirements.
-Those deferred runes and the existing Garen spin-scaling defect are not fixed by
-the Absorb Life batch.
+The Garen follow-up corrects the known attack-speed shard contribution to
+Judgment spins while preserving its effect on basic attacks. Broader
+attack-speed eligibility and cast-snapshot timing remain qualified assumptions;
+Legend and the other deferred runes remain unimplemented. Both default matrices
+require a genuine refresh after this shared runtime change; refresh and final
+validation are pending.
 
 The remaining steps will need their own source review, implementation and
 validation. Their calculation costs will be measured as they are built; this

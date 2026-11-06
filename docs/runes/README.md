@@ -191,8 +191,35 @@ controlled measurement.
 The [mechanics gap audit](MECHANICS_GAPS.md) records remaining packet-order,
 resistance-classification, crowd-control-phase and stat-origin work. In
 particular, Conditioning, Legend runes and Unflinching remain unimplemented.
-Garen's existing Judgment pulse formula can incorrectly count rune attack speed;
-the Absorb Life batch does not repair that engine/channel integration issue.
+The Garen follow-up below corrects the recorded attack-speed shard's contribution
+to Judgment; it does not resolve every attack-speed source or implement Legend.
+
+### Garen Judgment and the attack-speed shard
+
+Judgment's full pinned revision 4009435 states that its spin scaling uses only
+bonus attack speed from item stats and level growth. The kit now subtracts the
+recorded attack-speed shard contribution when computing spins. The shard remains
+effective for normal basic attacks. The existing seven-base-spins and one extra
+per 25% eligible bonus attack speed formula is retained; an animation cap is not
+used to truncate damage pulses.
+
+Actual cast scheduling and budget estimates use the shared source-qualified
+channel pulse callback. Count is captured once per cast, retaining the existing
+model assumption rather than establishing live-game snapshot timing. Generic
+formula and interval channels keep their existing behavior.
+
+This fixes the known shard-origin error. Other attack-speed sources preserve the
+existing model. Item passives are not excluded as a class: Garen's history
+explicitly records eligibility for Trinity Force's former Mythic passive.
+Temporary Guinsoo's Seething Strike eligibility remains unverified. Legend:
+Alacrity remains unimplemented and will need its own origin exclusion.
+
+The full [Judgment source](../../data/16.21/garen-judgment-source.json) is retained
+separately from the seventeen-page combat-rune bundle. Its exact revision and
+the parsed ability notes establish the shard exclusion; no live-game timing
+measurement or complete current-item eligibility audit is claimed. This shared
+runtime change requires genuine refreshes of both default matrices. Refresh and
+final validation are pending; see the [accuracy log](../../ACCURACY.md).
 
 ## Apply stat shards in a manual duel
 

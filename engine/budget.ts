@@ -27,6 +27,7 @@ import { averageCritFactor, healingReceived } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
 import { toSeconds, toTicks } from "./rules/time";
 import { derive, evaluate, withSettledStats } from "./sim/derived";
+import { channelPulseCount } from "./sim/channelPulses";
 import { createWorld } from "./sim/simulate";
 import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, type Formula, cooldownKeyOf } from "./sim/spec";
 import { type Unit, newUnit } from "./sim/state";
@@ -211,7 +212,8 @@ interface DamageTerm {
   canCrit?: boolean;
   critMultiplier?: number;
   minimum?: Formula;
-  pulseFormula?: Formula;
+  pulses?: Formula;
+  pulsesFor?: (self: Unit) => number;
   attackWindow?: number;
 }
 
@@ -302,16 +304,16 @@ function damageTerms(ability: AbilitySpec): DamageTerm[] {
       : d.burst
         ? d.burst.count * (Math.floor((d.duration - (d.burst.count - 1) * d.burst.gap) / d.interval + 1e-9) + 1)
         : Math.max(1, Math.round(d.duration / d.interval));
-  const groups: Array<[Effect[], number, Formula?, number?]> = [
+  const groups: Array<[Effect[], number, Formula?, number?, ((self: Unit) => number)?]> = [
     [ability.onHit ?? [], hits],
-    [ability.channel?.onTick ?? [], pulses, ability.channel?.pulses],
+    [ability.channel?.onTick ?? [], pulses, ability.channel?.pulses, undefined, ability.channel?.pulsesFor],
     [ability.channel?.onComplete ?? [], 1],
   ];
   for (const e of ability.onSelf ?? []) if (e.type === "empower") groups.push([e.onHit, e.attacks, undefined, e.window]);
   const terms: DamageTerm[] = [];
-  for (const [effects, times, pulseFormula, attackWindow] of groups) {
+  for (const [effects, times, pulseFormula, attackWindow, pulseCountFor] of groups) {
     for (const e of flatten(effects)) {
-      const repeats = { times, ...(pulseFormula ? { pulseFormula } : {}), ...(attackWindow !== undefined ? { attackWindow } : {}) };
+      const repeats = { times, ...(pulseFormula ? { pulses: pulseFormula } : {}), ...(pulseCountFor ? { pulsesFor: pulseCountFor } : {}), ...(attackWindow !== undefined ? { attackWindow } : {}) };
       if (e.type === "damage") terms.push({ ...e, ...repeats });
       else if (e.type === "dot") terms.push({ damageType: e.damageType, amount: e.total, ...repeats });
     }
@@ -357,7 +359,7 @@ function onHitTerms(effects: Effect[]): DamageTerm[] {
 function termDamage(term: DamageTerm, self: Unit, target: Unit): number {
   const d = derive(self);
   const amount = Math.max(term.amountFor?.(self, target) ?? evaluate(term.amount, self, target), term.minimum ? evaluate(term.minimum, self, target) : 0);
-  const times = term.pulseFormula ? Math.max(1, Math.floor(evaluate(term.pulseFormula, self) + 1e-6))
+  const times = term.pulsesFor || term.pulses ? channelPulseCount(term, self)!
     : term.attackWindow !== undefined ? Math.min(term.times, d.attackSpeed * term.attackWindow)
     : term.times;
   return amount * (term.canCrit ? averageCritFactor(d.critChance, term.critMultiplier ?? d.critDamage) : 1) * times;

@@ -2314,6 +2314,50 @@ Conditioning, Legend and Unflinching remain unimplemented. The roadmap's step 1
 therefore remains in progress, and no controlled in-game measurements are
 claimed by this source audit.
 
+## Garen Judgment: recorded rune attack-speed exclusion (6 November 2026)
+
+The known shard-origin error identified above is corrected: Judgment's pulse
+count now subtracts the recorded `rune-shards:attackSpeed` contribution from
+derived bonus attack speed. The attack-speed shard still improves Garen's basic
+attacks. The numeric spin formula remains seven base spins plus one per 25%
+eligible bonus attack speed, with no animation-cap truncation of damage ticks.
+
+The complete pinned [Judgment revision 4009435](https://wiki.leagueoflegends.com/en-us/?oldid=4009435)
+is retained in [garen-judgment-source.json](data/16.21/garen-judgment-source.json).
+Its wikitext SHA-256 is
+`7b959d744e3382571260f04570f76fd38a7341f8b29df7a1cf287af519f3d653`.
+Both its description and notes restrict spin scaling to bonus attack speed from
+item stats and level growth. [Attack speed revision 4073067](https://wiki.leagueoflegends.com/en-us/?oldid=4073067)
+independently repeats that restriction. These sources support excluding rune
+attack speed, including the already modeled shard; they do not prove every
+item-passive or mid-channel timing rule.
+
+`ChannelSpec.pulsesFor` provides a pure source-qualified callback. A shared
+helper evaluates it once for actual cast scheduling, so pulse count and interval
+use one cast snapshot. The budget's cached damage terms retain the callback and
+evaluate it against the candidate's current stats instead of reducing it to an
+unqualified attack-speed formula. Generic formula and interval channels retain
+their existing path. Source-neutral ability descriptions expose callback-based
+pulses without presenting an unevaluated formula as the actual count.
+
+The correction is deliberately limited to the recorded shard origin. Other
+current attack-speed sources retain existing behavior. [Garen's patch history
+4051881](https://wiki.leagueoflegends.com/en-us/?oldid=4051881) explicitly records
+Trinity Force's former Mythic passive contributing to spins, so all item
+passives cannot be excluded as a class. The checked current Guinsoo source does
+not settle temporary Seething Strike eligibility. Capturing spin count once at
+cast remains the simulator's scheduling assumption; no live-game snapshot
+measurement was performed. Legend: Alacrity remains unimplemented and needs its
+own origin-aware exclusion when added.
+
+**Refresh and final validation are pending.** This shared runtime change alters
+actual worker dependency keys and requires genuine recomputation of all 14,878
+unordered pairings in each default matrix. Old results must not be manually
+restamped. Source inclusion and regression implementation do not establish
+completed refreshes, passing final checks or a measured ranking improvement.
+The [remaining gap audit](docs/runes/MECHANICS_GAPS.md) and step 1 of the
+[roadmap](docs/IMPROVEMENT_ROADMAP.md) remain open beyond this narrow correction.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

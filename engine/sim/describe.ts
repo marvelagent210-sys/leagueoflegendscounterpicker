@@ -190,7 +190,7 @@ export function describeAbility(ability: AbilitySpec): AbilityDescription {
   const channel = ability.channel;
   const timing = [
     ability.chain ? `recast of ${ability.chain.root} within ${num(ability.chain.window)} s${ability.chain.delay ? `, after ${num(ability.chain.delay)} s` : ""}${ability.chain.auto ? ", automatic" : ""}` : "",
-    channel ? `channel ${num(channel.duration)} s${channel.pulses ? `, ${formulaText(channel.pulses)} pulses` : channel.interval ? `, pulses every ${num(channel.interval)} s` : ""}` : "",
+    channel ? `channel ${num(channel.duration)} s${channel.pulsesFor ? ", source-qualified pulses at cast" : channel.pulses ? `, ${formulaText(channel.pulses)} pulses` : channel.interval ? `, pulses every ${num(channel.interval)} s` : ""}` : "",
   ].filter(Boolean);
   const onHit = [effectsText(ability.onHit)];
   if (channel?.onTick) onHit.push(`each pulse: ${effectsText(channel.onTick)}`);

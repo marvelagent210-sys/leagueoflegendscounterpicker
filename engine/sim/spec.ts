@@ -423,6 +423,8 @@ export interface ChannelSpec {
   mobile?: boolean;
   /** Number of pulses, evaluated (and rounded down) at the cast; overrides `interval` (Judgment's spins). */
   pulses?: Formula;
+  /** Pure, source-qualified pulse count for the current caster; overrides `pulses` and is snapshotted once at cast. */
+  pulsesFor?: (self: Unit) => number;
   /** Spell shields block only the completion effects, not the pulses (Apotheosis: "Spell shield will only block the burst damage"). */
   pulsesPassSpellShields?: boolean;
 }
