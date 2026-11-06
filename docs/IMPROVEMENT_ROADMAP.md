@@ -34,8 +34,9 @@ The Garen follow-up corrects the known attack-speed shard contribution to
 Judgment spins while preserving its effect on basic attacks. Broader
 attack-speed eligibility and cast-snapshot timing remain qualified assumptions;
 Legend and the other deferred runes remain unimplemented. Both default matrices
-require a genuine refresh after this shared runtime change; refresh and final
-validation are pending.
+were recomputed in full after this shared runtime change, with identical default
+result payloads. The [accuracy log](../ACCURACY.md) records the completed refresh
+and release validation.
 
 The remaining steps will need their own source review, implementation and
 validation. Their calculation costs will be measured as they are built; this

@@ -217,9 +217,12 @@ Alacrity remains unimplemented and will need its own origin exclusion.
 The full [Judgment source](../../data/16.21/garen-judgment-source.json) is retained
 separately from the seventeen-page combat-rune bundle. Its exact revision and
 the parsed ability notes establish the shard exclusion; no live-game timing
-measurement or complete current-item eligibility audit is claimed. This shared
-runtime change requires genuine refreshes of both default matrices. Refresh and
-final validation are pending; see the [accuracy log](../../ACCURACY.md).
+measurement or complete current-item eligibility audit is claimed. The
+[full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42225042960)
+recomputed all 14,878 pairings in each default matrix and passed its TypeScript
+checks and full test suite. Default scores, scenarios, builds, variants and
+spending match the previous baseline. See the [accuracy log](../../ACCURACY.md)
+for release validation.
 
 ## Apply stat shards in a manual duel
 

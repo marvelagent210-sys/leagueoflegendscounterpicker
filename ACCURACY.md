@@ -2350,11 +2350,21 @@ cast remains the simulator's scheduling assumption; no live-game snapshot
 measurement was performed. Legend: Alacrity remains unimplemented and needs its
 own origin-aware exclusion when added.
 
-**Refresh and final validation are pending.** This shared runtime change alters
-actual worker dependency keys and requires genuine recomputation of all 14,878
-unordered pairings in each default matrix. Old results must not be manually
-restamped. Source inclusion and regression implementation do not establish
-completed refreshes, passing final checks or a measured ranking improvement.
+**The full matrix refresh completed.** [Workflow 42225042960](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42225042960)
+computed all 14,878 unordered pairings in each default matrix, using five
+plain-stat and fifteen item-build shards. All 22 jobs succeeded, including the
+combined TypeScript checks and full test suite. The build matrix recorded 70.3
+processor-hours, or 17.0 seconds per pairing; the complete workflow took about
+2 hours 29 minutes, including validation.
+
+The rebuilt default scores, scenario results, builds, variants and stat spending
+match the pre-change baseline exactly. Default matrices select no optional
+attack-speed shard; opt-in shard duels use the corrected count. Calculation keys
+and provenance now identify the new shared runtime and Garen kit source.
+The refresh workflow passed its full test suite and typechecks. Local typechecks,
+the production web build and both matrix freshness checks also pass; the pull
+request records the final local full-suite result. This does not establish a
+measured live-game ranking improvement.
 The [remaining gap audit](docs/runes/MECHANICS_GAPS.md) and step 1 of the
 [roadmap](docs/IMPROVEMENT_ROADMAP.md) remain open beyond this narrow correction.
 

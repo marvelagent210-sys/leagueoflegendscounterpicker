@@ -147,10 +147,12 @@ That eligibility remains unverified. Capturing the count once at cast also
 retains the simulator's timing assumption; the full checked sources do not
 establish live-game snapshot or mid-channel update timing.
 
-The shared runtime change requires genuine recomputation of all 14,878 unordered
-pairings in each default matrix. Full refresh and final validation are pending;
-provenance must not be restamped to retain old results. Completion belongs in
-the [accuracy log](../../ACCURACY.md) only after the actual refresh finishes.
+The [full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42225042960)
+computed all 14,878 unordered pairings in each default matrix. All 22 jobs
+succeeded, including the combined TypeScript checks and full test suite. Default
+scores, scenarios, builds, variants and spending match the previous baseline;
+the new calculation keys and provenance identify the corrected runtime. The
+[accuracy log](../../ACCURACY.md) records refresh and release validation.
 
 These gaps keep step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress.
 They do not change the current manual inventory or claim that deferred runes
