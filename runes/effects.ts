@@ -114,6 +114,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     cutDown: ["healthThreshold", "damageIncrease"],
     lastStand: ["healthThreshold", "maximumHealthThreshold", "minimumDamageIncrease", "maximumDamageIncrease"],
     secondWind: ["duration", "missingHealthPerSecond", "tickInterval"],
+    absorbLife: ["heal"],
   } as const;
   for (const [name, keys] of Object.entries(groups)) {
     const group: unknown = value[name as keyof typeof groups];
@@ -121,7 +122,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     for (const key of keys) {
       const amount = group[key];
       if (typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0
-        || (key !== "duration" && key !== "tickInterval" && amount > 1)) {
+        || (key !== "duration" && key !== "tickInterval" && key !== "heal" && amount > 1)) {
         throw new Error(`Invalid combat-rune rule ${name}.${key}`);
       }
     }
@@ -143,6 +144,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     schema: 1, dataset: value.dataset, patch: value.patch,
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
+    absorbLife: { ...value.absorbLife },
     evidence: value.evidence.map((entry) => ({ ...entry })),
   };
 }
@@ -174,7 +176,7 @@ export function equipRuneEffects(
   let enemyHooks: KitHooks[] = [];
   const assumptions = new Set<string>([
     "Only the explicitly selected combat rune effects are applied; this is a compatible partial selection, not a complete rune page.",
-    "Rune effects on targets are limited to the actual champion body. Owned pets can trigger their owner's effects, but rune eligibility on clone and pet targets is not reviewed.",
+    "Rune benefits are equipped only on the actual champion body. Owned pets can trigger their owner's effects. Health-threshold amplifiers and Second Wind do not apply to pet or clone recipients.",
     "The plain-stat allocation remains its no-rune reference; actual fights and variant comparisons include the selected effects. Rune-aware allocation and build search remain unfinished.",
   ]);
   const equipped = mapCurrentForms(spec, (form): RuneSpec => {

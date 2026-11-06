@@ -2281,6 +2281,39 @@ This is the first partial batch of step 1 in the [ordered improvement
 roadmap](docs/IMPROVEMENT_ROADMAP.md), not completion of full rune combat or the
 eleven-step roadmap.
 
+## Absorb Life and retained rune gaps (6 November 2026)
+
+Absorb Life (9101) is the fifth partial manual combat effect. It heals **27 health
+at level 20**, read from the Wiki's explicit level-1-to-20 formula and checked
+against the client's character-level breakpoints. The client tooltip's 23
+maximum is its level-18 endpoint and is not used as a cap. The combat compiler
+now checks seventeen complete pinned Wiki revisions alongside the unchanged
+versioned 16.21 perks file, including kill, unit and healing rules.
+
+The runtime uses actual hostile combat kills, including real enemy combat pets.
+An owned pet's kill is credited to the champion owner once. The ordinary healing
+path retains modifiers, anti-heal, caps, no-healing states and dead-owner
+restrictions. Damage, assists, resurrection-protected zero health, despawn,
+replacement and natural pet expiry do not manufacture kill heals. No farm, ward
+or monster population is added merely to trigger the rune.
+
+This follows the generic enemy-unit wording, not an independently measured
+rune-specific ward/trap/clone eligibility table. Unsupported game populations
+and per-category exceptions require further evidence. All five effects remain
+restricted to explicit plain-stat duels; fixed items, search, full pages and
+browser combat effects remain unfinished.
+
+The [persistent rune gap audit](docs/runes/MECHANICS_GAPS.md) records unresolved
+separate-packet ordering and provenance, Conditioning's resistance classes and
+recursion, Unflinching's simultaneous-damage/CC and cleanse phases, and Legend
+initialization/stat-origin requirements. It also records an existing Garen
+Judgment defect: derived rune attack speed can incorrectly increase spins
+despite the source restricting scaling to items and growth. That issue needs
+channel pulse support and a genuine result refresh; it is not fixed here.
+Conditioning, Legend and Unflinching remain unimplemented. The roadmap's step 1
+therefore remains in progress, and no controlled in-game measurements are
+claimed by this source audit.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

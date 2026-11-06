@@ -16,6 +16,7 @@ const rules: CombatRuneRules = {
   cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
+  absorbLife: { heal: 27 },
   evidence: [{ title: "Synthetic threshold fixture", revid: 1, text: "Fixed percentages isolate actual damage-path behavior." }],
 };
 
