@@ -39,8 +39,10 @@ subset; other Legend runes, farm/assist progression and full pages remain unfini
 The earlier shared-runtime Garen change required a full recomputation of both
 default matrices and produced identical default result payloads. The
 [accuracy log](../ACCURACY.md) records the completed refresh and release validation.
-The Alacrity follow-up's refresh and final release checks
-are pending.
+The Alacrity follow-up's [incremental refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42382830823)
+computed all 172 affected pairings per matrix, with all 344 new checkpoints
+verified and default result payloads unchanged. Its completed release checks are
+also recorded in the accuracy log. Step 1 remains in progress.
 
 The remaining steps will need their own source review, implementation and
 validation. Their calculation costs will be measured as they are built; this

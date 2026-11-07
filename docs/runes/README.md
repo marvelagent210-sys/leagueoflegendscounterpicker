@@ -213,8 +213,8 @@ credit; runtime does not infer those events or grant rewards from a summon’s
 minion/monster targeting class. The retained sources include the epic-monster
 double-credit bug fix, but this batch adds no monster population or reward path.
 
-Attack speed is installed before the kit's setup as a permanent rune stat and
-survives supported death/form transitions. Point and stat changes remain local
+Attack speed is installed before the kit's `onStart` hook as a permanent rune stat
+and survives supported death/form transitions. Point and stat changes remain local
 to each world and branch; every independent scenario and variant starts from
 the declared state. Garen excludes the active contribution from Judgment spins
 while basic attacks retain its benefit. Kai'Sa gains attack speed and a shorter
@@ -226,7 +226,14 @@ Runtime progress uses the existing kill-hook phase after the kit's own callback.
 The retained sources do not establish complete live-game ordering relative to
 every champion kill effect. Other Legend runes, full farm/assist progression,
 item builds, browser controls, full pages and rune-aware allocation/search remain
-unfinished. Refresh and final release validation for this batch are pending.
+unfinished.
+
+The [incremental refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42382830823)
+computed all 172 affected Garen pairings in each default matrix and reused the
+other 14,706 unchanged pairings per matrix. All 344 new checkpoints match the
+final outputs, and default scores, scenarios, builds, variants and spending match
+the previous baseline. The [accuracy log](../../ACCURACY.md) records the completed
+freshness, test and build validation.
 
 ### Absorb Life: kill events and level-20 healing
 

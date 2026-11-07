@@ -2403,8 +2403,8 @@ The full source retains the epic-plus-large double-credit bug fix. The current
 after-kit kill-hook update phase is a stated model choice; complete live ordering
 relative to every champion kill effect is not established by these sources.
 
-Alacrity is installed before kit setup as a permanent attack-speed status, with
-point state and stat changes local to each unit, form and branch. Supported death
+Alacrity is installed before the kit's `onStart` hook as a permanent attack-speed
+status, with point state and stat changes local to each unit, form and branch. Supported death
 transitions preserve the grant. Independent fights, scenarios and variants start
 from the same declared state. Garen subtracts active rune-AS statuses in addition
 to direct shard origins when calculating spins. Kai'Sa's evolution qualification
@@ -2415,10 +2415,28 @@ qualifications.
 
 The plain-stat allocation remains its no-rune reference. Full pages, other
 Legend runes, item mode, browser combat-rune controls and rune search remain
-unfinished. Refresh planning, genuine computation of every pending pair and
-final validation for this batch are release gates still in progress. No in-game
-measurements or completed rune-page fidelity are claimed. See the [rune audit](docs/runes/README.md)
-and [remaining mechanics gaps](docs/runes/MECHANICS_GAPS.md).
+unfinished. No in-game measurements or completed rune-page fidelity are claimed.
+See the [rune audit](docs/runes/README.md) and
+[remaining mechanics gaps](docs/runes/MECHANICS_GAPS.md).
+
+Release validation, 7 November 2026:
+
+- [Refresh 42382830823](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42382830823)
+  computed all **172 affected Garen pairings per matrix** with the actual workers,
+  using two plain-stat shards and six build shards. Each matrix reused the other
+  **14,706** pairings because their calculation inputs were unchanged. All ten
+  workflow jobs succeeded.
+- All **344 new checkpoints** were checked against the final forward and reverse
+  matrix cells, including scenarios, selected variants, decoded builds and stat
+  spending. The 173-champion roster and all **29,756 directed cells per matrix**
+  are complete. Default numerical result payloads match `fa3704e` exactly.
+- Shared dependency keys remain unchanged; Garen is the only changed kit key.
+  Calculation provenance now identifies the recomputed Garen pairings.
+- The refreshed-data workflow passed **8,735 tests across 252 files**, with the
+  five existing disputed expectations skipped, and passed TypeScript checks.
+  Both local matrix freshness checks, all 24 provenance regressions and the final
+  production web build also pass. Independent runtime and source reviews found
+  no material defects.
 
 ## Remaining limits
 

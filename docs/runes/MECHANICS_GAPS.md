@@ -116,8 +116,8 @@ cap. These values do not establish a match's earned history.
 
 **Alacrity now has an explicit manual subset.** Each selected side supplies
 starting Legend points, including explicit zero. The rune grants its initial
-attack speed before kit setup and progresses by 100 points for actual enemy
-champion-body kills, capped at ten stacks. It preserves point remainders and
+attack speed before the kit's `onStart` hook and progresses by 100 points for
+actual enemy champion-body kills, capped at ten stacks. It preserves point remainders and
 native owner credit and kill deduplication. The complete
 [Takedown revision 4081718](https://wiki.leagueoflegends.com/en-us/?oldid=4081718)
 and [Champion summoned units revision 4023248](https://wiki.leagueoflegends.com/en-us/?oldid=4023248)
@@ -171,7 +171,10 @@ scores, scenarios, builds, variants and spending match the previous baseline;
 the new calculation keys and provenance identify the corrected runtime. The
 [accuracy log](../../ACCURACY.md) records refresh and release validation.
 
-The Alacrity follow-up's refresh and final validation are pending. These remaining
-gaps keep step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the six
-manual effects do not establish full rune-page fidelity or make deferred runes
-ineffective in the game.
+The [Alacrity refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42382830823)
+computed 172 affected pairings per matrix and verified all 344 new checkpoints;
+default numerical results match the previous baseline. Completed release checks
+are recorded in the [accuracy log](../../ACCURACY.md). These remaining gaps keep
+step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the six manual
+effects do not establish full rune-page fidelity or make deferred runes ineffective
+in the game.
