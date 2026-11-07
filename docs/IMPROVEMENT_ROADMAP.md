@@ -6,7 +6,7 @@ and checked. This list records goals, not a claim that the work is complete.
 
 | Order | Improvement | Status and scope |
 |--:|---|---|
-| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind and Absorb Life. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
+| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life and Legend: Alacrity. Alacrity requires declared starting points and currently progresses only from real champion-body kills. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
 | 2 | Controlled in-game measurements | Planned. Compare recorded damage, timing and interactions with reproducible in-game setups, retain the setup and patch, and turn discrepancies into mechanics regressions. |
 | 3 | Summoner spells and browser boots format | Planned. Add explicit summoner loadouts and their combat behavior, and expose the existing five-items-with-boots build format in the browser. |
 | 4 | Better combat decisions | Planned. Improve spacing, chase, disengage, defensive timing and ability sequencing, with reproducible scenarios that show the decisions and their limits. |
@@ -18,7 +18,7 @@ and checked. This list records goals, not a claim that the work is complete.
 | 10 | Better two-dimensional geometry | Planned. Improve side-stepping, facing, area placement, terrain and pet positions beyond the current one-dimensional approximations. |
 | 11 | Phone and offline app features | Planned. Add persistent offline access, champion pools and saved comparisons with clear model-version and update behavior. |
 
-Step 1's five manual effects use the retained patch 26.21 sources. The health
+Step 1's six manual effects use the retained patch 26.21 sources. The health
 amplifiers use the simulator's aggregate outgoing-damage model; the source's
 separate amplifier damage instances are not represented. Second Wind's missing
 health sampling and first regeneration pulse are explicit timing assumptions.
@@ -29,14 +29,18 @@ numeric rules, provenance and compatibility limits.
 Absorb Life uses actual hostile combat kill events and heals 27 health at level
 20; it does not add assumed farm. The [mechanics gap audit](runes/MECHANICS_GAPS.md)
 records unresolved packet semantics, Conditioning's resistance classes and
-recursion, Unflinching's CC phases, and Legend/Garen stat-origin requirements.
+recursion, Unflinching's CC phases, and the remaining Legend progression and
+stat-origin requirements.
 The Garen follow-up corrects the known attack-speed shard contribution to
 Judgment spins while preserving its effect on basic attacks. Broader
 attack-speed eligibility and cast-snapshot timing remain qualified assumptions;
-Legend and the other deferred runes remain unimplemented. Both default matrices
-were recomputed in full after this shared runtime change, with identical default
-result payloads. The [accuracy log](../ACCURACY.md) records the completed refresh
-and release validation.
+Legend: Alacrity now adds declared starting points and a champion-kill progression
+subset; other Legend runes, farm/assist progression and full pages remain unfinished.
+The earlier shared-runtime Garen change required a full recomputation of both
+default matrices and produced identical default result payloads. The
+[accuracy log](../ACCURACY.md) records the completed refresh and release validation.
+The Alacrity follow-up's refresh and final release checks
+are pending.
 
 The remaining steps will need their own source review, implementation and
 validation. Their calculation costs will be measured as they are built; this

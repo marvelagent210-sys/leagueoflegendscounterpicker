@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { attackRange, attackTiming, canStartAttack } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { canTarget } from "../../engine/sim/combat";
-import { canMove, derive } from "../../engine/sim/derived";
+import { canMove, derive, statIsActive } from "../../engine/sim/derived";
 import type { Unit } from "../../engine/sim/state";
 
 const garen: KitModule = {
@@ -32,11 +32,20 @@ const garen: KitModule = {
       // The shard grant is recorded separately even though it shares the direct
       // bonus pool with purchased stats. It still improves actual basic attacks.
       const runeAttackSpeed = Number(self.memory["rune-shards:attackSpeed"] ?? 0);
-      return baseSpins + Math.max(0, derive(self).bonusAttackSpeed - runeAttackSpeed) * spinsPerAttackSpeed;
+      // Reserved flat rune-AS status namespace. Match derive's activation rules
+      // so removal or conditional suspension cannot leave a stale origin total.
+      let runeStatusAttackSpeed = 0;
+      for (const status of self.statuses) {
+        if (status.kind === "stat" && status.key === "attackSpeed"
+          && status.memoKey?.startsWith("rune-effects:attackSpeed:") && statIsActive(status, self.statuses)) {
+          runeStatusAttackSpeed += status.value;
+        }
+      }
+      return baseSpins + Math.max(0, derive(self).bonusAttackSpeed - runeAttackSpeed - runeStatusAttackSpeed) * spinsPerAttackSpeed;
     };
     kit.assume("Decisive Strike's lunge toward its target isn't modeled (the wiki gives no distance).");
     kit.assume("Judgment always hits Garen's only enemy, the nearest one, for 25% more damage.");
-    kit.assume("Judgment excludes the recorded attack-speed shard from spin scaling. Other current attack-speed sources retain the existing model; temporary item-passive eligibility, including Guinsoo's Seething Strike, remains unverified. The spin count is captured once at cast, retaining the simulator's timing assumption rather than establishing live-game snapshot timing.");
+    kit.assume("Judgment excludes the recorded attack-speed shard and active tagged flat rune attack-speed statuses from spin scaling. Other current attack-speed sources retain the existing model; temporary item-passive eligibility, including Guinsoo's Seething Strike, remains unverified. The spin count is captured once at cast, retaining the simulator's timing assumption rather than establishing live-game snapshot timing.");
 
     const behavior: Behavior = (view) => {
       // Let reactions, finishers and the other modes keep their normal priority. Starting

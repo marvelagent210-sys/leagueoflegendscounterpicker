@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyEffect, dealDamage } from "../../engine/sim/combat";
 import { setForm } from "../../engine/sim/forms";
+import { derive } from "../../engine/sim/derived";
 import { createWorld } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
 import type { World } from "../../engine/sim/state";
@@ -22,6 +23,7 @@ const rules: CombatRuneRules = {
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
   absorbLife: { heal: 27 },
+  legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   evidence: [{ title: "Synthetic equipment fixture", revid: 1, text: "Synthetic combat rules isolate equipment and side binding." }],
 };
 const equip = (spec = fighter(), selected: number[] = []) => equipRuneEffects(spec, selected, catalog, rules);
@@ -42,7 +44,7 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely the sixteen legal subsets of the five implemented effects", () => {
+  it("accepts precisely the thirty-two legal subsets of the six implemented effects", () => {
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
@@ -52,7 +54,7 @@ describe("explicit partial combat-rune selections", () => {
         accepted++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(/same path row/);
     }
-    expect(accepted).toBe(16);
+    expect(accepted).toBe(32);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],
@@ -112,6 +114,40 @@ describe("explicit partial combat-rune selections", () => {
 });
 
 describe("combat-rune equipment and opposing-hook composition", () => {
+  it("requires explicit same-fighter Legend state without changing empty legacy equipment", () => {
+    const input = fighter();
+    expect(() => equipRuneEffects(input, [9104], catalog, rules)).toThrow(/explicit.*legendPoints/);
+    for (const legendPoints of [NaN, Infinity, -1, 1.5, "100", null]) {
+      expect(() => equipRuneEffects(input, [9104], catalog, rules, { legendPoints } as never)).toThrow(/legendPoints/);
+    }
+    expect(() => equipRuneEffects(input, [], catalog, rules, { legendPoints: 0 })).toThrow(/requires selecting/);
+    expect(() => equipRuneEffects(input, [8014], catalog, rules, { legendPoints: 0 })).toThrow(/requires selecting/);
+    expect(() => equipRuneEffects(input, [9104], catalog, rules, { legendPoints: 0, unrelated: true } as never)).toThrow(/Invalid combat-rune options/);
+    expect(equipRuneEffects(input, [], catalog, rules).spec).toBe(input);
+  });
+
+  it("snapshots declared Legend state, initializes before the kit, and progresses after its kill callback", () => {
+    const input = fighter({ hooks: {
+      onStart(ctx) { ctx.memory.kitSawAttackSpeed = derive(ctx.self).bonusAttackSpeed; },
+      onKill(ctx) { ctx.memory.kitSawPoints = ctx.memory["rune:legend-alacrity:points"] ?? -1; },
+    } });
+    const options = { legendPoints: 99 }, suppliedRules = structuredClone(rules);
+    const own = equipRuneEffects(input, [9104], catalog, suppliedRules, options), enemy = equip();
+    options.legendPoints = 1000; suppliedRules.legendAlacrity.attackSpeedPerStack = 1;
+    const first = arena(runeMatchupSpecs(own, enemy));
+    expect(first.units[0].memory.kitSawAttackSpeed).toBeCloseTo(0.03, 12);
+    expect(first.units[0].memory["rune:legend-alacrity:points"]).toBe(99);
+    dealDamage(first, first.units[0], first.units[1], 5000, "true");
+    expect(first.units[0].memory.kitSawPoints).toBe(99);
+    expect(first.units[0].memory["rune:legend-alacrity:points"]).toBe(199);
+    expect(derive(first.units[0]).bonusAttackSpeed).toBeCloseTo(0.045, 12);
+    const second = arena(runeMatchupSpecs(own, enemy));
+    expect(second.units[0].memory["rune:legend-alacrity:points"]).toBe(99);
+    expect(derive(second.units[0]).bonusAttackSpeed).toBeCloseTo(0.03, 12);
+    expect(input.start).toBeUndefined();
+    expect(input.bonus).toBeUndefined();
+  });
+
   it("keeps an empty loadout and an empty pairing identical to their supplied specs", () => {
     const you = fighter(), enemy = fighter();
     const a = equipRuneEffects(you, [], catalog, null as unknown as CombatRuneRules), b = equip(enemy);

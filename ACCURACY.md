@@ -2368,6 +2368,58 @@ measured live-game ranking improvement.
 The [remaining gap audit](docs/runes/MECHANICS_GAPS.md) and step 1 of the
 [roadmap](docs/IMPROVEMENT_ROADMAP.md) remain open beyond this narrow correction.
 
+## Legend: Alacrity with declared starting points (6 November 2026)
+
+The manual inventory now includes Legend: Alacrity (9104), bringing the supported
+partial effects to six. Each selected side must explicitly declare starting
+Legend points with `--legend-points` or `--enemy-legend-points`, including zero.
+Level 20 does not imply a fully stacked history. Nonnegative safe integer inputs
+are capped to an effective 1,000 points before runtime increments.
+
+The numeric rule is 3% bonus attack speed plus 1.5 percentage points per completed
+100-point stack, capped at ten stacks and 18% total. Partial progress is retained:
+99 plus a 100-point award becomes 199, with one completed stack. The exact
+[Alacrity template 3958705](https://wiki.leagueoflegends.com/en-us/?oldid=3958705)
+and [article 3980881](https://wiki.leagueoflegends.com/en-us/?oldid=3980881) are now
+in the complete twenty-one-page combat bundle. Named client fields establish
+base AS, AS per stack and maximum stacks within float32 representation tolerance.
+The Wiki supplies semantic 100-point rules; opaque 100-valued client keys are
+retained without pretending their names are decoded.
+
+Full [Takedown 4081718](https://wiki.leagueoflegends.com/en-us/?oldid=4081718) and
+[Champion summoned units 4023248](https://wiki.leagueoflegends.com/en-us/?oldid=4023248)
+revisions support the first progression subset. Actual enemy champion-body kills
+credited to the owner grant 100 points, including real kills scored by owned
+pets or clones. Clone and Spirit victims do not qualify through champion-like
+targeting. Protected resurrection entry gives no award; an actual counted death
+gives one, including a post-death window retaining positive health. Native kill
+credit and deduplication remain authoritative. A dead owner's committed damage
+or pet can earn progress without healing or revival.
+
+Starting points may represent prior real assists, farm and monster credit, but
+this 1v1 progression path creates none of those events. Runtime minion/monster
+rewards, generic assist simulation and their full category rules remain deferred.
+The full source retains the epic-plus-large double-credit bug fix. The current
+after-kit kill-hook update phase is a stated model choice; complete live ordering
+relative to every champion kill effect is not established by these sources.
+
+Alacrity is installed before kit setup as a permanent attack-speed status, with
+point state and stat changes local to each unit, form and branch. Supported death
+transitions preserve the grant. Independent fights, scenarios and variants start
+from the same declared state. Garen subtracts active rune-AS statuses in addition
+to direct shard origins when calculating spins. Kai'Sa's evolution qualification
+still reads eligible permanent stats, while her combat speed and E charge benefit.
+Jhin's existing conversion increases AD while his fixed attack rate stays fixed.
+Item-passive eligibility and live Garen snapshot timing retain their earlier
+qualifications.
+
+The plain-stat allocation remains its no-rune reference. Full pages, other
+Legend runes, item mode, browser combat-rune controls and rune search remain
+unfinished. Refresh planning, genuine computation of every pending pair and
+final validation for this batch are release gates still in progress. No in-game
+measurements or completed rune-page fidelity are claimed. See the [rune audit](docs/runes/README.md)
+and [remaining mechanics gaps](docs/runes/MECHANICS_GAPS.md).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
