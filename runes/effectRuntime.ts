@@ -4,14 +4,21 @@ import type { CombatRuneRules } from "./effectRules";
 import { SECOND_WIND_ASSUMPTIONS, secondWindHooks } from "./secondWind";
 import { thresholdEnemyHooks } from "./thresholdEffects";
 import { ABSORB_LIFE_ASSUMPTIONS, absorbLifeHooks } from "./absorbLife";
+import { buildLegendAlacrity } from "./legendAlacrity";
+import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
+  beforeStart?: NonNullable<KitHooks["onStart"]>;
   hooks?: KitHooks;
   enemyHooks?: KitHooks[];
   assumptions: string[];
 }
 
-export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRuneRules): RuneEffectBuild {
+export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRuneRules, options: RuneEquipOptions = {}): RuneEffectBuild {
+  if (id === 9104) {
+    if (options.legendPoints === undefined) throw new Error("Legend: Alacrity requires explicit starting Legend points");
+    return buildLegendAlacrity(rules, options.legendPoints);
+  }
   if (id === 9101) return { hooks: absorbLifeHooks(rules), assumptions: [...ABSORB_LIFE_ASSUMPTIONS] };
   if (id === 8444) return { hooks: secondWindHooks(rules), assumptions: [...SECOND_WIND_ASSUMPTIONS] };
   if (id === 8014 || id === 8017 || id === 8299) return {

@@ -12,6 +12,13 @@ export interface CombatRuneRules {
   absorbLife: { heal: number };
   coupDeGrace: { healthThreshold: number; damageIncrease: number };
   cutDown: { healthThreshold: number; damageIncrease: number };
+  legendAlacrity: {
+    baseAttackSpeed: number;
+    attackSpeedPerStack: number;
+    pointsPerStack: number;
+    maxStacks: number;
+    championKillPoints: number;
+  };
   lastStand: {
     healthThreshold: number;
     maximumHealthThreshold: number;

@@ -24,6 +24,11 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "timestamp": "2026-01-02T12:22:36Z",
     "sha256": "66bdc1876b2f0fe619f648366e4d9a521602d62d1b93ec285e994ac73aa95e3d"
   },
+  "Champion summoned units": {
+    "revid": 4023248,
+    "timestamp": "2026-05-28T12:29:08Z",
+    "sha256": "466db9a514495259e6601adc83ea3916f98b368d6774be572a878846fa44021a"
+  },
   "Coup de Grace": {
     "revid": 3860002,
     "timestamp": "2025-02-06T18:25:06Z",
@@ -44,15 +49,15 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "timestamp": "2026-08-04T23:17:04Z",
     "sha256": "450a1a563c78a2ed0f82411d17ec654ece5b1a5ec3f6bcbf990a819d483a2856"
   },
-  "Health regeneration": {
-    "revid": 4073061,
-    "timestamp": "2026-10-02T13:17:00Z",
-    "sha256": "3dafb693e2297ad5f7c8f8ab4fab6eff20507f03cbc2822a99455f177b61779a"
-  },
   "Healing": {
     "revid": 4041638,
     "timestamp": "2026-07-10T06:45:09Z",
     "sha256": "ca0a5ee26be2bea722614b78de604547314e8b0a92fa1ba08c087382ad99c9d4"
+  },
+  "Health regeneration": {
+    "revid": 4073061,
+    "timestamp": "2026-10-02T13:17:00Z",
+    "sha256": "3dafb693e2297ad5f7c8f8ab4fab6eff20507f03cbc2822a99455f177b61779a"
   },
   "Kill": {
     "revid": 4053216,
@@ -64,10 +69,20 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "timestamp": "2025-07-12T00:22:31Z",
     "sha256": "0d253f4a535df029f52d93b99df56bfb70a24861edaaf1707bd80241c6994b6b"
   },
+  "Legend: Alacrity": {
+    "revid": 3980881,
+    "timestamp": "2026-01-02T11:57:29Z",
+    "sha256": "ffc62c0f8a1008ec2a2fb97f78fc1d9920213fcf313ab55dbd4659e55f01bdaa"
+  },
   "Second Wind": {
     "revid": 4012933,
     "timestamp": "2026-04-27T18:00:51Z",
     "sha256": "41854e8f0f75189d5bb725f460616874bffd9b38b1ef1b4eac35522418dbe98b"
+  },
+  "Takedown": {
+    "revid": 4081718,
+    "timestamp": "2026-10-09T12:20:53Z",
+    "sha256": "d8a5380cd2e742f6f76b0a0b63040f67e89c181eb27c25c48a1443cbde36229b"
   },
   "Template:Rune data Absorb Life": {
     "revid": 3997095,
@@ -88,6 +103,11 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 3859782,
     "timestamp": "2025-02-06T03:22:08Z",
     "sha256": "669d1b6c2f5b77093f61ab19ffec1b17b4ba770badb6a7c082eea6ed296f877e"
+  },
+  "Template:Rune data Legend: Alacrity": {
+    "revid": 3958705,
+    "timestamp": "2025-10-10T09:39:17Z",
+    "sha256": "7813d6e3c06cfdceec4e376be6909ccc618ea41ee52d21ed904010a09868056e"
   },
   "Template:Rune data Second Wind": {
     "revid": 3960974,
@@ -110,6 +130,7 @@ const RUNE_SOURCES = [
   { id: 8014, name: "Coup de Grace", path: 8000, slot: 3, game: "Perks/Styles/Precision/CoupDeGrace" },
   { id: 8017, name: "Cut Down", path: 8000, slot: 3, game: "Perks/Styles/Precision/CutDown" },
   { id: 8299, name: "Last Stand", path: 8000, slot: 3, game: "Perks/Styles/Precision/LastStand" },
+  { id: 9104, name: "Legend: Alacrity", path: 8000, slot: 2, game: "Perks/Styles/Precision/LegendAlacrity" },
   { id: 8444, name: "Second Wind", path: 8400, slot: 2, game: "Perks/Styles/Resolve/SecondWind" },
 ] as const;
 const sha256 = (text: string) => createHash("sha256").update(text).digest("hex");
@@ -129,7 +150,7 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     && catalog.ddragonVersion === "16.21.1" && catalog.communityDragonVersion === "16.21", "catalog versions differ from the reviewed inputs");
   const gameSource = record(input.gameData, "game source");
   requireThat(gameSource.url === COMBAT_RUNE_GAME_URL && gameSource.sha256 === GAME_SHA256, "game source version or hash needs review");
-  requireThat(Array.isArray(input.pages) && input.pages.length === Object.keys(REVIEWED).length, "all seventeen complete Wiki sources are required");
+  requireThat(Array.isArray(input.pages) && input.pages.length === Object.keys(REVIEWED).length, "all twenty-one complete Wiki sources are required");
   const pages = new Map<string, RuneWikiSource>();
   for (const value of input.pages) {
     const page = record(value, "Wiki source");
@@ -191,6 +212,38 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
       `${name} Wiki/game ${key} disagree`);
   };
 
+  const alacrity = description("Legend: Alacrity");
+  const [alacrityBase, alacrityPerStack, alacrityMaxStacks] = matchNumbers("Legend: Alacrity", alacrity.text,
+    /\{\{#vardefineecho:basealacrity\|([\d.]+)\}\}[\s\S]*\{\{#vardefineecho:scalingalacrity\|([\d.]+)\}\}[\s\S]*\{\{#var:scalingalacrity\}\}\*(\d+)/);
+  const legendDescriptions = alacrity.page.content.split("\n").filter((line) => /^\|description2\s*=/.test(line));
+  requireThat(legendDescriptions.length === 1, "Legend: Alacrity needs its complete current point description");
+  quote(alacrity.page, legendDescriptions[0]!);
+  const [legendPointsPerStack, legendMaximum] = matchNumbers("Legend: Alacrity points", legendDescriptions[0]!,
+    /Gain ''Legend'' stacks for every (\d+) points earned, up to (\d+):/);
+  requireThat(alacrityMaxStacks === legendMaximum, "Legend: Alacrity maximum stack descriptions disagree");
+  const legendReward = (name: string, pattern: RegExp): number => {
+    const rows = alacrity.page.content.split("\n").filter((line) => pattern.test(line));
+    requireThat(rows.length === 1, `Legend: Alacrity needs its current ${name} point rule`);
+    quote(alacrity.page, rows[0]!);
+    return matchNumbers(`Legend: Alacrity ${name}`, rows[0]!, pattern)[0]!;
+  };
+  const championKillPoints = legendReward("champion", /^\* (\d+) points for champion \{\{tip\|takedown\|takedowns\}\}$/);
+  const epicPoints = legendReward("epic monster", /^\* (\d+) points for epic monster \{\{tip\|takedown\|takedowns\}\}$/);
+  const largeMonsterPoints = legendReward("large monster", /^\* (\d+) points for large monster kills$/);
+  const minionPoints = legendReward("minion", /^\* (\d+) points for minion kills$/);
+  requireThat([legendPointsPerStack, legendMaximum, championKillPoints, epicPoints, largeMonsterPoints, minionPoints]
+    .every((value) => Number.isSafeInteger(value) && value! > 0)
+    && Number.isSafeInteger(legendPointsPerStack! * legendMaximum!), "Legend: Alacrity needs positive safe integer point and stack rules");
+  const alacrityGame = client("Legend: Alacrity");
+  agree("Legend: Alacrity", alacrityGame, "AttackSpeedBase", alacrityBase! / 100);
+  agree("Legend: Alacrity", alacrityGame, "AttackSpeedPerStack", alacrityPerStack! / 100);
+  agree("Legend: Alacrity", alacrityGame, "MaxLegendStacks", alacrityMaxStacks!);
+  agree("Legend: Alacrity", alacrityGame, "LargeMonsterKillValue", largeMonsterPoints);
+  agree("Legend: Alacrity", alacrityGame, "MinionKillValue", minionPoints);
+  // The client retains three opaque 100-valued keys. They are covered by the
+  // complete client hash, not relabeled as decoded reward/threshold semantics.
+  // The exact Wiki point rules above establish the champion/epic/stack values.
+
   const absorb = description("Absorb Life");
   const [healBase, firstRate, firstLevels, secondRate, secondLevels, finalRate, formulaMaximum] = matchNumbers("Absorb Life", absorb.text,
     /Killing an enemy \{\{tip\|heals\}\} you for \{\{pp\|([\d.]+); then \+([\d.]+)\*x for (\d+);then \+([\d.]+)\*x for (\d+); then \+([\d.]+)\*x\|1 to (\d+) by 1\|/);
@@ -244,6 +297,15 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   agree("Second Wind", windGame, "RegenPercentMax", windPercent! / 100);
   agree("Second Wind", windGame, "RegenFlat", 0);
 
+  quote(pages.get("Legend: Alacrity")!, "* {{sbc|Bug Fix:}} Killing the first {{ui|Voidgrub}} in a spawn group as well as any {{ui|Rift Herald}} no longer grants Legend stacks as if the user has slain both an epic and a large monster, for a total of 100+25 stacks instead of the correct 100.");
+  const takedown = pages.get("Takedown")!;
+  quote(takedown, "A '''{{tip|takedown}}''' is the term used for situations where either a [[kill]] or an [[assist]] is acceptable, such as to trigger a passive effect. Some effects have a limit time in which kills or assists will qualify.");
+  quote(takedown, "* {{ri|Legend: Alacrity}}");
+  const summons = pages.get("Champion summoned units")!;
+  quote(summons, "{{Outdated|Last updated: [[V14.22]] - Making sure everything is current}}");
+  quote(summons, "A '''clone''' is a copy of a champion that is considered a champion for the purposes of targeting and interacting with most non-{{tip|takedown}} effects, but otherwise considered a {{tip|pet}}.");
+  quote(summons, "[[Takedown]]s scored by '''clones''', including those against non-champions, are attributed to their owner.");
+  quote(summons, "Clones do not generally interact with [[rune]]s, but may inherit some buffs granted by runes on a case-by-case basis.");
   quote(pages.get("Absorb Life")!, "* {{sbc|Bug Fix:}} Shared minions killed through {{iis|World Atlas}} and {{iis|Runic Compass}} execute effects now properly count as a unit kill for the ally.");
   const kill = pages.get("Kill")!;
   const killDefinition = kill.content.split("\n").find((line) => line.startsWith("A '''kill''' is the event of inflicting the final blow on an enemy unit"));
@@ -285,6 +347,8 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
     absorbLife: { heal: absorbHeal },
+    legendAlacrity: { baseAttackSpeed: alacrityBase! / 100, attackSpeedPerStack: alacrityPerStack! / 100,
+      pointsPerStack: legendPointsPerStack!, maxStacks: alacrityMaxStacks!, championKillPoints },
     coupDeGrace: { healthThreshold: coupHealth! / 100, damageIncrease: coupPercent! / 100 },
     cutDown: { healthThreshold: cutHealth! / 100, damageIncrease: cutPercent! / 100 },
     lastStand: { healthThreshold: lastHealth! / 100, maximumHealthThreshold: lastMaxHealth! / 100,

@@ -2,7 +2,7 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support five partial combat effects, listed below.
+Manual plain-stat duels also support six partial combat effects, listed below.
 Full rune pages and rune-page search remain unfinished. The existing
 Udyr-specific Triple Tonic behavior still reads its original `runes.json`;
 default matchup matrices keep their existing settings without these optional
@@ -92,9 +92,10 @@ npm run duel -- Darius Garen --combat-runes 8299,8444 --enemy-combat-runes 8014
 npm run duel -- Darius Garen --combat-runes 8017 --enemy-combat-runes 8444 --log brawl
 npm run duel -- Darius Garen --combat-runes 8299,8444 --shards 5005,5001,5001
 npm run duel -- Darius Yorick --combat-runes 9101,8299
+npm run duel -- Garen Darius --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 8014,9104 --enemy-legend-points 0
 ```
 
-Each flag takes comma-separated rune IDs for that side. These five effects are
+Each flag takes comma-separated rune IDs for that side. These six effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -104,9 +105,11 @@ supported as partial manual selections:
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
+| Legend: Alacrity | 9104 | 3% bonus attack speed plus 1.5 percentage points per completed 100-point stack, capped at ten stacks (18%). Requires declared starting points; actual champion-body kills add 100 points. |
 
 The three Precision health-damage runes occupy the same source-defined row, so select at most
-one of them. Second Wind and Absorb Life can accompany any one of those three.
+one of them. Second Wind, Absorb Life and Alacrity can accompany any one of those
+three, subject to the same page validator.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
 Omitting a side's flag applies none of these optional effects to that side. This
@@ -117,13 +120,13 @@ can accompany explicit stat shards. They reject fixed item builds and `--search`
 until item-amplifier composition and search valuation are reviewed. Each kit
 variant receives the correct side's selection before variant comparisons. The
 plain-stat allocation remains its no-rune reference; it does not optimize
-purchases for the selected effects. These flags do not change precomputed
-rankings or add combat-rune controls to the browser.
+purchases for the selected effects. These explicit selections are not applied to precomputed
+rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks seventeen complete Wiki revisions in
+The offline compiler checks twenty-one complete Wiki revisions in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the five templates to
+full-content hashes, exact revisions and excerpts, binds the six templates to
 the catalog, and cross-checks the numeric rules against current game fields.
 Cut Down's obsolete health-difference fields are retained as source data but
 are not used for its current 8% rule.
@@ -158,11 +161,79 @@ Compatibility limits remain explicit:
   regeneration rather than a heal event, respects the existing regeneration
   modifiers, and clears when the champion is dead or fallen.
 
-Full pages, keystones, history-dependent stacks, champion-specific substitutions,
-item compatibility, separate amplifier packets and automatic rune selection
-require further implementation and validation. These five catalog entries are
+Full pages, keystones, the remaining historical-state effects, champion-specific
+substitutions, item compatibility, separate amplifier packets and automatic rune
+selection require further implementation and validation. These six catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Legend: Alacrity: declared history and champion-kill progress
+
+Each side selecting `9104` must also supply its own starting point value:
+`--legend-points` for your champion, or `--enemy-legend-points` for the enemy.
+Explicit `0` is required for an unstacked start. Level 20 does not establish
+earned Legend points, and the interface does not assume maximum stacks.
+Missing, repeated, malformed or unused point flags fail before a score is
+shown. Point values must be nonnegative whole numbers within JavaScript's safe
+integer range; effective progress is capped at 1,000 points. Output identifies
+the declared state and any cap applied.
+
+The rune grants 3% bonus attack speed even at zero points. Each completed
+100-point stack adds 1.5 percentage points, up to ten stacks and 18% total:
+
+| Starting points | Stacks | Bonus attack speed |
+|--:|--:|--:|
+| 0 or 99 | 0 | 3% |
+| 100 or 199 | 1 | 4.5% |
+| 950 or 999 | 9 | 16.5% |
+| 1,000 or more | 10 | 18% |
+
+The point remainder is preserved: 99 points plus a qualifying 100-point award
+becomes 199, with one completed stack. Effective progress stops at the cap.
+The full Alacrity template and article agree with the current client's named
+base-AS, per-stack-AS and maximum-stack fields. Three opaque client fields
+contain 100, but their semantic names have not been decoded; the exact Wiki
+wording establishes the points-per-stack and champion-takedown rules.
+
+This first progression subset awards 100 points for actual enemy champion-body
+kills credited by the engine. An owned pet or clone can earn that credit for
+its champion owner. An enemy clone, Illaoi Spirit or ordinary summon is not a
+champion-takedown victim merely because it has champion-like targeting.
+Protected resurrection entry grants no points; actual destruction later can
+qualify. A counted death entering a post-death window grants once even if that
+window retains positive health. Native kill identities prevent repeated awards.
+
+The source has no alive-only condition for this progress. A dead owner's
+committed damage or still-active pet can therefore earn points without healing
+or reviving that owner. Friendly or self destruction, mere damage, shield
+depletion, despawn, replacement and natural expiry do not create awards.
+The current 1v1 has no general allied-champion assist or farm simulation.
+Declared starting points may represent real prior assists, farm and monster
+credit; runtime does not infer those events or grant rewards from a summon’s
+minion/monster targeting class. The retained sources include the epic-monster
+double-credit bug fix, but this batch adds no monster population or reward path.
+
+Attack speed is installed before the kit's `onStart` hook as a permanent rune stat
+and survives supported death/form transitions. Point and stat changes remain local
+to each world and branch; every independent scenario and variant starts from
+the declared state. Garen excludes the active contribution from Judgment spins
+while basic attacks retain its benefit. Kai'Sa gains attack speed and a shorter
+Supercharge charge without gaining Living Weapon evolution credit. Jhin keeps
+his fixed attack rate and converts the additional AS to AD through his existing
+stat conversion.
+
+Runtime progress uses the existing kill-hook phase after the kit's own callback.
+The retained sources do not establish complete live-game ordering relative to
+every champion kill effect. Other Legend runes, full farm/assist progression,
+item builds, browser controls, full pages and rune-aware allocation/search remain
+unfinished.
+
+The [incremental refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42382830823)
+computed all 172 affected Garen pairings in each default matrix and reused the
+other 14,706 unchanged pairings per matrix. All 344 new checkpoints match the
+final outputs, and default scores, scenarios, builds, variants and spending match
+the previous baseline. The [accuracy log](../../ACCURACY.md) records the completed
+freshness, test and build validation.
 
 ### Absorb Life: kill events and level-20 healing
 
@@ -190,16 +261,17 @@ controlled measurement.
 
 The [mechanics gap audit](MECHANICS_GAPS.md) records remaining packet-order,
 resistance-classification, crowd-control-phase and stat-origin work. In
-particular, Conditioning, Legend runes and Unflinching remain unimplemented.
-The Garen follow-up below corrects the recorded attack-speed shard's contribution
-to Judgment; it does not resolve every attack-speed source or implement Legend.
+particular, Conditioning, the other Legend runes and Unflinching remain
+unimplemented. Alacrity's supported point-state and kill progression are described
+above; they do not resolve every progression category or attack-speed source.
 
 ### Garen Judgment and the attack-speed shard
 
 Judgment's full pinned revision 4009435 states that its spin scaling uses only
 bonus attack speed from item stats and level growth. The kit now subtracts the
-recorded attack-speed shard contribution when computing spins. The shard remains
-effective for normal basic attacks. The existing seven-base-spins and one extra
+recorded attack-speed shard contribution and active tagged rune attack-speed
+statuses, including Alacrity, when computing spins. Their normal basic-attack
+benefits remain effective. The existing seven-base-spins and one extra
 per 25% eligible bonus attack speed formula is retained; an animation cap is not
 used to truncate damage pulses.
 
@@ -211,11 +283,12 @@ formula and interval channels keep their existing behavior.
 This fixes the known shard-origin error. Other attack-speed sources preserve the
 existing model. Item passives are not excluded as a class: Garen's history
 explicitly records eligibility for Trinity Force's former Mythic passive.
-Temporary Guinsoo's Seething Strike eligibility remains unverified. Legend:
-Alacrity remains unimplemented and will need its own origin exclusion.
+Temporary Guinsoo's Seething Strike eligibility remains unverified. Alacrity's
+active rune contribution is excluded separately; this does not establish full
+eligibility for every future attack-speed source.
 
 The full [Judgment source](../../data/16.21/garen-judgment-source.json) is retained
-separately from the seventeen-page combat-rune bundle. Its exact revision and
+separately from the twenty-one-page combat-rune bundle. Its exact revision and
 the parsed ability notes establish the shard exclusion; no live-game timing
 measurement or complete current-item eligibility audit is claimed. The
 [full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42225042960)

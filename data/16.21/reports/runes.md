@@ -17,7 +17,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Precision | 1 | Absorb Life | 9101 | Explicit partial manual selection | [3997095](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Absorb_Life?oldid=3997095) |
 | Precision | 1 | Triumph | 9111 | Not implemented | [3825924](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Triumph?oldid=3825924) |
 | Precision | 1 | Presence of Mind | 8009 | Not implemented | [3985219](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Presence_of_Mind?oldid=3985219) |
-| Precision | 2 | Legend: Alacrity | 9104 | Not implemented | [3958705](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Alacrity?oldid=3958705) |
+| Precision | 2 | Legend: Alacrity | 9104 | Explicit partial manual selection | [3958705](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Alacrity?oldid=3958705) |
 | Precision | 2 | Legend: Haste | 9105 | Not implemented | [3958696](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Haste?oldid=3958696) |
 | Precision | 2 | Legend: Bloodline | 9103 | Not implemented | [3971359](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Bloodline?oldid=3971359) |
 | Precision | 3 | Coup de Grace | 8014 | Explicit partial manual selection | [3859780](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Coup_de_Grace?oldid=3859780) |

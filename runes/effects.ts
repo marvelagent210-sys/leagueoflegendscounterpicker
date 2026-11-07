@@ -5,6 +5,8 @@ import { composeHooks, mapForms } from "../items/equip";
 import type { CombatRuneRules, RuneEffectEvidence } from "./effectRules";
 import { buildRuneEffect } from "./effectRuntime";
 import { validateRunePage } from "./pages";
+import type { RuneEquipOptions } from "./equipOptions";
+export type { RuneEquipOptions } from "./equipOptions";
 
 /** Initial effect inventory. An absent effect must never be treated as an inactive rune. */
 export { MANUAL_COMBAT_RUNE_IDS as FIRST_COMBAT_RUNE_IDS } from "./effectIds";
@@ -115,6 +117,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     lastStand: ["healthThreshold", "maximumHealthThreshold", "minimumDamageIncrease", "maximumDamageIncrease"],
     secondWind: ["duration", "missingHealthPerSecond", "tickInterval"],
     absorbLife: ["heal"],
+    legendAlacrity: ["baseAttackSpeed", "attackSpeedPerStack", "pointsPerStack", "maxStacks", "championKillPoints"],
   } as const;
   for (const [name, keys] of Object.entries(groups)) {
     const group: unknown = value[name as keyof typeof groups];
@@ -122,7 +125,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     for (const key of keys) {
       const amount = group[key];
       if (typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0
-        || (key !== "duration" && key !== "tickInterval" && key !== "heal" && amount > 1)) {
+        || (!["duration", "tickInterval", "heal", "pointsPerStack", "maxStacks", "championKillPoints"].includes(key) && amount > 1)) {
         throw new Error(`Invalid combat-rune rule ${name}.${key}`);
       }
     }
@@ -135,6 +138,10 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     || value.secondWind.tickInterval > value.secondWind.duration) {
     throw new Error("Invalid combat-rune Second Wind regeneration model or interval");
   }
+  if (![value.legendAlacrity.pointsPerStack, value.legendAlacrity.maxStacks, value.legendAlacrity.championKillPoints,
+    value.legendAlacrity.pointsPerStack * value.legendAlacrity.maxStacks].every(Number.isSafeInteger)) {
+    throw new Error("Invalid combat-rune Legend: Alacrity integer point or stack rules");
+  }
   if (!Array.isArray(value.evidence) || value.evidence.length === 0
     || Array.from(value.evidence).some((entry) => !record(entry) || typeof entry.title !== "string"
       || !entry.title.trim() || !positiveId(entry.revid) || typeof entry.text !== "string" || !entry.text.trim())) {
@@ -145,8 +152,25 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
+    legendAlacrity: { ...value.legendAlacrity },
     evidence: value.evidence.map((entry) => ({ ...entry })),
   };
+}
+
+function checkedOptions(selection: readonly number[], value: RuneEquipOptions | undefined): RuneEquipOptions {
+  if (value === undefined) value = {};
+  if (!record(value) || Object.keys(value).some((key) => key !== "legendPoints")) {
+    throw new Error("Invalid combat-rune options: only declared legendPoints are supported");
+  }
+  const points = value.legendPoints;
+  if (!selection.includes(9104)) {
+    if (points !== undefined) throw new Error("legendPoints requires selecting Legend: Alacrity (9104) on the same fighter");
+    return {};
+  }
+  if (typeof points !== "number" || !Number.isSafeInteger(points) || points < 0) {
+    throw new Error("Legend: Alacrity requires explicit nonnegative safe-integer starting legendPoints");
+  }
+  return { legendPoints: points };
 }
 
 function hasMarker(spec: FighterSpec, marker: typeof EQUIPPED | typeof OPPOSITION): boolean {
@@ -168,8 +192,10 @@ export function equipRuneEffects(
   value: unknown,
   catalog: RuneCatalog,
   sourceRules: CombatRuneRules,
+  sourceOptions?: RuneEquipOptions,
 ): EquippedRuneEffects {
   const selection = validateCombatRuneSelection(catalog, value);
+  const options = checkedOptions(selection, sourceOptions);
   if (selection.length === 0) return { spec, selection, enemyHooks: [], evidence: [], assumptions: [] };
   if (hasMarker(spec, EQUIPPED)) throw new Error("Combat runes have already been equipped on this fighter");
   const rules = checkedRules(catalog, sourceRules);
@@ -180,13 +206,14 @@ export function equipRuneEffects(
     "The plain-stat allocation remains its no-rune reference; actual fights and variant comparisons include the selected effects. Rune-aware allocation and build search remain unfinished.",
   ]);
   const equipped = mapCurrentForms(spec, (form): RuneSpec => {
-    const definitions = selection.map((id) => buildRuneEffect(id, form, rules));
+    const definitions = selection.map((id) => buildRuneEffect(id, form, rules, options));
     for (const definition of definitions) for (const assumption of definition.assumptions) assumptions.add(assumption);
     if (!spec.forms || form.form === spec.form) {
       enemyHooks = definitions.flatMap((definition) => definition.enemyHooks ?? []).map((hooks) => ({ ...hooks }));
     }
     const ownHooks = definitions.flatMap((definition) => definition.hooks ? [definition.hooks] : []);
-    const hooks = composeHooks(form.hooks, ownHooks, [], false);
+    const beforeStart = definitions.flatMap((definition) => definition.beforeStart ? [{ onStart: definition.beforeStart }] : []);
+    const hooks = composeHooks(form.hooks, ownHooks, beforeStart, false);
     return { ...form, [EQUIPPED]: true, ...(hooks ? { hooks } : {}) };
   });
   return {
