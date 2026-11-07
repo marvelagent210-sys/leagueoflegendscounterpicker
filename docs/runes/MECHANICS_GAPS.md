@@ -112,30 +112,47 @@ with the client on 3% bonus attack speed plus 1.5% per stack, at most ten stacks
 [Bloodline template 3971359](https://wiki.leagueoflegends.com/en-us/?oldid=3971359)
 and [article 4021767](https://wiki.leagueoflegends.com/en-us/?oldid=4021767) give
 0.45% lifesteal per stack, at most fifteen stacks, and 85 bonus health only at the
-cap. These values do not establish a match's earned history. Explicit declared
-stacks could support a frozen pre-fight model; runtime progression needs the
-actual point and takedown history.
+cap. These values do not establish a match's earned history.
 
-Neither rune is implemented. Before equipping them, the shared initialization
-path must distinguish rune and item origins and support pre-kit stat grants.
-Bloodline health must exist before Ornn's innate setup and initial health-based
-shields. Alacrity must affect combat attack speed and Kai'Sa E timing without
-qualifying for Living Weapon evolutions.
+**Alacrity now has an explicit manual subset.** Each selected side supplies
+starting Legend points, including explicit zero. The rune grants its initial
+attack speed before the kit's `onStart` hook and progresses by 100 points for
+actual enemy champion-body kills, capped at ten stacks. It preserves point remainders and
+native owner credit and kill deduplication. The complete
+[Takedown revision 4081718](https://wiki.leagueoflegends.com/en-us/?oldid=4081718)
+and [Champion summoned units revision 4023248](https://wiki.leagueoflegends.com/en-us/?oldid=4023248)
+are retained with the Alacrity pages in the twenty-one-page combat bundle.
+Clone/Spirit victims do not become champion takedowns through their targeting
+class. Protected resurrection entry gives no points; counted post-death kills
+give one award. A dead owner can gain progress through a committed hit or pet
+kill without healing or revival.
+
+Runtime farm, assists and minion/monster reward classification remain outside
+this subset. Starting points may represent prior real events; level 20 does not
+infer that history. Point updates use the current after-kit kill-hook phase,
+whose complete ordering relative to live champion effects is not measured.
+Bloodline and Legend: Haste remain unimplemented. Bloodline's cap health still
+needs source-qualified initialization and dynamic handling, including Ornn's
+innate setup and health-based shields.
 
 The known **Garen attack-speed shard defect is corrected** in the follow-up to
 the Absorb Life batch:
 [Judgment revision 4009435](https://wiki.leagueoflegends.com/en-us/?oldid=4009435)
 limits spin scaling to item attack speed and level growth. The
-[Garen kit](../../kits/champions/Garen.ts) now subtracts the recorded
-`rune-shards:attackSpeed` contribution when calculating Judgment pulses. The
-shard still improves basic attacks. A shared channel pulse-count callback is
+[Garen kit](../../kits/champions/Garen.ts) now subtracts the recorded direct
+shard contribution and active flat rune-AS statuses, including Alacrity, when
+calculating Judgment pulses. Both retain their ordinary attack-speed benefits.
+A shared channel pulse-count callback is
 used by actual cast scheduling and budget estimates; ordinary formula and
 interval channels retain their existing path.
 
-This is a narrow correction for an already recorded rune origin. It is not a
-complete source classifier for every attack-speed status, and it does not
-implement Legend: Alacrity. A future Alacrity implementation must exclude its
-own rune-origin contribution as well.
+The status filter follows the same conditional-activation predicate as derived
+stats, so removed or inactive rune statuses do not leave a stale subtraction.
+This remains a narrow rune-origin contract, rather than a complete source
+classifier for every possible attack-speed effect. Alacrity affects combat AS
+and Kai'Sa E charge timing without qualifying for her permanent-stat evolutions;
+Jhin's existing conversion turns it into AD while his basic attack rate stays
+fixed.
 
 Existing item-passive behavior is preserved. [Garen's patch history,
 revision 4051881](https://wiki.leagueoflegends.com/en-us/?oldid=4051881), explicitly
@@ -154,6 +171,10 @@ scores, scenarios, builds, variants and spending match the previous baseline;
 the new calculation keys and provenance identify the corrected runtime. The
 [accuracy log](../../ACCURACY.md) records refresh and release validation.
 
-These gaps keep step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress.
-They do not change the current manual inventory or claim that deferred runes
-are ineffective in the game.
+The [Alacrity refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42382830823)
+computed 172 affected pairings per matrix and verified all 344 new checkpoints;
+default numerical results match the previous baseline. Completed release checks
+are recorded in the [accuracy log](../../ACCURACY.md). These remaining gaps keep
+step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the six manual
+effects do not establish full rune-page fidelity or make deferred runes ineffective
+in the game.

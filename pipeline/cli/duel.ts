@@ -19,6 +19,7 @@
  *        npm run duel -- <your champion> <enemy> --search [--format sixItems | fiveItemsWithBoots] [--unstacked] [--log <scenario>]
  *        npm run duel -- <your champion> <enemy> --shards 5005,5001,5001 --enemy-shards 5008,5008,5011
  *        npm run duel -- <your champion> <enemy> --combat-runes 8014,8444 --enemy-combat-runes 8299
+ *        npm run duel -- <your champion> <enemy> --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 9104 --enemy-legend-points 0
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
 import { type EquippedFighter, matchupSpecs } from "../../items/equip";
@@ -41,7 +42,7 @@ import { reviewAdaptiveItemBuild, type AdaptiveItemEligibility } from "../runes/
 import { equipShards, type ShardSelection } from "../../runes/shards";
 import { equipRuneEffects, runeMatchupSpecs, type EquippedRuneEffects } from "../../runes/effects";
 import { loadCombatRuneRules } from "../runes/effects";
-import { combatRuneOption } from "../runes/effectOptions";
+import { combatRuneOption, legendPointsOption } from "../runes/effectOptions";
 
 function option(args: string[], flag: string): string | undefined {
   const index = args.indexOf(flag);
@@ -111,7 +112,7 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--shards", "--enemy-shards", "--combat-runes", "--enemy-combat-runes"]);
+  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--shards", "--enemy-shards", "--combat-runes", "--enemy-combat-runes", "--legend-points", "--enemy-legend-points"]);
   const switches = new Set(["--search", "--unstacked", "--sweep"]);
   for (let index = 0; index < args.length; index++) {
     const arg = args[index]!;
@@ -144,6 +145,8 @@ async function main(): Promise<void> {
   const combatRules = hasRuneEffects && runeCatalog ? await loadCombatRuneRules(data.dataset, runeCatalog) : undefined;
   const myRunes = runeCatalog ? combatRuneOption(args, "--combat-runes", runeCatalog) : undefined;
   const enemyRunes = runeCatalog ? combatRuneOption(args, "--enemy-combat-runes", runeCatalog) : undefined;
+  const myLegendPoints = legendPointsOption(args, "--legend-points", myRunes);
+  const enemyLegendPoints = legendPointsOption(args, "--enemy-legend-points", enemyRunes);
   const myShards = runeCatalog ? shardOption(args, "--shards", runeCatalog) : undefined;
   const enemyShards = runeCatalog ? shardOption(args, "--enemy-shards", runeCatalog) : undefined;
   if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
@@ -157,9 +160,9 @@ async function main(): Promise<void> {
   ]);
   const shardAssumptions = new Set<string>();
   const runeAssumptions = new Set<string>();
-  const withRuneEffects = (spec: FighterSpec, selection: number[] | undefined): EquippedRuneEffects => {
+  const withRuneEffects = (spec: FighterSpec, selection: number[] | undefined, legendPoints?: number): EquippedRuneEffects => {
     if (!selection || !runeCatalog || !combatRules) return { spec, selection: [], enemyHooks: [], evidence: [], assumptions: [] };
-    const equipped = equipRuneEffects(spec, selection, runeCatalog, combatRules);
+    const equipped = equipRuneEffects(spec, selection, runeCatalog, combatRules, legendPoints === undefined ? undefined : { legendPoints });
     for (const assumption of equipped.assumptions) runeAssumptions.add(assumption);
     return equipped;
   };
@@ -172,17 +175,17 @@ async function main(): Promise<void> {
 
   const mine = await loadFighter(data.dataset, you);
   const theirs = await loadFighter(data.dataset, enemy);
-  const mineRunes = withRuneEffects(withShards(mine.spec, myShards, you.adaptiveType, myEligibility), myRunes);
-  const theirRunes = withRuneEffects(withShards(theirs.spec, enemyShards, enemy.adaptiveType, theirEligibility), enemyRunes);
+  const mineRunes = withRuneEffects(withShards(mine.spec, myShards, you.adaptiveType, myEligibility), myRunes, myLegendPoints);
+  const theirRunes = withRuneEffects(withShards(theirs.spec, enemyShards, enemy.adaptiveType, theirEligibility), enemyRunes, enemyLegendPoints);
   [mine.spec, theirs.spec] = runeMatchupSpecs(mineRunes, theirRunes);
   const describe = (name: string, kit: unknown) => (kit ? `${name} (kit)` : `${name} (base stats and basic attacks only: no kit yet)`);
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
   // A kit with a choice to make (Udyr's rank split, Heimerdinger's upgrade) plays the option set best for it here.
   const myVariants = (await loadVariants(data.dataset, you)).map((variant) => ({ ...variant, spec: runeMatchupSpecs(
-    withRuneEffects(withShards(variant.spec, myShards, you.adaptiveType, myEligibility), myRunes), theirRunes,
+    withRuneEffects(withShards(variant.spec, myShards, you.adaptiveType, myEligibility), myRunes, myLegendPoints), theirRunes,
   )[0] }));
   const theirVariants = (await loadVariants(data.dataset, enemy)).map((variant) => ({ ...variant, spec: runeMatchupSpecs(
-    mineRunes, withRuneEffects(withShards(variant.spec, enemyShards, enemy.adaptiveType, theirEligibility), enemyRunes),
+    mineRunes, withRuneEffects(withShards(variant.spec, enemyShards, enemy.adaptiveType, theirEligibility), enemyRunes, enemyLegendPoints),
   )[1] }));
   if (search && (args.includes("--items") || args.includes("--enemy-items"))) throw new Error("--search finds the builds; it doesn't go with --items or --enemy-items");
   if (hasShards && runeCatalog) {
@@ -196,6 +199,16 @@ async function main(): Promise<void> {
   if (hasRuneEffects && runeCatalog) {
     for (const [name, selection] of [[you.name, myRunes], [enemy.name, enemyRunes]] as const) {
       if (selection) console.log(`${name} combat runes (partial selection): ${selection.map((id) => `${runeCatalog.runes.find((rune) => rune.id === id)!.name} (${id})`).join(", ")}`);
+    }
+    if (combatRules) {
+      const rule = combatRules.legendAlacrity;
+      for (const [name, points] of [[you.name, myLegendPoints], [enemy.name, enemyLegendPoints]] as const) {
+        if (points === undefined) continue;
+        const effective = Math.min(points, rule.maxStacks * rule.pointsPerStack);
+        const stacks = Math.floor(effective / rule.pointsPerStack);
+        const attackSpeed = Number(((rule.baseAttackSpeed + stacks * rule.attackSpeedPerStack) * 100).toFixed(3));
+        console.log(`${name} Legend points: ${points}${points !== effective ? ` (effective ${effective}, capped)` : ""}; ${stacks} stacks, ${attackSpeed}% bonus attack speed`);
+      }
     }
     console.log("Only the explicit partial selection is equipped; a complete rune page is not implied.");
     for (const assumption of runeAssumptions) console.log(`  ${assumption}`);

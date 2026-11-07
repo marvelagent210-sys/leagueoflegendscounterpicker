@@ -1,8 +1,12 @@
 {
-  "note": "Refresh both matrices after source-qualified channel pulse callbacks and the Garen attack-speed shard exclusion. The shared engine dependency keys change, so every pending pair must be computed by the real workers. Reuse only unchanged inputs; do not restamp scores.",
+  "note": "Refresh Garen's affected pairings after filtering active, source-tagged rune attack speed from Judgment for explicit Legend: Alacrity support. Default fights have no selected combat runes. Reuse only unchanged inputs; compute every pending pairing with the real workers.",
   "dataset": "16.21",
   "matrices": [
     "sim",
     "builds"
-  ]
+  ],
+  "shards": {
+    "sim": 2,
+    "builds": 6
+  }
 }

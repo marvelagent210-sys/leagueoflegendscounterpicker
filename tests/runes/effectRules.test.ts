@@ -14,11 +14,11 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8014, 8017, 8299, 8444, 9101];
+const selected = [8014, 8017, 8299, 8444, 9101, 9104];
 const gamePaths = [
   "Perks/Styles/Precision/CoupDeGrace", "Perks/Styles/Precision/CutDown",
   "Perks/Styles/Precision/LastStand", "Perks/Styles/Resolve/SecondWind",
-  "Perks/Styles/Precision/AbsorbLife",
+  "Perks/Styles/Precision/AbsorbLife", "Perks/Styles/Precision/LegendAlacrity",
 ] as const;
 interface HealBreakpoint { __type: string; mLevel: number; mBonusPerLevelAtAndAfter: number }
 interface HealPart {
@@ -59,6 +59,7 @@ describe("reviewed combat rune numeric rules", () => {
     expect(build()).toMatchObject({
       schema: 1, dataset: "16.21", patch: "26.21",
       absorbLife: { heal: 27 },
+      legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
       coupDeGrace: { healthThreshold: 0.4, damageIncrease: 0.08 },
       cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
       lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
@@ -68,17 +69,31 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(["manual-effects", "manual-effects", "manual-effects", "manual-effects", "manual-effects"]);
+      .toEqual(Array(6).fill("manual-effects"));
   });
 
-  it("binds all seventeen complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all twenty-one complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
-      ["Coup de Grace", 3860002], ["Cut Down", 4014921], ["Damage", 4084890], ["Damage modifier", 4050138],
-      ["Healing", 4041638], ["Health regeneration", 4073061], ["Kill", 4053216], ["Last Stand", 3926332], ["Second Wind", 4012933],
+      ["Champion summoned units", 4023248],
+      ["Coup de Grace", 3860002],
+      ["Cut Down", 4014921],
+      ["Damage", 4084890],
+      ["Damage modifier", 4050138],
+      ["Healing", 4041638],
+      ["Health regeneration", 4073061],
+      ["Kill", 4053216],
+      ["Last Stand", 3926332],
+      ["Legend: Alacrity", 3980881],
+      ["Second Wind", 4012933],
+      ["Takedown", 4081718],
       ["Template:Rune data Absorb Life", 3997095],
-      ["Template:Rune data Coup de Grace", 3859780], ["Template:Rune data Cut Down", 3859781],
-      ["Template:Rune data Last Stand", 3859782], ["Template:Rune data Second Wind", 3960974], ["True damage", 4052642],
+      ["Template:Rune data Coup de Grace", 3859780],
+      ["Template:Rune data Cut Down", 3859781],
+      ["Template:Rune data Last Stand", 3859782],
+      ["Template:Rune data Legend: Alacrity", 3958705],
+      ["Template:Rune data Second Wind", 3960974],
+      ["True damage", 4052642],
       ["Unit", 4085583],
     ]);
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
@@ -86,7 +101,7 @@ describe("reviewed combat rune numeric rules", () => {
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(17);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(21);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -113,6 +128,29 @@ describe("reviewed combat rune numeric rules", () => {
     expect(evidence).toContain("[[Ward]] kills");
     expect(evidence).toContain("* {{tip|Ward}}");
     expect(evidence).toContain("'''Healing''' cannot increase a unit's current health over its maximum");
+  });
+
+  it("reads Alacrity's declared stack rules without inventing names for opaque client values", () => {
+    const game = JSON.parse(originalGame) as Game;
+    const amounts = game[gamePaths[5]]!.mScript.mSpellScriptData.mEffectAmount;
+    expect(amounts).toMatchObject({
+      AttackSpeedBase: Math.fround(0.03), AttackSpeedPerStack: Math.fround(0.015), MaxLegendStacks: 10,
+      LargeMonsterKillValue: 25, MinionKillValue: 4,
+      "{3e1fdd4a}": 100, "{8fb410e2}": 100, "{f6570baa}": 100,
+    });
+    expect(amounts).not.toHaveProperty("ChampionKillValue");
+    expect(amounts).not.toHaveProperty("PointsPerStack");
+    const rules = build().legendAlacrity;
+    expect(rules).toEqual({ baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015,
+      pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 });
+    expect(rules.baseAttackSpeed + rules.attackSpeedPerStack * rules.maxStacks).toBeCloseTo(0.18, 15);
+    const evidence = build().evidence.map((entry) => entry.text).join("\n");
+    expect(evidence).toContain("100 points for champion {{tip|takedown|takedowns}}");
+    expect(evidence).toContain("100+25 stacks instead of the correct 100");
+    expect(evidence).toContain("either a [[kill]] or an [[assist]] is acceptable");
+    expect(evidence).toContain("most non-{{tip|takedown}} effects");
+    expect(evidence).toContain("are attributed to their owner");
+    expect(evidence).toContain("{{Outdated|Last updated: [[V14.22]]");
   });
 
   it("retains source rules for additive outgoing modifiers, true damage exclusions, and regeneration", () => {
@@ -154,11 +192,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all seventeen complete/);
+    expect(() => build(missing)).toThrow(/all twenty-one complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all seventeen complete/);
+    expect(() => build(extra)).toThrow(/all twenty-one complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -247,6 +285,99 @@ describe("dataset and version binding", () => {
 });
 
 describe("re-pinned semantic changes", () => {
+  it.each([
+    ["basealacrity|3", "basealacrity|4", "AttackSpeedBase"],
+    ["scalingalacrity|1.5", "scalingalacrity|2", "AttackSpeedPerStack"],
+  ])("cross-checks Alacrity's current Wiki %s against the named client field", (old, next, field) => {
+    const input = fixture(); editDescription(input, "Legend: Alacrity", old, next);
+    expect(() => build(input)).toThrow(new RegExp(`Legend: Alacrity Wiki/game ${field} disagree`));
+  });
+
+  it("requires Alacrity's two current maximum-stack descriptions to agree", () => {
+    const input = fixture(); editDescription(input, "Legend: Alacrity", "*10}}", "*11}}");
+    expect(() => build(input)).toThrow(/maximum stack descriptions disagree/);
+    const client = fixture(); editWiki(client, "Template:Rune data Legend: Alacrity", (text) =>
+      text.replace("*10}}", "*11}}").replace("up to 10:", "up to 11:"));
+    expect(() => build(client)).toThrow(/MaxLegendStacks disagree/);
+  });
+
+  it.each([
+    ["* 25 points for large monster kills", "* 26 points for large monster kills", "LargeMonsterKillValue"],
+    ["* 4 points for minion kills", "* 5 points for minion kills", "MinionKillValue"],
+  ])("cross-checks the retained Alacrity point rule %s", (old, next, field) => {
+    const input = fixture(); editWiki(input, "Template:Rune data Legend: Alacrity", (text) => text.replace(old, next));
+    expect(() => build(input)).toThrow(new RegExp(`Legend: Alacrity Wiki/game ${field} disagree`));
+  });
+
+  it.each([
+    ["every 100 points earned", "every 200 points earned"],
+    ["* 100 points for champion", "* 200 points for champion"],
+    ["* 100 points for epic monster", "* 200 points for epic monster"],
+  ])("retains exact Wiki-only point semantics for %s without labeling opaque client keys", (old, next) => {
+    const input = fixture(); editWiki(input, "Template:Rune data Legend: Alacrity", (text) => text.replace(old, next));
+    expect(() => build(input)).toThrow(/Template:Rune data Legend: Alacrity full reviewed revision changed/);
+  });
+
+  it("rejects missing, duplicate, fractional and nonpositive Alacrity progression rules", () => {
+    const missing = fixture(); editWiki(missing, "Template:Rune data Legend: Alacrity", (text) => text.replace("|description2", "|historical2"));
+    expect(() => build(missing)).toThrow(/complete current point description/);
+    const duplicate = fixture(); editWiki(duplicate, "Template:Rune data Legend: Alacrity", (text) =>
+      text + "\n" + text.split("\n").find((line) => /^\|description2\s*=/.test(line))!);
+    expect(() => build(duplicate)).toThrow(/complete current point description/);
+    const reward = fixture(); editWiki(reward, "Template:Rune data Legend: Alacrity", (text) =>
+      text + "\n* 100 points for champion {{tip|takedown|takedowns}}");
+    expect(() => build(reward)).toThrow(/current champion point rule/);
+    const fraction = fixture(); editWiki(fraction, "Template:Rune data Legend: Alacrity", (text) => text.replace("every 100 points", "every 100.5 points"));
+    expect(() => build(fraction)).toThrow(/Legend: Alacrity points reviewed formula changed/);
+    const zero = fixture(); editWiki(zero, "Template:Rune data Legend: Alacrity", (text) => text.replace("every 100 points", "every 0 points"));
+    expect(() => build(zero)).toThrow(/positive safe integer point and stack rules/);
+  });
+
+  it.each(["AttackSpeedBase", "AttackSpeedPerStack", "MaxLegendStacks", "LargeMonsterKillValue", "MinionKillValue"])
+  ("cross-checks Alacrity's named client %s", (key) => {
+    const input = fixture(); editGame(input, (game) => { game[gamePaths[5]]!.mScript.mSpellScriptData.mEffectAmount[key]! += 1; });
+    expect(() => build(input)).toThrow(new RegExp(`Legend: Alacrity Wiki/game ${key} disagree`));
+  });
+
+  it.each(["{3e1fdd4a}", "{8fb410e2}", "{f6570baa}"])
+  ("keeps opaque Alacrity field %s sealed as complete client bytes", (key) => {
+    const input = fixture(); editGame(input, (game) => { game[gamePaths[5]]!.mScript.mSpellScriptData.mEffectAmount[key] = 200; });
+    expect(() => build(input)).toThrow(/complete reviewed game source changed/);
+  });
+
+  it("checks Alacrity's client identity and rejects missing script amounts", () => {
+    const id = fixture(); editGame(id, (game) => { game[gamePaths[5]]!.mPerkId = 9103; });
+    expect(() => build(id)).toThrow(/Legend: Alacrity game ID differs/);
+    const amounts = fixture(); editGame(amounts, (game) => {
+      delete (game[gamePaths[5]]!.mScript.mSpellScriptData as Partial<GamePerk["mScript"]["mSpellScriptData"]>).mEffectAmount;
+    });
+    expect(() => build(amounts)).toThrow(/Legend: Alacrity game amounts must be an object/);
+  });
+
+  it.each([
+    ["Champion summoned units", "most non-{{tip|takedown}} effects", "most {{tip|takedown}} effects"],
+    ["Champion summoned units", "are attributed to their owner.", "are attributed to the clone."],
+    ["Takedown", "either a [[kill]] or an [[assist]] is acceptable", "only a [[kill]] is acceptable"],
+    ["Legend: Alacrity", "100+25 stacks instead of the correct 100", "125 stacks instead of the correct 100"],
+  ])("requires the retained progression/clone evidence from %s", (title, old, next) => {
+    const input = fixture(); editWiki(input, title, (text) => text.replace(old, next));
+    expect(() => build(input)).toThrow(new RegExp(`${title} reviewed rule changed`));
+  });
+
+  it.each(["Legend: Alacrity", "Takedown", "Champion summoned units"])
+  ("rejects progression source excerpts in place of the complete %s revision", (title) => {
+    const input = fixture();
+    const excerpts = build().evidence.filter((entry) => entry.title === title).map((entry) => entry.text).join("\n");
+    editWiki(input, title, () => excerpts);
+    expect(() => build(input)).toThrow(new RegExp(`${title} full reviewed revision changed`));
+  });
+
+  it("rejects jointly re-pinned Alacrity Wiki and named client values", () => {
+    const input = fixture(); editDescription(input, "Legend: Alacrity", "basealacrity|3", "basealacrity|4");
+    editGame(input, (game) => { game[gamePaths[5]]!.mScript.mSpellScriptData.mEffectAmount.AttackSpeedBase = Math.fround(0.04); });
+    expect(() => build(input)).toThrow(/Template:Rune data Legend: Alacrity full reviewed revision changed/);
+  });
+
   it.each([
     ["1; then", "2; then", "mLevel1Value"],
     ["+0.25*x", "+0.5*x", "mInitialBonusPerLevel"],

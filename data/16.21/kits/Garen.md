@@ -263,7 +263,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Courage stacks collected by level 20 (0.2 armor and magic resistance each, up to 150): 150.
 - Decisive Strike's lunge toward its target isn't modeled (the wiki gives no distance).
 - Judgment always hits Garen's only enemy, the nearest one, for 25% more damage.
-- Judgment excludes the recorded attack-speed shard from spin scaling. Other current attack-speed sources retain the existing model; temporary item-passive eligibility, including Guinsoo's Seething Strike, remains unverified. The spin count is captured once at cast, retaining the simulator's timing assumption rather than establishing live-game snapshot timing.
+- Judgment excludes the recorded attack-speed shard and active tagged flat rune attack-speed statuses from spin scaling. Other current attack-speed sources retain the existing model; temporary item-passive eligibility, including Guinsoo's Seething Strike, remains unverified. The spin count is captured once at cast, retaining the simulator's timing assumption rather than establishing live-game snapshot timing.
 
 ### Source values read (31)
 

@@ -78,8 +78,8 @@ describe("patch 26.21 rune source catalog", () => {
 
   it("distinguishes partial manual effects, unimplemented runes and the narrow Triple Tonic status", () => {
     const catalog = build();
-    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(56);
-    expect(catalog.runes.filter((entry) => entry.combatStatus === "manual-effects").map((entry) => entry.id).sort((a, b) => a - b)).toEqual([8014, 8017, 8299, 8444, 9101]);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(55);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "manual-effects").map((entry) => entry.id).sort((a, b) => a - b)).toEqual([8014, 8017, 8299, 8444, 9101, 9104]);
     expect(catalog.runes.filter((entry) => entry.combatStatus === "legacy-udyr-only").map((entry) => entry.name)).toEqual(["Triple Tonic"]);
     expect(catalog.limitations.join("\n")).toContain("does not equip a rune page");
     expect(catalog.limitations.join("\n")).toContain("contextual replacements");
