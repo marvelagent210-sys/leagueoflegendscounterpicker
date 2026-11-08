@@ -7,7 +7,7 @@ The duel simulator played each of the 172 other champions with a simulator kit a
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
 | 1 | K'Sante | +0.88 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +1.00 |
-| 2 | Udyr | +0.88 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +1.00 |
+| 2 | Udyr | +0.88 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +1.00 |
 | 3 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +1.00 |
 | 4 | Master Yi | +0.86 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +1.00 |
 | 5 | Trundle | +0.85 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +1.00 |
