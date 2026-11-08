@@ -1,5 +1,6 @@
 /** Eight independently sourced stages; real energy, contacts, allies and displacement. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { canCast, EPSILON, inAttackRange } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
 import { abilityHit, abilityHitPet, applyEffect, canSee, canTarget, directionTo, heal, inStasis, isUntargetable, notifyDashEnd } from "../../engine/sim/combat";
@@ -148,7 +149,7 @@ const leeSin: KitModule = {
           }
           if (ctx.ability.key === "W") {
             const pet=anchor(ctx,ctx.aim), replacedQ=ctx.self.action?.kind === "dash" && ctx.self.action.ability === "Q2"; endOtherDash(ctx); ctx.memory["leesin:w:anchor"]=pet?.id ?? -2; ctx.memory["leesin:w:until"]=ctx.tick+ticks(wWindow); ctx.memory["leesin:w:shielded"]=false;
-            if (!pet || pet.spec.targetClass === "champion" && pet.spec.unitClass !== "clone") ctx.self.cooldownReady.W=ctx.tick+ticks(wCD*(1-wRefund)/(1+derive(ctx.self).abilityHaste/100));
+            if (!pet || pet.spec.targetClass === "champion" && pet.spec.unitClass !== "clone") ctx.self.cooldownReady.W=ctx.tick+ticks(wCD*(1-wRefund)/(1+abilityHasteFor(ctx.self, { slot: "W" })/100));
             if (!pet || replacedQ) { shield(ctx,pet); ctx.memory["leesin:w:shielded"]=true; }
             if (pet) { ctx.memory["leesin:w:endpoint"]=pet.x; startDash(ctx,"W",pet.x,wSpeed[0]!+derive(ctx.self).moveSpeed*wSpeed[1]!/100); }
           }

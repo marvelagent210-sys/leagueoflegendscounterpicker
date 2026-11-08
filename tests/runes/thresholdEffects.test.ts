@@ -18,6 +18,7 @@ const rules: CombatRuneRules = {
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
   absorbLife: { heal: 27 },
   legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
+  legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   evidence: [{ title: "Synthetic threshold fixture", revid: 1, text: "Fixed percentages isolate actual damage-path behavior." }],
 };
 

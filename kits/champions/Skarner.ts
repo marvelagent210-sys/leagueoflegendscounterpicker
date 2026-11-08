@@ -1,5 +1,6 @@
 /** Skarner: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { attackRange, canCast, inAttackRange } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -254,7 +255,7 @@ const skarner: KitModule = {
               ctx.apply({ type: "cc", cc: "stun", duration: wallStun });
               // Its cooldown, 35% shorter, starts now.
               delete self.cooldownHeld.E;
-              self.cooldownReady.E = ctx.tick + ticks(cooldownAfterHaste(eCooldown, derive(self).abilityHaste) * (1 - wallRefund));
+              self.cooldownReady.E = ctx.tick + ticks(cooldownAfterHaste(eCooldown, abilityHasteFor(self, { slot: "E" })) * (1 - wallRefund));
               endCharge(ctx);
             } else if (!(self.action?.kind === "dash" && self.action.ability === "E")) {
               release(ctx);

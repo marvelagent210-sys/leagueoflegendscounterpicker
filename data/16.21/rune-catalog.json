@@ -1317,7 +1317,7 @@
         "sha256": "892804ab9e9eb64530b55b4b89b2cc7df78b7dee878eb2119d65de9d713711be",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Legend: Haste|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2024\n|path         = Precision\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain {{sti|ability haste|icononly=true}} {{as|{{fd|1.5}} basic ability haste}} per ''Legend'' {{tip|stack}}, up to {{as|15|ability haste}} at maximum stacks.\n|description2 = {{sbc|Legend:}} Gain ''Legend'' stacks for every 100 points earned, up to 10:\n* 100 points for champion {{tip|takedown|takedowns}}\n* 100 points for epic monster {{tip|takedown|takedowns}}\n* 25 points for large monster kills\n* 4 points for minion kills\n|range        = \n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 9111,

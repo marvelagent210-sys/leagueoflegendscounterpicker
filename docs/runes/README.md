@@ -2,7 +2,7 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support six partial combat effects, listed below.
+Manual plain-stat duels also support seven partial combat effects, listed below.
 Full rune pages and rune-page search remain unfinished. The existing
 Udyr-specific Triple Tonic behavior still reads its original `runes.json`;
 default matchup matrices keep their existing settings without these optional
@@ -93,9 +93,10 @@ npm run duel -- Darius Garen --combat-runes 8017 --enemy-combat-runes 8444 --log
 npm run duel -- Darius Garen --combat-runes 8299,8444 --shards 5005,5001,5001
 npm run duel -- Darius Yorick --combat-runes 9101,8299
 npm run duel -- Garen Darius --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 8014,9104 --enemy-legend-points 0
+npm run duel -- Darius Garen --combat-runes 9105,8299 --legend-points 1000 --enemy-combat-runes 9104 --enemy-legend-points 0
 ```
 
-Each flag takes comma-separated rune IDs for that side. These six effects are
+Each flag takes comma-separated rune IDs for that side. These seven effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -106,10 +107,12 @@ supported as partial manual selections:
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
 | Legend: Alacrity | 9104 | 3% bonus attack speed plus 1.5 percentage points per completed 100-point stack, capped at ten stacks (18%). Requires declared starting points; actual champion-body kills add 100 points. |
+| Legend: Haste | 9105 | 1.5 basic ability haste per completed 100-point stack, capped at ten stacks (15). Zero starting points grant zero haste. Requires declared starting points; actual champion-body kills add 100 points. |
 
 The three Precision health-damage runes occupy the same source-defined row, so select at most
-one of them. Second Wind, Absorb Life and Alacrity can accompany any one of those
-three, subject to the same page validator.
+one of them. Alacrity and Haste occupy the same Legend row, so select at most one
+of those two. Second Wind, Absorb Life and one Legend choice can accompany any one
+of the three damage runes, subject to the same page validator.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
 Omitting a side's flag applies none of these optional effects to that side. This
@@ -123,10 +126,10 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks twenty-one complete Wiki revisions in
+The offline compiler checks thirty complete Wiki revisions in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the six templates to
+full-content hashes, exact revisions and excerpts, binds the seven templates to
 the catalog, and cross-checks the numeric rules against current game fields.
 Cut Down's obsolete health-difference fields are retained as source data but
 are not used for its current 8% rule.
@@ -163,9 +166,86 @@ Compatibility limits remain explicit:
 
 Full pages, keystones, the remaining historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These six catalog entries are
+selection require further implementation and validation. These seven catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Legend: Haste and qualified cooldowns
+
+Each side selecting Haste (`9105`) must declare its own starting Legend points
+with `--legend-points` or `--enemy-legend-points`, using the same explicit-history
+contract as Alacrity. Missing, repeated, malformed or unused point flags fail;
+explicit `0` means an unstacked start. Values must be nonnegative safe integers.
+Effective progress caps at 1,000 points, with partial progress preserved:
+
+| Starting points | Completed stacks | Basic ability haste |
+|--:|--:|--:|
+| 0 or 99 | 0 | 0 |
+| 100 or 199 | 1 | 1.5 |
+| 950 or 999 | 9 | 13.5 |
+| 1,000 or more | 10 | 15 |
+
+Actual enemy champion-body kills credited by the engine add 100 points, including
+owned-pet credit. The body-identity, native deduplication, protected-resurrection,
+post-death and dead-owner rules described for Alacrity below also apply to Haste.
+Clone or Spirit victims do not become champion takedowns through their targeting
+class. Declared history can represent prior real events; the 1v1 does not create
+assists, farm or monster rewards. Point and stat state are local to each world,
+form and branch, and independent scenarios and variants restart from the declared
+history. The grant is installed before the kit's `onStart` hook. Progress uses the
+existing after-kit kill-hook phase, whose complete live-game ordering is not
+established by these sources.
+
+The complete [Haste template 3958696](https://wiki.leagueoflegends.com/en-us/?oldid=3958696)
+and [article 3980882](https://wiki.leagueoflegends.com/en-us/?oldid=3980882) establish
+zero base haste, 1.5 per stack, ten stacks and the 100-point rules. Named client
+fields cross-check base, per-stack and cap values. Three opaque client fields
+equal 100, but their semantic names remain undecoded.
+
+Basic haste shortens eligible basic-ability cooldowns, rather than ordinary
+ultimate cooldowns. The full [Haste revision 4070414](https://wiki.leagueoflegends.com/en-us/?oldid=4070414)
+combines generic haste additively with the appropriate basic, ultimate or
+ability-specific contribution, capped at 500. The engine uses that qualified
+value for native cast scheduling, charge recharge, held cooldown release and
+total-cooldown refunds. Static cast cooldowns retain their exclusion; their
+separate charge timer follows its own source rule. The full
+[Cooldown revision 4050188](https://wiki.leagueoflegends.com/en-us/?oldid=4050188)
+also retains exceptions for target-specific timers. Champion-owned clocks use
+their reviewed ability classification rather than treating every timer as a
+basic ability. A stack gain affects later scheduling; it does not rescale a
+cooldown already running.
+
+Shared cooldown aliases and reviewed exceptions retain their parent class.
+Udyr's specific [Bridge Between revision 3983420](https://wiki.leagueoflegends.com/en-us/?oldid=3983420)
+defines all four stance abilities, including his R slot, as basic. The generic
+Champion ability page also lists Wingborne Storm as a pseudo-ultimate for
+ultimate interactions; that broader label does not replace the specific
+cooldown rule. Awakened Spirit's tooltip explicitly excludes generic ability
+haste and accepts only ultimate haste. His ordinary 1.5-second global stance
+lock uses qualified basic haste. The 0.5-second empowered lock retains its fixed
+interpretation because the retained sources do not establish its haste eligibility.
+
+The same cooldown contract carries unconditional basic and ultimate item haste
+as separate stats, plus ability-specific conditional bonuses. This corrects
+item recharge and champion-owned timer paths without enabling combat-rune item
+mode: all combat-rune flags still reject fixed builds and item search until
+composition and valuation are reviewed. The plain-stat allocation remains its
+no-rune reference.
+
+The shared-engine and Udyr corrections changed default matchup results even
+though default fights select no combat runes. The
+[8 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42468696945)
+genuinely recomputed all 14,878 pairings in each default matrix, with zero reuse.
+All 22 jobs passed, and all 29,756 genuine checkpoints match the final forward
+and reverse scores, scenarios, variants, decoded builds and spending. The
+baseline comparison found 172 changed plain-stat pairings, all involving Udyr,
+and 186 changed build payloads, including 182 changed aggregate scores. The
+full suite passed 8,977 tests across 258 files with five existing skips; both
+matrix freshness checks and the final production build pass. See the
+[accuracy log](../../ACCURACY.md) for the complete result comparison.
+Full pages, browser combat-rune controls, rune-aware allocation/search and general
+farm/assist/monster progression remain unfinished. No new in-game measurements
+are claimed.
 
 ### Legend: Alacrity: declared history and champion-kill progress
 
@@ -224,7 +304,7 @@ stat conversion.
 
 Runtime progress uses the existing kill-hook phase after the kit's own callback.
 The retained sources do not establish complete live-game ordering relative to
-every champion kill effect. Other Legend runes, full farm/assist progression,
+every champion kill effect. Bloodline, full farm/assist progression,
 item builds, browser controls, full pages and rune-aware allocation/search remain
 unfinished.
 
@@ -261,8 +341,8 @@ controlled measurement.
 
 The [mechanics gap audit](MECHANICS_GAPS.md) records remaining packet-order,
 resistance-classification, crowd-control-phase and stat-origin work. In
-particular, Conditioning, the other Legend runes and Unflinching remain
-unimplemented. Alacrity's supported point-state and kill progression are described
+particular, Conditioning, Legend: Bloodline and Unflinching remain
+unimplemented. Alacrity's and Haste's supported point-state and kill progression are described
 above; they do not resolve every progression category or attack-speed source.
 
 ### Garen Judgment and the attack-speed shard
@@ -288,7 +368,7 @@ active rune contribution is excluded separately; this does not establish full
 eligibility for every future attack-speed source.
 
 The full [Judgment source](../../data/16.21/garen-judgment-source.json) is retained
-separately from the twenty-one-page combat-rune bundle. Its exact revision and
+separately from the current thirty-page combat-rune bundle. Its exact revision and
 the parsed ability notes establish the shard exclusion; no live-game timing
 measurement or complete current-item eligibility audit is claimed. The
 [full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42225042960)

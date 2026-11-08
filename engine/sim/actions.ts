@@ -9,6 +9,7 @@ import { abilityHit, abilityHitPet, applyEffect, attackHit, canSee, canTarget, c
 import { canAttack, canCastUnderCC, derive, evaluate, hasState } from "./derived";
 import { healthProtection } from "./healthProtection";
 import { abilityOf, allAbilities } from "./forms";
+import { abilityHasteFor, cooldownSourceSnapshot } from "./cooldowns";
 import { dashDistance, terrainLimit } from "./terrain";
 import { hitChance } from "./hitModel";
 import { type AbilitySpec, type AttackSplit, type Effect, cooldownKeyOf } from "./spec";
@@ -482,7 +483,10 @@ function spendCharge(world: World, unit: Unit, ability: AbilitySpec): void {
   const key = cooldownKeyOf(ability);
   const stock = unit.charges[key] ?? { count: charges.max, nextTick: Number.POSITIVE_INFINITY };
   // The recharge starts when the first charge of a full stock is spent.
-  if (stock.count >= charges.max) stock.nextTick = world.tick + toTicks(cooldownAfterHaste(charges.recharge, derive(unit).abilityHaste));
+  if (stock.count >= charges.max) {
+    unit.chargeSources[key] = cooldownSourceSnapshot(unit, ability);
+    stock.nextTick = world.tick + toTicks(cooldownAfterHaste(charges.recharge, abilityHasteFor(unit, unit.chargeSources[key]!)));
+  }
   stock.count = Math.max(0, stock.count - 1);
   unit.charges[key] = stock;
 }
@@ -491,33 +495,44 @@ function spendCharge(world: World, unit: Unit, ability: AbilitySpec): void {
 export function restockCharges(world: World, unit: Unit): void {
   for (const [key, stock] of Object.entries(unit.charges)) {
     if (world.tick < stock.nextTick) continue;
-    const ability = allAbilities(unit.spec).find((a) => a.charges && cooldownKeyOf(a) === key);
+    const ability = unit.chargeSources[key]
+      ?? allAbilities(unit.spec).find((a) => a.charges && cooldownKeyOf(a) === key);
     if (!ability?.charges) continue;
     stock.count += 1;
-    stock.nextTick = stock.count >= ability.charges.max ? Number.POSITIVE_INFINITY : world.tick + toTicks(cooldownAfterHaste(ability.charges.recharge, derive(unit).abilityHaste));
+    if (stock.count >= ability.charges.max) {
+      stock.nextTick = Number.POSITIVE_INFINITY;
+      delete unit.chargeSources[key];
+    } else {
+      const source = unit.chargeSources[key] ?? cooldownSourceSnapshot(unit, ability);
+      unit.chargeSources[key] = source;
+      stock.nextTick = world.tick + toTicks(cooldownAfterHaste(source.charges!.recharge, abilityHasteFor(unit, source)));
+    }
   }
 }
 
 function startCooldown(world: World, unit: Unit, ability: AbilitySpec): void {
   spendCharge(world, unit, ability);
   const key = cooldownKeyOf(ability);
+  unit.cooldownSources[key] = cooldownSourceSnapshot(unit, ability);
   if (ability.cooldownAfter) {
     // Held until the cast's effect is over (releaseCooldowns).
     unit.cooldownReady[key] = Number.POSITIVE_INFINITY;
     unit.cooldownHeld[key] = ability.key;
     return;
   }
-  const haste = ability.staticCooldown ? 0 : derive(unit).abilityHaste;
+  const haste = ability.staticCooldown ? 0 : abilityHasteFor(unit, ability);
   unit.cooldownReady[key] = world.tick + toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste));
 }
 
 /** Post-effect cooldowns start once their cast's effect is over (wiki: "Cooldown starts"). */
 export function releaseCooldowns(world: World, unit: Unit): void {
   for (const [key, abilityKey] of Object.entries(unit.cooldownHeld)) {
-    const ability = abilityOf(unit, abilityKey);
+    const stored = unit.cooldownSources[key];
+    const ability = stored?.key === abilityKey ? stored : abilityOf(unit, abilityKey);
     if (ability && effectLasts(world, unit, ability)) continue;
     delete unit.cooldownHeld[key];
-    const haste = ability?.staticCooldown ? 0 : derive(unit).abilityHaste;
+    if (ability && stored !== ability) unit.cooldownSources[key] = cooldownSourceSnapshot(unit, ability);
+    const haste = ability?.staticCooldown || !ability ? 0 : abilityHasteFor(unit, ability);
     const full = ability ? toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste)) : 0;
     // Refunds that came while it was held.
     const pending = unit.pendingRefunds[key];

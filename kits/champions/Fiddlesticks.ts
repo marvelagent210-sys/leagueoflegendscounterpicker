@@ -5,6 +5,7 @@
  * blinks in with a storm of crows that follows Fiddlesticks for 5 s.
  */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -162,7 +163,7 @@ const fiddlesticks: KitModule = {
           if (key === "Q") {
             // Against an enemy it already feared: double damage and no fear.
             if (feared(ctx.self, ctx.tick)) return [{ type: "damage", damageType: "magic", amount: doubled, minimum: { base: doubledLeast } }];
-            if (!ctx.defense) ctx.memory["fiddlesticks:fearLock"] = ctx.tick + ticks(cooldownAfterHaste(qSpec.cooldown, derive(ctx.self).abilityHaste));
+            if (!ctx.defense) ctx.memory["fiddlesticks:fearLock"] = ctx.tick + ticks(cooldownAfterHaste(qSpec.cooldown, abilityHasteFor(ctx.self, { slot: "Q" })));
             return undefined;
           }
           if (key === "W") {

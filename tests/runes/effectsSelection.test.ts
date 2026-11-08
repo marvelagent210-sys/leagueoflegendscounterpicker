@@ -24,6 +24,7 @@ const rules: CombatRuneRules = {
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
   absorbLife: { heal: 27 },
   legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
+  legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   evidence: [{ title: "Synthetic equipment fixture", revid: 1, text: "Synthetic combat rules isolate equipment and side binding." }],
 };
 const equip = (spec = fighter(), selected: number[] = []) => equipRuneEffects(spec, selected, catalog, rules);
@@ -44,17 +45,18 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely the thirty-two legal subsets of the six implemented effects", () => {
+  it("accepts precisely the forty-eight legal subsets of the seven implemented effects", () => {
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
-      if (amps.length <= 1) {
+      const legends = selected.filter((id) => id === 9104 || id === 9105);
+      if (amps.length <= 1 && legends.length <= 1) {
         expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
         accepted++;
-      } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(/same path row/);
+      } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(selected.length > 6 ? /at most six/ : /same path row/);
     }
-    expect(accepted).toBe(32);
+    expect(accepted).toBe(48);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],
@@ -114,6 +116,31 @@ describe("explicit partial combat-rune selections", () => {
 });
 
 describe("combat-rune equipment and opposing-hook composition", () => {
+  it("binds Haste history to its fighter and snapshots its separate numeric rules", () => {
+    const input = fighter({ hooks: {
+      onStart(ctx) { ctx.memory.kitSawBasicHaste = derive(ctx.self).basicAbilityHaste; },
+    } });
+    expect(() => equipRuneEffects(input, [9105], catalog, rules)).toThrow(/explicit.*legendPoints/);
+    const options = { legendPoints: 199 }, suppliedRules = structuredClone(rules);
+    const own = equipRuneEffects(input, [9105], catalog, suppliedRules, options);
+    const opponent = equipRuneEffects(fighter(), [9104], catalog, rules, { legendPoints: 0 });
+    options.legendPoints = 1000;
+    suppliedRules.legendHaste.hastePerStack = 100;
+    const first = arena(runeMatchupSpecs(own, opponent));
+    expect(first.units[0].memory.kitSawBasicHaste).toBe(1.5);
+    expect(first.units[0].memory["rune:legend-haste:points"]).toBe(199);
+    expect(derive(first.units[0]).bonusAttackSpeed).toBe(0);
+    expect(derive(first.units[1]).basicAbilityHaste).toBe(0);
+    expect(derive(first.units[1]).bonusAttackSpeed).toBeCloseTo(0.03, 12);
+    dealDamage(first, first.units[0], first.units[1], 5000, "true");
+    expect(first.units[0].memory["rune:legend-haste:points"]).toBe(299);
+    expect(derive(first.units[0]).basicAbilityHaste).toBe(3);
+    const second = arena(runeMatchupSpecs(own, opponent));
+    expect(second.units[0].memory["rune:legend-haste:points"]).toBe(199);
+    expect(derive(second.units[0]).basicAbilityHaste).toBe(1.5);
+    expect(input.bonus).toBeUndefined();
+  });
+
   it("requires explicit same-fighter Legend state without changing empty legacy equipment", () => {
     const input = fighter();
     expect(() => equipRuneEffects(input, [9104], catalog, rules)).toThrow(/explicit.*legendPoints/);

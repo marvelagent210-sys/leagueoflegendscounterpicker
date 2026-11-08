@@ -1,5 +1,6 @@
 /** Urgot: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { CC_RULES } from "../../engine/rules/crowdControl";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -113,7 +114,7 @@ const urgot: KitModule = {
       ctx.memory.mercyChain = -1;
       ctx.memory.mercyAttached = false;
       ctx.memory.mercyEnds = -1;
-      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(drillCooldown, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(drillCooldown, abilityHasteFor(ctx.self, { slot: "R" })));
     };
     const launchMercy = (ctx: HookContext) => {
       if (!ctx.self.alive || ctx.self.hp <= 0 || !ctx.enemy.alive || ctx.enemy.hp <= 0 || ctx.enemy.fallen || externalUntargetability(ctx.self, ctx.enemy)) return false;

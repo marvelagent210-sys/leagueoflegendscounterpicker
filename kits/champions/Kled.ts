@@ -1,5 +1,6 @@
 /** Kled: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { inStasis } from "../../engine/sim/combat";
@@ -198,7 +199,7 @@ const kled: KitModule = {
       delete ctx.memory.vtUntil;
       delete ctx.memory.vtCount;
       ctx.buff("vt", "attackSpeed", 0, 0);
-      ctx.memory.vtReady = ctx.tick + ticks(cooldownAfterHaste(vtCooldown, derive(ctx.self).abilityHaste));
+      ctx.memory.vtReady = ctx.tick + ticks(cooldownAfterHaste(vtCooldown, abilityHasteFor(ctx.self, { slot: "W" })));
     };
     // The charge is over (it hit, or Skaarl fled): the shield lasts 2 s more, the immunity ends.
     const endCharge = (ctx: HookContext) => {

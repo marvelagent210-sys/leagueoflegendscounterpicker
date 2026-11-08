@@ -1,5 +1,6 @@
 /** Varus: mobile charge, target-local Blight, real piercing falloff and finite corruption clocks. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, EPSILON } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
@@ -76,7 +77,7 @@ const varus: KitModule = {
     const finishW = (ctx: HookContext, full: boolean) => {
       delete ctx.memory[WACTIVE]; delete ctx.memory["varus:wUsedQ"]; delete ctx.self.chains.W;
       delete ctx.self.cooldownHeld.W; delete ctx.self.pendingRefunds.W; ctx.self.statuses = ctx.self.statuses.filter((s) => !(s.kind === "state" && s.key === "lingering" && s.ability === "W"));
-      ctx.self.cooldownReady.W = ctx.tick + ticks(full ? cooldownAfterHaste(wCD, derive(ctx.self).abilityHaste) : wRecast);
+      ctx.self.cooldownReady.W = ctx.tick + ticks(full ? cooldownAfterHaste(wCD, abilityHasteFor(ctx.self, { slot: "W" })) : wRecast);
     };
     const finishCharge = (ctx: HookContext, refundMana: boolean) => {
       if (ctx.memory[CHARGE] === undefined) return;
@@ -86,7 +87,7 @@ const varus: KitModule = {
       delete ctx.memory[CHARGE]; delete ctx.self.chains.Q; delete ctx.self.cooldownHeld.Q;
       ctx.self.statuses = ctx.self.statuses.filter((s) => s.memoKey !== "varus:qSlow");
       const pending = ctx.self.pendingRefunds.Q; delete ctx.self.pendingRefunds.Q;
-      const full = cooldownAfterHaste(qCD, derive(ctx.self).abilityHaste);
+      const full = cooldownAfterHaste(qCD, abilityHasteFor(ctx.self, { slot: "Q" }));
       ctx.self.cooldownReady.Q = ctx.tick + ticks(Math.max(0, full - seconds - (pending?.seconds ?? 0) - full * (pending?.fraction ?? 0)));
       if (refundMana) ctx.self.resource = Math.min(derive(ctx.self).maxResource, ctx.self.resource + qCost * qRefund);
       if (ctx.memory["varus:wUsedQ"]) finishW(ctx, true);

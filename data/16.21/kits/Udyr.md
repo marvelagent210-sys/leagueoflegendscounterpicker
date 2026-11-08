@@ -312,6 +312,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Ranks: Q 6, W 5, E 5, R 5 (21 of 21 skill points); in matchups the simulator tries every split and keeps the best.
 - Triple Tonic: Elixir of Avarice's 60 gold (its patch history; the item data still says 40) goes into the stat budget; Elixir of Force's 60 seconds are long over by level 20.
 - Awakened Spirit is ready when a fight starts (the game starts it on cooldown, long before level 20); its cooldown is 20 s from level 16; an Awaken cast puts the other stances on a 0.5 s global cooldown (the game files' GlobalCDEmpowered).
+- Bridge Between specifically classifies all four stance slots, including R, as basic abilities for their cooldowns. Wingborne Storm's generic pseudo-ultimate listing concerns ultimate interactions and does not override that specific cooldown classification. The ordinary 1.5-second global lock benefits from generic and basic-only haste; the empowered 0.5-second client lock retains its fixed interpretation because its haste eligibility is not established. Awakened Spirit itself ignores generic/basic haste and receives only ultimate haste, as its primary cooldown tooltip explicitly states.
 - Awakened Wilding Claw's 6 lightning strikes all hit the one enemy, one every 0.167 s from the hit.
 - Blazing Stampede's pounce is a melee attack from his range; its speed decays evenly, and the Awakened speed and range last its 4 seconds.
 - Awakened Wingborne Storm's storm moves at 250, its level-18 speed (the wiki gives none past 18).

@@ -1,5 +1,6 @@
 /** Zyra's sourced seeds and independently attackable, spawn-snapshotted plants. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -84,7 +85,7 @@ const zyra: KitModule = {
     const restock = (ctx: HookContext, progress: number) => {
       const stock = ctx.self.charges.W;
       if (!stock || stock.count >= charges) return;
-      const interval = ticks(cooldownAfterHaste(recharge, derive(ctx.self).abilityHaste));
+      const interval = ticks(cooldownAfterHaste(recharge, abilityHasteFor(ctx.self, { slot: "W" })));
       const remaining = Math.max(0, stock.nextTick - ctx.tick) - interval * progress;
       if (remaining <= 0) {
         stock.count += 1;

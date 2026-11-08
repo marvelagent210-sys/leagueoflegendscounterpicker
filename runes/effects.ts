@@ -118,14 +118,16 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     secondWind: ["duration", "missingHealthPerSecond", "tickInterval"],
     absorbLife: ["heal"],
     legendAlacrity: ["baseAttackSpeed", "attackSpeedPerStack", "pointsPerStack", "maxStacks", "championKillPoints"],
+    legendHaste: ["baseHaste", "hastePerStack", "pointsPerStack", "maxStacks", "championKillPoints"],
   } as const;
   for (const [name, keys] of Object.entries(groups)) {
     const group: unknown = value[name as keyof typeof groups];
     if (!record(group)) throw new Error(`Invalid combat-rune rule ${name}`);
     for (const key of keys) {
       const amount = group[key];
-      if (typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0
-        || (!["duration", "tickInterval", "heal", "pointsPerStack", "maxStacks", "championKillPoints"].includes(key) && amount > 1)) {
+      const zeroAllowed = name === "legendHaste" && key === "baseHaste";
+      if (typeof amount !== "number" || !Number.isFinite(amount) || (zeroAllowed ? amount < 0 : amount <= 0)
+        || (!["duration", "tickInterval", "heal", "pointsPerStack", "maxStacks", "championKillPoints", "baseHaste", "hastePerStack"].includes(key) && amount > 1)) {
         throw new Error(`Invalid combat-rune rule ${name}.${key}`);
       }
     }
@@ -138,9 +140,12 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     || value.secondWind.tickInterval > value.secondWind.duration) {
     throw new Error("Invalid combat-rune Second Wind regeneration model or interval");
   }
-  if (![value.legendAlacrity.pointsPerStack, value.legendAlacrity.maxStacks, value.legendAlacrity.championKillPoints,
-    value.legendAlacrity.pointsPerStack * value.legendAlacrity.maxStacks].every(Number.isSafeInteger)) {
-    throw new Error("Invalid combat-rune Legend: Alacrity integer point or stack rules");
+  for (const name of ["legendAlacrity", "legendHaste"] as const) {
+    const rule = value[name];
+    if (![rule.pointsPerStack, rule.maxStacks, rule.championKillPoints,
+      rule.pointsPerStack * rule.maxStacks].every(Number.isSafeInteger)) {
+      throw new Error(`Invalid combat-rune ${name} integer point or stack rules`);
+    }
   }
   if (!Array.isArray(value.evidence) || value.evidence.length === 0
     || Array.from(value.evidence).some((entry) => !record(entry) || typeof entry.title !== "string"
@@ -153,6 +158,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
     legendAlacrity: { ...value.legendAlacrity },
+    legendHaste: { ...value.legendHaste },
     evidence: value.evidence.map((entry) => ({ ...entry })),
   };
 }
@@ -163,12 +169,13 @@ function checkedOptions(selection: readonly number[], value: RuneEquipOptions | 
     throw new Error("Invalid combat-rune options: only declared legendPoints are supported");
   }
   const points = value.legendPoints;
-  if (!selection.includes(9104)) {
-    if (points !== undefined) throw new Error("legendPoints requires selecting Legend: Alacrity (9104) on the same fighter");
+  const legend = selection.includes(9104) ? "Legend: Alacrity" : selection.includes(9105) ? "Legend: Haste" : undefined;
+  if (!legend) {
+    if (points !== undefined) throw new Error("legendPoints requires selecting Legend: Alacrity (9104) or Legend: Haste (9105) on the same fighter");
     return {};
   }
   if (typeof points !== "number" || !Number.isSafeInteger(points) || points < 0) {
-    throw new Error("Legend: Alacrity requires explicit nonnegative safe-integer starting legendPoints");
+    throw new Error(`${legend} requires explicit nonnegative safe-integer starting legendPoints`);
   }
   return { legendPoints: points };
 }

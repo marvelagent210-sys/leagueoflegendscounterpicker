@@ -1,6 +1,7 @@
 /** Kindred's hunted targets, individual arrows, real Wolf and shared sacred ground. */
 import { ATTACK_SPEED_CAP } from "../../engine/stats";
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { attackRange, EPSILON } from "../../engine/sim/actions";
 import { applyEffect, canSee, heal, inStasis, isUntargetable } from "../../engine/sim/combat";
 import { healthProtectionEligible } from "../../engine/sim/healthProtection";
@@ -60,7 +61,7 @@ const kindred: KitModule = {
     };
     const endWolf = (ctx: HookContext, pet: Pet) => {
       destroyPet(ctx.world, pet); const elapsed = (ctx.tick - Number(ctx.memory[WSTART] ?? ctx.tick)) / 30;
-      ctx.self.cooldownReady.W = ctx.tick + ticks(Math.max(0, wCD - elapsed) / (1 + derive(ctx.self).abilityHaste / 100)); delete ctx.memory[WEND];
+      ctx.self.cooldownReady.W = ctx.tick + ticks(Math.max(0, wCD - elapsed) / (1 + abilityHasteFor(ctx.self, { slot: "W" }) / 100)); delete ctx.memory[WEND];
     };
     const abilities: AbilitySpec[] = [
       { key: "I", name: `${p.name} (select hunt)`, slot: "I", countsAsCast: false, cooldown: huntWait, staticCooldown: true, castTime: 0, delivery: { kind: "self" }, usable: (self, world) => world.tick >= Number(self.memory["kindred:lastCombat"] ?? -Infinity) + ticks(combatWait) && self.memory["kindred:huntAt"] === undefined && world.tick >= Number(self.memory["kindred:huntLock"] ?? 0), roles: ["buff"], budgetExcluded: true },
@@ -84,7 +85,7 @@ const kindred: KitModule = {
         onAttackHit(ctx) { dread(ctx); if (!ctx.blocked && Number(ctx.memory[VIGOR] ?? 0) >= vigorMax && missingShare(ctx.self) > 0) { heal(ctx.world, ctx.self, vigorHeal * Math.min(1, missingShare(ctx.self) / vigorMissingCap)); ctx.memory[VIGOR] = 0; } },
         onAttackPetHit(ctx) { dread(ctx, ctx.pet); if (!ctx.blocked && Number(ctx.memory[VIGOR] ?? 0) >= vigorMax && missingShare(ctx.self) > 0 && !ctx.pet.spec.hitPoints) { heal(ctx.world, ctx.self, vigorHeal * Math.min(1, missingShare(ctx.self) / vigorMissingCap)); ctx.memory[VIGOR] = 0; } },
         onCastStart(ctx) {
-          if (ctx.ability.key === "E") ctx.self.cooldownReady.E = ctx.tick + ticks(ctx.ability.castTime + ctx.ability.cooldown / (1 + derive(ctx.self).abilityHaste / 100));
+          if (ctx.ability.key === "E") ctx.self.cooldownReady.E = ctx.tick + ticks(ctx.ability.castTime + ctx.ability.cooldown / (1 + abilityHasteFor(ctx.self, { slot: "E" }) / 100));
           if (ctx.ability.key === "R") {
           // The engine queries this actual spatial zone during damage/execute/heal transactions.
           ctx.world.zones.push({ id: ctx.world.nextId++, owner: ctx.self.side, kind: "field", seenTick: ctx.tick, x: ctx.self.x, radius: rRadius, startTick: ctx.tick, endTick: ctx.tick + ticks(rDuration), ability: "R", onHit: [], connects: true, scale: 1, centered: true, noPets: true, healthProtection: { minimumHealthFraction: rFloor, preventHealingAtFloor: true } });
@@ -92,7 +93,7 @@ const kindred: KitModule = {
         } },
         onCast(ctx) {
           if (ctx.ability.key === "I") ctx.memory["kindred:huntAt"] = ctx.tick + ticks(huntDelay);
-          if (ctx.ability.key === "Q") { ctx.buff("kindred:qAS", "attackSpeed", qAS + qMarkAS * marks(ctx.self), qSeconds); ctx.self.cooldownReady.Q = ctx.tick + ticks(inWolf(ctx.self, ctx.world) ? qInnerCD : qCD / (1 + derive(ctx.self).abilityHaste / 100)); }
+          if (ctx.ability.key === "Q") { ctx.buff("kindred:qAS", "attackSpeed", qAS + qMarkAS * marks(ctx.self), qSeconds); ctx.self.cooldownReady.Q = ctx.tick + ticks(inWolf(ctx.self, ctx.world) ? qInnerCD : qCD / (1 + abilityHasteFor(ctx.self, { slot: "Q" }) / 100)); }
           if (ctx.ability.key !== "W") return;
           const direction = ctx.enemy.x >= ctx.self.x ? 1 : -1, distance = Math.min(wRange, Math.max(0, ctx.aim?.distance ?? Math.min(wRange, Math.abs(ctx.enemy.x - ctx.self.x)))), center = ctx.self.x + direction * (ctx.aim?.direction ?? 1) * distance, arrive = ctx.tick + ticks(distance / wDashSpeed);
           const spec: PetSpec = { onAttackHit: ({ world, pet, target }) => { if (!("owner" in target)) world.units[pet.owner].memory["kindred:lastCombat"] = world.tick; }, effectsForHit: ({ world, pet, target }) => {
@@ -124,7 +125,7 @@ const kindred: KitModule = {
           if (inWolf(ctx.self, ctx.world) && (ctx.self.cooldownReady.Q ?? 0) > ctx.tick + ticks(qInnerCD)) ctx.self.cooldownReady.Q = ctx.tick + ticks(qInnerCD);
           ctx.memory[VIGOR] = Math.min(vigorMax, Number(ctx.memory[VIGOR] ?? 0) + Math.abs(ctx.self.x - Number(ctx.memory["kindred:lastX"] ?? ctx.self.x)) / vigorMove); ctx.memory["kindred:lastX"] = ctx.self.x;
           const pet = ctx.world.pets.find((candidate) => candidate.owner === ctx.self.side && candidate.spec.kind === "kindredWolf");
-          if (!pet) { if (ctx.memory[WEND] !== undefined) { const elapsed = (ctx.tick - Number(ctx.memory[WSTART])) / 30; ctx.self.cooldownReady.W = ctx.tick + ticks(Math.max(0, wCD - elapsed) / (1 + derive(ctx.self).abilityHaste / 100)); delete ctx.memory[WEND]; } return; }
+          if (!pet) { if (ctx.memory[WEND] !== undefined) { const elapsed = (ctx.tick - Number(ctx.memory[WSTART])) / 30; ctx.self.cooldownReady.W = ctx.tick + ticks(Math.max(0, wCD - elapsed) / (1 + abilityHasteFor(ctx.self, { slot: "W" }) / 100)); delete ctx.memory[WEND]; } return; }
           if (ctx.tick >= pet.endTick || Math.abs(ctx.self.x - Number(pet.memory.center)) > wRadius + EPSILON) { endWolf(ctx, pet); return; }
           if (ctx.tick < Number(pet.memory.arrive)) { const share = (ctx.tick - Number(pet.memory.cast)) / Math.max(1, Number(pet.memory.arrive) - Number(pet.memory.cast)); pet.x = Number(pet.memory.origin) + (Number(pet.memory.center) - Number(pet.memory.origin)) * share; return; }
           if (!pet.memory.arrived) { pet.x = Number(pet.memory.center); pet.memory.arrived = true; }

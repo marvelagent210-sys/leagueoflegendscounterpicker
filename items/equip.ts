@@ -72,8 +72,8 @@ export interface ItemDefinition {
   /** The item grants timed omnivamp (an OMNIVAMP status of runtime.ts). */
   omnivamp?: boolean;
   /**
-   * Ability haste for some abilities only: ultimate haste ("R"), basic ability haste ("Q", "W",
-   * "E"), or haste for abilities that immobilize (Imperial Mandate's Control).
+   * Broad ultimate ("R") and basic ("Q", "W", "E") haste become qualified unit stats.
+   * Other entries remain ability-specific, such as Imperial Mandate's Control.
    */
   haste?: Array<{ slots: Array<"Q" | "W" | "E" | "R">; haste: number; immobilizing?: boolean }>;
   /** It puts its holder in stasis (Zhonya's Hourglass): no casting then, as the wiki's stasis forbids. */
@@ -287,26 +287,32 @@ function ownDamageOnly(hooks: KitHooks): KitHooks {
   return dealt ? { ...hooks, onDamageDealt: (ctx) => (ctx.enemy.side === ctx.self.side ? undefined : dealt.call(hooks, ctx)) } : hooks;
 }
 
-/**
- * Item haste for some abilities: the engine divides the cooldown by 1 + haste / 100 of all
- * ability haste, so the cooldown it reads is scaled to come out as divided by the sum.
- */
+/** Split broad haste from ability-specific conditions without applying either twice. */
+function qualifiedHaste(entries: NonNullable<ItemDefinition["haste"]>): {
+  bonus: BonusStats; conditional: NonNullable<ItemDefinition["haste"]>;
+} {
+  const bonus: BonusStats = {}, conditional: NonNullable<ItemDefinition["haste"]> = [];
+  for (const entry of entries) {
+    const basic = !entry.immobilizing && entry.slots.length === 3
+      && new Set(entry.slots).size === 3 && ["Q", "W", "E"].every(slot => entry.slots.includes(slot as "Q"));
+    const ultimate = !entry.immobilizing && entry.slots.length === 1 && entry.slots[0] === "R";
+    if (basic) bonus.basicAbilityHaste = (bonus.basicAbilityHaste ?? 0) + entry.haste;
+    else if (ultimate) bonus.ultimateAbilityHaste = (bonus.ultimateAbilityHaste ?? 0) + entry.haste;
+    else conditional.push(entry);
+  }
+  return { bonus, conditional };
+}
+
+/** Conditional haste belongs to the spell, including its independent charge timer. */
 export function withItemHaste(ability: AbilitySpec, haste: NonNullable<ItemDefinition["haste"]>): AbilitySpec {
-  if (ability.staticCooldown || isItemActive(ability)) return ability;
+  if (isItemActive(ability)) return ability;
   let extra = 0;
   for (const entry of haste) {
     const slot = entry.slots.includes(ability.slot as "Q");
     if (entry.immobilizing ? traitsOf(ability).immobilizes && (entry.slots.length === 0 || slot) : slot) extra += entry.haste;
   }
   if (extra === 0) return ability;
-  const own = ability.cooldownFor;
-  return {
-    ...ability,
-    cooldownFor: (unit) => {
-      const ah = derive(unit).abilityHaste;
-      return (own?.(unit) ?? ability.cooldown) * (100 + ah) / (100 + ah + extra);
-    },
-  };
+  return { ...ability, bonusAbilityHaste: (ability.bonusAbilityHaste ?? 0) + extra };
 }
 
 /**
@@ -499,9 +505,10 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
   const { combat, energized } = shared();
   if (combat) hooks.unshift(combat.hooks);
   if (energized) hooks.push(energized.hooks);
-  const haste = built.flatMap(({ definition }) => definition.haste ?? []);
+  const haste = qualifiedHaste(built.flatMap(({ definition }) => definition.haste ?? []));
+  addBonus(bonus, haste.bonus);
   const stasis = built.some(({ definition }) => definition.stasis);
-  const abilities = [...form.abilities.map((ability) => withItemHaste(ability, haste)), ...actives].map((ability) => (stasis ? lockedInStasis(ability) : ability));
+  const abilities = [...form.abilities.map((ability) => withItemHaste(ability, haste.conditional)), ...actives].map((ability) => (stasis ? lockedInStasis(ability) : ability));
   const spec: FighterSpec = {
     ...form,
     base,
@@ -556,7 +563,7 @@ export interface ItemParts {
   omnivamp: number;
   /** Bonus maximum mana from its shop stats and passives, for mana champions. */
   mana: number;
-  /** Ability haste for some abilities (ItemDefinition.haste). */
+  /** Ability-specific haste; broad basic/ultimate contributions are already in bonus. */
   haste: NonNullable<ItemDefinition["haste"]>;
   /** Its hint, with what its actives deal and shield per use over the reference fight. */
   budget?: ItemBudget;
@@ -577,7 +584,9 @@ export function itemParts(spec: FighterSpec, record: ItemRecord, equip: EquipOpt
   parts.statuses.push(...(definition.permanent ?? []).filter(stat));
   parts.onHit.push(...(definition.onHit ?? []).map(atHalfHealth));
   if (definition.mana && fighter.mana) parts.mana += definition.mana;
-  parts.haste.push(...(definition.haste ?? []));
+  const haste = qualifiedHaste(definition.haste ?? []);
+  addBonus(parts.bonus, haste.bonus);
+  parts.haste.push(...haste.conditional);
   const budget = joinBudgets(definition.budget, activeBudget(definition.actives ?? []));
   if (budget) parts.budget = budget;
   return parts;

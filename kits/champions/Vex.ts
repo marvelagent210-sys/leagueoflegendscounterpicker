@@ -1,3 +1,4 @@
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 /** Doom belongs to the released cast; Gloom belongs to the actual moving body. */
 import type { KitModule } from '../../engine/kits/compile';
 import { canCast } from '../../engine/sim/actions';
@@ -215,7 +216,7 @@ const vex: KitModule = {
         if (ctx.memory['vex:resetUntil'] !== undefined && ctx.tick >= Number(ctx.memory['vex:resetUntil'])) {
           const ended = Number(ctx.memory['vex:resetUntil']);
           delete ctx.memory['vex:resetUntil']; delete ctx.memory['vex:resetReady'];
-          ctx.self.cooldownReady.R = ended + ticks(rSpec.cooldown / (1 + derive(ctx.self).abilityHaste / 100));
+          ctx.self.cooldownReady.R = ended + ticks(rSpec.cooldown / (1 + abilityHasteFor(ctx.self, { slot: "R" }) / 100));
         }
         if (ctx.memory['vex:rTarget'] !== undefined && !inDash(ctx.self) && (ctx.tick >= Number(ctx.memory['vex:rUntil']) || !targetBody(ctx)?.target.alive)) releaseR(ctx);
         if (!inDash(ctx.self)) return;
