@@ -1,5 +1,6 @@
 /** Anivia's level-20 kit, with separate flight, storm and attackable-rebirth lifecycles. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { CC_RULES, type CCType } from "../../engine/rules/crowdControl";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, skillshotChance } from "../../engine/sim/actions";
@@ -92,7 +93,7 @@ const anivia: KitModule = {
       areaOnPets(ctx.world, ctx.self, missile.x - burstRadius, missile.x + burstRadius, qBurst.onHit!);
       ctx.self.statuses = ctx.self.statuses.filter((status) => !(status.kind === "state" && status.ability === "Q"));
       delete ctx.self.cooldownHeld.Q;
-      ctx.self.cooldownReady.Q = ctx.tick + ticks(cooldownAfterHaste(qSpec.cooldown, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.Q = ctx.tick + ticks(cooldownAfterHaste(qSpec.cooldown, abilityHasteFor(ctx.self, { slot: "Q" })));
     };
     const pulse = (ctx: HookContext, zone: Zone, damage: boolean, slow: boolean) => {
       const enemy = ctx.world.units[ctx.self.side === 0 ? 1 : 0];
@@ -110,7 +111,7 @@ const anivia: KitModule = {
       if (Number(ctx.memory.stormLastDamage ?? -1) !== ctx.tick) pulse(ctx, zone, true, false);
       ctx.world.zones = ctx.world.zones.filter((entry) => entry.id !== zone.id);
       delete ctx.self.cooldownHeld.R;
-      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rSpec.cooldown, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rSpec.cooldown, abilityHasteFor(ctx.self, { slot: "R" })));
       delete ctx.memory.stormStart;
     };
     const raisedWall = (ctx: HookContext, aim?: { direction: 1 | -1; distance?: number }) => {
@@ -206,7 +207,7 @@ const anivia: KitModule = {
           else {
             ctx.self.statuses = ctx.self.statuses.filter((status) => !(status.kind === "state" && status.ability === "Q"));
             delete ctx.self.cooldownHeld.Q;
-            ctx.self.cooldownReady.Q = ctx.tick + ticks(cooldownAfterHaste(qSpec.cooldown, derive(ctx.self).abilityHaste));
+            ctx.self.cooldownReady.Q = ctx.tick + ticks(cooldownAfterHaste(qSpec.cooldown, abilityHasteFor(ctx.self, { slot: "Q" })));
           }
         },
         onCCApplied(ctx) {

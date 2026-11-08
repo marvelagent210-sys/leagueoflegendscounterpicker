@@ -152,6 +152,10 @@ export type BuffStat =
   | "mrReductionPercent"
   | "lethality"
   | "abilityHaste"
+  /** Added only to reviewed basic-ability cooldowns, never ordinary ultimates. */
+  | "basicAbilityHaste"
+  /** Added only to reviewed ultimate-ability cooldowns. */
+  | "ultimateAbilityHaste"
   | "damageDealt"
   | "lifeSteal"
   | "critChance"
@@ -580,6 +584,10 @@ export interface AbilitySpec {
   key: string;
   name: string;
   slot: "Q" | "W" | "E" | "R" | "I" | "other";
+  /** Source-qualified haste eligibility; normal Q/W/E and R default to basic and ultimate. */
+  hasteType?: "basic" | "ultimate" | "other";
+  /** Additional haste for this specific ability (for example an immobilizing-item condition). */
+  bonusAbilityHaste?: number;
   /** Seconds at max rank, before ability haste. */
   cooldown: number;
   /** An explicit manual stage already counted by its root spell's reference budget. */
@@ -782,6 +790,10 @@ export interface BonusStats {
   attackSpeed?: number;
   critChance?: number;
   abilityHaste?: number;
+  /** Basic-ability-only haste; kept outside the generic stat budget. */
+  basicAbilityHaste?: number;
+  /** Ultimate-only haste; also available to source-qualified independent clocks. */
+  ultimateAbilityHaste?: number;
   lethality?: number;
   magicPen?: number;
   /**

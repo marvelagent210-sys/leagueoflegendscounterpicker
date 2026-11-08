@@ -1,12 +1,8 @@
 {
-  "note": "Refresh Garen's affected pairings after filtering active, source-tagged rune attack speed from Judgment for explicit Legend: Alacrity support. Default fights have no selected combat runes. Reuse only unchanged inputs; compute every pending pairing with the real workers.",
+  "note": "Recompute both complete matrices after adding qualified basic, ultimate and ability-specific haste to shared scheduling and reference timing for Legend: Haste. Include corrected item haste, charge/recharge paths and Udyr stance/Awaken clocks. Shared worker inputs changed; every pending pairing must be computed by real workers. Numerical default changes are expected and must be reviewed against the prior baseline.",
   "dataset": "16.21",
   "matrices": [
     "sim",
     "builds"
-  ],
-  "shards": {
-    "sim": 2,
-    "builds": 6
-  }
+  ]
 }

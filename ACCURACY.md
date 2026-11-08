@@ -2438,6 +2438,100 @@ Release validation, 7 November 2026:
   production web build also pass. Independent runtime and source reviews found
   no material defects.
 
+## Legend: Haste and qualified ability cooldowns (7 November 2026)
+
+The seventh partial manual combat effect is Legend: Haste (9105). Each selecting
+side must explicitly declare starting Legend points, including zero, using
+`--legend-points` or `--enemy-legend-points`. Nonnegative safe integer values cap
+to an effective 1,000 points. Every completed 100-point stack grants 1.5 basic
+ability haste, with zero base haste and a maximum of ten stacks and 15 haste.
+Point remainders survive progress: 99 plus a 100-point award becomes 199.
+Alacrity and Haste occupy the same source row and cannot share one side's loadout.
+
+The [template 3958696](https://wiki.leagueoflegends.com/en-us/?oldid=3958696)
+and [article 3980882](https://wiki.leagueoflegends.com/en-us/?oldid=3980882)
+establish those numeric rules. Named client fields cross-check base haste,
+haste per stack and maximum stacks. The complete versioned client file remains
+retained; opaque 100-valued fields remain undecoded. The combat bundle now
+contains thirty complete pinned Wiki revisions, preserving all twenty-one
+previous pages and adding full cooldown, haste and Udyr classification evidence.
+The focused compiler suite passes all 146 tests.
+
+Runtime progress retains Alacrity's explicit-history subset: only actual enemy
+champion-body kills credited by the engine add 100 points. Native owner credit
+and victim deduplication remain authoritative. Owned pets can earn their owner's
+credit; clone or Spirit victims do not become champion takedowns through a
+champion-like targeting class. Protected resurrection entry grants no points;
+actual counted post-death deaths grant once. Dead-owner progress neither heals
+nor revives. Farm, assists and minion/monster rewards are not manufactured.
+Per-unit point and stat state survives supported death/form transitions, while
+independent worlds, scenarios and variants restart from the declared history.
+The stat is installed before the kit's `onStart` hook, and kill progress uses the
+existing after-kit callback phase. The retained sources do not establish complete
+live ordering relative to every champion's kill effects.
+
+The shared cooldown contract distinguishes basic abilities, ordinary ultimates
+and other/internal timers. Full spell definitions, parent aliases and explicit
+reviewed exceptions determine the eligible specialized stat. The full
+[Haste revision 4070414](https://wiki.leagueoflegends.com/en-us/?oldid=4070414)
+combines generic haste additively with eligible basic, ultimate and
+ability-specific haste, capped at 500. Native cast scheduling, charge recharge,
+held cooldown release and total-cooldown refunds use that qualified value.
+Shared timers retain the initiating spell and its classification through aliases,
+form changes and branch copies. Charge recharge retains its own initiating spell,
+independently of a later cast sharing the same cooldown key. Total refunds use
+that timer's actual source; this also corrects differing Gnar Q/QM cooldowns.
+Static cast cooldowns and separately governed charge timers retain their source
+rules. Champion-owned timers are audited individually; passive and internal
+clocks do not receive basic haste merely because they use a cooldown. A stack
+gain affects later scheduling without rescaling a cooldown already running.
+The full [Cooldown revision 4050188](https://wiki.leagueoflegends.com/en-us/?oldid=4050188)
+and [cooldown-reduction rules 4039444](https://wiki.leagueoflegends.com/en-us/?oldid=4039444)
+retain total-versus-remaining refunds and target-specific exceptions.
+
+Qualified item haste uses the same contract: unconditional basic and ultimate
+bonuses are separate stats, and conditional bonuses remain attached to their
+eligible ability. This replaces slot-only cooldown scaling and carries the
+contribution through recharge, refunds and reviewed champion-owned clocks.
+The reference estimator uses the equipped abilities' qualified item haste;
+selected combat runes still remain outside the no-rune allocation reference.
+Combat-rune flags continue to reject fixed items and item search pending the
+remaining composition and valuation review.
+
+Udyr requires an explicit distinction. Specific
+[Bridge Between revision 3983420](https://wiki.leagueoflegends.com/en-us/?oldid=3983420)
+defines all four stance abilities, including R, as basic and marks the ordinary
+1.5-second global stance lock as affected by haste. His Awakened Spirit tooltip
+explicitly excludes generic ability haste and accepts ultimate haste only.
+These rules correct the earlier generic-haste scaling of Awaken and fixed
+ordinary global lock. The generic
+[Champion ability revision 4086204](https://wiki.leagueoflegends.com/en-us/?oldid=4086204)
+also lists Wingborne Storm as a pseudo-ultimate for ultimate interactions; the
+specific basic cooldown rule is retained without generalizing it to every
+ultimate damage or item interaction. The 0.5-second empowered global lock keeps
+its fixed interpretation because its haste eligibility is not established by
+the retained sources.
+
+This does not complete every champion-specific haste interaction. Shyvana's
+ultimate-haste bonus to Fury generation remains unmodeled, including when an
+equipped item supplies that stat. Custom kit budget hints retain their existing
+approximations; the shared reference timer now reads qualified item haste.
+
+**Release validation is pending.** Shared engine and item changes invalidate
+both default matrices, requiring genuine computation of all 14,878 unordered
+pairings in each. The default settings select no optional combat runes, but the
+source-backed Udyr, item and cooldown corrections can still change scores,
+scenario results, builds, variants and spending. Those changes require comparison
+after recomputation; the previous Alacrity batch's unchanged-payload proof does
+not establish Haste's outcomes. Full matrix freshness, complete result coverage,
+checkpoint correspondence, the full test suite and final production build remain
+release gates for this batch.
+
+Full rune pages, keystones, Bloodline, general farm/assist/monster progression,
+browser combat-rune controls and rune-aware allocation/search remain unfinished.
+No new controlled in-game measurements or completed rune-page fidelity are
+claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) stays in progress.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

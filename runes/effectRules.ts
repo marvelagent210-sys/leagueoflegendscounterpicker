@@ -19,6 +19,13 @@ export interface CombatRuneRules {
     maxStacks: number;
     championKillPoints: number;
   };
+  legendHaste: {
+    baseHaste: number;
+    hastePerStack: number;
+    pointsPerStack: number;
+    maxStacks: number;
+    championKillPoints: number;
+  };
   lastStand: {
     healthThreshold: number;
     maximumHealthThreshold: number;

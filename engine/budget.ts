@@ -27,6 +27,7 @@ import { averageCritFactor, healingReceived } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
 import { toSeconds, toTicks } from "./rules/time";
 import { derive, evaluate, withSettledStats } from "./sim/derived";
+import { abilityHasteFor } from "./sim/cooldowns";
 import { channelPulseCount } from "./sim/channelPulses";
 import { createWorld } from "./sim/simulate";
 import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, type Formula, cooldownKeyOf } from "./sim/spec";
@@ -219,6 +220,7 @@ interface DamageTerm {
 
 /** One use per cooldown: an ability with its recasts. */
 interface ReferenceTiming {
+  ability: AbilitySpec;
   cooldown: number;
   cooldownFor?: AbilitySpec["cooldownFor"];
   staticCooldown?: boolean;
@@ -262,6 +264,7 @@ function heldOf(ability: AbilitySpec): Held {
 /** Keep dynamic callbacks so every candidate build supplies its own timing stats. */
 function timingOf(ability: AbilitySpec): ReferenceTiming {
   return {
+    ability,
     cooldown: ability.cooldown,
     ...(ability.cooldownFor ? { cooldownFor: ability.cooldownFor } : {}),
     ...(ability.staticCooldown ? { staticCooldown: true } : {}),
@@ -281,10 +284,11 @@ function castTimeOf(use: { castTime: number; castTimeFor?: AbilitySpec["castTime
 /** Seconds from one use to the next: the cooldown after haste, the cast, and any post-effect wait. */
 function cycleOf(use: ReferenceTiming, self: Unit): number {
   const d = derive(self);
+  const haste = abilityHasteFor(self, use.ability);
   const base = use.cooldownFor?.(self) ?? use.cooldown;
-  let cooldown = use.staticCooldown ? base : cooldownAfterHaste(base, d.abilityHaste);
+  let cooldown = use.staticCooldown ? base : cooldownAfterHaste(base, haste);
   // Static cast cooldowns do not make a separate charge-recharge timer immune to haste.
-  if (use.recharge !== undefined) cooldown = Math.max(cooldown, cooldownAfterHaste(use.recharge, d.abilityHaste));
+  if (use.recharge !== undefined) cooldown = Math.max(cooldown, cooldownAfterHaste(use.recharge, haste));
   if (cooldown <= 0) return 0;
   return cooldown + castTimeOf(use, self) + use.held.seconds + (d.attackSpeed > 0 ? use.held.attacks / d.attackSpeed : 0);
 }

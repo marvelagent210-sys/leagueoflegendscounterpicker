@@ -201,13 +201,16 @@ async function main(): Promise<void> {
       if (selection) console.log(`${name} combat runes (partial selection): ${selection.map((id) => `${runeCatalog.runes.find((rune) => rune.id === id)!.name} (${id})`).join(", ")}`);
     }
     if (combatRules) {
-      const rule = combatRules.legendAlacrity;
-      for (const [name, points] of [[you.name, myLegendPoints], [enemy.name, enemyLegendPoints]] as const) {
+      for (const [name, points, selection] of [[you.name, myLegendPoints, myRunes], [enemy.name, enemyLegendPoints, enemyRunes]] as const) {
         if (points === undefined) continue;
+        const haste = selection?.includes(9105);
+        const rule = haste ? combatRules.legendHaste : combatRules.legendAlacrity;
         const effective = Math.min(points, rule.maxStacks * rule.pointsPerStack);
         const stacks = Math.floor(effective / rule.pointsPerStack);
-        const attackSpeed = Number(((rule.baseAttackSpeed + stacks * rule.attackSpeedPerStack) * 100).toFixed(3));
-        console.log(`${name} Legend points: ${points}${points !== effective ? ` (effective ${effective}, capped)` : ""}; ${stacks} stacks, ${attackSpeed}% bonus attack speed`);
+        const benefit = haste
+          ? `${Number((combatRules.legendHaste.baseHaste + stacks * combatRules.legendHaste.hastePerStack).toFixed(3))} basic ability haste`
+          : `${Number(((combatRules.legendAlacrity.baseAttackSpeed + stacks * combatRules.legendAlacrity.attackSpeedPerStack) * 100).toFixed(3))}% bonus attack speed`;
+        console.log(`${name} Legend points: ${points}${points !== effective ? ` (effective ${effective}, capped)` : ""}; ${stacks} stacks, ${benefit}`);
       }
     }
     console.log("Only the explicit partial selection is equipped; a complete rune page is not implied.");

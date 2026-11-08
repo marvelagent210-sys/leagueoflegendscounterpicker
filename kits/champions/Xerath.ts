@@ -1,5 +1,6 @@
 /** Xerath: mobile charge, actual-distance stun and finite, independently aimed barrage shots. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, EPSILON, resolveSkillshot } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
@@ -36,9 +37,9 @@ const xerath: KitModule = {
     const rCD = r.cooldown(), rCost = r.cost(), rDuration = r.quoted("for up to 10 seconds"), rFirst = r.quoted("after 0.5 seconds"), rDelay = r.quoted("after a 0.627 delay"), rInterval = r.quoted("static cooldown of 0.627"), rShots = r.number("Number of Recasts"), rMaxStacks = r.number("Maximum Stacks"), rDamage = r.formula("Magic Damage"), rStackDamage = r.formula("Increased Damage per Stack"), rRange = r.field("targetRange"), rRadius = r.field("effectRadius"), rMoveLock = r.quoted("first {{fd|1.25}} seconds");
     r.textField("cooldownStart"); r.quote("half of its cooldown is refunded"); r.quote("Only successive casts of the ability will benefit"); r.quote("Each cast counts as an ability activation"); r.quote("{{ct|channel|cast=false|attack=interrupts|move=Disabled");
 
-    const settleCooldown = (ctx: HookContext, key: string, seconds: number, fraction = 1) => {
+    const settleCooldown = (ctx: HookContext, key: "Q" | "R", seconds: number, fraction = 1) => {
       const pending = ctx.self.pendingRefunds[key];
-      const full = ticks(cooldownAfterHaste(seconds, derive(ctx.self).abilityHaste));
+      const full = ticks(cooldownAfterHaste(seconds, abilityHasteFor(ctx.self, { key, slot: key })));
       delete ctx.self.cooldownHeld[key]; delete ctx.self.pendingRefunds[key];
       ctx.self.cooldownReady[key] = ctx.tick + Math.max(0, Math.round(full * fraction) - ticks(pending?.seconds ?? 0) - Math.round(full * (pending?.fraction ?? 0)));
     };

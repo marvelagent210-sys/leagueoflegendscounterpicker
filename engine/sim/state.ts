@@ -6,7 +6,7 @@
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { CCType } from "../rules/crowdControl";
-import type { AttackSplit, Effect, FighterSpec, Formula, PetSpec } from "./spec";
+import type { AbilitySpec, AttackSplit, Effect, FighterSpec, Formula, PetSpec } from "./spec";
 import type { PendingSplit } from "./actions";
 
 export type Side = 0 | 1;
@@ -169,12 +169,16 @@ export interface Unit {
   statuses: Status[];
   /** Tick each ability is next ready, by ability key. */
   cooldownReady: Record<string, number>;
+  /** Native timer definitions, by cooldown key; aliases retain their own haste and base duration. */
+  cooldownSources: Record<string, AbilitySpec>;
   /** Post-effect cooldowns waiting for their cast's effect to end: cooldown key to ability key. */
   cooldownHeld: Record<string, string>;
   /** Refunds that came while a cooldown was held (post-effect): they shorten it when it starts. */
   pendingRefunds: Record<string, { seconds: number; fraction: number }>;
   /** Abilities with charges, by cooldown key: how many are stocked and when the next one comes (absent: full). */
   charges: Record<string, { count: number; nextTick: number }>;
+  /** The spell that began an incomplete charge stock's recharge, independently of cast timers. */
+  chargeSources: Record<string, AbilitySpec>;
   /** First tick a new attack windup may start. */
   attackReadyTick: number;
   action?: Action;
@@ -474,9 +478,11 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     resource,
     statuses: [],
     cooldownReady: {},
+    cooldownSources: {},
     cooldownHeld: {},
     pendingRefunds: {},
     charges: {},
+    chargeSources: {},
     attackReadyTick: 0,
     move: 0,
     moved: 0,
@@ -512,9 +518,13 @@ function cloneUnit(unit: Unit): Unit {
     ...unit,
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
+    cooldownSources: Object.fromEntries(Object.entries(unit.cooldownSources).map(([key, ability]) => [key,
+      { ...ability, ...(ability.charges ? { charges: { ...ability.charges } } : {}) }])),
     cooldownHeld: { ...unit.cooldownHeld },
     pendingRefunds: Object.fromEntries(Object.entries(unit.pendingRefunds).map(([k, v]) => [k, { ...v }])),
     charges: Object.fromEntries(Object.entries(unit.charges).map(([k, v]) => [k, { ...v }])),
+    chargeSources: Object.fromEntries(Object.entries(unit.chargeSources).map(([key, ability]) => [key,
+      { ...ability, ...(ability.charges ? { charges: { ...ability.charges } } : {}) }])),
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
     ...(unit.action ? { action: cloneAction(unit.action) } : {}),
     ...(unit.pendingAttack ? { pendingAttack: cloneWindup(unit.pendingAttack) } : {}),

@@ -12,7 +12,7 @@ import { fighter } from "./kits";
 
 const bonus: Required<BonusStats> = {
   ad: 40, ap: 100, hp: 300, armor: 40, mr: 30, attackSpeed: 0.25,
-  critChance: 0.2, abilityHaste: 40, lethality: 10, magicPen: 10,
+  critChance: 0.2, abilityHaste: 40, basicAbilityHaste: 0, ultimateAbilityHaste: 0, lethality: 10, magicPen: 10,
   armorPenPoints: 10, magicPenPoints: 10,
 };
 // The final movement override has separate add/mutate/remove coverage in batch9CombatContracts.

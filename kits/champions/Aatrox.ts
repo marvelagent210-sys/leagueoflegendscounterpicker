@@ -1,5 +1,6 @@
 /** Aatrox: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { abilityReady, canCast } from "../../engine/sim/actions";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { type Behavior, type Command, defaultBehavior } from "../../engine/sim/behavior";
@@ -178,7 +179,7 @@ const aatrox: KitModule = {
         onCastStart(ctx) {
           if (!geometry[ctx.ability.key]) return;
           ctx.memory.strikeAt = ctx.tick;
-          ctx.self.cooldownReady.Q1 = ctx.tick + ticks(cooldownAfterHaste(strikeCooldown, derive(ctx.self).abilityHaste));
+          ctx.self.cooldownReady.Q1 = ctx.tick + ticks(cooldownAfterHaste(strikeCooldown, abilityHasteFor(ctx.self, { key: "Q1", slot: "Q" })));
         },
         onTick(ctx) {
           // Deathbringer Stance comes back on its cooldown.

@@ -4,6 +4,7 @@
  */
 import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { derive, evaluate } from "../../engine/sim/derived";
@@ -79,6 +80,7 @@ const udyr: KitModule = {
     innate.quote("Awakened Spirit is placed on full cooldown at the start of the game");
     const awakenGcd = 0.5;
     kit.assume(`Awakened Spirit is ready when a fight starts (the game starts it on cooldown, long before level 20); its cooldown is ${awakenCooldown} s from level 16; an Awaken cast puts the other stances on a ${awakenGcd} s global cooldown (the game files' GlobalCDEmpowered).`);
+    kit.assume("Bridge Between specifically classifies all four stance slots, including R, as basic abilities for their cooldowns. Wingborne Storm's generic pseudo-ultimate listing concerns ultimate interactions and does not override that specific cooldown classification. The ordinary 1.5-second global lock benefits from generic and basic-only haste; the empowered 0.5-second client lock retains its fixed interpretation because its haste eligibility is not established. Awakened Spirit itself ignores generic/basic haste and receives only ultimate haste, as its primary cooldown tooltip explicitly states.");
     // Monk Training: two attacks within 4 s after any cast gain 30% attack speed and take 5% off Awakened Spirit.
     const training = "empowers his next two basic attacks on-hit within 4 seconds to gain 30% bonus attack speed and refund 5% of Awakened Spirit's total cooldown, though not if the remaining cooldown is less than 1 second";
     const monkSeconds = innate.quoted(training, 0);
@@ -185,23 +187,27 @@ const udyr: KitModule = {
     // Every cast: the global cooldown on the other stances, and Monk Training.
     const afterCast = (ctx: HookContext, stance: Stance, awaken: boolean) => {
       const self = ctx.self;
-      const until = ctx.tick + ticks(awaken ? awakenGcd : gcd);
+      // The primary explicitly qualifies the ordinary 1.5-second lock for haste.
+      // The client-only empowered 0.5-second lock retains its fixed interpretation.
+      const sharedHaste = Math.min(500, derive(self).abilityHaste + derive(self).basicAbilityHaste);
+      const until = ctx.tick + ticks(awaken ? awakenGcd : cooldownAfterHaste(gcd, sharedHaste));
       for (const other of STANCES) if (other !== stance && (self.cooldownReady[other] ?? 0) < until) self.cooldownReady[other] = until;
       ctx.memory.monk = 2;
       ctx.memory.monkUntil = ctx.tick + ticks(monkSeconds);
       ctx.buff("monk", "attackSpeed", monkSpeed, monkSeconds);
     };
     const spendAwaken = (ctx: HookContext, stance: Stance) => {
-      ctx.memory.awakenReady = ctx.tick + ticks(cooldownAfterHaste(awakenCooldown, derive(ctx.self).abilityHaste));
+      ctx.memory.awakenReady = ctx.tick + ticks(cooldownAfterHaste(awakenCooldown, Math.min(500, derive(ctx.self).ultimateAbilityHaste)));
       ctx.memory.awakened = stance;
       // Recasting refreshes the stance's cooldown.
-      ctx.self.cooldownReady[stance] = ctx.tick + ticks(cooldownAfterHaste(6, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady[stance] = ctx.tick + ticks(cooldownAfterHaste(6, abilityHasteFor(ctx.self, { key: stance, slot: stance, hasteType: "basic" })));
     };
 
     const stanceSpec = (stance: Stance, data: typeof at.Q, onSelf: Effect[] = [], extra: Partial<AbilitySpec> = {}): AbilitySpec => ({
       key: stance,
       name: data.name,
       slot: stance,
+      hasteType: "basic",
       cooldown: data.cooldown(),
       cost: data.cost(),
       castTime: data.castTime(),
@@ -214,6 +220,7 @@ const udyr: KitModule = {
       key: `${stance}2`,
       name: `${data.name} (Awaken)`,
       slot: stance,
+      hasteType: "basic",
       cooldown: 0,
       castTime: 0,
       chain: { root: stance, index: 2, window: awakenWindow, delay: awakenAfter },
@@ -282,7 +289,7 @@ const udyr: KitModule = {
         // The stances' empowered attacks and Monk Training's speed, about one stance every 1.5 s.
         damage: (self, target) => ({
           physical: (stanceAttacks * evaluate(clawHit, self, target)) / (4 * gcd) + (evaluate(clawOnHit, self, target) * derive(self).attackSpeed * clawSeconds) / (4 * gcd),
-          magic: (2 * stanceAttacks * bolts * evaluate(bolt, self, target)) / cooldownAfterHaste(awakenCooldown, derive(self).abilityHaste) / 2,
+          magic: (2 * stanceAttacks * bolts * evaluate(bolt, self, target)) / cooldownAfterHaste(awakenCooldown, Math.min(500, derive(self).ultimateAbilityHaste)) / 2,
         }),
       },
       hooks: {
@@ -385,7 +392,7 @@ const udyr: KitModule = {
             ctx.memory.monk = Number(ctx.memory.monk) - 1;
             if (Number(ctx.memory.monk) <= 0) ctx.buff("monk", "attackSpeed", 0, 0);
             const left = Number(ctx.memory.awakenReady ?? 0) - ctx.tick;
-            if (left >= ticks(monkFloor)) ctx.memory.awakenReady = Number(ctx.memory.awakenReady) - ticks(monkRefund * cooldownAfterHaste(awakenCooldown, derive(self).abilityHaste));
+            if (left >= ticks(monkFloor)) ctx.memory.awakenReady = Number(ctx.memory.awakenReady) - ticks(monkRefund * cooldownAfterHaste(awakenCooldown, Math.min(500, derive(self).ultimateAbilityHaste)));
           }
         },
       },

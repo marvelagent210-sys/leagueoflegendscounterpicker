@@ -1,5 +1,6 @@
 /** Talon: target-owned Wounds, independent blade passes and terrain-only vaults. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { attackTiming, canCast, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, react, type Behavior } from "../../engine/sim/behavior";
@@ -126,7 +127,7 @@ const talon: KitModule = {
       endStealth(ctx);
       ctx.self.statuses = ctx.self.statuses.filter(s => !(s.ability === "R" && s.source === ctx.self.side && s.kind === "state" && s.key === "lingering"));
       delete ctx.self.cooldownHeld.R;
-      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rCD, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rCD, abilityHasteFor(ctx.self, { slot: "R" })));
     };
     const behavior: Behavior = view => {
       const normal = defaultBehavior(view);
@@ -190,7 +191,7 @@ const talon: KitModule = {
             if (!wall) { ctx.self.cooldownReady.E = ctx.tick; return; }
             const direction = directionTo(ctx.self, ctx.enemy) * relative, endpoint = direction > 0 ? wall.to + ctx.self.spec.base.pathingRadius : wall.from - ctx.self.spec.base.pathingRadius;
             const duration = Math.max(1, ticks(Math.abs(endpoint - ctx.self.x) / (derive(ctx.self).moveSpeed * eSpeed)));
-            ctx.memory[`talon:wall:${wall.id}`] = ctx.tick + ticks(cooldownAfterHaste(eWallCD, derive(ctx.self).abilityHaste));
+            ctx.memory[`talon:wall:${wall.id}`] = ctx.tick + ticks(cooldownAfterHaste(eWallCD, abilityHasteFor(ctx.self, { slot: "E" })));
             ctx.memory["talon:eEnd"] = endpoint;
             ctx.self.action = { kind: "dash", ability: "E", startTick: ctx.tick, endTick: ctx.tick + duration, perTick: (endpoint - ctx.self.x) / duration, stopAtContact: false, crossTerrain: true, unstoppable: false };
             if (canSee(ctx.self, ctx.enemy) || Math.abs(endpoint - ctx.enemy.x) <= eRevealRange) ctx.apply({ type: "state", state: "revealed", duration: eRevealSeconds }, true);

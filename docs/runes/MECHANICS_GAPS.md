@@ -121,7 +121,7 @@ actual enemy champion-body kills, capped at ten stacks. It preserves point remai
 native owner credit and kill deduplication. The complete
 [Takedown revision 4081718](https://wiki.leagueoflegends.com/en-us/?oldid=4081718)
 and [Champion summoned units revision 4023248](https://wiki.leagueoflegends.com/en-us/?oldid=4023248)
-are retained with the Alacrity pages in the twenty-one-page combat bundle.
+are retained with the Alacrity and Haste pages in the current thirty-page combat bundle.
 Clone/Spirit victims do not become champion takedowns through their targeting
 class. Protected resurrection entry gives no points; counted post-death kills
 give one award. A dead owner can gain progress through a committed hit or pet
@@ -131,9 +131,42 @@ Runtime farm, assists and minion/monster reward classification remain outside
 this subset. Starting points may represent prior real events; level 20 does not
 infer that history. Point updates use the current after-kit kill-hook phase,
 whose complete ordering relative to live champion effects is not measured.
-Bloodline and Legend: Haste remain unimplemented. Bloodline's cap health still
+Bloodline remains unimplemented. Its cap health still
 needs source-qualified initialization and dynamic handling, including Ornn's
 innate setup and health-based shields.
+
+**Haste now has the same declared-history and champion-kill subset.** Each
+completed 100-point stack adds 1.5 basic ability haste, with zero base and a cap
+of ten stacks and 15 haste. Alacrity and Haste share the Legend row, so one side
+cannot select both. The full
+[Haste template 3958696](https://wiki.leagueoflegends.com/en-us/?oldid=3958696)
+and [article 3980882](https://wiki.leagueoflegends.com/en-us/?oldid=3980882)
+agree with the client's named base, per-stack and cap fields. This progression
+does not add farm, assists or monsters, nor infer maximum stacks from level 20.
+
+The full [Haste revision 4070414](https://wiki.leagueoflegends.com/en-us/?oldid=4070414)
+adds generic haste to eligible basic, ultimate and ability-specific haste, with
+the resulting total capped at 500. Scheduling, recharge, held cooldowns and total
+refunds now use reviewed ability classes; passive, internal and static timers
+retain their specific rules. Item haste follows the same qualified stat and
+ability metadata rather than a slot-only cooldown multiplier. General
+combat-rune/item composition remains unsupported despite this shared engine work.
+A rune stack changes later scheduling rather than rescaling an already-running
+timer; the retained pages do not establish a general mid-timer rescale rule.
+
+Udyr's specific [Bridge Between revision 3983420](https://wiki.leagueoflegends.com/en-us/?oldid=3983420)
+defines four basic stances, including R, and an ordinary 1.5-second global lock
+affected by haste. Awakened Spirit separately ignores generic/basic haste and
+receives only ultimate haste. The generic Champion ability page's pseudo-ultimate
+label for Wingborne Storm concerns ultimate interactions; it does not replace
+the specific stance cooldown classification. The empowered 0.5-second client
+lock retains its fixed interpretation because its haste eligibility is not
+established. This remains a model qualification, not a measured live-game result.
+
+The shared engine, item and Udyr changes can alter default results. A genuine
+full recomputation of both matrices and final release validation are pending;
+the earlier Alacrity refresh's identical payloads do not prove this batch's
+results. The [accuracy log](../../ACCURACY.md) records the current release gates.
 
 The known **Garen attack-speed shard defect is corrected** in the follow-up to
 the Absorb Life batch:
@@ -175,6 +208,6 @@ The [Alacrity refresh](https://github.com/marvelagent210-sys/leagueoflegendscoun
 computed 172 affected pairings per matrix and verified all 344 new checkpoints;
 default numerical results match the previous baseline. Completed release checks
 are recorded in the [accuracy log](../../ACCURACY.md). These remaining gaps keep
-step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the six manual
+step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the seven manual
 effects do not establish full rune-page fidelity or make deferred runes ineffective
 in the game.

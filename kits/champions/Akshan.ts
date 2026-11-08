@@ -1,5 +1,6 @@
 /** Akshan: independent second basics, target-local marks, returning Q and terrain-dependent E. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { TOP_LANE_MAX_LEVEL } from "../../engine/stats";
 import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { averageCritFactor } from "../../engine/rules/defense";
@@ -148,7 +149,7 @@ const akshan: KitModule = {
       ctx.memory["akshan:r:phase"] = ""; clearChannel(ctx.self);
       ctx.self.statuses = ctx.self.statuses.filter((s) => s.memoKey !== "akshan:r");
       delete ctx.self.cooldownHeld.R;
-      ctx.self.cooldownReady.R = ctx.tick + ticks((cancelled && !death ? rGrace : rCD) / (1 + derive(ctx.self).abilityHaste / 100));
+      ctx.self.cooldownReady.R = ctx.tick + ticks((cancelled && !death ? rGrace : rCD) / (1 + abilityHasteFor(ctx.self, { slot: "R" }) / 100));
     };
     const releaseR = (ctx: HookContext) => {
       const elapsed = (ctx.tick - Number(ctx.memory["akshan:r:start"])) / 30;

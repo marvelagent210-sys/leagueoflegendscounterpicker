@@ -1,5 +1,6 @@
 /** Ahri at level 20, compiled from the pinned ability records. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, missileArrivalTicks, skillshotChance } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior, react } from "../../engine/sim/behavior";
@@ -92,7 +93,7 @@ const ahri: KitModule = {
       if (rushActive(ctx.self, ctx.tick)) {
         ctx.memory.rushStock = Math.min(rushMaxStock, Number(ctx.memory.rushStock ?? 0) + 1);
         ctx.memory.rushUntil = Math.max(Number(ctx.memory.rushUntil), ctx.tick + ticks(rushExtension));
-        ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rushCooldown, derive(ctx.self).abilityHaste));
+        ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rushCooldown, abilityHasteFor(ctx.self, { slot: "R" })));
       }
     };
     const rushDelivery: Extract<AbilitySpec["delivery"], { kind: "dash" }> = { kind: "dash", direction: "toward", distance: rushDistance, minDistance: 0, speed: rushSpeed, speedFor: (unit) => rushSpeed + rushMoveSpeedRatio * derive(unit).moveSpeed, through: true };

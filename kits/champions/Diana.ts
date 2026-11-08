@@ -1,5 +1,6 @@
 /** Diana's actual Moonlight contacts, third strike, spheres and delayed Moonfall. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { ATTACK_SPEED_CAP } from "../../engine/stats";
 import { canCast, EPSILON } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
@@ -59,7 +60,7 @@ const diana: KitModule = {
       if (aim?.distance !== undefined) { const endpoint = ctx.self.x + directionTo(ctx.self, enemy) * aim.direction * aim.distance; list.sort((a, b) => Math.abs(a.target.x - endpoint) - Math.abs(b.target.x - endpoint)); }
       return list[0];
     };
-    const finishOrbs = (ctx: HookContext) => { ctx.memory[ORBS] = 0; ctx.self.statuses = ctx.self.statuses.filter((s) => s.memoKey !== ORBS); delete ctx.self.cooldownHeld.W; ctx.self.cooldownReady.W = ctx.tick + ticks(wCD / (1 + derive(ctx.self).abilityHaste / 100)); };
+    const finishOrbs = (ctx: HookContext) => { ctx.memory[ORBS] = 0; ctx.self.statuses = ctx.self.statuses.filter((s) => s.memoKey !== ORBS); delete ctx.self.cooldownHeld.W; ctx.self.cooldownReady.W = ctx.tick + ticks(wCD / (1 + abilityHasteFor(ctx.self, { slot: "W" }) / 100)); };
     const spheresContact = (ctx: HookContext) => {
       if (!ctx.self.alive || ctx.self.resurrection || !Number(ctx.memory[ORBS])) return;
       const available = contacts(ctx).filter(({ target }) => !isUntargetable(target, ctx.self) && !inStasis(target) && Math.abs(target.x - ctx.self.x) <= wRadius + target.spec.base.radius + EPSILON);
