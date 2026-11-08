@@ -232,13 +232,20 @@ mode: all combat-rune flags still reject fixed builds and item search until
 composition and valuation are reviewed. The plain-stat allocation remains its
 no-rune reference.
 
-The shared-engine and Udyr corrections can change default matchup results even
-though default fights select no combat runes. A genuine full recomputation of
-both default matrices, result comparison and final release validation for this
-batch are **pending**. The completed Alacrity refresh below is a historical
-snapshot, not validation of these Haste changes. Full pages, browser combat-rune
-controls, rune-aware allocation/search and general farm/assist progression remain
-unfinished. No new in-game measurements are claimed.
+The shared-engine and Udyr corrections changed default matchup results even
+though default fights select no combat runes. The
+[8 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42468696945)
+genuinely recomputed all 14,878 pairings in each default matrix, with zero reuse.
+All 22 jobs passed, and all 29,756 genuine checkpoints match the final forward
+and reverse scores, scenarios, variants, decoded builds and spending. The
+baseline comparison found 172 changed plain-stat pairings, all involving Udyr,
+and 186 changed build payloads, including 182 changed aggregate scores. The
+full suite passed 8,977 tests across 258 files with five existing skips; both
+matrix freshness checks and the final production build pass. See the
+[accuracy log](../../ACCURACY.md) for the complete result comparison.
+Full pages, browser combat-rune controls, rune-aware allocation/search and general
+farm/assist/monster progression remain unfinished. No new in-game measurements
+are claimed.
 
 ### Legend: Alacrity: declared history and champion-kill progress
 

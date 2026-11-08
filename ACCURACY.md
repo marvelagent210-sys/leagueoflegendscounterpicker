@@ -2517,15 +2517,51 @@ ultimate-haste bonus to Fury generation remains unmodeled, including when an
 equipped item supplies that stat. Custom kit budget hints retain their existing
 approximations; the shared reference timer now reads qualified item haste.
 
-**Release validation is pending.** Shared engine and item changes invalidate
-both default matrices, requiring genuine computation of all 14,878 unordered
-pairings in each. The default settings select no optional combat runes, but the
-source-backed Udyr, item and cooldown corrections can still change scores,
-scenario results, builds, variants and spending. Those changes require comparison
-after recomputation; the previous Alacrity batch's unchanged-payload proof does
-not establish Haste's outcomes. Full matrix freshness, complete result coverage,
-checkpoint correspondence, the full test suite and final production build remain
-release gates for this batch.
+**Release validation completed on 8 November 2026.** The genuine
+[full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42468696945)
+ran from 09:48:03 to 12:23:57 UTC (2 hours, 35 minutes and 54 seconds).
+All 22 jobs succeeded: five plain-stat workers, fifteen build workers, planning
+and aggregation. Source commit `e3a2a08615e4d1400fcf329dcdaaf69d1407b800`
+produced data commit `5a305f9f7313b5a4fc67507e1bf0f599bf23ebec`.
+Both matrices genuinely recomputed all **14,878 unordered pairings**, with
+**zero reused pairs** in each.
+
+The complete checkpoint audit verified all **29,756 genuine checkpoints** against
+the final files, including exact forward and reverse aggregate and scenario
+scores, selected variants, decoded build lists and spending. Both matrices cover
+all **173 champions and 29,756 directed cells**. The frozen calculation inputs
+match the worker source commit, both shared calculation keys changed, and the
+33 reviewed champion kits have updated keys.
+
+Comparison against baseline `6bb16c1b941f06cac8a9a6ac23e92813147acbda`
+records the numerical changes rather than assuming the earlier Alacrity result:
+
+- **Plain stats:** 172 pairings changed, all involving Udyr; no other plain-stat
+  pairing changed. Aggregate scores and spending changed in all 172, scenario
+  results in 171 and selected variants in 105.
+- **Build matrix:** 186 pairings have changed result payloads. Aggregate scores
+  and scenario results changed in 182, decoded build lists in 179, item sets in
+  171 and selected variants in 123. Spending is unchanged. These counts overlap;
+  an item-dictionary reindex alone is not counted as a build change.
+
+Build selection remains sensitive to the generated candidates and the existing
+conservative policy, which independently chooses maximin/minimax routes. Their
+intersection need not be a mutual best response or a global optimum. In a
+current-engine fixed-build check of K'Sante versus Sett, the previous K'Sante
+build scores +0.3082 and the newly selected build −0.7851 against the identical
+selected Sett item list: the new route performs worse in this fixed matchup.
+Four selected-build reruns exactly reproduce the stored aggregate and scenario
+results, establishing stored-fight consistency while leaving candidate generation
+and route selection as model limitations. This observation does not establish
+dominance across all candidate routes or improved live-game accuracy.
+
+Default fights select no optional combat runes; these observed changes reflect
+the source-backed Udyr, item and cooldown corrections. The workflow's full suite
+passed **8,977 tests across 258 files**, with **five existing skipped tests**
+(8,982 total). Both TypeScript projects, both normal matrix freshness checks
+and the final production web build also pass. The full checkpoint and semantic-diff receipts are retained as
+`refresh-validation-final-01.json` and `refresh-validation-final-01-diff.json`
+in the external Haste audit.
 
 Full rune pages, keystones, Bloodline, general farm/assist/monster progression,
 browser combat-rune controls and rune-aware allocation/search remain unfinished.

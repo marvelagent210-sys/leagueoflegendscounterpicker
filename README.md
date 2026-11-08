@@ -55,7 +55,7 @@ Where the dataset has a current build matrix (`simulated-builds.json`, from `npm
 
 The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-244198f8?quickstart=1) uses a packaged build in a GitHub Codespace. Preview updates follow validation of each batch. Its `README-MOBILE.md` explains startup, phone access and resuming it. Keep port 8000's visibility **Private**. The downloadable package also includes the exact working source and parsed inputs in `SOURCE`, with computer setup instructions in `README-PRIVATE.md`.
 
-Completed release checks are recorded in [ACCURACY.md](ACCURACY.md). The Haste follow-up's full matrix refresh and final release checks are pending. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them.
+Completed release checks are recorded in [ACCURACY.md](ACCURACY.md). The Haste follow-up completed its genuine full matrix refresh and release checks on 8 November; default results changed in 172 plain-stat pairings and 186 build-matrix pairings. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them.
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 

@@ -6,7 +6,7 @@ and checked. This list records goals, not a claim that the work is complete.
 
 | Order | Improvement | Status and scope |
 |--:|---|---|
-| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Seven partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life, Legend: Alacrity and Legend: Haste. Both Legend effects require declared starting points and currently progress only from real champion-body kills. Haste's shared cooldown changes require a full matrix refresh, still pending. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
+| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Seven partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life, Legend: Alacrity and Legend: Haste. Both Legend effects require declared starting points and currently progress only from real champion-body kills. Haste's genuine full matrix refresh and release checks completed on 8 November, including the observed default-result changes. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
 | 2 | Controlled in-game measurements | Planned. Compare recorded damage, timing and interactions with reproducible in-game setups, retain the setup and patch, and turn discrepancies into mechanics regressions. |
 | 3 | Summoner spells and browser boots format | Planned. Add explicit summoner loadouts and their combat behavior, and expose the existing five-items-with-boots build format in the browser. |
 | 4 | Better combat decisions | Planned. Improve spacing, chase, disengage, defensive timing and ability sequencing, with reproducible scenarios that show the decisions and their limits. |
@@ -48,11 +48,15 @@ also recorded in the accuracy log. Step 1 remains in progress.
 The Haste batch separates basic and ultimate haste, combines eligible
 ability-specific bonuses and applies the source's 500-haste cap. It also corrects
 Udyr's stance and Awakened Spirit cooldown classifications and carries qualified
-item haste through native and champion-owned clocks. These source-backed changes
-can alter default numerical results. A genuine full recomputation of both
-matrices and final release validation are pending; the earlier unchanged-payload
-results do not establish Haste's outcomes. See the rune audit for the retained
-Udyr classification distinction and empowered-lock timing limitation.
+item haste through native and champion-owned clocks. The
+[8 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42468696945)
+genuinely recomputed all 14,878 pairings per matrix, with zero reuse; all 29,756
+genuine checkpoints match the final outputs. Default payloads changed in 172
+plain-stat pairings, all involving Udyr, and 186 build pairings (182 aggregate
+scores). All 22 workflow jobs, the full suite, both matrix freshness checks and
+the final production build passed. See the accuracy log for the complete result
+comparison and the rune audit for the retained Udyr classification distinction
+and empowered-lock timing limitation. Step 1 remains in progress.
 
 The remaining steps will need their own source review, implementation and
 validation. Their calculation costs will be measured as they are built; this

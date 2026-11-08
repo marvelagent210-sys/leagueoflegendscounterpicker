@@ -163,10 +163,15 @@ the specific stance cooldown classification. The empowered 0.5-second client
 lock retains its fixed interpretation because its haste eligibility is not
 established. This remains a model qualification, not a measured live-game result.
 
-The shared engine, item and Udyr changes can alter default results. A genuine
-full recomputation of both matrices and final release validation are pending;
-the earlier Alacrity refresh's identical payloads do not prove this batch's
-results. The [accuracy log](../../ACCURACY.md) records the current release gates.
+The shared engine, item and Udyr changes altered default results. The
+[8 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42468696945)
+genuinely recomputed all 14,878 pairings per matrix, with zero reuse, and all
+29,756 checkpoints match the final forward and reverse outputs. There are 172
+changed plain-stat pairings, all involving Udyr, and 186 changed build payloads
+(182 aggregate scores). All 22 jobs, the full test suite, both matrix freshness
+checks and the final production build passed. The
+[accuracy log](../../ACCURACY.md) records the completed release checks and exact
+result comparison; the mechanics qualifications above remain.
 
 The known **Garen attack-speed shard defect is corrected** in the follow-up to
 the Absorb Life batch:
