@@ -26,6 +26,15 @@ export interface CombatRuneRules {
     maxStacks: number;
     championKillPoints: number;
   };
+  legendBloodline: {
+    baseLifeSteal: number;
+    lifeStealPerStack: number;
+    pointsPerStack: number;
+    maxStacks: number;
+    championKillPoints: number;
+    /** A one-time direct maximum-health award only at maximum stacks. */
+    bonusHealth: number;
+  };
   lastStand: {
     healthThreshold: number;
     maximumHealthThreshold: number;

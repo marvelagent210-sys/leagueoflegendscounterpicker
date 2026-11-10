@@ -17,14 +17,15 @@ export function combatRuneOption(args: readonly string[], flag: string, catalog:
 
 /** A side must declare history explicitly; an unused flag is never silently ignored. */
 export function legendPointsOption(args: readonly string[], flag: string, selection: readonly number[] | undefined): number | undefined {
-  const legend = selection?.includes(9104) ? "Legend: Alacrity (9104)" : selection?.includes(9105) ? "Legend: Haste (9105)" : undefined;
+  const legend = selection?.includes(9103) ? "Legend: Bloodline (9103)"
+    : selection?.includes(9104) ? "Legend: Alacrity (9104)" : selection?.includes(9105) ? "Legend: Haste (9105)" : undefined;
   const positions = args.flatMap((value, index) => value === flag ? [index] : []);
   if (positions.length > 1) throw new Error(`${flag} must be given once`);
   if (positions.length === 0) {
     if (legend) throw new Error(`${legend} requires ${flag}, including an explicit 0 for no starting points`);
     return undefined;
   }
-  if (!legend) throw new Error(`${flag} requires Legend: Alacrity (9104) or Legend: Haste (9105) on the same side`);
+  if (!legend) throw new Error(`${flag} requires Legend: Bloodline (9103), Legend: Alacrity (9104) or Legend: Haste (9105) on the same side`);
   const value = args[positions[0]! + 1]?.trim();
   if (!value || !/^(0|[1-9]\d*)$/.test(value)) throw new Error(`${flag} requires a nonnegative decimal integer`);
   const points = Number(value);

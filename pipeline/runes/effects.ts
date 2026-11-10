@@ -168,6 +168,66 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 4085583,
     "timestamp": "2026-10-15T15:33:50Z",
     "sha256": "1d753f71725a446cbb4fe8d2c0e7866fc46a9077f032f10ecea1db2fe12c253a"
+  },
+  "Health": {
+    "revid": 4073062,
+    "timestamp": "2026-10-02T13:19:01Z",
+    "sha256": "c78ab307b179e0d780c33cf8abfc31dadb091be2cead0fc264d0d1632351a664"
+  },
+  "Legend: Bloodline": {
+    "revid": 4021767,
+    "timestamp": "2026-05-21T06:14:37Z",
+    "sha256": "3df918a5ed1b563451a00945316905df648dce25788cb248b31cd5ff510ce42f"
+  },
+  "Life steal": {
+    "revid": 4060425,
+    "timestamp": "2026-09-09T23:47:53Z",
+    "sha256": "af41dac470d9a2171ae000c03326fb7e5cc8a7fffe13dfabb3e45ccf95313ea9"
+  },
+  "Template:Data Galio/Shield of Durand": {
+    "revid": 3990299,
+    "timestamp": "2026-02-07T07:08:21Z",
+    "sha256": "de0eb4c03d6bbff6a2803dd6e4ff3bdd7ffd58fe59c45da1c3d5be4a3feac22d"
+  },
+  "Template:Data K'Sante/All Out": {
+    "revid": 4051537,
+    "timestamp": "2026-08-12T20:43:25Z",
+    "sha256": "4ba35fd0d46bd5d6c982b4ed6ddc6f73664e9f571e1e5c1fa41a6b12ef45dd58"
+  },
+  "Template:Data Kled/Dismounted Skaarl the Cowardly Lizard": {
+    "revid": 4038397,
+    "timestamp": "2026-06-30T09:32:46Z",
+    "sha256": "12b043731a0f2d4bd116fcf4ceb4b76d5b5c44b1cf2733687b54a29d0bdd303c"
+  },
+  "Template:Data Kled/Skaarl the Cowardly Lizard": {
+    "revid": 4058479,
+    "timestamp": "2026-09-03T17:35:19Z",
+    "sha256": "320e8686665acf32777cc82dff12256979ad812bf2a7955b8cd54715e2eb6390"
+  },
+  "Template:Data Malphite/Granite Shield": {
+    "revid": 3973718,
+    "timestamp": "2025-12-12T09:23:57Z",
+    "sha256": "33c5435118fc69603feb6b583c803932dc969251fd76766705ce79ab85428de9"
+  },
+  "Template:Data Ornn/Living Forge": {
+    "revid": 4089066,
+    "timestamp": "2026-10-22T20:31:26Z",
+    "sha256": "19e82b0d0f97583306d0f2abea77bd335e480e5664c70b9e7d87cc9829457da3"
+  },
+  "Template:Data Pyke/Gift of the Drowned Ones": {
+    "revid": 4007005,
+    "timestamp": "2026-04-09T16:09:25Z",
+    "sha256": "fb56ad11ff45c4ef612b81209c3aa57633b1b475645cb16cfcb8253cbb186401"
+  },
+  "Template:Data Vladimir/Crimson Pact": {
+    "revid": 4073468,
+    "timestamp": "2026-10-02T20:04:37Z",
+    "sha256": "83b1db52ff54ad799021a0cadcabc0e8211db8141550dab4ef885a9f4a3e0d6c"
+  },
+  "Template:Rune data Legend: Bloodline": {
+    "revid": 3971359,
+    "timestamp": "2025-12-02T21:39:42Z",
+    "sha256": "c9f5c1ca762b135a41c6be7f42555b471231b304ad7761237d89c9ad229e13c7"
   }
 };
 const RUNE_SOURCES = [
@@ -175,6 +235,7 @@ const RUNE_SOURCES = [
   { id: 8014, name: "Coup de Grace", path: 8000, slot: 3, game: "Perks/Styles/Precision/CoupDeGrace" },
   { id: 8017, name: "Cut Down", path: 8000, slot: 3, game: "Perks/Styles/Precision/CutDown" },
   { id: 8299, name: "Last Stand", path: 8000, slot: 3, game: "Perks/Styles/Precision/LastStand" },
+  { id: 9103, name: "Legend: Bloodline", path: 8000, slot: 2, game: "Perks/Styles/Precision/LegendBloodline" },
   { id: 9104, name: "Legend: Alacrity", path: 8000, slot: 2, game: "Perks/Styles/Precision/LegendAlacrity" },
   { id: 9105, name: "Legend: Haste", path: 8000, slot: 2, game: "Perks/Styles/Precision/LegendHaste" },
   { id: 8444, name: "Second Wind", path: 8400, slot: 2, game: "Perks/Styles/Resolve/SecondWind" },
@@ -321,6 +382,45 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   // Haste's three opaque 100-valued fields remain hash-sealed, just as Alacrity's do.
   // Its complete Wiki template establishes the threshold and champion/epic awards.
 
+  const bloodline = description("Legend: Bloodline");
+  const [bloodlinePerStackPercent, bloodlineDescriptionStacks, bloodlineBonusHealth] = matchNumbers("Legend: Bloodline", bloodline.text,
+    /\{\{#vardefineecho:scalingbloodline\|([\d.]+)\}\}% life steal[\s\S]*\{\{#var:scalingbloodline\}\}\*(\d+)\}\}[\s\S]*at maximum stacks, at which you also gain \{\{as\|\{\{#vardefineecho:hpbloodline\|([\d.]+)\}\} '''bonus''' health\}\}/);
+  const bloodlinePointDescriptions = bloodline.page.content.split("\n").filter((line) => /^\|description2\s*=/.test(line));
+  requireThat(bloodlinePointDescriptions.length === 1, "Legend: Bloodline needs its complete current point description");
+  quote(bloodline.page, bloodlinePointDescriptions[0]!);
+  const [bloodlinePointsPerStack, bloodlineMaxStacks] = matchNumbers("Legend: Bloodline points", bloodlinePointDescriptions[0]!,
+    /Gain ''Legend'' stacks for every (\d+) points earned, up to (\d+):/);
+  requireThat(bloodlineDescriptionStacks === bloodlineMaxStacks, "Legend: Bloodline maximum stack descriptions disagree");
+  const bloodlineReward = (name: string, pattern: RegExp): number => {
+    const rows = bloodline.page.content.split("\n").filter((line) => pattern.test(line));
+    requireThat(rows.length === 1, `Legend: Bloodline needs its current ${name} point rule`);
+    quote(bloodline.page, rows[0]!);
+    return matchNumbers(`Legend: Bloodline ${name}`, rows[0]!, pattern)[0]!;
+  };
+  const bloodlineChampionPoints = bloodlineReward("champion", /^\* (\d+) points for champion \{\{tip\|takedown\|takedowns\}\}$/);
+  const bloodlineEpicPoints = bloodlineReward("epic monster", /^\* (\d+) points for epic monster \{\{tip\|takedown\|takedowns\}\}$/);
+  const bloodlineLargeMonsterPoints = bloodlineReward("large monster", /^\* (\d+) points for large monster kills$/);
+  const bloodlineMinionPoints = bloodlineReward("minion", /^\* (\d+) points for minion kills$/);
+  requireThat([bloodlinePointsPerStack, bloodlineMaxStacks, bloodlineChampionPoints, bloodlineEpicPoints,
+    bloodlineLargeMonsterPoints, bloodlineMinionPoints].every((value) => Number.isSafeInteger(value) && value! > 0)
+    && Number.isSafeInteger(bloodlinePointsPerStack! * bloodlineMaxStacks!), "Legend: Bloodline needs positive safe integer point and stack rules");
+  requireThat(bloodlinePerStackPercent! > 0 && bloodlineBonusHealth! > 0
+    && Number.isFinite(bloodlinePerStackPercent! * bloodlineMaxStacks!), "Legend: Bloodline needs finite positive life steal and cap health");
+  const bloodlinePerk = record(game["Perks/Styles/Precision/LegendBloodline"], "Legend: Bloodline game perk");
+  requireThat(bloodlinePerk.mPerkName === "LegendBloodline"
+    && record(bloodlinePerk.mScript, "Legend: Bloodline game script").mSpellScriptName
+      === "ASSETS/Perks/Styles/Precision/LegendBloodline/LegendBloodline.lua", "Legend: Bloodline game name or script path differs");
+  const bloodlineGame = client("Legend: Bloodline");
+  agree("Legend: Bloodline", bloodlineGame, "LifeStealBase", 0);
+  // Unlike Alacrity's fraction-valued client fields, these values are percentages.
+  agree("Legend: Bloodline", bloodlineGame, "LifeStealPerStack", bloodlinePerStackPercent!);
+  agree("Legend: Bloodline", bloodlineGame, "MaxLegendStacks", bloodlineMaxStacks!);
+  agree("Legend: Bloodline", bloodlineGame, "BonusHealth", bloodlineBonusHealth!);
+  agree("Legend: Bloodline", bloodlineGame, "LargeMonsterKillValue", bloodlineLargeMonsterPoints);
+  agree("Legend: Bloodline", bloodlineGame, "MinionKillValue", bloodlineMinionPoints);
+  // The three opaque 100-valued client fields remain unnamed. The complete Wiki
+  // point description establishes champion/epic rewards and the stack threshold.
+
   const absorb = description("Absorb Life");
   const [healBase, firstRate, firstLevels, secondRate, secondLevels, finalRate, formulaMaximum] = matchNumbers("Absorb Life", absorb.text,
     /Killing an enemy \{\{tip\|heals\}\} you for \{\{pp\|([\d.]+); then \+([\d.]+)\*x for (\d+);then \+([\d.]+)\*x for (\d+); then \+([\d.]+)\*x\|1 to (\d+) by 1\|/);
@@ -448,6 +548,45 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   quote(pages.get("Template:Data Udyr/Wingborne Storm")!, "|skill        = R");
   quote(pages.get("Template:Data Udyr/Wingborne Storm")!, "|cooldown     = {{tt|6|Starts on-cast, but recasting refreshes the cooldown}}");
   quote(pages.get("Udyr")!, "* He is one of the few characters without an ultimate along with {{ci|Jayce}}. Udyr has 4 skills that can be leveled up to the maximum rank of 6.");
+  // The direct cap award composes the general maximum/current-health rule with
+  // champion-specific conversion and fixed-cap rules. These sources do not prove
+  // dead/fallen restoration timing or immediate resizing of existing shields.
+  quote(pages.get("Legend: Bloodline")!, "* Life steal per stack increased to {{fd|0.45}}% from {{fd|0.4}}%.");
+  quote(pages.get("Legend: Bloodline")!, "* Life steal per stack increased to {{fd|0.4}}% from {{fd|0.35}}%.");
+  quote(pages.get("Legend: Bloodline")!, "* Bonus health reduced to 85 from 100.");
+  quote(pages.get("Life steal")!, "{{as|{{sti|'''Life steal'''}}}} is a [[Champion statistic|stat]] that grants {{tip|heal|healing}} equal to a percentage of the {{tip|basic damage}} dealt. It applies to [[basic attack]]s, including those that are modified (such as {{ai|Siphoning Strike|Nasus}} or {{tip|Spellblade}}), and abilities that are considered by the game engine to act as one (usually those which trigger [[on-hit]] effects e.g. {{ai|Mystic Shot|Ezreal}}, {{ai|Parrrley|Gangplank}}, {{ai|Steel Tempest|Yasuo}}). Life steal does not benefit from {{sti|Heal Power|link=Heal and shield power}}. The damage of most item {{tip|on-hit}} effects benefits from life steal, denoted by the icon.");
+  quote(pages.get("Life steal")!, "* Life steal '''{{tip|stacks additively}}'''.");
+  quote(pages.get("Life steal")!, "* Life steal does not apply to damage dealt to [[structures]] nor {{ai|H-28G Evolution Turret|Heimerdinger}} or {{ai|H-28Q Apex Turret|Heimerdinger}}.");
+  quote(pages.get("Life steal")!, "* Life steal applies on damage to [[wards]] ''after'' the damage is reduced to 1, restoring effectively no health.");
+  quote(pages.get("Life steal")!, "The healing is based on the post-mitigation damage dealt, meaning after sources of [[armor]], [[magic resistance]], and {{tt|some sources|see interactions with damage modifiers}} of [[damage modifier|damage reduction]] are taken into account.");
+  quote(pages.get("Life steal")!, "Generally speaking, all {{tip|basic damage}} applies '''life steal''' by default, regardless of subtype: {{tip|physical damage}} dealt by {{tip|basic attack|basic attacks}}, {{tip|true damage}} dealt by {{cai|Hextech Munitions|Corki}} basic attacks and {{tip|true damage}} dealt by {{cai|Precision Protocol|Camille}} all trigger '''life steal''' based on the damage dealt.");
+  quote(pages.get("Life steal")!, "Some pets basic attacks also apply '''life steal''' ({{cis|Annie}} {{ui|Tibbers}}, {{cis|Ivern}} {{ui|Daisy}}, {{cis|Malzahar}} {{ui|Voidling}}). {{bug|2|Expectation since V13.14's Yorick ghoul leap and R basic attacks change to stop applying life steal}}");
+  quote(pages.get("Life steal")!, "The following effects do not reduce the effectiveness of healing granted by lifesteal.");
+  quote(pages.get("Life steal")!, "* {{cai|Riposte|Fiora}}");
+  quote(pages.get("Health")!, "Every champion has a certain amount of base health that increases through [[Champion statistic#Growing statistics|growth per level]]. '''Maximum''' health refers to '''base''' plus '''bonus''' health, and is the largest value that health can be restored to, not counting [[Shield|shields]]. '''Bonus''' health can be gained from any source other than levels, for example from [[Champion ability|abilities]], [[Buff|buffs]], [[Item (League of Legends)|items]], [[Rune (League of Legends)|runes]], and others.");
+  quote(pages.get("Health")!, "An increase to the maximum health also affects current health by the same amount. A decrease in maximum health does not change current health, unless it would exceed the reduction of maximum health, in which case the champion's current health would be equal to 100% of the new maximum.");
+  quote(pages.get("Health")!, "* Units alive at 0 current health {{tt|cannot be damaged|Not invulnerability, on-hit effects and damage events are completely negated while a unit is at 0 health to prevent interactions such as life stealing from a dead target}} in any way and are ignored by {{tip|turrets}} (unless the unit damages a {{tip|champion}} while within their range) and {{tip|minions}}.");
+  quote(pages.get("Healing")!, "'''Healing''' cannot increase a unit's current health over its maximum. The act of [[Experience (champion)|leveling up]] and certain [[Health#Champion abilities|champion abilities]] (such as {{cai|Wild Growth|Lulu}}) will increase a unit's current health by the same amount as the increase to their maximum health, but this is not considered a form of healing. As a result, they are not affected by healing reduction.");
+  quote(pages.get("Template:Data Ornn/Living Forge")!, "|description2 = {{sbc|Innate - Master Craftsman:}} '''Ornn''' uses his craftsmanship in forgery to upgrade {{tt|most|See notes}} [[Legendary item]]s that he and his teammates own into {{sbc|Masterwork}} items, increasing the [[Gold efficiency (League of Legends)|gold value]] of all {{tt|upgradeable stats|See notes}} on the item by exactly {{g|1000}}, shared equally among them. When '''Ornn''' reaches [[Experience (champion)|level]] 13, the first eligible [[Legendary item]] in his inventory is upgraded automatically. For each level after 13 and before 18 (levels 14–17, total of 4, once per ally per game), '''Ornn''' can upgrade the first eligible [[Legendary item]] in an allied champion's inventory into its {{sbc|Masterwork}} variant. He can do so by selecting the ally while within 600 range, and forges the item's upgrade by performing ''Living Forge's'' {{tip|channel}}.<br><br>Additionally, '''Ornn''' increases his {{sti|{{as|'''bonus''' armor}}}}, {{sti|{{as|'''bonus''' magic resistance}}}} and {{sti|{{as|'''bonus''' health}}}} by 10% from all sources, further increased by 4% each time he upgrades a ''Legendary'' item into a {{sbc|Masterwork}} item, for a total increase of 30% to each stat after the maximum of 5 upgrades.");
+  quote(pages.get("Template:Data Pyke/Gift of the Drowned Ones")!, "|description  = {{sbc|Innate:}} '''Pyke's''' {{sti|health|{{as|'''maximum''' health}}}} cannot increase except through [[Growth#Increasing_Statistics|growth (per level)]], instead he gains{{ft|{{sti|{{as|1 '''bonus''' attack damage}}}} {{as|per 14 '''bonus''' health}}.|{{sti|{{as|'''bonus''' attack damage}}}} equal to {{as|{{fd|7.143}}% of '''bonus''' health}}.}}");
+  quote(pages.get("Template:Data Vladimir/Crimson Pact")!, "-->{{#vardefine:cp1|3.333}}<!-- Crimson's Pact 3.33% bonus health as ability power");
+  quote(pages.get("Template:Data Vladimir/Crimson Pact")!, "|description  = {{sbc|Innate:}} '''Vladimir''' gains {{as|({{fd|{{#var:cp1}}}}% '''bonus''' health)}} as {{sti|ap|{{as|ability power}}}} and {{as|({{#var:cp2}}% AP)}} as {{sti|health|{{as|'''bonus''' health}}}}. These two bonuses do not stack with each other.");
+  quote(pages.get("Template:Data Vladimir/Crimson Pact")!, "* ''Crimson Pact'' only affects '''Vladimir's''' {{as|'''maximum''' health}} and will not increase '''Vladimir's''' {{as|'''current''' health}} to prevent '''Vladimir''' from restoring health whenever his {{as|ability power}} fluctuates.");
+  quote(pages.get("Template:Data Vladimir/Crimson Pact")!, "** '''Vladimir's''' {{as|'''current''' health}} can decrease to match his {{as|'''maximum''' health}} if ''Crimson Pact's'' {{as|'''bonus''' health}} is lost.");
+  quote(pages.get("Template:Data Kled/Skaarl the Cowardly Lizard")!, "|description  = {{sbc|Innate:}} '''Kled''' rides his semi-trusty mount, '''{{ui|Skaarl|nolink=true}}'''. While {{sbc|Mounted}}, all damage dealt to the duo is suffered by '''{{ui|Skaarl|nolink=true}}''', who has {{pplevel|color=health|{{#expr:{{ccd|Kled & Skaarl|hp_base}}-{{ccd|Kled|hp_base}}}}+{{#expr:{{ccd|Kled & Skaarl|hp_lvl}}-{{ccd|Kled|hp_lvl}}}}*(x-1)*(0.7025+0.0175*(x-1))|formula={{#expr:{{ccd|Kled & Skaarl|hp_base}}-{{ccd|Kled|hp_base}}}}+{{#expr:({{ccd|Kled & Skaarl|hp_lvl}}-{{ccd|Kled|hp_lvl}})*17 round 1}}/17*(x-1)*(0.7025+0.0175*(x-1))}} {{as|'''base''' health}}; additional sources of health are applied to '''{{uis|Skaarl|nolink=true}}''' {{as|'''maximum''' health}}. Effects based on percentage health consider '''Kled''' and '''{{uis|Skaarl|nolink=true}}''' combined {{as|'''maximum''' health}}.");
+  quote(pages.get("Template:Data Kled/Skaarl the Cowardly Lizard")!, "|description4 = While {{sbc|Mounted}}, {{tip|heal|healing}} and {{as|{{sti|health regeneration}}}} will first replenish '''{{uis|Skaarl|nolink=true}}''' health and will only apply to '''Kled's''' health while '''{{ui|Skaarl|nolink=true}}''' is at ''full'' health.");
+  quote(pages.get("Template:Data Kled/Dismounted Skaarl the Cowardly Lizard")!, "|description  = {{sbc|Innate:}} '''Kled''' is only vulnerable to {{tip|death}} while {{sbc|Dismounted}}. '''Kled''' has {{sti|health|{{as|{{pplevel|{{ccd|Kled|hp_base}}+{{ccd|Kled|hp_lvl}}*(x-1)*(0.7025+0.0175*(x-1))}} '''base''' health}}}}, which is not improved by sources of {{as|'''bonus''' health}}, his {{as|movement speed}} is reduced{{ft|by {{as|{{#expr:{{ccd|Kled & Skaarl|ms}}-{{ccd|Kled|ms}}}}|movement speed}}|to {{as|{{ccd|Kled|ms}}|movement speed}}}}, and he gains {{sti|attack range|{{#expr:{{ccd|Kled|range}}-{{ccd|Kled & Skaarl|range}}}} '''total'''<!--not base, but possibly not bonus either because it doesn't affect acquisition range--> attack range}}. Effects based on percentage health consider '''Kled''' and '''{{uis|Skaarl|nolink=true}}''' combined {{as|'''maximum''' health}}, meaning that a {{sbc|Dismounted}} '''Kled''' is never considered to be at ''full'' health.");
+  quote(pages.get("Template:Data Kled/Dismounted Skaarl the Cowardly Lizard")!, "|description3 = {{sbc|Innate - Courage:}} '''Kled''' gains 15 {{as|Courage|buzzword}} after completing a basic attack against a champion and 5 {{as|Courage|buzzword}} for lane {{tip|minion}} kills and when basic attacking {{tip|structures}} or epic {{tip|monsters}}. He can also restore {{as|Courage|buzzword}} from hitting enemies with ''{{ai|Pocket Pistol|Kled}}''. Upon reaching 100 {{as|Courage|buzzword}}, '''{{ui|Skaarl|nolink=true}}''' instantly restores {{as|{{pp|key=%|40 to 70 for 4|1 to 16}} of her '''maximum''' health}} and reunites with '''Kled''' over {{fd|0.25}} seconds, after which he consumes all {{as|Courage|buzzword}} to become {{sbc|Mounted}} and the duo become {{tip|lockout|unable}} to declare basic attacks or cast their {{tip|abilities}} for {{fd|0.25}} seconds. ''Mounting up'' resets the {{sti|cooldowns}} of ''{{ai|Bear Trap on a Rope|Kled}}'' and ''{{ai|Jousting|Kled}}''.");
+  quote(pages.get("Template:Data Kled/Dismounted Skaarl the Cowardly Lizard")!, "|description5 = ''The current status of '''Kled's''' own health is preserved between subsequent dismounts.''");
+  quote(pages.get("Template:Data Kled/Dismounted Skaarl the Cowardly Lizard")!, "* Sources of increased {{as|'''maximum''' health}} that additionally restore {{as|'''current''' health}} will restore '''Kled's''' {{as|'''current''' health}} even if he is '''DISMOUNTED'''.");
+  quote(pages.get("Template:Data K'Sante/All Out")!, "|description4     = {{sbc|All Out:}} '''K'Sante''' gains a [[Health#Health_threshold|health threshold]] equal to {{sti|{{as|65% '''maximum''' health}}}} which cannot be {{tt|modified|By increases or decreases to maximum health}} nor {{tt|exceeded|By healing and health regeneration}} by any means. Upon entering ''All Out'', his {{as|'''current''' health}} is reduced to this threshold if it is above it. Additionally, his {{sti|armor|{{as|'''base''' armor}}}} and {{sti|mr|{{as|'''base''' magic resistance}}}} are reduced by {{as|85% '''bonus''' armor}} and {{as|85% '''bonus''' magic resistance}}, respectively. In return, he gains {{sti|{{as|'''bonus''' attack speed}}}}, {{sti|lethality|{{as|50% {{tt|'''bonus'''-armor penetration|Affects bonus armor only}}}}}}, and {{sti|{{as|20% omnivamp}}}}, and modifies his {{tip|ability|basic abilities}} which can be cast at no cost.<br><br>Upon entering ''All Out'', '''K'Sante''' is restored to {{as|100% '''maximum''' mana}}. His {{as|mana}} then decays to {{as|0|mana}} over the duration of the buff, after which the {{tt|amount of {{as|mana}}|Preserves the exact amount of mana, not his mana percentage at the time}} he had {{tt|prior to entering ''All Out''|After paying All Out's mana cost}} is restored.");
+  quote(pages.get("Template:Data K'Sante/All Out")!, "|description5     = '''''K'Sante''' retains his {{as|'''maximum''' health}} and '''bonus''' resistances during All Out. Health lost from gaining the health threshold is '''not''' restored after the effect ends. If the target is pulled over terrain, '''K'Sante''' will {{tip|vanish}} during their displacement and reappear near the end of it.''");
+  quote(pages.get("Template:Data K'Sante/All Out")!, "* Gaining '''bonus''' health during ''All Out'' causes the health threshold to be briefly increased then reset back to its original value.");
+  quote(pages.get("Template:Data K'Sante/All Out")!, "** The '''bonus''' health is still applied to his '''current''' health.");
+  quote(pages.get("Template:Data Malphite/Granite Shield")!, "|description2 = {{sbc|Innate - Granite Shield:}} '''Malphite''' grants himself a {{tip|shield}} equal to {{as|10% of his '''maximum''' health}}. The shield lasts until it is broken, and replenishes to full strength after a few seconds of not taking damage.");
+  quote(pages.get("Template:Data Galio/Shield of Durand")!, "|description  = {{sbc|Passive:}} '''Galio''' gains ''Anti-Magic Bulwark'', and restores it after {{pp|12 to 8 for 3|1;6;11}} seconds without taking damage.<br/><br/>{{sbc|Anti-Magic Bulwark:}} Gain a {{tip|shield}} that absorbs {{as|magic damage}}.");
+  quote(pages.get("Template:Data Galio/Shield of Durand")!, "|leveling    = {{st|Magic Shield Strength|{{as|{{ap|7.5 to 13.5}}% of '''maximum''' health}}}}");
+  quote(pages.get("Template:Data Galio/Shield of Durand")!, "* Since ''Anti-Magic Bulwark'' is instantly granted upon learning the ability, the {{tip|shield}} may be gained once per game while in combat.");
   // Reject edits elsewhere too: a reviewed revision is retained in full, not reduced to favorable excerpts.
   for (const page of pages.values()) requireThat(page.sha256 === REVIEWED[page.title]!.sha256, `${page.title} full reviewed revision changed`);
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
@@ -458,6 +597,9 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
       pointsPerStack: legendPointsPerStack!, maxStacks: alacrityMaxStacks!, championKillPoints },
     legendHaste: { baseHaste: 0, hastePerStack: hastePerStack!, pointsPerStack: hastePointsPerStack!,
       maxStacks: hasteMaxStacks!, championKillPoints: hasteChampionPoints },
+    legendBloodline: { baseLifeSteal: 0, lifeStealPerStack: Number((bloodlinePerStackPercent! / 100).toPrecision(15)),
+      pointsPerStack: bloodlinePointsPerStack!, maxStacks: bloodlineMaxStacks!,
+      championKillPoints: bloodlineChampionPoints, bonusHealth: bloodlineBonusHealth! },
     coupDeGrace: { healthThreshold: coupHealth! / 100, damageIncrease: coupPercent! / 100 },
     cutDown: { healthThreshold: cutHealth! / 100, damageIncrease: cutPercent! / 100 },
     lastStand: { healthThreshold: lastHealth! / 100, maximumHealthThreshold: lastMaxHealth! / 100,

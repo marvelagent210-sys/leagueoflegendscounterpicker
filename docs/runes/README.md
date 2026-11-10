@@ -2,8 +2,9 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support seven partial combat effects, listed below.
-Full rune pages and rune-page search remain unfinished. The existing
+Manual plain-stat duels also support eight partial combat effects, listed below.
+The Bloodline batch awaits its full refresh and release validation. Full rune
+pages and rune-page search remain unfinished. The existing
 Udyr-specific Triple Tonic behavior still reads its original `runes.json`;
 default matchup matrices keep their existing settings without these optional
 selections. Full rune combat is step 1 of the [ordered improvement
@@ -94,9 +95,10 @@ npm run duel -- Darius Garen --combat-runes 8299,8444 --shards 5005,5001,5001
 npm run duel -- Darius Yorick --combat-runes 9101,8299
 npm run duel -- Garen Darius --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 8014,9104 --enemy-legend-points 0
 npm run duel -- Darius Garen --combat-runes 9105,8299 --legend-points 1000 --enemy-combat-runes 9104 --enemy-legend-points 0
+npm run duel -- Darius Garen --combat-runes 9103,8299 --legend-points 1499 --enemy-combat-runes 9105 --enemy-legend-points 0
 ```
 
-Each flag takes comma-separated rune IDs for that side. These seven effects are
+Each flag takes comma-separated rune IDs for that side. These eight effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -108,10 +110,11 @@ supported as partial manual selections:
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
 | Legend: Alacrity | 9104 | 3% bonus attack speed plus 1.5 percentage points per completed 100-point stack, capped at ten stacks (18%). Requires declared starting points; actual champion-body kills add 100 points. |
 | Legend: Haste | 9105 | 1.5 basic ability haste per completed 100-point stack, capped at ten stacks (15). Zero starting points grant zero haste. Requires declared starting points; actual champion-body kills add 100 points. |
+| Legend: Bloodline | 9103 | 0.45% life steal per completed 100-point stack, capped at fifteen stacks (6.75%); a one-time direct 85 bonus-health award only at 1,500 points. Requires declared starting points; actual champion-body kills add 100 points. |
 
 The three Precision health-damage runes occupy the same source-defined row, so select at most
-one of them. Alacrity and Haste occupy the same Legend row, so select at most one
-of those two. Second Wind, Absorb Life and one Legend choice can accompany any one
+one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
+at most one of those three. Second Wind, Absorb Life and one Legend choice can accompany any one
 of the three damage runes, subject to the same page validator.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
@@ -126,11 +129,18 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks thirty complete Wiki revisions in
+The offline compiler checks 42 complete Wiki revisions in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the seven templates to
+full-content hashes, exact revisions and excerpts, binds the eight templates to
 the catalog, and cross-checks the numeric rules against current game fields.
+The previous thirty complete source objects and frozen client descriptor remain
+unchanged; Bloodline adds twelve full pages, including the health and champion
+rules used below. The frozen complete client bytes are retained unchanged.
+An independent refetch found an unrelated Electrocute VFX resource-map change
+at the versioned client URL; Bloodline's complete object still matches. That
+external drift is recorded in the source audit, not incorporated into the
+frozen client file or its hash.
 Cut Down's obsolete health-difference fields are retained as source data but
 are not used for its current 8% rule.
 
@@ -166,9 +176,99 @@ Compatibility limits remain explicit:
 
 Full pages, keystones, the remaining historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These seven catalog entries are
+selection require further implementation and validation. These eight catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Legend: Bloodline: life steal and the cap-health award
+
+Implementation began on 8 November 2026 and resumed on 10 November. The release
+date and final validation receipts remain pending.
+
+Each side selecting Bloodline (`9103`) must declare its own starting Legend
+points with `--legend-points` or `--enemy-legend-points`, including explicit `0`.
+Missing, repeated, malformed or unused point flags fail. Values must be
+nonnegative safe integers; effective points cap at 1,500, retaining partial
+progress. All three Legend choices share one source-defined row.
+
+| Starting points | Completed stacks | Life steal | Direct bonus health |
+|--:|--:|--:|--:|
+| 0 or 99 | 0 | 0% | 0 |
+| 100 or 199 | 1 | 0.45% | 0 |
+| 1,399 | 13 | 5.85% | 0 |
+| 1,400 or 1,499 | 14 | 6.3% | 0 |
+| 1,500 or more | 15 | 6.75% | 85 |
+
+The [Bloodline template 3971359](https://wiki.leagueoflegends.com/en-us/?oldid=3971359)
+and [article 4021767](https://wiki.leagueoflegends.com/en-us/?oldid=4021767)
+establish 0.45% per stack, fifteen stacks and health only at the cap. Named
+client fields give zero base life steal, 0.45 percentage points per stack,
+fifteen stacks and 85 health; compilation converts the percentage to the
+runtime fraction `0.0045`. Three opaque client fields equal 100 but remain
+undecoded; the Wiki wording establishes the stack and champion reward rules.
+
+Only actual hostile champion-body kills credited by the engine add 100 points,
+including native owned-pet credit and victim deduplication. Clone and Spirit
+victims do not become champion takedowns through their targeting class.
+Protected resurrection entry grants no points; a counted post-death kill
+grants once. Starting history can represent earlier real events, but the duel
+does not create assists, farm or monster rewards. Progress and permanent stats
+survive supported death/form transitions and stay local to each world and
+copied branch; independent scenarios and variants restart from declared history.
+As with the other Legends, progress uses the existing after-kit kill callback.
+Exact live ordering against other kill effects and the lethal packet's own
+life steal versus a newly earned stack remain unmeasured.
+
+Life steal adds to the existing `lifeSteal` stat and uses the normal eligible
+damage-packet and healing path. Physical, magic and true basic damage can
+qualify; ordinary spells do not become eligible merely by dealing damage.
+[Life steal 4060425](https://wiki.leagueoflegends.com/en-us/?oldid=4060425)
+expressly includes Kled W's fourth-hit percentage-health damage and K'Sante's
+All Out bonus from attacks. Those packets carry explicit eligibility and follow
+attack blocking and scaling; K'Sante's mark and ordinary spell packets remain
+excluded. His existing 20% All Out omnivamp remains a separate healing effect.
+Standard healing modifiers,
+Grievous Wounds, health caps and the existing `noHealing` life-steal exception
+remain in force. The engine's existing shield, overkill and damage-hook
+conventions are retained, without treating them as new live-game measurements.
+The full source lists specific pet exceptions; this batch does not establish
+general pet-vamp inheritance.
+
+The cap award is a once-only permanent direct bonus-health gain, installed
+before the kit's `onStart` hook for seeded history. Reinitialization and later
+kills at cap cannot restore the award again. [Health 4073062](https://wiki.leagueoflegends.com/en-us/?oldid=4073062)
+says maximum-health increases restore the same current health; [Healing
+4041638](https://wiki.leagueoflegends.com/en-us/?oldid=4041638) distinguishes that
+restoration from healing. For an ordinary living owner the award therefore
+adds 85 maximum and current HP, without heal amplification, Grievous Wounds,
+healing totals or the ordinary `noHealing` check. This is composition of general
+source rules, including the treatment of an otherwise living owner at a
+protected healing floor, rather than a measured Bloodline-specific interaction.
+
+The direct gain uses the retained champion rules:
+
+| Champion | Cap award and boundary |
+|---|---|
+| Ornn | [Living Forge 4089066](https://wiki.leagueoflegends.com/en-us/?oldid=4089066) gives 10% plus 4% per upgrade. The frozen kit assumes five upgrades, so the direct award is 110.5 HP at 30%. |
+| Pyke | [Gift of the Drowned Ones 4007005](https://wiki.leagueoflegends.com/en-us/?oldid=4007005) converts the 85 to `85/14` bonus AD, with no maximum- or current-health gain. |
+| Vladimir | [Crimson Pact 4073468](https://wiki.leagueoflegends.com/en-us/?oldid=4073468) converts the external 85 health to 2.83305 AP at 3.333%. Its own outputs do not feed each other; only the direct 85 restores current HP. Broader external multiplier/item loops remain outside this contract. |
+| Kled | [Mounted Skaarl 4058479](https://wiki.leagueoflegends.com/en-us/?oldid=4058479) assigns the bonus to Skaarl. [Dismounted Skaarl 4038397](https://wiki.leagueoflegends.com/en-us/?oldid=4038397) permits direct restoration while dismounted, capped at Kled's unchanged own maximum. Later remount reads the new Skaarl maximum and preserves Kled's own health. |
+| K'Sante | [All Out 4051537](https://wiki.leagueoflegends.com/en-us/?oldid=4051537) retains its original absolute ceiling of 65% of maximum HP on entry for healing/regeneration. Direct bonus-health restoration may exceed it; later healing keeps that ceiling. The brief threshold-reset timing is unspecified. |
+| Malphite and Galio | Seeded health precedes [Granite Shield 3973718](https://wiki.leagueoflegends.com/en-us/?oldid=3973718) and [Shield of Durand 3990299](https://wiki.leagueoflegends.com/en-us/?oldid=3990299) setup: +8.5 ordinary shield and +11.475 rank-five magic shield. Later recharge reads new maximum health; future Galio casts read new bonus health. |
+
+An earned award does not immediately resize an existing shield or resnapshot
+an active damage reduction; the retained sources do not establish that behavior.
+Dead, zero-HP, fallen, death-defied or resurrecting owners keep progress and
+permanent stats without current-health restoration. This conservative policy
+prevents revival; exact restoration in those windows remains unmeasured.
+
+**Release validation is pending.** Shared health and packet corrections require
+genuine full recomputation of all 14,878 pairings in each default matrix.
+Neither matrix refresh, all 29,756 new checkpoint checks, the complete comparison
+of default scores, scenarios, variants, decoded builds and spending,
+the full suite, freshness checks nor final PR CI is recorded as complete for
+Bloodline. Default-result differences remain to be measured. The completed
+Haste release below is historical evidence for that earlier batch.
 
 ### Legend: Haste and qualified cooldowns
 
@@ -304,7 +404,7 @@ stat conversion.
 
 Runtime progress uses the existing kill-hook phase after the kit's own callback.
 The retained sources do not establish complete live-game ordering relative to
-every champion kill effect. Bloodline, full farm/assist progression,
+every champion kill effect. Full farm/assist/monster progression,
 item builds, browser controls, full pages and rune-aware allocation/search remain
 unfinished.
 
@@ -341,9 +441,10 @@ controlled measurement.
 
 The [mechanics gap audit](MECHANICS_GAPS.md) records remaining packet-order,
 resistance-classification, crowd-control-phase and stat-origin work. In
-particular, Conditioning, Legend: Bloodline and Unflinching remain
-unimplemented. Alacrity's and Haste's supported point-state and kill progression are described
-above; they do not resolve every progression category or attack-speed source.
+particular, Conditioning and Unflinching remain unimplemented. The three
+Legends' supported point-state and kill progression, and Bloodline's direct-health
+proof limits, are described above; they do not resolve every progression category
+or attack-speed source.
 
 ### Garen Judgment and the attack-speed shard
 

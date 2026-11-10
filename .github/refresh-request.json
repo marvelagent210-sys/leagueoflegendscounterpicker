@@ -1,5 +1,5 @@
 {
-  "note": "Recompute both complete matrices after adding qualified basic, ultimate and ability-specific haste to shared scheduling and reference timing for Legend: Haste. Include corrected item haste, charge/recharge paths and Udyr stance/Awaken clocks. Shared worker inputs changed; every pending pairing must be computed by real workers. Numerical default changes are expected and must be reviewed against the prior baseline.",
+  "note": "Recompute both complete matrices after adding Legend: Bloodline and a source-qualified permanent health award contract, fixed Kled and All Out healing ceilings, and explicit lifesteal eligibility for Kled's fourth-hit and K'Sante's direct All Out attack bonus. Shared engine worker inputs changed; every pairing must be genuinely computed. Compare all default scores, scenarios, variants, decoded builds and spending against the previous baseline; do not assume numerical payloads are unchanged.",
   "dataset": "16.21",
   "matrices": [
     "sim",

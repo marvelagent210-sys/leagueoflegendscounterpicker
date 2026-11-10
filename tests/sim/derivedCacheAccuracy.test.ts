@@ -16,7 +16,7 @@ const bonus: Required<BonusStats> = {
   armorPenPoints: 10, magicPenPoints: 10,
 };
 // The final movement override has separate add/mutate/remove coverage in batch9CombatContracts.
-const conversions: Required<Omit<NonNullable<FighterSpec["statConversions"]>, "totalMoveSpeedOverride" | "apToManaPercent" | "minimumMoveSpeed">> = {
+const conversions: Required<Omit<NonNullable<FighterSpec["statConversions"]>, "totalMoveSpeedOverride" | "apToManaPercent" | "minimumMoveSpeed" | "directBonusHealthMultiplier" | "directBonusHealthToAD">> = {
   healthToAP: 0.03333, apToHealth: 1.6, moveSpeedBonusEffectiveness: 1.4,
   attackDamageMultiplier: { base: 0, critChance: 0, bonusAttackSpeed: 0 }, fixedAttackSpeed: false,
 };

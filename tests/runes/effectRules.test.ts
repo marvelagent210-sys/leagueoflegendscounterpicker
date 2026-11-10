@@ -14,11 +14,12 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8014, 8017, 8299, 8444, 9101, 9104, 9105];
+const selected = [8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105];
 const gamePaths = [
   "Perks/Styles/Precision/CoupDeGrace", "Perks/Styles/Precision/CutDown",
   "Perks/Styles/Precision/LastStand", "Perks/Styles/Resolve/SecondWind",
   "Perks/Styles/Precision/AbsorbLife", "Perks/Styles/Precision/LegendAlacrity", "Perks/Styles/Precision/LegendHaste",
+  "Perks/Styles/Precision/LegendBloodline",
 ] as const;
 interface HealBreakpoint { __type: string; mLevel: number; mBonusPerLevelAtAndAfter: number }
 interface HealPart {
@@ -27,7 +28,8 @@ interface HealPart {
 interface HealCalculation { __type: string; mFormulaParts: HealPart[] }
 interface GamePerk {
   mPerkId: number;
-  mScript: { mSpellScriptData: {
+  mPerkName?: string;
+  mScript: { mSpellScriptName?: string; mSpellScriptData: {
     mEffectAmount: Record<string, number>;
     mCalculations?: { HealAmount: HealCalculation };
   } };
@@ -61,6 +63,7 @@ describe("reviewed combat rune numeric rules", () => {
       absorbLife: { heal: 27 },
       legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
       legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
+      legendBloodline: { baseLifeSteal: 0, lifeStealPerStack: 0.0045, pointsPerStack: 100, maxStacks: 15, championKillPoints: 100, bonusHealth: 85 },
       coupDeGrace: { healthThreshold: 0.4, damageIncrease: 0.08 },
       cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
       lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
@@ -70,10 +73,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(7).fill("manual-effects"));
+      .toEqual(Array(8).fill("manual-effects"));
   });
 
-  it("binds all thirty complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all forty-two complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -105,13 +108,25 @@ describe("reviewed combat rune numeric rules", () => {
       ["True damage", 4052642],
       ["Udyr", 3991262],
       ["Unit", 4085583],
+      ["Health", 4073062],
+      ["Legend: Bloodline", 4021767],
+      ["Life steal", 4060425],
+      ["Template:Data Galio/Shield of Durand", 3990299],
+      ["Template:Data K'Sante/All Out", 4051537],
+      ["Template:Data Kled/Dismounted Skaarl the Cowardly Lizard", 4038397],
+      ["Template:Data Kled/Skaarl the Cowardly Lizard", 4058479],
+      ["Template:Data Malphite/Granite Shield", 3973718],
+      ["Template:Data Ornn/Living Forge", 4089066],
+      ["Template:Data Pyke/Gift of the Drowned Ones", 4007005],
+      ["Template:Data Vladimir/Crimson Pact", 4073468],
+      ["Template:Rune data Legend: Bloodline", 3971359],
     ]);
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(30);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(42);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -234,11 +249,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 30 complete/);
+    expect(() => build(missing)).toThrow(/all 42 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 30 complete/);
+    expect(() => build(extra)).toThrow(/all 42 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -655,4 +670,111 @@ describe("re-pinned semantic changes", () => {
     const modifiers = fixture(); editWiki(modifiers, "Damage modifier", (text) => text.replace("Modifiers to damage dealt now stack additively", "Modifiers to damage dealt now stack multiplicatively"));
     expect(() => build(modifiers)).toThrow(/Damage modifier reviewed rule changed/);
   });
+});
+
+
+describe("Legend: Bloodline reviewed source contract", () => {
+  it("converts percentage-valued client life steal once and awards health only at the fifteen-stack cap", () => {
+    const rule = build().legendBloodline;
+    expect(rule).toEqual({ baseLifeSteal: 0, lifeStealPerStack: 0.0045,
+      pointsPerStack: 100, maxStacks: 15, championKillPoints: 100, bonusHealth: 85 });
+    expect(rule.lifeStealPerStack * rule.maxStacks).toBeCloseTo(0.0675, 15);
+    const amounts = (JSON.parse(originalGame) as Game)[gamePaths[7]]!.mScript.mSpellScriptData.mEffectAmount;
+    expect(amounts).toMatchObject({ LifeStealBase: 0, LifeStealPerStack: Math.fround(0.45),
+      MaxLegendStacks: 15, BonusHealth: 85, LargeMonsterKillValue: 25, MinionKillValue: 4,
+      "{3e1fdd4a}": 100, "{8fb410e2}": 100, "{f6570baa}": 100 });
+    expect(amounts).not.toHaveProperty("ChampionKillValue");
+    expect(amounts).not.toHaveProperty("PointsPerStack");
+    const rune = originalCatalog.runes.find((entry) => entry.id === 9103)!;
+    expect([rune.name, rune.pathId, rune.slot]).toEqual(["Legend: Bloodline", 8000, 2]);
+    expect(rune.wiki.revid).toBe(3971359);
+    const evidence = build().evidence.map((entry) => entry.text).join("\n");
+    expect(evidence).toContain("at maximum stacks, at which you also gain");
+    expect(evidence).toContain("Life steal per stack increased to {{fd|0.45}}%");
+    expect(evidence).toContain("Bonus health reduced to 85 from 100");
+  });
+
+  it("retains full life-steal eligibility and the direct-health/champion exceptions without treating blurb as the rule", () => {
+    const evidence = build().evidence.map((entry) => entry.text).join("\n");
+    for (const rule of [
+      "Life steal does not benefit from", "stacks additively", "post-mitigation damage dealt",
+      "regardless of subtype", "Some pets basic attacks", "{{cai|Riposte|Fiora}}",
+      "An increase to the maximum health also affects current health by the same amount",
+      "this is not considered a form of healing", "Units alive at 0 current health",
+      "by 10% from all sources", "maximum of 5 upgrades", "per 14 '''bonus''' health",
+      "These two bonuses do not stack with each other", "will not increase '''Vladimir's'''",
+      "additional sources of health are applied", "even if he is '''DISMOUNTED'''",
+      "The current status of '''Kled's''' own health is preserved",
+      "By increases or decreases to maximum health", "By healing and health regeneration",
+      "reset back to its original value", "health is still applied to his '''current''' health",
+      "replenishes to full strength", "instantly granted upon learning the ability",
+    ]) expect(evidence).toContain(rule);
+    const allOut = build().evidence.filter((entry) => entry.title === "Template:Data K'Sante/All Out");
+    expect(allOut.some((entry) => entry.text.startsWith("|description5"))).toBe(true);
+    expect(allOut.some((entry) => entry.text.startsWith("|blurb"))).toBe(false);
+  });
+
+  it.each(["LifeStealBase", "LifeStealPerStack", "MaxLegendStacks", "BonusHealth", "LargeMonsterKillValue", "MinionKillValue"])(
+    "rejects a changed named Bloodline client field %s before the full-byte guard", (field) => {
+      const input = fixture(); editGame(input, (records) => {
+        records[gamePaths[7]]!.mScript.mSpellScriptData.mEffectAmount[field]! += 1;
+      });
+      expect(() => build(input)).toThrow(new RegExp(`Legend: Bloodline Wiki/game ${field} disagree`));
+    });
+
+  it("requires the exact current client identity and complete named client object", () => {
+    const absent = fixture(); editGame(absent, (records) => { delete records[gamePaths[7]]; });
+    expect(() => build(absent)).toThrow(/Legend: Bloodline game perk must be an object/);
+    const id = fixture(); editGame(id, (records) => { records[gamePaths[7]]!.mPerkId = 9104; });
+    expect(() => build(id)).toThrow(/Legend: Bloodline game ID differs/);
+    const name = fixture(); editGame(name, (records) => { records[gamePaths[7]]!.mPerkName = "LegendAlacrity"; });
+    expect(() => build(name)).toThrow(/Legend: Bloodline game name or script path differs/);
+    const script = fixture(); editGame(script, (records) => { records[gamePaths[7]]!.mScript.mSpellScriptName += ".changed"; });
+    expect(() => build(script)).toThrow(/Legend: Bloodline game name or script path differs/);
+  });
+
+  it.each([
+    ["scalingbloodline|0.45", "scalingbloodline|0.5", "LifeStealPerStack"],
+    ["hpbloodline|85", "hpbloodline|100", "BonusHealth"],
+    ["* 25 points for large monster kills", "* 26 points for large monster kills", "LargeMonsterKillValue"],
+    ["* 4 points for minion kills", "* 5 points for minion kills", "MinionKillValue"],
+  ])("cross-checks Bloodline's re-pinned %s against its named client value", (old, next, field) => {
+    const input = fixture(); editWiki(input, "Template:Rune data Legend: Bloodline", (text) => text.replace(old, next));
+    expect(() => build(input)).toThrow(new RegExp(`Legend: Bloodline Wiki/game ${field} disagree`));
+  });
+
+  it("requires both maximum-stack descriptions and the cap-only health clause", () => {
+    const maximum = fixture(); editDescription(maximum, "Legend: Bloodline", "*15}}", "*14}}");
+    expect(() => build(maximum)).toThrow(/Legend: Bloodline maximum stack descriptions disagree/);
+    const clause = fixture(); editDescription(clause, "Legend: Bloodline", "at maximum stacks, at which", "at every stack, at which");
+    expect(() => build(clause)).toThrow(/Legend: Bloodline reviewed formula changed/);
+  });
+
+  it("does not infer opaque reward/threshold meanings or accept malformed or duplicate point descriptions", () => {
+    const opaque = fixture(); editGame(opaque, (records) => {
+      records[gamePaths[7]]!.mScript.mSpellScriptData.mEffectAmount["{3e1fdd4a}"] = 200;
+    });
+    expect(() => build(opaque)).toThrow(/complete reviewed game source changed/);
+    for (const [old, next] of [
+      ["every 100 points", "every 100.5 points"], ["every 100 points", "every 0 points"],
+    ]) {
+      const input = fixture(); editWiki(input, "Template:Rune data Legend: Bloodline", (text) => text.replace(old!, next!));
+      expect(() => build(input)).toThrow(/Legend: Bloodline points reviewed formula changed|positive safe integer/);
+    }
+    const duplicate = fixture(); editWiki(duplicate, "Template:Rune data Legend: Bloodline", (text) =>
+      text + "\n* 100 points for champion {{tip|takedown|takedowns}}\n");
+    expect(() => build(duplicate)).toThrow(/Legend: Bloodline needs its current champion point rule/);
+    const noPoints = fixture(); editWiki(noPoints, "Template:Rune data Legend: Bloodline", (text) => text.replace("|description2", "|historical2"));
+    expect(() => build(noPoints)).toThrow(/Legend: Bloodline needs its complete current point description/);
+  });
+
+  it.each(["Legend: Bloodline", "Life steal", "Health", "Template:Data Ornn/Living Forge", "Template:Data Pyke/Gift of the Drowned Ones",
+    "Template:Data Vladimir/Crimson Pact", "Template:Data Kled/Skaarl the Cowardly Lizard", "Template:Data Kled/Dismounted Skaarl the Cowardly Lizard",
+    "Template:Data K'Sante/All Out", "Template:Data Malphite/Granite Shield", "Template:Data Galio/Shield of Durand"])(
+    "rejects excerpts-only replacements of the complete reviewed %s source", (title) => {
+      const input = fixture();
+      const excerpts = build().evidence.filter((entry) => entry.title === title).map((entry) => entry.text).join("\n");
+      editWiki(input, title, () => excerpts);
+      expect(() => build(input)).toThrow(new RegExp(`${title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} full reviewed revision changed`));
+    });
 });

@@ -2568,6 +2568,125 @@ browser combat-rune controls and rune-aware allocation/search remain unfinished.
 No new controlled in-game measurements or completed rune-page fidelity are
 claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) stays in progress.
 
+## Legend: Bloodline implementation (started 8 November; resumed 10 November 2026)
+
+**Release validation and the release date remain pending.** Bloodline (9103) is
+the eighth partial combat effect in manual plain-stat duels. Its implementation
+began on 8 November and resumed on 10 November; the completed Haste release above
+records that earlier batch's evidence. Full pages, keystones, browser combat-rune
+controls, general item/rune composition and rune-aware allocation/search remain
+unfinished. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) remains
+in progress.
+
+Each selected side must declare starting history with `--legend-points` or
+`--enemy-legend-points`, including explicit zero. Values are nonnegative safe
+integers; points retain their remainder and cap at 1,500. Bloodline has zero
+base life steal and grants **0.45% per completed 100-point stack**, up to fifteen
+stacks and **6.75%**. It awards **85 direct bonus health once, only at 1,500
+points**. Thus 1,499 points gives 6.3% life steal and no health. Alacrity, Haste
+and Bloodline share Precision's Legend row and cannot share one side's loadout.
+
+The complete [template 3971359](https://wiki.leagueoflegends.com/en-us/?oldid=3971359)
+and [article 4021767](https://wiki.leagueoflegends.com/en-us/?oldid=4021767)
+establish the rule. Named client fields cross-check zero base life steal,
+0.45 percentage points per stack, fifteen stacks and 85 health; compilation
+converts the percentage to the runtime fraction `0.0045`. Three opaque
+100-valued fields remain unnamed; the Wiki wording establishes the stack and
+champion reward rules. The compiler's combat bundle now retains **42 complete
+Wiki pages**, preserving all thirty earlier source objects and adding twelve.
+The complete frozen client bytes and descriptor remain unchanged, with SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+
+An independent refetch of the versioned client URL found a single unrelated
+Electrocute VFX resource-map change; Bloodline's complete object is identical.
+The refetched bytes, hashes and recursive difference are retained in the
+external source audit. The mutable remote URL does not replace the frozen
+client source or its hash. Health's historical Bloodline 100-HP trivia is also
+retained but does not supply the current rune amount.
+
+Runtime progress adds 100 only for actual hostile champion-body kills credited
+by the engine, including native owned-pet credit and body deduplication.
+Clone/Spirit victims, protected resurrection entry and unrepresented farm,
+assists or monster rewards do not create points. Counted post-death kills grant
+once. Declared history may represent earlier real events; level 20 does not
+imply maximum stacks. Points and permanent stats persist through supported
+death/form transitions, remain local to worlds and copied branches, and restart
+from declared history for independent scenarios and variants. The existing
+after-kit kill-hook phase is retained; exact live ordering against other kill
+effects and the lethal packet's own life steal versus its new stack is unmeasured.
+
+Life steal adds to the existing stat and uses the normal eligible packet/healing
+path. Physical, magic and true basic damage can qualify; ordinary spells do not
+qualify merely by dealing damage. The complete
+[Life steal 4060425](https://wiki.leagueoflegends.com/en-us/?oldid=4060425)
+specifically includes Kled W's fourth-hit damage and K'Sante's All Out bonus
+from attacks. Those packets receive explicit life-steal eligibility with attack
+blocking and scaling. K'Sante's mark and ordinary spell packets remain excluded;
+his existing **20% omnivamp is separate**. Life steal retains Grievous Wounds,
+healing modifiers, health caps and the existing `noHealing` life-steal exception.
+The existing shield/overkill/damage-hook conventions are retained model rules,
+and broader source-specific pet-vamp inheritance remains qualified.
+
+The cap award uses direct maximum-health restoration rather than healing.
+[Health 4073062](https://wiki.leagueoflegends.com/en-us/?oldid=4073062) says an
+increase to maximum health restores the same current health, while
+[Healing 4041638](https://wiki.leagueoflegends.com/en-us/?oldid=4041638)
+distinguishes this gain from healing. An ordinary living owner therefore gains
+85 maximum and current HP once, independent of Grievous Wounds, heal
+amplification, `noHealing` and healing totals. Treatment of an otherwise living
+owner at a protected healing floor composes these general rules; it is not a
+Bloodline-specific game measurement. Reinitialization and later capped kills
+cannot restore the award again.
+
+The retained champion rules bound that direct award:
+
+- [Ornn's Living Forge 4089066](https://wiki.leagueoflegends.com/en-us/?oldid=4089066)
+  adds 10% plus 4% per upgrade from all sources. The frozen kit assumes five
+  upgrades and 30%, so Bloodline grants **110.5 HP**. The 18%/100.3-HP case
+  would require a separately declared two-upgrade history.
+- [Pyke's Gift of the Drowned Ones 4007005](https://wiki.leagueoflegends.com/en-us/?oldid=4007005)
+  converts the 85 to **85/14 bonus AD**, with zero maximum/current-HP gain.
+- [Vladimir's Crimson Pact 4073468](https://wiki.leagueoflegends.com/en-us/?oldid=4073468)
+  converts external 85 health to **2.83305 AP** at 3.333%. Its own outputs do not
+  feed each other, and only the direct 85 restores current HP. Broader external
+  multiplier and item loops remain outside this contract.
+- [Mounted Skaarl 4058479](https://wiki.leagueoflegends.com/en-us/?oldid=4058479)
+  assigns bonus health to Skaarl. [Dismounted Skaarl 4038397](https://wiki.leagueoflegends.com/en-us/?oldid=4038397)
+  permits direct restoration while dismounted, up to Kled's unchanged own cap.
+  Later remount uses Skaarl's increased maximum and preserves Kled's own health.
+- [K'Sante's All Out 4051537](https://wiki.leagueoflegends.com/en-us/?oldid=4051537)
+  keeps its original absolute healing/regeneration ceiling of **65% of maximum
+  HP on entry**. Direct health can exceed it; later healing retains that ceiling.
+  The source does not quantify the brief threshold reset, so no tick is invented.
+- Seeded health precedes [Malphite's Granite Shield 3973718](https://wiki.leagueoflegends.com/en-us/?oldid=3973718)
+  and [Galio's Shield of Durand 3990299](https://wiki.leagueoflegends.com/en-us/?oldid=3990299)
+  setup, adding 8.5 ordinary shield and 11.475 rank-five magic shield. Later
+  recharge reads the new maximum, and future Galio casts use new bonus health.
+  An earned award does not immediately resize an existing shield or resnapshot
+  active damage reduction; the retained sources do not establish that behavior.
+
+Dead, zero-HP, fallen, death-defied or resurrecting owners preserve points and
+permanent stats but receive **no current-health restoration**. This conservative
+simulator policy prevents revival; exact restoration in those windows remains
+unmeasured. Neither `alive` nor positive HP alone establishes the game behavior.
+The [mechanics gap audit](docs/runes/MECHANICS_GAPS.md) records these proof limits.
+
+Shared engine changes require genuine full recomputation at 173 champions:
+**14,878 unordered pairings per matrix, 29,756 across plain stats and builds**.
+Old calculations must not be restamped. The following release evidence is pending:
+
+| Required evidence | Bloodline status |
+|---|---|
+| Genuine plain-stat and build refreshes with current calculation inputs | Pending |
+| All 29,756 new checkpoints checked against complete forward/reverse outputs | Pending |
+| Complete default scores, scenarios, variants, decoded builds and spending compared with the prior baseline | Pending; numerical differences not yet measured |
+| Final full test suite and both TypeScript projects | Pending |
+| Both matrix freshness checks, final production build and final PR CI | Pending |
+| Actual release date and workflow/commit receipts | Pending |
+
+Focused implementation checks do not substitute for those final checks. No
+unchanged-default or completed-release claim is made for Bloodline.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

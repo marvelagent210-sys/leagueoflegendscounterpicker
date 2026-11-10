@@ -105,6 +105,7 @@ const ornn: KitModule = {
 
     return {
       behavior,
+      statConversions: { directBonusHealthMultiplier: 1 + forged },
       extraGold: masterwork,
       budget: {
         // Living Forge: each point of bonus armor, magic resistance and health bought is worth 30% more.
