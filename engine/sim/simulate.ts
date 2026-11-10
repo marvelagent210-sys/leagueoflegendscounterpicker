@@ -126,7 +126,8 @@ export function createWorld(setup: FightSetup): World {
   }
   for (const unit of units) unit.spec.hooks?.onStart?.(hookContext(world, unit));
   units.forEach((unit, i) => {
-    unit.hp = derive(unit).maxHp * (setup.hp?.[i] ?? 1);
+    const directCaps = unit.statuses.filter(status => status.kind === "state" && status.key === "maximumHealthGainCap");
+    unit.hp = Math.min(derive(unit).maxHp * (setup.hp?.[i] ?? 1), ...directCaps.map(status => status.value));
     // Innate mana conversion establishes the full pool once, after setup. Later
     // changes affect the cap without refunding mana spent during the fight.
     if (unit.spec.resourceType === "Mana" && unit.spec.statConversions?.apToManaPercent !== undefined

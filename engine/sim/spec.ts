@@ -125,7 +125,11 @@ export type StateType =
   /** An ability still at work in a way its kit's hooks model (Twilight Shroud's smoke): no rule of its own, but it holds a post-effect cooldown. */
   | "lingering"
   /** Health can't go above `value` (a share of maximum health); gaining it lowers health to it (All Out's 65%). */
-  | "healthCap";
+  | "healthCap"
+  /** Fixed healing ceiling, unaffected by later changes to maximum health. */
+  | "healthCapAbsolute"
+  /** Fixed current-health ceiling for direct maximum-health restoration. */
+  | "maximumHealthGainCap";
 
 /** Stats a timed buff or debuff changes. Fractions for percentages. */
 export type BuffStat =
@@ -198,7 +202,8 @@ export type Effect =
    * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
   /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
-  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory }
+  /** `appliesLifeSteal`: an explicit source exception without changing the packet's attack/damage classification. */
+  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; appliesLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory }
   /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
   /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
   | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean; spellShield?: boolean; bypassSlowImmune?: boolean; slowStackGroup?: string;
@@ -1051,6 +1056,10 @@ export interface FighterSpec {
   /** Simultaneous passive conversions, without recursive gains or direct healing. */
   statConversions?: {
     healthToAP?: number; apToHealth?: number; moveSpeedBonusEffectiveness?: number;
+    /** Direct external bonus-health awards, separate from setup's purchased stats. */
+    directBonusHealthMultiplier?: number;
+    /** Bonus AD per direct bonus-health point; replaces the award's maximum-health gain. */
+    directBonusHealthToAD?: number;
     /** Mana-only: multiply maximum mana by one plus current AP times this coefficient. */
     apToManaPercent?: number;
     /** Source-mandated final movement speed, without own modifiers or another soft cap. */

@@ -4,6 +4,9 @@ Source and runtime review, 6 November 2026. These findings explain why adding a
 numeric rune bonus alone is insufficient. No in-game measurements were performed
 for this audit. The sources below are pinned Wiki revisions; code observations
 describe the current model, not a complete specification of live-game behavior.
+The Bloodline follow-up began on 8 November; its genuine full refresh and
+checkpoint audit completed on 10 November. The mechanics proof limits below
+remain in force.
 
 ## Separate amplifier packets
 
@@ -121,7 +124,8 @@ actual enemy champion-body kills, capped at ten stacks. It preserves point remai
 native owner credit and kill deduplication. The complete
 [Takedown revision 4081718](https://wiki.leagueoflegends.com/en-us/?oldid=4081718)
 and [Champion summoned units revision 4023248](https://wiki.leagueoflegends.com/en-us/?oldid=4023248)
-are retained with the Alacrity and Haste pages in the current thirty-page combat bundle.
+are retained in the current 42-page combat bundle, which preserves the previous
+thirty complete source objects and frozen client bytes.
 Clone/Spirit victims do not become champion takedowns through their targeting
 class. Protected resurrection entry gives no points; counted post-death kills
 give one award. A dead owner can gain progress through a committed hit or pet
@@ -131,9 +135,9 @@ Runtime farm, assists and minion/monster reward classification remain outside
 this subset. Starting points may represent prior real events; level 20 does not
 infer that history. Point updates use the current after-kit kill-hook phase,
 whose complete ordering relative to live champion effects is not measured.
-Bloodline remains unimplemented. Its cap health still
-needs source-qualified initialization and dynamic handling, including Ornn's
-innate setup and health-based shields.
+Bloodline now adds the bounded manual subset described below. All three Legend
+choices share one row and require explicit starting history for each selecting
+side; farm, assists and monster progression remain unfinished.
 
 **Haste now has the same declared-history and champion-kill subset.** Each
 completed 100-point stack adds 1.5 basic ability haste, with zero base and a cap
@@ -172,6 +176,92 @@ changed plain-stat pairings, all involving Udyr, and 186 changed build payloads
 checks and the final production build passed. The
 [accuracy log](../../ACCURACY.md) records the completed release checks and exact
 result comparison; the mechanics qualifications above remain.
+
+### Bloodline: direct health, packet eligibility and proof limits
+
+Bloodline (9103) is the eighth partial manual effect. It has zero base life
+steal, adds 0.45% per completed 100-point stack, caps at fifteen stacks and
+6.75%, and awards 85 direct bonus health once only at 1,500 points. At 1,499
+points it gives 6.3% life steal and no health. Each selected side must declare
+its own nonnegative safe-integer points, including zero; remainders are retained
+and effective points cap at 1,500. Actual hostile champion-body kills add 100
+with native owner credit and deduplication; the duel creates no farm, assist or
+monster history. The after-kit kill callback phase remains an engine assumption;
+the lethal packet's life steal against a newly earned stack and exact ordering
+with other live kill effects remain unmeasured.
+
+The current 42-page bundle adds twelve complete pages to the thirty retained
+for Haste. The frozen complete client file and descriptor remain byte-exact.
+An independent remote refetch changed only an unrelated Electrocute VFX entry;
+Bloodline's full object matches. That mutable-URL drift is recorded in the
+external source audit rather than imported into the frozen inputs. Opaque
+100-valued client fields remain unnamed; the complete Bloodline wording
+establishes the points contract.
+
+[Health 4073062](https://wiki.leagueoflegends.com/en-us/?oldid=4073062) says
+maximum-health increases restore the same amount of current HP.
+[Healing 4041638](https://wiki.leagueoflegends.com/en-us/?oldid=4041638)
+distinguishes direct restoration from healing. Thus the ordinary living-owner
+award is +85 maximum and current HP once, without Grievous Wounds, heal
+amplification, `noHealing` or healing totals. Treating a living owner at a
+protected healing floor this way composes general rules; it is not a measured
+Bloodline-specific interaction. Reinitialization or a later capped kill must not
+restore the award again. Life steal itself retains the normal healing rules.
+
+Source-qualified exceptions are now part of the narrow health-award contract:
+
+- [Ornn 4089066](https://wiki.leagueoflegends.com/en-us/?oldid=4089066): 10% plus
+  4% per upgrade from all sources. The frozen five-upgrade kit uses 30% and
+  receives 110.5 HP. An 18%/100.3-HP award would require two upgrades.
+- [Pyke 4007005](https://wiki.leagueoflegends.com/en-us/?oldid=4007005): 85/14 AD,
+  with no maximum/current-HP gain, for seeded and later awards.
+- [Vladimir 4073468](https://wiki.leagueoflegends.com/en-us/?oldid=4073468):
+  2.83305 AP from external 85 health, without recursive passive output or extra
+  current-HP restoration. Broader external multiplier/item loops remain open.
+- [Kled mounted 4058479](https://wiki.leagueoflegends.com/en-us/?oldid=4058479)
+  and [dismounted 4038397](https://wiki.leagueoflegends.com/en-us/?oldid=4038397):
+  bonus health belongs to Skaarl; dismounted direct restoration uses Kled's
+  fixed own cap. Remount uses Skaarl's increased maximum and preserves own HP.
+- [K'Sante 4051537](https://wiki.leagueoflegends.com/en-us/?oldid=4051537):
+  preserve the original absolute healing/regeneration ceiling of 65% of maximum
+  HP on All Out entry. Direct health may exceed it, while later healing cannot.
+  Brief threshold-reset timing is unspecified; no invented tick is evidence.
+
+Seeded cap health precedes [Malphite 3973718](https://wiki.leagueoflegends.com/en-us/?oldid=3973718)
+and [Galio 3990299](https://wiki.leagueoflegends.com/en-us/?oldid=3990299) shield
+setup (+8.5 ordinary shield / +11.475 rank-five magic shield). Later recharge
+uses the new maximum; future Galio casts use new bonus HP. Immediate resizing of
+an existing shield or resnapshotting an active reduction remains unproven, so
+the earned award does neither.
+
+Dead, zero-HP, fallen, death-defied and resurrecting owners retain progress and
+permanent stats but receive no current-health restoration. This is an explicit
+conservative simulator policy, not measured parity. General source wording does
+not resolve committed/pet credit in those windows; positive HP or `alive` alone
+does not establish the interaction.
+
+The complete [Life steal 4060425](https://wiki.leagueoflegends.com/en-us/?oldid=4060425)
+expressly includes Kled W's fourth hit and K'Sante All Out's bonus from attacks.
+Their explicit life-steal flags retain attack blocking and scaling; K'Sante's
+mark and ordinary spells remain excluded. His 20% All Out omnivamp is a separate
+effect. Physical, magic and true basic damage may use life steal through the
+normal packet/healing path, including healing modifiers and the existing
+`noHealing` life-steal exception. Existing shield, overkill and damage-hook
+conventions are model boundaries, and the source's specific pet exceptions do
+not establish blanket pet-vamp inheritance.
+
+The genuine [10 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596)
+computed all 14,878 pairings per matrix with zero reuse. All 29,756 genuine
+checkpoints match the complete final forward/reverse payloads. Plain-stat
+payloads are unchanged; 22 build pairings changed, all involving Kled or K'Sante.
+Aggregate scores changed in 22, scenarios in 19 and decoded build lists/item
+sets in nine; variants and spending are unchanged. All 22 workflow jobs and
+9,151 tests across 262 files passed, with five existing skips. See the
+[accuracy log](../../ACCURACY.md) for the complete comparison and validation
+receipts. Checkpoint correspondence establishes stored-result consistency; it
+does not resolve the live-game timing, policy or packet boundaries above or
+establish global build optimality. Full pages, browser combat-rune controls,
+item/rune integration and rune-aware allocation/search remain unfinished.
 
 The known **Garen attack-speed shard defect is corrected** in the follow-up to
 the Absorb Life batch:
@@ -213,6 +303,6 @@ The [Alacrity refresh](https://github.com/marvelagent210-sys/leagueoflegendscoun
 computed 172 affected pairings per matrix and verified all 344 new checkpoints;
 default numerical results match the previous baseline. Completed release checks
 are recorded in the [accuracy log](../../ACCURACY.md). These remaining gaps keep
-step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the seven manual
+step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the eight manual
 effects do not establish full rune-page fidelity or make deferred runes ineffective
 in the game.

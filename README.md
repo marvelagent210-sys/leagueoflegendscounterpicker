@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus seven partial combat effects in manual plain-stat duels; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
+- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus eight partial combat effects in manual plain-stat duels. Bloodline's genuine full matrix refresh and checkpoint audit completed on 10 November; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -57,6 +57,8 @@ The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueofl
 
 Completed release checks are recorded in [ACCURACY.md](ACCURACY.md). The Haste follow-up completed its genuine full matrix refresh and release checks on 8 November; default results changed in 172 plain-stat pairings and 186 build-matrix pairings. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them.
 
+Bloodline implementation began on 8 November; its genuine [full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596) completed on 10 November. It adds declared Legend history, life steal and a one-time cap-health award. All 14,878 pairings in each matrix were computed with zero reuse, and all 29,756 new checkpoints match the final outputs. Plain-stat payloads are unchanged; 22 build-matrix pairings changed, all involving Kled or K'Sante. The workflow passed 9,151 tests across 262 files, with five existing skips. See [ACCURACY.md](ACCURACY.md) for the complete comparison and validation receipts.
+
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
 ## Matchups and counters
@@ -83,7 +85,9 @@ npm run duel -- Darius Yorick --combat-runes 9101,8299
 npm run duel -- Garen Darius --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 8014,9104 --enemy-legend-points 0
                                              # Alacrity requires declared starting Legend points for each selected side
 npm run duel -- Darius Garen --combat-runes 9105,8299 --legend-points 1000 --enemy-combat-runes 9104 --enemy-legend-points 0
-                                             # Haste adds basic-ability haste; the two Legend runes cannot share one side's row
+                                             # Haste adds basic-ability haste; select only one of the three Legend runes per side
+npm run duel -- Darius Garen --combat-runes 9103,8299 --legend-points 1499 --enemy-combat-runes 9105 --enemy-legend-points 0
+                                             # Bloodline grants 6.3% life steal at 1,499 points; one qualifying champion-body kill reaches the cap
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
 npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
@@ -94,6 +98,12 @@ rune attack speed from spin scaling; both retain their normal combat benefits.
 Other attack-speed sources retain
 the existing model, including unresolved temporary item-passive eligibility.
 See the [rune audit](docs/runes/README.md) for the source and timing limits.
+
+Bloodline (`9103`) has zero base life steal and grants 0.45% per completed 100-point stack, up to
+15 stacks and 6.75%; its direct 85 bonus health is awarded only at 1,500 points.
+Each selected side must declare its own points, including explicit zero. Runtime
+progress covers actual champion-body kills with native owner credit; farm,
+assists and monster rewards remain outside this manual subset.
 
 With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.21/reports/item-effects.md)).
 

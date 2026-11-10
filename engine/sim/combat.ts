@@ -528,7 +528,8 @@ export function heal(world: World, unit: Unit, amount: number, regeneration = fa
   const grievous = unit.statuses.some((s) => s.kind === "grievousWounds");
   const d = derive(unit);
   const cap = stateStatus(unit, "healthCap");
-  const most = cap ? Math.min(d.maxHp, cap.value * d.maxHp) : d.maxHp;
+  const absoluteCap = stateStatus(unit, "healthCapAbsolute");
+  const most = Math.min(d.maxHp, cap ? cap.value * d.maxHp : Infinity, absoluteCap?.value ?? Infinity);
   const healed = Math.min(most - unit.hp, healingReceived(amount * (1 + d.healingIncrease), grievous));
   if (healed <= 0) return;
   unit.hp += healed;
@@ -778,7 +779,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         ...(effect.canCrit ? { crit: { chance: ctx.critChance ?? d.critChance, multiplier: effect.critMultiplier ?? d.critDamage } } : {}),
         ...(ctx.attack || ctx.ability?.flags?.basicDamage ? { attack: true } : {}),
         ...(ctx.ability?.flags?.petBasicAttack ? { petBasicAttack: true } : {}),
-        ...(ctx.ability?.flags?.appliesLifeSteal ? { appliesLifeSteal: true } : {}),
+        ...(effect.appliesLifeSteal || ctx.ability?.flags?.appliesLifeSteal ? { appliesLifeSteal: true } : {}),
         ...(effect.label || ctx.ability ? { ability: effect.label ?? ctx.ability?.name } : {}),
         ...(effect.lifesteal ? { lifesteal: effect.lifesteal } : {}),
         ...(effect.noLifeSteal ? { noLifeSteal: true } : {}),
@@ -853,6 +854,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       });
       if (effect.state === "untargetable" || effect.state === "stasis") dropTargeting(world, target);
       if (effect.state === "healthCap") target.hp = Math.min(target.hp, (effect.value ?? 1) * derive(target).maxHp);
+      if (effect.state === "healthCapAbsolute") target.hp = Math.min(target.hp, effect.value ?? Infinity);
       if (effect.state === "invisible") dropTargeting(world, target, false);
       return;
     case "stat": {

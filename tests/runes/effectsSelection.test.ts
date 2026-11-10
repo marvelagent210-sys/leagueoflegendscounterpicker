@@ -23,6 +23,7 @@ const rules: CombatRuneRules = {
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
   absorbLife: { heal: 27 },
+  legendBloodline: { baseLifeSteal: 0, lifeStealPerStack: 0.0045, pointsPerStack: 100, maxStacks: 15, championKillPoints: 100, bonusHealth: 85 },
   legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   evidence: [{ title: "Synthetic equipment fixture", revid: 1, text: "Synthetic combat rules isolate equipment and side binding." }],
@@ -45,18 +46,19 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely the forty-eight legal subsets of the seven implemented effects", () => {
+  it("accepts precisely sixty-four of the 256 subsets of the eight implemented effects", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toHaveLength(8);
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
-      const legends = selected.filter((id) => id === 9104 || id === 9105);
+      const legends = selected.filter((id) => id === 9103 || id === 9104 || id === 9105);
       if (amps.length <= 1 && legends.length <= 1) {
         expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
         accepted++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(selected.length > 6 ? /at most six/ : /same path row/);
     }
-    expect(accepted).toBe(48);
+    expect(accepted).toBe(64);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],

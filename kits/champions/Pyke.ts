@@ -143,6 +143,7 @@ const pyke: KitModule = {
     return {
       abilities,
       behavior,
+      statConversions: { directBonusHealthToAD: 1 / perAD },
       hooks: {
         onStart(ctx) {
           // Bonus health becomes attack damage.

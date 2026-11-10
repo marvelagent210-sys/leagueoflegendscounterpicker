@@ -203,11 +203,13 @@ async function main(): Promise<void> {
     if (combatRules) {
       for (const [name, points, selection] of [[you.name, myLegendPoints, myRunes], [enemy.name, enemyLegendPoints, enemyRunes]] as const) {
         if (points === undefined) continue;
-        const haste = selection?.includes(9105);
-        const rule = haste ? combatRules.legendHaste : combatRules.legendAlacrity;
+        const bloodline = selection?.includes(9103), haste = selection?.includes(9105);
+        const rule = bloodline ? combatRules.legendBloodline : haste ? combatRules.legendHaste : combatRules.legendAlacrity;
         const effective = Math.min(points, rule.maxStacks * rule.pointsPerStack);
         const stacks = Math.floor(effective / rule.pointsPerStack);
-        const benefit = haste
+        const benefit = bloodline
+          ? `${Number(((combatRules.legendBloodline.baseLifeSteal + stacks * combatRules.legendBloodline.lifeStealPerStack) * 100).toFixed(3))}% life steal, ${stacks === rule.maxStacks ? combatRules.legendBloodline.bonusHealth : 0} bonus health before champion conversions`
+          : haste
           ? `${Number((combatRules.legendHaste.baseHaste + stacks * combatRules.legendHaste.hastePerStack).toFixed(3))} basic ability haste`
           : `${Number(((combatRules.legendAlacrity.baseAttackSpeed + stacks * combatRules.legendAlacrity.attackSpeedPerStack) * 100).toFixed(3))}% bonus attack speed`;
         console.log(`${name} Legend points: ${points}${points !== effective ? ` (effective ${effective}, capped)` : ""}; ${stacks} stacks, ${benefit}`);
