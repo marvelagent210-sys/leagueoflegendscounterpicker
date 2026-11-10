@@ -13,7 +13,7 @@ import type { FighterSpec } from "../../engine/sim/spec";
 import { matchupSpecs } from "../../items/equip";
 import { chooseRoutes, names, searchMatchup } from "../items/search";
 import type { BuildFormat } from "../items/rules";
-import { equipOptions, loadItemCatalog, loadRuneCatalog, loadSpellCatalog } from "../itemData";
+import { equipOptions, loadItemCatalog, loadRuneRecords, loadSpellCatalog } from "../itemData";
 import { equipLoadout } from "../loadouts/search";
 import { loadFighter, loadVariants } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
@@ -32,7 +32,7 @@ export type BuildsMessage = { completed: number } | { failed: { index: number; p
 
 const task = workerData as BuildsTask;
 const data = await loadSimData(task.dataset);
-const [catalog, runes, spells] = await Promise.all([loadItemCatalog(data.dataset), loadRuneCatalog(data.dataset), loadSpellCatalog(data.dataset)]);
+const [catalog, runes, spells] = await Promise.all([loadItemCatalog(data.dataset), loadRuneRecords(data.dataset), loadSpellCatalog(data.dataset)]);
 const catalogs = { items: catalog, runes, spells };
 const equip = equipOptions(catalog);
 const defaults = new Map<string, FighterSpec>();

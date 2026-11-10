@@ -18,6 +18,7 @@ import { toTicks } from "../rules/time";
 import { cooldownAfterHaste } from "../rules/timing";
 import { derive, evaluate, hasState } from "./derived";
 import { abilityOf, setForm } from "./forms";
+import { abilityForCooldown, abilityHasteFor, cooldownSourceSnapshot } from "./cooldowns";
 import { terrainGap, terrainLimit } from "./terrain";
 import { damagePet, petEffects } from "./pets";
 import { petFormulaTarget } from "./petTarget";
@@ -597,7 +598,14 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
         if (unit.hp >= healthProtection(world, unit).minimumHealth) unit.hp -= cost;
       }
       else unit.resource -= cost;
-      if (ability.interruptible.cooldown !== undefined) unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(ability.interruptible.cooldown);
+      if (ability.interruptible.cooldown !== undefined) {
+        const key = cooldownKeyOf(ability);
+        unit.cooldownReady[key] = world.tick + toTicks(ability.interruptible.cooldown);
+        // This explicit interruption override is already scheduled without haste.
+        unit.cooldownSources[key] = cooldownSourceSnapshot(unit, {
+          ...ability, cooldown: ability.interruptible.cooldown, cooldownFor: undefined, staticCooldown: true,
+        });
+      }
       log(world, unit.side, `${ability.name} interrupted by ${type}`);
     }
   } else if (action.kind === "dash" && abilityOf(unit, action.ability)?.interruptible && rule.interruptsChannels !== "no") {
@@ -975,8 +983,8 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         return;
       }
       const left = Math.max(0, ready - tick);
-      const spec = abilityOf(caster, effect.ability);
-      const whole = effect.total && spec ? toTicks(cooldownAfterHaste(spec.cooldownFor?.(caster) ?? spec.cooldown, spec.staticCooldown ? 0 : derive(caster).abilityHaste)) : left;
+      const spec = abilityForCooldown(caster, effect.ability);
+      const whole = effect.total && spec ? toTicks(cooldownAfterHaste(spec.cooldownFor?.(caster) ?? spec.cooldown, spec.staticCooldown ? 0 : abilityHasteFor(caster, spec))) : left;
       const cut = (effect.seconds !== undefined ? toTicks(effect.seconds) : 0) + Math.round(whole * (effect.fraction ?? 0));
       if (left > 0) caster.cooldownReady[effect.ability] = tick + Math.max(0, left - cut);
       return;

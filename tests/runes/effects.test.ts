@@ -9,7 +9,7 @@ import { defaultBehavior } from "../../engine/sim/behavior";
 import { derive } from "../../engine/sim/derived";
 import { step } from "../../engine/sim/simulate";
 import { RuneContext } from "../../runes/context";
-import { type RunePage, pageProblems, substitutePage } from "../../runes/equip";
+import { type NamedRunePage, pageProblems, substitutePage } from "../../runes/equip";
 import { RUNE_MODULES } from "../../runes/modules/index";
 import { castWhenReady, idle } from "../sim/helpers";
 import { RANGED, ability, fighter } from "../sim/kits";
@@ -32,7 +32,7 @@ describe("rune modules", () => {
 });
 
 describe("a rune page", () => {
-  const legal: RunePage = { keystone: "Conqueror", primary: ["Triumph", "Legend: Alacrity", "Last Stand"], secondary: ["Second Wind", "Unflinching"], shards: ["Adaptive Force", "Adaptive Force", "Health Scaling"] };
+  const legal: NamedRunePage = { keystone: "Conqueror", primary: ["Triumph", "Legend: Alacrity", "Last Stand"], secondary: ["Second Wind", "Unflinching"], shards: ["Adaptive Force", "Adaptive Force", "Health Scaling"] };
 
   it("follows the wiki's rules: a keystone and a lesser rune from each row of its path, two runes from two rows of another, a shard per slot", () => {
     expect(pageProblems(legal, catalog)).toEqual([]);

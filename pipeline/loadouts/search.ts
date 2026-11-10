@@ -32,13 +32,13 @@ import { fairFight, fight } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
 import { type ItemParts, matchupSpecs } from "../../items/equip";
 import { estimateAgainst, estimateSide } from "../../items/estimate";
-import { type RunePage, findRune, runeParts, substituteRune, substitutionFacts } from "../../runes/equip";
+import { type NamedRunePage, findRune, runeParts, substituteRune, substitutionFacts } from "../../runes/equip";
 import { RUNE_MODULES } from "../../runes/modules/index";
 import { duelSpells } from "../../summoners/equip";
 import { SPELL_MODULES } from "../../summoners/modules/index";
 import { type LoadoutFighter, equipBuild, withItems } from "../itemData";
 import type { ItemCatalog } from "../items/records";
-import type { RuneCatalog } from "../runeCatalog/records";
+import type { RuneRecords } from "../runeRecords/records";
 import type { SpellCatalog } from "../summoners/records";
 
 /** The spell every loadout holds. */
@@ -47,7 +47,7 @@ export const FLASH = "Flash";
 /** A side's summoner spells and rune page. */
 export interface Loadout {
   spells: string[];
-  page: RunePage;
+  page: NamedRunePage;
 }
 
 /** A side of the matchup as the loadout search sees it. */
@@ -66,7 +66,7 @@ export interface LoadoutSide {
 
 export interface LoadoutCatalogs {
   items: ItemCatalog;
-  runes: RuneCatalog;
+  runes: RuneRecords;
   spells: SpellCatalog;
 }
 
@@ -157,7 +157,7 @@ function choicesWith(side: LoadoutSide, catalogs: LoadoutCatalogs, items: Parame
 }
 
 /** A page's lesser runes and shards as the estimate counts them (its keystone has no hint: fights decide it). */
-function pageParts(choices: Choices, page: RunePage | undefined): ItemParts[] {
+function pageParts(choices: Choices, page: NamedRunePage | undefined): ItemParts[] {
   if (!page) return [];
   return [...page.primary, ...page.secondary].map((name) => choices.parts.get(name)!).concat(page.shards.map((name, slot) => choices.parts.get(`${slot}:${name}`)!));
 }
@@ -181,7 +181,7 @@ function best<T>(candidates: readonly T[], value: (candidate: T) => number): T {
  * The rest of a page for a keystone of `path`, by the estimate: the shards slot by slot, the
  * path's rows one by one, then the secondary path's best two runes of two different rows.
  */
-function completePage(path: string, choices: Choices, value: (parts: ItemParts[]) => number): Omit<RunePage, "keystone"> {
+function completePage(path: string, choices: Choices, value: (parts: ItemParts[]) => number): Omit<NamedRunePage, "keystone"> {
   const chosen: ItemParts[] = [];
   const shards = choices.shards.map((options) => {
     const pick = best(options, (option) => value([...chosen, option.parts]));
@@ -203,7 +203,7 @@ function completePage(path: string, choices: Choices, value: (parts: ItemParts[]
 }
 
 /** Side `s`'s page for each keystone it can play, against the other side's loadout: the rest of each page completed by the estimate. */
-export function keystonePages(sides: readonly [LoadoutSide, LoadoutSide], s: 0 | 1, enemyLoadout: Loadout | undefined, catalogs: LoadoutCatalogs): RunePage[] {
+export function keystonePages(sides: readonly [LoadoutSide, LoadoutSide], s: 0 | 1, enemyLoadout: Loadout | undefined, catalogs: LoadoutCatalogs): NamedRunePage[] {
   const choices = [choicesFor(sides[0], catalogs), choicesFor(sides[1], catalogs)] as const;
   const [side, enemy] = [sides[s], sides[s === 0 ? 1 : 0]];
   const enemySide = estimateSide(enemy.estimate, [...enemy.parts, ...pageParts(choices[s === 0 ? 1 : 0], enemyLoadout?.page)], 1);
@@ -252,8 +252,8 @@ export function searchLoadouts(sides: [LoadoutSide, LoadoutSide], catalogs: Load
       const theirs = equipLoadout(enemy, loadouts[other], catalogs);
       const enemySide = estimateSide(enemy.estimate, [...enemy.parts, ...pageParts(choices[other], loadouts[other]?.page)], 1);
       const value = (parts: ItemParts[]) => estimateAgainst(side.estimate, [...side.parts, ...parts], enemySide);
-      const pages = new Map<string, Omit<RunePage, "keystone">>();
-      const pageFor = (keystone: string): RunePage => {
+      const pages = new Map<string, Omit<NamedRunePage, "keystone">>();
+      const pageFor = (keystone: string): NamedRunePage => {
         const path = choices[s].keystones.find((entry) => entry.name === keystone)!.path;
         if (!pages.has(path)) pages.set(path, completePage(path, choices[s], value));
         return { keystone, ...pages.get(path)! };

@@ -4,6 +4,7 @@
  * explodes its own shield; in Dragon Form, Molten Burst pierces, explodes and scorches.
  */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { numbersIn } from "../../engine/kits/context";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, completeCast } from "../../engine/sim/actions";
@@ -45,7 +46,7 @@ const shyvana: KitModule = {
     r.quote("returning to Human Form once all Dragon Fury has been depleted");
     const bonusHealth = r.number("Bonus Health");
     const bonusRange = r.number("Bonus Range");
-    kit.assume("Shyvana starts a fight with full Dragon Fury and without ultimate haste, so Dragon Fury generation gets no bonus. Dragon Form's bonus health raises her current health by the same amount; leaving it keeps her health, capped at the lower maximum. Its size increase is left out: her hitbox doesn't grow.");
+    kit.assume("Shyvana starts a fight with full Dragon Fury. Her source-specific ultimate-haste scaling of Fury generation remains unmodeled, including when an equipped item grants ultimate haste. Dragon Form's bonus health raises her current health by the same amount; leaving it keeps her health, capped at the lower maximum. Its size increase is left out: her hitbox doesn't grow.");
 
     // Emberstrike: two (three) empowered attacks; each later cast opens 1.5 s after the last Emberstrike attack, or at once after a basic attack.
     const recastRule = "After 1.5 seconds of using an Emberstrike attack, or immediately following a basic attack, the ability can be recast within and up to the next 4 seconds each time";
@@ -125,7 +126,7 @@ const shyvana: KitModule = {
     kit.assume(`Dragon's Descent flies at ${flightSpeed} units per second (neither the wiki nor the game files give its speed), and its fire hits the enemy if the flight passes within ${fireReach} units of it (half the game files' 225 width).`);
 
     const dragon = (unit: Unit) => unit.memory[DRAGON] === true;
-    const hasted = (unit: Unit, seconds: number) => cooldownAfterHaste(seconds, derive(unit).abilityHaste);
+    const hasted = (unit: Unit, seconds: number) => cooldownAfterHaste(seconds, abilityHasteFor(unit, { slot: "Q" }));
     const maxFury = (unit: Unit) => derive(unit).maxResource;
     const addFury = (ctx: HookContext, amount: number) => { ctx.self.resource = Math.min(maxFury(ctx.self), ctx.self.resource + amount); };
     /** Dragon Fury for damaging the enemy: basic attacks every time, an ability once per cast. */

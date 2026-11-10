@@ -46,7 +46,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Fizz | Fizz | 83 | 6 |
 | Galio | Galio | 111 | 5 |
 | Gangplank | Gangplank | 58 | 5 |
-| Garen | Garen | 32 | 3 |
+| Garen | Garen | 35 | 4 |
 | Gnar | Gnar | 70 | 7 |
 | Gragas | Gragas | 57 | 3 |
 | Graves | Graves | 90 | 7 |
@@ -152,7 +152,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Tryndamere | Tryndamere | 34 | 3 |
 | Twisted Fate | TwistedFate | 58 | 8 |
 | Twitch | Twitch | 67 | 6 |
-| Udyr | Udyr | 80 | 11 |
+| Udyr | Udyr | 80 | 12 |
 | Urgot | Urgot | 50 | 5 |
 | Varus | Varus | 71 | 8 |
 | Vayne | Vayne | 47 | 7 |

@@ -11,12 +11,12 @@ import type { Mode, World } from "../../engine/sim/state";
 import { matchupSpecs } from "../../items/equip";
 import { DATA_DIR } from "../../pipeline/config";
 import { latestDataset } from "../../pipeline/datasets";
-import { type LoadoutFighter, equipBuild, loadItemCatalog, loadRuneCatalog, loadSpellCatalog } from "../../pipeline/itemData";
-import type { RunePage } from "../../runes/equip";
+import { type LoadoutFighter, equipBuild, loadItemCatalog, loadRuneRecords, loadSpellCatalog } from "../../pipeline/itemData";
+import type { NamedRunePage } from "../../runes/equip";
 import { fighter } from "../sim/kits";
 
-export const dataset = await latestDataset(DATA_DIR, "rune-catalog.json");
-export const [items, catalog, spells] = await Promise.all([loadItemCatalog(dataset), loadRuneCatalog(dataset), loadSpellCatalog(dataset)]);
+export const dataset = await latestDataset(DATA_DIR, "rune-records.json");
+export const [items, catalog, spells] = await Promise.all([loadItemCatalog(dataset), loadRuneRecords(dataset), loadSpellCatalog(dataset)]);
 
 /** Lesser runes and shards that do nothing in these fights, by path and row. */
 export const QUIET: Record<string, string[]> = {
@@ -42,7 +42,7 @@ export const pathOf = (name: string) => entryOf(name).path;
  * path, or else of the secondary path (that of the first such rune), with quiet runes filling
  * the other rows.
  */
-export function pageWith(keystone: string, lesser: string[] = [], shards = QUIET_SHARDS): RunePage {
+export function pageWith(keystone: string, lesser: string[] = [], shards = QUIET_SHARDS): NamedRunePage {
   const path = pathOf(keystone);
   const primary = [...QUIET[path]!];
   const outside = lesser.filter((name) => pathOf(name) !== path);
@@ -57,11 +57,11 @@ export function pageWith(keystone: string, lesser: string[] = [], shards = QUIET
  * Spellbook works outside duels; Guardian, for Inspiration runes, waits for 178 damage in 2.5
  * seconds), quiet runes, and the rune in the secondary path.
  */
-export function lesserPage(rune: string, shards = QUIET_SHARDS): RunePage {
+export function lesserPage(rune: string, shards = QUIET_SHARDS): NamedRunePage {
   return pageWith(pathOf(rune) === "Inspiration" ? "Guardian" : "Unsealed Spellbook", [rune], shards);
 }
 
-export const holding = (spec: FighterSpec, page: RunePage, build: string[] = [], adaptiveType: "Physical" | "Magic" = "Physical", options?: Record<string, Record<string, number>>, spellNames?: string[]): LoadoutFighter =>
+export const holding = (spec: FighterSpec, page: NamedRunePage, build: string[] = [], adaptiveType: "Physical" | "Magic" = "Physical", options?: Record<string, Record<string, number>>, spellNames?: string[]): LoadoutFighter =>
   equipBuild(spec, build, items, { runes: { page, catalog, adaptiveType, ...(options ? { options } : {}) }, ...(spellNames ? { spells: { names: spellNames, catalog: spells } } : {}) });
 
 export function world(a: LoadoutFighter | FighterSpec, b: LoadoutFighter | FighterSpec = fighter({ id: "enemy" }), modes: [Mode, Mode] = ["fight", "idle"], distance = 0): World {

@@ -2,6 +2,7 @@
 import { SUSTAIN_WINDOW } from "../../engine/budget";
 import { ATTACK_SPEED_CAP } from "../../engine/stats";
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { averageCritFactor } from "../../engine/rules/defense";
 import { attackRange as currentAttackRange, attackTiming, canCast } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
@@ -46,7 +47,7 @@ const missFortune: KitModule = {
       const target = identity(ctx.enemy);
       if (ctx.memory[TAP] === target) return;
       ctx.memory[TAP] = target;
-      ctx.apply({ type: "refund", ability: "W", seconds: strutRefund / (1 + derive(ctx.self).abilityHaste / 100) }, true);
+      ctx.apply({ type: "refund", ability: "W", seconds: strutRefund / (1 + abilityHasteFor(ctx.self, { slot: "W" }) / 100) }, true);
     };
     const updateStrut = (ctx: HookContext) => {
       const elapsed = ctx.tick - Number(ctx.memory[STRUT] ?? -ticks(strutFirst + strutSecond));

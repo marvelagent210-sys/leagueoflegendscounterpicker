@@ -27,6 +27,8 @@ import { averageCritFactor, healingReceived } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
 import { toSeconds, toTicks } from "./rules/time";
 import { derive, evaluate, withSettledStats } from "./sim/derived";
+import { abilityHasteFor } from "./sim/cooldowns";
+import { channelPulseCount } from "./sim/channelPulses";
 import { createWorld } from "./sim/simulate";
 import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, type Formula, cooldownKeyOf } from "./sim/spec";
 import { type Unit, newUnit } from "./sim/state";
@@ -211,12 +213,14 @@ interface DamageTerm {
   canCrit?: boolean;
   critMultiplier?: number;
   minimum?: Formula;
-  pulseFormula?: Formula;
+  pulses?: Formula;
+  pulsesFor?: (self: Unit) => number;
   attackWindow?: number;
 }
 
 /** One use per cooldown: an ability with its recasts. */
 interface ReferenceTiming {
+  ability: AbilitySpec;
   cooldown: number;
   cooldownFor?: AbilitySpec["cooldownFor"];
   staticCooldown?: boolean;
@@ -261,6 +265,7 @@ function heldOf(ability: AbilitySpec): Held {
 /** Keep dynamic callbacks so every candidate build supplies its own timing stats. */
 function timingOf(ability: AbilitySpec): ReferenceTiming {
   return {
+    ability,
     cooldown: ability.cooldown,
     ...(ability.cooldownFor ? { cooldownFor: ability.cooldownFor } : {}),
     ...(ability.staticCooldown ? { staticCooldown: true } : {}),
@@ -280,10 +285,11 @@ function castTimeOf(use: { castTime: number; castTimeFor?: AbilitySpec["castTime
 /** Seconds from one use to the next: the cooldown after haste, the cast, and any post-effect wait. */
 function cycleOf(use: ReferenceTiming, self: Unit): number {
   const d = derive(self);
+  const haste = abilityHasteFor(self, use.ability);
   const base = use.cooldownFor?.(self) ?? use.cooldown;
-  let cooldown = use.staticCooldown ? base : cooldownAfterHaste(base, d.abilityHaste);
+  let cooldown = use.staticCooldown ? base : cooldownAfterHaste(base, haste);
   // Static cast cooldowns do not make a separate charge-recharge timer immune to haste.
-  if (use.recharge !== undefined) cooldown = Math.max(cooldown, cooldownAfterHaste(use.recharge, d.abilityHaste));
+  if (use.recharge !== undefined) cooldown = Math.max(cooldown, cooldownAfterHaste(use.recharge, haste));
   if (cooldown <= 0) return 0;
   return cooldown + castTimeOf(use, self) + use.held.seconds + (d.attackSpeed > 0 ? use.held.attacks / d.attackSpeed : 0);
 }
@@ -303,16 +309,16 @@ function damageTerms(ability: AbilitySpec): DamageTerm[] {
       : d.burst
         ? d.burst.count * (Math.floor((d.duration - (d.burst.count - 1) * d.burst.gap) / d.interval + 1e-9) + 1)
         : Math.max(1, Math.round(d.duration / d.interval));
-  const groups: Array<[Effect[], number, Formula?, number?]> = [
+  const groups: Array<[Effect[], number, Formula?, number?, ((self: Unit) => number)?]> = [
     [ability.onHit ?? [], hits],
-    [ability.channel?.onTick ?? [], pulses, ability.channel?.pulses],
+    [ability.channel?.onTick ?? [], pulses, ability.channel?.pulses, undefined, ability.channel?.pulsesFor],
     [ability.channel?.onComplete ?? [], 1],
   ];
   for (const e of ability.onSelf ?? []) if (e.type === "empower") groups.push([e.onHit, e.attacks, undefined, e.window]);
   const terms: DamageTerm[] = [];
-  for (const [effects, times, pulseFormula, attackWindow] of groups) {
+  for (const [effects, times, pulseFormula, attackWindow, pulseCountFor] of groups) {
     for (const e of flatten(effects)) {
-      const repeats = { times, ...(pulseFormula ? { pulseFormula } : {}), ...(attackWindow !== undefined ? { attackWindow } : {}) };
+      const repeats = { times, ...(pulseFormula ? { pulses: pulseFormula } : {}), ...(pulseCountFor ? { pulsesFor: pulseCountFor } : {}), ...(attackWindow !== undefined ? { attackWindow } : {}) };
       if (e.type === "damage") terms.push({ ...e, ...repeats });
       else if (e.type === "dot") terms.push({ damageType: e.damageType, amount: e.total, ...repeats });
     }
@@ -358,7 +364,7 @@ function onHitTerms(effects: Effect[]): DamageTerm[] {
 function termDamage(term: DamageTerm, self: Unit, target: Unit): number {
   const d = derive(self);
   const amount = Math.max(term.amountFor?.(self, target) ?? evaluate(term.amount, self, target), term.minimum ? evaluate(term.minimum, self, target) : 0);
-  const times = term.pulseFormula ? Math.max(1, Math.floor(evaluate(term.pulseFormula, self) + 1e-6))
+  const times = term.pulsesFor || term.pulses ? channelPulseCount(term, self)!
     : term.attackWindow !== undefined ? Math.min(term.times, d.attackSpeed * term.attackWindow)
     : term.times;
   return amount * (term.canCrit ? averageCritFactor(d.critChance, term.critMultiplier ?? d.critDamage) : 1) * times;

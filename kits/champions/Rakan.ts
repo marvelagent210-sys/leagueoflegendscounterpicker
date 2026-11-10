@@ -1,5 +1,6 @@
 /** Rakan's real contact identities, independent healing/shield clocks and selective R lock. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import type { CCType } from "../../engine/rules/crowdControl";
 import { canCast, canStartAttack, EPSILON } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
@@ -168,7 +169,7 @@ const rakan: KitModule = {
         const action=ctx.self.action;
         if (stops.includes(ctx.cc) && action?.kind === "dash" && ["W","E","E2"].includes(action.ability)) { ctx.self.action=action.resume; notifyDashEnd(ctx.world,ctx.self,action.ability,true); }
       },
-      onMissileEnd(ctx) { if (ctx.missile.source === "Q") { ctx.self.statuses=ctx.self.statuses.filter(status=>!(status.kind==="state"&&status.ability==="Q")); delete ctx.self.cooldownHeld.Q; ctx.self.cooldownReady.Q=ctx.tick+ticks(qCD/(1+derive(ctx.self).abilityHaste/100)); } },
+      onMissileEnd(ctx) { if (ctx.missile.source === "Q") { ctx.self.statuses=ctx.self.statuses.filter(status=>!(status.kind==="state"&&status.ability==="Q")); delete ctx.self.cooldownHeld.Q; ctx.self.cooldownReady.Q=ctx.tick+ticks(qCD/(1+abilityHasteFor(ctx.self, { slot: "Q" })/100)); } },
       onDamageTaken(ctx) { if (ctx.amount>0||ctx.absorbed>0) { ctx.memory[LAST]=ctx.tick; if (!shield(ctx.self) && ctx.memory[READY]===undefined) ctx.memory[READY]=ctx.tick+ticks(pCD); } },
       onDamageDealt(ctx) { if (ctx.amount>0||ctx.absorbed>0) ctx.memory[LAST]=ctx.tick; },
       onTick(ctx) {

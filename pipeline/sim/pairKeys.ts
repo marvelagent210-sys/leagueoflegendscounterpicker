@@ -213,7 +213,7 @@ export async function pairInputs(dataset: string, kind: MatrixKind, format?: str
     shared.format = format;
     shared.catalog = catalogContent((await readJsonFile(path.join(dir, "items.json"))) as Record<string, unknown>);
     shared.spells = loadoutCatalogContent((await readJsonFile(path.join(dir, "summoners.json"))) as Record<string, unknown>);
-    shared.runeCatalog = loadoutCatalogContent((await readJsonFile(path.join(dir, "rune-catalog.json"))) as Record<string, unknown>);
+    shared.runeCatalog = loadoutCatalogContent((await readJsonFile(path.join(dir, "rune-records.json"))) as Record<string, unknown>);
   }
   const champions = new Map(((await readJsonFile(path.join(dir, "champions.json"))) as ChampionDataset).champions.map((champion: Champion) => [champion.id, champion]));
   const keys: Record<string, string> = {};

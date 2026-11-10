@@ -8,6 +8,7 @@ import type { Champion, ChampionDataset } from "../../engine/types";
 import { KITS } from "../../kits/champions/index";
 import { type PrecomputedBuilds, type PrecomputedMatchups, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
 import { precomputedCompatible } from "./sim/cache";
+import { type StatShardData, validateStatShardData } from "../../runes/shardData";
 
 export type SimulatedFile = PrecomputedMatchups;
 
@@ -30,6 +31,8 @@ export interface AppData {
   pets: Map<string, PetRecord[]>;
   /** The runes the simulator models (Triple Tonic). */
   runes: RuneRecord[];
+  /** Optional reviewed choices/rules for live plain-stat shard duels. */
+  statShards?: StatShardData;
   /** Champions with a simulator kit, by name. */
   kitIds: string[];
   /**
@@ -57,10 +60,13 @@ export const BUILDS_FORMAT = "sixItems";
 
 const cache = new Map<string, Promise<unknown>>();
 
+// This loader also runs in shared Node tests, whose types deliberately omit DOM.
+const pageBaseURI = () => (globalThis as unknown as { document: { baseURI: string } }).document.baseURI;
+
 function fetchJson<T>(path: string): Promise<T> {
   let found = cache.get(path);
   if (!found) {
-    found = fetch(new URL(path, document.baseURI), { cache: "no-cache" }).then(async (response) => {
+    found = fetch(new URL(path, pageBaseURI()), { cache: "no-cache" } as Parameters<typeof fetch>[1]).then(async (response) => {
       if (!response.ok) throw new Error(`Couldn't load ${path} (${response.status})`);
       return response.json() as Promise<unknown>;
     });
@@ -74,7 +80,8 @@ let app: Promise<AppData> | undefined;
 
 export function loadAppData(): Promise<AppData> {
   app ??= (async () => {
-    const index = await fetchJson<{ dataset: string; patch: string; simulationFingerprint?: string; buildsFingerprint?: string; itemSources?: ItemSources }>("data/index.json");
+    const index = await fetchJson<{ dataset: string; patch: string; simulationFingerprint?: string; buildsFingerprint?: string; itemSources?: ItemSources; statShards?: boolean }>("data/index.json");
+    if (index.statShards !== undefined && typeof index.statShards !== "boolean") throw new Error("Invalid stat-shard availability in dataset index");
     const dir = `data/${index.dataset}/`;
     const [dataset, profiles, glossary, simulated, rules, pets, runes] = await Promise.all([
       fetchJson<ChampionDataset>(`${dir}champions.json`),
@@ -93,10 +100,14 @@ export function loadAppData(): Promise<AppData> {
     // Optional: a dataset without builds, or with stale ones, shows plain stats only.
     const builds = index.buildsFingerprint ? await fetchJson<PrecomputedBuilds>(`${dir}simulated-builds.json`).catch(() => undefined) : undefined;
     const currentBuilds = builds && precomputedBuildsCurrent(builds, index.dataset, index.patch, index.buildsFingerprint, BUILDS_FORMAT, kitIds) ? builds : undefined;
+    const shardPath = `${dir}stat-shards.json`;
+    const statShards = index.statShards ? await fetchJson<unknown>(shardPath)
+      .then((raw) => validateStatShardData(raw, index.dataset, index.patch, index.simulationFingerprint))
+      .catch((error: unknown) => { cache.delete(shardPath); throw error; }) : undefined;
     return {
       dataset: index.dataset,
       patch: index.patch,
-      dataUrl: new URL(dir, document.baseURI).href,
+      dataUrl: new URL(dir, pageBaseURI()).href,
       champions,
       byId,
       profiles: new Map(profiles.map((profile) => [profile.champion, profile])),
@@ -107,12 +118,16 @@ export function loadAppData(): Promise<AppData> {
       prices: rules.statPrices,
       pets: new Map(Object.entries(pets)),
       runes,
+      ...(statShards ? { statShards } : {}),
       kitIds,
       ...(currentBuilds ? { builds: currentBuilds, ...(index.itemSources ? { itemSources: index.itemSources } : {}) } : {}),
     };
   })();
   app.catch(() => {
     app = undefined;
+    // A failed advertised bundle can mean the index and payload came from two
+    // deployment revisions. Retry the complete snapshot, including its index.
+    cache.clear();
   });
   return app;
 }

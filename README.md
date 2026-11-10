@@ -11,8 +11,13 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
+- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus seven partial combat effects in manual plain-stat duels; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
+
+The [ordered improvement roadmap](docs/IMPROVEMENT_ROADMAP.md) starts with full
+rune combat, then in-game validation, summoner spells and the remaining accuracy
+and usability improvements. Step 1 is in progress.
 
 ## Setup
 
@@ -50,7 +55,7 @@ Where the dataset has a current build matrix (`simulated-builds.json`, from `npm
 
 The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-244198f8?quickstart=1) uses a packaged build in a GitHub Codespace. Preview updates follow validation of each batch. Its `README-MOBILE.md` explains startup, phone access and resuming it. Keep port 8000's visibility **Private**. The downloadable package also includes the exact working source and parsed inputs in `SOURCE`, with computer setup instructions in `README-PRIVATE.md`.
 
-The full test suite passes. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them. See [ACCURACY.md](ACCURACY.md) for current validation and model limits.
+Completed release checks are recorded in [ACCURACY.md](ACCURACY.md). The Haste follow-up completed its genuine full matrix refresh and release checks on 8 November; default results changed in 172 plain-stat pairings and 186 build-matrix pairings. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them.
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
@@ -69,6 +74,16 @@ Names are matched loosely (`"dr mundo"`, `wukong`). For example, parrying Darius
 npm run duel -- Garen Darius                 # the six scenarios at level 20 with the default 15,000-gold stat budget
 npm run duel -- Garen Darius --log brawl     # plus the timeline of one fight
 npm run duel -- Garen Darius --sweep         # plus the score at budgets from 0 to 20,000 gold
+npm run duel -- Darius Garen --shards 5005,5001,5001 --enemy-shards 5008,5008,5011
+                                             # explicit stat shards; see docs/runes for supported modes and allocation assumptions
+npm run duel -- Darius Garen --combat-runes 8299,8444 --enemy-combat-runes 8014
+                                             # partial rune effects in plain-stat duels; no inferred full page
+npm run duel -- Darius Yorick --combat-runes 9101,8299
+                                             # Absorb Life heals on actual hostile combat kills; no farm is assumed
+npm run duel -- Garen Darius --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 8014,9104 --enemy-legend-points 0
+                                             # Alacrity requires declared starting Legend points for each selected side
+npm run duel -- Darius Garen --combat-runes 9105,8299 --legend-points 1000 --enemy-combat-runes 9104 --enemy-legend-points 0
+                                             # Haste adds basic-ability haste; the two Legend runes cannot share one side's row
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
 npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
@@ -77,6 +92,12 @@ npm run duel -- Garen Morgana --spells "Flash, Cleanse" --enemy-spells "Barrier,
 npm run duel -- Garen Darius --runes "Conqueror, Triumph, Legend: Alacrity, Last Stand / Second Wind, Unflinching / Adaptive Force, Adaptive Force, Health Scaling"
                                              # a rune page (--enemy-runes for the enemy's)
 ```
+
+Garen's Judgment excludes the recorded attack-speed shard and active Alacrity
+rune attack speed from spin scaling; both retain their normal combat benefits.
+Other attack-speed sources retain
+the existing model, including unresolved temporary item-passive eligibility.
+See the [rune audit](docs/runes/README.md) for the source and timing limits.
 
 With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.21/reports/item-effects.md)).
 

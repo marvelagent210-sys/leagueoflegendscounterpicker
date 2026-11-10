@@ -1,5 +1,6 @@
 /** Rengar's actual Ferocity casts, basic-attack leaps, and recent-health-loss Battle Roar. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { attackRange, attackTiming, canCast, canStartAttack, launchBonusAttack } from "../../engine/sim/actions";
 import { defaultBehavior, react, type Behavior } from "../../engine/sim/behavior";
@@ -67,7 +68,7 @@ const rengar: KitModule = {
       ctx.self.statuses = ctx.self.statuses.filter((s) => !(s.source === ctx.self.side && s.ability === "R"));
       ctx.enemy.statuses = ctx.enemy.statuses.filter((s) => !(s.source === ctx.self.side && s.ability === "R"));
       delete ctx.self.cooldownHeld.R;
-      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rCooldown, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rCooldown, abilityHasteFor(ctx.self, { slot: "R" })));
     };
     const clearAttackReveal = (ctx: HookContext) => {
       const keep = (s: Unit["statuses"][number]) => !(s.source === ctx.self.side && s.ability === "huntAttack");

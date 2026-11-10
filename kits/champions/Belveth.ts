@@ -5,6 +5,7 @@
  * Maelstrom's rooted flurry of slashes.
  */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -183,7 +184,7 @@ const belveth: KitModule = {
           const key = ctx.ability.key;
           if (key === "Q") {
             const side = sideReady(ctx.self, ctx.tick);
-            const haste = derive(ctx.self).abilityHaste + hastePerSpeed * 100 * bonusAS(ctx.self);
+            const haste = Math.min(500, abilityHasteFor(ctx.self, { slot: "Q" }) + hastePerSpeed * 100 * bonusAS(ctx.self));
             ctx.memory[`belveth:side${Math.max(0, side)}`] = ctx.tick + ticks(cooldownAfterHaste(sideCooldown, haste));
           }
           if (key === "E") {

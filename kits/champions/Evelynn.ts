@@ -1,5 +1,6 @@
 /** Evelynn's target-local marks, Demon Shade and delayed backwards Last Caress. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { defaultBehavior, react, type Behavior } from "../../engine/sim/behavior";
@@ -83,7 +84,7 @@ const evelynn: KitModule = {
       ctx.self.statuses = ctx.self.statuses.filter((s) => !(s.kind === "state" && s.key === "camouflage" && s.source === ctx.self.side));
     };
     const restartAllure = (ctx: HookContext) => {
-      ctx.self.cooldownReady.W = ctx.tick + ticks(cooldownAfterHaste(wCooldown, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.W = ctx.tick + ticks(cooldownAfterHaste(wCooldown, abilityHasteFor(ctx.self, { slot: "W" })));
       delete ctx.memory.allureTarget;
     };
     const persistTargetStatuses = (ctx: HookContext) => {
@@ -200,7 +201,7 @@ const evelynn: KitModule = {
         onCast(ctx) {
           if (ctx.ability.key === "E2") ctx.memory.empoweredE = false;
           if (ctx.ability.key === "W") ctx.memory.invalidAllure = !canTarget(ctx.enemy, ctx.self) || Math.abs(ctx.self.x - ctx.enemy.x) > wRange;
-          if (ctx.ability.key === "Q") { ctx.memory.spikes = qStock; ctx.self.cooldownReady.Q2 = ctx.tick + ticks(cooldownAfterHaste(qSpacing, derive(ctx.self).abilityHaste)); }
+          if (ctx.ability.key === "Q") { ctx.memory.spikes = qStock; ctx.self.cooldownReady.Q2 = ctx.tick + ticks(cooldownAfterHaste(qSpacing, abilityHasteFor(ctx.self, { key: "Q2", slot: "Q" }))); }
           if (ctx.ability.key === "Q2") {
             ctx.memory.spikes = Number(ctx.memory.spikes ?? 0) - 1;
             const target = recastTarget(ctx.self, ctx.world);

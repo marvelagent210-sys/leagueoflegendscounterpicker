@@ -1,6 +1,6 @@
-/** The rune catalog as a readable page: reports/runes.md. */
+/** The rune catalog as a readable page: reports/rune-records.md. */
 import { wikiUrl } from "../../engine/abilityText";
-import type { RuneCatalog, RuneEntry } from "./records";
+import type { RuneRecords, RuneEntry } from "./records";
 
 const ROWS = ["Keystones", "Slot 1", "Slot 2", "Slot 3"];
 
@@ -17,7 +17,7 @@ function runeSection(rune: RuneEntry): string[] {
   ];
 }
 
-export function runesReport(catalog: RuneCatalog): string {
+export function runesReport(catalog: RuneRecords): string {
   const lines = [
     `# Runes, patch ${catalog.patch}`,
     "",

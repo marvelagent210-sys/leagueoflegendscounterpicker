@@ -1,5 +1,6 @@
 /** Zoe: real finite stars, bubbles, sleep entitlements and a returning portal. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { CC_RULES, type CCType } from "../../engine/rules/crowdControl";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, EPSILON, resolveSkillshot, skillshotChance } from "../../engine/sim/actions";
@@ -63,7 +64,7 @@ const zoe: KitModule = {
       delete ctx.memory[`${R}:return`];delete ctx.memory[`${R}:blink`];
       ctx.self.statuses=ctx.self.statuses.filter(s=>s.memoKey!==R&&s.memoKey!==`${R}:speed`&&s.memoKey!==`${R}:walk`);
       delete ctx.self.cooldownHeld.R;delete ctx.self.pendingRefunds.R;
-      ctx.self.cooldownReady.R=ctx.tick+ticks(cooldownAfterHaste(rCD,derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.R=ctx.tick+ticks(cooldownAfterHaste(rCD,abilityHasteFor(ctx.self, { slot: "R" })));
     };
     const startSleep=(ctx:HookContext,target:Unit,pet?:Pet)=>{
       const key=`${E}:${ctx.self.side}`,mark=target.statuses.find(s=>s.key===key&&s.kind==="mark");

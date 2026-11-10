@@ -5,7 +5,7 @@ import type { Series } from "../engine/abilities";
 import { DATA_DIR } from "../pipeline/config";
 import { latestDataset } from "../pipeline/datasets";
 import { readJson } from "../pipeline/lib/files";
-import { type ClientPerk, type ClientPerkStyles, type RuneCatalog, type RuneEntry, buildRuneCatalog, currentRunes, spellOutAdaptive, templateFields } from "../pipeline/runeCatalog/records";
+import { type ClientPerk, type ClientPerkStyles, type RuneRecords, type RuneEntry, buildRuneRecords, currentRunes, spellOutAdaptive, templateFields } from "../pipeline/runeRecords/records";
 import type { DDragonRunePath } from "../pipeline/sources/ddragon";
 import type { WikiPage } from "../pipeline/sources/wiki";
 
@@ -54,8 +54,8 @@ const STYLES: ClientPerkStyles = { styles: [{ slots: [{ type: "kKeyStone", slotL
 
 const championData = { name: () => undefined, get: () => undefined, apiname: () => undefined } as never;
 
-function catalog(pages = PAGES, ddragon = DDRAGON, perks = PERKS): RuneCatalog {
-  return buildRuneCatalog({ dataset: "16.21", patch: "26.21", ddragonVersion: "16.21.1", ddragon, cdragonVersion: "16.21.1", perks, perkStyles: STYLES, pages, championData });
+function catalog(pages = PAGES, ddragon = DDRAGON, perks = PERKS): RuneRecords {
+  return buildRuneRecords({ dataset: "16.21", patch: "26.21", ddragonVersion: "16.21.1", ddragon, cdragonVersion: "16.21.1", perks, perkStyles: STYLES, pages, championData });
 }
 
 /** A series' value at a champion level. */
@@ -128,8 +128,8 @@ describe("rune catalog", () => {
 });
 
 describe("the committed rune catalog", async () => {
-  const dataset = await latestDataset(DATA_DIR, "rune-catalog.json");
-  const committed = await readJson<RuneCatalog>(path.join(DATA_DIR, dataset, "rune-catalog.json"));
+  const dataset = await latestDataset(DATA_DIR, "rune-records.json");
+  const committed = await readJson<RuneRecords>(path.join(DATA_DIR, dataset, "rune-records.json"));
   const named = (name: string): RuneEntry => {
     const found = committed.runes.find((entry) => entry.name === name);
     if (!found) throw new Error(`No rune ${name}`);

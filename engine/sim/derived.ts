@@ -25,6 +25,8 @@ export interface Derived {
   critChance: number;
   critDamage: number;
   abilityHaste: number;
+  basicAbilityHaste: number;
+  ultimateAbilityHaste: number;
   lethality: number;
   magicPen: number;
   /** Percentage penetration, as fractions (several multiply). */
@@ -126,6 +128,8 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
     if (bonus.ad !== bought.ad || bonus.ap !== bought.ap || bonus.hp !== bought.hp
         || bonus.armor !== bought.armor || bonus.mr !== bought.mr || bonus.attackSpeed !== bought.attackSpeed
         || bonus.critChance !== bought.critChance || bonus.abilityHaste !== bought.abilityHaste
+        || bonus.basicAbilityHaste !== bought.basicAbilityHaste
+        || bonus.ultimateAbilityHaste !== bought.ultimateAbilityHaste
         || bonus.lethality !== bought.lethality || bonus.magicPen !== bought.magicPen
         || bonus.armorPenPoints !== bought.armorPenPoints || bonus.magicPenPoints !== bought.magicPenPoints) return false;
   } else if (bonus !== bought) return false;
@@ -295,7 +299,9 @@ function computeDerived(unit: Unit): Derived {
     attackSpeed: capAttackSpeed(rawAttackSpeed, Math.max(ATTACK_SPEED_CAP, ...list(st, "stat", "attackSpeedCap"))),
     critChance,
     critDamage: CRIT_DAMAGE * base.critDamageModifier,
-    abilityHaste: (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste"),
+    abilityHaste: Math.min(500, (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste")),
+    basicAbilityHaste: (bonus.basicAbilityHaste ?? 0) + sum(st, "basicAbilityHaste"),
+    ultimateAbilityHaste: (bonus.ultimateAbilityHaste ?? 0) + sum(st, "ultimateAbilityHaste"),
     lethality: (bonus.lethality ?? 0) + sum(st, "lethality"),
     magicPen: bonus.magicPen ?? 0,
     armorPen: [...list(st, "stat", "armorPen"), ...(bonus.armorPenPoints ? [boughtPenetration(bonus.armorPenPoints)] : [])],

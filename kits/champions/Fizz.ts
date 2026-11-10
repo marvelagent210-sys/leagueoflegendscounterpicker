@@ -1,5 +1,6 @@
 /** Fizz: actual bleed/empowered contacts, two-hop untargetability, attached delayed shark. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { defaultBehavior, react, type Behavior } from "../../engine/sim/behavior";
@@ -99,7 +100,7 @@ const fizz: KitModule = {
         ctx.apply({ type: "resource", amount: { base: wCost } }, true);
       } else {
         delete ctx.self.cooldownHeld.W;
-        ctx.self.cooldownReady.W = ctx.tick + ticks(cooldownAfterHaste(wSpec().cooldown, derive(ctx.self).abilityHaste));
+        ctx.self.cooldownReady.W = ctx.tick + ticks(cooldownAfterHaste(wSpec().cooldown, abilityHasteFor(ctx.self, { slot: "W" })));
         ctx.memory.wBuffUntil = ctx.tick + ticks(buffWindow);
       }
     };

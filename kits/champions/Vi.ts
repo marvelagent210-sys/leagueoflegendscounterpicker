@@ -1,5 +1,6 @@
 /** Vi's charge/release, actual target-local Denting Blows and committed tracking ultimate. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { ATTACK_SPEED_CAP } from "../../engine/stats";
 import { attackRange, canCast, canStartAttack, EPSILON } from "../../engine/sim/actions";
@@ -80,7 +81,7 @@ const vi: KitModule = {
       ctx.self.statuses = ctx.self.statuses.filter(s => s.memoKey !== "vi:qSlow");
       if (refund) {
         delete ctx.self.cooldownHeld.Q;
-        ctx.self.cooldownReady.Q = ctx.tick + ticks(interrupted ? qInterrupted : cooldownAfterHaste(qCD, derive(ctx.self).abilityHaste));
+        ctx.self.cooldownReady.Q = ctx.tick + ticks(interrupted ? qInterrupted : cooldownAfterHaste(qCD, abilityHasteFor(ctx.self, { slot: "Q" })));
         ctx.self.resource = Math.min(derive(ctx.self).maxResource, ctx.self.resource + qCost * qRefund);
       }
     };

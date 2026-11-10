@@ -210,6 +210,15 @@ details[open] > summary { margin-bottom: 8px; }
 .check { display: flex; gap: 10px; align-items: flex-start; }
 .check input { margin-top: 4px; accent-color: var(--accent); width: 1rem; height: 1rem; }
 .weights { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 12px 20px; }
+.shard-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 16px; }
+.shard-side { margin: 0; padding: 12px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+.shard-side legend { padding: 0 6px; font-weight: 600; }
+.shard-side .check { min-height: 44px; align-items: center; }
+.shard-side .check input { margin-top: 0; }
+.shard-side .field { margin-top: 12px; min-width: 0; }
+.shard-side select { width: 100%; min-width: 0; max-width: 100%; min-height: 44px; font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
+.shard-side select:disabled { opacity: .55; }
+.swap-sides { min-height: 44px; }
 
 footer.foot { color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 6px; }
 

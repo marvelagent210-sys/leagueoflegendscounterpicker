@@ -3,14 +3,14 @@ import path from "node:path";
 import type { BonusStats, FighterSpec } from "../engine/sim/spec";
 import { type EquipOptions, type EquippedFighter, type ItemFighter, equipItems, joinParts } from "../items/equip";
 import { ITEM_MODULES } from "../items/modules/index";
-import { type EquippedRunes, type RunePage, runeLoadout } from "../runes/equip";
+import { type EquippedRunes, type NamedRunePage, runeLoadout } from "../runes/equip";
 import { RUNE_MODULES } from "../runes/modules/index";
 import { type EquippedSpells, findSpell, spellLoadout } from "../summoners/equip";
 import { SPELL_MODULES } from "../summoners/modules/index";
 import { datasetDir } from "./config";
 import { readJson } from "./lib/files";
 import type { ItemCatalog, ItemRecord } from "./items/records";
-import type { RuneCatalog } from "./runeCatalog/records";
+import type { RuneRecords } from "./runeRecords/records";
 import type { SpellCatalog } from "./summoners/records";
 
 const catalogs = new Map<string, Promise<ItemCatalog>>();
@@ -41,16 +41,16 @@ export function loadSpellCatalog(dataset: string): Promise<SpellCatalog> {
   return catalog;
 }
 
-const runeCatalogs = new Map<string, Promise<RuneCatalog>>();
+const runeRecordSets = new Map<string, Promise<RuneRecords>>();
 
-/** The dataset's rune catalog (data/<dataset>/rune-catalog.json), read once. */
-export function loadRuneCatalog(dataset: string): Promise<RuneCatalog> {
-  let catalog = runeCatalogs.get(dataset);
+/** The dataset's rune catalog (data/<dataset>/rune-records.json), read once. */
+export function loadRuneRecords(dataset: string): Promise<RuneRecords> {
+  let catalog = runeRecordSets.get(dataset);
   if (!catalog) {
-    catalog = readJson<RuneCatalog>(path.join(datasetDir(dataset), "rune-catalog.json")).catch(() => {
-      throw new Error(`data/${dataset}/rune-catalog.json is missing; run npm run build:runes`);
+    catalog = readJson<RuneRecords>(path.join(datasetDir(dataset), "rune-records.json")).catch(() => {
+      throw new Error(`data/${dataset}/rune-records.json is missing; run npm run build:rune-records`);
     });
-    runeCatalogs.set(dataset, catalog);
+    runeRecordSets.set(dataset, catalog);
   }
   return catalog;
 }
@@ -78,7 +78,7 @@ export interface BuildOptions {
   /** Summoner spells the fighter holds, by name, from the spell catalog. */
   spells?: { names: readonly string[]; catalog: SpellCatalog };
   /** The fighter's rune page, from the rune catalog, with its champion's adaptive type and rune option overrides. */
-  runes?: { page: RunePage; catalog: RuneCatalog; adaptiveType: "Physical" | "Magic"; options?: Record<string, Record<string, number>> };
+  runes?: { page: NamedRunePage; catalog: RuneRecords; adaptiveType: "Physical" | "Magic"; options?: Record<string, Record<string, number>> };
 }
 
 /** A fighter holding a build, and the summoner spells and rune page it holds, if any. */

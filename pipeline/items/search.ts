@@ -28,7 +28,7 @@ import { type EstimateSide, estimateAgainst, estimateSide } from "../../items/es
 import { type CalibrationFight, calibrate, calibrated } from "./calibrate";
 import { equipBuild, findItem } from "../itemData";
 import { type LoadoutOptions, type SearchedLoadouts, equipLoadout, searchLoadouts } from "../loadouts/search";
-import type { RuneCatalog } from "../runeCatalog/records";
+import type { RuneRecords } from "../runeRecords/records";
 import type { SpellCatalog } from "../summoners/records";
 import type { ItemCatalog, ItemRecord } from "./records";
 import { BUILD_FORMATS, BUILD_SLOTS, type BuildFormat, REVIEWED_GROUPS } from "./rules";
@@ -85,7 +85,7 @@ export interface SearchOptions {
    * The sides' summoner spells and rune pages chosen too, for the builds taken, from these
    * catalogs (each champion's adaptive type for adaptive force on a tie); none by default.
    */
-  loadouts?: { runes: RuneCatalog; spells: SpellCatalog; adaptiveTypes: ["Physical" | "Magic", "Physical" | "Magic"]; options?: LoadoutOptions };
+  loadouts?: { runes: RuneRecords; spells: SpellCatalog; adaptiveTypes: ["Physical" | "Magic", "Physical" | "Magic"]; options?: LoadoutOptions };
 }
 
 const DEFAULTS: Required<Omit<SearchOptions, "loadouts">> = { format: "sixItems", width: 8, perProfile: 1, rounds: 4, routes: 3, stacked: true, calibrate: true, screen: true };

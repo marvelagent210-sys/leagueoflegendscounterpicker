@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import type { CCType } from "../../engine/rules/crowdControl";
 import { canCast } from "../../engine/sim/actions";
 import { applyEffect, consumeSpellShield, dealDamage, hookContext } from "../../engine/sim/combat";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { derive } from "../../engine/sim/derived";
 import { damagePet, spawnPet } from "../../engine/sim/pets";
 import { createWorld } from "../../engine/sim/simulate";
@@ -155,7 +156,7 @@ describe("item haste", () => {
   const cooldownOf = (spec: FighterSpec, key: string) => {
     const w = world(spec);
     const ability = spec.abilities.find((a) => a.key === key)!;
-    const ah = derive(w.units[0]).abilityHaste;
+    const ah = abilityHasteFor(w.units[0], ability);
     return (ability.cooldownFor?.(w.units[0]) ?? ability.cooldown) * 100 / (100 + ah);
   };
 

@@ -1,5 +1,6 @@
 /** Caitlyn: pinned attack overrides, physical projectiles and finite traps. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, heldUntil, attackTiming, inReach } from "../../engine/sim/actions";
 import { defaultBehavior, expectedDamage, react, type Behavior } from "../../engine/sim/behavior";
@@ -70,7 +71,7 @@ const caitlyn: KitModule = {
     };
     const cancelChannel = (ctx: HookContext) => {
       if (ctx.self.action?.kind === "channel" && ctx.self.action.ability === "R") ctx.self.action = undefined;
-      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(canceledCooldown, derive(ctx.self).abilityHaste));
+      ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(canceledCooldown, abilityHasteFor(ctx.self, { slot: "R" })));
       trimReveal(ctx);
     };
     const place = (ctx: HookContext, x: number) => {

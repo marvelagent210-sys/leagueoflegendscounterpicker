@@ -12,10 +12,11 @@ import { Confidence, ErrorBox, Loading, Score, ScoreBar, percent, signed } from 
 import { type AppData, findChampion } from "../data";
 import { useMatchupRun, useResults, useSettings } from "../hooks";
 import { routeHash } from "../routes";
-import { type AppSettings, DEFAULT_APP_SETTINGS, fightsChanged, weightsChanged } from "../settings";
+import { type AppSettings, DEFAULT_APP_SETTINGS, fightsChanged, swapShardSides, weightsChanged } from "../settings";
 import type { MatchupRun, OutcomeSummary, StatLine } from "../sim/run";
 
 export function MatchupPage({ data, youId, enemyId }: { data: AppData; youId: string; enemyId: string }) {
+  const { settings, setSettings } = useSettings();
   const you = findChampion(data, youId);
   const enemy = findChampion(data, enemyId);
   if (!you || !enemy) return <ErrorBox error={new Error(`No champion named ${!you ? youId : enemyId}.`)} />;
@@ -33,7 +34,10 @@ export function MatchupPage({ data, youId, enemyId }: { data: AppData; youId: st
         </div>
         <div className="row-links">
           <a href={routeHash({ page: "picker", enemy: enemy.id })}>All counters to {enemy.name}</a>
-          <a href={routeHash({ page: "matchup", you: enemy.id, enemy: you.id })}>Swap sides</a>
+          <button type="button" className="button swap-sides" onClick={() => {
+            setSettings(swapShardSides(settings));
+            window.location.hash = routeHash({ page: "matchup", you: enemy.id, enemy: you.id });
+          }}>Swap sides</button>
           <a href={routeHash({ page: "kit", champion: you.id })}>{you.name}'s kit</a>
           <a href={routeHash({ page: "kit", champion: enemy.id })}>{enemy.name}'s kit</a>
         </div>
@@ -262,7 +266,7 @@ export function CombatNumbers({ you, enemy, run }: { you: Champion; enemy: Champ
     <section className="section" aria-labelledby="numbers-head">
       <h3 id="numbers-head">Level-20 combat stats</h3>
       <p className="note">
-        Equipped includes the selected kit and purchased stats. Fight setup includes its initial kit effects in the You engage scenario, before the first passive tick.
+        Equipped includes the selected kit and purchased stats. Fight setup includes selected stat shards and initial kit effects in the You engage scenario, before the first passive tick.
         Passives and temporary buffs can change these values during the fight.
       </p>
       {you.id === "Poppy" || enemy.id === "Poppy" ? <p className="note">Poppy's resistance bonus and buckler empowerment begin on the first passive tick and are not included in this setup snapshot.</p> : null}

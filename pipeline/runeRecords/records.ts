@@ -73,7 +73,7 @@ export interface ShardSlot {
   options: ShardOption[];
 }
 
-export interface RuneCatalog {
+export interface RuneRecords {
   dataset: string;
   patch: string;
   sources: { ddragon: string; cdragon: string };
@@ -283,7 +283,7 @@ function substitutions(article: string, ctx: EvalContext): string[] {
 
 const SLOT_OF_ROW = ["Keystone", "1", "2", "3"];
 
-export function buildRuneCatalog(sources: RuneSources): RuneCatalog {
+export function buildRuneRecords(sources: RuneSources): RuneRecords {
   const ctx = createContext(sources.championData);
   const differences: string[] = [];
   let compared = 0;

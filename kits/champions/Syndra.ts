@@ -1,5 +1,6 @@
 /** Syndra: persistent real spheres, paid pickup/recast, swept sphere rays, individually committed R orbs. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { canCast, canStartAttack, resolveSkillshot } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
 import { abilityHit, abilityHitPet, addStatus, applyEffect, canTarget, directionTo, immediateDisplace, inStasis, isUntargetable } from "../../engine/sim/combat";
@@ -45,7 +46,7 @@ const syndra:KitModule={
   const abilities=[qSpec,wSpec,eSpec,rSpec,w2,qHit,eCone,eOrb,eLate,rOrb,rSchedule,collect];
   const addSphere=(ctx:HookContext,x:number)=>{const p=spawnPet(ctx.world,ctx.self,{kind:KIND,name:q.name,hp:1,armor:0,mr:0,radius:0,moveSpeed:0,duration:life,untargetable:true,persistsAfterOwnerDeath:true,targetClass:"other"},x);p.memory.mode="ground";return p;};
   const syncAP=(ctx:HookContext)=>{ctx.self.statuses=ctx.self.statuses.filter(s=>s.memoKey!=="syndra:transcendent");if(stacks(ctx.self)>=cap)addStatus(ctx.self,{kind:"stat",key:"APMultiplier",source:ctx.self.side,startTick:ctx.tick,endTick:FOREVER,value:capAP,memoKey:"syndra:transcendent",persistThroughDeath:true});};
-  const finishW=(ctx:HookContext,p?:Pet)=>{if(p){p.memory.mode="ground";delete p.carriedBy;p.statuses=p.statuses?.filter(s=>s.memoKey!=="syndra:held");}delete ctx.memory["syndra:held"];delete ctx.memory["syndra:holdUntil"];ctx.self.statuses=ctx.self.statuses.filter(s=>s.memoKey!=="syndra:holding");delete ctx.self.cooldownHeld.W;ctx.self.cooldownReady.W=ctx.tick+ticks(wCD/(1+derive(ctx.self).abilityHaste/100));};
+  const finishW=(ctx:HookContext,p?:Pet)=>{if(p){p.memory.mode="ground";delete p.carriedBy;p.statuses=p.statuses?.filter(s=>s.memoKey!=="syndra:held");}delete ctx.memory["syndra:held"];delete ctx.memory["syndra:holdUntil"];ctx.self.statuses=ctx.self.statuses.filter(s=>s.memoKey!=="syndra:holding");delete ctx.self.cooldownHeld.W;ctx.self.cooldownReady.W=ctx.tick+ticks(wCD/(1+abilityHasteFor(ctx.self, { slot: "W" })/100));};
   const token=(ctx:HookContext)=>String(ctx.memory["syndra:token"]??"untracked");
   const packet=(ctx:HookContext,spell:AbilitySpec,effects:Effect[],cast:string,x:number,radius:number,championShare=1)=>{ctx.memory["syndra:token"]=cast;if(championShare>0&&Math.abs(ctx.enemy.x-x)<=radius+ctx.enemy.spec.base.radius+EPS)abilityHit(ctx.world,ctx.self,ctx.enemy,spell,effects,championShare,x);for(const p of [...ctx.world.pets])if(p.owner!==ctx.self.side&&p.hp>0&&!p.spec.untargetable&&Math.abs(p.x-x)<=radius+p.spec.radius+EPS)abilityHitPet(ctx.world,ctx.self,p,spell,effects,"area",1,x);delete ctx.memory["syndra:token"];};
   const slowAfter=(ctx:HookContext&{ability?:AbilitySpec},target:Unit,control:"airborne"|"stun")=>{if(stacks(ctx.self)>=eThreshold)addStatus(target,{kind:"mark",key:`syndra:slow:${ctx.self.side}:${control}`,source:ctx.self.side,ability:ctx.ability?.key,startTick:ctx.tick,endTick:FOREVER,value:0});};
@@ -59,7 +60,7 @@ const syndra:KitModule={
   const pickup=(ctx:HookContext,x:number,count:number)=>{const id=ctx.world.nextId++;ctx.memory[`syndra:pickup:${id}`]=ctx.tick+ticks(pickupTime);ctx.memory[`syndra:pickupStacks:${id}`]=count;ctx.world.missiles.push({id,owner:ctx.self.side,source:collect.key,seenTick:ctx.tick,x,perTick:0,homing:false,direction:x>=ctx.self.x?-1:1,travelLeft:Infinity,projectile:false,connects:false,scale:1,onHit:[],piercing:true});};
  const upkeep=(ctx:HookContext)=>{
    const p=held(ctx.world,ctx.self);if(p){p.x=ctx.self.x;if(!ctx.self.alive||ctx.self.resurrection||ctx.tick>=Number(ctx.memory["syndra:holdUntil"]??0))finishW(ctx,p);}if(!ctx.self.alive)return;
-   let ammo=Number(ctx.memory["syndra:ammo"]??qAmmo),next=Number(ctx.memory["syndra:nextQ"]??Infinity);const interval=ticks(qRecharge/(1+(derive(ctx.self).abilityHaste+qHaste)/100));while(ammo<qAmmo&&ctx.tick>=next){ammo++;next=ammo<qAmmo?next+interval:Infinity;}ctx.memory["syndra:ammo"]=ammo;ctx.memory["syndra:nextQ"]=next;ctx.self.charges.Q={count:ammo,nextTick:next};
+   let ammo=Number(ctx.memory["syndra:ammo"]??qAmmo),next=Number(ctx.memory["syndra:nextQ"]??Infinity);const interval=ticks(qRecharge/(1+Math.min(500, abilityHasteFor(ctx.self, { slot: "Q" })+qHaste)/100));while(ammo<qAmmo&&ctx.tick>=next){ammo++;next=ammo<qAmmo?next+interval:Infinity;}ctx.memory["syndra:ammo"]=ammo;ctx.memory["syndra:nextQ"]=next;ctx.self.charges.Q={count:ammo,nextTick:next};
    for(const target of [ctx.enemy,...ctx.world.pets.filter(p=>p.owner!==ctx.self.side).map(p=>petFormulaTarget(p,ctx.self,ctx.tick))]){for(const mark of [...target.statuses]){if(mark.kind!=="mark"||mark.source!==ctx.self.side||!mark.key.startsWith(`syndra:slow:${ctx.self.side}:`))continue;const control=mark.key.endsWith("stun")?"stun":"airborne";if(target.statuses.some(s=>s.kind==="cc"&&s.source===ctx.self.side&&s.key===control&&s.endTick>ctx.tick))continue;target.statuses=target.statuses.filter(s=>s!==mark);applyEffect(ctx.world,ctx.self,target,{type:"cc",cc:"slow",strength:eSlow,duration:eSlowTime},{ability:eSpec,scale:1});}if(target.petId!==undefined){const p=ctx.world.pets.find(p=>p.id===target.petId);if(p)p.statuses=target.statuses;}}
    syncAP(ctx);
   };
@@ -93,7 +94,7 @@ const syndra:KitModule={
     }
    },
    onCast(ctx){
-    if(ctx.ability.key==="Q"){ctx.memory["syndra:ammo"]=Math.max(0,Number(ctx.memory["syndra:ammo"]??qAmmo)-1);if(!Number.isFinite(Number(ctx.memory["syndra:nextQ"])))ctx.memory["syndra:nextQ"]=ctx.tick+ticks(qRecharge/(1+(derive(ctx.self).abilityHaste+qHaste)/100));ctx.self.charges.Q={count:Number(ctx.memory["syndra:ammo"]),nextTick:Number(ctx.memory["syndra:nextQ"])};}
+    if(ctx.ability.key==="Q"){ctx.memory["syndra:ammo"]=Math.max(0,Number(ctx.memory["syndra:ammo"]??qAmmo)-1);if(!Number.isFinite(Number(ctx.memory["syndra:nextQ"])))ctx.memory["syndra:nextQ"]=ctx.tick+ticks(qRecharge/(1+Math.min(500, abilityHasteFor(ctx.self, { slot: "Q" })+qHaste)/100));ctx.self.charges.Q={count:Number(ctx.memory["syndra:ammo"]),nextTick:Number(ctx.memory["syndra:nextQ"])};}
     if(ctx.ability.key==="W"){
      const p=ctx.world.pets.find(p=>p.id===ctx.memory["syndra:grab"]);if(!p)return;ctx.memory["syndra:held"]=p.id;ctx.memory["syndra:holdUntil"]=ctx.tick+ticks(holdTime);p.memory.mode="held";
      if(p.spec.kind===KIND)p.endTick=ctx.tick+ticks(life);else{petEffects(ctx.world,ctx.self,p,[{type:"cleanse"}]);petEffects(ctx.world,ctx.self,p,[{type:"state",state:"stasis",duration:holdTime}]);const status=p.statuses?.find(s=>s.kind==="state"&&s.key==="stasis"&&s.source===ctx.self.side);if(status)status.memoKey="syndra:held";p.carriedBy=ctx.self.side;delete p.windup;}

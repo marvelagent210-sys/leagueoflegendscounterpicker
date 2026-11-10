@@ -5,6 +5,7 @@
  * ultimate for him to cast once.
  */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, resolveSkillshot } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -206,7 +207,7 @@ const sylas: KitModule = {
           if (key === STOLEN) {
             // Used once; Hijack's cooldown restarts.
             ctx.memory["sylas:hijackSpent"] = true;
-            ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rSpec.cooldown, derive(ctx.self).abilityHaste));
+            ctx.self.cooldownReady.R = ctx.tick + ticks(cooldownAfterHaste(rSpec.cooldown, abilityHasteFor(ctx.self, { slot: "R" })));
           }
         },
         onAttack(ctx) {

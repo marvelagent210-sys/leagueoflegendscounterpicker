@@ -2080,6 +2080,494 @@ snapshot, and the tests, the app and the kits' tests now read 16.21.
     expectations skipped, on four workers in 327 seconds. The run's own test job passed as
     well.
 
+## Rune catalog and page structure (4 November 2026)
+
+The rune foundation contains 62 runes across five paths and seven stat shards,
+with layout from versioned Data Dragon 16.21.1 and CommunityDragon 16.21 sources.
+All 62 wiki rune templates and the Rune rules article are retained in full,
+with revision IDs, timestamps and content hashes. The deterministic offline build
+checks source-file hashes, versioned URLs, cross-source rune IDs, paths and rows.
+Its check mode rejects stale catalog/report output without writing either file.
+
+The page validator checks one primary selection in each of four rows, two
+secondary lesser runes in different rows of an allowed second path, and one shard
+per slot. Reusing the same shard across two eligible rows is valid. Validation
+is structural only: it does not apply the rules article's champion-specific
+substitutions or equip a rune in a fight.
+
+Original client markup, unresolved placeholders and wiki formulas remain intact.
+The sources disagree on the scaling-health shard: the rules article specifies
+10 health per level through level 20 (200), while the client says 10–180.
+Neither description is silently converted into a combat bonus by this catalog.
+Each new rune remains explicitly unimplemented; Triple Tonic's status means only
+its existing Udyr-specific behavior. Numeric effects, timing, history-dependent
+stacks, rune-page search and UI selections require later implementation and tests.
+
+The legacy combat `runes.json`, champion kits, engine runtime and both committed
+matchup matrices are unchanged by this foundation. The [rune audit](docs/runes/README.md)
+provides commands, provenance details and the next implementation steps.
+
+## Stat shards in manual duels (5 November 2026)
+
+All seven stat-shard types can be selected explicitly for either side of a
+manual duel. Their numeric rules and stacking semantics are read from six complete
+pinned revisions, whose content hashes and exact formula excerpts are checked
+before use. The existing catalog's Rune article is bound to the same raw revision.
+
+Shard bonuses are applied once before the kit's initialization. They do not
+replace innate health/AD start effects, and existing stat conversions see them.
+Permanent movement, tenacity and slow-resist statuses have their own keys and
+survive protected death. Forms and branched worlds retain independent state.
+
+Adaptive shards compare raw purchased bonus AD with purchased AP, excluding
+champion passive stats. Equal purchases use the champion's adaptive type; all
+adaptive shards share the choice before any is added. Item passive eligibility
+has several source-specific exceptions. The initial batch rejected adaptive
+shards with item builds; the fixed-item follow-up below adds reviewed support.
+Nonadaptive shards work with fixed items. Shards with
+build search are rejected until its valuation accounts for them.
+
+The initial shard batch rejected Kai'Sa's adaptive and attack-speed shards to
+avoid false evolution unlocks. The follow-up below replaces that restriction
+with explicit rune-origin accounting.
+
+The plain-stat allocation remains its no-shard reference; actual fights and
+kit-variant comparisons include the selected shards. This is an explicit
+allocation approximation, not a shard-aware optimal allocation. Scaling health
+follows the wiki's level-20 formula (200 per selection) while retaining the client
+180-endpoint discrepancy. Tenacity follows the existing newer Courage-specific
+exception rather than silently changing the simulator's grouping model.
+
+Default simulation workers, legacy rune data and both precomputed matchup
+matrices are unchanged. The manual CLI and its explicit flags use the new code;
+full rune-page effects, shard controls in the browser and rune-page search remain
+future work. Numeric reads, duplicate/unknown selections, source drift, adaptive
+choices, fixed items, crowd control, slow resistance, Ornn/Jhin, forms, branch
+isolation and protected death have targeted regression tests.
+
+Spacing applicability still uses base movement speed. The movement-speed shard
+affects actual movement in fights but does not make a previously inapplicable
+spacing scenario qualify. The CLI prints this inherited scorer limitation along
+with the allocation approximation.
+
+## Kai'Sa shard evolution eligibility (5 November 2026)
+
+Kai'Sa's current passive source (revision 4089050) restricts Living Weapon to
+permanent stats from items and stat growth. Rune AD, AP and attack speed now
+retain separate scalar origin records in each unit's memory. Her Q/W/E
+qualification checks subtract exactly those contributions from the bonus pool.
+Combat damage, Plasma scaling and Supercharge charge timing continue to use all
+combat stats. Existing purchased-stat thresholds and growth contributions are
+retained. The source's adaptive-force item exclusion and the current limitation
+for item-passive stats outside the direct bonus pool remain explicit.
+
+All seven shard types can therefore be selected for Kai'Sa in plain-stat manual
+duels and reviewed fixed item builds. The five-item and changing-base-AD Sterak
+restrictions below remain explicit, as does the shard build-search restriction.
+Default workers select no shards.
+
+The origin amounts initialize once before kit setup, remain private to each
+world, and survive branch cloning, form changes and protected death through the
+existing unit-memory contract. Budget reference worlds disable initialization,
+so their no-shard allocation and qualifying stat pool remain unchanged.
+
+## Adaptive shards with reviewed fixed items (5 November 2026)
+
+Adaptive force can now accompany fixed item builds whose eligible AD/AP is
+represented by the direct bonus pool. The pinned Adaptive force source
+(revision 4063874) includes fixed item passives, excludes champion passives and
+specifically excludes Awe and Void Infusion. Sterak, Rod of Ages and
+Dawncore have eligible fixed bonuses in the pool; excluded conversions retain
+their combat effects as separate statuses. Both shards share one choice made
+before either is added. Each side and each kit variant uses its own build.
+
+The reviewer pins the complete 16.21 catalog and 114 item implementation files.
+It rejects changed sources/code, unknown items and duplicates, and resolves Tear
+transformations using the equipment rules. The returned descriptor is an API
+contract for the caller's matching build, not authentication of arbitrary
+external fighter specs. The CLI supplies the same names and Tear-stacking choice
+to review and equipment; equipment applies item options to the eligible bonus
+pool. The supported set contains 108 purchasable catalog entries plus three
+transformed entries, subject to ordinary build legality.
+
+Rabadon's Deathcap, Overlord's Bloodmail and Blackfire Torch need dynamic
+source-qualified selection and remain blocked. Rabadon's amplification of
+otherwise excluded passive AP qualifies, while amplification of the adaptive
+shard itself must be excluded; the current total derived stat is insufficient.
+Hubris also remains blocked because its Eminence AD buff is unmodelled.
+Mejai also rejects: Glory gains and losses can change AP during post-death
+combat, while the current module fixes its initial stacks. Sterak
+with different-base-AD forms rejects because the current form-switch path
+carries the old bonus pool rather than updating Claws. These restrictions apply
+to adaptive choices; nonadaptive shards retain their existing item behavior.
+
+Kai'Sa's source-qualified rune accounting continues to exclude adaptive rune
+AD/AP from evolutions while retaining combat scaling. Item-passive evolution
+eligibility outside her direct bonus pool remains an explicit limitation.
+Shard-aware build search, dynamic adaptive reevaluation, full rune pages and
+browser rune controls remain future work.
+
+## Browser stat-shard selections (5 November 2026)
+
+Both sides can select all seven reviewed shard types in browser Settings. These
+choices trigger live plain-stat duels, enter the result cache key and disable
+both precomputed modes for that run. Legacy stored settings with no selection
+keep their default fight key. Settings are validated row by row as a complete
+three-choice selection, and clearing/resetting restores the default path.
+
+Every candidate variant is wrapped before best-matchup selection. Stat snapshots
+use that wrapped variant, so Fight setup includes actual shard bonuses while
+Equipped remains the purchased-stat reference. Per-side assumptions identify the
+selected names and IDs. Side swapping moves selections with the champions.
+Scaling-health labels use the compiled wiki value of 200 at level 20, rather than
+the retained conflicting client tooltip endpoint of 180.
+
+The export compiles a compact seven-shard bundle from the exact retained catalog
+and six-page rules bundle. Its revision must match the app or worker’s requested
+model. Changed, incomplete or invalid sources preserve the previous atomic web
+export. Lazy worker loads retry failures and isolate source caches by revision;
+legacy default runs never require optional shard data. Full rune pages,
+shard-aware budget allocation and item-build shard search remain unfinished.
+
+Global provenance now includes the browser worker’s complete runtime import
+closure, the shard compiler, export code and all seven retained shard input
+files. This covers transitive form-mapping code and prevents stale live caches.
+The default pipeline workers have unchanged inputs, so a normal incremental
+refresh reuses every default pairing while regenerating current provenance.
+No results are manually restamped.
+
+## First partial manual combat-rune effects (6 November 2026)
+
+Manual plain-stat duels accept explicit selections of Coup de Grace (8014),
+Cut Down (8017), Last Stand (8299) and Second Wind (8444) for each side.
+Selections must fit a source-defined legal page; the three Precision choices
+share a row and cannot be combined. Compatibility fillers are not equipped.
+Actual fights and kit-variant comparisons include the selections, while the
+purchased-stat allocation keeps its no-rune reference. Fixed items and build
+search reject combat-rune selections pending item-amplifier composition review.
+Full pages, keystones, browser combat effects and rune search remain unfinished.
+
+The compiler reads twelve complete pinned Wiki revisions and the full versioned
+16.21 CommunityDragon perks file. It verifies the retained content hashes,
+versions, exact excerpts and catalog bindings, and cross-checks current numeric
+fields. Cut Down's obsolete health-difference fields are not used. The
+[rune audit](docs/runes/README.md) records commands and exact rules.
+
+Health-threshold conditions use pre-packet champion health, including the owner
+health for Last Stand when an owned pet deals damage. Eligible true damage
+follows the retained V25.S1.3 amplification rule, with exact Smite and Ignite
+labels excluded. Recipients must be the actual champion body; clone and pet
+targets do not receive these amplifiers or their own Second Wind. Owned-pet
+damage sources count. Full clone eligibility is not established by the reviewed
+pages. Additional summoner and jungle classifications are unsupported.
+The amplifier adapter adds to the engine's existing outgoing-damage status
+bucket. It retains the existing flat-reduction and victim-hook order. It rejects
+the unsupported case where the existing outgoing multiplier is nonpositive but
+the rune would restore positive damage.
+
+The retained V26.09 source also specifies separate amplifier damage instances.
+The engine still aggregates these effects, so pre-modifier interactions such as
+Illaoi E and Zed R remain approximate. This batch does not establish full
+amplifier-event fidelity or item-amplifier compatibility.
+
+Second Wind uses its HP5 formula and the general half-second regeneration
+cadence. Current missing health at each pulse, the first pulse half a second
+after the first trigger, and duration refresh without postponing an active
+clock are declared interpretations, not live-game measurements. Positive actual
+health damage triggers it; shield-only, zero and invulnerable damage do not.
+Regeneration uses existing modifiers and death handling rather than heal events.
+
+This is the first partial batch of step 1 in the [ordered improvement
+roadmap](docs/IMPROVEMENT_ROADMAP.md), not completion of full rune combat or the
+eleven-step roadmap.
+
+## Absorb Life and retained rune gaps (6 November 2026)
+
+Absorb Life (9101) is the fifth partial manual combat effect. It heals **27 health
+at level 20**, read from the Wiki's explicit level-1-to-20 formula and checked
+against the client's character-level breakpoints. The client tooltip's 23
+maximum is its level-18 endpoint and is not used as a cap. The combat compiler
+now checks seventeen complete pinned Wiki revisions alongside the unchanged
+versioned 16.21 perks file, including kill, unit and healing rules.
+
+The runtime uses actual hostile combat kills, including real enemy combat pets.
+An owned pet's kill is credited to the champion owner once. The ordinary healing
+path retains modifiers, anti-heal, caps, no-healing states and dead-owner
+restrictions. Damage, assists, resurrection-protected zero health, despawn,
+replacement and natural pet expiry do not manufacture kill heals. No farm, ward
+or monster population is added merely to trigger the rune.
+
+This follows the generic enemy-unit wording, not an independently measured
+rune-specific ward/trap/clone eligibility table. Unsupported game populations
+and per-category exceptions require further evidence. All five effects remain
+restricted to explicit plain-stat duels; fixed items, search, full pages and
+browser combat effects remain unfinished.
+
+The [persistent rune gap audit](docs/runes/MECHANICS_GAPS.md) records unresolved
+separate-packet ordering and provenance, Conditioning's resistance classes and
+recursion, Unflinching's simultaneous-damage/CC and cleanse phases, and Legend
+initialization/stat-origin requirements. It also records an existing Garen
+Judgment defect: derived rune attack speed can incorrectly increase spins
+despite the source restricting scaling to items and growth. That issue needs
+channel pulse support and a genuine result refresh; it is not fixed here.
+Conditioning, Legend and Unflinching remain unimplemented. The roadmap's step 1
+therefore remains in progress, and no controlled in-game measurements are
+claimed by this source audit.
+
+## Garen Judgment: recorded rune attack-speed exclusion (6 November 2026)
+
+The known shard-origin error identified above is corrected: Judgment's pulse
+count now subtracts the recorded `rune-shards:attackSpeed` contribution from
+derived bonus attack speed. The attack-speed shard still improves Garen's basic
+attacks. The numeric spin formula remains seven base spins plus one per 25%
+eligible bonus attack speed, with no animation-cap truncation of damage ticks.
+
+The complete pinned [Judgment revision 4009435](https://wiki.leagueoflegends.com/en-us/?oldid=4009435)
+is retained in [garen-judgment-source.json](data/16.21/garen-judgment-source.json).
+Its wikitext SHA-256 is
+`7b959d744e3382571260f04570f76fd38a7341f8b29df7a1cf287af519f3d653`.
+Both its description and notes restrict spin scaling to bonus attack speed from
+item stats and level growth. [Attack speed revision 4073067](https://wiki.leagueoflegends.com/en-us/?oldid=4073067)
+independently repeats that restriction. These sources support excluding rune
+attack speed, including the already modeled shard; they do not prove every
+item-passive or mid-channel timing rule.
+
+`ChannelSpec.pulsesFor` provides a pure source-qualified callback. A shared
+helper evaluates it once for actual cast scheduling, so pulse count and interval
+use one cast snapshot. The budget's cached damage terms retain the callback and
+evaluate it against the candidate's current stats instead of reducing it to an
+unqualified attack-speed formula. Generic formula and interval channels retain
+their existing path. Source-neutral ability descriptions expose callback-based
+pulses without presenting an unevaluated formula as the actual count.
+
+The correction is deliberately limited to the recorded shard origin. Other
+current attack-speed sources retain existing behavior. [Garen's patch history
+4051881](https://wiki.leagueoflegends.com/en-us/?oldid=4051881) explicitly records
+Trinity Force's former Mythic passive contributing to spins, so all item
+passives cannot be excluded as a class. The checked current Guinsoo source does
+not settle temporary Seething Strike eligibility. Capturing spin count once at
+cast remains the simulator's scheduling assumption; no live-game snapshot
+measurement was performed. Legend: Alacrity remains unimplemented and needs its
+own origin-aware exclusion when added.
+
+**The full matrix refresh completed.** [Workflow 42225042960](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42225042960)
+computed all 14,878 unordered pairings in each default matrix, using five
+plain-stat and fifteen item-build shards. All 22 jobs succeeded, including the
+combined TypeScript checks and full test suite. The build matrix recorded 70.3
+processor-hours, or 17.0 seconds per pairing; the complete workflow took about
+2 hours 29 minutes, including validation.
+
+The rebuilt default scores, scenario results, builds, variants and stat spending
+match the pre-change baseline exactly. Default matrices select no optional
+attack-speed shard; opt-in shard duels use the corrected count. Calculation keys
+and provenance now identify the new shared runtime and Garen kit source.
+The refresh workflow passed its full test suite and typechecks. Local typechecks,
+the production web build and both matrix freshness checks also pass; the pull
+request records the final local full-suite result. This does not establish a
+measured live-game ranking improvement.
+The [remaining gap audit](docs/runes/MECHANICS_GAPS.md) and step 1 of the
+[roadmap](docs/IMPROVEMENT_ROADMAP.md) remain open beyond this narrow correction.
+
+## Legend: Alacrity with declared starting points (6 November 2026)
+
+The manual inventory now includes Legend: Alacrity (9104), bringing the supported
+partial effects to six. Each selected side must explicitly declare starting
+Legend points with `--legend-points` or `--enemy-legend-points`, including zero.
+Level 20 does not imply a fully stacked history. Nonnegative safe integer inputs
+are capped to an effective 1,000 points before runtime increments.
+
+The numeric rule is 3% bonus attack speed plus 1.5 percentage points per completed
+100-point stack, capped at ten stacks and 18% total. Partial progress is retained:
+99 plus a 100-point award becomes 199, with one completed stack. The exact
+[Alacrity template 3958705](https://wiki.leagueoflegends.com/en-us/?oldid=3958705)
+and [article 3980881](https://wiki.leagueoflegends.com/en-us/?oldid=3980881) are now
+in the complete twenty-one-page combat bundle. Named client fields establish
+base AS, AS per stack and maximum stacks within float32 representation tolerance.
+The Wiki supplies semantic 100-point rules; opaque 100-valued client keys are
+retained without pretending their names are decoded.
+
+Full [Takedown 4081718](https://wiki.leagueoflegends.com/en-us/?oldid=4081718) and
+[Champion summoned units 4023248](https://wiki.leagueoflegends.com/en-us/?oldid=4023248)
+revisions support the first progression subset. Actual enemy champion-body kills
+credited to the owner grant 100 points, including real kills scored by owned
+pets or clones. Clone and Spirit victims do not qualify through champion-like
+targeting. Protected resurrection entry gives no award; an actual counted death
+gives one, including a post-death window retaining positive health. Native kill
+credit and deduplication remain authoritative. A dead owner's committed damage
+or pet can earn progress without healing or revival.
+
+Starting points may represent prior real assists, farm and monster credit, but
+this 1v1 progression path creates none of those events. Runtime minion/monster
+rewards, generic assist simulation and their full category rules remain deferred.
+The full source retains the epic-plus-large double-credit bug fix. The current
+after-kit kill-hook update phase is a stated model choice; complete live ordering
+relative to every champion kill effect is not established by these sources.
+
+Alacrity is installed before the kit's `onStart` hook as a permanent attack-speed
+status, with point state and stat changes local to each unit, form and branch. Supported death
+transitions preserve the grant. Independent fights, scenarios and variants start
+from the same declared state. Garen subtracts active rune-AS statuses in addition
+to direct shard origins when calculating spins. Kai'Sa's evolution qualification
+still reads eligible permanent stats, while her combat speed and E charge benefit.
+Jhin's existing conversion increases AD while his fixed attack rate stays fixed.
+Item-passive eligibility and live Garen snapshot timing retain their earlier
+qualifications.
+
+The plain-stat allocation remains its no-rune reference. Full pages, other
+Legend runes, item mode, browser combat-rune controls and rune search remain
+unfinished. No in-game measurements or completed rune-page fidelity are claimed.
+See the [rune audit](docs/runes/README.md) and
+[remaining mechanics gaps](docs/runes/MECHANICS_GAPS.md).
+
+Release validation, 7 November 2026:
+
+- [Refresh 42382830823](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42382830823)
+  computed all **172 affected Garen pairings per matrix** with the actual workers,
+  using two plain-stat shards and six build shards. Each matrix reused the other
+  **14,706** pairings because their calculation inputs were unchanged. All ten
+  workflow jobs succeeded.
+- All **344 new checkpoints** were checked against the final forward and reverse
+  matrix cells, including scenarios, selected variants, decoded builds and stat
+  spending. The 173-champion roster and all **29,756 directed cells per matrix**
+  are complete. Default numerical result payloads match `fa3704e` exactly.
+- Shared dependency keys remain unchanged; Garen is the only changed kit key.
+  Calculation provenance now identifies the recomputed Garen pairings.
+- The refreshed-data workflow passed **8,735 tests across 252 files**, with the
+  five existing disputed expectations skipped, and passed TypeScript checks.
+  Both local matrix freshness checks, all 24 provenance regressions and the final
+  production web build also pass. Independent runtime and source reviews found
+  no material defects.
+
+## Legend: Haste and qualified ability cooldowns (7 November 2026)
+
+The seventh partial manual combat effect is Legend: Haste (9105). Each selecting
+side must explicitly declare starting Legend points, including zero, using
+`--legend-points` or `--enemy-legend-points`. Nonnegative safe integer values cap
+to an effective 1,000 points. Every completed 100-point stack grants 1.5 basic
+ability haste, with zero base haste and a maximum of ten stacks and 15 haste.
+Point remainders survive progress: 99 plus a 100-point award becomes 199.
+Alacrity and Haste occupy the same source row and cannot share one side's loadout.
+
+The [template 3958696](https://wiki.leagueoflegends.com/en-us/?oldid=3958696)
+and [article 3980882](https://wiki.leagueoflegends.com/en-us/?oldid=3980882)
+establish those numeric rules. Named client fields cross-check base haste,
+haste per stack and maximum stacks. The complete versioned client file remains
+retained; opaque 100-valued fields remain undecoded. The combat bundle now
+contains thirty complete pinned Wiki revisions, preserving all twenty-one
+previous pages and adding full cooldown, haste and Udyr classification evidence.
+The focused compiler suite passes all 146 tests.
+
+Runtime progress retains Alacrity's explicit-history subset: only actual enemy
+champion-body kills credited by the engine add 100 points. Native owner credit
+and victim deduplication remain authoritative. Owned pets can earn their owner's
+credit; clone or Spirit victims do not become champion takedowns through a
+champion-like targeting class. Protected resurrection entry grants no points;
+actual counted post-death deaths grant once. Dead-owner progress neither heals
+nor revives. Farm, assists and minion/monster rewards are not manufactured.
+Per-unit point and stat state survives supported death/form transitions, while
+independent worlds, scenarios and variants restart from the declared history.
+The stat is installed before the kit's `onStart` hook, and kill progress uses the
+existing after-kit callback phase. The retained sources do not establish complete
+live ordering relative to every champion's kill effects.
+
+The shared cooldown contract distinguishes basic abilities, ordinary ultimates
+and other/internal timers. Full spell definitions, parent aliases and explicit
+reviewed exceptions determine the eligible specialized stat. The full
+[Haste revision 4070414](https://wiki.leagueoflegends.com/en-us/?oldid=4070414)
+combines generic haste additively with eligible basic, ultimate and
+ability-specific haste, capped at 500. Native cast scheduling, charge recharge,
+held cooldown release and total-cooldown refunds use that qualified value.
+Shared timers retain the initiating spell and its classification through aliases,
+form changes and branch copies. Charge recharge retains its own initiating spell,
+independently of a later cast sharing the same cooldown key. Total refunds use
+that timer's actual source; this also corrects differing Gnar Q/QM cooldowns.
+Static cast cooldowns and separately governed charge timers retain their source
+rules. Champion-owned timers are audited individually; passive and internal
+clocks do not receive basic haste merely because they use a cooldown. A stack
+gain affects later scheduling without rescaling a cooldown already running.
+The full [Cooldown revision 4050188](https://wiki.leagueoflegends.com/en-us/?oldid=4050188)
+and [cooldown-reduction rules 4039444](https://wiki.leagueoflegends.com/en-us/?oldid=4039444)
+retain total-versus-remaining refunds and target-specific exceptions.
+
+Qualified item haste uses the same contract: unconditional basic and ultimate
+bonuses are separate stats, and conditional bonuses remain attached to their
+eligible ability. This replaces slot-only cooldown scaling and carries the
+contribution through recharge, refunds and reviewed champion-owned clocks.
+The reference estimator uses the equipped abilities' qualified item haste;
+selected combat runes still remain outside the no-rune allocation reference.
+Combat-rune flags continue to reject fixed items and item search pending the
+remaining composition and valuation review.
+
+Udyr requires an explicit distinction. Specific
+[Bridge Between revision 3983420](https://wiki.leagueoflegends.com/en-us/?oldid=3983420)
+defines all four stance abilities, including R, as basic and marks the ordinary
+1.5-second global stance lock as affected by haste. His Awakened Spirit tooltip
+explicitly excludes generic ability haste and accepts ultimate haste only.
+These rules correct the earlier generic-haste scaling of Awaken and fixed
+ordinary global lock. The generic
+[Champion ability revision 4086204](https://wiki.leagueoflegends.com/en-us/?oldid=4086204)
+also lists Wingborne Storm as a pseudo-ultimate for ultimate interactions; the
+specific basic cooldown rule is retained without generalizing it to every
+ultimate damage or item interaction. The 0.5-second empowered global lock keeps
+its fixed interpretation because its haste eligibility is not established by
+the retained sources.
+
+This does not complete every champion-specific haste interaction. Shyvana's
+ultimate-haste bonus to Fury generation remains unmodeled, including when an
+equipped item supplies that stat. Custom kit budget hints retain their existing
+approximations; the shared reference timer now reads qualified item haste.
+
+**Release validation completed on 8 November 2026.** The genuine
+[full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42468696945)
+ran from 09:48:03 to 12:23:57 UTC (2 hours, 35 minutes and 54 seconds).
+All 22 jobs succeeded: five plain-stat workers, fifteen build workers, planning
+and aggregation. Source commit `e3a2a08615e4d1400fcf329dcdaaf69d1407b800`
+produced data commit `5a305f9f7313b5a4fc67507e1bf0f599bf23ebec`.
+Both matrices genuinely recomputed all **14,878 unordered pairings**, with
+**zero reused pairs** in each.
+
+The complete checkpoint audit verified all **29,756 genuine checkpoints** against
+the final files, including exact forward and reverse aggregate and scenario
+scores, selected variants, decoded build lists and spending. Both matrices cover
+all **173 champions and 29,756 directed cells**. The frozen calculation inputs
+match the worker source commit, both shared calculation keys changed, and the
+33 reviewed champion kits have updated keys.
+
+Comparison against baseline `6bb16c1b941f06cac8a9a6ac23e92813147acbda`
+records the numerical changes rather than assuming the earlier Alacrity result:
+
+- **Plain stats:** 172 pairings changed, all involving Udyr; no other plain-stat
+  pairing changed. Aggregate scores and spending changed in all 172, scenario
+  results in 171 and selected variants in 105.
+- **Build matrix:** 186 pairings have changed result payloads. Aggregate scores
+  and scenario results changed in 182, decoded build lists in 179, item sets in
+  171 and selected variants in 123. Spending is unchanged. These counts overlap;
+  an item-dictionary reindex alone is not counted as a build change.
+
+Build selection remains sensitive to the generated candidates and the existing
+conservative policy, which independently chooses maximin/minimax routes. Their
+intersection need not be a mutual best response or a global optimum. In a
+current-engine fixed-build check of K'Sante versus Sett, the previous K'Sante
+build scores +0.3082 and the newly selected build −0.7851 against the identical
+selected Sett item list: the new route performs worse in this fixed matchup.
+Four selected-build reruns exactly reproduce the stored aggregate and scenario
+results, establishing stored-fight consistency while leaving candidate generation
+and route selection as model limitations. This observation does not establish
+dominance across all candidate routes or improved live-game accuracy.
+
+Default fights select no optional combat runes; these observed changes reflect
+the source-backed Udyr, item and cooldown corrections. The workflow's full suite
+passed **8,977 tests across 258 files**, with **five existing skipped tests**
+(8,982 total). Both TypeScript projects, both normal matrix freshness checks
+and the final production web build also pass. The full checkpoint and semantic-diff receipts are retained as
+`refresh-validation-final-01.json` and `refresh-validation-final-01-diff.json`
+in the external Haste audit.
+
+Full rune pages, keystones, Bloodline, general farm/assist/monster progression,
+browser combat-rune controls and rune-aware allocation/search remain unfinished.
+No new controlled in-game measurements or completed rune-page fidelity are
+claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) stays in progress.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

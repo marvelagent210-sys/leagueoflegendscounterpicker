@@ -1,5 +1,6 @@
 /** Twisted Fate: actual card clocks, captured spell attacks and a guarded Gate. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { attackRange, canCast, canStartAttack, EPSILON } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
 import { abilityHit, abilityHitPet, applyEffect, canTarget, directionTo, inStasis, isUntargetable, notifyActualMovement } from "../../engine/sim/combat";
@@ -57,7 +58,7 @@ const twistedFate: KitModule = {
     // The gate endpoint is a location captured at declaration, independent of later enemy crossings.
     const gate: AbilitySpec = { key: "Gate", name: "Gate", slot: "other", cooldown: 0, castTime: gateTime, delivery: { kind: "self" }, interruptible: {}, costAtCastStart: true, flags: { grounded: true }, budgetExcluded: true, roles: ["escape"], usable: (self, world) => world.tick < Number(self.memory[DESTINY] ?? 0) && world.tick >= Number(self.memory["tf:destinyStart"] ?? Infinity) + ticks(gateDelay) };
     const abilities = [qSpec, wSpec, rSpec, lock, gate, reveal, redSplash];
-    const startCooldown = (ctx: HookContext) => { ctx.self.cooldownReady.W = ctx.tick + ticks(cardCD / (1 + derive(ctx.self).abilityHaste / 100)); };
+    const startCooldown = (ctx: HookContext) => { ctx.self.cooldownReady.W = ctx.tick + ticks(cardCD / (1 + abilityHasteFor(ctx.self, { slot: "W" }) / 100)); };
     const expireCard = (ctx: HookContext) => { ctx.memory[SELECTED] = -1; ctx.memory[EXPIRES] = 0; startCooldown(ctx); };
     const stack = (ctx: HookContext & { scale: number }) => {
       if (Number(ctx.memory[DECK] ?? initialDeck) >= maxDeck) { ctx.memory[DECK] = 0; applyEffect(ctx.world, ctx.self, ctx.enemy, { type: "damage", damageType: "magic", amount: ctx.enemy.spec.structureClass ? scaled(deckDamage, structureDeckScale) : deckDamage, label: e.name, petDamageCategory: "proc" }, { scale: ctx.scale }); }
@@ -113,7 +114,7 @@ const twistedFate: KitModule = {
           const direction = directionTo(ctx.self, ctx.enemy) * (ctx.aim?.direction ?? 1), distance = Math.max(0, Math.min(gateRange, ctx.aim?.distance ?? Math.abs(ctx.enemy.x - ctx.self.x)));
           ctx.memory["tf:gateDestination"] = ctx.self.x + direction * distance;
           ctx.memory[DESTINY] = 0;
-          ctx.self.cooldownReady.R = ctx.tick + ticks(rCD / (1 + derive(ctx.self).abilityHaste / 100));
+          ctx.self.cooldownReady.R = ctx.tick + ticks(rCD / (1 + abilityHasteFor(ctx.self, { slot: "R" }) / 100));
         },
         onCast(ctx) {
           if (ctx.ability.key === "W") { ctx.memory[CYCLE] = ctx.tick; ctx.memory["tf:cycleUntil"] = ctx.tick + ticks(cycleDuration); ctx.self.cooldownReady.W = Infinity; }
@@ -147,7 +148,7 @@ const twistedFate: KitModule = {
         onTick(ctx) {
           if (Number(ctx.memory[CYCLE] ?? -1) >= 0 && ctx.tick >= Number(ctx.memory["tf:cycleUntil"] ?? 0)) { ctx.memory[CYCLE] = -1; startCooldown(ctx); }
           if (Number(ctx.memory[SELECTED] ?? -1) >= 0 && ctx.tick >= Number(ctx.memory[EXPIRES] ?? 0)) expireCard(ctx);
-          const until = Number(ctx.memory[DESTINY] ?? 0); if (until > 0 && ctx.tick >= until) { ctx.memory[DESTINY] = 0; ctx.self.cooldownReady.R = until + ticks(rCD / (1 + derive(ctx.self).abilityHaste / 100)); }
+          const until = Number(ctx.memory[DESTINY] ?? 0); if (until > 0 && ctx.tick >= until) { ctx.memory[DESTINY] = 0; ctx.self.cooldownReady.R = until + ticks(rCD / (1 + abilityHasteFor(ctx.self, { slot: "R" }) / 100)); }
         },
       },
     };

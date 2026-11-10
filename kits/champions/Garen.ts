@@ -3,7 +3,8 @@ import type { KitModule } from "../../engine/kits/compile";
 import { attackRange, attackTiming, canStartAttack } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { canTarget } from "../../engine/sim/combat";
-import { canMove, derive } from "../../engine/sim/derived";
+import { canMove, derive, statIsActive } from "../../engine/sim/derived";
+import type { Unit } from "../../engine/sim/state";
 
 const garen: KitModule = {
   champion: "Garen",
@@ -23,8 +24,28 @@ const garen: KitModule = {
     const shredHits = e.quoted("Enemy champions hit 6 times by Judgment", 0);
     const shred = e.quoted("are inflicted with 25% armor reduction for 6 seconds", 0) / 100;
     const shredSeconds = e.quoted("are inflicted with 25% armor reduction for 6 seconds", 1);
+    const spinScaling = "spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times";
+    const baseSpins = e.quoted(spinScaling, 0);
+    const spinsPerAttackSpeed = e.quoted(spinScaling, 1) / (e.quoted(spinScaling, 2) / 100);
+    e.quote("Judgment only scales with bonus attack speed from items and growth (per level).");
+    const spinsFor = (self: Unit): number => {
+      // The shard grant is recorded separately even though it shares the direct
+      // bonus pool with purchased stats. It still improves actual basic attacks.
+      const runeAttackSpeed = Number(self.memory["rune-shards:attackSpeed"] ?? 0);
+      // Reserved flat rune-AS status namespace. Match derive's activation rules
+      // so removal or conditional suspension cannot leave a stale origin total.
+      let runeStatusAttackSpeed = 0;
+      for (const status of self.statuses) {
+        if (status.kind === "stat" && status.key === "attackSpeed"
+          && status.memoKey?.startsWith("rune-effects:attackSpeed:") && statIsActive(status, self.statuses)) {
+          runeStatusAttackSpeed += status.value;
+        }
+      }
+      return baseSpins + Math.max(0, derive(self).bonusAttackSpeed - runeAttackSpeed - runeStatusAttackSpeed) * spinsPerAttackSpeed;
+    };
     kit.assume("Decisive Strike's lunge toward its target isn't modeled (the wiki gives no distance).");
     kit.assume("Judgment always hits Garen's only enemy, the nearest one, for 25% more damage.");
+    kit.assume("Judgment excludes the recorded attack-speed shard and active tagged flat rune attack-speed statuses from spin scaling. Other current attack-speed sources retain the existing model; temporary item-passive eligibility, including Guinsoo's Seething Strike, remains unverified. The spin count is captured once at cast, retaining the simulator's timing assumption rather than establishing live-game snapshot timing.");
 
     const behavior: Behavior = (view) => {
       // Let reactions, finishers and the other modes keep their normal priority. Starting
@@ -135,7 +156,8 @@ const garen: KitModule = {
             mobile: true,
             range: e.field("effectRadius"),
             // 7 (+ 1 per 25% bonus attack speed) spins.
-            pulses: { base: e.quoted("spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times", 0), ratios: { bonusAttackSpeed: 100 / 25 } },
+            pulses: { base: baseSpins, ratios: { bonusAttackSpeed: spinsPerAttackSpeed } },
+            pulsesFor: spinsFor,
             onTick: [{ type: "damage", damageType: "physical", amount: e.formula("Increased Damage Per Spin"), canCrit: true, critMultiplier: e.quoted("Judgment can critically strike for 130% damage", 0) / 100 }],
           },
           flags: { spellShield: e.flag("spellShield") ?? false },

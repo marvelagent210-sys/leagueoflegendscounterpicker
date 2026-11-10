@@ -1,5 +1,6 @@
 /** Sona: source-bound melodies, attack snapshots and actual ally Accelerando credits. */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { canCast, canStartAttack } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
 import { abilityHit, applyEffect, canTarget, directionTo, heal, inStasis, isUntargetable } from "../../engine/sim/combat";
@@ -39,7 +40,10 @@ const sona: KitModule = {
     r.quote("This ability will cast from wherever the caster is at the start of the cast time"); r.gameQuote('"mLineWidth":140.0');
     const qCD = q.cooldown(), wCD = w.cooldown(), eCD = e.cooldown(), initial = Math.min(cap, Math.max(0, Math.floor(options.accelerando ?? 0)));
     const stackCount = (self: Unit) => Number(self.memory[STACKS] ?? initial);
-    const basicCooldown = (base: number, self: Unit) => base * (100 + derive(self).abilityHaste) / (100 + derive(self).abilityHaste + perStack * stackCount(self));
+    const basicCooldown = (base: number, self: Unit, slot: "Q" | "W" | "E") => {
+      const haste = abilityHasteFor(self, { key: slot, slot });
+      return base * (100 + haste) / (100 + Math.min(500, haste + perStack * stackCount(self)));
+    };
     const addStack = (ctx: HookContext) => {
       const current = stackCount(ctx.self);
       if (current < cap) ctx.memory[STACKS] = current + 1;
@@ -52,9 +56,9 @@ const sona: KitModule = {
     };
     const chordProc = (key: "Q" | "W" | "E"): AbilitySpec => ({ key: `I-${key}`, name: `Power Chord – ${key === "Q" ? "Staccato" : key === "W" ? "Diminuendo" : "Tempo"}`, slot: "other", activation: "internal", budgetExcluded: true, countsAsCast: false, cooldown: 0, castTime: 0, delivery: { kind: "self" }, flags: { spellShield: true, parry: true, petContactHooks: true }, onHit: [{ type: "damage", damageType: "magic", amount: key === "Q" ? staccatoDamage : chordDamage, noLifeSteal: true, petDamageCategory: "proc" }], usable: () => false });
     const abilities: AbilitySpec[] = [
-      { key: "Q", name: q.name, slot: "Q", budgetExcluded: true, cooldown: qCD, cooldownFor: self => basicCooldown(qCD, self), cost: q.cost(), castTime: q.castTime(), delivery: { kind: "self" }, roles: ["damage", "buff"], estimate: (self, target) => evaluate(qDamage, self, target) },
-      { key: "W", name: w.name, slot: "W", budgetExcluded: true, cooldown: wCD, cooldownFor: self => basicCooldown(wCD, self), cost: w.cost(), castTime: w.castTime(), delivery: { kind: "self" }, roles: ["defense"] },
-      { key: "E", name: e.name, slot: "E", budgetExcluded: true, cooldown: eCD, cooldownFor: self => basicCooldown(eCD, self), cost: e.cost(), castTime: e.castTime(), delivery: { kind: "self" }, roles: ["buff"] },
+      { key: "Q", name: q.name, slot: "Q", budgetExcluded: true, cooldown: qCD, cooldownFor: self => basicCooldown(qCD, self, "Q"), cost: q.cost(), castTime: q.castTime(), delivery: { kind: "self" }, roles: ["damage", "buff"], estimate: (self, target) => evaluate(qDamage, self, target) },
+      { key: "W", name: w.name, slot: "W", budgetExcluded: true, cooldown: wCD, cooldownFor: self => basicCooldown(wCD, self, "W"), cost: w.cost(), castTime: w.castTime(), delivery: { kind: "self" }, roles: ["defense"] },
+      { key: "E", name: e.name, slot: "E", budgetExcluded: true, cooldown: eCD, cooldownFor: self => basicCooldown(eCD, self, "E"), cost: e.cost(), castTime: e.castTime(), delivery: { kind: "self" }, roles: ["buff"] },
       { key: "R", name: r.name, slot: "R", cooldown: r.cooldown(), cost: r.cost(), castTime: r.castTime(), castOrigin: "start", castDirection: "start", delivery: { kind: "line", range: rRange, width: rWidth, speed: rSpeed, piercing: true, collisionPet: true }, flags: { projectile: true, spellShield: true, petContactHooks: true }, onHit: [{ type: "damage", damageType: "magic", amount: rDamage }, { type: "cc", cc: "stun", duration: rStun }], roles: ["damage", "cc"] },
       { key: "Q-bolt", name: q.name, slot: "Q", activation: "internal", budgetExcluded: true, countsAsCast: false, cooldown: 0, castTime: 0, delivery: { kind: "self" }, flags: { projectile: true, spellShield: true, petContactHooks: true }, onHit: [{ type: "damage", damageType: "magic", amount: qDamage, petDamageCategory: "area" }], usable: () => false, persistsAfterDeath: true },
       { key: "W-tone", name: w.name, slot: "W", activation: "internal", budgetExcluded: true, countsAsCast: false, cooldown: 0, castTime: 0, delivery: { kind: "self" }, usable: () => false, persistsAfterDeath: true },

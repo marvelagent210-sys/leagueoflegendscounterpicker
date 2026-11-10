@@ -3,7 +3,7 @@
  * and summoner spells read theirs (items/context.ts, summoners/context.ts).
  *
  * Every number a rune effect uses comes from its record in the rune catalog
- * (data/<dataset>/rune-catalog.json, built from each rune's wiki data template and article):
+ * (data/<dataset>/rune-records.json, built from each rune's wiki data template and article):
  * numbers written into its description or notes, named by quoting the words around them;
  * values for melee and for ranged champions; and values that depend on level, read at level 20.
  * A quote that is no longer in the wiki's text makes the rune fail to build. Everything read is
@@ -13,7 +13,7 @@ import type { Series } from "../engine/abilities";
 import { numbersIn } from "../engine/kits/context";
 import { TOP_LANE_MAX_LEVEL } from "../engine/stats";
 import type { RulePage } from "../pipeline/items/records";
-import type { RuneCatalog, RuneEntry, ShardOption } from "../pipeline/runeCatalog/records";
+import type { RuneRecords, RuneEntry, ShardOption } from "../pipeline/runeRecords/records";
 
 export class RuneDataError extends Error {
   constructor(rune: string, message: string) {
@@ -194,7 +194,7 @@ export class RuneContext {
   readonly assumptions: string[] = [];
   private sealed = false;
 
-  constructor(readonly catalog: RuneCatalog) {}
+  constructor(readonly catalog: RuneRecords) {}
 
   seal(): void {
     this.sealed = true;

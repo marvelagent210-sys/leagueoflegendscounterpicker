@@ -13,11 +13,11 @@ import { traitsOf } from "../engine/sim/behavior";
 import type { AbilitySpec, BonusStats, BuffStat, Effect, FighterSpec, KitHooks } from "../engine/sim/spec";
 import type { ItemBudget, ItemFighter, ItemParts, LoadoutPart, Permanent } from "../items/equip";
 import { permanentHooks } from "../items/equip";
-import type { RuneCatalog, RuneEntry, ShardOption } from "../pipeline/runeCatalog/records";
+import type { RuneRecords, RuneEntry, ShardOption } from "../pipeline/runeRecords/records";
 import { RuneContext, type RuneData, type RuneEvidence } from "./context";
 
 /** A rune page: a keystone and three lesser runes of its path, two of another path, and three shards. */
-export interface RunePage {
+export interface NamedRunePage {
   keystone: string;
   /** The keystone's path's lesser runes, one from each of its three rows. */
   primary: string[];
@@ -86,9 +86,9 @@ export interface RuneCoverage {
 }
 
 export interface EquippedRunes {
-  page: RunePage;
+  page: NamedRunePage;
   /** The page as played, after the substitutions. */
-  played: RunePage;
+  played: NamedRunePage;
   evidence: RuneEvidence[];
   assumptions: string[];
   coverage: RuneCoverage[];
@@ -101,14 +101,14 @@ export interface EquippedRunes {
 const simplify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 /** A catalog rune by name; case, spaces and punctuation don't matter. */
-export function findRune(catalog: RuneCatalog, name: string): RuneEntry {
+export function findRune(catalog: RuneRecords, name: string): RuneEntry {
   const found = catalog.runes.find((entry) => simplify(entry.name) === simplify(name));
   if (!found) throw new Error(`No rune "${name}"`);
   return found;
 }
 
 /** A shard option of a slot by name ("Adaptive Force", "adaptive"), or by a word of it. */
-export function findShard(catalog: RuneCatalog, slot: number, name: string): ShardOption {
+export function findShard(catalog: RuneRecords, slot: number, name: string): ShardOption {
   const options = catalog.shards[slot]?.options ?? [];
   const wanted = simplify(name);
   const found = options.find((option) => simplify(option.name) === wanted) ?? options.find((option) => simplify(option.name).startsWith(wanted));
@@ -117,7 +117,7 @@ export function findShard(catalog: RuneCatalog, slot: number, name: string): Sha
 }
 
 /** What is wrong with a page under the wiki's rules (the Rune article), if anything. */
-export function pageProblems(page: RunePage, catalog: RuneCatalog): string[] {
+export function pageProblems(page: NamedRunePage, catalog: RuneRecords): string[] {
   const problems: string[] = [];
   const known = (name: string) => catalog.runes.find((entry) => simplify(entry.name) === simplify(name));
   const keystone = known(page.keystone);
@@ -177,7 +177,7 @@ const SUBSTITUTIONS: Array<{ bullet: string; applies: (facts: SubstitutionFacts)
 const YORICK = "Yorick is an exception to this rule and considered to not have an immobilizing effect despite having an immobilize on his W.";
 
 /** Whether a kit immobilizes, as the substitutions count it. */
-export function immobilizes(spec: FighterSpec, catalog: RuneCatalog): boolean {
+export function immobilizes(spec: FighterSpec, catalog: RuneRecords): boolean {
   if (spec.id === "Yorick") {
     if (!catalog.substitutions.some((line) => line.trim() === YORICK)) throw new Error(`The Rune article no longer says: ${YORICK}`);
     return false;
@@ -187,7 +187,7 @@ export function immobilizes(spec: FighterSpec, catalog: RuneCatalog): boolean {
 }
 
 /** The rune a champion plays in place of `name` under the Rune article's substitutions, with what was made, if anything. */
-export function substituteRune(name: string, catalog: RuneCatalog, facts: SubstitutionFacts): { name: string; made?: string } {
+export function substituteRune(name: string, catalog: RuneRecords, facts: SubstitutionFacts): { name: string; made?: string } {
   for (const rule of SUBSTITUTIONS) {
     const found = rule.swaps.find(([from]) => simplify(from) === simplify(name));
     if (!found || !rule.applies(facts)) continue;
@@ -198,12 +198,12 @@ export function substituteRune(name: string, catalog: RuneCatalog, facts: Substi
 }
 
 /** What decides a champion's substitutions, from its kit and summoner spells. */
-export function substitutionFacts(spec: FighterSpec, catalog: RuneCatalog, spells: readonly string[]): SubstitutionFacts {
+export function substitutionFacts(spec: FighterSpec, catalog: RuneRecords, spells: readonly string[]): SubstitutionFacts {
   return { champion: spec.id, ...(spec.resourceType ? { resourceType: spec.resourceType } : {}), immobilizes: immobilizes(spec, catalog), spells };
 }
 
 /** The page as a champion plays it, and the substitutions made, with the bullets that state them. */
-export function substitutePage(page: RunePage, catalog: RuneCatalog, facts: SubstitutionFacts): { page: RunePage; made: string[] } {
+export function substitutePage(page: NamedRunePage, catalog: RuneRecords, facts: SubstitutionFacts): { page: NamedRunePage; made: string[] } {
   const made: string[] = [];
   const swap = (name: string): string => {
     const swapped = substituteRune(name, catalog, facts);
@@ -243,7 +243,7 @@ export interface RuneLoadoutOptions {
 }
 
 /** A rune page for a fighter, checked against the wiki's rules, built for each form of the champion as equipItems asks. */
-export function runeLoadout(spec: FighterSpec, page: RunePage, catalog: RuneCatalog, modules: Readonly<Record<string, RuneModule>>, settings: RuneLoadoutOptions): RuneLoadout {
+export function runeLoadout(spec: FighterSpec, page: NamedRunePage, catalog: RuneRecords, modules: Readonly<Record<string, RuneModule>>, settings: RuneLoadoutOptions): RuneLoadout {
   const problems = pageProblems(page, catalog);
   if (problems.length > 0) throw new Error(`${spec.name}'s rune page breaks the rules: ${problems.join("; ")}`);
   const context = new RuneContext(catalog);
@@ -310,7 +310,7 @@ export function runeLoadout(spec: FighterSpec, page: RunePage, catalog: RuneCata
 export type RuneChoice = { kind: "rune"; entry: RuneEntry } | { kind: "shard"; slot: number; option: ShardOption };
 
 /** The key a choice's options and assumptions go by: the rune's name, or the shard's slot and name ("Offense: Adaptive Force"). */
-export function choiceKey(choice: RuneChoice, catalog: RuneCatalog): string {
+export function choiceKey(choice: RuneChoice, catalog: RuneRecords): string {
   return choice.kind === "rune" ? choice.entry.name : `${catalog.shards[choice.slot]!.slot}: ${choice.option.name}`;
 }
 
@@ -321,7 +321,7 @@ export function choiceKey(choice: RuneChoice, catalog: RuneCatalog): string {
  * alone, from its module with its options' defaults (or `settings.options`); `outside` when it
  * does nothing in a duel.
  */
-export function runeParts(form: FighterSpec, choice: RuneChoice, catalog: RuneCatalog, modules: Readonly<Record<string, RuneModule>>, settings: RuneLoadoutOptions, items: { bonus: BonusStats; fighter: ItemFighter }): { parts: ItemParts; outside: boolean } {
+export function runeParts(form: FighterSpec, choice: RuneChoice, catalog: RuneRecords, modules: Readonly<Record<string, RuneModule>>, settings: RuneLoadoutOptions, items: { bonus: BonusStats; fighter: ItemFighter }): { parts: ItemParts; outside: boolean } {
   const context = new RuneContext(catalog);
   const fighter: RuneFighter = { spec: form, ranged: form.attack.ranged, mana: form.resourceType === "Mana", adaptive: adaptiveChoice(items.bonus, settings.adaptiveType), bonus: items.bonus, items: items.fighter, spells: settings.spells ?? [] };
   const key = choiceKey(choice, catalog);

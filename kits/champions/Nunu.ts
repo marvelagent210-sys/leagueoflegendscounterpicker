@@ -1,6 +1,7 @@
 /** Nunu & Willump: actual bite recipients, rolling bodies, independent volleys and a cancelable blizzard. */
 import type { AbilityData } from "../../engine/kits/context";
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { softCap } from "../../engine/rules/movement";
 import { canCast, EPSILON, releaseCooldowns, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
@@ -150,7 +151,7 @@ const nunu: KitModule = {
     };
     const barrage = (ctx:HookContext, first:boolean) => {
       if(first){ctx.memory[E]=ctx.tick+ticks(eDuration);ctx.memory[`${E}:group`]=Number(ctx.memory[`${E}:group`]??0)+1;ctx.memory[`${E}:volleys`]=0;}
-      const volley=Number(ctx.memory[`${E}:volleys`])+1,group=Number(ctx.memory[`${E}:group`]);ctx.memory[`${E}:volleys`]=volley;ctx.memory[`${E}:next`]=ctx.tick+ticks(eVolleyCD/(1+derive(ctx.self).abilityHaste/100));
+      const volley=Number(ctx.memory[`${E}:volleys`])+1,group=Number(ctx.memory[`${E}:group`]);ctx.memory[`${E}:volleys`]=volley;ctx.memory[`${E}:next`]=ctx.tick+ticks(eVolleyCD/(1+abilityHasteFor(ctx.self, { slot: "E" })/100));
       emitBall(ctx,ctx.tick,group);
       for(let index=1;index<eBalls;index++)ctx.memory[`${E}:throw:${group}:${volley}:${index}`]=ctx.tick+ticks(eGap*index);
     };
