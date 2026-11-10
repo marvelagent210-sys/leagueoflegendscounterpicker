@@ -4,8 +4,9 @@ Source and runtime review, 6 November 2026. These findings explain why adding a
 numeric rune bonus alone is insufficient. No in-game measurements were performed
 for this audit. The sources below are pinned Wiki revisions; code observations
 describe the current model, not a complete specification of live-game behavior.
-The Bloodline follow-up began on 8 November and resumed on 10 November; its
-release validation and release date remain pending.
+The Bloodline follow-up began on 8 November; its genuine full refresh and
+checkpoint audit completed on 10 November. The mechanics proof limits below
+remain in force.
 
 ## Separate amplifier packets
 
@@ -249,13 +250,18 @@ normal packet/healing path, including healing modifiers and the existing
 conventions are model boundaries, and the source's specific pet exceptions do
 not establish blanket pet-vamp inheritance.
 
-Shared changes require genuine full recomputation of 14,878 pairings per matrix
-and checks of all 29,756 new checkpoints. Both refreshes, complete default
-score/scenario/variant/decoded-build/spending comparisons, the full suite,
-freshness checks and final PR CI remain pending. Default numerical differences
-remain to be measured. The completed Haste evidence above does not validate this
-batch. Full pages, browser combat-rune controls, item/rune integration and
-rune-aware allocation/search remain unfinished.
+The genuine [10 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596)
+computed all 14,878 pairings per matrix with zero reuse. All 29,756 genuine
+checkpoints match the complete final forward/reverse payloads. Plain-stat
+payloads are unchanged; 22 build pairings changed, all involving Kled or K'Sante.
+Aggregate scores changed in 22, scenarios in 19 and decoded build lists/item
+sets in nine; variants and spending are unchanged. All 22 workflow jobs and
+9,151 tests across 262 files passed, with five existing skips. See the
+[accuracy log](../../ACCURACY.md) for the complete comparison and validation
+receipts. Checkpoint correspondence establishes stored-result consistency; it
+does not resolve the live-game timing, policy or packet boundaries above or
+establish global build optimality. Full pages, browser combat-rune controls,
+item/rune integration and rune-aware allocation/search remain unfinished.
 
 The known **Garen attack-speed shard defect is corrected** in the follow-up to
 the Absorb Life batch:

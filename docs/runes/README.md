@@ -3,8 +3,8 @@
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
 Manual plain-stat duels also support eight partial combat effects, listed below.
-The Bloodline batch awaits its full refresh and release validation. Full rune
-pages and rune-page search remain unfinished. The existing
+Bloodline's genuine full refresh and checkpoint audit completed on 10 November.
+Full rune pages and rune-page search remain unfinished. The existing
 Udyr-specific Triple Tonic behavior still reads its original `runes.json`;
 default matchup matrices keep their existing settings without these optional
 selections. Full rune combat is step 1 of the [ordered improvement
@@ -182,8 +182,8 @@ not complete rune-page fidelity.
 
 ### Legend: Bloodline: life steal and the cap-health award
 
-Implementation began on 8 November 2026 and resumed on 10 November. The release
-date and final validation receipts remain pending.
+Implementation began on 8 November 2026; the genuine full refresh and checkpoint
+audit completed on 10 November.
 
 Each side selecting Bloodline (`9103`) must declare its own starting Legend
 points with `--legend-points` or `--enemy-legend-points`, including explicit `0`.
@@ -262,13 +262,18 @@ Dead, zero-HP, fallen, death-defied or resurrecting owners keep progress and
 permanent stats without current-health restoration. This conservative policy
 prevents revival; exact restoration in those windows remains unmeasured.
 
-**Release validation is pending.** Shared health and packet corrections require
-genuine full recomputation of all 14,878 pairings in each default matrix.
-Neither matrix refresh, all 29,756 new checkpoint checks, the complete comparison
-of default scores, scenarios, variants, decoded builds and spending,
-the full suite, freshness checks nor final PR CI is recorded as complete for
-Bloodline. Default-result differences remain to be measured. The completed
-Haste release below is historical evidence for that earlier batch.
+The genuine [10 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596)
+computed all 14,878 pairings in each default matrix with zero reuse. All 29,756
+new checkpoints match the complete forward/reverse scores, scenarios, variants,
+decoded builds and spending. Plain-stat payloads are unchanged; 22 build pairings
+changed, all involving Kled or K'Sante. Aggregate scores changed in 22, scenarios
+in 19 and decoded builds/item sets in nine; variants and spending are unchanged.
+All 22 workflow jobs and 9,151 tests across 262 files passed, with five existing
+skips. See the [accuracy log](../../ACCURACY.md) for the complete comparison and
+validation receipts. The build search remains heuristic, and these changes do
+not establish a global optimum or measured live-game accuracy. Full pages,
+browser combat-rune controls, item/rune composition and rune-aware
+allocation/search remain unfinished.
 
 ### Legend: Haste and qualified cooldowns
 

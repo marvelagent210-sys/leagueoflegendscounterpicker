@@ -6,7 +6,7 @@ and checked. This list records goals, not a claim that the work is complete.
 
 | Order | Improvement | Status and scope |
 |--:|---|---|
-| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Eight partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life and the three Legend runes. Each selected Legend requires declared starting points and currently progresses only from real champion-body kills. Haste's genuine full matrix refresh and release checks completed on 8 November, including the observed default-result changes. The next Bloodline batch awaits its full refresh and release checks. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
+| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Eight partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life and the three Legend runes. Each selected Legend requires declared starting points and currently progresses only from real champion-body kills. Haste's genuine full matrix refresh and release checks completed on 8 November, including the observed default-result changes. Bloodline's genuine full refresh and checkpoint audit completed on 10 November: plain-stat payloads are unchanged and 22 build pairings changed. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
 | 2 | Controlled in-game measurements | Planned. Compare recorded damage, timing and interactions with reproducible in-game setups, retain the setup and patch, and turn discrepancies into mechanics regressions. |
 | 3 | Summoner spells and browser boots format | Planned. Add explicit summoner loadouts and their combat behavior, and expose the existing five-items-with-boots build format in the browser. |
 | 4 | Better combat decisions | Planned. Improve spacing, chase, disengage, defensive timing and ability sequencing, with reproducible scenarios that show the decisions and their limits. |
@@ -58,8 +58,9 @@ the final production build passed. See the accuracy log for the complete result
 comparison and the rune audit for the retained Udyr classification distinction
 and empowered-lock timing limitation. Step 1 remains in progress.
 
-Bloodline implementation began on 8 November and resumed on 10 November; its
-release date remains pending. It adds zero base life steal and 0.45% per completed 100-point stack, capped at fifteen
+Bloodline implementation began on 8 November; its genuine full refresh and
+checkpoint audit completed on 10 November. It adds zero base life steal and
+0.45% per completed 100-point stack, capped at fifteen
 stacks and 6.75%, plus a one-time direct 85 bonus-health award only at 1,500
 points. Each side must declare its own starting points, including zero, and can
 select only one of the three Legend runes. Its 42-page combat bundle retains
@@ -73,10 +74,16 @@ policy. Kled W's fourth-hit and K'Sante All Out's attack-bonus packets gain
 explicit source-qualified life-steal eligibility with attack blocking and scaling.
 K'Sante's mark and ordinary spells stay excluded, and his 20% omnivamp remains
 separate. Broader pet-vamp inheritance
-and lethal-packet stack ordering remain qualified. The shared changes require a
-genuine full refresh of all 14,878 pairings per matrix. Both matrices, all 29,756
-new checkpoint checks and complete default-result comparisons, the full suite, freshness checks and final PR
-CI remain pending; no workflow completion or unchanged-default claim is made.
+and lethal-packet stack ordering remain qualified. The
+[10 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596)
+computed all 14,878 pairings per matrix with zero reuse, and all 29,756 genuine
+checkpoints match the final forward/reverse outputs. Plain-stat payloads are
+unchanged; 22 build pairings changed, all involving Kled or K'Sante. Aggregate
+scores changed in 22, scenarios in 19 and decoded build lists/item sets in nine;
+variants and spending are unchanged. All 22 workflow jobs and 9,151 tests across
+262 files passed, with five existing skips. The accuracy log records validation
+receipts and the complete comparison. These results do not establish a globally
+optimal build search or measured live-game accuracy. Step 1 remains in progress.
 
 The remaining steps will need their own source review, implementation and
 validation. Their calculation costs will be measured as they are built; this

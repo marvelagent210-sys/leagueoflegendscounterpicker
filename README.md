@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus eight partial combat effects in manual plain-stat duels. The Bloodline batch is awaiting its full refresh and release checks; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
+- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus eight partial combat effects in manual plain-stat duels. Bloodline's genuine full matrix refresh and checkpoint audit completed on 10 November; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -57,7 +57,7 @@ The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueofl
 
 Completed release checks are recorded in [ACCURACY.md](ACCURACY.md). The Haste follow-up completed its genuine full matrix refresh and release checks on 8 November; default results changed in 172 plain-stat pairings and 186 build-matrix pairings. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them.
 
-Bloodline implementation began on 8 November and resumed on 10 November; its release date remains pending. It adds declared Legend history, life steal and a one-time cap-health award. Shared health and packet corrections require a genuine full refresh of all 14,878 pairings in each matrix, with all 29,756 new checkpoints checked. Both refreshes, complete default-result comparisons, the full suite, freshness checks and final PR CI are pending. See [ACCURACY.md](ACCURACY.md) for this batch's validation status.
+Bloodline implementation began on 8 November; its genuine [full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596) completed on 10 November. It adds declared Legend history, life steal and a one-time cap-health award. All 14,878 pairings in each matrix were computed with zero reuse, and all 29,756 new checkpoints match the final outputs. Plain-stat payloads are unchanged; 22 build-matrix pairings changed, all involving Kled or K'Sante. The workflow passed 9,151 tests across 262 files, with five existing skips. See [ACCURACY.md](ACCURACY.md) for the complete comparison and validation receipts.
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 

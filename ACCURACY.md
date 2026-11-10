@@ -2568,12 +2568,12 @@ browser combat-rune controls and rune-aware allocation/search remain unfinished.
 No new controlled in-game measurements or completed rune-page fidelity are
 claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) stays in progress.
 
-## Legend: Bloodline implementation (started 8 November; resumed 10 November 2026)
+## Legend: Bloodline (full refresh and core release checks, 10 November 2026)
 
-**Release validation and the release date remain pending.** Bloodline (9103) is
-the eighth partial combat effect in manual plain-stat duels. Its implementation
-began on 8 November and resumed on 10 November; the completed Haste release above
-records that earlier batch's evidence. Full pages, keystones, browser combat-rune
+Bloodline (9103) is the eighth partial combat effect in manual plain-stat duels.
+Its implementation
+began on 8 November, resumed on 10 November and completed its genuine full refresh
+and checkpoint audit on 10 November. Full pages, keystones, browser combat-rune
 controls, general item/rune composition and rune-aware allocation/search remain
 unfinished. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) remains
 in progress.
@@ -2671,21 +2671,70 @@ simulator policy prevents revival; exact restoration in those windows remains
 unmeasured. Neither `alive` nor positive HP alone establishes the game behavior.
 The [mechanics gap audit](docs/runes/MECHANICS_GAPS.md) records these proof limits.
 
-Shared engine changes require genuine full recomputation at 173 champions:
-**14,878 unordered pairings per matrix, 29,756 across plain stats and builds**.
-Old calculations must not be restamped. The following release evidence is pending:
+**The genuine full refresh and core release checks completed on 10 November 2026.**
+[Workflow 42769645596](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596)
+ran from 06:36:30 to 09:17:57 UTC (2 hours, 41 minutes and 27 seconds).
+All 22 jobs succeeded: five plain-stat shards, fifteen build shards, planning
+and aggregation. Frozen source commit `e7bdb57b070054d484cff1ff9e75696c12b31b8d`
+produced data commit `0fcdf2178c17db7aa573b87c995dec3c8e4fdcf7`.
+Both matrices genuinely computed all **14,878 unordered pairings**, with
+**zero reused pairs** in each. No old calculation was restamped.
 
-| Required evidence | Bloodline status |
-|---|---|
-| Genuine plain-stat and build refreshes with current calculation inputs | Pending |
-| All 29,756 new checkpoints checked against complete forward/reverse outputs | Pending |
-| Complete default scores, scenarios, variants, decoded builds and spending compared with the prior baseline | Pending; numerical differences not yet measured |
-| Final full test suite and both TypeScript projects | Pending |
-| Both matrix freshness checks, final production build and final PR CI | Pending |
-| Actual release date and workflow/commit receipts | Pending |
+The complete audit verified all **29,756 genuine checkpoints** against every
+forward and reverse aggregate and scenario score, selected variant, decoded
+build list and spending record. Both matrices cover all **173 champions and
+29,756 directed cells**. All twenty original artifact archives match their API
+sizes and hashes and contain the audited checkpoint archives. The **1,525 frozen
+non-Markdown input files** match both the worker source commit and final working
+tree. Both shared calculation keys changed; Kled, K'Sante, Ornn and Pyke have
+updated kit keys.
 
-Focused implementation checks do not substitute for those final checks. No
-unchanged-default or completed-release claim is made for Bloodline.
+The complete comparison against baseline
+`b6f393e2c6394a6e3349beee2b08ae86043a2892` measures the actual default changes:
+
+- **Plain stats:** all 14,878 result payloads are unchanged, including aggregate
+  scores, all six scenarios, selected variants and stat spending.
+- **Build matrix:** 22 pairings (44 directions) have changed payloads, eleven
+  involving Kled and eleven involving K'Sante. Aggregate scores changed in all
+  22, scenario results in 19, and decoded build lists and item sets in nine
+  pairings (eleven directions). Selected variants and spending are unchanged;
+  the item dictionary is unchanged. These counts overlap and compare exact
+  stored values, including two machine-precision aggregate differences and one
+  further aggregate-only change below displayed scenario precision.
+
+Default fights select no optional combat runes. Their observed changes reflect
+the shared health and life-steal packet corrections. The existing build search
+remains heuristic: changed candidates or selected builds do not establish a
+global optimum or improved live-game accuracy.
+
+Bounded current-engine checks also find worse selected routes at the same
+opponent build. Against the identical selected K'Sante build, Gwen's previous
+build scores **−0.2775263918183582**, while her newly selected build scores
+**−0.8288135739703565**. With Bard's build held identical, Bard scores
+**+0.2927861043339177** against K'Sante's previous build and
+**+0.37550792506599184** against K'Sante's newly selected build, so that new
+K'Sante choice also performs worse at this intersection. The existing
+conservative policy independently selects maximin/minimax routes; their
+intersection need not be a mutual best response or global optimum. These
+observations are selected-route regressions, not evidence of improved opponent
+builds or live-game accuracy. Native reruns of the four largest changed fights
+and the largest Kled change exactly reproduce the current stored aggregates and
+scenarios, establishing stored-fight consistency within those limits.
+
+The refresh workflow passed **9,151 tests across 262 files**, with **five existing
+skipped tests** (9,156 total), and both TypeScript projects against the refreshed
+data. Both normal matrix freshness checks and the final local production web
+build pass. The two formerly stale-matrix test files pass all 24 tests against
+the refreshed data. Final pull-request CI follows this documentation update.
+The full checkpoint and semantic-diff receipts are
+retained as `refresh-validation-final-01.json` and
+`refresh-validation-final-01-diff.json` in the external Bloodline audit.
+
+Full rune pages, keystones, general farm/assist/monster progression, browser
+combat-rune controls, item/rune composition and rune-aware allocation/search
+remain unfinished. No controlled in-game measurements or complete rune-page
+fidelity are claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md)
+remains in progress.
 
 ## Remaining limits
 
