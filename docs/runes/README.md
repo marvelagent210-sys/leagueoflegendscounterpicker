@@ -2,12 +2,14 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support eight partial combat effects, listed below.
-Bloodline's genuine full refresh and checkpoint audit completed on 10 November.
-Full rune pages and rune-page search remain unfinished. The existing
-Udyr-specific Triple Tonic behavior still reads its original `runes.json`;
-default matchup matrices keep their existing settings without these optional
-selections. Full rune combat is step 1 of the [ordered improvement
+Manual plain-stat duels also support nine partial combat effects, listed below.
+Triumph implementation began on 11 November; its genuine full refresh,
+default-result comparison and release checks are pending. Bloodline's genuine
+full refresh and checkpoint audit completed on 10 November. Full rune pages
+and rune-page search remain unfinished. The existing Udyr-specific Triple
+Tonic behavior still reads its original `runes.json`; default matchups select
+none of these optional effects. Triumph's shared native change nevertheless
+requires a genuine full refresh of both default matrices. Full rune combat is step 1 of the [ordered improvement
 roadmap](../IMPROVEMENT_ROADMAP.md) and remains in progress.
 
 For dataset 16.21 (patch 26.21), the catalog contains **62 runes in five paths**,
@@ -96,9 +98,11 @@ npm run duel -- Darius Yorick --combat-runes 9101,8299
 npm run duel -- Garen Darius --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 8014,9104 --enemy-legend-points 0
 npm run duel -- Darius Garen --combat-runes 9105,8299 --legend-points 1000 --enemy-combat-runes 9104 --enemy-legend-points 0
 npm run duel -- Darius Garen --combat-runes 9103,8299 --legend-points 1499 --enemy-combat-runes 9105 --enemy-legend-points 0
+npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
+npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 ```
 
-Each flag takes comma-separated rune IDs for that side. These eight effects are
+Each flag takes comma-separated rune IDs for that side. These nine effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -108,14 +112,19 @@ supported as partial manual selections:
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
+| Triumph | 9111 | Stores 2.5% maximum HP plus 5% missing HP from the declared native champion-body kill-credit frame; attempts ordinary self healing one second later if the duel is still active and the recipient remains eligible. Sourced 20 gold is economic reference only. |
 | Legend: Alacrity | 9104 | 3% bonus attack speed plus 1.5 percentage points per completed 100-point stack, capped at ten stacks (18%). Requires declared starting points; actual champion-body kills add 100 points. |
 | Legend: Haste | 9105 | 1.5 basic ability haste per completed 100-point stack, capped at ten stacks (15). Zero starting points grant zero haste. Requires declared starting points; actual champion-body kills add 100 points. |
 | Legend: Bloodline | 9103 | 0.45% life steal per completed 100-point stack, capped at fifteen stacks (6.75%); a one-time direct 85 bonus-health award only at 1,500 points. Requires declared starting points; actual champion-body kills add 100 points. |
 
 The three Precision health-damage runes occupy the same source-defined row, so select at most
 one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
-at most one of those three. Second Wind, Absorb Life and one Legend choice can accompany any one
-of the three damage runes, subject to the same page validator.
+at most one of those three. Triumph and Absorb Life share Precision's first
+lesser row and cannot coexist. Second Wind, either Triumph or Absorb Life, and
+one Legend choice can accompany any one of the three damage runes, subject to
+the same page validator. Triumph has no history flag; a selected Legend still
+requires that side's explicit `--legend-points` or `--enemy-legend-points`,
+including zero. No pre-duel Triumph entitlement is inferred.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
 Omitting a side's flag applies none of these optional effects to that side. This
@@ -129,18 +138,23 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks 42 complete Wiki revisions in
+The offline compiler checks 47 complete Wiki revisions in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the eight templates to
-the catalog, and cross-checks the numeric rules against current game fields.
-The previous thirty complete source objects and frozen client descriptor remain
-unchanged; Bloodline adds twelve full pages, including the health and champion
-rules used below. The frozen complete client bytes are retained unchanged.
-An independent refetch found an unrelated Electrocute VFX resource-map change
-at the versioned client URL; Bloodline's complete object still matches. That
-external drift is recorded in the source audit, not incorporated into the
-frozen client file or its hash.
+full-content hashes, exact revisions and excerpts, binds the nine templates to
+the catalog, and cross-checks numeric rules against the frozen game fields.
+Triumph adds five complete pages: its template/article, Assist, Heal and shield
+power, and Template:Healing modifiers. All 42 previous complete source objects
+and the frozen client descriptor remain unchanged. Fourteen pinned complete
+Wiki revisions were independently re-fetched on 11 November and matched their
+retained content hashes exactly. The full frozen 2,177,672-byte client remains
+SHA-256 `f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+Its Triumph and visual-missile objects match the earlier independent complete
+client response; this is neither a fresh 11 November client fetch nor equality
+of the whole response. An unrelated Electrocute VFX resource-map drift remains
+recorded externally without replacing the frozen file. Historical Legend
+sections below retain the bundle counts and validation results of their own
+releases.
 Cut Down's obsolete health-difference fields are retained as source data but
 are not used for its current 8% rule.
 
@@ -176,9 +190,89 @@ Compatibility limits remain explicit:
 
 Full pages, keystones, the remaining historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These eight catalog entries are
+selection require further implementation and validation. These nine catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Triumph: native credit, delayed healing and pending release
+
+Implementation began on 11 November 2026. The actual release date, genuine full
+matrix refresh, default-result comparison, integrated release checks and final
+CI are pending. Focused source, native-credit, champion and CLI tests have
+passed; their scope does not establish unchanged defaults or live-game accuracy.
+
+The complete [Triumph template 3825924](https://wiki.leagueoflegends.com/en-us/?oldid=3825924)
+and [article 3980916](https://wiki.leagueoflegends.com/en-us/?oldid=3980916),
+corroborated by the frozen client fields, give the Summoner's Rift heal as
+`0.025 × maximum HP + 0.05 × missing HP`, delayed one second. The article explicitly
+uses missing HP at takedown. Its short client description omits the maximum-HP
+term; alternative-mode overrides do not replace this rule.
+
+Native `notifyKill` captures and freezes scalar credited-owner health and
+lifecycle facts after its existing victim deduplication and owned-pet credit
+choice, before **all** composed `onKill` callbacks. Both formula terms use this
+same frame. That phase and the maximum-HP choice are declared local policies;
+the sources do not establish exact global live ordering or maximum-HP timing.
+The frame follows the victim's lethal transition, so it is not a pre-lethal or
+pre-packet snapshot. Kit kill-heals, Legend awards and later killing-packet
+life steal cannot rewrite the stored facts.
+
+Only an actual hostile champion-body kill qualifies. Native owned-pet kills
+credit their owner once; pet or clone victims, friendlies, farm, assists and
+protected victim resurrection entry do not qualify. A counted positive-HP
+fallen victim does qualify. Triumph stores a fixed raw heal and deadline in
+the actual recipient body's primitive memory. It does not use a side-only
+scheduled heal or a shared mutable template. Same-body forms retain the pending
+amount, world copies get independent memory, and a fresh replacement body starts
+without it. Copied pet hooks cannot redeem the owner's state.
+
+At the first due upkeep tick, one second after credit (30 ticks at 30 Hz), the
+rune consumes the pending entitlement before ordinary self healing. Damage,
+regeneration or other healing during the delay cannot change the fixed raw
+amount. Current Grievous Wounds, healing increases/denial, maximum HP and absolute
+or fractional healing ceilings govern delivery under an explicit modifier-timing
+policy. Existing healing support does not implement every heal/shield-power or
+Revitalize stacking interaction. Normal victory ends immediately; only existing
+hostile persistent output can keep the duel active long enough for redemption.
+The Sion examples above use his native post-death combat for that possibility.
+
+Dead, zero-HP, fallen, death-defied or counted-dead recipients receive no new
+entitlement and cancel pending healing. The counted-death guard is sticky even
+if HP is manually restored before upkeep, preventing a banked heal on a later
+return. Positive-HP attackable resurrection follows ordinary healing, and stasis
+alone remains eligible. These are explicit recipient-lifecycle policies with
+unmeasured Triumph-specific live behavior, distinct from protected victim
+resurrection never creating a kill. Broader respawn, replacement-memory transfer
+and possession need separate lifecycle work.
+
+Kled uses combined Kled+Skaarl maximum HP for both percentage-health terms, then
+his fixed own-health ceiling limits a dismounted ordinary heal. K'Sante retains
+maximum HP while All Out fixes its healing ceiling at 65% of entry maximum HP;
+that ceiling is neither a formula denominator nor recalculated after health
+gains. Actual champion fixtures cover legal Triumph plus Bloodline at 1,499
+points: the native snapshot precedes its +85 cap award. Dismounted Kled can gain
+85 maximum HP but only 20 current HP, increasing missing HP by 65; a later
+snapshot would change both terms. Renata's kit kill-save likewise leaves the
+prior native entitlement intact. These tests establish local behavior, not live
+callback order.
+
+The compiled `bonusGold: 20` is **economic reference only**. Combat neither
+awards nor spends it, records a wallet grant, enlarges the fixed stat budget,
+nor changes shopping/search accounting. One pending slot covers the current
+single-hostile-body duel only. General assists, multiplayer queues and the
+article's repeat-takedown pending-heal update bug remain unsupported. A timer
+also omits the visual missile and its documented unintended friendly-destruction
+exceptions, including Fizz Trickster and Lissandra's self Frozen Tomb. The
+source's Wind Wall-unblockable behavior and stasis eligibility do not establish
+full missile parity.
+
+The shared native change requires all **14,878 pairings per matrix** genuinely
+recomputed with zero reuse, then all **29,756 new checkpoints** checked against
+complete final forward/reverse scores, scenarios, variants, builds and spending.
+That refresh and its measured default-result comparison remain pending; a
+current-looking fingerprint or source receipt cannot substitute for them. Full
+pages, browser combat-rune controls, item/rune composition and rune-aware
+allocation/search remain unfinished. Roadmap step 1 remains in progress.
 
 ### Legend: Bloodline: life steal and the cap-health award
 

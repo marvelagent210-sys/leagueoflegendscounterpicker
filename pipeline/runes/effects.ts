@@ -228,10 +228,36 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 3971359,
     "timestamp": "2025-12-02T21:39:42Z",
     "sha256": "c9f5c1ca762b135a41c6be7f42555b471231b304ad7761237d89c9ad229e13c7"
+  },
+  "Assist": {
+    "revid": 4016680,
+    "timestamp": "2026-05-12T09:59:03Z",
+    "sha256": "f65310a33c1eb7496b86af7b46a28cd465b43fe7884d9c6745bf9b3b76494d1e"
+  },
+  "Heal and shield power": {
+    "revid": 4021804,
+    "timestamp": "2026-05-21T15:27:59Z",
+    "sha256": "4ed9bf176a6c83956f5fc9997ec035b55b37b7d0d2e1bebe420b21367d44c87c"
+  },
+  "Template:Rune data Triumph": {
+    "revid": 3825924,
+    "timestamp": "2024-11-27T23:39:48Z",
+    "sha256": "45f9059f1e4828ca23955f2eacf7a8555f5589e2aec5f29f7b89937a3e9d13f6"
+  },
+  "Triumph": {
+    "revid": 3980916,
+    "timestamp": "2026-01-02T12:22:57Z",
+    "sha256": "686cf579e3adf19602275258eba63dfee2404c807c9218693ad7b8d45121f651"
+  },
+  "Template:Healing modifiers": {
+    "revid": 4021803,
+    "timestamp": "2026-05-21T15:27:06Z",
+    "sha256": "be12d5fbff797a03e87385dd2fc92bb56582f70ce0f82bed0f03261bbb908d5c"
   }
 };
 const RUNE_SOURCES = [
   { id: 9101, name: "Absorb Life", path: 8000, slot: 1, game: "Perks/Styles/Precision/AbsorbLife" },
+  { id: 9111, name: "Triumph", path: 8000, slot: 1, game: "Perks/Styles/Precision/Triumph" },
   { id: 8014, name: "Coup de Grace", path: 8000, slot: 3, game: "Perks/Styles/Precision/CoupDeGrace" },
   { id: 8017, name: "Cut Down", path: 8000, slot: 3, game: "Perks/Styles/Precision/CutDown" },
   { id: 8299, name: "Last Stand", path: 8000, slot: 3, game: "Perks/Styles/Precision/LastStand" },
@@ -454,6 +480,37 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   const absorbHeal = healAt(TOP_LANE_MAX_LEVEL);
   requireThat(Number.isFinite(absorbHeal) && absorbHeal > 0, "Absorb Life needs finite positive level-20 healing");
 
+  const triumph = description("Triumph");
+  const [triumphMaximumPercent, triumphMissingPercent, triumphBonusGold, triumphDelay] = matchNumbers("Triumph", triumph.text,
+    /^\|description\s*= \{\{sbc\|Passive:\}\} Scoring a \{\{tip\|takedown\}\} against an enemy champion \{\{tip\|heals\}\} you for \{\{as\|\{\{fd\|([\d.]+)\}\}% of your '''maximum''' health\}\} \{\{as\|\(\+ ([\d.]+)% of your '''missing''' health\)\}\} and grants you an additional \{\{g\|([\d.]+)\}\}, both after a ([\d.]+)-second delay\.$/);
+  requireThat(triumphMaximumPercent! > 0 && triumphMaximumPercent! < 100
+    && triumphMissingPercent! > 0 && triumphMissingPercent! < 100 && triumphDelay! > 0
+    && Number.isSafeInteger(triumphBonusGold) && triumphBonusGold! > 0,
+  "Triumph needs finite positive healing ratios, delay and integer economic gold");
+  const triumphPerk = record(game["Perks/Styles/Precision/Triumph"], "Triumph game perk");
+  requireThat(triumphPerk.__type === "Perk" && triumphPerk.mPerkName === "Triumph"
+    && record(triumphPerk.mScript, "Triumph game script").mSpellScriptName
+      === "ASSETS/Perks/Styles/Precision/Triumph.lua", "Triumph game name, type or script path differs");
+  // Only the normal mode effect amounts establish this Summoner's Rift rule.
+  // ARAM/KINGPORO overrides and the short tooltip are not formula inputs.
+  const triumphGame = client("Triumph");
+  agree("Triumph", triumphGame, "TriumphMaxHealthRestored", triumphMaximumPercent! / 100);
+  agree("Triumph", triumphGame, "MissingHealthRestored", triumphMissingPercent! / 100);
+  agree("Triumph", triumphGame, "BonusGold", triumphBonusGold!);
+  const triumphMissilePath = "Perks/Styles/Precision/Triumph/Spells/PerkSoulFeastVisualMissile";
+  const triumphMissile = record(game[triumphMissilePath], "Triumph visual missile");
+  requireThat(triumphMissile.__type === "SpellObject" && triumphMissile.objectPath === triumphMissilePath
+    && triumphMissile.ObjectName === "PerkSoulFeastVisualMissile" && triumphMissile.mScriptName === "PerkSoulFeastVisualMissile",
+  "Triumph visual missile identity differs");
+  const triumphMissileSpell = record(triumphMissile.mSpell, "Triumph visual missile spell");
+  const triumphMissileSpec = record(triumphMissileSpell.mMissileSpec, "Triumph visual missile specification");
+  const triumphMovement = record(triumphMissileSpec.movementComponent, "Triumph visual missile movement");
+  requireThat(triumphMissileSpell.__type === "SpellDataResource" && triumphMissileSpec.__type === "MissileSpecification"
+    && triumphMovement.__type === "FixedTimeMovement", "Triumph needs the reviewed fixed-time visual missile");
+  // Visual timing corroborates the complete template's delay; the client does
+  // not contain executable server Lua or prove the simulation's event phase.
+  agree("Triumph delay", triumphMovement, "mTravelTime", triumphDelay!);
+
   const coup = description("Coup de Grace"), cut = description("Cut Down"), last = description("Last Stand"), wind = description("Second Wind");
   const [coupPercent, coupHealth] = matchNumbers("Coup de Grace", coup.text, /Deal ([\d.]+)% increased damage to champions below \{\{as\|([\d.]+)%/);
   const [cutPercent, cutHealth] = matchNumbers("Cut Down", cut.text, /Deal ([\d.]+)% increased damage to champions above \{\{as\|([\d.]+)%/);
@@ -493,6 +550,27 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   quote(pages.get("Unit")!, "* {{tip|Champion}}\n* {{tip|Minion}}\n* {{tip|Monster}}\n* {{tip|Ward}}\n* [[Champion summoned units|Summon]] ([[Terrain#Player-Generated|champion-generated terrain]] and {{tip|pets}})");
   quote(pages.get("Healing")!, "'''Healing''' cannot increase a unit's current health over its maximum.");
   quote(pages.get("Healing")!, "* {{ri|Absorb Life}}");
+  quote(takedown, "* {{ri|Triumph}}");
+  const assist = pages.get("Assist")!;
+  quote(assist, "An '''assist''' takes place when an ally has helped a teammate score a [[kill]] on an enemy [[champion]] recently before that enemy's [[death]].");
+  quote(assist, "* Granting a {{tip|heal}}, {{tip|shield}}, or otherwise form of [[buff]] to the killer or another assistor.");
+  const triumphArticle = pages.get("Triumph")!;
+  quote(triumphArticle, "* The healing is calculated based on your missing health at the moment the takedown happened.");
+  quote(triumphArticle, "** If during the delay another takedown is achieved, all pending '''Triumph''' heals have their calculated value updated to the new amount, which is of course based on your missing health at the moment the latest takedown happened.{{bug|2}}");
+  quote(triumphArticle, "* A missile with a fixed travel time of 1 seconds handles the delay and functionally triggers the benefits.");
+  quote(triumphArticle, "** The missile is set as ''unblockable'', which means that it isn't destroyed by colliding with effects such as {{cai|Wind Wall|Yasuo}}.");
+  quote(triumphArticle, "** The missile can be {{tip|Homing_projectile_destruction|popped}} by effects that (unintentionally) destroy missiles from their own team aimed at them such as {{cai|Trickster|Fizz}}<!--Fizz E2 specifically--> or {{cai|Frozen Tomb|Lissandra}}<!--both of these's missile pops are bugged in this way at the time of this note's creation in late 2023-->. This will prevent both the bonus gold and healing from being received.{{bug}}");
+  quote(triumphArticle, "* Heal health ratio reduced to {{as|5% '''missing''' health}} from {{as|10%|health}}.");
+  quote(triumphArticle, "* {{sbc|New Effect:}} Now has a base heal of {{as|{{fd|2.5}}% '''maximum''' health}}.");
+  quote(triumphArticle, "* Bonus gold on takedown reduced to {{g|20}} from {{g|25}}.");
+  quote(triumphArticle, "* {{sbc|Bug Fix:}} Gold and healing are now properly granted to units in stasis when a takedown is earned.");
+  quote(pages.get("Healing")!, "* {{ri|Triumph}}");
+  quote(pages.get("Healing")!, "* {{tip|Grievous Wounds}} is a debuff that reduces all healing received by 40%.");
+  quote(pages.get("Healing")!, "* {{cai|Lamb's Respite|Kindred}} negates all healing effects on a unit once they've reached a certain health threshold.");
+  quote(pages.get("Heal and shield power")!, "'''{{sti|Heal and shield power|Heal and shield power}}''' is a [[champion statistic]] that increases the effectiveness of self and outgoing [[Healing|heal]]s and [[shield]]s. It {{tip|stacks additively}}.");
+  quote(pages.get("Heal and shield power")!, "* Heal Power stacks additively with itself, but multiplicatively with other heal modifiers.");
+  quote(pages.get("Template:Healing modifiers")!, "| {{tt|Self heals|Healing source is the user}} || {{a|Yes}} || {{a|Yes}} || {{a|Yes}} || {{a|Yes}} || {{a|No}}");
+  quote(pages.get("Template:Healing modifiers")!, "| {{stil|Bonus health}} || {{a|No}} || {{a|No}} || {{a|No}} || {{a|No}} || {{a|No}}");
 
   quote(pages.get("Coup de Grace")!, "* '''Coup de Grace''' only triggers on damage dealt after the champion is brought {{as|below 40% health}}.");
   const trueAmplification = "* Now affects {{sti|true damage}} dealt, excluding {{si|Smite}}.";
@@ -593,6 +671,16 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
     absorbLife: { heal: absorbHeal },
+    triumph: {
+      maximumHealthRatio: triumphMaximumPercent! / 100, missingHealthRatio: triumphMissingPercent! / 100,
+      delay: triumphDelay!,
+      // Reference economic value only: the fixed-loadout duel does not award or spend it.
+      bonusGold: triumphBonusGold!,
+      // The source establishes missing HP at takedown, not this exact native
+      // callback phase. Both HP terms use the chosen immutable credit frame;
+      // maximum-HP timing and current modifiers at delivery remain assumptions.
+      missingHealthModel: "at-native-kill-credit",
+    },
     legendAlacrity: { baseAttackSpeed: alacrityBase! / 100, attackSpeedPerStack: alacrityPerStack! / 100,
       pointsPerStack: legendPointsPerStack!, maxStacks: alacrityMaxStacks!, championKillPoints },
     legendHaste: { baseHaste: 0, hastePerStack: hastePerStack!, pointsPerStack: hastePointsPerStack!,

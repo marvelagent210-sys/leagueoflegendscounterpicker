@@ -1336,7 +1336,7 @@
         "sha256": "45f9059f1e4828ca23955f2eacf7a8555f5589e2aec5f29f7b89937a3e9d13f6",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Triumph|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 1\n|description  = {{sbc|Passive:}} Scoring a {{tip|takedown}} against an enemy champion {{tip|heals}} you for {{as|{{fd|2.5}}% of your '''maximum''' health}} {{as|(+ 5% of your '''missing''' health)}} and grants you an additional {{g|20}}, both after a 1-second delay.\n|range        = \n|cooldown     = \n|caption      = {{quote|\"The most dangerous game brings the greatest glory.\"|Noxian [[Reckoners|Reckoner]]|Rune caption}}\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 9923,

@@ -1,5 +1,5 @@
 {
-  "note": "Recompute both complete matrices after adding Legend: Bloodline and a source-qualified permanent health award contract, fixed Kled and All Out healing ceilings, and explicit lifesteal eligibility for Kled's fourth-hit and K'Sante's direct All Out attack bonus. Shared engine worker inputs changed; every pairing must be genuinely computed. Compare all default scores, scenarios, variants, decoded builds and spending against the previous baseline; do not assume numerical payloads are unchanged.",
+  "note": "Recompute both complete matrices after adding immutable native kill-credit facts for Triumph's delayed heal snapshot. Shared engine worker inputs changed; every pairing must be genuinely computed. Manual Triumph is opt-in and its source gold reward is not combat income. Compare complete default scores, scenarios, variants, decoded builds and spending with the prior baseline rather than assuming unchanged payloads.",
   "dataset": "16.21",
   "matrices": [
     "sim",

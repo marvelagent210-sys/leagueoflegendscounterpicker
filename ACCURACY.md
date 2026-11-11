@@ -2736,6 +2736,132 @@ remain unfinished. No controlled in-game measurements or complete rune-page
 fidelity are claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md)
 remains in progress.
 
+## Triumph: ninth partial manual effect (11 November implementation; release pending)
+
+Triumph (9111) joins the manual plain-stat inventory as its ninth partial effect.
+Implementation began on **11 November 2026** against main
+`4ffaef9a8ea5d21a936d985a6575e776d51d8d46` (merged PR #25), on
+`codex/triumph-20261111`. The actual release date is pending. The genuine full
+matrix refresh, complete checkpoint audit, actual default-result comparison,
+integrated release checks and final pull-request CI are **pending**. The
+completed Legend releases above remain historical evidence for those batches.
+
+The retained Summoner's Rift rule is **2.5% maximum HP plus 5% missing HP**, with
+a **one-second delay**. The full article explicitly snapshots missing HP at
+takedown. The complete template and frozen client fields corroborate the
+formula; the short client description omits the maximum-HP component. The
+compiled `bonusGold: 20` is **economic reference only**: no combat award, wallet,
+spending, fixed-budget increase, shopping or search change is implemented.
+
+The combat bundle contains **47 complete Wiki page objects**: all 42 previous
+objects remain exactly equal, with these five additions:
+
+| Complete source | Exact revision |
+|---|--:|
+| Template:Rune data Triumph | 3825924 |
+| Triumph | 3980916 |
+| Assist | 4016680 |
+| Heal and shield power | 4021804 |
+| Template:Healing modifiers | 4021803 |
+
+Fourteen independently re-fetched pinned complete Wiki revisions on 11 November
+match their retained content hashes, including nine already present pages.
+The full frozen client remains 2,177,672 bytes, SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`,
+with the same descriptor. Its relevant Triumph and visual-missile objects equal
+the earlier independently fetched complete client response. That restricted
+object equality neither establishes whole-response equality nor represents a
+fresh 11 November client fetch. The known unrelated Electrocute VFX drift was
+not incorporated into the frozen client. These receipts establish retained
+source correspondence, not measured live behavior.
+
+Native `notifyKill` captures immutable scalar credited-owner health/lifecycle
+facts after existing deduplication and owned-pet owner choice, before **all**
+composed `onKill` callbacks. Triumph stores
+`0.025 × maxHpAtCredit + 0.05 × missingHpAtCredit` as a fixed raw amount. The
+source supports missing HP at takedown; choosing this exact native frame and
+maximum HP from the same frame is an explicit local policy. It does not prove
+global live phase or maximum-HP snapshot timing. The native frame follows the
+victim's lethal transition and precedes kit kill-heals, Legend awards and the
+killing packet's later life steal; it is not a pre-lethal or pre-packet frame.
+
+Credit is limited to an actual hostile champion body killed under the existing
+native dispatch, including owner credit for an owned pet's kill and existing
+deduplication. Counted positive-HP fallen victims qualify. Pet/clone victims,
+farm, friendlies, assists, despawns and protected victim resurrection entry do
+not create an entitlement. There is no Triumph history flag or inferred
+pre-duel entitlement. Triumph and Absorb Life share Precision row 1 and cannot
+coexist; Triumph with one Legend is legal, with that side's explicit Legend
+points still required.
+
+Pending amount and deadline belong to the actual body's primitive memory.
+Same-body forms preserve them, world copies have independent state, fresh
+replacement bodies start empty, and copied pet hooks cannot redeem the owner's
+entitlement. There is no side-only scheduled heal. At the first due upkeep tick,
+30 ticks after credit, state is consumed before applying ordinary healing.
+Current healing modifiers/denial, Grievous Wounds, maximum HP and absolute or
+fractional caps govern delivery under a declared modifier-timing policy. This
+does not establish support for every heal/shield-power or Revitalize stacking
+interaction. Pending healing neither adds persistent hostile output nor
+extends a completed duel; existing hostile output alone can keep it running.
+
+Dead, zero-HP, fallen, death-defied and counted-dead recipients receive no new
+entitlement and cancel pending healing. The counted-death guard stays sticky
+even if a fixture restores positive HP before upkeep, preventing banking for a
+later return. Positive-HP attackable resurrection uses ordinary healing, and
+stasis alone remains eligible. These are explicit, unmeasured Triumph recipient
+policies. General respawn, replacement-memory transfer and possession remain
+outside this lifecycle contract.
+
+Focused tests cover actual Kled's combined-maximum formula with fixed own-health
+healing ceiling, and K'Sante's retained maximum HP with All Out's original
+absolute **65%-of-entry-maximum** healing ceiling. The latter is not a formula
+denominator and does not grow with later maximum HP. A legal Triumph/Bloodline
+fixture at **1,499 points** snapshots before Bloodline's one-time +85 award.
+Dismounted Kled can receive +85 maximum HP but only +20 current HP at his cap,
+increasing missing HP by 65; a post-award snapshot would change both formula
+terms. Renata's native kit kill-save also cannot rewrite the prior entitlement.
+These tests prove the declared local phase/caps, not live callback order.
+
+Focused native-credit, source/compiler, manual-selection, champion and CLI checks
+have passed under Node v22.23.4. Champion fixtures include an ordinary victory
+ending before the heal, actual Twitch venom preserving hostile output, and
+Karthus packets immediately before, at and after the deadline using existing
+engine phases. Actual CLI coverage includes both sides, shards, variant choices
+and budget sweeps; the Sion example can redeem during Glory in Death. No
+project-wide release result is inferred from these bounded checks.
+
+This timer omits the visual missile and documented unintended friendly missile
+pops (including Fizz Trickster and Lissandra's self Frozen Tomb). Sourced Wind
+Wall-unblockable behavior and stasis eligibility do not establish full missile
+parity. One pending slot is bounded by the current single-hostile-body duel;
+general queues and the article's repeat-takedown pending-heal update bug remain
+unsupported. Full pages, keystones, general assists/farm, browser combat-rune
+controls, item/rune composition and rune-aware allocation/search remain
+unfinished. Roadmap step 1 remains in progress.
+
+**Required release evidence is pending.** Shared native simulator changes
+require a genuine zero-reuse refresh of **14,878 pairings in each matrix**,
+followed by checking all **29,756 new checkpoints** against complete final
+forward/reverse aggregate scores, scenarios, selected variants, decoded builds
+and spending. The actual payload comparison against the merged main baseline
+must report any changed defaults, including build choices; none are claimed
+unchanged in advance. Final matrix freshness checks, both TypeScript projects,
+the full suite with any retained skips/failures disclosed, production web build
+and final CI must be recorded after that refresh. A fingerprint rewrite,
+source-correctness receipt or focused pass cannot replace genuine computation
+and checkpoint correspondence. The earlier Bloodline selected-build regressions
+remain documented above and are not fixed by this change.
+
+External evidence is retained under
+`/workspace/counter-browser/triumph-20261111-audit/`: `ARCHITECTURE.md`,
+`sources/SOURCE-CONTRACT.md`, `sources/COMPILER-FINAL-RECEIPT.json`,
+`NATIVE-KILL-CREDIT-RECEIPT.json`,
+`champion-tests/CHAMPION-TESTS-FINAL-RECEIPT.json`, and
+`cli-integration-receipt.txt`. `DOC-RELEASE-TARGETS.md` records where final genuine
+refresh, checkpoint, default-diff and release-check evidence must be filled in.
+These local audit paths are evidence locations, not completed release receipts.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

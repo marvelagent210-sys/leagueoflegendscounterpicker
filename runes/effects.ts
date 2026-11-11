@@ -117,6 +117,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     lastStand: ["healthThreshold", "maximumHealthThreshold", "minimumDamageIncrease", "maximumDamageIncrease"],
     secondWind: ["duration", "missingHealthPerSecond", "tickInterval"],
     absorbLife: ["heal"],
+    triumph: ["maximumHealthRatio", "missingHealthRatio", "delay", "bonusGold"],
     legendAlacrity: ["baseAttackSpeed", "attackSpeedPerStack", "pointsPerStack", "maxStacks", "championKillPoints"],
     legendHaste: ["baseHaste", "hastePerStack", "pointsPerStack", "maxStacks", "championKillPoints"],
     legendBloodline: ["baseLifeSteal", "lifeStealPerStack", "pointsPerStack", "maxStacks", "championKillPoints", "bonusHealth"],
@@ -129,7 +130,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
       const zeroAllowed = (name === "legendHaste" && key === "baseHaste")
         || (name === "legendBloodline" && key === "baseLifeSteal");
       if (typeof amount !== "number" || !Number.isFinite(amount) || (zeroAllowed ? amount < 0 : amount <= 0)
-        || (!["duration", "tickInterval", "heal", "pointsPerStack", "maxStacks", "championKillPoints", "baseHaste", "hastePerStack", "bonusHealth"].includes(key) && amount > 1)) {
+        || (!["duration", "tickInterval", "heal", "delay", "bonusGold", "pointsPerStack", "maxStacks", "championKillPoints", "baseHaste", "hastePerStack", "bonusHealth"].includes(key) && amount > 1)) {
         throw new Error(`Invalid combat-rune rule ${name}.${key}`);
       }
     }
@@ -141,6 +142,9 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
   if (value.secondWind.missingHealthModel !== "current-at-regeneration-tick"
     || value.secondWind.tickInterval > value.secondWind.duration) {
     throw new Error("Invalid combat-rune Second Wind regeneration model or interval");
+  }
+  if (value.triumph.missingHealthModel !== "at-native-kill-credit" || !Number.isSafeInteger(value.triumph.bonusGold)) {
+    throw new Error("Invalid combat-rune Triumph snapshot model or economic reference");
   }
   for (const name of ["legendAlacrity", "legendHaste", "legendBloodline"] as const) {
     const rule = value[name];
@@ -159,6 +163,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
+    triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
     legendHaste: { ...value.legendHaste },
     legendBloodline: { ...value.legendBloodline },
