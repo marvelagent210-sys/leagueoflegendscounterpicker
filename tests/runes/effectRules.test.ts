@@ -15,11 +15,14 @@ const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: stru
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
 const selected = [8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105];
+const triumphSources = ["Assist", "Heal and shield power", "Template:Rune data Triumph", "Triumph", "Template:Healing modifiers"];
+const triumphMissilePath = "Perks/Styles/Precision/Triumph/Spells/PerkSoulFeastVisualMissile";
 const gamePaths = [
   "Perks/Styles/Precision/CoupDeGrace", "Perks/Styles/Precision/CutDown",
   "Perks/Styles/Precision/LastStand", "Perks/Styles/Resolve/SecondWind",
   "Perks/Styles/Precision/AbsorbLife", "Perks/Styles/Precision/LegendAlacrity", "Perks/Styles/Precision/LegendHaste",
   "Perks/Styles/Precision/LegendBloodline",
+  "Perks/Styles/Precision/Triumph",
 ] as const;
 interface HealBreakpoint { __type: string; mLevel: number; mBonusPerLevelAtAndAfter: number }
 interface HealPart {
@@ -27,6 +30,7 @@ interface HealPart {
 }
 interface HealCalculation { __type: string; mFormulaParts: HealPart[] }
 interface GamePerk {
+  __type?: string;
   mPerkId: number;
   mPerkName?: string;
   mScript: { mSpellScriptName?: string; mSpellScriptData: {
@@ -68,6 +72,8 @@ describe("reviewed combat rune numeric rules", () => {
       cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
       lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
       secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
+      triumph: { maximumHealthRatio: 0.025, missingHealthRatio: 0.05, delay: 1, bonusGold: 20,
+        missingHealthModel: "at-native-kill-credit" },
     });
     const game = JSON.parse(originalGame) as Game;
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
@@ -76,7 +82,7 @@ describe("reviewed combat rune numeric rules", () => {
       .toEqual(Array(8).fill("manual-effects"));
   });
 
-  it("binds all forty-two complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all forty-seven complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -120,13 +126,21 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Data Pyke/Gift of the Drowned Ones", 4007005],
       ["Template:Data Vladimir/Crimson Pact", 4073468],
       ["Template:Rune data Legend: Bloodline", 3971359],
+      ["Assist", 4016680],
+      ["Heal and shield power", 4021804],
+      ["Template:Rune data Triumph", 3825924],
+      ["Triumph", 3980916],
+      ["Template:Healing modifiers", 4021803],
     ]);
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
+      .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
+    expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(42);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(47);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -249,11 +263,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 42 complete/);
+    expect(() => build(missing)).toThrow(/all 47 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 42 complete/);
+    expect(() => build(extra)).toThrow(/all 47 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -262,7 +276,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(hash)).toThrow(/content hash differs/);
   });
 
-  it.each(selected)("requires the exact catalog identity, position and template for rune %s", (id) => {
+  it.each([...selected, 9111])("requires the exact catalog identity, position and template for rune %s", (id) => {
     for (const key of ["name", "pathId", "slot"] as const) {
       const input = fixture(), rune = input.catalog.runes.find((entry) => entry.id === id)!;
       if (key === "name") rune.name += " changed";
@@ -287,7 +301,9 @@ describe("exact source identity and completeness", () => {
     editWiki(wiki, "Damage modifier", () => excerpts);
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
-    editGame(game, (records) => { for (const key of Object.keys(records)) if (!gamePaths.includes(key as typeof gamePaths[number])) delete records[key]; });
+    editGame(game, (records) => { for (const key of Object.keys(records)) {
+      if (!gamePaths.includes(key as typeof gamePaths[number]) && key !== triumphMissilePath) delete records[key];
+    } });
     expect(() => build(game)).toThrow(/complete reviewed game source changed/);
   });
 
@@ -777,4 +793,155 @@ describe("Legend: Bloodline reviewed source contract", () => {
       editWiki(input, title, () => excerpts);
       expect(() => build(input)).toThrow(new RegExp(`${title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} full reviewed revision changed`));
     });
+});
+
+describe("Triumph reviewed source contract", () => {
+  it("compiles the current maximum-plus-missing-health heal and retains the separate economic reward", () => {
+    expect(build().triumph).toEqual({ maximumHealthRatio: 0.025, missingHealthRatio: 0.05,
+      delay: 1, bonusGold: 20, missingHealthModel: "at-native-kill-credit" });
+    const rule = build().triumph;
+    expect(rule.maximumHealthRatio * 1000 + rule.missingHealthRatio * 800).toBe(65);
+    const amounts = (JSON.parse(originalGame) as Game)[gamePaths[8]]!.mScript.mSpellScriptData.mEffectAmount;
+    expect(amounts).toEqual({ MissingHealthRestored: Math.fround(0.05), BonusGold: 20,
+      TriumphMaxHealthRestored: Math.fround(0.025) });
+    const rune = originalCatalog.runes.find((entry) => entry.id === 9111)!;
+    expect([rune.name, rune.pathId, rune.slot, rune.wiki.revid]).toEqual(["Triumph", 8000, 1, 3825924]);
+  });
+
+  it("retains takedown, snapshot, missile, stasis, assist and self-healing evidence without resolving their timing gaps", () => {
+    const evidence = build().evidence.map((entry) => entry.text).join("\n");
+    for (const text of [
+      "against an enemy champion", "both after a 1-second delay", "{{g|20}}",
+      "missing health at the moment the takedown happened", "all pending '''Triumph''' heals",
+      "unblockable", "prevent both the bonus gold and healing", "properly granted to units in stasis",
+      "An '''assist''' takes place when an ally has helped a teammate",
+      "effectiveness of self and outgoing", "multiplicatively with other heal modifiers",
+      "Self heals|Healing source is the user", "{{stil|Bonus health}}",
+    ]) expect(evidence).toContain(text);
+  });
+
+  it.each([
+    ["{{fd|2.5}}%", "{{fd|3}}%", "TriumphMaxHealthRestored"],
+    ["(+ 5%", "(+ 6%", "MissingHealthRestored"],
+    ["{{g|20}}", "{{g|21}}", "BonusGold"],
+  ])("cross-checks the current Triumph Wiki %s against its named client amount", (old, next, field) => {
+    const input = fixture(); editDescription(input, "Triumph", old, next);
+    expect(() => build(input)).toThrow(new RegExp(`Triumph Wiki/game ${field} disagree`));
+  });
+
+  it.each(["TriumphMaxHealthRestored", "MissingHealthRestored", "BonusGold"])(
+    "rejects missing, changed and nonfinite Triumph client %s", (field) => {
+      for (const value of [undefined, -1, 0, Number.NaN, Number.POSITIVE_INFINITY, 99]) {
+        const input = fixture(); editGame(input, (records) => {
+          const amounts = records[gamePaths[8]]!.mScript.mSpellScriptData.mEffectAmount;
+          if (value === undefined) delete amounts[field];
+          else amounts[field] = value;
+        });
+        expect(() => build(input)).toThrow(new RegExp(`Triumph Wiki/game ${field} disagree`));
+      }
+    });
+
+  it("requires a unique complete current description and both health components", () => {
+    const missing = fixture(); editWiki(missing, "Template:Rune data Triumph", (text) => text.replace("|description  =", "|historical ="));
+    expect(() => build(missing)).toThrow(/Triumph needs its complete current description/);
+    const duplicate = fixture(); editWiki(duplicate, "Template:Rune data Triumph", (text) =>
+      text + "\n" + text.split("\n").find((line) => /^\|description\s*=/.test(line))!);
+    expect(() => build(duplicate)).toThrow(/Triumph needs its complete current description/);
+    for (const [old, next] of [
+      ["{{as|{{fd|2.5}}% of your '''maximum''' health}} ", ""],
+      ["{{as|(+ 5% of your '''missing''' health)}}", ""],
+      ["against an enemy champion", "against an enemy unit"],
+    ]) {
+      const input = fixture(); editDescription(input, "Triumph", old!, next!);
+      expect(() => build(input)).toThrow(/Triumph reviewed formula changed/);
+    }
+  });
+
+  it.each([
+    ["{{fd|2.5}}%", "{{fd|0}}%"], ["{{fd|2.5}}%", "{{fd|-1}}%"],
+    ["(+ 5%", "(+ 0%"], ["(+ 5%", "(+ NaN%"],
+    ["{{g|20}}", "{{g|0}}"], ["{{g|20}}", "{{g|-1}}"],
+    ["a 1-second delay", "a 0-second delay"], ["a 1-second delay", "a Infinity-second delay"],
+    ["{{fd|2.5}}%", `{{fd|${"9".repeat(400)}}}%`],
+  ])("rejects nonpositive or malformed Triumph Wiki amount %s", (old, next) => {
+    const input = fixture(); editDescription(input, "Triumph", old, next);
+    expect(() => build(input)).toThrow(/Triumph.*(?:formula|positive|finite|invalid|disagree)/);
+  });
+
+  it("requires the actual Triumph client identity, script and amount container", () => {
+    const absent = fixture(); editGame(absent, (records) => { delete records[gamePaths[8]]; });
+    expect(() => build(absent)).toThrow(/Triumph game perk must be an object/);
+    const id = fixture(); editGame(id, (records) => { records[gamePaths[8]]!.mPerkId = 9101; });
+    expect(() => build(id)).toThrow(/Triumph game ID differs/);
+    const name = fixture(); editGame(name, (records) => { records[gamePaths[8]]!.mPerkName = "AbsorbLife"; });
+    expect(() => build(name)).toThrow(/Triumph game name, type or script path differs/);
+    const script = fixture(); editGame(script, (records) => { records[gamePaths[8]]!.mScript.mSpellScriptName += ".changed"; });
+    expect(() => build(script)).toThrow(/Triumph game name, type or script path differs/);
+    const type = fixture(); editGame(type, (records) => { records[gamePaths[8]]!.__type = "UnreviewedPerk"; });
+    expect(() => build(type)).toThrow(/Triumph game name, type or script path differs/);
+    const amounts = fixture(); editGame(amounts, (records) => {
+      delete (records[gamePaths[8]]!.mScript.mSpellScriptData as Partial<GamePerk["mScript"]["mSpellScriptData"]>).mEffectAmount;
+    });
+    expect(() => build(amounts)).toThrow(/Triumph game amounts must be an object/);
+  });
+
+  it("corroborates one second with the fixed-time visual missile without treating it as executable server logic", () => {
+    interface Missile {
+      __type: string; objectPath: string; ObjectName: string; mScriptName: string;
+      mSpell: { mMissileSpec: { movementComponent: { __type: string; mTravelTime: number } } };
+    }
+    const movement = (records: Game) =>
+      (records[triumphMissilePath] as unknown as Missile).mSpell.mMissileSpec.movementComponent;
+    expect(movement(JSON.parse(originalGame) as Game)).toMatchObject({ __type: "FixedTimeMovement", mTravelTime: 1 });
+    const delay = fixture(); editDescription(delay, "Triumph", "a 1-second delay", "a 2-second delay");
+    expect(() => build(delay)).toThrow(/Triumph.*(?:delay|travel|mTravelTime|disagree)/i);
+    const missing = fixture(); editGame(missing, (records) => { delete records[triumphMissilePath]; });
+    expect(() => build(missing)).toThrow(/Triumph.*missile.*object/i);
+    for (const key of ["__type", "objectPath", "ObjectName", "mScriptName"] as const) {
+      const identity = fixture(); editGame(identity, (records) => {
+        (records[triumphMissilePath] as unknown as Missile)[key] += ".changed";
+      });
+      expect(() => build(identity)).toThrow(/Triumph visual missile identity differs/);
+    }
+    const type = fixture(); editGame(type, (records) => { movement(records).__type = "SpeedMovement"; });
+    expect(() => build(type)).toThrow(/Triumph.*(?:fixed|movement|missile)/i);
+    for (const value of [0, -1, 2, Number.NaN, Number.POSITIVE_INFINITY]) {
+      const input = fixture(); editGame(input, (records) => { movement(records).mTravelTime = value; });
+      expect(() => build(input)).toThrow(/Triumph.*(?:delay|travel|mTravelTime|disagree)/i);
+    }
+  });
+
+  it("rejects ARAM replacement values and jointly re-pinned Wiki/client formulas", () => {
+    const aram = fixture(); editGame(aram, (records) => {
+      records[gamePaths[8]]!.mScript.mSpellScriptData.mEffectAmount = {
+        MissingHealthRestored: Math.fround(0.03), BonusGold: 10, TriumphMaxHealthRestored: Math.fround(0.015),
+      };
+    });
+    expect(() => build(aram)).toThrow(/Triumph Wiki\/game .* disagree/);
+    const jointlyChanged = fixture(); editDescription(jointlyChanged, "Triumph", "{{fd|2.5}}%", "{{fd|3}}%");
+    editGame(jointlyChanged, (records) => {
+      records[gamePaths[8]]!.mScript.mSpellScriptData.mEffectAmount.TriumphMaxHealthRestored = Math.fround(0.03);
+    });
+    expect(() => build(jointlyChanged)).toThrow(/Template:Rune data Triumph full reviewed revision changed/);
+  });
+
+  it.each(triumphSources)("requires the complete pinned %s revision rather than retained excerpts", (title) => {
+    const input = fixture();
+    const excerpts = build().evidence.filter((entry) => entry.title === title).map((entry) => entry.text).join("\n");
+    editWiki(input, title, () => excerpts);
+    expect(() => build(input)).toThrow(new RegExp(`${title} full reviewed revision changed`));
+  });
+
+  it("binds the missing-health snapshot evidence and preserves unrelated full client bytes", () => {
+    const snapshot = fixture(); editWiki(snapshot, "Triumph", (text) =>
+      text.replace("missing health at the moment the takedown happened", "missing health at the moment the missile arrives"));
+    expect(() => build(snapshot)).toThrow(/Triumph reviewed rule changed/);
+    const mode = fixture(); editGame(mode, (records) => {
+      const data = records[gamePaths[8]]!.mScript.mSpellScriptData as unknown as {
+        mEffectAmountGameMode: { ARAM: { mEffectAmountPerMode: Record<string, number> } };
+      };
+      data.mEffectAmountGameMode.ARAM.mEffectAmountPerMode.BonusGold = 20;
+    });
+    expect(() => build(mode)).toThrow(/complete reviewed game source changed/);
+  });
 });

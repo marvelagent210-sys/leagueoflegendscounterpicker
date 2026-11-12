@@ -824,6 +824,24 @@ export interface ActualMovement {
   ability?: string;
 }
 
+/**
+ * Credited-owner facts after the victim's lethal transition and native kill
+ * deduplication, before any onKill callback. This is a local event phase, not a
+ * claim about live server ordering. Only scalars are retained across callbacks.
+ */
+export interface KillCreditSnapshot {
+  readonly tick: number;
+  readonly hp: number;
+  readonly maxHp: number;
+  readonly missingHp: number;
+  readonly alive: boolean;
+  readonly fallen: boolean;
+  readonly deathDefied: boolean;
+  readonly resurrecting: boolean;
+  readonly deathNotified: boolean;
+  readonly victimIsEnemyChampionBody: boolean;
+}
+
 export interface KitHooks {
   /** Once, before the first tick. */
   onStart?(ctx: HookContext): void;
@@ -882,7 +900,15 @@ export interface KitHooks {
   /** An enemy champion received hostile immobilization, after its own accepted-CC callback. */
   onEnemyCCApplied?(ctx: HookContext & { target: Unit; cc: CCType; source: Unit; ability?: string }): void;
   onTargetResurrection?(ctx: HookContext & { target: Unit }): void;
-  onKill?(ctx: HookContext & { victim: Unit | Pet; pet?: Pet; damage?: { ability?: string; persistent?: boolean } }): void;
+  /** Native notifications always supply frozen killCredit facts. Optional only
+   * for callers constructing a manual hook context; snapshot consumers must not
+   * reconstruct absent facts from state mutated by earlier callbacks. */
+  onKill?(ctx: HookContext & {
+    victim: Unit | Pet;
+    pet?: Pet;
+    damage?: { ability?: string; persistent?: boolean };
+    readonly killCredit?: KillCreditSnapshot;
+  }): void;
   /** One actual hostile combat death, once; expiry/replacement/despawn is excluded. */
   onDeathObserved?(ctx: HookContext & { source: Unit; victim: Unit | Pet; targetPet?: Pet }): void;
   /** Once before a special missile moves, including zero-speed and post-death phases. */

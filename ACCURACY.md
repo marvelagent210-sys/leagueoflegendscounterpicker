@@ -2736,6 +2736,194 @@ remain unfinished. No controlled in-game measurements or complete rune-page
 fidelity are claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md)
 remains in progress.
 
+## Triumph: ninth partial manual effect (11 November full refresh)
+
+Triumph (9111) joins the manual plain-stat inventory as its ninth partial effect.
+Implementation began on **11 November 2026** against main
+`4ffaef9a8ea5d21a936d985a6575e776d51d8d46` (merged PR #25), on
+`codex/triumph-20261111`. The genuine full matrix refresh, complete checkpoint
+audit and core release checks completed on **11 November**. Complete default
+result payloads are unchanged against that merged-main baseline. The offline
+catalog freshness check passed again on **12 November**; final delivery CI is
+tracked in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26) for its actual delivery head.
+The completed Legend releases above remain historical evidence for those batches.
+
+The retained Summoner's Rift rule is **2.5% maximum HP plus 5% missing HP**, with
+a **one-second delay**. The full article explicitly snapshots missing HP at
+takedown. The complete template and frozen client fields corroborate the
+formula; the short client description omits the maximum-HP component. The
+compiled `bonusGold: 20` is **economic reference only**: no combat award, wallet,
+spending, fixed-budget increase, shopping or search change is implemented.
+
+The combat bundle contains **47 complete Wiki page objects**: all 42 previous
+objects remain exactly equal, with these five additions:
+
+| Complete source | Exact revision |
+|---|--:|
+| Template:Rune data Triumph | 3825924 |
+| Triumph | 3980916 |
+| Assist | 4016680 |
+| Heal and shield power | 4021804 |
+| Template:Healing modifiers | 4021803 |
+
+Fourteen independently re-fetched pinned complete Wiki revisions on 11 November
+match their retained content hashes, including nine already present pages.
+The full frozen client remains 2,177,672 bytes, SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`,
+with the same descriptor. Its relevant Triumph and visual-missile objects equal
+the earlier independently fetched complete client response. That restricted
+object equality neither establishes whole-response equality nor represents a
+fresh 11 November client fetch. The known unrelated Electrocute VFX drift was
+not incorporated into the frozen client. These receipts establish retained
+source correspondence, not measured live behavior.
+
+Native `notifyKill` captures immutable scalar credited-owner health/lifecycle
+facts after existing deduplication and owned-pet owner choice, before **all**
+composed `onKill` callbacks. Triumph stores
+`0.025 × maxHpAtCredit + 0.05 × missingHpAtCredit` as a fixed raw amount. The
+source supports missing HP at takedown; choosing this exact native frame and
+maximum HP from the same frame is an explicit local policy. It does not prove
+global live phase or maximum-HP snapshot timing. The native frame follows the
+victim's lethal transition and precedes kit kill-heals, Legend awards and the
+killing packet's later life steal; it is not a pre-lethal or pre-packet frame.
+
+Credit is limited to an actual hostile champion body killed under the existing
+native dispatch, including owner credit for an owned pet's kill and existing
+deduplication. Counted positive-HP fallen victims qualify. Pet/clone victims,
+farm, friendlies, assists, despawns and protected victim resurrection entry do
+not create an entitlement. There is no Triumph history flag or inferred
+pre-duel entitlement. Triumph and Absorb Life share Precision row 1 and cannot
+coexist; Triumph with one Legend is legal, with that side's explicit Legend
+points still required.
+
+Pending amount and deadline belong to the actual body's primitive memory.
+Same-body forms preserve them, world copies have independent state, fresh
+replacement bodies start empty, and copied pet hooks cannot redeem the owner's
+entitlement. There is no side-only scheduled heal. At the first due upkeep tick,
+30 ticks after credit, state is consumed before applying ordinary healing.
+Current healing modifiers/denial, Grievous Wounds, maximum HP and absolute or
+fractional caps govern delivery under a declared modifier-timing policy. This
+does not establish support for every heal/shield-power or Revitalize stacking
+interaction. Pending healing neither adds persistent hostile output nor
+extends a completed duel; existing hostile output alone can keep it running.
+
+Dead, zero-HP, fallen, death-defied and counted-dead recipients receive no new
+entitlement and cancel pending healing. The counted-death guard stays sticky
+even if a fixture restores positive HP before upkeep, preventing banking for a
+later return. Positive-HP attackable resurrection uses ordinary healing, and
+stasis alone remains eligible. These are explicit, unmeasured Triumph recipient
+policies. General respawn, replacement-memory transfer and possession remain
+outside this lifecycle contract.
+
+Focused tests cover actual Kled's combined-maximum formula with fixed own-health
+healing ceiling, and K'Sante's retained maximum HP with All Out's original
+absolute **65%-of-entry-maximum** healing ceiling. The latter is not a formula
+denominator and does not grow with later maximum HP. A legal Triumph/Bloodline
+fixture at **1,499 points** snapshots before Bloodline's one-time +85 award.
+Dismounted Kled can receive +85 maximum HP but only +20 current HP at his cap,
+increasing missing HP by 65; a post-award snapshot would change both formula
+terms. Renata's native kit kill-save also cannot rewrite the prior entitlement.
+These tests prove the declared local phase/caps, not live callback order.
+
+Focused native-credit, source/compiler, manual-selection, champion and CLI checks
+have passed under Node v22.23.4. Champion fixtures include an ordinary victory
+ending before the heal, actual Twitch venom preserving hostile output, and
+Karthus packets immediately before, at and after the deadline using existing
+engine phases. Actual CLI coverage includes both sides, shards, variant choices
+and budget sweeps; the Sion example can redeem during Glory in Death. No
+project-wide release result is inferred from these bounded checks.
+
+This timer omits the visual missile and documented unintended friendly missile
+pops (including Fizz Trickster and Lissandra's self Frozen Tomb). Sourced Wind
+Wall-unblockable behavior and stasis eligibility do not establish full missile
+parity. One pending slot is bounded by the current single-hostile-body duel;
+general queues and the article's repeat-takedown pending-heal update bug remain
+unsupported. Full pages, keystones, general assists/farm, browser combat-rune
+controls, item/rune composition and rune-aware allocation/search remain
+unfinished. Roadmap step 1 remains in progress.
+
+### Genuine full refresh and complete default comparison
+
+The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392)
+ran frozen compute source `683e726b4ab3c029b3f1530bf8df86332c69bdff` and completed
+at 19:04 UTC. All **22 jobs** succeeded: plan, five plain-stat workers, fifteen
+build workers and assembly. The actual plan and assembly logs record
+**14,878 computed and zero reused per matrix**. Generated outputs are committed
+at `f0a25fe1f11026e94a18f553351507d95c0f308b`, directly after that source commit.
+Both shared input keys and simulation fingerprints changed; no champion-kit
+input key changed.
+
+All **20 original worker artifacts** are retained with their GitHub API run,
+source and artifact identities, original ZIP byte sizes and SHA-256 digests,
+and matching TGZ member bytes. The read-only validator checked all **29,756
+genuine checkpoints**: exactly 14,878 distinct unordered pairs per matrix,
+covering all **173 champions and 29,756 directed cells per matrix**. Every final
+forward/reverse aggregate score, all six scenarios, selected variants, decoded
+build lists and spending match their actual checkpoints. Frozen calculation
+and raw-source inputs match the compute commit; the six release documents were
+updated after the audit. A fingerprint update alone was not used as evidence
+of computation.
+
+The complete numerical comparison against
+`4ffaef9a8ea5d21a936d985a6575e776d51d8d46` found **zero changed pairs and zero
+changed directions in either matrix**. Aggregate scores, every scenario,
+selected variants, decoded builds and item sets, and rounded stat spending are
+unchanged. Apart from the separately recorded input/provenance changes, the
+comparison reports no matrix metadata changes. The earlier Bloodline
+selected-build regressions remain documented above and are not fixed by this
+change; unchanged defaults establish neither a globally optimal search nor
+measured live-game accuracy.
+
+### Integrated checks and retained receipts
+
+The successful assembly job ran both TypeScript projects and the complete test
+suite: **9,280 passed, five existing skips, 9,285 total across 266 files**.
+The post-refresh local closeout used pinned Node **v22.23.4** and passed both
+ordinary matrix freshness checks, all **24 tests** in the two formerly stale
+generated-data test files, and the production web build (**265 modules**).
+The three pre-refresh stale-data failures cleared after the genuine outputs
+landed; assertions and numerical tolerances were retained. The existing large
+web-chunk warning remains. On **12 November**, the offline rune catalog
+freshness check passed again: 62 runes in five paths and all seven shards match
+the committed catalog outputs. Final pull-request validation is tracked on the
+actual delivery head in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26); the completed refresh
+and core checks above apply to the source/generated commits identified here.
+
+External evidence is retained under
+`/workspace/counter-browser/triumph-20261111-audit/`:
+
+- `refresh-run-final-01.json`, `refresh-run-monitor-final-01.json`,
+  `refresh-plan-proof-01.json` and `refresh-aggregate-job-api.log`: actual run,
+  source, plan, assembly and full-suite evidence.
+- `closeout-after-refresh-01-artifact-preservation.json` and
+  `refresh-artifacts/`: original twenty ZIP/API identities, verified digests
+  and matching TGZ bytes.
+- `refresh-validation-closeout-after-refresh-01.json` and
+  `refresh-validation-closeout-after-refresh-01-diff.json`: complete real
+  checkpoint correspondence and default-payload comparison. The unchanged
+  `validate-refresh.py` SHA-256 is
+  `c31661b85008376109afb52f80b2d5679222aca46c7729e2f916fe2f6455f740`.
+- `FINAL-REFRESH-INDEPENDENT-REVIEW-20261112.json`: independent artifact,
+  source-seal and complete default-payload comparison, with no blocking findings.
+- `source-freeze-01.json`, `compute-source-commit-01.json` and
+  `closeout-after-refresh-01.json`: exact worker/source seal, guarded generated
+  commit fast-forward and all completed local closeout stages.
+- `closeout-after-refresh-01-sim-freshness.json`,
+  `closeout-after-refresh-01-builds-freshness.json`,
+  `closeout-after-refresh-01-formerly-stale-results.json` and
+  `closeout-after-refresh-01-web-build.json`: successful post-refresh checks.
+- `catalog-freshness-release-20261112-01.json`: the 12 November offline catalog
+  check. Each command has its own retained log and exact invocation.
+- `ARCHITECTURE.md`, `sources/SOURCE-CONTRACT.md`,
+  `sources/COMPILER-FINAL-RECEIPT.json`, `NATIVE-KILL-CREDIT-RECEIPT.json`,
+  `champion-tests/CHAMPION-TESTS-FINAL-RECEIPT.json` and
+  `cli-integration-receipt.txt`: the bounded source, native, runtime, actual
+  champion and manual CLI contracts described above.
+
+These local audit paths retain reproducible evidence locations. The checks do
+not measure exact live global phase, every recipient protected window or full
+visual-missile behavior. Full rune combat remains roadmap step 1, in progress.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

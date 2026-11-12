@@ -7,6 +7,7 @@ import { ABSORB_LIFE_ASSUMPTIONS, absorbLifeHooks } from "./absorbLife";
 import { buildLegendAlacrity } from "./legendAlacrity";
 import { buildLegendHaste } from "./legendHaste";
 import { buildLegendBloodline } from "./legendBloodline";
+import { buildTriumph } from "./triumph";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
@@ -17,6 +18,7 @@ export interface RuneEffectBuild {
 }
 
 export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRuneRules, options: RuneEquipOptions = {}): RuneEffectBuild {
+  if (id === 9111) return buildTriumph(rules);
   if (id === 9103) {
     if (options.legendPoints === undefined) throw new Error("Legend: Bloodline requires explicit starting Legend points");
     return buildLegendBloodline(rules, options.legendPoints);

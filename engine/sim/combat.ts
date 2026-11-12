@@ -438,7 +438,30 @@ export function notifyKill(world: World, killer: Unit, victim: Unit | Pet, damag
   const hook = credited.spec.hooks?.onKill;
   // Deduplication above bounds kill callbacks; a legitimate chained kill must not
   // disappear merely because its lethal packet was nested inside another hook.
-  if (hook) hook({ ...hookContext(world, credited, undefined, "side" in victim ? victim : undefined), victim, ...("side" in victim ? {} : { pet: victim }), ...(damage ? { damage } : {}) });
+  if (hook) {
+    const maxHp = derive(credited).maxHp;
+    // Capture before kit/item/rune kill callbacks can change either body. The
+    // victim's onLethal has already run; killing-packet life steal follows this.
+    const killCredit = Object.freeze({
+      tick: world.tick,
+      hp: credited.hp,
+      maxHp,
+      missingHp: Math.max(0, maxHp - credited.hp),
+      alive: credited.alive,
+      fallen: credited.fallen === true,
+      deathDefied: credited.deathDefied !== undefined,
+      resurrecting: credited.resurrection !== undefined,
+      deathNotified: credited.deathNotified === true,
+      victimIsEnemyChampionBody: "side" in victim && victim.petId === undefined
+        && victim.side !== credited.side && world.units[victim.side] === victim
+        && (victim.hp <= 0 || victim.fallen === true),
+    });
+    const ctx = { ...hookContext(world, credited, undefined, "side" in victim ? victim : undefined), victim, ...("side" in victim ? {} : { pet: victim }), ...(damage ? { damage } : {}), killCredit };
+    // Keep ordinary context/memory mutable while no earlier hook can replace the
+    // native facts seen by a later hook in the same composition.
+    Object.defineProperty(ctx, "killCredit", { writable: false, configurable: false });
+    hook(ctx);
+  }
   for (const observer of world.units) {
     const observed = observer.spec.hooks?.onDeathObserved;
     if (observed && observer.alive && observer.hp > 0) runHook(() => observed({ ...hookContext(world, observer), source: killer, victim, ...("side" in victim ? {} : { targetPet: victim }) }));

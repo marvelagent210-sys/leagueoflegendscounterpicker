@@ -10,6 +10,15 @@ export interface CombatRuneRules {
   dataset: string;
   patch: string;
   absorbLife: { heal: number };
+  triumph: {
+    maximumHealthRatio: number;
+    missingHealthRatio: number;
+    delay: number;
+    /** Economic source reference only; partial duels neither award nor spend it. */
+    bonusGold: number;
+    /** Chosen local phase for both terms; only a takedown missing-HP snapshot is sourced. */
+    missingHealthModel: "at-native-kill-credit";
+  };
   coupDeGrace: { healthThreshold: number; damageIncrease: number };
   cutDown: { healthThreshold: number; damageIncrease: number };
   legendAlacrity: {

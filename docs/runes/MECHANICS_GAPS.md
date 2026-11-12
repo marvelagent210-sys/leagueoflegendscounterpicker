@@ -8,6 +8,86 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Triumph: bounded timer and unresolved live phase
+
+Triumph implementation began on 11 November 2026 as the ninth partial manual
+effect. Its genuine full matrix refresh, checkpoint audit and core release checks
+completed that day, with complete default result payloads unchanged. Final
+delivery CI is tracked in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26).
+The current combat bundle has 47 complete pages, preserving all 42 preceding
+objects and the exact frozen full client bytes. Fourteen pinned complete Wiki
+sources were independently re-fetched on 11 November with matching hashes.
+Historical Legend sections below retain their original bundle counts and
+release results; those are not Triumph validation.
+
+The complete [template 3825924](https://wiki.leagueoflegends.com/en-us/?oldid=3825924)
+and [article 3980916](https://wiki.leagueoflegends.com/en-us/?oldid=3980916)
+establish Summoner's Rift's `2.5% maximum HP + 5% missing HP`, a one-second delay,
+and missing HP at takedown. They do not establish maximum-HP snapshot timing,
+exact phase relative to kit kill-heals, Legend awards or life steal, every
+modifier snapshot, or all recipient protected-window behavior.
+
+The chosen native contract freezes credited-owner scalar health/lifecycle
+facts after existing deduplication and owned-pet owner choice, before all
+composed `onKill` callbacks. Both formula terms use that same frame as a
+declared local policy. It follows the victim's lethal transition; it is neither
+pre-lethal nor proof of the global live event phase. A legal Triumph/Bloodline
+selection at 1,499 points captures before the +85 cap award. Dismounted Kled's
+award may restore only 20 current HP at his fixed own-health ceiling, increasing
+missing HP by 65 while maximum HP rises by 85. A late snapshot would change
+both terms. Renata's kit kill-save provides another actual mutation that cannot
+rewrite the immutable frame. The new tests establish those local consequences.
+
+Kled's formula denominator remains combined Kled+Skaarl maximum HP; ordinary
+healing clamps to his own-health ceiling when dismounted. K'Sante retains his
+maximum HP while All Out keeps its old absolute 65%-of-entry-maximum healing
+ceiling through later health gains. That ceiling is not maximum HP and is not
+recomputed from a Bloodline award. Triumph uses ordinary healing, separate from
+Bloodline's direct maximum/current-health award and its different protections.
+
+A fixed raw amount and one-second deadline live in the actual body's primitive
+memory. On the first due upkeep tick (30 ticks at 30 Hz), the pending state is
+consumed before ordinary healing with current modifiers and caps. That delivery
+phase and modifier timing are explicit policies. Same-body forms retain state,
+world copies are independent, fresh replacement bodies start without it, and
+pet views cannot redeem it. Side-only scheduling is not used. Ordinary victory
+is never extended to wait for the heal; existing persistent hostile output must
+keep the duel active. Future replacement/respawn memory transfer or possession
+needs a separate actor-lifecycle contract.
+
+Actual hostile champion-body kills qualify with native owner credit and
+deduplication, including counted positive-HP fallen victims. Pet/clone victims,
+farm, assists, friendlies and protected victim resurrection entry do not count.
+No starting-history flag or pre-duel entitlement is invented. Dead, zero-HP,
+fallen, death-defied or counted-dead recipients receive no new entitlement and
+cancel pending healing. A sticky counted-death guard prevents banking through a
+later positive-HP return. Positive-HP attackable resurrection follows ordinary
+healing, and stasis alone remains eligible. These are unmeasured Triumph-specific
+recipient policies, distinct from whether a victim's death counts.
+
+Triumph and Absorb Life share Precision row 1, so a purported combined selection
+cannot establish legal ordering. One Legend can accompany Triumph with explicit
+points for that side. The compiled +20 gold is economic reference only; it is
+neither awarded nor spent and changes no fixed budget, shop or search account.
+The timer omits the visual missile and its documented unintended friendly pops,
+including Fizz Trickster and Lissandra's self Frozen Tomb. Wind Wall-unblockable
+behavior and stasis eligibility do not establish all missile interactions.
+General assist credit, multiplayer queues and the repeat-takedown pending-heal
+update bug are unfinished; one pending slot covers only the current one-enemy-body
+duel.
+
+The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392) computed
+all 14,878 pairings per matrix with zero reuse, and all 29,756 new checkpoints
+match final forward/reverse aggregate scores, scenarios, variants, decoded builds
+and spending. Complete default result payloads are unchanged. All 22 jobs and
+9,280 tests across 266 files passed, with five existing skips; both matrix
+freshness checks, the 24 formerly stale-file tests and production build passed.
+The offline catalog freshness check passed on 12 November. The
+[accuracy log](../../ACCURACY.md) retains the exact evidence. These results do
+not measure the unresolved live phases or establish live-game accuracy. Full
+pages, browser controls, item/rune composition and rune-aware allocation/search
+remain unfinished; roadmap step 1 remains in progress.
+
 ## Separate amplifier packets
 
 [Damage modifier, revision 4050138](https://wiki.leagueoflegends.com/en-us/?oldid=4050138)

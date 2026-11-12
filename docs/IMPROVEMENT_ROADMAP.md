@@ -6,7 +6,7 @@ and checked. This list records goals, not a claim that the work is complete.
 
 | Order | Improvement | Status and scope |
 |--:|---|---|
-| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Eight partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life and the three Legend runes. Each selected Legend requires declared starting points and currently progresses only from real champion-body kills. Haste's genuine full matrix refresh and release checks completed on 8 November, including the observed default-result changes. Bloodline's genuine full refresh and checkpoint audit completed on 10 November: plain-stat payloads are unchanged and 22 build pairings changed. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
+| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Nine partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life, the three Legend runes and Triumph. Triumph's genuine full refresh and checkpoint audit completed on 11 November, with default result payloads unchanged. Each selected Legend requires declared starting points and currently progresses only from real champion-body kills. Haste's genuine full matrix refresh and release checks completed on 8 November, including the observed default-result changes. Bloodline's genuine full refresh and checkpoint audit completed on 10 November: plain-stat payloads are unchanged and 22 build pairings changed. Complete pages, keystones, remaining effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
 | 2 | Controlled in-game measurements | Planned. Compare recorded damage, timing and interactions with reproducible in-game setups, retain the setup and patch, and turn discrepancies into mechanics regressions. |
 | 3 | Summoner spells and browser boots format | Planned. Add explicit summoner loadouts and their combat behavior, and expose the existing five-items-with-boots build format in the browser. |
 | 4 | Better combat decisions | Planned. Improve spacing, chase, disengage, defensive timing and ability sequencing, with reproducible scenarios that show the decisions and their limits. |
@@ -18,7 +18,7 @@ and checked. This list records goals, not a claim that the work is complete.
 | 10 | Better two-dimensional geometry | Planned. Improve side-stepping, facing, area placement, terrain and pet positions beyond the current one-dimensional approximations. |
 | 11 | Phone and offline app features | Planned. Add persistent offline access, champion pools and saved comparisons with clear model-version and update behavior. |
 
-Step 1's eight manual effects use the retained patch 26.21 sources. The health
+Step 1's nine manual effects use the retained patch 26.21 sources. The health
 amplifiers use the simulator's aggregate outgoing-damage model; the source's
 separate amplifier damage instances are not represented. Second Wind's missing
 health sampling and first regeneration pulse are explicit timing assumptions.
@@ -84,6 +84,10 @@ variants and spending are unchanged. All 22 workflow jobs and 9,151 tests across
 262 files passed, with five existing skips. The accuracy log records validation
 receipts and the complete comparison. These results do not establish a globally
 optimal build search or measured live-game accuracy. Step 1 remains in progress.
+
+Triumph is an explicit manual selection with no inferred pre-fight entitlement. It stores 2.5% maximum HP plus 5% missing HP at the immutable native credit frame before all `onKill` callbacks, then uses ordinary healing on the first upkeep at its one-second deadline. This native phase, maximum-HP timing, delivery-time modifiers and recipient lifecycle are declared policies with unmeasured live behavior. The heal never prolongs a completed duel. Its +20 gold is economic reference only; assists, farm, pet victims, the repeat-takedown update bug and friendly missile-destruction exceptions remain unsupported. Triumph and Absorb Life share a row; one Legend can accompany Triumph with explicit starting points.
+
+The 47-page combat bundle preserves the prior 42 complete objects and frozen full client source. The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392) computed all 14,878 pairings per matrix with zero reuse; all 29,756 new checkpoints match final forward/reverse outputs. Complete default result payloads are unchanged. All 22 jobs and 9,280 tests across 266 files passed, with five existing skips; both matrix freshness checks, the 24 formerly stale-file tests and production build passed. The offline catalog freshness check passed on 12 November; final PR validation is tracked in the accuracy log. These results do not establish live-game accuracy or repair the earlier documented build-selection regressions. Full pages, browser effect controls, item/rune composition and rune-aware allocation/search remain unfinished. Step 1 stays in progress.
 
 The remaining steps will need their own source review, implementation and
 validation. Their calculation costs will be measured as they are built; this
