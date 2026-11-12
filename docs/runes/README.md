@@ -3,13 +3,12 @@
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
 Manual plain-stat duels also support nine partial combat effects, listed below.
-Triumph implementation began on 11 November; its genuine full refresh,
-default-result comparison and release checks are pending. Bloodline's genuine
-full refresh and checkpoint audit completed on 10 November. Full rune pages
-and rune-page search remain unfinished. The existing Udyr-specific Triple
-Tonic behavior still reads its original `runes.json`; default matchups select
-none of these optional effects. Triumph's shared native change nevertheless
-requires a genuine full refresh of both default matrices. Full rune combat is step 1 of the [ordered improvement
+Triumph's genuine full refresh and checkpoint audit completed on 11 November;
+complete default result payloads are unchanged. Bloodline's genuine full refresh
+and checkpoint audit completed on 10 November. Full rune pages and rune-page
+search remain unfinished. The existing Udyr-specific Triple Tonic behavior still
+reads its original `runes.json`; default matchups select none of these optional
+effects. Full rune combat is step 1 of the [ordered improvement
 roadmap](../IMPROVEMENT_ROADMAP.md) and remains in progress.
 
 For dataset 16.21 (patch 26.21), the catalog contains **62 runes in five paths**,
@@ -194,12 +193,13 @@ selection require further implementation and validation. These nine catalog entr
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
 
-### Triumph: native credit, delayed healing and pending release
+### Triumph: native credit, delayed healing and full refresh
 
-Implementation began on 11 November 2026. The actual release date, genuine full
-matrix refresh, default-result comparison, integrated release checks and final
-CI are pending. Focused source, native-credit, champion and CLI tests have
-passed; their scope does not establish unchanged defaults or live-game accuracy.
+Implementation began on 11 November 2026. The genuine full matrix refresh,
+checkpoint audit and core release checks completed that day; default result
+payloads are unchanged. Final delivery CI is tracked in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26).
+The source, native-credit, champion and CLI checks establish their stated local
+contracts; no live-game measurements were made.
 
 The complete [Triumph template 3825924](https://wiki.leagueoflegends.com/en-us/?oldid=3825924)
 and [article 3980916](https://wiki.leagueoflegends.com/en-us/?oldid=3980916),
@@ -266,13 +266,19 @@ exceptions, including Fizz Trickster and Lissandra's self Frozen Tomb. The
 source's Wind Wall-unblockable behavior and stasis eligibility do not establish
 full missile parity.
 
-The shared native change requires all **14,878 pairings per matrix** genuinely
-recomputed with zero reuse, then all **29,756 new checkpoints** checked against
-complete final forward/reverse scores, scenarios, variants, builds and spending.
-That refresh and its measured default-result comparison remain pending; a
-current-looking fingerprint or source receipt cannot substitute for them. Full
-pages, browser combat-rune controls, item/rune composition and rune-aware
-allocation/search remain unfinished. Roadmap step 1 remains in progress.
+The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392) computed all
+**14,878 pairings per matrix with zero reuse**. All **29,756 new checkpoints**
+match complete final forward/reverse scores, scenarios, variants, decoded builds
+and spending across all 173 champions. The complete baseline comparison found
+zero changed result payloads in either matrix, including item sets and spending;
+shared input keys and simulation provenance changed, while kit keys did not.
+All 22 jobs and **9,280 tests across 266 files** passed, with five existing skips.
+Both matrix freshness checks, all 24 formerly stale-file tests and the production
+build passed. The offline catalog freshness check passed again on 12 November.
+The [accuracy log](../../ACCURACY.md) records exact source/data identities and
+validation receipts. Full pages, browser combat-rune controls, item/rune
+composition and rune-aware allocation/search remain unfinished. Roadmap step 1
+remains in progress.
 
 ### Legend: Bloodline: life steal and the cap-health award
 

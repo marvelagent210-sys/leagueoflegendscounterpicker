@@ -11,8 +11,9 @@ remain in force.
 ## Triumph: bounded timer and unresolved live phase
 
 Triumph implementation began on 11 November 2026 as the ninth partial manual
-effect. Its actual release date, genuine full matrix refresh, checkpoint audit,
-default-result comparison, integrated release checks and final CI are pending.
+effect. Its genuine full matrix refresh, checkpoint audit and core release checks
+completed that day, with complete default result payloads unchanged. Final
+delivery CI is tracked in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26).
 The current combat bundle has 47 complete pages, preserving all 42 preceding
 objects and the exact frozen full client bytes. Fourteen pinned complete Wiki
 sources were independently re-fetched on 11 November with matching hashes.
@@ -75,11 +76,15 @@ General assist credit, multiplayer queues and the repeat-takedown pending-heal
 update bug are unfinished; one pending slot covers only the current one-enemy-body
 duel.
 
-Because native simulator code changed, release requires genuinely recomputing
-all 14,878 pairings per matrix with zero reuse and checking all 29,756 new
-checkpoints against final forward/reverse payloads. That refresh, the measured
-default comparison and final release checks are pending. Source correspondence
-and focused passes do not prove unchanged defaults or live-game accuracy. Full
+The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392) computed
+all 14,878 pairings per matrix with zero reuse, and all 29,756 new checkpoints
+match final forward/reverse aggregate scores, scenarios, variants, decoded builds
+and spending. Complete default result payloads are unchanged. All 22 jobs and
+9,280 tests across 266 files passed, with five existing skips; both matrix
+freshness checks, the 24 formerly stale-file tests and production build passed.
+The offline catalog freshness check passed on 12 November. The
+[accuracy log](../../ACCURACY.md) retains the exact evidence. These results do
+not measure the unresolved live phases or establish live-game accuracy. Full
 pages, browser controls, item/rune composition and rune-aware allocation/search
 remain unfinished; roadmap step 1 remains in progress.
 
