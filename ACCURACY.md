@@ -2924,6 +2924,236 @@ These local audit paths retain reproducible evidence locations. The checks do
 not measure exact live global phase, every recipient protected window or full
 visual-missile behavior. Full rune combat remains roadmap step 1, in progress.
 
+## Presence of Mind: tenth partial manual effect (13 November local validation)
+
+Presence of Mind (8009) joins the explicit manual plain-stat inventory as its
+tenth partial effect. Source preparation and design began on 11–12 November;
+runtime implementation began on **13 November 2026**, from merged main
+`a775b5ffdd694502a68c6457dd4d59865dd98225` after Triumph PR #26. Its normal local
+provenance refresh completed on 13 November, reusing all 14,878 pairings per
+matrix with zero new computation. Independent complete comparison found
+unchanged default result payloads. Local validation completed with **9,510
+passed tests and five existing skips**; pull-request checks run separately
+against the actual delivery head. The completed Legend and
+Triumph sections above retain their own historical evidence; their counts do
+not establish validation for this new effect.
+
+### Retained source contract and conflicts
+
+The current combat bundle contains **63 complete Wiki page objects**: all 47
+previous objects are preserved exactly and sixteen direct dependencies are
+added. They include the complete Presence template/article, Mana and Energy,
+Ability resource, Mana regeneration, Range type and its rendering template,
+Rune, Cast time, Death and protected-state definitions, plus Ryze's passive and
+Akali's shroud. Twenty-five directly used pinned complete pages were
+independently re-fetched on 13 November with matching metadata and content.
+The frozen complete client bytes and descriptor remain unchanged, SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+The compiler retains exact identities, full-content hashes and normal-mode
+fields; ARAM/KINGPORO's 10% takedown override does not replace the normal 15%.
+
+| Direct source | Revision | Rule used or conflict retained |
+|---|---:|---|
+| Template:Rune data Presence of Mind | 3985219 | Flat damage restoration, eight-second cooldown, Mana-only ranged reduction and delayed 15% maximum-resource restoration. |
+| Presence of Mind | 4062635 | Current effect versus retired regeneration/stacking effects, and a bug-labelled full-Mana consumption note. |
+| Template:Range difference | 4060743 | The second arm is ranged; the 0.8 factor applies to Mana, not the separate six Energy. |
+| Template:Data Ryze/Arcane Mastery | 4059875 | Current AP-derived maximum Mana must be derived rather than read from the unconverted base pool. |
+| Template:Data Akali/Twilight Shroud | 4007406 | Shroud adds 100 maximum Energy; the older Presence article's 280/42 example is stale. |
+
+The complete 31-entry `ByCharLevelFormulaCalculationPart` starts at level zero.
+Its detailed table and complete Wiki piecewise formula agree through the
+model's level 20: level 18 gives 44 mana, level 19 gives 52 and level 20 gives
+**56**. The current ranged form receives **44.8** at level 20; Energy receives
+**6** regardless of range type. Named `MinFlatRestore=6`, `MaxFlatRestore=50`
+and abbreviated 6–50 tooltip text conflict with that detailed curve. They
+remain retained evidence; the implementation neither interpolates 6–50 nor
+caps the supported level-20 amount at 50. No live script expression was
+measured. This manual interface does not introduce a general lower-level rune
+system or the retired resource-regeneration/maximum-pool stacking effects.
+
+### Resource events and declared local timing
+
+One existing damage observer handles the actual owner or a native ordinary
+owned-pet actor damaging the actual opposing champion body. Released pet
+missiles retain their actor identity after pet removal; no live-pet lookup or
+whole-hit bridge invents another proc. The chosen damage policy requires
+individually finite, nonnegative HP loss and shield absorption whose sum is
+positive. Shield-only damage qualifies; zero-effective late parries do not.
+The current owner's form determines Mana's ranged factor at the callback, not
+numeric reach, projectile presence or the pet's range type.
+
+The damage clock lasts **eight seconds / 240 ticks**, without ability-haste
+scaling, and is consumed before ordinary resource restoration even when the
+pool is full. The full-Mana rule interprets the article's bug-labelled
+consumption note; full-Energy consumption and exact callback sampling are
+explicit unmeasured policies. A form change retains the same body's clock.
+A normal damaging cast spends its captured cost before the damage callback;
+restoration is not approximated in `onCast`.
+
+Native actual hostile champion-body kill credit creates one body-local
+**one-second / 30-tick** entitlement, with existing owner credit and
+deduplication. No pre-fight entitlement, assist, farm or general multiplayer
+queue is inferred. The immutable credit frame establishes the actual body
+kill and tick, but supplies no resource or maximum-resource snapshot. This
+rune saves the current resource kind and deadline, then computes **15% of the
+current derived maximum at delivery**. A changed kind consumes the pending
+entitlement without transferring it into another resource. Delivery-time cap
+sampling is a local policy, not a sourced snapshot instant. Ryze's AP-to-Mana
+conversion and Akali's temporary maximum Energy therefore use their current
+derived caps; the stale Akali article example is not hardcoded.
+
+Restoration uses the engine's capped resource effect, separate from healing,
+regeneration, Grievous Wounds, heal amplification and `noHealing`. The delayed
+resource policy permits living, fallen, counted-dead or ordinary dead owners
+when the world is already active; it does not heal or revive them. Both upkeep
+paths consume primitive Unit memory before applying the effect. Cloned worlds
+and same-body forms retain independent/correct state without closure-owned
+pending data. The timer never prolongs an otherwise ended duel, and no extra
+post-duel second is fabricated to demonstrate a benefit. This resource policy
+is distinct from Triumph's bounded HP-healing eligibility.
+
+### Focused local checks and verified commands
+
+The retained focused checks passed on 13 November: 317 source/compiler tests,
+80 Presence runtime tests, twelve new actual-champion cases alongside fifteen
+existing resource-formula cases, and 108 CLI/selection/catalog tests. The last
+group comprises 25 Presence CLI cases, 51 selection cases and 32 catalog cases;
+the actual exhaustive selection check accepts **128 of 1,024 subsets** for the
+ten effects. A later filtered run passed all three strengthened native-benefit
+and sweep cases; its 22 deliberately unselected cases are not full-suite skips.
+These counts overlap and must not be added into a project-wide total. Both
+TypeScript projects passed their retained integrated check. Both ordinary
+matrix freshness checks, offline catalog freshness and the production browser
+build also passed. The complete local suite result is recorded below;
+pull-request CI runs separately against the delivery head.
+
+The native champion cases include Ryze paying W before restoration makes Q
+affordable, and Kennen's first attack supplying the six Energy needed for Q
+before any third-mark refund. Native Akali shroud expiry distinguishes a
+300-Energy cap and 45 restored from a 200-Energy cap and 30 restored at the
+chosen delivery phase. Jayce transformations retain one cooldown and select the
+current form's Mana amount. These checks validate the stated model policies,
+not the unmeasured server phases.
+
+The actual CLI cases include both selected sides:
+
+```sh
+npm run duel -- Cassiopeia Sion --dataset 16.21 --gold 0 --combat-runes 8009 --log brawl
+npm run duel -- Sion Cassiopeia --dataset 16.21 --gold 0 --enemy-combat-runes 8009 --log brawl
+npm run duel -- Cassiopeia Akali --dataset 16.21 --gold 0 --combat-runes 8009 --enemy-combat-runes 8009 --shards 5005,5001,5011 --enemy-shards 5008,5008,5001 --log brawl
+npm run duel -- Cassiopeia Sion --dataset 16.21 --gold 0 --sweep --combat-runes 8009,9105 --legend-points 99 --enemy-combat-runes 8009,9104 --enemy-legend-points 199
+```
+
+At zero gold, Cassiopeia's own aggregate against Sion improves from about
+**−0.800403 to −0.787862** on either selected side, with **26 versus 24 brawl
+casts**. The complete native scenarios and timelines are compared with the
+command output. In the 5,000-gold sweep, the same declared Legend selections
+score about **−0.658737 without Presence versus −0.619947 with Presence**
+(displayed −0.66 versus −0.62). This does not claim rune-aware stat allocation
+or a globally optimal loadout.
+
+Focused evidence under the current external audit includes
+`compiler-tests-20261113-01.json`, `compiler-results-20261113-01.json`,
+`runtime-tests/PRESENCE-UNIT-FINAL-RECEIPT-20261113.json`,
+`champion-tests/CHAMPION-TESTS-FINAL-RECEIPT.json`,
+`cli-selection-catalog-20261113-01.json`,
+`cli-tests/native-benefit-summary-01.json`,
+`cli-strengthened-cases-20261113-02.json` and
+`cli-tests/strengthened-results-02.json`. `typecheck-02.json` records the later
+integrated check of both TypeScript projects. These bounded results remain distinct
+from the complete default comparison and full local suite recorded below;
+pull-request CI runs separately against the actual delivery head.
+
+### Completed local provenance, comparison and integrated checks
+
+The normal local refresh completed on **13 November**. Each actual driver
+reported **14,878 unchanged/reused pairings and zero to compute**. The plain
+refresh regenerated its outputs from compatible stored results; the build
+refresh did the same for its matrix. No new pair calculations or checkpoint
+files are claimed. This is the repository's normal dependency-checked reuse
+path, not a manual fingerprint rewrite. The rune-local addition left pair
+inputs reusable while the catalog change altered global provenance.
+
+The independent complete comparison against
+`a775b5ffdd694502a68c6457dd4d59865dd98225` covers all **173 champions**,
+**14,878 unordered pairs and 29,756 directed cells per matrix**. It found
+**zero changed payload pairs or directions**: every aggregate score and all
+six scenarios, selected variants, raw and decoded build lists/item sets and
+rounded stat-spending vector remain equal. The 75-item dictionary is also
+unchanged. Both entire stored input maps and every pairing's shared/two-kit
+key tuple remain equal; only simulation provenance changed in the three
+generated matrix files. The result is independently cross-checked, rather
+than inferred solely from reused counts. **Zero new checkpoints** were
+generated; the older Triumph checkpoint proof remains historical evidence
+for that release.
+
+Both ordinary matrix freshness checks passed against the current output
+files, as did the offline catalog freshness check and both TypeScript
+projects. The production browser build passed under pinned Node v22.23.4.
+The retained command/log receipts are `normal-refresh-sim-01.json`,
+`normal-refresh-builds-01.json`, `sim-freshness-01.json`,
+`builds-freshness-01.json`, `catalog-freshness-01.json`, `typecheck-02.json`
+and `web-build-01.json`. `REUSE-VALIDATION-20261113.json` and its full diff
+retain the complete payload/key comparison;
+`REUSE-INDEPENDENT-CROSS-CHECK-20261113.json` records its independent
+verification. `PRODUCTION-REVIEW-FINAL-20261113.json` seals all nine reviewed
+production files and the bounded source/runtime review, with no blocking
+findings.
+
+The complete local suite passed on **13 November**: **9,510 passed, zero
+failed and five existing skips — 9,515 total across 269 test files**. All
+configured files ran with `--maxWorkers=2`, without filtering or changed
+assertions/tolerances. The five skipped test names exactly match the earlier
+Triumph preflight; they are the retained disputed golden cases, not newly
+skipped Presence failures. `full-suite-02.json`,
+`full-suite-results-02.json` and `full-suite-summary-02.json` retain the exact
+command, complete results and checked arithmetic/file count. The production
+browser build transformed **265 modules**.
+
+Pull-request checks run separately against the actual delivery head. These
+local receipts establish no claim about an unobserved remote CI run; the
+delivery pull request and its external release receipt retain that evidence.
+
+### Event limits and delivery validation boundary
+
+The existing damage observer visits only alive, positive-HP recipients, which
+can include fallen/death-defied or protected bodies. Ordinary dead/zero-HP
+owners therefore lack the damage arm. Execute-only engine effects can create
+native takedown credit but emit no post-damage observation for the damage arm.
+Actual reported clone actors and clone/pet victims are outside this subset.
+Some kit effects with a causal clone origin report the owner instead, such as
+Shaco's clone explosion; those owner-emitted packets can qualify, and there is
+no universal causal-origin marker. General zero-damage, reflected/indirect
+attribution and complete visual-missile parity remain unresolved. These are
+explicit model limits, not claims about faithful live-game exclusions.
+
+Presence, Absorb Life and Triumph share Precision's first lesser row. A side
+may choose only one of them; one Legend can accompany Presence with that
+side's explicit starting points. Presence itself has no history flag. Exact
+Mana or Energy resource types are required; unsupported types are rejected
+rather than silently ignored or automatically substituted to Triumph.
+Explicit stat shards remain legal; fixed items and build search remain
+blocked pending composition review. Allocation remains its no-rune reference.
+Full pages, browser combat-rune controls, substitutions, item/rune composition
+and rune-aware allocation/search remain unfinished. Roadmap step 1 stays in
+progress.
+
+The actual dependency plan and normal local provenance refresh record all
+14,878 pairings reused per matrix, with zero new computation, and independent
+complete comparison finds unchanged default result payloads. The complete
+local suite and integrated checks passed as recorded above. No new checkpoints
+or full recomputation are claimed. Pull-request checks apply to the actual
+delivery commit; local receipts do not substitute for that remote evidence.
+Earlier documented optimizer regressions remain unfixed, and no
+controlled live-game accuracy or globally optimal build search is claimed.
+
+The working external audit is
+`/workspace/counter-browser/presence-of-mind-20261112-audit/`. The retained
+local receipts above record the actual commands and counts; the delivery
+pull request and external final receipt record source/data commits and
+checks on the actual delivery head. The source/design preparation under the earlier Triumph audit is
+retained as preparation, not as completed Presence release evidence.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

@@ -10,6 +10,18 @@ export interface CombatRuneRules {
   dataset: string;
   patch: string;
   absorbLife: { heal: number };
+  presenceOfMind: {
+    /** This manual interface uses the application's fixed level-20 model. */
+    modelLevel: 20;
+    manaRestore: number;
+    rangedManaRatio: number;
+    energyRestore: number;
+    damageCooldown: number;
+    takedownResourceRatio: number;
+    takedownDelay: number;
+    /** Explicit local policy; the sources do not establish cap sampling time. */
+    maximumResourceModel: "current-at-delivery";
+  };
   triumph: {
     maximumHealthRatio: number;
     missingHealthRatio: number;
