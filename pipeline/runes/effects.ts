@@ -253,11 +253,92 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 4021803,
     "timestamp": "2026-05-21T15:27:06Z",
     "sha256": "be12d5fbff797a03e87385dd2fc92bb56582f70ce0f82bed0f03261bbb908d5c"
+  },
+  "Ability resource": {
+    "revid": 4093317,
+    "timestamp": "2026-11-10T22:02:13Z",
+    "sha256": "a25540aad294adc61c942d8071c66cd0ac595b876d28540edd1897d43022a32e"
+  },
+  "Cast time": {
+    "revid": 4090549,
+    "timestamp": "2026-10-26T14:49:26Z",
+    "sha256": "6e5c2b18ef24935edb05090e7c0c2451241c12916d884f05bc107cf4d5c2dc81"
+  },
+  "Death": {
+    "revid": 4051174,
+    "timestamp": "2026-08-11T19:32:59Z",
+    "sha256": "ac192938b561e2366201c933d5c994df066f7cba066c42cad213bfa1d72bec94"
+  },
+  "Energy": {
+    "revid": 4073066,
+    "timestamp": "2026-10-02T13:28:44Z",
+    "sha256": "6828fe156eb9fcb87806fee0595d894cbca953561d5e5aaaf8ce6ab5ffe715cc"
+  },
+  "Mana": {
+    "revid": 4073064,
+    "timestamp": "2026-10-02T13:25:43Z",
+    "sha256": "a5dd25958594c62602bbbecdce25b037b5465afdf4957d02bc0171fb5fd728c6"
+  },
+  "Mana regeneration": {
+    "revid": 4073055,
+    "timestamp": "2026-10-02T12:31:09Z",
+    "sha256": "4e8e750a493d910f365359d6ebcf4c2a5f0e48fa9b9ff0d77bbb270e47538425"
+  },
+  "Presence of Mind": {
+    "revid": 4062635,
+    "timestamp": "2026-09-14T07:25:56Z",
+    "sha256": "4faf5879ca809975068629d16cfd6fc868a7a3ac37495aaa4590e337bc5afee9"
+  },
+  "Range type": {
+    "revid": 4089646,
+    "timestamp": "2026-10-23T20:01:32Z",
+    "sha256": "469d1a163786e084a9282fc857bd75192f47029f70a419363b20ee03fb153c8a"
+  },
+  "Rune": {
+    "revid": 4091810,
+    "timestamp": "2026-11-01T20:58:39Z",
+    "sha256": "a9b4ad8e0885e65fd73e7926eaf608c5312a4507d7f115bcd2bf0c0c222a8e31"
+  },
+  "Template:Data Akali/Twilight Shroud": {
+    "revid": 4007406,
+    "timestamp": "2026-04-11T16:41:19Z",
+    "sha256": "09a69f0868e18443f3c1fa90ddff8593eff82caed316e8792e04fd46c8f06563"
+  },
+  "Template:Data Ryze/Arcane Mastery": {
+    "revid": 4059875,
+    "timestamp": "2026-09-08T14:46:22Z",
+    "sha256": "02a531127cbace37c720b800fe4c6ae4f56e40647b598e63425a71be8ad7f753"
+  },
+  "Template:Range difference": {
+    "revid": 4060743,
+    "timestamp": "2026-09-10T03:46:16Z",
+    "sha256": "e6ef4b7de64c37cd48efa036e9d69e0caba571f236833916d06ab810f27676cf"
+  },
+  "Template:Rune data Presence of Mind": {
+    "revid": 3985219,
+    "timestamp": "2026-01-18T23:26:04Z",
+    "sha256": "a27418c682b63ac7087aeae94dd4aaf7c30fa058ec5aed57f982ae223285351f"
+  },
+  "Template:Tip data/Resurrection": {
+    "revid": 4060644,
+    "timestamp": "2026-09-10T03:45:41Z",
+    "sha256": "764f4ca9fe8af8c8f4e741f2691e4cd72fc21218a2ee4825ca84fb9607fe2285"
+  },
+  "Template:Tip data/Zombie state": {
+    "revid": 4060726,
+    "timestamp": "2026-09-10T03:46:10Z",
+    "sha256": "58dc1d2a189000a33b39233af916c3aa4c86bc12094fb495b1e85253aea51ef6"
+  },
+  "Template:Zombie state info": {
+    "revid": 3905023,
+    "timestamp": "2025-06-02T04:27:53Z",
+    "sha256": "9786c845163dd3c1418cc16448f8944f4b5576ac4cf56aa082079af70ab55ef7"
   }
 };
 const RUNE_SOURCES = [
   { id: 9101, name: "Absorb Life", path: 8000, slot: 1, game: "Perks/Styles/Precision/AbsorbLife" },
   { id: 9111, name: "Triumph", path: 8000, slot: 1, game: "Perks/Styles/Precision/Triumph" },
+  { id: 8009, name: "Presence of Mind", path: 8000, slot: 1, game: "Perks/Styles/Precision/PresenceOfMind" },
   { id: 8014, name: "Coup de Grace", path: 8000, slot: 3, game: "Perks/Styles/Precision/CoupDeGrace" },
   { id: 8017, name: "Cut Down", path: 8000, slot: 3, game: "Perks/Styles/Precision/CutDown" },
   { id: 8299, name: "Last Stand", path: 8000, slot: 3, game: "Perks/Styles/Precision/LastStand" },
@@ -511,6 +592,145 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   // not contain executable server Lua or prove the simulation's event phase.
   agree("Triumph delay", triumphMovement, "mTravelTime", triumphDelay!);
 
+  const presence = description("Presence of Mind");
+  const [presenceManaPercent, presenceEnergyPercent, presenceDelay] = matchNumbers("Presence of Mind takedown", presence.text,
+    /^\|description\s*= \{\{sbc\|Passive:\}\} Scoring a \{\{tip\|takedown\}\} against an enemy champion restores \{\{as\|([\d.]+)% of your '''maximum''' mana\}\} or \{\{as\|([\d.]+)% of your '''maximum''' energy\}\} after a ([\d.]+)-second delay\.$/);
+  requireThat(presenceManaPercent! > 0 && presenceManaPercent! < 100
+    && presenceManaPercent === presenceEnergyPercent && presenceDelay! > 0,
+  "Presence of Mind needs matching positive maximum-Mana/Energy ratios and a delay");
+  const presenceDamageRows = presence.page.content.split("\n").filter(line => /^\|description2\s*=/.test(line));
+  requireThat(presenceDamageRows.length === 1, "Presence of Mind needs its complete damage-restoration description");
+  const presenceDamageText = presenceDamageRows[0]!; quote(presence.page, presenceDamageText);
+  const presenceDamage = /^\|description2\s*= Damaging an enemy champion restores \{\{as\|\{\{rd\|([^|]+)\|([^|]+)\|pp=true\}\} mana\}\} or \{\{as\|([\d.]+) energy\}\} \(([\d.]+) second cooldown\)\.$/.exec(presenceDamageText);
+  requireThat(presenceDamage, "Presence of Mind damage-restoration formula changed");
+  // Parse only the reviewed finite piecewise-addition grammar, never arbitrary
+  // Wiki expressions. All31 client entries stay retained; runtime remains level20.
+  const presenceCurve = (source: string, label: string): number[] => {
+    const product = (term: string): number => {
+      const factors = term.split("*");
+      requireThat(factors.length >= 1 && factors.length <= 2
+        && factors.every(value => /^\d+(?:\.\d+)?$/.test(value) && Number(value) > 0),
+      label + " needs the reviewed positive numeric factors");
+      const value = factors.map(Number).reduce((left, right) => left * right, 1);
+      requireThat(Number.isFinite(value), label + " contains an invalid product");
+      return Number(value.toPrecision(12));
+    };
+    const pieces = source.split(";").map(value => value.trim());
+    requireThat(pieces.length === 7, label + " needs the reviewed seven piecewise terms");
+    const values = [product(pieces[0]!)];
+    for (const piece of pieces.slice(1)) {
+      const match = /^then \+([\d.*]+?)(?:\*x for (\d+))?$/.exec(piece);
+      requireThat(match, label + " needs the reviewed incremental formula");
+      const increment = product(match[1]!), count = match[2] === undefined ? 1 : Number(match[2]);
+      requireThat(Number.isSafeInteger(count) && count > 0 && count <= 20, label + " has an invalid level interval");
+      for (let step = 0; step < count; step++) values.push(Number((values.at(-1)! + increment).toPrecision(12)));
+    }
+    requireThat(values.length === 20 && values.every(value => Number.isFinite(value) && value > 0),
+      label + " needs all twenty supported model levels");
+    return values;
+  };
+  const presenceManaLevels = presenceCurve(presenceDamage[1]!, "Presence of Mind Mana curve");
+  const presenceRangedLevels = presenceCurve(presenceDamage[2]!, "Presence of Mind ranged Mana curve");
+  const rangedFactor = /^\d+(?:\.\d+)?\*([\d.]+)$/.exec(presenceDamage[2]!.split(";")[0]!);
+  requireThat(rangedFactor, "Presence of Mind needs a separate Mana-only ranged multiplier");
+  const presenceRangedRatio = Number(rangedFactor[1]);
+  requireThat(Number.isFinite(presenceRangedRatio) && presenceRangedRatio > 0 && presenceRangedRatio <= 1
+    && presenceRangedLevels.every((value, index) => Math.abs(value - presenceManaLevels[index]! * presenceRangedRatio) < 1e-10),
+  "Presence of Mind ranged and melee Mana curves disagree");
+  const presenceEnergyRestore = Number(presenceDamage[3]), presenceCooldown = Number(presenceDamage[4]);
+  requireThat(Number.isFinite(presenceEnergyRestore) && presenceEnergyRestore > 0
+    && Number.isFinite(presenceCooldown) && presenceCooldown > 0,
+  "Presence of Mind needs positive flat Energy and damage cooldown rules");
+  requireThat(TOP_LANE_MAX_LEVEL === 20, "Presence of Mind model-level domain needs review");
+  const presenceManaRestore = presenceManaLevels[TOP_LANE_MAX_LEVEL - 1]!;
+  const presencePerk = record(game["Perks/Styles/Precision/PresenceOfMind"], "Presence of Mind game perk");
+  requireThat(presencePerk.__type === "Perk" && presencePerk.mPerkName === "PresenceOfMind"
+    && record(presencePerk.mScript, "Presence of Mind game script").mSpellScriptName
+      === "ASSETS/Perks/Styles/Precision/PresenceOfMind/PresenceOfMind.lua",
+  "Presence of Mind game name, type or script path differs");
+  const presenceData = clientData("Presence of Mind"), presenceGame = client("Presence of Mind");
+  requireThat(presenceData.__type === "PerkScriptData", "Presence of Mind needs reviewed script-data type");
+  agree("Presence of Mind normal-mode", presenceGame, "PercentManaRestore", presenceManaPercent! / 100);
+  agree("Presence of Mind", presenceGame, "CooldownDuration", presenceCooldown);
+  agree("Presence of Mind", presenceGame, "EnergyRestore", presenceEnergyRestore);
+  requireThat(presenceGame.MinFlatRestore === 6 && presenceGame.MaxFlatRestore === 50,
+    "Presence of Mind retained abbreviated 6-50 tooltip fields changed");
+  const presenceModes = record(presenceData.mEffectAmountGameMode, "Presence of Mind game-mode overrides");
+  for (const modeName of ["ARAM", "KINGPORO"]) {
+    const mode = record(presenceModes[modeName], "Presence of Mind " + modeName + " override");
+    requireThat(mode.__type === "PerkEffectAmountPerMode", "Presence of Mind needs reviewed mode-override type");
+    agree("Presence of Mind " + modeName + " reference", record(mode.mEffectAmountPerMode, "Presence of Mind alternate-mode amounts"),
+      "PercentManaRestore", 0.1);
+  }
+  const presenceCalculation = record(record(presenceData.mCalculations, "Presence of Mind calculations").RegenAmount,
+    "Presence of Mind detailed level calculation");
+  requireThat(presenceCalculation.__type === "GameCalculation" && presenceCalculation.mPrecision === 1
+    && Array.isArray(presenceCalculation.mFormulaParts) && presenceCalculation.mFormulaParts.length === 1,
+  "Presence of Mind needs its single reviewed level table");
+  const presencePart = record(presenceCalculation.mFormulaParts[0], "Presence of Mind level-table part");
+  requireThat(presencePart.__type === "ByCharLevelFormulaCalculationPart"
+    && Array.isArray(presencePart.values) && presencePart.values.length === 31,
+  "Presence of Mind needs all31 values in the reviewed level-zero-indexed table");
+  // The client-only plateau after model level20 is retained and checked, not
+  // extended as a Wiki formula or exposed as support for higher game stages.
+  const presenceExpectedTable = [presenceManaLevels[0]!, ...presenceManaLevels, ...Array<number>(10).fill(60)];
+  for (let level = 0; level < presenceExpectedTable.length; level++) {
+    requireThat(typeof presencePart.values[level] === "number" && Number.isFinite(presencePart.values[level])
+      && presencePart.values[level] === Math.fround(presenceExpectedTable[level]!),
+    "Presence of Mind level table disagrees at index " + level);
+  }
+  const presenceCatalog = catalog.runes.find(rune => rune.id === 8009)!;
+  requireThat(presenceCatalog.clientDescription === "Damaging an enemy champion restores 6-50 (80% for ranged) mana or 6 energy.<br><br>Takedowns restore 15% of your maximum mana or energy. <br><br>Cooldown for damage restoration: 8s",
+    "Presence of Mind reviewed abbreviated client description changed");
+  const presenceClientRange = /\(([\d.]+)% for ranged\)/.exec(presenceCatalog.clientDescription);
+  requireThat(presenceClientRange && presenceRangedRatio === Number(presenceClientRange[1]) / 100,
+    "Presence of Mind ranged Wiki/client multiplier disagree");
+  // Min/MaxFlatRestore and the6-50 tooltip do not agree with the detailed table
+  // (44 at18,52 at19,56 at20). They are retained evidence, never interpolation
+  // endpoints or runtime caps. The legacy name RegenAmount is not regeneration.
+  const presenceMissilePath = "Perks/Styles/Precision/PresenceOfMind/spells/PerkPresenceOfMindVisualMissile";
+  const presenceMissile = record(game[presenceMissilePath], "Presence of Mind visual missile");
+  requireThat(presenceMissile.__type === "SpellObject" && presenceMissile.objectPath === presenceMissilePath
+    && presenceMissile.ObjectName === "PerkPresenceOfMindVisualMissile"
+    && presenceMissile.mScriptName === "PerkPresenceOfMindVisualMissile", "Presence of Mind visual missile identity differs");
+  const presenceMissileSpell = record(presenceMissile.mSpell, "Presence of Mind visual missile spell");
+  const presenceMissileSpec = record(presenceMissileSpell.mMissileSpec, "Presence of Mind visual missile specification");
+  const presenceMovement = record(presenceMissileSpec.movementComponent, "Presence of Mind visual missile movement");
+  requireThat(presenceMissileSpell.__type === "SpellDataResource" && presenceMissileSpec.__type === "MissileSpecification"
+    && presenceMovement.__type === "FixedTimeMovement", "Presence of Mind needs the reviewed fixed-time visual missile");
+  agree("Presence of Mind delay", presenceMovement, "mTravelTime", presenceDelay!);
+  requireThat(Array.isArray(presenceMissileSpec.behaviors)
+    && presenceMissileSpec.behaviors.length === 2
+    && record(presenceMissileSpec.behaviors[0], "Presence of Mind arrival behavior").__type === "CastOnMovementComplete"
+    && record(presenceMissileSpec.behaviors[1], "Presence of Mind destruction behavior").__type === "DestroyOnMovementComplete",
+  "Presence of Mind visual arrival behaviors changed");
+  // Complete-source context guards document boundaries; none establishes the
+  // chosen resource sampling, recipient lifecycle or packet eligibility policy.
+  const presenceContext: [string, RegExp][] = [
+    ["Ability resource", /^'''Ability resources'''/],
+    ["Cast time", /^A majority of/],
+    ["Death", /^Death does not mean that every ongoing effect/],
+    ["Energy", /^<onlyinclude>/],
+    ["Mana", /^Champions that are mana users/],
+    ["Mana regeneration", /^''Mana Restoration''/],
+    ["Presence of Mind", /^\* '''Presence of Mind''' will be consumed/],
+    ["Range type", /^'''Range type'''/],
+    ["Rune", /^\* For champions without/],
+    ["Template:Data Akali/Twilight Shroud", /^\|description\s*=/],
+    ["Template:Data Ryze/Arcane Mastery", /^\|description\s*=/],
+    ["Template:Range difference", /^true -->/],
+    ["Template:Tip data/Resurrection", /^\|description\s*=/],
+    ["Template:Tip data/Zombie state", /^\|description\s*=/],
+    ["Template:Zombie state info", /^\* A champion that enters a zombie state/],
+  ];
+  for (const [title, pattern] of presenceContext) {
+    const page = pages.get(title)!;
+    const line = page.content.split("\n").find(value => pattern.test(value));
+    requireThat(line, title + " reviewed Presence context is required"); quote(page, line);
+  }
+  quote(presence.page, "|cooldown     = <!--formula=6 base, then +0.8 per level until level 6, then +2 per level until level 11, then +3.2 per level until level 16, then +4 per level until level 18, then +8 per level until level 19, then +4 per level.-->");
+  quote(pages.get("Presence of Mind")!, "* {{sbc|Undocumented:}} No longer increases the resource beyond the maximum amount if the champion takedowns were made while dead.");
+
   const coup = description("Coup de Grace"), cut = description("Cut Down"), last = description("Last Stand"), wind = description("Second Wind");
   const [coupPercent, coupHealth] = matchNumbers("Coup de Grace", coup.text, /Deal ([\d.]+)% increased damage to champions below \{\{as\|([\d.]+)%/);
   const [cutPercent, cutHealth] = matchNumbers("Cut Down", cut.text, /Deal ([\d.]+)% increased damage to champions above \{\{as\|([\d.]+)%/);
@@ -671,6 +891,12 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
     absorbLife: { heal: absorbHeal },
+    presenceOfMind: { modelLevel: 20, manaRestore: presenceManaRestore, rangedManaRatio: presenceRangedRatio,
+      energyRestore: presenceEnergyRestore, damageCooldown: presenceCooldown,
+      takedownResourceRatio: presenceManaPercent! / 100, takedownDelay: presenceDelay!,
+      // Delivery-time maximum is a declared local policy; no native resource
+      // snapshot or exact server phase is established by the retained sources.
+      maximumResourceModel: "current-at-delivery" },
     triumph: {
       maximumHealthRatio: triumphMaximumPercent! / 100, missingHealthRatio: triumphMissingPercent! / 100,
       delay: triumphDelay!,

@@ -16,7 +16,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Precision | Keystone | Conqueror | 8010 | Not implemented | [4060685](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conqueror?oldid=4060685) |
 | Precision | 1 | Absorb Life | 9101 | Explicit partial manual selection | [3997095](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Absorb_Life?oldid=3997095) |
 | Precision | 1 | Triumph | 9111 | Explicit partial manual selection | [3825924](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Triumph?oldid=3825924) |
-| Precision | 1 | Presence of Mind | 8009 | Not implemented | [3985219](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Presence_of_Mind?oldid=3985219) |
+| Precision | 1 | Presence of Mind | 8009 | Explicit partial manual selection | [3985219](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Presence_of_Mind?oldid=3985219) |
 | Precision | 2 | Legend: Alacrity | 9104 | Explicit partial manual selection | [3958705](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Alacrity?oldid=3958705) |
 | Precision | 2 | Legend: Haste | 9105 | Explicit partial manual selection | [3958696](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Haste?oldid=3958696) |
 | Precision | 2 | Legend: Bloodline | 9103 | Explicit partial manual selection | [3971359](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Bloodline?oldid=3971359) |

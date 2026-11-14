@@ -14,8 +14,10 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105];
+const selected = [8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
 const triumphSources = ["Assist", "Heal and shield power", "Template:Rune data Triumph", "Triumph", "Template:Healing modifiers"];
+const presencePath = "Perks/Styles/Precision/PresenceOfMind";
+const presenceMissilePath = "Perks/Styles/Precision/PresenceOfMind/spells/PerkPresenceOfMindVisualMissile";
 const triumphMissilePath = "Perks/Styles/Precision/Triumph/Spells/PerkSoulFeastVisualMissile";
 const gamePaths = [
   "Perks/Styles/Precision/CoupDeGrace", "Perks/Styles/Precision/CutDown",
@@ -23,19 +25,25 @@ const gamePaths = [
   "Perks/Styles/Precision/AbsorbLife", "Perks/Styles/Precision/LegendAlacrity", "Perks/Styles/Precision/LegendHaste",
   "Perks/Styles/Precision/LegendBloodline",
   "Perks/Styles/Precision/Triumph",
+  "Perks/Styles/Precision/PresenceOfMind",
 ] as const;
 interface HealBreakpoint { __type: string; mLevel: number; mBonusPerLevelAtAndAfter: number }
 interface HealPart {
   __type: string; mLevel1Value: number; mInitialBonusPerLevel: number; mBreakpoints: HealBreakpoint[];
 }
 interface HealCalculation { __type: string; mFormulaParts: HealPart[] }
+interface LevelTableCalculation {
+  __type: string; mPrecision: number; mFormulaParts: { __type: string; values: number[] }[];
+}
 interface GamePerk {
   __type?: string;
   mPerkId: number;
   mPerkName?: string;
   mScript: { mSpellScriptName?: string; mSpellScriptData: {
     mEffectAmount: Record<string, number>;
-    mCalculations?: { HealAmount: HealCalculation };
+    __type?: string;
+    mCalculations?: { HealAmount: HealCalculation; RegenAmount?: LevelTableCalculation };
+    mEffectAmountGameMode?: Record<string, { __type: string; mEffectAmountPerMode: Record<string, number> }>;
   } };
 }
 type Game = Record<string, GamePerk>;
@@ -60,11 +68,172 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   input.game = JSON.stringify(game);
 }
 
+describe("Presence of Mind detailed source rules", () => {
+  it("uses the full level-zero-indexed table, rather than the conflicting 6-50 tooltip", () => {
+    const levels = [6, 6.8, 7.6, 8.4, 9.2, 10, 12, 14, 16, 18, 20, 23.2, 26.4, 29.6, 32.8, 36, 40, 44, 52, 56];
+    const data = (JSON.parse(originalGame) as Game)[presencePath]!.mScript.mSpellScriptData;
+    expect(data.mCalculations!.RegenAmount!.mFormulaParts).toEqual([{
+      values: [6, ...levels, ...Array<number>(10).fill(60)].map(Math.fround),
+      __type: "ByCharLevelFormulaCalculationPart",
+    }]);
+    expect(data.mEffectAmount).toMatchObject({
+      PercentManaRestore: Math.fround(0.15), CooldownDuration: 8, MinFlatRestore: 6, MaxFlatRestore: 50, EnergyRestore: 6,
+    });
+    expect(data.mCalculations!.RegenAmount!.mFormulaParts[0]!.values[18]).toBe(44);
+    expect(data.mCalculations!.RegenAmount!.mFormulaParts[0]!.values[19]).toBe(52);
+    expect(data.mCalculations!.RegenAmount!.mFormulaParts[0]!.values[20]).toBe(56);
+    expect(build().presenceOfMind).toEqual({
+      modelLevel: 20, manaRestore: 56, rangedManaRatio: 0.8, energyRestore: 6, damageCooldown: 8,
+      takedownResourceRatio: 0.15, takedownDelay: 1, maximumResourceModel: "current-at-delivery",
+    });
+    expect(build().presenceOfMind.manaRestore).toBeGreaterThan(data.mEffectAmount.MaxFlatRestore!);
+    // The ranged reduction applies only to damage Mana, not Energy or the
+    // fifteen-percent takedown arm. Numeric resource/lifecycle phases remain policy.
+    expect(build().presenceOfMind.manaRestore * build().presenceOfMind.rangedManaRatio).toBeCloseTo(44.8, 12);
+    const evidence = build().evidence.map(entry => entry.text).join("\n");
+    expect(evidence).toContain("then +8 per level until level 19, then +4 per level");
+    expect(evidence).toContain("will be consumed even if the user is at maximum");
+    expect(evidence).toContain("No longer increases the resource beyond the maximum amount");
+    expect(evidence).toContain("Mana Restoration'' isn't a tracked stat");
+    expect(evidence).toContain("maximum''' energy}} is increased by {{as|100|energy}}");
+  });
+
+  it.each(Array.from({ length: 31 }, (_, level) => level))("rejects an altered client value at level-table index %s", level => {
+    const input = fixture();
+    editGame(input, game => { game[presencePath]!.mScript.mSpellScriptData.mCalculations!
+      .RegenAmount!.mFormulaParts[0]!.values[level]! += 1; });
+    expect(() => build(input)).toThrow(/Presence of Mind level table disagrees at index/);
+  });
+
+  it.each(["missing", "calculation type", "precision", "part type", "short table", "long table", "extra part"] as const)(
+    "rejects an unreviewed %s level calculation", mutation => {
+      const input = fixture();
+      editGame(input, game => {
+        const calculations = game[presencePath]!.mScript.mSpellScriptData.mCalculations!;
+        const calculation = calculations.RegenAmount!;
+        if (mutation === "missing") delete calculations.RegenAmount;
+        else if (mutation === "calculation type") calculation.__type = "GameCalculationModified";
+        else if (mutation === "precision") calculation.mPrecision = 2;
+        else if (mutation === "part type") calculation.mFormulaParts[0]!.__type = "ByCharLevelInterpolationCalculationPart";
+        else if (mutation === "short table") calculation.mFormulaParts[0]!.values.pop();
+        else if (mutation === "long table") calculation.mFormulaParts[0]!.values.push(60);
+        else calculation.mFormulaParts.push(structuredClone(calculation.mFormulaParts[0]!));
+      });
+      expect(() => build(input)).toThrow(/Presence of Mind/);
+    },
+  );
+
+  it.each(["PercentManaRestore", "CooldownDuration", "EnergyRestore"] as const)("checks normal-mode %s against the current Wiki rule", field => {
+    const input = fixture();
+    editGame(input, game => { game[presencePath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 1; });
+    expect(() => build(input)).toThrow(/Presence of Mind.*Wiki\/game/);
+  });
+
+  it("never substitutes the ARAM/KINGPORO ten-percent override for normal fifteen-percent restoration", () => {
+    const game = JSON.parse(originalGame) as Game;
+    const modes = game[presencePath]!.mScript.mSpellScriptData.mEffectAmountGameMode!;
+    for (const mode of ["ARAM", "KINGPORO"]) expect(modes[mode]!.mEffectAmountPerMode.PercentManaRestore).toBe(Math.fround(0.1));
+    const input = fixture();
+    editGame(input, data => { data[presencePath]!.mScript.mSpellScriptData.mEffectAmount.PercentManaRestore = Math.fround(0.1); });
+    expect(() => build(input)).toThrow(/Presence of Mind normal-mode.*PercentManaRestore disagree/);
+  });
+
+  it.each(["ARAM", "KINGPORO"])("retains the independently guarded %s reference without using it as the runtime ratio", mode => {
+    const input = fixture();
+    editGame(input, game => { game[presencePath]!.mScript.mSpellScriptData.mEffectAmountGameMode![mode]!
+      .mEffectAmountPerMode.PercentManaRestore = Math.fround(0.15); });
+    expect(() => build(input)).toThrow(/Presence of Mind.*reference.*PercentManaRestore disagree/);
+  });
+
+  it.each(["MinFlatRestore", "MaxFlatRestore"] as const)("retains conflicting abbreviated field %s instead of silently repairing it", field => {
+    const input = fixture();
+    editGame(input, game => { game[presencePath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 1; });
+    expect(() => build(input)).toThrow(/Presence of Mind retained abbreviated 6-50 tooltip/);
+  });
+
+  it("rejects a changed client ranged description even when the detailed table remains intact", () => {
+    const input = fixture();
+    input.catalog.runes.find(rune => rune.id === 8009)!.clientDescription =
+      input.catalog.runes.find(rune => rune.id === 8009)!.clientDescription.replace("80% for ranged", "70% for ranged");
+    expect(() => build(input)).toThrow(/Presence of Mind reviewed abbreviated client description/);
+  });
+
+  it("rejects a re-pinned ranged Mana formula that disagrees with the client multiplier", () => {
+    const input = fixture();
+    editWiki(input, "Template:Rune data Presence of Mind", text => text.replace(
+      "|6*0.8; then +0.8*0.8*x for 5; then +2*0.8*x for 5; then +3.2*0.8*x for 5; then +4*0.8*x for 2; then +8*0.8; then +4*0.8|",
+      "|6*0.7; then +0.8*0.7*x for 5; then +2*0.7*x for 5; then +3.2*0.7*x for 5; then +4*0.7*x for 2; then +8*0.7; then +4*0.7|",
+    ));
+    expect(() => build(input)).toThrow(/Presence of Mind ranged Wiki\/client multiplier disagree/);
+  });
+
+  it.each(["Mana percent", "Energy percent", "delay", "Energy flat", "cooldown", "old regeneration"] as const)(
+    "rejects an altered current Wiki %s rule", field => {
+      const input = fixture();
+      const replacements: Record<typeof field, [string, string]> = {
+        "Mana percent": ["15% of your '''maximum''' mana", "10% of your '''maximum''' mana"],
+        "Energy percent": ["15% of your '''maximum''' energy", "10% of your '''maximum''' energy"],
+        delay: ["after a 1-second delay", "after a 2-second delay"],
+        "Energy flat": ["{{as|6 energy}}", "{{as|7 energy}}"],
+        cooldown: ["(8 second cooldown)", "(9 second cooldown)"],
+        "old regeneration": ["Damaging an enemy champion restores", "Damaging an enemy champion regenerates"],
+      };
+      const [before, after] = replacements[field];
+      editWiki(input, "Template:Rune data Presence of Mind", text => text.replace(before, after));
+      expect(() => build(input)).toThrow(/Presence of Mind/);
+    },
+  );
+
+  it.each(["missing", "ID", "name", "script", "type", "data type"] as const)("requires the exact Presence game %s", field => {
+    const input = fixture();
+    editGame(input, game => {
+      const perk = game[presencePath]!;
+      if (field === "missing") delete game[presencePath];
+      else if (field === "ID") perk.mPerkId = 9111;
+      else if (field === "name") perk.mPerkName = "Triumph";
+      else if (field === "script") perk.mScript.mSpellScriptName += ".changed";
+      else if (field === "type") perk.__type = "UnreviewedPerk";
+      else perk.mScript.mSpellScriptData.__type = "UnreviewedData";
+    });
+    expect(() => build(input)).toThrow(/Presence of Mind/);
+  });
+
+  it.each(["missing", "identity", "timing", "movement", "arrival"] as const)("cross-checks the Presence visual missile %s", field => {
+    const input = fixture();
+    editGame(input, records => {
+      const game = records as unknown as Record<string, {
+        ObjectName: string; mSpell: { mMissileSpec: {
+          movementComponent: { __type: string; mTravelTime: number };
+          behaviors: { __type: string }[];
+        } };
+      }>;
+      if (field === "missing") delete game[presenceMissilePath];
+      else if (field === "identity") game[presenceMissilePath]!.ObjectName = "OtherVisualMissile";
+      else if (field === "timing") game[presenceMissilePath]!.mSpell.mMissileSpec.movementComponent.mTravelTime = 2;
+      else if (field === "movement") game[presenceMissilePath]!.mSpell.mMissileSpec.movementComponent.__type = "LinearMovement";
+      else game[presenceMissilePath]!.mSpell.mMissileSpec.behaviors[0]!.__type = "UnreviewedArrival";
+    });
+    expect(() => build(input)).toThrow(/Presence of Mind/);
+  });
+
+  it.each([
+    "Ability resource", "Cast time", "Death", "Energy", "Mana", "Mana regeneration", "Presence of Mind", "Range type", "Rune",
+    "Template:Data Akali/Twilight Shroud", "Template:Data Ryze/Arcane Mastery", "Template:Range difference",
+    "Template:Rune data Presence of Mind", "Template:Tip data/Resurrection", "Template:Tip data/Zombie state", "Template:Zombie state info",
+  ])("retains complete new source %s rather than only favorable excerpts", title => {
+    const input = fixture();
+    editWiki(input, title, text => text + "\n<!-- unrelated editorial addition -->\n");
+    expect(() => build(input)).toThrow(/full reviewed revision changed/);
+  });
+});
+
 describe("reviewed combat rune numeric rules", () => {
   it("reads the current Wiki formulas and cross-checks their client float32 values", () => {
     expect(build()).toMatchObject({
       schema: 1, dataset: "16.21", patch: "26.21",
       absorbLife: { heal: 27 },
+      presenceOfMind: { modelLevel: 20, manaRestore: 56, rangedManaRatio: 0.8, energyRestore: 6,
+        damageCooldown: 8, takedownResourceRatio: 0.15, takedownDelay: 1, maximumResourceModel: "current-at-delivery" },
       legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
       legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
       legendBloodline: { baseLifeSteal: 0, lifeStealPerStack: 0.0045, pointsPerStack: 100, maxStacks: 15, championKillPoints: 100, bonusHealth: 85 },
@@ -79,10 +248,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(8).fill("manual-effects"));
+      .toEqual(Array(10).fill("manual-effects"));
   });
 
-  it("binds all forty-seven complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all sixty-three complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -131,16 +300,34 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Rune data Triumph", 3825924],
       ["Triumph", 3980916],
       ["Template:Healing modifiers", 4021803],
+      ["Ability resource", 4093317],
+      ["Cast time", 4090549],
+      ["Death", 4051174],
+      ["Energy", 4073066],
+      ["Mana", 4073064],
+      ["Mana regeneration", 4073055],
+      ["Presence of Mind", 4062635],
+      ["Range type", 4089646],
+      ["Rune", 4091810],
+      ["Template:Data Akali/Twilight Shroud", 4007406],
+      ["Template:Data Ryze/Arcane Mastery", 4059875],
+      ["Template:Range difference", 4060743],
+      ["Template:Rune data Presence of Mind", 3985219],
+      ["Template:Tip data/Resurrection", 4060644],
+      ["Template:Tip data/Zombie state", 4060726],
+      ["Template:Zombie state info", 3905023],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 47))))
+      .toBe("30b2308ee9059b00f8effc7cd4c850248affa93142c16aa0f7779d773c8cbac1");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(47);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(63);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -263,11 +450,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 47 complete/);
+    expect(() => build(missing)).toThrow(/all 63 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 47 complete/);
+    expect(() => build(extra)).toThrow(/all 63 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -276,7 +463,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(hash)).toThrow(/content hash differs/);
   });
 
-  it.each([...selected, 9111])("requires the exact catalog identity, position and template for rune %s", (id) => {
+  it.each(selected)("requires the exact catalog identity, position and template for rune %s", (id) => {
     for (const key of ["name", "pathId", "slot"] as const) {
       const input = fixture(), rune = input.catalog.runes.find((entry) => entry.id === id)!;
       if (key === "name") rune.name += " changed";
@@ -302,7 +489,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
     editGame(game, (records) => { for (const key of Object.keys(records)) {
-      if (!gamePaths.includes(key as typeof gamePaths[number]) && key !== triumphMissilePath) delete records[key];
+      if (!gamePaths.includes(key as typeof gamePaths[number]) && key !== triumphMissilePath && key !== presenceMissilePath) delete records[key];
     } });
     expect(() => build(game)).toThrow(/complete reviewed game source changed/);
   });
