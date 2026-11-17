@@ -14,8 +14,8 @@ Implementation began on **17 November 2026** as the eleventh partial manual
 effect and first Precision keystone. The current bundle has 71 complete pages,
 preserving all 63 previous objects and the frozen full client. The dated
 Presence and earlier sections below retain their own release snapshots. The
-new native-event code requires genuine full recomputation of both default
-matrices; its refresh, checkpoint audit and release checks are pending.
+17 November refresh computed all 14,878 pairings in each default matrix.
+The audit matched all 29,756 new checkpoints to their published values.
 
 The explicit [template 4015574](https://wiki.leagueoflegends.com/en-us/?oldid=4015574)
 formula runs through level 20 and gives `2960/17` proc damage at that level.
@@ -69,8 +69,8 @@ therefore remain blocked for manual combat-rune flags.
 
 See the [rune audit](README.md#press-the-attack-first-keystone-and-declared-event-policies)
 and [accuracy log](../../ACCURACY.md#press-the-attack-eleventh-partial-manual-effect-17-november-implementation)
-for source links, manual commands, remaining work and the pending release
-boundary. Full pages, remaining keystones, browser effect controls, item/rune
+for source links, manual commands, remaining work and the completed checkpoint
+audit. Full pages, remaining keystones, browser effect controls, item/rune
 composition and rune-aware allocation/search remain unfinished.
 
 ## Presence of Mind: resource phases and observer limits

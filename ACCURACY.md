@@ -3159,11 +3159,7 @@ retained as preparation, not as completed Presence release evidence.
 Implementation began on **17 November 2026** from merged main
 `2a71197b02f96422abb1fccbdb7b3aa695cabfbb`, after the user merged Presence of Mind
 PR #27. Rune 8005 adds the first Precision keystone to the partial manual
-plain-stat interface. **Validation for this batch is in progress.** The genuine
-full matrix recomputation, new-checkpoint readback, complete default comparison
-and delivery checks are pending. Earlier dated release sections retain their
-own source freezes, test counts, refresh results and known search regressions;
-their evidence does not validate this new code.
+plain-stat interface. The 17 November refresh computed both default matrices from this source and passed the complete configured test suite.
 
 ### Source and implementation contract
 
@@ -3262,22 +3258,27 @@ allocation/search remain unfinished. Allocation retains its no-rune reference.
 Roadmap step 1 remains in progress, and the earlier documented optimizer
 regressions remain unresolved.
 
-### Pending verification and release evidence
+### Refresh verification
 
-Focused compiler, native-event, runtime, champion eligibility, selection and CLI
-checks are being added and run against this implementation. Final kit-path
-coverage and exact executed-check counts are not yet frozen here. Both
-TypeScript projects, catalog freshness, the complete configured suite and
-production browser build must be recorded for the actual source freeze.
+The 17 November run computed 14,878 plain-stat and 14,878 six-item pairings from
+source `1523ecd` with zero reuse. Five plain-stat shards and fifteen build
+shards finished. All 22 jobs passed. Both TypeScript projects passed, and
+the refresh ran 9,755 passing tests with five existing skips across 274 files.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44141258128)
 
-Shared native code changes invalidate both matrices' shared input keys.
-Release requires genuinely computing all **14,878 pairings per matrix with zero
-reuse**, independently reading back all **29,756 new checkpoints**, and comparing
-complete forward/reverse scores, scenarios, variants, decoded builds/item sets
-and spending with the merged-main baseline. Reused counts or provenance
-restamping would not establish those results. The refresh, readback, comparison
-and checks on the actual delivery commit are pending; no completed result or
-new checkpoint is claimed by this section yet.
+The independent audit checked the downloaded artifacts against their SHA-256
+digests and verified all 29,756 new checkpoints against both directions of the
+final matrices. Compared with the previous release at `2a71197`, all 173
+champions have identical default scores, scenario outcomes, variants, encoded
+and decoded builds, item sets, item dictionary, stat allocations and rankings.
+The generated files update input fingerprints, provenance, build timing and
+the Renekton and Twitch kit reports. Both matrix freshness checks passed.
+
+PR #28 merged while the refresh was computing. The earlier PR and main Pages
+checks each had three failures on the old matrices' freshness and reuse.
+The refresh suite tested the generated output and passed all three checks.
+[Pre-refresh PR run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44141322965)
+[Pre-refresh main run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44143955443)
 
 The working external audit is
 `/workspace/counter-browser/press-the-attack-20261117-audit/`. The [rune audit](docs/runes/README.md#press-the-attack-first-keystone-and-declared-event-policies)
