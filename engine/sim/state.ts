@@ -29,7 +29,7 @@ export interface Status {
   blackShield?: boolean;
   /** `label`: what its ticks are logged as (the ability's name). */
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string; originX?: number };
-  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; hitsUntargetable?: boolean; spellShield?: boolean; spellShieldOnHit?: boolean; attackOnHitReplacement?: Effect[]; breakShields?: boolean; split?: AttackSplit; windup?: number };
+  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; hitsUntargetable?: boolean; spellShield?: boolean; spellShieldOnHit?: boolean; attackOnHitReplacement?: Effect[]; onHitApplications?: number; breakShields?: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
   ability?: string;
@@ -73,6 +73,10 @@ export interface AttackHitOptions {
   missileSpeed?: number;
   /** Identifies this launched attack independently of mutable kit memory. */
   attackTag?: string;
+  /** False for a source-qualified secondary basic that cannot apply Press the Attack. */
+  pressTheAttack?: boolean;
+  /** Distinct strike observations; attached legacy effects still resolve once. */
+  onHitApplications?: number;
   spellShield?: boolean;
   spellShieldOnHit?: boolean;
   attackOnHitReplacement?: Effect[];
@@ -93,6 +97,8 @@ export type Action =
       critMultiplier?: number;
       missileSpeed?: number;
       attackTag?: string;
+      pressTheAttack?: boolean;
+      onHitApplications?: number;
       spellShield?: boolean;
       spellShieldOnHit?: boolean;
       attackOnHitReplacement?: Effect[];
@@ -455,6 +461,8 @@ export interface World {
   pets: Pet[];
   scheduled: Scheduled[];
   nextId: number;
+  /** Observer event sequence, independent of gameplay IDs; copied by cloneWorld's scalar spread. */
+  combatEventSequence?: number;
   /** Probability of this branch. */
   weight: number;
   /** Times this branch has split. */

@@ -118,6 +118,7 @@ export function startAttack(world: World, unit: Unit, pet?: Pet): void {
   unit.facing = directionTo(unit, target);
   const bonusOnHit: Effect[] = [];
   let attackOnHitReplacement: Effect[] | undefined;
+  let onHitApplications: number | undefined;
   let uncancellable = false;
   let hitsUntargetable = false;
   let spellShield = false;
@@ -137,6 +138,10 @@ export function startAttack(world: World, unit: Unit, pet?: Pet): void {
     spellShield ||= empower.empower.spellShield === true;
     spellShieldOnHit ||= empower.empower.spellShieldOnHit === true;
     attackOnHitReplacement = empower.empower.attackOnHitReplacement ?? attackOnHitReplacement;
+    if (empower.empower.onHitApplications !== undefined) {
+      // Multiple empowerments describe the same issued attack, not extra first hits.
+      onHitApplications = Math.max(onHitApplications ?? 1, empower.empower.onHitApplications);
+    }
     breakShields ||= empower.empower.breakShields === true;
     bonusRange = Math.max(bonusRange, empower.empower.bonusRange);
     split = empower.empower.split ?? split;
@@ -156,6 +161,7 @@ export function startAttack(world: World, unit: Unit, pet?: Pet): void {
     ...(spellShield ? { spellShield } : {}),
     ...(spellShieldOnHit ? { spellShieldOnHit } : {}),
     ...(attackOnHitReplacement ? { attackOnHitReplacement } : {}),
+    ...(onHitApplications !== undefined ? { onHitApplications } : {}),
     ...(breakShields ? { breakShields } : {}),
     critChance: derive(unit).critChance,
     // A blind counts if it is on the attacker when the attack is declared (wiki: "Types of Crowd Control").
@@ -181,6 +187,8 @@ function attackOptions(action: AttackHitOptions): AttackHitOptions {
     missileSpeed: action.missileSpeed, attackTag: action.attackTag,
     spellShield: action.spellShield, spellShieldOnHit: action.spellShieldOnHit,
     attackOnHitReplacement: action.attackOnHitReplacement, breakShields: action.breakShields,
+    ...(action.onHitApplications !== undefined ? { onHitApplications: action.onHitApplications } : {}),
+    ...(action.pressTheAttack !== undefined ? { pressTheAttack: action.pressTheAttack } : {}),
   };
 }
 

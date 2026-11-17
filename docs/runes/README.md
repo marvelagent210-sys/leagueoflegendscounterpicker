@@ -2,7 +2,10 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support ten partial combat effects, listed below.
+Manual plain-stat duels also support eleven partial combat effects, listed below.
+Press the Attack is the first Precision keystone; implementation began on
+17 November. Its genuine full matrix refresh, checkpoint audit and release
+checks are pending. Earlier batch results below retain their own scope.
 Presence of Mind implementation began on 13 November; its local provenance
 refresh reused all 14,878 pairings per matrix with zero new computation.
 Complete default result payloads are unchanged; local validation passed 9,510
@@ -106,11 +109,12 @@ npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 ```
 
-Each flag takes comma-separated rune IDs for that side. These ten effects are
+Each flag takes comma-separated rune IDs for that side. These eleven effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
 |---|--:|---|
+| Press the Attack | 8005 | Three qualified on-hit applications consume stacks for adaptive proc damage (`2960/17` at level 20) and 8% increased champion damage. Four-second stack refresh, six-second proc cooldown and a declared five-second combat clock; event eligibility and timing limits are detailed below. |
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
@@ -126,8 +130,10 @@ The three Precision health-damage runes occupy the same source-defined row, so s
 one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
 at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
-Second Wind, one first-row choice and one Legend choice can accompany any one
-of the three damage runes, subject to the same page validator. Presence and
+Press the Attack occupies Precision's keystone row and can accompany Second
+Wind, one first-row choice, one Legend choice and any one of the three damage
+runes, subject to the same page validator. Only the explicitly named effects
+are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
 explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-duel
 Presence or Triumph entitlement is inferred. Presence requires an explicit
@@ -146,12 +152,13 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **63 complete Wiki revisions** in
+The offline compiler checks **71 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the ten templates to
+full-content hashes, exact revisions and excerpts, binds the eleven templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
-Presence adds sixteen complete direct dependencies while preserving all 47
+Press the Attack adds eight complete pages while preserving all 63 prior objects.
+At the Presence release, sixteen complete direct dependencies were added while preserving all 47
 previous objects and the frozen client descriptor. Twenty-five directly used
 pinned complete Wiki revisions were independently re-fetched on 13 November
 with matching metadata and content. The full frozen 2,177,672-byte client
@@ -175,8 +182,11 @@ Compatibility limits remain explicit:
   clone and pet targets do not receive these amplifiers or their own Second Wind regeneration. Owned-pet
   damage sources do count. The reviewed pages do not establish full clone
   eligibility, which remains outside this partial implementation.
-- Eligible champion true damage is amplified under the retained V25.S1.3 rule.
-  Exact `Smite` and `Ignite` labels are excluded. This is not a general summoner
+- The three health-threshold runes amplify eligible champion true damage under
+  the retained V25.S1.3 rule, excluding exact `Smite` and `Ignite` labels.
+  Press the Attack follows its current specific history and excludes exact
+  `Smite`, allowing `Ignite`; it does not inherit the health-rune exclusion.
+  This is not a general summoner
   or jungle-damage implementation; those modes need explicit classifications.
 - Outgoing increases share the engine's additive `damageDealt` bucket. The
   pinned V26.09 note also specifies separate amplifier damage instances, which
@@ -195,11 +205,158 @@ Compatibility limits remain explicit:
   regeneration rather than a heal event, respects the existing regeneration
   modifiers, and clears when the champion is dead or fallen.
 
-Full pages, keystones, the remaining historical-state effects, champion-specific
+Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These ten catalog entries are
+selection require further implementation and validation. These eleven catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Press the Attack: first keystone and declared event policies
+
+Implementation began on **17 November 2026**, after the merged Presence of Mind
+release. Rune **8005** is the eleventh partial manual effect and the first
+Precision keystone. The current code has new native event surfaces; its genuine
+full matrix refresh, complete checkpoint audit and release checks are **pending**.
+The historical sections below do not establish validation for this batch.
+
+The complete [PTA template 4015574](https://wiki.leagueoflegends.com/en-us/?oldid=4015574)
+gives three on-hit stacks, a refreshed **four-second** stack window, a
+**six-second cooldown after consumption**, adaptive proc damage and **8%**
+increased damage against champions. Its explicit expression
+`40 + (160 - 40) / 17 * (level - 1)`, listed for levels 1–20, gives
+**`2960/17 = 174.11764705882354` at level 20**. The frozen client's named
+`MinDamage=40` and `MaxDamage=160` fields contain no detailed level calculation
+or hidden-script cap proof. This documentation-supported arithmetic is the
+chosen fixed-level model; it is not a live level-20 measurement.
+
+The complete [PTA article 4082445](https://wiki.leagueoflegends.com/en-us/?oldid=4082445)
+distinguishes each actual on-hit application from an attack declaration or its
+split damage packets. Multiple applications within one issued attack can add
+multiple stacks. AoE on-hits are excluded except Azir W, and the article gives
+specific secondary-target and Twitch R exceptions. Eligibility is recorded in
+typed kit metadata and native custom-contact adapters, rather than inferred
+from an ability's display name or a bare `appliesOnHit` flag. Unclassified
+ability contacts are outside this partial effect.
+
+The optional source-side native event captures immutable tick, sequence,
+source/target body identity, ability flags, block state and scale before legacy
+callbacks. Dispatch follows the existing on-hit/victim callback phase. Connected
+damage-blocked contacts can qualify; blind, dodge, parry and whole-hit spell
+shields follow their native acceptance guards, with explicit source-specific
+exceptions such as Senna Q retained. Renekton explicitly declares two
+or three W strike applications, but other attached on-hit effects retain their
+existing once-per-attack approximation. This shared-tick event model does not
+establish complete per-strike item or live callback ordering.
+
+Reviewed ability-on-hit metadata opts in Akshan E shots; Bel'Veth Q; Briar Q;
+Elise spider Q; Evelynn ordinary E; Ezreal Q, Fiora Q, Fizz Q, Gangplank Q,
+Irelia Q and Katarina E; Miss
+Fortune Q and its bounce; Smolder primary Q; Urgot W; Viego R; Volibear W;
+Warwick Q and strong R; and Yasuo/Yone Q and Q3. Explicit exclusions include
+Evelynn empowered E, Katarina passive/R, Smolder splash/bolt branches and
+Galio's internal replacement smash event, whose outer basic remains eligible.
+The source-qualified declaration metadata does not create missing kit effects.
+
+| Custom native path | Coverage and remaining qualification |
+|---|---|
+| Master Yi Double Strike | Captures its second actual application before its custom damage/on-hit packets and dispatches after legacy incoming-on-hit callbacks. Alpha Strike remains excluded. |
+| Renekton W | Declares two or three sourced strike applications. Rune events are distinct; other attached on-hits still execute once under the existing approximation. |
+| Senna Q | Captures the declared primary target; area secondary contacts are excluded. The source-specific spell-shield exception is preserved. Delivery follows attached on-hit effects, the legacy incoming-on-hit callback and relic/soul/refund follow-ups. |
+| Bel'Veth E | Captures each manually delivered slash before its packets and Feast callbacks. A conservative local guard requires a living target outside stasis, untargetability, parry and dodge; connected damage blocks qualify. Exact E dodge parity and the existing Feast guard gaps remain unmeasured. |
+| Twitch R | Retains the declared target at bolt launch, then marks collateral contacts ineligible even if a pet intercepts first. The retained [R template 4063223](https://wiki.leagueoflegends.com/en-us/?oldid=4063223) classifies non-targeted damage as AoE for PTA. |
+| Existing routed basics | Lucian's repeated shots, Azir's first soldier stab, Aphelios follow-up attacks, Graves's first pellet per victim and Zeri's first packet per first victim retain their native application paths. |
+
+Nocturne passive secondary on-hits, Yunara Q spread and Kayle E secondary splash
+are already omitted native kit mechanics; their PTA interactions are not
+claimed. One-dimensional targeting and all other existing kit assumptions
+remain in force.
+
+Stacks and amplification belong to the actual living champion body against the
+single actual opposing champion body. Same-body forms retain primitive state,
+which copies independently with a branched world. Stack expiry is inclusive at
+120 ticks; cooldown readiness is inclusive at 180 ticks after consumption,
+without ability haste. These equality boundaries and the post-on-hit phase are
+explicit local policies. Actors classified as pets/clones do not stack it; pet/clone victims
+do not receive the bounded amplifier, and clone-victim reset behavior is
+unsupported. Dead bodies immediately stop stacking and amplification; the first
+dead-body upkeep clears stacks and buff state. Post-death stacking,
+lethal/reflection priority and complete protected-state parity remain
+unmeasured; a rune timer never prolongs an ended duel.
+
+New amplification excludes the **whole activation simulation tick (30 Hz)**.
+The third hit, triggering proc and other same-tick packets do not gain the new
+8%. A later proc while amplification is already active keeps its original
+activation tick and can be amplified. This is a local mapping of the source's
+same-frame rule, not measured game-frame equivalence. The proc is separate from
+ability-hit hooks and ignores partial on-hit effectiveness such as Urgot W's
+scale. Amplification follows PTA's current V25.S1.3 true-damage history: exact
+`Smite` is excluded, while `Ignite` is not excluded by this adapter.
+
+The [adaptive-damage template 4015091](https://wiki.leagueoflegends.com/en-us/?oldid=4015091)
+compares bonus AD with AP and uses the champion's adaptive type on a tie. The
+model samples **current derived bonus AD and AP at proc delivery**, carrying the
+source champion's `Physical`/`Magic` tie type through every form. No adaptive
+shard is required. The separate adaptive-force stat-origin rules and start-time
+shard selector are not transferred to this damage decision; dynamic sampling
+and stat-origin inclusion remain declared model choices.
+
+The [Combat status article 4058480](https://wiki.leagueoflegends.com/en-us/?oldid=4058480)
+includes damage, zero-damage events and CC, distinguishes independent clones,
+and says ordinary pets can put their owner in combat. This effect uses **one
+five-second / 150-tick clock since the last qualified accepted activity**,
+including connected eligible on-hits even when their damage is blocked. Own
+or hostile ordinary pet-to-champion activity can refresh it; events classified as actual clone actors do not.
+Expiry is checked before a late event refreshes the clock, so expired amplification is not revived. The
+acquired combat wording and two named five-second client fields do not prove
+two consecutive clocks; this chosen interpretation does not add ten seconds.
+
+The new activity surface is bounded by native accepted damage/CC paths.
+Accepted zero raw damage is observable; spell-shield-prevented effects are
+excluded. Native invulnerability, stasis and parry guards, pet-victim pipelines
+and source-specific modern combat exceptions remain outside its parity claim.
+Owner-emitted effects with an unmarked causal clone origin cannot establish
+universal clone attribution. Ordinary pet activity refresh does not imply pet
+or clone inheritance of the damage amplifier: this partial amplifier applies
+to actual living champion-body source damage only.
+
+A shared pure outgoing-rune resolver sums PTA and compatible health-rune
+increases before one target-qualified adapter, avoiding multiplicative cross
+terms between selected rune amplifiers. It shares the engine's existing
+additive outgoing bucket. The retained [Damage modifier article 4050138](https://wiki.leagueoflegends.com/en-us/?oldid=4050138)
+is marked outdated; its V26.09 note describes separate amplifier instances.
+Those separate instances and interactions with pre-modifier mechanics are not
+implemented by this aggregate approximation. Existing item raw hooks retain
+their own composition, so manual combat-rune flags still reject fixed items
+and build search. Full pages, the remaining keystones, browser effect controls,
+item/rune composition and rune-aware allocation/search remain unfinished.
+
+The source bundle now retains **71 complete page objects**, preserving all 63
+previous objects and adding eight full pages. The thirteen-page preparation
+also reuses retained Rune, Damage, Damage modifier, Champion summoned units and
+Unit revisions. Two whole-client refetch attempts on 14 November failed
+**HTTP 522**; the first has no separately retained full response body or
+headers. The complete frozen 2,177,672-byte client remains SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+The retained Precision style, PTA main record and six VFX records match that
+frozen file. No successful fresh whole-client equality or live-game test is
+claimed. VFX identities are not executable spell-script proof.
+
+Commands for the partial manual selection:
+
+```sh
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8005 --log brawl
+npm run duel -- Sion Lucian --dataset 16.21 --gold 0 --enemy-combat-runes 8005 --log brawl
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8005,9111,9104,8014 --legend-points 0
+```
+
+PTA needs no history flag; a selected Legend still requires its own side's
+explicit starting points. The page validator enforces primary-only keystones
+and one choice per row. Only explicitly selected effects are equipped. Stat
+shards, side-specific selections, variant comparison, logs and gold sweeps
+retain the manual plain-stat interface; its allocation remains the no-rune
+reference. Exact executed commands, kit coverage and release evidence will be
+recorded in the [accuracy log](../../ACCURACY.md#press-the-attack-eleventh-partial-manual-effect-17-november-implementation)
+after the pending checks complete.
 
 ### Presence of Mind: level-20 restoration and local validation
 

@@ -14,7 +14,10 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const pressPath = "Perks/Styles/Precision/PressTheAttack";
+const pressSources = ["Adaptive force", "Attack effects", "Basic attack", "Combat status", "Press the Attack", "Stack",
+  "Template:Rune data Press the Attack", "Template:Tip data/Adaptive damage"];
 const triumphSources = ["Assist", "Heal and shield power", "Template:Rune data Triumph", "Triumph", "Template:Healing modifiers"];
 const presencePath = "Perks/Styles/Precision/PresenceOfMind";
 const presenceMissilePath = "Perks/Styles/Precision/PresenceOfMind/spells/PerkPresenceOfMindVisualMissile";
@@ -26,6 +29,7 @@ const gamePaths = [
   "Perks/Styles/Precision/LegendBloodline",
   "Perks/Styles/Precision/Triumph",
   "Perks/Styles/Precision/PresenceOfMind",
+  "Perks/Styles/Precision/PressTheAttack",
 ] as const;
 interface HealBreakpoint { __type: string; mLevel: number; mBonusPerLevelAtAndAfter: number }
 interface HealPart {
@@ -67,6 +71,117 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Press the Attack source rules and declared model choices", () => {
+  it("uses the template's explicit level20 arithmetic while retaining the client's40/160 endpoints", () => {
+    const source = originalBundle.pages.find(page => page.title === "Template:Rune data Press the Attack")!;
+    expect(source.content).toContain("{{pp|40 + (160-40)/17*(x-1)|1 to 20 by 1}}");
+    const data = (JSON.parse(originalGame) as Game)[pressPath]!.mScript.mSpellScriptData;
+    expect(data.mEffectAmount).toMatchObject({ MinDamage: 40, MaxDamage: 160,
+      BonusADRatio: 0, APRatio: 0, LethalityRatio: 0, HitsRequired: 3, TimeBetweenHits: 4, Cooldown: 6,
+      BonusPercentDamage: Math.fround(0.08), AmpDuration: 5, OutOfCombatTimer: 5 });
+    expect(data.mCalculations).toBeUndefined();
+    expect(data.mEffectAmountGameMode).toBeUndefined();
+    expect(build().pressTheAttack).toEqual({
+      modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4, cooldown: 6,
+      damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
+      adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick",
+    });
+    expect(build().pressTheAttack.damage).toBeGreaterThan(data.mEffectAmount.MaxDamage!);
+    expect(build().pressTheAttack.combatDuration).toBe(5);
+    // Neither named endpoint fields nor visual resources reveal hidden Lua.
+    // Tick activation, dynamic derived stats and one combat clock are policies.
+  });
+
+  it("retains current hit, timing, adaptive and combat qualifications alongside retired exposed context", () => {
+    const evidence = build().evidence.map(entry => entry.text).join("\n");
+    for (const text of [
+      "deals {{tip|proc damage}}", "not affected by on-hit damage modifiers",
+      "multiple times in one issued attack", "{{cai|W|Azir}}", "{{cai|R|Twitch}}",
+      "{{cai|Alpha Strike|Master Yi}}", "third stack does not benefit", "same frame",
+      "future procs that occur while affected", "excluding {{si|Smite}}",
+      "Stack consumption no longer renders the target ''Exposed''",
+      "Greater {{as|{{sti|'''bonus''' attack damage}}}}", "champion's [[File:Rune_shard_Adaptive_Force.png",
+      "Both combat types trigger on 0 damage instances", "neither triggers on dodge / miss",
+      "prevented by a {{tip|spell shield}}", "enter combat independently of their owners",
+      "{{cai|Hemoplague|Vladimir}}", "Stacking effects that time out will cause all stacks to expire at once",
+    ]) expect(evidence).toContain(text);
+  });
+
+  it.each([
+    "MinDamage", "MaxDamage", "BonusADRatio", "APRatio", "LethalityRatio", "HitsRequired", "TimeBetweenHits",
+    "AmpPotencyMaxSelf", "AmpPotencyMaxOthers", "AmpPotencyStartSelf", "AmpPotencyStartOthers",
+    "BonusPercentDamage", "AmpDuration", "OutOfCombatTimer", "Cooldown",
+  ])("rejects an altered normal-mode %s amount", field => {
+    for (const value of [undefined, null, -1, "8", Number.POSITIVE_INFINITY]) {
+      const input = fixture();
+      editGame(input, game => {
+        const amounts = game[pressPath]!.mScript.mSpellScriptData.mEffectAmount as Record<string, unknown>;
+        if (value === undefined) delete amounts[field]; else amounts[field] = value;
+      });
+      expect(() => build(input)).toThrow(new RegExp(`Press the Attack Wiki/game ${field} disagree`));
+    }
+  });
+
+  it.each([
+    ["for 4 seconds", "for 5 seconds"], ["up to 3 times", "up to 4 times"],
+    ["40 + (160-40)", "41 + (160-40)"], ["(160-40)/17", "(160-40)/0"],
+    ["1 to 20 by 1", "1 to 18 by 1"], ["grant you 8%", "grant you 9%"],
+    ["until 5 seconds", "until 10 seconds"],
+  ])("rejects re-pinned Wiki formula drift %s", (old, next) => {
+    const input = fixture(); editDescription(input, "Press the Attack", old, next);
+    expect(() => build(input)).toThrow(/Press the Attack.*(?:formula|positive|disagree)/);
+  });
+
+  it("requires exactly one current description and an explicit post-consumption cooldown", () => {
+    const missing = fixture(); editWiki(missing, "Template:Rune data Press the Attack", text => text.replace("|description  =", "|historical ="));
+    expect(() => build(missing)).toThrow(/Press the Attack needs its complete current description/);
+    const duplicate = fixture(); editWiki(duplicate, "Template:Rune data Press the Attack", text =>
+      text + "\n" + text.split("\n").find(line => /^\|description\s*=/.test(line))!);
+    expect(() => build(duplicate)).toThrow(/Press the Attack needs its complete current description/);
+    const cooldown = fixture(); editWiki(cooldown, "Template:Rune data Press the Attack", text =>
+      text.replace("Starts after consuming a target's stacks", "Starts when the first stack is applied"));
+    expect(() => build(cooldown)).toThrow(/Press the Attack cooldown reviewed formula changed/);
+  });
+
+  it.each(["perk", "ID", "name", "type", "script", "amounts", "calculation", "mode override", "data type"])(
+    "rejects unreviewed client %s", mutation => {
+      const input = fixture();
+      editGame(input, game => {
+        const perk = game[pressPath]!, data = perk.mScript.mSpellScriptData;
+        if (mutation === "perk") delete game[pressPath];
+        else if (mutation === "ID") perk.mPerkId = 8009;
+        else if (mutation === "name") perk.mPerkName = "PresenceOfMind";
+        else if (mutation === "type") perk.__type = "OtherPerk";
+        else if (mutation === "script") perk.mScript.mSpellScriptName += ".changed";
+        else if (mutation === "amounts") delete (data as Partial<typeof data>).mEffectAmount;
+        else if (mutation === "calculation") data.mCalculations = {} as typeof data.mCalculations;
+        else if (mutation === "mode override") data.mEffectAmountGameMode = {};
+        else data.__type = "UnreviewedData";
+      });
+      expect(() => build(input)).toThrow(/Press the Attack/);
+    },
+  );
+
+  it("rejects tooltip replacement and jointly changed Wiki/client damage without accepting160 as a model cap", () => {
+    const tooltip = fixture();
+    tooltip.catalog.runes.find(rune => rune.id === 8005)!.clientDescription =
+      tooltip.catalog.runes.find(rune => rune.id === 8005)!.clientDescription.replace("40 - 160", "40 - 174");
+    expect(() => build(tooltip)).toThrow(/Press the Attack retained abbreviated client description changed/);
+    const joint = fixture(); editDescription(joint, "Press the Attack", "(160-40)", "(180-40)");
+    editGame(joint, game => { game[pressPath]!.mScript.mSpellScriptData.mEffectAmount.MaxDamage = 180; });
+    expect(() => build(joint)).toThrow(/Template:Rune data Press the Attack full reviewed revision changed/);
+    const denominator = fixture(); editDescription(denominator, "Press the Attack", "/17*", "/19*");
+    expect(() => build(denominator)).toThrow(/Template:Rune data Press the Attack full reviewed revision changed/);
+  });
+
+  it.each(pressSources)("requires the complete pinned %s source, rather than favorable excerpts", title => {
+    const input = fixture();
+    const excerpts = build().evidence.filter(entry => entry.title === title).map(entry => entry.text).join("\n");
+    editWiki(input, title, () => excerpts);
+    expect(() => build(input)).toThrow(new RegExp(`${title} full reviewed revision changed`));
+  });
+});
 
 describe("Presence of Mind detailed source rules", () => {
   it("uses the full level-zero-indexed table, rather than the conflicting 6-50 tooltip", () => {
@@ -232,6 +347,9 @@ describe("reviewed combat rune numeric rules", () => {
     expect(build()).toMatchObject({
       schema: 1, dataset: "16.21", patch: "26.21",
       absorbLife: { heal: 27 },
+      pressTheAttack: { modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4,
+        cooldown: 6, damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
+        adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick" },
       presenceOfMind: { modelLevel: 20, manaRestore: 56, rangedManaRatio: 0.8, energyRestore: 6,
         damageCooldown: 8, takedownResourceRatio: 0.15, takedownDelay: 1, maximumResourceModel: "current-at-delivery" },
       legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
@@ -248,10 +366,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(10).fill("manual-effects"));
+      .toEqual(Array(11).fill("manual-effects"));
   });
 
-  it("binds all sixty-three complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all seventy-one complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -316,18 +434,28 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Tip data/Resurrection", 4060644],
       ["Template:Tip data/Zombie state", 4060726],
       ["Template:Zombie state info", 3905023],
+      ["Adaptive force", 4063874],
+      ["Attack effects", 4084301],
+      ["Basic attack", 4091314],
+      ["Combat status", 4058480],
+      ["Press the Attack", 4082445],
+      ["Stack", 4093072],
+      ["Template:Rune data Press the Attack", 4015574],
+      ["Template:Tip data/Adaptive damage", 4015091],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 47))))
       .toBe("30b2308ee9059b00f8effc7cd4c850248affa93142c16aa0f7779d773c8cbac1");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 63))))
+      .toBe("7aabdf6a53e50da3ad8f3003c3aa57d396bdaeaa97e5d9437999898dcb34d876");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(63);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(71);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -450,11 +578,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 63 complete/);
+    expect(() => build(missing)).toThrow(/all 71 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 63 complete/);
+    expect(() => build(extra)).toThrow(/all 71 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");

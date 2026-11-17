@@ -9,6 +9,18 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  pressTheAttack: {
+    modelLevel: 20;
+    damage: number;
+    hitsRequired: 3;
+    stackDuration: number;
+    cooldown: number;
+    damageIncrease: number;
+    combatDuration: number;
+    combatExpiryModel: "last-qualified-activity";
+    adaptiveDamageModel: "current-derived-bonus-ad-vs-ap";
+    activationFrameModel: "simulation-tick";
+  };
   absorbLife: { heal: number };
   presenceOfMind: {
     /** This manual interface uses the application's fixed level-20 model. */

@@ -53,7 +53,7 @@ const galio: KitModule = {
       else abilityHit(ctx.world, ctx.self, contact.target, ability, effects, scale, originX);
     };
     const internal = (key: string, name: string, effects: Effect[], flags: AbilitySpec["flags"] = {}): AbilitySpec => ({ key, name, slot: "other", activation: "internal", budgetExcluded: true, cooldown: 0, castTime: 0, delivery: { kind: "self" }, flags: { spellShield: true, petContactHooks: true, ...flags }, onHit: effects, usable: () => false });
-    const smash = internal("Ismash", p.name, [], { spellShield: false, parry: true, appliesOnHit: true, appliesLifeSteal: true, basicDamage: true, petBasicAttack: true });
+    const smash = internal("Ismash", p.name, [], { spellShield: false, parry: true, appliesOnHit: true, pressTheAttack: false, appliesLifeSteal: true, basicDamage: true, petBasicAttack: true });
     const cleave = internal("Icleave", `${p.name} (area)`, [], { spellShield: false });
     const gust = internal("Qgust", q.name, [{ type: "damage", damageType: "magic", amount: qDamage }], { projectile: true }); gust.persistsAfterDeath = true;
     const tornadoDamage: Formula = { base: 0, ratios: { targetMaxHP: tornadoPct }, products: [{ ratio: tornadoAP, stats: ["AP", "targetMaxHP"] }] };

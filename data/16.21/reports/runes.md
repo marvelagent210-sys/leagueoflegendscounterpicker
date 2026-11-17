@@ -10,7 +10,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 
 | Path | Row | Rune | ID | Combat implementation | Wiki revision |
 |---|---|---|--:|---|---|
-| Precision | Keystone | Press the Attack | 8005 | Not implemented | [4015574](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Press_the_Attack?oldid=4015574) |
+| Precision | Keystone | Press the Attack | 8005 | Explicit partial manual selection | [4015574](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Press_the_Attack?oldid=4015574) |
 | Precision | Keystone | Lethal Tempo | 8008 | Not implemented | [4065934](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Lethal_Tempo?oldid=4065934) |
 | Precision | Keystone | Fleet Footwork | 8021 | Not implemented | [4051351](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Fleet_Footwork?oldid=4051351) |
 | Precision | Keystone | Conqueror | 8010 | Not implemented | [4060685](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conqueror?oldid=4060685) |

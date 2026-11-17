@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, canStartAttack, startAttack } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { abilityHit, applyEffect, dealDamage, directionTo, inStasis, isUntargetable, log, notifyIncomingOnHit } from "../../engine/sim/combat";
+import { abilityHit, applyEffect, captureResolvedOnHit, dealDamage, directionTo, inStasis, isUntargetable, log, notifyIncomingOnHit, notifyResolvedOnHit } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
 import { attackDamage, extraAttacks, missingShare, seriesAt, ticks } from "./util";
@@ -111,7 +111,7 @@ const yi: KitModule = {
     const maximumAlpha = q.formula("Maximum Single-Target Damage");
     abilities[0]!.estimate = (self, target) => evaluate(maximumAlpha, self, target) * (1 + derive(self).critChance * (alphaCrit - 1));
     const alpha = abilities[0]!;
-    const incomingOnHit = (ctx: HookContext, spell = false) => notifyIncomingOnHit(ctx.world, ctx.enemy, spell ? alpha : undefined);
+    const incomingOnHit = (ctx: HookContext, spell = false) => notifyIncomingOnHit(ctx.world, ctx.enemy, spell ? alpha : undefined, ctx.self);
     const alphaStrike = (ctx: HookContext, amount: number, chance: number, scale: number) => {
       const appliesIncoming = ctx.enemy.hp > 0 && !isUntargetable(ctx.enemy, ctx.self) && !hasState(ctx.enemy, "spellShield") && !hasState(ctx.enemy, "parry") && !hasState(ctx.enemy, "dodgeAttacks");
       const packet: Effect[] = [{ type: "damage", damageType: "physical", amount: { base: amount * (1 + chance * (alphaCrit - 1)) }, label: q.name }];
@@ -245,6 +245,7 @@ const yi: KitModule = {
             ctx.memory.doubleArmed = false;
             if (!ctx.blocked) ctx.memory.doubleStacks = 0;
             const secondTarget = ctx.enemy.alive && ctx.enemy.hp > 0 && !inStasis(ctx.enemy);
+            const secondOnHit = secondTarget ? captureResolvedOnHit(ctx.world, ctx.self, ctx.enemy, { blocked: ctx.blocked }) : undefined;
             if (!ctx.blocked && secondTarget) {
               const d = derive(ctx.self);
               dealDamage(ctx.world, ctx.self, ctx.enemy, d.ad * secondShare, "physical", { attack: true, ability: passive.name, crit: { chance: d.critChance, multiplier: d.critDamage } });
@@ -253,7 +254,7 @@ const yi: KitModule = {
               ctx.apply({ type: "refund", ability: "Q", seconds: refund }, true);
             }
             // Wuju Style itself cannot be blocked; the second strike also applies it.
-            if (secondTarget) { onHitDamage(ctx); incomingOnHit(ctx); }
+            if (secondTarget) { onHitDamage(ctx); incomingOnHit(ctx); notifyResolvedOnHit(ctx.world, ctx.self, ctx.enemy, secondOnHit); }
           } else if (!ctx.blocked) gainStack(ctx);
         },
         onAttackResolved(ctx) {

@@ -7,7 +7,7 @@ import type { CCType } from "../rules/crowdControl";
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { Behavior } from "./behavior";
-import type { Action, Aim, AttackHitOptions, Missile, Pet, Status, Unit, World, Zone } from "./state";
+import type { Action, Aim, AttackHitOptions, Missile, Pet, Side, Status, Unit, World, Zone } from "./state";
 import type { PendingSplit } from "./actions";
 
 /** Stats a formula can read: the caster's, or the target's with a "target" prefix. */
@@ -268,6 +268,9 @@ export type Effect =
       spellShieldOnHit?: boolean;
       /** Replaces ordinary attack on-hits only when this empowered packet is unshielded. */
       attackOnHitReplacement?: Effect[];
+      /** Distinct strike applications observed on this empowered attack. Legacy attached
+       * effects still execute once; this metadata does not create damage packets. */
+      onHitApplications?: number;
       /** Breaks damage shields on contact, including when a spell shield blocks the attack. */
       breakShields?: boolean;
       split?: AttackSplit;
@@ -458,6 +461,8 @@ export interface AbilityFlags {
   blockedByDisplacementImmunity?: boolean;
   /** Fires the caster's on-hit effects. */
   appliesOnHit?: boolean;
+  /** Source-qualified eligibility for Press the Attack; applying on-hits alone is insufficient. */
+  pressTheAttack?: boolean;
   /** Its own basic damage benefits from life steal (Lunge, Parrrley, Purge). */
   appliesLifeSteal?: boolean;
   /** Classifies its damage as basic damage while preserving spell delivery and defenses. */
@@ -842,6 +847,51 @@ export interface KillCreditSnapshot {
   readonly victimIsEnemyChampionBody: boolean;
 }
 
+/** Scalar body identity captured before event callbacks can replace or mutate a unit. */
+export interface CombatIdentity {
+  readonly side: Side;
+  readonly fighterId: string;
+  readonly kind: "champion" | "pet" | "clone" | "other";
+  readonly petId?: number;
+}
+
+/** One accepted native on-hit application, distinct from its damage packets or declaration. */
+export interface ResolvedOnHitSnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly source: CombatIdentity;
+  readonly target: CombatIdentity;
+  readonly attack: boolean;
+  readonly ability?: {
+    readonly key: string;
+    readonly name: string;
+    readonly slot: AbilitySpec["slot"];
+    readonly flags: Readonly<AbilityFlags>;
+    readonly onHitScale?: number;
+  };
+  readonly blocked: boolean;
+  readonly scale: number;
+  readonly incomingScale: number;
+  /** Raw contact metadata; consumers still qualify actual source and target body identities. */
+  readonly pressTheAttackEligible: boolean;
+}
+
+/** Accepted native damage (including zero) or CC, not a universal combat-status clock.
+ * Damage denied by native invulnerability/stasis/parry guards and shield-prevented
+ * abilities do not emit. Pet-victim damage uses a separate pipeline and is not included. */
+export interface CombatActivitySnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly source: CombatIdentity;
+  readonly target: CombatIdentity;
+  readonly kind: "damage" | "cc";
+  readonly attack?: boolean;
+  readonly ability?: string;
+  readonly damageType?: DamageType;
+  readonly raw?: number;
+  readonly cc?: CCType;
+}
+
 export interface KitHooks {
   /** Once, before the first tick. */
   onStart?(ctx: HookContext): void;
@@ -937,6 +987,13 @@ export interface KitHooks {
   modifyDamageTakenRaw?(ctx: HookContext & { raw: number; damageType: DamageType; attack: boolean; ability?: string; persistent: boolean }): number;
   /** Connected incoming on-hit application, including damage blocks but excluding misses, dodges and parries. */
   onIncomingOnHit?(ctx: HookContext & { attack: boolean; ability?: string; scale: number }): void;
+  /** Source-local accepted application, after its legacy on-hit effects and victim hook.
+   * Facts are captured before those callbacks; blocked connected applications remain accepted.
+   * Released native hits may notify a dead source; this hook grants no continuation itself. */
+  onResolvedOnHit?(ctx: HookContext & { readonly onHit: ResolvedOnHitSnapshot }): void;
+  /** Accepted native activity after its existing damage/CC callback chain. Scalar facts
+   * precede that chain; each observer chooses its own body and lifecycle eligibility. */
+  onCombatActivity?(ctx: HookContext & { readonly combatActivity: CombatActivitySnapshot }): void;
   /** Immediately before a live dash moves, after this tick's cast completions. */
   onDashTick?(ctx: HookContext & { ability: AbilitySpec; action: Extract<Action, { kind: "dash" }> }): void;
   /** A dash ends at its actual completion/interrupt tick, after its contact effects. */
@@ -1079,6 +1136,8 @@ export interface FighterSpec {
   id: string;
   name: string;
   resourceType?: string;
+  /** Champion record's adaptive-damage tie preference, independent of shard-time memory. */
+  adaptiveType?: "Physical" | "Magic";
   /** Simultaneous passive conversions, without recursive gains or direct healing. */
   statConversions?: {
     healthToAP?: number; apToHealth?: number; moveSpeedBonusEffectiveness?: number;

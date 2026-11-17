@@ -333,9 +333,50 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 3905023,
     "timestamp": "2025-06-02T04:27:53Z",
     "sha256": "9786c845163dd3c1418cc16448f8944f4b5576ac4cf56aa082079af70ab55ef7"
+  },
+  "Adaptive force": {
+    "revid": 4063874,
+    "timestamp": "2026-09-17T20:36:35Z",
+    "sha256": "3db1c68a2d28fb1570203918f3f02e18724065911ba3832bcdc1abf5e053708b"
+  },
+  "Attack effects": {
+    "revid": 4084301,
+    "timestamp": "2026-10-13T02:56:42Z",
+    "sha256": "c789bc2c8ffae848f7b0882bb0bdc46f4e0f88c9c9cf8553e1cb9c35bdbeb2c0"
+  },
+  "Basic attack": {
+    "revid": 4091314,
+    "timestamp": "2026-10-29T18:18:28Z",
+    "sha256": "f6a02b147181862349bcfb50c0d6a3c3ca5fd6f818b185d520273d2d66718b6e"
+  },
+  "Combat status": {
+    "revid": 4058480,
+    "timestamp": "2026-09-03T17:39:48Z",
+    "sha256": "90fe1f465d87fdaf961a805703cdbde6ad6cfc52158e696aca771d36316fd6dd"
+  },
+  "Press the Attack": {
+    "revid": 4082445,
+    "timestamp": "2026-10-10T14:32:08Z",
+    "sha256": "071358e3f6ac230a1391ffc82a0c654fd006bad8c60a82b872e9ebedeadcb538"
+  },
+  "Stack": {
+    "revid": 4093072,
+    "timestamp": "2026-11-07T14:05:14Z",
+    "sha256": "3dafc6fe95d3bf95835c49fc1c7f4592650abf2e7bf7a59be5324f8d8bdbdd55"
+  },
+  "Template:Rune data Press the Attack": {
+    "revid": 4015574,
+    "timestamp": "2026-05-05T16:25:24Z",
+    "sha256": "97024c78c4ac7f912a2856a3c0218df4b958b3a5cebe7dcb2c2a3e3652b859d2"
+  },
+  "Template:Tip data/Adaptive damage": {
+    "revid": 4015091,
+    "timestamp": "2026-05-02T21:25:29Z",
+    "sha256": "1e6109ce72ea7e500e6f136cfca0757d9701758978546b0a26a51344d46e3f3f"
   }
 };
 const RUNE_SOURCES = [
+  { id: 8005, name: "Press the Attack", path: 8000, slot: 0, game: "Perks/Styles/Precision/PressTheAttack" },
   { id: 9101, name: "Absorb Life", path: 8000, slot: 1, game: "Perks/Styles/Precision/AbsorbLife" },
   { id: 9111, name: "Triumph", path: 8000, slot: 1, game: "Perks/Styles/Precision/Triumph" },
   { id: 8009, name: "Presence of Mind", path: 8000, slot: 1, game: "Perks/Styles/Precision/PresenceOfMind" },
@@ -425,6 +466,83 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const press = description("Press the Attack");
+  const [pressStackDuration, pressHits, pressMinimum, pressMaximum, pressFormulaMinimum, pressLevelInterval,
+    pressFormulaStart, pressFormulaEnd, pressPercent, pressCombatDuration] = matchNumbers("Press the Attack", press.text,
+    /^\|description\s*= \{\{sbc\|Passive:\}\} \{\{tip\|Basic attacks\}\} \{\{tip\|on-hit\}\} against enemy \{\{tip\|champion\|champions\}\} apply a \{\{tip\|stack\}\} for ([\d.]+) seconds, refreshing on subsequent applications, expiring upon attacking a new champion, and stacking up to ([\d.]+) times\. The third stack consumes all stacks to deal \{\{pp\|([\d.]+) \+ \(([\d.]+)-([\d.]+)\)\/([\d.]+)\*\(x-1\)\|([\d.]+) to ([\d.]+) by 1\}\} '''bonus''' \{\{tip\|adaptive damage\}\} and grant you ([\d.]+)% increased damage against champions until ([\d.]+) seconds after exiting \[\[combat status\|combat\]\] with them\.$/);
+  requireThat(TOP_LANE_MAX_LEVEL === 20 && pressFormulaStart === 1 && pressFormulaEnd === TOP_LANE_MAX_LEVEL
+    && pressMinimum! > 0 && pressMinimum === pressFormulaMinimum && pressMaximum! > pressMinimum! && pressLevelInterval! > 0
+    && pressHits === 3
+    && pressStackDuration! > 0 && pressPercent! > 0 && pressPercent! < 100 && pressCombatDuration! > 0,
+  "Press the Attack needs the explicit positive level-20 formula, stack and amplification rules");
+  const pressCooldownRows = press.page.content.split("\n").filter(line => /^\|cooldown\s*=/.test(line));
+  requireThat(pressCooldownRows.length === 1, "Press the Attack needs its complete post-consumption cooldown");
+  quote(press.page, pressCooldownRows[0]!);
+  const [pressCooldown] = matchNumbers("Press the Attack cooldown", pressCooldownRows[0]!,
+    /^\|cooldown\s*= \{\{tt\|([\d.]+)\|Starts after consuming a target's stacks\}\}$/);
+  requireThat(pressCooldown! > 0, "Press the Attack needs a positive post-consumption cooldown");
+  const pressPerk = record(game["Perks/Styles/Precision/PressTheAttack"], "Press the Attack game perk");
+  requireThat(pressPerk.__type === "Perk" && pressPerk.mPerkName === "PressTheAttack"
+    && record(pressPerk.mScript, "Press the Attack game script").mSpellScriptName
+      === "ASSETS/Perks/Styles/Precision/PressTheAttack/PressTheAttack.lua",
+  "Press the Attack game name, type or script path differs");
+  const pressData = clientData("Press the Attack"), pressGame = client("Press the Attack");
+  requireThat(pressData.__type === "PerkScriptData" && pressData.mCalculations === undefined
+    && pressData.mEffectAmountGameMode === undefined,
+  "Press the Attack retained client has no reviewed level calculation or mode overrides");
+  const pressCatalog = catalog.runes.find(rune => rune.id === 8005)!;
+  requireThat(pressCatalog.clientDescription === "Hitting an enemy champion with 3 consecutive basic attacks deals 40 - 160 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword> (based on level) and amplifies your damage dealt by 8% until you leave combat with champions.",
+    "Press the Attack retained abbreviated client description changed");
+  for (const [key, value] of Object.entries({
+    MinDamage: pressMinimum!, MaxDamage: pressMaximum!, BonusADRatio: 0, APRatio: 0, LethalityRatio: 0,
+    HitsRequired: pressHits!, TimeBetweenHits: pressStackDuration!, Cooldown: pressCooldown!,
+    AmpPotencyMaxSelf: pressPercent! / 100, AmpPotencyMaxOthers: pressPercent! / 100,
+    AmpPotencyStartSelf: pressPercent! / 100, AmpPotencyStartOthers: pressPercent! / 100,
+    BonusPercentDamage: pressPercent! / 100, AmpDuration: pressCombatDuration!, OutOfCombatTimer: pressCombatDuration!,
+  })) agree("Press the Attack", pressGame, key, value);
+  // The template expressly includes levels1to20. Named client Min/MaxDamage
+  // endpoints contain no executable level formula or hidden cap proof: 160 is
+  // the formula's level18 value, never silently substituted for level20.
+  const pressDamage = pressMinimum! + (pressMaximum! - pressMinimum!) / pressLevelInterval! * (TOP_LANE_MAX_LEVEL - 1);
+  requireThat(Number.isFinite(pressDamage) && pressDamage > 0, "Press the Attack needs finite positive model-level damage");
+  // Guard the complete current notes as well as relevant patch context. The
+  // generic combat page retains unresolved old/modern-system comments; these
+  // excerpts do not prove exact server phases, pet inheritance or two timers.
+  const pressContext: [string, RegExp][] = [
+    ["Press the Attack", /^\* '''Press the Attack's''' \{\{tip\|adaptive damage\}\} deals/],
+    ["Press the Attack", /^\* '''Press the Attack's''' \{\{tip\|adaptive damage\}\} is not affected/],
+    ["Press the Attack", /^\* The damage dealt by/],
+    ["Press the Attack", /^\* Application is individually/],
+    ["Press the Attack", /^\* Effects that allow/],
+    ["Press the Attack", /^\* With the exception of/],
+    ["Press the Attack", /^\*\* In addition/],
+    ["Press the Attack", /^\* The basic attack that triggers/],
+    ["Press the Attack", /^\*\* However, any/],
+    ["Press the Attack", /^\*\* Damage dealt on the same frame/],
+    ["Press the Attack", /^\*\* The triggering/],
+    ["Press the Attack", /^\* Now affects/],
+    ["Press the Attack", /^\* \{\{sbc\|Removed:\}\} Stack consumption/],
+    ["Press the Attack", /^\* \{\{sbc\|New Effect:\}\} Stack consumption/],
+    ["Adaptive force", /^== Adaptive damage ==$/],
+    ["Attack effects", /^''Hits'' do not occur/],
+    ["Basic attack", /^Innately, '''basic attacks''' apply/],
+    ["Combat status", /^'''Combat status'''/],
+    ["Combat status", /^<!--There's an "old" system/],
+    ["Combat status", /^\{\{tip\|Clones\}\} enter combat independently/],
+    ["Combat status", /^"Dealing damage" includes/],
+    ["Combat status", /^\* \{\{cai\|Hemoplague/],
+    ["Combat status", /^The following effects '''do not''' trigger/],
+    ["Stack", /^A '''stack''' refers/],
+    ["Stack", /^Stacking effects that time out/],
+    ["Template:Tip data/Adaptive damage", /^\|description\s*=/],
+  ];
+  for (const [title, pattern] of pressContext) {
+    const page = pages.get(title)!;
+    const rows = page.content.split("\n").filter(line => pattern.test(line));
+    requireThat(rows.length === 1, `${title} needs its complete reviewed Press the Attack context: ${pattern}`);
+    quote(page, rows[0]!);
+  }
 
   const alacrity = description("Legend: Alacrity");
   const [alacrityBase, alacrityPerStack, alacrityMaxStacks] = matchNumbers("Legend: Alacrity", alacrity.text,
@@ -891,6 +1009,11 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
     absorbLife: { heal: absorbHeal },
+    pressTheAttack: { modelLevel: 20, damage: pressDamage, hitsRequired: pressHits!, stackDuration: pressStackDuration!,
+      cooldown: pressCooldown!, damageIncrease: pressPercent! / 100, combatDuration: pressCombatDuration!,
+      // These three phases are explicit simulator policies, not live-script proof.
+      combatExpiryModel: "last-qualified-activity", adaptiveDamageModel: "current-derived-bonus-ad-vs-ap",
+      activationFrameModel: "simulation-tick" },
     presenceOfMind: { modelLevel: 20, manaRestore: presenceManaRestore, rangedManaRatio: presenceRangedRatio,
       energyRestore: presenceEnergyRestore, damageCooldown: presenceCooldown,
       takedownResourceRatio: presenceManaPercent! / 100, takedownDelay: presenceDelay!,

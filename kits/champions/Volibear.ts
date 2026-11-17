@@ -151,7 +151,7 @@ const volibear: KitModule = {
             { type: "damage", damageType: "physical", amount: w.formula("Physical Damage") },
             { type: "mark", key: WOUNDED, duration: woundSeconds },
           ],
-          flags: { appliesOnHit: true, parry: true },
+          flags: { appliesOnHit: true, pressTheAttack: true, parry: true },
         },
         {
           key: "E",

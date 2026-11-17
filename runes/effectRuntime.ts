@@ -2,23 +2,28 @@
 import type { FighterSpec, KitHooks } from "../engine/sim/spec";
 import type { CombatRuneRules } from "./effectRules";
 import { SECOND_WIND_ASSUMPTIONS, secondWindHooks } from "./secondWind";
-import { thresholdEnemyHooks } from "./thresholdEffects";
+import { thresholdDamageIncrease, thresholdEnemyHooks } from "./thresholdEffects";
+import type { RuneDamageIncrease } from "./outgoingAmplifiers";
 import { ABSORB_LIFE_ASSUMPTIONS, absorbLifeHooks } from "./absorbLife";
 import { buildLegendAlacrity } from "./legendAlacrity";
 import { buildLegendHaste } from "./legendHaste";
 import { buildLegendBloodline } from "./legendBloodline";
 import { buildTriumph } from "./triumph";
 import { buildPresenceOfMind } from "./presenceOfMind";
+import { buildPressTheAttack } from "./pressTheAttack";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
   beforeStart?: NonNullable<KitHooks["onStart"]>;
   hooks?: KitHooks;
   enemyHooks?: KitHooks[];
+  /** Shared aggregate resolver; equipment combines these before adapting raw damage. */
+  enemyDamageIncrease?: RuneDamageIncrease;
   assumptions: string[];
 }
 
 export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRuneRules, options: RuneEquipOptions = {}): RuneEffectBuild {
+  if (id === 8005) return buildPressTheAttack(_form, rules);
   if (id === 8009) return buildPresenceOfMind(_form, rules);
   if (id === 9111) return buildTriumph(rules);
   if (id === 9103) {
@@ -37,6 +42,7 @@ export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRun
   if (id === 8444) return { hooks: secondWindHooks(rules), assumptions: [...SECOND_WIND_ASSUMPTIONS] };
   if (id === 8014 || id === 8017 || id === 8299) return {
     enemyHooks: thresholdEnemyHooks([id], rules),
+    enemyDamageIncrease: thresholdDamageIncrease([id], rules),
     assumptions: [
       "Health thresholds are evaluated for each damage packet. A packet that first crosses a target-health threshold is not retroactively amplified.",
       "The reviewed V25.S1.3 changes allow eligible champion true damage to be amplified. Exact Smite and Ignite labels are excluded; summoner and jungle damage classifications remain outside these manual selections.",

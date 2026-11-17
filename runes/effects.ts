@@ -5,6 +5,8 @@ import type { FighterSpec, KitHooks } from "../engine/sim/spec";
 import { composeHooks, mapForms } from "../items/equip";
 import type { CombatRuneRules, RuneEffectEvidence } from "./effectRules";
 import { buildRuneEffect } from "./effectRuntime";
+import { checkedPressTheAttackRules } from "./pressTheAttack";
+import { outgoingRuneHooks } from "./outgoingAmplifiers";
 import { validateRunePage } from "./pages";
 import type { RuneEquipOptions } from "./equipOptions";
 export type { RuneEquipOptions } from "./equipOptions";
@@ -112,6 +114,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     || !/^\d+\.\d+$/.test(value.patch) || value.dataset !== catalog.dataset || value.patch !== catalog.patch) {
     throw new Error("Combat-rune rules must identify the source catalog's dataset and patch");
   }
+  const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
     coupDeGrace: ["healthThreshold", "damageIncrease"],
     cutDown: ["healthThreshold", "damageIncrease"],
@@ -177,6 +180,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
+    pressTheAttack,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
@@ -240,7 +244,9 @@ export function equipRuneEffects(
     const definitions = selection.map((id) => buildRuneEffect(id, form, rules, options));
     for (const definition of definitions) for (const assumption of definition.assumptions) assumptions.add(assumption);
     if (!spec.forms || form.form === spec.form) {
-      enemyHooks = definitions.flatMap((definition) => definition.enemyHooks ?? []).map((hooks) => ({ ...hooks }));
+      const increases = definitions.flatMap(definition => definition.enemyDamageIncrease ? [definition.enemyDamageIncrease] : []);
+      enemyHooks = [...definitions.flatMap(definition => definition.enemyDamageIncrease ? [] : definition.enemyHooks ?? []),
+        ...outgoingRuneHooks(increases)].map(hooks => ({ ...hooks }));
     }
     const ownHooks = definitions.flatMap((definition) => definition.hooks ? [definition.hooks] : []);
     const beforeStart = definitions.flatMap((definition) => definition.beforeStart ? [{ onStart: definition.beforeStart }] : []);
