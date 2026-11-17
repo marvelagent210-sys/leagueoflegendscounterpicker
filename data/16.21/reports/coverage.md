@@ -151,7 +151,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Trundle | Trundle | 43 | 3 |
 | Tryndamere | Tryndamere | 34 | 3 |
 | Twisted Fate | TwistedFate | 58 | 8 |
-| Twitch | Twitch | 67 | 6 |
+| Twitch | Twitch | 68 | 6 |
 | Udyr | Udyr | 80 | 12 |
 | Urgot | Urgot | 50 | 5 |
 | Varus | Varus | 71 | 8 |

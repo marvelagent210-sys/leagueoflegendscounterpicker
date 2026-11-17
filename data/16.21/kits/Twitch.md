@@ -237,7 +237,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Spray and Pray grants 60 AD and 300 range for 6 seconds. An empowered attack snapshots its initial line direction and blind/crit state at windup declaration, launches one 5000-speed 120-width piercing basic bolt, and can miss the original target. It uses 1100 plus other bonus attack range as its travel range; each subsequent actual contact scales ordinary basic damage to 90/80/70/60% while full on-hit effects retain their own packet. Every target uses real basic-attack defenses, life steal and its own poison state. Projectile walls destroy the remaining bolt. The pinned game missile object has conflicting 4000 speed; the explicit ability-page 5000 speed is retained. There is no lane of invented collateral targets.
 - The budget uses a ten-second-style sustained reference: poison stacks build from actual reference attack speed plus the sourced four Cask stacks per cooldown, capped at six; E is valued at that reference stack count. Q contributes only capped six-second attack-speed uptime over its 16-second cooldown plus one-second fade, and R contributes its six-second AD uptime per 90-second cooldown. It values no repeated champion kills or free collateral R hits. The policy waits for full venom, imminent expiry, range loss or a lethal E before detonating.
 
-### Source values read (66)
+### Source values read (67)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -283,6 +283,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Contaminate | not within range of the ability before the cast time completes | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
 | Contaminate | does not have to be visible | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
 | Contaminate | A nearby enemy with Deadly Venom is required | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Spray and Pray | Damage on non-targetted units is also considered AoE for Press the Attack. | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
 | Spray and Pray | Bonus Attack Damage: 30 / 45 / 60 | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
 | Spray and Pray | 300 bonus attack range | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
 | Spray and Pray | for 6 seconds | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
