@@ -20,6 +20,7 @@ const rules: CombatRuneRules = {
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
   absorbLife: { heal: 27 },
   triumph: { maximumHealthRatio: 0.025, missingHealthRatio: 0.05, delay: 1, bonusGold: 20, missingHealthModel: "at-native-kill-credit" },
+  presenceOfMind: { modelLevel: 20, manaRestore: 56, rangedManaRatio: 0.8, energyRestore: 6, damageCooldown: 8, takedownResourceRatio: 0.15, takedownDelay: 1, maximumResourceModel: "current-at-delivery" },
   legendBloodline: { baseLifeSteal: 0, lifeStealPerStack: 0.0045, pointsPerStack: 100, maxStacks: 15, championKillPoints: 100, bonusHealth: 85 },
   legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },

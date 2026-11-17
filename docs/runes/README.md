@@ -2,7 +2,12 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support nine partial combat effects, listed below.
+Manual plain-stat duels also support ten partial combat effects, listed below.
+Presence of Mind implementation began on 13 November; its local provenance
+refresh reused all 14,878 pairings per matrix with zero new computation.
+Complete default result payloads are unchanged; local validation passed 9,510
+tests with five existing skips. Pull-request checks run separately against the
+delivery head.
 Triumph's genuine full refresh and checkpoint audit completed on 11 November;
 complete default result payloads are unchanged. Bloodline's genuine full refresh
 and checkpoint audit completed on 10 November. Full rune pages and rune-page
@@ -101,7 +106,7 @@ npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 ```
 
-Each flag takes comma-separated rune IDs for that side. These nine effects are
+Each flag takes comma-separated rune IDs for that side. These ten effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -112,18 +117,22 @@ supported as partial manual selections:
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
 | Triumph | 9111 | Stores 2.5% maximum HP plus 5% missing HP from the declared native champion-body kill-credit frame; attempts ordinary self healing one second later if the duel is still active and the recipient remains eligible. Sourced 20 gold is economic reference only. |
+| Presence of Mind | 8009 | At the fixed model level 20, accepted damage restores 56 mana (44.8 for the current owner's ranged form) or 6 energy on an eight-second cooldown; an actual champion-body kill schedules 15% of the current derived maximum resource one second later. Local policies and unsupported events are detailed below. |
 | Legend: Alacrity | 9104 | 3% bonus attack speed plus 1.5 percentage points per completed 100-point stack, capped at ten stacks (18%). Requires declared starting points; actual champion-body kills add 100 points. |
 | Legend: Haste | 9105 | 1.5 basic ability haste per completed 100-point stack, capped at ten stacks (15). Zero starting points grant zero haste. Requires declared starting points; actual champion-body kills add 100 points. |
 | Legend: Bloodline | 9103 | 0.45% life steal per completed 100-point stack, capped at fifteen stacks (6.75%); a one-time direct 85 bonus-health award only at 1,500 points. Requires declared starting points; actual champion-body kills add 100 points. |
 
 The three Precision health-damage runes occupy the same source-defined row, so select at most
 one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
-at most one of those three. Triumph and Absorb Life share Precision's first
-lesser row and cannot coexist. Second Wind, either Triumph or Absorb Life, and
-one Legend choice can accompany any one of the three damage runes, subject to
-the same page validator. Triumph has no history flag; a selected Legend still
-requires that side's explicit `--legend-points` or `--enemy-legend-points`,
-including zero. No pre-duel Triumph entitlement is inferred.
+at most one of those three. Presence of Mind, Triumph and Absorb Life share
+Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
+Second Wind, one first-row choice and one Legend choice can accompany any one
+of the three damage runes, subject to the same page validator. Presence and
+Triumph have no history flag; a selected Legend still requires that side's
+explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-duel
+Presence or Triumph entitlement is inferred. Presence requires an explicit
+Mana or Energy resource type and rejects other types without substituting
+Triumph; complete-page automatic substitutions remain unfinished.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
 Omitting a side's flag applies none of these optional effects to that side. This
@@ -137,23 +146,22 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks 47 complete Wiki revisions in
+The offline compiler checks **63 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the nine templates to
-the catalog, and cross-checks numeric rules against the frozen game fields.
-Triumph adds five complete pages: its template/article, Assist, Heal and shield
-power, and Template:Healing modifiers. All 42 previous complete source objects
-and the frozen client descriptor remain unchanged. Fourteen pinned complete
-Wiki revisions were independently re-fetched on 11 November and matched their
-retained content hashes exactly. The full frozen 2,177,672-byte client remains
-SHA-256 `f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
-Its Triumph and visual-missile objects match the earlier independent complete
-client response; this is neither a fresh 11 November client fetch nor equality
-of the whole response. An unrelated Electrocute VFX resource-map drift remains
-recorded externally without replacing the frozen file. Historical Legend
-sections below retain the bundle counts and validation results of their own
-releases.
+full-content hashes, exact revisions and excerpts, binds the ten templates to
+the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Presence adds sixteen complete direct dependencies while preserving all 47
+previous objects and the frozen client descriptor. Twenty-five directly used
+pinned complete Wiki revisions were independently re-fetched on 13 November
+with matching metadata and content. The full frozen 2,177,672-byte client
+remains SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+A separately retained complete mutable response differs only in Electrocute's
+VFX record; the three directly relevant Presence records match the frozen
+objects. This does not replace the frozen client or claim a fresh 13 November
+whole-client fetch. Historical Legend and Triumph sections below retain the
+bundle counts and validation evidence of their own releases.
 Cut Down's obsolete health-difference fields are retained as source data but
 are not used for its current 8% rule.
 
@@ -189,9 +197,96 @@ Compatibility limits remain explicit:
 
 Full pages, keystones, the remaining historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These nine catalog entries are
+selection require further implementation and validation. These ten catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Presence of Mind: level-20 restoration and local validation
+
+Implementation began on **13 November 2026**, following the retained 11–12
+November source audit and design. The local provenance refresh reused all 14,878 pairings per matrix with zero
+new computation. The complete default comparison found unchanged result payloads. Local
+validation passed 9,510 tests across 269 files, with five existing skips;
+pull-request checks run separately against the delivery head.
+
+The complete [template 3985219](https://wiki.leagueoflegends.com/en-us/?oldid=3985219)
+and [article 4062635](https://wiki.leagueoflegends.com/en-us/?oldid=4062635), with
+the exact 31-entry client table indexed from level zero, give **56 mana at
+level 20**, **44.8 for the current owner's ranged form**, or **6 energy**. The
+Mana-only ranged factor is 0.8. The detailed curve gives 44 at level 18, 52 at level 19 and 56
+at level 20; conflicting named 6–50 endpoint fields and tooltip text remain retained
+rather than interpolated or used as a cap. The current effect is flat
+restoration, with no retired regeneration pulses or maximum-resource stacks.
+
+An accepted reported packet against the actual opposing champion body must
+remove HP or absorb a shield: actual HP loss plus absorption must be positive.
+The owner body or an ordinary native owned-pet actor can trigger it, including
+a released pet missile after removal. One body-local **eight-second / 240-tick**
+cooldown is shared across forms and consumed even at a full pool, before the
+resource effect. Ability haste does not scale it. Full-Mana consumption follows
+a bug-labelled source note interpreted as cooldown use; full-Energy consumption,
+current-form sampling and exact callback phase are explicit model policies.
+
+One actual native champion-body kill schedules **15% of the current derived
+maximum Mana or Energy after one second /30 ticks**, capped by the ordinary
+resource effect. Native credit establishes the real body kill and tick, not a
+resource snapshot. Cap sampling at delivery is an unmeasured local policy;
+current Ryze AP-to-Mana and Akali shroud caps are derived then. A changed
+resource kind consumes the pending entitlement without transferring it.
+No pre-fight, assist, farm or multiplayer queue is inferred.
+
+This is resource restoration, not HP healing or regeneration. Heal amplification,
+Grievous Wounds and `noHealing` do not alter its amount. Under the declared
+resource policy, living, fallen, counted-dead and ordinary dead recipients can
+receive the delayed effect only while the world is already active. The timer
+never prolongs an ended duel and restores no HP. Its primitive Unit memory is
+retained across same-body forms and copied independently with the world.
+
+The damage arm uses the existing alive/positive-HP observer, which may include
+fallen or protected bodies. Ordinary dead/zero-HP damage procs and execute-only
+damage observations remain unsupported; an execute can still create the
+independent native takedown entitlement. Actual reported clone actors and
+clone/pet targets are excluded from this bounded subset. Kit packets with a
+causal clone origin can instead report the owner, as Shaco's explosion does;
+those packets can qualify without proving universal clone-origin behavior.
+Zero-effective parries, general zero-damage events and complete visual-missile
+semantics remain qualified. These exclusions and phases are not measured live
+rules. The [mechanics gap audit](MECHANICS_GAPS.md) retains the distinctions.
+
+Exact Mana or Energy resource types are required; other types fail without
+automatic Triumph substitution. Select only one of Presence, Absorb Life and
+Triumph. One Legend is compatible with its side's explicit points; Presence
+needs no history flag. Stat shards remain available, while fixed items, build
+search, full pages, browser effect controls and rune-aware allocation/search
+remain unfinished. Allocation stays at the no-rune reference.
+
+The native CLI checks cover these commands, including resource-limited combat
+on either selected side and Mana/Energy bodies with explicit shards:
+
+```sh
+npm run duel -- Cassiopeia Sion --dataset 16.21 --gold 0 --combat-runes 8009 --log brawl
+npm run duel -- Sion Cassiopeia --dataset 16.21 --gold 0 --enemy-combat-runes 8009 --log brawl
+npm run duel -- Cassiopeia Akali --dataset 16.21 --gold 0 --combat-runes 8009 --enemy-combat-runes 8009 --shards 5005,5001,5011 --enemy-shards 5008,5008,5001 --log brawl
+npm run duel -- Cassiopeia Sion --dataset 16.21 --gold 0 --sweep --combat-runes 8009,9105 --legend-points 99 --enemy-combat-runes 8009,9104 --enemy-legend-points 199
+```
+
+The Cassiopeia/Sion zero-gold comparison gives 26 brawl casts with Presence
+versus 24 without it. The swept command preserves the separate declared Legend
+history for each budget; its 5,000-gold result differs materially from the same
+Legend selections without Presence. Exact model scores and focused-check
+receipts are recorded in the [accuracy log](../../ACCURACY.md). These are local
+simulator checks, not in-game measurements or complete rune-page validation.
+
+The normal local provenance refresh completed on 13 November, reusing all
+14,878 pairings in each matrix with zero new computation. Both ordinary matrix
+freshness checks, both TypeScript projects, offline catalog freshness and the
+production browser build passed. Independent complete comparison found
+unchanged aggregate/scenario scores, variants, raw and decoded builds, item
+sets and spending across all 173 champions. Only simulation provenance changed;
+all per-pair input keys remain equal. The full local suite passed **9,510 tests
+across 269 files**, with five existing skips. No new checkpoints are claimed.
+Pull-request checks run separately against the actual delivery head; the
+[accuracy log](../../ACCURACY.md) records the local commands and exact proofs.
 
 ### Triumph: native credit, delayed healing and full refresh
 

@@ -24,6 +24,8 @@ const rules: CombatRuneRules = {
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
   absorbLife: { heal: 27 },
   triumph: { maximumHealthRatio: 0.025, missingHealthRatio: 0.05, delay: 1, bonusGold: 20, missingHealthModel: "at-native-kill-credit" },
+  presenceOfMind: { modelLevel: 20, manaRestore: 56, rangedManaRatio: 0.8, energyRestore: 6,
+    damageCooldown: 8, takedownResourceRatio: 0.15, takedownDelay: 1, maximumResourceModel: "current-at-delivery" },
   legendBloodline: { baseLifeSteal: 0, lifeStealPerStack: 0.0045, pointsPerStack: 100, maxStacks: 15, championKillPoints: 100, bonusHealth: 85 },
   legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
@@ -47,20 +49,20 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely ninety-six of the 512 subsets of the nine implemented effects", () => {
-    expect(FIRST_COMBAT_RUNE_IDS).toHaveLength(9);
+  it("accepts precisely 128 of the 1,024 subsets of the ten implemented effects", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
       const legends = selected.filter((id) => id === 9103 || id === 9104 || id === 9105);
-      const precisionRowOne = selected.filter((id) => id === 9101 || id === 9111);
+      const precisionRowOne = selected.filter((id) => id === 8009 || id === 9101 || id === 9111);
       if (amps.length <= 1 && legends.length <= 1 && precisionRowOne.length <= 1) {
         expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
         accepted++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(selected.length > 6 ? /at most six/ : /same path row/);
     }
-    expect(accepted).toBe(96);
+    expect(accepted).toBe(128);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],
@@ -85,6 +87,19 @@ describe("explicit partial combat-rune selections", () => {
     expect(() => validateCombatRuneSelection(catalog, [9101, 9111])).toThrow(/same path row/);
     for (const id of [9103, 9104, 9105]) {
       expect(validateCombatRuneSelection(catalog, [9111, id, 8444, 8014])).toEqual([8014, 8444, id, 9111]);
+    }
+  });
+
+  it("uses Presence of Mind's source row to exclude both alternatives and permit one declared Legend", () => {
+    expect(validateCombatRuneSelection(catalog, [8009])).toEqual([8009]);
+    for (const other of [9101, 9111]) {
+      expect(() => validateCombatRuneSelection(catalog, [8009, other])).toThrow(/same path row/);
+    }
+    const mana = { ...fighter({ base: { resource: 1000 } }), resourceType: "Mana" };
+    for (const id of [9103, 9104, 9105]) {
+      expect(validateCombatRuneSelection(catalog, [8009, id, 8444, 8014])).toEqual([8009, 8014, 8444, id]);
+      expect(() => equipRuneEffects(mana, [8009, id], catalog, rules)).toThrow(/explicit.*legendPoints/);
+      expect(equipRuneEffects(mana, [8009, id], catalog, rules, { legendPoints: 0 }).selection).toEqual([8009, id]);
     }
   });
 
@@ -128,6 +143,55 @@ describe("explicit partial combat-rune selections", () => {
 });
 
 describe("combat-rune equipment and opposing-hook composition", () => {
+  it("restores each equipped body's own resource without healing or a starting-history flag", () => {
+    const mana = { ...fighter({ base: { resource: 1000 } }), resourceType: "Mana" };
+    const energy = { ...fighter({ base: { resource: 200 } }), resourceType: "Energy" };
+    const own = equip(mana, [8009, 8014]), other = equip(energy, [8009, 8444]);
+    const world = arena(runeMatchupSpecs(own, other));
+    world.units[0].resource = 0; world.units[1].resource = 0;
+    damage(world, 0, 1);
+    expect(world.units[0].resource).toBe(56);
+    expect(world.units[1].resource).toBe(0);
+    damage(world, 1, 0);
+    expect(world.units[0].resource).toBe(56);
+    expect(world.units[1].resource).toBe(6);
+    expect(world.units.map(unit => unit.totals.healing)).toEqual([0, 0]);
+    expect(own.selection).toEqual([8009, 8014]);
+    expect(() => equipRuneEffects(mana, [8009], catalog, rules, { legendPoints: 0 })).toThrow(/requires selecting/);
+  });
+
+  it.each([undefined, "None", "Fury", "Rage"])("rejects manual Presence on unsupported resource type %s without replacing it", resourceType => {
+    const input = { ...fighter({ base: { resource: 1000 } }), resourceType };
+    expect(() => equip(input, [8009])).toThrow(/Presence of Mind.*Mana.*Energy/);
+    expect(input.hooks).toBeUndefined();
+    expect(input.bonus).toBeUndefined();
+  });
+
+  it("copies Presence numeric rules before reusable equipment can be mutated by its caller", () => {
+    const input = structuredClone(rules);
+    const spec = { ...fighter({ base: { resource: 1000 } }), resourceType: "Mana" };
+    const own = equipRuneEffects(spec, [8009], catalog, input), other = equip();
+    input.presenceOfMind.manaRestore = 500;
+    input.presenceOfMind.damageCooldown = 1;
+    const world = arena(runeMatchupSpecs(own, other));
+    world.units[0].resource = 0;
+    damage(world, 0, 1); expect(world.units[0].resource).toBe(56);
+    world.tick = 30;
+    damage(world, 0, 1); expect(world.units[0].resource).toBe(56);
+    world.tick = 240;
+    damage(world, 0, 1); expect(world.units[0].resource).toBe(112);
+  });
+
+  it.each([
+    { modelLevel: 18 }, { manaRestore: NaN }, { energyRestore: 0 },
+    { rangedManaRatio: 1.1 }, { damageCooldown: 0 }, { takedownResourceRatio: 1.1 },
+    { maximumResourceModel: "at-native-kill-credit" },
+  ])("rejects unreviewed Presence rule units or model policy: %s", change => {
+    const spec = { ...fighter({ base: { resource: 1000 } }), resourceType: "Mana" };
+    const input = { ...rules, presenceOfMind: { ...rules.presenceOfMind, ...change } } as CombatRuneRules;
+    expect(() => equipRuneEffects(spec, [8009], catalog, input)).toThrow(/Presence|presenceOfMind/);
+  });
+
   it.each([0, 1] as const)("equips side %s's Triumph without Legend history and preserves its delayed native kill credit", (side) => {
     const spec = fighter({ hooks: { onKill(ctx) { ctx.memory.kitKills = Number(ctx.memory.kitKills ?? 0) + 1; } } });
     const a = equip(spec, [8014, 9111]), b = equip(spec, [8444, 9111]);

@@ -234,7 +234,7 @@
         "sha256": "a27418c682b63ac7087aeae94dd4aaf7c30fa058ec5aed57f982ae223285351f",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Presence of Mind|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 1\n|description  = {{sbc|Passive:}} Scoring a {{tip|takedown}} against an enemy champion restores {{as|15% of your '''maximum''' mana}} or {{as|15% of your '''maximum''' energy}} after a 1-second delay.\n|description2 = Damaging an enemy champion restores {{as|{{rd|6; then +0.8*x for 5; then +2*x for 5; then +3.2*x for 5; then +4*x for 2; then +8; then +4|6*0.8; then +0.8*0.8*x for 5; then +2*0.8*x for 5; then +3.2*0.8*x for 5; then +4*0.8*x for 2; then +8*0.8; then +4*0.8|pp=true}} mana}} or {{as|6 energy}} (8 second cooldown).\n|range        = \n|cooldown     = <!--formula=6 base, then +0.8 per level until level 6, then +2 per level until level 11, then +3.2 per level until level 16, then +4 per level until level 18, then +8 per level until level 19, then +4 per level.-->\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8010,

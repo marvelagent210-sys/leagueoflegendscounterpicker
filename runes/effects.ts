@@ -1,5 +1,6 @@
 /** Explicit partial combat-rune selections; this does not equip a complete rune page. */
 import type { RuneCatalog } from "./catalog";
+import { toTicks } from "../engine/rules/time";
 import type { FighterSpec, KitHooks } from "../engine/sim/spec";
 import { composeHooks, mapForms } from "../items/equip";
 import type { CombatRuneRules, RuneEffectEvidence } from "./effectRules";
@@ -135,6 +136,19 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
       }
     }
   }
+  const presence: unknown = value.presenceOfMind;
+  const presenceAmounts = ["manaRestore", "rangedManaRatio", "energyRestore", "damageCooldown", "takedownResourceRatio", "takedownDelay"] as const;
+  if (!record(presence) || presence.modelLevel !== 20 || presence.maximumResourceModel !== "current-at-delivery"
+    || presenceAmounts.some(key => typeof presence[key] !== "number" || !Number.isFinite(presence[key]) || (presence[key] as number) <= 0)
+    || (presence.rangedManaRatio as number) > 1 || (presence.takedownResourceRatio as number) > 1
+    || ![presence.damageCooldown, presence.takedownDelay].every(seconds => {
+      const ticks = toTicks(seconds as number);
+      return Number.isSafeInteger(ticks) && ticks > 0;
+    })
+    || !Number.isFinite((presence.manaRestore as number) * (presence.rangedManaRatio as number))
+    || !((presence.manaRestore as number) * (presence.rangedManaRatio as number) > 0)) {
+    throw new Error("Invalid combat-rune Presence of Mind numeric rules, model level or delivery policy");
+  }
   if (value.lastStand.maximumHealthThreshold >= value.lastStand.healthThreshold
     || value.lastStand.minimumDamageIncrease > value.lastStand.maximumDamageIncrease) {
     throw new Error("Invalid combat-rune Last Stand threshold or damage interval");
@@ -163,6 +177,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
+    presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
     legendHaste: { ...value.legendHaste },

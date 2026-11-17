@@ -8,6 +8,7 @@ import { buildLegendAlacrity } from "./legendAlacrity";
 import { buildLegendHaste } from "./legendHaste";
 import { buildLegendBloodline } from "./legendBloodline";
 import { buildTriumph } from "./triumph";
+import { buildPresenceOfMind } from "./presenceOfMind";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
@@ -18,6 +19,7 @@ export interface RuneEffectBuild {
 }
 
 export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRuneRules, options: RuneEquipOptions = {}): RuneEffectBuild {
+  if (id === 8009) return buildPresenceOfMind(_form, rules);
   if (id === 9111) return buildTriumph(rules);
   if (id === 9103) {
     if (options.legendPoints === undefined) throw new Error("Legend: Bloodline requires explicit starting Legend points");

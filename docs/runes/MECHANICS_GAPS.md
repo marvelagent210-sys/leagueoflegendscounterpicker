@@ -8,6 +8,86 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Presence of Mind: resource phases and observer limits
+
+Presence implementation began on **13 November 2026** as the tenth partial
+manual effect. The current bundle has **63 complete objects**, preserving all
+47 preceding objects and frozen full client bytes. Twenty-five direct pinned
+pages were independently re-fetched on 13 November. Historical Legend and
+Triumph sections below retain the bundle counts and results of their releases.
+Presence's local provenance refresh completed on 13 November, reusing all
+14,878 pairings per matrix with zero new computation. The complete default comparison found unchanged result payloads. Local
+validation passed 9,510 tests across 269 files with five existing skips;
+pull-request checks run separately against the delivery head.
+
+The retained complete template 3985219, article 4062635 and 31-entry client table
+agree through level 20: **56 mana**, **44.8 for the current owner's ranged form**,
+or **6 energy**. Named6–50 fields and tooltip text disagree with that detailed
+curve and remain explicit evidence conflicts. This model uses the detailed
+curve without interpolation/clamping to 50. It implements flat restoration,
+not the retired regeneration or maximum-resource stacking effects. Exact Mana
+or Energy types are required; unsupported types fail without automatic Triumph
+substitution. Presence, Triumph and Absorb Life share Precision row 1.
+
+The damage arm uses one native post-damage observer and a single body-local
+**eight-second / 240-tick** cooldown. Current owner form chooses Mana's ranged
+factor; form changes do not reset the clock, and ability haste does not scale
+it. Accepted damage consumes cooldown before capped resource gain even at full
+resource. The full-Mana rule interprets a bug-labelled article note; full-Energy
+consumption is a chosen unmeasured extension. The reported threshold is actual
+HP loss plus shield absorption greater than zero. Shield-only packets qualify;
+zero-effective late parries do not. Source text does not prove that threshold
+or the exact callback/form sampling phase.
+
+Only the actual opposing champion body is a damage victim in this subset. The
+owner or a native ordinary owned-pet actor can supply the packet; released pet
+missiles preserve source identity after removal, so a live-pet lookup or
+whole-hit bridge is unnecessary. Actual reported clone actors and clone/pet
+targets are excluded, but some causal clone effects report the owner instead:
+Shaco's clone explosion is an owner-emitted packet and can qualify. No universal
+causal-origin marker establishes broader clone parity. The observer visits
+only alive, positive-HP owners, including possible fallen/death-defied or
+protected bodies. Normal dead/zero-HP damage procs are unsupported. An
+execute-only effect reaches native kill credit but emits no post-damage event;
+it can schedule the takedown arm without granting the damage arm.
+
+Actual hostile champion-body kill credit schedules a **one-second / 30-tick**
+resource entitlement, using native owner attribution and deduplication. The
+immutable native frame establishes a real kill and tick; it supplies no
+resource or maximum-resource facts. The callback records current resource kind
+and deadline. At delivery, the local policy samples **15% of the current derived
+maximum of the same kind** and consumes state before applying capped ordinary
+resource gain. Kind changes consume without transferring an old entitlement.
+Ryze's AP-to-Mana conversion and Akali's temporary Energy maximum are therefore
+derived at delivery. The stale Akali 280/42 example is not used: native shroud
+adds 100 to base 200; active delivery attempts 45, while expiry before upkeep
+returns the cap to 200 and the chosen policy attempts 30. Native model regressions check those boundaries; they do not constitute live
+measurements.
+
+Resource restoration is separate from HP healing and regeneration; heal
+amplification, Grievous Wounds and `noHealing` do not modify it. The declared
+resource policy permits delayed gain on dead, fallen or counted-dead bodies
+only while the world is already active. It neither heals nor revives them and
+never prolongs an ended duel. Primitive body memory survives forms and copies
+independently with the world. This policy must not be inferred from Triumph's
+HP-healing cancellation. No assists/farm, pre-fight grant, multiplayer queue,
+full missile semantics or exact live recipient phase is established.
+
+The source/implementation contract remains partial. The normal local refresh
+used the actual dependency plan: all 14,878 pairings per matrix were reused,
+with zero newly computed pairs. Both ordinary matrix freshness checks, both
+TypeScript projects, offline catalog freshness and the browser build passed.
+Independent complete comparison found unchanged result payloads across all
+173 champions, including every score/scenario, variant, build/item set and
+spending field. Only simulation provenance changed; all pair input keys remain
+equal. The full local suite passed 9,510 tests across 269 files with five
+existing skips. Pull-request checks run separately against the actual delivery
+head. No new checkpoints are claimed, and reused counts alone were not treated
+as numerical evidence. Earlier optimizer regressions and controlled in-game validation
+remain unresolved. See the [rune audit](README.md) and
+[accuracy log](../../ACCURACY.md); full pages, browser combat controls,
+item/rune composition and rune-aware search remain unfinished.
+
 ## Triumph: bounded timer and unresolved live phase
 
 Triumph implementation began on 11 November 2026 as the ninth partial manual
