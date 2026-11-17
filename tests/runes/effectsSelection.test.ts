@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { applyEffect, dealDamage, hookContext } from "../../engine/sim/combat";
+import { applyEffect, attackHit, dealDamage, hookContext } from "../../engine/sim/combat";
 import { setForm } from "../../engine/sim/forms";
 import { derive } from "../../engine/sim/derived";
 import { createWorld } from "../../engine/sim/simulate";
@@ -18,6 +18,9 @@ const fighter = (options: Parameters<typeof baseFighter>[0] = {}): FighterSpec =
   baseFighter({ ...options, base: { armor: 0, mr: 0, ...options.base } });
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  pressTheAttack: { modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4, cooldown: 6,
+    damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
+    adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick" },
   coupDeGrace: { healthThreshold: 0.4, damageIncrease: 0.08 },
   cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
@@ -49,8 +52,8 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely 128 of the 1,024 subsets of the ten implemented effects", () => {
-    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
+  it("accepts precisely 256 of the 2,048 subsets of the eleven implemented effects", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
@@ -62,7 +65,7 @@ describe("explicit partial combat-rune selections", () => {
         accepted++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(selected.length > 6 ? /at most six/ : /same path row/);
     }
-    expect(accepted).toBe(128);
+    expect(accepted).toBe(256);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],
@@ -101,6 +104,56 @@ describe("explicit partial combat-rune selections", () => {
       expect(() => equipRuneEffects(mana, [8009, id], catalog, rules)).toThrow(/explicit.*legendPoints/);
       expect(equipRuneEffects(mana, [8009, id], catalog, rules, { legendPoints: 0 }).selection).toEqual([8009, id]);
     }
+  });
+
+  it("adds a Precision keystone without changing lesser-row exclusivity or page completion", () => {
+    expect(validateCombatRuneSelection(catalog, [8005])).toEqual([8005]);
+    expect(validateCombatRuneSelection(catalog, [8444, 8014, 9104, 8009, 8005])).toEqual([8005, 8009, 8014, 8444, 9104]);
+    expect(() => validateCombatRuneSelection(catalog, [8005, 8009, 9111])).toThrow(/same path row/);
+    expect(() => validateCombatRuneSelection(catalog, [8005, 9103, 9104])).toThrow(/same path row/);
+    expect(() => validateCombatRuneSelection(catalog, [8005, 8439], allIds)).toThrow(/more than one keystone/);
+    expect(() => equipRuneEffects(fighter(), [8005], catalog, rules, { legendPoints: 0 })).toThrow(/requires selecting/);
+  });
+
+  it.each([
+    { modelLevel: 18 }, { hitsRequired: 4 }, { damage: NaN }, { damage: 0 },
+    { stackDuration: 0 }, { cooldown: Infinity }, { combatDuration: Number.MAX_SAFE_INTEGER },
+    { damageIncrease: 1.1 }, { combatExpiryModel: "two-consecutive-five-second-timers" },
+    { adaptiveDamageModel: "shard-memory" }, { activationFrameModel: "wall-clock" },
+  ])("rejects invalid Press the Attack rules at equipment time: %s", change => {
+    const spec: FighterSpec = { ...fighter(), adaptiveType: "Physical" };
+    const input = { ...rules, pressTheAttack: { ...rules.pressTheAttack, ...change } } as CombatRuneRules;
+    expect(() => equipRuneEffects(spec, [8005], catalog, input)).toThrow(/Press the Attack/);
+  });
+
+  it("requires a source champion's adaptive tie type even when no adaptive shard is equipped", () => {
+    expect(() => equipRuneEffects(fighter(), [8005], catalog, rules)).toThrow(/adaptive.*tie type/);
+    for (const adaptiveType of ["Physical", "Magic"] as const) {
+      expect(equipRuneEffects({ ...fighter(), adaptiveType }, [8005], catalog, rules).selection).toEqual([8005]);
+    }
+  });
+
+  it("snapshots the proc rules and preserves kit hooks across independently paired worlds", () => {
+    const spec: FighterSpec = { ...fighter({ base: { hp: 10000 }, hooks: {
+      onResolvedOnHit(ctx) { ctx.memory.kitContacts = Number(ctx.memory.kitContacts ?? 0) + 1; },
+    } }), adaptiveType: "Physical" };
+    const input = structuredClone(rules);
+    const own = equipRuneEffects(spec, [8005], catalog, input), opponent = equip(fighter({ base: { hp: 10000 } }));
+    input.pressTheAttack.damage = 999;
+    input.pressTheAttack.damageIncrease = 0.5;
+    const first = arena(runeMatchupSpecs(own, opponent)), second = arena(runeMatchupSpecs(own, opponent));
+    for (let at = 0; at < 3; at++) {
+      first.tick = at;
+      attackHit(first, first.units[0], first.units[1], false, []);
+    }
+    expect(first.units[1].totals.damageTaken).toBeCloseTo(300 + 2960 / 17, 10);
+    expect(first.units[0].memory.kitContacts).toBe(3);
+    first.tick = 3;
+    expect(dealDamage(first, first.units[0], first.units[1], 100, "true")).toBeCloseTo(108, 10);
+    second.tick = 3;
+    expect(dealDamage(second, second.units[0], second.units[1], 100, "true")).toBe(100);
+    expect(second.units[0].memory.kitContacts).toBeUndefined();
+    expect(spec.hooks).not.toHaveProperty("onCombatActivity");
   });
 
   it("rejects two keystones even when both have registered implementations", () => {

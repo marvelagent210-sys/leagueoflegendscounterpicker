@@ -26,6 +26,7 @@ export function baseFighter(champion: Champion, form: ChampionForm | undefined =
     id: form.id,
     name: form.name,
     resourceType: champion.resource,
+    ...(champion.adaptiveType ? { adaptiveType: champion.adaptiveType } : {}),
     base: {
       hp: statAtLevel(s.hp, level),
       hpRegen: statAtLevel(s.hpRegen, level),

@@ -8,6 +8,71 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Press the Attack: event boundaries and local policies
+
+Implementation began on **17 November 2026** as the eleventh partial manual
+effect and first Precision keystone. The current bundle has 71 complete pages,
+preserving all 63 previous objects and the frozen full client. The dated
+Presence and earlier sections below retain their own release snapshots. The
+new native-event code requires genuine full recomputation of both default
+matrices; its refresh, checkpoint audit and release checks are pending.
+
+The explicit [template 4015574](https://wiki.leagueoflegends.com/en-us/?oldid=4015574)
+formula runs through level 20 and gives `2960/17` proc damage at that level.
+Frozen client MinDamage/MaxDamage names do not establish a hidden 160 cap.
+Two 14 November whole-client refetches failed HTTP 522, so there is no fresh
+whole-client equality claim. Current derived bonus AD versus AP and the source
+champion's carried tie type are sampled at delivery under a declared local
+policy, independent of adaptive-force shard selection.
+
+The [PTA article 4082445](https://wiki.leagueoflegends.com/en-us/?oldid=4082445)
+requires counting on-hit applications, including multiple applications within
+one issued attack, while excluding specified AoE/secondary contacts except its
+Azir W exception. Native source-side immutable events and explicit kit metadata
+provide that bounded classification. Renekton declares two or three strike
+application events; other attached on-hit effects still use their existing
+once-per-attack approximation. Custom kit adapters and per-ability coverage
+do not prove universal pet/clone, multi-target or item-event parity.
+
+New amplification excludes the whole activation simulation tick (30 Hz).
+Later procs while already active keep the prior activation tick and can be
+amplified. The proc ignores on-hit effectiveness and does not trigger ability
+hit hooks. Four-second stack expiry, six-second cooldown readiness and the
+existing post-on-hit callback phase use explicit local boundaries. Same-frame
+wording does not independently establish this game-to-model frame mapping.
+
+The [Combat status article 4058480](https://wiki.leagueoflegends.com/en-us/?oldid=4058480)
+includes damage, zero events and CC, with pet/clone distinctions and old/modern
+ambiguities. A single five-second clock since qualified accepted damage/CC
+or connected eligible on-hit activity, including damage-blocked contacts, is
+the chosen interpretation; it does not add two consecutive five-second timers.
+Ordinary pet-to-champion activity can refresh the owner's clock, while actual
+classified pet/clone sources do not stack or inherit the bounded amplifier.
+Owner-emitted packets without causal clone markers can still appear as owner
+activity or damage; universal clone-origin exclusion is not established. Native
+invulnerability/stasis/parry guards, pet-victim paths, shield-prevented effects,
+causal clone attribution and source-specific combat exceptions remain qualified.
+Expiry precedes a late refresh, preventing revival of an expired buff.
+
+The amplifier applies only to actual living champion-body source damage
+against the opposing champion body. It follows current PTA true-damage history
+with exact Smite exclusion, without copying the health-rune Ignite exclusion.
+Clone-victim resets, post-death stacking, lethal/reflection priority and full
+protected-state eligibility remain unmeasured. Dead bodies immediately stop
+stacking/amplifying; the first dead-body upkeep clears stacks and buff state.
+Timers do not extend ended duels. A shared pure resolver sums compatible PTA
+and health-rune increases before the aggregate adapter, avoiding multiplicative
+rune cross terms. Additive outgoing-bucket composition remains
+an aggregate approximation: separate V26.09 amplifier instances and
+pre-modifier interaction parity are not modeled. Fixed items and build search
+therefore remain blocked for manual combat-rune flags.
+
+See the [rune audit](README.md#press-the-attack-first-keystone-and-declared-event-policies)
+and [accuracy log](../../ACCURACY.md#press-the-attack-eleventh-partial-manual-effect-17-november-implementation)
+for source links, manual commands, remaining work and the pending release
+boundary. Full pages, remaining keystones, browser effect controls, item/rune
+composition and rune-aware allocation/search remain unfinished.
+
 ## Presence of Mind: resource phases and observer limits
 
 Presence implementation began on **13 November 2026** as the tenth partial

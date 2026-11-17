@@ -12,6 +12,9 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  pressTheAttack: { modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4, cooldown: 6,
+    damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
+    adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick" },
   coupDeGrace: { healthThreshold: 0.4, damageIncrease: 0.08 },
   cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
@@ -244,7 +247,7 @@ describe("packet-time health-threshold rune amplification", () => {
       const world = arena([8014]); world.units[1].hp = 790;
       addOutgoing(world.units[0], modifier);
       expect(() => dealDamage(world, world.units[0], world.units[1], 100, "magic"))
-        .toThrow("Health-threshold runes cannot amplify a nonpositive existing outgoing damage multiplier");
+        .toThrow("Combat runes cannot amplify a nonpositive existing outgoing damage multiplier");
       expect(world.units[1].hp).toBe(790);
       expect(world.units[0].totals.damageDealt).toBe(0);
     });

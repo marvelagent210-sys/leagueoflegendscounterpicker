@@ -2,6 +2,7 @@
 import { derive } from "../engine/sim/derived";
 import type { KitHooks } from "../engine/sim/spec";
 import type { CombatRuneRules } from "./effectRules";
+import { outgoingRuneHooks, type RuneDamageIncrease } from "./outgoingAmplifiers";
 
 // These are the only canonical summoner labels currently representable by the
 // damage API. Additional summoner/jungle modes need source classification before
@@ -15,21 +16,24 @@ const EXCLUDED_TRUE_DAMAGE = new Set(["Smite", "Ignite"]);
  * evaluation may call it more than once for one resolved damage event.
  */
 export function thresholdEnemyHooks(selection: readonly number[], rules: CombatRuneRules): KitHooks[] {
+  if (![8014, 8017, 8299].some(id => selection.includes(id))) return [];
+  return outgoingRuneHooks([thresholdDamageIncrease(selection, rules)]);
+}
+
+export function thresholdDamageIncrease(selection: readonly number[], rules: CombatRuneRules): RuneDamageIncrease {
   const chosen = new Set(selection);
-  if (![8014, 8017, 8299].some((id) => chosen.has(id))) return [];
   const coup = { ...rules.coupDeGrace };
   const cut = { ...rules.cutDown };
   const last = { ...rules.lastStand };
-  return [{
-    modifyDamageTakenRaw(ctx) {
+  return (ctx) => {
       if (ctx.self.petId !== undefined || ctx.world.units[ctx.self.side] !== ctx.self
-        || ctx.enemy.side === ctx.self.side) return ctx.raw;
-      if (ctx.damageType === "true" && ctx.ability !== undefined && EXCLUDED_TRUE_DAMAGE.has(ctx.ability)) return ctx.raw;
+        || ctx.enemy.side === ctx.self.side) return 0;
+      if (ctx.damageType === "true" && ctx.ability !== undefined && EXCLUDED_TRUE_DAMAGE.has(ctx.ability)) return 0;
       const owner = ctx.world.units[ctx.enemy.side];
-      if (!owner || owner.side === ctx.self.side) return ctx.raw;
+      if (!owner || owner.side === ctx.self.side) return 0;
       const targetMaximum = derive(ctx.self).maxHp;
       const ownerMaximum = derive(owner).maxHp;
-      if (!(targetMaximum > 0) || !(ownerMaximum > 0)) return ctx.raw;
+      if (!(targetMaximum > 0) || !(ownerMaximum > 0)) return 0;
       const targetHealth = ctx.self.hp / targetMaximum;
       const ownerHealth = owner.hp / ownerMaximum;
       let increase = 0;
@@ -40,28 +44,6 @@ export function thresholdEnemyHooks(selection: readonly number[], rules: CombatR
           (last.healthThreshold - ownerHealth) / (last.healthThreshold - last.maximumHealthThreshold)));
         increase += last.minimumDamageIncrease + progress * (last.maximumDamageIncrease - last.minimumDamageIncrease);
       }
-      if (increase === 0 || ctx.raw === 0) return ctx.raw;
-
-      // Since V26.09, outgoing damage increases share an additive bucket. The
-      // engine applies that bucket after this hook, so compensate for the source
-      // factor already scheduled there. Use the actual packet source's modifiers:
-      // only Last Stand's health condition belongs to the champion owner.
-      // Match mitigate() exactly: true damage ignores outgoing reductions.
-      const outgoing = 1 + derive(ctx.enemy).damageDealt.reduce((sum, modifier) =>
-        sum + (ctx.damageType === "true" ? Math.max(0, modifier) : modifier), 0);
-      if (!Number.isFinite(outgoing)) throw new Error("Health-threshold rune outgoing damage multiplier must be finite");
-      if (outgoing <= 0) {
-        if (outgoing + increase <= 0) return ctx.raw;
-        // A raw-damage adapter cannot recover damage through the engine's zero
-        // outgoing factor (or negative factor followed by its nonnegative clamp).
-        // Reject this unsupported case instead of silently dropping the rune.
-        throw new Error("Health-threshold runes cannot amplify a nonpositive existing outgoing damage multiplier");
-      }
-      // Keep the engine's current flat-reduction / victim-hook order. This adapter
-      // establishes additive stacking, not an independently verified phase order.
-      // Existing item amplifiers implemented as raw hooks retain their current
-      // composition; only the engine's damageDealt status bucket is shared here.
-      return ctx.raw * ((outgoing + increase) / outgoing);
-    },
-  }];
+      return increase;
+  };
 }

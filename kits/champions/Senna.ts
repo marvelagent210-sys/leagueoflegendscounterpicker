@@ -1,7 +1,7 @@
 /** Senna: sourced Mist, attack-speed-scaled beams and independently defended contacts. */
 import type { KitModule } from "../../engine/kits/compile";
 import { attackRange, EPSILON } from "../../engine/sim/actions";
-import { abilityHit, abilityHitPet, applyEffect, canSee, inStasis, isUntargetable, notifyIncomingOnHit } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canSee, captureResolvedOnHit, inStasis, isUntargetable, notifyIncomingOnHit, notifyResolvedOnHit } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { damagePet } from "../../engine/sim/pets";
@@ -64,7 +64,20 @@ const senna: KitModule = {
       if (ctx.self.alive && !projectileBlocked(ctx.world, ctx.self.side, ctx.enemy.x, ctx.self.x)) { ctx.memory[SOULS] = count(ctx.self) + extractionScale; stats(ctx); }
     };
     const qPrimary = (ctx: HookContext) => !ctx.memory["senna:qRay"] || Number(ctx.memory["senna:qPrimary"]) === (ctx.enemy.petId ?? -1);
-    const qProcs = (ctx: HookContext & { ability: AbilitySpec }, scale: number) => { for (const effect of ctx.self.spec.attack.onHit ?? []) applyEffect(ctx.world, ctx.self, ctx.enemy, effect, { ability: ctx.ability, scale }); notifyIncomingOnHit(ctx.world, ctx.enemy, ctx.ability, ctx.self, scale); relic(ctx, scale); haste(ctx); soul(ctx, scale); if (qPrimary(ctx) && (!ctx.memory["senna:qRay"] || !ctx.memory["senna:qRefunded"])) { ctx.apply({ type: "refund", ability: "Q", seconds: qRefund * scale }, true); if (ctx.memory["senna:qRay"]) ctx.memory["senna:qRefunded"] = true; } };
+    const qProcs = (ctx: HookContext & { ability: AbilitySpec }, scale: number) => {
+      // Q retains on-hits through its sourced spell-shield exception. Only the
+      // primary champion packet is single-target for Press the Attack.
+      const packet = !ctx.self.spec.hooks?.onResolvedOnHit || qPrimary(ctx) ? ctx.ability : { ...ctx.ability, flags: { ...ctx.ability.flags, pressTheAttack: false } };
+      const onHit = ctx.self.spec.hooks?.onResolvedOnHit ? captureResolvedOnHit(ctx.world, ctx.self, ctx.enemy, { ability: packet, blocked: hasState(ctx.enemy, "blockAttacks"), scale }) : undefined;
+      for (const effect of ctx.self.spec.attack.onHit ?? []) applyEffect(ctx.world, ctx.self, ctx.enemy, effect, { ability: ctx.ability, scale });
+      notifyIncomingOnHit(ctx.world, ctx.enemy, ctx.ability, ctx.self, scale);
+      relic(ctx, scale); haste(ctx); soul(ctx, scale);
+      if (qPrimary(ctx) && (!ctx.memory["senna:qRay"] || !ctx.memory["senna:qRefunded"])) {
+        ctx.apply({ type: "refund", ability: "Q", seconds: qRefund * scale }, true);
+        if (ctx.memory["senna:qRay"]) ctx.memory["senna:qRefunded"] = true;
+      }
+      notifyResolvedOnHit(ctx.world, ctx.self, ctx.enemy, onHit);
+    };
     const qTargets = (ctx: Pick<HookContext, "self" | "world">) => {
       const found: Array<{ unit: Unit; pet?: Pet }> = [], enemy = ctx.world.units[1 - ctx.self.side]!;
       if (enemy.alive && canSee(enemy, ctx.self) && !isUntargetable(enemy, ctx.self) && !inStasis(enemy) && Math.abs(enemy.x - ctx.self.x) - enemy.spec.base.radius - ctx.self.spec.base.radius <= Math.min(qMaxTarget, attackRange(ctx.self, enemy)) + EPSILON) found.push({ unit: enemy });
@@ -84,7 +97,7 @@ const senna: KitModule = {
       m.ended = true; delete ctx.memory[`${key}pet`];
     };
     const abilities: AbilitySpec[] = [
-      { key: "Q", name: q.name, slot: "Q", cooldown: q.cooldown(), cost: q.cost(), castTime: qCastShare * windup / kit.champion.forms[0]!.stats.attackSpeed.base, castTimeFor: qCast, delivery: { kind: "self" }, onSelf: [{ type: "heal", amount: qHeal }], usable: (self, world) => qTargets({ self, world }).length > 0, onHit: [{ type: "damage", damageType: "physical", amount: qDamage }, { type: "cc", cc: "slow", duration: qSlowSeconds, strength: qSlow }], flags: { projectile: false, spellShield: true, appliesLifeSteal: true, appliesOnHit: false, petContactHooks: true }, roles: ["damage", "defense"], estimate: (self, target) => evaluate(qDamage, self, target) + derive(self).ad * relicRatio },
+      { key: "Q", name: q.name, slot: "Q", cooldown: q.cooldown(), cost: q.cost(), castTime: qCastShare * windup / kit.champion.forms[0]!.stats.attackSpeed.base, castTimeFor: qCast, delivery: { kind: "self" }, onSelf: [{ type: "heal", amount: qHeal }], usable: (self, world) => qTargets({ self, world }).length > 0, onHit: [{ type: "damage", damageType: "physical", amount: qDamage }, { type: "cc", cc: "slow", duration: qSlowSeconds, strength: qSlow }], flags: { projectile: false, spellShield: true, appliesLifeSteal: true, appliesOnHit: false, pressTheAttack: true, petContactHooks: true }, roles: ["damage", "defense"], estimate: (self, target) => evaluate(qDamage, self, target) + derive(self).ad * relicRatio },
       { key: "W", name: w.name, slot: "W", cooldown: w.cooldown(), cost: w.cost(), castTime: w.castTime(), delivery: { kind: "line", range: w.field("targetRange"), width: w.field("width"), speed: w.field("speed"), collisionPet: true }, onHit: [{ type: "damage", damageType: "physical", amount: w.formula("Physical Damage"), petDamageCategory: "singleTarget" }], flags: { projectile: true, spellShield: true, petContactHooks: true }, roles: ["damage", "cc"], decisive: true, persistsAfterDeath: true },
       { key: "E", name: e.name, slot: "E", cooldown: e.cooldown(), cooldownAfter: "state", cost: e.cost(), castTime: e.castTime(), moveWhileCasting: true, delivery: { kind: "self" }, onSelf: [{ type: "state", state: "lingering", duration: eSeconds }], roles: ["escape", "engage"], usable: (self, world) => world.tick >= Number(self.memory[MIST] ?? -1) },
       { key: "R", name: r.name, slot: "R", cooldown: r.cooldown(), cost: r.cost(), castTime: r.castTime(), castOrigin: "start", castDirection: "start", delivery: { kind: "line", range: Infinity, width: rWidth, speed: rSpeed, piercing: true, collisionPet: true }, onHit: [{ type: "damage", damageType: "physical", amount: rDamage }, { type: "mark", key: "senna:standardSight", duration: rSightSeconds }], flags: { projectile: true, spellShield: true, petContactHooks: true }, roles: ["damage", "defense"], decisive: true, persistsAfterDeath: true }, passive, wRoot,

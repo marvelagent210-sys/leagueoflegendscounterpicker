@@ -3154,6 +3154,137 @@ pull request and external final receipt record source/data commits and
 checks on the actual delivery head. The source/design preparation under the earlier Triumph audit is
 retained as preparation, not as completed Presence release evidence.
 
+## Press the Attack: eleventh partial manual effect (17 November implementation)
+
+Implementation began on **17 November 2026** from merged main
+`2a71197b02f96422abb1fccbdb7b3aa695cabfbb`, after the user merged Presence of Mind
+PR #27. Rune 8005 adds the first Precision keystone to the partial manual
+plain-stat interface. **Validation for this batch is in progress.** The genuine
+full matrix recomputation, new-checkpoint readback, complete default comparison
+and delivery checks are pending. Earlier dated release sections retain their
+own source freezes, test counts, refresh results and known search regressions;
+their evidence does not validate this new code.
+
+### Source and implementation contract
+
+The combat source bundle retains **71 complete Wiki objects**, preserving all
+63 prior objects and adding eight full pages. The closed preparation read
+thirteen complete pinned pages; the five already present remain retained in
+full. The frozen complete client remains 2,177,672 bytes, SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+The Precision style, complete PTA main record and six VFX records equal that
+frozen file. Both 14 November whole-client refetch attempts failed HTTP 522;
+no successful fresh whole-client equality is claimed. The first attempt lacks
+a separately retained response body/headers, and VFX identities do not prove
+executable spell behavior. There are no live-game measurements.
+
+| Direct source | Revision | Rule or qualification retained |
+|---|---:|---|
+| [Template:Rune data Press the Attack](https://wiki.leagueoflegends.com/en-us/?oldid=4015574) | 4015574 | Three stacks, four-second refresh, six-second post-consumption cooldown, 8% amplification and the explicit level-1–20 formula. |
+| [Press the Attack](https://wiki.leagueoflegends.com/en-us/?oldid=4082445) | 4082445 | Multiple on-hit applications, AoE/secondary exceptions, proc and same-frame order, later buffed procs, current true-damage history. |
+| [Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) | 4084301 | On-hit families and the distinction between attack, hit and damage effects. |
+| [Basic attack](https://wiki.leagueoflegends.com/en-us/?oldid=4091314) | 4091314 | Basic-attack application and damage defenses. |
+| [Stack](https://wiki.leagueoflegends.com/en-us/?oldid=4093072) | 4093072 | Stack-duration and refresh context. |
+| [Adaptive force](https://wiki.leagueoflegends.com/en-us/?oldid=4063874) | 4063874 | Adaptive force and adaptive damage are separate decisions; force stat-origin rules are not automatically transferred. |
+| [Template:Tip data/Adaptive damage](https://wiki.leagueoflegends.com/en-us/?oldid=4015091) | 4015091 | Bonus AD versus AP and champion adaptive tie type. |
+| [Combat status](https://wiki.leagueoflegends.com/en-us/?oldid=4058480) | 4058480 | Damage/CC, zero events, spell-shield exclusion, pet/clone distinctions and old/modern ambiguities. |
+| [Damage modifier](https://wiki.leagueoflegends.com/en-us/?oldid=4050138) | 4050138 | Outdated-marked context; V26.09 separate-instance note does not establish aggregate-model parity. |
+| [Damage](https://wiki.leagueoflegends.com/en-us/?oldid=4084890) | 4084890 | Damage classification context, retaining its outdated/confusing warning. |
+| [Champion summoned units](https://wiki.leagueoflegends.com/en-us/?oldid=4023248) | 4023248 | Case-specific pet/clone inheritance, without universal rune eligibility. |
+| [Rune](https://wiki.leagueoflegends.com/en-us/?oldid=4091810) | 4091810 | Primary/secondary structure and source context. |
+| [Unit](https://wiki.leagueoflegends.com/en-us/?oldid=4085583) | 4085583 | Actual unit classification context. |
+
+The explicit Wiki formula `40 + 120/17 × (level − 1)` gives **`2960/17`
+(174.11764705882354) at model level 20**, rather than silently capping at the
+client's named MaxDamage endpoint of 160. The client has no detailed level
+calculation or hidden Lua cap proof. Current derived bonus AD versus AP chooses
+physical/magic at proc delivery, using the source champion's carried
+`Physical`/`Magic` tie type. This local dynamic sampling rule is independent of
+adaptive-force shard origin exclusions and works without an adaptive shard.
+
+An optional immutable source-side native snapshot records each accepted
+on-hit application, distinct from its declaration or split damage packets.
+It captures tick/sequence, source and target classification, ability metadata,
+block state and scale before legacy callbacks; delivery follows the existing
+on-hit/victim callback phase. Explicit per-ability eligibility preserves sourced
+AoE exclusions and exceptions. Explicit Renekton two/three-strike metadata
+creates separate rune application events; other attached on-hit effects retain
+the pre-existing once-per-attack approximation. Per-application event ordering
+within the shared tick is not full per-strike item or live-phase parity.
+
+Custom native adapters cover Master Yi's second Double Strike application,
+Senna Q's primary-target on-hits with its sourced spell-shield exception, and
+Bel'Veth E's individual slash contacts. Bel'Veth's extra dodge/stasis/parry
+qualification is a conservative local policy; existing Feast guard gaps are
+not fixed by the event adapter. Twitch R captures its declared target at bolt
+launch and excludes collateral contacts, including an earlier pet interception;
+its retained R template is revision 4063223. The named native on-hit ability
+families carry explicit opt-in/exclusion metadata. Nocturne passive secondary
+on-hits, Yunara spread and Kayle secondary splash remain omitted native kit
+mechanics. The [rune audit](docs/runes/README.md#press-the-attack-first-keystone-and-declared-event-policies)
+lists the concrete reviewed families and custom-path boundaries.
+
+Three qualified living champion-body applications consume stacks and start the
+six-second cooldown before the independent adaptive proc. The proc ignores
+on-hit scale and does not invoke ability-hit hooks. Newly gained amplification
+excludes the entire activation simulation tick; later procs while already
+buffed keep the old activation tick and can be amplified. Four-second expiry
+and six-second readiness use inclusive tick deadlines. These callback,
+equality-boundary and 30 Hz frame mappings are declared local policies.
+
+One five-second clock since qualified accepted damage, CC or connected eligible
+on-hit activity controls expiry. Accepted native zero damage and ordinary
+pet-to-champion activity qualify; events classified as actual clone actors do
+not. Expiry precedes a late clock
+refresh, so a new event cannot revive a previously expired buff. This chosen
+single clock does not stack two five-second fields into ten seconds. Native
+invulnerability/stasis/parry guards, pet-victim paths and source-specific modern
+combat exceptions remain outside the bounded activity surface. Owner-emitted
+packets without causal clone markers cannot establish universal clone behavior.
+
+The target-qualified pure amplifier affects actual living champion-body source
+damage against the opposing champion body, including true damage except exact
+`Smite` labels. It does not inherit the health-runes' `Ignite` exclusion. Pet or
+clone stacking/amplifier inheritance, clone-victim resets, universal summoner
+classification, post-death stacking, lethal/reflection priority and complete
+protected-state behavior remain qualified. Dead bodies immediately stop
+stacking and amplification; the first dead-body upkeep clears stored stacks
+and amplification. No timer prolongs an ended duel. Primitive state survives
+same-body forms and copies independently with a branched world.
+
+The shared outgoing-rune resolver sums PTA and compatible health-rune increases
+before one pure target-qualified adapter, avoiding multiplicative rune cross
+terms. It shares the existing additive outgoing bucket. Separate V26.09
+amplifier damage instances and pre-modifier interactions are not represented;
+item raw-hook composition remains unreviewed. Full pages, remaining keystones,
+browser effect controls, substitutions, item/rune composition and rune-aware
+allocation/search remain unfinished. Allocation retains its no-rune reference.
+Roadmap step 1 remains in progress, and the earlier documented optimizer
+regressions remain unresolved.
+
+### Pending verification and release evidence
+
+Focused compiler, native-event, runtime, champion eligibility, selection and CLI
+checks are being added and run against this implementation. Final kit-path
+coverage and exact executed-check counts are not yet frozen here. Both
+TypeScript projects, catalog freshness, the complete configured suite and
+production browser build must be recorded for the actual source freeze.
+
+Shared native code changes invalidate both matrices' shared input keys.
+Release requires genuinely computing all **14,878 pairings per matrix with zero
+reuse**, independently reading back all **29,756 new checkpoints**, and comparing
+complete forward/reverse scores, scenarios, variants, decoded builds/item sets
+and spending with the merged-main baseline. Reused counts or provenance
+restamping would not establish those results. The refresh, readback, comparison
+and checks on the actual delivery commit are pending; no completed result or
+new checkpoint is claimed by this section yet.
+
+The working external audit is
+`/workspace/counter-browser/press-the-attack-20261117-audit/`. The [rune audit](docs/runes/README.md#press-the-attack-first-keystone-and-declared-event-policies)
+and [mechanics gap audit](docs/runes/MECHANICS_GAPS.md#press-the-attack-event-boundaries-and-local-policies)
+record the chosen policies and unsupported mechanics. Source/code tests cannot
+establish controlled live-game accuracy or globally optimal build search.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

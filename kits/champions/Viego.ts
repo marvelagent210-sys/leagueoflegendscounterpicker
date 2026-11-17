@@ -136,7 +136,7 @@ const viego: KitModule = {
         { type: "damage", damageType: "physical", amount: { base: 0, ratios: { AD: heartbreakAD } }, canCrit: true, label: r.name },
         { type: "cc", cc: "slow", strength: r.quoted(slowWords, 0) / 100, duration: r.quoted(slowWords, 1) },
       ],
-      flags: { spellShield: true, dodge: true, block: true, appliesOnHit: true, grounded: true },
+      flags: { spellShield: true, dodge: true, block: true, appliesOnHit: true, pressTheAttack: true, grounded: true },
       roles: ["damage", "finisher"],
       decisive: true,
     };

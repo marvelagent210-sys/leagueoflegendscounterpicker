@@ -25,7 +25,7 @@ import { petFormulaTarget } from "./petTarget";
 import { healthProtection } from "./healthProtection";
 import { channelIn, clearChannel } from "./channelState";
 import { cancelTargetCast } from "./actions";
-import { type AbilitySpec, type ActualMovement, type AttackSplit, type BuffStat, type DamageReport, type Effect, type HookContext, type PetDamageCategory, cooldownKeyOf } from "./spec";
+import { type AbilitySpec, type ActualMovement, type AttackSplit, type BuffStat, type CombatActivitySnapshot, type CombatIdentity, type DamageReport, type Effect, type HookContext, type PetDamageCategory, type ResolvedOnHitSnapshot, cooldownKeyOf } from "./spec";
 import { type AttackHitOptions, type Pet, type Side, type Status, type Unit, type World, other } from "./state";
 
 export function log(world: World, side: Side, text: string): void {
@@ -246,6 +246,44 @@ function runHook(fn: () => void): void {
   }
 }
 
+function combatIdentity(world: World, unit: Unit): CombatIdentity {
+  return Object.freeze({
+    side: unit.side,
+    fighterId: unit.spec.id,
+    kind: unit.spec.unitClass === "clone" ? "clone" : unit.petId !== undefined ? "pet"
+      : world.units[unit.side] === unit ? "champion" : "other",
+    ...(unit.petId !== undefined ? { petId: unit.petId } : {}),
+  });
+}
+
+function combatEventSequence(world: World): number {
+  const previous = world.combatEventSequence === undefined ? 0 : world.combatEventSequence;
+  if (!Number.isSafeInteger(previous) || previous < 0 || previous >= Number.MAX_SAFE_INTEGER) {
+    throw new Error("combatEventSequence must be a nonnegative safe integer below Number.MAX_SAFE_INTEGER");
+  }
+  return world.combatEventSequence = previous + 1;
+}
+
+function hasCombatActivityObserver(world: World): boolean {
+  return world.units.some(unit => unit.spec.hooks?.onCombatActivity);
+}
+
+function captureCombatActivity(world: World, source: Unit, target: Unit, facts: Omit<CombatActivitySnapshot, "tick" | "sequence" | "source" | "target">): CombatActivitySnapshot | undefined {
+  if (source.side === target.side) return;
+  return Object.freeze({ tick: world.tick, sequence: combatEventSequence(world), source: combatIdentity(world, source), target: combatIdentity(world, target), ...facts });
+}
+
+function notifyCombatActivity(world: World, activity: CombatActivitySnapshot | undefined): void {
+  if (!activity) return;
+  for (const observer of world.units) {
+    const callback = observer.spec.hooks?.onCombatActivity;
+    if (!callback) continue;
+    const ctx = { ...hookContext(world, observer), combatActivity: activity };
+    Object.defineProperty(ctx, "combatActivity", { writable: false, configurable: false });
+    runHook(() => callback(ctx));
+  }
+}
+
 /** One resolved packet, once per live champion observer; existing hit hooks stay local. */
 export function observeDamage(world: World, source: Unit, target: Unit, report: DamageReport, attack: boolean, targetPet?: Pet): void {
   if (!(report.mitigated > 0)) return;
@@ -298,8 +336,11 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   return withDamageOrigin(world, source, ctx.originX, () => resolveDamage(world, source, target, raw, type, ctx));
 }
 function resolveDamage(world: World, source: Unit, target: Unit, raw: number, type: DamageType, ctx: DamageContext): number {
-  if (raw <= 0 || !target.alive) return 0;
+  if (!target.alive || (raw <= 0 && (raw !== 0 || !hasCombatActivityObserver(world)))) return 0;
   if (target.petId !== undefined) {
+    // Preserve the existing zero-packet exclusion in the independent pet pipeline:
+    // fixed/hit-count pets can convert any packet reaching it into nonzero damage.
+    if (raw === 0) return 0;
     const pet = world.pets.find((candidate) => candidate.id === target.petId);
     if (!pet) return 0;
     const hp = pet.hp;
@@ -320,6 +361,15 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   const outsideGuard = target.statuses.some((status) => status.kind === "state" && status.key === "invulnerableFar" && Math.abs(source.x - target.x) > status.value + 1e-6);
   if (hasState(target, "invulnerable") || outsideGuard || inStasis(target) || healthProtection(world, target).invulnerable) {
     log(world, target.side, `is invulnerable: ${Math.round(raw)} ${type} damage ignored`);
+    return 0;
+  }
+  const activity = hasCombatActivityObserver(world) && !stateStatus(target, "parry") ? captureCombatActivity(world, source, target, {
+    kind: "damage", raw, damageType: type, attack: ctx.attack === true, ...(ctx.ability ? { ability: ctx.ability } : {}),
+  }) : undefined;
+  // Zero is an accepted damage instance for observers, without entering the legacy
+  // damage, shield, healing or damage-hook pipeline that previously skipped it.
+  if (raw === 0) {
+    notifyCombatActivity(world, activity);
     return 0;
   }
   const s = derive(source);
@@ -411,6 +461,7 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   // Vamp observes the same pre-Riposte damage as life steal and onDamageDealt.
   // Consumers requiring actual damage use amount + absorbed instead.
   observeDamage(world, source, target, report, ctx.attack === true);
+  notifyCombatActivity(world, activity);
   return removed;
 }
 
@@ -665,6 +716,7 @@ export function applyCC(world: World, source: Unit, target: Unit, type: CCType, 
   }
   const ticks = toTicks(ccDuration(duration, type, derive(target).tenacity));
   if (ticks <= 0) return false;
+  const activity = hasCombatActivityObserver(world) ? captureCombatActivity(world, source, target, { kind: "cc", cc: type, ...(ability ? { ability } : {}) }) : undefined;
   // Topping up crowd control that is still on (a field's slow, pulse after pulse) isn't logged again.
   const ongoing = target.statuses.some((s) => s.kind === "cc" && s.key === type && s.source === source.side && s.value === strength && s.endTick > world.tick);
   addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength, ...(sticky ? { sticky } : {}), ...(ability ? { ability } : {}), ...(bypassSlowImmune ? { bypassSlowImmune: true } : {}), ...(slowStackGroup ? { slowStackGroup } : {}), ...(type === "fear" && fearOriginX !== undefined ? { fearOriginX } : {}), ...(whileCC ? { whileCC } : {}) });
@@ -672,6 +724,7 @@ export function applyCC(world: World, source: Unit, target: Unit, type: CCType, 
   if (!ongoing) log(world, source.side, `inflicts ${type}${shown} for ${(ticks / 30).toFixed(2)} s`);
   interrupt(world, target, type);
   notifyCCApplied(world, source, target, type, ability);
+  notifyCombatActivity(world, activity);
   return true;
 }
 
@@ -959,6 +1012,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
           ...(effect.spellShield ? { spellShield: true } : {}),
           ...(effect.spellShieldOnHit ? { spellShieldOnHit: true } : {}),
           ...(effect.attackOnHitReplacement ? { attackOnHitReplacement: effect.attackOnHitReplacement } : {}),
+          ...(effect.onHitApplications !== undefined ? { onHitApplications: effect.onHitApplications } : {}),
           ...(effect.breakShields ? { breakShields: true } : {}),
           ...(effect.split ? { split: effect.split } : {}),
           ...(effect.windup !== undefined ? { windup: effect.windup } : {}),
@@ -1159,7 +1213,41 @@ export function abilityHitPet(world: World, caster: Unit, pet: Pet, ability: Abi
   pet.memory = target.memory;
 }
 
-function applyOnHit(world: World, attacker: Unit, target: Unit, bonus: Effect[], blocked: boolean, scale = 1, parried = false, critChance?: number, ability?: AbilitySpec, missed = false, replacement?: Effect[], incomingScale = scale): void {
+/** Capture an explicitly accepted kit-owned on-hit before applying its legacy effects.
+ * The caller owns native contact/avoidance guards; this helper creates no hit or damage. */
+export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit, options: { blocked: boolean; scale?: number; incomingScale?: number; ability?: AbilitySpec; attackOptions?: AttackHitOptions }): ResolvedOnHitSnapshot | undefined {
+  if (!attacker.spec.hooks?.onResolvedOnHit) return;
+  const { ability, blocked, attackOptions, scale = 1, incomingScale = scale } = options;
+  return Object.freeze({
+    tick: world.tick, sequence: combatEventSequence(world),
+    source: combatIdentity(world, attacker), target: combatIdentity(world, target), attack: ability === undefined,
+    ...(ability ? { ability: Object.freeze({ key: ability.key, name: ability.name, slot: ability.slot,
+      flags: Object.freeze({ ...ability.flags }), ...(ability.onHitScale !== undefined ? { onHitScale: ability.onHitScale } : {}) }) } : {}),
+    blocked, scale, incomingScale,
+    pressTheAttackEligible: ability ? ability.flags?.pressTheAttack === true : attackOptions?.pressTheAttack !== false,
+  });
+}
+
+/** Dispatch only after the corresponding legacy effects and incoming-on-hit callback. */
+export function notifyResolvedOnHit(world: World, attacker: Unit, target: Unit, onHit: ResolvedOnHitSnapshot | undefined, callback = attacker.spec.hooks?.onResolvedOnHit): void {
+  if (!callback || !onHit) return;
+  const ctx = { ...hookContext(world, attacker, undefined, target), onHit };
+  Object.defineProperty(ctx, "onHit", { writable: false, configurable: false });
+  runHook(() => callback(ctx));
+}
+
+function applyOnHit(world: World, attacker: Unit, target: Unit, bonus: Effect[], blocked: boolean, scale = 1, parried = false, critChance?: number, ability?: AbilitySpec, missed = false, replacement?: Effect[], incomingScale = scale, attackOptions?: AttackHitOptions): void {
+  const callback = !parried && !missed ? attacker.spec.hooks?.onResolvedOnHit : undefined;
+  let applications: ResolvedOnHitSnapshot[] | undefined;
+  if (callback) {
+    applications = [];
+    const count = attackOptions?.onHitApplications ?? 1;
+    if (!Number.isSafeInteger(count) || count < 1 || count > 32) throw new Error("onHitApplications must be an integer from 1 to 32");
+    for (let i = 0; i < count; i += 1) {
+      const onHit = captureResolvedOnHit(world, attacker, target, { blocked, scale, incomingScale, ...(ability ? { ability } : {}), ...(attackOptions ? { attackOptions } : {}) });
+      if (onHit) applications.push(onHit);
+    }
+  }
   for (const effect of [...(replacement ?? attacker.spec.attack.onHit ?? []), ...bonus]) {
     if (blocked && (effect.type === "damage" || attacker.spec.attack.blockStopsOnHit)) continue;
     if (parried && effect.type !== "damage") continue;
@@ -1167,6 +1255,7 @@ function applyOnHit(world: World, attacker: Unit, target: Unit, bonus: Effect[],
     applyEffect(world, attacker, target, effect, { attack: target.petId === undefined, scale, ...(critChance !== undefined ? { critChance } : {}) });
   }
   if (!parried && !missed) notifyIncomingOnHit(world, target, ability, attacker, incomingScale);
+  if (applications) for (const onHit of applications) notifyResolvedOnHit(world, attacker, target, onHit, callback);
 }
 
 export function notifyIncomingOnHit(world: World, target: Unit, ability?: AbilitySpec, attacker?: Unit, scale = 1): void {
@@ -1240,7 +1329,7 @@ function resolveAttackHit(world: World, attacker: Unit, target: Unit, blinded: b
     beforeAttack({ ...hookContext(world, attacker, undefined, target), ...(targetPet ? { pet: targetPet } : {}), blocked, critChance, attack: options, scale });
     if (targetPet) { targetPet.memory = target.memory; targetPet.statuses = target.statuses; }
   });
-  if (attacker.spec.attack.onHitBeforeDamage) applyOnHit(world, attacker, target, bonusOnHit, blocked, scale, parried, critChance, undefined, false, onHitShield ? undefined : options.attackOnHitReplacement);
+  if (attacker.spec.attack.onHitBeforeDamage) applyOnHit(world, attacker, target, bonusOnHit, blocked, scale, parried, critChance, undefined, false, onHitShield ? undefined : options.attackOnHitReplacement, scale, options);
   if (blocked) {
     log(world, target.side, "blocks the attack's damage");
     if (avoided) runHook(() => avoided(hookContext(world, target, undefined, attacker)));
@@ -1267,7 +1356,7 @@ function resolveAttackHit(world: World, attacker: Unit, target: Unit, blinded: b
       if ((split.true ?? 0) > 0) dealDamage(world, attacker, target, damage * (split.true ?? 0), "true", { attack: true, crit: { ...crit, bonus: 0 } });
     } else dealDamage(world, attacker, target, damage, "physical", { attack: true, crit });
   }
-  if (!attacker.spec.attack.onHitBeforeDamage) applyOnHit(world, attacker, target, bonusOnHit, blocked, scale, parried, critChance, undefined, false, onHitShield ? undefined : options.attackOnHitReplacement);
+  if (!attacker.spec.attack.onHitBeforeDamage) applyOnHit(world, attacker, target, bonusOnHit, blocked, scale, parried, critChance, undefined, false, onHitShield ? undefined : options.attackOnHitReplacement, scale, options);
   if (parried) {
     resolved(true, false);
     return;

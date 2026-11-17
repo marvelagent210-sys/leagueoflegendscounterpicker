@@ -15,6 +15,9 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  pressTheAttack: { modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4, cooldown: 6,
+    damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
+    adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick" },
   coupDeGrace: { healthThreshold: 0.4, damageIncrease: 0.08 },
   cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },

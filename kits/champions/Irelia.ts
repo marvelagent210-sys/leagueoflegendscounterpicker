@@ -158,7 +158,7 @@ const irelia: KitModule = {
             { type: "damage", damageType: "physical", amount: q.formula("Physical Damage") },
             { type: "caster", effects: [{ type: "heal", amount: { base: 0, ratios: { AD: q.shareOf("Heal") } } }] },
           ],
-          flags: { appliesOnHit: true, parry: true, grounded: true, knockdown: q.flag("knockdown") ?? true },
+          flags: { appliesOnHit: true, pressTheAttack: true, parry: true, grounded: true, knockdown: q.flag("knockdown") ?? true },
         },
         {
           key: "W",

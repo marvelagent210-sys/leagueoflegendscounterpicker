@@ -9,8 +9,8 @@ import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { abilityHit, applyEffect } from "../../engine/sim/combat";
-import { ccTypes, derive, evaluate } from "../../engine/sim/derived";
+import { abilityHit, applyEffect, captureResolvedOnHit, inStasis, isUntargetable, notifyResolvedOnHit } from "../../engine/sim/combat";
+import { ccTypes, derive, evaluate, hasState } from "../../engine/sim/derived";
 import { CC_RULES } from "../../engine/rules/crowdControl";
 import type { AbilitySpec, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
@@ -119,7 +119,7 @@ const belveth: KitModule = {
       delivery: { kind: "dash", direction: "toward", distance: dash, speed: dashSpeed, speedFor: (unit) => dashSpeed + derive(unit).moveSpeed, through: true, hitRadius: dashReach, hitCentered: true, minDistance: 0 },
       onHit: [{ type: "damage", damageType: "physical", amount: q.formula("Physical Damage"), canCrit: true, critMultiplier }],
       onSelf: [{ type: "resetAttack" }],
-      flags: { appliesOnHit: true, appliesLifeSteal: true, spellShield: true, grounded: true, knockdown: true },
+      flags: { appliesOnHit: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: true, grounded: true, knockdown: true },
       roles: ["damage", "engage", "escape"],
     };
     const wSpec: AbilitySpec = {
@@ -137,7 +137,7 @@ const belveth: KitModule = {
       key: "E", name: e.name, slot: "E", cooldown: e.cooldown(), castTime: 0,
       delivery: { kind: "self" },
       roles: ["damage", "defense"],
-      flags: { appliesLifeSteal: true, spellShield: false },
+      flags: { appliesLifeSteal: true, spellShield: false, pressTheAttack: true },
       estimate: (self, target) => (baseSlashes + Math.floor(bonusAS(self) / slashPerSpeed)) * evaluate(slash, self, target),
     };
     const abilities = [qSpec, wSpec, eSpec];
@@ -229,8 +229,15 @@ const belveth: KitModule = {
           const max = derive(ctx.enemy).maxHp;
           const missing = max > 0 ? (100 * (max - ctx.enemy.hp)) / max : 0;
           for (let i = done; i < due; i++) {
+            const onHitShare = seriesAt(slashOnHit, missing, true) / 100;
+            // This kit's legacy E attaches only Endless Banquet. Report its
+            // accepted slash separately without inventing extra attached effects.
+            const accepted = self.spec.hooks?.onResolvedOnHit && ctx.enemy.alive && !inStasis(ctx.enemy) && !isUntargetable(ctx.enemy, self)
+              && !hasState(ctx.enemy, "parry") && !hasState(ctx.enemy, "dodgeAttacks");
+            const onHit = accepted ? captureResolvedOnHit(ctx.world, self, ctx.enemy, { ability: eSpec, blocked: hasState(ctx.enemy, "blockAttacks"), scale: onHitShare, incomingScale: 1 }) : undefined;
             abilityHit(ctx.world, self, ctx.enemy, eSpec, [{ type: "damage", damageType: "physical", amount: scaled(slash, 1 + seriesAt(slashGrowth, missing, true) / 100), canCrit: true, label: e.name }]);
-            feast(ctx, seriesAt(slashOnHit, missing, true) / 100);
+            feast(ctx, onHitShare);
+            notifyResolvedOnHit(ctx.world, self, ctx.enemy, onHit);
           }
           if (ctx.tick + 1 >= Number(ctx.memory["belveth:stormUntil"])) endStorm(ctx);
         },
