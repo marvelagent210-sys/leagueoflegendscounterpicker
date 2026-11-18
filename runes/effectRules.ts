@@ -21,6 +21,25 @@ export interface CombatRuneRules {
     adaptiveDamageModel: "current-derived-bonus-ad-vs-ap";
     activationFrameModel: "simulation-tick";
   };
+  fleetFootwork: {
+    modelLevel: 20;
+    healBase: number;
+    bonusADRatio: number;
+    apRatio: number;
+    rangedHealRatio: number;
+    /** Retained source factor for minions, outside the manual champion target model. */
+    minionHealRatio: number;
+    moveSpeedIncrease: number;
+    rangedMoveSpeedRatio: number;
+    moveSpeedDuration: number;
+    maxCharges: number;
+    attackCharges: number;
+    unitsPerCharge: number;
+    chargeModel: "current-at-connected-on-hit";
+    chargePrecision: "continuous";
+    healDeliveryModel: "immediate-at-consumption";
+    statSamplingModel: "current-at-consumption";
+  };
   absorbLife: { heal: number };
   presenceOfMind: {
     /** This manual interface uses the application's fixed level-20 model. */

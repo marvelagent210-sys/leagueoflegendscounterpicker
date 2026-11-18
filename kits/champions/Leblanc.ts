@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { attackTiming, canCast } from "../../engine/sim/actions";
 import { defaultBehavior, react, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canTarget, inStasis } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canTarget, inStasis, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { nearestPetTarget, petEffects, spawnPet } from "../../engine/sim/pets";
@@ -137,7 +137,9 @@ const leblanc: KitModule = {
         if (key === "W" || key === "RW") ctx.memory[`lbPad:${key}:origin`] = ctx.self.x;
         if (key === "W2" || key === "RW2") {
           const root = key === "W2" ? "W" : "RW";
+          const from = ctx.self.x;
           ctx.self.x = Number(ctx.memory[`lbPad:${root}:x`]);
+          observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: key, endTick: ctx.tick, ended: true });
           for (const suffix of ["x", "end", "ready", "origin"]) delete ctx.memory[`lbPad:${root}:${suffix}`];
         }
       },

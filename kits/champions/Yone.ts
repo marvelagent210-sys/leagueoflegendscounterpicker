@@ -1,6 +1,6 @@
 /** Yone: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
-import { contactGap, directionTo } from "../../engine/sim/combat";
+import { contactGap, directionTo, observeMovementSegment } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
@@ -81,7 +81,9 @@ const yone: KitModule = {
             const damage = Number(ctx.memory.spirit ?? 0);
             ctx.memory.spiritUntil = -1;
             if (damage > 0) ctx.apply({ type: "damage", damageType: "true", amount: flat(damage), label: "Soul Unbound (stored)" });
+            const from = ctx.self.x;
             ctx.self.x = Number(ctx.memory.bodyX ?? ctx.self.x);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "E", endTick: ctx.tick, ended: true });
           }
         },
         onDamageDealt(ctx) {
@@ -99,7 +101,9 @@ const yone: KitModule = {
           }
           if (key === "R" && contactGap(ctx.self, ctx.enemy) > 0) {
             // Yone blinks past the target: in one dimension, up to it.
+            const from = ctx.self.x;
             ctx.self.x = ctx.enemy.x - directionTo(ctx.self, ctx.enemy) * (ctx.self.spec.base.pathingRadius + ctx.enemy.spec.base.pathingRadius);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "R", endTick: ctx.tick, ended: true });
           }
         },
       },
@@ -108,7 +112,7 @@ const yone: KitModule = {
           usable: (unit, world) => storm(unit, world) < 2,
           delivery: { kind: "line", range: q.field("range", "Thrust range"), width: q.field("width", "Thrust width") },
           onHit: steel,
-          flags: { appliesOnHit: true, pressTheAttack: true, projectile: false },
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, projectile: false },
         }),
         mortal("Q3", {
           cooldownKey: "Q",
@@ -116,7 +120,7 @@ const yone: KitModule = {
           // Yone dashes forward with the whirlwind, knocking up enemies in his path.
           delivery: { kind: "dash", direction: "toward", distance: q.field("range", "Third cast dash distance"), speed: q.field("speed"), hitRadius: q.field("collisionRadius") },
           onHit: [...steel, { type: "displace", direction: "away", distance: 0, duration: knockUp }],
-          flags: { appliesOnHit: true, pressTheAttack: true, grounded: true, knockdown: true },
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, grounded: true, knockdown: true },
         }),
         {
           key: "W",

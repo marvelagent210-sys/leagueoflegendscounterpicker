@@ -158,7 +158,7 @@ const briar: KitModule = {
         { type: "stat", stat: "mrReductionPercent", amount: { base: shred }, duration: shredSeconds },
       ],
       onSelf: [{ type: "resetAttack" }],
-      flags: { appliesOnHit: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: true, knockdown: true },
+      flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: true, knockdown: true },
       roles: ["engage", "cc", "damage"],
     };
     const wSpec: AbilitySpec = {

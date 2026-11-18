@@ -117,7 +117,8 @@ describe("distinct applications inside native attacks", () => {
     cast(world, "Q");
     through(world, world.tick + 40);
     expect(world.log.some(entry => entry.text.startsWith("Alpha Strike deals"))).toBe(true);
-    expect(events).toHaveLength(0);
+    expect(events).toHaveLength(4);
+    expect(events.every(event => event.ability?.key === "Q" && !event.pressTheAttackEligible)).toBe(true);
   });
 
   it("Lucian's actual delayed Lightslinger projectile supplies its own full application", () => {

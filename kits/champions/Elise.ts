@@ -127,7 +127,7 @@ const elise: KitModule = {
       key: "QS", name: bite.name, slot: "Q", cooldown: bite.cooldown(), castTime: bite.castTime(), cancelOnInvalidTarget: true,
       delivery: { kind: "dash", direction: "target", distance: bite.field("targetRange"), speed: bite.field("speed"), hitRadius: spiderReach },
       onHit: [{ type: "damage", damageType: "magic", amount: bite.formula("Magic Damage") }],
-      flags: { appliesOnHit: true, pressTheAttack: true, spellShield: true, grounded: true, knockdown: true },
+      flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, spellShield: true, grounded: true, knockdown: true },
       roles: ["damage", "engage"],
     };
     const wsSpec: AbilitySpec = {

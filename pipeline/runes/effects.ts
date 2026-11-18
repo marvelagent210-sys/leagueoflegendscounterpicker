@@ -373,9 +373,55 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 4015091,
     "timestamp": "2026-05-02T21:25:29Z",
     "sha256": "1e6109ce72ea7e500e6f136cfca0757d9701758978546b0a26a51344d46e3f3f"
+  },
+  "Attack effects/Abilities": {
+    "revid": 4003212,
+    "timestamp": "2026-03-28T22:10:22Z",
+    "sha256": "31ae08c8750ee9d97dea081162f588b88c0c76de97162571cfc3bf09fc1841e0"
+  },
+  "Blink": {
+    "revid": 4047228,
+    "timestamp": "2026-07-29T11:41:10Z",
+    "sha256": "3ecfeddeb6efc6fd79adbc45c8669fc600e325051956a7955c2c173cfb282173"
+  },
+  "Dash": {
+    "revid": 4091669,
+    "timestamp": "2026-10-31T06:10:15Z",
+    "sha256": "ac07bd2e56b93fa624db69e95371a4a668d39fa9f572d8e31949309ad3fcd9ed"
+  },
+  "Fleet Footwork": {
+    "revid": 4052588,
+    "timestamp": "2026-08-19T14:23:50Z",
+    "sha256": "936b3ed2431620e7502d95e55a9096497d7ed2b538e9cc343750b179cd44da19"
+  },
+  "Movement speed": {
+    "revid": 4064468,
+    "timestamp": "2026-09-21T20:55:09Z",
+    "sha256": "e197b159aeec0deb715c4f8d4bf1eca38c2337448fb79da9776c516b2737589f"
+  },
+  "Named item effect": {
+    "revid": 4045631,
+    "timestamp": "2026-07-25T03:45:22Z",
+    "sha256": "460d35f1cf80455c942798e466202ab673142c575a8f64e8490e19e873beb6fe"
+  },
+  "Template:Energized info": {
+    "revid": 4064669,
+    "timestamp": "2026-09-22T15:19:09Z",
+    "sha256": "6d9d824c3d258b188a593ad5307a3439ae66b0f9b1e7537ea2407e43192f7781"
+  },
+  "Template:Rune data Fleet Footwork": {
+    "revid": 4051351,
+    "timestamp": "2026-08-12T12:30:53Z",
+    "sha256": "ccd55ed138876771618b0a5691a952bc43f76d83a3a391034a59a506a129943e"
+  },
+  "Template:Tip data/Energized": {
+    "revid": 4013385,
+    "timestamp": "2026-04-29T06:29:08Z",
+    "sha256": "5fea1a662db366a60b32f3f3c043c11143250cb2feca815803b2ae3c20411795"
   }
 };
 const RUNE_SOURCES = [
+  { id: 8021, name: "Fleet Footwork", path: 8000, slot: 0, game: "Perks/Styles/Precision/FleetFootwork" },
   { id: 8005, name: "Press the Attack", path: 8000, slot: 0, game: "Perks/Styles/Precision/PressTheAttack" },
   { id: 9101, name: "Absorb Life", path: 8000, slot: 1, game: "Perks/Styles/Precision/AbsorbLife" },
   { id: 9111, name: "Triumph", path: 8000, slot: 1, game: "Perks/Styles/Precision/Triumph" },
@@ -388,6 +434,21 @@ const RUNE_SOURCES = [
   { id: 9105, name: "Legend: Haste", path: 8000, slot: 2, game: "Perks/Styles/Precision/LegendHaste" },
   { id: 8444, name: "Second Wind", path: 8400, slot: 2, game: "Perks/Styles/Resolve/SecondWind" },
 ] as const;
+const FLEET_REVIEWED_GAME_HASHES: Readonly<Record<string, string>> = {
+  "Perks/Styles/Precision": "a2a9d7627cd2a88bea99d5f94e7ed2597b6e6fded407dc7c3be0cabd17b4864e",
+  "Perks/Styles/Precision/FleetFootwork": "6acb0bb449c7ebfee00480418e9c6e916ebbc4cec6245ed5404ea1e54a255bd3",
+  "Perks/Styles/Precision/FleetFootwork/Spells/FleetFootwork_HealMis": "fb7519ec4e0bc7c739e546aa16ad0ac2aea3cc2bb5242cf0d8f8ad86c08bafae",
+  "Perks/Styles/Precision/FleetFootwork/Particles/Perks_FleetFootwork_Heal": "ba4a19b1092164420d551c80a7fa7ea37d6e21f20a6ea4106eac9f06047d6255",
+  "Perks/Styles/Precision/FleetFootwork/Particles/Perks_FleetFootwork_Cas": "4752c0379fa2cb27ca355dd0933d14120d77720da92d4a7e1e561bc0fca37968",
+  "Perks/Styles/Precision/FleetFootwork/Particles/Perks_FleetFootwork_Heal_Mis": "b3eed6799bbff3d5a0610353a6879b2538a78d906920c6851d73434c44d7a86b",
+  "Perks/Styles/Precision/FleetFootwork/Particles/Perks_FleetFootwork_Buff": "5b24f382ebce3516790e12a7deb9d204dc28ebdf5bf890d9bff8462c3d5a3ff4",
+  "Perks/Styles/Precision/FleetFootwork/Particles/Perks_FleetFootwork_Haste": "d35f2991cd6e4d2403acdc851fa300f9132bb7f37a9329c8b0087edf41b92e50"
+};
+const FLEET_REVIEWED_CALCULATION_HASHES: Readonly<Record<string, string>> = {
+  "HealAmount": "43de2f1b232e7cb4e5a3ebfdc63affac1da88e3aaae24a1bc1ce91d3bd31810c",
+  "{ad820ad4}": "859a23f7f7a73cf8cb66bc3ee404f81cf74b8af146d21555efa6f47aa4a58036",
+  "MoveSpeedCalc": "316830656d8e01f4e55d089950fb6528b0d4b44f71de222bef06e75e8abff114"
+};
 const sha256 = (text: string) => createHash("sha256").update(text).digest("hex");
 function requireThat(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`Combat runes: ${message}`);
@@ -466,6 +527,108 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const fleet = description("Fleet Footwork");
+  const fleetDescriptionRows = fleet.page.content.split("\n").filter(line => /^\|description2\s*=/.test(line));
+  requireThat(fleetDescriptionRows.length === 1, "Fleet Footwork needs its complete current heal and movement description");
+  const fleetText = fleetDescriptionRows[0]!;
+  quote(fleet.page, fleetText);
+  const fleetFormula = /\{\{rd\|([^|]+)\|([^|]+)\|color=heal\|pp=true\}\}/.exec(fleetText);
+  requireThat(fleetFormula, "Fleet Footwork needs both explicit level20 growth expressions");
+  const [fleetBase, fleetGrowth, fleetInterval, fleetStart, fleetGrowthBase, fleetGrowthRate, fleetGrowthStart, fleetLevel] = matchNumbers("Fleet Footwork melee growth", fleetFormula[1]!,
+    /^([\d.]+)\+\(([\d.]+)\/([\d.]+)\)\*\(x-([\d.]+)\)\*\(([\d.]+)\+([\d.]+)\*\(x-([\d.]+)\)\) for (\d+)$/);
+  const [fleetRangedBase, fleetRangedRatio, fleetRangedGrowth, fleetRangedGrowthRatio, fleetRangedInterval,
+    fleetRangedStart, fleetRangedGrowthBase, fleetRangedGrowthRate, fleetRangedGrowthStart, fleetRangedLevel] = matchNumbers("Fleet Footwork ranged growth", fleetFormula[2]!,
+    /^([\d.]+)\*([\d.]+)\+\(\(([\d.]+)\*([\d.]+)\)\/([\d.]+)\)\*\(x-([\d.]+)\)\*\(([\d.]+)\+([\d.]+)\*\(x-([\d.]+)\)\) for (\d+)$/);
+  requireThat(TOP_LANE_MAX_LEVEL === 20 && fleetLevel === TOP_LANE_MAX_LEVEL && fleetRangedLevel === fleetLevel
+    && fleetStart === 1 && fleetGrowthStart === 1 && fleetRangedStart === fleetStart && fleetRangedGrowthStart === fleetGrowthStart
+    && fleetBase! > 0 && fleetGrowth! > 0 && fleetInterval! > 0 && fleetGrowthBase! > 0 && fleetGrowthRate! > 0
+    && fleetRangedBase === fleetBase && fleetRangedGrowth === fleetGrowth && fleetRangedInterval === fleetInterval
+    && fleetRangedGrowthBase === fleetGrowthBase && fleetRangedGrowthRate === fleetGrowthRate
+    && fleetRangedRatio! > 0 && fleetRangedRatio! <= 1 && fleetRangedGrowthRatio === fleetRangedRatio,
+  "Fleet Footwork requires the reviewed matching positive level20 growth curves");
+  const [fleetADPercent, fleetRangedADPercent] = matchNumbers("Fleet Footwork bonus AD", fleetText,
+    /\{\{rd\|([\d.]+)%\|([\d.]+)%\}\} '''bonus''' AD/);
+  const [fleetAPPercent, fleetRangedAPPercent] = matchNumbers("Fleet Footwork AP", fleetText,
+    /\{\{rd\|([\d.]+)%\|([\d.]+)%\}\} AP/);
+  const [fleetMSPercent, fleetRangedMSPercent, fleetDuration, fleetMinionPercent] = matchNumbers("Fleet Footwork speed and minion heal", fleetText,
+    /grant \{\{as\|\{\{rd\|([\d.]+)%\|([\d.]+)%\}\}\|ms\}\}[\s\S]*for ([\d.]+) second\. Against \{\{tip\|minion\|minions\}\}, the healing is ([\d.]+)% effective\./);
+  const [fleetMaximum] = matchNumbers("Fleet Footwork maximum charges", fleet.text, /up to (\d+)\./);
+  const [fleetReady] = matchNumbers("Fleet Footwork ready threshold", fleetText, /At (\d+) ''Charges'', become \{\{tip\|Energized\}\}/);
+  const fleetTip = pages.get("Template:Tip data/Energized")!;
+  const [genericMaximum, genericAttackCharges, genericDistance] = matchNumbers("Energized charge generation", fleetTip.content,
+    /up to (\d+)\. Champions with '''Energized''' gain (\d+) ''Charges'' per basic attack and 1 ''Charge'' for every (\d+) units travelled/);
+  const [genericReady] = matchNumbers("Energized on-hit consumption", fleetTip.content,
+    /At (\d+) charges, they become fully '''Energized''', empowering their next basic attack to consume the charges on-hit/);
+  requireThat(fleetMaximum === fleetReady && fleetReady === genericReady && fleetMaximum === genericMaximum,
+    "Fleet Footwork and Energized charge caps and consumption thresholds disagree");
+  const fleetNotes = pages.get("Template:Energized info")!;
+  const fleetChargeRows = fleetNotes.content.split("\n").filter(line => /^\* Each \[\[basic attack\]\]/.test(line));
+  requireThat(fleetChargeRows.length === 1, "Fleet Footwork needs complete movement and basic charge notes");
+  quote(fleetNotes, fleetChargeRows[0]!);
+  const [fleetAttackCharges, fleetDistance] = matchNumbers("Fleet Footwork charge generation", fleetChargeRows[0]!,
+    /\[\[on-attack\]\] generates ([\d.]+) ''Energize'' stacks while 1 is generated for every ([\d.]+) in-game units traveled\./);
+  const fleetAbilityRows = fleetNotes.content.split("\n").filter(line => /^\*\* Hitting abilities/.test(line));
+  requireThat(fleetAbilityRows.length === 1, "Fleet Footwork needs its on-hit ability charge note");
+  quote(fleetNotes, fleetAbilityRows[0]!);
+  const [fleetAbilityCharges] = matchNumbers("Fleet Footwork ability charges", fleetAbilityRows[0]!, /will also generate ([\d.]+) stacks/);
+  requireThat(fleetAttackCharges! > 0 && fleetAttackCharges === fleetAbilityCharges && fleetAttackCharges === genericAttackCharges
+    && fleetDistance! > 0 && fleetDistance === genericDistance && fleetMaximum! > fleetAttackCharges!
+    && [fleetADPercent, fleetAPPercent, fleetMSPercent, fleetRangedMSPercent, fleetMinionPercent].every(value => value! > 0 && value! <= 100)
+    && fleetDuration! > 0 && Math.abs(fleetRangedADPercent! - fleetADPercent! * fleetRangedRatio!) < 1e-12
+    && Math.abs(fleetRangedAPPercent! - fleetAPPercent! * fleetRangedRatio!) < 1e-12,
+  "Fleet Footwork requires positive matching charge, speed and melee/ranged healing rules");
+  const fleetPerk = record(game["Perks/Styles/Precision/FleetFootwork"], "Fleet Footwork game perk");
+  requireThat(fleetPerk.__type === "Perk" && fleetPerk.mPerkName === "FleetFootwork"
+    && record(fleetPerk.mScript, "Fleet Footwork game script").mSpellScriptName === "ASSETS/Perks/Styles/Precision/FleetFootwork/FleetFootwork.lua",
+  "Fleet Footwork game name, type or script path differs");
+  const fleetData = clientData("Fleet Footwork"), fleetGame = client("Fleet Footwork");
+  requireThat(fleetData.__type === "PerkScriptData" && fleetData.mEffectAmountGameMode === undefined,
+    "Fleet Footwork requires reviewed normal-mode script data without unreviewed overrides");
+  requireThat(catalog.runes.find(rune => rune.id === 8021)!.clientDescription === "Attacking and moving builds Energy stacks. At 100 stacks, your next attack is Energized<br><br>Energized attacks heal you for 15 - 160 (+0.1 Bonus AD, +0.05 AP) and grant <speed>20% Move Speed</speed> for 1s.<br><br>For Ranged Champions, Healing is 60% effective and Move Speed is 75% effective. All healing is 15% effective against Minions.",
+    "Fleet Footwork retained client description changed");
+  for (const [key, value] of Object.entries({ HealBase: fleetBase!, HealMax: fleetBase! + fleetGrowth!,
+    HealBonusADRatio: fleetADPercent! / 100, HealAPRatio: fleetAPPercent! / 100,
+    MSBuff: fleetMSPercent! / 100, MSDuration: fleetDuration!, RangedMSMod: fleetRangedMSPercent! / fleetMSPercent!,
+    RangedHealMod: fleetRangedRatio!, MinionHealMod: fleetMinionPercent! / 100 })) agree("Fleet Footwork", fleetGame, key, value);
+  const fleetCalculations = record(fleetData.mCalculations, "Fleet Footwork game calculations");
+  for (const [name, hash] of Object.entries(FLEET_REVIEWED_CALCULATION_HASHES)) {
+    const calculation = record(fleetCalculations[name], "Fleet Footwork " + name + " calculation");
+    requireThat(sha256(JSON.stringify(calculation)) === hash, `Fleet Footwork reviewed ${name} calculation changed`);
+  }
+  // Retain the complete style/perk/spell/particle records. The HealMis travel
+  // metadata and unnamed calculation are evidence, not HP-delivery or Lua proof.
+  for (const [name, hash] of Object.entries(FLEET_REVIEWED_GAME_HASHES)) {
+    const value = record(game[name], "Fleet Footwork complete client object " + name);
+    requireThat(sha256(JSON.stringify(value)) === hash, "Fleet Footwork full reviewed client object changed: " + name);
+  }
+  // Evaluate the template at the model level. The client supplies the level-18
+  // endpoint and stat progression flag, but no observed level-20 heal.
+  const levelsGained = TOP_LANE_MAX_LEVEL - fleetStart!;
+  const growthMultiplier = levelsGained * fleetGrowthBase! + levelsGained * levelsGained * fleetGrowthRate!;
+  const fleetHealBase = fleetBase! + fleetGrowth! * growthMultiplier / fleetInterval!;
+  requireThat(Number.isFinite(fleetHealBase) && fleetHealBase > 0, "Fleet Footwork requires finite positive model-level healing");
+  const fleetContext: [string, RegExp][] = [
+    ["Fleet Footwork", /^\* '''Fleet Footwork''' will not be consumed/],
+    ["Fleet Footwork", /^\* Melee base healing increased to/],
+    ["Fleet Footwork", /^\* Energized stacks per movement increased to/],
+    ["Fleet Footwork", /^\* \{\{sbc\|New Effect:\}\} Energized effects now also work on structures/],
+    ["Attack effects", /^The following effects trigger when a champion ''completes''/],
+    ["Attack effects", /^''Hits'' do not occur/],
+    ["Attack effects/Abilities", /^The following abilities apply both/],
+    ["Blink", /^A '''blink''' is/],
+    ["Dash", /^A '''dash''' is/],
+    ["Movement speed", /^: \(Base MS \+ Flat MS bonuses\)/],
+    ["Named item effect", /^\|Gain stacks from moving and attacking/],
+    ["Template:Tip data/Energized", /^\|description\s*=/],
+    ["Template:Tip data/Energized", /^\|description2\s*=/],
+  ];
+  for (const [title, pattern] of fleetContext) {
+    const page = pages.get(title)!;
+    const rows = page.content.split("\n").filter(line => pattern.test(line));
+    requireThat(rows.length === 1, `${title} needs its complete reviewed Fleet Footwork context: ${pattern}`);
+    quote(page, rows[0]!);
+  }
 
   const press = description("Press the Attack");
   const [pressStackDuration, pressHits, pressMinimum, pressMaximum, pressFormulaMinimum, pressLevelInterval,
@@ -1008,6 +1171,13 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    fleetFootwork: { modelLevel: 20, healBase: fleetHealBase, bonusADRatio: fleetADPercent! / 100, apRatio: fleetAPPercent! / 100,
+      rangedHealRatio: fleetRangedRatio!, minionHealRatio: fleetMinionPercent! / 100, moveSpeedIncrease: fleetMSPercent! / 100,
+      rangedMoveSpeedRatio: fleetRangedMSPercent! / fleetMSPercent!, moveSpeedDuration: fleetDuration!,
+      maxCharges: fleetMaximum!, attackCharges: fleetAttackCharges!, unitsPerCharge: fleetDistance!,
+      // Explicit simulator policies: source wording does not establish these phases.
+      chargeModel: "current-at-connected-on-hit", chargePrecision: "continuous",
+      healDeliveryModel: "immediate-at-consumption", statSamplingModel: "current-at-consumption" },
     absorbLife: { heal: absorbHeal },
     pressTheAttack: { modelLevel: 20, damage: pressDamage, hitsRequired: pressHits!, stackDuration: pressStackDuration!,
       cooldown: pressCooldown!, damageIncrease: pressPercent! / 100, combatDuration: pressCombatDuration!,

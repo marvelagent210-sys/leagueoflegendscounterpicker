@@ -75,6 +75,10 @@ export interface AttackHitOptions {
   attackTag?: string;
   /** False for a source-qualified secondary basic that cannot apply Press the Attack. */
   pressTheAttack?: boolean;
+  /** Gain Energized on accepted contact (true), or exclude this packet from consumption (false). */
+  energizedOnHit?: boolean;
+  /** Unique cast ID for a source that defers a newly filled pool to later rounds. */
+  energizedBurst?: number;
   /** Distinct strike observations; attached legacy effects still resolve once. */
   onHitApplications?: number;
   spellShield?: boolean;
@@ -98,6 +102,8 @@ export type Action =
       missileSpeed?: number;
       attackTag?: string;
       pressTheAttack?: boolean;
+      energizedOnHit?: boolean;
+      energizedBurst?: number;
       onHitApplications?: number;
       spellShield?: boolean;
       spellShieldOnHit?: boolean;

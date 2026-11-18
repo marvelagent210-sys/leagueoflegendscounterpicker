@@ -119,7 +119,7 @@ const belveth: KitModule = {
       delivery: { kind: "dash", direction: "toward", distance: dash, speed: dashSpeed, speedFor: (unit) => dashSpeed + derive(unit).moveSpeed, through: true, hitRadius: dashReach, hitCentered: true, minDistance: 0 },
       onHit: [{ type: "damage", damageType: "physical", amount: q.formula("Physical Damage"), canCrit: true, critMultiplier }],
       onSelf: [{ type: "resetAttack" }],
-      flags: { appliesOnHit: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: true, grounded: true, knockdown: true },
+      flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: true, grounded: true, knockdown: true },
       roles: ["damage", "engage", "escape"],
     };
     const wSpec: AbilitySpec = {
@@ -137,7 +137,7 @@ const belveth: KitModule = {
       key: "E", name: e.name, slot: "E", cooldown: e.cooldown(), castTime: 0,
       delivery: { kind: "self" },
       roles: ["damage", "defense"],
-      flags: { appliesLifeSteal: true, spellShield: false, pressTheAttack: true },
+      flags: { appliesLifeSteal: true, spellShield: false, fleetFootwork: true, pressTheAttack: true },
       estimate: (self, target) => (baseSlashes + Math.floor(bonusAS(self) / slashPerSpeed)) * evaluate(slash, self, target),
     };
     const abilities = [qSpec, wSpec, eSpec];

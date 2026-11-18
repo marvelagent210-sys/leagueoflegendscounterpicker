@@ -14,7 +14,13 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const fleetPath = "Perks/Styles/Precision/FleetFootwork";
+const fleetTemplate = "Template:Rune data Fleet Footwork";
+const fleetClientPaths = [
+  "Perks/Styles/Precision", fleetPath, fleetPath + "/Spells/FleetFootwork_HealMis",
+  ...["Heal", "Cas", "Heal_Mis", "Buff", "Haste"].map(name => fleetPath + "/Particles/Perks_FleetFootwork_" + name),
+];
 const pressPath = "Perks/Styles/Precision/PressTheAttack";
 const pressSources = ["Adaptive force", "Attack effects", "Basic attack", "Combat status", "Press the Attack", "Stack",
   "Template:Rune data Press the Attack", "Template:Tip data/Adaptive damage"];
@@ -366,10 +372,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(11).fill("manual-effects"));
+      .toEqual(Array(12).fill("manual-effects"));
   });
 
-  it("binds all seventy-one complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all eighty complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -442,6 +448,15 @@ describe("reviewed combat rune numeric rules", () => {
       ["Stack", 4093072],
       ["Template:Rune data Press the Attack", 4015574],
       ["Template:Tip data/Adaptive damage", 4015091],
+      ["Attack effects/Abilities", 4003212],
+      ["Blink", 4047228],
+      ["Dash", 4091669],
+      ["Fleet Footwork", 4052588],
+      ["Movement speed", 4064468],
+      ["Named item effect", 4045631],
+      ["Template:Energized info", 4064669],
+      ["Template:Rune data Fleet Footwork", 4051351],
+      ["Template:Tip data/Energized", 4013385],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -449,13 +464,15 @@ describe("reviewed combat rune numeric rules", () => {
       .toBe("30b2308ee9059b00f8effc7cd4c850248affa93142c16aa0f7779d773c8cbac1");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 63))))
       .toBe("7aabdf6a53e50da3ad8f3003c3aa57d396bdaeaa97e5d9437999898dcb34d876");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 71))))
+      .toBe("3815191530203e108b4426841a4fb59c476e14be9430dd6907dae104a266c449");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(71);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(80);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -578,11 +595,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 71 complete/);
+    expect(() => build(missing)).toThrow(/all 80 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 71 complete/);
+    expect(() => build(extra)).toThrow(/all 80 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -616,9 +633,10 @@ describe("exact source identity and completeness", () => {
     editWiki(wiki, "Damage modifier", () => excerpts);
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
-    editGame(game, (records) => { for (const key of Object.keys(records)) {
-      if (!gamePaths.includes(key as typeof gamePaths[number]) && key !== triumphMissilePath && key !== presenceMissilePath) delete records[key];
-    } });
+    const retained = new Set([...gamePaths, ...fleetClientPaths, triumphMissilePath, presenceMissilePath]);
+    editGame(game, (records) => {
+      for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
+    });
     expect(() => build(game)).toThrow(/complete reviewed game source changed/);
   });
 
@@ -1258,5 +1276,117 @@ describe("Triumph reviewed source contract", () => {
       data.mEffectAmountGameMode.ARAM.mEffectAmountPerMode.BonusGold = 20;
     });
     expect(() => build(mode)).toThrow(/complete reviewed game source changed/);
+  });
+});
+
+describe("Fleet Footwork source rules and simulation choices", () => {
+  it("evaluates the level-20 stat growth curve and keeps charge, heal and speed rules independent", () => {
+    const rule = build().fleetFootwork;
+    expect(rule).toEqual({
+      modelLevel: 20, healBase: 124257 / 680, bonusADRatio: 0.1, apRatio: 0.05,
+      rangedHealRatio: 0.6, minionHealRatio: 0.15, moveSpeedIncrease: 0.2,
+      rangedMoveSpeedRatio: 0.75, moveSpeedDuration: 1,
+      maxCharges: 100, attackCharges: 6, unitsPerCharge: 24,
+      chargeModel: "current-at-connected-on-hit", chargePrecision: "continuous",
+      healDeliveryModel: "immediate-at-consumption", statSamplingModel: "current-at-consumption",
+    });
+    expect(rule.healBase * rule.rangedHealRatio).toBeCloseTo(372771 / 3400, 12);
+    const amounts = (JSON.parse(originalGame) as Game)[fleetPath]!.mScript.mSpellScriptData.mEffectAmount;
+    expect(amounts.HealBase).toBe(15);
+    expect(amounts.HealMax).toBe(160);
+    const source = build().evidence;
+    const notes = source.filter(row => row.title === "Template:Energized info").map(row => row.text).join("\n");
+    expect(notes).toContain("6 ''Energize'' stacks while 1 is generated for every 24");
+    expect(notes).toContain("being {{tip|airborne|displaced}}");
+    expect(notes).toContain("Hitting abilities that apply [[on-hit]] effects");
+    expect(source.some(row => row.title === "Fleet Footwork" && row.text.includes("1 for every 25 units"))).toBe(true);
+    expect(source.some(row => row.title === "Template:Tip data/Energized" && row.text.includes("consume the charges on-hit"))).toBe(true);
+  });
+
+  it("retains the named heal interpolation separately from the opaque calculation and missile travel time", () => {
+    const records = JSON.parse(originalGame);
+    const calculations = records[fleetPath].mScript.mSpellScriptData.mCalculations;
+    expect(calculations.HealAmount).toMatchObject({
+      mFormulaParts: [
+        { __type: "ByCharLevelInterpolationCalculationPart", mStartValue: 15, mEndValue: 160,
+          mScaleByStatProgressionMultiplier: true },
+        { __type: "StatByNamedDataValueCalculationPart", mDataValue: "HealBonusADRatio" },
+        { __type: "StatByNamedDataValueCalculationPart", mDataValue: "HealAPRatio" },
+      ],
+      mRangedMultiplier: { mDataValue: "RangedHealMod" },
+    });
+    expect(calculations["{ad820ad4}"].mFormulaParts[0]).toMatchObject({ mStartValue: 5, mEndValue: 100 });
+    const missile = records[fleetPath + "/Spells/FleetFootwork_HealMis"];
+    expect(missile.mSpell.mMissileSpec.movementComponent).toMatchObject({
+      __type: "FixedTimeMovement", mTravelTime: Math.fround(0.35),
+    });
+  });
+
+  it.each([
+    [fleetTemplate, "up to 100.", "up to 99."],
+    [fleetTemplate, "At 100", "At 99"],
+    ["Template:Tip data/Energized", "up to 100.", "up to 99."],
+    ["Template:Tip data/Energized", "At 100 charges", "At 99 charges"],
+  ])("cross-checks the %s charge threshold '%s'", (title, old, next) => {
+    const input = fixture();
+    editWiki(input, title, text => text.replace(old, next));
+    expect(() => build(input)).toThrow(/charge caps and consumption thresholds disagree/);
+  });
+
+  it.each(["HealBase", "HealMax", "HealBonusADRatio", "HealAPRatio", "RangedHealMod", "MinionHealMod",
+    "MSBuff", "MSDuration", "RangedMSMod"])("requires the named client %s to match the parsed template", field => {
+    const input = fixture();
+    editGame(input, records => { records[fleetPath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 1; });
+    expect(() => build(input)).toThrow(new RegExp(`Fleet Footwork Wiki/game ${field} disagree`));
+  });
+
+  it.each([
+    ["(145/17)", "(145/18)"], ["0.7025", "0.75"], ["*0.6", "*0.66"], ["for 20", "for 18"],
+    ["10%|6%", "10%|7%"], ["5%|3%", "5%|4%"], ["1 second", "2 second"],
+    ["20%|15%", "22%|15%"], ["15% effective", "12% effective"],
+  ])("rejects changes to the current Fleet template's %s", (old, next) => {
+    const input = fixture();
+    editWiki(input, fleetTemplate, text => text.replace(old, next));
+    expect(() => build(input)).toThrow(/Fleet Footwork.*(?:curve|matching|disagree)/);
+  });
+
+  it.each([
+    ["6 ''Energize'' stacks", "8 ''Energize'' stacks"],
+    ["generate 6 stacks", "generate 5 stacks"],
+    ["24 in-game units", "25 in-game units"],
+  ])("requires the current transcluded charge rule for %s", (old, next) => {
+    const input = fixture();
+    editWiki(input, "Template:Energized info", text => text.replace(old, next));
+    expect(() => build(input)).toThrow(/matching charge|full reviewed revision changed/);
+  });
+
+  it.each(["HealAmount", "{ad820ad4}", "MoveSpeedCalc"])("binds the complete %s calculation", key => {
+    const input = fixture();
+    editGame(input, records => {
+      const calculations = records[fleetPath]!.mScript.mSpellScriptData.mCalculations as Record<string, unknown>;
+      calculations[key] = { __type: "GameCalculation", mFormulaParts: [] };
+    });
+    expect(() => build(input)).toThrow(`Fleet Footwork reviewed ${key} calculation changed`);
+  });
+
+  it.each(fleetClientPaths)("binds the complete client object %s", key => {
+    const input = fixture();
+    editGame(input, records => { Object.assign(records[key]!, { unreviewedField: 1 }); });
+    expect(() => build(input)).toThrow(`Fleet Footwork full reviewed client object changed: ${key}`);
+  });
+
+  it("requires the current game identity, tooltip and normal-mode script data", () => {
+    const id = fixture();
+    editGame(id, records => { records[fleetPath]!.mPerkId = 8005; });
+    expect(() => build(id)).toThrow(/Fleet Footwork game ID differs/);
+    const script = fixture();
+    editGame(script, records => { records[fleetPath]!.mScript.mSpellScriptName += ".changed"; });
+    expect(() => build(script)).toThrow(/Fleet Footwork game name, type or script path differs/);
+    const mode = fixture();
+    editGame(mode, records => { records[fleetPath]!.mScript.mSpellScriptData.mEffectAmountGameMode = {}; });
+    expect(() => build(mode)).toThrow(/Fleet Footwork requires reviewed normal-mode/);
+    const tooltip = fixture();
+    tooltip.catalog.runes.find(rune => rune.id === 8021)!.clientDescription += " amended";
+    expect(() => build(tooltip)).toThrow(/Fleet Footwork retained client description changed/);
   });
 });

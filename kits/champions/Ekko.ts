@@ -2,7 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { attackRange, canCast, EPSILON, releaseCooldowns, skillshotChance } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canSee, directionTo, edgeDistance, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canSee, directionTo, edgeDistance, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { dashDistance } from "../../engine/sim/terrain";
@@ -126,7 +126,11 @@ const ekko: KitModule = {
           if (ctx.action.attackTag !== E) return;
           const victim = ctx.targetPet ? petFormulaTarget(ctx.targetPet, ctx.self, ctx.tick) : ctx.enemy;
           if ((ctx.action.pet !== undefined && !ctx.targetPet) || !victim.alive || victim.hp <= 0 || inStasis(victim) || isUntargetable(victim, ctx.self) || !canSee(victim, ctx.self) || edgeDistance(ctx.self, victim) > attackRange(ctx.self, victim) + EPSILON) { ctx.self.attackReadyTick = ctx.tick; return false; }
-          if (canBlink(ctx.self)) { const direction = victim.x >= ctx.self.x ? 1 : -1; ctx.self.x = victim.x - direction * Math.min(eLanding, Math.abs(victim.x - ctx.self.x)); }
+          if (canBlink(ctx.self)) {
+            const from = ctx.self.x, direction = victim.x >= from ? 1 : -1;
+            ctx.self.x = victim.x - direction * Math.min(eLanding, Math.abs(victim.x - from));
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "E", endTick: ctx.tick, ended: true });
+          }
           endPhase(ctx);
         },
         onCastStart(ctx) {
@@ -152,7 +156,10 @@ const ekko: KitModule = {
             let dx = direction * requested, endpoint = ctx.self.x + dx, extension = requested;
             for (const terrain of ctx.world.terrain) if (terrain.endTick > ctx.tick && (!terrain.enemyOnly || terrain.owner !== ctx.self.side) && endpoint + ctx.self.spec.base.pathingRadius > terrain.from && endpoint - ctx.self.spec.base.pathingRadius < terrain.to) extension = Math.max(extension, (direction > 0 ? terrain.to + ctx.self.spec.base.pathingRadius - ctx.self.x : ctx.self.x - terrain.from + ctx.self.spec.base.pathingRadius));
             if (extension <= eWallMax) dx = direction * extension;
-            const from = ctx.self.x; ctx.self.x += dashDistance(ctx.world, ctx.self, dx); checkSpheres(ctx, from, ctx.self.x);
+            const from = ctx.self.x;
+            ctx.self.x += dashDistance(ctx.world, ctx.self, dx);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "E", endTick: ctx.tick, ended: true });
+            checkSpheres(ctx, from, ctx.self.x);
             ctx.memory[E] = ctx.tick + ticks(eTime); ctx.self.attackReadyTick = ctx.tick;
             ctx.self.statuses.push({ kind: "state", key: "lingering", ability: "E", memoKey: E, source: ctx.self.side, startTick: ctx.tick, endTick: ctx.tick + ticks(eTime), value: 0 });
           }
@@ -187,10 +194,28 @@ const ekko: KitModule = {
           ctx.memory["ekko:now"] = ctx.tick; ctx.memory[`${HISTORY}${ctx.tick}`] = ctx.self.x; delete ctx.memory[`${HISTORY}${ctx.tick - historyTicks - 1}`]; delete ctx.memory[`${LOSS}${ctx.tick - historyTicks - 1}`];
           if (ctx.memory[E] !== undefined && ctx.tick >= Number(ctx.memory[E])) endPhase(ctx);
           if (ctx.memory[`${REWIND}active`] && ctx.memory[`${REWIND}travel`] !== undefined) {
-            const elapsed = ctx.tick - Number(ctx.memory[`${REWIND}travel`]), share = Math.min(1, elapsed / ticks(rTravel)), desired = Number(ctx.memory[`${REWIND}length`]) * share;
-            let remaining = desired, x = Number(ctx.memory[`${REWIND}path:0`]);
-            for (let i = 1; i <= historyTicks; i++) { const next = Number(ctx.memory[`${REWIND}path:${i}`]), distance = Math.abs(next - x); if (remaining <= distance + EPSILON) { x += Math.sign(next - x) * Math.min(distance, remaining); break; } remaining -= distance; x = next; }
-            const from = ctx.self.x; ctx.self.x = x; checkSpheres(ctx, from, x);
+            const startTick = Number(ctx.memory[`${REWIND}travel`]), duration = ticks(rTravel), elapsed = ctx.tick - startTick;
+            const length = Number(ctx.memory[`${REWIND}length`]), desired = length * Math.min(1, elapsed / duration);
+            const previous = length * Math.max(0, Math.min(1, (elapsed - 1) / duration));
+            const from = ctx.self.x, movement = { kind: "dash", ability: "R", startTick, endTick: startTick + duration, ended: false } as const;
+            let remaining = desired, pathDistance = 0, x = Number(ctx.memory[`${REWIND}path:0`]);
+            for (let i = 1; i <= historyTicks; i++) {
+              const next = Number(ctx.memory[`${REWIND}path:${i}`]), distance = Math.abs(next - x);
+              if (remaining <= distance + EPSILON) { x += Math.sign(next - x) * Math.min(distance, remaining); break; }
+              remaining -= distance;
+              pathDistance += distance;
+              x = next;
+              // The compressed rewind can traverse a turning point between simulation ticks.
+              if (distance > 0 && pathDistance > previous && ctx.self.x !== x) {
+                const segmentStart = ctx.self.x;
+                ctx.self.x = x;
+                observeMovementSegment(ctx.world, ctx.self, segmentStart, movement);
+              }
+            }
+            const segmentStart = ctx.self.x;
+            ctx.self.x = x;
+            if (segmentStart !== x) observeMovementSegment(ctx.world, ctx.self, segmentStart, movement);
+            checkSpheres(ctx, from, x);
           }
           checkSpheres(ctx);
         },

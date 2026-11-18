@@ -2,7 +2,7 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support eleven partial combat effects, listed below.
+Manual plain-stat duels also support twelve partial combat effects, including two Precision keystones.
 Press the Attack is the first Precision keystone. Its 17 November refresh
 reproduced both default matrices and passed 9,755 tests with five skips.
 Presence of Mind implementation began on 13 November; its local provenance
@@ -108,12 +108,13 @@ npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 ```
 
-Each flag takes comma-separated rune IDs for that side. These eleven effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These twelve effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
 |---|--:|---|
 | Press the Attack | 8005 | Three qualified on-hit applications consume stacks for adaptive proc damage (`2960/17` at level 20) and 8% increased champion damage. Four-second stack refresh, six-second proc cooldown and a declared five-second combat clock; event eligibility and timing limits are detailed below. |
+| Fleet Footwork | 8021 | At 100 Energized charges the next qualified champion hit heals the owner and grants one second of bonus movement speed. Declare starting charges separately for each side. |
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
@@ -129,7 +130,7 @@ The three Precision health-damage runes occupy the same source-defined row, so s
 one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
 at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
-Press the Attack occupies Precision's keystone row and can accompany Second
+Choose at most one Precision keystone, Fleet Footwork or Press the Attack. Either can accompany Second
 Wind, one first-row choice, one Legend choice and any one of the three damage
 runes, subject to the same page validator. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
@@ -151,12 +152,12 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **71 complete Wiki revisions** in
+The offline compiler checks **80 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the eleven templates to
+full-content hashes, exact revisions and excerpts, binds the twelve templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
-Press the Attack adds eight complete pages while preserving all 63 prior objects.
+Fleet Footwork adds nine complete revisions to the 71 in the Press the Attack release.
 At the Presence release, sixteen complete direct dependencies were added while preserving all 47
 previous objects and the frozen client descriptor. Twenty-five directly used
 pinned complete Wiki revisions were independently re-fetched on 13 November
@@ -206,9 +207,60 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These eleven catalog entries are
+selection require further implementation and validation. These twelve catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Fleet Footwork
+
+Use `--energized-charges` for your fighter and `--enemy-energized-charges` for
+the opposing fighter. Each side selecting Fleet must declare its own starting
+pool as a decimal from 0 through 100, including an explicit zero. In this
+example Lucian enters the fight fully charged and Sion starts empty.
+
+```sh
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8021 --energized-charges 100 --enemy-combat-runes 8021 --enemy-energized-charges 0 --log brawl
+```
+
+The model gains one charge per 24 units of actual movement, including dashes,
+blinks and displacement. It sums each observed segment so a round trip can earn
+charges even if the champion returns to its starting position. Completing a
+basic attack windup that triggers on-attack effects grants six charges. Each
+accepted on-hit from a marked ability also grants six. Other eligible basic
+strikes can spend an existing pool. [Energized notes](https://wiki.leagueoflegends.com/en-us/?oldid=4064669)
+
+At 100 charges an eligible, unblocked hit on the opposing champion body spends
+the pool. At level 20 the melee heal is `124257/680 + 0.10 × bonus AD + 0.05 × AP`,
+about 182.73 base HP. Ranged champions receive 60% of that total. Bonus movement
+speed lasts one second and is 20% for melee or 15% for ranged. Healing uses
+the simulator’s ordinary modifiers and health cap. A full-health owner can
+still spend charges and receive the speed buff. [Fleet template](https://wiki.leagueoflegends.com/en-us/?oldid=4051351)
+
+The duel uses the current pool, form and stats when contact resolves. For example,
+a melee champion starting at 94 charges can gain six on its first windup, then
+spend all 100 when that attack hits. Exact threshold ordering, fractional charges,
+immediate healing and reduced-effectiveness ability interactions are simulator
+choices. The manual implementation covers champion-body targets. The source’s
+15% healing against minions is retained for reference. Shared Energized items,
+complete rune pages and browser combat-rune selection remain open work.
+[Mechanics gaps](MECHANICS_GAPS.md#fleet-footwork)
+
+The champion-specific rules include these cases.
+
+- Zeri’s Living Battery zap leaves the pool alone. The first accepted primary
+  Burst Fire round gains six charges. It can spend charges that were already
+  full. If that round fills the pool, a later accepted primary round from the
+  same burst can spend it. [Zeri sources](../../data/16.21/kits/Zeri.md)
+- Azir’s soldier command gains six at windup completion. The soldier’s stab
+  leaves the pool available for Azir’s next eligible personal attack.
+  [Azir sources](../../data/16.21/kits/Azir.md)
+- Aphelios gains six on each accepted Severum Onslaught attack. A Calibrum mark
+  attack gains six at its issued windup. The Moonlight Vigil follow-up can
+  spend an existing full pool without gaining charges.
+  [Aphelios sources](../../data/16.21/kits/Aphelios.md)
+- Akshan’s and Lucian’s passive second shots and Master Yi’s Double Strike
+  second hit gain six on accepted contact in this model.
+  [Akshan sources](../../data/16.21/kits/Akshan.md) · [Lucian sources](../../data/16.21/kits/Lucian.md) · [Master Yi sources](../../data/16.21/kits/MasterYi.md)
 
 ### Press the Attack: first keystone and declared event policies
 
@@ -330,7 +382,7 @@ their own composition, so manual combat-rune flags still reject fixed items
 and build search. Full pages, the remaining keystones, browser effect controls,
 item/rune composition and rune-aware allocation/search remain unfinished.
 
-The source bundle now retains **71 complete page objects**, preserving all 63
+The Press the Attack release retained **71 complete page objects**, preserving all 63
 previous objects and adding eight full pages. The thirteen-page preparation
 also reuses retained Rune, Damage, Damage modifier, Champion summoned units and
 Unit revisions. Two whole-client refetch attempts on 14 November failed

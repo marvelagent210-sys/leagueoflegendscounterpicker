@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { type CCType, IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { directionTo } from "../../engine/sim/combat";
+import { directionTo, observeMovementSegment } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import type { Effect, HookContext } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
@@ -162,7 +162,9 @@ const ornn: KitModule = {
           const wall = Number(ctx.memory.chargeWall);
           const dir = Math.sign(action.perTick);
           if ((self.x - wall) * dir < -Math.abs(action.perTick)) return;
+          const from = self.x;
           self.x = wall - dir;
+          observeMovementSegment(ctx.world, self, from, { kind: "dash", ability: "E", endTick: ctx.tick, ended: true });
           self.action = undefined;
           ctx.memory.charging = false;
           ctx.memory.pillarUntil = -1;

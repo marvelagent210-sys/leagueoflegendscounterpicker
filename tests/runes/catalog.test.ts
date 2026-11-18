@@ -78,9 +78,10 @@ describe("patch 26.21 rune source catalog", () => {
 
   it("distinguishes partial manual effects, unimplemented runes and the narrow Triple Tonic status", () => {
     const catalog = build();
-    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(50);
-    expect(catalog.runes.filter((entry) => entry.combatStatus === "manual-effects").map((entry) => entry.id).sort((a, b) => a - b)).toEqual([8005, 8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(49);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "manual-effects").map((entry) => entry.id).sort((a, b) => a - b)).toEqual([8005, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
     expect(catalog.runes.find((entry) => entry.id === 8005)).toMatchObject({ name: "Press the Attack", pathId: 8000, slot: 0, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8021)).toMatchObject({ name: "Fleet Footwork", pathId: 8000, slot: 0, combatStatus: "manual-effects" });
     expect(catalog.runes.find((entry) => entry.id === 8009)).toMatchObject({ name: "Presence of Mind", pathId: 8000, slot: 1, combatStatus: "manual-effects" });
     expect(catalog.runes.filter((entry) => entry.combatStatus === "legacy-udyr-only").map((entry) => entry.name)).toEqual(["Triple Tonic"]);
     expect(catalog.limitations.join("\n")).toContain("does not equip a rune page");
