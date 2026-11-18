@@ -26,7 +26,7 @@ Item-build composition is not yet reviewed, so combat-rune flags reject fixed
 items and build search. See the [rune audit](runes/README.md) for commands,
 numeric rules, provenance and compatibility limits.
 
-Fleet Footwork adds declared starting charges, charge gain from movement and completed attacks, and healing on champion contact. Full matrix validation for these shared engine changes is pending. [Fleet rules](runes/README.md#fleet-footwork)
+Fleet Footwork adds declared starting charges, charge gain from movement and completed attacks, and healing on champion contact. The 18 November recovery verified all 29,756 default pair results and reproduced both published matrices. [Fleet rules](runes/README.md#fleet-footwork) · [Refresh audit](../ACCURACY.md#matchup-refresh-and-recovery)
 
 Press the Attack adds accepted on-hit application events and a bounded champion-combat activity surface. Its level-20 formula, per-ability eligibility, same-tick activation exclusion, one five-second activity clock and pet/clone limits are recorded in the [rune audit](runes/README.md#press-the-attack-first-keystone-and-declared-event-policies). The 17 November refresh computed 14,878 pairings per matrix with zero reuse and the audit verified all 29,756 new checkpoints.
 

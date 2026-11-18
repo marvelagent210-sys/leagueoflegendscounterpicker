@@ -3,6 +3,9 @@
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
 Manual plain-stat duels also support twelve partial combat effects, including two Precision keystones.
+The Fleet Footwork refresh verified both default matrices against 29,756
+pair results and reproduced the prior published results.
+[Refresh audit](../../ACCURACY.md#matchup-refresh-and-recovery)
 Press the Attack is the first Precision keystone. Its 17 November refresh
 reproduced both default matrices and passed 9,755 tests with five skips.
 Presence of Mind implementation began on 13 November; its local provenance

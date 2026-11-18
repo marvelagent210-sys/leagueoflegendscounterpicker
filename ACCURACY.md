@@ -3303,10 +3303,35 @@ modifiers, melee/ranged forms and the one-second speed buff. Real duels cover
 separate loadouts, shards, Legend points, champion variants and budget sweeps.
 Champion-specific tests cover Zeri’s Burst Fire spending, Azir’s soldier
 commands, Aphelios’s weapon attacks and the extra strikes from Akshan, Lucian
-and Master Yi.
-The new movement and attack observations change shared engine inputs.
-Fleet’s full recomputation and comparison of the two default matrices are
-pending. [Rune audit](docs/runes/README.md#fleet-footwork)
+and Master Yi. [Rune audit](docs/runes/README.md#fleet-footwork)
+
+### Matchup refresh and recovery
+
+The new movement and attack observations changed the shared simulator inputs.
+The initial item-build refresh stopped on Annie versus Nunu because contact
+with a pet could end Nunu’s snowball channel before the movement observer read
+its timing. The fix captures the timing before contact and records the end of
+the movement segment when the channel is interrupted. The corrected worker
+reproduced the previous Annie–Nunu result. [Initial refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44332825336)
+
+All 19 successful original archives and seven recovery archives passed digest
+verification. The recovery computed the missing build shard and all Nunu
+matchups under the repaired inputs. The generator reused original results
+only where the shared key and both kit keys matched.
+[Recovery run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44347234045)
+
+| Matrix | Matching original checkpoints | Corrected checkpoints | Total pairings |
+|---|---:|---:|---:|
+| Plain stats | 14,706 | 172 | 14,878 |
+| Item builds | 13,732 | 1,146 | 14,878 |
+
+Both directions of all 29,756 pair results match the verified checkpoint
+data. The comparison with the previous published matrices found zero changes
+to default scores, scenario scores, selected variants, encoded and decoded
+builds, or spending. The item dictionary and ledger rankings also match.
+Both TypeScript projects, both matrix freshness checks, the rune catalog
+check and the production web build passed. The full local suite passed
+9,991 tests across 279 files with five existing skips.
 
 ## Remaining limits
 
