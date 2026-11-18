@@ -11,7 +11,7 @@ import { simulateMatchup } from "../../engine/sim/matchup";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { petEffects, spawnPet } from "../../engine/sim/pets";
 import { createWorld, step } from "../../engine/sim/simulate";
-import type { FighterSpec, PetSpec, StateType } from "../../engine/sim/spec";
+import type { FighterSpec, MovementSnapshot, PetSpec, StateType } from "../../engine/sim/spec";
 import { cloneWorld, type Pet, type World } from "../../engine/sim/state";
 import Nunu from "../../kits/champions/Nunu";
 import { fighter } from "../sim/kits";
@@ -85,6 +85,31 @@ describe("Nunu mechanics rolling and released snowball",()=>{
   it.each(["root","ground","silence"] as const)("%s releases exactly one current-size projectile and starts cooldown",cc=>{const world=worldFor(20000);cast(world,"W");through(world,29);applyEffect(world,world.units[1],world.units[0],{type:"cc",cc,duration:1},{scale:1});expect(world.units[0].memory["nunu:roll"]).toBeUndefined();expect(world.missiles.filter(m=>m.source==="Wburst")).toHaveLength(1);expect(world.units[0].cooldownReady.W).toBe(450);expect(hasState(world.units[0],"slowImmune")).toBe(false);});
   it("an ordinary stun stops movement without substituting the source's interruption list",()=>{const world=worldFor(20000);cast(world,"W");applyEffect(world,world.units[1],world.units[0],{type:"cc",cc:"stun",duration:1},{scale:1});through(world,20);expect(world.units[0].action).toMatchObject({kind:"channel",ability:"W"});expect(world.units[0].x).toBe(0);expect(world.missiles.some(m=>m.source==="Wburst")).toBe(false);});
   it("rolls through actual minions once and detonates on the champion independently of a projectile wall",()=>{const world=worldFor(500),pet=summon(world,180,{targetClass:"minion"});world.zones.push({id:999,owner:1,kind:"projectileWall",x:250,radius:0,seenTick:0,startTick:0,endTick:500});cast(world,"W");through(world,120);expect(pet.hp).toBeLessThan(10000);expect(world.units[1].totals.damageTaken).toBeGreaterThan(0);expect(world.units[0].memory["nunu:roll"]).toBeUndefined();expect(world.missiles.some(m=>m.source==="Wburst")).toBe(false);});
+  it("keeps roll movement observable when a pet's lethal retaliation clears the channel", () => {
+    const movements: MovementSnapshot[] = [];
+    const enemy = fighter({ hooks: {
+      onMovementObserved(ctx) { movements.push(ctx.movementEvent); },
+    } });
+    const world = worldFor(20000, {}, enemy), self = world.units[0];
+    const pet = summon(world, 100, {
+      targetClass: "minion",
+      onDamaged({ world, attacker }) { dealDamage(world, world.units[1], attacker, 100, "true"); },
+    });
+    cast(world, "W");
+    self.hp = 1;
+
+    through(world, 0);
+
+    expect(pet.hp).toBeLessThan(10000);
+    expect(self.alive).toBe(false);
+    expect(self.action).toBeUndefined();
+    expect(self.memory["nunu:roll"]).toBeUndefined();
+    expect(movements).toHaveLength(1);
+    expect(movements[0]).toMatchObject({
+      kind: "walk", ability: "W", from: 0, to: self.x, startTick: 0, endTick: 0, ended: true,
+    });
+    expect(self.x).toBeGreaterThan(0);
+  });
   it.each(["small","medium","large"] as const)("uses explicit monster size for rolling collision (size=%s)",sizeClass=>{const world=worldFor(20000),pet=summon(world,100,{targetClass:"monster",sizeClass});cast(world,"W");through(world,0);expect(world.units[0].memory["nunu:roll"]===true).toBe(sizeClass==="small");expect(10000-pet.hp).toBeCloseTo(sizeClass==="small"?23.976:72);});
   it("clips the actual steered body at terrain and applies one centered explosion",()=>{const world=worldFor(20000);world.terrain.push({id:99,owner:1,from:300,to:400,endTick:500});cast(world,"W");through(world,80);expect(world.units[0].x).toBeLessThan(300);expect(world.units[0].memory["nunu:roll"]).toBeUndefined();expect(world.units[0].cooldownReady.W).toBeGreaterThan(420);});
   it("freezes full charge on release and preserves full damage/airborne plus subsequent stun",()=>{const world=worldFor(20000,{ap:100}),missile=chargeFull(world);expect(missile.radius).toBe(200);expect(missile.travelLeft).toBe(1750);world.units[1].x=400;through(world,162);expect(world.units[1].totals.damageTaken).toBeCloseTo(510);const air=world.units[1].statuses.find(s=>s.key==="airborne");expect(air).toBeDefined();const end=air!.endTick;through(world,end);expect(world.units[1].statuses.some(s=>s.key==="stun")).toBe(true);expect(world.units[1].statuses.some(s=>s.key==="airborne")).toBe(false);});
