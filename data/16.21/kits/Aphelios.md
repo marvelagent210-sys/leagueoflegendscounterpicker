@@ -508,7 +508,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - A champion-initiated uncertain illumination carries its hit share through secondary initial blasts, delayed attacks, flat Severum healing and Infernum collateral. A first actual pet/clone collision is deterministic under the shared missile policy and normalizes the whole R illumination to one. Duskwave follows the contact share supplied by its actual champion/pet transaction. Calibrum Sentry marks require real HP or shield damage; zero-damage immunity and stale parried attack reports do not produce marks or Severum healing.
 - All manual weapon abilities are excluded from generic damage terms to avoid double-counting. The reference budget averages five Q packets and one base R over their real cooldowns, ordinary Infernum's extra tenth of AD, and Severum's basic healing. It never grants pre-existing Chakram DPS or guaranteed fan/collateral hits; finite duel combat retains actual ammunition, reserve assembly, mana, attack guards and missile defenses.
 
-### Source values read (134)
+### Source values read (135)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -578,6 +578,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Sentry | 35 / 50 / 65 / 80 / 95 / 110 / 125 (based on level) (+ 34 / 37 / 40 / 43 / 46 / 49 / 52 (based on level)% bonus AD) (+ 50% AP) | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
 | Onslaught | for 1.75 seconds | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
 | Onslaught | up to 6 (+ 2 per 100% bonus attack speed) | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | Onslaught's attacks stack Energized | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
 | Onslaught | 20 / 23.5 / 27 / 30.5 / 34 / 37.5 / 41 (based on level)% AD | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
 | Onslaught | 25% effectiveness | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
 | Onslaught | effectRadius: 550 | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |

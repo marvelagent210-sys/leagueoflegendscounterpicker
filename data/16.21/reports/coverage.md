@@ -17,11 +17,11 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Amumu | Amumu | 47 | 4 |
 | Anivia | Anivia | 76 | 5 |
 | Annie | Annie | 65 | 8 |
-| Aphelios | Aphelios | 179 | 9 |
+| Aphelios | Aphelios | 180 | 9 |
 | Ashe | Ashe | 43 | 8 |
 | Aurelion Sol | AurelionSol | 45 | 5 |
 | Aurora | Aurora | 52 | 2 |
-| Azir | Azir | 55 | 5 |
+| Azir | Azir | 56 | 5 |
 | Bard | Bard | 36 | 5 |
 | Bel'Veth | Belveth | 49 | 5 |
 | Blitzcrank | Blitzcrank | 78 | 6 |
@@ -89,7 +89,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Malphite | Malphite | 41 | 1 |
 | Malzahar | Malzahar | 85 | 12 |
 | Maokai | Maokai | 91 | 6 |
-| Master Yi | MasterYi | 51 | 5 |
+| Master Yi | MasterYi | 52 | 5 |
 | Mel | Mel | 48 | 3 |
 | Milio | Milio | 45 | 1 |
 | Miss Fortune | MissFortune | 62 | 6 |
@@ -176,7 +176,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Zaahen | Zaahen | 61 | 5 |
 | Zac | Zac | 71 | 4 |
 | Zed | Zed | 90 | 6 |
-| Zeri | Zeri | 114 | 6 |
+| Zeri | Zeri | 116 | 6 |
 | Ziggs | Ziggs | 72 | 9 |
 | Zilean | Zilean | 34 | 3 |
 | Zoe | Zoe | 74 | 7 |
