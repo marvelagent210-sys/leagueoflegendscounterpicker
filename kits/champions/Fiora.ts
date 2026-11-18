@@ -194,7 +194,7 @@ const fiora: KitModule = {
           // Dash up to 400 units, then search the recorded center-based stab radius.
           delivery: { kind: "dash", direction: "toward", distance: Math.max(...q.fieldNumbers("targetRange")), speed: q.field("speed"), hitRadius: q.field("range", "Stab range"), hitCentered: true },
           onHit: [{ type: "damage", damageType: "physical", amount: q.formula("Physical Damage") }],
-          flags: { appliesOnHit: true, pressTheAttack: true, appliesLifeSteal: true, parry: true, grounded: true, knockdown: q.flag("knockdown") ?? true },
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, parry: true, grounded: true, knockdown: q.flag("knockdown") ?? true },
         },
         {
           key: "W",

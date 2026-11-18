@@ -7,7 +7,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, empowerStatus } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { applyEffect, directionTo, edgeDistance } from "../../engine/sim/combat";
+import { applyEffect, directionTo, edgeDistance, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { destroyPet, spawnPet } from "../../engine/sim/pets";
 import type { AbilitySpec, Effect, Formula, HookContext, PetSpec } from "../../engine/sim/spec";
@@ -414,7 +414,9 @@ const yorick: KitModule = {
             const path = ctx.enemy.spec.base.pathingRadius;
             const inside = wallInner - path;
             if (Math.abs(offset) <= inside) return;
+            const from = ctx.enemy.x;
             ctx.enemy.x = Math.abs(offset) <= pullWithin ? c + side * inside : c + side * (wallOuter + path);
+            observeMovementSegment(ctx.world, ctx.enemy, from, { kind: "forced", ability: "W", endTick: ctx.tick, ended: true });
             applyEffect(ctx.world, ctx.self, ctx.enemy, { type: "cc", cc: "airborne", duration: knockSeconds }, { scale: 1 });
           }
         },

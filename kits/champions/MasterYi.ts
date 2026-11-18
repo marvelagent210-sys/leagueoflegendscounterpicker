@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, canStartAttack, startAttack } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { abilityHit, applyEffect, captureResolvedOnHit, dealDamage, directionTo, inStasis, isUntargetable, log, notifyIncomingOnHit, notifyResolvedOnHit } from "../../engine/sim/combat";
+import { abilityHit, applyEffect, captureResolvedOnHit, dealDamage, directionTo, inStasis, isUntargetable, log, notifyIncomingOnHit, notifyResolvedOnHit, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
 import { attackDamage, extraAttacks, missingShare, seriesAt, ticks } from "./util";
@@ -19,6 +19,7 @@ const yi: KitModule = {
     const stackWindow = passive.quoted("generate a stack of Double Strike for 4 seconds", 0);
     const stacksMax = passive.quoted("stacking up to 3 times", 0);
     const secondShare = passive.quoted("the second strike dealing 50% AD physical damage", 0) / 100;
+    passive.quote("The second strike applies on-hit effects, triggers on-attack effects");
     const markGap = q.quoted("After 0.231", 0);
     const marks = q.quoted("recurring every 0.231 up to 3 times", 1) + 1;
     const exitOffset = q.quoted("Master Yi reappears 75 units", 0);
@@ -101,7 +102,7 @@ const yi: KitModule = {
       }
     };
     const abilities: AbilitySpec[] = [
-      { key: "Q", name: q.name, slot: "Q", cooldown: q.cooldown(), cost: q.cost(), castTime: q.castTime(), delivery: { kind: "target", range: q.field("targetRange") }, flags: { grounded: true, spellShield: true }, channel: { duration: marks * markGap + exitLock, interruptible: false, manualStart: true }, roles: ["damage", "defense"] },
+      { key: "Q", name: q.name, slot: "Q", cooldown: q.cooldown(), cost: q.cost(), castTime: q.castTime(), delivery: { kind: "target", range: q.field("targetRange") }, flags: { grounded: true, spellShield: true, fleetFootwork: true }, channel: { duration: marks * markGap + exitLock, interruptible: false, manualStart: true }, roles: ["damage", "defense"] },
       { key: "W", name: w.name, slot: "W", cooldown: w.cooldown(), cost: w.cost(), castTime: w.castTime(), delivery: { kind: "self" }, onSelf: [{ type: "resetAttack" }], channel: { duration: meditateSeconds, interruptible: true }, roles: ["defense"] },
       { key: "W2", name: `${w.name} (cancel)`, slot: "W", cooldown: 0, castTime: 0, delivery: { kind: "self" }, chain: { root: "W", index: 2, window: meditateSeconds }, usable: (unit) => unit.action?.kind === "channel" && unit.action.ability === "W", roles: ["defense"] },
       { key: "E", name: e.name, slot: "E", cooldown: e.cooldown(), cost: e.cost(), castTime: e.castTime(), delivery: { kind: "self" }, overlay: true, overlayChannels: ["Q"], preserveAttackWindup: true, usable: (unit, world) => world.tick >= Number(unit.memory.wujuUntil ?? -1), roles: ["damage"] },
@@ -114,6 +115,7 @@ const yi: KitModule = {
     const incomingOnHit = (ctx: HookContext, spell = false) => notifyIncomingOnHit(ctx.world, ctx.enemy, spell ? alpha : undefined, ctx.self);
     const alphaStrike = (ctx: HookContext, amount: number, chance: number, scale: number) => {
       const appliesIncoming = ctx.enemy.hp > 0 && !isUntargetable(ctx.enemy, ctx.self) && !hasState(ctx.enemy, "spellShield") && !hasState(ctx.enemy, "parry") && !hasState(ctx.enemy, "dodgeAttacks");
+      const onHit = appliesIncoming && !inStasis(ctx.enemy) ? captureResolvedOnHit(ctx.world, ctx.self, ctx.enemy, { ability: alpha, blocked: hasState(ctx.enemy, "blockAttacks"), scale }) : undefined;
       const packet: Effect[] = [{ type: "damage", damageType: "physical", amount: { base: amount * (1 + chance * (alphaCrit - 1)) }, label: q.name }];
       if (!hasState(ctx.enemy, "dodgeAttacks") && !hasState(ctx.enemy, "blockAttacks")) {
         for (const effect of ctx.self.spec.attack.onHit ?? []) packet.push(effect.type === "damage" ? { ...effect, amount: { base: evaluate(effect.amount, ctx.self, ctx.enemy) * scale } } : effect);
@@ -122,6 +124,7 @@ const yi: KitModule = {
       abilityHit(ctx.world, ctx.self, ctx.enemy, alpha, packet);
       if (appliesIncoming) incomingOnHit(ctx, true);
       refreshCombatBuffs(ctx);
+      notifyResolvedOnHit(ctx.world, ctx.self, ctx.enemy, onHit);
     };
     const behavior: Behavior = (view) => {
       const { self, world } = view;
@@ -201,10 +204,12 @@ const yi: KitModule = {
               if (n === marks) {
                 ctx.memory.alphaActive = false;
                 ctx.self.statuses = ctx.self.statuses.filter((s) => !(s.kind === "state" && s.key === "untargetable" && s.source === ctx.self.side));
+                const from = ctx.self.x;
                 if (ctx.enemy.alive && Math.abs(ctx.enemy.x - Number(ctx.memory.alphaOrigin)) <= followLimit) {
                   ctx.self.x = ctx.enemy.x - directionTo(ctx.self, ctx.enemy) * exitOffset;
                   log(ctx.world, ctx.self.side, "reappears from Alpha Strike");
                 } else ctx.self.x = Number(ctx.memory.alphaOrigin);
+                observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "Q", endTick: ctx.tick, ended: true });
                 if (ctx.enemy.alive) alphaStrike(ctx, Number(ctx.memory.alphaPrimary), Number(ctx.memory.alphaPrimaryCrit), firstOnHit);
               } else ctx.memory.alphaNext = n + 1;
             }
@@ -245,7 +250,7 @@ const yi: KitModule = {
             ctx.memory.doubleArmed = false;
             if (!ctx.blocked) ctx.memory.doubleStacks = 0;
             const secondTarget = ctx.enemy.alive && ctx.enemy.hp > 0 && !inStasis(ctx.enemy);
-            const secondOnHit = secondTarget ? captureResolvedOnHit(ctx.world, ctx.self, ctx.enemy, { blocked: ctx.blocked }) : undefined;
+            const secondOnHit = secondTarget ? captureResolvedOnHit(ctx.world, ctx.self, ctx.enemy, { blocked: ctx.blocked, attackOptions: { energizedOnHit: true } }) : undefined;
             if (!ctx.blocked && secondTarget) {
               const d = derive(ctx.self);
               dealDamage(ctx.world, ctx.self, ctx.enemy, d.ad * secondShare, "physical", { attack: true, ability: passive.name, crit: { chance: d.critChance, multiplier: d.critDamage } });

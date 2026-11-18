@@ -71,7 +71,7 @@ const urgot: KitModule = {
       castTime: 0,
       delivery: { kind: "self" },
       onHitScale: w.quoted("on-hit and on-attack damage reduced to 50% effectiveness", 0) / 100,
-      flags: { parry: true, appliesOnHit: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: false },
+      flags: { parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: false },
     };
     innate.quote("It bypasses blocking and dodging effects");
 

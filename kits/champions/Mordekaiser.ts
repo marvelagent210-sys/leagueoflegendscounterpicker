@@ -1,4 +1,5 @@
 /** Mordekaiser: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
+import { observeMovementSegment } from "../../engine/sim/combat";
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -175,7 +176,11 @@ const mordekaiser: KitModule = {
           if (realm(ctx)) {
             const center = Number(ctx.memory.realmX);
             for (const unit of [ctx.self, ctx.enemy]) {
-              if (Math.abs(unit.x - center) > realmRadius) unit.x = center + Math.sign(unit.x - center) * realmRadius;
+              if (Math.abs(unit.x - center) > realmRadius) {
+                const from = unit.x;
+                unit.x = center + Math.sign(unit.x - center) * realmRadius;
+                observeMovementSegment(ctx.world, unit, from, { kind: "forced", ability: "R", endTick: ctx.tick, ended: true });
+              }
             }
           }
         },

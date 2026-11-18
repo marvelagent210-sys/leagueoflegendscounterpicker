@@ -5,6 +5,7 @@ import type { FighterSpec, KitHooks } from "../engine/sim/spec";
 import { composeHooks, mapForms } from "../items/equip";
 import type { CombatRuneRules, RuneEffectEvidence } from "./effectRules";
 import { buildRuneEffect } from "./effectRuntime";
+import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
 import { outgoingRuneHooks } from "./outgoingAmplifiers";
 import { validateRunePage } from "./pages";
@@ -114,6 +115,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     || !/^\d+\.\d+$/.test(value.patch) || value.dataset !== catalog.dataset || value.patch !== catalog.patch) {
     throw new Error("Combat-rune rules must identify the source catalog's dataset and patch");
   }
+  const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
     coupDeGrace: ["healthThreshold", "damageIncrease"],
@@ -180,7 +182,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack,
+    pressTheAttack, fleetFootwork,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
@@ -192,20 +194,27 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
 
 function checkedOptions(selection: readonly number[], value: RuneEquipOptions | undefined): RuneEquipOptions {
   if (value === undefined) value = {};
-  if (!record(value) || Object.keys(value).some((key) => key !== "legendPoints")) {
-    throw new Error("Invalid combat-rune options: only declared legendPoints are supported");
+  if (!record(value) || Object.keys(value).some((key) => key !== "legendPoints" && key !== "energizedCharges")) {
+    throw new Error("Invalid combat-rune options: only declared legendPoints and energizedCharges are supported");
   }
   const points = value.legendPoints;
   const legend = selection.includes(9104) ? "Legend: Alacrity" : selection.includes(9105) ? "Legend: Haste"
     : selection.includes(9103) ? "Legend: Bloodline" : undefined;
-  if (!legend) {
-    if (points !== undefined) throw new Error("legendPoints requires selecting Legend: Alacrity (9104), Legend: Haste (9105) or Legend: Bloodline (9103) on the same fighter");
-    return {};
+  const result: RuneEquipOptions = {};
+  if (legend) {
+    if (typeof points !== "number" || !Number.isSafeInteger(points) || points < 0) {
+      throw new Error(`${legend} requires explicit nonnegative safe-integer starting legendPoints`);
+    }
+    result.legendPoints = points;
+  } else if (points !== undefined) {
+    throw new Error("legendPoints requires selecting Legend: Alacrity (9104), Legend: Haste (9105) or Legend: Bloodline (9103) on the same fighter");
   }
-  if (typeof points !== "number" || !Number.isSafeInteger(points) || points < 0) {
-    throw new Error(`${legend} requires explicit nonnegative safe-integer starting legendPoints`);
+  if (selection.includes(8021)) {
+    result.energizedCharges = checkedEnergizedCharges(value.energizedCharges);
+  } else if (value.energizedCharges !== undefined) {
+    throw new Error("energizedCharges requires selecting Fleet Footwork (8021) on the same fighter");
   }
-  return { legendPoints: points };
+  return result;
 }
 
 function hasMarker(spec: FighterSpec, marker: typeof EQUIPPED | typeof OPPOSITION): boolean {

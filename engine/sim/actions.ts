@@ -5,7 +5,7 @@
 import { toTicks } from "../rules/time";
 import { cooldownAfterHaste } from "../rules/timing";
 import type { CCType } from "../rules/crowdControl";
-import { abilityHit, abilityHitPet, applyEffect, attackHit, canSee, canTarget, contactGap, directionTo, edgeDistance, hookContext, isUntargetable, log, notifyActualMovement, notifyDashEnd } from "./combat";
+import { abilityHit, abilityHitPet, applyEffect, attackHit, canSee, canTarget, contactGap, directionTo, edgeDistance, hookContext, isUntargetable, log, notifyActualMovement, notifyBasicAttackLaunched, notifyDashEnd } from "./combat";
 import { canAttack, canCastUnderCC, derive, evaluate, hasState } from "./derived";
 import { healthProtection } from "./healthProtection";
 import { abilityOf, allAbilities } from "./forms";
@@ -188,6 +188,8 @@ function attackOptions(action: AttackHitOptions): AttackHitOptions {
     spellShield: action.spellShield, spellShieldOnHit: action.spellShieldOnHit,
     attackOnHitReplacement: action.attackOnHitReplacement, breakShields: action.breakShields,
     ...(action.onHitApplications !== undefined ? { onHitApplications: action.onHitApplications } : {}),
+    ...(action.energizedOnHit !== undefined ? { energizedOnHit: action.energizedOnHit } : {}),
+    ...(action.energizedBurst !== undefined ? { energizedBurst: action.energizedBurst } : {}),
     ...(action.pressTheAttack !== undefined ? { pressTheAttack: action.pressTheAttack } : {}),
   };
 }
@@ -200,6 +202,7 @@ export function launchAttack(world: World, unit: Unit, action = unit.action): Pe
   if (action.empowered) releaseCooldowns(world, unit);
   const pet = action.pet === undefined ? undefined : world.pets.find((candidate) => candidate.id === action.pet);
   const target = pet ? petFormulaTarget(pet, unit, world.tick) : world.units[other(unit.side)];
+  notifyBasicAttackLaunched(world, unit, action.pet !== undefined && !pet ? undefined : target, action);
   const onLaunch = unit.spec.hooks?.onAttackLaunch;
   const launched = onLaunch?.({ ...hookContext(world, unit, undefined, target), action, ...(pet ? { targetPet: pet } : {}) });
   if (launched === false) return;

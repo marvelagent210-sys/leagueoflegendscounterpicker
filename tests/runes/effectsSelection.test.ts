@@ -18,6 +18,11 @@ const fighter = (options: Parameters<typeof baseFighter>[0] = {}): FighterSpec =
   baseFighter({ ...options, base: { armor: 0, mr: 0, ...options.base } });
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  fleetFootwork: { modelLevel: 20, healBase: 124257 / 680, bonusADRatio: 0.1, apRatio: 0.05,
+    rangedHealRatio: 0.6, minionHealRatio: 0.15, moveSpeedIncrease: 0.2, rangedMoveSpeedRatio: 0.75,
+    moveSpeedDuration: 1, maxCharges: 100, attackCharges: 6, unitsPerCharge: 24,
+    chargeModel: "current-at-connected-on-hit", chargePrecision: "continuous",
+    healDeliveryModel: "immediate-at-consumption", statSamplingModel: "current-at-consumption" },
   pressTheAttack: { modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4, cooldown: 6,
     damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
     adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick" },
@@ -52,20 +57,21 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely 256 of the 2,048 subsets of the eleven implemented effects", () => {
-    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8009, 8014, 8017, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
+  it("accepts precisely 384 of the 4,096 subsets of the twelve implemented effects", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
       const legends = selected.filter((id) => id === 9103 || id === 9104 || id === 9105);
       const precisionRowOne = selected.filter((id) => id === 8009 || id === 9101 || id === 9111);
-      if (amps.length <= 1 && legends.length <= 1 && precisionRowOne.length <= 1) {
+      const keystones = selected.filter(id => id === 8005 || id === 8021);
+      if (amps.length <= 1 && legends.length <= 1 && precisionRowOne.length <= 1 && keystones.length <= 1) {
         expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
         accepted++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(selected.length > 6 ? /at most six/ : /same path row/);
     }
-    expect(accepted).toBe(256);
+    expect(accepted).toBe(384);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],
@@ -113,6 +119,59 @@ describe("explicit partial combat-rune selections", () => {
     expect(() => validateCombatRuneSelection(catalog, [8005, 9103, 9104])).toThrow(/same path row/);
     expect(() => validateCombatRuneSelection(catalog, [8005, 8439], allIds)).toThrow(/more than one keystone/);
     expect(() => equipRuneEffects(fighter(), [8005], catalog, rules, { legendPoints: 0 })).toThrow(/requires selecting/);
+  });
+
+  it("adds Fleet as an alternative Precision keystone and requires its own starting history", () => {
+    expect(validateCombatRuneSelection(catalog, [8021])).toEqual([8021]);
+    expect(validateCombatRuneSelection(catalog, [8444, 8014, 9104, 8009, 8021])).toEqual([8009, 8014, 8021, 8444, 9104]);
+    expect(() => validateCombatRuneSelection(catalog, [8005, 8021])).toThrow(/same path row|more than one keystone/);
+    expect(() => equipRuneEffects(fighter(), [8021], catalog, rules)).toThrow(/Fleet.*energizedCharges|energizedCharges/);
+    for (const energizedCharges of [0, 0.5, 99.75, 100]) {
+      expect(equipRuneEffects(fighter(), [8021], catalog, rules, { energizedCharges }).selection).toEqual([8021]);
+    }
+    expect(() => equipRuneEffects(fighter(), [], catalog, rules, { energizedCharges: 0 })).toThrow(/Fleet|8021|selecting/);
+    expect(() => equipRuneEffects(fighter(), [8014], catalog, rules, { energizedCharges: 100 })).toThrow(/Fleet|8021|selecting/);
+    expect(equipRuneEffects(fighter(), [8021, 9104], catalog, rules, { energizedCharges: 99.5, legendPoints: 199 }).selection).toEqual([8021, 9104]);
+    expect(() => equipRuneEffects(fighter(), [8021, 9104], catalog, rules, { energizedCharges: 100 })).toThrow(/legendPoints/);
+  });
+
+  it.each([-1, 100.0001, NaN, Infinity, -Infinity, "100", null])
+  ("rejects malformed or out-of-range Fleet starting charges: %s", energizedCharges => {
+    expect(() => equipRuneEffects(fighter(), [8021], catalog, rules, { energizedCharges } as never)).toThrow(/Fleet|energizedCharges/);
+  });
+
+  it.each([
+    { modelLevel: 18 }, { healBase: 0 }, { bonusADRatio: NaN }, { apRatio: -0.1 },
+    { rangedHealRatio: 1.1 }, { minionHealRatio: 0 }, { moveSpeedIncrease: Infinity },
+    { rangedMoveSpeedRatio: 0 }, { moveSpeedDuration: 0 }, { maxCharges: 0 },
+    { attackCharges: 0 }, { unitsPerCharge: 0 }, { chargeModel: "reserved-at-launch" },
+    { chargePrecision: "rounded-each-event" }, { healDeliveryModel: "inferred-vfx-missile" },
+    { statSamplingModel: "at-equipment" },
+  ])("rejects invalid Fleet rules at equipment time: %s", change => {
+    const input = { ...rules, fleetFootwork: { ...rules.fleetFootwork, ...change } } as CombatRuneRules;
+    expect(() => equipRuneEffects(fighter(), [8021], catalog, input, { energizedCharges: 100 })).toThrow(/Fleet/);
+  });
+
+  it("snapshots Fleet rules and preserves kit contact hooks in independent charge pools", () => {
+    const spec = fighter({ base: { hp: 4000 }, hooks: {
+      onResolvedOnHit(ctx) { ctx.memory.kitContacts = Number(ctx.memory.kitContacts ?? 0) + 1; },
+    } });
+    const input = structuredClone(rules);
+    const own = equipRuneEffects(spec, [8021], catalog, input, { energizedCharges: 100 });
+    const opponent = equip(fighter({ base: { hp: 10000 } }));
+    input.fleetFootwork.healBase = 999;
+    input.fleetFootwork.moveSpeedIncrease = 0.5;
+    const first = arena(runeMatchupSpecs(own, opponent)), second = arena(runeMatchupSpecs(own, opponent));
+    first.units[0].hp = 1000; second.units[0].hp = 1000;
+    attackHit(first, first.units[0], first.units[1], false, []);
+    expect(first.units[0].hp).toBeCloseTo(1000 + 124257 / 680, 10);
+    expect(first.units[0].totals.healing).toBeCloseTo(124257 / 680, 10);
+    expect(first.units[0].memory.kitContacts).toBe(1);
+    expect(second.units[0].hp).toBe(1000);
+    attackHit(second, second.units[0], second.units[1], false, []);
+    expect(second.units[0].hp).toBeCloseTo(first.units[0].hp, 10);
+    expect(spec.hooks).not.toHaveProperty("onBasicAttackLaunched");
+    expect(spec.hooks).not.toHaveProperty("onMovementObserved");
   });
 
   it.each([

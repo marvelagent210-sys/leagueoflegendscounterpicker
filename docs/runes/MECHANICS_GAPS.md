@@ -8,10 +8,31 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Fleet Footwork
+
+The sources distinguish charge gain at basic windup completion from spending
+on hit. They leave open the general ordering for a hit that reaches 100, the
+rounding of movement charges and the handling of multiple missiles in flight.
+The duel uses continuous charges and typically lets the first eligible contact
+spend the current pool. Zeri’s documented follow-up rule lets a later Burst
+Fire round spend the pool when its first round just filled it.
+Each accepted marked ability application counts once at full strength,
+including positive fractional applications in the engine’s expected-hit model.
+Exact live behavior under reduced on-hit effectiveness still needs measurement.
+[Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) · [Energized notes](https://wiki.leagueoflegends.com/en-us/?oldid=4064669)
+
+Fleet samples the owner’s form, bonus AD and AP when it consumes charges and
+applies ordinary healing immediately. The frozen client’s healing missile
+metadata does not establish when HP changes. The simulator retains the pool
+through form changes and ordinary death and requires a living owner with
+positive HP to gain or spend. Protected-state ordering, other target classes,
+pet and clone attribution and a shared pool with Energized items need further
+validation. [Manual duel rules](README.md#fleet-footwork)
+
 ## Press the Attack: event boundaries and local policies
 
 Implementation began on **17 November 2026** as the eleventh partial manual
-effect and first Precision keystone. The current bundle has 71 complete pages,
+effect and first Precision keystone. The Press the Attack bundle had 71 complete pages,
 preserving all 63 previous objects and the frozen full client. The dated
 Presence and earlier sections below retain their own release snapshots. The
 17 November refresh computed all 14,878 pairings in each default matrix.

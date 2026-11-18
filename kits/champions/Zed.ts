@@ -2,7 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, EPSILON, skillshotChance } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canSee, canTarget, directionTo, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canSee, canTarget, directionTo, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { spawnPet } from "../../engine/sim/pets";
@@ -86,7 +86,12 @@ const zed: KitModule = {
       ctx.world.missiles.push({ id, owner: ctx.self.side, source: "Qbolt", seenTick, x, perTick: qSpeed / 30, direction, travelLeft: qRange, radius: qWidth / 2, homing: false, piercing: true, collisionPet: true, projectile: true, connects: chance > 0, scale: chance >= .98 ? 1 : chance, onHit: bolt.onHit! });
     };
     const swap = (ctx: HookContext, body: Pet) => {
-      const from = ctx.self.x; ctx.self.x = body.x; body.x = from; body.memory.swapped = true; delete body.memory.swapQueued;
+      const from = ctx.self.x;
+      ctx.self.x = body.x;
+      body.x = from;
+      body.memory.swapped = true;
+      delete body.memory.swapQueued;
+      observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: body.memory.source === "W" ? "W2" : "R2", endTick: ctx.tick, ended: true });
     };
     const passive = (ctx: HookContext & { blocked: boolean; scale: number }) => {
       const kind = ctx.enemy.spec.targetClass ?? (ctx.enemy.petId === undefined ? "champion" : "other"), lock = ctx.enemy.statuses.some((status) => status.key === PASSIVE && status.source === ctx.self.side && status.endTick > ctx.tick);
@@ -222,7 +227,16 @@ const zed: KitModule = {
       onZoneLand(ctx) {
         if (ctx.zone.ability === "R" && ctx.zone.memory?.phase === "dash") {
           if (!ctx.memory[ACTIVE] || !ctx.self.alive || ctx.self.hp <= 0) return;
-          if (!ctx.enemy.alive || Math.abs(ctx.enemy.x - ctx.self.x) >= rCancelRange) { ctx.self.x = Number(ctx.memory["zed:r:origin"]); ctx.self.cooldownReady.R = ctx.tick + ticks(rCancelCD); ctx.world.pets = ctx.world.pets.filter((body) => !(body.owner === ctx.self.side && body.spec.kind === SHADOW && body.memory.source === "R")); delete ctx.memory[ACTIVE]; ctx.self.statuses = ctx.self.statuses.filter((status) => status.memoKey !== ACTIVE); return; }
+          if (!ctx.enemy.alive || Math.abs(ctx.enemy.x - ctx.self.x) >= rCancelRange) {
+            const from = ctx.self.x;
+            ctx.self.x = Number(ctx.memory["zed:r:origin"]);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "R", endTick: ctx.tick, ended: true });
+            ctx.self.cooldownReady.R = ctx.tick + ticks(rCancelCD);
+            ctx.world.pets = ctx.world.pets.filter((body) => !(body.owner === ctx.self.side && body.spec.kind === SHADOW && body.memory.source === "R"));
+            delete ctx.memory[ACTIVE];
+            ctx.self.statuses = ctx.self.statuses.filter((status) => status.memoKey !== ACTIVE);
+            return;
+          }
           ctx.self.statuses = ctx.self.statuses.filter((status) => !(status.kind === "cc" && status.key === "airborne"));
           ctx.memory["zed:r:direction"] = directionTo(ctx.self, ctx.enemy); ctx.memory["zed:r:targetX"] = ctx.enemy.x;
           ctx.self.action = { kind: "dash", ability: "R", startTick: ctx.tick, endTick: ctx.tick + ticks(rTravel), perTick: 0, stopAtContact: false, unstoppable: false, crossTerrain: true };

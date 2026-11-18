@@ -12,6 +12,11 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  fleetFootwork: { modelLevel: 20, healBase: 124257 / 680, bonusADRatio: 0.1, apRatio: 0.05,
+    rangedHealRatio: 0.6, minionHealRatio: 0.15, moveSpeedIncrease: 0.2, rangedMoveSpeedRatio: 0.75,
+    moveSpeedDuration: 1, maxCharges: 100, attackCharges: 6, unitsPerCharge: 24,
+    chargeModel: "current-at-connected-on-hit", chargePrecision: "continuous",
+    healDeliveryModel: "immediate-at-consumption", statSamplingModel: "current-at-consumption" },
   pressTheAttack: { modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4, cooldown: 6,
     damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
     adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick" },

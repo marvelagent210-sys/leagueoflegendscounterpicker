@@ -1,4 +1,5 @@
 /** K'Sante: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
+import { observeMovementSegment } from "../../engine/sim/combat";
 import type { KitModule } from "../../engine/kits/compile";
 import type { Series } from "../../engine/abilities";
 import { derive, evaluate } from "../../engine/sim/derived";
@@ -232,7 +233,9 @@ const ksante: KitModule = {
           if (key === "R") {
             // K'Sante blinks past where the enemy will land, which is pulled toward him; then All Out.
             const dir = ctx.enemy.x >= ctx.self.x ? 1 : -1;
+            const from = ctx.self.x;
             ctx.self.x = ctx.enemy.x + dir * (pull + blinkBehind);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "R", endTick: ctx.tick, ended: true });
             ctx.apply({ type: "displace", direction: "toward", distance: pull, duration: pull / pullSpeed });
             enterAllOut(ctx);
           }

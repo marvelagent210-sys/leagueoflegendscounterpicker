@@ -25,8 +25,8 @@ import { petFormulaTarget } from "./petTarget";
 import { healthProtection } from "./healthProtection";
 import { channelIn, clearChannel } from "./channelState";
 import { cancelTargetCast } from "./actions";
-import { type AbilitySpec, type ActualMovement, type AttackSplit, type BuffStat, type CombatActivitySnapshot, type CombatIdentity, type DamageReport, type Effect, type HookContext, type PetDamageCategory, type ResolvedOnHitSnapshot, cooldownKeyOf } from "./spec";
-import { type AttackHitOptions, type Pet, type Side, type Status, type Unit, type World, other } from "./state";
+import { type AbilitySpec, type ActualMovement, type AttackSplit, type BasicAttackLaunchedSnapshot, type BuffStat, type CombatActivitySnapshot, type CombatIdentity, type DamageReport, type Effect, type HookContext, type MovementSnapshot, type PetDamageCategory, type ResolvedOnHitSnapshot, cooldownKeyOf } from "./spec";
+import { type Action, type AttackHitOptions, type Pet, type Side, type Status, type Unit, type World, other } from "./state";
 
 export function log(world: World, side: Side, text: string): void {
   if (world.settings.log) world.log.push({ tick: world.tick, side, text });
@@ -36,7 +36,7 @@ export function addStatus(unit: Unit, status: Status): void {
   unit.statuses.push(status);
 }
 
-type MovementObservation = { target: Unit; targetPet?: Pet; movement: ActualMovement };
+type MovementObservation = { target: Unit; targetPet?: Pet; movement: ActualMovement; snapshot?: MovementSnapshot };
 const movementTransitions = new WeakMap<World, MovementObservation[]>();
 
 /** Replacement control settles before general end observers; the body's own hooks run immediately. */
@@ -60,6 +60,7 @@ function observeMovement(world: World, observation: MovementObservation): void {
     if (!callback || (!observer.alive && !hooks?.movementEventsAfterDeath)) continue;
     runHook(() => callback({ ...hookContext(world, observer), target, ...(targetPet ? { targetPet } : {}), movement }));
   }
+  notifyMovementObserved(world, observation.snapshot);
 }
 
 /** Observers see the actual moved body and endpoint, never its intended endpoint. */
@@ -70,6 +71,7 @@ export function notifyActualMovement(world: World, target: Unit, from: number, m
   if (!targetPet && world.units[target.side] !== target) return;
   if (targetPet) targetPet.x = target.x;
   if (from === target.x && (!movement.ended || movement.kind === "walk")) return;
+  const snapshot = captureMovementObserved(world, target, from, movement, targetPet);
   if (!targetPet && world.units[target.side] === target) {
     for (const pet of world.pets) {
       if (pet.carriedBy !== target.side) continue;
@@ -79,7 +81,7 @@ export function notifyActualMovement(world: World, target: Unit, from: number, m
         { kind: "attached", endTick: world.tick, ended: false }, pet);
     }
   }
-  const observation: MovementObservation = { target, ...(targetPet ? { targetPet } : {}), movement: { ...movement, from, to: target.x } };
+  const observation: MovementObservation = { target, ...(targetPet ? { targetPet } : {}), movement: { ...movement, from, to: target.x }, ...(snapshot ? { snapshot } : {}) };
   const pending = movement.ended && movement.kind !== "walk" ? movementTransitions.get(world) : undefined;
   if (pending) pending.push(observation);
   else observeMovement(world, observation);
@@ -262,6 +264,46 @@ function combatEventSequence(world: World): number {
     throw new Error("combatEventSequence must be a nonnegative safe integer below Number.MAX_SAFE_INTEGER");
   }
   return world.combatEventSequence = previous + 1;
+}
+
+/** Immutable-only report for kit-owned movement. It does not invoke legacy
+ * onActualMovement callbacks or infer a path between the supplied endpoints. */
+export function captureMovementObserved(world: World, target: Unit, from: number, movement: Omit<ActualMovement, "from" | "to">, targetPet?: Pet): MovementSnapshot | undefined {
+  if (!world.units.some(unit => unit.spec.hooks?.onMovementObserved)) return;
+  const body = targetPet ? petFormulaTarget(targetPet, world.units[targetPet.owner], world.tick) : target;
+  return Object.freeze({ tick: world.tick, sequence: combatEventSequence(world), body: combatIdentity(world, body),
+    kind: movement.kind, from, to: target.x, endTick: movement.endTick, ended: movement.ended,
+    ...(movement.startTick !== undefined ? { startTick: movement.startTick } : {}), ...(movement.ability ? { ability: movement.ability } : {}) });
+}
+
+/** Dispatch a captured segment after its existing legacy callback chain. */
+export function notifyMovementObserved(world: World, movementEvent: MovementSnapshot | undefined): void {
+  if (!movementEvent) return;
+  for (const observer of world.units) {
+    const hooks = observer.spec.hooks, callback = hooks?.onMovementObserved;
+    if (!callback || (!observer.alive && !hooks?.movementEventsAfterDeath)) continue;
+    const ctx = { ...hookContext(world, observer), movementEvent };
+    Object.defineProperty(ctx, "movementEvent", { writable: false, configurable: false });
+    runHook(() => callback(ctx));
+  }
+}
+
+/** A direct kit segment, without adding legacy observations to old models. */
+export function observeMovementSegment(world: World, target: Unit, from: number, movement: Omit<ActualMovement, "from" | "to">, targetPet?: Pet): void {
+  notifyMovementObserved(world, captureMovementObserved(world, target, from, movement, targetPet));
+}
+
+/** A completed windup: source facts precede all legacy launch replacements. */
+export function notifyBasicAttackLaunched(world: World, source: Unit, target: Unit | undefined, action: Extract<Action, { kind: "windup" }>): void {
+  const callback = source.spec.hooks?.onBasicAttackLaunched;
+  if (!callback) return;
+  const launch: BasicAttackLaunchedSnapshot = Object.freeze({ tick: world.tick, sequence: combatEventSequence(world),
+    triggersOnAttack: source.spec.attack.triggersOnAttack !== false, source: combatIdentity(world, source), ...(target ? { target: combatIdentity(world, target) } : {}), blinded: action.blinded,
+    ...(action.pet !== undefined ? { declaredPetId: action.pet } : {}),
+    ...(action.attackTag !== undefined ? { attackTag: action.attackTag } : {}) });
+  const ctx = { ...hookContext(world, source, undefined, target), launch };
+  Object.defineProperty(ctx, "launch", { writable: false, configurable: false });
+  runHook(() => callback(ctx));
 }
 
 function hasCombatActivityObserver(world: World): boolean {
@@ -1187,6 +1229,15 @@ function resolveAbilityHit(world: World, caster: Unit, target: Unit, ability: Ab
     addStatus(target, { kind: "mark", key: `falloff:${group}:${world.nextId++}`, source: caster.side, startTick: world.tick, endTick: world.tick + toTicks(window), value: scale });
   }
   if (ability.flags?.appliesOnHit && !(ability.flags.dodgeStopsOnHit && hasState(target, "dodgeAttacks"))) applyOnHit(world, caster, target, [], blocked, scale * (ability.onHitScale ?? 1), false, undefined, ability, dodged, undefined, scale);
+  // Burst Fire's later primary rounds can spend Energized without applying a second generic on-hit.
+  if (ability.energizedFollowUp !== undefined && !blocked && Number.isFinite(scale) && scale > 0) {
+    const followUp = caster.spec.hooks?.onEnergizedFollowUp;
+    if (followUp) {
+      const ctx = { ...hookContext(world, caster, undefined, target), burst: ability.energizedFollowUp };
+      Object.defineProperty(ctx, "burst", { writable: false, configurable: false });
+      runHook(() => followUp(ctx));
+    }
+  }
   const onAbilityHit = caster.spec.hooks?.onAbilityHit;
   if (onAbilityHit) runHook(() => onAbilityHit({ ...hookContext(world, caster, ability, target), scale }));
   });
@@ -1224,6 +1275,8 @@ export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit,
     ...(ability ? { ability: Object.freeze({ key: ability.key, name: ability.name, slot: ability.slot,
       flags: Object.freeze({ ...ability.flags }), ...(ability.onHitScale !== undefined ? { onHitScale: ability.onHitScale } : {}) }) } : {}),
     blocked, scale, incomingScale,
+    ...(attackOptions?.energizedOnHit !== undefined ? { energizedOnHit: attackOptions.energizedOnHit } : {}),
+    ...(attackOptions?.energizedBurst !== undefined ? { energizedBurst: attackOptions.energizedBurst } : {}),
     pressTheAttackEligible: ability ? ability.flags?.pressTheAttack === true : attackOptions?.pressTheAttack !== false,
   });
 }

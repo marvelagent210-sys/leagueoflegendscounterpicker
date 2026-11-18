@@ -4,7 +4,7 @@ import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { defaultBehavior, react, type Behavior } from "../../engine/sim/behavior";
-import { abilityHitPet, canTarget, directionTo } from "../../engine/sim/combat";
+import { abilityHitPet, canTarget, directionTo, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
@@ -135,11 +135,11 @@ const evelynn: KitModule = {
         usable: (self, world) => !ownMark(world.units[self.side === 0 ? 1 : 0], "allure", self.side, world.tick) },
       { key: "E", name: e.name, slot: "E", cooldown: eCooldown, cost: eCost, castTime: eCast, cancelOnInvalidTarget: true, delivery: { kind: "target", range: eRange, edge: true },
         onHit: [{ type: "damage", damageType: "magic", amount: eDamage, amountFor: (self, target) => healthDamage(eDamage, self, target), petDamageCategory: "singleTarget" }],
-        onSelf: [{ type: "stat", stat: "moveSpeedPercent", amount: { base: eSpeed }, duration: eSpeedSeconds }], flags: { parry: true, appliesOnHit: true, pressTheAttack: true, petContactHooks: true }, usable: (self) => !self.memory.empoweredE },
+        onSelf: [{ type: "stat", stat: "moveSpeedPercent", amount: { base: eSpeed }, duration: eSpeedSeconds }], flags: { parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, petContactHooks: true }, usable: (self) => !self.memory.empoweredE },
       { key: "E2", name: ee.name, slot: "E", cooldown: eCooldown, cooldownKey: "E", cost: eCost, castTime: eCast, cancelOnInvalidTarget: true,
         delivery: { kind: "dash", direction: "target", distance: eRange, speed: Infinity, hitRadius: 0 },
         onHit: [{ type: "damage", damageType: "magic", amount: empoweredDamage, amountFor: (self, target) => healthDamage(empoweredDamage, self, target), petDamageCategory: "area" }],
-        onSelf: [{ type: "stat", stat: "moveSpeedPercent", amount: { base: eSpeed }, duration: eSpeedSeconds }], flags: { parry: true, dodge: false, appliesOnHit: true, pressTheAttack: false, petContactHooks: true, grounded: true, knockdown: true }, usable: (self, world) => !!self.memory.empoweredE && Math.abs(self.x - world.units[self.side === 0 ? 1 : 0].x) <= eRange + self.spec.base.radius + world.units[self.side === 0 ? 1 : 0].spec.base.radius },
+        onSelf: [{ type: "stat", stat: "moveSpeedPercent", amount: { base: eSpeed }, duration: eSpeedSeconds }], flags: { parry: true, dodge: false, appliesOnHit: true, fleetFootwork: true, pressTheAttack: false, petContactHooks: true, grounded: true, knockdown: true }, usable: (self, world) => !!self.memory.empoweredE && Math.abs(self.x - world.units[self.side === 0 ? 1 : 0].x) <= eRange + self.spec.base.radius + world.units[self.side === 0 ? 1 : 0].spec.base.radius },
       { key: "Epath", name: `${ee.name} (path)`, slot: "other", cooldown: 0, castTime: 0, activation: "internal", budgetExcluded: true, usable: () => false, delivery: { kind: "self" }, flags: { spellShield: true, petContactHooks: true },
         onHit: [{ type: "damage", damageType: "magic", amount: empoweredDamage, amountFor: (self, target) => healthDamage(empoweredDamage, self, target), petDamageCategory: "area" }] },
       { key: "R", name: r.name, slot: "R", cooldown: r.cooldown(), cost: r.cost(), castTime: rCast, castDirection: "start", delivery: { kind: "area", near: 0, far: rRadius, delay: 0, anchor: "ground" },
@@ -182,7 +182,9 @@ const evelynn: KitModule = {
           }
           if (ctx.memory.allureTarget !== undefined && !ownMark(ctx.enemy, "allure", ctx.self.side, ctx.tick)) restartAllure(ctx);
           if (ctx.memory.blinkAt !== undefined && ctx.tick >= Number(ctx.memory.blinkAt)) {
+            const from = ctx.self.x;
             ctx.self.x -= Number(ctx.memory.rDirection) * rBack;
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "R", endTick: ctx.tick, ended: true });
             ctx.self.statuses = ctx.self.statuses.filter((s) => !(s.source === ctx.self.side && s.ability === "R" && s.kind === "state"));
             delete ctx.memory.blinkAt; ctx.log("Last Caress blinks backwards");
           }

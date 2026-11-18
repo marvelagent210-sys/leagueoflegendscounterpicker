@@ -3286,6 +3286,28 @@ and [mechanics gap audit](docs/runes/MECHANICS_GAPS.md#press-the-attack-event-bo
 record the chosen policies and unsupported mechanics. Source/code tests cannot
 establish controlled live-game accuracy or globally optimal build search.
 
+## Fleet Footwork (17–18 November 2026)
+
+Rune 8021 is the twelfth partial manual effect for dataset 16.21. The source
+compiler retains all 71 prior Wiki pages and adds nine. The Fleet review covers
+19 complete pages, nine named normal-mode client values, three calculation
+records and eight complete client objects. The melee base formula evaluates to
+`124257/680` HP at the model’s level 20. The sources give 160 at level 18.
+Client healing missile metadata leaves the exact HP delivery time unresolved.
+[Fleet template](https://wiki.leagueoflegends.com/en-us/?oldid=4051351) · [Fleet article](https://wiki.leagueoflegends.com/en-us/?oldid=4052588)
+
+The selection tests examine all 4,096 subsets of the twelve supported effects.
+384 fit a legal page layout. Runtime and CLI checks exercise independent
+starting charges, round trips, overlapping missiles, blocked hits, healing
+modifiers, melee/ranged forms and the one-second speed buff. Real duels cover
+separate loadouts, shards, Legend points, champion variants and budget sweeps.
+Champion-specific tests cover Zeri’s Burst Fire spending, Azir’s soldier
+commands, Aphelios’s weapon attacks and the extra strikes from Akshan, Lucian
+and Master Yi.
+The new movement and attack observations change shared engine inputs.
+Fleet’s full recomputation and comparison of the two default matrices are
+pending. [Rune audit](docs/runes/README.md#fleet-footwork)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

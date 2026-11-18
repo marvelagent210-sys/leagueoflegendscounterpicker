@@ -1,4 +1,5 @@
 /** Camille: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
+import { observeMovementSegment } from "../../engine/sim/combat";
 import type { KitModule } from "../../engine/kits/compile";
 import { damagePerSecond } from "../../engine/budget";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -82,7 +83,11 @@ const camille: KitModule = {
           // The target can't leave the zone.
           if (!zoneOf(ctx)) return;
           const center = Number(ctx.memory.zoneX);
-          if (Math.abs(ctx.enemy.x - center) > zoneRadius) ctx.enemy.x = center + Math.sign(ctx.enemy.x - center) * zoneRadius;
+          if (Math.abs(ctx.enemy.x - center) > zoneRadius) {
+            const from = ctx.enemy.x;
+            ctx.enemy.x = center + Math.sign(ctx.enemy.x - center) * zoneRadius;
+            observeMovementSegment(ctx.world, ctx.enemy, from, { kind: "forced", ability: "R", endTick: ctx.tick, ended: true });
+          }
         },
       },
       behavior,

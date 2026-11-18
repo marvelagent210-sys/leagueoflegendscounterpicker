@@ -463,6 +463,8 @@ export interface AbilityFlags {
   appliesOnHit?: boolean;
   /** Source-qualified eligibility for Press the Attack; applying on-hits alone is insufficient. */
   pressTheAttack?: boolean;
+  /** Reviewed Fleet Footwork on-hit eligibility; independent of Press the Attack. */
+  fleetFootwork?: boolean;
   /** Its own basic damage benefits from life steal (Lunge, Parrrley, Purge). */
   appliesLifeSteal?: boolean;
   /** Classifies its damage as basic damage while preserving spell delivery and defenses. */
@@ -588,6 +590,8 @@ export type CooldownAfter = "empower" | "channel" | "dash" | "field" | "state";
 export type AbilityRole = "damage" | "cc" | "engage" | "escape" | "defense" | "buff" | "finisher";
 
 export interface AbilitySpec {
+  /** Later projectile of a multi-round cast that can spend charges filled by this burst. */
+  energizedFollowUp?: number;
   /** False for explicit non-activation toggles; own implementation hooks still run. */
   countsAsCast?: boolean;
   /** Unique within the kit: "Q", "W", "E", "R", "Q2", ... */
@@ -745,6 +749,8 @@ export interface AttackSpec {
   ranged: boolean;
   /** Missile speed of ranged attacks; unset or 0 for attacks without a missile. */
   missileSpeed?: number;
+  /** False for spell replacements such as Zeri's zap that bypass on-attack effects. */
+  triggersOnAttack?: boolean;
   /** Projectile blockers stop it. */
   projectile: boolean;
   /** Effects every basic attack applies on hit (attack modifiers such as Teemo's Toxic Shot). */
@@ -855,6 +861,33 @@ export interface CombatIdentity {
   readonly petId?: number;
 }
 
+/** Completed native basic windup, before legacy launch/replacement callbacks. */
+export interface BasicAttackLaunchedSnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly source: CombatIdentity;
+  readonly target?: CombatIdentity;
+  /** Remains known even if the declared pet disappeared during the windup. */
+  readonly declaredPetId?: number;
+  readonly triggersOnAttack: boolean;
+  readonly blinded: boolean;
+  readonly attackTag?: string;
+}
+
+/** One actual movement segment, captured before mutable legacy observers. */
+export interface MovementSnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly body: CombatIdentity;
+  readonly kind: ActualMovement["kind"];
+  readonly from: number;
+  readonly to: number;
+  readonly startTick?: number;
+  readonly endTick: number;
+  readonly ended: boolean;
+  readonly ability?: string;
+}
+
 /** One accepted native on-hit application, distinct from its damage packets or declaration. */
 export interface ResolvedOnHitSnapshot {
   readonly tick: number;
@@ -874,6 +907,10 @@ export interface ResolvedOnHitSnapshot {
   readonly incomingScale: number;
   /** Raw contact metadata; consumers still qualify actual source and target body identities. */
   readonly pressTheAttackEligible: boolean;
+  /** A source-qualified basic can gain on contact (true), or suppress consumption (false). */
+  readonly energizedOnHit?: boolean;
+  /** A burst that fills the pool on this hit must wait for a later round to spend it. */
+  readonly energizedBurst?: number;
 }
 
 /** Accepted native damage (including zero) or CC, not a universal combat-status clock.
@@ -902,12 +939,18 @@ export interface KitHooks {
   movementEventsAfterDeath?: boolean;
   /** Actual clamped body movement; interruption may emit a zero-length final event. */
   onActualMovement?(ctx: HookContext & { target: Unit; targetPet?: Pet; movement: ActualMovement }): void;
+  /** Immutable actual segment after legacy movement observers; a queued end keeps
+   * its original tick/endpoints. Direct kit reports need not invoke legacy hooks. */
+  onMovementObserved?(ctx: HookContext & { readonly movementEvent: MovementSnapshot }): void;
   /** Explicit continuation of already granted allied pet attack effects after this owner dies. */
   ownedPetEventsAfterDeath?: boolean;
   /** Pure declaration-time target restriction. Already declared or launched attacks keep their entitlement. */
   canAttackTarget?(ctx: HookContext & { target: Unit; targetPet?: Pet }): boolean;
   /** A basic attack is declared (its windup starts). */
   onAttack?(ctx: HookContext & { action: Extract<Action, { kind: "windup" }>; targetPet?: Pet }): void;
+  /** Completed windup before custom/basic launch callbacks or contact defenses.
+   * This does not itself promise a valid target or a subsequent connected hit. */
+  onBasicAttackLaunched?(ctx: HookContext & { readonly launch: BasicAttackLaunchedSnapshot }): void;
   /** The windup ends. False replaces the default launch; a returned split also branches on the replacement missile. */
   onAttackLaunch?(ctx: HookContext & { action: Extract<Action, { kind: "windup" }>; targetPet?: Pet }): boolean | PendingSplit | void;
   /** A connected basic's target-local packet before ordinary on-hits and physical damage.
@@ -987,6 +1030,8 @@ export interface KitHooks {
   modifyDamageTakenRaw?(ctx: HookContext & { raw: number; damageType: DamageType; attack: boolean; ability?: string; persistent: boolean }): number;
   /** Connected incoming on-hit application, including damage blocks but excluding misses, dodges and parries. */
   onIncomingOnHit?(ctx: HookContext & { attack: boolean; ability?: string; scale: number }): void;
+  /** Connected later round from a burst that can spend a newly filled Energized pool. */
+  onEnergizedFollowUp?(ctx: HookContext & { readonly burst: number }): void;
   /** Source-local accepted application, after its legacy on-hit effects and victim hook.
    * Facts are captured before those callbacks; blocked connected applications remain accepted.
    * Released native hits may notify a dead source; this hook grants no continuation itself. */

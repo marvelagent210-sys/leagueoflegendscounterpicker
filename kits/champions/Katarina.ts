@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, canTarget, directionTo, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, canTarget, directionTo, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { canTargetPet } from "../../engine/sim/pets";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
@@ -79,8 +79,8 @@ const katarina: KitModule = {
     const abilities: AbilitySpec[] = [
       { key: "Q", name: q.name, slot: "Q", cooldown: q.cooldown(), castTime: q.castTime(), delivery: { kind: "self" }, budgetExcluded: true, roles: ["damage"], persistsAfterDeath: true, allowedDuringChannel: ["R"], usable: (self, world) => !!qTarget(world, self), flags: { projectile: true, spellShield: q.flag("spellShield"), petContactHooks: true } },
       { key: "W", name: w.name, slot: "W", cooldown: w.cooldown(), castTime: w.castTime(), delivery: { kind: "self" }, budgetExcluded: true, roles: ["buff"], allowedDuringChannel: ["R"], onSelf: [{ type: "state", state: "ghosted", duration: wFlight }] },
-      { key: "E", name: e.name, slot: "E", cooldown: e.cooldown(), cooldownAtCastStart: true, castTime: e.castTime(), delivery: { kind: "self" }, budgetExcluded: true, roles: ["damage"], allowedDuringChannel: ["R"], flags: { grounded: e.flag("grounded"), parry: false, spellShield: e.flag("spellShield"), appliesOnHit: true, pressTheAttack: true, dodgeStopsOnHit: true, petContactHooks: true }, usable: (self, world) => !!chooseAnchor(world, self) },
-      { key: "R", name: r.name, slot: "R", cooldown: r.cooldown(), cooldownAtCastStart: true, castTime: r.castTime(), delivery: { kind: "self" }, budgetExcluded: true, roles: ["damage"], persistsAfterDeath: true, channel: { duration: rSeconds, interruptible: true, cancelAfter, cancelBeforeEnd: cancelAfter, cancelAttackAfter: cancelAfter, cancelAttackOtherAfter: cancelAfter }, flags: { projectile: r.flag("projectile"), parry: r.flag("parry"), spellShield: true, appliesOnHit: true, pressTheAttack: false, petContactHooks: true }, onHitScale: onHitShare, usable: (self, world) => enemies(world, self, false).some((t) => (!("owner" in t) || t.spec.targetClass === "champion") && Math.abs(t.x - self.x) <= rCastRange) },
+      { key: "E", name: e.name, slot: "E", cooldown: e.cooldown(), cooldownAtCastStart: true, castTime: e.castTime(), delivery: { kind: "self" }, budgetExcluded: true, roles: ["damage"], allowedDuringChannel: ["R"], flags: { grounded: e.flag("grounded"), parry: false, spellShield: e.flag("spellShield"), appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, dodgeStopsOnHit: true, petContactHooks: true }, usable: (self, world) => !!chooseAnchor(world, self) },
+      { key: "R", name: r.name, slot: "R", cooldown: r.cooldown(), cooldownAtCastStart: true, castTime: r.castTime(), delivery: { kind: "self" }, budgetExcluded: true, roles: ["damage"], persistsAfterDeath: true, channel: { duration: rSeconds, interruptible: true, cancelAfter, cancelBeforeEnd: cancelAfter, cancelAttackAfter: cancelAfter, cancelAttackOtherAfter: cancelAfter }, flags: { projectile: r.flag("projectile"), parry: r.flag("parry"), spellShield: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: false, petContactHooks: true }, onHitScale: onHitShare, usable: (self, world) => enemies(world, self, false).some((t) => (!("owner" in t) || t.spec.targetClass === "champion") && Math.abs(t.x - self.x) <= rCastRange) },
     ];
     const [blade, , shunpo, lotus] = abilities as [AbilitySpec, AbilitySpec, AbilitySpec, AbilitySpec];
     const spinAbility: AbilitySpec = { ...shunpo, key: "I", name: "Sinister Steel", flags: { ...shunpo.flags, grounded: false, pressTheAttack: false, spellShield: p.flag("spellShield") } };
@@ -159,8 +159,10 @@ const katarina: KitModule = {
             const anchor = chooseAnchor(ctx.world, ctx.self, ctx.aim);
             if (!anchor) { delete ctx.self.cooldownReady.E; return; }
             const x = cursor(ctx.self, ctx.enemy, ctx.aim);
+            const from = ctx.self.x;
             ctx.self.x = ctx.aim ? Math.max(anchor.x - eSelection, Math.min(anchor.x + eSelection, x)) : anchor.x;
             exitTerrain(ctx.world, ctx.self);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "E", endTick: ctx.tick, ended: true });
             const targets = enemies(ctx.world, ctx.self, false).filter((t) => Math.abs(t.x - ctx.self.x) <= eHitRadius).sort((a, b) => Number("owner" in a && a.spec.targetClass !== "champion") - Number("owner" in b && b.spec.targetClass !== "champion") || Math.abs(a.x - ctx.self.x) - Math.abs(b.x - ctx.self.x));
             const target = targets[0];
             if (target) hit(ctx, target, shunpo, eEffects, "singleTarget");

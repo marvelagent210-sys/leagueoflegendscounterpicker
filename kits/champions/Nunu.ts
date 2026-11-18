@@ -5,7 +5,7 @@ import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { softCap } from "../../engine/rules/movement";
 import { canCast, EPSILON, releaseCooldowns, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canTarget, directionTo, edgeDistance, heal, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canTarget, directionTo, edgeDistance, heal, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { ccTypes, derive, evaluate } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { petEffects } from "../../engine/sim/pets";
@@ -228,7 +228,9 @@ const nunu: KitModule = {
           const held=[...ccTypes(ctx.self)].some(cc=>["stun","airborne","suppression","stasis","sleep","suspension","charm","fear","taunt","berserk"].includes(cc));if(!held&&!ctx.self.forced){const from=ctx.self.x,direction=Number(ctx.memory[`${W}:direction`]) as 1|-1,to=from+direction*moveSpeed/30,reach=collisionRadius(age),wall=terrainContact(ctx.world,ctx.self,from,to,reach),group=ctx.memory[`${W}:group`];let stop=wall;
             const list=contacts(ctx.world,ctx.self).filter(contact=>valid(ctx.self,contact.target)).flatMap(contact=>{const point=along(from,to,contact.target.x,reach*(contact.pet?.spec.targetClass==="monster"?monsterCollision:1)+contact.target.spec.base.radius);return point===undefined?[]:[{contact,point}];}).sort((a,b)=>Math.abs(a.point-from)-Math.abs(b.point-from));
             for(const {contact,point} of list){if(stop!==undefined&&Math.abs(point-from)>Math.abs(stop-from)+EPSILON)break;const explodes=champion(contact)||contact.pet?.spec.largePet===true||contact.pet?.spec.targetClass==="monster"&&["medium","large"].includes(contact.pet.spec.sizeClass??"")||contact.pet?.spec.epicMonster===true;if(explodes){stop=point;break;}if(contact.pet&&(contact.pet.spec.targetClass==="minion"||contact.pet.spec.targetClass==="monster"&&contact.pet.spec.sizeClass==="small")){const key=`${W}:rolled:${group}:${contact.pet.id}`;if(!ctx.memory[key]){ctx.memory[key]=true;hit(ctx,contact,roll,[{type:"damage",damageType:"magic",amount:between(wMinRoll,wMaxRoll,strength(age)),petDamageCategory:"area"}],1,point);}}}
-            ctx.self.x=stop??to;if(stop!==undefined){clearRoll(ctx);explosion(ctx,stop,age);ctx.apply({type:"cc",cc:"stun",duration:wSelfStun},true);}
+            ctx.self.x = stop ?? to;
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "walk", ability: "W", startTick: ctx.self.action.startTick, endTick: stop === undefined ? ctx.self.action.endTick : ctx.tick, ended: stop !== undefined });
+            if(stop!==undefined){clearRoll(ctx);explosion(ctx,stop,age);ctx.apply({type:"cc",cc:"stun",duration:wSelfStun},true);}
           }
         }}
         for(const key of Object.keys(ctx.memory).filter(key=>key.startsWith(`${E}:throw:`))){const due=Number(ctx.memory[key]);if(ctx.tick<due)continue;const group=Number(key.slice(`${E}:throw:`.length).split(":")[0]);delete ctx.memory[key];if(!ctx.self.resurrection)emitBall(ctx,due,group);}

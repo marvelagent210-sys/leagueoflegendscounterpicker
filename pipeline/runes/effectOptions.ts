@@ -32,3 +32,21 @@ export function legendPointsOption(args: readonly string[], flag: string, select
   if (!Number.isSafeInteger(points)) throw new Error(`${flag} requires a nonnegative safe integer`);
   return points;
 }
+
+/** Fleet's starting charge pool is history, not an automatic full precharge. */
+export function energizedChargesOption(args: readonly string[], flag: string, selection: readonly number[] | undefined): number | undefined {
+  const fleet = selection?.includes(8021) === true;
+  const positions = args.flatMap((value, index) => value === flag ? [index] : []);
+  if (positions.length > 1) throw new Error(`${flag} must be given once`);
+  if (positions.length === 0) {
+    if (fleet) throw new Error(`Fleet Footwork (8021) requires ${flag}, including an explicit 0 for no starting charges`);
+    return undefined;
+  }
+  if (!fleet) throw new Error(`${flag} requires Fleet Footwork (8021) on the same side`);
+  const value = args[positions[0]! + 1];
+  // Check the upper bound before converting: 100.000000000000001 rounds to 100 in JavaScript.
+  if (!value || !/^(?:(?:0|[1-9]\d?)(?:\.\d+)?|100(?:\.0+)?)$/.test(value)) {
+    throw new Error(`${flag} requires a finite decimal charge amount from 0 through 100`);
+  }
+  return Number(value);
+}
