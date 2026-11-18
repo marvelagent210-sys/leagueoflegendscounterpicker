@@ -3,9 +3,8 @@
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
 Manual plain-stat duels also support eleven partial combat effects, listed below.
-Press the Attack is the first Precision keystone; implementation began on
-17 November. Its genuine full matrix refresh, checkpoint audit and release
-checks are pending. Earlier batch results below retain their own scope.
+Press the Attack is the first Precision keystone. Its 17 November refresh
+reproduced both default matrices and passed 9,755 tests with five skips.
 Presence of Mind implementation began on 13 November; its local provenance
 refresh reused all 14,878 pairings per matrix with zero new computation.
 Complete default result payloads are unchanged; local validation passed 9,510
@@ -215,9 +214,10 @@ not complete rune-page fidelity.
 
 Implementation began on **17 November 2026**, after the merged Presence of Mind
 release. Rune **8005** is the eleventh partial manual effect and the first
-Precision keystone. The current code has new native event surfaces; its genuine
-full matrix refresh, complete checkpoint audit and release checks are **pending**.
-The historical sections below do not establish validation for this batch.
+Precision keystone. The 17 November refresh computed all 14,878 pairings in
+each default matrix, with zero reuse. The audit verified every new checkpoint
+against both matchup directions. Scores, scenarios, variants, builds and stat
+allocations matched the previous baseline. [Workflow run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44141258128)
 
 The complete [PTA template 4015574](https://wiki.leagueoflegends.com/en-us/?oldid=4015574)
 gives three on-hit stacks, a refreshed **four-second** stack window, a
@@ -354,9 +354,8 @@ explicit starting points. The page validator enforces primary-only keystones
 and one choice per row. Only explicitly selected effects are equipped. Stat
 shards, side-specific selections, variant comparison, logs and gold sweeps
 retain the manual plain-stat interface; its allocation remains the no-rune
-reference. Exact executed commands, kit coverage and release evidence will be
-recorded in the [accuracy log](../../ACCURACY.md#press-the-attack-eleventh-partial-manual-effect-17-november-implementation)
-after the pending checks complete.
+reference. The accuracy log records verification of the source and published matchup results.
+[Accuracy log](../../ACCURACY.md#press-the-attack-eleventh-partial-manual-effect-17-november-implementation)
 
 ### Presence of Mind: level-20 restoration and local validation
 
