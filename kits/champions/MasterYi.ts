@@ -250,7 +250,7 @@ const yi: KitModule = {
             ctx.memory.doubleArmed = false;
             if (!ctx.blocked) ctx.memory.doubleStacks = 0;
             const secondTarget = ctx.enemy.alive && ctx.enemy.hp > 0 && !inStasis(ctx.enemy);
-            const secondOnHit = secondTarget ? captureResolvedOnHit(ctx.world, ctx.self, ctx.enemy, { blocked: ctx.blocked, attackOptions: { energizedOnHit: true } }) : undefined;
+            const secondOnHit = secondTarget ? captureResolvedOnHit(ctx.world, ctx.self, ctx.enemy, { blocked: ctx.blocked, attackOptions: { energizedOnHit: true, onAttackScale: 1 } }) : undefined;
             if (!ctx.blocked && secondTarget) {
               const d = derive(ctx.self);
               dealDamage(ctx.world, ctx.self, ctx.enemy, d.ad * secondShare, "physical", { attack: true, ability: passive.name, crit: { chance: d.critChance, multiplier: d.critDamage } });

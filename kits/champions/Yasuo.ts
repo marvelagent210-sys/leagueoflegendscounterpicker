@@ -166,6 +166,7 @@ const yasuo: KitModule = {
           usable: (unit, world) => storm(unit, world) < 2,
           delivery: { kind: "line", range: q.field("range", "Thrust range"), width: q.field("width", "Thrust width") },
           onHit: thrustHit,
+          onAttackScale: 1,
           flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, parry: true, dodgeKeepsEffects: true, projectile: false },
         }),
         tempest("Q3", {
@@ -173,6 +174,7 @@ const yasuo: KitModule = {
           usable: (unit, world) => storm(unit, world) >= 2,
           delivery: { kind: "line", range: q.field("range", "Whirlwind missile range"), width: q.field("width", "Whirlwind missile width"), speed: q.field("speed") },
           onHit: [...thrustHit, { type: "displace", direction: "away", distance: 0, duration: knockUp }],
+          onAttackScale: 1,
           flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, parry: true, dodgeKeepsEffects: true, projectile: true },
         }),
         {

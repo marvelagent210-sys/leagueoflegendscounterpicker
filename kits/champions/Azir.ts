@@ -242,7 +242,10 @@ const azir: KitModule = {
         onAttack(ctx) {
           // Declared at an enemy within a soldier's reach: the soldiers stab instead.
           if (ctx.targetPet || striking(ctx.world, ctx.self, ctx.enemy).length === 0) delete ctx.memory[STAB];
-          else ctx.memory[STAB] = true;
+          else {
+            ctx.memory[STAB] = true;
+            ctx.action.onAttackEffects = "self";
+          }
         },
         onAttackLaunch(ctx) {
           if (ctx.targetPet || ctx.memory[STAB] !== true) return undefined;

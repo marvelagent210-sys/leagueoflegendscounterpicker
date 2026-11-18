@@ -160,11 +160,11 @@ const zeri: KitModule = {
                 const d = derive(ctx.self), amount = evaluate(damage, ctx.self, v.target);
                 attackHit(ctx.world, ctx.self, v.target, false, [], undefined, false, {
                   critChance: critical, baseDamageScale: d.ad > 0 ? amount / d.ad : 0,
-                  energizedOnHit: true, energizedBurst: group,
+                  energizedOnHit: true, attackBurst: group, onAttackScale: 1,
                 }, m.scale, ctx.from);
               } else {
                 let round = primary ? qRound : qSecondary;
-                if (primary && ctx.self.spec.hooks?.onEnergizedFollowUp) round = { ...qRound, energizedFollowUp: group };
+                if (primary && ctx.self.spec.hooks?.onPrimaryBurstRound) round = { ...qRound, primaryBurstFollowUp: group };
                 const damagePacket = packet(scaled(damage, critFactor * (primary ? 1 : eSecondary)), "physical");
                 hit(ctx, v, round, [{ ...damagePacket, ...(primary ? {} : { noLifeSteal: true }) }],
                   primary ? "basic" : "area", m.scale, ctx.from);

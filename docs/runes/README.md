@@ -2,7 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support twelve partial combat effects, including two Precision keystones.
+Manual plain-stat duels also support thirteen partial combat effects, including
+Lethal Tempo, Fleet Footwork and Press the Attack.
 The Fleet Footwork refresh verified both default matrices against 29,756
 pair results and reproduced the prior published results.
 [Refresh audit](../../ACCURACY.md#matchup-refresh-and-recovery)
@@ -111,12 +112,13 @@ npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These twelve effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These thirteen effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
 |---|--:|---|
 | Press the Attack | 8005 | Three qualified on-hit applications consume stacks for adaptive proc damage (`2960/17` at level 20) and 8% increased champion damage. Four-second stack refresh, six-second proc cooldown and a declared five-second combat clock; event eligibility and timing limits are detailed below. |
+| Lethal Tempo | 8008 | Up to six stacks of 6% melee or 4.8% ranged attack speed. Qualifying attacks refresh the six-second timer. An attack made with six stacks already held can launch an adaptive bolt. |
 | Fleet Footwork | 8021 | At 100 Energized charges the next qualified champion hit heals the owner and grants one second of bonus movement speed. Declare starting charges separately for each side. |
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
@@ -133,9 +135,9 @@ The three Precision health-damage runes occupy the same source-defined row, so s
 one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
 at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
-Choose at most one Precision keystone, Fleet Footwork or Press the Attack. Either can accompany Second
-Wind, one first-row choice, one Legend choice and any one of the three damage
-runes, subject to the same page validator. Only the explicitly named effects
+Choose at most one Precision keystone from Press the Attack, Lethal Tempo and
+Fleet Footwork. Each can accompany Second Wind, one first-row choice, one Legend
+and one of the three damage runes, subject to the same page validator. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
 explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-duel
@@ -155,11 +157,13 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **80 complete Wiki revisions** in
+The offline compiler checks **82 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the twelve templates to
+full-content hashes, exact revisions and excerpts, binds the thirteen templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Lethal Tempo adds the complete rune article and template to the 80 Fleet
+Footwork pages.
 Fleet Footwork adds nine complete revisions to the 71 in the Press the Attack release.
 At the Presence release, sixteen complete direct dependencies were added while preserving all 47
 previous objects and the frozen client descriptor. Twenty-five directly used
@@ -210,9 +214,60 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These twelve catalog entries are
+selection require further implementation and validation. These thirteen catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Lethal Tempo
+
+Select rune `8008` for either side of a manual plain-stat duel. Each selected
+fighter begins with zero stacks. The duel log labels delivered bolts
+“Lethal Tempo”.
+
+```sh
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8008 --enemy-combat-runes 8008 --log brawl
+```
+
+- Completing an eligible basic attack windup against an opposing champion or
+  classified champion clone grants one stack, up to six. The model also
+  grants a stack on each accepted contact from a source-qualified attack
+  replacement. Canceled windups, vanished targets and protected targets at
+  launch give no stack. A completed windup still counts when the target
+  subsequently blocks the basic hit. Each gain refreshes the six-second timer.
+  At expiry one stack drops immediately, followed by one every 0.3 seconds.
+  The duel expires due stacks before processing an attack on the same tick.
+  [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4065934) · [Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) · [Riot 14.20 notes](https://www.leagueoflegends.com/en-us/news/game-updates/patch-14-20-notes/)
+- Each held stack grants 6% bonus attack speed in melee form or 4.8% in ranged
+  form. Form changes immediately update all held stacks, including Jayce’s
+  Hammer and Cannon. Attacks follow the simulator’s configured attack speed
+  limits. Garen’s Judgment spin count excludes rune attack speed.
+  [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427) · [Garen sources](../../data/16.21/kits/Garen.md)
+- The model requires six stacks before a qualifying attack to launch a bolt,
+  so the first bolt can launch on the seventh event. The sources leave the
+  sixth-attack ordering open. Each level-20 bolt starts at `552/17` melee or
+  `46023/2125` ranged. It increases by 1% for each percentage point of current
+  uncapped bonus attack speed, including the rune’s own stacks. The reviewed
+  calculations apply ranged multipliers of `0.8` to stack speed and `0.667` to
+  base bolt damage. The frozen client’s ranged display fields give 4% and
+  6–24 damage. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4065934) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427)
+- At launch the bolt samples the current form, bonus attack speed, and the
+  higher of bonus AD and AP. A tie uses the champion’s recorded adaptive type.
+  Its separate proc damage resolves against the opponent’s current defenses
+  on arrival. The four retained client bolt objects use a nontracking spline
+  at 2,500 units per second. The duel uses a one-dimensional path to the launch
+  endpoint and requires the champion’s hitbox to cover that point on arrival.
+  Walls, interception and target protection can prevent delivery. The bolt
+  leaves the target’s spell shield intact and triggers no spell or on-hit
+  effects. Bolts target the opposing champion body, and pending bolts resolve
+  only during an active duel. [Adaptive damage](https://wiki.leagueoflegends.com/en-us/?oldid=4015091) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427) · [Mechanics gaps](MECHANICS_GAPS.md#lethal-tempo)
+- Akshan, Lucian and Master Yi can stack with their reviewed passive extra
+  strikes. Zeri’s Burst Fire stacks on its first accepted primary round, once
+  per burst. Azir’s soldier command grants a stack and personal attacks can
+  fire the bolt. Graves’ shotgun counts once at the end of its windup.
+  The simulator applies one full stack to an accepted positive
+  hit share, and applies that share and the ability’s reviewed on-attack damage
+  ratio to the bolt. Urgot’s Purge uses 50%, Katarina’s Death Lotus uses 35%,
+  and Bel’Veth’s Royal Maelstrom uses 12–24% by slash. [Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) · [Zeri sources](../../data/16.21/kits/Zeri.md) · [Azir sources](../../data/16.21/kits/Azir.md) · [Graves sources](../../data/16.21/kits/Graves.md)
 
 ### Fleet Footwork
 

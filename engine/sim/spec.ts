@@ -590,8 +590,10 @@ export type CooldownAfter = "empower" | "channel" | "dash" | "field" | "state";
 export type AbilityRole = "damage" | "cc" | "engage" | "escape" | "defense" | "buff" | "finisher";
 
 export interface AbilitySpec {
-  /** Later projectile of a multi-round cast that can spend charges filled by this burst. */
-  energizedFollowUp?: number;
+  /** Damage effectiveness of ordinary on-attack effects applied by this qualified contact. */
+  onAttackScale?: number;
+  /** This accepted follow-up belongs to the same primary-target burst as its opening round. */
+  primaryBurstFollowUp?: number;
   /** False for explicit non-activation toggles; own implementation hooks still run. */
   countsAsCast?: boolean;
   /** Unique within the kit: "Q", "W", "E", "R", "Q2", ... */
@@ -870,6 +872,8 @@ export interface BasicAttackLaunchedSnapshot {
   /** Remains known even if the declared pet disappeared during the windup. */
   readonly declaredPetId?: number;
   readonly triggersOnAttack: boolean;
+  /** Ordinary on-attack effects. Energized retains its separate eligibility. */
+  readonly onAttackEffects: "none" | "self" | "all";
   readonly blinded: boolean;
   readonly attackTag?: string;
 }
@@ -909,8 +913,10 @@ export interface ResolvedOnHitSnapshot {
   readonly pressTheAttackEligible: boolean;
   /** A source-qualified basic can gain on contact (true), or suppress consumption (false). */
   readonly energizedOnHit?: boolean;
-  /** A burst that fills the pool on this hit must wait for a later round to spend it. */
-  readonly energizedBurst?: number;
+  /** Positive effectiveness is explicit ordinary on-attack eligibility on contact. */
+  readonly onAttackScale?: number;
+  /** Identifies repeated rounds of one primary-target burst. */
+  readonly attackBurst?: number;
 }
 
 /** Accepted native damage (including zero) or CC, not a universal combat-status clock.
@@ -932,6 +938,8 @@ export interface CombatActivitySnapshot {
 export interface KitHooks {
   /** Once, before the first tick. */
   onStart?(ctx: HookContext): void;
+  /** After a successful form switch and its health adjustment. */
+  onFormChanged?(ctx: HookContext): void;
   onTick?(ctx: HookContext): void;
   /** Opt-in upkeep for already released effects on actual surviving recipients; no new actions. */
   onTickWhileDead?(ctx: HookContext): void;
@@ -1030,8 +1038,8 @@ export interface KitHooks {
   modifyDamageTakenRaw?(ctx: HookContext & { raw: number; damageType: DamageType; attack: boolean; ability?: string; persistent: boolean }): number;
   /** Connected incoming on-hit application, including damage blocks but excluding misses, dodges and parries. */
   onIncomingOnHit?(ctx: HookContext & { attack: boolean; ability?: string; scale: number }): void;
-  /** Connected later round from a burst that can spend a newly filled Energized pool. */
-  onEnergizedFollowUp?(ctx: HookContext & { readonly burst: number }): void;
+  /** Accepted later primary burst round, without another generic on-hit application. */
+  onPrimaryBurstRound?(ctx: HookContext & { readonly burst: number; readonly scale: number }): void;
   /** Source-local accepted application, after its legacy on-hit effects and victim hook.
    * Facts are captured before those callbacks; blocked connected applications remain accepted.
    * Released native hits may notify a dead source; this hook grants no continuation itself. */

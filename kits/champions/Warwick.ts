@@ -128,6 +128,7 @@ const warwick: KitModule = {
       cooldown: 0,
       castTime: 0,
       delivery: { kind: "self" },
+      ...(onHit ? { onAttackScale: 1 } : {}),
       flags: { spellShield: false, appliesOnHit: onHit, fleetFootwork: onHit, pressTheAttack: onHit, appliesLifeSteal: true },
     });
     const strongPulse = pulseSpec(true);
@@ -146,6 +147,7 @@ const warwick: KitModule = {
         delivery: { kind: "target", range: qRange },
         onCastStart: [{ type: "state", state: "displacementImmune", duration: biteDelay }],
         onHit: [{ type: "damage", damageType: "magic", amount: bite, label: q.name }],
+        onAttackScale: 1,
         flags: { spellShield: q.flag("spellShield") ?? true, parry: q.flag("parry") ?? true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, grounded: false },
         roles: ["damage"],
       },

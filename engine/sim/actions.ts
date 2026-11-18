@@ -189,7 +189,8 @@ function attackOptions(action: AttackHitOptions): AttackHitOptions {
     attackOnHitReplacement: action.attackOnHitReplacement, breakShields: action.breakShields,
     ...(action.onHitApplications !== undefined ? { onHitApplications: action.onHitApplications } : {}),
     ...(action.energizedOnHit !== undefined ? { energizedOnHit: action.energizedOnHit } : {}),
-    ...(action.energizedBurst !== undefined ? { energizedBurst: action.energizedBurst } : {}),
+    ...(action.attackBurst !== undefined ? { attackBurst: action.attackBurst } : {}),
+    ...(action.onAttackScale !== undefined ? { onAttackScale: action.onAttackScale } : {}),
     ...(action.pressTheAttack !== undefined ? { pressTheAttack: action.pressTheAttack } : {}),
   };
 }

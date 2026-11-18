@@ -268,6 +268,7 @@ const aphelios: KitModule = {
           action.attackTag = `aph:${weapon}:${markedTarget ? "mark" : "basic"}`;
           action.missileSpeed = markedTarget ? speed[0] : speed[weapon]; action.baseDamageScale = weapon === 3 ? infMultiplier : 1;
           if (markedTarget) {
+            action.onAttackEffects = "none";
             let base = 0, normal = 0;
             for (const target of allTargets(ctx)) { const mark = marked(target, ctx.self, CAL, ctx.tick); if (!mark) continue; if (mark.value === rMark) base += rMark; else { base += markBase; normal++; } target.statuses = target.statuses.filter((s) => s !== mark); if (target.petId !== undefined) { const z = ctx.world.pets.find((z) => z.id === target.petId); if (z) z.statuses = target.statuses; } }
             action.bonusPhysical = { base, ratios: { bonusAD: normal * markRatio } }; action.uncancellable = true; action.launchTick = ctx.tick + ticks(markCast);

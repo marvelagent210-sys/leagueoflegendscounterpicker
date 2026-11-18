@@ -191,7 +191,7 @@ const lucian: KitModule = {
               if (ctx.enemy.alive && !isUntargetable(ctx.enemy, ctx.self) && Math.abs(ctx.enemy.x - ctx.self.x) <= reach + ctx.enemy.spec.base.radius + 1e-6) target = ctx.enemy;
               else target = ctx.world.pets.filter((p) => p.owner !== ctx.self.side && p.hp > 0 && !p.spec.untargetable && !isUntargetable(petFormulaTarget(p, ctx.self, ctx.tick), ctx.self) && Math.abs(p.x - ctx.self.x) <= reach + p.spec.radius + 1e-6).sort((a, b) => a.hp - b.hp || a.id - b.id)[0];
             }
-            if (target) launchBonusAttack(ctx.world, ctx.self, target, { baseDamageScale: "owner" in target ? 1 : lightRatio, critChance: derive(ctx.self).critChance, missileSpeed: lightSpeed, attackTag: LIGHT, energizedOnHit: true }, vigilancePacket(ctx));
+            if (target) launchBonusAttack(ctx.world, ctx.self, target, { baseDamageScale: "owner" in target ? 1 : lightRatio, critChance: derive(ctx.self).critChance, missileSpeed: lightSpeed, attackTag: LIGHT, energizedOnHit: true, onAttackScale: 1 }, vigilancePacket(ctx));
           }
           const action = channel(ctx.self.action);
           if (!action) return;

@@ -3333,6 +3333,33 @@ Both TypeScript projects, both matrix freshness checks, the rune catalog
 check and the production web build passed. The full local suite passed
 9,991 tests across 279 files with five existing skips.
 
+## Lethal Tempo (18 November 2026)
+
+Rune 8008 is the thirteenth partial combat effect for manual plain-stat duels.
+The compiler adds two complete Wiki revisions and retains the 80 earlier
+page objects and the full 2,177,672-byte versioned client file. The level-20
+base bolt evaluates to `552/17` melee and `46023/2125` ranged. The frozen
+perk calculation records confirm the ranged speed and damage multipliers.
+Four complete client bolt objects agree on their nested 2,500-unit/s
+nontracking movement. The client also retains older displayed ranged values
+and different outer spell timing fields. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4065934) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427) · [Mechanics gaps](docs/runes/MECHANICS_GAPS.md#lethal-tempo)
+
+The simulator uses separate events for a completed windup and a qualified
+contact from an attack replacement or extra strike. The selection tests
+cover 8,192 subsets of the thirteen manual effects. Of those, 512 fit
+a legal page. Combat tests cover exact expiry ticks, immediate form changes,
+distinct bolts in flight, clone targets, ordinary defense and spell-shield
+behavior. They exercise Zeri’s first accepted primary round, Azir’s
+self-only soldier commands and Urgot’s 50% proc damage. A zero-gold
+Lucian–Sion CLI duel verifies both fighters can equip the keystone and deliver
+it. [Manual duel rules and command](docs/runes/README.md#lethal-tempo)
+
+The source suite passed 10,016 tests with five existing skips. Three
+checks require rebuilt matrix data for the new input fingerprints.
+The native refresh plan calls for 14,878 new pairings and zero reused
+pairings in each default matrix. The refresh will produce the matrix data for
+delivery.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

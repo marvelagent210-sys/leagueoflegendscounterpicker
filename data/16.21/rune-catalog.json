@@ -215,7 +215,7 @@
         "sha256": "360eb66df82e0fe0c92ba4c0fb2714225147916404eccd9e8c53a38d677dde27",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Lethal Tempo|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Basic attacks {{tip|on-attack}} against enemy {{tip|champion|champions}} grant a {{tip|stack}} for 6 seconds, refreshing on subsequent attacks and stacking up to 6 times. Gain {{as|{{rd|6%|{{ap|6*0.8}}%}} '''bonus''' attack speed|as}} for each stack, up to {{as|{{rd|36%|{{ap|36*0.8}}%}}|as}} at maximum stacks.\n|description2 = At maximum stacks, basic attacks are empowered to fire a bolt at the target {{tip|on-attack}} that deals them {{rd|9 + (30-9)/17*(x-1) for 20|(9 + (30-9)/17*(x-1))*0.667 for 20|pp=true}} '''bonus''' {{tip|adaptive damage}} upon arrival, increased by 1% per {{as|1% '''bonus''' attack speed}}.\n|description3 = When the duration ends, one stack expires immediately and the rest expire one by one every {{fd|0.3}} seconds.\n|description4 = {{Tip data/Adaptive damage|pst2|description}}\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8009,

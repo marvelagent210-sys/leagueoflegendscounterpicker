@@ -77,8 +77,10 @@ export interface AttackHitOptions {
   pressTheAttack?: boolean;
   /** Gain Energized on accepted contact (true), or exclude this packet from consumption (false). */
   energizedOnHit?: boolean;
-  /** Unique cast ID for a source that defers a newly filled pool to later rounds. */
-  energizedBurst?: number;
+  /** Damage effectiveness for explicit ordinary on-attack applications on contact. */
+  onAttackScale?: number;
+  /** Unique cast ID shared by the primary rounds of a burst. */
+  attackBurst?: number;
   /** Distinct strike observations; attached legacy effects still resolve once. */
   onHitApplications?: number;
   spellShield?: boolean;
@@ -103,7 +105,9 @@ export type Action =
       attackTag?: string;
       pressTheAttack?: boolean;
       energizedOnHit?: boolean;
-      energizedBurst?: number;
+      /** Some windups grant only self effects or bypass ordinary effects entirely. */
+      onAttackEffects?: "none" | "self";
+      attackBurst?: number;
       onHitApplications?: number;
       spellShield?: boolean;
       spellShieldOnHit?: boolean;
@@ -234,6 +238,8 @@ export interface Missile {
   owner: Side;
   /** "attack" or the key of the ability that fired it. */
   source: string;
+  /** Launch position for a kit-owned endpoint packet with directional defenses. */
+  originX?: number;
   /** Tick the enemy could first see it coming: the start of the cast or windup. */
   seenTick: number;
   x: number;

@@ -9,6 +9,21 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  lethalTempo: {
+    modelLevel: 20;
+    maxStacks: 6;
+    stackDuration: number;
+    decayInterval: number;
+    attackSpeedPerStack: number;
+    rangedAttackSpeedRatio: number;
+    boltDamage: number;
+    rangedBoltRatio: number;
+    bonusAttackSpeedRatio: number;
+    boltSpeed: number;
+    boltGate: "max-stacks-before-attack";
+    boltStatModel: "at-launch";
+    boltTravelModel: "fixed-endpoint";
+  };
   pressTheAttack: {
     modelLevel: 20;
     damage: number;

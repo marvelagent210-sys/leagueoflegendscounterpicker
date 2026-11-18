@@ -14,7 +14,9 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const tempoPath = "Perks/Styles/Precision/LethalTempo";
+const tempoBolts = ["{6f0c6028}", "{720c64e1}", "{f7b50373}", "{f8b50506}"] as const;
 const fleetPath = "Perks/Styles/Precision/FleetFootwork";
 const fleetTemplate = "Template:Rune data Fleet Footwork";
 const fleetClientPaths = [
@@ -77,6 +79,36 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Lethal Tempo source rules", () => {
+  it("uses the level-20 formula and calculation multipliers despite the frozen ranged display values", () => {
+    const rule = build().lethalTempo;
+    expect(rule).toEqual({
+      modelLevel: 20, maxStacks: 6, stackDuration: 6, decayInterval: 0.3,
+      attackSpeedPerStack: 0.06, rangedAttackSpeedRatio: 0.8, boltDamage: 552 / 17,
+      rangedBoltRatio: 0.667, bonusAttackSpeedRatio: 1, boltSpeed: 2500,
+      boltGate: "max-stacks-before-attack", boltStatModel: "at-launch", boltTravelModel: "fixed-endpoint",
+    });
+    expect(rule.attackSpeedPerStack * rule.rangedAttackSpeedRatio).toBeCloseTo(0.048, 12);
+    expect(rule.boltDamage * rule.rangedBoltRatio).toBeCloseTo(46023 / 2125, 12);
+    expect((JSON.parse(originalGame) as Game)[tempoPath]!.mScript.mSpellScriptData.mEffectAmount)
+      .toMatchObject({ TTASPerStackRanged: Math.fround(0.04), TTMinNoteDamageRanged: 6, TTMaxNoteDamageRanged: 24 });
+  });
+
+  it.each(tempoBolts)("matches the whole client bolt object %s", key => {
+    const input = fixture();
+    const game = JSON.parse(input.game);
+    game[key].mSpell.mMissileSpec.movementComponent.mSpeed = 1800;
+    input.game = JSON.stringify(game);
+    expect(() => build(input)).toThrow(/Lethal Tempo complete bolt object changed/);
+  });
+
+  it("rejects a re-pinned conflicting decay interval even when other terms match", () => {
+    const input = fixture();
+    editWiki(input, "Template:Rune data Lethal Tempo", text => text.replace("{{fd|0.3}}", "{{fd|0.25}}"));
+    expect(() => build(input)).toThrow(/Lethal Tempo full reviewed revision changed/);
+  });
+});
 
 describe("Press the Attack source rules and declared model choices", () => {
   it("uses the template's explicit level20 arithmetic while retaining the client's40/160 endpoints", () => {
@@ -372,10 +404,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(12).fill("manual-effects"));
+      .toEqual(Array(13).fill("manual-effects"));
   });
 
-  it("binds all eighty complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all eighty-two complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -457,6 +489,8 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Energized info", 4064669],
       ["Template:Rune data Fleet Footwork", 4051351],
       ["Template:Tip data/Energized", 4013385],
+      ["Lethal Tempo", 4060427],
+      ["Template:Rune data Lethal Tempo", 4065934],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -472,7 +506,7 @@ describe("reviewed combat rune numeric rules", () => {
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(80);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(82);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -595,11 +629,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 80 complete/);
+    expect(() => build(missing)).toThrow(/all 82 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 80 complete/);
+    expect(() => build(extra)).toThrow(/all 82 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -633,7 +667,7 @@ describe("exact source identity and completeness", () => {
     editWiki(wiki, "Damage modifier", () => excerpts);
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
-    const retained = new Set([...gamePaths, ...fleetClientPaths, triumphMissilePath, presenceMissilePath]);
+    const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, triumphMissilePath, presenceMissilePath]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });
