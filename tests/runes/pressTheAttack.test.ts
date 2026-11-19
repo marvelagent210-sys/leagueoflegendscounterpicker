@@ -433,7 +433,7 @@ describe("Press the Attack defensive rule and event validation", () => {
     expect(() => self.spec.hooks!.onResolvedOnHit!({ ...hookContext(world, self), onHit: {
       tick: 0, sequence: 1, source: { side: 0, fighterId: "dummy", kind: "champion" },
       target: { side: 1, fighterId: "dummy", kind: "champion" }, attack: true, blocked: false,
-      scale: 1, incomingScale: 1, pressTheAttackEligible: true,
+      ranged: false, protected: false, scale: 1, incomingScale: 1, pressTheAttackEligible: true,
     } })).toThrow(/immutable/);
   });
 

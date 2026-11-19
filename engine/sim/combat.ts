@@ -1306,9 +1306,11 @@ export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit,
   if (!attacker.spec.hooks?.onResolvedOnHit) return;
   const { ability, blocked, attackOptions, scale = 1, incomingScale = scale } = options;
   const onAttackScale = options.onAttackScale ?? ability?.onAttackScale ?? attackOptions?.onAttackScale;
+  const ranged = attacker.spec.attack.ranged;
+  const targetProtected = damageProtected(world, attacker, target);
   const damageContact = attacker.spec.hooks.onDamageResolved ? Object.freeze({
     castInstance: currentCastInstance(world, attacker),
-    ranged: attacker.spec.attack.ranged, protected: damageProtected(world, attacker, target),
+    ranged, protected: targetProtected,
     basicStacks: ability?.flags?.conquerorBasicStacks ?? attackOptions?.conquerorBasicStacks,
   }) : undefined;
   return Object.freeze({
@@ -1316,7 +1318,7 @@ export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit,
     source: combatIdentity(world, attacker), target: combatIdentity(world, target), attack: ability === undefined,
     ...(ability ? { ability: Object.freeze({ key: ability.key, name: ability.name, slot: ability.slot,
       flags: Object.freeze({ ...ability.flags }), ...(ability.onHitScale !== undefined ? { onHitScale: ability.onHitScale } : {}) }) } : {}),
-    blocked, scale, incomingScale,
+    blocked, ranged: ranged || ability?.flags?.rangedOnHit === true, protected: targetProtected, scale, incomingScale,
     ...(attackOptions?.energizedOnHit !== undefined ? { energizedOnHit: attackOptions.energizedOnHit } : {}),
     ...(attackOptions?.attackBurst !== undefined ? { attackBurst: attackOptions.attackBurst } : {}),
     ...(onAttackScale !== undefined ? { onAttackScale } : {}),

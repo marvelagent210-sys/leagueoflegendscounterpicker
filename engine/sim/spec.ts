@@ -464,6 +464,8 @@ export interface AbilityFlags {
   blockedByDisplacementImmunity?: boolean;
   /** Fires the caster's on-hit effects. */
   appliesOnHit?: boolean;
+  /** Source-qualified ranged treatment for on-hits from an otherwise melee caster. */
+  rangedOnHit?: true;
   /** Source-qualified eligibility for Press the Attack; applying on-hits alone is insufficient. */
   pressTheAttack?: boolean;
   /** Reviewed Fleet Footwork on-hit eligibility; independent of Press the Attack. */
@@ -918,6 +920,8 @@ export interface ResolvedOnHitSnapshot {
     readonly onHitScale?: number;
   };
   readonly blocked: boolean;
+  readonly ranged: boolean;
+  readonly protected: boolean;
   readonly scale: number;
   readonly incomingScale: number;
   /** Raw contact metadata; consumers still qualify actual source and target body identities. */

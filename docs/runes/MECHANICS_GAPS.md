@@ -8,6 +8,32 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Grasp of the Undying
+
+The Wiki describes one stack per second with a refreshed three-second combat
+window, followed by a five-second primed on-hit. Its release notes also
+describe renewing the primed window on damage. The model starts the first
+pulse one second after damage and renews the primed window with accepted
+damage. Live measurements would resolve the current first pulse, equality
+boundaries and interactions with simultaneous damage and attack arrivals.
+[Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4058228) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4052352)
+
+The frozen heal missile has 0.4 seconds of fixed movement and casts on arrival.
+Its separate cast fields record about 0.245 and 0.25 seconds. The model takes
+one maximum-health and form sample at the accepted contact, grants permanent
+health in that frame and schedules the ordinary heal after 0.4 seconds. The
+actual server callback, any additional cast latency, and the relative timing of
+healing and permanent health still need a live replay. [Patch 26.21 client data](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The native damage clock covers the two champion bodies and explicitly
+classified pet-victim damage. It uses the ordinary non-clone owner credit and
+attributes a clone's contact to that clone on the outgoing side. The rune
+consumes only on a champion-body hit. Controlled cases are still needed for
+clone consumption, unclassified summon contact, lethal hits entering an
+invulnerable resurrection, and exact on-hit sequencing across alternative
+deliveries. Positive expected on-hit contact consumes a full proc in the
+simulator. [Combat status](https://wiki.leagueoflegends.com/en-us/?oldid=4058480) · [Manual duel rules](README.md#grasp-of-the-undying)
+
 ## Conqueror
 
 Conqueror needs a cast identity distinct from the ability key and the

@@ -9,6 +9,19 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  grasp: {
+    maxStacks: 4;
+    stackInterval: number;
+    combatWindow: number;
+    readyWindow: number;
+    meleeDamageRatio: number;
+    rangedDamageRatio: number;
+    meleeHealRatio: number;
+    rangedHealRatio: number;
+    meleeHealth: number;
+    rangedHealth: number;
+    healDelay: number;
+  };
   conqueror: {
     modelLevel: 20;
     maxStacks: 12;
