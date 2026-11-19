@@ -9,6 +9,13 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  bonePlating: {
+    modelLevel: 20;
+    reduction: number;
+    charges: 3;
+    duration: number;
+    cooldown: number;
+  };
   grasp: {
     maxStacks: 4;
     stackInterval: number;

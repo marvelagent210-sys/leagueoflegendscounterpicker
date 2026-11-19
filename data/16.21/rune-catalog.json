@@ -1222,7 +1222,7 @@
         "sha256": "cee96bd9ecf4c9cc4c31e2085f3d8dfbfd1ad3022fd18542a75b52fce840f54e",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Bone Plating|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 2\n|description  = {{sbc|Passive:}} After taking damage from an enemy {{tip|champion}}, activate ''Bone Plating'' for {{fd|1.5}} seconds. While active, the next 3 spells or attacks you receive from the enemy champion that triggered this effect deal {{pp|30 + (60-30)/17*(x-1)|1 to 20 by 1}} less damage (including {{tip|true damage}}).\n|range        = \n|cooldown     = 55\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8992,

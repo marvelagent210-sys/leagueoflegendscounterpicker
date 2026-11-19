@@ -494,8 +494,29 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-09-05T11:51:40Z",
     sha256: "7528f996881e3024fe7addddb17b28f9b3099bec6a501f9afd2faf7a66c0e098",
   },
+  "Template:Rune data Bone Plating": {
+    revid: 3985159,
+    timestamp: "2026-01-18T21:02:07Z",
+    sha256: "cee96bd9ecf4c9cc4c31e2085f3d8dfbfd1ad3022fd18542a75b52fce840f54e",
+  },
+  "Bone Plating": {
+    revid: 4072632,
+    timestamp: "2026-10-01T20:18:04Z",
+    sha256: "eaf489d01150a070dc9ec2108a625dc756d1ced1168cb6d9d6f24858baaba141",
+  },
+  "Template:Data Braum/Unbreakable": {
+    revid: 4012056,
+    timestamp: "2026-04-24T20:26:56Z",
+    sha256: "b44209c9b58c80dff9b0860869e98566d8f133188ec0419737194c8b81982388",
+  },
+  "Template:Data Kled/Violent Tendencies": {
+    revid: 4072987,
+    timestamp: "2026-10-02T01:03:31Z",
+    sha256: "16dd5bc02a7f0f51737374531ca38ee0d667e7c434623160cdeb353255f517b5",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8473, name: "Bone Plating", path: 8400, slot: 2, game: "Perks/Styles/Resolve/BonePlating" },
   { id: 8437, name: "Grasp of the Undying", path: 8400, slot: 0, game: "Perks/Styles/Resolve/GraspOfTheUndying" },
   { id: 8010, name: "Conqueror", path: 8000, slot: 0, game: "Perks/Styles/Precision/Conqueror" },
   { id: 8008, name: "Lethal Tempo", path: 8000, slot: 0, game: "Perks/Styles/Precision/LethalTempo" },
@@ -612,6 +633,48 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const bone = description("Bone Plating");
+  const [boneDuration, boneCharges] = matchNumbers("Bone Plating duration and charges", bone.text,
+    /activate ''Bone Plating'' for \{\{fd\|([\d.]+)\}\} seconds\. While active, the next (\d+) spells or attacks you receive from the enemy champion that triggered this effect/);
+  const [boneBase, boneMax, boneBaseRepeat, boneInterval, boneOffset, boneLevelStart, boneLevelEnd, boneLevelStep] = matchNumbers("Bone Plating true-inclusive reduction", bone.text,
+    /\{\{pp\|(\d+) \+ \((\d+)-(\d+)\)\/(\d+)\*\(x-(\d+)\)\|(\d+) to (\d+) by (\d+)\}\} less damage \(including \{\{tip\|true damage\}\}\)/);
+  const boneCooldownRows = bone.page.content.split("\n").filter(line => /^\|cooldown\s*=/.test(line));
+  requireThat(boneCooldownRows.length === 1, "Bone Plating needs its cooldown field");
+  const [boneCooldown] = matchNumbers("Bone Plating cooldown", boneCooldownRows[0]!, /^\|cooldown\s*=\s*([\d.]+)\s*$/);
+  quote(bone.page, boneCooldownRows[0]!);
+  requireThat(boneCharges === 3 && boneDuration! > 0 && boneCooldown! > 0
+    && boneBase! > 0 && boneBase === boneBaseRepeat && boneMax! > boneBase!
+    && boneInterval === 17 && boneOffset === 1 && boneLevelStart === boneOffset
+    && boneLevelEnd === TOP_LANE_MAX_LEVEL && boneLevelStep === 1,
+  "Bone Plating needs three plates and the reviewed formula through level 20");
+  const boneAmounts = client("Bone Plating");
+  for (const [key, value] of Object.entries({ BlockBase: boneBase!, BlockMax: boneMax!, BlockCount: boneCharges,
+    BlockDuration: boneDuration!, Cooldown: boneCooldown! })) agree("Bone Plating", boneAmounts, key, value);
+  const boneCalcs = record(clientData("Bone Plating").mCalculations, "Bone Plating calculations");
+  const boneCalc = record(boneCalcs.BlockCalc, "Bone Plating reduction calculation");
+  requireThat(boneCalc.__type === "GameCalculation" && Array.isArray(boneCalc.mFormulaParts) && boneCalc.mFormulaParts.length === 1,
+    "Bone Plating needs its client interpolation calculation");
+  const bonePart = record(boneCalc.mFormulaParts[0], "Bone Plating interpolation");
+  requireThat(bonePart.__type === "ByCharLevelInterpolationCalculationPart", "Bone Plating interpolation type changed");
+  agree("Bone Plating", bonePart, "mStartValue", boneBase!);
+  agree("Bone Plating", bonePart, "mEndValue", boneMax!);
+  const boneNotes = pages.get("Bone Plating")!;
+  for (const text of [
+    "The triggering instance of damage will not have its damage reduced by '''Bone Plating'''.",
+    "will still go on cooldown after its duration even if it does not block any damage.",
+    "only blocks damage from the champion who triggered it",
+    "damage reduction can only occur once per {{tip|cast instance}}.",
+    "This can be the same cast instance as the one that initially triggers '''Bone Plating''', if it deals multiple instances of damage (e.g {{cai|W|Kled}}).",
+    "Reduced to or equal to [[Damage#0_Damage_Instances|0 damage]].",
+    "Dealt to {{tip|shield|shields}}.",
+    "Absorbed by {{tip|invulnerable|invulnerability}}.",
+    "{{tt|post-mitigation damage|Damage calculated after modifiers or resistances}}",
+    "the cooldown was incorrectly reset when revive effects were triggered",
+  ]) quote(boneNotes, text);
+  quote(pages.get("Template:Data Braum/Unbreakable")!, "negates the first instance of damage dealt by a champion completely from this direction");
+  quote(pages.get("Template:Data Kled/Violent Tendencies")!, "The fourth attack is empowered to deal {{as|'''additional''' physical damage}}");
+  const boneReduction = boneBase! + (boneMax! - boneBase!) * (boneLevelEnd - boneOffset) / boneInterval;
 
   const grasp = description("Grasp of the Undying");
   const [graspCombatWindow, graspCap, graspReadyWindow] = matchNumbers("Grasp stack and ready windows", grasp.text,
@@ -1412,6 +1475,7 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    bonePlating: { modelLevel: 20, reduction: boneReduction, charges: boneCharges, duration: boneDuration!, cooldown: boneCooldown! },
     grasp: { maxStacks: graspCap, stackInterval: graspInterval, combatWindow: graspCombatWindow,
       readyWindow: graspReadyWindow, meleeDamageRatio: graspMeleeDamage! / 100, rangedDamageRatio: graspRangedDamage! / 100,
       meleeHealRatio: graspMeleeHeal! / 100, rangedHealRatio: graspRangedHeal! / 100,

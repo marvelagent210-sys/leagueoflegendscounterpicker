@@ -8,6 +8,24 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Bone Plating
+
+The sources establish post-mitigation reduction, true damage, the trigger
+packet exception, one spend per cast, and exclusions for zero, invulnerable
+or shield-only activation. They explicitly allow Kled W's bonus packet
+on the attack that arms the rune and record a fix for cooldown resets
+on revival. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3985159) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4072632)
+
+The model spends active plates before ordinary shield absorption and after
+the kit's pre-damage reactions. It begins the 55-second cooldown when the
+third plate is spent or the 1.5-second window ends. Shield ordering,
+reactive shield creation, simultaneous expiry and contact, and the
+early-exhaustion and revival phases need controlled live checks.
+
+The current scope is actual opposing champion bodies. Pet and clone
+attribution, floor-protected hits during an active window, and kit packets
+without a native cast identity need individual review. [Manual duel rules](README.md#bone-plating)
+
 ## Grasp of the Undying
 
 The Wiki describes one stack per second with a refreshed three-second combat

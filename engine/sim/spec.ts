@@ -1066,6 +1066,8 @@ export interface KitHooks {
   beforeDamageTaken?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean }): void;
   /** Once after critical averaging and mitigation, before shields; state changes are allowed. */
   modifyDamageBeforeShields?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean; originX: number }): number;
+  /** Adjust accepted damage after pre-damage callbacks and before shield absorption. May spend a defensive charge. */
+  modifyAcceptedDamageBeforeShields?(ctx: HookContext & { amount: number; damageType: DamageType; readonly castInstance?: number }): number;
   /** Pure adjustment of remaining HP damage after normal shields. */
   modifyDamageAfterShields?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean }): number;
   /** Pure pre-mitigation adjustment, independently evaluated for normal and critical outcomes. */

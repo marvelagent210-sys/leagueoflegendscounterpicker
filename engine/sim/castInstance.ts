@@ -1,10 +1,10 @@
-import type { Unit, World } from "./state";
+import { other, type Unit, type World } from "./state";
 
 const active: Array<{ world: World; source: Unit; id: number }> = [];
 
-/** Allocate observational IDs only for a source with an interested damage hook. */
+/** Allocate IDs when the source or the opposing champion observes an incoming cast. */
 export function allocateCastInstance(world: World, source: Unit): number | undefined {
-  if (!source.spec.hooks?.onDamageResolved) return;
+  if (!source.spec.hooks?.onDamageResolved && !world.units[other(source.side)].spec.hooks?.modifyAcceptedDamageBeforeShields) return;
   const id = (world.castInstanceSequence ?? 0) + 1;
   if (!Number.isSafeInteger(id)) throw new Error("Cast instance sequence exceeds safe integer range");
   return world.castInstanceSequence = id;
