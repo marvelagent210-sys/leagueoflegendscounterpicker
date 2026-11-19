@@ -43,7 +43,7 @@ import {
   startCast,
 } from "./actions";
 import { type Behavior, type Command, defaultBehavior, perceive, traitsOf } from "./behavior";
-import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, endForcedMovement, heal, hookContext, log, notifyActualMovement } from "./combat";
+import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, endForcedMovement, heal, hookContext, log, notifyActualMovement, observeHealthShields } from "./combat";
 import { canMove, ccTypes, derive, hasState } from "./derived";
 import { abilityOf } from "./forms";
 import { withCastInstance } from "./castInstance";
@@ -494,6 +494,9 @@ export function step(world: World, behaviors: [Behavior, Behavior]): PendingSpli
   for (const side of sides) decide(world, world.units[side], behaviors[side], splits);
   for (const side of sides) walk(world, world.units[side]);
   for (const side of sides) cancelOutOfRange(world, world.units[side]);
+  for (const unit of world.units) {
+    if (unit.spec.hooks?.onHealthShieldChanged) observeHealthShields(world, unit);
+  }
   checkEnd(world);
   if (!world.result) world.tick += 1;
   if (world.pendingSplits) {

@@ -14,7 +14,8 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8437, 8444, 8473, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8444, 8473, 9101, 9103, 9104, 9105, 9111];
+const shieldBashPath = "Perks/Styles/Resolve/ShieldBash";
 const bonePath = "Perks/Styles/Resolve/BonePlating";
 const graspPath = "Perks/Styles/Resolve/GraspOfTheUndying";
 const graspHealMissile = graspPath + "/Spells/RuinedKing_HealMis";
@@ -83,6 +84,20 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Shield Bash source rules", () => {
+  it("uses the level-20 formula with the reviewed ratios and grace period", () => {
+    expect(build().shieldBash).toEqual({
+      modelLevel: 20, baseDamage: 560 / 17, bonusHealthRatio: 0.025, shieldRatio: 0.15, linger: 2,
+    });
+  });
+
+  it.each(["ProcBaseMax", "BonusHealthRatio", "ShieldRatio", "ProcDuration"])("cross-checks the normal client field %s", field => {
+    const input = fixture();
+    editGame(input, records => { records[shieldBashPath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 1; });
+    expect(() => build(input)).toThrow(new RegExp(`Shield Bash Wiki/game ${field} disagree`));
+  });
+});
 
 describe("Bone Plating source rules", () => {
   it("uses the explicit level-20 formula beyond the frozen client endpoint", () => {
@@ -454,10 +469,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(16).fill("manual-effects"));
+      .toEqual(Array(17).fill("manual-effects"));
   });
 
-  it("binds all ninety-nine complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all 107 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -558,6 +573,14 @@ describe("reviewed combat rune numeric rules", () => {
       ["Bone Plating", 4072632],
       ["Template:Data Braum/Unbreakable", 4012056],
       ["Template:Data Kled/Violent Tendencies", 4072987],
+      ["Template:Rune data Shield Bash", 4044093],
+      ["Shield Bash", 4015237],
+      ["Shield", 4021810],
+      ["Template:Data Hwei/Pool of Reflection", 3992645],
+      ["Template:Data Kled/Chaaaaaaaarge!!!", 4070347],
+      ["Template:Data Nunu/Absolute Zero", 4088349],
+      ["Template:Data Mordekaiser/Indestructible", 4016354],
+      ["Template:Data Camille/Adaptive Defenses", 4051341],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -573,13 +596,15 @@ describe("reviewed combat rune numeric rules", () => {
       .toBe("2fcb83a6bd54cf8eda8cd749fd23adb0ec7e09142df8c7b06b7cd22a48f893a0");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 95))))
       .toBe("69c3c557408546429863411d73de7e3fa9e5dcd72d7e755e78ecc871ccbeab84");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 99))))
+      .toBe("17b7fb33bf7812b6fed4ce84ee79a6d3c5bbe59f01886eae7ae178afdc0493ea");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(99);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(107);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -720,11 +745,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 99 complete/);
+    expect(() => build(missing)).toThrow(/all 107 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 99 complete/);
+    expect(() => build(extra)).toThrow(/all 107 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -759,7 +784,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
     const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath,
-      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath]);
+      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });

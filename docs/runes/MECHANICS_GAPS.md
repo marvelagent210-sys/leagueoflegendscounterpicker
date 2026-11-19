@@ -8,6 +8,22 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Shield Bash
+
+The reviewed rules give the highest eligible shield peak, the two-second
+grace period, and one use for a set of previously gained shields. The
+article records the patch 14.19 removal of the old resistances bonus. The
+versioned client's extra `BonusShieldMult` field needs independent evidence
+before it can inform the effect. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4015237) · [Versioned client](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The simulator samples shield grant eligibility at the native on-hit
+snapshot and samples shield strength and adaptive stats when it applies
+the proc. Exact live ordering for shield gains from the same attack,
+partial on-hit applications, and loss of eligibility during resurrection
+need controlled checks. The timing of shields that break or change in a
+single frame follows the simulator's native damage and shield observations.
+[Manual duel rules](README.md#shield-bash) · [Camille's Adaptive Defenses](https://wiki.leagueoflegends.com/en-us/?oldid=4051341)
+
 ## Bone Plating
 
 The sources establish post-mitigation reduction, true damage, the trigger

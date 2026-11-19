@@ -9,6 +9,13 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  shieldBash: {
+    modelLevel: 20;
+    baseDamage: number;
+    bonusHealthRatio: number;
+    shieldRatio: number;
+    linger: number;
+  };
   bonePlating: {
     modelLevel: 20;
     reduction: number;

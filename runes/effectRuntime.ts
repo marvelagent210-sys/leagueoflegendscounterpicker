@@ -16,6 +16,7 @@ import { buildFleetFootwork } from "./fleetFootwork";
 import { buildConqueror } from "./conqueror";
 import { buildGrasp } from "./grasp";
 import { buildBonePlating } from "./bonePlating";
+import { buildShieldBash } from "./shieldBash";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
@@ -32,6 +33,7 @@ export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRun
   if (id === 8008) return buildLethalTempo(_form, rules);
   if (id === 8009) return buildPresenceOfMind(_form, rules);
   if (id === 8010) return buildConqueror(_form, rules);
+  if (id === 8401) return buildShieldBash(_form, rules);
   if (id === 8437) return buildGrasp(rules);
   if (id === 8473) return buildBonePlating(rules);
   if (id === 8021) {

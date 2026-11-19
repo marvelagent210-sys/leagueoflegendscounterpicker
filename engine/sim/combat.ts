@@ -26,7 +26,7 @@ import { healthProtection } from "./healthProtection";
 import { channelIn, clearChannel } from "./channelState";
 import { cancelTargetCast } from "./actions";
 import { currentCastInstance } from "./castInstance";
-import type { ObservedDamageKind, ResolvedDamageSnapshot } from "./spec";
+import type { HealthShieldSnapshot, ObservedDamageKind, ResolvedDamageSnapshot } from "./spec";
 import { type AbilitySpec, type ActualMovement, type AttackSplit, type BasicAttackLaunchedSnapshot, type BuffStat, type CombatActivitySnapshot, type CombatIdentity, type DamageReport, type Effect, type HookContext, type MovementSnapshot, type PetDamageCategory, type ResolvedOnHitSnapshot, cooldownKeyOf } from "./spec";
 import { type Action, type AttackHitOptions, type Pet, type Side, type Status, type Unit, type World, other } from "./state";
 
@@ -270,6 +270,35 @@ function combatEventSequence(world: World): number {
   return world.combatEventSequence = previous + 1;
 }
 
+/** Observe actual shields, including kit-owned updates to existing statuses. */
+export function observeHealthShields(world: World, unit: Unit): void {
+  const notify = unit.spec.hooks?.onHealthShieldChanged;
+  if (!notify || world.units[unit.side] !== unit || unit.petId !== undefined || unit.spec.unitClass === "clone") return;
+  const previous = new Map(unit.observedHealthShields?.map(shield => [shield.instance, shield]));
+  const active: HealthShieldSnapshot[] = [];
+  const changed: HealthShieldSnapshot[] = [];
+  for (const status of unit.statuses) {
+    if (status.kind !== "shield" || !(status.value > 0 && status.endTick > world.tick) || !Number.isFinite(status.value)) continue;
+    const instance = status.shieldInstance ??= combatEventSequence(world);
+    const before = previous.get(instance);
+    previous.delete(instance);
+    if (before?.amount === status.value && before.endTick === status.endTick) {
+      active.push(before);
+    } else {
+      const snapshot = Object.freeze({ instance, amount: status.value, endTick: status.endTick });
+      active.push(snapshot);
+      changed.push(snapshot);
+    }
+  }
+  if (changed.length === 0 && previous.size === 0) return;
+  unit.observedHealthShields = Object.freeze(active);
+  for (const shield of changed) notify({ self: unit, tick: world.tick, shield });
+  for (const shield of previous.values()) {
+    const ended = Object.freeze({ ...shield, endedAt: Math.min(shield.endTick, world.tick) });
+    notify({ self: unit, tick: world.tick, shield: ended });
+  }
+}
+
 /** Immutable-only report for kit-owned movement. It does not invoke legacy
  * onActualMovement callbacks or infer a path between the supplied endpoints. */
 export function captureMovementObserved(world: World, target: Unit, from: number, movement: Omit<ActualMovement, "from" | "to">, targetPet?: Pet): MovementSnapshot | undefined {
@@ -477,6 +506,8 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
     mitigated = Math.max(0, adjustAccepted({ ...hookContext(world, target, undefined, source), amount: mitigated, damageType: type,
       ...(castInstance !== undefined ? { castInstance } : {}) }));
   });
+  const observesShields = target.spec.hooks?.onHealthShieldChanged !== undefined;
+  if (observesShields) observeHealthShields(world, target);
   const shields = target.statuses.filter((st) => st.kind === "shield");
   const views: Shield[] = shields.map((st) => ({
     amount: st.value,
@@ -494,6 +525,7 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
     delete st.firstDamageBypass;
   });
   target.statuses = target.statuses.filter((st) => st.kind !== "shield" || st.value > 0);
+  if (observesShields && shields.length) observeHealthShields(world, target);
   target.totals.absorbed += mitigated - unshielded;
   // Riposte is a late damage immunity: shields are spent and vamp works before it negates
   // health damage (the committed Riposte notes). It also stops damage already in progress.
@@ -987,6 +1019,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         ...(effect.blackShield ? { blackShield: true } : {}),
         ...(effect.firstDamageBypass !== undefined ? { firstDamageBypass: effect.firstDamageBypass } : {}),
       });
+      observeHealthShields(world, target);
       return;
     case "heal":
       heal(world, target, evaluate(effect.amount, caster, formulaTarget) * ctx.scale);
@@ -1311,6 +1344,7 @@ export function abilityHitPet(world: World, caster: Unit, pet: Pet, ability: Abi
  * The caller owns native contact/avoidance guards; this helper creates no hit or damage. */
 export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit, options: { blocked: boolean; scale?: number; incomingScale?: number; onAttackScale?: number; ability?: AbilitySpec; attackOptions?: AttackHitOptions }): ResolvedOnHitSnapshot | undefined {
   if (!attacker.spec.hooks?.onResolvedOnHit) return;
+  observeHealthShields(world, attacker);
   const { ability, blocked, attackOptions, scale = 1, incomingScale = scale } = options;
   const onAttackScale = options.onAttackScale ?? ability?.onAttackScale ?? attackOptions?.onAttackScale;
   const ranged = attacker.spec.attack.ranged;
@@ -1406,7 +1440,11 @@ function resolveAttackHit(world: World, attacker: Unit, target: Unit, blinded: b
     return;
   }
   const parried = !!stateStatus(target, "parry");
-  if (!parried && options.breakShields) target.statuses = target.statuses.filter((status) => status.kind !== "shield");
+  if (!parried && options.breakShields) {
+    observeHealthShields(world, target);
+    target.statuses = target.statuses.filter((status) => status.kind !== "shield");
+    observeHealthShields(world, target);
+  }
   const spellShield = !parried && options.spellShield ? stateStatus(target, "spellShield") : undefined;
   if (spellShield) {
     const baseType = options.baseDamage?.damageType ?? (split && split.physical <= 0 ? split.magic > 0 ? "magic" : "true" : "physical");

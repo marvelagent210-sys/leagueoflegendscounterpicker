@@ -3455,6 +3455,24 @@ byte for byte. Both matrix freshness checks, the offline rune catalog
 check, 54 targeted tests, and the production web build passed.
 [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44559485221)
 
+## Shield Bash (19 November 2026)
+
+Rune 8401 adds the seventeenth partial manual combat effect. The source
+compiler verifies 107 complete Wiki revisions and the retained client file.
+At level 20 the packet uses `560/17` base adaptive damage plus 2.5% of
+bonus health and 15% of the eligible shield peak. The selection test checks
+all 131,072 subsets and accepts 2,142, including 1,071 with Shield Bash and
+357 with both Shield Bash and Bone Plating. [Rune rules and sources](docs/runes/README.md#shield-bash)
+
+Shield observation keeps distinct peak and expiry histories. The native
+cases cover full absorption of a shield, natural expiry, a shield-breaking
+attack, multiple on-hit applications, and branch copies. Champion fixtures
+cover Camille's passive, Hwei's growing pool shield, Mordekaiser's shield
+conversion, and Nunu's early release. A separate case checks Shield Bash
+against Bone Plating within the same native attack. Shield grant eligibility,
+stat sampling and runtime timing decisions follow the documented policies.
+[Open mechanics questions](docs/runes/MECHANICS_GAPS.md#shield-bash)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
