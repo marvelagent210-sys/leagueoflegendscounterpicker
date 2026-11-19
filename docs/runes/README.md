@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support thirteen partial combat effects, including
-Lethal Tempo, Fleet Footwork and Press the Attack.
+Manual plain-stat duels also support fourteen partial combat effects, including
+Conqueror, Lethal Tempo, Fleet Footwork and Press the Attack.
 The Fleet Footwork refresh verified both default matrices against 29,756
 pair results and reproduced the prior published results.
 [Refresh audit](../../ACCURACY.md#matchup-refresh-and-recovery)
@@ -112,13 +112,14 @@ npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These thirteen effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These fourteen effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
 |---|--:|---|
 | Press the Attack | 8005 | Three qualified on-hit applications consume stacks for adaptive proc damage (`2960/17` at level 20) and 8% increased champion damage. Four-second stack refresh, six-second proc cooldown and a declared five-second combat clock; event eligibility and timing limits are detailed below. |
 | Lethal Tempo | 8008 | Up to six stacks of 6% melee or 4.8% ranged attack speed. Qualifying attacks refresh the six-second timer. An attack made with six stacks already held can launch an adaptive bolt. |
+| Conqueror | 8010 | Up to twelve stacks of adaptive force with a five-second refresh. Qualified spell damage gains stacks once every four seconds per cast. At full stacks, eligible damage heals the fighter. |
 | Fleet Footwork | 8021 | At 100 Energized charges the next qualified champion hit heals the owner and grants one second of bonus movement speed. Declare starting charges separately for each side. |
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
@@ -135,8 +136,8 @@ The three Precision health-damage runes occupy the same source-defined row, so s
 one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
 at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
-Choose at most one Precision keystone from Press the Attack, Lethal Tempo and
-Fleet Footwork. Each can accompany Second Wind, one first-row choice, one Legend
+Choose at most one Precision keystone from Press the Attack, Lethal Tempo,
+Fleet Footwork and Conqueror. Each can accompany Second Wind, one first-row choice, one Legend
 and one of the three damage runes, subject to the same page validator. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
@@ -157,11 +158,12 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **82 complete Wiki revisions** in
+The offline compiler checks **90 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the thirteen templates to
+full-content hashes, exact revisions and excerpts, binds the fourteen templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Conqueror adds eight complete sources to the 82 retained for Lethal Tempo.
 Lethal Tempo adds the complete rune article and template to the 80 Fleet
 Footwork pages.
 Fleet Footwork adds nine complete revisions to the 71 in the Press the Attack release.
@@ -214,9 +216,55 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These thirteen catalog entries are
+selection require further implementation and validation. These fourteen catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Conqueror
+
+Select `8010` for either side of a manual plain-stat duel. Each fighter starts
+with zero stacks. The duel log records each increase.
+
+```sh
+npm run duel -- Garen Mordekaiser --dataset 16.21 --gold 0 --combat-runes 8010 --enemy-combat-runes 8010 --log brawl
+```
+
+- A qualified basic application normally grants two stacks in melee form or
+  one in ranged form. A connected basic attack that is blocked still grants
+  stacks. Blinds, dodges, parries and invulnerability prevent the
+  corresponding trigger. A positive spell or source-qualified non-basic
+  packet grants two stacks per cast, with another gain available four seconds
+  after that cast last gained stacks. Repeated eligible damage refreshes the
+  five-second timer between these gains in the duel model. Due stacks expire
+  before contacts on the same tick. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4060685) · [Rune notes](https://wiki.leagueoflegends.com/en-us/?oldid=4091967)
+- At level 20 each stack grants `362/85` adaptive force. The model compares
+  plain-stat purchases and shard bonuses and uses the fighter’s recorded
+  adaptive type on a tie. Each point becomes 0.6 bonus AD or 1 AP. The stat
+  updates when stacks change or the fighter changes form.
+  [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4060685) · [Adaptive force](https://wiki.leagueoflegends.com/en-us/?oldid=4063874)
+- With twelve stacks already held, the fighter heals for 8% in melee form
+  or 5% in ranged form from eligible champion damage. The duel uses the
+  native post-mitigation packet amount, including shield absorption and
+  before health floors and overkill. Ordinary healing modifiers and caps
+  apply. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4060685) · [Healing](https://wiki.leagueoflegends.com/en-us/?oldid=4041638)
+- Azir’s soldier contact, Ezreal Q and Miss Fortune Q grant two stacks.
+  Smolder Q, Urgot’s Purge and Gangplank’s ranged on-hit application use
+  one. Reviewed melee basic-damage abilities include Fiora Q, Viego R,
+  Volibear W, Warwick Q and the on-hit pulses of his R, and Yasuo and
+  Yone’s primary Q contacts. Kayle’s modeled fire wave shares
+  her ranged attack’s application. Master Yi’s Alpha Strike marks share
+  one cast. Garen and Wukong gain two stacks per eligible spin in the
+  model. Mordekaiser’s Q or E can carry its cast identity into Darkness Rise.
+  [Rune notes](https://wiki.leagueoflegends.com/en-us/?oldid=4091967)
+- Reviewed native attacks from Elise’s spiderlings, Heimerdinger’s regular
+  turret, Shaco’s regular box, Yorick’s Mist Walkers and Zyra’s plants use
+  non-basic pet damage classification. The next attack from a Mist Walker
+  that leaped shares Mourning Mist’s cast. Daisy gives one stack from
+  Ivern’s on-hit exception. [Damage tags](https://wiki.leagueoflegends.com/en-us/?oldid=4084890) · [Rune notes](https://wiki.leagueoflegends.com/en-us/?oldid=4091967)
+
+The partial model tracks native and reviewed deliveries to the opposing
+champion body. Unclassified custom packets, some periodic sources and clone
+credit need further review. [Mechanics gaps](MECHANICS_GAPS.md#conqueror)
 
 ### Lethal Tempo
 

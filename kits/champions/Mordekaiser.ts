@@ -2,6 +2,7 @@
 import { observeMovementSegment } from "../../engine/sim/combat";
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast } from "../../engine/sim/actions";
+import { allocateCastInstance, currentCastInstance, withCastInstance } from "../../engine/sim/castInstance";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { Formula, HookContext } from "../../engine/sim/spec";
@@ -93,6 +94,16 @@ const mordekaiser: KitModule = {
       return defaultBehavior(view);
     };
 
+    const darknessContact = (ctx: HookContext, sharesSpellCast: boolean) => {
+      const before = counter(ctx, "darkness");
+      if (bump(ctx, "darkness", maxStacks, stackSeconds) < maxStacks) return;
+      if (before < maxStacks && ctx.self.spec.hooks?.onDamageResolved) {
+        const relatedCast = sharesSpellCast ? currentCastInstance(ctx.world, ctx.self) : undefined;
+        ctx.memory.darknessCast = relatedCast ?? allocateCastInstance(ctx.world, ctx.self)!;
+      }
+      ctx.buff("darknessHaste", "moveSpeedPercent", auraHaste, stackSeconds);
+    };
+
     return {
       behavior,
       budget: {
@@ -104,12 +115,12 @@ const mordekaiser: KitModule = {
       start: [innateStat("magicPenPercent", e.fraction("Magic Penetration"))],
       hooks: {
         onAttackHit(ctx) {
-          if (bump(ctx, "darkness", maxStacks, stackSeconds) >= maxStacks) ctx.buff("darknessHaste", "moveSpeedPercent", auraHaste, stackSeconds);
+          darknessContact(ctx, false);
         },
         onAbilityHit(ctx) {
           const key = ctx.ability.key;
           if (key === "Q" || key === "E" || key === "W2") {
-            if (bump(ctx, "darkness", maxStacks, stackSeconds) >= maxStacks) ctx.buff("darknessHaste", "moveSpeedPercent", auraHaste, stackSeconds);
+            darknessContact(ctx, key === "Q" || key === "E");
           }
           if (key === "R") {
             // Into the Death Realm: a tenth of the enemy's stats change sides for its duration.
@@ -168,7 +179,10 @@ const mordekaiser: KitModule = {
             if (since < 0 || ctx.tick - since >= 30) {
               ctx.memory.auraTick = ctx.tick;
               if (Math.abs(ctx.self.x - ctx.enemy.x) - ctx.enemy.spec.base.radius <= auraRadius) {
-                ctx.apply({ type: "damage", damageType: "magic", amount: aura, label: innate.name });
+                const cast = ctx.memory.darknessCast;
+                const packet = { type: "damage", damageType: "magic", amount: aura, label: innate.name, observedDamageKind: "spell" } as const;
+                if (typeof cast === "number") withCastInstance(ctx.world, ctx.self, cast, () => ctx.apply(packet));
+                else ctx.apply(packet);
               }
             }
           } else ctx.memory.auraTick = -1;

@@ -3367,6 +3367,30 @@ files, with five existing skips. Both native matrix freshness checks, the
 rune catalog check and the production web build also passed locally on the
 generated commit.
 
+## Conqueror (19 November 2026)
+
+Rune 8010 is the fourteenth partial combat effect for manual plain-stat duels.
+The compiler retains all 82 earlier pages and adds eight complete revisions.
+The original versioned client file is retained byte for byte. Its numeric
+fields confirm twelve stacks, a five-second lifetime, a four-second
+same-cast cooldown, the adaptive force endpoints and the 8% melee and 5%
+ranged healing coefficients. The sourced growth formula gives `362/85`
+adaptive force per stack at level 20. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4060685) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4091967)
+
+Native cast identities travel through windups, flight stages, channels,
+fields, scheduled effects and damage over time. Accepted on-hit observations
+handle ordinary basic applications. A separate resolved damage observation
+records source, target, classification and post-mitigation damage. The
+selection checks cover all 16,384 subsets of fourteen effects, of which 640
+fit a legal page. Source and runtime cases cover repeated casts of the same
+spell, exact lockout and expiry ticks, form changes, absorption, healing
+modifiers, reviewed champion contacts and summoned attacks.
+[Manual duel rules](docs/runes/README.md#conqueror)
+
+The new shared engine inputs require all 14,878 pairings in each default
+matrix to be recalculated. The refresh verifies the generated results before
+delivery.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

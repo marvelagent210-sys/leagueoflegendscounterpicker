@@ -9,6 +9,20 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  conqueror: {
+    modelLevel: 20;
+    maxStacks: 12;
+    stackDuration: number;
+    castCooldown: number;
+    meleeBasicStacks: 2;
+    rangedBasicStacks: 1;
+    spellStacks: 2;
+    adaptiveForcePerStack: number;
+    adaptiveADRatio: number;
+    adaptiveAPRatio: number;
+    meleeHealingRatio: number;
+    rangedHealingRatio: number;
+  };
   lethalTempo: {
     modelLevel: 20;
     maxStacks: 6;

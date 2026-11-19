@@ -14,6 +14,7 @@ const volibear: KitModule = {
     const innate = kit.ability("The Relentless Storm");
     const q = kit.ability("Thundering Smash");
     const w = kit.ability("Frenzied Maul");
+    w.quote("Frenzied Maul deals basic damage");
     const e = kit.ability("Sky Splitter");
     const r = kit.ability("Stormbringer");
 
@@ -155,7 +156,7 @@ const volibear: KitModule = {
             { type: "mark", key: WOUNDED, duration: woundSeconds },
           ],
           onAttackScale: 1,
-          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, parry: true },
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, parry: true },
         },
         {
           key: "E",

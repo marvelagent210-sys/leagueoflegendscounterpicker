@@ -429,8 +429,49 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-09-24T08:48:40Z",
     sha256: "360eb66df82e0fe0c92ba4c0fb2714225147916404eccd9e8c53a38d677dde27",
   },
+  "Conqueror": {
+    revid: 4091967,
+    timestamp: "2026-11-03T16:08:14Z",
+    sha256: "7fdccf950155b634b57bb9349bf8462e0bfd8166ca8f3a4dae3d7d1c1fdcb0c2",
+  },
+  "Template:Rune data Conqueror": {
+    revid: 4060685,
+    timestamp: "2026-09-10T03:45:55Z",
+    sha256: "32841990cc6ba88c6299c5739d5e2a82c95c94cdf9d74fefa84a5d2db2b0f0b0",
+  },
+  "Cast instance": {
+    revid: 4069908,
+    timestamp: "2026-09-29T13:24:00Z",
+    sha256: "2b6a0d8be6b60ad772037d6dcdd5b7a8b4e70127adca1061f3069bebb4ab462d",
+  },
+  "Template:Tip data/Cast instance": {
+    revid: 4069909,
+    timestamp: "2026-09-29T13:25:07Z",
+    sha256: "ccb7e6b7c51ea5cde94409ac62403eaf9d8ae56376bd016cd24406eb0aa43da1",
+  },
+  "Template:Data Kayle/Divine Ascent": {
+    revid: 4051190,
+    timestamp: "2026-08-12T00:12:54Z",
+    sha256: "e1053a6a440e6cca9e3557f0dcd1e25801e601e9c47398d6f9ccf3ae929a9497",
+  },
+  "Template:Data Garen/Judgment": {
+    revid: 4009435,
+    timestamp: "2026-04-17T11:45:04Z",
+    sha256: "7b959d744e3382571260f04570f76fd38a7341f8b29df7a1cf287af519f3d653",
+  },
+  "Template:Data Wukong/Cyclone": {
+    revid: 4021867,
+    timestamp: "2026-05-21T18:57:24Z",
+    sha256: "0bbb3d0d0bd4167d85e259226363e28139f5c45934e52bfa15076c8f3646a912",
+  },
+  "Template:Data Mordekaiser/Darkness Rise": {
+    revid: 4070051,
+    timestamp: "2026-09-29T15:58:08Z",
+    sha256: "75bc4ca811810d9bedff72499a8f873f0b070ef9284628d126db3636a2d19059",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8010, name: "Conqueror", path: 8000, slot: 0, game: "Perks/Styles/Precision/Conqueror" },
   { id: 8008, name: "Lethal Tempo", path: 8000, slot: 0, game: "Perks/Styles/Precision/LethalTempo" },
   { id: 8021, name: "Fleet Footwork", path: 8000, slot: 0, game: "Perks/Styles/Precision/FleetFootwork" },
   { id: 8005, name: "Press the Attack", path: 8000, slot: 0, game: "Perks/Styles/Precision/PressTheAttack" },
@@ -545,6 +586,46 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const conqueror = description("Conqueror");
+  const [conqDuration, conqCap, conqMelee, conqRanged, conqSpell, conqCooldown] = matchNumbers("Conqueror stack gain", conqueror.text,
+    /lasting for (\d+) seconds, refreshing on subsequent damage against champions, and stacking up to (\d+) times\. Gain \{\{rd\|(\d+)\|(\d+)\}\} stacks.*Otherwise, gain (\d+) stacks.*up to once every (\d+) seconds per \{\{tip\|cast instance\}\}/);
+  const conqStatRows = conqueror.page.content.split("\n").filter(line => /^\|description2\s*=/.test(line));
+  requireThat(conqStatRows.length === 1, "Conqueror needs its complete adaptive and healing description");
+  const conqStatRow = conqStatRows[0]!;
+  quote(conqueror.page, conqStatRow);
+  const [conqMin, conqMax, conqGrowth, conqStart, conqLevel] = matchNumbers("Conqueror adaptive force growth", conqStatRow,
+    /\{\{adaptive\|([\d.]+) \+ \(([\d.]+)-\1\)\/(\d+)\*\(x-(\d+)\)\|(\d+)\}\}/);
+  const [conqHeal, conqRangedHeal] = matchNumbers("Conqueror healing", conqStatRow, /\{\{tip\|heal\}\} for \{\{rd\|(\d+)%\|(\d+)%\}\}/);
+  const adaptiveSource = pages.get("Adaptive force")!;
+  const conversion = adaptiveSource.content.split("\n").filter(line => line.includes("point of Adaptive Force provides"));
+  requireThat(conversion.length === 1, "Conqueror requires the exact adaptive force conversion");
+  quote(adaptiveSource, conversion[0]!);
+  const [conqAD, conqAP] = matchNumbers("Conqueror adaptive force conversion", conversion[0]!,
+    /adaptiveAdRatio\|([\d.]+).*adaptiveApRatio\|([\d.]+)/);
+  requireThat(conqCap === 12 && conqMelee === 2 && conqRanged === 1 && conqSpell === 2
+    && conqLevel === TOP_LANE_MAX_LEVEL && conqStart === 1 && conqGrowth === 17 && conqMin! > 0 && conqMax! > conqMin!
+    && conqCooldown! > 0 && conqCooldown! < conqDuration! && conqHeal! >= conqRangedHeal! && conqRangedHeal! > 0
+    && conqAD === 0.6 && conqAP === 1, "Conqueror needs consistent stack, adaptive force and healing values");
+  const conqClient = client("Conqueror");
+  for (const [key, value] of Object.entries({ MinAdaptivePerStack: conqMin!, MaxAdaptivePerStack: conqMax!,
+    MaxStacks: conqCap, BuffDuration: conqDuration!, TimeUntilNextStackFromSameSpell: conqCooldown!,
+    HealingPercent: conqHeal! / 100, RangedHealingPercent: conqRangedHeal! / 100 })) agree("Conqueror", conqClient, key, value);
+  requireThat(sha256(JSON.stringify(game["Perks/Styles/Precision/Conqueror"])) === "c518745288bc82b9618ebaea81226c6e4a9a9d33b0b7a6119888ee75691654bd",
+    "Conqueror complete client perk changed");
+  const conqEvidence: readonly [string, string][] = [
+    ["Conqueror", "stacking can only occur once per {{tip|cast instance}}."],
+    ["Conqueror", "generate 1 stack of '''Conqueror''' per attack."],
+    ["Damage", "basic attacks ''not'' tagged '''BasicAttack'''"],
+    ["Cast instance", "all [[basic attack]]s (which are active by design)"],
+    ["Template:Tip data/Cast instance", "the game's method of associating multiple effects"],
+    ["Template:Data Kayle/Divine Ascent", "stacks gained will be {{rd|2|1}} if the basic attack deals damage first or 2 if the wave does so."],
+    ["Template:Data Garen/Judgment", "Each spin triggers a stack of {{ri|Conqueror}}."],
+    ["Template:Data Wukong/Cyclone", "special cased to grant stacks of {{ri|Conqueror}} for each tick of damage."],
+    ["Template:Data Mordekaiser/Darkness Rise", "it will be treated as the same {{tip|cast instance}} as the triggering spell."],
+  ];
+  for (const [title, text] of conqEvidence) quote(pages.get(title)!, text);
+  const conqForce = conqMin! + (conqMax! - conqMin!) * (TOP_LANE_MAX_LEVEL - conqStart) / conqGrowth;
 
   const tempo = description("Lethal Tempo");
   const tempoRow = (index: number): string => {
@@ -1262,6 +1343,10 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    conqueror: { modelLevel: 20, maxStacks: conqCap, stackDuration: conqDuration!, castCooldown: conqCooldown!,
+      meleeBasicStacks: conqMelee, rangedBasicStacks: conqRanged, spellStacks: conqSpell,
+      adaptiveForcePerStack: conqForce, adaptiveADRatio: conqAD, adaptiveAPRatio: conqAP,
+      meleeHealingRatio: conqHeal! / 100, rangedHealingRatio: conqRangedHeal! / 100 },
     lethalTempo: { modelLevel: 20, maxStacks: tempoCap, stackDuration: tempoDuration!, decayInterval: tempoDecay!,
       attackSpeedPerStack: tempoAS! / 100, rangedAttackSpeedRatio: tempoRangedAS!, boltDamage: tempoBoltDamage,
       rangedBoltRatio: tempoRangedBolt!, bonusAttackSpeedRatio: tempoScaling / tempoPer, boltSpeed: tempoBoltSpeed,

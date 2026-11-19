@@ -14,8 +14,9 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8008, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
 const tempoPath = "Perks/Styles/Precision/LethalTempo";
+const conquerorPath = "Perks/Styles/Precision/Conqueror";
 const tempoBolts = ["{6f0c6028}", "{720c64e1}", "{f7b50373}", "{f8b50506}"] as const;
 const fleetPath = "Perks/Styles/Precision/FleetFootwork";
 const fleetTemplate = "Template:Rune data Fleet Footwork";
@@ -404,10 +405,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(13).fill("manual-effects"));
+      .toEqual(Array(14).fill("manual-effects"));
   });
 
-  it("binds all eighty-two complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all ninety complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -491,6 +492,14 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Tip data/Energized", 4013385],
       ["Lethal Tempo", 4060427],
       ["Template:Rune data Lethal Tempo", 4065934],
+      ["Conqueror", 4091967],
+      ["Template:Rune data Conqueror", 4060685],
+      ["Cast instance", 4069908],
+      ["Template:Tip data/Cast instance", 4069909],
+      ["Template:Data Kayle/Divine Ascent", 4051190],
+      ["Template:Data Garen/Judgment", 4009435],
+      ["Template:Data Wukong/Cyclone", 4021867],
+      ["Template:Data Mordekaiser/Darkness Rise", 4070051],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -500,19 +509,39 @@ describe("reviewed combat rune numeric rules", () => {
       .toBe("7aabdf6a53e50da3ad8f3003c3aa57d396bdaeaa97e5d9437999898dcb34d876");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 71))))
       .toBe("3815191530203e108b4426841a4fb59c476e14be9430dd6907dae104a266c449");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 82))))
+      .toBe("3709677749ded83a50d8ac439cb7415780319a6e86536dc8bd971b4a0d8f2862");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(82);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(90);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
       expect(source.content).toContain(excerpt.text);
     }
     expect(new Set(evidence.map((entry) => JSON.stringify(entry))).size).toBe(evidence.length);
+  });
+
+  it("uses Conqueror's exact level-20 adaptive growth, cooldown and form healing rates", () => {
+    expect(build().conqueror).toMatchObject({
+      modelLevel: 20, maxStacks: 12, stackDuration: 5, castCooldown: 4,
+      meleeBasicStacks: 2, rangedBasicStacks: 1, spellStacks: 2,
+      adaptiveADRatio: 0.6, adaptiveAPRatio: 1, meleeHealingRatio: 0.08, rangedHealingRatio: 0.05,
+    });
+    expect(build().conqueror.adaptiveForcePerStack).toBeCloseTo(362 / 85, 13);
+  });
+
+  it("checks both Conqueror's client coefficients and the whole perk", () => {
+    const numeric = fixture();
+    editGame(numeric, records => { records[conquerorPath]!.mScript.mSpellScriptData.mEffectAmount.BuffDuration = 6; });
+    expect(() => build(numeric)).toThrow(/Conqueror Wiki\/game BuffDuration disagree/);
+    const metadata = fixture();
+    editGame(metadata, records => { records[conquerorPath]!.mPerkName = "Unreviewed Conqueror"; });
+    expect(() => build(metadata)).toThrow(/Conqueror complete client perk changed/);
   });
 
   it("uses Absorb Life's explicit level-20 piecewise calculation rather than its level-18 tooltip endpoint", () => {
@@ -629,11 +658,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 82 complete/);
+    expect(() => build(missing)).toThrow(/all 90 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 82 complete/);
+    expect(() => build(extra)).toThrow(/all 90 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -667,7 +696,7 @@ describe("exact source identity and completeness", () => {
     editWiki(wiki, "Damage modifier", () => excerpts);
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
-    const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, triumphMissilePath, presenceMissilePath]);
+    const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath, triumphMissilePath, presenceMissilePath]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });

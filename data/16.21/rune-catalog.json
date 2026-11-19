@@ -253,7 +253,7 @@
         "sha256": "32841990cc6ba88c6299c5739d5e2a82c95c94cdf9d74fefa84a5d2db2b0f0b0",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Conqueror|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Dealing damage to enemy {{tip|champions}} generates {{tip|stacks}} of ''Conqueror'', lasting for 5 seconds, refreshing on subsequent damage against champions, and stacking up to 12 times. Gain {{rd|2|1}} stacks for {{tip|basic damage}} {{tip|on-hit}}. Otherwise, gain 2 stacks for any damage that is neither {{tip|basic damage|basic}} nor non-{{tip|pet damage|pet}} {{tip|proc damage}}, up to once every 4 seconds per {{tip|cast instance}}.\n|description2 = Each stack of ''Conqueror'' grants {{adaptive|1.8 + (4-1.8)/17*(x-1)|20}}, up to {{adaptive|1.8*12 + (4*12-1.8*12)/17*(x-1)|20}} at maximum stacks, at which you also {{tip|heal}} for {{rd|8%|5%}} of the {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt against enemy champions.\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8014,

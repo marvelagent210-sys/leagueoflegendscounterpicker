@@ -46,11 +46,12 @@ import { type Behavior, type Command, defaultBehavior, perceive, traitsOf } from
 import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, endForcedMovement, heal, hookContext, log, notifyActualMovement } from "./combat";
 import { canMove, ccTypes, derive, hasState } from "./derived";
 import { abilityOf } from "./forms";
+import { withCastInstance } from "./castInstance";
 import { advancePets, expirePetHealth, petEffects } from "./pets";
 import { advanceLifecycles } from "./lifecycle";
 import { aroundFactor, expireTerrain, terrainLimit } from "./terrain";
 import type { FighterSpec } from "./spec";
-import { DEFAULT_SETTINGS, type Action, type LogEntry, type Mode, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
+import { DEFAULT_SETTINGS, type Action, type LogEntry, type Mode, type Scheduled, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
 
 export interface FightSetup {
   fighters: [FighterSpec, FighterSpec];
@@ -150,16 +151,21 @@ function runScheduled(world: World): void {
   world.scheduled = world.scheduled.filter((e) => e.tick > world.tick);
   for (const entry of due) {
     const owner = world.units[entry.owner];
-    if (entry.targetPet !== undefined) {
-      const pet = world.pets.find((candidate) => candidate.id === entry.targetPet);
-      if (pet) petEffects(world, owner, pet, entry.effects, "persistent", entry.ability, entry.scale);
-      continue;
-    }
-    const target = world.units[entry.target];
-    if (!target.alive) continue;
-    const ability = abilityOf(owner, entry.ability);
-    for (const effect of entry.effects) applyEffect(world, owner, target, effect, { scale: entry.scale, ...(ability ? { ability } : {}) });
+    if (entry.castInstance === undefined) landScheduled(world, owner, entry);
+    else withCastInstance(world, owner, entry.castInstance, () => landScheduled(world, owner, entry));
   }
+}
+
+function landScheduled(world: World, owner: Unit, entry: Scheduled): void {
+  if (entry.targetPet !== undefined) {
+    const pet = world.pets.find((candidate) => candidate.id === entry.targetPet);
+    if (pet) petEffects(world, owner, pet, entry.effects, "persistent", entry.ability, entry.scale);
+    return;
+  }
+  const target = world.units[entry.target];
+  if (!target.alive) return;
+  const ability = abilityOf(owner, entry.ability);
+  for (const effect of entry.effects) applyEffect(world, owner, target, effect, { scale: entry.scale, ...(ability ? { ability } : {}) });
 }
 
 /** Kit hooks, damage over time and regeneration. */
@@ -170,7 +176,12 @@ function upkeep(world: World, unit: Unit): void {
     const dot = status.dot;
     if (status.kind !== "dot" || !dot || world.tick < dot.nextTick || world.tick > status.endTick) continue;
     dot.nextTick += dot.intervalTicks;
-    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: dot.label ?? status.key, persistent: true, ...(dot.originX !== undefined ? { originX: dot.originX } : {}) });
+    const source = world.units[status.source];
+    const context = { ability: dot.label ?? status.key, persistent: true,
+      ...(dot.originX !== undefined ? { originX: dot.originX } : {}),
+      ...(dot.observedDamageKind !== undefined ? { observedDamageKind: dot.observedDamageKind } : {}) };
+    if (dot.castInstance === undefined) dealDamage(world, source, unit, dot.perHit, dot.damageType, context);
+    else withCastInstance(world, source, dot.castInstance, () => dealDamage(world, source, unit, dot.perHit, dot.damageType, context));
   }
   const { base } = unit.spec;
   heal(world, unit, base.hpRegen / 5 / 30, true);
@@ -222,13 +233,13 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       if (!ability) continue;
       if (!action.delivered && ability.deliveryDuringCastAt !== undefined && world.tick >= action.startTick + toTicks(ability.deliveryDuringCastAt)) {
         action.delivered = true;
-        const early = deliverDuringCast(world, unit, ability, action.startTick, action.aim);
+        const early = deliverDuringCast(world, unit, ability, action.startTick, action.aim, action.castInstance);
         if (early) splits.push(early);
       }
       if (action.endTick > world.tick) continue;
       if (unit.action === action) unit.action = action.resume;
       else if (overlay?.resume === action) overlay.resume = action.resume;
-      const split = completeCast(world, unit, ability, action.startTick, action.aim, action.cost);
+      const split = completeCast(world, unit, ability, action.startTick, action.aim, action.cost, action.castInstance);
       if (split) splits.push(split);
     }
   }
