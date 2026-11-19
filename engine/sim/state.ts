@@ -6,7 +6,7 @@
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { CCType } from "../rules/crowdControl";
-import type { AbilitySpec, AttackSplit, Effect, FighterSpec, Formula, ObservedDamageKind, PetSpec } from "./spec";
+import type { AbilitySpec, AttackSplit, Effect, FighterSpec, Formula, HealthShieldSnapshot, ObservedDamageKind, PetSpec } from "./spec";
 import type { PendingSplit } from "./actions";
 
 export type Side = 0 | 1;
@@ -22,6 +22,8 @@ export interface Status {
   value: number;
   charges?: number;
   shieldType?: ShieldType;
+  /** Stable across copied worlds, assigned only for an observed health shield. */
+  shieldInstance?: number;
   priority?: boolean;
   /** One incoming packet's HP damage that precedes a newly triggered shield. */
   firstDamageBypass?: number;
@@ -185,6 +187,8 @@ export interface Unit {
   hp: number;
   resource: number;
   statuses: Status[];
+  /** Immutable last observations. A world branch replaces the list when its shields change. */
+  observedHealthShields?: readonly HealthShieldSnapshot[];
   /** Tick each ability is next ready, by ability key. */
   cooldownReady: Record<string, number>;
   /** Native timer definitions, by cooldown key; aliases retain their own haste and base duration. */

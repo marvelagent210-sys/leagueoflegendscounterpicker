@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support sixteen partial combat effects, including
-Bone Plating, Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support seventeen partial combat effects, including
+Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -116,9 +116,10 @@ npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 npm run duel -- Gangplank Urgot --dataset 16.21 --gold 0 --combat-runes 8437,8444,8014 --enemy-combat-runes 8437 --log brawl
 npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --enemy-combat-runes 8473 --log brawl
+npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These sixteen effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These seventeen effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -130,6 +131,7 @@ supported as partial manual selections:
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
+| Shield Bash | 8401 | A qualifying champion on-hit deals `560/17` adaptive damage at level 20 plus 2.5% of bonus health and 15% of the strongest eligible shield's peak. Each shield remains eligible for two seconds after it ends. |
 | Grasp of the Undying | 8437 | Damage starts a four-stack timer. A qualified champion on-hit consumes the primed charge for magic damage, a delayed heal and permanent bonus health. Ranged applications use 40% effectiveness. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Bone Plating | 8473 | An opposing champion's first health-damaging packet arms three plates for 1.5 seconds. One later packet per cast can spend a plate for up to `1080/17` reduction at level 20. |
@@ -146,10 +148,11 @@ at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
 Choose at most one keystone per fighter. Press the Attack, Lethal Tempo,
 Fleet Footwork and Conqueror can accompany one first-row choice, one Legend
-and one of the three damage runes. Second Wind and Bone Plating share one
-Resolve row, so choose at most one. Either can accompany a Precision keystone
-or Grasp. Grasp requires Resolve primary and can accompany up to two Precision
-lesser runes from different rows. Only the explicitly named effects
+and one of the three damage runes. Shield Bash occupies a separate Resolve
+row from Second Wind and Bone Plating, so it can accompany either one.
+Both Resolve lesser choices fit a Precision keystone or Grasp. Grasp requires
+Resolve primary and can accompany up to two Precision lesser runes from
+different rows. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
 explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-duel
@@ -169,11 +172,13 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **99 complete Wiki revisions** in
+The offline compiler checks **107 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the sixteen templates to
+full-content hashes, exact revisions and excerpts, binds the seventeen templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Shield Bash adds the rune article, template, Shield rules, and five reviewed
+ability revisions to the previous 99.
 Bone Plating adds the complete rune article, template and two reviewed ability
 revisions to the 95 already retained.
 Grasp adds the complete rune article, template and three reviewed ability
@@ -231,9 +236,35 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These sixteen catalog entries are
+selection require further implementation and validation. These seventeen catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Shield Bash
+
+Select `8401` on either side of a manual plain-stat duel. A qualifying
+champion on-hit deals adaptive damage equal to `560/17` at level 20 plus
+2.5% of the owner's bonus health and 15% of the strongest eligible shield
+peak. The level-20 value follows the explicit Wiki interpolation. The
+versioned client's named fields give the formula's endpoints of 5 and 30,
+both ratios, and the two-second grace period. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4044093) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4015237) · [Versioned client](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+Ordinary, magic and physical health shields qualify. The simulator keeps
+each shield's original amount or highest subsequent amount until the
+shield ends and for two seconds after expiry, depletion, replacement or
+removal. The strongest eligible shield supplies the ratio when multiple
+shields overlap. The proc spends eligibility for all shields granted before
+the native on-hit snapshot. Later growth of those spent shields keeps their
+spent status. Shields issued after the snapshot can arm a later hit.
+[Shield rules](https://wiki.leagueoflegends.com/en-us/?oldid=4021810) · [Hwei's Pool of Reflection](https://wiki.leagueoflegends.com/en-us/?oldid=3992645)
+
+The model uses the actual owner and opposing champion bodies. It preserves
+eligibility through a denied or protected contact and clears eligibility
+on death, falling or resurrection. The proc uses current derived bonus AD
+versus AP, the champion's tie preference, and the native on-hit
+effectiveness. It deals a separate proc packet outside the spell-hit and
+life-steal paths. The eligibility snapshot, stat sampling and exact expiry
+boundary are simulator policies. [Open mechanics questions](MECHANICS_GAPS.md#shield-bash)
 
 ### Bone Plating
 

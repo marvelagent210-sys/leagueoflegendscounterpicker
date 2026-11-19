@@ -65,7 +65,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Resolve | Keystone | Guardian | 8465 | Not implemented | [4022993](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Guardian?oldid=4022993) |
 | Resolve | 1 | Demolish | 8446 | Not implemented | [4058470](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Demolish?oldid=4058470) |
 | Resolve | 1 | Font of Life | 8463 | Not implemented | [3996429](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Font_of_Life?oldid=3996429) |
-| Resolve | 1 | Shield Bash | 8401 | Not implemented | [4044093](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Shield_Bash?oldid=4044093) |
+| Resolve | 1 | Shield Bash | 8401 | Explicit partial manual selection | [4044093](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Shield_Bash?oldid=4044093) |
 | Resolve | 2 | Conditioning | 8429 | Not implemented | [3825864](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conditioning?oldid=3825864) |
 | Resolve | 2 | Second Wind | 8444 | Explicit partial manual selection | [3960974](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Second_Wind?oldid=3960974) |
 | Resolve | 2 | Bone Plating | 8473 | Explicit partial manual selection | [3985159](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Bone_Plating?oldid=3985159) |

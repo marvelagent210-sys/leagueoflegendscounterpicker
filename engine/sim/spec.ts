@@ -197,6 +197,13 @@ export type PetDamageCategory = "basic" | "singleTarget" | "area" | "persistent"
 /** Packet tags used by source-qualified damage observers. */
 export type ObservedDamageKind = "basic" | "spell" | "proc" | "default" | "pet" | "unclassified";
 
+/** The actual amount and deadline of one observed champion health shield. */
+export interface HealthShieldSnapshot {
+  readonly instance: number;
+  readonly amount: number;
+  readonly endTick: number;
+}
+
 export type Effect =
   /**
    * `canCrit`: averaged over the attacker's crit chance; `critMultiplier` replaces its crit
@@ -1074,6 +1081,8 @@ export interface KitHooks {
   modifyDamageTakenRaw?(ctx: HookContext & { raw: number; damageType: DamageType; attack: boolean; ability?: string; persistent: boolean }): number;
   /** Connected incoming on-hit application, including damage blocks but excluding misses, dodges and parries. */
   onIncomingOnHit?(ctx: HookContext & { attack: boolean; ability?: string; scale: number }): void;
+  /** Shield observation for state bookkeeping. The callback receives no combat actions. */
+  onHealthShieldChanged?(ctx: { readonly self: Unit; readonly tick: number; readonly shield: HealthShieldSnapshot & { readonly endedAt?: number } }): void;
   /** Accepted later primary burst round, without another generic on-hit application. */
   onPrimaryBurstRound?(ctx: HookContext & { readonly burst: number; readonly scale: number }): void;
   /** Source-local accepted application, after its legacy on-hit effects and victim hook.

@@ -8,6 +8,7 @@ import { checkedLethalTempoRules } from "./lethalTempo";
 import { checkedConquerorRules } from "./conqueror";
 import { checkedGraspRules } from "./grasp";
 import { checkedBonePlatingRules } from "./bonePlating";
+import { checkedShieldBashRules } from "./shieldBash";
 import { buildRuneEffect } from "./effectRuntime";
 import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
@@ -123,6 +124,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
   const conqueror = checkedConquerorRules(value.conqueror);
   const grasp = checkedGraspRules(value.grasp);
   const bonePlating = checkedBonePlatingRules(value.bonePlating);
+  const shieldBash = checkedShieldBashRules(value.shieldBash);
   const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
@@ -190,7 +192,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating,
+    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },

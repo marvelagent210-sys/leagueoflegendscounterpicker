@@ -3455,6 +3455,39 @@ byte for byte. Both matrix freshness checks, the offline rune catalog
 check, 54 targeted tests, and the production web build passed.
 [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44559485221)
 
+## Shield Bash (19 November 2026)
+
+Rune 8401 adds the seventeenth partial manual combat effect. The source
+compiler verifies 107 complete Wiki revisions and the retained client file.
+At level 20 the packet uses `560/17` base adaptive damage plus 2.5% of
+bonus health and 15% of the eligible shield peak. The selection test checks
+all 131,072 subsets and accepts 2,142, including 1,071 with Shield Bash and
+357 with both Shield Bash and Bone Plating. [Rune rules and sources](docs/runes/README.md#shield-bash)
+
+The 19 November refresh recalculated all 14,878 pairings in each default
+matrix with zero reuse. Every one of the 29,756 checkpoints matches the
+assembled outputs in both directions. Both matrices reproduce the previous
+scores, six scenario results and selected kit variants. Item builds and
+plain-stat spending also match. Independent local assembly reproduced the
+four generated files byte for byte. Both matrix freshness checks, the
+offline rune catalog check, 59 targeted tests and the production web build
+passed. [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44597602882)
+
+The roster check ran 346 duels across all 173 kits with Shield Bash and
+Bone Plating equipped. Its most likely timelines recorded 271 Shield Bash
+procs across 48 kits. A separate check reproduced all 346 rune-free
+outcomes and combat timelines. A 16-pair plain-stat replay produced the same
+raw results in each of four runs, with each batch taking about 13 seconds.
+
+Shield observation keeps distinct peak and expiry histories. The native
+cases cover full absorption of a shield, natural expiry, a shield-breaking
+attack, multiple on-hit applications, and branch copies. Champion fixtures
+cover Camille's passive, Hwei's growing pool shield, Mordekaiser's shield
+conversion, and Nunu's early release. A separate case checks Shield Bash
+against Bone Plating within the same native attack. Shield grant eligibility,
+stat sampling and runtime timing decisions follow the documented policies.
+[Open mechanics questions](docs/runes/MECHANICS_GAPS.md#shield-bash)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

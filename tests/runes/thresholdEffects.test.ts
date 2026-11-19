@@ -12,6 +12,7 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  shieldBash: { modelLevel: 20, baseDamage: 560 / 17, bonusHealthRatio: 0.025, shieldRatio: 0.15, linger: 2 },
   bonePlating: { modelLevel: 20, reduction: 1080 / 17, charges: 3, duration: 1.5, cooldown: 55 },
   grasp: { maxStacks: 4, stackInterval: 1, combatWindow: 3, readyWindow: 5, healDelay: 0.4,
     meleeDamageRatio: 0.035, rangedDamageRatio: 0.014, meleeHealRatio: 0.013, rangedHealRatio: 0.0052, meleeHealth: 5, rangedHealth: 2 },

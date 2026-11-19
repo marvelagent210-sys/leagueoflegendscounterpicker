@@ -1013,7 +1013,7 @@
         "sha256": "ca2f9a6467c1de3f2d7a69356ba0dec2bc69b6130d3f1c215c5d2b65b22bba7a",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Shield Bash|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2019\n|path         = Resolve\n|slot         = 1\n|description  = {{sbc|Passive:}} Whenever you gain a {{tip|shield}}, your next attack against an enemy {{tip|champion}} is empowered to deal {{pp|5 + (30-5)/17*(x-1)|1 to 20 by 1}} {{as|(+ {{fd|2.5}}% '''bonus''' health)}} {{as|(+ 15% shield amount)}} '''bonus''' {{tip|adaptive damage}} [[on-hit]]. The empowered attack lasts for up to 2 seconds after the shield expires.\n|description2 = {{Tip data/Adaptive damage|pst2|description}}\n|range        = \n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8410,

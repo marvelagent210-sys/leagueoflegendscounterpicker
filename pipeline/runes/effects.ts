@@ -514,8 +514,49 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-10-02T01:03:31Z",
     sha256: "16dd5bc02a7f0f51737374531ca38ee0d667e7c434623160cdeb353255f517b5",
   },
+  "Template:Rune data Shield Bash": {
+    revid: 4044093,
+    timestamp: "2026-07-17T22:53:29Z",
+    sha256: "ca2f9a6467c1de3f2d7a69356ba0dec2bc69b6130d3f1c215c5d2b65b22bba7a",
+  },
+  "Shield Bash": {
+    revid: 4015237,
+    timestamp: "2026-05-03T20:19:16Z",
+    sha256: "e60123c2c6716a6cab2b7c18c9a8d7c209ddafc14854125025e4dd9ceeafd8ec",
+  },
+  "Shield": {
+    revid: 4021810,
+    timestamp: "2026-05-21T15:37:58Z",
+    sha256: "d18459fb18c073e493b78c6825b281923ddef98541361c85b11b2588b900a5d9",
+  },
+  "Template:Data Hwei/Pool of Reflection": {
+    revid: 3992645,
+    timestamp: "2026-02-18T20:35:25Z",
+    sha256: "a817fea3d0626c3cbacb545cde65dc0fc91f3da6a5e80075e7a2685f38f367ea",
+  },
+  "Template:Data Kled/Chaaaaaaaarge!!!": {
+    revid: 4070347,
+    timestamp: "2026-09-29T19:28:37Z",
+    sha256: "498d9f9d182d79b52eec0121bcc0824221fd8de4f8f7cd593dd8569984abe78a",
+  },
+  "Template:Data Nunu/Absolute Zero": {
+    revid: 4088349,
+    timestamp: "2026-10-20T23:32:39Z",
+    sha256: "485ea4c83a0d28058966744a8cb19f516eac090d8f06f5331ab71724a85b128d",
+  },
+  "Template:Data Mordekaiser/Indestructible": {
+    revid: 4016354,
+    timestamp: "2026-05-10T19:48:19Z",
+    sha256: "933c39900fbc3c94fdf6e0d33a4ac3fcb5f41b67ef9b224cb0fc748711a6e07c",
+  },
+  "Template:Data Camille/Adaptive Defenses": {
+    revid: 4051341,
+    timestamp: "2026-08-12T12:00:14Z",
+    sha256: "dbe847462ae2df531c7fbd7193311d5cd7a1240177bba3dea886546a9f56f89a",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8401, name: "Shield Bash", path: 8400, slot: 1, game: "Perks/Styles/Resolve/ShieldBash" },
   { id: 8473, name: "Bone Plating", path: 8400, slot: 2, game: "Perks/Styles/Resolve/BonePlating" },
   { id: 8437, name: "Grasp of the Undying", path: 8400, slot: 0, game: "Perks/Styles/Resolve/GraspOfTheUndying" },
   { id: 8010, name: "Conqueror", path: 8000, slot: 0, game: "Perks/Styles/Precision/Conqueror" },
@@ -633,6 +674,43 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const shieldBash = description("Shield Bash");
+  const [shieldBase, shieldMax, shieldBaseRepeat, shieldInterval, shieldOffset, shieldLevelStart, shieldLevelEnd, shieldLevelStep] =
+    matchNumbers("Shield Bash base damage", shieldBash.text,
+      /\{\{pp\|(\d+) \+ \((\d+)-(\d+)\)\/(\d+)\*\(x-(\d+)\)\|(\d+) to (\d+) by (\d+)\}\}/);
+  const [shieldHealthRatio, shieldAmountRatio] = matchNumbers("Shield Bash damage ratios", shieldBash.text,
+    /\{\{as\|\(\+ \{\{fd\|([\d.]+)\}\}% '''bonus''' health\)\}\} \{\{as\|\(\+ ([\d.]+)% shield amount\)\}\} '''bonus''' \{\{tip\|adaptive damage\}\} \[\[on-hit\]\]/);
+  const [shieldLinger] = matchNumbers("Shield Bash grace period", shieldBash.text,
+    /The empowered attack lasts for up to ([\d.]+) seconds after the shield expires\./);
+  quote(shieldBash.page, "Whenever you gain a {{tip|shield}}, your next attack against an enemy {{tip|champion}} is empowered");
+  requireThat(shieldBase! > 0 && shieldBase === shieldBaseRepeat && shieldMax! > shieldBase!
+    && shieldInterval === 17 && shieldOffset === 1 && shieldLevelStart === shieldOffset
+    && shieldLevelEnd === TOP_LANE_MAX_LEVEL && shieldLevelStep === 1,
+  "Shield Bash needs the reviewed formula through level 20");
+  const shieldBashAmounts = client("Shield Bash");
+  for (const [key, value] of Object.entries({ ProcBaseMin: shieldBase!, ProcBaseMax: shieldMax!,
+    BonusHealthRatio: shieldHealthRatio!, ShieldRatio: shieldAmountRatio!, ProcDuration: shieldLinger! })) {
+    agree("Shield Bash", shieldBashAmounts, key, value);
+  }
+  const shieldBashNotes = pages.get("Shield Bash")!;
+  for (const text of [
+    "deals {{tip|proc damage}}, and thus will not trigger [[spell effects]].",
+    "highest value of shield that is either currently active or has expired within the last 2 seconds",
+    "all previously applied shield instances become invalid",
+    "calculated with the initial maximum value of the shield",
+    "the highest instance of shielding that has been achieved",
+    "can only trigger once per gained shield",
+    "triggers from all shield types, including magic and physical ones",
+    "No longer grants {{pp|1 to 10}} {{sti|{{as|'''bonus''' armor}}}} and {{sti|{{as|'''bonus''' magic resistance}}}} while shielded.",
+  ]) quote(shieldBashNotes, text);
+  quote(pages.get("Shield")!, "mitigate the damage before being absorbed by '''shielding'''");
+  quote(pages.get("Template:Data Hwei/Pool of Reflection")!, "The shield refreshes and increases in strength");
+  quote(pages.get("Template:Data Kled/Chaaaaaaaarge!!!")!, "the duo gain an initial {{tip|shield}}, plus an additional amount");
+  quote(pages.get("Template:Data Nunu/Absolute Zero")!, "any of the duo's remaining shield will decay over 3 seconds");
+  quote(pages.get("Template:Data Mordekaiser/Indestructible")!, "consumes the remaining shield, {{tip|healing}} for a portion of the amount");
+  quote(pages.get("Template:Data Camille/Adaptive Defenses")!, "next {{tip|basic attack}} {{tip|on-hit}} against an enemy champion grants her a {{tip|shield}}");
+  const shieldBashDamage = shieldBase! + (shieldMax! - shieldBase!) * (shieldLevelEnd - shieldOffset) / shieldInterval;
 
   const bone = description("Bone Plating");
   const [boneDuration, boneCharges] = matchNumbers("Bone Plating duration and charges", bone.text,
@@ -1475,6 +1553,8 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    shieldBash: { modelLevel: 20, baseDamage: shieldBashDamage, bonusHealthRatio: shieldHealthRatio! / 100,
+      shieldRatio: shieldAmountRatio! / 100, linger: shieldLinger! },
     bonePlating: { modelLevel: 20, reduction: boneReduction, charges: boneCharges, duration: boneDuration!, cooldown: boneCooldown! },
     grasp: { maxStacks: graspCap, stackInterval: graspInterval, combatWindow: graspCombatWindow,
       readyWindow: graspReadyWindow, meleeDamageRatio: graspMeleeDamage! / 100, rangedDamageRatio: graspRangedDamage! / 100,
