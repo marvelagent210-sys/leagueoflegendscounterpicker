@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support fifteen partial combat effects, including
-Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support sixteen partial combat effects, including
+Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -115,9 +115,10 @@ npm run duel -- Darius Garen --combat-runes 9103,8299 --legend-points 1499 --ene
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
 npm run duel -- Gangplank Urgot --dataset 16.21 --gold 0 --combat-runes 8437,8444,8014 --enemy-combat-runes 8437 --log brawl
+npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --enemy-combat-runes 8473 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These fifteen effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These sixteen effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -131,6 +132,7 @@ supported as partial manual selections:
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
 | Grasp of the Undying | 8437 | Damage starts a four-stack timer. A qualified champion on-hit consumes the primed charge for magic damage, a delayed heal and permanent bonus health. Ranged applications use 40% effectiveness. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
+| Bone Plating | 8473 | An opposing champion's first health-damaging packet arms three plates for 1.5 seconds. One later packet per cast can spend a plate for up to `1080/17` reduction at level 20. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
 | Triumph | 9111 | Stores 2.5% maximum HP plus 5% missing HP from the declared native champion-body kill-credit frame; attempts ordinary self healing one second later if the duel is still active and the recipient remains eligible. Sourced 20 gold is economic reference only. |
 | Presence of Mind | 8009 | At the fixed model level 20, accepted damage restores 56 mana (44.8 for the current owner's ranged form) or 6 energy on an eight-second cooldown; an actual champion-body kill schedules 15% of the current derived maximum resource one second later. Local policies and unsupported events are detailed below. |
@@ -143,10 +145,11 @@ one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
 at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
 Choose at most one keystone per fighter. Press the Attack, Lethal Tempo,
-Fleet Footwork and Conqueror can accompany Second Wind, one first-row choice,
-one Legend and one of the three damage runes. Grasp requires Resolve primary.
-It can accompany Second Wind and up to two Precision lesser runes from different
-rows under the same page validator. Only the explicitly named effects
+Fleet Footwork and Conqueror can accompany one first-row choice, one Legend
+and one of the three damage runes. Second Wind and Bone Plating share one
+Resolve row, so choose at most one. Either can accompany a Precision keystone
+or Grasp. Grasp requires Resolve primary and can accompany up to two Precision
+lesser runes from different rows. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
 explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-duel
@@ -166,11 +169,13 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **95 complete Wiki revisions** in
+The offline compiler checks **99 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the fifteen templates to
+full-content hashes, exact revisions and excerpts, binds the sixteen templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Bone Plating adds the complete rune article, template and two reviewed ability
+revisions to the 95 already retained.
 Grasp adds the complete rune article, template and three reviewed ability
 revisions to the 90 already retained. Conqueror adds eight complete sources to
 the 82 retained for Lethal Tempo.
@@ -226,9 +231,37 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These fifteen catalog entries are
+selection require further implementation and validation. These sixteen catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Bone Plating
+
+Select `8473` on either side. Each duel starts with the rune available. The
+first positive health loss dealt by the actual opposing champion arms it
+for 1.5 seconds. The triggering packet keeps its normal damage. The rune
+stays available after zero, shield-only or invulnerable damage.
+
+Each of the next three distinct opposing cast instances can spend one plate.
+A later packet of the triggering cast can spend a plate, as with Kled's
+fourth W attack. The level-20 reduction is `30 + (60 − 30) × 19 / 17`, or
+about 63.53 damage per plate. The Wiki extends the formula to level 20.
+The versioned client supplies the interpolation endpoints, three charges,
+1.5 seconds and a 55-second cooldown. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3985159) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4072632) · [Versioned client](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+Plates reduce post-mitigation damage, including true damage. The simulator
+applies the reduction after pre-damage reactions and before ordinary shield
+absorption. Braum's complete frontal block can reduce a packet to zero
+before the rune sees it. Native attacks, missiles, delayed and periodic
+effects retain their cast identity. The manual effect uses actual champion
+bodies and requires a native cast ID to spend a plate. [Braum's Unbreakable](https://wiki.leagueoflegends.com/en-us/?oldid=4012056) · [Kled's Violent Tendencies](https://wiki.leagueoflegends.com/en-us/?oldid=4072987)
+
+The window ends as soon as the third plate is spent or at 1.5 seconds.
+The model starts the 55-second cooldown at that endpoint and treats the
+exact expiry tick as inactive. The exact ready tick can arm it again.
+Resurrection, falling or counted death end the active plates and preserve
+the scheduled readiness. These timing and shield-order choices are local
+model policies. [Open mechanics questions](MECHANICS_GAPS.md#bone-plating)
 
 ### Grasp of the Undying
 

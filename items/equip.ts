@@ -218,6 +218,7 @@ export function composeHooks(kit: KitHooks | undefined, extra: KitHooks[], first
     }
     switch (name) {
       case "modifyDamageBeforeShields":
+      case "modifyAcceptedDamageBeforeShields":
       case "modifyDamageAfterShields":
       case "modifyDamageTakenRaw": {
         const field = name === "modifyDamageTakenRaw" ? "raw" : "amount";

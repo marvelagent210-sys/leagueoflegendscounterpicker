@@ -470,6 +470,13 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   if (observedBeforeDamage && (target.hp <= 0 || !target.alive || hasState(target, "invulnerable") || inStasis(target) || healthProtection(world, target).invulnerable)) return 0;
   const before = target.spec.hooks?.beforeDamageTaken;
   if (before && mitigated > 0) runHook(() => before({ ...hookContext(world, target, undefined, source), amount: mitigated, damageType: type, attack: ctx.attack === true, persistent: ctx.persistent === true, ...(source.petId !== undefined ? { petSource: true } : {}), ...(ctx.ability ? { ability: ctx.ability } : {}) }));
+  const adjustAccepted = target.spec.hooks?.modifyAcceptedDamageBeforeShields;
+  if (adjustAccepted && mitigated > 0 && target.alive && target.hp > 0
+    && !stateStatus(target, "parry") && !damageProtected(world, source, target)) runHook(() => {
+    const castInstance = currentCastInstance(world, source);
+    mitigated = Math.max(0, adjustAccepted({ ...hookContext(world, target, undefined, source), amount: mitigated, damageType: type,
+      ...(castInstance !== undefined ? { castInstance } : {}) }));
+  });
   const shields = target.statuses.filter((st) => st.kind === "shield");
   const views: Shield[] = shields.map((st) => ({
     amount: st.value,

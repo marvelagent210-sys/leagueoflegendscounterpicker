@@ -3422,6 +3422,21 @@ The two native matrix freshness checks, the offline catalog check, all 24
 matrix and browser-cache tests, and the production web build passed on the
 generated commit. [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44526299017)
 
+## Bone Plating (19 November 2026)
+
+Rune 8473 adds the sixteenth partial manual combat effect. The compiler
+verifies 99 complete Wiki revisions and the original versioned client file.
+The explicit level-20 formula gives `1080/17` reduction per plate. The
+selection validator checks all 65,536 subsets and accepts 1,071, including
+357 with Bone Plating. It shares a Resolve row with Second Wind. [Rune rules and sources](docs/runes/README.md#bone-plating)
+
+Native damage resolution arms Bone Plating after the first positive health
+loss. A later packet from the same cast can consume one of three plates.
+Tests cover Kled's fourth hit, Braum's first frontal block, shields, revival,
+exact timing boundaries, and a cast that continues through a missile,
+delayed damage and a periodic status. The model specifies shield ordering
+and when the cooldown begins. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#bone-plating)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

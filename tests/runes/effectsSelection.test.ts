@@ -18,6 +18,7 @@ const fighter = (options: Parameters<typeof baseFighter>[0] = {}): FighterSpec =
   baseFighter({ ...options, base: { armor: 0, mr: 0, ...options.base } });
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  bonePlating: { modelLevel: 20, reduction: 1080 / 17, charges: 3, duration: 1.5, cooldown: 55 },
   grasp: { maxStacks: 4, stackInterval: 1, combatWindow: 3, readyWindow: 5, healDelay: 0.4,
     meleeDamageRatio: 0.035, rangedDamageRatio: 0.014, meleeHealRatio: 0.013, rangedHealRatio: 0.0052, meleeHealth: 5, rangedHealth: 2 },
   conqueror: { modelLevel: 20, maxStacks: 12, stackDuration: 5, castCooldown: 4,
@@ -66,10 +67,11 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely 714 of the 32,768 subsets of the fifteen implemented effects", () => {
-    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8437, 8444, 9101, 9103, 9104, 9105, 9111]);
+  it("accepts precisely 1,071 of the 65,536 subsets of the sixteen implemented effects", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8437, 8444, 8473, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     let withGrasp = 0;
+    let withBone = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
@@ -77,21 +79,31 @@ describe("explicit partial combat-rune selections", () => {
       const precisionRowOne = selected.filter((id) => id === 8009 || id === 9101 || id === 9111);
       const keystones = selected.filter(id => id === 8005 || id === 8008 || id === 8010 || id === 8021);
       const grasp = selected.includes(8437);
+      const bone = selected.includes(8473);
       const rows = [amps.length, legends.length, precisionRowOne.length, keystones.length];
-      if (rows.every(count => count <= 1) && (!grasp || (keystones.length === 0 && amps.length + legends.length + precisionRowOne.length <= 2))) {
+      if (rows.every(count => count <= 1) && !(bone && selected.includes(8444))
+        && (!grasp || (keystones.length === 0 && amps.length + legends.length + precisionRowOne.length <= 2))) {
         expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
         accepted++;
         if (grasp) withGrasp++;
+        if (bone) withBone++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow();
     }
-    expect(accepted).toBe(714);
-    expect(withGrasp).toBe(74);
+    expect(accepted).toBe(1071);
+    expect(withGrasp).toBe(111);
+    expect(withBone).toBe(357);
   });
 
   it("makes Grasp primary Resolve with at most two Precision lesser rows", () => {
     expect(validateCombatRuneSelection(catalog, [8444, 8437, 9111, 8014])).toEqual([8014, 8437, 8444, 9111]);
     expect(() => validateCombatRuneSelection(catalog, [8437, 8010])).toThrow(/more than one keystone/);
     expect(() => validateCombatRuneSelection(catalog, [8437, 9111, 9104, 8014])).toThrow(/cannot extend/);
+  });
+
+  it("allows Bone Plating with a compatible keystone and shares its Resolve row with Second Wind", () => {
+    expect(validateCombatRuneSelection(catalog, [8473, 8437, 9111, 8014])).toEqual([8014, 8437, 8473, 9111]);
+    expect(validateCombatRuneSelection(catalog, [8473, 8005])).toEqual([8005, 8473]);
+    expect(() => validateCombatRuneSelection(catalog, [8444, 8473])).toThrow(/same path row/);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],
