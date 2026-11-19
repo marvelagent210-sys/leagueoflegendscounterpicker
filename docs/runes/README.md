@@ -2,8 +2,10 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support fourteen partial combat effects, including
-Conqueror, Lethal Tempo, Fleet Footwork and Press the Attack.
+Manual plain-stat duels also support fifteen partial combat effects, including
+Grasp of the Undying and all four Precision keystones.
+The Grasp refresh recalculated all 14,878 pairings per default matrix and
+reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
 and reproduced both previous results. [Conqueror refresh audit](../../ACCURACY.md#conqueror-19-november-2026)
 The Fleet Footwork refresh verified both default matrices against 29,756
@@ -112,9 +114,10 @@ npm run duel -- Darius Garen --combat-runes 9105,8299 --legend-points 1000 --ene
 npm run duel -- Darius Garen --combat-runes 9103,8299 --legend-points 1499 --enemy-combat-runes 9105 --enemy-legend-points 0
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
 npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
+npm run duel -- Gangplank Urgot --dataset 16.21 --gold 0 --combat-runes 8437,8444,8014 --enemy-combat-runes 8437 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These fourteen effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These fifteen effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -126,6 +129,7 @@ supported as partial manual selections:
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
+| Grasp of the Undying | 8437 | Damage starts a four-stack timer. A qualified champion on-hit consumes the primed charge for magic damage, a delayed heal and permanent bonus health. Ranged applications use 40% effectiveness. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
 | Triumph | 9111 | Stores 2.5% maximum HP plus 5% missing HP from the declared native champion-body kill-credit frame; attempts ordinary self healing one second later if the duel is still active and the recipient remains eligible. Sourced 20 gold is economic reference only. |
@@ -138,9 +142,11 @@ The three Precision health-damage runes occupy the same source-defined row, so s
 one of them. Alacrity, Haste and Bloodline occupy the same Legend row, so select
 at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
-Choose at most one Precision keystone from Press the Attack, Lethal Tempo,
-Fleet Footwork and Conqueror. Each can accompany Second Wind, one first-row choice, one Legend
-and one of the three damage runes, subject to the same page validator. Only the explicitly named effects
+Choose at most one keystone per fighter. Press the Attack, Lethal Tempo,
+Fleet Footwork and Conqueror can accompany Second Wind, one first-row choice,
+one Legend and one of the three damage runes. Grasp requires Resolve primary.
+It can accompany Second Wind and up to two Precision lesser runes from different
+rows under the same page validator. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
 explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-duel
@@ -160,12 +166,14 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **90 complete Wiki revisions** in
+The offline compiler checks **95 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the fourteen templates to
+full-content hashes, exact revisions and excerpts, binds the fifteen templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
-Conqueror adds eight complete sources to the 82 retained for Lethal Tempo.
+Grasp adds the complete rune article, template and three reviewed ability
+revisions to the 90 already retained. Conqueror adds eight complete sources to
+the 82 retained for Lethal Tempo.
 Lethal Tempo adds the complete rune article and template to the 80 Fleet
 Footwork pages.
 Fleet Footwork adds nine complete revisions to the 71 in the Press the Attack release.
@@ -218,9 +226,47 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These fourteen catalog entries are
+selection require further implementation and validation. These fifteen catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Grasp of the Undying
+
+Select `8437` for either side of a manual plain-stat duel. Each side starts
+with zero stacks and zero prior Grasp health.
+
+| Effect at consumption | Melee | Ranged |
+|---|---:|---:|
+| Raw magic damage | 3.5% maximum health | 1.4% maximum health |
+| Raw self-heal | 1.3% maximum health | 0.52% maximum health |
+| Permanent direct bonus health | 5 | 2 |
+
+- Qualifying damage starts a three-second charging window. The first stack
+  matures after one second and later stacks follow at one-second intervals.
+  Qualifying damage renews the window. Four stacks prime an on-hit for five
+  seconds. Damage can renew this primed window. A charging pulse at its
+  deadline counts. Primed stacks expire before contacts on the exact expiry
+  tick. The first-stack phase, primed refresh and equality boundaries are
+  declared simulator policies. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4058228) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4052352)
+- Accepted champion damage includes zero and shielded damage. Positive damage
+  to classified enemy minions, monsters, champion-class summons and turrets
+  can also charge it. Ordinary pet damage can credit the owner. A hostile
+  clone's hit can charge its victim's rune and belongs to the clone on the
+  outgoing side. The clock tracks damage events. [Combat status](https://wiki.leagueoflegends.com/en-us/?oldid=4058480)
+- An unblocked, unprotected native on-hit from the owner against the opposing
+  champion body consumes the charge. Gangplank's Parrrley uses ranged values.
+  The separate magic proc keeps full value on fractional on-hit applications
+  such as Azir's primary soldier and Urgot's Purge. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4052352) · [Parrrley](https://wiki.leagueoflegends.com/en-us/?oldid=4063653) · [Arise!](https://wiki.leagueoflegends.com/en-us/?oldid=4044339) · [Purge](https://wiki.leagueoflegends.com/en-us/?oldid=4058781)
+- Damage and the pending heal share a maximum-health and form sample taken
+  before the award. The direct award applies at contact. It follows the same
+  Ornn and Pyke conversions and Kled and K'Sante health boundaries as other
+  direct bonus health. The heal uses ordinary modifiers and caps twelve ticks
+  after contact, based on the client's 0.4-second missile flight. The model
+  uses a local schedule for the heal and the award. [Health](https://wiki.leagueoflegends.com/en-us/?oldid=4073062) · [Patch 26.21 client data](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The model covers actual champion-body procs. Live timing, clone consumption,
+unclassified targets and pre-duel stacking need further validation.
+[Mechanics gaps](MECHANICS_GAPS.md#grasp-of-the-undying)
 
 ### Conqueror
 

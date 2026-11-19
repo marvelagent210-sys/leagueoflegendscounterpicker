@@ -469,8 +469,34 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-09-29T15:58:08Z",
     sha256: "75bc4ca811810d9bedff72499a8f873f0b070ef9284628d126db3636a2d19059",
   },
+  "Grasp of the Undying": {
+    revid: 4052352,
+    timestamp: "2026-08-17T17:14:06Z",
+    sha256: "a93d99e197cde0c8e8df17b9499f2a1a5d43879b7627f919f8c38379ed7130bf",
+  },
+  "Template:Rune data Grasp of the Undying": {
+    revid: 4058228,
+    timestamp: "2026-09-02T10:12:14Z",
+    sha256: "016d11d96f6099062907667bfe767ec5c911a96695615c34fc0eff39e8d955a1",
+  },
+  "Template:Data Azir/Arise!": {
+    revid: 4044339,
+    timestamp: "2026-07-18T20:38:42Z",
+    sha256: "94825341999ef7f4cb7009f69535b875ac9d6bb6241e04badfdec411e6dd3e22",
+  },
+  "Template:Data Gangplank/Parrrley": {
+    revid: 4063653,
+    timestamp: "2026-09-17T13:58:15Z",
+    sha256: "399077794d28ea27308cb2761127b6fc4f1911290c464df00f6f34ea43c0ba2a",
+  },
+  "Template:Data Urgot/Purge": {
+    revid: 4058781,
+    timestamp: "2026-09-05T11:51:40Z",
+    sha256: "7528f996881e3024fe7addddb17b28f9b3099bec6a501f9afd2faf7a66c0e098",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8437, name: "Grasp of the Undying", path: 8400, slot: 0, game: "Perks/Styles/Resolve/GraspOfTheUndying" },
   { id: 8010, name: "Conqueror", path: 8000, slot: 0, game: "Perks/Styles/Precision/Conqueror" },
   { id: 8008, name: "Lethal Tempo", path: 8000, slot: 0, game: "Perks/Styles/Precision/LethalTempo" },
   { id: 8021, name: "Fleet Footwork", path: 8000, slot: 0, game: "Perks/Styles/Precision/FleetFootwork" },
@@ -586,6 +612,49 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const grasp = description("Grasp of the Undying");
+  const [graspCombatWindow, graspCap, graspReadyWindow] = matchNumbers("Grasp stack and ready windows", grasp.text,
+    /generates 1 \[\[stack\]\] every second for the next (\d+) seconds, refreshing the duration with each instance of combat and stacking the effect up to (\d+) times\. At maximum stacks, your next \[\[basic attack\]\] \{\{tip\|on-hit\}\} within (\d+) seconds/);
+  const [graspMeleeDamage, graspRangedDamage] = matchNumbers("Grasp damage ratio", grasp.text,
+    /'''bonus''' magic damage\}\} equal to \{\{as\|\{\{rd\|\{\{fd\|([\d.]+)\}\}%\|\{\{fd\|([\d.]+)\}\}%\}\} of your '''maximum''' health/);
+  const [graspMeleeHeal, graspRangedHeal] = matchNumbers("Grasp heal ratio", grasp.text,
+    /\{\{tip\|heal\}\} you for \{\{as\|\{\{rd\|\{\{fd\|([\d.]+)\}\}%\|\{\{fd\|([\d.]+)\}\}%\}\} of your '''maximum''' health/);
+  const [graspMeleeHealth, graspRangedHealth] = matchNumbers("Grasp bonus health", grasp.text,
+    /permanently grant you \{\{as\|\{\{rd\|(\d+)\|(\d+)\}\} '''bonus''' health/);
+  const graspInterval = 1;
+  const graspRanged = 0.4;
+  const graspHealDelay = 0.4;
+  requireThat(graspCap === 4 && graspCombatWindow === 3 && graspReadyWindow === 5
+    && Math.abs(graspRangedDamage! - graspMeleeDamage! * graspRanged) < 1e-12
+    && Math.abs(graspRangedHeal! - graspMeleeHeal! * graspRanged) < 1e-12
+    && graspRangedHealth === graspMeleeHealth! * graspRanged,
+  "Grasp needs the reviewed charge windows and consistent ranged effects");
+  const graspAmounts = client("Grasp of the Undying");
+  for (const [key, value] of Object.entries({ PercentHealthDamage: graspMeleeDamage! / 100, Window: graspReadyWindow,
+    TriggerTime: graspCap * graspInterval, PercentHealthHeal: graspMeleeHeal! / 100,
+    MaxHealthPerProc: graspMeleeHealth!, RangedPenaltyMod: graspRanged, RangedHealthPerProc: graspRangedHealth!, MeleeFlatHeal: 0 })) {
+    agree("Grasp of the Undying", graspAmounts, key, value);
+  }
+  const graspMissile = record(game["Perks/Styles/Resolve/GraspOfTheUndying/Spells/RuinedKing_HealMis"], "Grasp heal missile");
+  const graspSpell = record(graspMissile.mSpell, "Grasp heal missile spell");
+  const graspMissileSpec = record(graspSpell.mMissileSpec, "Grasp heal missile specification");
+  const graspMovement = record(graspMissileSpec.movementComponent, "Grasp heal missile movement");
+  requireThat(graspMissile.mScriptName === "RuinedKing_HealMis" && graspMovement.__type === "FixedTimeMovement"
+    && Array.isArray(graspMissileSpec.behaviors) && graspMissileSpec.behaviors.length === 2
+    && record(graspMissileSpec.behaviors[0], "Grasp heal missile arrival").__type === "CastOnMovementComplete"
+    && record(graspMissileSpec.behaviors[1], "Grasp heal missile end").__type === "DestroyOnMovementComplete",
+  "Grasp needs the reviewed fixed-time heal missile and arrival behavior");
+  agree("Grasp heal missile", graspMovement, "mTravelTime", graspHealDelay);
+  const graspNotes = pages.get("Grasp of the Undying")!;
+  quote(graspNotes, "'''Grasp of the Undying''' deals {{tip|proc damage}}");
+  quote(graspNotes, "The damage dealt by '''Grasp of the Undying''' is not affected by on-hit damage modifiers.");
+  quote(graspNotes, "No longer apply its effect if the attack that would apply it is blocked.");
+  quote(graspNotes, "The empowered attack is primed for 5 seconds, refreshing whenever you deal or receive damage.");
+  quote(pages.get("Combat status")!, "* {{ri|Grasp of the Undying}}<!--damage-->");
+  quote(pages.get("Template:Data Gangplank/Parrrley")!, "applies {{tip|on-hit}} effects as a {{tip|ranged}} attack");
+  quote(pages.get("Template:Data Azir/Arise!")!, "the damage of which is reduced to 50% effectiveness");
+  quote(pages.get("Template:Data Urgot/Purge")!, "on-hit and on-attack damage reduced to 50% effectiveness");
 
   const conqueror = description("Conqueror");
   const [conqDuration, conqCap, conqMelee, conqRanged, conqSpell, conqCooldown] = matchNumbers("Conqueror stack gain", conqueror.text,
@@ -1343,6 +1412,10 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    grasp: { maxStacks: graspCap, stackInterval: graspInterval, combatWindow: graspCombatWindow,
+      readyWindow: graspReadyWindow, meleeDamageRatio: graspMeleeDamage! / 100, rangedDamageRatio: graspRangedDamage! / 100,
+      meleeHealRatio: graspMeleeHeal! / 100, rangedHealRatio: graspRangedHeal! / 100,
+      meleeHealth: graspMeleeHealth!, rangedHealth: graspRangedHealth!, healDelay: graspHealDelay },
     conqueror: { modelLevel: 20, maxStacks: conqCap, stackDuration: conqDuration!, castCooldown: conqCooldown!,
       meleeBasicStacks: conqMelee, rangedBasicStacks: conqRanged, spellStacks: conqSpell,
       adaptiveForcePerStack: conqForce, adaptiveADRatio: conqAD, adaptiveAPRatio: conqAP,

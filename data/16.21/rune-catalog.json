@@ -1070,7 +1070,7 @@
         "sha256": "016d11d96f6099062907667bfe767ec5c911a96695615c34fc0eff39e8d955a1",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Grasp of the Undying|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Entering [[Combat status|combat]] generates 1 [[stack]] every second for the next 3 seconds, refreshing the duration with each instance of combat and stacking the effect up to 4 times. At maximum stacks, your next [[basic attack]] {{tip|on-hit}} within 5 seconds against an enemy {{tip|champion}} consumes all stacks to deal {{as|'''bonus''' magic damage}} equal to {{as|{{rd|{{fd|3.5}}%|{{fd|1.4}}%}} of your '''maximum''' health}}, {{tip|heal}} you for {{as|{{rd|{{fd|1.3}}%|{{fd|0.52}}%}} of your '''maximum''' health)}}, and permanently grant you {{as|{{rd|5|2}} '''bonus''' health}}.\n|range        = \n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8439,

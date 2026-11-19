@@ -14,7 +14,9 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8437, 8444, 9101, 9103, 9104, 9105, 9111];
+const graspPath = "Perks/Styles/Resolve/GraspOfTheUndying";
+const graspHealMissile = graspPath + "/Spells/RuinedKing_HealMis";
 const tempoPath = "Perks/Styles/Precision/LethalTempo";
 const conquerorPath = "Perks/Styles/Precision/Conqueror";
 const tempoBolts = ["{6f0c6028}", "{720c64e1}", "{f7b50373}", "{f8b50506}"] as const;
@@ -80,6 +82,24 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Grasp of the Undying source rules", () => {
+  it("reads the exact melee and ranged ratios and the client missile's flight time", () => {
+    const grasp = build().grasp;
+    expect(grasp).toMatchObject({ maxStacks: 4, stackInterval: 1, combatWindow: 3, readyWindow: 5,
+      meleeHealth: 5, rangedHealth: 2, healDelay: 0.4 });
+    expect(grasp.meleeDamageRatio).toBeCloseTo(0.035, 14);
+    expect(grasp.rangedDamageRatio).toBeCloseTo(0.014, 14);
+    expect(grasp.meleeHealRatio).toBeCloseTo(0.013, 14);
+    expect(grasp.rangedHealRatio).toBeCloseTo(0.0052, 14);
+  });
+
+  it("fails when the Wiki and the frozen client disagree about ranged efficacy", () => {
+    const input = fixture();
+    editGame(input, game => { game[graspPath]!.mScript.mSpellScriptData.mEffectAmount.RangedPenaltyMod = 0.6; });
+    expect(() => build(input)).toThrow(/Grasp of the Undying Wiki\/game RangedPenaltyMod disagree/);
+  });
+});
 
 describe("Lethal Tempo source rules", () => {
   it("uses the level-20 formula and calculation multipliers despite the frozen ranged display values", () => {
@@ -405,10 +425,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(14).fill("manual-effects"));
+      .toEqual(Array(15).fill("manual-effects"));
   });
 
-  it("binds all ninety complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all ninety-five complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -500,6 +520,11 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Data Garen/Judgment", 4009435],
       ["Template:Data Wukong/Cyclone", 4021867],
       ["Template:Data Mordekaiser/Darkness Rise", 4070051],
+      ["Template:Rune data Grasp of the Undying", 4058228],
+      ["Grasp of the Undying", 4052352],
+      ["Template:Data Azir/Arise!", 4044339],
+      ["Template:Data Gangplank/Parrrley", 4063653],
+      ["Template:Data Urgot/Purge", 4058781],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -511,13 +536,15 @@ describe("reviewed combat rune numeric rules", () => {
       .toBe("3815191530203e108b4426841a4fb59c476e14be9430dd6907dae104a266c449");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 82))))
       .toBe("3709677749ded83a50d8ac439cb7415780319a6e86536dc8bd971b4a0d8f2862");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 90))))
+      .toBe("2fcb83a6bd54cf8eda8cd749fd23adb0ec7e09142df8c7b06b7cd22a48f893a0");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(90);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(95);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -658,11 +685,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 90 complete/);
+    expect(() => build(missing)).toThrow(/all 95 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 90 complete/);
+    expect(() => build(extra)).toThrow(/all 95 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -696,7 +723,8 @@ describe("exact source identity and completeness", () => {
     editWiki(wiki, "Damage modifier", () => excerpts);
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
-    const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath, triumphMissilePath, presenceMissilePath]);
+    const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath,
+      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });

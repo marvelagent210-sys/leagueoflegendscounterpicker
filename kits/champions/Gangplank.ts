@@ -193,7 +193,7 @@ const gangplank: KitModule = {
         delivery: { kind: "target", range: shotRange, missileSpeed: shotSpeed },
         onHit: [{ type: "damage", damageType: "physical", amount: shot, canCrit: true, label: q.name }],
         onAttackScale: 1,
-        flags: { projectile: true, spellShield: q.flag("spellShield") ?? true, parry: q.flag("parry") ?? true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 1 },
+        flags: { projectile: true, spellShield: q.flag("spellShield") ?? true, parry: q.flag("parry") ?? true, appliesOnHit: true, rangedOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 1 },
         // Kept for the keg once one is arming near the enemy.
         usable: (unit, world) => !kegsOf(world, unit).some((k) => covers(k.x, world.units[unit.side === 0 ? 1 : 0])),
       },

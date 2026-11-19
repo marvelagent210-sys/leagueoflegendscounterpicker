@@ -6,6 +6,7 @@ import { composeHooks, mapForms } from "../items/equip";
 import type { CombatRuneRules, RuneEffectEvidence } from "./effectRules";
 import { checkedLethalTempoRules } from "./lethalTempo";
 import { checkedConquerorRules } from "./conqueror";
+import { checkedGraspRules } from "./grasp";
 import { buildRuneEffect } from "./effectRuntime";
 import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
@@ -119,6 +120,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
   }
   const lethalTempo = checkedLethalTempoRules(value.lethalTempo);
   const conqueror = checkedConquerorRules(value.conqueror);
+  const grasp = checkedGraspRules(value.grasp);
   const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
@@ -186,7 +188,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack, fleetFootwork, lethalTempo, conqueror,
+    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },

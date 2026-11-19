@@ -60,7 +60,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Inspiration | 3 | Cosmic Insight | 8347 | Not implemented | [3825866](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Cosmic_Insight?oldid=3825866) |
 | Inspiration | 3 | Approach Velocity | 8410 | Not implemented | [3980961](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Approach_Velocity?oldid=3980961) |
 | Inspiration | 3 | Jack Of All Trades | 8316 | Not implemented | [4046578](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Jack_of_All_Trades?oldid=4046578) |
-| Resolve | Keystone | Grasp of the Undying | 8437 | Not implemented | [4058228](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Grasp_of_the_Undying?oldid=4058228) |
+| Resolve | Keystone | Grasp of the Undying | 8437 | Explicit partial manual selection | [4058228](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Grasp_of_the_Undying?oldid=4058228) |
 | Resolve | Keystone | Aftershock | 8439 | Not implemented | [4022990](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Aftershock?oldid=4022990) |
 | Resolve | Keystone | Guardian | 8465 | Not implemented | [4022993](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Guardian?oldid=4022993) |
 | Resolve | 1 | Demolish | 8446 | Not implemented | [4058470](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Demolish?oldid=4058470) |

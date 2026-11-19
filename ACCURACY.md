@@ -3397,6 +3397,31 @@ covering the matrices and browser caches, and the production web build
 passed locally on the generated commit.
 [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44447951398)
 
+## Grasp of the Undying (19 November 2026)
+
+Rune 8437 adds the first manual Resolve keystone and the fifteenth partial
+manual combat effect. The compiler verifies 95 complete Wiki revisions, the
+original versioned client file, and the normal-mode damage, healing, health
+and timing values. The selection tests cover all 32,768 subsets and accept
+714 legal selections, including 74 with Grasp. [Rune rules and sources](docs/runes/README.md#grasp-of-the-undying)
+
+Native tests cover charge renewal, exact deadline ticks, accepted zero and
+shielded damage, attack defenses, classified pets and clones, independent
+world copies, form changes, and champion-specific health conversions. The
+separate proc retains full damage when a native application reduces on-hit
+damage, including Purge and Azir's primary soldier. Parrrley uses the ranged
+coefficients. The heal uses a local 12-tick schedule informed by the client
+missile. [Timing and interaction limits](docs/runes/MECHANICS_GAPS.md#grasp-of-the-undying)
+
+The 19 November refresh recalculated all 14,878 pairings per default matrix
+with zero reuse. The audit matched all 29,756 checkpoints to both directions
+in the generated matrices. Aggregate scores, all six scenarios, selected kit
+variants, decoded item builds and stat spending reproduced the previous
+results. The item dictionary and interaction-ledger rankings also match.
+The two native matrix freshness checks, the offline catalog check, all 24
+matrix and browser-cache tests, and the production web build passed on the
+generated commit. [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44526299017)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

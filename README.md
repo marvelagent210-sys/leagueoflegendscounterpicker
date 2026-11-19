@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Fourteen partial combat effects are available in manual plain-stat duels, including all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
+- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Fifteen partial combat effects are available in manual plain-stat duels, including Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -70,6 +70,8 @@ Fleet Footwork (`8021`) is the twelfth partial manual effect. Each fighter decla
 Lethal Tempo (`8008`) adds up to six attack speed stacks. Qualifying attacks refresh the six-second timer, and attacks made with six stacks already held launch an adaptive damage bolt. Each side starts with zero stacks. The 19 November refresh verified all 29,756 pair results and reproduced both published default matrices. [Lethal Tempo rules and example](docs/runes/README.md#lethal-tempo) · [Refresh audit](ACCURACY.md#lethal-tempo-18-november-2026)
 
 Conqueror (`8010`) grants adaptive force up to twelve stacks and heals from qualifying champion damage at full stacks. The duel distinguishes separate casts, repeated damage from one cast, and reviewed attack and summon exceptions. The 19 November refresh verified all 29,756 pair results and reproduced both default matrices. [Conqueror rules and example](docs/runes/README.md#conqueror) · [Refresh audit](ACCURACY.md#conqueror-19-november-2026)
+
+Grasp of the Undying (`8437`) adds a Resolve keystone for manual duels. Damage charges the rune over four stacks. A qualifying champion hit spends the charge for magic damage, a delayed heal and permanent bonus health. Its ranged application, including Parrrley, uses 40% effectiveness. The 19 November refresh verified all 29,756 pair results and reproduced both default matrices. [Grasp rules and example](docs/runes/README.md#grasp-of-the-undying) · [Refresh audit](ACCURACY.md#grasp-of-the-undying-19-november-2026)
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
@@ -130,9 +132,9 @@ Triumph and Absorb Life (`9101`) share Precision's first lesser row and cannot b
 
 Presence of Mind shares that first lesser row, so select only one of `8009`, `9101` and `9111`. It requires an explicit Mana or Energy resource type; other types are rejected without automatic Triumph substitution. Presence needs no history flag. One Legend can accompany it with that side's declared points, and explicit stat shards remain available; combat-rune flags still reject fixed items and build search.
 
-Choose one of Press the Attack, Lethal Tempo, Fleet Footwork and Conqueror per fighter. Declare a starting pool from 0 through 100 for each side selecting Fleet. Movement and attacks charge it. At 100, an eligible champion hit spends the pool for healing and one second of bonus movement speed. [Fleet rules](docs/runes/README.md#fleet-footwork)
+Choose one of Press the Attack, Lethal Tempo, Fleet Footwork, Conqueror and Grasp of the Undying per fighter. Declare a starting pool from 0 through 100 for each side selecting Fleet. Movement and attacks charge it. At 100, an eligible champion hit spends the pool for healing and one second of bonus movement speed. [Fleet rules](docs/runes/README.md#fleet-footwork)
 
-Each supported keystone can accompany a compatible first-row choice, one declared Legend and one health-damage rune, plus Second Wind, subject to the page validator. Press the Attack, Lethal Tempo and Conqueror use the champion's recorded adaptive tie type and start at zero stacks. Item/rune composition, full pages, browser combat-rune controls and rune-aware search remain unfinished.
+A Precision keystone can accompany a compatible first-row choice, one declared Legend and one health-damage rune, plus Second Wind. Grasp uses Resolve primary, so its page can include Second Wind and up to two Precision lesser runes from distinct rows. Press the Attack, Lethal Tempo and Conqueror use the champion's recorded adaptive tie type and start at zero stacks. Item/rune composition, full pages, browser combat-rune controls and rune-aware search remain unfinished.
 
 Verified manual examples for the retained dataset:
 
