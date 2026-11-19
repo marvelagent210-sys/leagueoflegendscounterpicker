@@ -3387,9 +3387,15 @@ spell, exact lockout and expiry ticks, form changes, absorption, healing
 modifiers, reviewed champion contacts and summoned attacks.
 [Manual duel rules](docs/runes/README.md#conqueror)
 
-The new shared engine inputs require all 14,878 pairings in each default
-matrix to be recalculated. The refresh verifies the generated results before
-delivery.
+The 19 November refresh recalculated all 14,878 pairings per matrix with
+zero reuse. The audit matched all 29,756 checkpoints to both directions in
+the delivered matrices. Aggregate scores, all six scenarios, chosen kit
+variants, decoded item builds and stat spending reproduced the previous
+results. The item dictionary and interaction-ledger rankings also match.
+Both native matrix freshness checks, the offline catalog check, 24 tests
+covering the matrices and browser caches, and the production web build
+passed locally on the generated commit.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44447951398)
 
 ## Remaining limits
 

@@ -28,7 +28,9 @@ numeric rules, provenance and compatibility limits.
 
 Conqueror gives manual duels all four Precision keystones. It adds
 adaptive force, full-stack healing and cast identity for repeated damage
-and reviewed summon attacks. [Conqueror rules](runes/README.md#conqueror) · [Accuracy log](../ACCURACY.md#conqueror-19-november-2026)
+and reviewed summon attacks. The 19 November refresh recalculated and
+verified all 14,878 pairings in each matrix, reproducing both previous
+default results. [Conqueror rules](runes/README.md#conqueror) · [Accuracy log](../ACCURACY.md#conqueror-19-november-2026)
 
 Lethal Tempo adds timed attack speed stacks, immediate form-dependent scaling
 and separate adaptive projectile damage. Its manual duel model fires the first

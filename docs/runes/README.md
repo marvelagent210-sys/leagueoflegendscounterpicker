@@ -4,6 +4,8 @@ The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
 Manual plain-stat duels also support fourteen partial combat effects, including
 Conqueror, Lethal Tempo, Fleet Footwork and Press the Attack.
+The Conqueror refresh recalculated all 14,878 pairings per default matrix
+and reproduced both previous results. [Conqueror refresh audit](../../ACCURACY.md#conqueror-19-november-2026)
 The Fleet Footwork refresh verified both default matrices against 29,756
 pair results and reproduced the prior published results.
 [Refresh audit](../../ACCURACY.md#matchup-refresh-and-recovery)

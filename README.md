@@ -69,7 +69,7 @@ Fleet Footwork (`8021`) is the twelfth partial manual effect. Each fighter decla
 
 Lethal Tempo (`8008`) adds up to six attack speed stacks. Qualifying attacks refresh the six-second timer, and attacks made with six stacks already held launch an adaptive damage bolt. Each side starts with zero stacks. The 19 November refresh verified all 29,756 pair results and reproduced both published default matrices. [Lethal Tempo rules and example](docs/runes/README.md#lethal-tempo) · [Refresh audit](ACCURACY.md#lethal-tempo-18-november-2026)
 
-Conqueror (`8010`) grants adaptive force up to twelve stacks and heals from qualifying champion damage at full stacks. The duel distinguishes separate casts, repeated damage from one cast, and reviewed attack and summon exceptions. [Conqueror rules and example](docs/runes/README.md#conqueror)
+Conqueror (`8010`) grants adaptive force up to twelve stacks and heals from qualifying champion damage at full stacks. The duel distinguishes separate casts, repeated damage from one cast, and reviewed attack and summon exceptions. The 19 November refresh verified all 29,756 pair results and reproduced both default matrices. [Conqueror rules and example](docs/runes/README.md#conqueror) · [Refresh audit](ACCURACY.md#conqueror-19-november-2026)
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
