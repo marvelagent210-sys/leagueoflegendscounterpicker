@@ -3441,6 +3441,20 @@ The hook composition change also required updating the fixed-item adaptive
 shard implementation digest. The review compared all 114 covered files
 and traced the two added cases to numeric damage modifier composition.
 
+A 346-duel smoke check equipped Bone Plating on both sides and covered all
+173 champion kits. Every kit activated the rune, and each recorded spend
+followed its 1.5-second window and three-plate limit.
+
+The 19 November refresh recalculated all 14,878 pairings in each default
+matrix with zero reuse. All 29,756 checkpoints match the assembled results
+in both directions. Aggregate scores, all six scenarios, selected variants,
+decoded item builds, and stat spending reproduce the previous results.
+The item dictionary and interaction-ledger rankings also match.
+Local assembly from the checkpoints reproduced all four generated files
+byte for byte. Both matrix freshness checks, the offline rune catalog
+check, 54 targeted tests, and the production web build passed.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44559485221)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
