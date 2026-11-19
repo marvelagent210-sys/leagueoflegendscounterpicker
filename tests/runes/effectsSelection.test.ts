@@ -18,6 +18,10 @@ const fighter = (options: Parameters<typeof baseFighter>[0] = {}): FighterSpec =
   baseFighter({ ...options, base: { armor: 0, mr: 0, ...options.base } });
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  lethalTempo: { modelLevel: 20, maxStacks: 6, stackDuration: 6, decayInterval: 0.3,
+    attackSpeedPerStack: 0.06, rangedAttackSpeedRatio: 0.8, boltDamage: 552 / 17,
+    rangedBoltRatio: 0.667, bonusAttackSpeedRatio: 1, boltSpeed: 2500,
+    boltGate: "max-stacks-before-attack", boltStatModel: "at-launch", boltTravelModel: "fixed-endpoint" },
   fleetFootwork: { modelLevel: 20, healBase: 124257 / 680, bonusADRatio: 0.1, apRatio: 0.05,
     rangedHealRatio: 0.6, minionHealRatio: 0.15, moveSpeedIncrease: 0.2, rangedMoveSpeedRatio: 0.75,
     moveSpeedDuration: 1, maxCharges: 100, attackCharges: 6, unitsPerCharge: 24,
@@ -57,21 +61,21 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely 384 of the 4,096 subsets of the twelve implemented effects", () => {
-    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
+  it("accepts precisely 512 of the 8,192 subsets of the thirteen implemented effects", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8014, 8017, 8021, 8299, 8444, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
       const legends = selected.filter((id) => id === 9103 || id === 9104 || id === 9105);
       const precisionRowOne = selected.filter((id) => id === 8009 || id === 9101 || id === 9111);
-      const keystones = selected.filter(id => id === 8005 || id === 8021);
+      const keystones = selected.filter(id => id === 8005 || id === 8008 || id === 8021);
       if (amps.length <= 1 && legends.length <= 1 && precisionRowOne.length <= 1 && keystones.length <= 1) {
         expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
         accepted++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow(selected.length > 6 ? /at most six/ : /same path row/);
     }
-    expect(accepted).toBe(384);
+    expect(accepted).toBe(512);
   });
 
   it.each([null, undefined, "8014", ["8014"], [NaN], [Infinity], [8014.5],

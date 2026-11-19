@@ -4,6 +4,7 @@ import { toTicks } from "../engine/rules/time";
 import type { FighterSpec, KitHooks } from "../engine/sim/spec";
 import { composeHooks, mapForms } from "../items/equip";
 import type { CombatRuneRules, RuneEffectEvidence } from "./effectRules";
+import { checkedLethalTempoRules } from "./lethalTempo";
 import { buildRuneEffect } from "./effectRuntime";
 import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
@@ -115,6 +116,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     || !/^\d+\.\d+$/.test(value.patch) || value.dataset !== catalog.dataset || value.patch !== catalog.patch) {
     throw new Error("Combat-rune rules must identify the source catalog's dataset and patch");
   }
+  const lethalTempo = checkedLethalTempoRules(value.lethalTempo);
   const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
@@ -182,7 +184,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack, fleetFootwork,
+    pressTheAttack, fleetFootwork, lethalTempo,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },

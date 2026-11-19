@@ -112,6 +112,7 @@ const yone: KitModule = {
           usable: (unit, world) => storm(unit, world) < 2,
           delivery: { kind: "line", range: q.field("range", "Thrust range"), width: q.field("width", "Thrust width") },
           onHit: steel,
+          onAttackScale: 1,
           flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, projectile: false },
         }),
         mortal("Q3", {
@@ -120,6 +121,7 @@ const yone: KitModule = {
           // Yone dashes forward with the whirlwind, knocking up enemies in his path.
           delivery: { kind: "dash", direction: "toward", distance: q.field("range", "Third cast dash distance"), speed: q.field("speed"), hitRadius: q.field("collisionRadius") },
           onHit: [...steel, { type: "displace", direction: "away", distance: 0, duration: knockUp }],
+          onAttackScale: 1,
           flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, grounded: true, knockdown: true },
         }),
         {

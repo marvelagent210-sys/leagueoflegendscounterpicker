@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus twelve partial combat effects in manual plain-stat duels. Fleet Footwork lets each side declare how charged it is at the start of a fight. Press the Attack is the first supported keystone. Its 17 November refresh reproduced all default matchup results. Presence of Mind implementation began on 13 November; its local provenance refresh reused all 14,878 pairings per matrix with zero new computation. Complete default result payloads are unchanged; local validation passed 9,510 tests with five existing skips. Pull-request checks run separately against the delivery head. Triumph's genuine full refresh and checkpoint audit completed on 11 November, with default result payloads unchanged. Bloodline's genuine full matrix refresh and checkpoint audit completed on 10 November; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
+- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Thirteen partial combat effects are available in manual plain-stat duels, including three Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -67,6 +67,8 @@ Press the Attack (`8005`) is the eleventh partial manual effect and the first Pr
 
 Fleet Footwork (`8021`) is the twelfth partial manual effect. Each fighter declares its starting Energized charges. At 100 charges, a qualifying hit heals and grants one second of bonus movement speed. On 18 November the refresh verified all 29,756 pair results. Both default matrices match the previous published calculations. [Fleet rules and example](docs/runes/README.md#fleet-footwork) · [Refresh audit](ACCURACY.md#matchup-refresh-and-recovery)
 
+Lethal Tempo (`8008`) adds up to six attack speed stacks. Qualifying attacks refresh the six-second timer, and attacks made with six stacks already held launch an adaptive damage bolt. Each side starts with zero stacks. The 19 November refresh verified all 29,756 pair results and reproduced both published default matrices. [Lethal Tempo rules and example](docs/runes/README.md#lethal-tempo) · [Refresh audit](ACCURACY.md#lethal-tempo-18-november-2026)
+
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
 ## Matchups and counters
@@ -105,16 +107,15 @@ npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8005 --log b
 npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8005,9111,9104,8014 --legend-points 0
                                              # one Precision choice per row; only the named effects are equipped
 npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8021 --energized-charges 100 --enemy-combat-runes 8021 --enemy-energized-charges 0 --log brawl
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8008 --enemy-combat-runes 8008 --log brawl
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
 npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
 ```
 
-Garen's Judgment excludes the recorded attack-speed shard and active Alacrity
-rune attack speed from spin scaling; both retain their normal combat benefits.
-Other attack-speed sources retain
-the existing model, including unresolved temporary item-passive eligibility.
-See the [rune audit](docs/runes/README.md) for the source and timing limits.
+Garen's Judgment excludes the attack-speed shard and the attack speed gained
+from Alacrity and Lethal Tempo. All three apply to basic attacks. Temporary
+item-passive eligibility for Judgment remains unresolved. [Rune audit](docs/runes/README.md)
 
 Bloodline (`9103`) has zero base life steal and grants 0.45% per completed 100-point stack, up to
 15 stacks and 6.75%; its direct 85 bonus health is awarded only at 1,500 points.
@@ -126,9 +127,9 @@ Triumph and Absorb Life (`9101`) share Precision's first lesser row and cannot b
 
 Presence of Mind shares that first lesser row, so select only one of `8009`, `9101` and `9111`. It requires an explicit Mana or Energy resource type; other types are rejected without automatic Triumph substitution. Presence needs no history flag. One Legend can accompany it with that side's declared points, and explicit stat shards remain available; combat-rune flags still reject fixed items and build search.
 
-Fleet Footwork (`8021`) shares Precision’s keystone row with Press the Attack. Declare a starting pool from 0 through 100 for each side selecting Fleet. Movement and attacks charge it. At 100, an eligible champion hit spends the pool for healing and one second of bonus movement speed. [Fleet rules and assumptions](docs/runes/README.md#fleet-footwork)
+Choose one of Press the Attack, Lethal Tempo and Fleet Footwork per fighter. Declare a starting pool from 0 through 100 for each side selecting Fleet. Movement and attacks charge it. At 100, an eligible champion hit spends the pool for healing and one second of bonus movement speed. [Fleet rules](docs/runes/README.md#fleet-footwork)
 
-Press the Attack can accompany a compatible first-row choice, one declared Legend and one health-damage rune, plus Second Wind, subject to the page validator. It needs the champion's recorded adaptive damage tie type and has no history flag of its own. Item/rune composition, full pages, browser combat-rune controls and rune-aware allocation/search remain unfinished.
+Each supported keystone can accompany a compatible first-row choice, one declared Legend and one health-damage rune, plus Second Wind, subject to the page validator. Press the Attack and Lethal Tempo use the champion's recorded adaptive damage tie type and start at zero stacks. Item/rune composition, full pages, browser combat-rune controls and rune-aware search remain unfinished.
 
 Verified manual examples for the retained dataset:
 

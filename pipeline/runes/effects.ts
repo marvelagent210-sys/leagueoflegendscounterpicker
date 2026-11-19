@@ -418,9 +418,20 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     "revid": 4013385,
     "timestamp": "2026-04-29T06:29:08Z",
     "sha256": "5fea1a662db366a60b32f3f3c043c11143250cb2feca815803b2ae3c20411795"
-  }
+  },
+  "Lethal Tempo": {
+    revid: 4060427,
+    timestamp: "2026-09-10T00:13:01Z",
+    sha256: "ef02af32b0ccd61c559446203b86e1a81ad63ddfc6fe66a5e79423a61bdca7e4",
+  },
+  "Template:Rune data Lethal Tempo": {
+    revid: 4065934,
+    timestamp: "2026-09-24T08:48:40Z",
+    sha256: "360eb66df82e0fe0c92ba4c0fb2714225147916404eccd9e8c53a38d677dde27",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8008, name: "Lethal Tempo", path: 8000, slot: 0, game: "Perks/Styles/Precision/LethalTempo" },
   { id: 8021, name: "Fleet Footwork", path: 8000, slot: 0, game: "Perks/Styles/Precision/FleetFootwork" },
   { id: 8005, name: "Press the Attack", path: 8000, slot: 0, game: "Perks/Styles/Precision/PressTheAttack" },
   { id: 9101, name: "Absorb Life", path: 8000, slot: 1, game: "Perks/Styles/Precision/AbsorbLife" },
@@ -434,6 +445,13 @@ const RUNE_SOURCES = [
   { id: 9105, name: "Legend: Haste", path: 8000, slot: 2, game: "Perks/Styles/Precision/LegendHaste" },
   { id: 8444, name: "Second Wind", path: 8400, slot: 2, game: "Perks/Styles/Resolve/SecondWind" },
 ] as const;
+const TEMPO_PERK = "Perks/Styles/Precision/LethalTempo";
+const TEMPO_BOLT_HASHES = {
+  "{6f0c6028}": "a3e7635d0e8ad6e452d6c9ae82c0e37ac2f5f93e3eacfb0b6d6d187e870a8687",
+  "{720c64e1}": "eaacf0534014a32ab90edf17ffad55b658a16177b5f23bd0d707bfd0309a17c0",
+  "{f7b50373}": "68ed2d8f373f0b79ebed2ee325c3f1dbb4a10a2c0e59e1e78b7fc27432bcb9f3",
+  "{f8b50506}": "33e24ce42c27c525de01e585a908ddc80f0901aa06e160e3d3ac52dd9bd56f0f",
+} as const;
 const FLEET_REVIEWED_GAME_HASHES: Readonly<Record<string, string>> = {
   "Perks/Styles/Precision": "a2a9d7627cd2a88bea99d5f94e7ed2597b6e6fded407dc7c3be0cabd17b4864e",
   "Perks/Styles/Precision/FleetFootwork": "6acb0bb449c7ebfee00480418e9c6e916ebbc4cec6245ed5404ea1e54a255bd3",
@@ -527,6 +545,79 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const tempo = description("Lethal Tempo");
+  const tempoRow = (index: number): string => {
+    const rows = tempo.page.content.split("\n").filter(line => line.startsWith("|description" + index + " "));
+    requireThat(rows.length === 1, "Lethal Tempo needs the complete reviewed description row " + index);
+    quote(tempo.page, rows[0]!);
+    return rows[0]!;
+  };
+  const tempoBoltText = tempoRow(2);
+  const [tempoDuration, tempoCap, tempoAS, tempoASRepeated, tempoRangedAS, tempoMaxAS, tempoMaxRepeated, tempoMaxRangedAS]
+    = matchNumbers("Lethal Tempo stack and speed", tempo.text,
+      /grant a \{\{tip\|stack\}\} for (\d+) seconds, refreshing on subsequent attacks and stacking up to (\d+) times\. Gain \{\{as\|\{\{rd\|([\d.]+)%\|\{\{ap\|([\d.]+)\*([\d.]+)\}\}%\}\} '''bonus''' attack speed\|as\}\} for each stack, up to \{\{as\|\{\{rd\|([\d.]+)%\|\{\{ap\|([\d.]+)\*([\d.]+)\}\}%/);
+  const [tempoBase, tempoMax, tempoBaseRepeated, tempoInterval, tempoStart, tempoLevel, tempoRangedBolt]
+    = matchNumbers("Lethal Tempo bolt growth", tempoBoltText,
+      /\{\{rd\|(\d+) \+ \((\d+)-(\d+)\)\/(\d+)\*\(x-(\d+)\) for (\d+)\|\(\1 \+ \(\2-\3\)\/\4\*\(x-\5\)\)\*([\d.]+) for \6\|pp=true\}\}/);
+  const [tempoScaling, tempoPer] = matchNumbers("Lethal Tempo bonus attack speed scaling", tempoBoltText,
+    /upon arrival, increased by ([\d.]+)% per \{\{as\|([\d.]+)% '''bonus''' attack speed\}\}/);
+  const [tempoDecay] = matchNumbers("Lethal Tempo stack decay", tempoRow(3),
+    /one stack expires immediately and the rest expire one by one every \{\{fd\|([\d.]+)\}\} seconds/);
+  requireThat(tempoCap === 6 && tempoDuration! > 0 && tempoDecay! > 0 && tempoAS! > 0 && tempoAS === tempoASRepeated
+    && tempoMaxAS === tempoMaxRepeated && tempoMaxAS === tempoCap * tempoAS!
+    && tempoRangedAS === tempoMaxRangedAS && tempoRangedAS! > 0 && tempoRangedAS! <= 1
+    && tempoLevel === TOP_LANE_MAX_LEVEL && tempoStart === 1 && tempoInterval === 17
+    && tempoBase === tempoBaseRepeated && tempoBase! > 0 && tempoMax! > tempoBase!
+    && tempoRangedBolt! > 0 && tempoRangedBolt! <= 1 && tempoScaling === 1 && tempoPer === 1,
+  "Lethal Tempo needs consistent stack, decay, melee and ranged bolt formula terms");
+  const tempoAmounts = client("Lethal Tempo");
+  for (const [key, value] of Object.entries({ Duration: tempoDuration!, MaxStacks: tempoCap,
+    TTASPerStackMelee: tempoAS! / 100, TTMinNoteDamageMelee: tempoBase!, TTMaxNoteDamageMelee: tempoMax!,
+    TTASPerStackRanged: 0.04, TTMinNoteDamageRanged: 6, TTMaxNoteDamageRanged: 24, PerfectlyTimedForgivance: 0.25 })) {
+    agree("Lethal Tempo", tempoAmounts, key, value);
+  }
+  // The ranged display fields above disagree with the current calculations.
+  // Qualify the complete calculations, then read the multipliers used there.
+  const tempoCalcs = record(clientData("Lethal Tempo").mCalculations, "Lethal Tempo calculations");
+  const tempoSpeedCalc = record(tempoCalcs.ASPerStack, "Lethal Tempo ASPerStack");
+  const tempoBoltCalc = record(tempoCalcs.NoteDamage, "Lethal Tempo NoteDamage");
+  agree("Lethal Tempo", record(tempoSpeedCalc.mRangedMultiplier, "ASPerStack modifier"), "mNumber", tempoRangedAS!);
+  agree("Lethal Tempo", record(tempoBoltCalc.mRangedMultiplier, "NoteDamage modifier"), "mNumber", tempoRangedBolt!);
+  requireThat(sha256(JSON.stringify(game[TEMPO_PERK])) === "fc1df73c3b6016d4b7d3203a21c951b0d4159edf9e41ef10f7cd75ed0372e8a6",
+    "Lethal Tempo complete client perk or calculation changed");
+  const tempoSpeeds = Object.entries(TEMPO_BOLT_HASHES).map(([key, hash]) => {
+    const bolt = record(game[key], "Lethal Tempo bolt " + key);
+    requireThat(sha256(JSON.stringify(bolt)) === hash, "Lethal Tempo complete bolt object changed " + key);
+    const spell = record(bolt.mSpell, "Lethal Tempo bolt spell");
+    const missile = record(spell.mMissileSpec, "Lethal Tempo bolt missile");
+    const movement = record(missile.movementComponent, "Lethal Tempo bolt movement");
+    requireThat(movement.__type === "FixedSpeedSplineMovement" && movement.mTracksTarget === false
+      && typeof movement.mSpeed === "number" && Number.isFinite(movement.mSpeed) && movement.mSpeed > 0,
+    "Lethal Tempo bolt needs a positive reviewed nontracking spline speed");
+    return movement.mSpeed;
+  });
+  const tempoBoltSpeed = tempoSpeeds[0]!;
+  requireThat(tempoSpeeds.every(speed => speed === tempoBoltSpeed), "Lethal Tempo bolt speed disagrees across client variants");
+  const tempoNoteSources: readonly [string, RegExp][] = [
+    ["Lethal Tempo", /will not trigger \[\[spell effects\]\]/],
+    ["Lethal Tempo", /switching between Hammer and Cannon changes them immediately/],
+    ["Lethal Tempo", /values above are the ones actually dealt/],
+    ["Lethal Tempo", /own attack speed stacks count/],
+    ["Lethal Tempo", /Attack speed above the attack speed cap still increases the damage/],
+    ["Lethal Tempo", /grants stacks when attacking champion clones/],
+    ["Lethal Tempo", /no longer incorrectly destroys spell shields/],
+    ["Attack effects", /^The following effects trigger when a champion ''completes''/],
+    ["Attack effects", /^The following trigger on-attack effects upon/],
+    ["Template:Tip data/Adaptive damage", /^\|description\s*=/],
+  ];
+  for (const [title, pattern] of tempoNoteSources) {
+    const page = pages.get(title)!;
+    const rows = page.content.split("\n").filter(line => pattern.test(line));
+    requireThat(rows.length === 1, "Lethal Tempo needs the reviewed contextual rule from " + title + ": " + pattern);
+    quote(page, rows[0]!);
+  }
+  const tempoBoltDamage = tempoBase! + (tempoMax! - tempoBase!) * (TOP_LANE_MAX_LEVEL - tempoStart) / tempoInterval;
 
   const fleet = description("Fleet Footwork");
   const fleetDescriptionRows = fleet.page.content.split("\n").filter(line => /^\|description2\s*=/.test(line));
@@ -1171,6 +1262,10 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    lethalTempo: { modelLevel: 20, maxStacks: tempoCap, stackDuration: tempoDuration!, decayInterval: tempoDecay!,
+      attackSpeedPerStack: tempoAS! / 100, rangedAttackSpeedRatio: tempoRangedAS!, boltDamage: tempoBoltDamage,
+      rangedBoltRatio: tempoRangedBolt!, bonusAttackSpeedRatio: tempoScaling / tempoPer, boltSpeed: tempoBoltSpeed,
+      boltGate: "max-stacks-before-attack", boltStatModel: "at-launch", boltTravelModel: "fixed-endpoint" },
     fleetFootwork: { modelLevel: 20, healBase: fleetHealBase, bonusADRatio: fleetADPercent! / 100, apRatio: fleetAPPercent! / 100,
       rangedHealRatio: fleetRangedRatio!, minionHealRatio: fleetMinionPercent! / 100, moveSpeedIncrease: fleetMSPercent! / 100,
       rangedMoveSpeedRatio: fleetRangedMSPercent! / fleetMSPercent!, moveSpeedDuration: fleetDuration!,

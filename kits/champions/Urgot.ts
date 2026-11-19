@@ -62,6 +62,7 @@ const urgot: KitModule = {
     kit.assume("Disdain's fling over Urgot is left out.");
     kit.assume("Fear Beyond Death's slow is set when the drill hits, from the target's missing health then.");
     kit.assume("Mercy's preliminary push of up to 1000 units is omitted: the wiki gives no proximity formula. Its subsequent pull follows the target toward Urgot over the channel.");
+    const purgeOnAttack = w.quoted("on-hit and on-attack damage reduced to 50% effectiveness", 0) / 100;
     const purge: AbilitySpec = {
       key: "W",
       activation: "toggle",
@@ -70,7 +71,7 @@ const urgot: KitModule = {
       cooldown: 0,
       castTime: 0,
       delivery: { kind: "self" },
-      onHitScale: w.quoted("on-hit and on-attack damage reduced to 50% effectiveness", 0) / 100,
+      onHitScale: purgeOnAttack, onAttackScale: purgeOnAttack,
       flags: { parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: false },
     };
     innate.quote("It bypasses blocking and dodging effects");

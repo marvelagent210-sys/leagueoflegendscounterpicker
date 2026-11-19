@@ -158,6 +158,7 @@ const briar: KitModule = {
         { type: "stat", stat: "mrReductionPercent", amount: { base: shred }, duration: shredSeconds },
       ],
       onSelf: [{ type: "resetAttack" }],
+      onAttackScale: 1,
       flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: true, knockdown: true },
       roles: ["engage", "cc", "damage"],
     };

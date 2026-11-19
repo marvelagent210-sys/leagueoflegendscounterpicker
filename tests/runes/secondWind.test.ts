@@ -14,6 +14,10 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  lethalTempo: { modelLevel: 20, maxStacks: 6, stackDuration: 6, decayInterval: 0.3,
+    attackSpeedPerStack: 0.06, rangedAttackSpeedRatio: 0.8, boltDamage: 552 / 17,
+    rangedBoltRatio: 0.667, bonusAttackSpeedRatio: 1, boltSpeed: 2500,
+    boltGate: "max-stacks-before-attack", boltStatModel: "at-launch", boltTravelModel: "fixed-endpoint" },
   fleetFootwork: { modelLevel: 20, healBase: 124257 / 680, bonusADRatio: 0.1, apRatio: 0.05,
     rangedHealRatio: 0.6, minionHealRatio: 0.15, moveSpeedIncrease: 0.2, rangedMoveSpeedRatio: 0.75,
     moveSpeedDuration: 1, maxCharges: 100, attackCharges: 6, unitsPerCharge: 24,

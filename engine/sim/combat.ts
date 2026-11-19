@@ -297,8 +297,10 @@ export function observeMovementSegment(world: World, target: Unit, from: number,
 export function notifyBasicAttackLaunched(world: World, source: Unit, target: Unit | undefined, action: Extract<Action, { kind: "windup" }>): void {
   const callback = source.spec.hooks?.onBasicAttackLaunched;
   if (!callback) return;
+  const triggersOnAttack = source.spec.attack.triggersOnAttack !== false;
   const launch: BasicAttackLaunchedSnapshot = Object.freeze({ tick: world.tick, sequence: combatEventSequence(world),
-    triggersOnAttack: source.spec.attack.triggersOnAttack !== false, source: combatIdentity(world, source), ...(target ? { target: combatIdentity(world, target) } : {}), blinded: action.blinded,
+    triggersOnAttack, onAttackEffects: triggersOnAttack ? action.onAttackEffects ?? "all" : "none",
+    source: combatIdentity(world, source), ...(target ? { target: combatIdentity(world, target) } : {}), blinded: action.blinded,
     ...(action.pet !== undefined ? { declaredPetId: action.pet } : {}),
     ...(action.attackTag !== undefined ? { attackTag: action.attackTag } : {}) });
   const ctx = { ...hookContext(world, source, undefined, target), launch };
@@ -1229,12 +1231,12 @@ function resolveAbilityHit(world: World, caster: Unit, target: Unit, ability: Ab
     addStatus(target, { kind: "mark", key: `falloff:${group}:${world.nextId++}`, source: caster.side, startTick: world.tick, endTick: world.tick + toTicks(window), value: scale });
   }
   if (ability.flags?.appliesOnHit && !(ability.flags.dodgeStopsOnHit && hasState(target, "dodgeAttacks"))) applyOnHit(world, caster, target, [], blocked, scale * (ability.onHitScale ?? 1), false, undefined, ability, dodged, undefined, scale);
-  // Burst Fire's later primary rounds can spend Energized without applying a second generic on-hit.
-  if (ability.energizedFollowUp !== undefined && !blocked && Number.isFinite(scale) && scale > 0) {
-    const followUp = caster.spec.hooks?.onEnergizedFollowUp;
+  // A later primary round can be the first accepted contact of its burst.
+  if (ability.primaryBurstFollowUp !== undefined && !blocked && Number.isFinite(scale) && scale > 0) {
+    const followUp = caster.spec.hooks?.onPrimaryBurstRound;
     if (followUp) {
-      const ctx = { ...hookContext(world, caster, undefined, target), burst: ability.energizedFollowUp };
-      Object.defineProperty(ctx, "burst", { writable: false, configurable: false });
+      const ctx = { ...hookContext(world, caster, undefined, target), burst: ability.primaryBurstFollowUp, scale };
+      Object.defineProperties(ctx, { burst: { writable: false, configurable: false }, scale: { writable: false, configurable: false } });
       runHook(() => followUp(ctx));
     }
   }
@@ -1266,9 +1268,10 @@ export function abilityHitPet(world: World, caster: Unit, pet: Pet, ability: Abi
 
 /** Capture an explicitly accepted kit-owned on-hit before applying its legacy effects.
  * The caller owns native contact/avoidance guards; this helper creates no hit or damage. */
-export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit, options: { blocked: boolean; scale?: number; incomingScale?: number; ability?: AbilitySpec; attackOptions?: AttackHitOptions }): ResolvedOnHitSnapshot | undefined {
+export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit, options: { blocked: boolean; scale?: number; incomingScale?: number; onAttackScale?: number; ability?: AbilitySpec; attackOptions?: AttackHitOptions }): ResolvedOnHitSnapshot | undefined {
   if (!attacker.spec.hooks?.onResolvedOnHit) return;
   const { ability, blocked, attackOptions, scale = 1, incomingScale = scale } = options;
+  const onAttackScale = options.onAttackScale ?? ability?.onAttackScale ?? attackOptions?.onAttackScale;
   return Object.freeze({
     tick: world.tick, sequence: combatEventSequence(world),
     source: combatIdentity(world, attacker), target: combatIdentity(world, target), attack: ability === undefined,
@@ -1276,7 +1279,8 @@ export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit,
       flags: Object.freeze({ ...ability.flags }), ...(ability.onHitScale !== undefined ? { onHitScale: ability.onHitScale } : {}) }) } : {}),
     blocked, scale, incomingScale,
     ...(attackOptions?.energizedOnHit !== undefined ? { energizedOnHit: attackOptions.energizedOnHit } : {}),
-    ...(attackOptions?.energizedBurst !== undefined ? { energizedBurst: attackOptions.energizedBurst } : {}),
+    ...(attackOptions?.attackBurst !== undefined ? { attackBurst: attackOptions.attackBurst } : {}),
+    ...(onAttackScale !== undefined ? { onAttackScale } : {}),
     pressTheAttackEligible: ability ? ability.flags?.pressTheAttack === true : attackOptions?.pressTheAttack !== false,
   });
 }

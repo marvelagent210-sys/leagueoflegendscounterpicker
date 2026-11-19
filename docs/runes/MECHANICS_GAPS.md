@@ -8,6 +8,29 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Lethal Tempo
+
+The template gives the stacking, decay and bolt formula. The simulator processes
+decay before an attack on the same tick and requires six stacks before the attack
+to launch the first bolt. Measurements would resolve the sixth-attack ordering
+and exact stat sampling phase. The four frozen client bolt objects give a
+2,500-unit/s nontracking spline in their nested movement data. Their outer
+fields give 1,800 speed and 0.25 seconds of cast time. The model uses the
+nested speed and one-dimensional flight from the launch point. Exact spline
+length, interception, displacement of the target and delivery after the source
+dies need live validation. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4065934) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427)
+
+Riot’s clone fix establishes stack gain when attacking a champion clone. Clone
+bolt damage and source inheritance remain open. The duel checks living
+positive-HP bodies and native target protection, including reanimated bodies
+where the engine marks them alive and eligible. It treats positive
+fractional contacts as full stacks and scales their bolt damage by contact
+share and on-attack effectiveness. The source notes leave the timing of these
+partial applications and Azir soldiers’ bolt eligibility open. In the duel,
+soldier commands grant stacks and personal attacks can launch the bolt.
+Bolts use standard projectile defenses and are outside the AI’s ability
+forecast. [Riot 14.20 notes](https://www.leagueoflegends.com/en-us/news/game-updates/patch-14-20-notes/) · [Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) · [Manual duel rules](README.md#lethal-tempo)
+
 ## Fleet Footwork
 
 The sources distinguish charge gain at basic windup completion from spending

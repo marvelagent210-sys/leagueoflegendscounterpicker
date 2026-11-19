@@ -104,7 +104,7 @@ export function buildFleetFootwork(input: Pick<CombatRuneRules, "fleetFootwork">
         if (!Number.isFinite(distance)) throw new Error("Fleet Footwork needs a finite movement segment");
         if (distance > 0) gain(ctx, distance / rules.unitsPerCharge);
       },
-      onEnergizedFollowUp(ctx) {
+      onPrimaryBurstRound(ctx) {
         if (!isBody(ctx) || !ctx.self.alive || ctx.self.hp <= 0
           || ctx.enemy === ctx.self || ctx.enemy.petId !== undefined || ctx.enemy.spec.unitClass === "clone"
           || ctx.world.units[ctx.enemy.side] !== ctx.enemy) return;
@@ -115,8 +115,8 @@ export function buildFleetFootwork(input: Pick<CombatRuneRules, "fleetFootwork">
         if (!observesSelf(ctx, hit.source) || hit.target.kind !== "champion" || hit.target.side === ctx.self.side
           || hit.blocked || !Number.isFinite(hit.incomingScale) || hit.incomingScale <= 0) return;
         if (hit.attack ? hit.energizedOnHit === false : hit.ability?.flags.fleetFootwork !== true) return;
-        if (hit.energizedBurst !== undefined) {
-          burstContact(ctx, hit.energizedBurst);
+        if (hit.attackBurst !== undefined) {
+          burstContact(ctx, hit.attackBurst);
           return;
         }
         if (!hit.attack || hit.energizedOnHit) gain(ctx, rules.attackCharges);

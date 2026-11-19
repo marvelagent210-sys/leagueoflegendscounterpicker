@@ -3333,6 +3333,40 @@ Both TypeScript projects, both matrix freshness checks, the rune catalog
 check and the production web build passed. The full local suite passed
 9,991 tests across 279 files with five existing skips.
 
+## Lethal Tempo (18 November 2026)
+
+Rune 8008 is the thirteenth partial combat effect for manual plain-stat duels.
+The compiler adds two complete Wiki revisions and retains the 80 earlier
+page objects and the full 2,177,672-byte versioned client file. The level-20
+base bolt evaluates to `552/17` melee and `46023/2125` ranged. The frozen
+perk calculation records confirm the ranged speed and damage multipliers.
+Four complete client bolt objects agree on their nested 2,500-unit/s
+nontracking movement. The client also retains older displayed ranged values
+and different outer spell timing fields. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4065934) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427) · [Mechanics gaps](docs/runes/MECHANICS_GAPS.md#lethal-tempo)
+
+The simulator uses separate events for a completed windup and a qualified
+contact from an attack replacement or extra strike. The selection tests
+cover 8,192 subsets of the thirteen manual effects. Of those, 512 fit
+a legal page. Combat tests cover exact expiry ticks, immediate form changes,
+distinct bolts in flight, clone targets, ordinary defense and spell-shield
+behavior. They exercise Zeri’s first accepted primary round, Azir’s
+self-only soldier commands and Urgot’s 50% proc damage. A zero-gold
+Lucian–Sion CLI duel verifies both fighters can equip the keystone and deliver
+it. [Manual duel rules and command](docs/runes/README.md#lethal-tempo)
+
+The 19 November refresh computed all 14,878 pairings in each default matrix
+with zero reuse. All 22 jobs passed. The audit verified the digests of all
+21 workflow archives and matched all 29,756 checkpoints against both
+matchup directions. Every default score, scenario, selected variant, encoded
+and decoded build, and stat allocation matches the previous published
+results. The item dictionary and ledger rankings also match.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44416317879)
+
+The refresh passed both TypeScript projects and 10,019 tests across 280
+files, with five existing skips. Both native matrix freshness checks, the
+rune catalog check and the production web build also passed locally on the
+generated commit.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

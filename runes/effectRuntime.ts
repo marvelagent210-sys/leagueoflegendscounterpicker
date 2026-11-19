@@ -11,6 +11,7 @@ import { buildLegendBloodline } from "./legendBloodline";
 import { buildTriumph } from "./triumph";
 import { buildPresenceOfMind } from "./presenceOfMind";
 import { buildPressTheAttack } from "./pressTheAttack";
+import { buildLethalTempo } from "./lethalTempo";
 import { buildFleetFootwork } from "./fleetFootwork";
 import type { RuneEquipOptions } from "./equipOptions";
 
@@ -25,6 +26,7 @@ export interface RuneEffectBuild {
 
 export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRuneRules, options: RuneEquipOptions = {}): RuneEffectBuild {
   if (id === 8005) return buildPressTheAttack(_form, rules);
+  if (id === 8008) return buildLethalTempo(_form, rules);
   if (id === 8009) return buildPresenceOfMind(_form, rules);
   if (id === 8021) {
     if (options.energizedCharges === undefined) throw new Error("Fleet Footwork requires explicit starting energizedCharges");

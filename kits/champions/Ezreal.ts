@@ -72,7 +72,7 @@ const ezreal: KitModule = {
     const abilities: AbilitySpec[] = [
       { key: "Q", name: q.name, slot: "Q", cooldown: cooldowns.Q, cost: costs.Q, castTime: q.castTime(),
         delivery: { kind: "line", range: q.field("targetRange"), width: q.field("width"), speed: q.field("speed"), collisionPet: true },
-        onHit: [{ type: "damage", damageType: "physical", amount: qDamage, petDamageCategory: "singleTarget" }], flags: { projectile: true, spellShield: true, parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, basicDamage: true, petContactHooks: true }, decisive: true },
+        onHit: [{ type: "damage", damageType: "physical", amount: qDamage, petDamageCategory: "singleTarget" }], onAttackScale: 1, flags: { projectile: true, spellShield: true, parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, basicDamage: true, petContactHooks: true }, decisive: true },
       { key: "W", name: w.name, slot: "W", cooldown: cooldowns.W, cost: costs.W, castTime: w.castTime(),
         delivery: { kind: "line", range: w.field("targetRange"), width: w.field("width"), speed: w.field("speed") },
         onHit: [{ type: "mark", key: FLUX, duration: markSeconds }], flags: { projectile: true, spellShield: false }, roles: ["damage"], decisive: true,

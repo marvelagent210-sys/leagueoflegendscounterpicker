@@ -5,7 +5,7 @@
  * cooldowns and kit memory carry over; ability keys are unique across forms, so anything
  * still in flight from the old form (a missile, a dash) resolves with its own ability.
  */
-import { log } from "./combat";
+import { hookContext, log } from "./combat";
 import { derive } from "./derived";
 import type { AbilitySpec, FighterSpec, FormHealth } from "./spec";
 import type { Unit, World } from "./state";
@@ -41,5 +41,6 @@ export function setForm(world: World, unit: Unit, form: string, hp: FormHealth =
   if (hp === "share") unit.hp = share * after;
   else if (hp === "gain") unit.hp = Math.min(after, unit.hp + Math.max(0, after - before));
   else unit.hp = Math.min(after, hp);
+  unit.spec.hooks?.onFormChanged?.(hookContext(world, unit));
   log(world, unit.side, `becomes ${next.name}`);
 }

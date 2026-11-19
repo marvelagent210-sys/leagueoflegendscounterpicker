@@ -6,7 +6,7 @@ and checked. This list records goals, not a claim that the work is complete.
 
 | Order | Improvement | Status and scope |
 |--:|---|---|
-| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Twelve partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life, the three Legend runes, Triumph, Presence of Mind, Press the Attack and Fleet Footwork. Press the Attack is the first Precision keystone. Its 17 November refresh reproduced all default results across 173 champions. Presence implementation began on 13 November; its local provenance refresh reused all 14,878 pairings per matrix with zero new computation. Complete default result payloads are unchanged; local validation passed 9,510 tests with five existing skips. Pull-request checks run separately against the delivery head. Triumph's genuine full refresh and checkpoint audit completed on 11 November, with default result payloads unchanged. Each selected Legend requires declared starting points and currently progresses only from real champion-body kills. Haste's genuine full matrix refresh and release checks completed on 8 November, including the observed default-result changes. Bloodline's genuine full refresh and checkpoint audit completed on 10 November: plain-stat payloads are unchanged and 22 build pairings changed. Complete pages, remaining keystones and effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
+| 1 | Full rune combat effects | **In progress.** The source catalog, page-layout validator and seven stat shards are available. Thirteen partial manual plain-stat effects cover Coup de Grace, Cut Down, Last Stand, Second Wind, Absorb Life, the three Legend runes, Triumph, Presence of Mind, and the three Precision keystones Press the Attack, Fleet Footwork and Lethal Tempo. Press the Attack is the first Precision keystone. Its 17 November refresh reproduced all default results across 173 champions. Presence implementation began on 13 November; its local provenance refresh reused all 14,878 pairings per matrix with zero new computation. Complete default result payloads are unchanged; local validation passed 9,510 tests with five existing skips. Pull-request checks run separately against the delivery head. Triumph's genuine full refresh and checkpoint audit completed on 11 November, with default result payloads unchanged. Each selected Legend requires declared starting points and currently progresses only from real champion-body kills. Haste's genuine full matrix refresh and release checks completed on 8 November, including the observed default-result changes. Bloodline's genuine full refresh and checkpoint audit completed on 10 November: plain-stat payloads are unchanged and 22 build pairings changed. Complete pages, remaining keystones and effects, champion-specific substitutions, browser effect controls and page search remain unfinished. |
 | 2 | Controlled in-game measurements | Planned. Compare recorded damage, timing and interactions with reproducible in-game setups, retain the setup and patch, and turn discrepancies into mechanics regressions. |
 | 3 | Summoner spells and browser boots format | Planned. Add explicit summoner loadouts and their combat behavior, and expose the existing five-items-with-boots build format in the browser. |
 | 4 | Better combat decisions | Planned. Improve spacing, chase, disengage, defensive timing and ability sequencing, with reproducible scenarios that show the decisions and their limits. |
@@ -18,13 +18,19 @@ and checked. This list records goals, not a claim that the work is complete.
 | 10 | Better two-dimensional geometry | Planned. Improve side-stepping, facing, area placement, terrain and pet positions beyond the current one-dimensional approximations. |
 | 11 | Phone and offline app features | Planned. Add persistent offline access, champion pools and saved comparisons with clear model-version and update behavior. |
 
-Step 1's twelve manual effects use the retained patch 26.21 sources. The health
+Step 1's thirteen manual effects use the retained patch 26.21 sources. The health
 amplifiers and Press the Attack use the simulator's aggregate outgoing-damage model; the source's
 separate amplifier damage instances are not represented. Second Wind's missing
 health sampling and first regeneration pulse are explicit timing assumptions.
 Item-build composition is not yet reviewed, so combat-rune flags reject fixed
 items and build search. See the [rune audit](runes/README.md) for commands,
 numeric rules, provenance and compatibility limits.
+
+Lethal Tempo adds timed attack speed stacks, immediate form-dependent scaling
+and separate adaptive projectile damage. Its manual duel model fires the first
+bolt from an attack made with six stacks already held. The 19 November
+refresh verified all 14,878 pairings in each matrix, matching both published
+default results. [Lethal Tempo rules](runes/README.md#lethal-tempo) · [Accuracy log](../ACCURACY.md#lethal-tempo-18-november-2026)
 
 Fleet Footwork adds declared starting charges, charge gain from movement and completed attacks, and healing on champion contact. The 18 November recovery verified all 29,756 default pair results and reproduced both published matrices. [Fleet rules](runes/README.md#fleet-footwork) · [Refresh audit](../ACCURACY.md#matchup-refresh-and-recovery)
 

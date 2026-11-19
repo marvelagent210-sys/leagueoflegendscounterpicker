@@ -326,7 +326,7 @@ const akshan: KitModule = {
               }
               if (target) {
                 const pet = "owner" in target ? target : undefined, isMinion = pet && (pet.spec.targetClass ?? ctx.world.units[pet.owner].spec.petTargetClasses?.[pet.spec.name]) === "minion";
-                launchBonusAttack(ctx.world, ctx.self, target, { baseDamageScale: isMinion ? minionRatio : secondRatio, critChance: derive(ctx.self).critChance, missileSpeed: secondSpeed, attackTag: SECOND, energizedOnHit: true });
+                launchBonusAttack(ctx.world, ctx.self, target, { baseDamageScale: isMinion ? minionRatio : secondRatio, critChance: derive(ctx.self).critChance, missileSpeed: secondSpeed, attackTag: SECOND, energizedOnHit: true, onAttackScale: 1 });
                 ctx.self.attackReadyTick = ctx.tick + ticks(1 / derive(ctx.self).attackSpeed); ctx.memory[`${SECOND}:pending`] = false;
               } else cancelSecond(ctx);
             }
