@@ -3354,11 +3354,18 @@ self-only soldier commands and Urgot’s 50% proc damage. A zero-gold
 Lucian–Sion CLI duel verifies both fighters can equip the keystone and deliver
 it. [Manual duel rules and command](docs/runes/README.md#lethal-tempo)
 
-The source suite passed 10,016 tests with five existing skips. Three
-checks require rebuilt matrix data for the new input fingerprints.
-The native refresh plan calls for 14,878 new pairings and zero reused
-pairings in each default matrix. The refresh will produce the matrix data for
-delivery.
+The 19 November refresh computed all 14,878 pairings in each default matrix
+with zero reuse. All 22 jobs passed. The audit verified the digests of all
+21 workflow archives and matched all 29,756 checkpoints against both
+matchup directions. Every default score, scenario, selected variant, encoded
+and decoded build, and stat allocation matches the previous published
+results. The item dictionary and ledger rankings also match.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44416317879)
+
+The refresh passed both TypeScript projects and 10,019 tests across 280
+files, with five existing skips. Both native matrix freshness checks, the
+rune catalog check and the production web build also passed locally on the
+generated commit.
 
 ## Remaining limits
 

@@ -28,9 +28,9 @@ numeric rules, provenance and compatibility limits.
 
 Lethal Tempo adds timed attack speed stacks, immediate form-dependent scaling
 and separate adaptive projectile damage. Its manual duel model fires the first
-bolt from an attack made with six stacks already held. The shared engine
-changes require fresh default simulations for all 14,878 pairings in each
-matrix. [Lethal Tempo rules](runes/README.md#lethal-tempo) · [Accuracy log](../ACCURACY.md#lethal-tempo-18-november-2026)
+bolt from an attack made with six stacks already held. The 19 November
+refresh verified all 14,878 pairings in each matrix, matching both published
+default results. [Lethal Tempo rules](runes/README.md#lethal-tempo) · [Accuracy log](../ACCURACY.md#lethal-tempo-18-november-2026)
 
 Fleet Footwork adds declared starting charges, charge gain from movement and completed attacks, and healing on champion contact. The 18 November recovery verified all 29,756 default pair results and reproduced both published matrices. [Fleet rules](runes/README.md#fleet-footwork) · [Refresh audit](../ACCURACY.md#matchup-refresh-and-recovery)
 

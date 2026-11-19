@@ -67,7 +67,7 @@ Press the Attack (`8005`) is the eleventh partial manual effect and the first Pr
 
 Fleet Footwork (`8021`) is the twelfth partial manual effect. Each fighter declares its starting Energized charges. At 100 charges, a qualifying hit heals and grants one second of bonus movement speed. On 18 November the refresh verified all 29,756 pair results. Both default matrices match the previous published calculations. [Fleet rules and example](docs/runes/README.md#fleet-footwork) · [Refresh audit](ACCURACY.md#matchup-refresh-and-recovery)
 
-Lethal Tempo (`8008`) adds up to six attack speed stacks. Qualifying attacks refresh the six-second timer, and attacks made with six stacks already held launch an adaptive damage bolt. Each side starts with zero stacks. [Lethal Tempo rules and example](docs/runes/README.md#lethal-tempo)
+Lethal Tempo (`8008`) adds up to six attack speed stacks. Qualifying attacks refresh the six-second timer, and attacks made with six stacks already held launch an adaptive damage bolt. Each side starts with zero stacks. The 19 November refresh verified all 29,756 pair results and reproduced both published default matrices. [Lethal Tempo rules and example](docs/runes/README.md#lethal-tempo) · [Refresh audit](ACCURACY.md#lethal-tempo-18-november-2026)
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 

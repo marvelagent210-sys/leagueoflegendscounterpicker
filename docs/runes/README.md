@@ -269,6 +269,11 @@ npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8008 --enemy
   ratio to the bolt. Urgot’s Purge uses 50%, Katarina’s Death Lotus uses 35%,
   and Bel’Veth’s Royal Maelstrom uses 12–24% by slash. [Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) · [Zeri sources](../../data/16.21/kits/Zeri.md) · [Azir sources](../../data/16.21/kits/Azir.md) · [Graves sources](../../data/16.21/kits/Graves.md)
 
+The 19 November refresh recomputed all 14,878 pairings in each default
+matrix. The audit verified all 29,756 pair results against the generated data
+and confirmed that both matrices match the previously published results.
+[Accuracy log](../../ACCURACY.md#lethal-tempo-18-november-2026)
+
 ### Fleet Footwork
 
 Use `--energized-charges` for your fighter and `--enemy-energized-charges` for
