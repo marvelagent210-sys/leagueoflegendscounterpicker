@@ -3437,6 +3437,10 @@ exact timing boundaries, and a cast that continues through a missile,
 delayed damage and a periodic status. The model specifies shield ordering
 and when the cooldown begins. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#bone-plating)
 
+The hook composition change also required updating the fixed-item adaptive
+shard implementation digest. The review compared all 114 covered files
+and traced the two added cases to numeric damage modifier composition.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
