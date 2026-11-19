@@ -86,7 +86,7 @@ const elise: KitModule = {
     const rappelling = (unit: Unit, tick: number) => tick < Number(unit.memory["elise:rappelUntil"] ?? -1);
 
     const spiderlingSpec = (): PetSpec => ({
-      kind: SPIDERLING, name: "Spiderling", hp: spiderHealth, armor: spiderArmor, mr: spiderMR, areaTaken: spiderArea, radius: spiderRadius,
+      kind: SPIDERLING, name: "Spiderling", conquerorNonBasicAttack: true, hp: spiderHealth, armor: spiderArmor, mr: spiderMR, areaTaken: spiderArea, radius: spiderRadius,
       moveSpeed: spiderSpeed, duration: Number.POSITIVE_INFINITY, leash: 1000,
       attack: { range: spiderRange, interval: 1 / (spiderRate * (1 + spiderRateBonus)), attackSpeedRatio: spiderRate, effects: [{ type: "damage", damageType: "magic", amount: spiderDamage }], attackLike: true, category: "area" },
     });

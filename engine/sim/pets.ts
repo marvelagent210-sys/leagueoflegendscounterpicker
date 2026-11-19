@@ -9,6 +9,7 @@
 import { type DamageType, effectiveResist, mitigate } from "../rules/damage";
 import { absorbWithShields, type Shield } from "../rules/defense";
 import { toTicks } from "../rules/time";
+import { allocateCastInstance } from "./castInstance";
 import { applyEffect, canTarget, endForcedMovement, heal, hookContext, inStasis, isUntargetable, log, notifyActualMovement, notifyKill, observeBeforeDamage, observeDamage, observeOwnedPetAttack, withMovementTransition } from "./combat";
 import type { VisibilityPolicy } from "./combat";
 import { healthProtection } from "./healthProtection";
@@ -253,10 +254,10 @@ export function destroyPet(world: World, pet: Pet): void {
  * A pet's hit on the enemy champion: attack-like hits are dodged, parried, blocked and blinded
  * like basic attacks; the others are stopped by spell shields and parries like abilities.
  */
-export function petHit(world: World, pet: Pet, target: Unit | Pet, effects: Effect[], attackLike: boolean, blinded = false): boolean {
+export function petHit(world: World, pet: Pet, target: Unit | Pet, effects: Effect[], attackLike: boolean, blinded = false, castInstance?: number): boolean {
   // Already launched missiles call petCombatHit directly and retain their entitlement.
   if (attackLike && (pet.carriedBy !== undefined || inStasis(petFormulaTarget(pet, world.units[pet.owner], world.tick)))) return false;
-  return petCombatHit(world, pet, target, effects, attackLike, blinded);
+  return petCombatHit(world, pet, target, effects, attackLike, blinded, undefined, castInstance);
 }
 
 /** Closest visible target; ties prefer the enemy champion, then stable pet id. */
@@ -300,13 +301,13 @@ function advancePetMissiles(world: World): void {
     const destroyedAt = missile.projectile ? projectileBlockPoint(world, missile.owner, from, missile.x) : undefined;
     if (interceptedAt !== undefined && (destroyedAt === undefined || Math.abs(interceptedAt - from) < Math.abs(destroyedAt - from) - 1e-6)) {
       missile.x = interceptedAt;
-      petCombatHit(world, pet, world.units[other(missile.owner)], missile.effects, missile.attackLike ?? true, missile.blinded, from);
+      petCombatHit(world, pet, world.units[other(missile.owner)], missile.effects, missile.attackLike ?? true, missile.blinded, from, missile.castInstance);
       continue;
     }
     const blocked = missile.projectile && (projectileAuraBlocked(world, missile.owner, from, missile.x) || world.zones.some((zone) => zone.kind === "projectileWall" && zone.owner !== missile.owner && zone.startTick <= world.tick && zone.endTick > world.tick && Math.max(Math.min(from, missile.x), zone.x - zone.radius) <= Math.min(Math.max(from, missile.x), zone.x + zone.radius)));
     if (blocked) { log(world, other(missile.owner), `blocks a projectile (${pet.spec.name})`); continue; }
     if (remaining <= missile.perTick + 1e-6) {
-      petCombatHit(world, pet, target, missile.effects, missile.attackLike ?? true, missile.blinded, from);
+      petCombatHit(world, pet, target, missile.effects, missile.attackLike ?? true, missile.blinded, from, missile.castInstance);
     }
     else keep.push(missile);
   }
@@ -327,9 +328,15 @@ function launchPetAttack(world: World, pet: Pet): void {
     pet.statuses = pet.statuses?.filter((status) => !(status.kind === "state" && status.key === "invisible"));
     return;
   }
+  const castInstance = pet.spec.conquerorNonBasicAttack
+    ? pet.nextAttackCastInstance ?? allocateCastInstance(world, world.units[pet.owner]) : undefined;
+  if (pet.nextAttackCastInstance !== undefined) delete pet.nextAttackCastInstance;
   if (attack.missileSpeed) {
-    (world.petMissiles ??= []).push({ id: world.nextId++, owner: pet.owner, pet: pet.id, target: windup.target, x: pet.x, perTick: attack.missileSpeed / 30, projectile: attack.projectile ?? true, effects: windup.effects, blinded: windup.blinded, attackLike: attack.attackLike, sourcePet: { ...pet, memory: { ...pet.memory }, ...(pet.statuses ? { statuses: pet.statuses.map((status) => ({ ...status })) } : {}) } });
-  } else petHit(world, pet, target, windup.effects, attack.attackLike, windup.blinded);
+    (world.petMissiles ??= []).push({ id: world.nextId++, owner: pet.owner, pet: pet.id, target: windup.target, x: pet.x, perTick: attack.missileSpeed / 30,
+      projectile: attack.projectile ?? true, effects: windup.effects, blinded: windup.blinded, attackLike: attack.attackLike,
+      ...(castInstance !== undefined ? { castInstance } : {}),
+      sourcePet: { ...pet, memory: { ...pet.memory }, ...(pet.statuses ? { statuses: pet.statuses.map((status) => ({ ...status })) } : {}) } });
+  } else petHit(world, pet, target, windup.effects, attack.attackLike, windup.blinded, castInstance);
 }
 
 /** Pets expire, walk toward the enemy, and attack it when it is in reach. */

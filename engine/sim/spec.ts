@@ -194,6 +194,9 @@ export interface AttackSplit {
 
 export type PetDamageCategory = "basic" | "singleTarget" | "area" | "persistent" | "proc" | "pet";
 
+/** Packet tags used by source-qualified damage observers. */
+export type ObservedDamageKind = "basic" | "spell" | "proc" | "default" | "pet" | "unclassified";
+
 export type Effect =
   /**
    * `canCrit`: averaged over the attacker's crit chance; `critMultiplier` replaces its crit
@@ -203,7 +206,7 @@ export type Effect =
    */
   /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
   /** `appliesLifeSteal`: an explicit source exception without changing the packet's attack/damage classification. */
-  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; appliesLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory }
+  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; appliesLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory; observedDamageKind?: ObservedDamageKind }
   /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
   /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
   | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean; spellShield?: boolean; bypassSlowImmune?: boolean; slowStackGroup?: string;
@@ -469,6 +472,10 @@ export interface AbilityFlags {
   appliesLifeSteal?: boolean;
   /** Classifies its damage as basic damage while preserving spell delivery and defenses. */
   basicDamage?: boolean;
+  /** Reviewed basic-damage abilities with an explicit Conqueror stack amount. */
+  conquerorBasicStacks?: 1 | 2;
+  /** A source-specific exception to Conqueror's same-cast damage lockout. */
+  conquerorPerPacket?: boolean;
   /** Alternative attack spell explicitly copies basic-attack interactions against hit-count pets. */
   petBasicAttack?: boolean;
   /** Resolve spell contact, on-hits and kit hooks against the actual contacted pet. */
@@ -490,6 +497,10 @@ export interface AbilityFlags {
  * kit from the wiki's pet infobox (H-28G Evolution Turret, Mist Walker, Tentacle, Powder Keg).
  */
 export interface PetSpec {
+  /** Explicit owner's on-hit application from an otherwise separate pet attack. */
+  conquerorOwnerOnHit?: 1;
+  /** Native pet attack whose source qualifies it as non-basic damage for Conqueror. */
+  conquerorNonBasicAttack?: true;
   /** Explicit source exception to removal when its owner dies; its own expiry still applies. */
   persistsAfterOwnerDeath?: boolean;
   /** An actual clone remains distinct from its champion targeting class. */
@@ -917,6 +928,25 @@ export interface ResolvedOnHitSnapshot {
   readonly onAttackScale?: number;
   /** Identifies repeated rounds of one primary-target burst. */
   readonly attackBurst?: number;
+  readonly damageContact?: {
+    readonly castInstance?: number;
+    readonly ranged: boolean;
+    readonly protected: boolean;
+    readonly basicStacks?: 1 | 2;
+  };
+}
+
+/** Accepted positive damage to a champion, observed after the native damage hooks. */
+export interface ResolvedDamageSnapshot {
+  readonly tick: number;
+  readonly source: CombatIdentity;
+  readonly target: CombatIdentity;
+  readonly ranged: boolean;
+  readonly kind: ObservedDamageKind;
+  readonly castInstance?: number;
+  readonly conquerorPerPacket: boolean;
+  /** The native mitigated packet, including absorption and before health floors. */
+  readonly mitigated: number;
 }
 
 /** Accepted native damage (including zero) or CC, not a universal combat-status clock.
@@ -1044,6 +1074,8 @@ export interface KitHooks {
    * Facts are captured before those callbacks; blocked connected applications remain accepted.
    * Released native hits may notify a dead source; this hook grants no continuation itself. */
   onResolvedOnHit?(ctx: HookContext & { readonly onHit: ResolvedOnHitSnapshot }): void;
+  /** Source owner observation with stable cast identity and qualified packet class. */
+  onDamageResolved?(ctx: HookContext & { readonly damage: ResolvedDamageSnapshot }): void;
   /** Accepted native activity after its existing damage/CC callback chain. Scalar facts
    * precede that chain; each observer chooses its own body and lifecycle eligibility. */
   onCombatActivity?(ctx: HookContext & { readonly combatActivity: CombatActivitySnapshot }): void;

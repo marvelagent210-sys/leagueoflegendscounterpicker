@@ -298,10 +298,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - A Vital's movement speed is kept for its full duration rather than decaying.
 - Bladework's guaranteed critical strike adds its critical damage minus the attack's average critical damage.
 
-### Source values read (44)
+### Source values read (45)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Lunge | Lunge deals basic damage | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Lunge | Fiora can cast any of her abilities during the dash | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Duelist's Dance | Vitals take 1.75 seconds to become targetable | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |
 | Duelist's Dance | bonus true damage equal to 3% (+ 4% per 100 bonus AD) of target's maximum health | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |

@@ -8,6 +8,29 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Conqueror
+
+Conqueror needs a cast identity distinct from the ability key and the
+individual damage packet. The sim carries the identity through native cast,
+missile, field, channel, delayed and periodic stages. Selected kit effects
+carry the identity explicitly when they schedule their own contacts. Packets
+with an unresolved origin need more source review, including some custom
+passives and pet abilities. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4091967) · [Cast instance](https://wiki.leagueoflegends.com/en-us/?oldid=4069908)
+
+The simulator refreshes the stack timer on an eligible repeat within a
+four-second lockout. It samples existing stacks for healing and uses the
+native post-mitigation amount, including absorption before floors and
+overkill. The live ordering of the maximum-stack hit, shield and health-floor
+interactions, and refresh ordering around simultaneous events remain open.
+Temporary stat origins beyond the declared plain-stat purchases and shards
+need a separate review. [Manual duel rules](README.md#conqueror)
+
+The current Kayle kit delivers a basic packet and its attached wave as one
+attack application. Separate wave flight and wave-first stacking require
+further modeling. The clone side of Wukong’s spin and secondary summons such
+as Shaco’s mini-boxes need explicit cast and owner qualification.
+[Divine Ascent](https://wiki.leagueoflegends.com/en-us/?oldid=4051190) · [Cyclone](https://wiki.leagueoflegends.com/en-us/?oldid=4021867)
+
 ## Lethal Tempo
 
 The template gives the stacking, decay and bolt formula. The simulator processes

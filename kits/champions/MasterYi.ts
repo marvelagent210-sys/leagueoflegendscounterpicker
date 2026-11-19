@@ -1,5 +1,6 @@
 /** Master Yi: four Alpha marks, Double Strike and the two phases of Meditate. */
 import type { KitModule } from "../../engine/kits/compile";
+import { withCastInstance } from "../../engine/sim/castInstance";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, canStartAttack, startAttack } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
@@ -121,7 +122,9 @@ const yi: KitModule = {
         for (const effect of ctx.self.spec.attack.onHit ?? []) packet.push(effect.type === "damage" ? { ...effect, amount: { base: evaluate(effect.amount, ctx.self, ctx.enemy) * scale } } : effect);
         if (ctx.tick < Number(ctx.memory.wujuUntil ?? -1)) packet.push({ type: "damage", damageType: "true", amount: { base: evaluate(wuju, ctx.self, ctx.enemy) * scale }, noLifeSteal: true, label: e.name });
       }
-      abilityHit(ctx.world, ctx.self, ctx.enemy, alpha, packet);
+      const cast = ctx.self.action?.kind === "channel" && ctx.self.action.ability === "Q" ? ctx.self.action.castInstance : undefined;
+      if (cast === undefined) abilityHit(ctx.world, ctx.self, ctx.enemy, alpha, packet);
+      else withCastInstance(ctx.world, ctx.self, cast, () => abilityHit(ctx.world, ctx.self, ctx.enemy, alpha, packet));
       if (appliesIncoming) incomingOnHit(ctx, true);
       refreshCombatBuffs(ctx);
       notifyResolvedOnHit(ctx.world, ctx.self, ctx.enemy, onHit);

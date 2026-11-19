@@ -292,10 +292,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Viego charges Spectral Maw just long enough for its range to reach the enemy, and its dash goes after the blast through the enemy's position.
 - Harrowed Path's mist runs straight along the duel's line from where Viego casts it (its spread around walls is left out), and its camouflage doesn't hide him at fighting range.
 
-### Source values read (45)
+### Source values read (46)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Heartbreaker | To the struck champion deals basic damage | [4001566](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Heartbreaker?oldid=4001566) |
 | Sovereign's Domination | Whenever Viego scores an enemy champion takedown while alive and within 3 seconds of damaging them, a Mist Wraith spawns from that champion's corpse for 8 seconds. | [4063480](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Sovereign's_Domination?oldid=4063480) |
 | Blade of the Ruined King | Bonus Physical Damage: 2 / 3 / 4 / 5 / 6% of target's current health | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |
 | Blade of the Ruined King | Minimum Bonus Damage: 10 / 15 / 20 / 25 / 30 | [4067448](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Blade_of_the_Ruined_King?oldid=4067448) |

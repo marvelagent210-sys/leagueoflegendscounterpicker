@@ -291,10 +291,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - A partial Sweeping Blade generates its documented 7.5 Flow per full dash in proportion to the distance traveled.
 - Crit chance bought counts double for Yasuo (the stat budget values it that way).
 
-### Source values read (45)
+### Source values read (46)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Steel Tempest | Steel Tempest applies basic damage to the first (closest) enemy hit | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
 | Way of the Wanderer | Yasuo's total critical strike chance is doubled from all other sources | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
 | Way of the Wanderer | every 1% critical strike chance in excess of 100% is converted into 0.5 bonus attack damage | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
 | Way of the Wanderer | Innate - Resolve: Yasuo generates a stack of Flow for every 59 / 52.5 / 46 (based on level) units he travels by any means. | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |

@@ -54,10 +54,10 @@ describe("Press the Attack's first manual keystone selection", () => {
     expect(legendPointsOption([pointsFlag, "0"], pointsFlag, [8005, 9104])).toBe(0);
   });
   it("keeps unsupported keystones, row conflicts and duplicates explicit", () => {
-    for (const selection of ["8005,8010", "8005,8439"]) {
+    for (const selection of ["8005,8439"]) {
       expect(() => combatRuneOption(["--combat-runes", selection], "--combat-runes", catalog)).toThrow(/no combat implementation/);
     }
-    for (const selection of ["8005,8005", "8005,8009,9111", "8005,9103,9104", "8005,8014,8299"]) {
+    for (const selection of ["8005,8005", "8005,8010", "8005,8009,9111", "8005,9103,9104", "8005,8014,8299"]) {
       expect(() => combatRuneOption(["--combat-runes", selection], "--combat-runes", catalog)).toThrow(/cannot repeat|same path row/);
     }
   });
@@ -157,7 +157,7 @@ describe("actual manual command-line duels with Press the Attack", () => {
 
   it.each([
     [["Lucian", "Sion"], ["--combat-runes", "8005,8005"], /cannot repeat/],
-    [["Lucian", "Sion"], ["--enemy-combat-runes", "8005,8010"], /no combat implementation/],
+    [["Lucian", "Sion"], ["--enemy-combat-runes", "8005,8010"], /same path row/],
     [["Lucian", "Sion"], ["--combat-runes", "8005,8009,9111"], /same path row/],
     [["Lucian", "Sion"], ["--combat-runes", "8005,9104"], /requires.*legend-points/],
     [["Lucian", "Sion"], ["--enemy-combat-runes", "8005", "--enemy-legend-points", "0"], /same side/],

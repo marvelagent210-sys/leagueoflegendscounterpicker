@@ -6,6 +6,7 @@
  */
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, empowerStatus } from "../../engine/sim/actions";
+import { currentCastInstance } from "../../engine/sim/castInstance";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { applyEffect, directionTo, edgeDistance, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
@@ -138,6 +139,7 @@ const yorick: KitModule = {
     const walkerSpec = (owner: Unit, cursed: boolean): PetSpec => ({
       kind: WALKER,
       name: walkerPet.name,
+      conquerorNonBasicAttack: true,
       hp: walkerHp + walkerHpShare * Math.max(0, derive(owner).maxHp - owner.spec.base.hp),
       armor: walker.armor,
       mr: walker.mr,
@@ -343,6 +345,8 @@ const yorick: KitModule = {
               if (pet.owner !== self.side || pet.spec.kind !== WALKER || pet.memory.leapt || Math.abs(pet.x - enemy.x) > curseReach
                   || pet.carriedBy !== undefined || pet.statuses?.some(status => status.key === "stasis" && (status.kind === "state" || status.kind === "cc"))) continue;
               pet.memory.leapt = true;
+              const curseCast = ctx.memory.curseCast;
+              if (typeof curseCast === "number") pet.nextAttackCastInstance = curseCast;
               pet.x = enemy.x - directionTo(self, enemy) * (enemy.spec.base.radius + pet.spec.radius);
               pet.nextAttackTick = tick;
             }
@@ -402,6 +406,8 @@ const yorick: KitModule = {
           const key = ctx.ability.key;
           if (key === "E") {
             ctx.memory.cursedUntil = ctx.tick + ticks(curseSeconds);
+            const cast = currentCastInstance(ctx.world, ctx.self);
+            if (cast !== undefined) ctx.memory.curseCast = cast;
             // Yorick's speed toward the Cursed enemy.
             ctx.buff("curseHaste", "moveSpeedPercent", curseHaste, curseSeconds);
             consumeTouch(ctx);

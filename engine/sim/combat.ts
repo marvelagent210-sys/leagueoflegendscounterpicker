@@ -25,6 +25,8 @@ import { petFormulaTarget } from "./petTarget";
 import { healthProtection } from "./healthProtection";
 import { channelIn, clearChannel } from "./channelState";
 import { cancelTargetCast } from "./actions";
+import { currentCastInstance } from "./castInstance";
+import type { ObservedDamageKind, ResolvedDamageSnapshot } from "./spec";
 import { type AbilitySpec, type ActualMovement, type AttackSplit, type BasicAttackLaunchedSnapshot, type BuffStat, type CombatActivitySnapshot, type CombatIdentity, type DamageReport, type Effect, type HookContext, type MovementSnapshot, type PetDamageCategory, type ResolvedOnHitSnapshot, cooldownKeyOf } from "./spec";
 import { type Action, type AttackHitOptions, type Pet, type Side, type Status, type Unit, type World, other } from "./state";
 
@@ -210,6 +212,8 @@ export interface DamageContext {
   /** Sourced alternative attack retains basic-attack interactions against actual pets. */
   petBasicAttack?: boolean;
   petDamageCategory?: PetDamageCategory;
+  observedDamageKind?: ObservedDamageKind;
+  conquerorPerPacket?: boolean;
   attack?: boolean;
   /** This spell's basic damage benefits from life steal without being a basic attack. */
   appliesLifeSteal?: boolean;
@@ -379,6 +383,12 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   if (ctx.originX === undefined) return resolveDamage(world, source, target, raw, type, ctx);
   return withDamageOrigin(world, source, ctx.originX, () => resolveDamage(world, source, target, raw, type, ctx));
 }
+
+export function damageProtected(world: World, source: Unit, target: Unit): boolean {
+  const outsideGuard = target.statuses.some((status) => status.kind === "state" && status.key === "invulnerableFar" && Math.abs(source.x - target.x) > status.value + 1e-6);
+  return hasState(target, "invulnerable") || outsideGuard || inStasis(target) || healthProtection(world, target).invulnerable;
+}
+
 function resolveDamage(world: World, source: Unit, target: Unit, raw: number, type: DamageType, ctx: DamageContext): number {
   if (!target.alive || (raw <= 0 && (raw !== 0 || !hasCombatActivityObserver(world)))) return 0;
   if (target.petId !== undefined) {
@@ -402,8 +412,7 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
     }
     return Math.max(0, hp) - Math.max(0, pet.hp);
   }
-  const outsideGuard = target.statuses.some((status) => status.kind === "state" && status.key === "invulnerableFar" && Math.abs(source.x - target.x) > status.value + 1e-6);
-  if (hasState(target, "invulnerable") || outsideGuard || inStasis(target) || healthProtection(world, target).invulnerable) {
+  if (damageProtected(world, source, target)) {
     log(world, target.side, `is invulnerable: ${Math.round(raw)} ${type} damage ignored`);
     return 0;
   }
@@ -416,6 +425,13 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
     notifyCombatActivity(world, activity);
     return 0;
   }
+  const observer = world.units[source.side];
+  const onDamageResolved = observer.spec.hooks?.onDamageResolved;
+  const observed = onDamageResolved && source.side !== target.side && !stateStatus(target, "parry") ? {
+    tick: world.tick, source: combatIdentity(world, source), target: combatIdentity(world, target),
+    ranged: observer.spec.attack.ranged, kind: ctx.observedDamageKind ?? (ctx.attack ? "basic" : "unclassified"),
+    castInstance: currentCastInstance(world, source), conquerorPerPacket: ctx.conquerorPerPacket === true,
+  } satisfies Omit<ResolvedDamageSnapshot, "mitigated"> : undefined;
   const s = derive(source);
   const t = derive(target);
   const beforeCrit = raw;
@@ -477,7 +493,8 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   const afterShield = target.spec.hooks?.modifyDamageAfterShields;
   const healthDamage = afterShield && unshielded > 0 ? Math.max(0, afterShield({ ...hookContext(world, target, undefined, source), amount: unshielded, damageType: type, attack: ctx.attack === true, persistent: ctx.persistent === true, ...(ctx.ability ? { ability: ctx.ability } : {}), ...(source.petId !== undefined ? { petSource: true } : {}) })) : unshielded;
   const resolvedDamage = mitigated - unshielded + healthDamage;
-  const left = stateStatus(target, "parry") ? 0 : healthDamage;
+  const parried = stateStatus(target, "parry");
+  const left = parried ? 0 : healthDamage;
   // Sleep ends on any hit above 10 damage after mitigation, except damage over time.
   if (!ctx.persistent && resolvedDamage > 10 && target.statuses.some((st) => st.kind === "cc" && st.key === "sleep")) {
     target.statuses = target.statuses.filter((st) => st.kind !== "cc" || st.key !== "sleep");
@@ -506,6 +523,12 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   // Consumers requiring actual damage use amount + absorbed instead.
   observeDamage(world, source, target, report, ctx.attack === true);
   notifyCombatActivity(world, activity);
+  if (observed && onDamageResolved && !parried && resolvedDamage > 0) {
+    const damage = Object.freeze({ ...observed, mitigated: resolvedDamage });
+    const resolved = { ...hookContext(world, observer, undefined, target), damage };
+    Object.defineProperty(resolved, "damage", { writable: false, configurable: false });
+    runHook(() => onDamageResolved(resolved));
+  }
   return removed;
 }
 
@@ -905,6 +928,12 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         ...(effect.noLifeSteal ? { noLifeSteal: true } : {}),
         ...(effect.persistent ? { persistent: true } : {}),
         ...((effect.petDamageCategory ?? ctx.petDamageCategory) ? { petDamageCategory: effect.petDamageCategory ?? ctx.petDamageCategory } : {}),
+        ...(world.units[caster.side].spec.hooks?.onDamageResolved ? {
+          observedDamageKind: effect.observedDamageKind ?? (ctx.attack ? "proc"
+            : ctx.ability?.flags?.basicDamage || ctx.ability?.flags?.conquerorBasicStacks ? "basic"
+              : ctx.ability ? "spell" : "unclassified"),
+          ...(ctx.ability?.flags?.conquerorPerPacket ? { conquerorPerPacket: true } : {}),
+        } : {}),
       });
       return;
     }
@@ -1003,6 +1032,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       const old = effect.stacks ? undefined : target.statuses.find((st) => st.kind === "dot" && st.source === caster.side && st.key === key);
       if (old) target.statuses = target.statuses.filter((st) => st !== old);
       const first = old?.dot && old.dot.nextTick >= tick ? old.dot.nextTick : tick + intervalTicks;
+      const castInstance = currentCastInstance(world, caster);
       addStatus(target, {
         kind: "dot",
         key,
@@ -1019,6 +1049,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
           perHit: (evaluate(effect.total, caster, formulaTarget) * ctx.scale) / hits,
           intervalTicks,
           nextTick: first,
+          ...(castInstance !== undefined ? { castInstance, observedDamageKind: ctx.ability ? "spell" : ctx.attack ? "proc" : "unclassified" } : {}),
           ...(effect.label || ctx.ability ? { label: effect.label ?? ctx.ability?.name } : {}),
         },
       });
@@ -1108,16 +1139,19 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       target.statuses = target.statuses.filter((s) => s.kind !== "mark" || s.key !== effect.key);
       addStatus(target, { kind: "mark", key: effect.key, source: caster.side, startTick: tick, endTick: tick + toTicks(effect.duration), value: effect.value ?? 0 });
       return;
-    case "delayed":
+    case "delayed": {
+      const castInstance = currentCastInstance(world, caster);
       world.scheduled.push({
         tick: tick + Math.max(1, toTicks(effect.delay)),
         owner: caster.side,
         target: target.side,
         effects: effect.effects,
         ...(ctx.ability ? { ability: ctx.ability.key } : {}),
+        ...(castInstance !== undefined ? { castInstance } : {}),
         scale: ctx.scale,
       });
       return;
+    }
     case "reposition": {
       const from = target.x;
       const enemy = world.units[other(target.side)];
@@ -1272,6 +1306,11 @@ export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit,
   if (!attacker.spec.hooks?.onResolvedOnHit) return;
   const { ability, blocked, attackOptions, scale = 1, incomingScale = scale } = options;
   const onAttackScale = options.onAttackScale ?? ability?.onAttackScale ?? attackOptions?.onAttackScale;
+  const damageContact = attacker.spec.hooks.onDamageResolved ? Object.freeze({
+    castInstance: currentCastInstance(world, attacker),
+    ranged: attacker.spec.attack.ranged, protected: damageProtected(world, attacker, target),
+    basicStacks: ability?.flags?.conquerorBasicStacks ?? attackOptions?.conquerorBasicStacks,
+  }) : undefined;
   return Object.freeze({
     tick: world.tick, sequence: combatEventSequence(world),
     source: combatIdentity(world, attacker), target: combatIdentity(world, target), attack: ability === undefined,
@@ -1281,6 +1320,7 @@ export function captureResolvedOnHit(world: World, attacker: Unit, target: Unit,
     ...(attackOptions?.energizedOnHit !== undefined ? { energizedOnHit: attackOptions.energizedOnHit } : {}),
     ...(attackOptions?.attackBurst !== undefined ? { attackBurst: attackOptions.attackBurst } : {}),
     ...(onAttackScale !== undefined ? { onAttackScale } : {}),
+    ...(damageContact ? { damageContact } : {}),
     pressTheAttackEligible: ability ? ability.flags?.pressTheAttack === true : attackOptions?.pressTheAttack !== false,
   });
 }

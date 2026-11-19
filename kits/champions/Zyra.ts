@@ -146,7 +146,7 @@ const zyra: KitModule = {
       destroyPet(ctx.world, seed);
       const damage = baseDamage + apRatio * derive(ctx.self).ap;
       const plantSpec: PetSpec = {
-        kind, name: kind === SPITTER ? spitter.name : lasher.name, hp: plantHP, armor: 0, mr: 0, radius, moveSpeed: 0, duration: plantLife,
+        kind, name: kind === SPITTER ? spitter.name : lasher.name, conquerorNonBasicAttack: true, hp: plantHP, armor: 0, mr: 0, radius, moveSpeed: 0, duration: plantLife,
         fixedDamage: kind === SPITTER ? spitterFixed : lasherFixed, ccImmune: ["airborne", "cripple", "silence"], target: chooseTarget,
         attack: { range: kind === SPITTER ? spitterRange : lasherRange, interval: 1 / attackSpeed, attackLike: true, windup: kind === SPITTER ? spitterWindup : lasherWindup, ...(kind === SPITTER ? { missileSpeed, projectile: true } : {}), effects: [{ type: "damage", damageType: "magic", amount: flat(damage), petDamageCategory: "area", label: kind === SPITTER ? spitter.name : lasher.name }] },
         effectsForHit({ world, pet, target }) { return plantEffects(world, world.pets.find((candidate) => candidate.id === pet.id) ?? pet, target); },

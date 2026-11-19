@@ -42,10 +42,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Evelynn | Evelynn | 72 | 6 |
 | Ezreal | Ezreal | 53 | 5 |
 | Fiddlesticks | Fiddlesticks | 46 | 3 |
-| Fiora | Fiora | 50 | 3 |
+| Fiora | Fiora | 51 | 3 |
 | Fizz | Fizz | 83 | 6 |
 | Galio | Galio | 111 | 5 |
-| Gangplank | Gangplank | 58 | 5 |
+| Gangplank | Gangplank | 60 | 5 |
 | Garen | Garen | 35 | 4 |
 | Gnar | Gnar | 70 | 7 |
 | Gragas | Gragas | 57 | 3 |
@@ -160,16 +160,16 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Vel'Koz | Velkoz | 70 | 7 |
 | Vex | Vex | 73 | 6 |
 | Vi | Vi | 88 | 7 |
-| Viego | Viego | 52 | 4 |
+| Viego | Viego | 53 | 4 |
 | Viktor | Viktor | 84 | 8 |
 | Vladimir | Vladimir | 64 | 10 |
-| Volibear | Volibear | 50 | 4 |
-| Warwick | Warwick | 67 | 5 |
+| Volibear | Volibear | 51 | 4 |
+| Warwick | Warwick | 69 | 5 |
 | Xayah | Xayah | 75 | 7 |
 | Xerath | Xerath | 67 | 8 |
 | Xin Zhao | XinZhao | 65 | 6 |
-| Yasuo | Yasuo | 49 | 4 |
-| Yone | Yone | 34 | 3 |
+| Yasuo | Yasuo | 50 | 4 |
+| Yone | Yone | 35 | 3 |
 | Yorick | Yorick | 83 | 9 |
 | Yunara | Yunara | 52 | 4 |
 | Yuumi | Yuumi | 34 | 3 |

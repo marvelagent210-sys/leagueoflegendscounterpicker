@@ -72,7 +72,7 @@ const urgot: KitModule = {
       castTime: 0,
       delivery: { kind: "self" },
       onHitScale: purgeOnAttack, onAttackScale: purgeOnAttack,
-      flags: { parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, spellShield: false },
+      flags: { parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, conquerorBasicStacks: 1, spellShield: false },
     };
     innate.quote("It bypasses blocking and dodging effects");
 

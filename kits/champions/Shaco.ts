@@ -116,6 +116,7 @@ const shaco: KitModule = {
     ];
     const firingBox = (name: string, hp: number, shot: Formula, shots: number): PetSpec => ({
       kind: "box", name, hp, armor: boxArmor, mr: boxMR, radius: boxRadius, moveSpeed: 0, duration: firing, targetClass: "minion",
+      ...(name === w.name ? { conquerorNonBasicAttack: true } : {}),
       attack: { ranged: true, range: boxReach, interval: 1 / boxRate, effects: Array.from({ length: shots }, (): Effect => ({ type: "damage", damageType: "magic", amount: shot, label: name })), attackLike: true },
     });
 

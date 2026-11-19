@@ -11,6 +11,7 @@ const yone: KitModule = {
   build(kit) {
     const innate = kit.ability("Way of the Hunter");
     const q = kit.ability("Mortal Steel");
+    q.quote("Mortal Steel applies basic damage for the first (closest) enemy hit");
     const w = kit.ability("Spirit Cleave");
     const e = kit.ability("Soul Unbound");
     const r = kit.ability("Fate Sealed");
@@ -113,7 +114,7 @@ const yone: KitModule = {
           delivery: { kind: "line", range: q.field("range", "Thrust range"), width: q.field("width", "Thrust width") },
           onHit: steel,
           onAttackScale: 1,
-          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, projectile: false },
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, projectile: false },
         }),
         mortal("Q3", {
           cooldownKey: "Q",
@@ -122,7 +123,7 @@ const yone: KitModule = {
           delivery: { kind: "dash", direction: "toward", distance: q.field("range", "Third cast dash distance"), speed: q.field("speed"), hitRadius: q.field("collisionRadius") },
           onHit: [...steel, { type: "displace", direction: "away", distance: 0, duration: knockUp }],
           onAttackScale: 1,
-          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, grounded: true, knockdown: true },
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, grounded: true, knockdown: true },
         }),
         {
           key: "W",

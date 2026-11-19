@@ -34,7 +34,7 @@ describe("explicit duel combat-rune arguments", () => {
     expect(() => combatRuneOption(["--combat-runes", "8444", "--combat-runes", "8014"], "--combat-runes", catalog)).toThrow(/given once/);
     expect(() => combatRuneOption(["--combat-runes"], "--combat-runes", catalog)).toThrow(/requires/);
     expect(() => combatRuneOption(["--combat-runes", "--log", "brawl"], "--combat-runes", catalog)).toThrow(/requires/);
-    expect(() => combatRuneOption(["--combat-runes", "8010"], "--combat-runes", catalog)).toThrow(/no combat implementation/);
+    expect(() => combatRuneOption(["--combat-runes", "8439"], "--combat-runes", catalog)).toThrow(/no combat implementation/);
     expect(() => combatRuneOption(["--combat-runes", "8014,8014"], "--combat-runes", catalog)).toThrow(/cannot repeat/);
     expect(() => combatRuneOption(["--combat-runes", "8014,8017"], "--combat-runes", catalog)).toThrow(/same path row/);
   });
@@ -124,7 +124,7 @@ describe("manual duels with partial combat-rune effects", () => {
     [["--combat-runes"], /requires a value/],
     [["--enemy-combat-runes", ""], /requires comma-separated/],
     [["--combat-runes", "8444", "--combat-runes", "8014"], /given once/],
-    [["--enemy-combat-runes", "8010"], /no combat implementation/],
+    [["--enemy-combat-runes", "8439"], /no combat implementation/],
     [["--combat-runes", "8014,8017"], /same path row/],
     [["--combat-runes=8014"], /Unknown option/],
     [["--combat-runes", "8014", "--items", "Frozen Heart"], /plain-stat duels only/],

@@ -12,6 +12,9 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  conqueror: { modelLevel: 20, maxStacks: 12, stackDuration: 5, castCooldown: 4,
+    meleeBasicStacks: 2, rangedBasicStacks: 1, spellStacks: 2, adaptiveForcePerStack: 362 / 85,
+    adaptiveADRatio: 0.6, adaptiveAPRatio: 1, meleeHealingRatio: 0.08, rangedHealingRatio: 0.05 },
   lethalTempo: { modelLevel: 20, maxStacks: 6, stackDuration: 6, decayInterval: 0.3,
     attackSpeedPerStack: 0.06, rangedAttackSpeedRatio: 0.8, boltDamage: 552 / 17,
     rangedBoltRatio: 0.667, bonusAttackSpeedRatio: 1, boltSpeed: 2500,

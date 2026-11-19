@@ -9,6 +9,7 @@ import { abilityHit, abilityHitPet, applyEffect, attackHit, canSee, canTarget, c
 import { canAttack, canCastUnderCC, derive, evaluate, hasState } from "./derived";
 import { healthProtection } from "./healthProtection";
 import { abilityOf, allAbilities } from "./forms";
+import { allocateCastInstance, currentCastInstance, withCastInstance } from "./castInstance";
 import { abilityHasteFor, cooldownSourceSnapshot } from "./cooldowns";
 import { dashDistance, terrainLimit } from "./terrain";
 import { hitChance } from "./hitModel";
@@ -113,6 +114,12 @@ export function canStartAttackOnPet(world: World, unit: Unit, pet: Pet): boolean
 }
 
 export function startAttack(world: World, unit: Unit, pet?: Pet): void {
+  const cast = allocateCastInstance(world, unit);
+  if (cast === undefined) return declareAttack(world, unit, pet);
+  return withCastInstance(world, unit, cast, () => declareAttack(world, unit, pet));
+}
+
+function declareAttack(world: World, unit: Unit, pet?: Pet): void {
   const target = pet ? petFormulaTarget(pet, unit, world.tick) : world.units[other(unit.side)];
   if (!attackTargetAllowed(world, unit, target, pet)) return;
   unit.facing = directionTo(unit, target);
@@ -191,6 +198,7 @@ function attackOptions(action: AttackHitOptions): AttackHitOptions {
     ...(action.energizedOnHit !== undefined ? { energizedOnHit: action.energizedOnHit } : {}),
     ...(action.attackBurst !== undefined ? { attackBurst: action.attackBurst } : {}),
     ...(action.onAttackScale !== undefined ? { onAttackScale: action.onAttackScale } : {}),
+    ...(action.conquerorBasicStacks !== undefined ? { conquerorBasicStacks: action.conquerorBasicStacks } : {}),
     ...(action.pressTheAttack !== undefined ? { pressTheAttack: action.pressTheAttack } : {}),
   };
 }
@@ -198,6 +206,11 @@ function attackOptions(action: AttackHitOptions): AttackHitOptions {
 /** The windup completes: melee attacks hit at once, ranged attacks fire a missile. */
 export function launchAttack(world: World, unit: Unit, action = unit.action): PendingSplit | undefined {
   if (action?.kind !== "windup") return;
+  if (action.castInstance === undefined) return finishAttack(world, unit, action);
+  return withCastInstance(world, unit, action.castInstance, () => finishAttack(world, unit, action));
+}
+
+function finishAttack(world: World, unit: Unit, action: Extract<Action, { kind: "windup" }>): PendingSplit | undefined {
   if (unit.action === action) unit.action = undefined;
   if (unit.pendingAttack === action) delete unit.pendingAttack;
   if (action.empowered) releaseCooldowns(world, unit);
@@ -220,7 +233,10 @@ export function launchAttack(world: World, unit: Unit, action = unit.action): Pe
 export function launchBonusAttack(world: World, unit: Unit, target: Unit | Pet, options: AttackHitOptions & { blinded?: boolean } = {}, bonusOnHit: Effect[] = []): void {
   if (!unit.alive) return;
   const blinded = options.blinded ?? unit.statuses.some((status) => status.kind === "cc" && status.key === "blind");
-  launchAttackPacket(world, unit, target, blinded, bonusOnHit, { ...options, critChance: options.critChance ?? derive(unit).critChance });
+  const packet = { ...options, critChance: options.critChance ?? derive(unit).critChance };
+  const cast = allocateCastInstance(world, unit);
+  if (cast === undefined) return launchAttackPacket(world, unit, target, blinded, bonusOnHit, packet);
+  withCastInstance(world, unit, cast, () => launchAttackPacket(world, unit, target, blinded, bonusOnHit, packet));
 }
 
 function launchAttackPacket(world: World, unit: Unit, target: Unit | Pet, blinded: boolean, onHit: Effect[], options: AttackHitOptions, split?: AttackSplit, hitsUntargetable?: boolean, seenTick = world.tick): void {
@@ -426,6 +442,12 @@ export function notifyEnemyCast(world: World, caster: Unit, ability: AbilitySpec
 
 /** Starts a cast; instant casts complete at once and may return a skillshot to split on. */
 export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: Aim): PendingSplit | undefined {
+  const cast = allocateCastInstance(world, unit);
+  if (cast === undefined) return declareCast(world, unit, ability, aim);
+  return withCastInstance(world, unit, cast, () => declareCast(world, unit, ability, aim, cast));
+}
+
+function declareCast(world: World, unit: Unit, ability: AbilitySpec, aim?: Aim, castInstance?: number): PendingSplit | undefined {
   const declaredCost = costOf(unit, ability);
   const remainingCost = ability.costAtCastStart ? 0 : declaredCost;
   if (ability.costAtCastStart) payCastCost(world, unit, ability, declaredCost);
@@ -474,7 +496,9 @@ export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: 
   let early: PendingSplit | undefined;
   if (ability.deliveryAtCastStart) early = completeOneCast(world, unit, ability, world.tick, aim, remainingCost, true);
   if (castTicks === 0) return completeCast(world, unit, ability, world.tick, aim, remainingCost) ?? early;
-  const cast: Extract<Action, { kind: "cast" }> = { kind: "cast", ability: ability.key, startTick: world.tick, endTick: world.tick + castTicks, cost: remainingCost, ...(aim ? { aim } : {}), ...(retainedChannel && unit.action === retainedChannel ? { resume: retainedChannel } : {}) };
+  const cast: Extract<Action, { kind: "cast" }> = { kind: "cast", ability: ability.key, startTick: world.tick, endTick: world.tick + castTicks, cost: remainingCost,
+    ...(castInstance !== undefined ? { castInstance } : {}), ...(aim ? { aim } : {}),
+    ...(retainedChannel && unit.action === retainedChannel ? { resume: retainedChannel } : {}) };
   if (overlayDash && unit.action === overlayDash) overlayDash.resume = cast;
   else if (castStartDash && unit.action === castStartDash) castStartDash.resume = cast;
   else unit.action = cast;
@@ -709,7 +733,20 @@ export function expireChains(world: World, unit: Unit): void {
 /** Follow-ups to complete right after the cast that opened them (see advanceChain). */
 const pendingFollowUps: Array<[Unit, AbilitySpec]> = [];
 
-export function completeCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim, declaredCost?: number): PendingSplit | undefined {
+function completingCastInstance(world: World, unit: Unit, ability: AbilitySpec): number | undefined {
+  if (!unit.spec.hooks?.onDamageResolved) return;
+  const action = unit.action;
+  return (action?.kind === "cast" && action.ability === ability.key ? action.castInstance : undefined)
+    ?? currentCastInstance(world, unit) ?? allocateCastInstance(world, unit);
+}
+
+export function completeCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim, declaredCost?: number, castInstance?: number): PendingSplit | undefined {
+  const cast = castInstance ?? completingCastInstance(world, unit, ability);
+  if (cast === undefined) return finishCast(world, unit, ability, castStartTick, aim, declaredCost);
+  return withCastInstance(world, unit, cast, () => finishCast(world, unit, ability, castStartTick, aim, declaredCost));
+}
+
+function finishCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim, declaredCost?: number): PendingSplit | undefined {
   let split = completeOneCast(world, unit, ability, castStartTick, aim, declaredCost);
   for (let follow = pendingFollowUps.shift(); follow; follow = pendingFollowUps.shift()) {
     const [owner, next] = follow;
@@ -726,9 +763,11 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
 }
 
 /** A committed line can leave before its cast lock ends, without paying or delivering twice. */
-export function deliverDuringCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim): PendingSplit | undefined {
+export function deliverDuringCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim, castInstance?: number): PendingSplit | undefined {
   if (ability.deliveryDuringCastAt === undefined || ability.delivery.kind !== "line") throw new Error("Timed cast delivery requires a line");
-  return completeOneCast(world, unit, ability, castStartTick, aim, undefined, true);
+  const cast = castInstance ?? completingCastInstance(world, unit, ability);
+  if (cast === undefined) return completeOneCast(world, unit, ability, castStartTick, aim, undefined, true);
+  return withCastInstance(world, unit, cast, () => completeOneCast(world, unit, ability, castStartTick, aim, undefined, true));
 }
 
 function payCastCost(world: World, unit: Unit, ability: AbilitySpec, cost: number): void {
@@ -1110,6 +1149,12 @@ function missile(
 
 /** Dashes move their unit each tick and end at their distance, or on reaching the enemy. */
 export function progressDash(world: World, unit: Unit): void {
+  const cast = unit.action?.castInstance;
+  if (cast === undefined) return advanceDash(world, unit);
+  withCastInstance(world, unit, cast, () => advanceDash(world, unit));
+}
+
+function advanceDash(world: World, unit: Unit): void {
   const action = unit.action;
   // A dash moves from the tick after it starts until its end tick.
   if (action?.kind !== "dash" || world.tick <= action.startTick || awaitsSplit(world, "dash", unit.side)) return;
@@ -1205,6 +1250,12 @@ function stoppedByAntiDash(world: World, unit: Unit, enemy: Unit, unstoppable: b
 
 /** Channels hit on their interval and finish with their completion effects. */
 export function progressChannel(world: World, unit: Unit): void {
+  const cast = channelIn(unit.action)?.castInstance;
+  if (cast === undefined) return advanceChannel(world, unit);
+  withCastInstance(world, unit, cast, () => advanceChannel(world, unit));
+}
+
+function advanceChannel(world: World, unit: Unit): void {
   const action = channelIn(unit.action);
   if (!action) return;
   const ability = abilityOf(unit, action.ability);
@@ -1292,75 +1343,80 @@ export function advanceMissiles(world: World): void {
   for (const m of initial) {
     if (!world.missiles.some((current) => current.id === m.id)) continue;
     if (awaitsSplit(world, "missile", m.id)) { keep.push(m); continue; }
-    if (m.piercing || m.followOwner || m.collisionPet || m.expiresTick !== undefined) {
-      if (advanceSpecialMissile(world, m, blocked)) keep.push(m);
-      continue;
-    }
-    const owner = world.units[m.owner];
-    const target = world.units[other(m.owner)];
-    const from = m.x;
-    if (m.pet !== undefined) {
-      // Both basic and spell missiles retain the actual pet they were aimed at.
-      const pet = world.pets.find((p) => p.id === m.pet);
-      if (!pet) { owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "range" }); continue; }
-      m.x += Math.sign(pet.x - m.x) * Math.min(m.perTick, Math.abs(pet.x - m.x));
-      if (interceptProjectile(world, m, from, m.x)) continue;
-      if (blocked(world, m, from, m.x)) {
-        log(world, target.side, `blocks a projectile (${m.source})`);
-        owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "blocked" });
-        continue;
-      }
-      owner.spec.hooks?.onMissileMove?.({ ...hookContext(world, owner), missile: m, from, to: m.x });
-      if (m.ended) continue;
-      if (Math.abs(pet.x - m.x) <= pet.spec.radius + EPSILON) {
-        if (m.attack) resolveAttackOnPet(world, owner, pet, m.attack.blinded, m.attack.bonusOnHit, m.attack, m.attack.split, m.scale);
-        else {
-          const ability = abilityOf(owner, m.source);
-          if (ability && m.connects) abilityHitPet(world, owner, pet, ability, m.onHit, "singleTarget", m.scale);
-        }
-        owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner, undefined, petFormulaTarget(pet, owner, world.tick)), missile: m, targetPet: pet });
-      } else keep.push(m);
-      continue;
-    }
-    const step = m.homing ? Math.sign(target.x - m.x) * Math.min(m.perTick, Math.abs(target.x - m.x)) : m.direction * (m.landingZone ? Math.min(m.perTick, m.travelLeft) : m.perTick);
-    m.x += step;
-    m.travelLeft -= Math.abs(step);
-    if (m.acceleration) m.perTick = Math.max(m.acceleration.minPerTick ?? 0, Math.min(m.acceleration.maxPerTick, m.perTick + m.acceleration.perTick));
-    if (interceptProjectile(world, m, from, m.x)) continue;
-    if (blocked(world, m, from, m.x)) {
-      if (m.landingZone) world.zones = world.zones.filter((zone) => zone.id !== m.landingZone?.id);
-      log(world, target.side, `blocks a projectile (${m.source === "attack" ? "attack" : m.source})`);
-      owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "blocked" });
-      continue;
-    }
-    owner.spec.hooks?.onMissileMove?.({ ...hookContext(world, owner), missile: m, from, to: m.x });
-    if (m.ended) {
-      if (m.landingZone) world.zones = world.zones.filter(zone => zone.id !== m.landingZone?.id);
-      continue;
-    }
-    if (m.landingZone) {
-      if (m.travelLeft <= EPSILON) {
-        const zone = world.zones.find((candidate) => candidate.id === m.landingZone?.id);
-        if (zone) zone.endTick = world.tick + m.landingZone.delayTicks;
-      } else keep.push(m);
-      continue;
-    }
-    // Whether the target's hitbox touches the stretch the missile covered this tick.
-    const reached = target.x >= Math.min(from, m.x) - target.spec.base.radius - EPSILON && target.x <= Math.max(from, m.x) + target.spec.base.radius + EPSILON;
-    if (reached) {
-      if (m.attack) attackHit(world, owner, target, m.attack.blinded, m.attack.bonusOnHit, m.attack.split, m.hitsUntargetable, m.attack, m.scale, from);
-      else if (m.connects) {
-        const ability = abilityOf(owner, m.source);
-        if (ability) abilityHit(world, owner, target, ability, m.onHit, m.scale, from);
-      }
-      owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner), missile: m });
-      if (m.homing || m.connects) continue;
-    }
-    if (m.travelLeft > 0 && target.alive) keep.push(m);
-    else owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "range" });
+    if (m.castInstance === undefined) advanceMissile(world, m, keep);
+    else withCastInstance(world, world.units[m.owner], m.castInstance, () => advanceMissile(world, m, keep));
   }
   const remainingIds = new Set(world.missiles.map((m) => m.id));
   world.missiles = [...keep.filter((m) => remainingIds.has(m.id)), ...world.missiles.filter((m) => !initialIds.has(m.id))];
+}
+
+function advanceMissile(world: World, m: Missile, keep: Missile[]): void {
+  if (m.piercing || m.followOwner || m.collisionPet || m.expiresTick !== undefined) {
+    if (advanceSpecialMissile(world, m, blocked)) keep.push(m);
+    return;
+  }
+  const owner = world.units[m.owner];
+  const target = world.units[other(m.owner)];
+  const from = m.x;
+  if (m.pet !== undefined) {
+    // Both basic and spell missiles retain the actual pet they were aimed at.
+    const pet = world.pets.find((p) => p.id === m.pet);
+    if (!pet) { owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "range" }); return; }
+    m.x += Math.sign(pet.x - m.x) * Math.min(m.perTick, Math.abs(pet.x - m.x));
+    if (interceptProjectile(world, m, from, m.x)) return;
+    if (blocked(world, m, from, m.x)) {
+      log(world, target.side, `blocks a projectile (${m.source})`);
+      owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "blocked" });
+      return;
+    }
+    owner.spec.hooks?.onMissileMove?.({ ...hookContext(world, owner), missile: m, from, to: m.x });
+    if (m.ended) return;
+    if (Math.abs(pet.x - m.x) <= pet.spec.radius + EPSILON) {
+      if (m.attack) resolveAttackOnPet(world, owner, pet, m.attack.blinded, m.attack.bonusOnHit, m.attack, m.attack.split, m.scale);
+      else {
+        const ability = abilityOf(owner, m.source);
+        if (ability && m.connects) abilityHitPet(world, owner, pet, ability, m.onHit, "singleTarget", m.scale);
+      }
+      owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner, undefined, petFormulaTarget(pet, owner, world.tick)), missile: m, targetPet: pet });
+    } else keep.push(m);
+    return;
+  }
+  const step = m.homing ? Math.sign(target.x - m.x) * Math.min(m.perTick, Math.abs(target.x - m.x)) : m.direction * (m.landingZone ? Math.min(m.perTick, m.travelLeft) : m.perTick);
+  m.x += step;
+  m.travelLeft -= Math.abs(step);
+  if (m.acceleration) m.perTick = Math.max(m.acceleration.minPerTick ?? 0, Math.min(m.acceleration.maxPerTick, m.perTick + m.acceleration.perTick));
+  if (interceptProjectile(world, m, from, m.x)) return;
+  if (blocked(world, m, from, m.x)) {
+    if (m.landingZone) world.zones = world.zones.filter((zone) => zone.id !== m.landingZone?.id);
+    log(world, target.side, `blocks a projectile (${m.source === "attack" ? "attack" : m.source})`);
+    owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "blocked" });
+    return;
+  }
+  owner.spec.hooks?.onMissileMove?.({ ...hookContext(world, owner), missile: m, from, to: m.x });
+  if (m.ended) {
+    if (m.landingZone) world.zones = world.zones.filter(zone => zone.id !== m.landingZone?.id);
+    return;
+  }
+  if (m.landingZone) {
+    if (m.travelLeft <= EPSILON) {
+      const zone = world.zones.find((candidate) => candidate.id === m.landingZone?.id);
+      if (zone) zone.endTick = world.tick + m.landingZone.delayTicks;
+    } else keep.push(m);
+    return;
+  }
+  // Whether the target's hitbox touches the stretch the missile covered this tick.
+  const reached = target.x >= Math.min(from, m.x) - target.spec.base.radius - EPSILON && target.x <= Math.max(from, m.x) + target.spec.base.radius + EPSILON;
+  if (reached) {
+    if (m.attack) attackHit(world, owner, target, m.attack.blinded, m.attack.bonusOnHit, m.attack.split, m.hitsUntargetable, m.attack, m.scale, from);
+    else if (m.connects) {
+      const ability = abilityOf(owner, m.source);
+      if (ability) abilityHit(world, owner, target, ability, m.onHit, m.scale, from);
+    }
+    owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner), missile: m });
+    if (m.homing || m.connects) return;
+  }
+  if (m.travelLeft > 0 && target.alive) keep.push(m);
+  else owner.spec.hooks?.onMissileEnd?.({ ...hookContext(world, owner), missile: m, reason: "range" });
 }
 
 /** Ground areas land, traps go off on contact, fields pulse, and projectile walls expire. */
@@ -1373,60 +1429,65 @@ export function advanceZones(world: World): void {
     // next tick; filtering the live collection must not resurrect a cancelled zone.
     if (!world.zones.some((candidate) => candidate.id === zone.id)) continue;
     if (awaitsSplit(world, "zone", zone.id)) { keep.push(zone); continue; }
-    const owner = world.units[zone.owner];
-    const target = world.units[other(zone.owner)];
-    if (zone.kind === "field") {
-      if (world.tick >= zone.endTick || (!owner.alive && !abilityOf(owner, zone.ability)?.persistsAfterDeath)) continue;
-      pulseField(world, zone, owner, target);
-      keep.push(zone);
-      continue;
-    }
-    if (zone.kind === "trap") {
-      if (world.tick >= zone.endTick) continue;
-      if (world.tick >= zone.startTick && Math.abs(target.x - zone.x) <= zone.radius + (zone.centered ? 0 : target.spec.base.radius) + EPSILON && target.alive && !isUntargetable(target, owner)) {
-        owner.spec.hooks?.onZoneTrigger?.({ ...hookContext(world, owner), zone });
-        log(world, target.side, "steps on a trap");
-        const ability = abilityOf(owner, zone.ability);
-        if (ability) abilityHit(world, owner, target, ability, zone.onHit ?? [], zone.scale ?? 1, zone.x);
-        else for (const effect of zone.onHit ?? []) applyEffect(world, owner, target, effect, { scale: 1 });
-        continue;
-      }
-    } else if (zone.kind === "delayedArea" && world.tick >= zone.endTick) {
-      owner.spec.hooks?.onZoneLand?.({ ...hookContext(world, owner), zone });
-      if ((zone.kind as Zone["kind"]) === "trap") { if (world.tick < zone.endTick) keep.push(zone); continue; }
-      if ((zone.kind as Zone["kind"]) === "field") {
-        pulseField(world, zone, owner, target);
-        if (world.tick < zone.endTick) keep.push(zone);
-        continue;
-      }
-      const ability = abilityOf(owner, zone.ability);
-      let x = zone.x;
-      let radius = zone.radius;
-      let bands = zone.bands;
-      if (zone.follow) {
-        // Areas that move with the caster land where it is now.
-        const dir = directionTo(owner, target);
-        x = owner.x + (dir * (zone.follow.near + zone.follow.far)) / 2;
-        radius = (zone.follow.far - zone.follow.near) / 2;
-        bands = zone.follow.bands?.map((b) => ({ from: owner.x + dir * b.from, to: owner.x + dir * b.to, onHit: b.onHit }));
-      }
-      const inside = Math.abs(target.x - x) <= radius + (zone.centered ? 0 : target.spec.base.radius) + EPSILON;
-      const band = bands?.find((b) => target.x >= Math.min(b.from, b.to) - EPSILON && target.x <= Math.max(b.from, b.to) + EPSILON);
-      if (ability && zone.connects && inside) abilityHit(world, owner, target, ability, band?.onHit ?? zone.onHit ?? [], zone.scale ?? 1, x);
-      // Pets in it take the hit too, unless it is a line (an instant one the fight split on) or its kit handles them.
-      if (ability && ability.delivery.kind !== "line" && !zone.noPets) {
-        if (zone.centered) {
-          for (const pet of [...world.pets]) {
-            if (pet.owner === owner.side || pet.spec.hitPoints || pet.spec.untargetable || Math.abs(pet.x - x) > radius + EPSILON) continue;
-            abilityHitPet(world, owner, pet, ability, zone.onHit ?? [], "area", zone.scale ?? 1, x);
-          }
-        } else abilityAreaOnPets(world, owner, ability, x - radius, x + radius, zone.onHit ?? [], zone.scale ?? 1, x);
-      }
-      continue;
-    }
-    if (world.tick < zone.endTick) keep.push(zone);
+    if (zone.castInstance === undefined) advanceZone(world, zone, keep);
+    else withCastInstance(world, world.units[zone.owner], zone.castInstance, () => advanceZone(world, zone, keep));
   }
   const remainingIds = new Set(world.zones.map((zone) => zone.id));
   world.zones = [...keep.filter((zone) => remainingIds.has(zone.id)), ...world.zones.filter((zone) => !initialIds.has(zone.id))];
+}
+
+function advanceZone(world: World, zone: Zone, keep: Zone[]): void {
+  const owner = world.units[zone.owner];
+  const target = world.units[other(zone.owner)];
+  if (zone.kind === "field") {
+    if (world.tick >= zone.endTick || (!owner.alive && !abilityOf(owner, zone.ability)?.persistsAfterDeath)) return;
+    pulseField(world, zone, owner, target);
+    keep.push(zone);
+    return;
+  }
+  if (zone.kind === "trap") {
+    if (world.tick >= zone.endTick) return;
+    if (world.tick >= zone.startTick && Math.abs(target.x - zone.x) <= zone.radius + (zone.centered ? 0 : target.spec.base.radius) + EPSILON && target.alive && !isUntargetable(target, owner)) {
+      owner.spec.hooks?.onZoneTrigger?.({ ...hookContext(world, owner), zone });
+      log(world, target.side, "steps on a trap");
+      const ability = abilityOf(owner, zone.ability);
+      if (ability) abilityHit(world, owner, target, ability, zone.onHit ?? [], zone.scale ?? 1, zone.x);
+      else for (const effect of zone.onHit ?? []) applyEffect(world, owner, target, effect, { scale: 1 });
+      return;
+    }
+  } else if (zone.kind === "delayedArea" && world.tick >= zone.endTick) {
+    owner.spec.hooks?.onZoneLand?.({ ...hookContext(world, owner), zone });
+    if ((zone.kind as Zone["kind"]) === "trap") { if (world.tick < zone.endTick) keep.push(zone); return; }
+    if ((zone.kind as Zone["kind"]) === "field") {
+      pulseField(world, zone, owner, target);
+      if (world.tick < zone.endTick) keep.push(zone);
+      return;
+    }
+    const ability = abilityOf(owner, zone.ability);
+    let x = zone.x;
+    let radius = zone.radius;
+    let bands = zone.bands;
+    if (zone.follow) {
+      // Areas that move with the caster land where it is now.
+      const dir = directionTo(owner, target);
+      x = owner.x + (dir * (zone.follow.near + zone.follow.far)) / 2;
+      radius = (zone.follow.far - zone.follow.near) / 2;
+      bands = zone.follow.bands?.map((b) => ({ from: owner.x + dir * b.from, to: owner.x + dir * b.to, onHit: b.onHit }));
+    }
+    const inside = Math.abs(target.x - x) <= radius + (zone.centered ? 0 : target.spec.base.radius) + EPSILON;
+    const band = bands?.find((b) => target.x >= Math.min(b.from, b.to) - EPSILON && target.x <= Math.max(b.from, b.to) + EPSILON);
+    if (ability && zone.connects && inside) abilityHit(world, owner, target, ability, band?.onHit ?? zone.onHit ?? [], zone.scale ?? 1, x);
+    // Pets in it take the hit too, unless it is a line (an instant one the fight split on) or its kit handles them.
+    if (ability && ability.delivery.kind !== "line" && !zone.noPets) {
+      if (zone.centered) {
+        for (const pet of [...world.pets]) {
+          if (pet.owner === owner.side || pet.spec.hitPoints || pet.spec.untargetable || Math.abs(pet.x - x) > radius + EPSILON) continue;
+          abilityHitPet(world, owner, pet, ability, zone.onHit ?? [], "area", zone.scale ?? 1, x);
+        }
+      } else abilityAreaOnPets(world, owner, ability, x - radius, x + radius, zone.onHit ?? [], zone.scale ?? 1, x);
+    }
+    return;
+  }
+  if (world.tick < zone.endTick) keep.push(zone);
 }
 

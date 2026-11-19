@@ -6,7 +6,7 @@
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { CCType } from "../rules/crowdControl";
-import type { AbilitySpec, AttackSplit, Effect, FighterSpec, Formula, PetSpec } from "./spec";
+import type { AbilitySpec, AttackSplit, Effect, FighterSpec, Formula, ObservedDamageKind, PetSpec } from "./spec";
 import type { PendingSplit } from "./actions";
 
 export type Side = 0 | 1;
@@ -28,7 +28,8 @@ export interface Status {
   /** Black Shield's CC protection follows this shield's lifetime and its incoming hit packet. */
   blackShield?: boolean;
   /** `label`: what its ticks are logged as (the ability's name). */
-  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string; originX?: number };
+  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string; originX?: number;
+    castInstance?: number; observedDamageKind?: ObservedDamageKind };
   empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; hitsUntargetable?: boolean; spellShield?: boolean; spellShieldOnHit?: boolean; attackOnHitReplacement?: Effect[]; onHitApplications?: number; breakShields?: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
@@ -79,6 +80,7 @@ export interface AttackHitOptions {
   energizedOnHit?: boolean;
   /** Damage effectiveness for explicit ordinary on-attack applications on contact. */
   onAttackScale?: number;
+  conquerorBasicStacks?: 1 | 2;
   /** Unique cast ID shared by the primary rounds of a burst. */
   attackBurst?: number;
   /** Distinct strike observations; attached legacy effects still resolve once. */
@@ -89,7 +91,7 @@ export interface AttackHitOptions {
   breakShields?: boolean;
 }
 
-export type Action =
+export type Action = (
   | {
       kind: "windup";
       startTick: number;
@@ -160,7 +162,7 @@ export type Action =
       /** A charge that dashes at `speed` once within `within` units of the enemy, and the tick it did (`lockedTick`). */
       lockOn?: { within: number; speed: number };
       lockedTick?: number;
-    };
+    }) & { castInstance?: number };
 
 /** Where a location-targeted dash or field goes: toward the enemy (1) or away (-1), and how far. */
 export interface Aim {
@@ -229,6 +231,8 @@ export interface Unit {
 }
 
 export interface Missile {
+  /** Initial cast identity for opt-in damage observers, including later flight stages. */
+  castInstance?: number;
   /** Kit-resolved collisions may hide a forecast without changing the actual flight or hit entitlement. */
   perceptionHidden?: boolean;
   /** Absolute contact clock for an explicitly kit-resolved fixed-time projectile.
@@ -282,6 +286,8 @@ export interface Missile {
 
 /** A pet on the line (engine/sim/pets.ts). */
 export interface Pet {
+  /** A kit explicitly links the next native pet attack to an existing cast. */
+  nextAttackCastInstance?: number;
   /** Carried without changing this body's identity, ownership, health or launched packets. */
   carriedBy?: Side;
   /** Forced movement belongs to this actual body, never its owner. */
@@ -301,6 +307,7 @@ export interface Pet {
 }
 
 export interface Zone {
+  castInstance?: number;
   /** A real finite released effect whose next pulse is advanced by its kit hook. */
   pendingAfterDeath?: boolean;
   /** A shared spatial floor: evaluated for both sides, with optional healing denial at the floor. */
@@ -366,6 +373,7 @@ export interface Terrain {
 
 /** Effects waiting for their tick (see the "delayed" effect). */
 export interface Scheduled {
+  castInstance?: number;
   targetPet?: number;
   tick: number;
   owner: Side;
@@ -450,6 +458,7 @@ export const DEFAULT_SETTINGS: SimSettings = {
 export type Mode = "fight" | "trade" | "hold" | "kite" | "flee" | "idle";
 
 export interface PetMissile {
+  castInstance?: number;
   id: number;
   owner: Side;
   pet: number;
@@ -475,6 +484,8 @@ export interface World {
   nextId: number;
   /** Observer event sequence, independent of gameplay IDs; copied by cloneWorld's scalar spread. */
   combatEventSequence?: number;
+  /** Separate from gameplay object IDs and other combat observations. */
+  castInstanceSequence?: number;
   /** Probability of this branch. */
   weight: number;
   /** Times this branch has split. */

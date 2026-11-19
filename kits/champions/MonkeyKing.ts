@@ -363,7 +363,7 @@ const wukong: KitModule = {
         delivery: { kind: "self" },
         onSelf: [...spinSelf, { type: "state", state: "lingering", duration: secondWithin }],
         channel: spinChannel,
-        flags: { spellShield: true },
+        flags: { spellShield: true, conquerorPerPacket: true },
         decisive: true,
         roles: ["damage", "cc"],
       },
@@ -389,7 +389,7 @@ const wukong: KitModule = {
         delivery: { kind: "self" },
         onSelf: spinSelf,
         channel: spinChannel,
-        flags: { spellShield: true },
+        flags: { spellShield: true, conquerorPerPacket: true },
         roles: ["damage", "cc"],
       },
       {
