@@ -1146,7 +1146,7 @@
         "sha256": "55957f17d94a3bd2875606453fc089977fb650ece00d22bfab6cc31086143363",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Overgrowth|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 3\n|description  = {{sbc|Passive:}} Every 8 {{tip|monster|monsters}} or enemy {{tip|minion|minions}} that die near you permanently generates a [[stack]]. Each stack grants {{as|3 '''bonus''' health}}. This effect can stack indefinitely.\n|description2 = After reaching 15 stacks (120 monsters or minions), your {{as|'''base'''|health}} and {{as|'''bonus''' health}} are permanently increased by {{fd|3.5}}%.\n|range        = 1400\n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8453,

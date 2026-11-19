@@ -50,3 +50,20 @@ export function energizedChargesOption(args: readonly string[], flag: string, se
   }
   return Number(value);
 }
+
+/** A manual Overgrowth side declares the prior eligible deaths it has absorbed. */
+export function overgrowthDeathsOption(args: readonly string[], flag: string, selection: readonly number[] | undefined): number | undefined {
+  const overgrowth = selection?.includes(8451) === true;
+  const positions = args.flatMap((value, index) => value === flag ? [index] : []);
+  if (positions.length > 1) throw new Error(`${flag} must be given once`);
+  if (positions.length === 0) {
+    if (overgrowth) throw new Error(`Overgrowth (8451) requires ${flag}, including an explicit 0 for no starting deaths`);
+    return undefined;
+  }
+  if (!overgrowth) throw new Error(`${flag} requires Overgrowth (8451) on the same side`);
+  const value = args[positions[0]! + 1]?.trim();
+  if (!value || !/^(0|[1-9]\d*)$/.test(value)) throw new Error(`${flag} requires a nonnegative decimal integer`);
+  const deaths = Number(value);
+  if (!Number.isSafeInteger(deaths)) throw new Error(`${flag} requires a nonnegative safe integer`);
+  return deaths;
+}

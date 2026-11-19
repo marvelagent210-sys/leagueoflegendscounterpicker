@@ -9,6 +9,13 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  overgrowth: {
+    unitsPerStack: number;
+    healthPerStack: number;
+    thresholdUnits: number;
+    healthRatio: number;
+    radius: number;
+  };
   shieldBash: {
     modelLevel: 20;
     baseDamage: number;

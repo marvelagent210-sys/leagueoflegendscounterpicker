@@ -140,7 +140,7 @@ const yorick: KitModule = {
       kind: WALKER,
       name: walkerPet.name,
       conquerorNonBasicAttack: true,
-      hp: walkerHp + walkerHpShare * Math.max(0, derive(owner).maxHp - owner.spec.base.hp),
+      hp: walkerHp + walkerHpShare * Math.max(0, derive(owner).bonusHp),
       armor: walker.armor,
       mr: walker.mr,
       meleeAttackTaken: meleeTaken,
@@ -156,7 +156,7 @@ const yorick: KitModule = {
     const maidenSpec = (owner: Unit, cursed: boolean): PetSpec => ({
       kind: MAIDEN,
       name: maidenPet.name,
-      hp: maidenHp + maidenHpShare * Math.max(0, derive(owner).maxHp - owner.spec.base.hp),
+      hp: maidenHp + maidenHpShare * Math.max(0, derive(owner).bonusHp),
       armor: maiden.armor,
       mr: maiden.mr,
       radius: maiden.radius,

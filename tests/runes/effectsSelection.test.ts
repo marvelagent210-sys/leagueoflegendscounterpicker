@@ -18,6 +18,7 @@ const fighter = (options: Parameters<typeof baseFighter>[0] = {}): FighterSpec =
   baseFighter({ ...options, base: { armor: 0, mr: 0, ...options.base } });
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  overgrowth: { unitsPerStack: 8, healthPerStack: 3, thresholdUnits: 120, healthRatio: 0.035, radius: 1400 },
   shieldBash: { modelLevel: 20, baseDamage: 560 / 17, bonusHealthRatio: 0.025, shieldRatio: 0.15, linger: 2 },
   bonePlating: { modelLevel: 20, reduction: 1080 / 17, charges: 3, duration: 1.5, cooldown: 55 },
   grasp: { maxStacks: 4, stackInterval: 1, combatWindow: 3, readyWindow: 5, healDelay: 0.4,
@@ -68,13 +69,14 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely 2,142 of the 131,072 subsets of the seventeen implemented effects", () => {
-    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8444, 8473, 9101, 9103, 9104, 9105, 9111]);
+  it("accepts precisely 3,718 of the 262,144 subsets of the eighteen implemented effects", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8444, 8451, 8473, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     let withGrasp = 0;
     let withBone = 0;
     let withShieldBash = 0;
     let withBoth = 0;
+    let withOvergrowth = 0;
     for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
       const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
@@ -83,24 +85,30 @@ describe("explicit partial combat-rune selections", () => {
       const keystones = selected.filter(id => id === 8005 || id === 8008 || id === 8010 || id === 8021);
       const grasp = selected.includes(8437);
       const bone = selected.includes(8473);
+      const shield = selected.includes(8401);
+      const overgrowth = selected.includes(8451);
+      const resolveRowTwo = bone || selected.includes(8444);
+      const needsPrimaryResolve = grasp || (shield && resolveRowTwo && overgrowth);
       const rows = [amps.length, legends.length, precisionRowOne.length, keystones.length];
       if (rows.every(count => count <= 1) && !(bone && selected.includes(8444))
-        && (!grasp || (keystones.length === 0 && amps.length + legends.length + precisionRowOne.length <= 2))) {
+        && (!needsPrimaryResolve || (keystones.length === 0 && amps.length + legends.length + precisionRowOne.length <= 2))) {
         expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
         accepted++;
         if (grasp) withGrasp++;
         if (bone) withBone++;
-        if (selected.includes(8401)) {
+        if (shield) {
           withShieldBash++;
           if (bone) withBoth++;
         }
+        if (overgrowth) withOvergrowth++;
       } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow();
     }
-    expect(accepted).toBe(2142);
-    expect(withGrasp).toBe(222);
-    expect(withBone).toBe(714);
-    expect(withShieldBash).toBe(1071);
-    expect(withBoth).toBe(357);
+    expect(accepted).toBe(3718);
+    expect(withGrasp).toBe(444);
+    expect(withBone).toBe(1145);
+    expect(withShieldBash).toBe(1576);
+    expect(withBoth).toBe(431);
+    expect(withOvergrowth).toBe(1576);
   });
 
   it("makes Grasp primary Resolve with at most two Precision lesser rows", () => {

@@ -185,6 +185,8 @@ export interface Unit {
   /** Persistent absolute facing; forced movement does not normally turn it. */
   facing?: 1 | -1;
   hp: number;
+  /** Persistent multiplier for both base and bonus health, installed on the real body. */
+  healthMultiplier?: number;
   resource: number;
   statuses: Status[];
   /** Immutable last observations. A world branch replaces the list when its shields change. */

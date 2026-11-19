@@ -8,6 +8,25 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Overgrowth
+
+The normal-mode template and client agree on three flat bonus health per
+eight qualifying deaths, a 120-death threshold, a 3.5% multiplier and a
+1,400-unit range. Only enemy minions and monsters within the owner's direct
+vision qualify in the source. Terrain and nearsight can limit the range,
+and qualifying deaths can count while the champion is dead. The manual
+model takes the owner's already-qualified total as fixed history. The
+client's opaque numeric fields need evidence before informing absorption
+timing. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3825902) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4002405)
+
+The model uses explicit base and bonus health classifications. Kled's base
+increase is apportioned between his own and Skaarl's base pools, with the
+bonus increase on Skaarl. Vladimir's AP-derived health is boosted with
+the rest of the bonus pool. His HP-to-AP conversion reads scaled external
+bonus health without feeding back its own generated value. These interactions
+and the exact Pyke conversion order still need controlled measurements.
+[Kled's Skaarl](https://wiki.leagueoflegends.com/en-us/?oldid=4058479) · [Vladimir's Crimson Pact](https://wiki.leagueoflegends.com/en-us/?oldid=4073468) · [Pyke's Gift of the Drowned Ones](https://wiki.leagueoflegends.com/en-us/?oldid=4007005)
+
 ## Shield Bash
 
 The reviewed rules give the highest eligible shield peak, the two-second

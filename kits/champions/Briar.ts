@@ -302,7 +302,7 @@ const briar: KitModule = {
           const self = ctx.self;
           // Briar's healing grows with her missing health (and bonus health).
           const missing = missingShare(self) * 100;
-          const bonusHealth = Math.max(0, derive(self).maxHp - self.spec.base.hp);
+          const bonusHealth = Math.max(0, derive(self).bonusHp);
           const amp = (seriesAt(ampByMissing, missing, true) + seriesAt(ampPerHealth, missing, true) * (bonusHealth / 100)) / 100;
           ctx.buff("briar:amp", "healingIncrease", amp, 1);
           // Chilling Scream's charge heals her every 0.25 s.

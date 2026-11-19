@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support seventeen partial combat effects, including
-Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support eighteen partial combat effects, including
+Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -134,6 +134,7 @@ supported as partial manual selections:
 | Shield Bash | 8401 | A qualifying champion on-hit deals `560/17` adaptive damage at level 20 plus 2.5% of bonus health and 15% of the strongest eligible shield's peak. Each shield remains eligible for two seconds after it ends. |
 | Grasp of the Undying | 8437 | Damage starts a four-stack timer. A qualified champion on-hit consumes the primed charge for magic damage, a delayed heal and permanent bonus health. Ranged applications use 40% effectiveness. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
+| Overgrowth | 8451 | Each complete set of eight declared qualifying deaths gives 3 bonus health. At 120, both base and bonus health increase by 3.5%. Each side declares its own starting count. |
 | Bone Plating | 8473 | An opposing champion's first health-damaging packet arms three plates for 1.5 seconds. One later packet per cast can spend a plate for up to `1080/17` reduction at level 20. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
 | Triumph | 9111 | Stores 2.5% maximum HP plus 5% missing HP from the declared native champion-body kill-credit frame; attempts ordinary self healing one second later if the duel is still active and the recipient remains eligible. Sourced 20 gold is economic reference only. |
@@ -150,9 +151,10 @@ Choose at most one keystone per fighter. Press the Attack, Lethal Tempo,
 Fleet Footwork and Conqueror can accompany one first-row choice, one Legend
 and one of the three damage runes. Shield Bash occupies a separate Resolve
 row from Second Wind and Bone Plating, so it can accompany either one.
-Both Resolve lesser choices fit a Precision keystone or Grasp. Grasp requires
-Resolve primary and can accompany up to two Precision lesser runes from
-different rows. Only the explicitly named effects
+Overgrowth occupies the final Resolve row. Select up to two Resolve lesser
+rows with a Precision keystone. All three lesser rows fit a primary Resolve
+page. Grasp requires Resolve primary and can accompany up to two Precision
+lesser runes from different rows. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
 explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-duel
@@ -172,11 +174,12 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **107 complete Wiki revisions** in
+The offline compiler checks **109 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the seventeen templates to
+full-content hashes, exact revisions and excerpts, binds the eighteen templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Overgrowth adds its complete article and template to the previous 107.
 Shield Bash adds the rune article, template, Shield rules, and five reviewed
 ability revisions to the previous 99.
 Bone Plating adds the complete rune article, template and two reviewed ability
@@ -239,6 +242,35 @@ substitutions, item compatibility, separate amplifier packets and automatic rune
 selection require further implementation and validation. These seventeen catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Overgrowth
+
+Use `--overgrowth-deaths` and `--enemy-overgrowth-deaths` for the sides that
+select `8451`. Give each selected side a nonnegative whole count, including
+explicit zero. The count represents pre-duel qualifying deaths and stays
+fixed during the simulation.
+
+```bash
+npm run duel -- Vladimir Pyke --dataset 16.21 --gold 0 --combat-runes 8451 --overgrowth-deaths 120 --enemy-combat-runes 8451 --enemy-overgrowth-deaths 119 --log brawl
+```
+
+Every eight qualifying deaths grant 3 flat bonus health. At 119 deaths this
+is 42 bonus health. At 120 deaths it rises to 45 and multiplies effective
+base and bonus health separately by 1.035. Bonus-health ratios use the boosted
+bonus pool. The multiplier also applies to later permanent health gains.
+The 1,400-unit range, direct vision and dead-owner progression describe
+the source game rules for the supplied starting history. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3825902) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4002405) · [Versioned client](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The rune installs its health before the kit's setup callback. Pyke
+converts the gain into attack damage. Ornn's bonus-health conversion
+applies to the flat award before the percentage. Permanent health gains
+apply directly to current health by the scaled amount, subject to the
+simulator's existing caps and death-state rules. [Pyke's Gift of the Drowned Ones](https://wiki.leagueoflegends.com/en-us/?oldid=4007005) · [Ornn's Living Forge](https://wiki.leagueoflegends.com/en-us/?oldid=4089066) · [Health rules](https://wiki.leagueoflegends.com/en-us/?oldid=4073062)
+
+The simulator applies Kled's base-health percentage to his own pool and
+Skaarl's base pool, with the bonus-health portion on Skaarl. Vladimir's
+conversions keep their existing nonrecursive contract. These ordering
+choices await controlled live checks. [Open mechanics questions](MECHANICS_GAPS.md#overgrowth)
 
 ### Shield Bash
 

@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Seventeen partial combat effects are available in manual plain-stat duels, including Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
+- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Eighteen partial combat effects are available in manual plain-stat duels, including Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -76,6 +76,8 @@ Grasp of the Undying (`8437`) adds a Resolve keystone for manual duels. Damage c
 Bone Plating (`8473`) arms after the opposing champion deals health damage. In the next 1.5 seconds, up to three casts can each lose about 63.53 damage at level 20, including true damage. A later packet from the initiating cast can spend a plate. [Bone Plating rules and example](docs/runes/README.md#bone-plating)
 
 Shield Bash (`8401`) adds adaptive damage to the next qualifying champion on-hit after a health shield is gained. It uses the highest eligible shield peak and keeps each shield eligible for two seconds after it ends. [Shield Bash rules and example](docs/runes/README.md#shield-bash)
+
+Overgrowth (`8451`) uses a starting count of qualifying deaths for each side. Every eight grants 3 bonus health. At 120 deaths it also increases the base and bonus health pools by 3.5% each. [Overgrowth rules and example](docs/runes/README.md#overgrowth)
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 

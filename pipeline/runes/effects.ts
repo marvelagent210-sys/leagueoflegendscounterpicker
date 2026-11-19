@@ -554,8 +554,19 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-08-12T12:00:14Z",
     sha256: "dbe847462ae2df531c7fbd7193311d5cd7a1240177bba3dea886546a9f56f89a",
   },
+  "Template:Rune data Overgrowth": {
+    revid: 3825902,
+    timestamp: "2024-11-27T23:37:55Z",
+    sha256: "55957f17d94a3bd2875606453fc089977fb650ece00d22bfab6cc31086143363",
+  },
+  "Overgrowth": {
+    revid: 4002405,
+    timestamp: "2026-03-24T19:50:20Z",
+    sha256: "324ce9361daac6728b5a274fec6f3b9f8b635c3827545034cdfd4ad56065c656",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8451, name: "Overgrowth", path: 8400, slot: 3, game: "Perks/Styles/Resolve/Overgrowth" },
   { id: 8401, name: "Shield Bash", path: 8400, slot: 1, game: "Perks/Styles/Resolve/ShieldBash" },
   { id: 8473, name: "Bone Plating", path: 8400, slot: 2, game: "Perks/Styles/Resolve/BonePlating" },
   { id: 8437, name: "Grasp of the Undying", path: 8400, slot: 0, game: "Perks/Styles/Resolve/GraspOfTheUndying" },
@@ -674,6 +685,33 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const overgrowth = description("Overgrowth");
+  const [overgrowthUnits, overgrowthFlatHp] = matchNumbers("Overgrowth stack progress", overgrowth.text,
+    /Every (\d+) \{\{tip\|monster\|monsters\}\} or enemy \{\{tip\|minion\|minions\}\} that die near you permanently generates a \[\[stack\]\]\. Each stack grants \{\{as\|(\d+) '''bonus''' health\}\}/);
+  quote(overgrowth.page, "This effect can stack indefinitely.");
+  const [overgrowthThresholdStacks, overgrowthThresholdUnits, overgrowthHealthPercent] = matchNumbers("Overgrowth threshold", overgrowth.page.content,
+    /^\|description2\s*=\s*After reaching (\d+) stacks \((\d+) monsters or minions\), your \{\{as\|'''base'''\|health\}\} and \{\{as\|'''bonus''' health\}\} are permanently increased by \{\{fd\|([\d.]+)\}\}%\.$/m);
+  const [overgrowthRadius] = matchNumbers("Overgrowth radius", overgrowth.page.content, /^\|range\s*=\s*(\d+)[ \t]*$/m);
+  requireThat(overgrowthUnits! > 0 && overgrowthFlatHp! > 0 && overgrowthThresholdStacks! > 0
+    && overgrowthThresholdUnits === overgrowthUnits! * overgrowthThresholdStacks!
+    && overgrowthHealthPercent! > 0 && overgrowthRadius! > 0, "Overgrowth threshold or gain differs from the reviewed stack structure");
+  const overgrowthHealthRatio = overgrowthHealthPercent! / 100;
+  const overgrowthAmounts = client("Overgrowth");
+  for (const [key, value] of Object.entries({ UnitsPerTier: overgrowthUnits!, FlatHealthPerTier: overgrowthFlatHp!,
+    ThresholdUnits: overgrowthThresholdUnits!, ThresholdMaxHealthRatio: overgrowthHealthRatio, Range: overgrowthRadius! })) {
+    agree("Overgrowth", overgrowthAmounts, key, value);
+  }
+  const overgrowthNotes = pages.get("Overgrowth")!;
+  for (const text of [
+    "only counts unit deaths the champion has direct line of {{tip|sight}} on",
+    "Shared vision with other allied units observing the dying units is ignored",
+    "split into a {{as|'''base'''|health}} and {{as|'''bonus''' health}} portion",
+    "base''' health scalings",
+    "users may still gain the effect while [[death|dead]]",
+  ]) quote(overgrowthNotes, text);
+  quote(pages.get("Template:Data Pyke/Gift of the Drowned Ones")!,
+    "Game elements that increase health based on the champion's health (e.g {{ri|Overgrowth}}) will increase the health before getting converted");
 
   const shieldBash = description("Shield Bash");
   const [shieldBase, shieldMax, shieldBaseRepeat, shieldInterval, shieldOffset, shieldLevelStart, shieldLevelEnd, shieldLevelStep] =
@@ -1553,6 +1591,8 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    overgrowth: { unitsPerStack: overgrowthUnits!, healthPerStack: overgrowthFlatHp!,
+      thresholdUnits: overgrowthThresholdUnits!, healthRatio: overgrowthHealthRatio, radius: overgrowthRadius! },
     shieldBash: { modelLevel: 20, baseDamage: shieldBashDamage, bonusHealthRatio: shieldHealthRatio! / 100,
       shieldRatio: shieldAmountRatio! / 100, linger: shieldLinger! },
     bonePlating: { modelLevel: 20, reduction: boneReduction, charges: boneCharges, duration: boneDuration!, cooldown: boneCooldown! },

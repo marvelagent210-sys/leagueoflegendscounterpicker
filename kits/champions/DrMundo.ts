@@ -82,7 +82,7 @@ const mundo: KitModule = {
       budget: {
         damage: (self) => {
           const d = derive(self);
-          const bonusHealth = d.maxHp - self.spec.base.hp;
+          const bonusHealth = d.bonusHp;
           // Blunt Force Trauma's AD from maximum health on every attack, and its empowered attack.
           const traumaAD = traumaShare * d.maxHp;
           const trauma = (traumaMinimum.base + (traumaMinimum.ratios?.bonusHP ?? 0) * bonusHealth) * (1 + traumaMax / 2);

@@ -9,6 +9,7 @@ import { checkedConquerorRules } from "./conqueror";
 import { checkedGraspRules } from "./grasp";
 import { checkedBonePlatingRules } from "./bonePlating";
 import { checkedShieldBashRules } from "./shieldBash";
+import { checkedOvergrowthDeaths, checkedOvergrowthRules } from "./overgrowth";
 import { buildRuneEffect } from "./effectRuntime";
 import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
@@ -125,6 +126,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
   const grasp = checkedGraspRules(value.grasp);
   const bonePlating = checkedBonePlatingRules(value.bonePlating);
   const shieldBash = checkedShieldBashRules(value.shieldBash);
+  const overgrowth = checkedOvergrowthRules(value.overgrowth);
   const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
@@ -192,7 +194,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash,
+    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
@@ -204,8 +206,8 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
 
 function checkedOptions(selection: readonly number[], value: RuneEquipOptions | undefined): RuneEquipOptions {
   if (value === undefined) value = {};
-  if (!record(value) || Object.keys(value).some((key) => key !== "legendPoints" && key !== "energizedCharges")) {
-    throw new Error("Invalid combat-rune options: only declared legendPoints and energizedCharges are supported");
+  if (!record(value) || Object.keys(value).some(key => key !== "legendPoints" && key !== "energizedCharges" && key !== "overgrowthDeaths")) {
+    throw new Error("Invalid combat-rune options: expected declared legendPoints, energizedCharges or overgrowthDeaths");
   }
   const points = value.legendPoints;
   const legend = selection.includes(9104) ? "Legend: Alacrity" : selection.includes(9105) ? "Legend: Haste"
@@ -223,6 +225,11 @@ function checkedOptions(selection: readonly number[], value: RuneEquipOptions | 
     result.energizedCharges = checkedEnergizedCharges(value.energizedCharges);
   } else if (value.energizedCharges !== undefined) {
     throw new Error("energizedCharges requires selecting Fleet Footwork (8021) on the same fighter");
+  }
+  if (selection.includes(8451)) {
+    result.overgrowthDeaths = checkedOvergrowthDeaths(value.overgrowthDeaths);
+  } else if (value.overgrowthDeaths !== undefined) {
+    throw new Error("overgrowthDeaths requires selecting Overgrowth (8451) on the same fighter");
   }
   return result;
 }

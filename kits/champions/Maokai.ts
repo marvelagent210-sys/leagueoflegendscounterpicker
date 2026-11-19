@@ -139,7 +139,7 @@ const maokai: KitModule = {
       const prefix = `${FLIGHT}${missile.id}:`, brush = ctx.world.settings.environment.brush;
       let x = Number(ctx.memory[`${prefix}to`]);
       for (const own of ctx.world.pets.filter(pet => pet.owner === ctx.self.side && pet.spec.kind === SAPLING)) if (Math.abs(own.x - x) < 1e-6) x -= missile.direction * eDetect;
-      const life = eLife + (brush ? eBrushLife * (derive(ctx.self).maxHp - ctx.self.spec.base.hp) : 0);
+      const life = eLife + (brush ? eBrushLife * (derive(ctx.self).bonusHp) : 0);
       const pet = spawnPet(ctx.world, ctx.self, { ...saplingSpec, duration: life }, x);
       pet.memory.brush = brush; pet.memory.armed = ctx.tick + ticks(eArm); pet.memory.phase = "arming";
       pet.statuses!.push({ kind: "state", key: "invulnerable", source: ctx.self.side, startTick: ctx.tick, endTick: pet.endTick, value: 0 });
@@ -241,7 +241,7 @@ const maokai: KitModule = {
           const brush = Boolean(pet.memory.brush), minion = isMinion(ctx.enemy), formula = brush && !minion ? ePacket : minion ? eMinion : eDamage;
           let damage = evaluate(formula, ctx.self, ctx.enemy);
           if (!isChampion(ctx.enemy)) damage = Math.min(damage, brush && !minion ? eBrushCap / (eStacks + 1) : eCap);
-          const slow = eSlow + (brush ? eSlowBonus * ((derive(ctx.self).maxHp - ctx.self.spec.base.hp) + derive(ctx.self).ap) : 0);
+          const slow = eSlow + (brush ? eSlowBonus * ((derive(ctx.self).bonusHp) + derive(ctx.self).ap) : 0);
           return [{ type: "damage", damageType: "magic", amount: { base: damage }, label: e.name }, { type: "cc", cc: "slow", duration: eSlowTime, strength: slow }, ...(brush ? [{ type: "state" as const, state: "standardSight" as const, duration: eReveal }] : [])];
         },
         beforeAbilityHit(ctx) {

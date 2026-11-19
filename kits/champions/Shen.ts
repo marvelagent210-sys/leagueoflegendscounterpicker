@@ -2,10 +2,10 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, inAttackRange } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { evaluate } from "../../engine/sim/derived";
+import { derive, evaluate } from "../../engine/sim/derived";
 import type { Effect, HookContext } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
-import { flat, maxHp, ticks } from "./util";
+import { flat, ticks } from "./util";
 
 const shen: KitModule = {
   champion: "Shen",
@@ -54,7 +54,7 @@ const shen: KitModule = {
 
     const ki = (ctx: HookContext) => {
       if (ctx.tick < Number(ctx.memory.kiReady ?? 0)) return;
-      const bonusHP = maxHp(ctx.self) - ctx.self.spec.base.hp;
+      const bonusHP = derive(ctx.self).bonusHp;
       ctx.apply({ type: "shield", amount: flat(kiShield + kiBonusHP * bonusHP), duration: kiSeconds }, true);
       ctx.memory.kiReady = ctx.tick + ticks(kiCooldown);
     };
@@ -100,7 +100,7 @@ const shen: KitModule = {
           magic: (assaultAttacks * (evaluate(assaultDamage, self, target) + evaluate(assaultStrong, self, target))) / 2 / assaultEvery,
         }),
         // Ki Barrier, its cooldown cut by hitting the enemy.
-        healing: (self) => (kiShield + kiBonusHP * (maxHp(self) - self.spec.base.hp)) / Math.max(3, kiCooldown - kiCut),
+        healing: (self) => (kiShield + kiBonusHP * (derive(self).bonusHp)) / Math.max(3, kiCooldown - kiCut),
       },
       hooks: {
         onStart(ctx) {

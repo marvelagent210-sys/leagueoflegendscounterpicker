@@ -19,14 +19,16 @@ export function grantPermanentBonusHealth(ctx: HookContext, amount: number, memo
   if (self.memory[awarded] === true) return;
   const conversion = self.spec.statConversions;
   const multiplier = conversion?.directBonusHealthMultiplier ?? 1;
+  const healthMultiplier = self.healthMultiplier ?? 1;
   const adPerHealth = conversion?.directBonusHealthToAD;
   if (!Number.isFinite(multiplier) || multiplier <= 0
     || (adPerHealth !== undefined && (!Number.isFinite(adPerHealth) || adPerHealth < 0))) {
     throw new Error("A permanent bonus-health award requires finite champion conversion rules");
   }
   const health = adPerHealth === undefined ? amount * multiplier : 0;
-  const value = adPerHealth === undefined ? health : amount * multiplier * adPerHealth;
-  if (!Number.isFinite(value)) throw new Error("A permanent bonus-health award must remain finite");
+  const value = adPerHealth === undefined ? health : amount * multiplier * healthMultiplier * adPerHealth;
+  const currentHealthGain = health * healthMultiplier;
+  if (!Number.isFinite(value) || !Number.isFinite(currentHealthGain)) throw new Error("A permanent bonus-health award must remain finite");
   self.memory[awarded] = true;
   self.statuses.push({
     kind: "stat", key: adPerHealth === undefined ? "health" : "AD", source: self.side,
@@ -37,5 +39,5 @@ export function grantPermanentBonusHealth(ctx: HookContext, amount: number, memo
   // ceiling does not. Passive AP-to-health output never adds to this direct gain.
   const caps = self.statuses.filter(status => status.kind === "state" && status.key === "maximumHealthGainCap");
   const most = Math.min(derive(self).maxHp, ...caps.map(status => status.value));
-  self.hp = Math.min(most, self.hp + health);
+  self.hp = Math.min(most, self.hp + currentHealthGain);
 }

@@ -7,7 +7,7 @@ import { type Behavior, type Command, defaultBehavior } from "../../engine/sim/b
 import { derive } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
-import { areaAt, attackDamage, flat, maxHp, ticks } from "./util";
+import { areaAt, attackDamage, flat, ticks } from "./util";
 
 const SWEET = "The Darkin Blade (sweet spot)";
 
@@ -167,7 +167,7 @@ const aatrox: KitModule = {
         damage: (self, target) => ({ magic: (stanceShare * derive(target).maxHp) / stanceEvery(self) }),
         healing: (self, target) => {
           const stance = (stanceShare * derive(target).maxHp) / stanceEvery(self);
-          const share = healShare + (healPer100 * (maxHp(self) - self.spec.base.hp)) / 100;
+          const share = healShare + (healPer100 * (derive(self).bonusHp)) / 100;
           // World Ender doubles healing through an all-in.
           return (1 + healingIncrease) * (stance + share * (attackDamage(self) * derive(self).attackSpeed + stance));
         },
@@ -208,7 +208,7 @@ const aatrox: KitModule = {
         onDamageDealt(ctx) {
           // Umbral Dash's passive: healing from damage dealt, except damage over time.
           if (!ctx.persistent && ctx.mitigated > 0) {
-            const bonusHealth = maxHp(ctx.self) - ctx.self.spec.base.hp;
+            const bonusHealth = derive(ctx.self).bonusHp;
             ctx.apply({ type: "heal", amount: flat(ctx.mitigated * (healShare + (healPer100 * bonusHealth) / 100)) }, true);
           }
         },
