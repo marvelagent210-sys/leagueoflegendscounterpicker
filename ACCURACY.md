@@ -3413,9 +3413,14 @@ damage, including Purge and Azir's primary soldier. Parrrley uses the ranged
 coefficients. The heal uses a local 12-tick schedule informed by the client
 missile. [Timing and interaction limits](docs/runes/MECHANICS_GAPS.md#grasp-of-the-undying)
 
-The new shared inputs require recomputing all 14,878 pairings per default
-matrix. Both result sets are checked against the refreshed data before
-delivery.
+The 19 November refresh recalculated all 14,878 pairings per default matrix
+with zero reuse. The audit matched all 29,756 checkpoints to both directions
+in the generated matrices. Aggregate scores, all six scenarios, selected kit
+variants, decoded item builds and stat spending reproduced the previous
+results. The item dictionary and interaction-ledger rankings also match.
+The two native matrix freshness checks, the offline catalog check, all 24
+matrix and browser-cache tests, and the production web build passed on the
+generated commit. [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44526299017)
 
 ## Remaining limits
 

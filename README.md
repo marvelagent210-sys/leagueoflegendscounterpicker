@@ -71,7 +71,7 @@ Lethal Tempo (`8008`) adds up to six attack speed stacks. Qualifying attacks ref
 
 Conqueror (`8010`) grants adaptive force up to twelve stacks and heals from qualifying champion damage at full stacks. The duel distinguishes separate casts, repeated damage from one cast, and reviewed attack and summon exceptions. The 19 November refresh verified all 29,756 pair results and reproduced both default matrices. [Conqueror rules and example](docs/runes/README.md#conqueror) · [Refresh audit](ACCURACY.md#conqueror-19-november-2026)
 
-Grasp of the Undying (`8437`) adds a Resolve keystone for manual duels. Damage charges the rune over four stacks. A qualifying champion hit spends the charge for magic damage, a delayed heal and permanent bonus health. Its ranged application, including Parrrley, uses 40% effectiveness. [Grasp rules and example](docs/runes/README.md#grasp-of-the-undying)
+Grasp of the Undying (`8437`) adds a Resolve keystone for manual duels. Damage charges the rune over four stacks. A qualifying champion hit spends the charge for magic damage, a delayed heal and permanent bonus health. Its ranged application, including Parrrley, uses 40% effectiveness. The 19 November refresh verified all 29,756 pair results and reproduced both default matrices. [Grasp rules and example](docs/runes/README.md#grasp-of-the-undying) · [Refresh audit](ACCURACY.md#grasp-of-the-undying-19-november-2026)
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 

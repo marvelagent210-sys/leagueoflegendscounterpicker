@@ -4,6 +4,8 @@ The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
 Manual plain-stat duels also support fifteen partial combat effects, including
 Grasp of the Undying and all four Precision keystones.
+The Grasp refresh recalculated all 14,878 pairings per default matrix and
+reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
 and reproduced both previous results. [Conqueror refresh audit](../../ACCURACY.md#conqueror-19-november-2026)
 The Fleet Footwork refresh verified both default matrices against 29,756

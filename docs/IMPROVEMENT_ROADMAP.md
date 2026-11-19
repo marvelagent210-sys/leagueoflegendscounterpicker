@@ -28,7 +28,9 @@ numeric rules, provenance and compatibility limits.
 
 Grasp of the Undying adds the first Resolve keystone for manual duels. Its
 damage clock qualifies the next champion on-hit for a separate magic proc,
-an ordinary heal and direct permanent bonus health. [Grasp rules](runes/README.md#grasp-of-the-undying) · [Accuracy log](../ACCURACY.md#grasp-of-the-undying-19-november-2026)
+an ordinary heal and direct permanent bonus health. The 19 November refresh
+verified all 14,878 pairings per matrix and reproduced both previous default
+results. [Grasp rules](runes/README.md#grasp-of-the-undying) · [Accuracy log](../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 
 Conqueror gives manual duels all four Precision keystones. It adds
 adaptive force, full-stack healing and cast identity for repeated damage
