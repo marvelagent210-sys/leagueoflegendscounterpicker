@@ -14,9 +14,10 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8439, 8444, 8451, 8473, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111];
 const overgrowthPath = "Perks/Styles/Resolve/Overgrowth";
 const aftershockPath = "Perks/Styles/Resolve/Aftershock";
+const fontPath = "Perks/Styles/Resolve/FontOfLife";
 const shieldBashPath = "Perks/Styles/Resolve/ShieldBash";
 const bonePath = "Perks/Styles/Resolve/BonePlating";
 const graspPath = "Perks/Styles/Resolve/GraspOfTheUndying";
@@ -86,6 +87,18 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Font of Life source rules", () => {
+  it("uses the exact level-20 heal and the sourced cooldown and ally radius", () => {
+    expect(build().fontOfLife).toEqual({ modelLevel: 20, heal: 930 / 17, rangedRatio: 0.7, cooldown: 20, allyRadius: 1000 });
+  });
+
+  it.each(["Cooldown", "RangedMod"])("cross-checks the committed client %s field", field => {
+    const input = fixture();
+    editGame(input, records => { records[fontPath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 0.1; });
+    expect(() => build(input)).toThrow(new RegExp(`Font of Life Wiki/game ${field} disagree`));
+  });
+});
 
 describe("Aftershock source rules", () => {
   it("uses the patch 26.21 grants and both client level curves", () => {
@@ -501,10 +514,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(19).fill("manual-effects"));
+      .toEqual(Array(20).fill("manual-effects"));
   });
 
-  it("binds all 116 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all 120 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -622,6 +635,10 @@ describe("reviewed combat rune numeric rules", () => {
       ["Magic resistance", 4073058],
       ["Range", 4058499],
       ["Spell shield", 3981674],
+      ["Template:Rune data Font of Life", 3996429],
+      ["Font of Life", 4015111],
+      ["Template:Tip data/Slow", 4060507],
+      ["Template:Tip data/Drowsy", 3308207],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -643,13 +660,15 @@ describe("reviewed combat rune numeric rules", () => {
       .toBe("2c98468d3c43ce964d4b945aec065113013dca0f53e8b442ac2fb9962c867b9c");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 109))))
       .toBe("157c9b00d6015d90427e1085d41feedfd57f5a2bd3c1a01103da253dbf6811ba");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 116))))
+      .toBe("8db8a8516ebe5fcdcde2a0ed85682ab71466d669dbe4fdf9b22946510e1f6bf6");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(116);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(120);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -790,11 +809,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 116 complete/);
+    expect(() => build(missing)).toThrow(/all 120 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 116 complete/);
+    expect(() => build(extra)).toThrow(/all 120 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -829,7 +848,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
     const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath,
-      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath, aftershockPath]);
+      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath, aftershockPath, fontPath]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });

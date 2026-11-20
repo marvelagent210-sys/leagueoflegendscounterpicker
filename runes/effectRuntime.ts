@@ -19,6 +19,7 @@ import { buildBonePlating } from "./bonePlating";
 import { buildShieldBash } from "./shieldBash";
 import { buildOvergrowth } from "./overgrowth";
 import { buildAftershock } from "./aftershock";
+import { buildFontOfLife } from "./fontOfLife";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
@@ -39,6 +40,7 @@ export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRun
   if (id === 8437) return buildGrasp(rules);
   if (id === 8439) return buildAftershock(_form, rules);
   if (id === 8451) return buildOvergrowth(rules, options.overgrowthDeaths);
+  if (id === 8463) return buildFontOfLife(_form, rules);
   if (id === 8473) return buildBonePlating(rules);
   if (id === 8021) {
     if (options.energizedCharges === undefined) throw new Error("Fleet Footwork requires explicit starting energizedCharges");

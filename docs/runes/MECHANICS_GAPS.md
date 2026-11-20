@@ -8,6 +8,22 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Font of Life
+
+The current article records cooldown consumption at full health and a
+solo proc despite the 25.18 patch note. The manual model uses that
+observed rule and the template's level curve. It checks Corki's explicit
+Demolish substitution and uses the native duel's ordinary healing modifiers
+and caps. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3996429) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4015111)
+
+An accepted native immobilization or positive slow from the champion
+body can trigger a heal. A drowsy slow with a delayed ramp first qualifies
+when its positive component is seen during upkeep. Cleanse can remove
+that pending component. Slow immunity can suppress the slow before a
+separate sleep applies. Exact live first-frame timing, ties with other
+effects, pet and clone attribution, and the team-mode ally selection
+remain open. [Slow rules](https://wiki.leagueoflegends.com/en-us/?oldid=4060507) · [Drowsy rules](https://wiki.leagueoflegends.com/en-us/?oldid=3308207)
+
 ## Aftershock
 
 Patch 26.21 gives 45 plus 75% of each bonus resistance, a 2.5-second

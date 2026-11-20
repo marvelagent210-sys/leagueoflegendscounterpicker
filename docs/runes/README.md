@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support nineteen partial combat effects, including
-Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support twenty partial combat effects, including
+Font of Life, Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -119,7 +119,7 @@ npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --e
 npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These nineteen effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These twenty effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -136,6 +136,7 @@ supported as partial manual selections:
 | Aftershock | 8439 | A qualifying champion immobilization grants 45 plus 75% of each bonus resistance for 2.5 seconds, with independent caps. A 350-unit magic shockwave follows. The cooldown is 20 seconds. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Overgrowth | 8451 | Each complete set of eight declared qualifying deaths gives 3 bonus health. At 120, both base and bonus health increase by 3.5%. Each side declares its own starting count. |
+| Font of Life | 8463 | A qualifying champion slow or immobilization heals the owner for `930/17` at level 20, multiplied by 0.7 in ranged form. Activation starts a 20-second cooldown even at full health. |
 | Bone Plating | 8473 | An opposing champion's first health-damaging packet arms three plates for 1.5 seconds. One later packet per cast can spend a plate for up to `1080/17` reduction at level 20. |
 | Absorb Life | 9101 | Heals 27 health at level 20 for each actual hostile combat kill credited to the champion by the engine, subject to standard healing modifiers and caps. |
 | Triumph | 9111 | Stores 2.5% maximum HP plus 5% missing HP from the declared native champion-body kill-credit frame; attempts ordinary self healing one second later if the duel is still active and the recipient remains eligible. Sourced 20 gold is economic reference only. |
@@ -150,8 +151,8 @@ at most one of those three. Presence of Mind, Triumph and Absorb Life share
 Precision's first lesser row, so select at most one of `8009`, `9111` and `9101`.
 Choose at most one keystone per fighter. Press the Attack, Lethal Tempo,
 Fleet Footwork and Conqueror can accompany one first-row choice, one Legend
-and one of the three damage runes. Shield Bash occupies a separate Resolve
-row from Second Wind and Bone Plating, so it can accompany either one.
+and one of the three damage runes. Shield Bash and Font of Life share
+Resolve's first lesser row. Either choice can accompany Second Wind or Bone Plating.
 Overgrowth occupies the final Resolve row. Select up to two Resolve lesser
 rows with a Precision keystone. All three lesser rows fit a primary Resolve
 page. Grasp and Aftershock each require Resolve primary and can accompany up to two Precision
@@ -175,11 +176,12 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **116 complete Wiki revisions** in
+The offline compiler checks **120 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the nineteen templates to
+full-content hashes, exact revisions and excerpts, binds the twenty templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Font of Life adds its complete article and template plus the slow and drowsy rules.
 Aftershock adds its complete article and template, plus control, armor,
 magic resistance, range and spell shield rules, to the previous 109.
 Overgrowth adds its complete article and template to the previous 107.
@@ -242,9 +244,29 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These nineteen catalog entries are
+selection require further implementation and validation. These twenty catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Font of Life
+
+Select `8463` for either side of a manual plain-stat duel. An accepted
+immobilization or positive slow from the owner's champion body against
+the opposing champion triggers an immediate self-heal. The heal is
+`930/17` in melee form and 70% of that in ranged form at model level 20.
+It uses ordinary healing modifiers and caps. The 20-second cooldown
+starts even at full health. Corki's live rune page substitutes Demolish.
+[Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3996429) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4015111)
+
+```bash
+npm run duel -- Ashe Nasus --dataset 16.21 --gold 0 --combat-runes 8463 --enemy-combat-runes 8463 --log brawl
+```
+
+When drowsiness gradually gains strength, the heal triggers at the first
+positive slow seen in upkeep. Slow immunity can suppress that component
+while the later sleep still qualifies. This manual mode simulates the
+owner heal. The source also heals a nearby ally within 1,000 units in a
+team setting. [Slow rules](https://wiki.leagueoflegends.com/en-us/?oldid=4060507) · [Drowsy rules](https://wiki.leagueoflegends.com/en-us/?oldid=3308207) · [Open mechanics questions](MECHANICS_GAPS.md#font-of-life)
 
 ### Aftershock
 
