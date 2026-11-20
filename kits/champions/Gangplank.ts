@@ -22,7 +22,7 @@ const gangplank: KitModule = {
   build(kit) {
     const innate = kit.ability("Trial by Fire");
     const q = kit.ability("Parrrley");
-    q.quote("Parrrley deals basic damage");
+    q.quote("Parrrley deals basic damage, but also triggers spell effects by also being tagged as spell damage");
     q.quote("applies on-hit effects as a ranged attack");
     const w = kit.ability("Remove Scurvy");
     const e = kit.ability("Powder Keg");
@@ -191,7 +191,7 @@ const gangplank: KitModule = {
         cost: q.cost(),
         castTime: q.castTime(),
         delivery: { kind: "target", range: shotRange, missileSpeed: shotSpeed },
-        onHit: [{ type: "damage", damageType: "physical", amount: shot, canCrit: true, label: q.name }],
+        onHit: [{ type: "damage", damageType: "physical", amount: shot, canCrit: true, label: q.name, scorchScale: 1 }],
         onAttackScale: 1,
         flags: { projectile: true, spellShield: q.flag("spellShield") ?? true, parry: q.flag("parry") ?? true, appliesOnHit: true, rangedOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 1 },
         // Kept for the keg once one is arming near the enemy.

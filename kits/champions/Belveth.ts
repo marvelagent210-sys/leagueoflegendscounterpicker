@@ -237,7 +237,7 @@ const belveth: KitModule = {
             const onHit = accepted ? captureResolvedOnHit(ctx.world, self, ctx.enemy, { ability: eSpec, blocked: hasState(ctx.enemy, "blockAttacks"), scale: onHitShare, incomingScale: 1, onAttackScale: onHitShare }) : undefined;
             abilityHit(ctx.world, self, ctx.enemy, eSpec, [{
               type: "damage", damageType: "physical", amount: scaled(slash, 1 + seriesAt(slashGrowth, missing, true) / 100),
-              canCrit: true, label: e.name, spellEffectScale: onHitShare,
+              canCrit: true, label: e.name, scorchScale: onHitShare,
             }]);
             feast(ctx, onHitShare);
             notifyResolvedOnHit(ctx.world, self, ctx.enemy, onHit);

@@ -14,7 +14,7 @@ const volibear: KitModule = {
     const innate = kit.ability("The Relentless Storm");
     const q = kit.ability("Thundering Smash");
     const w = kit.ability("Frenzied Maul");
-    w.quote("Frenzied Maul deals basic damage");
+    w.quote("Frenzied Maul deals basic damage, but also triggers spell effects by also being tagged as spell damage");
     const e = kit.ability("Sky Splitter");
     const r = kit.ability("Stormbringer");
 
@@ -152,7 +152,7 @@ const volibear: KitModule = {
           castTime: w.castTime(),
           delivery: { kind: "target", range: w.field("targetRange", "Cast range") },
           onHit: [
-            { type: "damage", damageType: "physical", amount: w.formula("Physical Damage") },
+            { type: "damage", damageType: "physical", amount: w.formula("Physical Damage"), scorchScale: 1 },
             { type: "mark", key: WOUNDED, duration: woundSeconds },
           ],
           onAttackScale: 1,

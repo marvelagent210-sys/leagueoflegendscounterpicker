@@ -15,11 +15,11 @@ const warwick: KitModule = {
   build(kit) {
     const passive = kit.ability("Eternal Hunger");
     const q = kit.ability("Jaws of the Beast");
-    q.quote("Jaws of the Beast deals basic damage");
+    q.quote("Jaws of the Beast deals basic damage, but also triggers spell effects by also being tagged as spell damage");
     const w = kit.ability("Blood Hunt");
     const e = kit.ability("Primal Howl");
     const r = kit.ability("Infinite Duress");
-    r.quote("Infinite Duress deals basic damage");
+    r.quote("Infinite Duress deals basic damage, but also triggers spell effects by also being tagged as spell damage");
 
     // Eternal Hunger: magic damage on-hit, and healing from it at low health.
     const hunger: Formula = { base: passive.levelValue("Warwick deals", 0), ratios: { bonusAD: passive.quoted("(+ 15% bonus AD)", 0) / 100, AP: passive.quoted("(+ 10% AP)", 0) / 100 } };
@@ -135,7 +135,7 @@ const warwick: KitModule = {
     });
     const strongPulse = pulseSpec(true);
     const weakPulse = pulseSpec(false);
-    const pulseDamage = (share: number): Effect => ({ type: "damage", damageType: "magic", amount: scaled(duressTotal, share), label: r.name });
+    const pulseDamage = (share: number): Effect => ({ type: "damage", damageType: "magic", amount: scaled(duressTotal, share), label: r.name, scorchScale: 1 });
 
     const abilities: AbilitySpec[] = [
       {
@@ -148,7 +148,7 @@ const warwick: KitModule = {
         castTime: biteDelay,
         delivery: { kind: "target", range: qRange },
         onCastStart: [{ type: "state", state: "displacementImmune", duration: biteDelay }],
-        onHit: [{ type: "damage", damageType: "magic", amount: bite, label: q.name }],
+        onHit: [{ type: "damage", damageType: "magic", amount: bite, label: q.name, scorchScale: 1 }],
         onAttackScale: 1,
         flags: { spellShield: q.flag("spellShield") ?? true, parry: q.flag("parry") ?? true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, appliesLifeSteal: true, grounded: false },
         roles: ["damage"],

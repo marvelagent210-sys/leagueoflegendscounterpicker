@@ -3595,8 +3595,10 @@ the six-rune limit, including 374 containing Scorch. [Rune rules](docs/runes/REA
 Native tests exercise the one-second burn, ten-second lockout, packet
 classification, protections and periodic damage. Actual Azir soldier
 attacks and Bel'Veth slashes pass their source-backed effectiveness
-to the scheduled burn. The simulator uses the native event classification
-and samples effectiveness at ignition. Its live eligibility and timing
+to the scheduled burn. Reviewed dual-tagged damage, including Warwick's
+bite and both kinds of ultimate pulse, qualifies at full effectiveness
+while preserving each packet's basic-rune rules. The simulator samples
+effectiveness at ignition. Its live eligibility and timing
 limits are recorded in the mechanics audit. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#scorch)
 
 ## Summoner spells (23 November 2026)
