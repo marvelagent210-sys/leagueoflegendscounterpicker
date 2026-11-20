@@ -599,8 +599,29 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-01-07T21:48:25Z",
     sha256: "33e6a05e8d59a42daf15ed1f41b0e6ce0715dec2aa2e13783079f3c32e2bdfe5",
   },
+  "Template:Rune data Font of Life": {
+    revid: 3996429,
+    timestamp: "2026-03-04T16:57:40Z",
+    sha256: "fca775707e709fe845743ce422de697386857bb3d9e5edce8203610272535119",
+  },
+  "Font of Life": {
+    revid: 4015111,
+    timestamp: "2026-05-03T01:57:12Z",
+    sha256: "34296640fb89948671b0996a2ba56ce8a82ae94c9e716142c7200fb644fbc065",
+  },
+  "Template:Tip data/Slow": {
+    revid: 4060507,
+    timestamp: "2026-09-10T03:44:51Z",
+    sha256: "1b86523d3b689ca2c9e0cf76fa08eabf56140f7e1b1a5660c453b93cbaa0c93e",
+  },
+  "Template:Tip data/Drowsy": {
+    revid: 3308207,
+    timestamp: "2021-07-08T13:35:46Z",
+    sha256: "b218e97f8d5891677c7a8224cb3f5d7ae2ee577cf302adf584ee726cd5af7020",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8463, name: "Font of Life", path: 8400, slot: 1, game: "Perks/Styles/Resolve/FontOfLife" },
   { id: 8439, name: "Aftershock", path: 8400, slot: 0, game: "Perks/Styles/Resolve/Aftershock" },
   { id: 8451, name: "Overgrowth", path: 8400, slot: 3, game: "Perks/Styles/Resolve/Overgrowth" },
   { id: 8401, name: "Shield Bash", path: 8400, slot: 1, game: "Perks/Styles/Resolve/ShieldBash" },
@@ -721,6 +742,35 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const font = description("Font of Life");
+  quote(font.page, "{{tip|slow|Slowing}} or {{tip|immobilize|immobilizing}} an enemy {{tip|champion}} {{tip|heals}} you");
+  const [fontRadius, fontMin, fontMax, fontSteps, fontLevel, fontRangedRatio] = matchNumbers("Font of Life healing", font.text,
+    /within \{\{tip\|cr\|icononly=true\}\} (\d+) units for \{\{rd\|(\d+) \+ \((\d+)-\2\)\/(\d+)\*\(x-1\) for (\d+)\|\2\*([\d.]+) \+ \(\3\*\6-\2\*\6\)\/\4\*\(x-1\) for \5\|pp=true\|type=your level\|color=heal\}\}/);
+  const [fontCooldown] = matchNumbers("Font of Life cooldown", font.page.content, /^\|cooldown\s*=\s*(\d+)[ \t]*$/m);
+  requireThat(fontSteps === 17 && fontLevel === TOP_LANE_MAX_LEVEL && fontMax! > fontMin!, "Font of Life level curve changed");
+  const fontAmounts = client("Font of Life");
+  agree("Font of Life", fontAmounts, "Cooldown", fontCooldown!);
+  agree("Font of Life", fontAmounts, "RangedMod", fontRangedRatio!);
+  const fontCalculations = record(clientData("Font of Life").mCalculations, "Font of Life client calculations");
+  const fontBase = record(fontCalculations.BaseHeal, "Font of Life BaseHeal");
+  requireThat(Array.isArray(fontBase.mFormulaParts) && fontBase.mFormulaParts.length === 1, "Font of Life needs one level interpolation");
+  const fontCurve = record(fontBase.mFormulaParts[0], "Font of Life level interpolation");
+  requireThat(fontCurve.__type === "ByCharLevelInterpolationCalculationPart" && fontCurve.mStartValue === fontMin
+    && fontCurve.mEndValue === fontMax, "Font of Life client level interpolation changed");
+  const fontRanged = record(fontBase.mRangedMultiplier, "Font of Life ranged multiplier");
+  requireThat(fontRanged.__type === "NamedDataValueCalculationPart" && fontRanged.mDataValue === "RangedMod", "Font of Life ranged multiplier changed");
+  const fontNotes = pages.get("Font of Life")!;
+  for (const excerpt of [
+    "will trigger if the user has no allies nearby, and triggers even while {{as|100% '''maximum''' health}}",
+    "{{ci|Corki}} in particular always exchanges '''Font of Life''' with {{ri|Demolish}}",
+    "Interacts like expected with healing-modifiers like {{tip|Grievous Wounds}}",
+    "will not grant [[assist]] credit",
+  ]) quote(fontNotes, excerpt);
+  quote(pages.get("Template:Tip data/Slow")!, "Negative ''slow'' values will increase the unit's");
+  const drowsyNotes = pages.get("Template:Tip data/Drowsy")!;
+  quote(drowsyNotes, "A unit that is ''drowsy'' is {{tip|slow|slowed}}, and afterwards will fall {{tip|sleep|asleep}}");
+  quote(drowsyNotes, "prevent or remove the associated ''slow'', however, it does not prevent from falling asleep");
 
   const aftershock = description("Aftershock");
   const [aftershockFlat, aftershockResistPercent, aftershockFlatMR, aftershockMRPercent, aftershockDuration, aftershockResistMin, aftershockResistMax] =
@@ -1691,6 +1741,8 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    fontOfLife: { modelLevel: 20, heal: fontMin! + (fontMax! - fontMin!) * (fontLevel - 1) / fontSteps,
+      rangedRatio: fontRangedRatio!, cooldown: fontCooldown!, allyRadius: fontRadius! },
     aftershock: { modelLevel: 20, flatResistance: aftershockFlat!, bonusResistanceRatio: aftershockResistRatio,
       maxResistance: aftershockCap, baseDamage: aftershockBaseDamage, bonusHealthRatio: aftershockHealthRatio,
       duration: aftershockDuration!, cooldown: aftershockCooldown!, radius: aftershockRadius! },

@@ -3538,6 +3538,21 @@ Independent assembly produced the same four generated files byte for byte.
 All 22 workflow jobs and 10,224 tests passed, with five existing skips.
 [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44661901431)
 
+## Font of Life (20 November 2026)
+
+Rune 8463 brings the inventory to twenty partial manual effects. Its
+fixed level-20 heal is `930/17`, multiplied by 0.7 in ranged form. The
+compiler cross-checks the cooldown, ranged factor and level endpoints
+against the frozen client and retains four additional Wiki revisions.
+The selection audit checks all 60,460 subsets within the six-rune limit
+and accepts 5,960, including 1,798 with Font of Life. [Rune rules](docs/runes/README.md#font-of-life)
+
+Native regressions cover accepted and blocked crowd control, shield and
+immunity paths, actual Zoe drowsiness, independent world copies, healing cuts and
+caps, and the precise cooldown boundary after activation at full health.
+The manual duel covers the owner heal. The team-mode ally choice and
+exact live event ordering remain open. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#font-of-life)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Nineteen partial combat effects are available in manual plain-stat duels, including Aftershock, Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
+- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Twenty partial combat effects are available in manual plain-stat duels, including Font of Life, Aftershock, Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -80,6 +80,8 @@ Shield Bash (`8401`) adds adaptive damage to the next qualifying champion on-hit
 Overgrowth (`8451`) uses a starting count of qualifying deaths for each side. Every eight grants 3 bonus health. At 120 deaths it also increases the base and bonus health pools by 3.5% each. [Overgrowth rules and example](docs/runes/README.md#overgrowth)
 
 Aftershock (`8439`) grants armor and magic resistance for 2.5 seconds after a qualifying immobilization. A 350-unit magic shockwave follows. Both resistance grants use their own capped formula. [Aftershock rules and example](docs/runes/README.md#aftershock)
+
+Font of Life (`8463`) heals the owner on a qualifying slow or immobilization. The 20-second cooldown starts even if the owner is at full health. [Font of Life rules and example](docs/runes/README.md#font-of-life)
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
