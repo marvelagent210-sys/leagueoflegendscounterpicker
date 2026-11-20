@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support twenty-one partial combat effects, including
-Taste of Blood, Font of Life, Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support twenty-two partial combat effects, including
+Scorch, Taste of Blood, Font of Life, Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -119,7 +119,7 @@ npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --e
 npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These twenty-one effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These twenty-two effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -131,6 +131,7 @@ supported as partial manual selections:
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
 | Taste of Blood | 8139 | Positive champion damage heals the injured owner for `728/17` plus 10% of bonus AD and 5% of AP at level 20. It has a 20-second cooldown. |
+| Scorch | 8237 | Qualifying ability damage starts a ten-second cooldown and schedules one magic burn of `720/17` at level 20 one second later. Azir's soldier attack and Bel'Veth's Royal Maelstrom scale the burn. |
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
 | Shield Bash | 8401 | A qualifying champion on-hit deals `560/17` adaptive damage at level 20 plus 2.5% of bonus health and 15% of the strongest eligible shield's peak. Each shield remains eligible for two seconds after it ends. |
 | Grasp of the Undying | 8437 | Damage starts a four-stack timer. A qualified champion on-hit consumes the primed charge for magic damage, a delayed heal and permanent bonus health. Ranged applications use 40% effectiveness. |
@@ -165,7 +166,8 @@ Presence or Triumph entitlement is inferred. Presence requires an explicit
 Mana or Energy resource type and rejects other types without substituting
 Triumph; complete-page automatic substitutions remain unfinished.
 Taste of Blood occupies Domination's first lesser row and can accompany
-Precision effects or Resolve effects within the two-path limit.
+Precision effects or Resolve effects within the two-path limit. Scorch occupies
+Sorcery's final lesser row. It can accompany Taste of Blood on a two-path page.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
 Omitting a side's flag applies none of these optional effects to that side. This
@@ -179,11 +181,14 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **122 complete Wiki revisions** in
+The offline compiler checks **126 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the twenty-one templates to
+full-content hashes, exact revisions and excerpts, binds the twenty-two templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Scorch adds its article and template, the ability-damage definition and the
+Royal Maelstrom revision. The compiler checks the client damage curve and four
+named fields.
 Taste of Blood adds its complete article and template and checks the
 client's five healing and cooldown fields.
 Font of Life adds its complete article and template plus the slow and drowsy rules.
@@ -249,9 +254,28 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These twenty-one catalog entries are
+selection require further implementation and validation. These twenty-two catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Scorch
+
+Select `8237` for either side of a manual plain-stat duel. A positive native
+ability damage packet against the living opposing champion can ignite that
+champion. At model level 20, the single magic proc has `720/17` raw damage
+and lands one second later. The ten-second cooldown starts at ignition.
+The proc uses current magic mitigation and ordinary periodic damage
+protections. It applies no spell effects or life steal. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3985169) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4024859)
+
+```bash
+npm run duel -- Azir Belveth --dataset 16.21 --gold 0 --combat-runes 8237 --enemy-combat-runes 8237 --log brawl
+```
+
+Azir's soldier attack applies 50% Scorch damage. Bel'Veth's Royal
+Maelstrom starts at 12% effectiveness at full target health and adds 0.12
+percentage points per percentage point of missing health, approaching 24%.
+The simulator reads the triggering packet's effectiveness when the burn
+is scheduled. [Arise!](https://wiki.leagueoflegends.com/en-us/?oldid=4044339) · [Royal Maelstrom](https://wiki.leagueoflegends.com/en-us/?oldid=4046605) · [Open mechanics questions](MECHANICS_GAPS.md#scorch)
 
 ### Taste of Blood
 

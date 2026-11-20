@@ -3584,6 +3584,21 @@ and 10,266 tests passed, with five skips. Both native freshness checks,
 typechecking, the offline rune catalog check and the production build
 passed on the generated commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44950261943)
 
+## Scorch (20 November 2026)
+
+Rune 8237 brings the inventory to twenty-two partial manual effects. The
+offline compiler checks 126 complete Wiki revisions and four named client
+fields for Scorch. The source curve yields `720/17` raw magic damage at
+level 20. The selection audit accepts 6,707 of 110,056 subsets within
+the six-rune limit, including 374 containing Scorch. [Rune rules](docs/runes/README.md#scorch)
+
+Native tests exercise the one-second burn, ten-second lockout, packet
+classification, protections and periodic damage. Actual Azir soldier
+attacks and Bel'Veth slashes pass their source-backed effectiveness
+to the scheduled burn. The simulator uses the native event classification
+and samples effectiveness at ignition. Its live eligibility and timing
+limits are recorded in the mechanics audit. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#scorch)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

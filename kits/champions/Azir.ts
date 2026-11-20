@@ -256,7 +256,10 @@ const azir: KitModule = {
           if (!first) return false;
           const before = enemy.totals.damageTaken + enemy.totals.absorbed;
           // The full stab, with his on-hits at 50%.
-          attackHit(ctx.world, ctx.self, enemy, ctx.action.blinded, ctx.action.onHit, undefined, false, { energizedOnHit: false, conquerorBasicStacks: 2, baseDamage: { damageType: "magic", amount: scaled(stab, 1 / onHitShare), label: soldier.name } }, onHitShare, first.x);
+          attackHit(ctx.world, ctx.self, enemy, ctx.action.blinded, ctx.action.onHit, undefined, false, {
+            energizedOnHit: false, conquerorBasicStacks: 2,
+            baseDamage: { damageType: "magic", amount: scaled(stab, 1 / onHitShare), label: soldier.name, spellEffectScale: onHitShare },
+          }, onHitShare, first.x);
           const landed = enemy.totals.damageTaken + enemy.totals.absorbed > before;
           if (landed) for (let i = 0; i < others.length; i++) applyEffect(ctx.world, ctx.self, enemy, { type: "damage", damageType: "magic", amount: scaled(stab, laterShare), label: soldier.name }, { scale: 1 });
           return false;

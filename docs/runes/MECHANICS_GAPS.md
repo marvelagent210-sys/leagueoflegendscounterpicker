@@ -8,6 +8,23 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Scorch
+
+The template and frozen client support the damage curve, one-second
+delay and ten-second cooldown. The article describes one indirect periodic
+proc and records Azir's and Bel'Veth's on-attack exceptions. The live
+ability-damage tag is `ActiveSpell`. The simulator uses its own resolved
+spell events and two explicit on-attack cases. A complete mapping of
+custom ability packets, champion pets and spell-effect tags remains
+open. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3985169) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4024859) · [Ability damage](https://wiki.leagueoflegends.com/en-us/?oldid=4060550)
+
+The model starts the cooldown on a positive accepted packet, including
+shield absorption, and retains the attack's effectiveness on the delayed
+proc. The engine checks protection and mitigation when the burn lands.
+Shield-only initiation, same-tick order, Bone Plating, untargetability,
+death and resurrection interactions need live measurements. Multi-target
+ordering is outside the two-champion setup. [Manual duel rules](README.md#scorch)
+
 ## Taste of Blood
 
 The template and frozen client agree on the heal curve, bonus attack
