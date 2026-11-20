@@ -45,7 +45,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Sorcery | 2 | Transcendence | 8210 | Not implemented | [3825921](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Transcendence?oldid=3825921) |
 | Sorcery | 2 | Celerity | 8234 | Not implemented | [3825860](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Celerity?oldid=3825860) |
 | Sorcery | 2 | Absolute Focus | 8233 | Not implemented | [3986945](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Absolute_Focus?oldid=3986945) |
-| Sorcery | 3 | Scorch | 8237 | Not implemented | [3985169](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Scorch?oldid=3985169) |
+| Sorcery | 3 | Scorch | 8237 | Explicit partial manual selection | [3985169](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Scorch?oldid=3985169) |
 | Sorcery | 3 | Waterwalking | 8232 | Not implemented | [3986946](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Waterwalking?oldid=3986946) |
 | Sorcery | 3 | Gathering Storm | 8236 | Not implemented | [4011483](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Gathering_Storm?oldid=4011483) |
 | Inspiration | Keystone | Glacial Augment | 8351 | Not implemented | [4033154](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Glacial_Augment?oldid=4033154) |

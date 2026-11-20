@@ -728,7 +728,7 @@
         "sha256": "e9a01bb5a987ae6331c33370765b91b629f4b4e685965b6f03b3d8c58e401e77",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Scorch|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Sorcery\n|slot         = 3\n|description  = {{sbc|Passive:}} Dealing {{tip|ability damage}} to an enemy {{tip|champion|champion}} sets them on fire, dealing them {{as|{{pp|20 + (40-20)/17*(x-1)|1 to 20 by 1}}|magic damage}} {{as|'''bonus''' magic damage}} after 1 second.\n|range        = \n|cooldown     = 10\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8242,
