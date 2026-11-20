@@ -3530,6 +3530,13 @@ champion's resistance grant and shockwave at the expected interval.
 The damage curve beyond level 18 and lifecycle ordering need live
 measurements. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#aftershock)
 
+The 20 November refresh recomputed 14,878 pairings in each default matrix
+across all 173 champions with zero reuse. All 29,756 checkpoints reproduced
+Overgrowth's scores, scenarios, kit variants, item builds and stat spending.
+Independent assembly produced the same four generated files byte for byte.
+All 22 workflow jobs and 10,224 tests passed, with five existing skips.
+[Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44661901431)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
