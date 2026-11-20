@@ -3498,6 +3498,14 @@ separately to base and bonus health. The selection audit checks all
 262,144 subsets and accepts 3,718, including 1,576 with Overgrowth.
 [Rune rules and sources](docs/runes/README.md#overgrowth)
 
+The 20 November refresh recomputed all 14,878 pairings in each matrix
+with zero reuse. All 29,756 checkpoints match the delivered results in
+both directions. Default scores, six scenario results, kit variants,
+item builds and plain-stat spending match the previous release. Independent
+assembly reproduced all four generated files byte for byte. The refresh
+passed all 22 jobs and 10,184 tests, with five existing skips.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44635062907)
+
 Native coverage includes the 119-to-120 breakpoint, later permanent
 awards, independent sides and branch copies. The champion fixtures cover
 Pyke's AD conversion, Ornn's Living Forge, Vladimir's nonrecursive stats,
