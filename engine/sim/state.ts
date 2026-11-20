@@ -18,6 +18,9 @@ export interface Status {
   source: Side;
   startTick: number;
   endTick: number;
+  /** Cast identity of an accepted CC when the caster observes its damage control. */
+  controlCastInstance?: number;
+  controlFromBasic?: true;
   /** Strength: slow fraction, stat amount, minimum health, shield amount, ... */
   value: number;
   charges?: number;
