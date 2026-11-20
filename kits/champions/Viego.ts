@@ -24,7 +24,7 @@ const viego: KitModule = {
     const w = kit.ability("Spectral Maw");
     const e = kit.ability("Harrowed Path");
     const r = kit.ability("Heartbreaker");
-    r.quote("To the struck champion deals basic damage");
+    r.quote("To the struck champion deals basic damage, but also triggers spell effects by also being tagged as spell damage");
 
     // Sovereign's Domination: possession begins with a takedown, which ends a duel.
     p.quote("Whenever Viego scores an enemy champion takedown while alive and within 3 seconds of damaging them, a Mist Wraith spawns from that champion's corpse for 8 seconds.");
@@ -133,8 +133,8 @@ const viego: KitModule = {
       onCastStart: [{ type: "state", state: "displacementImmune", duration: r.castTime() }],
       delivery: { kind: "blink", direction: "toward", distance: r.field("targetRange"), hitRadius: r.field("effectRadius") },
       onHit: [
-        { type: "damage", damageType: "physical", amount: heartbreak, label: r.name },
-        { type: "damage", damageType: "physical", amount: { base: 0, ratios: { AD: heartbreakAD } }, canCrit: true, label: r.name },
+        { type: "damage", damageType: "physical", amount: heartbreak, label: r.name, scorchScale: 1 },
+        { type: "damage", damageType: "physical", amount: { base: 0, ratios: { AD: heartbreakAD } }, canCrit: true, label: r.name, scorchScale: 1 },
         { type: "cc", cc: "slow", strength: r.quoted(slowWords, 0) / 100, duration: r.quoted(slowWords, 1) },
       ],
       flags: { spellShield: true, dodge: true, block: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, grounded: true },

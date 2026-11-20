@@ -10,7 +10,7 @@ const fiora: KitModule = {
   build(kit) {
     const innate = kit.ability("Duelist's Dance");
     const q = kit.ability("Lunge");
-    q.quote("Lunge deals basic damage");
+    q.quote("Lunge deals basic damage, but also triggers spell effects by also being tagged as spell damage");
     const w = kit.ability("Riposte");
     const e = kit.ability("Bladework");
     const r = kit.ability("Grand Challenge");
@@ -194,7 +194,7 @@ const fiora: KitModule = {
           castTime: q.castTime(),
           // Dash up to 400 units, then search the recorded center-based stab radius.
           delivery: { kind: "dash", direction: "toward", distance: Math.max(...q.fieldNumbers("targetRange")), speed: q.field("speed"), hitRadius: q.field("range", "Stab range"), hitCentered: true },
-          onHit: [{ type: "damage", damageType: "physical", amount: q.formula("Physical Damage") }],
+          onHit: [{ type: "damage", damageType: "physical", amount: q.formula("Physical Damage"), scorchScale: 1 }],
           flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, appliesLifeSteal: true, parry: true, grounded: true, knockdown: q.flag("knockdown") ?? true },
         },
         {

@@ -25,8 +25,8 @@ beforeAll(async () => {
   rules = await loadCombatRuneRules("16.21", catalog);
 });
 
-function arena(spec: FighterSpec = fighter(), distance = 150, targetHealth = 1): World {
-  const self = equipRuneEffects(spec, [8237], catalog, rules).spec;
+function arena(spec: FighterSpec = fighter(), distance = 150, targetHealth = 1, selection = [8237]): World {
+  const self = equipRuneEffects(spec, selection, catalog, rules).spec;
   const world = createWorld({ fighters: [self, TARGET], distance, hp: [1, targetHealth],
     modes: ["idle", "idle"], settings: { maxSeconds: 30, log: true } });
   world.units[1].x = world.units[0].x + distance;
@@ -174,4 +174,59 @@ describe("Scorch in native combat", () => {
     expect(burns(world)).toEqual([due]);
     expect(ignitions(world)).toHaveLength(1);
   });
+
+  it.each([
+    ["Ezreal", "Q", "Mystic Shot"], ["Fiora", "Q", "Lunge"], ["Gangplank", "Q", "Parrrley"],
+    ["MissFortune", "Q", "Double Up"], ["Smolder", "Q", "Super Scorcher Breath"], ["Viego", "R", "Heartbreaker"],
+    ["Volibear", "W", "Frenzied Maul"], ["Warwick", "Q", "Jaws of the Beast"], ["Warwick", "R", "Infinite Duress"],
+  ])("accepts %s %s's explicitly dual-tagged damage", (champion, key, label) => {
+    const world = arena(kit(champion).spec), [self] = world.units;
+    startCast(world, self, self.spec.abilities.find(spell => spell.key === key)!);
+    while (world.tick < 75 && !world.result && ignitions(world).length === 0) step(world, [idle, idle]);
+    expect(ignitions(world)).toEqual(ticksOf(world.log, 0, `${label} deals `).slice(0, 1));
+    const due = expectBurn(world, DAMAGE);
+    reach(world, due + 1);
+    expect(burns(world)).toEqual([due]);
+  });
+
+  it("accepts Galio's empowered primary attack with its dual classification", () => {
+    const world = arena(kit("Galio").spec), [self] = world.units;
+    startAttack(world, self);
+    reach(world, 20);
+    expect(ignitions(world)).toEqual(ticksOf(world.log, 0, "Colossal Smash deals "));
+    expectBurn(world, DAMAGE);
+  });
+
+  it("preserves Conqueror's native basic-damage stack count on Warwick's bite", () => {
+    const world = arena(kit("Warwick").spec, 150, 1, [8010, 8237]), [self] = world.units;
+    startCast(world, self, self.spec.abilities.find(spell => spell.key === "Q")!);
+    reach(world, 15);
+    expectBurn(world, DAMAGE);
+    expect(self.statuses.find(status => status.memoKey === "rune-effects:conqueror:8010")?.charges).toBe(2);
+  });
+
+  it("accepts Infinite Duress's weaker pulse after invulnerability prevents its first pulse", () => {
+    const world = arena(kit("Warwick").spec), [self, target] = world.units;
+    startCast(world, self, self.spec.abilities.find(spell => spell.key === "R")!);
+    while (world.tick < 35 && Number(self.memory.duressStart ?? -1) < 0) step(world, [idle, idle]);
+    expect(target.statuses.some(status => status.key === "suppression")).toBe(true);
+    const protectedPulse = lasting("state", "invulnerable");
+    target.statuses.push(protectedPulse);
+    while (world.tick < 48 && !world.log.some(event => event.text.includes("magic damage ignored"))) step(world, [idle, idle]);
+    expect(world.log.some(event => event.text.includes("magic damage ignored"))).toBe(true);
+    expect(ignitions(world)).toEqual([]);
+    target.statuses = target.statuses.filter(status => status !== protectedPulse);
+    while (world.tick < 60 && ignitions(world).length === 0) step(world, [idle, idle]);
+    expectBurn(world, DAMAGE);
+  });
+
+  it.each([["Yasuo", "Steel Tempest"], ["Yone", "Mortal Steel"], ["Zeri", "Burst Fire"]])(
+    "keeps %s Q's primary target ineligible for spell effects", (champion, label) => {
+      const world = arena(kit(champion).spec), [self] = world.units;
+      startCast(world, self, self.spec.abilities.find(spell => spell.key === "Q")!);
+      reach(world, 45);
+      expect(ticksOf(world.log, 0, `${label} deals `).length).toBeGreaterThan(0);
+      expect(ignitions(world)).toEqual([]);
+    },
+  );
 });

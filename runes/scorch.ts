@@ -34,7 +34,7 @@ export function buildScorch(input: Pick<CombatRuneRules, "scorch">): { hooks: Ki
         if (damage.source.side !== self.side || (damage.source.kind !== "champion" && damage.source.kind !== "pet")
           || damage.target.side !== enemy.side || damage.target.kind !== "champion" || !enemy.alive || enemy.hp <= 0) return;
         if (!Number.isFinite(damage.mitigated) || damage.mitigated <= 0 || damage.tick < Number(memory[READY] ?? 0)) return;
-        const scale = damage.spellEffectScale ?? (damage.kind === "spell" ? 1 : 0);
+        const scale = damage.scorchScale ?? (damage.kind === "spell" ? 1 : 0);
         if (!Number.isFinite(scale) || scale <= 0 || scale > 1) return;
 
         const burn: Effect = { type: "damage", damageType: "magic", amount: { base: rules.damage * scale }, label: LABEL,
@@ -48,7 +48,7 @@ export function buildScorch(input: Pick<CombatRuneRules, "scorch">): { hooks: Ki
       },
     },
     assumptions: [
-      "Scorch observes resolved positive native spell damage against the opposing champion body. Native ability-classified pet packets may qualify. The Azir soldier and Bel'Veth Royal Maelstrom exceptions carry their reviewed on-attack effectiveness independently of basic attack classification.",
+      "Scorch observes resolved positive native spell damage against the opposing champion body. Explicit Scorch effectiveness also covers reviewed packets with both basic and spell damage tags, and the scaled Azir soldier and Bel'Veth Royal Maelstrom exceptions. Native ability-classified pet packets may qualify.",
       "The simulator starts the ten-second cooldown at ignition and schedules one separate periodic magic proc one second later. It uses the normal delayed packet lifecycle, including current mitigation and protection at delivery. It applies no spell effects or life steal.",
       "Ability classification beyond the native event surface, exact live timing, and simultaneous and post-death interactions still need verification.",
     ],

@@ -38,6 +38,7 @@ const smolder: KitModule = {
     const attackData = game(p, "Characters/Smolder/Spells/SmolderBasicAttack", "mMissileSpec") as { movementComponent: { mSpeed: number } };
     const qDamage = q.formula("Physical Damage"), qRange = q.field("targetRange"), qSpeed = q.field("speed", "Fireball"), qSplash = q.field("effectRadius", "Tier 1"), qExtraRadius = q.field("effectRadius", "Tier 2"), qExtraRange = q.field("range"), qExtraSpeed = q.field("speed", "Tier 2");
     q.fieldNumbers("castTime");
+    q.quote("The fireball deals spell damage and procs basic damage required effects");
     const qv = values(q, "Characters/Smolder/Spells/SmolderQAbility/SmolderQ"), tier1 = qv("StackTier1"), tier2 = qv("StackTier2"), tier3 = qv("StackTier3"), qCrit = qv("CritRatio"), qLifeSteal = qv("LifestealMod"), qRefund = qv("ManaRestore"), burnSeconds = qv("Tier3_DotLength"), executeShare = qv("Tier3_ExecuteThresholdStart") / 100, extraShare = qv("Tier2_BlowbackPercentageDamage") / 100;
     const extraRadius = (game(q, "Characters/Smolder/Spells/SmolderQAbility/SmolderQ2BlowbackMissileA", "mMissileSpec") as { mMissileWidth: number }).mMissileWidth;
     game(q, "Characters/Smolder/Spells/SmolderQAbility/SmolderQ", "mSpellCalculations");
@@ -175,7 +176,9 @@ const smolder: KitModule = {
             // Preserve the shared avoided-attack callback, while denying the entire burn packet.
             if (ctx.defense === "dodge" || ctx.defense === "block") return qTemplate;
             const share = ctx.ability.key === "Qbolt" ? extraShare : ctx.effects.some((effect) => effect.type === "damage" && effect.amount.base === qDamage.base * extraShare) ? extraShare : 1;
-            const physical: Effect = { type: "damage", damageType: "physical", amount: scaled(qDamage, critical(ctx.self, qCrit) * share), lifesteal: derive(ctx.self).lifeSteal * qLifeSteal, noLifeSteal: true, petDamageCategory: ctx.ability.key === "Q" ? "singleTarget" : "area" };
+            const primary = ctx.ability.key === "Q";
+            const physical: Effect = { type: "damage", damageType: "physical", amount: scaled(qDamage, critical(ctx.self, qCrit) * share), lifesteal: derive(ctx.self).lifeSteal * qLifeSteal, noLifeSteal: true,
+              ...(primary ? { petDamageCategory: "singleTarget", scorchScale: 1 } : { petDamageCategory: "area" }) };
             const magic: Effect = { type: "damage", damageType: "magic", amount: flat(stacks(ctx.self) * stackQ * critical(ctx.self, stackQCrit) * share), noLifeSteal: true, label: p.name, petDamageCategory: "proc" };
             const effects: Effect[] = [physical, magic];
             if ((data?.stacks ?? stacks(ctx.self)) >= tier3 && !ctx.defense) {

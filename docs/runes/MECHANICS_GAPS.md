@@ -14,7 +14,8 @@ The template and frozen client support the damage curve, one-second
 delay and ten-second cooldown. The article describes one indirect periodic
 proc and records Azir's and Bel'Veth's on-attack exceptions. The live
 ability-damage tag is `ActiveSpell`. The simulator uses its own resolved
-spell events and two explicit on-attack cases. A complete mapping of
+spell events, explicit packets documented as both basic and spell damage,
+and two scaled on-attack cases. A complete mapping of empowered attacks,
 custom ability packets, champion pets and spell-effect tags remains
 open. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3985169) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4024859) · [Ability damage](https://wiki.leagueoflegends.com/en-us/?oldid=4060550)
 

@@ -277,6 +277,13 @@ percentage points per percentage point of missing health, approaching 24%.
 The simulator reads the triggering packet's effectiveness when the burn
 is scheduled. [Arise!](https://wiki.leagueoflegends.com/en-us/?oldid=4044339) · [Royal Maelstrom](https://wiki.leagueoflegends.com/en-us/?oldid=4046605) · [Open mechanics questions](MECHANICS_GAPS.md#scorch)
 
+Reviewed packets can also qualify at full effectiveness while retaining
+their basic-damage behavior for other runes. This includes Warwick's bite
+and ultimate, Ezreal's Mystic Shot, Fiora's Lunge, Gangplank's Parrrley,
+Miss Fortune's Double Up, Galio's primary Colossal Smash, Smolder's primary
+Super Scorcher Breath, Viego's primary Heartbreaker and Volibear's Frenzied
+Maul. [Jaws of the Beast](https://wiki.leagueoflegends.com/en-us/?oldid=4007380) · [Infinite Duress](https://wiki.leagueoflegends.com/en-us/?oldid=4052859) · [Eligibility limits](MECHANICS_GAPS.md#scorch)
+
 ### Taste of Blood
 
 Select `8139` for either side of a manual plain-stat duel. A positive
