@@ -213,7 +213,7 @@ export interface DamageContext {
   petBasicAttack?: boolean;
   petDamageCategory?: PetDamageCategory;
   observedDamageKind?: ObservedDamageKind;
-  spellEffectScale?: number;
+  scorchScale?: number;
   conquerorPerPacket?: boolean;
   attack?: boolean;
   /** This spell's basic damage benefits from life steal without being a basic attack. */
@@ -460,7 +460,7 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   const observed = onDamageResolved && source.side !== target.side && !stateStatus(target, "parry") ? {
     tick: world.tick, source: combatIdentity(world, source), target: combatIdentity(world, target),
     ranged: observer.spec.attack.ranged, kind: ctx.observedDamageKind ?? (ctx.attack ? "basic" : "unclassified"),
-    ...(ctx.spellEffectScale === undefined ? {} : { spellEffectScale: ctx.spellEffectScale }),
+    ...(ctx.scorchScale === undefined ? {} : { scorchScale: ctx.scorchScale }),
     castInstance: currentCastInstance(world, source), conquerorPerPacket: ctx.conquerorPerPacket === true,
   } satisfies Omit<ResolvedDamageSnapshot, "mitigated"> : undefined;
   const s = derive(source);
@@ -973,7 +973,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
           observedDamageKind: effect.observedDamageKind ?? (ctx.attack ? "proc"
             : ctx.ability?.flags?.basicDamage || ctx.ability?.flags?.conquerorBasicStacks ? "basic"
               : ctx.ability ? "spell" : "unclassified"),
-          ...(effect.spellEffectScale === undefined ? {} : { spellEffectScale: effect.spellEffectScale }),
+          ...(effect.scorchScale === undefined ? {} : { scorchScale: effect.scorchScale }),
           ...(ctx.ability?.flags?.conquerorPerPacket ? { conquerorPerPacket: true } : {}),
         } : {}),
       });
@@ -1496,7 +1496,7 @@ function resolveAttackHit(world: World, attacker: Unit, target: Unit, blinded: b
       const replacement = options.baseDamage;
       dealDamage(world, attacker, target, evaluate(replacement.amount, attacker, target, critChance) * scale,
         replacement.damageType, { attack: true, petBasicAttack: true, ...(replacement.label ? { ability: replacement.label } : {}),
-          ...(replacement.spellEffectScale === undefined ? {} : { spellEffectScale: replacement.spellEffectScale }),
+          ...(replacement.scorchScale === undefined ? {} : { scorchScale: replacement.scorchScale }),
           ...(replacement.canCrit ? { crit: { chance: critChance, multiplier: options.critMultiplier ?? d.critDamage } } : {}) });
     } else if (split) {
       if (split.physical > 0) dealDamage(world, attacker, target, damage * split.physical, "physical", { attack: true, crit });

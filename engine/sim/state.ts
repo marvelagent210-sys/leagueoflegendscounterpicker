@@ -66,7 +66,7 @@ export interface Status {
 /** Attack properties captured with the windup and retained by an in-flight missile. */
 export interface AttackHitOptions {
   /** Replaces the whole ordinary basic-damage packet; on-hits and attack defenses remain separate. */
-  baseDamage?: { damageType: DamageType; amount: Formula; canCrit?: boolean; label?: string; spellEffectScale?: number };
+  baseDamage?: { damageType: DamageType; amount: Formula; canCrit?: boolean; label?: string; scorchScale?: number };
   critChance?: number;
   /** Scales the ordinary AD part, including its critical outcome, without scaling on-hits. */
   baseDamageScale?: number;

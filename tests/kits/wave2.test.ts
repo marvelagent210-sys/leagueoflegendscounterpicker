@@ -67,7 +67,7 @@ describe("wave-2 kits read the wiki at level 20", () => {
   it("Gangplank", () => {
     // Parrrley: 130 (+ 100% AD), a 625-range shot at 2600 that crits and applies on-hit effects; at a keg, the same cooldown.
     expect(ability("Gangplank", "Q")).toMatchObject({ cooldown: 4.5, cost: 30, castTime: 0.25, delivery: { kind: "target", range: 625, missileSpeed: 2600 }, flags: { projectile: true, appliesOnHit: true } });
-    expect(ability("Gangplank", "Q").onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 130, ratios: { AD: 1 } }, canCrit: true, label: "Parrrley" }]);
+    expect(ability("Gangplank", "Q").onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 130, ratios: { AD: 1 } }, canCrit: true, label: "Parrrley", scorchScale: 1 }]);
     expect(ability("Gangplank", "QK")).toMatchObject({ cooldown: 4.5, cooldownKey: "Q", cost: 30, castTime: 0.25 });
     // Remove Scurvy: a cleanse and 145 (+ 90% AP) (+ 13% missing health), even while disabled.
     expect(ability("Gangplank", "W")).toMatchObject({ cooldown: 14, cost: 100, castTime: 0.25, flags: { usableWhileDisabled: true } });

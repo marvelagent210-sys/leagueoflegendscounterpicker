@@ -214,8 +214,8 @@ export type Effect =
   /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
   /** `appliesLifeSteal`: an explicit source exception without changing the packet's attack/damage classification. */
   | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; appliesLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory; observedDamageKind?: ObservedDamageKind;
-      /** Spell-effect effectiveness for a reviewed ability packet with an on-attack modifier. */
-      spellEffectScale?: number }
+      /** Explicit Scorch effectiveness for a packet with reviewed special eligibility or scaling. */
+      scorchScale?: number }
   /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
   /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
   | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean; spellShield?: boolean; bypassSlowImmune?: boolean; slowStackGroup?: string;
@@ -956,8 +956,8 @@ export interface ResolvedDamageSnapshot {
   readonly target: CombatIdentity;
   readonly ranged: boolean;
   readonly kind: ObservedDamageKind;
-  /** Spell-effect effectiveness explicitly supplied by an ability packet with an on-attack modifier. */
-  readonly spellEffectScale?: number;
+  /** Explicit Scorch effectiveness supplied by a packet with reviewed special eligibility or scaling. */
+  readonly scorchScale?: number;
   readonly castInstance?: number;
   readonly conquerorPerPacket: boolean;
   /** The native mitigated packet, including absorption and before health floors. */
