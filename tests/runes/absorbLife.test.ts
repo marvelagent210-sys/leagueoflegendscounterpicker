@@ -15,6 +15,7 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  overgrowth: { unitsPerStack: 8, healthPerStack: 3, thresholdUnits: 120, healthRatio: 0.035, radius: 1400 },
   shieldBash: { modelLevel: 20, baseDamage: 560 / 17, bonusHealthRatio: 0.025, shieldRatio: 0.15, linger: 2 },
   bonePlating: { modelLevel: 20, reduction: 1080 / 17, charges: 3, duration: 1.5, cooldown: 55 },
   grasp: { maxStacks: 4, stackInterval: 1, combatWindow: 3, readyWindow: 5, healDelay: 0.4,

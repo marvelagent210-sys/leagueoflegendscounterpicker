@@ -12,6 +12,8 @@ import type { Status, Unit } from "./state";
 
 export interface Derived {
   maxHp: number;
+  baseHp: number;
+  bonusHp: number;
   baseAd: number;
   bonusAd: number;
   ad: number;
@@ -106,6 +108,7 @@ interface DerivedCache {
   base: BaseStats;
   bonus: BonusStats | undefined;
   conversions: StatConversions | undefined;
+  healthMultiplier: number | undefined;
   statuses: DerivedStatusInput[];
   value: Derived;
 }
@@ -118,7 +121,8 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
   // enumerate every base, bought and conversion stat when their interfaces expand.
   const { base, bonus, statConversions } = unit.spec;
   const old = previous.base;
-  if (base.hp !== old.hp || base.ad !== old.ad || base.armor !== old.armor || base.mr !== old.mr
+  if (unit.healthMultiplier !== previous.healthMultiplier
+      || base.hp !== old.hp || base.ad !== old.ad || base.armor !== old.armor || base.mr !== old.mr
       || base.resource !== old.resource || base.moveSpeed !== old.moveSpeed
       || base.critDamageModifier !== old.critDamageModifier
       || base.attackSpeed.base !== old.attackSpeed.base || base.attackSpeed.ratio !== old.attackSpeed.ratio
@@ -136,6 +140,7 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
   const conversions = previous.conversions;
   if (statConversions && conversions) {
     if (statConversions.healthToAP !== conversions.healthToAP || statConversions.apToHealth !== conversions.apToHealth
+        || statConversions.directBonusHealthToAD !== conversions.directBonusHealthToAD
         || statConversions.apToManaPercent !== conversions.apToManaPercent
         || statConversions.moveSpeedBonusEffectiveness !== conversions.moveSpeedBonusEffectiveness
         || statConversions.totalMoveSpeedOverride !== conversions.totalMoveSpeedOverride
@@ -192,6 +197,7 @@ export function derive(unit: Unit): Derived {
   cache.set(unit, {
     base: { ...unit.spec.base, attackSpeed: { ...unit.spec.base.attackSpeed } },
     bonus: unit.spec.bonus ? { ...unit.spec.bonus } : undefined,
+    healthMultiplier: unit.healthMultiplier,
     conversions: unit.spec.statConversions ? { ...unit.spec.statConversions, ...(unit.spec.statConversions.attackDamageMultiplier ? { attackDamageMultiplier: { ...unit.spec.statConversions.attackDamageMultiplier } } : {}) } : undefined,
     statuses: unit.statuses.map(({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune, requiresShield, whileCC, slowStackGroup }) =>
       ({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune, requiresShield, whileCC, slowStackGroup })),
@@ -233,10 +239,14 @@ function computeDerived(unit: Unit): Derived {
   const externalAP = (bonus.ap ?? 0) + sum(st, "AP");
   const apMultiplier = list(st, "stat", "APMultiplier").reduce((factor, bonus) => factor * (1 + bonus), 1);
   const conversion = unit.spec.statConversions;
-  const maxHp = conversion?.apToHealth === undefined
+  // Pyke converts health gains into AD before they can change either health pool.
+  const healthMultiplier = conversion?.directBonusHealthToAD === undefined ? unit.healthMultiplier ?? 1 : 1;
+  const unscaledMaxHp = conversion?.apToHealth === undefined
     ? base.hp + (bonus.hp ?? 0) + healthBuffs
     : base.hp + externalBonusHp + externalAP * apMultiplier * conversion.apToHealth;
-  const ap = (conversion?.healthToAP === undefined ? externalAP : externalAP + externalBonusHp * conversion.healthToAP) * apMultiplier;
+  const maxHp = unscaledMaxHp * healthMultiplier;
+  const baseHp = base.hp * healthMultiplier;
+  const ap = (conversion?.healthToAP === undefined ? externalAP : externalAP + (externalBonusHp * healthMultiplier) * conversion.healthToAP) * apMultiplier;
   const rawBonusAd = (bonus.ad ?? 0) + sum(st, "AD");
   const totalADReduction = Math.max(0, sum(st, "totalADReduction"));
   const bonusAttackSpeed = base.attackSpeed.bonus + (bonus.attackSpeed ?? 0) + sum(st, "attackSpeed");
@@ -289,6 +299,8 @@ function computeDerived(unit: Unit): Derived {
   }
   return {
     maxHp,
+    baseHp,
+    bonusHp: maxHp - baseHp,
     baseAd: base.ad,
     bonusAd,
     ad: unconvertedAD + convertedAD,
@@ -346,7 +358,7 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
     case "maxHP":
       return d.maxHp;
     case "bonusHP":
-      return d.maxHp - unit.spec.base.hp;
+      return d.bonusHp;
     case "currentHP":
       return unit.hp;
     case "missingHP":
@@ -394,7 +406,7 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
     case "targetMissingHP":
       return target && t ? t.maxHp - target.hp : 0;
     case "targetBonusHP":
-      return target && t ? t.maxHp - target.spec.base.hp : 0;
+      return t?.bonusHp ?? 0;
     case "targetMaxMana":
       return manaValue("max", target, t);
     case "targetBonusMana":

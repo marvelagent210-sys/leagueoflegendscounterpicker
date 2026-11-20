@@ -69,7 +69,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Resolve | 2 | Conditioning | 8429 | Not implemented | [3825864](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conditioning?oldid=3825864) |
 | Resolve | 2 | Second Wind | 8444 | Explicit partial manual selection | [3960974](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Second_Wind?oldid=3960974) |
 | Resolve | 2 | Bone Plating | 8473 | Explicit partial manual selection | [3985159](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Bone_Plating?oldid=3985159) |
-| Resolve | 3 | Overgrowth | 8451 | Not implemented | [3825902](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Overgrowth?oldid=3825902) |
+| Resolve | 3 | Overgrowth | 8451 | Explicit partial manual selection | [3825902](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Overgrowth?oldid=3825902) |
 | Resolve | 3 | Revitalize | 8453 | Not implemented | [3825912](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Revitalize?oldid=3825912) |
 | Resolve | 3 | Unflinching | 8242 | Not implemented | [3958701](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Unflinching?oldid=3958701) |
 

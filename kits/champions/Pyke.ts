@@ -147,10 +147,14 @@ const pyke: KitModule = {
       hooks: {
         onStart(ctx) {
           // Bonus health becomes attack damage.
-          const bonusHealth = Math.max(0, derive(ctx.self).maxHp - ctx.self.spec.base.hp);
-          if (bonusHealth > 0) {
-            ctx.buff("pyke:noHealth", "health", -bonusHealth, FOREVER);
-            ctx.buff("pyke:healthAD", "AD", bonusHealth / perAD, FOREVER);
+          const stats = derive(ctx.self);
+          const bonusHealth = Math.max(0, stats.bonusHp);
+          // A total health multiplier affects both native pools before conversion.
+          // Direct awards already use the shared award path and must not count twice.
+          const healthForAD = bonusHealth + stats.maxHp * ((ctx.self.healthMultiplier ?? 1) - 1);
+          if (bonusHealth > 0) ctx.buff("pyke:noHealth", "health", -bonusHealth, FOREVER);
+          if (healthForAD > 0) {
+            ctx.buff("pyke:healthAD", "AD", healthForAD / perAD, FOREVER);
             ctx.self.hp = derive(ctx.self).maxHp;
           }
         },

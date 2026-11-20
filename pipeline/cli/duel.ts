@@ -21,6 +21,7 @@
  *        npm run duel -- <your champion> <enemy> --combat-runes 8014,8444 --enemy-combat-runes 8299
  *        npm run duel -- <your champion> <enemy> --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 9104 --enemy-legend-points 0
  *        npm run duel -- <your champion> <enemy> --combat-runes 8021 --energized-charges 100 --enemy-combat-runes 8021 --enemy-energized-charges 0
+ *        npm run duel -- <your champion> <enemy> --combat-runes 8451 --overgrowth-deaths 120 --enemy-combat-runes 8451 --enemy-overgrowth-deaths 119
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
 import { type EquippedFighter, matchupSpecs } from "../../items/equip";
@@ -43,7 +44,7 @@ import { reviewAdaptiveItemBuild, type AdaptiveItemEligibility } from "../runes/
 import { equipShards, type ShardSelection } from "../../runes/shards";
 import { equipRuneEffects, runeMatchupSpecs, type EquippedRuneEffects, type RuneEquipOptions } from "../../runes/effects";
 import { loadCombatRuneRules } from "../runes/effects";
-import { combatRuneOption, energizedChargesOption, legendPointsOption } from "../runes/effectOptions";
+import { combatRuneOption, energizedChargesOption, legendPointsOption, overgrowthDeathsOption } from "../runes/effectOptions";
 
 function option(args: string[], flag: string): string | undefined {
   const index = args.indexOf(flag);
@@ -113,7 +114,7 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--shards", "--enemy-shards", "--combat-runes", "--enemy-combat-runes", "--legend-points", "--enemy-legend-points", "--energized-charges", "--enemy-energized-charges"]);
+  const valued = new Set(["--gold", "--log", "--dataset", "--items", "--enemy-items", "--item-option", "--format", "--shards", "--enemy-shards", "--combat-runes", "--enemy-combat-runes", "--legend-points", "--enemy-legend-points", "--energized-charges", "--enemy-energized-charges", "--overgrowth-deaths", "--enemy-overgrowth-deaths"]);
   const switches = new Set(["--search", "--unstacked", "--sweep"]);
   for (let index = 0; index < args.length; index++) {
     const arg = args[index]!;
@@ -150,8 +151,10 @@ async function main(): Promise<void> {
   const enemyLegendPoints = legendPointsOption(args, "--enemy-legend-points", enemyRunes);
   const myEnergizedCharges = energizedChargesOption(args, "--energized-charges", myRunes);
   const enemyEnergizedCharges = energizedChargesOption(args, "--enemy-energized-charges", enemyRunes);
-  const myRuneOptions = { legendPoints: myLegendPoints, energizedCharges: myEnergizedCharges };
-  const enemyRuneOptions = { legendPoints: enemyLegendPoints, energizedCharges: enemyEnergizedCharges };
+  const myOvergrowthDeaths = overgrowthDeathsOption(args, "--overgrowth-deaths", myRunes);
+  const enemyOvergrowthDeaths = overgrowthDeathsOption(args, "--enemy-overgrowth-deaths", enemyRunes);
+  const myRuneOptions = { legendPoints: myLegendPoints, energizedCharges: myEnergizedCharges, overgrowthDeaths: myOvergrowthDeaths };
+  const enemyRuneOptions = { legendPoints: enemyLegendPoints, energizedCharges: enemyEnergizedCharges, overgrowthDeaths: enemyOvergrowthDeaths };
   const myShards = runeCatalog ? shardOption(args, "--shards", runeCatalog) : undefined;
   const enemyShards = runeCatalog ? shardOption(args, "--enemy-shards", runeCatalog) : undefined;
   if (withItems) for (const flag of ["--sweep", "--gold"]) if (args.includes(flag)) throw new Error(`${flag} is for the stat budget; it doesn't go with item builds`);
@@ -222,6 +225,9 @@ async function main(): Promise<void> {
     }
     for (const [name, charges] of [[you.name, myEnergizedCharges], [enemy.name, enemyEnergizedCharges]] as const) {
       if (charges !== undefined) console.log(`${name} Energized starting charges: ${charges} / 100`);
+    }
+    for (const [name, deaths] of [[you.name, myOvergrowthDeaths], [enemy.name, enemyOvergrowthDeaths]] as const) {
+      if (deaths !== undefined) console.log(`${name} Overgrowth starting count: ${deaths} qualifying deaths`);
     }
     console.log("Only the explicit partial selection is equipped; a complete rune page is not implied.");
     for (const assumption of runeAssumptions) console.log(`  ${assumption}`);

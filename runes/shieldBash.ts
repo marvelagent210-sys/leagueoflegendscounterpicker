@@ -82,7 +82,7 @@ export function buildShieldBash(form: FighterSpec, input: Pick<CombatRuneRules, 
         memory[SPENT_THROUGH] = Math.max(Number(memory[SPENT_THROUGH] ?? 0), hit.sequence);
         const stats = derive(ctx.self);
         const physical = stats.bonusAd === stats.ap ? ctx.self.spec.adaptiveType === "Physical" : stats.bonusAd > stats.ap;
-        const bonusHealth = stats.maxHp - ctx.self.spec.base.hp;
+        const bonusHealth = stats.bonusHp;
         applyEffect(ctx.world, ctx.self, ctx.enemy, {
           type: "damage", damageType: physical ? "physical" : "magic", label: LABEL,
           amount: { base: baseDamage + bonusHealthRatio * bonusHealth + shieldRatio * strongest },

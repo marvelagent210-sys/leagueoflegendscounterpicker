@@ -3,6 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { abilityReach, canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { directionTo } from "../../engine/sim/combat";
+import { derive } from "../../engine/sim/derived";
 import { type Effect, cooldownKeyOf } from "../../engine/sim/spec";
 import { areaAt, fieldAt, maxHp, ticks } from "./util";
 
@@ -94,7 +95,7 @@ const poppy: KitModule = {
           const dir = directionTo(ctx.self, ctx.enemy);
           const center = ctx.self.x + dir * (hammerLength - hammerBehind) / 2;
           const radius = (hammerLength + hammerBehind) / 2;
-          const slow = hammerSlow + hammerSlowPerHealth * (maxHp(ctx.self) - ctx.self.spec.base.hp);
+          const slow = hammerSlow + hammerSlowPerHealth * (derive(ctx.self).bonusHp);
           areaAt(ctx, "Qrupture", center, radius, hammerField, [hit]);
           fieldAt(ctx, "Qfield", center, radius, hammerField, 1 / 30, [{ type: "cc", cc: "slow", strength: slow, duration: 1 / 30 }]);
         },
