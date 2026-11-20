@@ -18,6 +18,7 @@ import { buildGrasp } from "./grasp";
 import { buildBonePlating } from "./bonePlating";
 import { buildShieldBash } from "./shieldBash";
 import { buildOvergrowth } from "./overgrowth";
+import { buildAftershock } from "./aftershock";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
@@ -36,6 +37,7 @@ export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRun
   if (id === 8010) return buildConqueror(_form, rules);
   if (id === 8401) return buildShieldBash(_form, rules);
   if (id === 8437) return buildGrasp(rules);
+  if (id === 8439) return buildAftershock(_form, rules);
   if (id === 8451) return buildOvergrowth(rules, options.overgrowthDeaths);
   if (id === 8473) return buildBonePlating(rules);
   if (id === 8021) {

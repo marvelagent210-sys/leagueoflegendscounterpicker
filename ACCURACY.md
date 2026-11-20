@@ -3513,6 +3513,23 @@ Malphite's setup shield, Kled's dismount and remount, and Shield Bash's
 bonus-health ratio. The source-backed rule and model-specific ordering are
 recorded with the remaining live questions. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#overgrowth)
 
+## Aftershock (20 November 2026)
+
+Rune 8439 adds a second Resolve keystone and brings the manual inventory
+to nineteen. The offline compiler cross-checks ten named normal-mode
+client fields, retains 116 complete Wiki revisions and verifies the
+level-20 resistance cap against both stat references. The selection audit
+checks all 524,288 subsets and accepts 4,162, including 444 with Aftershock.
+[Rune rules and sources](docs/runes/README.md#aftershock)
+
+Native cases cover the accepted immobilization kinds, a shielded Leona
+attack, displacement immunity, separate resistance snapshots and caps,
+world copies, the 350-unit boundary, Bone Plating and attackable
+resurrection. The two-sided Leona–Malphite CLI example records each
+champion's resistance grant and shockwave at the expected interval.
+The damage curve beyond level 18 and lifecycle ordering need live
+measurements. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#aftershock)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

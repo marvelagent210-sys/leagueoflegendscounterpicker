@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support eighteen partial combat effects, including
-Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support nineteen partial combat effects, including
+Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -119,7 +119,7 @@ npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --e
 npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These seventeen effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These nineteen effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -133,6 +133,7 @@ supported as partial manual selections:
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
 | Shield Bash | 8401 | A qualifying champion on-hit deals `560/17` adaptive damage at level 20 plus 2.5% of bonus health and 15% of the strongest eligible shield's peak. Each shield remains eligible for two seconds after it ends. |
 | Grasp of the Undying | 8437 | Damage starts a four-stack timer. A qualified champion on-hit consumes the primed charge for magic damage, a delayed heal and permanent bonus health. Ranged applications use 40% effectiveness. |
+| Aftershock | 8439 | A qualifying champion immobilization grants 45 plus 75% of each bonus resistance for 2.5 seconds, with independent caps. A 350-unit magic shockwave follows. The cooldown is 20 seconds. |
 | Second Wind | 8444 | Positive hostile champion or owned-pet damage to the champion body's health enables ten seconds of bonus regeneration. The model regenerates 0.2% of current missing health at each half-second pulse. |
 | Overgrowth | 8451 | Each complete set of eight declared qualifying deaths gives 3 bonus health. At 120, both base and bonus health increase by 3.5%. Each side declares its own starting count. |
 | Bone Plating | 8473 | An opposing champion's first health-damaging packet arms three plates for 1.5 seconds. One later packet per cast can spend a plate for up to `1080/17` reduction at level 20. |
@@ -153,7 +154,7 @@ and one of the three damage runes. Shield Bash occupies a separate Resolve
 row from Second Wind and Bone Plating, so it can accompany either one.
 Overgrowth occupies the final Resolve row. Select up to two Resolve lesser
 rows with a Precision keystone. All three lesser rows fit a primary Resolve
-page. Grasp requires Resolve primary and can accompany up to two Precision
+page. Grasp and Aftershock each require Resolve primary and can accompany up to two Precision
 lesser runes from different rows. Only the explicitly named effects
 are equipped; a legal completion does not activate its filler choices. Presence and
 Triumph have no history flag; a selected Legend still requires that side's
@@ -174,11 +175,13 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **109 complete Wiki revisions** in
+The offline compiler checks **116 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the eighteen templates to
+full-content hashes, exact revisions and excerpts, binds the nineteen templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Aftershock adds its complete article and template, plus control, armor,
+magic resistance, range and spell shield rules, to the previous 109.
 Overgrowth adds its complete article and template to the previous 107.
 Shield Bash adds the rune article, template, Shield rules, and five reviewed
 ability revisions to the previous 99.
@@ -239,9 +242,34 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These seventeen catalog entries are
+selection require further implementation and validation. These nineteen catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Aftershock
+
+Select `8439` for either side of a manual plain-stat duel. The opposing
+champion must accept a native immobilization from the rune owner's champion
+body. Displacement immunity prevents activation even when a root applies.
+The sourced Yorick substitution requires selecting Grasp explicitly in the
+manual duel. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4023199) · [Immobilization rules](https://wiki.leagueoflegends.com/en-us/?oldid=4060567)
+
+```bash
+npm run duel -- Leona Malphite --dataset 16.21 --gold 0 --combat-runes 8439,8451 --overgrowth-deaths 120 --enemy-combat-runes 8439 --log brawl
+```
+
+Activation grants 45 plus 75% of each current bonus resistance for 2.5
+seconds, with each grant capped independently at `2690/17` at model level
+20. The model floors each bonus input at zero and starts the 20-second
+cooldown when the control applies. The two grants retain their original
+values through the window. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4022990) · [Armor](https://wiki.leagueoflegends.com/en-us/?oldid=4073057) · [Magic resistance](https://wiki.leagueoflegends.com/en-us/?oldid=4073058)
+
+At expiry, the magic shockwave uses the then-current bonus health and the
+distance between champion centers. It deals `2230/17` plus 8% of bonus
+health before mitigation within 350 units. The separate damage instance can
+spend Bone Plating and passes ordinary spell shields. Death, a fallen state
+or attackable resurrection cancels a pending shockwave under the model's
+lifecycle policy. [Range rules](https://wiki.leagueoflegends.com/en-us/?oldid=4058499) · [Spell shield rules](https://wiki.leagueoflegends.com/en-us/?oldid=3981674) · [Open mechanics questions](MECHANICS_GAPS.md#aftershock)
 
 ### Overgrowth
 

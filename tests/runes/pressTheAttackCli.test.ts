@@ -54,9 +54,8 @@ describe("Press the Attack's first manual keystone selection", () => {
     expect(legendPointsOption([pointsFlag, "0"], pointsFlag, [8005, 9104])).toBe(0);
   });
   it("keeps unsupported keystones, row conflicts and duplicates explicit", () => {
-    for (const selection of ["8005,8439"]) {
-      expect(() => combatRuneOption(["--combat-runes", selection], "--combat-runes", catalog)).toThrow(/no combat implementation/);
-    }
+    expect(() => combatRuneOption(["--combat-runes", "8005,8465"], "--combat-runes", catalog)).toThrow(/no combat implementation/);
+    expect(() => combatRuneOption(["--combat-runes", "8005,8439"], "--combat-runes", catalog)).toThrow(/more than one keystone/);
     for (const selection of ["8005,8005", "8005,8010", "8005,8009,9111", "8005,9103,9104", "8005,8014,8299"]) {
       expect(() => combatRuneOption(["--combat-runes", selection], "--combat-runes", catalog)).toThrow(/cannot repeat|same path row/);
     }

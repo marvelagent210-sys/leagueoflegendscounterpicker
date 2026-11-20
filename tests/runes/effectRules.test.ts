@@ -14,8 +14,9 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8444, 8451, 8473, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8439, 8444, 8451, 8473, 9101, 9103, 9104, 9105, 9111];
 const overgrowthPath = "Perks/Styles/Resolve/Overgrowth";
+const aftershockPath = "Perks/Styles/Resolve/Aftershock";
 const shieldBashPath = "Perks/Styles/Resolve/ShieldBash";
 const bonePath = "Perks/Styles/Resolve/BonePlating";
 const graspPath = "Perks/Styles/Resolve/GraspOfTheUndying";
@@ -85,6 +86,22 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Aftershock source rules", () => {
+  it("uses the patch 26.21 grants and both client level curves", () => {
+    expect(build().aftershock).toEqual({
+      modelLevel: 20, flatResistance: 45, bonusResistanceRatio: 0.75, maxResistance: 2690 / 17,
+      baseDamage: 2230 / 17, bonusHealthRatio: 0.08, duration: 2.5, cooldown: 20, radius: 350,
+    });
+  });
+
+  it.each(["FlatResists", "PercentBonusResist", "BonusResistMax", "MaxBaseDamage", "HealthRatio", "DamageRadius"])
+  ("cross-checks the current client value for %s", field => {
+    const input = fixture();
+    editGame(input, records => { records[aftershockPath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 1; });
+    expect(() => build(input)).toThrow(new RegExp(`Aftershock Wiki/game ${field} disagree`));
+  });
+});
 
 describe("Overgrowth source rules", () => {
   it("agrees with the normal-mode client on stack size, threshold, radius and percentage", () => {
@@ -484,10 +501,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(18).fill("manual-effects"));
+      .toEqual(Array(19).fill("manual-effects"));
   });
 
-  it("binds all 109 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all 116 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -598,6 +615,13 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Data Camille/Adaptive Defenses", 4051341],
       ["Template:Rune data Overgrowth", 3825902],
       ["Overgrowth", 4002405],
+      ["Template:Rune data Aftershock", 4022990],
+      ["Aftershock", 4023199],
+      ["Template:Tip data/Immobilize", 4060567],
+      ["Armor", 4073057],
+      ["Magic resistance", 4073058],
+      ["Range", 4058499],
+      ["Spell shield", 3981674],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -617,13 +641,15 @@ describe("reviewed combat rune numeric rules", () => {
       .toBe("17b7fb33bf7812b6fed4ce84ee79a6d3c5bbe59f01886eae7ae178afdc0493ea");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 107))))
       .toBe("2c98468d3c43ce964d4b945aec065113013dca0f53e8b442ac2fb9962c867b9c");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 109))))
+      .toBe("157c9b00d6015d90427e1085d41feedfd57f5a2bd3c1a01103da253dbf6811ba");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(109);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(116);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -764,11 +790,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 109 complete/);
+    expect(() => build(missing)).toThrow(/all 116 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 109 complete/);
+    expect(() => build(extra)).toThrow(/all 116 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -803,7 +829,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
     const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath,
-      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath]);
+      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath, aftershockPath]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });

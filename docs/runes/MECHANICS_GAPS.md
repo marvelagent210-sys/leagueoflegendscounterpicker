@@ -8,6 +8,31 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Aftershock
+
+Patch 26.21 gives 45 plus 75% of each bonus resistance, a 2.5-second
+window and a 350-unit magic shockwave. The current template and the frozen
+client agree on the 80 to 150 cap endpoints and the 25 to 120 damage
+endpoints. The resistance-stat articles list a rounded level-20 cap of
+158. The model uses the corresponding unrounded cap and extends the same
+level curve to the damage endpoints. A controlled level-20 damage
+measurement would confirm that extrapolation. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4022990) · [Armor](https://wiki.leagueoflegends.com/en-us/?oldid=4073057) · [Magic resistance](https://wiki.leagueoflegends.com/en-us/?oldid=4073058) · [Versioned client](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The model samples resistance when the control is accepted and bonus health
+when the wave detonates. It floors the resistance inputs at zero, starts the
+cooldown at activation, resolves the burst at the end of the resistance
+window and cancels a pending burst on death, falling or attackable
+resurrection. The source confirms static resistance and records a fix for
+premature detonation on death. The negative-resistance case, exact transition
+ordering and bonus-health sample still need live checks. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4023199)
+
+Manual duels cover the two champion bodies with the simulator's native
+area-proc damage path. Pet and clone attribution, monster and multi-target
+damage, additional spell effects and complete-page substitutions remain
+open. The article specifies Grasp substitution for Yorick and champions
+without immobilizations. Only the explicit Yorick restriction has been
+mapped to a fighter identity for the manual selection. [Manual duel rules](README.md#aftershock)
+
 ## Overgrowth
 
 The normal-mode template and client agree on three flat bonus health per

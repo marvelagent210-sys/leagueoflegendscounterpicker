@@ -564,8 +564,44 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-03-24T19:50:20Z",
     sha256: "324ce9361daac6728b5a274fec6f3b9f8b635c3827545034cdfd4ad56065c656",
   },
+  "Template:Rune data Aftershock": {
+    revid: 4022990,
+    timestamp: "2026-05-27T21:25:51Z",
+    sha256: "7484070a7ee08dd8940edc74607ae1e8b0afec2d3b795b1765aede073dcf4d50",
+  },
+  "Aftershock": {
+    revid: 4023199,
+    timestamp: "2026-05-28T04:08:28Z",
+    sha256: "bfe92ae4abdb292f4cb3535a9bf72c31dc273dd92be32204cc6da0d3e06d95a5",
+  },
+  "Template:Tip data/Immobilize": {
+    revid: 4060567,
+    timestamp: "2026-09-10T03:45:12Z",
+    sha256: "5151bf6443223f85ecede8e540339edd9acc3b4c34d41f613b625939e57b2b22",
+  },
+  "Armor": {
+    revid: 4073057,
+    timestamp: "2026-10-02T13:08:38Z",
+    sha256: "278ad79d85ed55150552c9599b6c39f07e7bb7f709941ff8c914ada5cee910d1",
+  },
+  "Magic resistance": {
+    revid: 4073058,
+    timestamp: "2026-10-02T13:08:45Z",
+    sha256: "3e16564289ff10442dc1ba99d013470dcb244645948cad11f6c992a77ff43f77",
+  },
+  "Range": {
+    revid: 4058499,
+    timestamp: "2026-09-03T19:42:39Z",
+    sha256: "c1d87fc751c5fb9feb7a4fb84dd19774016b347ee64afa45902a931a49fe4453",
+  },
+  "Spell shield": {
+    revid: 3981674,
+    timestamp: "2026-01-07T21:48:25Z",
+    sha256: "33e6a05e8d59a42daf15ed1f41b0e6ce0715dec2aa2e13783079f3c32e2bdfe5",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8439, name: "Aftershock", path: 8400, slot: 0, game: "Perks/Styles/Resolve/Aftershock" },
   { id: 8451, name: "Overgrowth", path: 8400, slot: 3, game: "Perks/Styles/Resolve/Overgrowth" },
   { id: 8401, name: "Shield Bash", path: 8400, slot: 1, game: "Perks/Styles/Resolve/ShieldBash" },
   { id: 8473, name: "Bone Plating", path: 8400, slot: 2, game: "Perks/Styles/Resolve/BonePlating" },
@@ -685,6 +721,70 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const aftershock = description("Aftershock");
+  const [aftershockFlat, aftershockResistPercent, aftershockFlatMR, aftershockMRPercent, aftershockDuration, aftershockResistMin, aftershockResistMax] =
+    matchNumbers("Aftershock resistance grants", aftershock.text,
+      /grants you a static \{\{as\|(\d+)\|armor\}\} \{\{as\|\(\+ (\d+)% '''bonus''' armor\)\}\} \{\{as\|'''bonus''' armor\}\} and \{\{as\|(\d+)\|mr\}\} \{\{as\|\(\+ (\d+)% '''bonus''' magic resistance\)\}\} \{\{as\|'''bonus''' magic resistance\}\} for \{\{fd\|([\d.]+)\}\} seconds\. The '''bonus''' resistances are each capped at \{\{pp\|(\d+) to (\d+)\}\}/);
+  quote(aftershock.page, "{{tip|Immobilize|Immobilizing}} an enemy {{tip|champion}}");
+  const shockwave = aftershock.page.content.split("\n").find(line => /^\|description2\s*=/.test(line))!;
+  const [aftershockDamageMin, aftershockDamageMax, aftershockHealthPercent, aftershockRadius] =
+    matchNumbers("Aftershock shockwave", shockwave,
+      /After the duration, you release a shockwave that deals \{\{as\|\{\{pp\|(\d+) to (\d+)\}\}\|magic damage\}\} \{\{as\|\(\+ (\d+)% of your '''bonus''' health\)\}\} \{\{as\|magic damage\}\} to enemy champions and \{\{tip\|monster\|monsters\}\} within a \{\{tip\|cr\|icononly=true\}\} (\d+) radius/);
+  quote(aftershock.page, shockwave);
+  const [aftershockCooldown] = matchNumbers("Aftershock cooldown", aftershock.page.content, /^\|cooldown\s*=\s*(\d+)[ \t]*$/m);
+  requireThat(aftershockFlat === aftershockFlatMR && aftershockResistPercent === aftershockMRPercent
+    && aftershockDamageMax! > aftershockDamageMin! && aftershockResistMax! > aftershockResistMin!, "Aftershock grant symmetry or endpoints changed");
+  const aftershockAmounts = client("Aftershock");
+  const aftershockResistRatio = aftershockResistPercent! / 100, aftershockHealthRatio = aftershockHealthPercent! / 100;
+  for (const [key, value] of Object.entries({ DamageRadius: aftershockRadius!, Cooldown: aftershockCooldown!,
+    StartingBaseDamage: aftershockDamageMin!, MaxBaseDamage: aftershockDamageMax!, DelayBeforeBurst: aftershockDuration!,
+    HealthRatio: aftershockHealthRatio, FlatResists: aftershockFlat!, BonusResistMin: aftershockResistMin!,
+    BonusResistMax: aftershockResistMax!, PercentBonusResist: aftershockResistRatio })) agree("Aftershock", aftershockAmounts, key, value);
+  const aftershockCalculations = record(clientData("Aftershock").mCalculations, "Aftershock client calculations");
+  for (const [key, minimum, maximum, count] of [
+    ["MaxResistCalc", aftershockResistMin!, aftershockResistMax!, 1], ["DamageCalc", aftershockDamageMin!, aftershockDamageMax!, 2],
+  ] as const) {
+    const parts = record(aftershockCalculations[key], "Aftershock " + key).mFormulaParts;
+    requireThat(Array.isArray(parts) && parts.length === count, "Aftershock " + key + " formula length differs");
+    const level = record(parts[0], "Aftershock level interpolation");
+    requireThat(level.__type === "ByCharLevelInterpolationCalculationPart" && level.mStartValue === minimum && level.mEndValue === maximum,
+      "Aftershock " + key + " level interpolation changed");
+  }
+  for (const [key, stat, field] of [
+    ["ArmorBuff", 1, "PercentBonusResist"], ["MagicResistBuff", 6, "PercentBonusResist"], ["DamageCalc", 12, "HealthRatio"],
+  ] as const) {
+    const parts = record(aftershockCalculations[key], "Aftershock " + key).mFormulaParts;
+    requireThat(Array.isArray(parts) && parts.length === 2, "Aftershock " + key + " formula length differs");
+    if (key !== "DamageCalc") {
+      const flat = record(parts[0], "Aftershock flat resistance");
+      requireThat(flat.__type === "NamedDataValueCalculationPart" && flat.mDataValue === "FlatResists", "Aftershock " + key + " flat resistance changed");
+    }
+    const ratio = record(parts[1], "Aftershock bonus stat scaling");
+    requireThat(ratio.__type === "StatByNamedDataValueCalculationPart" && ratio.mStat === stat
+      && ratio.mStatFormula === 2 && ratio.mDataValue === field, "Aftershock " + key + " bonus stat scaling changed");
+  }
+  const aftershockNotes = pages.get("Aftershock")!;
+  for (const excerpt of [
+    "deals {{tip|area damage}}, additionally tagged as {{tip|proc damage|proc}}, and thus will apply {{tip|spell effects}}",
+    "On champions without immobilizing effects and {{ci|Yorick}}, '''Aftershock''' is exchanged with {{ri|Grasp of the Undying}}",
+    "resistances do not scale dynamically; it only benefits from the bonus at the time of its trigger",
+    "will not activate if the immobilizing effect was applied to a target that is {{tip|displacement immune}}",
+    "the owning champion's death would cause the damage effect to apply early",
+  ]) quote(aftershockNotes, excerpt);
+  const immobilize = pages.get("Template:Tip data/Immobilize")!;
+  for (const excerpt of [
+    "{{tip|Airborne}}", "{{tip|Forced Action}} ({{tip|Berserk}}, {{tip|Charm}}, {{tip|Flee}}, {{tip|Taunt}})",
+    "{{tip|Root}}", "{{tip|Sleep}}", "{{tip|Stasis}}", "{{tip|Stun}} ({{tip|Suspension}})", "{{tip|Suppression}}",
+  ]) quote(immobilize, excerpt);
+  quote(pages.get("Armor")!, "'''Runes''' = {{ri|Aftershock|158}} + {{ri|Conditioning|8}} + {{ri|Unflinching|10}} = 176 armor");
+  quote(pages.get("Magic resistance")!, "{{tt|{{ri|Aftershock|158}}|Level 20 from Top Lane Quest}}");
+  quote(pages.get("Range")!, "[[Aura]]s (self-centered areas-of-effect) use centered range");
+  quote(pages.get("Spell shield")!, "but not ones coming from [[rune]]s and [[summoner spell]]s. The exceptions for the latter two are {{ri|Arcane Comet}}");
+  // Both client curves use the same endpoints convention. The resistance examples
+  // confirm the cap grows past level 18. Apply that convention to burst damage too.
+  const aftershockCap = aftershockResistMin! + (aftershockResistMax! - aftershockResistMin!) * (TOP_LANE_MAX_LEVEL - 1) / 17;
+  const aftershockBaseDamage = aftershockDamageMin! + (aftershockDamageMax! - aftershockDamageMin!) * (TOP_LANE_MAX_LEVEL - 1) / 17;
 
   const overgrowth = description("Overgrowth");
   const [overgrowthUnits, overgrowthFlatHp] = matchNumbers("Overgrowth stack progress", overgrowth.text,
@@ -1591,6 +1691,9 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    aftershock: { modelLevel: 20, flatResistance: aftershockFlat!, bonusResistanceRatio: aftershockResistRatio,
+      maxResistance: aftershockCap, baseDamage: aftershockBaseDamage, bonusHealthRatio: aftershockHealthRatio,
+      duration: aftershockDuration!, cooldown: aftershockCooldown!, radius: aftershockRadius! },
     overgrowth: { unitsPerStack: overgrowthUnits!, healthPerStack: overgrowthFlatHp!,
       thresholdUnits: overgrowthThresholdUnits!, healthRatio: overgrowthHealthRatio, radius: overgrowthRadius! },
     shieldBash: { modelLevel: 20, baseDamage: shieldBashDamage, bonusHealthRatio: shieldHealthRatio! / 100,
