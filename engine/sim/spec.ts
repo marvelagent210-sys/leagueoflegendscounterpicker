@@ -269,7 +269,7 @@ export type Effect =
       whileCC?: CCType;
     }
   /** `stacks`: a new application runs alongside the old one instead of refreshing it (Trial by Fire). */
-  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string; stacks?: boolean; unamplified?: boolean }
+  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string; stacks?: boolean; observedDamageKind?: ObservedDamageKind; unamplified?: boolean }
   | { type: "grievousWounds"; duration: number }
   /** Removes the listed crowd control types from the caster, or every type when none are listed. */
   /** `sticky`: also removes non-dispellable crowd control, as cleanses that grant immunity do (Ragnarok). */
@@ -973,6 +973,15 @@ export interface ResolvedOnHitSnapshot {
   };
 }
 
+/** Active control captured when the incoming packet starts, before native damage callbacks. */
+export interface DamageControlSnapshot {
+  readonly cc: CCType;
+  readonly source: Side;
+  readonly startTick: number;
+  readonly castInstance?: number;
+  readonly basic: boolean;
+}
+
 /** Accepted positive damage to a champion, observed after the native damage hooks. */
 export interface ResolvedDamageSnapshot {
   readonly tick: number;
@@ -982,6 +991,7 @@ export interface ResolvedDamageSnapshot {
   readonly kind: ObservedDamageKind;
   /** Explicit Scorch effectiveness supplied by a packet with reviewed special eligibility or scaling. */
   readonly scorchScale?: number;
+  readonly controlBeforeDamage?: readonly DamageControlSnapshot[];
   readonly castInstance?: number;
   readonly conquerorPerPacket: boolean;
   /** The native mitigated packet, including absorption and before health floors. */
@@ -1289,6 +1299,8 @@ export interface FighterSpec {
   attack: AttackSpec;
   abilities: AbilitySpec[];
   hooks?: KitHooks;
+  /** Include active control from before damage callbacks in this fighter's outgoing observations. */
+  observeDamageControl?: true;
   /** Effects on itself before the fight starts: innate stats and states that are always on. */
   start?: Effect[];
   /** Resource at the start (Fury starts empty); default full. */

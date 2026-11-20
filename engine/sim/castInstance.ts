@@ -1,6 +1,6 @@
 import { other, type Unit, type World } from "./state";
 
-const active: Array<{ world: World; source: Unit; id: number }> = [];
+const active: Array<{ world: World; source: Unit; id: number; basicDamage?: true }> = [];
 
 /** Allocate IDs when the source or the opposing champion observes an incoming cast. */
 export function allocateCastInstance(world: World, source: Unit): number | undefined {
@@ -12,6 +12,15 @@ export function allocateCastInstance(world: World, source: Unit): number | undef
 
 export function currentCastInstance(world: World, source: Unit): number | undefined {
   return active.findLast(row => row.world === world && row.source === source)?.id;
+}
+
+/** Remember accepted basic classification through later callbacks of the same delivery. */
+export function markBasicDamageCast(world: World, source: Unit, id: number): void {
+  for (const row of active) if (row.world === world && row.source === source && row.id === id) row.basicDamage = true;
+}
+
+export function currentCastUsesBasicDamage(world: World, source: Unit): boolean {
+  return active.findLast(row => row.world === world && row.source === source)?.basicDamage === true;
 }
 
 /**

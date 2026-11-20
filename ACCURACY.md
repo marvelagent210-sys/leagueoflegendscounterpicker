@@ -3601,6 +3601,22 @@ while preserving each packet's basic-rune rules. The simulator samples
 effectiveness at ignition. Its live eligibility and timing
 limits are recorded in the mechanics audit. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#scorch)
 
+## Cheap Shot (20 November 2026)
+
+Rune 8126 brings the inventory to twenty-three partial manual effects.
+The compiler retains 128 complete Wiki revisions and checks the
+versioned client's damage curve and cooldown fields. The curve yields
+`835/17` raw true damage at model level 20. The selection audit accepts
+7,081 of the 145,499 subsets within the six-rune limit, including 374
+with Cheap Shot. [Rune rules and sources](docs/runes/README.md#cheap-shot)
+
+Native fixtures exercise earlier and same-tick control, grouped basic
+damage, delayed and periodic spells, cooldown, protected packets, and
+Ashe's widely spaced Frost Shots. The model captures control before
+damage callbacks and delivers its proc after the accepted hit. Smolder's
+burn carries its source-backed proc tag and Bel'Veth's slashes can use
+the full rune value. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#cheap-shot)
+
 ## Summoner spells (23 November 2026)
 
 The nine spells Summoner's Rift offers come from Data Dragon 16.21.1's classic

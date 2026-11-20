@@ -14,6 +14,7 @@ import { checkedAftershockRules } from "./aftershock";
 import { checkedFontOfLifeRules } from "./fontOfLife";
 import { checkedTasteOfBloodRules } from "./tasteOfBlood";
 import { checkedScorchRules } from "./scorch";
+import { checkedCheapShotRules } from "./cheapShot";
 import { buildRuneEffect } from "./effectRuntime";
 import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
@@ -135,6 +136,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
   const fontOfLife = checkedFontOfLifeRules(value.fontOfLife);
   const tasteOfBlood = checkedTasteOfBloodRules(value.tasteOfBlood);
   const scorch = checkedScorchRules(value.scorch);
+  const cheapShot = checkedCheapShotRules(value.cheapShot);
   const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
@@ -202,7 +204,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth, aftershock, fontOfLife, tasteOfBlood, scorch,
+    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth, aftershock, fontOfLife, tasteOfBlood, scorch, cheapShot,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
@@ -285,7 +287,8 @@ export function equipRuneEffects(
     const ownHooks = definitions.flatMap((definition) => definition.hooks ? [definition.hooks] : []);
     const beforeStart = definitions.flatMap((definition) => definition.beforeStart ? [{ onStart: definition.beforeStart }] : []);
     const hooks = composeHooks(form.hooks, ownHooks, beforeStart, false);
-    return { ...form, [EQUIPPED]: true, ...(hooks ? { hooks } : {}) };
+    const observeDamageControl = definitions.some(definition => definition.observeDamageControl);
+    return { ...form, [EQUIPPED]: true, ...(hooks ? { hooks } : {}), ...(observeDamageControl ? { observeDamageControl: true } : {}) };
   });
   return {
     spec: equipped, selection: [...selection], enemyHooks,
