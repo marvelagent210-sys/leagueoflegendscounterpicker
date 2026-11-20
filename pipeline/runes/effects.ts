@@ -619,8 +619,19 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2021-07-08T13:35:46Z",
     sha256: "b218e97f8d5891677c7a8224cb3f5d7ae2ee577cf302adf584ee726cd5af7020",
   },
+  "Template:Rune data Taste of Blood": {
+    revid: 3997097,
+    timestamp: "2026-03-06T17:28:40Z",
+    sha256: "54581e5030c0120ad313bd7cebd899ad39bdf83dd81f68bf51460b1cf7a40c18",
+  },
+  "Taste of Blood": {
+    revid: 3997098,
+    timestamp: "2026-03-06T17:28:48Z",
+    sha256: "cfc94beda265254eb2ce70015fa5b91b102817e21dac1d559c78daf7baeaa94b",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8139, name: "Taste of Blood", path: 8100, slot: 1, game: "Perks/Styles/Domination/TasteOfBlood" },
   { id: 8463, name: "Font of Life", path: 8400, slot: 1, game: "Perks/Styles/Resolve/FontOfLife" },
   { id: 8439, name: "Aftershock", path: 8400, slot: 0, game: "Perks/Styles/Resolve/Aftershock" },
   { id: 8451, name: "Overgrowth", path: 8400, slot: 3, game: "Perks/Styles/Resolve/Overgrowth" },
@@ -742,6 +753,32 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const taste = description("Taste of Blood");
+  quote(taste.page, "Damaging an enemy {{tip|champion}} {{tip|heal|heals}} you");
+  quote(taste.page, "Does not trigger at full health.");
+  const [tasteMin, tasteMax, tasteSteps, tasteLevel, tasteAd, tasteAp] = matchNumbers("Taste of Blood healing", taste.text,
+    /\{\{pp\|(\d+) \+ \((\d+)-\1\)\/(\d+)\*\(x-1\)\|1 to (\d+) by 1\|color=heal\}\} \{\{as\|\(\+ (\d+)% '''bonus''' AD\)\}\} \{\{as\|\(\+ (\d+)% AP\)\}\}/);
+  const [tasteCooldown] = matchNumbers("Taste of Blood cooldown", taste.page.content, /^\|cooldown\s*=\s*(\d+)[ \t]*$/m);
+  requireThat(tasteSteps === 17 && tasteLevel === TOP_LANE_MAX_LEVEL && tasteMax! > tasteMin!, "Taste of Blood level curve changed");
+  const tasteAdRatio = tasteAd! / 100;
+  const tasteApRatio = tasteAp! / 100;
+  const tasteAmounts = client("Taste of Blood");
+  for (const [field, value] of Object.entries({ HealAmount: tasteMin!, HealAmountMax: tasteMax!, Cooldown: tasteCooldown!,
+    ADRatio: tasteAdRatio, APRatio: tasteApRatio })) agree("Taste of Blood", tasteAmounts, field, value);
+  const tasteCalc = record(clientData("Taste of Blood").mCalculations, "Taste of Blood client calculations");
+  const tasteParts = record(tasteCalc.HealCalc, "Taste of Blood HealCalc").mFormulaParts;
+  requireThat(Array.isArray(tasteParts) && tasteParts.length === 3, "Taste of Blood needs its level, AP and bonus AD calculation parts");
+  const tasteCurve = record(tasteParts[0], "Taste of Blood level interpolation");
+  const tasteApPart = record(tasteParts[1], "Taste of Blood AP scaling");
+  const tasteAdPart = record(tasteParts[2], "Taste of Blood bonus AD scaling");
+  requireThat(tasteCurve.__type === "ByCharLevelInterpolationCalculationPart" && tasteCurve.mStartValue === tasteMin
+    && tasteCurve.mEndValue === tasteMax, "Taste of Blood client level interpolation changed");
+  requireThat(tasteApPart.__type === "StatByNamedDataValueCalculationPart" && tasteApPart.mDataValue === "APRatio"
+    && tasteApPart.mStat === undefined && tasteApPart.mStatFormula === undefined, "Taste of Blood AP scaling changed");
+  requireThat(tasteAdPart.__type === "StatByNamedDataValueCalculationPart" && tasteAdPart.mDataValue === "ADRatio"
+    && tasteAdPart.mStat === 2 && tasteAdPart.mStatFormula === 2, "Taste of Blood bonus AD scaling changed");
+  quote(pages.get("Taste of Blood")!, "If triggered whenever available");
 
   const font = description("Font of Life");
   quote(font.page, "{{tip|slow|Slowing}} or {{tip|immobilize|immobilizing}} an enemy {{tip|champion}} {{tip|heals}} you");
@@ -1741,6 +1778,8 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    tasteOfBlood: { modelLevel: 20, heal: (tasteMin! * tasteSteps + (tasteMax! - tasteMin!) * (tasteLevel - 1)) / tasteSteps,
+      bonusAdRatio: tasteAdRatio, apRatio: tasteApRatio, cooldown: tasteCooldown! },
     fontOfLife: { modelLevel: 20, heal: fontMin! + (fontMax! - fontMin!) * (fontLevel - 1) / fontSteps,
       rangedRatio: fontRangedRatio!, cooldown: fontCooldown!, allyRadius: fontRadius! },
     aftershock: { modelLevel: 20, flatResistance: aftershockFlat!, bonusResistanceRatio: aftershockResistRatio,

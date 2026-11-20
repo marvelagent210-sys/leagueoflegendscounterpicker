@@ -462,7 +462,7 @@
         "sha256": "54581e5030c0120ad313bd7cebd899ad39bdf83dd81f68bf51460b1cf7a40c18",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Taste of Blood|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 1\n|description  = {{sbc|Passive:}} Damaging an enemy {{tip|champion}} {{tip|heal|heals}} you for {{pp|16 + (40-16)/17*(x-1)|1 to 20 by 1|color=heal}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}}.\n|description2 = Does not trigger at full health.\n|range        = \n|cooldown     = 20\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8140,

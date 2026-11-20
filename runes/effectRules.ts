@@ -9,6 +9,7 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  tasteOfBlood: { modelLevel: 20; heal: number; bonusAdRatio: number; apRatio: number; cooldown: number };
   fontOfLife: { modelLevel: 20; heal: number; rangedRatio: number; cooldown: number; allyRadius: number };
   aftershock: {
     modelLevel: 20;

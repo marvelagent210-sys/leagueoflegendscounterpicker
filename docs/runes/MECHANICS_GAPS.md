@@ -8,6 +8,22 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Taste of Blood
+
+The template and frozen client agree on the heal curve, bonus attack
+damage and ability power ratios, and a 20-second cooldown. The template's
+full-health gate is explicit. The client also contains `RegenDuration`
+with value 4. The article and template describe a heal and supply the
+total amount. The model uses an immediate native heal. Actual delivery
+timing still needs a live check. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3997097) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=3997098)
+
+The native hook observes damage after shields, health floors and vamp.
+Positive health loss or shield absorption is the model's trigger. It uses
+ordinary owned-pet damage attribution and excludes actual clone actors
+and victims. The exact live order with other healing, shield-only
+eligibility, pet attribution and protected-resurrection interactions
+remain open. [Champion summoned units](https://wiki.leagueoflegends.com/en-us/?oldid=4023248) · [Manual duel rules](README.md#taste-of-blood)
+
 ## Font of Life
 
 The current article records cooldown consumption at full health and a

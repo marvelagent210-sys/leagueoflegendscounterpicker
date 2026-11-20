@@ -18,6 +18,7 @@ const fighter = (options: Parameters<typeof baseFighter>[0] = {}): FighterSpec =
   baseFighter({ ...options, base: { armor: 0, mr: 0, ...options.base } });
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  tasteOfBlood: { modelLevel: 20, heal: 728 / 17, bonusAdRatio: 0.1, apRatio: 0.05, cooldown: 20 },
   fontOfLife: { modelLevel: 20, heal: 930 / 17, rangedRatio: 0.7, cooldown: 20, allyRadius: 1000 },
   aftershock: { modelLevel: 20, flatResistance: 45, bonusResistanceRatio: 0.75, maxResistance: 2690 / 17, baseDamage: 2230 / 17, bonusHealthRatio: 0.08, duration: 2.5, cooldown: 20, radius: 350 },
   overgrowth: { unitsPerStack: 8, healthPerStack: 3, thresholdUnits: 120, healthRatio: 0.035, radius: 1400 },
@@ -71,8 +72,8 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely 5,960 of the 60,460 subsets within the six-rune limit", () => {
-    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111]);
+  it("accepts precisely 6,333 of the 82,160 subsets within the six-rune limit", () => {
+    expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8139, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     let withGrasp = 0;
     let withBone = 0;
@@ -81,13 +82,14 @@ describe("explicit partial combat-rune selections", () => {
     let withOvergrowth = 0;
     let withAftershock = 0;
     let withFont = 0;
+    let withTaste = 0;
     const selections: number[][] = [[]];
     for (const id of FIRST_COMBAT_RUNE_IDS) {
       for (const prefix of selections.slice()) {
         if (prefix.length < 6) selections.push([...prefix, id]);
       }
     }
-    expect(selections).toHaveLength(60460);
+    expect(selections).toHaveLength(82160);
     for (const selected of selections) {
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
       const legends = selected.filter((id) => id === 9103 || id === 9104 || id === 9105);
@@ -99,10 +101,14 @@ describe("explicit partial combat-rune selections", () => {
       const shield = selected.includes(8401);
       const font = selected.includes(8463);
       const overgrowth = selected.includes(8451);
+      const taste = selected.includes(8139);
       const resolveRowTwo = bone || selected.includes(8444);
       const needsPrimaryResolve = grasp || aftershock || ((shield || font) && resolveRowTwo && overgrowth);
       const rows = [amps.length, legends.length, precisionRowOne.length, keystones.length];
-      const compatible = rows.every(count => count <= 1) && !(grasp && aftershock) && !(shield && font) && !(bone && selected.includes(8444))
+      const hasResolve = grasp || aftershock || shield || font || resolveRowTwo || overgrowth;
+      const hasPrecision = rows.some(count => count > 0);
+      const compatible = !(taste && hasPrecision && hasResolve) && rows.every(count => count <= 1)
+        && !(grasp && aftershock) && !(shield && font) && !(bone && selected.includes(8444))
         && (!needsPrimaryResolve || (keystones.length === 0 && amps.length + legends.length + precisionRowOne.length <= 2));
       if (!compatible) {
         try {
@@ -124,15 +130,17 @@ describe("explicit partial combat-rune selections", () => {
       if (overgrowth) withOvergrowth++;
       if (aftershock) withAftershock++;
       if (font) withFont++;
+      if (taste) withTaste++;
     }
-    expect(accepted).toBe(5960);
-    expect(withGrasp).toBe(666);
-    expect(withBone).toBe(1798);
-    expect(withShieldBash).toBe(1798);
-    expect(withBoth).toBe(505);
-    expect(withOvergrowth).toBe(2414);
-    expect(withAftershock).toBe(666);
-    expect(withFont).toBe(1798);
+    expect(accepted).toBe(6333);
+    expect(withGrasp).toBe(684);
+    expect(withBone).toBe(1816);
+    expect(withShieldBash).toBe(1816);
+    expect(withBoth).toBe(511);
+    expect(withOvergrowth).toBe(2441);
+    expect(withAftershock).toBe(684);
+    expect(withFont).toBe(1816);
+    expect(withTaste).toBe(373);
   });
 
   it("makes Grasp primary Resolve with at most two Precision lesser rows", () => {
