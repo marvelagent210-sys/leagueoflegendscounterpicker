@@ -70,7 +70,7 @@ describe("explicit partial combat-rune selections", () => {
     expect(selected).toEqual([8444, 8014]);
   });
 
-  it("accepts precisely 4,162 of the 524,288 subsets of the nineteen implemented effects", () => {
+  it("accepts precisely 4,162 of the 43,796 subsets within the six-rune limit", () => {
     expect(FIRST_COMBAT_RUNE_IDS).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8299, 8401, 8437, 8439, 8444, 8451, 8473, 9101, 9103, 9104, 9105, 9111]);
     let accepted = 0;
     let withGrasp = 0;
@@ -79,8 +79,14 @@ describe("explicit partial combat-rune selections", () => {
     let withBoth = 0;
     let withOvergrowth = 0;
     let withAftershock = 0;
-    for (let mask = 0; mask < 1 << FIRST_COMBAT_RUNE_IDS.length; mask++) {
-      const selected = FIRST_COMBAT_RUNE_IDS.filter((_, index) => mask & 1 << index);
+    const selections: number[][] = [[]];
+    for (const id of FIRST_COMBAT_RUNE_IDS) {
+      for (const prefix of selections.slice()) {
+        if (prefix.length < 6) selections.push([...prefix, id]);
+      }
+    }
+    expect(selections).toHaveLength(43796);
+    for (const selected of selections) {
       const amps = selected.filter((id) => id === 8014 || id === 8017 || id === 8299);
       const legends = selected.filter((id) => id === 9103 || id === 9104 || id === 9105);
       const precisionRowOne = selected.filter((id) => id === 8009 || id === 9101 || id === 9111);
@@ -93,19 +99,27 @@ describe("explicit partial combat-rune selections", () => {
       const resolveRowTwo = bone || selected.includes(8444);
       const needsPrimaryResolve = grasp || aftershock || (shield && resolveRowTwo && overgrowth);
       const rows = [amps.length, legends.length, precisionRowOne.length, keystones.length];
-      if (rows.every(count => count <= 1) && !(grasp && aftershock) && !(bone && selected.includes(8444))
-        && (!needsPrimaryResolve || (keystones.length === 0 && amps.length + legends.length + precisionRowOne.length <= 2))) {
-        expect(validateCombatRuneSelection(catalog, selected)).toEqual([...selected].sort((a, b) => a - b));
-        accepted++;
-        if (grasp) withGrasp++;
-        if (bone) withBone++;
-        if (shield) {
-          withShieldBash++;
-          if (bone) withBoth++;
+      const compatible = rows.every(count => count <= 1) && !(grasp && aftershock) && !(bone && selected.includes(8444))
+        && (!needsPrimaryResolve || (keystones.length === 0 && amps.length + legends.length + precisionRowOne.length <= 2));
+      if (!compatible) {
+        try {
+          validateCombatRuneSelection(catalog, selected);
+        } catch (error) {
+          if (!(error instanceof Error)) throw error;
+          continue;
         }
-        if (overgrowth) withOvergrowth++;
-        if (aftershock) withAftershock++;
-      } else expect(() => validateCombatRuneSelection(catalog, selected)).toThrow();
+        throw new Error(`Incompatible rune selection passed: ${selected.join(", ")}`);
+      }
+      expect(validateCombatRuneSelection(catalog, selected)).toEqual(selected);
+      accepted++;
+      if (grasp) withGrasp++;
+      if (bone) withBone++;
+      if (shield) {
+        withShieldBash++;
+        if (bone) withBoth++;
+      }
+      if (overgrowth) withOvergrowth++;
+      if (aftershock) withAftershock++;
     }
     expect(accepted).toBe(4162);
     expect(withGrasp).toBe(444);

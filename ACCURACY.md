@@ -3519,7 +3519,8 @@ Rune 8439 adds a second Resolve keystone and brings the manual inventory
 to nineteen. The offline compiler cross-checks ten named normal-mode
 client fields, retains 116 complete Wiki revisions and verifies the
 level-20 resistance cap against both stat references. The selection audit
-checks all 524,288 subsets and accepts 4,162, including 444 with Aftershock.
+checks all 43,796 subsets within the six-rune limit and accepts 4,162,
+including 444 with Aftershock. A separate case checks the size limit.
 [Rune rules and sources](docs/runes/README.md#aftershock)
 
 Native cases cover the accepted immobilization kinds, a shielded Leona
