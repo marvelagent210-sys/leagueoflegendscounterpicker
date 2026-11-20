@@ -3553,6 +3553,14 @@ caps, and the precise cooldown boundary after activation at full health.
 The manual duel covers the owner heal. The team-mode ally choice and
 exact live event ordering remain open. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#font-of-life)
 
+The complete refresh recomputed 14,878 pairings per matrix with zero reuse.
+All 29,756 checkpoints reproduce Aftershock’s scores, scenarios, kit variants,
+builds and spending in both directions. Independent assembly reproduced the
+four generated files byte for byte. All 22 refresh jobs and 10,246 tests passed,
+with five existing skips. Both native matrix freshness checks, the offline rune
+catalog check, typechecking and the production build passed on the generated
+commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44791847807)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
