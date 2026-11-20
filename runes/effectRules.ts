@@ -9,6 +9,17 @@ export interface CombatRuneRules {
   schema: 1;
   dataset: string;
   patch: string;
+  aftershock: {
+    modelLevel: 20;
+    flatResistance: number;
+    bonusResistanceRatio: number;
+    maxResistance: number;
+    baseDamage: number;
+    bonusHealthRatio: number;
+    duration: number;
+    cooldown: number;
+    radius: number;
+  };
   overgrowth: {
     unitsPerStack: number;
     healthPerStack: number;

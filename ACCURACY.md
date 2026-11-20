@@ -3513,6 +3513,31 @@ Malphite's setup shield, Kled's dismount and remount, and Shield Bash's
 bonus-health ratio. The source-backed rule and model-specific ordering are
 recorded with the remaining live questions. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#overgrowth)
 
+## Aftershock (20 November 2026)
+
+Rune 8439 adds a second Resolve keystone and brings the manual inventory
+to nineteen. The offline compiler cross-checks ten named normal-mode
+client fields, retains 116 complete Wiki revisions and verifies the
+level-20 resistance cap against both stat references. The selection audit
+checks all 43,796 subsets within the six-rune limit and accepts 4,162,
+including 444 with Aftershock. A separate case checks the size limit.
+[Rune rules and sources](docs/runes/README.md#aftershock)
+
+Native cases cover the accepted immobilization kinds, a shielded Leona
+attack, displacement immunity, separate resistance snapshots and caps,
+world copies, the 350-unit boundary, Bone Plating and attackable
+resurrection. The two-sided Leona–Malphite CLI example records each
+champion's resistance grant and shockwave at the expected interval.
+The damage curve beyond level 18 and lifecycle ordering need live
+measurements. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#aftershock)
+
+The 20 November refresh recomputed 14,878 pairings in each default matrix
+across all 173 champions with zero reuse. All 29,756 checkpoints reproduced
+Overgrowth's scores, scenarios, kit variants, item builds and stat spending.
+Independent assembly produced the same four generated files byte for byte.
+All 22 workflow jobs and 10,224 tests passed, with five existing skips.
+[Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44661901431)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

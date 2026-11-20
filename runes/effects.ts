@@ -10,6 +10,7 @@ import { checkedGraspRules } from "./grasp";
 import { checkedBonePlatingRules } from "./bonePlating";
 import { checkedShieldBashRules } from "./shieldBash";
 import { checkedOvergrowthDeaths, checkedOvergrowthRules } from "./overgrowth";
+import { checkedAftershockRules } from "./aftershock";
 import { buildRuneEffect } from "./effectRuntime";
 import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
@@ -127,6 +128,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
   const bonePlating = checkedBonePlatingRules(value.bonePlating);
   const shieldBash = checkedShieldBashRules(value.shieldBash);
   const overgrowth = checkedOvergrowthRules(value.overgrowth);
+  const aftershock = checkedAftershockRules(value.aftershock);
   const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
@@ -194,7 +196,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth,
+    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth, aftershock,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
