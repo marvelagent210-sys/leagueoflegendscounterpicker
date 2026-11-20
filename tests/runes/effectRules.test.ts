@@ -14,11 +14,12 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8139, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8139, 8237, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111];
 const overgrowthPath = "Perks/Styles/Resolve/Overgrowth";
 const aftershockPath = "Perks/Styles/Resolve/Aftershock";
 const fontPath = "Perks/Styles/Resolve/FontOfLife";
 const tastePath = "Perks/Styles/Domination/TasteOfBlood";
+const scorchPath = "Perks/Styles/Sorcery/Scorch";
 const shieldBashPath = "Perks/Styles/Resolve/ShieldBash";
 const bonePath = "Perks/Styles/Resolve/BonePlating";
 const graspPath = "Perks/Styles/Resolve/GraspOfTheUndying";
@@ -88,6 +89,18 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Scorch source rules", () => {
+  it("reads the exact level-20 burn, delay and cooldown", () => {
+    expect(build().scorch).toEqual({ modelLevel: 20, damage: 720 / 17, delay: 1, cooldown: 10 });
+  });
+
+  it.each(["Damage", "DamageMax", "DotDuration", "BurnlockoutDuration"])("cross-checks the committed client %s field", field => {
+    const input = fixture();
+    editGame(input, records => { records[scorchPath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 0.1; });
+    expect(() => build(input)).toThrow(new RegExp(`Scorch Wiki/game ${field} disagree`));
+  });
+});
 
 describe("Taste of Blood source rules", () => {
   it("reads the level-20 curve, separate bonus AD and AP ratios, and cooldown", () => {
@@ -527,10 +540,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(21).fill("manual-effects"));
+      .toEqual(Array(22).fill("manual-effects"));
   });
 
-  it("binds all 122 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all 126 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -654,6 +667,10 @@ describe("reviewed combat rune numeric rules", () => {
       ["Template:Tip data/Drowsy", 3308207],
       ["Template:Rune data Taste of Blood", 3997097],
       ["Taste of Blood", 3997098],
+      ["Template:Rune data Scorch", 3985169],
+      ["Scorch", 4024859],
+      ["Template:Tip data/Ability damage", 4060550],
+      ["Template:Data Bel'Veth/Royal Maelstrom", 4046605],
     ]);
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
@@ -679,13 +696,15 @@ describe("reviewed combat rune numeric rules", () => {
       .toBe("8db8a8516ebe5fcdcde2a0ed85682ab71466d669dbe4fdf9b22946510e1f6bf6");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 120))))
       .toBe("afe95d44eaf5772c153a3178a2d0f5e892f03682bdcd35932e090c64675ff9a2");
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 122))))
+      .toBe("afb0e71133960857e7600c8ecb4a11053aae234aeed74b05a1f83919330b25fa");
     for (const page of originalBundle.pages) expect(sha(page.content)).toBe(page.sha256);
     expect(originalGame.length).toBeGreaterThan(2_000_000);
     expect(Object.keys(JSON.parse(originalGame) as object)).toHaveLength(335);
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(122);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(126);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -826,11 +845,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 122 complete/);
+    expect(() => build(missing)).toThrow(/all 126 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 122 complete/);
+    expect(() => build(extra)).toThrow(/all 126 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -865,7 +884,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
     const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath,
-      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath, aftershockPath, fontPath, tastePath]);
+      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath, aftershockPath, fontPath, tastePath, scorchPath]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });
