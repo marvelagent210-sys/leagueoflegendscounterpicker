@@ -3576,6 +3576,14 @@ world copies and form changes. A two-sided CLI duel records both sides'
 activations. The live packet order and attribution questions are recorded
 with the model's scope. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#taste-of-blood)
 
+The genuine refresh recomputed 14,878 pairings per matrix with zero reuse.
+All 29,756 verified checkpoints reproduce Font of Life's scores, scenarios,
+variants, builds and spending in both directions. Independent assembly
+reproduced all four generated files byte for byte. The 22 refresh jobs
+and 10,266 tests passed, with five skips. Both native freshness checks,
+typechecking, the offline rune catalog check and the production build
+passed on the generated commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44950261943)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
