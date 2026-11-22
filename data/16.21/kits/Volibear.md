@@ -273,7 +273,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 | Ability | Value | Source version |
 |---|---|---|
-| Frenzied Maul | Frenzied Maul deals basic damage | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Frenzied Maul | Frenzied Maul deals basic damage, but also triggers spell effects by also being tagged as spell damage | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
 | The Relentless Storm | he generates a stack of The Relentless Storm for 6 seconds | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
 | The Relentless Storm | stacking up to 5 times | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
 | The Relentless Storm | For each stack, Volibear gains 5% (+ 4% per 100 AP) bonus attack speed | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |

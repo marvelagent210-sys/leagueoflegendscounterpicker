@@ -44,7 +44,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Fiddlesticks | Fiddlesticks | 46 | 3 |
 | Fiora | Fiora | 51 | 3 |
 | Fizz | Fizz | 83 | 6 |
-| Galio | Galio | 111 | 5 |
+| Galio | Galio | 112 | 5 |
 | Gangplank | Gangplank | 60 | 5 |
 | Garen | Garen | 35 | 4 |
 | Gnar | Gnar | 70 | 7 |
@@ -135,7 +135,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Sion | Sion | 75 | 5 |
 | Sivir | Sivir | 55 | 4 |
 | Skarner | Skarner | 62 | 5 |
-| Smolder | Smolder | 72 | 9 |
+| Smolder | Smolder | 73 | 9 |
 | Sona | Sona | 74 | 7 |
 | Soraka | Soraka | 61 | 7 |
 | Swain | Swain | 89 | 9 |
