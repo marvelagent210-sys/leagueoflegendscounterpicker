@@ -3561,6 +3561,29 @@ with five existing skips. Both native matrix freshness checks, the offline rune
 catalog check, typechecking and the production build passed on the generated
 commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44791847807)
 
+## Taste of Blood (20 November 2026)
+
+Rune 8139 brings the inventory to twenty-one partial manual effects. The
+compiler binds `728/17` base healing at level 20, 10% bonus AD, 5% AP and
+the 20-second cooldown to the pinned template and versioned client. The
+offline bundle retains 122 complete Wiki revisions. The selection audit
+checks 82,160 subsets within the six-rune limit and accepts 6,333,
+including 373 with Taste of Blood. [Rune rules](docs/runes/README.md#taste-of-blood)
+
+Native tests cover full-health hits, life steal from the initiating hit,
+shields and packet defenses, Grievous Wounds, the healing cap, independent
+world copies and form changes. A two-sided CLI duel records both sides'
+activations. The live packet order and attribution questions are recorded
+with the model's scope. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#taste-of-blood)
+
+The genuine refresh recomputed 14,878 pairings per matrix with zero reuse.
+All 29,756 verified checkpoints reproduce Font of Life's scores, scenarios,
+variants, builds and spending in both directions. Independent assembly
+reproduced all four generated files byte for byte. The 22 refresh jobs
+and 10,266 tests passed, with five skips. Both native freshness checks,
+typechecking, the offline rune catalog check and the production build
+passed on the generated commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44950261943)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

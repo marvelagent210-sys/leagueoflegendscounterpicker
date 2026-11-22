@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support twenty partial combat effects, including
-Font of Life, Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support twenty-one partial combat effects, including
+Taste of Blood, Font of Life, Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -119,7 +119,7 @@ npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --e
 npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These twenty effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These twenty-one effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -130,6 +130,7 @@ supported as partial manual selections:
 | Fleet Footwork | 8021 | At 100 Energized charges the next qualified champion hit heals the owner and grants one second of bonus movement speed. Declare starting charges separately for each side. |
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
+| Taste of Blood | 8139 | Positive champion damage heals the injured owner for `728/17` plus 10% of bonus AD and 5% of AP at level 20. It has a 20-second cooldown. |
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
 | Shield Bash | 8401 | A qualifying champion on-hit deals `560/17` adaptive damage at level 20 plus 2.5% of bonus health and 15% of the strongest eligible shield's peak. Each shield remains eligible for two seconds after it ends. |
 | Grasp of the Undying | 8437 | Damage starts a four-stack timer. A qualified champion on-hit consumes the primed charge for magic damage, a delayed heal and permanent bonus health. Ranged applications use 40% effectiveness. |
@@ -163,6 +164,8 @@ explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-du
 Presence or Triumph entitlement is inferred. Presence requires an explicit
 Mana or Energy resource type and rejects other types without substituting
 Triumph; complete-page automatic substitutions remain unfinished.
+Taste of Blood occupies Domination's first lesser row and can accompany
+Precision effects or Resolve effects within the two-path limit.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
 Omitting a side's flag applies none of these optional effects to that side. This
@@ -176,11 +179,13 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **120 complete Wiki revisions** in
+The offline compiler checks **122 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the twenty templates to
+full-content hashes, exact revisions and excerpts, binds the twenty-one templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Taste of Blood adds its complete article and template and checks the
+client's five healing and cooldown fields.
 Font of Life adds its complete article and template plus the slow and drowsy rules.
 Aftershock adds its complete article and template, plus control, armor,
 magic resistance, range and spell shield rules, to the previous 109.
@@ -244,9 +249,27 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These twenty catalog entries are
+selection require further implementation and validation. These twenty-one catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Taste of Blood
+
+Select `8139` for either side of a manual plain-stat duel. A positive
+health-loss or shield-absorption packet against the opposing champion body
+can heal its injured owner. At level 20 the amount is `728/17` plus 10%
+of current bonus attack damage and 5% of current ability power. The heal
+uses native caps and Grievous Wounds. A full-health hit leaves the
+20-second cooldown available. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3997097) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=3997098)
+
+```bash
+npm run duel -- Darius Pantheon --dataset 16.21 --gold 0 --combat-runes 8139 --enemy-combat-runes 8139 --log brawl
+```
+
+The simulator checks the owner's missing health after native damage and
+its vamp. It accepts ordinary owned-pet damage reported by the engine.
+The live delivery phase, shield-only contacts and pet and clone attribution
+remain open. [Open mechanics questions](MECHANICS_GAPS.md#taste-of-blood)
 
 ### Font of Life
 

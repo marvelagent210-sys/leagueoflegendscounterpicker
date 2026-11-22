@@ -27,7 +27,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Domination | Keystone | Dark Harvest | 8128 | Not implemented | [4046509](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Dark_Harvest?oldid=4046509) |
 | Domination | Keystone | Hail of Blades | 9923 | Not implemented | [4060661](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Hail_of_Blades?oldid=4060661) |
 | Domination | 1 | Cheap Shot | 8126 | Not implemented | [3992989](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Cheap_Shot?oldid=3992989) |
-| Domination | 1 | Taste of Blood | 8139 | Not implemented | [3997097](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Taste_of_Blood?oldid=3997097) |
+| Domination | 1 | Taste of Blood | 8139 | Explicit partial manual selection | [3997097](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Taste_of_Blood?oldid=3997097) |
 | Domination | 1 | Sudden Impact | 8143 | Not implemented | [3825916](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Sudden_Impact?oldid=3825916) |
 | Domination | 2 | Sixth Sense | 8137 | Not implemented | [4017988](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Sixth_Sense?oldid=4017988) |
 | Domination | 2 | Grisly Mementos | 8140 | Not implemented | [3855346](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Grisly_Mementos?oldid=3855346) |
