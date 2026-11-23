@@ -571,11 +571,11 @@ function inCombat(view: View): boolean {
   return Math.abs(view.self.x - view.enemy.x) <= enemyAttackReach(view) + 150 || view.threats.length > 0;
 }
 
-/** Whether a crowd-control skillshot is worth throwing now: the enemy is likely to be hit. */
-function worthThrowing(view: View, ability: AbilitySpec): boolean {
+/** A skillshot's chance to hit the enemy if cast now (1 for other deliveries). */
+function throwChance(view: View, ability: AbilitySpec): number {
   const { world, self, enemy } = view;
   const d = ability.delivery;
-  if (d.kind !== "line" && d.kind !== "circle") return true;
+  if (d.kind !== "line" && d.kind !== "circle") return 1;
   const travel = d.kind === "line" ? travelTicks(self, enemy, d.speed) / 30 : Math.max(0, d.delayFor?.(self, enemy) ?? d.delay) + (d.flight ?? (d.speed ? Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed : 0));
   const timeToLand = (ability.deliveryAtCastStart ? 0 : (ability.castTimeFor?.(self) ?? ability.castTime)) + travel;
   const chance = hitChance(
@@ -584,7 +584,15 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
     world.settings.reactionTime,
     world.settings.hitSpread,
   );
-  return chance >= 0.35;
+  return chance;
+}
+
+/** Seconds of cast time from which a damage skillshot waits, as crowd control does, until it is likely to hit. */
+export const LONG_CAST = 0.5;
+
+/** Whether a crowd-control skillshot is worth throwing now: the enemy is likely to be hit. */
+function worthThrowing(view: View, ability: AbilitySpec): boolean {
+  return throwChance(view, ability) >= 0.35;
 }
 
 /** How far past a targeted finisher's range the champion steps in to use it, in seconds of walking. */
@@ -688,6 +696,10 @@ function offense(view: View, options: OffenseOptions, only?: (ability: AbilitySp
     if (traits.cc || traits.damage) {
       if (!inReach(ability, self, enemy)) continue;
       if (traits.cc && !worthThrowing(view, ability)) continue;
+      // A damage skillshot with a long cast (LONG_CAST) waits until it is likely to land, as
+      // crowd control does, rather than give up its attacks for a likely miss (Trueshot
+      // Barrage's second, which an alert enemy sidesteps 97% of the time).
+      if ((ability.castTimeFor?.(self) ?? ability.castTime) >= LONG_CAST && !worthThrowing(view, ability)) continue;
       return { kind: "cast", ability: ability.key };
     }
     if (traits.sustain) {

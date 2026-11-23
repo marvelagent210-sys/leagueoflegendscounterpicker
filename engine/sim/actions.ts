@@ -658,6 +658,9 @@ export function skillshotChance(world: World, target: Unit, seenTick: number, se
   );
 }
 
+/** A skillshot's chance to connect at or below which it is settled as a miss (and at or above 1 less it, a hit). */
+export const CERTAIN_MISS = 0.02;
+
 /**
  * Decides whether a skillshot connects. Certain outcomes are settled at once; uncertain
  * decisive ones are marked for the simulator to split the fight on (`split`); uncertain
@@ -673,8 +676,8 @@ export function resolveSkillshot(
   reach: number,
 ): { connects: boolean; scale: number; split?: number } {
   const chance = skillshotChance(world, target, castStartTick, travelSeconds, reach);
-  if (chance >= 0.98) return { connects: true, scale: 1 };
-  if (chance <= 0.02) return { connects: false, scale: 1 };
+  if (chance >= 1 - CERTAIN_MISS) return { connects: true, scale: 1 };
+  if (chance <= CERTAIN_MISS) return { connects: false, scale: 1 };
   if ((ability.decisive || decisive(world, caster, target, ability.onHit ?? [])) && world.splits < Math.log2(world.settings.maxBranches)) {
     return { connects: true, scale: 1, split: chance };
   }

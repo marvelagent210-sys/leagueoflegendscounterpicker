@@ -274,6 +274,19 @@ describe("Lucian pinned shots and channels", () => {
     expect(Math.abs(forward.score + reverse.score)).toBeLessThan(1e-12); const reflected = [1, 0, 2, 3, 4, 5];
     for (const [i, scenario] of forward.scenarios.entries()) { const other = reverse.scenarios[reflected[i]!]!; if (scenario.score === undefined) expect(other.score).toBeUndefined(); else expect(Math.abs(scenario.score + other.score!)).toBeLessThan(1e-12); }
     const casts = forward.scenarios.flatMap((s) => s.outcomes.flatMap((o) => o.timeline.filter((e) => e.side === 0 && e.text.startsWith("casts ")).map((e) => e.text)));
-    for (const key of ["Q", "W", "E", "R"]) expect(casts).toContain(`casts ${ability(spec, key).name}`); expect(casts.some((text) => text.includes("detonation"))).toBe(false);
+    // Trueshot Barrage's one-second cast is held against a Darius free to sidestep it (LONG_CAST): it would land about 3% of the time.
+    const slots = spec === ez.spec ? ["Q", "W", "E"] : ["Q", "W", "E", "R"];
+    for (const key of slots) expect(casts).toContain(`casts ${ability(spec, key).name}`); expect(casts.some((text) => text.includes("detonation"))).toBe(false);
   }, 60000);
+
+  it("Ezreal fires Trueshot Barrage at an enemy held in place, and holds it while the enemy can sidestep", () => {
+    const w = worldFor(ez.spec, 900);
+    // An enemy that walks at Darius's 340 can sidestep a one-second cast.
+    w.units[1].spec = { ...w.units[1].spec, base: { ...w.units[1].spec.base, moveSpeed: 340 } };
+    for (const key of ["Q", "W", "E"]) w.units[0].cooldownReady[key] = Infinity;
+    w.modes[0] = "fight";
+    expect(defaultBehavior(perceive(w, 0))).not.toEqual({ kind: "cast", ability: "R" });
+    applyEffect(w, w.units[0], w.units[1], { type: "cc", cc: "stun", duration: 2 }, { scale: 1 });
+    expect(defaultBehavior(perceive(w, 0))).toEqual({ kind: "cast", ability: "R" });
+  });
 });

@@ -3693,6 +3693,22 @@ Caitlyn's Ace in the Hole, a 1.4-second interruptible channel, is kept for a kil
 health her attacks are worth more. Pyke's Death from Below is an execute, which the
 finisher rule leaves to its threshold.
 
+## Long casts thrown at a likely miss (23 November 2026)
+
+A second scan listed damaging abilities cast at least four times in a champion's fights
+that never dealt damage. Most log their damage under another name: a base name
+(Gwen's Needlework, Hecarim's charge, Locke's nails), an effect (Nautilus's Pain of Wrath,
+Illaoi's tentacles), or an internal key (Soraka's Starcall as `soraka:star:1`, Nami, Lulu,
+Varus, Hwei). Those keys show in the app's fight logs, a remaining cosmetic limit. One was a
+real miss. Ezreal cast Trueshot Barrage 27 times, and it never landed: its one-second cast
+lets an alert enemy sidestep it 97% of the time, so each cast cost a second of attacks for
+nothing. A damage skillshot with a cast of half a second or more (`LONG_CAST`) now waits,
+as crowd control does, until it is likely to land (35%). Ezreal holds the ultimate against
+Darius and fires it at a held target. A gate on the behavior's own 2% estimate was tried
+first and dropped: that estimate differs from the engine's, and it held Ziggs's and Vel'Koz's
+spells that do land. Tests: Ezreal fires Trueshot Barrage at a stunned enemy and holds it
+while the enemy can sidestep. The four-ability test now expects Q, W and E against Darius.
+
 ## Five items and boots in the browser (23 November 2026)
 
 The build matrix now has a second format, five finished items and boots
