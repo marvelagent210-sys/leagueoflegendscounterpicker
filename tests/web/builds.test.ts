@@ -8,7 +8,7 @@ import type { PrecomputedBuilds } from "../../engine/sim/precomputed";
 import { SCENARIO_WEIGHTS } from "../../engine/sim/scenarios";
 import type { BuildsPairResult } from "../../pipeline/sim/buildsCheckpoint";
 import { simulatedBuildsJson } from "../../pipeline/sim/builds";
-import { buildsApply, buildsMatchup, itemShares, shownResults, variantText } from "../../web/src/builds";
+import { availableModes, buildsApply, buildsMatchup, itemShares, shownMatrix, shownResults, variantText } from "../../web/src/builds";
 import { DEFAULT_APP_SETTINGS, blend } from "../../web/src/settings";
 
 const ids = ["Darius", "Garen", "Udyr"];
@@ -35,8 +35,8 @@ const file = JSON.parse(simulatedBuildsJson("16.21", "26.21", "sixItems", ids, p
 
 describe("the results the app shows", () => {
   it("are the item builds when the visitor wants them and the fights are the defaults, whatever the plain stats' gold", () => {
-    expect(shownResults(file, "builds", DEFAULT_APP_SETTINGS)).toBe("builds");
-    expect(shownResults(file, "plain", DEFAULT_APP_SETTINGS)).toBe("plain");
+    expect(shownResults({ builds: file }, "builds", DEFAULT_APP_SETTINGS)).toBe("builds");
+    expect(shownResults({ builds: file }, "plain", DEFAULT_APP_SETTINGS)).toBe("plain");
     expect(shownResults(undefined, "builds", DEFAULT_APP_SETTINGS)).toBe("plain");
     expect(buildsApply({ ...DEFAULT_APP_SETTINGS, gold: 0 })).toBe(true);
     expect(buildsApply({ ...DEFAULT_APP_SETTINGS, weights: { ...SCENARIO_WEIGHTS, escape: 0 } })).toBe(true);
@@ -49,8 +49,20 @@ describe("the results the app shows", () => {
       { ...DEFAULT_APP_SETTINGS, kitOptions: { Udyr: { tripleTonic: 0 } } },
     ]) {
       expect(buildsApply(settings)).toBe(false);
-      expect(shownResults(file, "builds", settings)).toBe("plain");
+      expect(shownResults({ builds: file }, "builds", settings)).toBe("plain");
+      expect(shownResults({ boots: file }, "boots", settings)).toBe("plain");
     }
+  });
+
+  it("are the five-items-and-boots matrix when the visitor wants it and the dataset has it, plain stats when it doesn't", () => {
+    const boots = { ...file, format: "fiveItemsWithBoots" };
+    expect(shownResults({ builds: file, boots }, "boots", DEFAULT_APP_SETTINGS)).toBe("boots");
+    expect(shownMatrix({ builds: file, boots }, "boots", DEFAULT_APP_SETTINGS)).toBe(boots);
+    expect(shownMatrix({ builds: file, boots }, "builds", DEFAULT_APP_SETTINGS)).toBe(file);
+    expect(shownResults({ builds: file }, "boots", DEFAULT_APP_SETTINGS)).toBe("plain");
+    expect(availableModes({ builds: file, boots })).toEqual(["builds", "boots", "plain"]);
+    expect(availableModes({ builds: file })).toEqual(["builds", "plain"]);
+    expect(availableModes(undefined)).toEqual(["plain"]);
   });
 });
 

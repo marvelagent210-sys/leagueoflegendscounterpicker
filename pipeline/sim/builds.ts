@@ -1,12 +1,14 @@
 /**
  * The build matrix (PLAN.md §13, M8): every pairing played with the item builds the build search
  * finds for its two sides, instead of plain stats. Writes data/<dataset>/simulated-builds.json
- * and reports/builds.md from committed parsed data; no downloads.
+ * and reports/builds.md for six items (the default), or simulated-builds-boots.json and
+ * reports/builds-boots.md with --format fiveItemsWithBoots (BUILDS_FILES), from committed parsed
+ * data; no downloads.
  *
  *   npm run build:builds -- [--dataset 16.20] [--threads 4] [--format sixItems] [--smoke] [--check] [--plan] [--shard i/N] [--recompute A,B]
  *
  * Incremental (PLAN.md §13): a pairing whose inputs (pairKeys.ts) equal a stored result's, in
- * this dataset's simulated-builds.json or the previous dataset's, isn't computed again. The rest
+ * this dataset's file of the format or the previous dataset's, isn't computed again. The rest
  * are checkpointed as they finish (.cache/builds/), so that a run that stops resumes where it
  * was. A pairing that fails is reported and the rest go on; nothing is written until every
  * pairing has a result. `--smoke` plays each kit against the next one only (173 pairings, kept
@@ -20,6 +22,7 @@ import { readFile, rename, rm, writeFile } from "node:fs/promises";
 import { availableParallelism } from "node:os";
 import path from "node:path";
 import { Worker } from "node:worker_threads";
+import { BUILDS_FILES } from "../../engine/sim/buildFiles";
 import { type MatrixLoadout, type PrecomputedBuilds, type SimulationProvenance, encodeLoadout, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
 import { SCENARIOS } from "../../engine/sim/scenarios";
 import { KITS } from "../../kits/champions/index";
@@ -32,7 +35,8 @@ import { buildsProvenance } from "./fingerprint";
 import { type PairInputs, pairInputs, pairInputsJson } from "./pairKeys";
 import { buildsStores, parseRecompute, parseShard, reusable, reuseSummary, shardOf } from "./reuse";
 
-export const BUILDS_FILE = "simulated-builds.json";
+/** The six-item build matrix's file. */
+export const BUILDS_FILE = BUILDS_FILES.sixItems.matrix;
 
 interface Failure {
   index: number;
@@ -230,12 +234,13 @@ async function main(): Promise<void> {
   if (!(format in BUILD_FORMATS)) throw new Error(`--format takes one of: ${Object.keys(BUILD_FORMATS).join(", ")}`);
   const data = await loadSimData(value("--dataset"));
   const dir = datasetDir(data.dataset);
+  const files = BUILDS_FILES[format];
   const ids = Object.keys(KITS).sort();
   const provenance = await buildsProvenance(data.dataset);
   if (args.includes("--check")) {
-    const file = JSON.parse(await readFile(path.join(dir, BUILDS_FILE), "utf8")) as PrecomputedBuilds;
+    const file = JSON.parse(await readFile(path.join(dir, files.matrix), "utf8")) as PrecomputedBuilds;
     if (!precomputedBuildsCurrent(file, data.dataset, data.patch, provenance.fingerprint, format, ids)) throw new Error("The build matrix is stale, incomplete or lacks provenance. Run npm run build:builds to refresh it.");
-    console.log(`[builds] Dataset ${data.dataset}: the build matrix matches ${provenance.fingerprint}`);
+    console.log(`[builds] Dataset ${data.dataset}: the build matrix (${BUILD_FORMATS[format].label}) matches ${provenance.fingerprint}`);
     return;
   }
   const all: Array<[string, string]> = ids.flatMap((you, i) => ids.slice(i + 1).map((enemy): [string, string] => [you, enemy]));
@@ -246,7 +251,7 @@ async function main(): Promise<void> {
   const started = Date.now();
   // Pairings computed before from the same inputs stand; the rest are this run's to compute.
   const inputs = await pairInputs(data.dataset, "builds", format);
-  const reuse = reusable(pairs, inputs, await buildsStores(data.dataset, format), parseRecompute(value("--recompute"), ids));
+  const reuse = reusable(pairs, inputs, await buildsStores(data.dataset, format, files.matrix), parseRecompute(value("--recompute"), ids));
   const toCompute = pairs.map((_, index) => index).filter((index) => !reuse.results.has(index));
   if (plan) {
     console.log(JSON.stringify({ dataset: data.dataset, format, pairings: pairs.length, reused: reuse.results.size, pending: toCompute.length }));
@@ -293,8 +298,8 @@ async function main(): Promise<void> {
   if ((await buildsProvenance(data.dataset)).fingerprint !== provenance.fingerprint) throw new Error("The build matrix's inputs changed during the run. Nothing was written; its checkpoints stay under the old inputs.");
   const names = new Map(data.champions.map((champion) => [champion.id, champion.name]));
   const outputs = new Map([
-    [path.join(dir, BUILDS_FILE), simulatedBuildsJson(data.dataset, data.patch, format, ids, pairs, ordered, provenance, inputs)],
-    [path.join(dir, "reports", "builds.md"), buildsReport(data.patch, format, ids, pairs, ordered, names, reuse.results.size)],
+    [path.join(dir, files.matrix), simulatedBuildsJson(data.dataset, data.patch, format, ids, pairs, ordered, provenance, inputs)],
+    [path.join(dir, "reports", files.report), buildsReport(data.patch, format, ids, pairs, ordered, names, reuse.results.size)],
   ]);
   for (const [file, content] of outputs) {
     const temporary = `${file}.${process.pid}.tmp`;
@@ -305,7 +310,7 @@ async function main(): Promise<void> {
       await rm(temporary, { force: true });
     }
   }
-  console.log(`[builds] Wrote ${BUILDS_FILE} and reports/builds.md: ${pairs.length} pairings (${reuse.results.size} reused), ${((Date.now() - started) / 3600000).toFixed(1)} h.`);
+  console.log(`[builds] Wrote ${files.matrix} and reports/${files.report}: ${pairs.length} pairings (${reuse.results.size} reused), ${((Date.now() - started) / 3600000).toFixed(1)} h.`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {

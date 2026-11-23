@@ -1,7 +1,6 @@
 /** The app: header and navigation, the page the URL's hash names, and the attribution footer. */
 import { wikiUrl } from "../../engine/abilityText";
-import type { PrecomputedBuilds } from "../../engine/sim/precomputed";
-import { type ResultsMode, buildsApply, shownResults } from "./builds";
+import { type BuildMatrices, type ResultsMode, buildsApply, matrixOf, shownResults } from "./builds";
 import { ErrorBox, Loading } from "./components/common";
 import { loadAppData } from "./data";
 import { ResultsContext, SettingsContext, useAsync, useHashRoute, useResults, useSettings, useStoredResults, useStoredSettings } from "./hooks";
@@ -23,7 +22,7 @@ export function App() {
       <ResultsContext.Provider value={results}>
         <div className="page">
           <Masthead route={route} patch={data.value?.patch} />
-          <CustomBanner route={route} builds={data.value?.builds} />
+          <CustomBanner route={route} matrices={data.value} />
           <main className="section">
             {data.error ? <ErrorBox error={data.error} /> : null}
             {!data.value && !data.error ? <Loading>Loading the champions…</Loading> : null}
@@ -96,20 +95,20 @@ function Masthead({ route, patch }: { route: Route; patch: string | undefined })
 }
 
 /** What the visitor's settings change, for the results shown. */
-function customText(settings: AppSettings, builds: PrecomputedBuilds | undefined, wanted: ResultsMode): string | undefined {
+function customText(settings: AppSettings, matrices: BuildMatrices | undefined, wanted: ResultsMode): string | undefined {
   if (shardsSelected(settings)) return "Your stat shards apply to plain-stat duels calculated in this browser.";
-  if (shownResults(builds, wanted, settings) === "builds") {
+  if (shownResults(matrices, wanted, settings) !== "plain") {
     if (weightsChanged(settings)) return "Scores use your scenario weights; the builds were searched with the default ones.";
     return fightsChanged(settings) ? "Your gold is for plain stats: the item builds buy their own items." : undefined;
   }
-  if (fightsChanged(settings)) return builds && wanted === "builds" && !buildsApply(settings) ? "Duels run in your browser with your settings, on plain stats: the item builds hold for the default fight settings." : "Duels run in your browser with your settings.";
+  if (fightsChanged(settings)) return matrixOf(matrices, wanted) && !buildsApply(settings) ? "Duels run in your browser with your settings, on plain stats: the item builds hold for the default fight settings." : "Duels run in your browser with your settings.";
   return weightsChanged(settings) ? "Scores use your scenario weights." : undefined;
 }
 
-function CustomBanner({ route, builds }: { route: Route; builds: PrecomputedBuilds | undefined }) {
+function CustomBanner({ route, matrices }: { route: Route; matrices: BuildMatrices | undefined }) {
   const { settings, setSettings } = useSettings();
   const { wanted } = useResults();
-  const text = customText(settings, builds, wanted);
+  const text = customText(settings, matrices, wanted);
   if (route.page === "settings" || !text) return null;
   return (
     <div className="custom-banner" role="status">

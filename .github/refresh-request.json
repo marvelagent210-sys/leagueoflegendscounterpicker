@@ -1,8 +1,9 @@
 {
-  "note": "Recompute both matrices for summoner spells. The engine changed (summoner spells cast while busy, Ignite unamplified, cleanses spent only on what they remove), so plain-stats pairings are computed again; every build pairing is computed again with Flash and the second spell found by the loadout search. Shards are sized together, at most 20 in all.",
+  "note": "Add the five-items-and-boots build matrix (simulated-builds-boots.json) for the browser. Its 14,878 pairings are computed for the first time; the plain-stats and six-item pairings' inputs are unchanged and are reused, their provenance restamped.",
   "dataset": "16.21",
   "matrices": [
     "sim",
-    "builds"
+    "builds",
+    "boots"
   ]
 }

@@ -6,7 +6,8 @@
  *
  * The request is a JSON file, and the workflow's inputs (REFRESH_DATASET, REFRESH_MATRICES,
  * REFRESH_RECOMPUTE) take precedence over it. It names the dataset (the newest by default), the
- * matrices ("sim" for plain stats, "builds" for item builds; both by default), the champions
+ * matrices ("sim" for plain stats, "builds" for six-item builds, "boots" for five items and
+ * boots; all three by default), the champions
  * whose pairings are computed again whatever is stored, and optionally each matrix's shard
  * count. The matrices without one share MAX_SHARDS shards: a shard per hour of computing on a
  * four-core runner, at most MAX_SHARDS in all, split so that every shard has about as much to
@@ -19,15 +20,16 @@ import path from "node:path";
 import { KITS } from "../../kits/champions/index";
 import { REPO_ROOT } from "../config";
 
-export type Matrix = "sim" | "builds";
-export const MATRICES: readonly Matrix[] = ["sim", "builds"];
+export type Matrix = "sim" | "builds" | "boots";
+export const MATRICES: readonly Matrix[] = ["sim", "builds", "boots"];
 
 /**
  * Processor-seconds a pairing takes on average: the 26.20 refreshes took 6.9 and 19.4 hours on
  * four threads (6.7 and 18.8 seconds a pairing), and the summoner spell search (pipeline/
- * loadouts/search.ts) adds about 16% to a build pairing's, as measured on four pairings.
+ * loadouts/search.ts) adds about 16% to a build pairing's, as measured on four pairings; five
+ * items and boots take about 5% more than six items on the same four.
  */
-export const SECONDS_PER_PAIRING: Readonly<Record<Matrix, number>> = { sim: 6.7, builds: 21.8 };
+export const SECONDS_PER_PAIRING: Readonly<Record<Matrix, number>> = { sim: 6.7, builds: 21.8, boots: 22.9 };
 /** Threads per shard: GitHub's standard Linux runner for a public repository has four cores. */
 export const THREADS = 4;
 /** The computing a shard gets by default, well inside a job's six-hour limit. */
@@ -68,7 +70,7 @@ export function parseRequest(file: unknown, env: Readonly<Record<string, string 
 
   const matrices = list(given("REFRESH_MATRICES") ?? record.matrices, "matrices");
   const unknownMatrix = matrices.filter((matrix) => !MATRICES.includes(matrix as Matrix));
-  if (unknownMatrix.length > 0) throw new Error(`Unknown matrix ${unknownMatrix.join(", ")}: use sim or builds`);
+  if (unknownMatrix.length > 0) throw new Error(`Unknown matrix ${unknownMatrix.join(", ")}: use sim, builds or boots`);
 
   const recompute = list(given("REFRESH_RECOMPUTE") ?? record.recompute, "recompute");
   const unknownKit = recompute.filter((id) => !kits.includes(id));
@@ -107,7 +109,7 @@ export interface MatrixWork {
  * A matrix with pairings gets at least one shard, and no more shards than pairings.
  */
 export function planShards(work: Partial<Record<Matrix, MatrixWork>>, requested: Partial<Record<Matrix, number>> = {}): Record<Matrix, number> {
-  const counts: Record<Matrix, number> = { sim: 0, builds: 0 };
+  const counts: Record<Matrix, number> = { sim: 0, builds: 0, boots: 0 };
   const shared: Matrix[] = [];
   for (const matrix of MATRICES) {
     const pending = work[matrix]?.pending ?? 0;
@@ -136,11 +138,14 @@ interface MatrixPlan {
   shards: number;
 }
 
-const SCRIPTS: Record<Matrix, string> = { sim: "pipeline/sim/refresh.ts", builds: "pipeline/sim/builds.ts" };
+/** Each matrix's script, and its arguments besides the plan's. */
+const SCRIPTS: Record<Matrix, string[]> = { sim: ["pipeline/sim/refresh.ts"], builds: ["pipeline/sim/builds.ts"], boots: ["pipeline/sim/builds.ts", "--format", "fiveItemsWithBoots"] };
+/** Each matrix's name in the plan's summary. */
+const LABELS: Record<Matrix, string> = { sim: "Plain stats", builds: "Item builds", boots: "Five items and boots" };
 
 /** A matrix's own --plan: how many of its pairings are pending. */
 function matrixPlan(matrix: Matrix, request: RefreshRequest): { dataset: string; pairings: number; reused: number; pending: number } {
-  const args = ["tsx", SCRIPTS[matrix], "--plan", ...(request.dataset ? ["--dataset", request.dataset] : []), ...(request.recompute.length > 0 ? ["--recompute", request.recompute.join(",")] : [])];
+  const args = ["tsx", ...SCRIPTS[matrix], "--plan", ...(request.dataset ? ["--dataset", request.dataset] : []), ...(request.recompute.length > 0 ? ["--recompute", request.recompute.join(",")] : [])];
   const output = execFileSync("npx", args, { cwd: REPO_ROOT, encoding: "utf8" });
   const last = output.trim().split("\n").at(-1) ?? "";
   return JSON.parse(last) as { dataset: string; pairings: number; reused: number; pending: number };
@@ -180,7 +185,7 @@ async function main(): Promise<void> {
     const rows = request.matrices.map((matrix) => {
       const plan = plans[matrix]!;
       const hours = (plan.pending * SECONDS_PER_PAIRING[matrix]) / 3600;
-      return `| ${matrix === "sim" ? "Plain stats" : "Item builds"} | ${plan.pairings} | ${plan.reused} | ${plan.pending} | ${plan.shards} | about ${hours.toFixed(1)} |`;
+      return `| ${LABELS[matrix]} | ${plan.pairings} | ${plan.reused} | ${plan.pending} | ${plan.shards} | about ${hours.toFixed(1)} |`;
     });
     const recomputed = request.recompute.length > 0 ? `\n\nComputed again whatever is stored: ${request.recompute.join(", ")}.` : "";
     appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## Refresh plan for ${dataset}\n\n| Matrix | Pairings | Reused | To compute | Shards | Processor-hours |\n|---|---|---|---|---|---|\n${rows.join("\n")}${recomputed}\n`);

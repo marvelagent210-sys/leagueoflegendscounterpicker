@@ -19,7 +19,7 @@ on:
         required: false
         default: ""
       matrices:
-        description: "sim, builds or sim,builds (default the request file's, else both)"
+        description: "Any of sim, builds and boots, comma-separated (default the request file's, else all three)"
         required: false
         default: ""
       recompute:
@@ -51,6 +51,9 @@ jobs:
       builds_count: ${{ steps.plan.outputs.builds_count }}
       builds_pending: ${{ steps.plan.outputs.builds_pending }}
       builds_shards: ${{ steps.plan.outputs.builds_shards }}
+      boots_count: ${{ steps.plan.outputs.boots_count }}
+      boots_pending: ${{ steps.plan.outputs.boots_pending }}
+      boots_shards: ${{ steps.plan.outputs.boots_shards }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -126,7 +129,7 @@ jobs:
           args=(--dataset "$DATASET" --threads 4 --shard "$SHARD")
           if [ -n "$RECOMPUTE" ]; then args+=(--recompute "$RECOMPUTE"); fi
           npx tsx pipeline/sim/builds.ts "${args[@]}"
-          tar -czf "builds-${{ matrix.shard }}.tgz" .cache/builds
+          tar -czf "builds-${{ matrix.shard }}.tgz" .cache/builds/*/sixItems
       - uses: actions/upload-artifact@v4
         with:
           name: builds-${{ matrix.shard }}
@@ -134,12 +137,46 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  boots:
+    name: five items and boots ${{ matrix.shard }}
+    needs: plan
+    if: needs.plan.outputs.boots_count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.boots_shards) }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Compute this shard's pairings
+        env:
+          DATASET: ${{ needs.plan.outputs.dataset }}
+          RECOMPUTE: ${{ needs.plan.outputs.recompute }}
+          SHARD: ${{ matrix.shard }}/${{ needs.plan.outputs.boots_count }}
+        run: |
+          args=(--dataset "$DATASET" --format fiveItemsWithBoots --threads 4 --shard "$SHARD")
+          if [ -n "$RECOMPUTE" ]; then args+=(--recompute "$RECOMPUTE"); fi
+          npx tsx pipeline/sim/builds.ts "${args[@]}"
+          tar -czf "boots-${{ matrix.shard }}.tgz" .cache/builds/*/fiveItemsWithBoots
+      - uses: actions/upload-artifact@v4
+        with:
+          name: boots-${{ matrix.shard }}
+          path: boots-${{ matrix.shard }}.tgz
+          if-no-files-found: error
+          retention-days: 7
+
   # With nothing pending (every pairing's inputs unchanged, as after merging a branch whose
   # refresh already ran), there is nothing to write: rewriting the outputs would only commit a
   # report that says so.
   merge:
-    needs: [plan, sim, builds]
-    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.sim.result != 'failure' && needs.builds.result != 'failure' && (needs.plan.outputs.sim_pending != '0' || needs.plan.outputs.builds_pending != '0') }}
+    needs: [plan, sim, builds, boots]
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.sim.result != 'failure' && needs.builds.result != 'failure' && needs.boots.result != 'failure' && (needs.plan.outputs.sim_pending != '0' || needs.plan.outputs.builds_pending != '0' || needs.plan.outputs.boots_pending != '0') }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     permissions:
@@ -150,6 +187,7 @@ jobs:
       RECOMPUTE: ${{ needs.plan.outputs.recompute }}
       SIM_PENDING: ${{ needs.plan.outputs.sim_pending }}
       BUILDS_PENDING: ${{ needs.plan.outputs.builds_pending }}
+      BOOTS_PENDING: ${{ needs.plan.outputs.boots_pending }}
       BRANCH: ${{ github.ref_name }}
       RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
@@ -173,15 +211,22 @@ jobs:
           pattern: builds-*
           path: shards
           merge-multiple: true
+      - if: needs.plan.outputs.boots_count != '0'
+        uses: actions/download-artifact@v4
+        with:
+          pattern: boots-*
+          path: shards
+          merge-multiple: true
       - name: Unpack every shard's checkpoints
         run: |
           shopt -s nullglob
           for file in shards/*.tgz; do tar -xzf "$file"; done
           # Each pending pairing is checkpointed by exactly one shard.
           sim=$(find .cache/sim -name '*.json' 2>/dev/null | wc -l)
-          builds=$(find .cache/builds -name '*.json' 2>/dev/null | wc -l)
-          echo "Checkpoints: $sim plain stats (of $SIM_PENDING), $builds item builds (of $BUILDS_PENDING)"
-          if [ "$sim" -ne "$SIM_PENDING" ] || [ "$builds" -ne "$BUILDS_PENDING" ]; then
+          builds=$(find .cache/builds -path '*/sixItems/*' -name '*.json' 2>/dev/null | wc -l)
+          boots=$(find .cache/builds -path '*/fiveItemsWithBoots/*' -name '*.json' 2>/dev/null | wc -l)
+          echo "Checkpoints: $sim plain stats (of $SIM_PENDING), $builds six-item builds (of $BUILDS_PENDING), $boots five items and boots (of ${BOOTS_PENDING:-0})"
+          if [ "$sim" -ne "$SIM_PENDING" ] || [ "$builds" -ne "$BUILDS_PENDING" ] || [ "$boots" -ne "${BOOTS_PENDING:-0}" ]; then
             echo "::error::The shards' checkpoints don't cover the pending pairings"
             exit 1
           fi
@@ -197,6 +242,10 @@ jobs:
             npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --threads 4 "${extra[@]}"
             npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --check
           fi
+          if [[ ",$MATRICES," == *",boots,"* ]]; then
+            npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --format fiveItemsWithBoots --threads 4 "${extra[@]}"
+            npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --format fiveItemsWithBoots --check
+          fi
       - name: Commit the outputs to the branch
         run: |
           git add -A "data/$DATASET"
@@ -210,7 +259,7 @@ jobs:
           recomputed=""
           if [ -n "$RECOMPUTE" ]; then recomputed=" (computed again whatever was stored: $RECOMPUTE)"; fi
           git commit -q -F - <<EOF
-          Refresh $DATASET on GitHub Actions: $SIM_PENDING plain-stats and $BUILDS_PENDING build pairings computed
+          Refresh $DATASET on GitHub Actions: $SIM_PENDING plain-stats, $BUILDS_PENDING six-item and ${BOOTS_PENDING:-0} boots build pairings computed
 
           The other pairings' inputs were unchanged, so their stored results stand$recomputed.
           Shards and checks: $RUN_URL
@@ -228,6 +277,7 @@ jobs:
             fi
             if [[ ",$MATRICES," == *",sim,"* ]]; then npx tsx pipeline/sim/refresh.ts --dataset "$DATASET" --check; fi
             if [[ ",$MATRICES," == *",builds,"* ]]; then npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --check; fi
+            if [[ ",$MATRICES," == *",boots,"* ]]; then npx tsx pipeline/sim/builds.ts --dataset "$DATASET" --format fiveItemsWithBoots --check; fi
           done
           echo "::error::Could not push the refreshed outputs"
           exit 1

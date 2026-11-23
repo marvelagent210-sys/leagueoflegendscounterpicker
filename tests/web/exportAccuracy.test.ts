@@ -141,6 +141,10 @@ describe("web export snapshots", () => {
       expect(exported).toBe(true);
       expect(index.buildsFingerprint).toBe("builds");
       expect(index.itemSources).toEqual({ title: "Module:ItemData/data", revid: expect.any(Number), ddragon: expect.any(String), spellData: { title: "Module:SpellData/data", revid: expect.any(Number) } });
+      // The five-items-and-boots matrix is listed and published only where the dataset has it.
+      const boots = existsSync(path.join(DATA_DIR, "16.21", "simulated-builds-boots.json"));
+      expect(index.buildFormats).toEqual(boots ? ["sixItems", "fiveItemsWithBoots"] : ["sixItems"]);
+      expect(existsSync(path.join(output, "16.21", "simulated-builds-boots.json"))).toBe(boots);
     } else {
       expect(exported).toBe(false);
       expect(index).not.toHaveProperty("buildsFingerprint");

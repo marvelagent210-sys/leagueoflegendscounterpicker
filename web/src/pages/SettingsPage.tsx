@@ -41,12 +41,12 @@ export function SettingsPage({ data }: { data: AppData }) {
         </div>
       </div>
 
-      {data.builds ? (
+      {data.builds || data.boots ? (
         <section className="panel" aria-labelledby="results-head">
           <h3 id="results-head">Duel results</h3>
-          <ResultsToggle />
+          <ResultsToggle matrices={data} />
           <p className="note">
-            Item builds: each side has the six finished items the build search found to do best against the other's. They were computed in advance at the default fight
+            Item builds: each side has the six finished items, or five items and boots, that the build search found to do best against the other's, with Flash and the second summoner spell that did best. They were computed in advance at the default fight
             settings: of the settings below, only the scenario weights apply to them, and changing any other but the gold shows plain stats instead. Plain stats: each side
             spends the gold below on plain stats, and the duels run again in your browser when you change a setting.
           </p>
@@ -74,7 +74,7 @@ export function SettingsPage({ data }: { data: AppData }) {
           <p className="note">
             0 is the bare kits; {DEFAULT_APP_SETTINGS.gold.toLocaleString("en-US")} is about what a top laner has when the role quest takes it to level 20. Each side spends its gold
             by its own ratios against the other's build, at the stats' gold values from the wiki, with penetration capped near what items give.
-            {data.builds ? " The item builds buy their own items, so the gold applies to plain stats only." : ""}
+            {data.builds || data.boots ? " The item builds buy their own items, so the gold applies to plain stats only." : ""}
           </p>
         </div>
       </section>
