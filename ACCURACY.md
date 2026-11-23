@@ -3626,6 +3626,45 @@ Rune pages are not in this search. Main's rune effects are manual plain-stat
 selections, and the earlier full rune-page model was set aside so that runes have
 one implementation. It remains in this branch's history at `d1ea0ef`.
 
+## Finishers held to the end, and mages' builds (23 November 2026)
+
+Across the build matrix, Guardian Angel is in 90% of builds, and mages carry Terminus,
+Yun Tal Wildarrows and Infinity Edge in a third to two-thirds of their matchups. To see
+whether the build search misses better AP builds, 18 pairings were played over every
+scenario: Ahri, Lux, Syndra, Annie, Orianna and Veigar against Zed, Darius and Malphite.
+Each mage played its searched build, then a standard AP build (Rabadon's Deathcap,
+Zhonya's Hourglass, Shadowflame, Void Staff, Luden's Echo, Banshee's Veil), then the same
+with Guardian Angel for Banshee's Veil, all against the enemy's searched build. The
+searched builds averaged +0.22, the AP build −0.28, and AP with Guardian Angel −0.13.
+The AP build beat the searched build in 3 of 18 pairings. So the search finds what the
+model rewards. The model favors sustained basic-attack damage and a second life in
+fights to the death at level 20. In the real game, mages are built around their
+abilities, so this is a modeling limit to keep in mind when reading mages' builds, not
+a search failure.
+
+One cause was a behavior bug. Damage by source in a brawl against Darius showed Veigar's
+AP build never casting Primordial Burst. His policy fired it only once Darius was missing
+a third of his health, or when it would kill. Neither happened before Veigar died. The
+default behavior has the same gap for every finisher: one was cast only when its damage
+would kill, so a losing holder died with it unused. Eleven kits have one: Caitlyn,
+Cho'Gath, Darius, Garen, Graves, Pyke, Riven, Syndra, Urgot, Veigar and Viego. Holding a
+finisher for the kill pays only if the holder outlasts the enemy. A ready finisher is now
+also cast once its holder is below half its health (`LAST_STAND`) and has a smaller share
+of its health left than the enemy. A fixed quarter of health was tried first and was too
+late: Darius's burst takes Veigar from 43% to dead in under half a second. Execute
+thresholds are unchanged. A new test covers a losing holder, and the existing finisher
+tests still pass. Main's Triumph sweep test now uses Garen against Sion: with the rule,
+Darius spends his ultimate before Sion's takedown, and Triumph's heal no longer changes
+that duel at any swept budget.
+
+## Five items and boots in the browser (23 November 2026)
+
+The build matrix now has a second format, five finished items and boots
+(`simulated-builds-boots.json`, `reports/builds-boots.md`). The app's results toggle
+offers six items, five items and boots, or plain stats. The refresh plans it as a third
+matrix with its own shards. On four pairings it took about 5% longer than six items, so
+the planner counts 22.9 s a pairing. A local smoke run of 172 pairings had no failures.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
