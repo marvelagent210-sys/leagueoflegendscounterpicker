@@ -1,5 +1,5 @@
 {
-  "note": "Recompute all three matrices: the default behavior casts a finisher when its holder is below half health and behind (engine/sim/behavior.ts LAST_STAND), and a cast with no cast time keeps an attack windup (V25.24's December 4th hotfix, engine/sim/actions.ts); both change every pairing's code inputs. The five-items-and-boots matrix (simulated-builds-boots.json) is computed for the first time.",
+  "note": "One recompute of all three matrices for this branch's batch of behavior changes (engine/sim/behavior.ts, engine/sim/actions.ts): finishers cast when their holder is below half health and behind (LAST_STAND); casts with no cast time keep an attack windup (V25.24's December 4th hotfix); defensive shields and heals go up below half health (DEFENSIVE_SUSTAIN); long-cast damage skillshots wait until likely to land (LONG_CAST). The five-items-and-boots matrix (simulated-builds-boots.json) is computed for the first time.",
   "dataset": "16.21",
   "matrices": [
     "sim",
