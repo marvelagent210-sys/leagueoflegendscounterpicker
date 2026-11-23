@@ -1,5 +1,5 @@
 {
-  "note": "Add the five-items-and-boots build matrix (simulated-builds-boots.json) for the browser. Its 14,878 pairings are computed for the first time; the plain-stats and six-item pairings' inputs are unchanged and are reused, their provenance restamped.",
+  "note": "Recompute all three matrices: the default behavior now casts a finisher when its holder is below half health and behind (engine/sim/behavior.ts LAST_STAND), which changes every pairing's code inputs, and the five-items-and-boots matrix (simulated-builds-boots.json) is computed for the first time.",
   "dataset": "16.21",
   "matrices": [
     "sim",
