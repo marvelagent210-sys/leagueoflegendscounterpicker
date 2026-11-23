@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { type Behavior, LAST_STAND } from "../../engine/sim/behavior";
+import { type Behavior, DEFENSIVE_SUSTAIN, LAST_STAND } from "../../engine/sim/behavior";
 import { canCast, startAttack, startCast } from "../../engine/sim/actions";
 import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
@@ -284,6 +284,19 @@ describe("finishers", () => {
     const taken = ticksOf(outcome.timeline, 1, "attack deals").filter((t) => t <= (cast ?? 0)).length * 150 * (100 / 200);
     expect(2000 - taken).toBeLessThanOrEqual(LAST_STAND * 2000 + 1e-9);
     expect(2000 - taken).toBeGreaterThan(LAST_STAND * 2000 - 150);
+  });
+});
+
+describe("defensive shields", () => {
+  it("go up in combat once their holder is below half health, kept for reactions until then", () => {
+    const barrier = ability({ key: "W", cooldown: 100, castTime: 0, roles: ["defense"], delivery: { kind: "self" }, onSelf: [{ type: "shield", amount: { base: 300 }, duration: 3 }] });
+    const outcome = duel(fighter({ abilities: [barrier] }), fighter({ base: { ad: 150 } }), { behaviors: [undefined, undefined], settings: { maxSeconds: 60 } });
+    const cast = ticksOf(outcome.timeline, 0, "casts W")[0];
+    expect(cast).toBeDefined();
+    // Each enemy hit takes 75 of 2,000 health: cast below 1,000, not before.
+    const taken = ticksOf(outcome.timeline, 1, "attack deals").filter((t) => t <= (cast ?? 0)).length * 75;
+    expect(2000 - taken).toBeLessThan(DEFENSIVE_SUSTAIN * 2000 + 1e-9);
+    expect(2000 - taken).toBeGreaterThanOrEqual(DEFENSIVE_SUSTAIN * 2000 - 75);
   });
 });
 

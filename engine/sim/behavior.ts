@@ -451,6 +451,12 @@ function answers(view: View, state: StateType, t: Threat): boolean {
 
 /** Share of maximum health below which death-prevention abilities are used without a visible threat. */
 const LOW_HEALTH = 0.15;
+/**
+ * The share of its health below which a defensive shield or heal (an ability kept for
+ * reactions, roles "defense", whose effect is sustain) goes up in combat: no reaction answers
+ * steady damage with one (Kai'Sa's Killer Instinct was never cast).
+ */
+export const DEFENSIVE_SUSTAIN = 0.5;
 
 /**
  * Ticks the worst crowd control on the unit still lasts, counting only types that stop it from
@@ -532,6 +538,7 @@ export function react(view: View): Command | undefined {
     const traits = traitsOf(ability);
     // A minimum health threshold also goes up when health runs low under steady damage.
     if (low && traits.defenses.has("minimumHealth")) return { kind: "cast", ability: ability.key };
+    if (traits.sustain && reactive(ability, traits) && inCombat(view) && self.hp < DEFENSIVE_SUSTAIN * derive(self).maxHp) return { kind: "cast", ability: ability.key };
     const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;

@@ -3669,6 +3669,30 @@ but locks her for its 0.25-second cast time, and her attacks' text says Rend can
 them, so it keeps its cancel. Tests: an instant self-buff keeps the windup; the same cast
 with a 0.25-second cast time cancels it.
 
+## Abilities never cast (23 November 2026)
+
+To find behavior bugs like Veigar's held ultimate, every champion played the fight scenarios
+with plain stats against Darius, Malphite, Zed, Jinx, Lux and Teemo, and each kit ability it
+never cast was listed: 45 champions had at least one. Most need an ally (Nami's and
+Orianna's ally casts, Soraka's W, Galio's R, Kalista's R, Rakan's E), give vision or nothing
+in a duel (Ashe's E, Kalista's W, Senna's E, Zoe's stolen Flash), are toggles kept on
+all fight (Singed's Q, Amumu's W), are cast automatically or as another version (Mordekaiser's
+recast, Qiyana's elemental Q), or are sub-entries of another cast (Hwei's combinations,
+Heimerdinger's turret beams, Brand's bounces). Two were behavior gaps:
+
+- Kai'Sa's Killer Instinct, a shield with the "defense" role. Such abilities are kept out of
+  the offense for reactions, but no reaction answered steady damage with a shield or heal.
+  A defensive shield or heal now goes up in combat once its holder is below half its health
+  (`DEFENSIVE_SUSTAIN`), and Kai'Sa casts it. Test: a defense-role shield waits until its
+  holder is below half health, then goes up.
+- Kindred's Lamb's Respite puts a 10%-health floor on everyone in its zone, the enemy
+  included, so whether it helps in a duel needs a policy of its own. It stays unused, a
+  remaining limit.
+
+Caitlyn's Ace in the Hole, a 1.4-second interruptible channel, is kept for a kill: at low
+health her attacks are worth more. Pyke's Death from Below is an execute, which the
+finisher rule leaves to its threshold.
+
 ## Five items and boots in the browser (23 November 2026)
 
 The build matrix now has a second format, five finished items and boots
