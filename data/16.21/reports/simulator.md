@@ -54,8 +54,8 @@ Each champion's average score against the others (−1 to +1).
 | 44 | Neeko | +0.27 |
 | 45 | Orianna | +0.27 |
 | 46 | Gnar | +0.26 |
-| 47 | Taric | +0.26 |
-| 48 | Garen | +0.26 |
+| 47 | Garen | +0.26 |
+| 48 | Taric | +0.26 |
 | 49 | Xin Zhao | +0.26 |
 | 50 | Kalista | +0.25 |
 | 51 | Gwen | +0.25 |
@@ -127,7 +127,7 @@ Each champion's average score against the others (−1 to +1).
 | 117 | Kayn | −0.18 |
 | 118 | Skarner | −0.19 |
 | 119 | Bard | −0.19 |
-| 120 | Lux | −0.20 |
+| 120 | Lux | −0.21 |
 | 121 | Rell | −0.21 |
 | 122 | Brand | −0.21 |
 | 123 | Ornn | −0.22 |
