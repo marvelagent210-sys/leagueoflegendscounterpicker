@@ -3584,6 +3584,37 @@ and 10,266 tests passed, with five skips. Both native freshness checks,
 typechecking, the offline rune catalog check and the production build
 passed on the generated commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44950261943)
 
+## Summoner spells (23 November 2026)
+
+The nine spells Summoner's Rift offers come from Data Dragon 16.21.1's classic
+list, [Module:SpellData/data revision 4089805](https://wiki.leagueoflegends.com/en-us/Module:SpellData/data?oldid=4089805)
+and each spell's article, at level 20 ([spell catalog](data/16.21/reports/summoners.md)).
+Fourteen cooldowns and ranges were compared with Data Dragon. Two differ, Flash's
+range (400 on the wiki, 425 in Data Dragon) and Heal's (900 and 875), and the
+wiki's value is used. Seven spells act in a duel. Ignite burns 525 true damage
+over five seconds with Grievous Wounds, and damage amplifiers don't raise it. Exhaust
+slows by 40% and cuts damage dealt by 35% for three seconds. Barrier shields 502 and
+Heal restores 346. Ghost grants 50.8% movement speed. Cleanse removes the disables
+its notes list (not knock-ups, nearsight or suppression), and the behavior spends it
+only on crowd control it removes. Flash blinks 400 units. Smite and Teleport
+do nothing in a duel. Stasis and suppression stop every spell. Other cast-inhibiting
+crowd control stops only Flash, and spell shields don't block spells. Spells without
+a cast time are used during the caster's own casts, channels, dashes and windups
+without interrupting them. 39 tests cover the catalog and the effects.
+
+The build matrix gives each side Flash, then fights for its second spell among the
+six others that act in a duel. Each candidate plays the three all-in scenarios with
+one branch each, and a health margin breaks the many ties a score alone leaves. The
+sides answer each other's spell over two rounds: all six, then each side's best two.
+The screen was checked on keystone choices before the rune pages were parked, where
+its pick scored 0.07 below the best over every scenario. Brawl-only screens scored
+0.11 to 0.15 below. Those samples were small and spread widely. On four pairings the
+spell search added 11% to 16% to a build pairing's time.
+
+Rune pages are not in this search. Main's rune effects are manual plain-stat
+selections, and the earlier full rune-page model was set aside so that runes have
+one implementation. It remains in this branch's history at `d1ea0ef`.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
