@@ -255,7 +255,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Shifting Sands dashes at 1700 (the wiki gives no speed).
 - Emperor's Divide hits once its charge reaches the wall's line, 0.16 s after the cast; its wall, 250 thick (its soldiers' radius each way), stands across the whole line, so an enemy can't walk around it.
 
-### Source values read (51)
+### Source values read (52)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -267,6 +267,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Arise! | Magic Damage: 0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 / 96 / 104 / 112 / 120 / 128 / 136 / 144 / 152 / 160 / 168 / 176 / 184 / 192 / 200 / 208 / 216 / 224 / 232 / 240 / 248 / 256 / 264 / 272 / 280 / 288 / 296 / 304 / 312 / 320 (based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 42.5 / 50 / 57.5 / 65% AP) | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
 | Arise! | (based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 42.5 / 50 / 57.5 / 65% AP) | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
 | Arise! | Against the primary target, the Sand Soldier's attack applies both on-hit and on-attack effects, the damage of which is reduced to 50% effectiveness. | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
+| Arise! | Energized will stack but not be consumed | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
 | Arise! | Subsequent Sand Soldier attacks against the same target deal 25% damage without applying on-hit and on-attack effects. | [4044339](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Arise!?oldid=4044339) |
 | Sand Soldiers | Whenever Azir declares an attack on a target within 375 units of one of his Sand Soldiers, he instead commands all Sand Soldiers in range to attack. | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |
 | Sand Soldiers | 375 / 425 | [4052902](https://wiki.leagueoflegends.com/en-us/Azir?oldid=4052902) |

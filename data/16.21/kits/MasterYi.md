@@ -265,13 +265,14 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Meditate's first heal occurs after 0.5 seconds; the wiki allows a variable first-tick phase, so an instant cancel never guarantees a heal here.
 - Highlander's takedown rewards apply on lethal champion damage; the engine does not expose a separate takedown event when a champion immediately enters a post-death fighting form.
 
-### Source values read (46)
+### Source values read (47)
 
 | Ability | Value | Source version |
 |---|---|---|
 | Double Strike | generate a stack of Double Strike for 4 seconds | [4057839](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) |
 | Double Strike | stacking up to 3 times | [4057839](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) |
 | Double Strike | the second strike dealing 50% AD physical damage | [4057839](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) |
+| Double Strike | The second strike applies on-hit effects, triggers on-attack effects | [4057839](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) |
 | Alpha Strike | After 0.231 | [4086259](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4086259) |
 | Alpha Strike | recurring every 0.231 up to 3 times | [4086259](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4086259) |
 | Alpha Strike | Master Yi reappears 75 units | [4086259](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4086259) |

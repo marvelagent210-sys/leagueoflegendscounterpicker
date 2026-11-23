@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { TOP_LANE_MAX_LEVEL } from "../../engine/stats";
 import { canCast, EPSILON } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyCC, applyEffect, attackHit, canSee, directionTo, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyCC, applyEffect, attackHit, canSee, directionTo, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { terrainLimit } from "../../engine/sim/terrain";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
@@ -196,7 +196,11 @@ const graves: KitModule = {
           if (ctx.ability.key === "E") { ctx.memory["graves:eReloadOverlay"] = ctx.memory[RELOAD] !== undefined && ctx.tick < Number(ctx.memory[RELOAD]); cancelReload(ctx); ctx.memory[AMMO] = Math.min(shells, Number(ctx.memory[AMMO] ?? shells) + 1); grit(ctx, 1); ctx.memory["graves:eBonus"] = false; }
           if (ctx.ability.key === "R") {
             const m = missile(ctx, "R", ctx.self.x, dir, rRange, rSpeed); ctx.memory[`graves:origin:${m.id}`] = ctx.self.x;
-            if (!ctx.self.statuses.some((s) => s.kind === "cc" && ["root", "ground", "airborne"].includes(s.key))) ctx.self.x += terrainLimit(ctx.world, ctx.self, -dir * recoil);
+            if (!ctx.self.statuses.some((s) => s.kind === "cc" && ["root", "ground", "airborne"].includes(s.key))) {
+              const from = ctx.self.x;
+              ctx.self.x += terrainLimit(ctx.world, ctx.self, -dir * recoil);
+              observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "R", endTick: ctx.tick, ended: true });
+            }
           }
         },
         onDashEnd(ctx) { if (ctx.ability.key === "E") delete ctx.memory["graves:eReloadOverlay"]; },

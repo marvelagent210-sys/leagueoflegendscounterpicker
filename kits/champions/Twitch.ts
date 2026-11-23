@@ -28,6 +28,7 @@ const twitch: KitModule = {
     w.quote("applying a Deadly Venom stack each second"); w.quote("granting sight"); w.quote("suppressed during the cast time");
     const eCast = e.castTime(), eBase = e.formula("Base Physical Damage"), eStack = e.formula("Physical Damage Per Stack"), eAP = e.quoted("35% AP magic damage") / 100, eRange = e.field("effectRadius");
     e.quote("at the start of the cast time"); e.quote("not within range of the ability before the cast time completes"); e.quote("does not have to be visible"); e.quote("A nearby enemy with Deadly Venom is required");
+    r.quote("Damage on non-targetted units is also considered AoE for Press the Attack.");
     const rAD = r.number("Bonus Attack Damage"), rRange = r.quoted("300 bonus attack range"), rSeconds = r.quoted("for 6 seconds"), rWidth = r.field("width"), rSpeed = r.field("speed"), rTravel = r.field("range"), rCritical = r.quoted("for 200% damage") / 100;
     r.quote("100 / 90 / 80 / 70 / 60"); r.quote("apply on-hit effects"); r.quote("at his target's location at the start of his attack windup"); r.quote("Even the primary target can dodge"); r.quote("If Twitch is blinded before winding up the attack"); r.quote("not considered area of effect for other effects");
     const stacks = (target: Unit, tick: number) => target.statuses.find((status) => status.kind === "mark" && status.key === POISON && status.endTick > tick)?.value ?? 0;
@@ -126,7 +127,7 @@ const twitch: KitModule = {
             for (const pet of [...ctx.world.pets]) if (pet.owner !== ctx.self.side && Math.abs(pet.x - ctx.self.x) <= eRange + 1e-6) { const target = petFormulaTarget(pet, ctx.self, ctx.tick), value = snapshotCount(ctx.self, target); if (value > 0) abilityHitPet(ctx.world, ctx.self, pet, detonation, eEffects(value), "area"); }
           }
         },
-        onAttack(ctx) { breakAmbush(ctx); if (ctx.tick < Number(ctx.memory[RUNTIL] ?? -1)) ctx.action.attackTag = `twitch:spray:${directionTo(ctx.self, ctx.enemy)}`; },
+        onAttack(ctx) { breakAmbush(ctx); if (ctx.tick < Number(ctx.memory[RUNTIL] ?? -1)) ctx.action.attackTag = `twitch:spray:${identity(ctx.enemy)}:${directionTo(ctx.self, ctx.enemy)}`; },
         onAttackLaunch(ctx) {
           if (!ctx.action.attackTag?.startsWith("twitch:spray:")) return;
           if ((ctx.action.pet !== undefined && !ctx.targetPet) || !ctx.enemy.alive || isUntargetable(ctx.enemy, ctx.self) || inStasis(ctx.enemy)) return false;
@@ -135,6 +136,10 @@ const twitch: KitModule = {
           const champion = ctx.world.units[1 - ctx.self.side]!, eta = Math.max(0, Math.abs(champion.x - ctx.self.x) - champion.spec.base.radius) / rSpeed;
           const decision = resolveSkillshot(ctx.world, ctx.self, champion, abilities[3]!, ctx.action.startTick, eta, rWidth / 2), id = ctx.world.nextId++;
           ctx.world.missiles.push({ id, owner: ctx.self.side, source: "Rbolt", seenTick: ctx.action.startTick, x: ctx.self.x, perTick: rSpeed / 30, piercing: true, radius: rWidth / 2, collisionPet: true, homing: false, direction, travelLeft: rTravel + bonusRange, projectile: true, connects: decision.connects, scale: decision.scale, onHit: [], attack: { ...ctx.action, blinded: ctx.action.blinded, bonusOnHit: ctx.action.onHit, critChance: ctx.action.critChance, critMultiplier: ctx.action.critMultiplier ?? derive(ctx.self).critDamage, attackTag: ctx.action.attackTag } }); return decision.split === undefined ? false : { missile: id, chance: decision.split };
+        },
+        onAttackBeforeDamage(ctx) {
+          // The declared victim can be a later contact after another unit intercepts.
+          if (ctx.attack.attackTag?.startsWith("twitch:spray:")) ctx.attack.pressTheAttack = ctx.attack.attackTag.startsWith(`twitch:spray:${identity(ctx.enemy)}:`);
         },
         onAttackHit(ctx) { poison(ctx, ctx.scale); },
         onAttackPetHit(ctx) { poison(ctx, ctx.scale); },

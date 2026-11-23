@@ -269,10 +269,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Stormbringer's slow decaying over 1 second is taken as 25% for 1 second.
 - Stormbringer lands next to the enemy, up to 700 units away; the enemy can walk out of the impact during the leap.
 
-### Source values read (39)
+### Source values read (40)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Frenzied Maul | Frenzied Maul deals basic damage | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
 | The Relentless Storm | he generates a stack of The Relentless Storm for 6 seconds | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
 | The Relentless Storm | stacking up to 5 times | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
 | The Relentless Storm | For each stack, Volibear gains 5% (+ 4% per 100 AP) bonus attack speed | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |

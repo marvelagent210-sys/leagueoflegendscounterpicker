@@ -2,6 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { attackRange, canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
+import { observeMovementSegment } from "../../engine/sim/combat";
 import { evaluate } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
@@ -253,7 +254,9 @@ const ambessa: KitModule = {
             ctx.memory.seizeUntil = ctx.tick + ticks(seize);
             ctx.apply({ type: "state", state: "noAttacks", duration: seize }, true);
             const side = ctx.enemy.x >= ctx.self.x ? 1 : -1;
+            const from = ctx.self.x;
             ctx.self.x = ctx.enemy.x + side * (ctx.self.spec.base.pathingRadius + ctx.enemy.spec.base.pathingRadius);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "R", endTick: ctx.tick, ended: true });
             ctx.apply({ type: "attach", offset: ctx.self.spec.base.pathingRadius + ctx.enemy.spec.base.pathingRadius, duration: seize });
           }
         },

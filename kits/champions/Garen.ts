@@ -160,7 +160,7 @@ const garen: KitModule = {
             pulsesFor: spinsFor,
             onTick: [{ type: "damage", damageType: "physical", amount: e.formula("Increased Damage Per Spin"), canCrit: true, critMultiplier: e.quoted("Judgment can critically strike for 130% damage", 0) / 100 }],
           },
-          flags: { spellShield: e.flag("spellShield") ?? false },
+          flags: { spellShield: e.flag("spellShield") ?? false, conquerorPerPacket: true },
         },
         {
           key: "R",

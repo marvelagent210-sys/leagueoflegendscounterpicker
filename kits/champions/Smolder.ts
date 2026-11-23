@@ -4,7 +4,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { EPSILON, attackRange, attackTiming, canCast, missileArrivalTicks, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canSee, directionTo, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canSee, directionTo, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { exitTerrain } from "../../engine/sim/terrain";
@@ -55,7 +55,13 @@ const smolder: KitModule = {
     const critical = (unit: Unit, ratio: number) => { const d = derive(unit); return 1 + ratio * d.critChance * (d.critDamage - 1); };
     const gain = (ctx: HookContext, amount = 1) => { ctx.memory[STACKS] = stacks(ctx.self) + amount; };
     const inFlight = (self: Unit, tick: number) => tick < Number(self.memory[FLIGHT] ?? -1);
-    const endFlight = (ctx: HookContext) => { ctx.memory[FLIGHT] = -1; ctx.self.statuses = ctx.self.statuses.filter((status) => status.ability !== "E"); exitTerrain(ctx.world, ctx.self); };
+    const endFlight = (ctx: HookContext) => {
+      ctx.memory[FLIGHT] = -1;
+      ctx.self.statuses = ctx.self.statuses.filter((status) => status.ability !== "E");
+      const from = ctx.self.x;
+      exitTerrain(ctx.world, ctx.self);
+      if (ctx.self.x !== from) observeMovementSegment(ctx.world, ctx.self, from, { kind: "forced", ability: "E", endTick: ctx.tick, ended: true });
+    };
     const refund = (ctx: HookContext, serial: number) => { const key = `smolder:qRefund:${serial}`; if (ctx.memory[key]) return; ctx.memory[key] = true; ctx.apply({ type: "resource", amount: flat(qRefund) }, true); };
     const castData = (ctx: HookContext, effects: readonly Effect[]): QCast | undefined => {
       const marker = effects.find((effect) => effect.type === "mark" && effect.key.startsWith("smolder:qCast:"));
@@ -63,13 +69,13 @@ const smolder: KitModule = {
       const text = ctx.memory[marker.key]; return typeof text === "string" ? JSON.parse(text) as QCast : undefined;
     };
     const qTemplate: Effect[] = [{ type: "damage", damageType: "physical", amount: qDamage }];
-    const qSplashSpec: AbilitySpec = { key: "Qsplash", name: q.name, slot: "other", activation: "internal", usable: () => false, budgetExcluded: true, cooldown: 0, castTime: 0, persistsAfterDeath: true, delivery: { kind: "self" }, onHit: qTemplate, flags: { projectile: false, spellShield: true, parry: true, appliesOnHit: true, petContactHooks: true } };
+    const qSplashSpec: AbilitySpec = { key: "Qsplash", name: q.name, slot: "other", activation: "internal", usable: () => false, budgetExcluded: true, cooldown: 0, castTime: 0, persistsAfterDeath: true, delivery: { kind: "self" }, onHit: qTemplate, flags: { projectile: false, spellShield: true, parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: false, petContactHooks: true } };
     const qBolt: AbilitySpec = { ...qSplashSpec, key: "Qbolt", flags: { ...qSplashSpec.flags, projectile: true } };
     const wBurst: AbilitySpec = { key: "Wburst", name: `${w.name} (explosion)`, slot: "other", activation: "internal", usable: () => false, budgetExcluded: true, cooldown: 0, castTime: 0, delivery: { kind: "self" }, onHit: [{ type: "damage", damageType: "physical", amount: wExplosion }], flags: { projectile: false, spellShield: true, petContactHooks: true } };
     const eBolt: AbilitySpec = { key: "Ebolt", persistsAfterDeath: true, name: e.name, slot: "other", activation: "internal", usable: () => false, budgetExcluded: true, cooldown: 0, castTime: 0, delivery: { kind: "self" }, onHit: [{ type: "damage", damageType: "physical", amount: flightDamage }], flags: { projectile: true, spellShield: true, petContactHooks: true } };
     const rWave: AbilitySpec = { key: "Rwave", name: r.name, slot: "other", activation: "internal", usable: () => false, budgetExcluded: true, cooldown: 0, castTime: 0, persistsAfterDeath: true, delivery: { kind: "self" }, onHit: [{ type: "damage", damageType: "physical", amount: rDamage }, { type: "cc", cc: "slow", strength: rSlow, duration: rSlowSeconds }], flags: { projectile: true, spellShield: true, petContactHooks: true } };
     const abilities: AbilitySpec[] = [
-      { key: "Q", name: q.name, slot: "Q", budgetExcluded: true, cooldown: q.cooldown(), cost: q.cost(), castTime: q.castTime(), castTimeFor: (self) => attackTiming(self).windup / 30, cancelOnInvalidTarget: true, persistsAfterDeath: true, delivery: { kind: "target", range: qRange, rangeFor: (self, target) => attackRange(self, target), edge: true, missileSpeed: qSpeed }, onHit: qTemplate, flags: { projectile: true, spellShield: true, parry: true, basicDamage: true, appliesOnHit: true, petContactHooks: true } },
+      { key: "Q", name: q.name, slot: "Q", budgetExcluded: true, cooldown: q.cooldown(), cost: q.cost(), castTime: q.castTime(), castTimeFor: (self) => attackTiming(self).windup / 30, cancelOnInvalidTarget: true, persistsAfterDeath: true, delivery: { kind: "target", range: qRange, rangeFor: (self, target) => attackRange(self, target), edge: true, missileSpeed: qSpeed }, onHit: qTemplate, onAttackScale: 1, flags: { projectile: true, spellShield: true, parry: true, basicDamage: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, petContactHooks: true } },
       { key: "W", persistsAfterDeath: true, name: w.name, slot: "W", cooldown: w.cooldown(), cost: w.cost(), castTime: w.castTime(), castDirection: "start", delivery: { kind: "line", range: wRange, width: wWidth, radius: wWidth / 2, speed: wMovement.mInitialSpeed, piercing: true, collisionPet: true }, onHit: [{ type: "damage", damageType: "physical", amount: wDamage }, { type: "cc", cc: "slow", strength: wSlow, duration: wSlowSeconds }], flags: { projectile: true, spellShield: true, petContactHooks: true } },
       { key: "E", name: e.name, slot: "E", cooldown: e.cooldown(), cost: e.cost(), castTime: e.castTime(), overlay: true, delivery: { kind: "self" }, onSelf: [{ type: "state", state: "ghosted", duration: flightSeconds }, { type: "state", state: "terrainIgnore", duration: flightSeconds }, { type: "state", state: "noAttacks", duration: flightSeconds }, { type: "stat", stat: "moveSpeedPercent", amount: flat(flightMS), duration: flightSeconds }], flags: { grounded: true }, usable: (u, world) => !inFlight(u, world.tick), roles: ["escape", "buff", "damage"], estimate: (self, target) => evaluate(flightDamage, self, target) + stacks(self) * stackE * critical(self, stackECrit) },
       { key: "R", name: r.name, slot: "R", cooldown: r.cooldown(), cost: r.cost(), castTime: r.castTime(), castOrigin: "start", castDirection: "start", persistsAfterDeath: true, moveWhileCasting: true, delivery: { kind: "self" }, roles: ["damage", "defense"], estimate: (self, target) => evaluate(rDamage, self, target), estimateDelay: (self, target) => rSpawn + Math.max(0, Math.abs(target.x - self.x) + rBehind - target.spec.base.radius) / rSpeed },

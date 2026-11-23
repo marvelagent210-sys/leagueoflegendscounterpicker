@@ -1,4 +1,5 @@
 /** Volibear: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
+import { observeMovementSegment } from "../../engine/sim/combat";
 import type { KitModule } from "../../engine/kits/compile";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { attackTiming } from "../../engine/sim/actions";
@@ -13,6 +14,7 @@ const volibear: KitModule = {
     const innate = kit.ability("The Relentless Storm");
     const q = kit.ability("Thundering Smash");
     const w = kit.ability("Frenzied Maul");
+    w.quote("Frenzied Maul deals basic damage");
     const e = kit.ability("Sky Splitter");
     const r = kit.ability("Stormbringer");
 
@@ -122,7 +124,9 @@ const volibear: KitModule = {
             const dir = Math.sign(ctx.enemy.x - ctx.self.x) || 1;
             const contact = ctx.self.spec.base.pathingRadius + ctx.enemy.spec.base.pathingRadius;
             const travel = Math.min(leapRange, Math.max(0, Math.abs(ctx.enemy.x - ctx.self.x) - contact));
+            const from = ctx.self.x;
             ctx.self.x += dir * travel;
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "R", endTick: ctx.tick, ended: true });
           }
         },
       },
@@ -151,7 +155,8 @@ const volibear: KitModule = {
             { type: "damage", damageType: "physical", amount: w.formula("Physical Damage") },
             { type: "mark", key: WOUNDED, duration: woundSeconds },
           ],
-          flags: { appliesOnHit: true, parry: true },
+          onAttackScale: 1,
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, parry: true },
         },
         {
           key: "E",

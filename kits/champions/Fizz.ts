@@ -136,7 +136,7 @@ const fizz: KitModule = {
       }
     };
     abilities = [
-      { key: "Q", name: q.name, slot: "Q", cooldown: qCooldown, cost: q.cost(), castTime: q.castTime(), delivery: { kind: "dash", direction: "toward", distance: qDistance, speed: Infinity, through: true, crossTerrain: true }, flags: { grounded: true, knockdown: true, parry: true, appliesOnHit: true, petContactHooks: true },
+      { key: "Q", name: q.name, slot: "Q", cooldown: qCooldown, cost: q.cost(), castTime: q.castTime(), delivery: { kind: "dash", direction: "toward", distance: qDistance, speed: Infinity, through: true, crossTerrain: true }, flags: { grounded: true, knockdown: true, parry: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, petContactHooks: true },
         onHit: [{ type: "damage", damageType: "physical", amount: { base: 0, ratios: { AD: qAD } }, petDamageCategory: "singleTarget", lifesteal: 0 }, { type: "damage", damageType: "magic", amount: qMagic, noLifeSteal: true, petDamageCategory: "singleTarget" }],
         usable: (self, world) => !self.memory.ePhase && Math.abs(self.x - world.units[self.side === 0 ? 1 : 0].x) <= qRange },
       { key: "W", name: w.name, slot: "W", cooldown: w.cooldown(), cost: wCost, castTime: w.castTime(), delivery: { kind: "self" }, cooldownAfter: "empower", overlay: true, usable: (self) => !self.memory.ePhase },

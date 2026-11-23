@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes: a source-backed catalog, structural page validation and all seven stat shards in explicit manual duels and browser plain-stat duels, plus seven partial combat effects in manual plain-stat duels; full rune effects and page search remain in progress ([details](docs/runes/README.md)).
+- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Twenty-one partial combat effects are available in manual plain-stat duels, including Taste of Blood, Font of Life, Aftershock, Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -57,6 +57,34 @@ The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueofl
 
 Completed release checks are recorded in [ACCURACY.md](ACCURACY.md). The Haste follow-up completed its genuine full matrix refresh and release checks on 8 November; default results changed in 172 plain-stat pairings and 186 build-matrix pairings. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them.
 
+Bloodline implementation began on 8 November; its genuine [full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596) completed on 10 November. It adds declared Legend history, life steal and a one-time cap-health award. All 14,878 pairings in each matrix were computed with zero reuse, and all 29,756 new checkpoints match the final outputs. Plain-stat payloads are unchanged; 22 build-matrix pairings changed, all involving Kled or K'Sante. The workflow passed 9,151 tests across 262 files, with five existing skips. See [ACCURACY.md](ACCURACY.md) for the complete comparison and validation receipts.
+
+Triumph (`9111`) is the ninth partial manual effect: after an actual hostile champion-body kill, it stores 2.5% maximum HP plus 5% missing HP and attempts ordinary healing one second later if the duel is still active. Both terms use the immutable native credit frame before all `onKill` callbacks under an explicit local timing policy. The sourced 20 gold remains economic reference only and is neither awarded nor spent. The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392) computed all 14,878 pairings per matrix with zero reuse; all 29,756 new checkpoints match the final outputs and default result payloads are unchanged. All 22 workflow jobs and 9,280 tests passed, with five existing skips. See the [rune audit](docs/runes/README.md) for lifecycle, timing and missile limits.
+
+Presence of Mind (`8009`) is the tenth partial manual effect for Mana or Energy users. At the fixed model level 20, eligible damage restores 56 mana (44.8 when the current owner form is ranged) or 6 energy, with one eight-second cooldown consumed even at full resource. An actual hostile champion-body kill schedules 15% of the current derived maximum resource one second later while the duel remains active. Packet eligibility, cap sampling and recipient lifecycle are explicit local policies; source details and unsupported events are recorded in the [rune audit](docs/runes/README.md). The local refresh reused all 14,878 pairings per matrix with zero new computation; type checks, matrix/catalog freshness checks and the browser build passed. The complete default comparison found unchanged result payloads. Local validation passed 9,510 tests with five existing skips; pull-request checks run separately against the delivery head.
+
+Press the Attack (`8005`) is the eleventh partial manual effect and the first Precision keystone. Three qualified on-hit applications within a refreshed four-second window deal adaptive proc damage and grant 8% increased damage against the opposing champion body, with a six-second proc cooldown. The explicit source formula gives `2960/17` damage at the model's level 20. New amplification starts after the activation simulation tick; a single five-second clock since qualified champion activity controls expiry. Ability eligibility, repeated-hit coverage, pet/clone exclusions and aggregate damage timing are bounded model policies described in the [rune audit](docs/runes/README.md#press-the-attack-first-keystone-and-declared-event-policies). On 17 November both default matrices were recomputed. All 29,756 new checkpoints agree with the published results, including each scenario, selected variant, recommended build and stat allocation. The refresh passed 9,755 tests with five skips. [Workflow run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44141258128)
+
+Fleet Footwork (`8021`) is the twelfth partial manual effect. Each fighter declares its starting Energized charges. At 100 charges, a qualifying hit heals and grants one second of bonus movement speed. On 18 November the refresh verified all 29,756 pair results. Both default matrices match the previous published calculations. [Fleet rules and example](docs/runes/README.md#fleet-footwork) · [Refresh audit](ACCURACY.md#matchup-refresh-and-recovery)
+
+Lethal Tempo (`8008`) adds up to six attack speed stacks. Qualifying attacks refresh the six-second timer, and attacks made with six stacks already held launch an adaptive damage bolt. Each side starts with zero stacks. The 19 November refresh verified all 29,756 pair results and reproduced both published default matrices. [Lethal Tempo rules and example](docs/runes/README.md#lethal-tempo) · [Refresh audit](ACCURACY.md#lethal-tempo-18-november-2026)
+
+Conqueror (`8010`) grants adaptive force up to twelve stacks and heals from qualifying champion damage at full stacks. The duel distinguishes separate casts, repeated damage from one cast, and reviewed attack and summon exceptions. The 19 November refresh verified all 29,756 pair results and reproduced both default matrices. [Conqueror rules and example](docs/runes/README.md#conqueror) · [Refresh audit](ACCURACY.md#conqueror-19-november-2026)
+
+Grasp of the Undying (`8437`) adds a Resolve keystone for manual duels. Damage charges the rune over four stacks. A qualifying champion hit spends the charge for magic damage, a delayed heal and permanent bonus health. Its ranged application, including Parrrley, uses 40% effectiveness. The 19 November refresh verified all 29,756 pair results and reproduced both default matrices. [Grasp rules and example](docs/runes/README.md#grasp-of-the-undying) · [Refresh audit](ACCURACY.md#grasp-of-the-undying-19-november-2026)
+
+Bone Plating (`8473`) arms after the opposing champion deals health damage. In the next 1.5 seconds, up to three casts can each lose about 63.53 damage at level 20, including true damage. A later packet from the initiating cast can spend a plate. [Bone Plating rules and example](docs/runes/README.md#bone-plating)
+
+Shield Bash (`8401`) adds adaptive damage to the next qualifying champion on-hit after a health shield is gained. It uses the highest eligible shield peak and keeps each shield eligible for two seconds after it ends. [Shield Bash rules and example](docs/runes/README.md#shield-bash)
+
+Overgrowth (`8451`) uses a starting count of qualifying deaths for each side. Every eight grants 3 bonus health. At 120 deaths it also increases the base and bonus health pools by 3.5% each. [Overgrowth rules and example](docs/runes/README.md#overgrowth)
+
+Aftershock (`8439`) grants armor and magic resistance for 2.5 seconds after a qualifying immobilization. A 350-unit magic shockwave follows. Both resistance grants use their own capped formula. [Aftershock rules and example](docs/runes/README.md#aftershock)
+
+Font of Life (`8463`) heals the owner on a qualifying slow or immobilization. The 20-second cooldown starts even if the owner is at full health. [Font of Life rules and example](docs/runes/README.md#font-of-life)
+
+Taste of Blood (`8139`) heals an injured owner after qualifying champion damage. Its level-20 heal includes 10% of bonus attack damage and 5% of ability power. [Taste of Blood rules and example](docs/runes/README.md#taste-of-blood)
+
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
 ## Matchups and counters
@@ -83,7 +111,22 @@ npm run duel -- Darius Yorick --combat-runes 9101,8299
 npm run duel -- Garen Darius --combat-runes 9104,8299 --legend-points 950 --enemy-combat-runes 8014,9104 --enemy-legend-points 0
                                              # Alacrity requires declared starting Legend points for each selected side
 npm run duel -- Darius Garen --combat-runes 9105,8299 --legend-points 1000 --enemy-combat-runes 9104 --enemy-legend-points 0
-                                             # Haste adds basic-ability haste; the two Legend runes cannot share one side's row
+                                             # Haste adds basic-ability haste; select only one of the three Legend runes per side
+npm run duel -- Darius Garen --combat-runes 9103,8299 --legend-points 1499 --enemy-combat-runes 9105 --enemy-legend-points 0
+                                             # Bloodline grants 6.3% life steal at 1,499 points; one qualifying champion-body kill reaches the cap
+npm run duel -- Darius Sion --gold 0 --combat-runes 9111 --log brawl
+                                             # Triumph needs no starting-history flag; Sion's post-death combat can keep the duel active for its heal
+npm run duel -- Darius Sion --gold 0 --combat-runes 9111,9103 --legend-points 1499 --log brawl
+                                             # legal Triumph plus Bloodline: declared points belong to Bloodline, and both heal terms precede its cap award
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8005 --log brawl
+                                             # Press the Attack is an explicit partial keystone selection
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8005,9111,9104,8014 --legend-points 0
+                                             # one Precision choice per row; only the named effects are equipped
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8021 --energized-charges 100 --enemy-combat-runes 8021 --enemy-energized-charges 0 --log brawl
+npm run duel -- Lucian Sion --dataset 16.21 --gold 0 --combat-runes 8008 --enemy-combat-runes 8008 --log brawl
+npm run duel -- Garen Mordekaiser --dataset 16.21 --gold 0 --combat-runes 8010 --enemy-combat-runes 8010 --log brawl
+npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --enemy-combat-runes 8473 --log brawl
+npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
 npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
@@ -93,11 +136,31 @@ npm run duel -- Garen Darius --runes "Conqueror, Triumph, Legend: Alacrity, Last
                                              # a rune page (--enemy-runes for the enemy's)
 ```
 
-Garen's Judgment excludes the recorded attack-speed shard and active Alacrity
-rune attack speed from spin scaling; both retain their normal combat benefits.
-Other attack-speed sources retain
-the existing model, including unresolved temporary item-passive eligibility.
-See the [rune audit](docs/runes/README.md) for the source and timing limits.
+Garen's Judgment excludes the attack-speed shard and the attack speed gained
+from Alacrity and Lethal Tempo. All three apply to basic attacks. Temporary
+item-passive eligibility for Judgment remains unresolved. [Rune audit](docs/runes/README.md)
+
+Bloodline (`9103`) has zero base life steal and grants 0.45% per completed 100-point stack, up to
+15 stacks and 6.75%; its direct 85 bonus health is awarded only at 1,500 points.
+Each selected side must declare its own points, including explicit zero. Runtime
+progress covers actual champion-body kills with native owner credit; farm,
+assists and monster rewards remain outside this manual subset.
+
+Triumph and Absorb Life (`9101`) share Precision's first lesser row and cannot be combined. Triumph may accompany one Legend, whose side must still declare starting points. No pre-duel Triumph heal, assist or farm entitlement is inferred. An ordinary victory can end before the one-second heal; pending healing never extends the duel.
+
+Presence of Mind shares that first lesser row, so select only one of `8009`, `9101` and `9111`. It requires an explicit Mana or Energy resource type; other types are rejected without automatic Triumph substitution. Presence needs no history flag. One Legend can accompany it with that side's declared points, and explicit stat shards remain available; combat-rune flags still reject fixed items and build search.
+
+Choose one of Press the Attack, Lethal Tempo, Fleet Footwork, Conqueror and Grasp of the Undying per fighter. Declare a starting pool from 0 through 100 for each side selecting Fleet. Movement and attacks charge it. At 100, an eligible champion hit spends the pool for healing and one second of bonus movement speed. [Fleet rules](docs/runes/README.md#fleet-footwork)
+
+A Precision keystone can accompany a compatible first-row choice, one declared Legend and one health-damage rune. Its Resolve choices can include Shield Bash and either Second Wind or Bone Plating. Grasp uses Resolve primary, so its page can include those Resolve lesser choices and up to two Precision lesser runes from distinct rows. Press the Attack, Lethal Tempo and Conqueror use the champion's recorded adaptive tie type and start at zero stacks. Item/rune composition, full pages, browser combat-rune controls and rune-aware search remain unfinished.
+
+Verified manual examples for the retained dataset:
+
+```sh
+npm run duel -- Cassiopeia Sion --dataset 16.21 --gold 0 --combat-runes 8009 --log brawl
+npm run duel -- Sion Cassiopeia --dataset 16.21 --gold 0 --enemy-combat-runes 8009 --log brawl
+npm run duel -- Cassiopeia Akali --dataset 16.21 --gold 0 --combat-runes 8009 --enemy-combat-runes 8009 --shards 5005,5001,5011 --enemy-shards 5008,5008,5001 --log brawl
+```
 
 With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.21/reports/item-effects.md)).
 

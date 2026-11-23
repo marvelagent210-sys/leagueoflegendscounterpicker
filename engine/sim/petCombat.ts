@@ -1,5 +1,6 @@
 /** Pet attack actors: incoming hooks see the attacking pet, without lending it owner actions. */
 import { applyEffect, attackHit, consumeSpellShield, inStasis, isUntargetable, log, observeOwnedPetBasicHit } from "./combat";
+import { withCastInstance } from "./castInstance";
 import { evaluate, hasState } from "./derived";
 import { petFormulaTarget } from "./petTarget";
 import type { Effect } from "./spec";
@@ -24,7 +25,7 @@ export function petAttackActor(pet: Pet, owner: Unit, tick?: number): Unit {
 }
 
 /** Resolve one launched packet. It may still arrive after its actual pet dies. */
-export function petCombatHit(world: World, pet: Pet, target: Unit | Pet, effects: readonly Effect[], attackLike: boolean, blinded = false, originX?: number): boolean {
+export function petCombatHit(world: World, pet: Pet, target: Unit | Pet, effects: readonly Effect[], attackLike: boolean, blinded = false, originX?: number, castInstance?: number): boolean {
   const owner = world.units[pet.owner], actor = petAttackActor(pet, owner, world.tick);
   const targetPet = "owner" in target ? target : undefined;
   const victim = targetPet ? petFormulaTarget(targetPet, owner, world.tick) : target as Unit;
@@ -34,27 +35,34 @@ export function petCombatHit(world: World, pet: Pet, target: Unit | Pet, effects
   if (targetPet && !mayConnect) return false;
   const actualEffects = mayConnect ? pet.spec.effectsForHit?.({ world, pet, target, effects }) ?? effects : effects;
   const packets = petAttackEffects(owner, victim, actualEffects);
-  let connected = false, blocked = false;
-  if (attackLike) {
-    actor.spec.hooks = {
-      onAttackResolved(ctx) { connected = mayConnect && !ctx.missed && !(ctx.blocked && hasState(victim, "parry")); blocked = ctx.blocked; },
-      onAttackPetHit(ctx) { connected = true; blocked = ctx.blocked; },
-    };
-    attackHit(world, actor, victim, blinded, packets, undefined, false, { critChance: 0 }, 1, originX);
-  } else {
-    const shield = victim.statuses.find((status) => status.kind === "state" && status.key === "spellShield");
-    if (hasState(victim, "parry")) {
-      // Riposte negates health damage after shields and damage-based healing.
-      // It keeps priority over spell shields and denies debuffs/hit callbacks.
-      for (const effect of packets) if (effect.type === "damage") applyEffect(world, actor, victim, effect, { scale: 1, ...(originX !== undefined ? { originX } : {}) });
-    } else if (shield) {
-      consumeSpellShield(world, actor, victim, undefined, packets, originX ?? actor.x);
-      log(world, victim.side, `spell shield blocks ${pet.spec.name}`);
-    } else {
-      for (const effect of packets) applyEffect(world, actor, victim, effect, { scale: 1, ...(originX !== undefined ? { originX } : {}) });
-      connected = true;
-    }
+  if (castInstance !== undefined && pet.spec.conquerorNonBasicAttack) {
+    for (const effect of packets) if (effect.type === "damage") effect.observedDamageKind = "pet";
   }
+  let connected = false, blocked = false;
+  const deliver = () => {
+    if (attackLike) {
+      actor.spec.hooks = {
+        onAttackResolved(ctx) { connected = mayConnect && !ctx.missed && !(ctx.blocked && hasState(victim, "parry")); blocked = ctx.blocked; },
+        onAttackPetHit(ctx) { connected = true; blocked = ctx.blocked; },
+      };
+      attackHit(world, actor, victim, blinded, packets, undefined, false, { critChance: 0 }, 1, originX);
+    } else {
+      const shield = victim.statuses.find((status) => status.kind === "state" && status.key === "spellShield");
+      if (hasState(victim, "parry")) {
+        // Riposte negates health damage after shields and damage-based healing.
+        // It keeps priority over spell shields and denies debuffs/hit callbacks.
+        for (const effect of packets) if (effect.type === "damage") applyEffect(world, actor, victim, effect, { scale: 1, ...(originX !== undefined ? { originX } : {}) });
+      } else if (shield) {
+        consumeSpellShield(world, actor, victim, undefined, packets, originX ?? actor.x);
+        log(world, victim.side, `spell shield blocks ${pet.spec.name}`);
+      } else {
+        for (const effect of packets) applyEffect(world, actor, victim, effect, { scale: 1, ...(originX !== undefined ? { originX } : {}) });
+        connected = true;
+      }
+    }
+  };
+  if (castInstance === undefined) deliver();
+  else withCastInstance(world, actor, castInstance, deliver);
   owner.totals.damageDealt += actor.totals.damageDealt;
   if (targetPet) targetPet.statuses = victim.statuses;
   if (attackLike && connected) observeOwnedPetBasicHit(world, pet, victim, blocked, targetPet);

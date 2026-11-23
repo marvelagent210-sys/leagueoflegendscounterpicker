@@ -135,6 +135,7 @@ const heimerdinger: KitModule = {
     const turretSpec = (owner: Unit): PetSpec => ({
       kind: TURRET,
       name: turretPet.name,
+      conquerorNonBasicAttack: true,
       hp: turret.hp + turret.hpAp * derive(owner).ap,
       armor: turret.armor,
       mr: turret.mr,

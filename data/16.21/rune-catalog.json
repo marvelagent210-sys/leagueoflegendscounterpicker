@@ -196,7 +196,7 @@
         "sha256": "97024c78c4ac7f912a2856a3c0218df4b958b3a5cebe7dcb2c2a3e3652b859d2",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Press the Attack|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} {{tip|Basic attacks}} {{tip|on-hit}} against enemy {{tip|champion|champions}} apply a {{tip|stack}} for 4 seconds, refreshing on subsequent applications, expiring upon attacking a new champion, and stacking up to 3 times. The third stack consumes all stacks to deal {{pp|40 + (160-40)/17*(x-1)|1 to 20 by 1}} '''bonus''' {{tip|adaptive damage}} and grant you 8% increased damage against champions until 5 seconds after exiting [[combat status|combat]] with them.\n|description2 = {{Tip data/Adaptive damage|pst2|description}}\n|range        = \n|cooldown     = {{tt|6|Starts after consuming a target's stacks}}\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8008,
@@ -215,7 +215,7 @@
         "sha256": "360eb66df82e0fe0c92ba4c0fb2714225147916404eccd9e8c53a38d677dde27",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Lethal Tempo|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Basic attacks {{tip|on-attack}} against enemy {{tip|champion|champions}} grant a {{tip|stack}} for 6 seconds, refreshing on subsequent attacks and stacking up to 6 times. Gain {{as|{{rd|6%|{{ap|6*0.8}}%}} '''bonus''' attack speed|as}} for each stack, up to {{as|{{rd|36%|{{ap|36*0.8}}%}}|as}} at maximum stacks.\n|description2 = At maximum stacks, basic attacks are empowered to fire a bolt at the target {{tip|on-attack}} that deals them {{rd|9 + (30-9)/17*(x-1) for 20|(9 + (30-9)/17*(x-1))*0.667 for 20|pp=true}} '''bonus''' {{tip|adaptive damage}} upon arrival, increased by 1% per {{as|1% '''bonus''' attack speed}}.\n|description3 = When the duration ends, one stack expires immediately and the rest expire one by one every {{fd|0.3}} seconds.\n|description4 = {{Tip data/Adaptive damage|pst2|description}}\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8009,
@@ -234,7 +234,7 @@
         "sha256": "a27418c682b63ac7087aeae94dd4aaf7c30fa058ec5aed57f982ae223285351f",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Presence of Mind|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 1\n|description  = {{sbc|Passive:}} Scoring a {{tip|takedown}} against an enemy champion restores {{as|15% of your '''maximum''' mana}} or {{as|15% of your '''maximum''' energy}} after a 1-second delay.\n|description2 = Damaging an enemy champion restores {{as|{{rd|6; then +0.8*x for 5; then +2*x for 5; then +3.2*x for 5; then +4*x for 2; then +8; then +4|6*0.8; then +0.8*0.8*x for 5; then +2*0.8*x for 5; then +3.2*0.8*x for 5; then +4*0.8*x for 2; then +8*0.8; then +4*0.8|pp=true}} mana}} or {{as|6 energy}} (8 second cooldown).\n|range        = \n|cooldown     = <!--formula=6 base, then +0.8 per level until level 6, then +2 per level until level 11, then +3.2 per level until level 16, then +4 per level until level 18, then +8 per level until level 19, then +4 per level.-->\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8010,
@@ -253,7 +253,7 @@
         "sha256": "32841990cc6ba88c6299c5739d5e2a82c95c94cdf9d74fefa84a5d2db2b0f0b0",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Conqueror|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Dealing damage to enemy {{tip|champions}} generates {{tip|stacks}} of ''Conqueror'', lasting for 5 seconds, refreshing on subsequent damage against champions, and stacking up to 12 times. Gain {{rd|2|1}} stacks for {{tip|basic damage}} {{tip|on-hit}}. Otherwise, gain 2 stacks for any damage that is neither {{tip|basic damage|basic}} nor non-{{tip|pet damage|pet}} {{tip|proc damage}}, up to once every 4 seconds per {{tip|cast instance}}.\n|description2 = Each stack of ''Conqueror'' grants {{adaptive|1.8 + (4-1.8)/17*(x-1)|20}}, up to {{adaptive|1.8*12 + (4*12-1.8*12)/17*(x-1)|20}} at maximum stacks, at which you also {{tip|heal}} for {{rd|8%|5%}} of the {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt against enemy champions.\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8014,
@@ -310,7 +310,7 @@
         "sha256": "ccd55ed138876771618b0a5691a952bc43f76d83a3a391034a59a506a129943e",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Fleet Footwork|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = Keystone\n|description  = {{Unique|Energized|Moving and basic attacking generates ''Charges'', up to 100.}}\n|description2 = At 100 ''Charges'', become {{tip|Energized}}, empowering your next {{tip|basic attack}} to {{tip|heal}} you for {{rd|15+(145/17)*(x-1)*(0.7025+0.0175*(x-1)) for 20|15*0.6+((145*0.6)/17)*(x-1)*(0.7025+0.0175*(x-1)) for 20|color=heal|pp=true}} {{as|(+ {{rd|10%|6%}} '''bonus''' AD)}} {{as|(+ {{rd|5%|3%}} AP)}} and grant {{as|{{rd|20%|15%}}|ms}} {{sti|{{as|'''bonus''' movement speed}}}} for 1 second. Against {{tip|minion|minions}}, the healing is 15% effective.\n|range        = \n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8105,
@@ -462,7 +462,7 @@
         "sha256": "54581e5030c0120ad313bd7cebd899ad39bdf83dd81f68bf51460b1cf7a40c18",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Taste of Blood|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 1\n|description  = {{sbc|Passive:}} Damaging an enemy {{tip|champion}} {{tip|heal|heals}} you for {{pp|16 + (40-16)/17*(x-1)|1 to 20 by 1|color=heal}} {{as|(+ 10% '''bonus''' AD)}} {{as|(+ 5% AP)}}.\n|description2 = Does not trigger at full health.\n|range        = \n|cooldown     = 20\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8140,
@@ -1013,7 +1013,7 @@
         "sha256": "ca2f9a6467c1de3f2d7a69356ba0dec2bc69b6130d3f1c215c5d2b65b22bba7a",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Shield Bash|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2019\n|path         = Resolve\n|slot         = 1\n|description  = {{sbc|Passive:}} Whenever you gain a {{tip|shield}}, your next attack against an enemy {{tip|champion}} is empowered to deal {{pp|5 + (30-5)/17*(x-1)|1 to 20 by 1}} {{as|(+ {{fd|2.5}}% '''bonus''' health)}} {{as|(+ 15% shield amount)}} '''bonus''' {{tip|adaptive damage}} [[on-hit]]. The empowered attack lasts for up to 2 seconds after the shield expires.\n|description2 = {{Tip data/Adaptive damage|pst2|description}}\n|range        = \n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8410,
@@ -1070,7 +1070,7 @@
         "sha256": "016d11d96f6099062907667bfe767ec5c911a96695615c34fc0eff39e8d955a1",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Grasp of the Undying|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = Keystone\n|description  = {{sbc|Passive:}} Entering [[Combat status|combat]] generates 1 [[stack]] every second for the next 3 seconds, refreshing the duration with each instance of combat and stacking the effect up to 4 times. At maximum stacks, your next [[basic attack]] {{tip|on-hit}} within 5 seconds against an enemy {{tip|champion}} consumes all stacks to deal {{as|'''bonus''' magic damage}} equal to {{as|{{rd|{{fd|3.5}}%|{{fd|1.4}}%}} of your '''maximum''' health}}, {{tip|heal}} you for {{as|{{rd|{{fd|1.3}}%|{{fd|0.52}}%}} of your '''maximum''' health)}}, and permanently grant you {{as|{{rd|5|2}} '''bonus''' health}}.\n|range        = \n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8439,
@@ -1089,7 +1089,7 @@
         "sha256": "7484070a7ee08dd8940edc74607ae1e8b0afec2d3b795b1765aede073dcf4d50",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Aftershock|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = Keystone\n|description  = {{sbc|Passive:}} {{tip|Immobilize|Immobilizing}} an enemy {{tip|champion}} grants you a static {{as|45|armor}} {{as|(+ 75% '''bonus''' armor)}} {{as|'''bonus''' armor}} and {{as|45|mr}} {{as|(+ 75% '''bonus''' magic resistance)}} {{as|'''bonus''' magic resistance}} for {{fd|2.5}} seconds. The '''bonus''' resistances are each capped at {{pp|80 to 150}}.\n|description2 = After the duration, you release a shockwave that deals {{as|{{pp|25 to 120}}|magic damage}} {{as|(+ 8% of your '''bonus''' health)}} {{as|magic damage}} to enemy champions and {{tip|monster|monsters}} within a {{tip|cr|icononly=true}} 350 radius.\n|range        = \n|cooldown     = 20\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8444,
@@ -1146,7 +1146,7 @@
         "sha256": "55957f17d94a3bd2875606453fc089977fb650ece00d22bfab6cc31086143363",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Overgrowth|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 3\n|description  = {{sbc|Passive:}} Every 8 {{tip|monster|monsters}} or enemy {{tip|minion|minions}} that die near you permanently generates a [[stack]]. Each stack grants {{as|3 '''bonus''' health}}. This effect can stack indefinitely.\n|description2 = After reaching 15 stacks (120 monsters or minions), your {{as|'''base'''|health}} and {{as|'''bonus''' health}} are permanently increased by {{fd|3.5}}%.\n|range        = 1400\n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8453,
@@ -1184,7 +1184,7 @@
         "sha256": "fca775707e709fe845743ce422de697386857bb3d9e5edce8203610272535119",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Font of Life|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 1\n|description  = {{sbc|Passive:}} {{tip|slow|Slowing}} or {{tip|immobilize|immobilizing}} an enemy {{tip|champion}} {{tip|heals}} you and the nearest and most wounded allied champion within {{tip|cr|icononly=true}} 1000 units for {{rd|10 + (50-10)/17*(x-1) for 20|10*0.7 + (50*0.7-10*0.7)/17*(x-1) for 20|pp=true|type=your level|color=heal}}.\n|range        = \n|cooldown     = 20\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8465,
@@ -1222,7 +1222,7 @@
         "sha256": "cee96bd9ecf4c9cc4c31e2085f3d8dfbfd1ad3022fd18542a75b52fce840f54e",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Bone Plating|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Resolve\n|slot         = 2\n|description  = {{sbc|Passive:}} After taking damage from an enemy {{tip|champion}}, activate ''Bone Plating'' for {{fd|1.5}} seconds. While active, the next 3 spells or attacks you receive from the enemy champion that triggered this effect deal {{pp|30 + (60-30)/17*(x-1)|1 to 20 by 1}} less damage (including {{tip|true damage}}).\n|range        = \n|cooldown     = 55\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8992,
@@ -1279,7 +1279,7 @@
         "sha256": "c9f5c1ca762b135a41c6be7f42555b471231b304ad7761237d89c9ad229e13c7",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Legend: Bloodline|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 2\n|description  = {{sbc|Passive:}} Gain {{as|{{sti|life steal|{{fd|{{#vardefineecho:scalingbloodline|0.45}}% life steal}}}}}} per ''Legend'' {{tip|stack}}, up to {{as|{{fd|{{#expr:{{#var:scalingbloodline}}*15}}}}%|life steal}} at maximum stacks, at which you also gain {{as|{{#vardefineecho:hpbloodline|85}} '''bonus''' health}}.\n|description2 = {{sbc|Legend:}} Gain ''Legend'' stacks for every 100 points earned, up to 15:\n* 100 points for champion {{tip|takedown|takedowns}}\n* 100 points for epic monster {{tip|takedown|takedowns}}\n* 25 points for large monster kills\n* 4 points for minion kills\n|range        = \n|cooldown     = \n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 9104,
@@ -1336,7 +1336,7 @@
         "sha256": "45f9059f1e4828ca23955f2eacf7a8555f5589e2aec5f29f7b89937a3e9d13f6",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Triumph|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Precision\n|slot         = 1\n|description  = {{sbc|Passive:}} Scoring a {{tip|takedown}} against an enemy champion {{tip|heals}} you for {{as|{{fd|2.5}}% of your '''maximum''' health}} {{as|(+ 5% of your '''missing''' health)}} and grants you an additional {{g|20}}, both after a 1-second delay.\n|range        = \n|cooldown     = \n|caption      = {{quote|\"The most dangerous game brings the greatest glory.\"|Noxian [[Reckoners|Reckoner]]|Rune caption}}\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 9923,

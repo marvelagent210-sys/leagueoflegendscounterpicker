@@ -12,6 +12,7 @@ const yasuo: KitModule = {
   build(kit) {
     const innate = kit.ability("Way of the Wanderer");
     const q = kit.ability("Steel Tempest");
+    q.quote("Steel Tempest applies basic damage to the first (closest) enemy hit");
     const w = kit.ability("Wind Wall");
     const e = kit.ability("Sweeping Blade");
     const r = kit.ability("Last Breath");
@@ -166,14 +167,16 @@ const yasuo: KitModule = {
           usable: (unit, world) => storm(unit, world) < 2,
           delivery: { kind: "line", range: q.field("range", "Thrust range"), width: q.field("width", "Thrust width") },
           onHit: thrustHit,
-          flags: { appliesOnHit: true, appliesLifeSteal: true, parry: true, dodgeKeepsEffects: true, projectile: false },
+          onAttackScale: 1,
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, appliesLifeSteal: true, parry: true, dodgeKeepsEffects: true, projectile: false },
         }),
         tempest("Q3", {
           cooldownKey: "Q",
           usable: (unit, world) => storm(unit, world) >= 2,
           delivery: { kind: "line", range: q.field("range", "Whirlwind missile range"), width: q.field("width", "Whirlwind missile width"), speed: q.field("speed") },
           onHit: [...thrustHit, { type: "displace", direction: "away", distance: 0, duration: knockUp }],
-          flags: { appliesOnHit: true, appliesLifeSteal: true, parry: true, dodgeKeepsEffects: true, projectile: true },
+          onAttackScale: 1,
+          flags: { appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, conquerorBasicStacks: 2, appliesLifeSteal: true, parry: true, dodgeKeepsEffects: true, projectile: true },
         }),
         {
           key: "W",

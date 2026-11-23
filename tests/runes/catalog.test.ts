@@ -78,8 +78,19 @@ describe("patch 26.21 rune source catalog", () => {
 
   it("distinguishes partial manual effects, unimplemented runes and the narrow Triple Tonic status", () => {
     const catalog = build();
-    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(54);
-    expect(catalog.runes.filter((entry) => entry.combatStatus === "manual-effects").map((entry) => entry.id).sort((a, b) => a - b)).toEqual([8014, 8017, 8299, 8444, 9101, 9104, 9105]);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "not-implemented")).toHaveLength(40);
+    expect(catalog.runes.filter((entry) => entry.combatStatus === "manual-effects").map((entry) => entry.id).sort((a, b) => a - b)).toEqual([8005, 8008, 8009, 8010, 8014, 8017, 8021, 8139, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111]);
+    expect(catalog.runes.find((entry) => entry.id === 8401)).toMatchObject({ name: "Shield Bash", pathId: 8400, slot: 1, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8451)).toMatchObject({ name: "Overgrowth", pathId: 8400, slot: 3, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8439)).toMatchObject({ name: "Aftershock", pathId: 8400, slot: 0, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8463)).toMatchObject({ name: "Font of Life", pathId: 8400, slot: 1, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8139)).toMatchObject({ name: "Taste of Blood", pathId: 8100, slot: 1, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8437)).toMatchObject({ name: "Grasp of the Undying", pathId: 8400, slot: 0, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8473)).toMatchObject({ name: "Bone Plating", pathId: 8400, slot: 2, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8005)).toMatchObject({ name: "Press the Attack", pathId: 8000, slot: 0, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8008)).toMatchObject({ name: "Lethal Tempo", pathId: 8000, slot: 0, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8021)).toMatchObject({ name: "Fleet Footwork", pathId: 8000, slot: 0, combatStatus: "manual-effects" });
+    expect(catalog.runes.find((entry) => entry.id === 8009)).toMatchObject({ name: "Presence of Mind", pathId: 8000, slot: 1, combatStatus: "manual-effects" });
     expect(catalog.runes.filter((entry) => entry.combatStatus === "legacy-udyr-only").map((entry) => entry.name)).toEqual(["Triple Tonic"]);
     expect(catalog.limitations.join("\n")).toContain("does not equip a rune page");
     expect(catalog.limitations.join("\n")).toContain("contextual replacements");

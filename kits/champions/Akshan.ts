@@ -6,7 +6,7 @@ import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { averageCritFactor } from "../../engine/rules/defense";
 import { attackTiming, canCast, launchBonusAttack, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { canTarget, directionTo, isUntargetable } from "../../engine/sim/combat";
+import { canTarget, directionTo, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
@@ -176,7 +176,7 @@ const akshan: KitModule = {
       { key: "E", name: e.name, slot: "E", cooldown: eCD, cooldownAfter: "state", cost: e.cost(), castTime: e.castTime(), delivery: { kind: "self" }, overlay: true, overlayChannels: ["R", "Rfire"], roles: ["engage"], flags: { grounded: true }, usable: (self, world) => !eBusy(self) && Boolean(anchorFor(world, self)) },
       { key: "E2", name: `${e.name} (swing)`, slot: "E", cooldown: 0, castTime: 0, countsAsCast: false, delivery: { kind: "self" }, overlay: true, overlayChannels: ["R", "Rfire"], flags: { usableWhileDisabled: true, knockdown: true }, roles: [], usable: (self, world) => self.memory[`${SWING}:phase`] === "attached" && recastCC(self, world) },
       { key: "E3", name: `${e.name} (dismount)`, slot: "E", cooldown: 0, castTime: 0, countsAsCast: false, overlay: true, delivery: { kind: "self" }, flags: { usableWhileDisabled: true }, roles: [], usable: (self, world) => self.memory[`${SWING}:phase`] === "swing" && world.tick >= Number(self.memory[`${SWING}:start`]) + ticks(eRecast) && recastCC(self, world) },
-      { key: "Eshot", name: `${e.name} (shot)`, slot: "other", activation: "internal", cooldown: 0, castTime: 0, budgetExcluded: true, delivery: { kind: "target", range: shotRange }, onHit: [{ type: "damage", damageType: "physical", amount: eBase }], flags: { projectile: true, parry: true, spellShield: true, basicDamage: true, petBasicAttack: true, appliesOnHit: true, appliesLifeSteal: true, petContactHooks: true }, onHitScale: eOnHit, roles: [], usable: () => false },
+      { key: "Eshot", name: `${e.name} (shot)`, slot: "other", activation: "internal", cooldown: 0, castTime: 0, budgetExcluded: true, delivery: { kind: "target", range: shotRange }, onHit: [{ type: "damage", damageType: "physical", amount: eBase }], flags: { projectile: true, parry: true, spellShield: true, basicDamage: true, petBasicAttack: true, appliesOnHit: true, fleetFootwork: true, pressTheAttack: true, appliesLifeSteal: true, petContactHooks: true }, onHitScale: eOnHit, roles: [], usable: () => false },
       { key: "R", name: r.name, slot: "R", cooldown: rCD, cooldownAfter: "state", cost: r.cost(), castTime: r.castTime(), overlay: true, delivery: { kind: "target", range: rRange, edge: false }, channel: { duration: rDuration, mobile: true, interruptible: false }, flags: { spellShield: false }, roles: ["damage"], usable: (self) => !rBusy(self), estimate: (self, target) => evaluate(rDamage, self, target) * (1 + rMissing * missingShare(target)), estimateDelay: () => rDuration + rInterval },
       { key: "Rrelease", name: `${r.name} (release)`, slot: "R", cooldown: 0, castTime: 0, countsAsCast: false, budgetExcluded: true, preserveChannel: true, allowedDuringChannel: ["R"], overlay: true, overlayChannels: ["R"], delivery: { kind: "self" }, roles: [], usable: (self, world) => self.memory["akshan:r:phase"] === "charge" && world.tick >= Number(self.memory["akshan:r:start"]) + ticks(rRecast) },
       { key: "Rfire", name: `${r.name} (firing)`, slot: "other", activation: "internal", cooldown: 0, castTime: 0, delivery: { kind: "self" }, channel: { duration: rCount * rInterval, mobile: true, interruptible: false }, roles: [], usable: () => false },
@@ -234,7 +234,11 @@ const akshan: KitModule = {
           }
           if (ctx.ability.key === "E2") {
             const anchor = Number(ctx.memory[`${SWING}:anchor`]), sign = ctx.self.x > anchor ? 1 : -1;
-            if (Math.abs(ctx.self.x - anchor) < eRecoil) ctx.self.x = stopBeforeTerrain(ctx.world, ctx.self, anchor + sign * eRecoil, collision);
+            if (Math.abs(ctx.self.x - anchor) < eRecoil) {
+              const from = ctx.self.x;
+              ctx.self.x = stopBeforeTerrain(ctx.world, ctx.self, anchor + sign * eRecoil, collision);
+              observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "E2", endTick: ctx.tick, ended: true });
+            }
             ctx.memory[`${SWING}:phase`] = "swing"; ctx.memory[`${SWING}:start`] = ctx.tick; ctx.memory[`${SWING}:x`] = ctx.self.x; ctx.memory[`${SWING}:shots`] = 1;
             const resume = ctx.self.action;
             ctx.self.action = { kind: "dash", ability: "E2", startTick: ctx.tick, endTick: ctx.tick + ticks(Math.abs(ctx.self.x - anchor) * Math.acos(Math.min(1, collision / Math.abs(ctx.self.x - anchor))) / swingSpeed), perTick: 0, stopAtContact: false, unstoppable: false, ...(resume ? { resume } : {}) };
@@ -242,7 +246,9 @@ const akshan: KitModule = {
           }
           if (ctx.ability.key === "E3") {
             const direction = directionTo(ctx.self, ctx.enemy) * (ctx.aim?.direction ?? 1), distance = Math.min(eJump, Math.max(0, ctx.aim?.distance ?? eJump));
-            ctx.self.x = stopBeforeTerrain(ctx.world, ctx.self, ctx.self.x + direction * distance, ctx.self.spec.base.pathingRadius);
+            const from = ctx.self.x;
+            ctx.self.x = stopBeforeTerrain(ctx.world, ctx.self, from + direction * distance, ctx.self.spec.base.pathingRadius);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "E3", endTick: ctx.tick, ended: true });
             endSwing(ctx, true);
           }
           if (ctx.ability.key === "R") {
@@ -320,7 +326,7 @@ const akshan: KitModule = {
               }
               if (target) {
                 const pet = "owner" in target ? target : undefined, isMinion = pet && (pet.spec.targetClass ?? ctx.world.units[pet.owner].spec.petTargetClasses?.[pet.spec.name]) === "minion";
-                launchBonusAttack(ctx.world, ctx.self, target, { baseDamageScale: isMinion ? minionRatio : secondRatio, critChance: derive(ctx.self).critChance, missileSpeed: secondSpeed, attackTag: SECOND });
+                launchBonusAttack(ctx.world, ctx.self, target, { baseDamageScale: isMinion ? minionRatio : secondRatio, critChance: derive(ctx.self).critChance, missileSpeed: secondSpeed, attackTag: SECOND, energizedOnHit: true, onAttackScale: 1 });
                 ctx.self.attackReadyTick = ctx.tick + ticks(1 / derive(ctx.self).attackSpeed); ctx.memory[`${SECOND}:pending`] = false;
               } else cancelSecond(ctx);
             }

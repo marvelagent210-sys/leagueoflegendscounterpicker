@@ -280,10 +280,12 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Gangplank sets a keg 330 units in front of the enemy, inside the blast and out of a melee enemy's reach (ahead of an enemy walking away), where Parrrley can reach it; when it is down to 1 hit point he sets it off, first adding a connected keg on the enemy if it stepped out. He places none while fleeing.
 - Cannon Barrage's first wave lands 0.5 s after the cast (the game files' CannonDelay); his ship has no upgrades.
 
-### Source values read (50)
+### Source values read (51)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Parrrley | Parrrley deals basic damage | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | applies on-hit effects as a ranged attack | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
 | Trial by Fire | staticCooldown: 15 | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
 | Trial by Fire | Innate: Periodically, Gangplank empowers his next basic attack to set the target on fire, dealing them 50 – 250 (based on level) (+ 100% bonus AD) bonus true damage over 2.5 seconds. | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
 | Trial by Fire | (+ 100% bonus AD) bonus true damage over 2.5 seconds | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
@@ -296,7 +298,6 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Parrrley | Physical Damage: 10 / 40 / 70 / 100 / 130 (+ 100% AD) | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
 | Parrrley | targetRange: 625 | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
 | Parrrley | speed: 2600 | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
-| Parrrley | applies on-hit effects as a ranged attack | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
 | Parrrley | This damage is affected by critical strike modifiers | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
 | Powder Keg | Maximum charges: 3 / 3 / 4 / 4 / 5 | [4091400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4091400) |
 | Powder Keg | targetRange: 1000 | [4091400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4091400) |

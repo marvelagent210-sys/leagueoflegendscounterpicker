@@ -41,6 +41,7 @@ const azir: KitModule = {
     const stabPart = w.formulaPart("Magic Damage", ["AP"]);
     const stab: Formula = { ...stabPart, base: stabPart.base + w.quoted("(based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 42.5 / 50 / 57.5 / 65% AP)", 4) };
     const onHitShare = w.quoted("Against the primary target, the Sand Soldier's attack applies both on-hit and on-attack effects, the damage of which is reduced to 50% effectiveness.", 0) / 100;
+    w.quote("Energized will stack but not be consumed");
     const laterShare = w.quoted("Subsequent Sand Soldier attacks against the same target deal 25% damage without applying on-hit and on-attack effects.", 0) / 100;
     const reachWords = "Whenever Azir declares an attack on a target within 375 units of one of his Sand Soldiers, he instead commands all Sand Soldiers in range to attack.";
     const soldierReach = soldier.quoted(reachWords, 0);
@@ -241,7 +242,10 @@ const azir: KitModule = {
         onAttack(ctx) {
           // Declared at an enemy within a soldier's reach: the soldiers stab instead.
           if (ctx.targetPet || striking(ctx.world, ctx.self, ctx.enemy).length === 0) delete ctx.memory[STAB];
-          else ctx.memory[STAB] = true;
+          else {
+            ctx.memory[STAB] = true;
+            ctx.action.onAttackEffects = "self";
+          }
         },
         onAttackLaunch(ctx) {
           if (ctx.targetPet || ctx.memory[STAB] !== true) return undefined;
@@ -252,7 +256,7 @@ const azir: KitModule = {
           if (!first) return false;
           const before = enemy.totals.damageTaken + enemy.totals.absorbed;
           // The full stab, with his on-hits at 50%.
-          attackHit(ctx.world, ctx.self, enemy, ctx.action.blinded, ctx.action.onHit, undefined, false, { baseDamage: { damageType: "magic", amount: scaled(stab, 1 / onHitShare), label: soldier.name } }, onHitShare, first.x);
+          attackHit(ctx.world, ctx.self, enemy, ctx.action.blinded, ctx.action.onHit, undefined, false, { energizedOnHit: false, conquerorBasicStacks: 2, baseDamage: { damageType: "magic", amount: scaled(stab, 1 / onHitShare), label: soldier.name } }, onHitShare, first.x);
           const landed = enemy.totals.damageTaken + enemy.totals.absorbed > before;
           if (landed) for (let i = 0; i < others.length; i++) applyEffect(ctx.world, ctx.self, enemy, { type: "damage", damageType: "magic", amount: scaled(stab, laterShare), label: soldier.name }, { scale: 1 });
           return false;

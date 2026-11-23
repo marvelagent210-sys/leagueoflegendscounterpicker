@@ -3,7 +3,7 @@ import { ATTACK_SPEED_CAP } from "../../engine/stats";
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, releaseCooldowns, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, react, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canTarget, directionTo, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canTarget, directionTo, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { destroyPet, petsOf, spawnPet } from "../../engine/sim/pets";
@@ -186,7 +186,15 @@ const jarvan: KitModule = {
           if (ctx.ability.key === "Qdash") { knockPath(ctx, Number(ctx.memory["jarvan:qPrevious"] ?? ctx.self.x), ctx.self.x); ctx.memory["jarvan:qPrevious"] = ctx.self.x; ctx.action.perTick = Math.sign(ctx.action.perTick) * Math.min(dashSpeed / 30, Math.abs(Number(ctx.memory["jarvan:qEndpoint"]) - ctx.self.x)); }
         },
         onDashEnd(ctx) {
-          if (ctx.ability.key === "Qdash") { if (!ctx.interrupted) ctx.self.x = Number(ctx.memory["jarvan:qEndpoint"] ?? ctx.self.x); knockPath(ctx, Number(ctx.memory["jarvan:qPrevious"] ?? ctx.self.x), ctx.self.x); return; }
+          if (ctx.ability.key === "Qdash") {
+            if (!ctx.interrupted) {
+              const from = ctx.self.x;
+              ctx.self.x = Number(ctx.memory["jarvan:qEndpoint"] ?? from);
+              if (from !== ctx.self.x) observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "Qdash", endTick: ctx.tick, ended: true });
+            }
+            knockPath(ctx, Number(ctx.memory["jarvan:qPrevious"] ?? ctx.self.x), ctx.self.x);
+            return;
+          }
           if (ctx.ability.key !== "R") return;
           delete ctx.memory["jarvan:rLeaping"];
           if (!ctx.self.alive || ctx.self.hp <= 0 || ctx.self.resurrection || ctx.interrupted) { finishRing(ctx); return; }

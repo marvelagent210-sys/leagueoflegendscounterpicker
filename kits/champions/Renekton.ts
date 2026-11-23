@@ -35,7 +35,7 @@ const renekton: KitModule = {
     w.quote("Ruthless Predator's first strike can critically strike for 100% AD bonus physical damage");
     w.quote("Even if empowered Ruthless Predator is blocked by a spell shield, it will still destroy any existing damage shields on the target");
     kit.assume("Renekton starts fights with no Fury.");
-    kit.assume("Ruthless Predator deals two or three separate basic-damage strikes; other attached attack on-hit effects are applied once, as no additional on-hit item or champion effect is modeled for Renekton.");
+    kit.assume("Ruthless Predator deals two or three separate basic-damage strikes; distinct strike applications are reported individually in their shared resolution tick, while other attached attack on-hit effects retain the existing once-per-attack approximation.");
     kit.assume("Dice dashes back out of a short trade, and on through the enemy in an all-in.");
 
     // Fury: abilities other than Slice are empowered at 50 Fury, spending it.
@@ -73,6 +73,7 @@ const renekton: KitModule = {
       windup: w.quoted("have a 0.2-second cast time", 0),
       split: { physical: 0, magic: 0 },
       spellShield: true,
+      onHitApplications: strikes.length,
       ...(strikes.length === 3 ? { breakShields: true } : {}),
       onHit: [...strikes, { type: "cc", cc: "stun", duration: stun }],
     });

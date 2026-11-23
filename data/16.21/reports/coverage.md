@@ -17,11 +17,11 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Amumu | Amumu | 47 | 4 |
 | Anivia | Anivia | 76 | 5 |
 | Annie | Annie | 65 | 8 |
-| Aphelios | Aphelios | 179 | 9 |
+| Aphelios | Aphelios | 180 | 9 |
 | Ashe | Ashe | 43 | 8 |
 | Aurelion Sol | AurelionSol | 45 | 5 |
 | Aurora | Aurora | 52 | 2 |
-| Azir | Azir | 55 | 5 |
+| Azir | Azir | 56 | 5 |
 | Bard | Bard | 36 | 5 |
 | Bel'Veth | Belveth | 49 | 5 |
 | Blitzcrank | Blitzcrank | 78 | 6 |
@@ -42,10 +42,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Evelynn | Evelynn | 72 | 6 |
 | Ezreal | Ezreal | 53 | 5 |
 | Fiddlesticks | Fiddlesticks | 46 | 3 |
-| Fiora | Fiora | 50 | 3 |
+| Fiora | Fiora | 51 | 3 |
 | Fizz | Fizz | 83 | 6 |
 | Galio | Galio | 111 | 5 |
-| Gangplank | Gangplank | 58 | 5 |
+| Gangplank | Gangplank | 60 | 5 |
 | Garen | Garen | 35 | 4 |
 | Gnar | Gnar | 70 | 7 |
 | Gragas | Gragas | 57 | 3 |
@@ -89,7 +89,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Malphite | Malphite | 41 | 1 |
 | Malzahar | Malzahar | 85 | 12 |
 | Maokai | Maokai | 91 | 6 |
-| Master Yi | MasterYi | 51 | 5 |
+| Master Yi | MasterYi | 52 | 5 |
 | Mel | Mel | 48 | 3 |
 | Milio | Milio | 45 | 1 |
 | Miss Fortune | MissFortune | 62 | 6 |
@@ -151,7 +151,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Trundle | Trundle | 43 | 3 |
 | Tryndamere | Tryndamere | 34 | 3 |
 | Twisted Fate | TwistedFate | 58 | 8 |
-| Twitch | Twitch | 67 | 6 |
+| Twitch | Twitch | 68 | 6 |
 | Udyr | Udyr | 80 | 12 |
 | Urgot | Urgot | 50 | 5 |
 | Varus | Varus | 71 | 8 |
@@ -160,23 +160,23 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Vel'Koz | Velkoz | 70 | 7 |
 | Vex | Vex | 73 | 6 |
 | Vi | Vi | 88 | 7 |
-| Viego | Viego | 52 | 4 |
+| Viego | Viego | 53 | 4 |
 | Viktor | Viktor | 84 | 8 |
 | Vladimir | Vladimir | 64 | 10 |
-| Volibear | Volibear | 50 | 4 |
-| Warwick | Warwick | 67 | 5 |
+| Volibear | Volibear | 51 | 4 |
+| Warwick | Warwick | 69 | 5 |
 | Xayah | Xayah | 75 | 7 |
 | Xerath | Xerath | 67 | 8 |
 | Xin Zhao | XinZhao | 65 | 6 |
-| Yasuo | Yasuo | 49 | 4 |
-| Yone | Yone | 34 | 3 |
+| Yasuo | Yasuo | 50 | 4 |
+| Yone | Yone | 35 | 3 |
 | Yorick | Yorick | 83 | 9 |
 | Yunara | Yunara | 52 | 4 |
 | Yuumi | Yuumi | 34 | 3 |
 | Zaahen | Zaahen | 61 | 5 |
 | Zac | Zac | 71 | 4 |
 | Zed | Zed | 90 | 6 |
-| Zeri | Zeri | 114 | 6 |
+| Zeri | Zeri | 116 | 6 |
 | Ziggs | Ziggs | 72 | 9 |
 | Zilean | Zilean | 34 | 3 |
 | Zoe | Zoe | 74 | 7 |

@@ -222,7 +222,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 ### Assumptions
 
 - Renekton starts fights with no Fury.
-- Ruthless Predator deals two or three separate basic-damage strikes; other attached attack on-hit effects are applied once, as no additional on-hit item or champion effect is modeled for Renekton.
+- Ruthless Predator deals two or three separate basic-damage strikes; distinct strike applications are reported individually in their shared resolution tick, while other attached attack on-hit effects retain the existing once-per-attack approximation.
 - Dice dashes back out of a short trade, and on through the enemy in an all-in.
 
 ### Source values read (44)

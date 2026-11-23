@@ -1,7 +1,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, canStartAttack } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canSee, directionTo, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canSee, directionTo, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { canTargetPet } from "../../engine/sim/pets";
@@ -111,7 +111,9 @@ const braum: KitModule = {
             const desired = ally.x + dir*wOffset, delta = desired-ctx.self.x, maximum = enemies.length ? wRange+wOffset : wRange;
             const endpoint = ctx.self.x + Math.sign(delta)*Math.min(Math.abs(delta),maximum);
             if (ctx.world.terrain.some(wall => wall.endTick > ctx.tick && endpoint + ctx.self.spec.base.pathingRadius > wall.from + EPSILON && endpoint - ctx.self.spec.base.pathingRadius < wall.to - EPSILON)) return;
+            const from = ctx.self.x;
             ctx.self.x = endpoint;
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "W", endTick: ctx.tick, ended: true });
           }
           buffW(ctx,pet);
         }

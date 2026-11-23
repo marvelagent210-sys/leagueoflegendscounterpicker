@@ -222,7 +222,7 @@ const kayn: KitModule = {
           amplify(ctx, ctx.mitigated, ctx.damageType);
           // Darkin Slayer: his spells' physical damage heals him.
           if (!assassin && !ctx.attack && ctx.damageType === "physical" && ctx.mitigated > 0) {
-            const bonusHealth = Math.max(0, derive(ctx.self).maxHp - ctx.self.spec.base.hp);
+            const bonusHealth = Math.max(0, derive(ctx.self).bonusHp);
             ctx.apply({ type: "heal", amount: { base: (slayerHeal + slayerHealPerHealth * bonusHealth) * ctx.mitigated } }, true);
           }
         },

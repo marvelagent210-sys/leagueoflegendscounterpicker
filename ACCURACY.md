@@ -2568,6 +2568,1022 @@ browser combat-rune controls and rune-aware allocation/search remain unfinished.
 No new controlled in-game measurements or completed rune-page fidelity are
 claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) stays in progress.
 
+## Legend: Bloodline (full refresh and core release checks, 10 November 2026)
+
+Bloodline (9103) is the eighth partial combat effect in manual plain-stat duels.
+Its implementation
+began on 8 November, resumed on 10 November and completed its genuine full refresh
+and checkpoint audit on 10 November. Full pages, keystones, browser combat-rune
+controls, general item/rune composition and rune-aware allocation/search remain
+unfinished. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md) remains
+in progress.
+
+Each selected side must declare starting history with `--legend-points` or
+`--enemy-legend-points`, including explicit zero. Values are nonnegative safe
+integers; points retain their remainder and cap at 1,500. Bloodline has zero
+base life steal and grants **0.45% per completed 100-point stack**, up to fifteen
+stacks and **6.75%**. It awards **85 direct bonus health once, only at 1,500
+points**. Thus 1,499 points gives 6.3% life steal and no health. Alacrity, Haste
+and Bloodline share Precision's Legend row and cannot share one side's loadout.
+
+The complete [template 3971359](https://wiki.leagueoflegends.com/en-us/?oldid=3971359)
+and [article 4021767](https://wiki.leagueoflegends.com/en-us/?oldid=4021767)
+establish the rule. Named client fields cross-check zero base life steal,
+0.45 percentage points per stack, fifteen stacks and 85 health; compilation
+converts the percentage to the runtime fraction `0.0045`. Three opaque
+100-valued fields remain unnamed; the Wiki wording establishes the stack and
+champion reward rules. The compiler's combat bundle now retains **42 complete
+Wiki pages**, preserving all thirty earlier source objects and adding twelve.
+The complete frozen client bytes and descriptor remain unchanged, with SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+
+An independent refetch of the versioned client URL found a single unrelated
+Electrocute VFX resource-map change; Bloodline's complete object is identical.
+The refetched bytes, hashes and recursive difference are retained in the
+external source audit. The mutable remote URL does not replace the frozen
+client source or its hash. Health's historical Bloodline 100-HP trivia is also
+retained but does not supply the current rune amount.
+
+Runtime progress adds 100 only for actual hostile champion-body kills credited
+by the engine, including native owned-pet credit and body deduplication.
+Clone/Spirit victims, protected resurrection entry and unrepresented farm,
+assists or monster rewards do not create points. Counted post-death kills grant
+once. Declared history may represent earlier real events; level 20 does not
+imply maximum stacks. Points and permanent stats persist through supported
+death/form transitions, remain local to worlds and copied branches, and restart
+from declared history for independent scenarios and variants. The existing
+after-kit kill-hook phase is retained; exact live ordering against other kill
+effects and the lethal packet's own life steal versus its new stack is unmeasured.
+
+Life steal adds to the existing stat and uses the normal eligible packet/healing
+path. Physical, magic and true basic damage can qualify; ordinary spells do not
+qualify merely by dealing damage. The complete
+[Life steal 4060425](https://wiki.leagueoflegends.com/en-us/?oldid=4060425)
+specifically includes Kled W's fourth-hit damage and K'Sante's All Out bonus
+from attacks. Those packets receive explicit life-steal eligibility with attack
+blocking and scaling. K'Sante's mark and ordinary spell packets remain excluded;
+his existing **20% omnivamp is separate**. Life steal retains Grievous Wounds,
+healing modifiers, health caps and the existing `noHealing` life-steal exception.
+The existing shield/overkill/damage-hook conventions are retained model rules,
+and broader source-specific pet-vamp inheritance remains qualified.
+
+The cap award uses direct maximum-health restoration rather than healing.
+[Health 4073062](https://wiki.leagueoflegends.com/en-us/?oldid=4073062) says an
+increase to maximum health restores the same current health, while
+[Healing 4041638](https://wiki.leagueoflegends.com/en-us/?oldid=4041638)
+distinguishes this gain from healing. An ordinary living owner therefore gains
+85 maximum and current HP once, independent of Grievous Wounds, heal
+amplification, `noHealing` and healing totals. Treatment of an otherwise living
+owner at a protected healing floor composes these general rules; it is not a
+Bloodline-specific game measurement. Reinitialization and later capped kills
+cannot restore the award again.
+
+The retained champion rules bound that direct award:
+
+- [Ornn's Living Forge 4089066](https://wiki.leagueoflegends.com/en-us/?oldid=4089066)
+  adds 10% plus 4% per upgrade from all sources. The frozen kit assumes five
+  upgrades and 30%, so Bloodline grants **110.5 HP**. The 18%/100.3-HP case
+  would require a separately declared two-upgrade history.
+- [Pyke's Gift of the Drowned Ones 4007005](https://wiki.leagueoflegends.com/en-us/?oldid=4007005)
+  converts the 85 to **85/14 bonus AD**, with zero maximum/current-HP gain.
+- [Vladimir's Crimson Pact 4073468](https://wiki.leagueoflegends.com/en-us/?oldid=4073468)
+  converts external 85 health to **2.83305 AP** at 3.333%. Its own outputs do not
+  feed each other, and only the direct 85 restores current HP. Broader external
+  multiplier and item loops remain outside this contract.
+- [Mounted Skaarl 4058479](https://wiki.leagueoflegends.com/en-us/?oldid=4058479)
+  assigns bonus health to Skaarl. [Dismounted Skaarl 4038397](https://wiki.leagueoflegends.com/en-us/?oldid=4038397)
+  permits direct restoration while dismounted, up to Kled's unchanged own cap.
+  Later remount uses Skaarl's increased maximum and preserves Kled's own health.
+- [K'Sante's All Out 4051537](https://wiki.leagueoflegends.com/en-us/?oldid=4051537)
+  keeps its original absolute healing/regeneration ceiling of **65% of maximum
+  HP on entry**. Direct health can exceed it; later healing retains that ceiling.
+  The source does not quantify the brief threshold reset, so no tick is invented.
+- Seeded health precedes [Malphite's Granite Shield 3973718](https://wiki.leagueoflegends.com/en-us/?oldid=3973718)
+  and [Galio's Shield of Durand 3990299](https://wiki.leagueoflegends.com/en-us/?oldid=3990299)
+  setup, adding 8.5 ordinary shield and 11.475 rank-five magic shield. Later
+  recharge reads the new maximum, and future Galio casts use new bonus health.
+  An earned award does not immediately resize an existing shield or resnapshot
+  active damage reduction; the retained sources do not establish that behavior.
+
+Dead, zero-HP, fallen, death-defied or resurrecting owners preserve points and
+permanent stats but receive **no current-health restoration**. This conservative
+simulator policy prevents revival; exact restoration in those windows remains
+unmeasured. Neither `alive` nor positive HP alone establishes the game behavior.
+The [mechanics gap audit](docs/runes/MECHANICS_GAPS.md) records these proof limits.
+
+**The genuine full refresh and core release checks completed on 10 November 2026.**
+[Workflow 42769645596](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596)
+ran from 06:36:30 to 09:17:57 UTC (2 hours, 41 minutes and 27 seconds).
+All 22 jobs succeeded: five plain-stat shards, fifteen build shards, planning
+and aggregation. Frozen source commit `e7bdb57b070054d484cff1ff9e75696c12b31b8d`
+produced data commit `0fcdf2178c17db7aa573b87c995dec3c8e4fdcf7`.
+Both matrices genuinely computed all **14,878 unordered pairings**, with
+**zero reused pairs** in each. No old calculation was restamped.
+
+The complete audit verified all **29,756 genuine checkpoints** against every
+forward and reverse aggregate and scenario score, selected variant, decoded
+build list and spending record. Both matrices cover all **173 champions and
+29,756 directed cells**. All twenty original artifact archives match their API
+sizes and hashes and contain the audited checkpoint archives. The **1,525 frozen
+non-Markdown input files** match both the worker source commit and final working
+tree. Both shared calculation keys changed; Kled, K'Sante, Ornn and Pyke have
+updated kit keys.
+
+The complete comparison against baseline
+`b6f393e2c6394a6e3349beee2b08ae86043a2892` measures the actual default changes:
+
+- **Plain stats:** all 14,878 result payloads are unchanged, including aggregate
+  scores, all six scenarios, selected variants and stat spending.
+- **Build matrix:** 22 pairings (44 directions) have changed payloads, eleven
+  involving Kled and eleven involving K'Sante. Aggregate scores changed in all
+  22, scenario results in 19, and decoded build lists and item sets in nine
+  pairings (eleven directions). Selected variants and spending are unchanged;
+  the item dictionary is unchanged. These counts overlap and compare exact
+  stored values, including two machine-precision aggregate differences and one
+  further aggregate-only change below displayed scenario precision.
+
+Default fights select no optional combat runes. Their observed changes reflect
+the shared health and life-steal packet corrections. The existing build search
+remains heuristic: changed candidates or selected builds do not establish a
+global optimum or improved live-game accuracy.
+
+Bounded current-engine checks also find worse selected routes at the same
+opponent build. Against the identical selected K'Sante build, Gwen's previous
+build scores **−0.2775263918183582**, while her newly selected build scores
+**−0.8288135739703565**. With Bard's build held identical, Bard scores
+**+0.2927861043339177** against K'Sante's previous build and
+**+0.37550792506599184** against K'Sante's newly selected build, so that new
+K'Sante choice also performs worse at this intersection. The existing
+conservative policy independently selects maximin/minimax routes; their
+intersection need not be a mutual best response or global optimum. These
+observations are selected-route regressions, not evidence of improved opponent
+builds or live-game accuracy. Native reruns of the four largest changed fights
+and the largest Kled change exactly reproduce the current stored aggregates and
+scenarios, establishing stored-fight consistency within those limits.
+
+The refresh workflow passed **9,151 tests across 262 files**, with **five existing
+skipped tests** (9,156 total), and both TypeScript projects against the refreshed
+data. Both normal matrix freshness checks and the final local production web
+build pass. The two formerly stale-matrix test files pass all 24 tests against
+the refreshed data. Final pull-request CI follows this documentation update.
+The full checkpoint and semantic-diff receipts are
+retained as `refresh-validation-final-01.json` and
+`refresh-validation-final-01-diff.json` in the external Bloodline audit.
+
+Full rune pages, keystones, general farm/assist/monster progression, browser
+combat-rune controls, item/rune composition and rune-aware allocation/search
+remain unfinished. No controlled in-game measurements or complete rune-page
+fidelity are claimed. Step 1 of the [ordered roadmap](docs/IMPROVEMENT_ROADMAP.md)
+remains in progress.
+
+## Triumph: ninth partial manual effect (11 November full refresh)
+
+Triumph (9111) joins the manual plain-stat inventory as its ninth partial effect.
+Implementation began on **11 November 2026** against main
+`4ffaef9a8ea5d21a936d985a6575e776d51d8d46` (merged PR #25), on
+`codex/triumph-20261111`. The genuine full matrix refresh, complete checkpoint
+audit and core release checks completed on **11 November**. Complete default
+result payloads are unchanged against that merged-main baseline. The offline
+catalog freshness check passed again on **12 November**; final delivery CI is
+tracked in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26) for its actual delivery head.
+The completed Legend releases above remain historical evidence for those batches.
+
+The retained Summoner's Rift rule is **2.5% maximum HP plus 5% missing HP**, with
+a **one-second delay**. The full article explicitly snapshots missing HP at
+takedown. The complete template and frozen client fields corroborate the
+formula; the short client description omits the maximum-HP component. The
+compiled `bonusGold: 20` is **economic reference only**: no combat award, wallet,
+spending, fixed-budget increase, shopping or search change is implemented.
+
+The combat bundle contains **47 complete Wiki page objects**: all 42 previous
+objects remain exactly equal, with these five additions:
+
+| Complete source | Exact revision |
+|---|--:|
+| Template:Rune data Triumph | 3825924 |
+| Triumph | 3980916 |
+| Assist | 4016680 |
+| Heal and shield power | 4021804 |
+| Template:Healing modifiers | 4021803 |
+
+Fourteen independently re-fetched pinned complete Wiki revisions on 11 November
+match their retained content hashes, including nine already present pages.
+The full frozen client remains 2,177,672 bytes, SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`,
+with the same descriptor. Its relevant Triumph and visual-missile objects equal
+the earlier independently fetched complete client response. That restricted
+object equality neither establishes whole-response equality nor represents a
+fresh 11 November client fetch. The known unrelated Electrocute VFX drift was
+not incorporated into the frozen client. These receipts establish retained
+source correspondence, not measured live behavior.
+
+Native `notifyKill` captures immutable scalar credited-owner health/lifecycle
+facts after existing deduplication and owned-pet owner choice, before **all**
+composed `onKill` callbacks. Triumph stores
+`0.025 × maxHpAtCredit + 0.05 × missingHpAtCredit` as a fixed raw amount. The
+source supports missing HP at takedown; choosing this exact native frame and
+maximum HP from the same frame is an explicit local policy. It does not prove
+global live phase or maximum-HP snapshot timing. The native frame follows the
+victim's lethal transition and precedes kit kill-heals, Legend awards and the
+killing packet's later life steal; it is not a pre-lethal or pre-packet frame.
+
+Credit is limited to an actual hostile champion body killed under the existing
+native dispatch, including owner credit for an owned pet's kill and existing
+deduplication. Counted positive-HP fallen victims qualify. Pet/clone victims,
+farm, friendlies, assists, despawns and protected victim resurrection entry do
+not create an entitlement. There is no Triumph history flag or inferred
+pre-duel entitlement. Triumph and Absorb Life share Precision row 1 and cannot
+coexist; Triumph with one Legend is legal, with that side's explicit Legend
+points still required.
+
+Pending amount and deadline belong to the actual body's primitive memory.
+Same-body forms preserve them, world copies have independent state, fresh
+replacement bodies start empty, and copied pet hooks cannot redeem the owner's
+entitlement. There is no side-only scheduled heal. At the first due upkeep tick,
+30 ticks after credit, state is consumed before applying ordinary healing.
+Current healing modifiers/denial, Grievous Wounds, maximum HP and absolute or
+fractional caps govern delivery under a declared modifier-timing policy. This
+does not establish support for every heal/shield-power or Revitalize stacking
+interaction. Pending healing neither adds persistent hostile output nor
+extends a completed duel; existing hostile output alone can keep it running.
+
+Dead, zero-HP, fallen, death-defied and counted-dead recipients receive no new
+entitlement and cancel pending healing. The counted-death guard stays sticky
+even if a fixture restores positive HP before upkeep, preventing banking for a
+later return. Positive-HP attackable resurrection uses ordinary healing, and
+stasis alone remains eligible. These are explicit, unmeasured Triumph recipient
+policies. General respawn, replacement-memory transfer and possession remain
+outside this lifecycle contract.
+
+Focused tests cover actual Kled's combined-maximum formula with fixed own-health
+healing ceiling, and K'Sante's retained maximum HP with All Out's original
+absolute **65%-of-entry-maximum** healing ceiling. The latter is not a formula
+denominator and does not grow with later maximum HP. A legal Triumph/Bloodline
+fixture at **1,499 points** snapshots before Bloodline's one-time +85 award.
+Dismounted Kled can receive +85 maximum HP but only +20 current HP at his cap,
+increasing missing HP by 65; a post-award snapshot would change both formula
+terms. Renata's native kit kill-save also cannot rewrite the prior entitlement.
+These tests prove the declared local phase/caps, not live callback order.
+
+Focused native-credit, source/compiler, manual-selection, champion and CLI checks
+have passed under Node v22.23.4. Champion fixtures include an ordinary victory
+ending before the heal, actual Twitch venom preserving hostile output, and
+Karthus packets immediately before, at and after the deadline using existing
+engine phases. Actual CLI coverage includes both sides, shards, variant choices
+and budget sweeps; the Sion example can redeem during Glory in Death. No
+project-wide release result is inferred from these bounded checks.
+
+This timer omits the visual missile and documented unintended friendly missile
+pops (including Fizz Trickster and Lissandra's self Frozen Tomb). Sourced Wind
+Wall-unblockable behavior and stasis eligibility do not establish full missile
+parity. One pending slot is bounded by the current single-hostile-body duel;
+general queues and the article's repeat-takedown pending-heal update bug remain
+unsupported. Full pages, keystones, general assists/farm, browser combat-rune
+controls, item/rune composition and rune-aware allocation/search remain
+unfinished. Roadmap step 1 remains in progress.
+
+### Genuine full refresh and complete default comparison
+
+The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392)
+ran frozen compute source `683e726b4ab3c029b3f1530bf8df86332c69bdff` and completed
+at 19:04 UTC. All **22 jobs** succeeded: plan, five plain-stat workers, fifteen
+build workers and assembly. The actual plan and assembly logs record
+**14,878 computed and zero reused per matrix**. Generated outputs are committed
+at `f0a25fe1f11026e94a18f553351507d95c0f308b`, directly after that source commit.
+Both shared input keys and simulation fingerprints changed; no champion-kit
+input key changed.
+
+All **20 original worker artifacts** are retained with their GitHub API run,
+source and artifact identities, original ZIP byte sizes and SHA-256 digests,
+and matching TGZ member bytes. The read-only validator checked all **29,756
+genuine checkpoints**: exactly 14,878 distinct unordered pairs per matrix,
+covering all **173 champions and 29,756 directed cells per matrix**. Every final
+forward/reverse aggregate score, all six scenarios, selected variants, decoded
+build lists and spending match their actual checkpoints. Frozen calculation
+and raw-source inputs match the compute commit; the six release documents were
+updated after the audit. A fingerprint update alone was not used as evidence
+of computation.
+
+The complete numerical comparison against
+`4ffaef9a8ea5d21a936d985a6575e776d51d8d46` found **zero changed pairs and zero
+changed directions in either matrix**. Aggregate scores, every scenario,
+selected variants, decoded builds and item sets, and rounded stat spending are
+unchanged. Apart from the separately recorded input/provenance changes, the
+comparison reports no matrix metadata changes. The earlier Bloodline
+selected-build regressions remain documented above and are not fixed by this
+change; unchanged defaults establish neither a globally optimal search nor
+measured live-game accuracy.
+
+### Integrated checks and retained receipts
+
+The successful assembly job ran both TypeScript projects and the complete test
+suite: **9,280 passed, five existing skips, 9,285 total across 266 files**.
+The post-refresh local closeout used pinned Node **v22.23.4** and passed both
+ordinary matrix freshness checks, all **24 tests** in the two formerly stale
+generated-data test files, and the production web build (**265 modules**).
+The three pre-refresh stale-data failures cleared after the genuine outputs
+landed; assertions and numerical tolerances were retained. The existing large
+web-chunk warning remains. On **12 November**, the offline rune catalog
+freshness check passed again: 62 runes in five paths and all seven shards match
+the committed catalog outputs. Final pull-request validation is tracked on the
+actual delivery head in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26); the completed refresh
+and core checks above apply to the source/generated commits identified here.
+
+External evidence is retained under
+`/workspace/counter-browser/triumph-20261111-audit/`:
+
+- `refresh-run-final-01.json`, `refresh-run-monitor-final-01.json`,
+  `refresh-plan-proof-01.json` and `refresh-aggregate-job-api.log`: actual run,
+  source, plan, assembly and full-suite evidence.
+- `closeout-after-refresh-01-artifact-preservation.json` and
+  `refresh-artifacts/`: original twenty ZIP/API identities, verified digests
+  and matching TGZ bytes.
+- `refresh-validation-closeout-after-refresh-01.json` and
+  `refresh-validation-closeout-after-refresh-01-diff.json`: complete real
+  checkpoint correspondence and default-payload comparison. The unchanged
+  `validate-refresh.py` SHA-256 is
+  `c31661b85008376109afb52f80b2d5679222aca46c7729e2f916fe2f6455f740`.
+- `FINAL-REFRESH-INDEPENDENT-REVIEW-20261112.json`: independent artifact,
+  source-seal and complete default-payload comparison, with no blocking findings.
+- `source-freeze-01.json`, `compute-source-commit-01.json` and
+  `closeout-after-refresh-01.json`: exact worker/source seal, guarded generated
+  commit fast-forward and all completed local closeout stages.
+- `closeout-after-refresh-01-sim-freshness.json`,
+  `closeout-after-refresh-01-builds-freshness.json`,
+  `closeout-after-refresh-01-formerly-stale-results.json` and
+  `closeout-after-refresh-01-web-build.json`: successful post-refresh checks.
+- `catalog-freshness-release-20261112-01.json`: the 12 November offline catalog
+  check. Each command has its own retained log and exact invocation.
+- `ARCHITECTURE.md`, `sources/SOURCE-CONTRACT.md`,
+  `sources/COMPILER-FINAL-RECEIPT.json`, `NATIVE-KILL-CREDIT-RECEIPT.json`,
+  `champion-tests/CHAMPION-TESTS-FINAL-RECEIPT.json` and
+  `cli-integration-receipt.txt`: the bounded source, native, runtime, actual
+  champion and manual CLI contracts described above.
+
+These local audit paths retain reproducible evidence locations. The checks do
+not measure exact live global phase, every recipient protected window or full
+visual-missile behavior. Full rune combat remains roadmap step 1, in progress.
+
+## Presence of Mind: tenth partial manual effect (13 November local validation)
+
+Presence of Mind (8009) joins the explicit manual plain-stat inventory as its
+tenth partial effect. Source preparation and design began on 11–12 November;
+runtime implementation began on **13 November 2026**, from merged main
+`a775b5ffdd694502a68c6457dd4d59865dd98225` after Triumph PR #26. Its normal local
+provenance refresh completed on 13 November, reusing all 14,878 pairings per
+matrix with zero new computation. Independent complete comparison found
+unchanged default result payloads. Local validation completed with **9,510
+passed tests and five existing skips**; pull-request checks run separately
+against the actual delivery head. The completed Legend and
+Triumph sections above retain their own historical evidence; their counts do
+not establish validation for this new effect.
+
+### Retained source contract and conflicts
+
+The current combat bundle contains **63 complete Wiki page objects**: all 47
+previous objects are preserved exactly and sixteen direct dependencies are
+added. They include the complete Presence template/article, Mana and Energy,
+Ability resource, Mana regeneration, Range type and its rendering template,
+Rune, Cast time, Death and protected-state definitions, plus Ryze's passive and
+Akali's shroud. Twenty-five directly used pinned complete pages were
+independently re-fetched on 13 November with matching metadata and content.
+The frozen complete client bytes and descriptor remain unchanged, SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+The compiler retains exact identities, full-content hashes and normal-mode
+fields; ARAM/KINGPORO's 10% takedown override does not replace the normal 15%.
+
+| Direct source | Revision | Rule used or conflict retained |
+|---|---:|---|
+| Template:Rune data Presence of Mind | 3985219 | Flat damage restoration, eight-second cooldown, Mana-only ranged reduction and delayed 15% maximum-resource restoration. |
+| Presence of Mind | 4062635 | Current effect versus retired regeneration/stacking effects, and a bug-labelled full-Mana consumption note. |
+| Template:Range difference | 4060743 | The second arm is ranged; the 0.8 factor applies to Mana, not the separate six Energy. |
+| Template:Data Ryze/Arcane Mastery | 4059875 | Current AP-derived maximum Mana must be derived rather than read from the unconverted base pool. |
+| Template:Data Akali/Twilight Shroud | 4007406 | Shroud adds 100 maximum Energy; the older Presence article's 280/42 example is stale. |
+
+The complete 31-entry `ByCharLevelFormulaCalculationPart` starts at level zero.
+Its detailed table and complete Wiki piecewise formula agree through the
+model's level 20: level 18 gives 44 mana, level 19 gives 52 and level 20 gives
+**56**. The current ranged form receives **44.8** at level 20; Energy receives
+**6** regardless of range type. Named `MinFlatRestore=6`, `MaxFlatRestore=50`
+and abbreviated 6–50 tooltip text conflict with that detailed curve. They
+remain retained evidence; the implementation neither interpolates 6–50 nor
+caps the supported level-20 amount at 50. No live script expression was
+measured. This manual interface does not introduce a general lower-level rune
+system or the retired resource-regeneration/maximum-pool stacking effects.
+
+### Resource events and declared local timing
+
+One existing damage observer handles the actual owner or a native ordinary
+owned-pet actor damaging the actual opposing champion body. Released pet
+missiles retain their actor identity after pet removal; no live-pet lookup or
+whole-hit bridge invents another proc. The chosen damage policy requires
+individually finite, nonnegative HP loss and shield absorption whose sum is
+positive. Shield-only damage qualifies; zero-effective late parries do not.
+The current owner's form determines Mana's ranged factor at the callback, not
+numeric reach, projectile presence or the pet's range type.
+
+The damage clock lasts **eight seconds / 240 ticks**, without ability-haste
+scaling, and is consumed before ordinary resource restoration even when the
+pool is full. The full-Mana rule interprets the article's bug-labelled
+consumption note; full-Energy consumption and exact callback sampling are
+explicit unmeasured policies. A form change retains the same body's clock.
+A normal damaging cast spends its captured cost before the damage callback;
+restoration is not approximated in `onCast`.
+
+Native actual hostile champion-body kill credit creates one body-local
+**one-second / 30-tick** entitlement, with existing owner credit and
+deduplication. No pre-fight entitlement, assist, farm or general multiplayer
+queue is inferred. The immutable credit frame establishes the actual body
+kill and tick, but supplies no resource or maximum-resource snapshot. This
+rune saves the current resource kind and deadline, then computes **15% of the
+current derived maximum at delivery**. A changed kind consumes the pending
+entitlement without transferring it into another resource. Delivery-time cap
+sampling is a local policy, not a sourced snapshot instant. Ryze's AP-to-Mana
+conversion and Akali's temporary maximum Energy therefore use their current
+derived caps; the stale Akali article example is not hardcoded.
+
+Restoration uses the engine's capped resource effect, separate from healing,
+regeneration, Grievous Wounds, heal amplification and `noHealing`. The delayed
+resource policy permits living, fallen, counted-dead or ordinary dead owners
+when the world is already active; it does not heal or revive them. Both upkeep
+paths consume primitive Unit memory before applying the effect. Cloned worlds
+and same-body forms retain independent/correct state without closure-owned
+pending data. The timer never prolongs an otherwise ended duel, and no extra
+post-duel second is fabricated to demonstrate a benefit. This resource policy
+is distinct from Triumph's bounded HP-healing eligibility.
+
+### Focused local checks and verified commands
+
+The retained focused checks passed on 13 November: 317 source/compiler tests,
+80 Presence runtime tests, twelve new actual-champion cases alongside fifteen
+existing resource-formula cases, and 108 CLI/selection/catalog tests. The last
+group comprises 25 Presence CLI cases, 51 selection cases and 32 catalog cases;
+the actual exhaustive selection check accepts **128 of 1,024 subsets** for the
+ten effects. A later filtered run passed all three strengthened native-benefit
+and sweep cases; its 22 deliberately unselected cases are not full-suite skips.
+These counts overlap and must not be added into a project-wide total. Both
+TypeScript projects passed their retained integrated check. Both ordinary
+matrix freshness checks, offline catalog freshness and the production browser
+build also passed. The complete local suite result is recorded below;
+pull-request CI runs separately against the delivery head.
+
+The native champion cases include Ryze paying W before restoration makes Q
+affordable, and Kennen's first attack supplying the six Energy needed for Q
+before any third-mark refund. Native Akali shroud expiry distinguishes a
+300-Energy cap and 45 restored from a 200-Energy cap and 30 restored at the
+chosen delivery phase. Jayce transformations retain one cooldown and select the
+current form's Mana amount. These checks validate the stated model policies,
+not the unmeasured server phases.
+
+The actual CLI cases include both selected sides:
+
+```sh
+npm run duel -- Cassiopeia Sion --dataset 16.21 --gold 0 --combat-runes 8009 --log brawl
+npm run duel -- Sion Cassiopeia --dataset 16.21 --gold 0 --enemy-combat-runes 8009 --log brawl
+npm run duel -- Cassiopeia Akali --dataset 16.21 --gold 0 --combat-runes 8009 --enemy-combat-runes 8009 --shards 5005,5001,5011 --enemy-shards 5008,5008,5001 --log brawl
+npm run duel -- Cassiopeia Sion --dataset 16.21 --gold 0 --sweep --combat-runes 8009,9105 --legend-points 99 --enemy-combat-runes 8009,9104 --enemy-legend-points 199
+```
+
+At zero gold, Cassiopeia's own aggregate against Sion improves from about
+**−0.800403 to −0.787862** on either selected side, with **26 versus 24 brawl
+casts**. The complete native scenarios and timelines are compared with the
+command output. In the 5,000-gold sweep, the same declared Legend selections
+score about **−0.658737 without Presence versus −0.619947 with Presence**
+(displayed −0.66 versus −0.62). This does not claim rune-aware stat allocation
+or a globally optimal loadout.
+
+Focused evidence under the current external audit includes
+`compiler-tests-20261113-01.json`, `compiler-results-20261113-01.json`,
+`runtime-tests/PRESENCE-UNIT-FINAL-RECEIPT-20261113.json`,
+`champion-tests/CHAMPION-TESTS-FINAL-RECEIPT.json`,
+`cli-selection-catalog-20261113-01.json`,
+`cli-tests/native-benefit-summary-01.json`,
+`cli-strengthened-cases-20261113-02.json` and
+`cli-tests/strengthened-results-02.json`. `typecheck-02.json` records the later
+integrated check of both TypeScript projects. These bounded results remain distinct
+from the complete default comparison and full local suite recorded below;
+pull-request CI runs separately against the actual delivery head.
+
+### Completed local provenance, comparison and integrated checks
+
+The normal local refresh completed on **13 November**. Each actual driver
+reported **14,878 unchanged/reused pairings and zero to compute**. The plain
+refresh regenerated its outputs from compatible stored results; the build
+refresh did the same for its matrix. No new pair calculations or checkpoint
+files are claimed. This is the repository's normal dependency-checked reuse
+path, not a manual fingerprint rewrite. The rune-local addition left pair
+inputs reusable while the catalog change altered global provenance.
+
+The independent complete comparison against
+`a775b5ffdd694502a68c6457dd4d59865dd98225` covers all **173 champions**,
+**14,878 unordered pairs and 29,756 directed cells per matrix**. It found
+**zero changed payload pairs or directions**: every aggregate score and all
+six scenarios, selected variants, raw and decoded build lists/item sets and
+rounded stat-spending vector remain equal. The 75-item dictionary is also
+unchanged. Both entire stored input maps and every pairing's shared/two-kit
+key tuple remain equal; only simulation provenance changed in the three
+generated matrix files. The result is independently cross-checked, rather
+than inferred solely from reused counts. **Zero new checkpoints** were
+generated; the older Triumph checkpoint proof remains historical evidence
+for that release.
+
+Both ordinary matrix freshness checks passed against the current output
+files, as did the offline catalog freshness check and both TypeScript
+projects. The production browser build passed under pinned Node v22.23.4.
+The retained command/log receipts are `normal-refresh-sim-01.json`,
+`normal-refresh-builds-01.json`, `sim-freshness-01.json`,
+`builds-freshness-01.json`, `catalog-freshness-01.json`, `typecheck-02.json`
+and `web-build-01.json`. `REUSE-VALIDATION-20261113.json` and its full diff
+retain the complete payload/key comparison;
+`REUSE-INDEPENDENT-CROSS-CHECK-20261113.json` records its independent
+verification. `PRODUCTION-REVIEW-FINAL-20261113.json` seals all nine reviewed
+production files and the bounded source/runtime review, with no blocking
+findings.
+
+The complete local suite passed on **13 November**: **9,510 passed, zero
+failed and five existing skips — 9,515 total across 269 test files**. All
+configured files ran with `--maxWorkers=2`, without filtering or changed
+assertions/tolerances. The five skipped test names exactly match the earlier
+Triumph preflight; they are the retained disputed golden cases, not newly
+skipped Presence failures. `full-suite-02.json`,
+`full-suite-results-02.json` and `full-suite-summary-02.json` retain the exact
+command, complete results and checked arithmetic/file count. The production
+browser build transformed **265 modules**.
+
+Pull-request checks run separately against the actual delivery head. These
+local receipts establish no claim about an unobserved remote CI run; the
+delivery pull request and its external release receipt retain that evidence.
+
+### Event limits and delivery validation boundary
+
+The existing damage observer visits only alive, positive-HP recipients, which
+can include fallen/death-defied or protected bodies. Ordinary dead/zero-HP
+owners therefore lack the damage arm. Execute-only engine effects can create
+native takedown credit but emit no post-damage observation for the damage arm.
+Actual reported clone actors and clone/pet victims are outside this subset.
+Some kit effects with a causal clone origin report the owner instead, such as
+Shaco's clone explosion; those owner-emitted packets can qualify, and there is
+no universal causal-origin marker. General zero-damage, reflected/indirect
+attribution and complete visual-missile parity remain unresolved. These are
+explicit model limits, not claims about faithful live-game exclusions.
+
+Presence, Absorb Life and Triumph share Precision's first lesser row. A side
+may choose only one of them; one Legend can accompany Presence with that
+side's explicit starting points. Presence itself has no history flag. Exact
+Mana or Energy resource types are required; unsupported types are rejected
+rather than silently ignored or automatically substituted to Triumph.
+Explicit stat shards remain legal; fixed items and build search remain
+blocked pending composition review. Allocation remains its no-rune reference.
+Full pages, browser combat-rune controls, substitutions, item/rune composition
+and rune-aware allocation/search remain unfinished. Roadmap step 1 stays in
+progress.
+
+The actual dependency plan and normal local provenance refresh record all
+14,878 pairings reused per matrix, with zero new computation, and independent
+complete comparison finds unchanged default result payloads. The complete
+local suite and integrated checks passed as recorded above. No new checkpoints
+or full recomputation are claimed. Pull-request checks apply to the actual
+delivery commit; local receipts do not substitute for that remote evidence.
+Earlier documented optimizer regressions remain unfixed, and no
+controlled live-game accuracy or globally optimal build search is claimed.
+
+The working external audit is
+`/workspace/counter-browser/presence-of-mind-20261112-audit/`. The retained
+local receipts above record the actual commands and counts; the delivery
+pull request and external final receipt record source/data commits and
+checks on the actual delivery head. The source/design preparation under the earlier Triumph audit is
+retained as preparation, not as completed Presence release evidence.
+
+## Press the Attack: eleventh partial manual effect (17 November implementation)
+
+Implementation began on **17 November 2026** from merged main
+`2a71197b02f96422abb1fccbdb7b3aa695cabfbb`, after the user merged Presence of Mind
+PR #27. Rune 8005 adds the first Precision keystone to the partial manual
+plain-stat interface. The 17 November refresh computed both default matrices from this source and passed the complete configured test suite.
+
+### Source and implementation contract
+
+The combat source bundle retains **71 complete Wiki objects**, preserving all
+63 prior objects and adding eight full pages. The closed preparation read
+thirteen complete pinned pages; the five already present remain retained in
+full. The frozen complete client remains 2,177,672 bytes, SHA-256
+`f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f`.
+The Precision style, complete PTA main record and six VFX records equal that
+frozen file. Both 14 November whole-client refetch attempts failed HTTP 522;
+no successful fresh whole-client equality is claimed. The first attempt lacks
+a separately retained response body/headers, and VFX identities do not prove
+executable spell behavior. There are no live-game measurements.
+
+| Direct source | Revision | Rule or qualification retained |
+|---|---:|---|
+| [Template:Rune data Press the Attack](https://wiki.leagueoflegends.com/en-us/?oldid=4015574) | 4015574 | Three stacks, four-second refresh, six-second post-consumption cooldown, 8% amplification and the explicit level-1–20 formula. |
+| [Press the Attack](https://wiki.leagueoflegends.com/en-us/?oldid=4082445) | 4082445 | Multiple on-hit applications, AoE/secondary exceptions, proc and same-frame order, later buffed procs, current true-damage history. |
+| [Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) | 4084301 | On-hit families and the distinction between attack, hit and damage effects. |
+| [Basic attack](https://wiki.leagueoflegends.com/en-us/?oldid=4091314) | 4091314 | Basic-attack application and damage defenses. |
+| [Stack](https://wiki.leagueoflegends.com/en-us/?oldid=4093072) | 4093072 | Stack-duration and refresh context. |
+| [Adaptive force](https://wiki.leagueoflegends.com/en-us/?oldid=4063874) | 4063874 | Adaptive force and adaptive damage are separate decisions; force stat-origin rules are not automatically transferred. |
+| [Template:Tip data/Adaptive damage](https://wiki.leagueoflegends.com/en-us/?oldid=4015091) | 4015091 | Bonus AD versus AP and champion adaptive tie type. |
+| [Combat status](https://wiki.leagueoflegends.com/en-us/?oldid=4058480) | 4058480 | Damage/CC, zero events, spell-shield exclusion, pet/clone distinctions and old/modern ambiguities. |
+| [Damage modifier](https://wiki.leagueoflegends.com/en-us/?oldid=4050138) | 4050138 | Outdated-marked context; V26.09 separate-instance note does not establish aggregate-model parity. |
+| [Damage](https://wiki.leagueoflegends.com/en-us/?oldid=4084890) | 4084890 | Damage classification context, retaining its outdated/confusing warning. |
+| [Champion summoned units](https://wiki.leagueoflegends.com/en-us/?oldid=4023248) | 4023248 | Case-specific pet/clone inheritance, without universal rune eligibility. |
+| [Rune](https://wiki.leagueoflegends.com/en-us/?oldid=4091810) | 4091810 | Primary/secondary structure and source context. |
+| [Unit](https://wiki.leagueoflegends.com/en-us/?oldid=4085583) | 4085583 | Actual unit classification context. |
+
+The explicit Wiki formula `40 + 120/17 × (level − 1)` gives **`2960/17`
+(174.11764705882354) at model level 20**, rather than silently capping at the
+client's named MaxDamage endpoint of 160. The client has no detailed level
+calculation or hidden Lua cap proof. Current derived bonus AD versus AP chooses
+physical/magic at proc delivery, using the source champion's carried
+`Physical`/`Magic` tie type. This local dynamic sampling rule is independent of
+adaptive-force shard origin exclusions and works without an adaptive shard.
+
+An optional immutable source-side native snapshot records each accepted
+on-hit application, distinct from its declaration or split damage packets.
+It captures tick/sequence, source and target classification, ability metadata,
+block state and scale before legacy callbacks; delivery follows the existing
+on-hit/victim callback phase. Explicit per-ability eligibility preserves sourced
+AoE exclusions and exceptions. Explicit Renekton two/three-strike metadata
+creates separate rune application events; other attached on-hit effects retain
+the pre-existing once-per-attack approximation. Per-application event ordering
+within the shared tick is not full per-strike item or live-phase parity.
+
+Custom native adapters cover Master Yi's second Double Strike application,
+Senna Q's primary-target on-hits with its sourced spell-shield exception, and
+Bel'Veth E's individual slash contacts. Bel'Veth's extra dodge/stasis/parry
+qualification is a conservative local policy; existing Feast guard gaps are
+not fixed by the event adapter. Twitch R captures its declared target at bolt
+launch and excludes collateral contacts, including an earlier pet interception;
+its retained R template is revision 4063223. The named native on-hit ability
+families carry explicit opt-in/exclusion metadata. Nocturne passive secondary
+on-hits, Yunara spread and Kayle secondary splash remain omitted native kit
+mechanics. The [rune audit](docs/runes/README.md#press-the-attack-first-keystone-and-declared-event-policies)
+lists the concrete reviewed families and custom-path boundaries.
+
+Three qualified living champion-body applications consume stacks and start the
+six-second cooldown before the independent adaptive proc. The proc ignores
+on-hit scale and does not invoke ability-hit hooks. Newly gained amplification
+excludes the entire activation simulation tick; later procs while already
+buffed keep the old activation tick and can be amplified. Four-second expiry
+and six-second readiness use inclusive tick deadlines. These callback,
+equality-boundary and 30 Hz frame mappings are declared local policies.
+
+One five-second clock since qualified accepted damage, CC or connected eligible
+on-hit activity controls expiry. Accepted native zero damage and ordinary
+pet-to-champion activity qualify; events classified as actual clone actors do
+not. Expiry precedes a late clock
+refresh, so a new event cannot revive a previously expired buff. This chosen
+single clock does not stack two five-second fields into ten seconds. Native
+invulnerability/stasis/parry guards, pet-victim paths and source-specific modern
+combat exceptions remain outside the bounded activity surface. Owner-emitted
+packets without causal clone markers cannot establish universal clone behavior.
+
+The target-qualified pure amplifier affects actual living champion-body source
+damage against the opposing champion body, including true damage except exact
+`Smite` labels. It does not inherit the health-runes' `Ignite` exclusion. Pet or
+clone stacking/amplifier inheritance, clone-victim resets, universal summoner
+classification, post-death stacking, lethal/reflection priority and complete
+protected-state behavior remain qualified. Dead bodies immediately stop
+stacking and amplification; the first dead-body upkeep clears stored stacks
+and amplification. No timer prolongs an ended duel. Primitive state survives
+same-body forms and copies independently with a branched world.
+
+The shared outgoing-rune resolver sums PTA and compatible health-rune increases
+before one pure target-qualified adapter, avoiding multiplicative rune cross
+terms. It shares the existing additive outgoing bucket. Separate V26.09
+amplifier damage instances and pre-modifier interactions are not represented;
+item raw-hook composition remains unreviewed. Full pages, remaining keystones,
+browser effect controls, substitutions, item/rune composition and rune-aware
+allocation/search remain unfinished. Allocation retains its no-rune reference.
+Roadmap step 1 remains in progress, and the earlier documented optimizer
+regressions remain unresolved.
+
+### Refresh verification
+
+The 17 November run computed 14,878 plain-stat and 14,878 six-item pairings from
+source `1523ecd` with zero reuse. Five plain-stat shards and fifteen build
+shards finished. All 22 jobs passed. Both TypeScript projects passed, and
+the refresh ran 9,755 passing tests with five existing skips across 274 files.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44141258128)
+
+The independent audit checked the downloaded artifacts against their SHA-256
+digests and verified all 29,756 new checkpoints against both directions of the
+final matrices. Compared with the previous release at `2a71197`, all 173
+champions have identical default scores, scenario outcomes, variants, encoded
+and decoded builds, item sets, item dictionary, stat allocations and rankings.
+The generated files update input fingerprints, provenance, build timing and
+the Renekton and Twitch kit reports. Both matrix freshness checks passed.
+
+PR #28 merged while the refresh was computing. The earlier PR and main Pages
+checks each had three failures on the old matrices' freshness and reuse.
+The refresh suite tested the generated output and passed all three checks.
+[Pre-refresh PR run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44141322965)
+[Pre-refresh main run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44143955443)
+
+The working external audit is
+`/workspace/counter-browser/press-the-attack-20261117-audit/`. The [rune audit](docs/runes/README.md#press-the-attack-first-keystone-and-declared-event-policies)
+and [mechanics gap audit](docs/runes/MECHANICS_GAPS.md#press-the-attack-event-boundaries-and-local-policies)
+record the chosen policies and unsupported mechanics. Source/code tests cannot
+establish controlled live-game accuracy or globally optimal build search.
+
+## Fleet Footwork (17–18 November 2026)
+
+Rune 8021 is the twelfth partial manual effect for dataset 16.21. The source
+compiler retains all 71 prior Wiki pages and adds nine. The Fleet review covers
+19 complete pages, nine named normal-mode client values, three calculation
+records and eight complete client objects. The melee base formula evaluates to
+`124257/680` HP at the model’s level 20. The sources give 160 at level 18.
+Client healing missile metadata leaves the exact HP delivery time unresolved.
+[Fleet template](https://wiki.leagueoflegends.com/en-us/?oldid=4051351) · [Fleet article](https://wiki.leagueoflegends.com/en-us/?oldid=4052588)
+
+The selection tests examine all 4,096 subsets of the twelve supported effects.
+384 fit a legal page layout. Runtime and CLI checks exercise independent
+starting charges, round trips, overlapping missiles, blocked hits, healing
+modifiers, melee/ranged forms and the one-second speed buff. Real duels cover
+separate loadouts, shards, Legend points, champion variants and budget sweeps.
+Champion-specific tests cover Zeri’s Burst Fire spending, Azir’s soldier
+commands, Aphelios’s weapon attacks and the extra strikes from Akshan, Lucian
+and Master Yi. [Rune audit](docs/runes/README.md#fleet-footwork)
+
+### Matchup refresh and recovery
+
+The new movement and attack observations changed the shared simulator inputs.
+The initial item-build refresh stopped on Annie versus Nunu because contact
+with a pet could end Nunu’s snowball channel before the movement observer read
+its timing. The fix captures the timing before contact and records the end of
+the movement segment when the channel is interrupted. The corrected worker
+reproduced the previous Annie–Nunu result. [Initial refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44332825336)
+
+All 19 successful original archives and seven recovery archives passed digest
+verification. The recovery computed the missing build shard and all Nunu
+matchups under the repaired inputs. The generator reused original results
+only where the shared key and both kit keys matched.
+[Recovery run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44347234045)
+
+| Matrix | Matching original checkpoints | Corrected checkpoints | Total pairings |
+|---|---:|---:|---:|
+| Plain stats | 14,706 | 172 | 14,878 |
+| Item builds | 13,732 | 1,146 | 14,878 |
+
+Both directions of all 29,756 pair results match the verified checkpoint
+data. The comparison with the previous published matrices found zero changes
+to default scores, scenario scores, selected variants, encoded and decoded
+builds, or spending. The item dictionary and ledger rankings also match.
+Both TypeScript projects, both matrix freshness checks, the rune catalog
+check and the production web build passed. The full local suite passed
+9,991 tests across 279 files with five existing skips.
+
+## Lethal Tempo (18 November 2026)
+
+Rune 8008 is the thirteenth partial combat effect for manual plain-stat duels.
+The compiler adds two complete Wiki revisions and retains the 80 earlier
+page objects and the full 2,177,672-byte versioned client file. The level-20
+base bolt evaluates to `552/17` melee and `46023/2125` ranged. The frozen
+perk calculation records confirm the ranged speed and damage multipliers.
+Four complete client bolt objects agree on their nested 2,500-unit/s
+nontracking movement. The client also retains older displayed ranged values
+and different outer spell timing fields. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4065934) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427) · [Mechanics gaps](docs/runes/MECHANICS_GAPS.md#lethal-tempo)
+
+The simulator uses separate events for a completed windup and a qualified
+contact from an attack replacement or extra strike. The selection tests
+cover 8,192 subsets of the thirteen manual effects. Of those, 512 fit
+a legal page. Combat tests cover exact expiry ticks, immediate form changes,
+distinct bolts in flight, clone targets, ordinary defense and spell-shield
+behavior. They exercise Zeri’s first accepted primary round, Azir’s
+self-only soldier commands and Urgot’s 50% proc damage. A zero-gold
+Lucian–Sion CLI duel verifies both fighters can equip the keystone and deliver
+it. [Manual duel rules and command](docs/runes/README.md#lethal-tempo)
+
+The 19 November refresh computed all 14,878 pairings in each default matrix
+with zero reuse. All 22 jobs passed. The audit verified the digests of all
+21 workflow archives and matched all 29,756 checkpoints against both
+matchup directions. Every default score, scenario, selected variant, encoded
+and decoded build, and stat allocation matches the previous published
+results. The item dictionary and ledger rankings also match.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44416317879)
+
+The refresh passed both TypeScript projects and 10,019 tests across 280
+files, with five existing skips. Both native matrix freshness checks, the
+rune catalog check and the production web build also passed locally on the
+generated commit.
+
+## Conqueror (19 November 2026)
+
+Rune 8010 is the fourteenth partial combat effect for manual plain-stat duels.
+The compiler retains all 82 earlier pages and adds eight complete revisions.
+The original versioned client file is retained byte for byte. Its numeric
+fields confirm twelve stacks, a five-second lifetime, a four-second
+same-cast cooldown, the adaptive force endpoints and the 8% melee and 5%
+ranged healing coefficients. The sourced growth formula gives `362/85`
+adaptive force per stack at level 20. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4060685) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4091967)
+
+Native cast identities travel through windups, flight stages, channels,
+fields, scheduled effects and damage over time. Accepted on-hit observations
+handle ordinary basic applications. A separate resolved damage observation
+records source, target, classification and post-mitigation damage. The
+selection checks cover all 16,384 subsets of fourteen effects, of which 640
+fit a legal page. Source and runtime cases cover repeated casts of the same
+spell, exact lockout and expiry ticks, form changes, absorption, healing
+modifiers, reviewed champion contacts and summoned attacks.
+[Manual duel rules](docs/runes/README.md#conqueror)
+
+The 19 November refresh recalculated all 14,878 pairings per matrix with
+zero reuse. The audit matched all 29,756 checkpoints to both directions in
+the delivered matrices. Aggregate scores, all six scenarios, chosen kit
+variants, decoded item builds and stat spending reproduced the previous
+results. The item dictionary and interaction-ledger rankings also match.
+Both native matrix freshness checks, the offline catalog check, 24 tests
+covering the matrices and browser caches, and the production web build
+passed locally on the generated commit.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44447951398)
+
+## Grasp of the Undying (19 November 2026)
+
+Rune 8437 adds the first manual Resolve keystone and the fifteenth partial
+manual combat effect. The compiler verifies 95 complete Wiki revisions, the
+original versioned client file, and the normal-mode damage, healing, health
+and timing values. The selection tests cover all 32,768 subsets and accept
+714 legal selections, including 74 with Grasp. [Rune rules and sources](docs/runes/README.md#grasp-of-the-undying)
+
+Native tests cover charge renewal, exact deadline ticks, accepted zero and
+shielded damage, attack defenses, classified pets and clones, independent
+world copies, form changes, and champion-specific health conversions. The
+separate proc retains full damage when a native application reduces on-hit
+damage, including Purge and Azir's primary soldier. Parrrley uses the ranged
+coefficients. The heal uses a local 12-tick schedule informed by the client
+missile. [Timing and interaction limits](docs/runes/MECHANICS_GAPS.md#grasp-of-the-undying)
+
+The 19 November refresh recalculated all 14,878 pairings per default matrix
+with zero reuse. The audit matched all 29,756 checkpoints to both directions
+in the generated matrices. Aggregate scores, all six scenarios, selected kit
+variants, decoded item builds and stat spending reproduced the previous
+results. The item dictionary and interaction-ledger rankings also match.
+The two native matrix freshness checks, the offline catalog check, all 24
+matrix and browser-cache tests, and the production web build passed on the
+generated commit. [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44526299017)
+
+## Bone Plating (19 November 2026)
+
+Rune 8473 adds the sixteenth partial manual combat effect. The compiler
+verifies 99 complete Wiki revisions and the original versioned client file.
+The explicit level-20 formula gives `1080/17` reduction per plate. The
+selection validator checks all 65,536 subsets and accepts 1,071, including
+357 with Bone Plating. It shares a Resolve row with Second Wind. [Rune rules and sources](docs/runes/README.md#bone-plating)
+
+Native damage resolution arms Bone Plating after the first positive health
+loss. A later packet from the same cast can consume one of three plates.
+Tests cover Kled's fourth hit, Braum's first frontal block, shields, revival,
+exact timing boundaries, and a cast that continues through a missile,
+delayed damage and a periodic status. The model specifies shield ordering
+and when the cooldown begins. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#bone-plating)
+
+The hook composition change also required updating the fixed-item adaptive
+shard implementation digest. The review compared all 114 covered files
+and traced the two added cases to numeric damage modifier composition.
+
+A 346-duel smoke check equipped Bone Plating on both sides and covered all
+173 champion kits. Every kit activated the rune, and each recorded spend
+followed its 1.5-second window and three-plate limit.
+
+The 19 November refresh recalculated all 14,878 pairings in each default
+matrix with zero reuse. All 29,756 checkpoints match the assembled results
+in both directions. Aggregate scores, all six scenarios, selected variants,
+decoded item builds, and stat spending reproduce the previous results.
+The item dictionary and interaction-ledger rankings also match.
+Local assembly from the checkpoints reproduced all four generated files
+byte for byte. Both matrix freshness checks, the offline rune catalog
+check, 54 targeted tests, and the production web build passed.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44559485221)
+
+## Shield Bash (19 November 2026)
+
+Rune 8401 adds the seventeenth partial manual combat effect. The source
+compiler verifies 107 complete Wiki revisions and the retained client file.
+At level 20 the packet uses `560/17` base adaptive damage plus 2.5% of
+bonus health and 15% of the eligible shield peak. The selection test checks
+all 131,072 subsets and accepts 2,142, including 1,071 with Shield Bash and
+357 with both Shield Bash and Bone Plating. [Rune rules and sources](docs/runes/README.md#shield-bash)
+
+The 19 November refresh recalculated all 14,878 pairings in each default
+matrix with zero reuse. Every one of the 29,756 checkpoints matches the
+assembled outputs in both directions. Both matrices reproduce the previous
+scores, six scenario results and selected kit variants. Item builds and
+plain-stat spending also match. Independent local assembly reproduced the
+four generated files byte for byte. Both matrix freshness checks, the
+offline rune catalog check, 59 targeted tests and the production web build
+passed. [Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44597602882)
+
+The roster check ran 346 duels across all 173 kits with Shield Bash and
+Bone Plating equipped. Its most likely timelines recorded 271 Shield Bash
+procs across 48 kits. A separate check reproduced all 346 rune-free
+outcomes and combat timelines. A 16-pair plain-stat replay produced the same
+raw results in each of four runs, with each batch taking about 13 seconds.
+
+Shield observation keeps distinct peak and expiry histories. The native
+cases cover full absorption of a shield, natural expiry, a shield-breaking
+attack, multiple on-hit applications, and branch copies. Champion fixtures
+cover Camille's passive, Hwei's growing pool shield, Mordekaiser's shield
+conversion, and Nunu's early release. A separate case checks Shield Bash
+against Bone Plating within the same native attack. Shield grant eligibility,
+stat sampling and runtime timing decisions follow the documented policies.
+[Open mechanics questions](docs/runes/MECHANICS_GAPS.md#shield-bash)
+
+## Overgrowth (19 November 2026)
+
+Rune 8451 adds the eighteenth partial manual combat effect. The compiler
+cross-checks five named normal-mode client fields with the complete
+template and retains 109 Wiki revisions. The manual duel uses each side's
+declared qualifying death count. At 120 the 3.5% multiplier applies
+separately to base and bonus health. The selection audit checks all
+262,144 subsets and accepts 3,718, including 1,576 with Overgrowth.
+[Rune rules and sources](docs/runes/README.md#overgrowth)
+
+The 20 November refresh recomputed all 14,878 pairings in each matrix
+with zero reuse. All 29,756 checkpoints match the delivered results in
+both directions. Default scores, six scenario results, kit variants,
+item builds and plain-stat spending match the previous release. Independent
+assembly reproduced all four generated files byte for byte. The refresh
+passed all 22 jobs and 10,184 tests, with five existing skips.
+[Refresh run](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44635062907)
+
+Native coverage includes the 119-to-120 breakpoint, later permanent
+awards, independent sides and branch copies. The champion fixtures cover
+Pyke's AD conversion, Ornn's Living Forge, Vladimir's nonrecursive stats,
+Malphite's setup shield, Kled's dismount and remount, and Shield Bash's
+bonus-health ratio. The source-backed rule and model-specific ordering are
+recorded with the remaining live questions. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#overgrowth)
+
+## Aftershock (20 November 2026)
+
+Rune 8439 adds a second Resolve keystone and brings the manual inventory
+to nineteen. The offline compiler cross-checks ten named normal-mode
+client fields, retains 116 complete Wiki revisions and verifies the
+level-20 resistance cap against both stat references. The selection audit
+checks all 43,796 subsets within the six-rune limit and accepts 4,162,
+including 444 with Aftershock. A separate case checks the size limit.
+[Rune rules and sources](docs/runes/README.md#aftershock)
+
+Native cases cover the accepted immobilization kinds, a shielded Leona
+attack, displacement immunity, separate resistance snapshots and caps,
+world copies, the 350-unit boundary, Bone Plating and attackable
+resurrection. The two-sided Leona–Malphite CLI example records each
+champion's resistance grant and shockwave at the expected interval.
+The damage curve beyond level 18 and lifecycle ordering need live
+measurements. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#aftershock)
+
+The 20 November refresh recomputed 14,878 pairings in each default matrix
+across all 173 champions with zero reuse. All 29,756 checkpoints reproduced
+Overgrowth's scores, scenarios, kit variants, item builds and stat spending.
+Independent assembly produced the same four generated files byte for byte.
+All 22 workflow jobs and 10,224 tests passed, with five existing skips.
+[Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44661901431)
+
+## Font of Life (20 November 2026)
+
+Rune 8463 brings the inventory to twenty partial manual effects. Its
+fixed level-20 heal is `930/17`, multiplied by 0.7 in ranged form. The
+compiler cross-checks the cooldown, ranged factor and level endpoints
+against the frozen client and retains four additional Wiki revisions.
+The selection audit checks all 60,460 subsets within the six-rune limit
+and accepts 5,960, including 1,798 with Font of Life. [Rune rules](docs/runes/README.md#font-of-life)
+
+Native regressions cover accepted and blocked crowd control, shield and
+immunity paths, actual Zoe drowsiness, independent world copies, healing cuts and
+caps, and the precise cooldown boundary after activation at full health.
+The manual duel covers the owner heal. The team-mode ally choice and
+exact live event ordering remain open. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#font-of-life)
+
+The complete refresh recomputed 14,878 pairings per matrix with zero reuse.
+All 29,756 checkpoints reproduce Aftershock’s scores, scenarios, kit variants,
+builds and spending in both directions. Independent assembly reproduced the
+four generated files byte for byte. All 22 refresh jobs and 10,246 tests passed,
+with five existing skips. Both native matrix freshness checks, the offline rune
+catalog check, typechecking and the production build passed on the generated
+commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44791847807)
+
+## Taste of Blood (20 November 2026)
+
+Rune 8139 brings the inventory to twenty-one partial manual effects. The
+compiler binds `728/17` base healing at level 20, 10% bonus AD, 5% AP and
+the 20-second cooldown to the pinned template and versioned client. The
+offline bundle retains 122 complete Wiki revisions. The selection audit
+checks 82,160 subsets within the six-rune limit and accepts 6,333,
+including 373 with Taste of Blood. [Rune rules](docs/runes/README.md#taste-of-blood)
+
+Native tests cover full-health hits, life steal from the initiating hit,
+shields and packet defenses, Grievous Wounds, the healing cap, independent
+world copies and form changes. A two-sided CLI duel records both sides'
+activations. The live packet order and attribution questions are recorded
+with the model's scope. [Open mechanics questions](docs/runes/MECHANICS_GAPS.md#taste-of-blood)
+
+The genuine refresh recomputed 14,878 pairings per matrix with zero reuse.
+All 29,756 verified checkpoints reproduce Font of Life's scores, scenarios,
+variants, builds and spending in both directions. Independent assembly
+reproduced all four generated files byte for byte. The 22 refresh jobs
+and 10,266 tests passed, with five skips. Both native freshness checks,
+typechecking, the offline rune catalog check and the production build
+passed on the generated commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44950261943)
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

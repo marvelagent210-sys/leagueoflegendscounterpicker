@@ -1,5 +1,5 @@
 {
-  "note": "Pushing a change to this file runs .github/workflows/refresh.yml on its branch (README, Sharded refreshes). This request refreshes 16.21 with summoner spells and rune pages: the engine changed (summoner spells cast while busy, Ignite unamplified, cleanses spent only on what they remove, crowd control of any type for Electrocute and Font of Life), so every plain-stats pairing is computed again, and every build pairing is computed again with the loadout search. Shards are sized together, at most 20 in all.",
+  "note": "Recompute both complete matrices after adding immutable native on-hit applications, accepted combat-activity events and adaptive-type carriage for the opt-in Press the Attack effect. Shared engine worker inputs changed; all 14,878 pairings per matrix must be genuinely computed, with zero reuse. Compare every default score, scenario, variant, decoded build and spending field with base main 2a71197b02f96422abb1fccbdb7b3aa695cabfbb; do not assume unchanged payloads or substitute provenance restamping. Manual rune effects remain absent from default matrix fights.",
   "dataset": "16.21",
   "matrices": [
     "sim",

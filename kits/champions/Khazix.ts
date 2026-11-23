@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { canCast, EPSILON, skillshotChance } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, applyEffect, canSee, canTarget, directionTo, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, applyEffect, canSee, canTarget, directionTo, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import { canTargetPet } from "../../engine/sim/pets";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
@@ -169,7 +169,10 @@ const khazix: KitModule = {
           }
           if (key === "E") {
             const direction = directionTo(ctx.self, ctx.enemy) * (ctx.aim?.direction ?? 1), distance = Math.min(eRange, Math.max(0, ctx.aim?.distance ?? Math.abs(ctx.enemy.x - ctx.self.x)));
-            ctx.self.x += dashDistance(ctx.world, ctx.self, direction * distance); exitTerrain(ctx.world, ctx.self);
+            const from = ctx.self.x;
+            ctx.self.x += dashDistance(ctx.world, ctx.self, direction * distance);
+            exitTerrain(ctx.world, ctx.self);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "E", endTick: ctx.tick, ended: true });
             for (const target of targets(ctx.world, ctx.self)) if (Math.abs(target.x - ctx.self.x) <= eRadius + radius(target)) hit(ctx, target, leap, leap.onHit!, "area");
           }
           if (key.startsWith("R")) {

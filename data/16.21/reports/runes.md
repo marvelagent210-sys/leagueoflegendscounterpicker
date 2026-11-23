@@ -10,16 +10,16 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 
 | Path | Row | Rune | ID | Combat implementation | Wiki revision |
 |---|---|---|--:|---|---|
-| Precision | Keystone | Press the Attack | 8005 | Not implemented | [4015574](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Press_the_Attack?oldid=4015574) |
-| Precision | Keystone | Lethal Tempo | 8008 | Not implemented | [4065934](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Lethal_Tempo?oldid=4065934) |
-| Precision | Keystone | Fleet Footwork | 8021 | Not implemented | [4051351](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Fleet_Footwork?oldid=4051351) |
-| Precision | Keystone | Conqueror | 8010 | Not implemented | [4060685](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conqueror?oldid=4060685) |
+| Precision | Keystone | Press the Attack | 8005 | Explicit partial manual selection | [4015574](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Press_the_Attack?oldid=4015574) |
+| Precision | Keystone | Lethal Tempo | 8008 | Explicit partial manual selection | [4065934](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Lethal_Tempo?oldid=4065934) |
+| Precision | Keystone | Fleet Footwork | 8021 | Explicit partial manual selection | [4051351](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Fleet_Footwork?oldid=4051351) |
+| Precision | Keystone | Conqueror | 8010 | Explicit partial manual selection | [4060685](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conqueror?oldid=4060685) |
 | Precision | 1 | Absorb Life | 9101 | Explicit partial manual selection | [3997095](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Absorb_Life?oldid=3997095) |
-| Precision | 1 | Triumph | 9111 | Not implemented | [3825924](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Triumph?oldid=3825924) |
-| Precision | 1 | Presence of Mind | 8009 | Not implemented | [3985219](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Presence_of_Mind?oldid=3985219) |
+| Precision | 1 | Triumph | 9111 | Explicit partial manual selection | [3825924](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Triumph?oldid=3825924) |
+| Precision | 1 | Presence of Mind | 8009 | Explicit partial manual selection | [3985219](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Presence_of_Mind?oldid=3985219) |
 | Precision | 2 | Legend: Alacrity | 9104 | Explicit partial manual selection | [3958705](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Alacrity?oldid=3958705) |
 | Precision | 2 | Legend: Haste | 9105 | Explicit partial manual selection | [3958696](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Haste?oldid=3958696) |
-| Precision | 2 | Legend: Bloodline | 9103 | Not implemented | [3971359](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Bloodline?oldid=3971359) |
+| Precision | 2 | Legend: Bloodline | 9103 | Explicit partial manual selection | [3971359](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Legend%3A_Bloodline?oldid=3971359) |
 | Precision | 3 | Coup de Grace | 8014 | Explicit partial manual selection | [3859780](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Coup_de_Grace?oldid=3859780) |
 | Precision | 3 | Cut Down | 8017 | Explicit partial manual selection | [3859781](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Cut_Down?oldid=3859781) |
 | Precision | 3 | Last Stand | 8299 | Explicit partial manual selection | [3859782](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Last_Stand?oldid=3859782) |
@@ -27,7 +27,7 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Domination | Keystone | Dark Harvest | 8128 | Not implemented | [4046509](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Dark_Harvest?oldid=4046509) |
 | Domination | Keystone | Hail of Blades | 9923 | Not implemented | [4060661](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Hail_of_Blades?oldid=4060661) |
 | Domination | 1 | Cheap Shot | 8126 | Not implemented | [3992989](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Cheap_Shot?oldid=3992989) |
-| Domination | 1 | Taste of Blood | 8139 | Not implemented | [3997097](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Taste_of_Blood?oldid=3997097) |
+| Domination | 1 | Taste of Blood | 8139 | Explicit partial manual selection | [3997097](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Taste_of_Blood?oldid=3997097) |
 | Domination | 1 | Sudden Impact | 8143 | Not implemented | [3825916](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Sudden_Impact?oldid=3825916) |
 | Domination | 2 | Sixth Sense | 8137 | Not implemented | [4017988](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Sixth_Sense?oldid=4017988) |
 | Domination | 2 | Grisly Mementos | 8140 | Not implemented | [3855346](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Grisly_Mementos?oldid=3855346) |
@@ -60,16 +60,16 @@ This inventory does not add rune effects to the counter picker. Existing duel re
 | Inspiration | 3 | Cosmic Insight | 8347 | Not implemented | [3825866](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Cosmic_Insight?oldid=3825866) |
 | Inspiration | 3 | Approach Velocity | 8410 | Not implemented | [3980961](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Approach_Velocity?oldid=3980961) |
 | Inspiration | 3 | Jack Of All Trades | 8316 | Not implemented | [4046578](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Jack_of_All_Trades?oldid=4046578) |
-| Resolve | Keystone | Grasp of the Undying | 8437 | Not implemented | [4058228](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Grasp_of_the_Undying?oldid=4058228) |
-| Resolve | Keystone | Aftershock | 8439 | Not implemented | [4022990](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Aftershock?oldid=4022990) |
+| Resolve | Keystone | Grasp of the Undying | 8437 | Explicit partial manual selection | [4058228](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Grasp_of_the_Undying?oldid=4058228) |
+| Resolve | Keystone | Aftershock | 8439 | Explicit partial manual selection | [4022990](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Aftershock?oldid=4022990) |
 | Resolve | Keystone | Guardian | 8465 | Not implemented | [4022993](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Guardian?oldid=4022993) |
 | Resolve | 1 | Demolish | 8446 | Not implemented | [4058470](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Demolish?oldid=4058470) |
-| Resolve | 1 | Font of Life | 8463 | Not implemented | [3996429](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Font_of_Life?oldid=3996429) |
-| Resolve | 1 | Shield Bash | 8401 | Not implemented | [4044093](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Shield_Bash?oldid=4044093) |
+| Resolve | 1 | Font of Life | 8463 | Explicit partial manual selection | [3996429](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Font_of_Life?oldid=3996429) |
+| Resolve | 1 | Shield Bash | 8401 | Explicit partial manual selection | [4044093](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Shield_Bash?oldid=4044093) |
 | Resolve | 2 | Conditioning | 8429 | Not implemented | [3825864](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Conditioning?oldid=3825864) |
 | Resolve | 2 | Second Wind | 8444 | Explicit partial manual selection | [3960974](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Second_Wind?oldid=3960974) |
-| Resolve | 2 | Bone Plating | 8473 | Not implemented | [3985159](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Bone_Plating?oldid=3985159) |
-| Resolve | 3 | Overgrowth | 8451 | Not implemented | [3825902](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Overgrowth?oldid=3825902) |
+| Resolve | 2 | Bone Plating | 8473 | Explicit partial manual selection | [3985159](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Bone_Plating?oldid=3985159) |
+| Resolve | 3 | Overgrowth | 8451 | Explicit partial manual selection | [3825902](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Overgrowth?oldid=3825902) |
 | Resolve | 3 | Revitalize | 8453 | Not implemented | [3825912](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Revitalize?oldid=3825912) |
 | Resolve | 3 | Unflinching | 8242 | Not implemented | [3958701](https://wiki.leagueoflegends.com/en-us/Template%3ARune_data_Unflinching?oldid=3958701) |
 

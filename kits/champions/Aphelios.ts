@@ -66,6 +66,7 @@ const aphelios: KitModule = {
     const duskDamage = bandFormula(dusk, "20 / 35 / 50 / 65 / 80 / 95 / 110 (based on level) (+ 15 / 16 / 17 / 18 / 19 / 20 / 21 (based on level)% bonus AD) (+ 70% AP)", 6, 13, 14);
     const sentryDamage = bandFormula(sentry, "35 / 50 / 65 / 80 / 95 / 110 / 125 (based on level) (+ 34 / 37 / 40 / 43 / 46 / 49 / 52 (based on level)% bonus AD) (+ 50% AP)", 6, 13, 14);
     const onslaughtSeconds = onslaught.quoted("for 1.75 seconds"), onslaughtBase = onslaught.quoted("up to 6 (+ 2 per 100% bonus attack speed)"), onslaughtAS = onslaught.quoted("up to 6 (+ 2 per 100% bonus attack speed)", 1);
+    onslaught.quote("Onslaught's attacks stack Energized");
     const onslaughtDamage = onslaught.quoted("20 / 23.5 / 27 / 30.5 / 34 / 37.5 / 41 (based on level)% AD", 6) / 100;
     const onslaughtHitScale = onslaught.quoted("25% effectiveness") / 100, onslaughtRange = onslaught.field("effectRadius"), onslaughtCommandRange = onslaught.quoted("reduced to 410"), onslaughtMove = onslaught.quoted("25% (+ 10% per 100 AP)") / 100, onslaughtAP = onslaught.quoted("25% (+ 10% per 100 AP)", 1) / 10000;
     onslaught.quote("Onslaught begins firing with Aphelios off-hand weapon"); onslaught.quote("cannot cast Phase nor Moonlight Vigil during Onslaught"); onslaught.quote("Crescendum will not deal damage if blocked by Wind Wall, but the stacks will still be gained");
@@ -142,7 +143,7 @@ const aphelios: KitModule = {
     const bonusOnHit = (self: Unit, scale: number) => scale === 1 ? undefined : (self.spec.attack.onHit ?? []).map((e): Effect => e.type === "damage" ? { ...e, amount: { base: 0 }, amountFor: (u, v) => (e.amountFor?.(u, v) ?? evaluate(e.amount, u, v)) * scale } : e);
     const fire = (ctx: HookContext, target: Unit | Pet, weapon: number, kind: string, multiplier = 1, ultimate = false, mirrorCount = 0, origin = ctx.self.x, hitScale = 1) => {
       const isPet = "owner" in target, victim = isPet ? petFormulaTarget(target, ctx.self, ctx.tick) : target;
-      const options: AttackHitOptions = { attackTag: `aph:${weapon}:${kind}:${mirrorCount}:${ctx.world.nextId}`, baseDamageScale: multiplier * (weapon === 3 ? infMultiplier : 1), critChance: derive(ctx.self).critChance, ...(ultimate ? { critMultiplier: 1 + rCritBonus * (derive(ctx.self).critDamage - 1) } : {}), ...(kind === "onslaught" ? { attackOnHitReplacement: bonusOnHit(ctx.self, onslaughtHitScale) } : {}) };
+      const options: AttackHitOptions = { attackTag: `aph:${weapon}:${kind}:${mirrorCount}:${ctx.world.nextId}`, baseDamageScale: multiplier * (weapon === 3 ? infMultiplier : 1), critChance: derive(ctx.self).critChance, ...(ultimate ? { critMultiplier: 1 + rCritBonus * (derive(ctx.self).critDamage - 1) } : {}), ...(kind === "onslaught" ? { energizedOnHit: true, attackOnHitReplacement: bonusOnHit(ctx.self, onslaughtHitScale) } : {}) };
       const m: Missile = { id: ctx.world.nextId++, owner: ctx.self.side, source: "attack", seenTick: ctx.tick, x: origin, direction: victim.x >= origin ? 1 : -1, perTick: speed[weapon]! / 30, homing: true, travelLeft: Infinity, projectile: weapon !== 1 && (weapon !== 4 || kind !== "basic" && kind !== "mark"), connects: true, scale: hitScale, onHit: [], attack: { ...options, blinded: kind === "R" ? false : ctx.self.statuses.some((s) => s.kind === "cc" && s.key === "blind"), bonusOnHit: [] }, ...(isPet ? { pet: target.id } : {}) };
       if (weapon === 1) { if (isPet) { m.perTick = severumSpeed / 30; m.projectile = false; ctx.world.missiles.push(m); } else attackHit(ctx.world, ctx.self, victim, m.attack!.blinded, [], undefined, false, options, hitScale); }
       else { if (weapon === 4) m.acceleration = { perTick: cresAcceleration / 900, maxPerTick: cresInitial / 30, minPerTick: cresMinimum / 30 }; ctx.world.missiles.push(m); }
@@ -267,6 +268,7 @@ const aphelios: KitModule = {
           action.attackTag = `aph:${weapon}:${markedTarget ? "mark" : "basic"}`;
           action.missileSpeed = markedTarget ? speed[0] : speed[weapon]; action.baseDamageScale = weapon === 3 ? infMultiplier : 1;
           if (markedTarget) {
+            action.onAttackEffects = "none";
             let base = 0, normal = 0;
             for (const target of allTargets(ctx)) { const mark = marked(target, ctx.self, CAL, ctx.tick); if (!mark) continue; if (mark.value === rMark) base += rMark; else { base += markBase; normal++; } target.statuses = target.statuses.filter((s) => s !== mark); if (target.petId !== undefined) { const z = ctx.world.pets.find((z) => z.id === target.petId); if (z) z.statuses = target.statuses; } }
             action.bonusPhysical = { base, ratios: { bonusAD: normal * markRatio } }; action.uncancellable = true; action.launchTick = ctx.tick + ticks(markCast);

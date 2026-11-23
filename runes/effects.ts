@@ -1,9 +1,22 @@
 /** Explicit partial combat-rune selections; this does not equip a complete rune page. */
 import type { RuneCatalog } from "./catalog";
+import { toTicks } from "../engine/rules/time";
 import type { FighterSpec, KitHooks } from "../engine/sim/spec";
 import { composeHooks, mapForms } from "../items/equip";
 import type { CombatRuneRules, RuneEffectEvidence } from "./effectRules";
+import { checkedLethalTempoRules } from "./lethalTempo";
+import { checkedConquerorRules } from "./conqueror";
+import { checkedGraspRules } from "./grasp";
+import { checkedBonePlatingRules } from "./bonePlating";
+import { checkedShieldBashRules } from "./shieldBash";
+import { checkedOvergrowthDeaths, checkedOvergrowthRules } from "./overgrowth";
+import { checkedAftershockRules } from "./aftershock";
+import { checkedFontOfLifeRules } from "./fontOfLife";
+import { checkedTasteOfBloodRules } from "./tasteOfBlood";
 import { buildRuneEffect } from "./effectRuntime";
+import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
+import { checkedPressTheAttackRules } from "./pressTheAttack";
+import { outgoingRuneHooks } from "./outgoingAmplifiers";
 import { validateRunePage } from "./pages";
 import type { RuneEquipOptions } from "./equipOptions";
 export type { RuneEquipOptions } from "./equipOptions";
@@ -111,26 +124,53 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     || !/^\d+\.\d+$/.test(value.patch) || value.dataset !== catalog.dataset || value.patch !== catalog.patch) {
     throw new Error("Combat-rune rules must identify the source catalog's dataset and patch");
   }
+  const lethalTempo = checkedLethalTempoRules(value.lethalTempo);
+  const conqueror = checkedConquerorRules(value.conqueror);
+  const grasp = checkedGraspRules(value.grasp);
+  const bonePlating = checkedBonePlatingRules(value.bonePlating);
+  const shieldBash = checkedShieldBashRules(value.shieldBash);
+  const overgrowth = checkedOvergrowthRules(value.overgrowth);
+  const aftershock = checkedAftershockRules(value.aftershock);
+  const fontOfLife = checkedFontOfLifeRules(value.fontOfLife);
+  const tasteOfBlood = checkedTasteOfBloodRules(value.tasteOfBlood);
+  const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
+  const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
     coupDeGrace: ["healthThreshold", "damageIncrease"],
     cutDown: ["healthThreshold", "damageIncrease"],
     lastStand: ["healthThreshold", "maximumHealthThreshold", "minimumDamageIncrease", "maximumDamageIncrease"],
     secondWind: ["duration", "missingHealthPerSecond", "tickInterval"],
     absorbLife: ["heal"],
+    triumph: ["maximumHealthRatio", "missingHealthRatio", "delay", "bonusGold"],
     legendAlacrity: ["baseAttackSpeed", "attackSpeedPerStack", "pointsPerStack", "maxStacks", "championKillPoints"],
     legendHaste: ["baseHaste", "hastePerStack", "pointsPerStack", "maxStacks", "championKillPoints"],
+    legendBloodline: ["baseLifeSteal", "lifeStealPerStack", "pointsPerStack", "maxStacks", "championKillPoints", "bonusHealth"],
   } as const;
   for (const [name, keys] of Object.entries(groups)) {
     const group: unknown = value[name as keyof typeof groups];
     if (!record(group)) throw new Error(`Invalid combat-rune rule ${name}`);
     for (const key of keys) {
       const amount = group[key];
-      const zeroAllowed = name === "legendHaste" && key === "baseHaste";
+      const zeroAllowed = (name === "legendHaste" && key === "baseHaste")
+        || (name === "legendBloodline" && key === "baseLifeSteal");
       if (typeof amount !== "number" || !Number.isFinite(amount) || (zeroAllowed ? amount < 0 : amount <= 0)
-        || (!["duration", "tickInterval", "heal", "pointsPerStack", "maxStacks", "championKillPoints", "baseHaste", "hastePerStack"].includes(key) && amount > 1)) {
+        || (!["duration", "tickInterval", "heal", "delay", "bonusGold", "pointsPerStack", "maxStacks", "championKillPoints", "baseHaste", "hastePerStack", "bonusHealth"].includes(key) && amount > 1)) {
         throw new Error(`Invalid combat-rune rule ${name}.${key}`);
       }
     }
+  }
+  const presence: unknown = value.presenceOfMind;
+  const presenceAmounts = ["manaRestore", "rangedManaRatio", "energyRestore", "damageCooldown", "takedownResourceRatio", "takedownDelay"] as const;
+  if (!record(presence) || presence.modelLevel !== 20 || presence.maximumResourceModel !== "current-at-delivery"
+    || presenceAmounts.some(key => typeof presence[key] !== "number" || !Number.isFinite(presence[key]) || (presence[key] as number) <= 0)
+    || (presence.rangedManaRatio as number) > 1 || (presence.takedownResourceRatio as number) > 1
+    || ![presence.damageCooldown, presence.takedownDelay].every(seconds => {
+      const ticks = toTicks(seconds as number);
+      return Number.isSafeInteger(ticks) && ticks > 0;
+    })
+    || !Number.isFinite((presence.manaRestore as number) * (presence.rangedManaRatio as number))
+    || !((presence.manaRestore as number) * (presence.rangedManaRatio as number) > 0)) {
+    throw new Error("Invalid combat-rune Presence of Mind numeric rules, model level or delivery policy");
   }
   if (value.lastStand.maximumHealthThreshold >= value.lastStand.healthThreshold
     || value.lastStand.minimumDamageIncrease > value.lastStand.maximumDamageIncrease) {
@@ -140,7 +180,10 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     || value.secondWind.tickInterval > value.secondWind.duration) {
     throw new Error("Invalid combat-rune Second Wind regeneration model or interval");
   }
-  for (const name of ["legendAlacrity", "legendHaste"] as const) {
+  if (value.triumph.missingHealthModel !== "at-native-kill-credit" || !Number.isSafeInteger(value.triumph.bonusGold)) {
+    throw new Error("Invalid combat-rune Triumph snapshot model or economic reference");
+  }
+  for (const name of ["legendAlacrity", "legendHaste", "legendBloodline"] as const) {
     const rule = value[name];
     if (![rule.pointsPerStack, rule.maxStacks, rule.championKillPoints,
       rule.pointsPerStack * rule.maxStacks].every(Number.isSafeInteger)) {
@@ -157,27 +200,44 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
+    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth, aftershock, fontOfLife, tasteOfBlood,
+    presenceOfMind: { ...value.presenceOfMind },
+    triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
     legendHaste: { ...value.legendHaste },
+    legendBloodline: { ...value.legendBloodline },
     evidence: value.evidence.map((entry) => ({ ...entry })),
   };
 }
 
 function checkedOptions(selection: readonly number[], value: RuneEquipOptions | undefined): RuneEquipOptions {
   if (value === undefined) value = {};
-  if (!record(value) || Object.keys(value).some((key) => key !== "legendPoints")) {
-    throw new Error("Invalid combat-rune options: only declared legendPoints are supported");
+  if (!record(value) || Object.keys(value).some(key => key !== "legendPoints" && key !== "energizedCharges" && key !== "overgrowthDeaths")) {
+    throw new Error("Invalid combat-rune options: expected declared legendPoints, energizedCharges or overgrowthDeaths");
   }
   const points = value.legendPoints;
-  const legend = selection.includes(9104) ? "Legend: Alacrity" : selection.includes(9105) ? "Legend: Haste" : undefined;
-  if (!legend) {
-    if (points !== undefined) throw new Error("legendPoints requires selecting Legend: Alacrity (9104) or Legend: Haste (9105) on the same fighter");
-    return {};
+  const legend = selection.includes(9104) ? "Legend: Alacrity" : selection.includes(9105) ? "Legend: Haste"
+    : selection.includes(9103) ? "Legend: Bloodline" : undefined;
+  const result: RuneEquipOptions = {};
+  if (legend) {
+    if (typeof points !== "number" || !Number.isSafeInteger(points) || points < 0) {
+      throw new Error(`${legend} requires explicit nonnegative safe-integer starting legendPoints`);
+    }
+    result.legendPoints = points;
+  } else if (points !== undefined) {
+    throw new Error("legendPoints requires selecting Legend: Alacrity (9104), Legend: Haste (9105) or Legend: Bloodline (9103) on the same fighter");
   }
-  if (typeof points !== "number" || !Number.isSafeInteger(points) || points < 0) {
-    throw new Error(`${legend} requires explicit nonnegative safe-integer starting legendPoints`);
+  if (selection.includes(8021)) {
+    result.energizedCharges = checkedEnergizedCharges(value.energizedCharges);
+  } else if (value.energizedCharges !== undefined) {
+    throw new Error("energizedCharges requires selecting Fleet Footwork (8021) on the same fighter");
   }
-  return { legendPoints: points };
+  if (selection.includes(8451)) {
+    result.overgrowthDeaths = checkedOvergrowthDeaths(value.overgrowthDeaths);
+  } else if (value.overgrowthDeaths !== undefined) {
+    throw new Error("overgrowthDeaths requires selecting Overgrowth (8451) on the same fighter");
+  }
+  return result;
 }
 
 function hasMarker(spec: FighterSpec, marker: typeof EQUIPPED | typeof OPPOSITION): boolean {
@@ -216,7 +276,9 @@ export function equipRuneEffects(
     const definitions = selection.map((id) => buildRuneEffect(id, form, rules, options));
     for (const definition of definitions) for (const assumption of definition.assumptions) assumptions.add(assumption);
     if (!spec.forms || form.form === spec.form) {
-      enemyHooks = definitions.flatMap((definition) => definition.enemyHooks ?? []).map((hooks) => ({ ...hooks }));
+      const increases = definitions.flatMap(definition => definition.enemyDamageIncrease ? [definition.enemyDamageIncrease] : []);
+      enemyHooks = [...definitions.flatMap(definition => definition.enemyDamageIncrease ? [] : definition.enemyHooks ?? []),
+        ...outgoingRuneHooks(increases)].map(hooks => ({ ...hooks }));
     }
     const ownHooks = definitions.flatMap((definition) => definition.hooks ? [definition.hooks] : []);
     const beforeStart = definitions.flatMap((definition) => definition.beforeStart ? [{ onStart: definition.beforeStart }] : []);

@@ -105,7 +105,7 @@ const ivern: KitModule = {
     };
 
     const daisySpec = (self: Unit): PetSpec => ({
-      kind: DAISY, name: daisy.name, targetClass: "minion",
+      kind: DAISY, name: daisy.name, targetClass: "minion", conquerorOwnerOnHit: 1,
       hp: evaluate(daisyHealth, self), armor: daisyArmor, mr: daisyMR, radius: daisyRadius,
       moveSpeed: daisyMove, duration: daisySeconds, leash: 2500,
       attack: { range: daisyRange, interval: 1 / daisyRate, effects: [{ type: "damage", damageType: "physical", amount: daisyDamage, label: daisy.name }], attackLike: true },

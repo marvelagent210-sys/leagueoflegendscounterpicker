@@ -7,7 +7,7 @@ import type { CCType } from "../rules/crowdControl";
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { Behavior } from "./behavior";
-import type { Action, Aim, AttackHitOptions, Missile, Pet, Status, Unit, World, Zone } from "./state";
+import type { Action, Aim, AttackHitOptions, Missile, Pet, Side, Status, Unit, World, Zone } from "./state";
 import type { PendingSplit } from "./actions";
 
 /** Stats a formula can read: the caster's, or the target's with a "target" prefix. */
@@ -125,7 +125,11 @@ export type StateType =
   /** An ability still at work in a way its kit's hooks model (Twilight Shroud's smoke): no rule of its own, but it holds a post-effect cooldown. */
   | "lingering"
   /** Health can't go above `value` (a share of maximum health); gaining it lowers health to it (All Out's 65%). */
-  | "healthCap";
+  | "healthCap"
+  /** Fixed healing ceiling, unaffected by later changes to maximum health. */
+  | "healthCapAbsolute"
+  /** Fixed current-health ceiling for direct maximum-health restoration. */
+  | "maximumHealthGainCap";
 
 /** Stats a timed buff or debuff changes. Fractions for percentages. */
 export type BuffStat =
@@ -190,6 +194,16 @@ export interface AttackSplit {
 
 export type PetDamageCategory = "basic" | "singleTarget" | "area" | "persistent" | "proc" | "pet";
 
+/** Packet tags used by source-qualified damage observers. */
+export type ObservedDamageKind = "basic" | "spell" | "proc" | "default" | "pet" | "unclassified";
+
+/** The actual amount and deadline of one observed champion health shield. */
+export interface HealthShieldSnapshot {
+  readonly instance: number;
+  readonly amount: number;
+  readonly endTick: number;
+}
+
 export type Effect =
   /**
    * `canCrit`: averaged over the attacker's crit chance; `critMultiplier` replaces its crit
@@ -198,8 +212,9 @@ export type Effect =
    * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
   /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
+  /** `appliesLifeSteal`: an explicit source exception without changing the packet's attack/damage classification. */
   /** `unamplified`: damage amplifiers don't raise it, on either side; reductions still apply (Ignite: "Ignite's damage cannot be amplified by damage amplifiers"). */
-  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory; unamplified?: boolean }
+  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; appliesLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory; observedDamageKind?: ObservedDamageKind; unamplified?: boolean }
   /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
   /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
   | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean; spellShield?: boolean; bypassSlowImmune?: boolean; slowStackGroup?: string;
@@ -264,6 +279,9 @@ export type Effect =
       spellShieldOnHit?: boolean;
       /** Replaces ordinary attack on-hits only when this empowered packet is unshielded. */
       attackOnHitReplacement?: Effect[];
+      /** Distinct strike applications observed on this empowered attack. Legacy attached
+       * effects still execute once; this metadata does not create damage packets. */
+      onHitApplications?: number;
       /** Breaks damage shields on contact, including when a spell shield blocks the attack. */
       breakShields?: boolean;
       split?: AttackSplit;
@@ -454,10 +472,20 @@ export interface AbilityFlags {
   blockedByDisplacementImmunity?: boolean;
   /** Fires the caster's on-hit effects. */
   appliesOnHit?: boolean;
+  /** Source-qualified ranged treatment for on-hits from an otherwise melee caster. */
+  rangedOnHit?: true;
+  /** Source-qualified eligibility for Press the Attack; applying on-hits alone is insufficient. */
+  pressTheAttack?: boolean;
+  /** Reviewed Fleet Footwork on-hit eligibility; independent of Press the Attack. */
+  fleetFootwork?: boolean;
   /** Its own basic damage benefits from life steal (Lunge, Parrrley, Purge). */
   appliesLifeSteal?: boolean;
   /** Classifies its damage as basic damage while preserving spell delivery and defenses. */
   basicDamage?: boolean;
+  /** Reviewed basic-damage abilities with an explicit Conqueror stack amount. */
+  conquerorBasicStacks?: 1 | 2;
+  /** A source-specific exception to Conqueror's same-cast damage lockout. */
+  conquerorPerPacket?: boolean;
   /** Alternative attack spell explicitly copies basic-attack interactions against hit-count pets. */
   petBasicAttack?: boolean;
   /** Resolve spell contact, on-hits and kit hooks against the actual contacted pet. */
@@ -479,6 +507,10 @@ export interface AbilityFlags {
  * kit from the wiki's pet infobox (H-28G Evolution Turret, Mist Walker, Tentacle, Powder Keg).
  */
 export interface PetSpec {
+  /** Explicit owner's on-hit application from an otherwise separate pet attack. */
+  conquerorOwnerOnHit?: 1;
+  /** Native pet attack whose source qualifies it as non-basic damage for Conqueror. */
+  conquerorNonBasicAttack?: true;
   /** Explicit source exception to removal when its owner dies; its own expiry still applies. */
   persistsAfterOwnerDeath?: boolean;
   /** An actual clone remains distinct from its champion targeting class. */
@@ -579,6 +611,10 @@ export type CooldownAfter = "empower" | "channel" | "dash" | "field" | "state";
 export type AbilityRole = "damage" | "cc" | "engage" | "escape" | "defense" | "buff" | "finisher";
 
 export interface AbilitySpec {
+  /** Damage effectiveness of ordinary on-attack effects applied by this qualified contact. */
+  onAttackScale?: number;
+  /** This accepted follow-up belongs to the same primary-target burst as its opening round. */
+  primaryBurstFollowUp?: number;
   /** False for explicit non-activation toggles; own implementation hooks still run. */
   countsAsCast?: boolean;
   /** Unique within the kit: "Q", "W", "E", "R", "Q2", ... */
@@ -742,6 +778,8 @@ export interface AttackSpec {
   ranged: boolean;
   /** Missile speed of ranged attacks; unset or 0 for attacks without a missile. */
   missileSpeed?: number;
+  /** False for spell replacements such as Zeri's zap that bypass on-attack effects. */
+  triggersOnAttack?: boolean;
   /** Projectile blockers stop it. */
   projectile: boolean;
   /** Effects every basic attack applies on hit (attack modifiers such as Teemo's Toxic Shot). */
@@ -826,9 +864,130 @@ export interface ActualMovement {
   ability?: string;
 }
 
+/**
+ * Credited-owner facts after the victim's lethal transition and native kill
+ * deduplication, before any onKill callback. This is a local event phase, not a
+ * claim about live server ordering. Only scalars are retained across callbacks.
+ */
+export interface KillCreditSnapshot {
+  readonly tick: number;
+  readonly hp: number;
+  readonly maxHp: number;
+  readonly missingHp: number;
+  readonly alive: boolean;
+  readonly fallen: boolean;
+  readonly deathDefied: boolean;
+  readonly resurrecting: boolean;
+  readonly deathNotified: boolean;
+  readonly victimIsEnemyChampionBody: boolean;
+}
+
+/** Scalar body identity captured before event callbacks can replace or mutate a unit. */
+export interface CombatIdentity {
+  readonly side: Side;
+  readonly fighterId: string;
+  readonly kind: "champion" | "pet" | "clone" | "other";
+  readonly petId?: number;
+}
+
+/** Completed native basic windup, before legacy launch/replacement callbacks. */
+export interface BasicAttackLaunchedSnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly source: CombatIdentity;
+  readonly target?: CombatIdentity;
+  /** Remains known even if the declared pet disappeared during the windup. */
+  readonly declaredPetId?: number;
+  readonly triggersOnAttack: boolean;
+  /** Ordinary on-attack effects. Energized retains its separate eligibility. */
+  readonly onAttackEffects: "none" | "self" | "all";
+  readonly blinded: boolean;
+  readonly attackTag?: string;
+}
+
+/** One actual movement segment, captured before mutable legacy observers. */
+export interface MovementSnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly body: CombatIdentity;
+  readonly kind: ActualMovement["kind"];
+  readonly from: number;
+  readonly to: number;
+  readonly startTick?: number;
+  readonly endTick: number;
+  readonly ended: boolean;
+  readonly ability?: string;
+}
+
+/** One accepted native on-hit application, distinct from its damage packets or declaration. */
+export interface ResolvedOnHitSnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly source: CombatIdentity;
+  readonly target: CombatIdentity;
+  readonly attack: boolean;
+  readonly ability?: {
+    readonly key: string;
+    readonly name: string;
+    readonly slot: AbilitySpec["slot"];
+    readonly flags: Readonly<AbilityFlags>;
+    readonly onHitScale?: number;
+  };
+  readonly blocked: boolean;
+  readonly ranged: boolean;
+  readonly protected: boolean;
+  readonly scale: number;
+  readonly incomingScale: number;
+  /** Raw contact metadata; consumers still qualify actual source and target body identities. */
+  readonly pressTheAttackEligible: boolean;
+  /** A source-qualified basic can gain on contact (true), or suppress consumption (false). */
+  readonly energizedOnHit?: boolean;
+  /** Positive effectiveness is explicit ordinary on-attack eligibility on contact. */
+  readonly onAttackScale?: number;
+  /** Identifies repeated rounds of one primary-target burst. */
+  readonly attackBurst?: number;
+  readonly damageContact?: {
+    readonly castInstance?: number;
+    readonly ranged: boolean;
+    readonly protected: boolean;
+    readonly basicStacks?: 1 | 2;
+  };
+}
+
+/** Accepted positive damage to a champion, observed after the native damage hooks. */
+export interface ResolvedDamageSnapshot {
+  readonly tick: number;
+  readonly source: CombatIdentity;
+  readonly target: CombatIdentity;
+  readonly ranged: boolean;
+  readonly kind: ObservedDamageKind;
+  readonly castInstance?: number;
+  readonly conquerorPerPacket: boolean;
+  /** The native mitigated packet, including absorption and before health floors. */
+  readonly mitigated: number;
+}
+
+/** Accepted native damage (including zero) or CC, not a universal combat-status clock.
+ * Damage denied by native invulnerability/stasis/parry guards and shield-prevented
+ * abilities do not emit. Pet-victim damage uses a separate pipeline and is not included. */
+export interface CombatActivitySnapshot {
+  readonly tick: number;
+  readonly sequence: number;
+  readonly source: CombatIdentity;
+  readonly target: CombatIdentity;
+  readonly kind: "damage" | "cc";
+  readonly attack?: boolean;
+  readonly ability?: string;
+  readonly damageType?: DamageType;
+  readonly raw?: number;
+  readonly cc?: CCType;
+}
+
 export interface KitHooks {
   /** Once, before the first tick. */
   onStart?(ctx: HookContext): void;
+  /** After a successful form switch and its health adjustment. */
+  onFormChanged?(ctx: HookContext): void;
   onTick?(ctx: HookContext): void;
   /** Opt-in upkeep for already released effects on actual surviving recipients; no new actions. */
   onTickWhileDead?(ctx: HookContext): void;
@@ -836,12 +995,18 @@ export interface KitHooks {
   movementEventsAfterDeath?: boolean;
   /** Actual clamped body movement; interruption may emit a zero-length final event. */
   onActualMovement?(ctx: HookContext & { target: Unit; targetPet?: Pet; movement: ActualMovement }): void;
+  /** Immutable actual segment after legacy movement observers; a queued end keeps
+   * its original tick/endpoints. Direct kit reports need not invoke legacy hooks. */
+  onMovementObserved?(ctx: HookContext & { readonly movementEvent: MovementSnapshot }): void;
   /** Explicit continuation of already granted allied pet attack effects after this owner dies. */
   ownedPetEventsAfterDeath?: boolean;
   /** Pure declaration-time target restriction. Already declared or launched attacks keep their entitlement. */
   canAttackTarget?(ctx: HookContext & { target: Unit; targetPet?: Pet }): boolean;
   /** A basic attack is declared (its windup starts). */
   onAttack?(ctx: HookContext & { action: Extract<Action, { kind: "windup" }>; targetPet?: Pet }): void;
+  /** Completed windup before custom/basic launch callbacks or contact defenses.
+   * This does not itself promise a valid target or a subsequent connected hit. */
+  onBasicAttackLaunched?(ctx: HookContext & { readonly launch: BasicAttackLaunchedSnapshot }): void;
   /** The windup ends. False replaces the default launch; a returned split also branches on the replacement missile. */
   onAttackLaunch?(ctx: HookContext & { action: Extract<Action, { kind: "windup" }>; targetPet?: Pet }): boolean | PendingSplit | void;
   /** A connected basic's target-local packet before ordinary on-hits and physical damage.
@@ -890,7 +1055,15 @@ export interface KitHooks {
    */
   onEnemyCrowdControlled?(ctx: HookContext & { target: Unit; cc: CCType; source: Unit; ability?: string }): void;
   onTargetResurrection?(ctx: HookContext & { target: Unit }): void;
-  onKill?(ctx: HookContext & { victim: Unit | Pet; pet?: Pet; damage?: { ability?: string; persistent?: boolean } }): void;
+  /** Native notifications always supply frozen killCredit facts. Optional only
+   * for callers constructing a manual hook context; snapshot consumers must not
+   * reconstruct absent facts from state mutated by earlier callbacks. */
+  onKill?(ctx: HookContext & {
+    victim: Unit | Pet;
+    pet?: Pet;
+    damage?: { ability?: string; persistent?: boolean };
+    readonly killCredit?: KillCreditSnapshot;
+  }): void;
   /** One actual hostile combat death, once; expiry/replacement/despawn is excluded. */
   onDeathObserved?(ctx: HookContext & { source: Unit; victim: Unit | Pet; targetPet?: Pet }): void;
   /** Once before a special missile moves, including zero-speed and post-death phases. */
@@ -913,12 +1086,27 @@ export interface KitHooks {
   beforeDamageTaken?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean }): void;
   /** Once after critical averaging and mitigation, before shields; state changes are allowed. */
   modifyDamageBeforeShields?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean; originX: number }): number;
+  /** Adjust accepted damage after pre-damage callbacks and before shield absorption. May spend a defensive charge. */
+  modifyAcceptedDamageBeforeShields?(ctx: HookContext & { amount: number; damageType: DamageType; readonly castInstance?: number }): number;
   /** Pure adjustment of remaining HP damage after normal shields. */
   modifyDamageAfterShields?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean }): number;
   /** Pure pre-mitigation adjustment, independently evaluated for normal and critical outcomes. */
   modifyDamageTakenRaw?(ctx: HookContext & { raw: number; damageType: DamageType; attack: boolean; ability?: string; persistent: boolean }): number;
   /** Connected incoming on-hit application, including damage blocks but excluding misses, dodges and parries. */
   onIncomingOnHit?(ctx: HookContext & { attack: boolean; ability?: string; scale: number }): void;
+  /** Shield observation for state bookkeeping. The callback receives no combat actions. */
+  onHealthShieldChanged?(ctx: { readonly self: Unit; readonly tick: number; readonly shield: HealthShieldSnapshot & { readonly endedAt?: number } }): void;
+  /** Accepted later primary burst round, without another generic on-hit application. */
+  onPrimaryBurstRound?(ctx: HookContext & { readonly burst: number; readonly scale: number }): void;
+  /** Source-local accepted application, after its legacy on-hit effects and victim hook.
+   * Facts are captured before those callbacks; blocked connected applications remain accepted.
+   * Released native hits may notify a dead source; this hook grants no continuation itself. */
+  onResolvedOnHit?(ctx: HookContext & { readonly onHit: ResolvedOnHitSnapshot }): void;
+  /** Source owner observation with stable cast identity and qualified packet class. */
+  onDamageResolved?(ctx: HookContext & { readonly damage: ResolvedDamageSnapshot }): void;
+  /** Accepted native activity after its existing damage/CC callback chain. Scalar facts
+   * precede that chain; each observer chooses its own body and lifecycle eligibility. */
+  onCombatActivity?(ctx: HookContext & { readonly combatActivity: CombatActivitySnapshot }): void;
   /** Immediately before a live dash moves, after this tick's cast completions. */
   onDashTick?(ctx: HookContext & { ability: AbilitySpec; action: Extract<Action, { kind: "dash" }> }): void;
   /** A dash ends at its actual completion/interrupt tick, after its contact effects. */
@@ -1061,9 +1249,15 @@ export interface FighterSpec {
   id: string;
   name: string;
   resourceType?: string;
+  /** Champion record's adaptive-damage tie preference, independent of shard-time memory. */
+  adaptiveType?: "Physical" | "Magic";
   /** Simultaneous passive conversions, without recursive gains or direct healing. */
   statConversions?: {
     healthToAP?: number; apToHealth?: number; moveSpeedBonusEffectiveness?: number;
+    /** Direct external bonus-health awards, separate from setup's purchased stats. */
+    directBonusHealthMultiplier?: number;
+    /** Bonus AD per direct bonus-health point; replaces the award's maximum-health gain. */
+    directBonusHealthToAD?: number;
     /** Mana-only: multiply maximum mana by one plus current AP times this coefficient. */
     apToManaPercent?: number;
     /** Source-mandated final movement speed, without own modifiers or another soft cap. */

@@ -2,7 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, skillshotChance } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior, react } from "../../engine/sim/behavior";
-import { abilityHit, directionTo, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, directionTo, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
 import type { Missile } from "../../engine/sim/state";
@@ -127,7 +127,9 @@ const lissandra: KitModule = {
           if (ctx.ability.key === "E") { ctx.memory.clawLaunch = ctx.tick; ctx.memory.clawUntil = Infinity; ctx.memory.clawX = ctx.self.x; ctx.memory.clawLateHit = false; }
           if (ctx.ability.key === "E2") {
             const claw = ctx.world.missiles.find((missile) => missile.owner === ctx.self.side && missile.source === "E");
+            const from = ctx.self.x;
             ctx.self.x = claw?.x ?? Number(ctx.memory.clawX);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "E2", endTick: ctx.tick, ended: true });
             ctx.world.missiles = ctx.world.missiles.filter((missile) => missile !== claw);
             ctx.world.zones = ctx.world.zones.filter((zone) => zone.id !== Number(ctx.memory.clawLateZone ?? -1));
             delete ctx.memory.clawX; delete ctx.memory.clawUntil; delete ctx.memory.clawUnlock;

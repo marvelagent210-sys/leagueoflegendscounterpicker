@@ -9,6 +9,7 @@ import { createWorld, step } from "../../engine/sim/simulate";
 import { projectileInterceptPoint } from "../../engine/sim/projectileBlock";
 import type { Effect, KitHooks, PetSpec } from "../../engine/sim/spec";
 import { cloneWorld, type Missile, type World } from "../../engine/sim/state";
+import { composeHooks } from "../../items/equip";
 import { ability, fighter } from "./kits";
 
 const idle = () => undefined;
@@ -54,6 +55,23 @@ describe("batch11 shield transactions", () => {
     const world = arena({}, { modifyDamageBeforeShields(ctx) { calls++; amounts.push(ctx.amount); return ctx.amount / 2; } });
     shield(world, 20); dealDamage(world, world.units[0], world.units[1], 100, "physical", { crit: { chance: .5, multiplier: 2 } });
     expect(calls).toBe(1); expect(amounts).toEqual([150]); expect(world.units[1].hp).toBe(1945); expect(world.units[1].totals.absorbed).toBe(20);
+  });
+  it("passes a kit's pre-shield adjustment to the equipped modifier", () => {
+    const observed: number[] = [];
+    const hooks = composeHooks({
+      modifyDamageBeforeShields(ctx) { return ctx.amount / 2; },
+    }, [{
+      modifyDamageBeforeShields(ctx) {
+        observed.push(ctx.amount);
+        return ctx.amount - 10;
+      },
+    }], [], false);
+    const world = arena({}, hooks);
+    shield(world, 20);
+    dealDamage(world, ...world.units, 100, "true");
+    expect(observed).toEqual([50]);
+    expect(world.units[1].hp).toBe(1980);
+    expect(world.units[1].totals.absorbed).toBe(20);
   });
   it.each(["invulnerable", "stasis"] as const)("does not consume a pre-shield guard during %s", guard => {
     let calls = 0; const world = arena({}, { modifyDamageBeforeShields(ctx) { calls++; return ctx.amount; } });

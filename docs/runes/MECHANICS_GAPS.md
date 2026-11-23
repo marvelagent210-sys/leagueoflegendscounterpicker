@@ -4,6 +4,437 @@ Source and runtime review, 6 November 2026. These findings explain why adding a
 numeric rune bonus alone is insufficient. No in-game measurements were performed
 for this audit. The sources below are pinned Wiki revisions; code observations
 describe the current model, not a complete specification of live-game behavior.
+The Bloodline follow-up began on 8 November; its genuine full refresh and
+checkpoint audit completed on 10 November. The mechanics proof limits below
+remain in force.
+
+## Taste of Blood
+
+The template and frozen client agree on the heal curve, bonus attack
+damage and ability power ratios, and a 20-second cooldown. The template's
+full-health gate is explicit. The client also contains `RegenDuration`
+with value 4. The article and template describe a heal and supply the
+total amount. The model uses an immediate native heal. Actual delivery
+timing still needs a live check. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3997097) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=3997098)
+
+The native hook observes damage after shields, health floors and vamp.
+Positive health loss or shield absorption is the model's trigger. It uses
+ordinary owned-pet damage attribution and excludes actual clone actors
+and victims. The exact live order with other healing, shield-only
+eligibility, pet attribution and protected-resurrection interactions
+remain open. [Champion summoned units](https://wiki.leagueoflegends.com/en-us/?oldid=4023248) · [Manual duel rules](README.md#taste-of-blood)
+
+## Font of Life
+
+The current article records cooldown consumption at full health and a
+solo proc despite the 25.18 patch note. The manual model uses that
+observed rule and the template's level curve. It checks Corki's explicit
+Demolish substitution and uses the native duel's ordinary healing modifiers
+and caps. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3996429) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4015111)
+
+An accepted native immobilization or positive slow from the champion
+body can trigger a heal. A drowsy slow with a delayed ramp first qualifies
+when its positive component is seen during upkeep. Cleanse can remove
+that pending component. Slow immunity can suppress the slow before a
+separate sleep applies. Exact live first-frame timing, ties with other
+effects, pet and clone attribution, and the team-mode ally selection
+remain open. [Slow rules](https://wiki.leagueoflegends.com/en-us/?oldid=4060507) · [Drowsy rules](https://wiki.leagueoflegends.com/en-us/?oldid=3308207)
+
+## Aftershock
+
+Patch 26.21 gives 45 plus 75% of each bonus resistance, a 2.5-second
+window and a 350-unit magic shockwave. The current template and the frozen
+client agree on the 80 to 150 cap endpoints and the 25 to 120 damage
+endpoints. The resistance-stat articles list a rounded level-20 cap of
+158. The model uses the corresponding unrounded cap and extends the same
+level curve to the damage endpoints. A controlled level-20 damage
+measurement would confirm that extrapolation. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4022990) · [Armor](https://wiki.leagueoflegends.com/en-us/?oldid=4073057) · [Magic resistance](https://wiki.leagueoflegends.com/en-us/?oldid=4073058) · [Versioned client](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The model samples resistance when the control is accepted and bonus health
+when the wave detonates. It floors the resistance inputs at zero, starts the
+cooldown at activation, resolves the burst at the end of the resistance
+window and cancels a pending burst on death, falling or attackable
+resurrection. The source confirms static resistance and records a fix for
+premature detonation on death. The negative-resistance case, exact transition
+ordering and bonus-health sample still need live checks. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4023199)
+
+Manual duels cover the two champion bodies with the simulator's native
+area-proc damage path. Pet and clone attribution, monster and multi-target
+damage, additional spell effects and complete-page substitutions remain
+open. The article specifies Grasp substitution for Yorick and champions
+without immobilizations. Only the explicit Yorick restriction has been
+mapped to a fighter identity for the manual selection. [Manual duel rules](README.md#aftershock)
+
+## Overgrowth
+
+The normal-mode template and client agree on three flat bonus health per
+eight qualifying deaths, a 120-death threshold, a 3.5% multiplier and a
+1,400-unit range. Only enemy minions and monsters within the owner's direct
+vision qualify in the source. Terrain and nearsight can limit the range,
+and qualifying deaths can count while the champion is dead. The manual
+model takes the owner's already-qualified total as fixed history. The
+client's opaque numeric fields need evidence before informing absorption
+timing. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3825902) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4002405)
+
+The model uses explicit base and bonus health classifications. Kled's base
+increase is apportioned between his own and Skaarl's base pools, with the
+bonus increase on Skaarl. Vladimir's AP-derived health is boosted with
+the rest of the bonus pool. His HP-to-AP conversion reads scaled external
+bonus health without feeding back its own generated value. These interactions
+and the exact Pyke conversion order still need controlled measurements.
+[Kled's Skaarl](https://wiki.leagueoflegends.com/en-us/?oldid=4058479) · [Vladimir's Crimson Pact](https://wiki.leagueoflegends.com/en-us/?oldid=4073468) · [Pyke's Gift of the Drowned Ones](https://wiki.leagueoflegends.com/en-us/?oldid=4007005)
+
+## Shield Bash
+
+The reviewed rules give the highest eligible shield peak, the two-second
+grace period, and one use for a set of previously gained shields. The
+article records the patch 14.19 removal of the old resistances bonus. The
+versioned client's extra `BonusShieldMult` field needs independent evidence
+before it can inform the effect. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4015237) · [Versioned client](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The simulator samples shield grant eligibility at the native on-hit
+snapshot and samples shield strength and adaptive stats when it applies
+the proc. Exact live ordering for shield gains from the same attack,
+partial on-hit applications, and loss of eligibility during resurrection
+need controlled checks. The timing of shields that break or change in a
+single frame follows the simulator's native damage and shield observations.
+[Manual duel rules](README.md#shield-bash) · [Camille's Adaptive Defenses](https://wiki.leagueoflegends.com/en-us/?oldid=4051341)
+
+## Bone Plating
+
+The sources establish post-mitigation reduction, true damage, the trigger
+packet exception, one spend per cast, and exclusions for zero, invulnerable
+or shield-only activation. They explicitly allow Kled W's bonus packet
+on the attack that arms the rune and record a fix for cooldown resets
+on revival. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3985159) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4072632)
+
+The model spends active plates before ordinary shield absorption and after
+the kit's pre-damage reactions. It begins the 55-second cooldown when the
+third plate is spent or the 1.5-second window ends. Shield ordering,
+reactive shield creation, simultaneous expiry and contact, and the
+early-exhaustion and revival phases need controlled live checks.
+
+The current scope is actual opposing champion bodies. Pet and clone
+attribution, floor-protected hits during an active window, and kit packets
+without a native cast identity need individual review. [Manual duel rules](README.md#bone-plating)
+
+## Grasp of the Undying
+
+The Wiki describes one stack per second with a refreshed three-second combat
+window, followed by a five-second primed on-hit. Its release notes also
+describe renewing the primed window on damage. The model starts the first
+pulse one second after damage and renews the primed window with accepted
+damage. Live measurements would resolve the current first pulse, equality
+boundaries and interactions with simultaneous damage and attack arrivals.
+[Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4058228) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4052352)
+
+The frozen heal missile has 0.4 seconds of fixed movement and casts on arrival.
+Its separate cast fields record about 0.245 and 0.25 seconds. The model takes
+one maximum-health and form sample at the accepted contact, grants permanent
+health in that frame and schedules the ordinary heal after 0.4 seconds. The
+actual server callback, any additional cast latency, and the relative timing of
+healing and permanent health still need a live replay. [Patch 26.21 client data](https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json)
+
+The native damage clock covers the two champion bodies and explicitly
+classified pet-victim damage. It uses the ordinary non-clone owner credit and
+attributes a clone's contact to that clone on the outgoing side. The rune
+consumes only on a champion-body hit. Controlled cases are still needed for
+clone consumption, unclassified summon contact, lethal hits entering an
+invulnerable resurrection, and exact on-hit sequencing across alternative
+deliveries. Positive expected on-hit contact consumes a full proc in the
+simulator. [Combat status](https://wiki.leagueoflegends.com/en-us/?oldid=4058480) · [Manual duel rules](README.md#grasp-of-the-undying)
+
+## Conqueror
+
+Conqueror needs a cast identity distinct from the ability key and the
+individual damage packet. The sim carries the identity through native cast,
+missile, field, channel, delayed and periodic stages. Selected kit effects
+carry the identity explicitly when they schedule their own contacts. Packets
+with an unresolved origin need more source review, including some custom
+passives and pet abilities. [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4091967) · [Cast instance](https://wiki.leagueoflegends.com/en-us/?oldid=4069908)
+
+The simulator refreshes the stack timer on an eligible repeat within a
+four-second lockout. It samples existing stacks for healing and uses the
+native post-mitigation amount, including absorption before floors and
+overkill. The live ordering of the maximum-stack hit, shield and health-floor
+interactions, and refresh ordering around simultaneous events remain open.
+Temporary stat origins beyond the declared plain-stat purchases and shards
+need a separate review. [Manual duel rules](README.md#conqueror)
+
+The current Kayle kit delivers a basic packet and its attached wave as one
+attack application. Separate wave flight and wave-first stacking require
+further modeling. The clone side of Wukong’s spin and secondary summons such
+as Shaco’s mini-boxes need explicit cast and owner qualification.
+[Divine Ascent](https://wiki.leagueoflegends.com/en-us/?oldid=4051190) · [Cyclone](https://wiki.leagueoflegends.com/en-us/?oldid=4021867)
+
+## Lethal Tempo
+
+The template gives the stacking, decay and bolt formula. The simulator processes
+decay before an attack on the same tick and requires six stacks before the attack
+to launch the first bolt. Measurements would resolve the sixth-attack ordering
+and exact stat sampling phase. The four frozen client bolt objects give a
+2,500-unit/s nontracking spline in their nested movement data. Their outer
+fields give 1,800 speed and 0.25 seconds of cast time. The model uses the
+nested speed and one-dimensional flight from the launch point. Exact spline
+length, interception, displacement of the target and delivery after the source
+dies need live validation. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=4065934) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4060427)
+
+Riot’s clone fix establishes stack gain when attacking a champion clone. Clone
+bolt damage and source inheritance remain open. The duel checks living
+positive-HP bodies and native target protection, including reanimated bodies
+where the engine marks them alive and eligible. It treats positive
+fractional contacts as full stacks and scales their bolt damage by contact
+share and on-attack effectiveness. The source notes leave the timing of these
+partial applications and Azir soldiers’ bolt eligibility open. In the duel,
+soldier commands grant stacks and personal attacks can launch the bolt.
+Bolts use standard projectile defenses and are outside the AI’s ability
+forecast. [Riot 14.20 notes](https://www.leagueoflegends.com/en-us/news/game-updates/patch-14-20-notes/) · [Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) · [Manual duel rules](README.md#lethal-tempo)
+
+## Fleet Footwork
+
+The sources distinguish charge gain at basic windup completion from spending
+on hit. They leave open the general ordering for a hit that reaches 100, the
+rounding of movement charges and the handling of multiple missiles in flight.
+The duel uses continuous charges and typically lets the first eligible contact
+spend the current pool. Zeri’s documented follow-up rule lets a later Burst
+Fire round spend the pool when its first round just filled it.
+Each accepted marked ability application counts once at full strength,
+including positive fractional applications in the engine’s expected-hit model.
+Exact live behavior under reduced on-hit effectiveness still needs measurement.
+[Attack effects](https://wiki.leagueoflegends.com/en-us/?oldid=4084301) · [Energized notes](https://wiki.leagueoflegends.com/en-us/?oldid=4064669)
+
+Fleet samples the owner’s form, bonus AD and AP when it consumes charges and
+applies ordinary healing immediately. The frozen client’s healing missile
+metadata does not establish when HP changes. The simulator retains the pool
+through form changes and ordinary death and requires a living owner with
+positive HP to gain or spend. Protected-state ordering, other target classes,
+pet and clone attribution and a shared pool with Energized items need further
+validation. [Manual duel rules](README.md#fleet-footwork)
+
+## Press the Attack: event boundaries and local policies
+
+Implementation began on **17 November 2026** as the eleventh partial manual
+effect and first Precision keystone. The Press the Attack bundle had 71 complete pages,
+preserving all 63 previous objects and the frozen full client. The dated
+Presence and earlier sections below retain their own release snapshots. The
+17 November refresh computed all 14,878 pairings in each default matrix.
+The audit matched all 29,756 new checkpoints to their published values.
+
+The explicit [template 4015574](https://wiki.leagueoflegends.com/en-us/?oldid=4015574)
+formula runs through level 20 and gives `2960/17` proc damage at that level.
+Frozen client MinDamage/MaxDamage names do not establish a hidden 160 cap.
+Two 14 November whole-client refetches failed HTTP 522, so there is no fresh
+whole-client equality claim. Current derived bonus AD versus AP and the source
+champion's carried tie type are sampled at delivery under a declared local
+policy, independent of adaptive-force shard selection.
+
+The [PTA article 4082445](https://wiki.leagueoflegends.com/en-us/?oldid=4082445)
+requires counting on-hit applications, including multiple applications within
+one issued attack, while excluding specified AoE/secondary contacts except its
+Azir W exception. Native source-side immutable events and explicit kit metadata
+provide that bounded classification. Renekton declares two or three strike
+application events; other attached on-hit effects still use their existing
+once-per-attack approximation. Custom kit adapters and per-ability coverage
+do not prove universal pet/clone, multi-target or item-event parity.
+
+New amplification excludes the whole activation simulation tick (30 Hz).
+Later procs while already active keep the prior activation tick and can be
+amplified. The proc ignores on-hit effectiveness and does not trigger ability
+hit hooks. Four-second stack expiry, six-second cooldown readiness and the
+existing post-on-hit callback phase use explicit local boundaries. Same-frame
+wording does not independently establish this game-to-model frame mapping.
+
+The [Combat status article 4058480](https://wiki.leagueoflegends.com/en-us/?oldid=4058480)
+includes damage, zero events and CC, with pet/clone distinctions and old/modern
+ambiguities. A single five-second clock since qualified accepted damage/CC
+or connected eligible on-hit activity, including damage-blocked contacts, is
+the chosen interpretation; it does not add two consecutive five-second timers.
+Ordinary pet-to-champion activity can refresh the owner's clock, while actual
+classified pet/clone sources do not stack or inherit the bounded amplifier.
+Owner-emitted packets without causal clone markers can still appear as owner
+activity or damage; universal clone-origin exclusion is not established. Native
+invulnerability/stasis/parry guards, pet-victim paths, shield-prevented effects,
+causal clone attribution and source-specific combat exceptions remain qualified.
+Expiry precedes a late refresh, preventing revival of an expired buff.
+
+The amplifier applies only to actual living champion-body source damage
+against the opposing champion body. It follows current PTA true-damage history
+with exact Smite exclusion, without copying the health-rune Ignite exclusion.
+Clone-victim resets, post-death stacking, lethal/reflection priority and full
+protected-state eligibility remain unmeasured. Dead bodies immediately stop
+stacking/amplifying; the first dead-body upkeep clears stacks and buff state.
+Timers do not extend ended duels. A shared pure resolver sums compatible PTA
+and health-rune increases before the aggregate adapter, avoiding multiplicative
+rune cross terms. Additive outgoing-bucket composition remains
+an aggregate approximation: separate V26.09 amplifier instances and
+pre-modifier interaction parity are not modeled. Fixed items and build search
+therefore remain blocked for manual combat-rune flags.
+
+See the [rune audit](README.md#press-the-attack-first-keystone-and-declared-event-policies)
+and [accuracy log](../../ACCURACY.md#press-the-attack-eleventh-partial-manual-effect-17-november-implementation)
+for source links, manual commands, remaining work and the completed checkpoint
+audit. Full pages, remaining keystones, browser effect controls, item/rune
+composition and rune-aware allocation/search remain unfinished.
+
+## Presence of Mind: resource phases and observer limits
+
+Presence implementation began on **13 November 2026** as the tenth partial
+manual effect. The current bundle has **63 complete objects**, preserving all
+47 preceding objects and frozen full client bytes. Twenty-five direct pinned
+pages were independently re-fetched on 13 November. Historical Legend and
+Triumph sections below retain the bundle counts and results of their releases.
+Presence's local provenance refresh completed on 13 November, reusing all
+14,878 pairings per matrix with zero new computation. The complete default comparison found unchanged result payloads. Local
+validation passed 9,510 tests across 269 files with five existing skips;
+pull-request checks run separately against the delivery head.
+
+The retained complete template 3985219, article 4062635 and 31-entry client table
+agree through level 20: **56 mana**, **44.8 for the current owner's ranged form**,
+or **6 energy**. Named6–50 fields and tooltip text disagree with that detailed
+curve and remain explicit evidence conflicts. This model uses the detailed
+curve without interpolation/clamping to 50. It implements flat restoration,
+not the retired regeneration or maximum-resource stacking effects. Exact Mana
+or Energy types are required; unsupported types fail without automatic Triumph
+substitution. Presence, Triumph and Absorb Life share Precision row 1.
+
+The damage arm uses one native post-damage observer and a single body-local
+**eight-second / 240-tick** cooldown. Current owner form chooses Mana's ranged
+factor; form changes do not reset the clock, and ability haste does not scale
+it. Accepted damage consumes cooldown before capped resource gain even at full
+resource. The full-Mana rule interprets a bug-labelled article note; full-Energy
+consumption is a chosen unmeasured extension. The reported threshold is actual
+HP loss plus shield absorption greater than zero. Shield-only packets qualify;
+zero-effective late parries do not. Source text does not prove that threshold
+or the exact callback/form sampling phase.
+
+Only the actual opposing champion body is a damage victim in this subset. The
+owner or a native ordinary owned-pet actor can supply the packet; released pet
+missiles preserve source identity after removal, so a live-pet lookup or
+whole-hit bridge is unnecessary. Actual reported clone actors and clone/pet
+targets are excluded, but some causal clone effects report the owner instead:
+Shaco's clone explosion is an owner-emitted packet and can qualify. No universal
+causal-origin marker establishes broader clone parity. The observer visits
+only alive, positive-HP owners, including possible fallen/death-defied or
+protected bodies. Normal dead/zero-HP damage procs are unsupported. An
+execute-only effect reaches native kill credit but emits no post-damage event;
+it can schedule the takedown arm without granting the damage arm.
+
+Actual hostile champion-body kill credit schedules a **one-second / 30-tick**
+resource entitlement, using native owner attribution and deduplication. The
+immutable native frame establishes a real kill and tick; it supplies no
+resource or maximum-resource facts. The callback records current resource kind
+and deadline. At delivery, the local policy samples **15% of the current derived
+maximum of the same kind** and consumes state before applying capped ordinary
+resource gain. Kind changes consume without transferring an old entitlement.
+Ryze's AP-to-Mana conversion and Akali's temporary Energy maximum are therefore
+derived at delivery. The stale Akali 280/42 example is not used: native shroud
+adds 100 to base 200; active delivery attempts 45, while expiry before upkeep
+returns the cap to 200 and the chosen policy attempts 30. Native model regressions check those boundaries; they do not constitute live
+measurements.
+
+Resource restoration is separate from HP healing and regeneration; heal
+amplification, Grievous Wounds and `noHealing` do not modify it. The declared
+resource policy permits delayed gain on dead, fallen or counted-dead bodies
+only while the world is already active. It neither heals nor revives them and
+never prolongs an ended duel. Primitive body memory survives forms and copies
+independently with the world. This policy must not be inferred from Triumph's
+HP-healing cancellation. No assists/farm, pre-fight grant, multiplayer queue,
+full missile semantics or exact live recipient phase is established.
+
+The source/implementation contract remains partial. The normal local refresh
+used the actual dependency plan: all 14,878 pairings per matrix were reused,
+with zero newly computed pairs. Both ordinary matrix freshness checks, both
+TypeScript projects, offline catalog freshness and the browser build passed.
+Independent complete comparison found unchanged result payloads across all
+173 champions, including every score/scenario, variant, build/item set and
+spending field. Only simulation provenance changed; all pair input keys remain
+equal. The full local suite passed 9,510 tests across 269 files with five
+existing skips. Pull-request checks run separately against the actual delivery
+head. No new checkpoints are claimed, and reused counts alone were not treated
+as numerical evidence. Earlier optimizer regressions and controlled in-game validation
+remain unresolved. See the [rune audit](README.md) and
+[accuracy log](../../ACCURACY.md); full pages, browser combat controls,
+item/rune composition and rune-aware search remain unfinished.
+
+## Triumph: bounded timer and unresolved live phase
+
+Triumph implementation began on 11 November 2026 as the ninth partial manual
+effect. Its genuine full matrix refresh, checkpoint audit and core release checks
+completed that day, with complete default result payloads unchanged. Final
+delivery CI is tracked in [PR #26](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/pull/26).
+The current combat bundle has 47 complete pages, preserving all 42 preceding
+objects and the exact frozen full client bytes. Fourteen pinned complete Wiki
+sources were independently re-fetched on 11 November with matching hashes.
+Historical Legend sections below retain their original bundle counts and
+release results; those are not Triumph validation.
+
+The complete [template 3825924](https://wiki.leagueoflegends.com/en-us/?oldid=3825924)
+and [article 3980916](https://wiki.leagueoflegends.com/en-us/?oldid=3980916)
+establish Summoner's Rift's `2.5% maximum HP + 5% missing HP`, a one-second delay,
+and missing HP at takedown. They do not establish maximum-HP snapshot timing,
+exact phase relative to kit kill-heals, Legend awards or life steal, every
+modifier snapshot, or all recipient protected-window behavior.
+
+The chosen native contract freezes credited-owner scalar health/lifecycle
+facts after existing deduplication and owned-pet owner choice, before all
+composed `onKill` callbacks. Both formula terms use that same frame as a
+declared local policy. It follows the victim's lethal transition; it is neither
+pre-lethal nor proof of the global live event phase. A legal Triumph/Bloodline
+selection at 1,499 points captures before the +85 cap award. Dismounted Kled's
+award may restore only 20 current HP at his fixed own-health ceiling, increasing
+missing HP by 65 while maximum HP rises by 85. A late snapshot would change
+both terms. Renata's kit kill-save provides another actual mutation that cannot
+rewrite the immutable frame. The new tests establish those local consequences.
+
+Kled's formula denominator remains combined Kled+Skaarl maximum HP; ordinary
+healing clamps to his own-health ceiling when dismounted. K'Sante retains his
+maximum HP while All Out keeps its old absolute 65%-of-entry-maximum healing
+ceiling through later health gains. That ceiling is not maximum HP and is not
+recomputed from a Bloodline award. Triumph uses ordinary healing, separate from
+Bloodline's direct maximum/current-health award and its different protections.
+
+A fixed raw amount and one-second deadline live in the actual body's primitive
+memory. On the first due upkeep tick (30 ticks at 30 Hz), the pending state is
+consumed before ordinary healing with current modifiers and caps. That delivery
+phase and modifier timing are explicit policies. Same-body forms retain state,
+world copies are independent, fresh replacement bodies start without it, and
+pet views cannot redeem it. Side-only scheduling is not used. Ordinary victory
+is never extended to wait for the heal; existing persistent hostile output must
+keep the duel active. Future replacement/respawn memory transfer or possession
+needs a separate actor-lifecycle contract.
+
+Actual hostile champion-body kills qualify with native owner credit and
+deduplication, including counted positive-HP fallen victims. Pet/clone victims,
+farm, assists, friendlies and protected victim resurrection entry do not count.
+No starting-history flag or pre-duel entitlement is invented. Dead, zero-HP,
+fallen, death-defied or counted-dead recipients receive no new entitlement and
+cancel pending healing. A sticky counted-death guard prevents banking through a
+later positive-HP return. Positive-HP attackable resurrection follows ordinary
+healing, and stasis alone remains eligible. These are unmeasured Triumph-specific
+recipient policies, distinct from whether a victim's death counts.
+
+Triumph and Absorb Life share Precision row 1, so a purported combined selection
+cannot establish legal ordering. One Legend can accompany Triumph with explicit
+points for that side. The compiled +20 gold is economic reference only; it is
+neither awarded nor spent and changes no fixed budget, shop or search account.
+The timer omits the visual missile and its documented unintended friendly pops,
+including Fizz Trickster and Lissandra's self Frozen Tomb. Wind Wall-unblockable
+behavior and stasis eligibility do not establish all missile interactions.
+General assist credit, multiplayer queues and the repeat-takedown pending-heal
+update bug are unfinished; one pending slot covers only the current one-enemy-body
+duel.
+
+The genuine [11 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/43056538392) computed
+all 14,878 pairings per matrix with zero reuse, and all 29,756 new checkpoints
+match final forward/reverse aggregate scores, scenarios, variants, decoded builds
+and spending. Complete default result payloads are unchanged. All 22 jobs and
+9,280 tests across 266 files passed, with five existing skips; both matrix
+freshness checks, the 24 formerly stale-file tests and production build passed.
+The offline catalog freshness check passed on 12 November. The
+[accuracy log](../../ACCURACY.md) retains the exact evidence. These results do
+not measure the unresolved live phases or establish live-game accuracy. Full
+pages, browser controls, item/rune composition and rune-aware allocation/search
+remain unfinished; roadmap step 1 remains in progress.
 
 ## Separate amplifier packets
 
@@ -121,7 +552,8 @@ actual enemy champion-body kills, capped at ten stacks. It preserves point remai
 native owner credit and kill deduplication. The complete
 [Takedown revision 4081718](https://wiki.leagueoflegends.com/en-us/?oldid=4081718)
 and [Champion summoned units revision 4023248](https://wiki.leagueoflegends.com/en-us/?oldid=4023248)
-are retained with the Alacrity and Haste pages in the current thirty-page combat bundle.
+are retained in the current 42-page combat bundle, which preserves the previous
+thirty complete source objects and frozen client bytes.
 Clone/Spirit victims do not become champion takedowns through their targeting
 class. Protected resurrection entry gives no points; counted post-death kills
 give one award. A dead owner can gain progress through a committed hit or pet
@@ -131,9 +563,9 @@ Runtime farm, assists and minion/monster reward classification remain outside
 this subset. Starting points may represent prior real events; level 20 does not
 infer that history. Point updates use the current after-kit kill-hook phase,
 whose complete ordering relative to live champion effects is not measured.
-Bloodline remains unimplemented. Its cap health still
-needs source-qualified initialization and dynamic handling, including Ornn's
-innate setup and health-based shields.
+Bloodline now adds the bounded manual subset described below. All three Legend
+choices share one row and require explicit starting history for each selecting
+side; farm, assists and monster progression remain unfinished.
 
 **Haste now has the same declared-history and champion-kill subset.** Each
 completed 100-point stack adds 1.5 basic ability haste, with zero base and a cap
@@ -172,6 +604,92 @@ changed plain-stat pairings, all involving Udyr, and 186 changed build payloads
 checks and the final production build passed. The
 [accuracy log](../../ACCURACY.md) records the completed release checks and exact
 result comparison; the mechanics qualifications above remain.
+
+### Bloodline: direct health, packet eligibility and proof limits
+
+Bloodline (9103) is the eighth partial manual effect. It has zero base life
+steal, adds 0.45% per completed 100-point stack, caps at fifteen stacks and
+6.75%, and awards 85 direct bonus health once only at 1,500 points. At 1,499
+points it gives 6.3% life steal and no health. Each selected side must declare
+its own nonnegative safe-integer points, including zero; remainders are retained
+and effective points cap at 1,500. Actual hostile champion-body kills add 100
+with native owner credit and deduplication; the duel creates no farm, assist or
+monster history. The after-kit kill callback phase remains an engine assumption;
+the lethal packet's life steal against a newly earned stack and exact ordering
+with other live kill effects remain unmeasured.
+
+The current 42-page bundle adds twelve complete pages to the thirty retained
+for Haste. The frozen complete client file and descriptor remain byte-exact.
+An independent remote refetch changed only an unrelated Electrocute VFX entry;
+Bloodline's full object matches. That mutable-URL drift is recorded in the
+external source audit rather than imported into the frozen inputs. Opaque
+100-valued client fields remain unnamed; the complete Bloodline wording
+establishes the points contract.
+
+[Health 4073062](https://wiki.leagueoflegends.com/en-us/?oldid=4073062) says
+maximum-health increases restore the same amount of current HP.
+[Healing 4041638](https://wiki.leagueoflegends.com/en-us/?oldid=4041638)
+distinguishes direct restoration from healing. Thus the ordinary living-owner
+award is +85 maximum and current HP once, without Grievous Wounds, heal
+amplification, `noHealing` or healing totals. Treating a living owner at a
+protected healing floor this way composes general rules; it is not a measured
+Bloodline-specific interaction. Reinitialization or a later capped kill must not
+restore the award again. Life steal itself retains the normal healing rules.
+
+Source-qualified exceptions are now part of the narrow health-award contract:
+
+- [Ornn 4089066](https://wiki.leagueoflegends.com/en-us/?oldid=4089066): 10% plus
+  4% per upgrade from all sources. The frozen five-upgrade kit uses 30% and
+  receives 110.5 HP. An 18%/100.3-HP award would require two upgrades.
+- [Pyke 4007005](https://wiki.leagueoflegends.com/en-us/?oldid=4007005): 85/14 AD,
+  with no maximum/current-HP gain, for seeded and later awards.
+- [Vladimir 4073468](https://wiki.leagueoflegends.com/en-us/?oldid=4073468):
+  2.83305 AP from external 85 health, without recursive passive output or extra
+  current-HP restoration. Broader external multiplier/item loops remain open.
+- [Kled mounted 4058479](https://wiki.leagueoflegends.com/en-us/?oldid=4058479)
+  and [dismounted 4038397](https://wiki.leagueoflegends.com/en-us/?oldid=4038397):
+  bonus health belongs to Skaarl; dismounted direct restoration uses Kled's
+  fixed own cap. Remount uses Skaarl's increased maximum and preserves own HP.
+- [K'Sante 4051537](https://wiki.leagueoflegends.com/en-us/?oldid=4051537):
+  preserve the original absolute healing/regeneration ceiling of 65% of maximum
+  HP on All Out entry. Direct health may exceed it, while later healing cannot.
+  Brief threshold-reset timing is unspecified; no invented tick is evidence.
+
+Seeded cap health precedes [Malphite 3973718](https://wiki.leagueoflegends.com/en-us/?oldid=3973718)
+and [Galio 3990299](https://wiki.leagueoflegends.com/en-us/?oldid=3990299) shield
+setup (+8.5 ordinary shield / +11.475 rank-five magic shield). Later recharge
+uses the new maximum; future Galio casts use new bonus HP. Immediate resizing of
+an existing shield or resnapshotting an active reduction remains unproven, so
+the earned award does neither.
+
+Dead, zero-HP, fallen, death-defied and resurrecting owners retain progress and
+permanent stats but receive no current-health restoration. This is an explicit
+conservative simulator policy, not measured parity. General source wording does
+not resolve committed/pet credit in those windows; positive HP or `alive` alone
+does not establish the interaction.
+
+The complete [Life steal 4060425](https://wiki.leagueoflegends.com/en-us/?oldid=4060425)
+expressly includes Kled W's fourth hit and K'Sante All Out's bonus from attacks.
+Their explicit life-steal flags retain attack blocking and scaling; K'Sante's
+mark and ordinary spells remain excluded. His 20% All Out omnivamp is a separate
+effect. Physical, magic and true basic damage may use life steal through the
+normal packet/healing path, including healing modifiers and the existing
+`noHealing` life-steal exception. Existing shield, overkill and damage-hook
+conventions are model boundaries, and the source's specific pet exceptions do
+not establish blanket pet-vamp inheritance.
+
+The genuine [10 November full refresh](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/42769645596)
+computed all 14,878 pairings per matrix with zero reuse. All 29,756 genuine
+checkpoints match the complete final forward/reverse payloads. Plain-stat
+payloads are unchanged; 22 build pairings changed, all involving Kled or K'Sante.
+Aggregate scores changed in 22, scenarios in 19 and decoded build lists/item
+sets in nine; variants and spending are unchanged. All 22 workflow jobs and
+9,151 tests across 262 files passed, with five existing skips. See the
+[accuracy log](../../ACCURACY.md) for the complete comparison and validation
+receipts. Checkpoint correspondence establishes stored-result consistency; it
+does not resolve the live-game timing, policy or packet boundaries above or
+establish global build optimality. Full pages, browser combat-rune controls,
+item/rune integration and rune-aware allocation/search remain unfinished.
 
 The known **Garen attack-speed shard defect is corrected** in the follow-up to
 the Absorb Life batch:
@@ -213,6 +731,6 @@ The [Alacrity refresh](https://github.com/marvelagent210-sys/leagueoflegendscoun
 computed 172 affected pairings per matrix and verified all 344 new checkpoints;
 default numerical results match the previous baseline. Completed release checks
 are recorded in the [accuracy log](../../ACCURACY.md). These remaining gaps keep
-step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the seven manual
+step 1 of the [roadmap](../IMPROVEMENT_ROADMAP.md) in progress; the eight manual
 effects do not establish full rune-page fidelity or make deferred runes ineffective
 in the game.

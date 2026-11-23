@@ -2,7 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, EPSILON } from "../../engine/sim/actions";
 import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
-import { abilityHit, abilityHitPet, canTarget, directionTo, inStasis, isUntargetable } from "../../engine/sim/combat";
+import { abilityHit, abilityHitPet, canTarget, directionTo, inStasis, isUntargetable, observeMovementSegment } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { projectileBlockPoint } from "../../engine/sim/projectileBlock";
@@ -53,7 +53,7 @@ const galio: KitModule = {
       else abilityHit(ctx.world, ctx.self, contact.target, ability, effects, scale, originX);
     };
     const internal = (key: string, name: string, effects: Effect[], flags: AbilitySpec["flags"] = {}): AbilitySpec => ({ key, name, slot: "other", activation: "internal", budgetExcluded: true, cooldown: 0, castTime: 0, delivery: { kind: "self" }, flags: { spellShield: true, petContactHooks: true, ...flags }, onHit: effects, usable: () => false });
-    const smash = internal("Ismash", p.name, [], { spellShield: false, parry: true, appliesOnHit: true, appliesLifeSteal: true, basicDamage: true, petBasicAttack: true });
+    const smash = internal("Ismash", p.name, [], { spellShield: false, parry: true, appliesOnHit: true, fleetFootwork: false, pressTheAttack: false, appliesLifeSteal: true, basicDamage: true, petBasicAttack: true });
     const cleave = internal("Icleave", `${p.name} (area)`, [], { spellShield: false });
     const gust = internal("Qgust", q.name, [{ type: "damage", damageType: "magic", amount: qDamage }], { projectile: true }); gust.persistsAfterDeath = true;
     const tornadoDamage: Formula = { base: 0, ratios: { targetMaxHP: tornadoPct }, products: [{ ratio: tornadoAP, stats: ["AP", "targetMaxHP"] }] };
@@ -212,7 +212,14 @@ const galio: KitModule = {
               ctx.world.missiles=ctx.world.missiles.filter(missile=>!(missile.owner!==ctx.self.side&&missile.homing&&missile.pet===undefined&&!missile.hitsUntargetable));
               if(ctx.world.petMissiles) ctx.world.petMissiles=ctx.world.petMissiles.filter(missile=>!(missile.owner!==ctx.self.side&&missile.target===ctx.self.side));
             }
-            if(ctx.tick>=dashTick&&ctx.tick<=landTick) { const origin=Number(ctx.memory[`${R}:origin`]), direction=(destination===origin?directionTo(ctx.self,ctx.enemy):Math.sign(destination-origin)), endpoint=origin+direction*Math.max(rMinDash,Math.abs(destination-origin)), proposed=origin+(endpoint-origin)*Math.min(1,(ctx.tick-dashTick)/Math.max(1,landTick-dashTick));ctx.self.x+=terrainLimit(ctx.world,ctx.self,proposed-ctx.self.x); }
+            if (ctx.tick >= dashTick && ctx.tick <= landTick) {
+              const origin = Number(ctx.memory[`${R}:origin`]), direction = destination === origin ? directionTo(ctx.self, ctx.enemy) : Math.sign(destination - origin);
+              const endpoint = origin + direction * Math.max(rMinDash, Math.abs(destination - origin));
+              const proposed = origin + (endpoint - origin) * Math.min(1, (ctx.tick - dashTick) / Math.max(1, landTick - dashTick));
+              const from = ctx.self.x;
+              ctx.self.x += terrainLimit(ctx.world, ctx.self, proposed - from);
+              observeMovementSegment(ctx.world, ctx.self, from, { kind: "dash", ability: "R", startTick: dashTick, endTick: landTick, ended: ctx.tick === landTick });
+            }
             if(ctx.tick>=landTick&&!ctx.memory[`${R}:landed`]) {
               ctx.memory[`${R}:landed`]=true;ctx.self.statuses=ctx.self.statuses.filter(status=>status.memoKey!==`${R}:untargetable`);lock(ctx,rLock);
               for(const contact of contacts(ctx)) if(Math.abs(contact.target.x-destination)<=rRadius+contact.target.spec.base.radius+EPSILON) hit(ctx,contact,landing,landing.onHit!.map(effect=>effect.type==="displace"?{...effect,originX:destination}:effect),"area",1,destination);

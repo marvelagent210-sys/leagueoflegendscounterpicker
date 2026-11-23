@@ -312,10 +312,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Fate Sealed pulls Yone next to its target; Soul Unbound's return takes him straight back to his body.
 - Crit chance bought counts double for Yone (the stat budget values it that way).
 
-### Source values read (32)
+### Source values read (33)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Mortal Steel | Mortal Steel applies basic damage for the first (closest) enemy hit | [4088387](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4088387) |
 | Way of the Hunter | Yone's total critical strike chance is doubled from all other sources | [4088438](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4088438) |
 | Way of the Hunter | every 1% critical strike chance in excess of 100% is converted into 0.5 bonus attack damage | [4088438](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4088438) |
 | Way of the Hunter | basic attacks with Azakana Sword deal 50% AD physical damage and 50% AD magic damage | [4088438](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4088438) |

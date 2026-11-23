@@ -1,10 +1,11 @@
 /** K'Sante: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
+import { observeMovementSegment } from "../../engine/sim/combat";
 import type { KitModule } from "../../engine/kits/compile";
 import type { Series } from "../../engine/abilities";
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
-import { flat, ticks } from "./util";
+import { flat, scaled, ticks } from "./util";
 
 /** The value of a series stepped by some variable (the wiki's breakpoints), at `x`. */
 function stepped(series: Series | undefined, x: number, fallback: number): number {
@@ -97,7 +98,7 @@ const ksante: KitModule = {
 
     const executionRange = r.field("targetRange");
     /** All Out is on while its health threshold is. */
-    const allOut = (unit: Unit) => unit.statuses.some((s) => s.kind === "state" && s.key === "healthCap" && s.ability === "R");
+    const allOut = (unit: Unit) => unit.statuses.some((s) => s.kind === "state" && s.key === "healthCapAbsolute" && s.ability === "R");
     const stacks = (unit: Unit, tick: number) => (tick < Number(unit.memory.qStacksUntil ?? -1) ? Number(unit.memory.qStacks ?? 0) : 0);
     const strikeCooldown = (unit: Unit) => stepped(allOut(unit) ? qCooldownsAllOut : qCooldowns, bonusResists(unit), 3.5);
 
@@ -199,7 +200,7 @@ const ksante: KitModule = {
     const enterAllOut = (ctx: HookContext) => {
       const self = ctx.self;
       const d = derive(self);
-      ctx.apply({ type: "state", state: "healthCap", value: threshold, duration: allOutSeconds }, true);
+      ctx.apply({ type: "state", state: "healthCapAbsolute", value: threshold * d.maxHp, duration: allOutSeconds }, true);
       ctx.apply({ type: "stat", stat: "attackSpeed", amount: flat(allOutSpeed), duration: allOutSeconds }, true);
       ctx.apply({ type: "stat", stat: "bonusArmorPen", amount: flat(bonusPen), duration: allOutSeconds }, true);
       ctx.apply({ type: "stat", stat: "armorReduction", amount: flat(resistLoss * d.armor.bonus), duration: allOutSeconds }, true);
@@ -232,7 +233,9 @@ const ksante: KitModule = {
           if (key === "R") {
             // K'Sante blinks past where the enemy will land, which is pulled toward him; then All Out.
             const dir = ctx.enemy.x >= ctx.self.x ? 1 : -1;
+            const from = ctx.self.x;
             ctx.self.x = ctx.enemy.x + dir * (pull + blinkBehind);
+            observeMovementSegment(ctx.world, ctx.self, from, { kind: "blink", ability: "R", endTick: ctx.tick, ended: true });
             ctx.apply({ type: "displace", direction: "toward", distance: pull, duration: pull / pullSpeed });
             enterAllOut(ctx);
           }
@@ -243,7 +246,7 @@ const ksante: KitModule = {
         },
         onAttackHit(ctx) {
           const inAllOut = allOut(ctx.self);
-          if (inAllOut) ctx.apply({ type: "damage", damageType: "physical", amount: allOutHit, label: `${r.name} (bonus)` });
+          if (inAllOut && !ctx.blocked) ctx.apply({ type: "damage", damageType: "physical", amount: scaled(allOutHit, ctx.scale), label: `${r.name} (bonus)`, appliesLifeSteal: true });
           if (ctx.tick < Number(ctx.memory.markUntil ?? -1)) {
             ctx.memory.markUntil = -1;
             ctx.apply({ type: "damage", damageType: "physical", amount: markHit, label: innate.name });

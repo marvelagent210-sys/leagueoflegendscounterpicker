@@ -144,8 +144,15 @@ const kled: KitModule = {
     );
 
     const mounted = (unit: Unit) => unit.spec.form !== DISMOUNTED;
-    const bonusHealth = (unit: Unit) => derive(unit).maxHp - unit.spec.base.hp;
-    const skaarlMax = (unit: Unit) => derive(unit).maxHp - kledMax;
+    const bonusHealth = (unit: Unit) => derive(unit).bonusHp;
+    const ownMax = (unit: Unit) => kledMax * (unit.healthMultiplier ?? 1);
+    const skaarlMax = (unit: Unit) => derive(unit).maxHp - ownMax(unit);
+    const capOwnHealth = (ctx: HookContext) => {
+      // Bonus health belongs to Skaarl; direct restoration can still restore Kled.
+      const cap = ownMax(ctx.self);
+      ctx.apply({ type: "state", state: "healthCapAbsolute", duration: FOREVER, value: cap }, true);
+      ctx.apply({ type: "state", state: "maximumHealthGainCap", duration: FOREVER, value: cap }, true);
+    };
     const selfLock = (ctx: HookContext, cc: string, seconds: number) => {
       ctx.self.statuses = [...ctx.self.statuses, { kind: "cc", key: cc, source: ctx.self.side, startTick: ctx.tick, endTick: ctx.tick + ticks(seconds), value: 0 }];
     };
@@ -157,15 +164,15 @@ const kled: KitModule = {
       self.move = 0;
       delete self.attached;
       delete self.chains.E;
-      ctx.transform(DISMOUNTED, Number(ctx.memory.kled ?? kledMax));
+      ctx.transform(DISMOUNTED, Number(ctx.memory.kled ?? ownMax(self)));
       ctx.log("Skaarl flees");
       ctx.memory.courage = 0;
       delete ctx.memory.remountAt;
       ctx.apply({ type: "cleanse", sticky: true }, true);
       ctx.apply({ type: "state", state: "untargetable", duration: fleeSeconds }, true);
       ctx.apply({ type: "state", state: "ccImmune", duration: fleeSeconds }, true);
-      // Healing stops at Kled's own maximum, a share of the pair's.
-      ctx.apply({ type: "state", state: "healthCap", duration: FOREVER, value: kledMax / derive(self).maxHp }, true);
+      // Kled's own maximum remains fixed when Skaarl gains bonus health.
+      capOwnHealth(ctx);
       selfLock(ctx, "stun", fleeSeconds);
       self.forced = { endTick: ctx.tick + ticks(fleeSeconds), perTick: lunge / ticks(fleeSeconds) };
       // Pocket Pistol: both charges, at once.
@@ -175,9 +182,9 @@ const kled: KitModule = {
     // Courage full: Skaarl is back with 70% of her health, the trap and the joust ready again.
     const remount = (ctx: HookContext) => {
       const self = ctx.self;
-      const own = Math.min(kledMax, self.hp);
+      const own = Math.min(ownMax(self), self.hp);
       ctx.memory.kled = own;
-      self.statuses = self.statuses.filter((s) => !(s.kind === "state" && s.key === "healthCap" && s.source === self.side));
+      self.statuses = self.statuses.filter((s) => !(s.kind === "state" && (s.key === "healthCapAbsolute" || s.key === "maximumHealthGainCap") && s.source === self.side));
       ctx.transform(MOUNTED, own + remountShare * skaarlMax(self));
       for (const key of ["chase", "guardArmor", "guardMR"]) ctx.buff(key, key === "chase" ? "moveSpeedFlat" : key === "guardArmor" ? "armor" : "MR", 0, 0);
       ctx.memory.courage = 0;
@@ -325,17 +332,20 @@ const kled: KitModule = {
         },
       },
       hooks: {
+        onStart(ctx) {
+          if (!mounted(ctx.self)) capOwnHealth(ctx);
+        },
         onTargetResurrection(ctx) { delete ctx.memory.trapAt; },
         onTick(ctx) {
           const self = ctx.self;
           const enemy = ctx.enemy;
-          if (ctx.memory.kled === undefined) ctx.memory.kled = kledMax;
+          if (ctx.memory.kled === undefined) ctx.memory.kled = ownMax(self);
           if (mounted(self)) {
             // Healing past Skaarl's full health goes to Kled.
-            if (self.hp > skaarlMax(self) + Number(ctx.memory.kled)) ctx.memory.kled = Math.min(kledMax, self.hp - skaarlMax(self));
+            if (self.hp > skaarlMax(self) + Number(ctx.memory.kled)) ctx.memory.kled = Math.min(ownMax(self), self.hp - skaarlMax(self));
           } else {
             // (Healing is capped there; a change of maximum health could leave him above it.)
-            if (self.hp > kledMax) self.hp = kledMax;
+            if (self.hp > ownMax(self)) self.hp = ownMax(self);
             ctx.memory.kled = self.hp;
             const near = Math.abs(enemy.x - self.x);
             const attacked = ctx.tick - Number(ctx.memory.lastHit ?? -1e9) <= ticks(chaseAfter);
@@ -378,7 +388,7 @@ const kled: KitModule = {
           }
         },
         onDamageTaken(ctx) {
-          if (mounted(ctx.self) && ctx.self.alive && ctx.self.hp < Number(ctx.memory.kled ?? kledMax)) dismount(ctx);
+          if (mounted(ctx.self) && ctx.self.alive && ctx.self.hp < Number(ctx.memory.kled ?? ownMax(ctx.self))) dismount(ctx);
         },
         onLethal(ctx) {
           // Only Kled can die; a mortal blow to Skaarl dismounts him.
@@ -400,7 +410,7 @@ const kled: KitModule = {
             const count = Number(ctx.memory.vtCount ?? 0) + 1;
             ctx.memory.vtCount = count;
             if (count >= vtAttacks) {
-              ctx.apply({ type: "damage", damageType: "physical", amount: vtHit, label: tendencies.name });
+              if (!ctx.blocked) ctx.apply({ type: "damage", damageType: "physical", amount: scaled(vtHit, ctx.scale), label: tendencies.name, appliesLifeSteal: true });
               endFrenzy(ctx);
             }
           } else if (Number(ctx.memory.vtReady ?? 0) > ctx.tick) {

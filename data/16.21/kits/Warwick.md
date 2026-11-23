@@ -300,10 +300,12 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Infinite Duress's leap speed is in neither the wiki nor the game data: the leap is taken to cover its range in 0.5 s, and its slide past the range when it misses is left out.
 - Infinite Duress's on-attack effects (three over the channel) are left out; its on-hit effects apply.
 
-### Source values read (62)
+### Source values read (64)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Jaws of the Beast | Jaws of the Beast deals basic damage | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Infinite Duress | Infinite Duress deals basic damage | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
 | Eternal Hunger | Innate: Warwick deals 6 – 55 (based on level) (+ 15% bonus AD) (+ 10% AP) bonus magic damage on-hit. | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
 | Eternal Hunger | (+ 15% bonus AD) | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
 | Eternal Hunger | (+ 10% AP) | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |

@@ -12,11 +12,37 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  tasteOfBlood: { modelLevel: 20, heal: 728 / 17, bonusAdRatio: 0.1, apRatio: 0.05, cooldown: 20 },
+  fontOfLife: { modelLevel: 20, heal: 930 / 17, rangedRatio: 0.7, cooldown: 20, allyRadius: 1000 },
+  aftershock: { modelLevel: 20, flatResistance: 45, bonusResistanceRatio: 0.75, maxResistance: 2690 / 17, baseDamage: 2230 / 17, bonusHealthRatio: 0.08, duration: 2.5, cooldown: 20, radius: 350 },
+  overgrowth: { unitsPerStack: 8, healthPerStack: 3, thresholdUnits: 120, healthRatio: 0.035, radius: 1400 },
+  shieldBash: { modelLevel: 20, baseDamage: 560 / 17, bonusHealthRatio: 0.025, shieldRatio: 0.15, linger: 2 },
+  bonePlating: { modelLevel: 20, reduction: 1080 / 17, charges: 3, duration: 1.5, cooldown: 55 },
+  grasp: { maxStacks: 4, stackInterval: 1, combatWindow: 3, readyWindow: 5, healDelay: 0.4,
+    meleeDamageRatio: 0.035, rangedDamageRatio: 0.014, meleeHealRatio: 0.013, rangedHealRatio: 0.0052, meleeHealth: 5, rangedHealth: 2 },
+  conqueror: { modelLevel: 20, maxStacks: 12, stackDuration: 5, castCooldown: 4,
+    meleeBasicStacks: 2, rangedBasicStacks: 1, spellStacks: 2, adaptiveForcePerStack: 362 / 85,
+    adaptiveADRatio: 0.6, adaptiveAPRatio: 1, meleeHealingRatio: 0.08, rangedHealingRatio: 0.05 },
+  lethalTempo: { modelLevel: 20, maxStacks: 6, stackDuration: 6, decayInterval: 0.3,
+    attackSpeedPerStack: 0.06, rangedAttackSpeedRatio: 0.8, boltDamage: 552 / 17,
+    rangedBoltRatio: 0.667, bonusAttackSpeedRatio: 1, boltSpeed: 2500,
+    boltGate: "max-stacks-before-attack", boltStatModel: "at-launch", boltTravelModel: "fixed-endpoint" },
+  fleetFootwork: { modelLevel: 20, healBase: 124257 / 680, bonusADRatio: 0.1, apRatio: 0.05,
+    rangedHealRatio: 0.6, minionHealRatio: 0.15, moveSpeedIncrease: 0.2, rangedMoveSpeedRatio: 0.75,
+    moveSpeedDuration: 1, maxCharges: 100, attackCharges: 6, unitsPerCharge: 24,
+    chargeModel: "current-at-connected-on-hit", chargePrecision: "continuous",
+    healDeliveryModel: "immediate-at-consumption", statSamplingModel: "current-at-consumption" },
+  pressTheAttack: { modelLevel: 20, damage: 2960 / 17, hitsRequired: 3, stackDuration: 4, cooldown: 6,
+    damageIncrease: 0.08, combatDuration: 5, combatExpiryModel: "last-qualified-activity",
+    adaptiveDamageModel: "current-derived-bonus-ad-vs-ap", activationFrameModel: "simulation-tick" },
   coupDeGrace: { healthThreshold: 0.4, damageIncrease: 0.08 },
   cutDown: { healthThreshold: 0.6, damageIncrease: 0.08 },
   lastStand: { healthThreshold: 0.6, maximumHealthThreshold: 0.3, minimumDamageIncrease: 0.05, maximumDamageIncrease: 0.11 },
   secondWind: { duration: 10, missingHealthPerSecond: 0.004, tickInterval: 0.5, missingHealthModel: "current-at-regeneration-tick" },
   absorbLife: { heal: 27 },
+  triumph: { maximumHealthRatio: 0.025, missingHealthRatio: 0.05, delay: 1, bonusGold: 20, missingHealthModel: "at-native-kill-credit" },
+  presenceOfMind: { modelLevel: 20, manaRestore: 56, rangedManaRatio: 0.8, energyRestore: 6, damageCooldown: 8, takedownResourceRatio: 0.15, takedownDelay: 1, maximumResourceModel: "current-at-delivery" },
+  legendBloodline: { baseLifeSteal: 0, lifeStealPerStack: 0.0045, pointsPerStack: 100, maxStacks: 15, championKillPoints: 100, bonusHealth: 85 },
   legendAlacrity: { baseAttackSpeed: 0.03, attackSpeedPerStack: 0.015, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   legendHaste: { baseHaste: 0, hastePerStack: 1.5, pointsPerStack: 100, maxStacks: 10, championKillPoints: 100 },
   evidence: [{ title: "Synthetic threshold fixture", revid: 1, text: "Fixed percentages isolate actual damage-path behavior." }],
@@ -241,7 +267,7 @@ describe("packet-time health-threshold rune amplification", () => {
       const world = arena([8014]); world.units[1].hp = 790;
       addOutgoing(world.units[0], modifier);
       expect(() => dealDamage(world, world.units[0], world.units[1], 100, "magic"))
-        .toThrow("Health-threshold runes cannot amplify a nonpositive existing outgoing damage multiplier");
+        .toThrow("Combat runes cannot amplify a nonpositive existing outgoing damage multiplier");
       expect(world.units[1].hp).toBe(790);
       expect(world.units[0].totals.damageDealt).toBe(0);
     });

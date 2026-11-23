@@ -2,20 +2,57 @@
 import type { FighterSpec, KitHooks } from "../engine/sim/spec";
 import type { CombatRuneRules } from "./effectRules";
 import { SECOND_WIND_ASSUMPTIONS, secondWindHooks } from "./secondWind";
-import { thresholdEnemyHooks } from "./thresholdEffects";
+import { thresholdDamageIncrease, thresholdEnemyHooks } from "./thresholdEffects";
+import type { RuneDamageIncrease } from "./outgoingAmplifiers";
 import { ABSORB_LIFE_ASSUMPTIONS, absorbLifeHooks } from "./absorbLife";
 import { buildLegendAlacrity } from "./legendAlacrity";
 import { buildLegendHaste } from "./legendHaste";
+import { buildLegendBloodline } from "./legendBloodline";
+import { buildTriumph } from "./triumph";
+import { buildPresenceOfMind } from "./presenceOfMind";
+import { buildPressTheAttack } from "./pressTheAttack";
+import { buildLethalTempo } from "./lethalTempo";
+import { buildFleetFootwork } from "./fleetFootwork";
+import { buildConqueror } from "./conqueror";
+import { buildGrasp } from "./grasp";
+import { buildBonePlating } from "./bonePlating";
+import { buildShieldBash } from "./shieldBash";
+import { buildOvergrowth } from "./overgrowth";
+import { buildAftershock } from "./aftershock";
+import { buildFontOfLife } from "./fontOfLife";
+import { buildTasteOfBlood } from "./tasteOfBlood";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
   beforeStart?: NonNullable<KitHooks["onStart"]>;
   hooks?: KitHooks;
   enemyHooks?: KitHooks[];
+  /** Shared aggregate resolver; equipment combines these before adapting raw damage. */
+  enemyDamageIncrease?: RuneDamageIncrease;
   assumptions: string[];
 }
 
 export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRuneRules, options: RuneEquipOptions = {}): RuneEffectBuild {
+  if (id === 8005) return buildPressTheAttack(_form, rules);
+  if (id === 8008) return buildLethalTempo(_form, rules);
+  if (id === 8009) return buildPresenceOfMind(_form, rules);
+  if (id === 8010) return buildConqueror(_form, rules);
+  if (id === 8139) return buildTasteOfBlood(rules);
+  if (id === 8401) return buildShieldBash(_form, rules);
+  if (id === 8437) return buildGrasp(rules);
+  if (id === 8439) return buildAftershock(_form, rules);
+  if (id === 8451) return buildOvergrowth(rules, options.overgrowthDeaths);
+  if (id === 8463) return buildFontOfLife(_form, rules);
+  if (id === 8473) return buildBonePlating(rules);
+  if (id === 8021) {
+    if (options.energizedCharges === undefined) throw new Error("Fleet Footwork requires explicit starting energizedCharges");
+    return buildFleetFootwork(rules, options.energizedCharges);
+  }
+  if (id === 9111) return buildTriumph(rules);
+  if (id === 9103) {
+    if (options.legendPoints === undefined) throw new Error("Legend: Bloodline requires explicit starting Legend points");
+    return buildLegendBloodline(rules, options.legendPoints);
+  }
   if (id === 9105) {
     if (options.legendPoints === undefined) throw new Error("Legend: Haste requires explicit starting Legend points");
     return buildLegendHaste(rules, options.legendPoints);
@@ -28,6 +65,7 @@ export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRun
   if (id === 8444) return { hooks: secondWindHooks(rules), assumptions: [...SECOND_WIND_ASSUMPTIONS] };
   if (id === 8014 || id === 8017 || id === 8299) return {
     enemyHooks: thresholdEnemyHooks([id], rules),
+    enemyDamageIncrease: thresholdDamageIncrease([id], rules),
     assumptions: [
       "Health thresholds are evaluated for each damage packet. A packet that first crosses a target-health threshold is not retroactively amplified.",
       "The reviewed V25.S1.3 changes allow eligible champion true damage to be amplified. Exact Smite and Ignite labels are excluded; summoner and jungle damage classifications remain outside these manual selections.",
