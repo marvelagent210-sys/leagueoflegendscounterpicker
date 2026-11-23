@@ -3657,6 +3657,18 @@ tests still pass. Main's Triumph sweep test now uses Garen against Sion: with th
 Darius spends his ultimate before Sion's takedown, and Triumph's heal no longer changes
 that duel at any swept budget.
 
+## Instant casts keep attack windups (23 November 2026)
+
+The wiki's Basic attack article records V25.24's December 4th hotfix: "Casting abilities
+or using item actives with no cast time no longer interrupts attacks." It is the article's
+latest change, so it holds for patch 26.21. The simulator cancelled a windup on any cast
+unless the ability opted in with `preserveAttackWindup`, which 45 kits had done one ability
+at a time. A cast whose own cast time is 0 now keeps the windup at its launch tick, unless
+it moves the caster (dashes, blinks) or starts a channel. Kalista's Rend delivers at once
+but locks her for its 0.25-second cast time, and her attacks' text says Rend can cancel
+them, so it keeps its cancel. Tests: an instant self-buff keeps the windup; the same cast
+with a 0.25-second cast time cancels it.
+
 ## Five items and boots in the browser (23 November 2026)
 
 The build matrix now has a second format, five finished items and boots
