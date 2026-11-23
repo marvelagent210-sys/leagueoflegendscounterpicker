@@ -44,9 +44,20 @@ export async function buildsProvenance(dataset: string): Promise<SimulationProve
     ...await sources(path.join(REPO_ROOT, "pipeline", "loadouts")),
     ...["pipeline/itemData.ts", "pipeline/summoners/records.ts", "pipeline/runeRecords/records.ts", "pipeline/sim/builds.ts", "pipeline/sim/buildsWorker.ts", "pipeline/sim/buildsWorker.mjs", "pipeline/sim/buildsCheckpoint.ts"].map((file) => path.join(REPO_ROOT, file)),
   ];
-  const items = ["items.json", "summoners.json", "rune-records.json"].map((file) => path.join(datasetDir(dataset), file));
+  // Datasets from before summoner spells and rune pages have neither catalog.
+  const items = [path.join(datasetDir(dataset), "items.json"), ...(await optionalFiles(datasetDir(dataset), ["summoners.json", "rune-records.json"]))];
   const entries = await Promise.all([...code, ...items].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
   return { schema: 1, fingerprint: fingerprintEntries([...new Map([...(await simulationInputs(dataset)), ...entries])]) };
+}
+
+/** The files of `names` the directory holds. */
+async function optionalFiles(dir: string, names: string[]): Promise<string[]> {
+  const found = await Promise.all(names.map(async (name) => {
+    const file = path.join(dir, name);
+    try { await readFile(file); return file; }
+    catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined; throw error; }
+  }));
+  return found.filter((file): file is string => file !== undefined);
 }
 
 /** Optional on legacy datasets; partial source sets are rejected by the exporter. */

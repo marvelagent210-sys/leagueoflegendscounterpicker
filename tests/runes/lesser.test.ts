@@ -6,6 +6,7 @@
  */
 import { describe, expect, it } from "vitest";
 import { applyEffect, dealDamage } from "../../engine/sim/combat";
+import { abilityHasteFor } from "../../engine/sim/cooldowns";
 import { derive } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, FighterSpec } from "../../engine/sim/spec";
 import type { World } from "../../engine/sim/state";
@@ -25,7 +26,8 @@ const magic = (amount: number): Effect => ({ type: "damage", damageType: "magic"
 const cooldownOf = (spec: FighterSpec, key: string) => {
   const w = world(spec);
   const found = w.units[0].spec.abilities.find((a) => a.key === key)!;
-  return ((found.cooldownFor?.(w.units[0]) ?? found.cooldown) * 100) / (100 + derive(w.units[0]).abilityHaste);
+  // The haste that counts for the ability: ability haste, and basic or ultimate haste by its slot.
+  return ((found.cooldownFor?.(w.units[0]) ?? found.cooldown) * 100) / (100 + abilityHasteFor(w.units[0], found));
 };
 /** The holder casting `key` whenever it is ready, against an idle enemy. */
 const casting = (w: World, seconds: number, key = "Q") => run(w, seconds, [castWhenReady(key), idle]);

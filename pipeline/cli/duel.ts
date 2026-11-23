@@ -189,7 +189,7 @@ async function main(): Promise<void> {
   const withItems = search || args.includes("--items") || args.includes("--enemy-items") || withSpells || withRunes;
   const hasShards = args.includes("--shards") || args.includes("--enemy-shards");
   const hasRuneEffects = args.includes("--combat-runes") || args.includes("--enemy-combat-runes");
-  if (hasShards && search) throw new Error("--search finds whole rune pages, their stat shards included; it doesn't go with --shards");
+  if (hasShards && search) throw new Error("Stat shards are not supported by --search: it finds whole rune pages, their stat shards included");
   if ((hasShards || hasRuneEffects) && withRunes) throw new Error("--runes gives a whole rune page, its stat shards included; it doesn't go with --shards or --combat-runes");
   if (hasRuneEffects && withItems) throw new Error("Combat-rune selections currently support plain-stat duels only; with item builds, give a whole rune page with --runes, or let --search find one");
   const runeCatalog = hasShards || hasRuneEffects ? await loadRuneCatalog(path.join(datasetDir(data.dataset), "rune-sources")) : undefined;

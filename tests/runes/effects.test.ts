@@ -15,6 +15,9 @@ import { castWhenReady, idle } from "../sim/helpers";
 import { RANGED, ability, fighter } from "../sim/kits";
 import { QUIET_SHARDS, STILL_SHARDS, castingFirst, catalog, hits, holding, items, pageWith, run, world } from "./helpers";
 
+/** The quiet Precision page's fully stacked Legend: Haste: basic ability haste, a stat. */
+const LEGEND_HASTE = { basicAbilityHaste: 15 };
+
 describe("rune modules", () => {
   it("cover every rune and shard of the catalog, and build from it for melee and ranged, attack damage and ability power holders", () => {
     const names = [...catalog.runes.map((entry) => entry.name), ...catalog.shards.flatMap((slot) => slot.options.map((option) => `Shard: ${option.name}`))];
@@ -63,8 +66,8 @@ describe("a rune page", () => {
 
   it("gives adaptive force as bonus AD or AP by the items' bonus stats, and the champion's adaptive type on a tie", () => {
     const shards = ["Adaptive Force", "Adaptive Force", "Tenacity and Slow Resist"];
-    expect(holding(fighter(), pageWith("Conqueror", [], shards), [], "Magic").spec.bonus).toEqual({ ap: 18 });
-    expect(holding(fighter(), pageWith("Conqueror", [], shards), [], "Physical").spec.bonus).toEqual({ ad: 10.8 });
+    expect(holding(fighter(), pageWith("Conqueror", [], shards), [], "Magic").spec.bonus).toEqual({ ap: 18, ...LEGEND_HASTE });
+    expect(holding(fighter(), pageWith("Conqueror", [], shards), [], "Physical").spec.bonus).toEqual({ ad: 10.8, ...LEGEND_HASTE });
     const mage = holding(fighter(), pageWith("Conqueror", [], shards), ["Rabadon's Deathcap"], "Physical");
     expect(mage.spec.bonus?.ap).toBe(items.items.find((record) => record.name === "Rabadon's Deathcap")!.stats.ap! + 18);
     expect(mage.runes!.assumptions).toContain("Adaptive force: Dummy has 0 bonus AD and 130 AP from items, so adaptive force gives AP and adaptive damage is magic.");
@@ -72,7 +75,7 @@ describe("a rune page", () => {
 
   it("adds the stat shards' stats", () => {
     const w = world(holding(fighter(), pageWith("Conqueror", [], ["Attack Speed", "Health Scaling", "Health"])), fighter({ id: "enemy" }), ["idle", "idle"]);
-    expect(w.units[0].spec.bonus).toEqual({ attackSpeed: 0.1, hp: 265 });
+    expect(w.units[0].spec.bonus).toEqual({ attackSpeed: 0.1, hp: 265, ...LEGEND_HASTE });
     const other = world(holding(fighter(), pageWith("Conqueror", [], ["Ability Haste", "Move Speed", "Tenacity and Slow Resist"])), fighter({ id: "enemy" }), ["idle", "idle"]);
     step(other, [idle, idle]);
     const d = derive(other.units[0]);

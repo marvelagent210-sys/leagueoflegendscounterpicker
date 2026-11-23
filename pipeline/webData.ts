@@ -15,6 +15,7 @@
  *
  * Usage: npm run web:data [-- --dataset 16.20]
  */
+import { existsSync } from "node:fs";
 import { cp, mkdir, readFile, readdir, rename, rm } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -101,8 +102,9 @@ async function exportSnapshot(dataset: string, source: string, output: string): 
     if ((await simulationProvenance(dataset)).fingerprint !== simulation.fingerprint) return false;
     // The builds name items, summoner spells and runes from the catalogs: their wiki revisions and game data versions, for the attribution.
     const itemSources = builds ? (await readJson<{ sources: { ddragon: string; itemData: { title: string; revid: number } } }>(path.join(source, "items.json"))).sources : undefined;
-    const spellSources = builds ? (await readJson<{ sources: { spellData: { title: string; revid: number } } }>(path.join(source, "summoners.json"))).sources : undefined;
-    const runeSources = builds ? (await readJson<{ sources: { cdragon: string } }>(path.join(source, "rune-records.json"))).sources : undefined;
+    // Datasets from before summoner spells and rune pages have neither catalog, and builds without loadouts.
+    const spellSources = builds && existsSync(path.join(source, "summoners.json")) ? (await readJson<{ sources: { spellData: { title: string; revid: number } } }>(path.join(source, "summoners.json"))).sources : undefined;
+    const runeSources = builds && existsSync(path.join(source, "rune-records.json")) ? (await readJson<{ sources: { cdragon: string } }>(path.join(source, "rune-records.json"))).sources : undefined;
     if (builds && (await buildsProvenance(dataset)).fingerprint !== builds.fingerprint) return false;
     await writeJson(path.join(staging, "index.json"), {
       dataset,
