@@ -470,8 +470,14 @@ function declareCast(world: World, unit: Unit, ability: AbilitySpec, aim?: Aim, 
   const endingChannel = unit.action?.kind === "channel" && ability.allowedDuringChannel?.includes(unit.action.ability) && !overlays(unit, ability) && !retainedChannel ? unit.action : undefined;
   const overlayDash = unit.action?.kind === "dash" && ability.overlay ? unit.action : undefined;
   const castTicks = toTicks(ability.castTimeFor?.(unit) ?? ability.castTime);
+  // Since V25.24's December 4th hotfix (the wiki's Basic attack article), "casting abilities or
+  // using item actives with no cast time no longer interrupts attacks": a cast with no cast time
+  // keeps the windup, unless it moves the caster (dashes, blinks) or starts a channel. The game's
+  // cast time is the ability's own (castTime): a kit that delivers a cast at once and locks the
+  // caster for its cast time instead (Kalista's Rend) still has one.
+  const instant = ability.castTime === 0 && castTicks === 0 && ability.delivery.kind !== "dash" && ability.delivery.kind !== "blink" && !ability.channel;
   if (unit.action?.kind === "windup") {
-    if (ability.preserveAttackWindup === true || (ability.preserveAttackWindup === "uncancellable" && unit.action.uncancellable)) {
+    if (instant || ability.preserveAttackWindup === true || (ability.preserveAttackWindup === "uncancellable" && unit.action.uncancellable)) {
       if (castTicks > 0 || ability.delivery.kind === "dash" || (ability.channel && !ability.channel.manualStart)) {
         unit.pendingAttack = unit.action;
         unit.action = undefined;

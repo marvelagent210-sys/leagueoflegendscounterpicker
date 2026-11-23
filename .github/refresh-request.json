@@ -1,5 +1,5 @@
 {
-  "note": "Recompute all three matrices: the default behavior now casts a finisher when its holder is below half health and behind (engine/sim/behavior.ts LAST_STAND), which changes every pairing's code inputs, and the five-items-and-boots matrix (simulated-builds-boots.json) is computed for the first time.",
+  "note": "Recompute all three matrices: the default behavior casts a finisher when its holder is below half health and behind (engine/sim/behavior.ts LAST_STAND), and a cast with no cast time keeps an attack windup (V25.24's December 4th hotfix, engine/sim/actions.ts); both change every pairing's code inputs. The five-items-and-boots matrix (simulated-builds-boots.json) is computed for the first time.",
   "dataset": "16.21",
   "matrices": [
     "sim",

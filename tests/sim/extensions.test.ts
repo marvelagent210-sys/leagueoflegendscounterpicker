@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { type Behavior, LAST_STAND } from "../../engine/sim/behavior";
-import { canCast } from "../../engine/sim/actions";
+import { canCast, startAttack, startCast } from "../../engine/sim/actions";
 import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
@@ -284,6 +284,33 @@ describe("finishers", () => {
     const taken = ticksOf(outcome.timeline, 1, "attack deals").filter((t) => t <= (cast ?? 0)).length * 150 * (100 / 200);
     expect(2000 - taken).toBeLessThanOrEqual(LAST_STAND * 2000 + 1e-9);
     expect(2000 - taken).toBeGreaterThan(LAST_STAND * 2000 - 150);
+  });
+});
+
+describe("instant casts during an attack windup", () => {
+  // V25.24's December 4th hotfix (the wiki's Basic attack article): "Casting abilities or using
+  // item actives with no cast time no longer interrupts attacks."
+  const buff = (castTime: number) => ability({ key: "W", cooldown: 10, castTime, delivery: { kind: "self" }, onSelf: [{ type: "stat", stat: "AD", amount: { base: 10 }, duration: 5 }] });
+  const windup = (castTime: number) => {
+    const world = createWorld({ fighters: [fighter({ abilities: [buff(castTime)] }), fighter()], distance: 0, modes: ["idle", "idle"] });
+    const unit = world.units[0];
+    startAttack(world, unit);
+    const before = unit.action;
+    step(world, [idle, idle]);
+    startCast(world, unit, unit.spec.abilities[0]!);
+    return { world, unit, before };
+  };
+
+  it("keep the windup when the cast has no cast time", () => {
+    const { unit, before } = windup(0);
+    expect(unit.action).toBe(before);
+    expect(unit.action?.kind).toBe("windup");
+  });
+
+  it("cancel it when the cast has one", () => {
+    const { world, unit } = windup(0.25);
+    expect(unit.action?.kind).toBe("cast");
+    expect(unit.attackReadyTick).toBe(world.tick);
   });
 });
 
