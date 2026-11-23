@@ -1,5 +1,5 @@
 {
-  "note": "Recompute both complete matrices after adding immutable native on-hit applications, accepted combat-activity events and adaptive-type carriage for the opt-in Press the Attack effect. Shared engine worker inputs changed; all 14,878 pairings per matrix must be genuinely computed, with zero reuse. Compare every default score, scenario, variant, decoded build and spending field with base main 2a71197b02f96422abb1fccbdb7b3aa695cabfbb; do not assume unchanged payloads or substitute provenance restamping. Manual rune effects remain absent from default matrix fights.",
+  "note": "Recompute both matrices for summoner spells. The engine changed (summoner spells cast while busy, Ignite unamplified, cleanses spent only on what they remove), so plain-stats pairings are computed again; every build pairing is computed again with Flash and the second spell found by the loadout search. Shards are sized together, at most 20 in all.",
   "dataset": "16.21",
   "matrices": [
     "sim",
