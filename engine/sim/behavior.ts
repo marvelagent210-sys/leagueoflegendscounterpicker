@@ -583,6 +583,15 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
 /** How far past a targeted finisher's range the champion steps in to use it, in seconds of walking. */
 const FINISH_STEP = 1;
 
+/**
+ * The share of its maximum health below which a champion that is also behind (a smaller share
+ * of its health left than the enemy) casts a ready finisher that won't kill: holding it for the
+ * kill pays only if the holder outlasts the enemy, and its damage is worth more spent now than
+ * carried to a death (Veigar's Primordial Burst against a tank it can't bring low enough first,
+ * which a burst can kill from 40% in half a second).
+ */
+export const LAST_STAND = 0.5;
+
 /** Edge-to-edge distance within which a movement speed boost is spent to close the gap. */
 const HASTE_REACH = 900;
 
@@ -642,7 +651,10 @@ function offense(view: View, options: OffenseOptions, only?: (ability: AbilitySp
     const kills = threshold
       ? enemy.hp <= evaluate(threshold, self, enemy) + expectedDamage(ability.onHit ?? [], self, enemy, true)
       : expectedDamage(enemyEffects(ability), self, enemy, true) >= enemy.hp;
-    if (!kills) continue;
+    // Low on health and behind, a finisher that won't kill is cast for its damage rather than held to the end.
+    const share = self.hp / derive(self).maxHp;
+    const lastStand = ready && !threshold && share <= LAST_STAND && share < enemy.hp / derive(enemy).maxHp && expectedDamage(enemyEffects(ability), self, enemy, true) > 0;
+    if (!kills && !lastStand) continue;
     if (ready) return { kind: "cast", ability: ability.key };
     closeIn = true;
   }

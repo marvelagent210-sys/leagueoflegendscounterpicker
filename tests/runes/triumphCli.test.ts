@@ -172,19 +172,20 @@ describe("actual manual command-line duels with Triumph", () => {
   }, 90_000);
 
   it("recreates Triumph with each side's declared Legend state for every swept budget", async () => {
-    const mine = await loadFighter(data.dataset, findChampion(data.champions, "Darius"));
+    const mine = await loadFighter(data.dataset, findChampion(data.champions, "Garen"));
     const theirs = await loadFighter(data.dataset, findChampion(data.champions, "Sion"));
     const expected = [0, 5000, 10000, 15000, 20000].map(gold => {
       const pair = runeMatchupSpecs(equipped(mine.spec, [9103, 9111], 99), equipped(theirs.spec, [9104, 9111], 199));
       return [gold, simulateMatchup(...pair, gold, data.prices).score] as const;
     });
+    // A budget where Triumph changes the duel: Sion's death is a takedown, and he fights on after it.
     const legendOnly = runeMatchupSpecs(equipped(mine.spec, [9103], 99), equipped(theirs.spec, [9104], 199));
     expect(expected.find(([gold]) => gold === 10000)![1]).not.toBeCloseTo(simulateMatchup(...legendOnly, 10000, data.prices).score, 2);
-    const result = duel(["Darius", "Sion"], "--gold", "0", "--sweep", "--combat-runes", "9111,9103", "--legend-points", "99",
+    const result = duel(["Garen", "Sion"], "--gold", "0", "--sweep", "--combat-runes", "9111,9103", "--legend-points", "99",
       "--enemy-combat-runes", "9111,9104", "--enemy-legend-points", "199");
     expect(result.status, result.stderr).toBe(0);
     for (const [gold, score] of expected) expect(result.stdout).toContain(`${String(gold).padStart(6)} gold: ${signed(score)}`);
-    expect(result.stdout).toMatch(/Darius Legend points: 99; 0 stacks, 0% life steal, 0 bonus health/);
+    expect(result.stdout).toMatch(/Garen Legend points: 99; 0 stacks, 0% life steal, 0 bonus health/);
     expect(result.stdout).toMatch(/Sion Legend points: 199; 1 stacks, 4\.5% bonus attack speed/);
   }, 120_000);
 

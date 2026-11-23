@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Behavior } from "../../engine/sim/behavior";
+import { type Behavior, LAST_STAND } from "../../engine/sim/behavior";
 import { canCast } from "../../engine/sim/actions";
 import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
@@ -271,6 +271,19 @@ describe("finishers", () => {
     const hpAtCast = 2000 - 100 * ticksOf(outcome.timeline, 0, "attack deals").filter((t) => t <= (cast ?? 0)).length;
     expect(hpAtCast).toBeLessThanOrEqual(615);
     expect(hpAtCast).toBeGreaterThan(515);
+  });
+
+  it("casts a finisher that won't kill once its holder is low on health and behind, rather than dying with it", () => {
+    const burst = ability({ key: "R", cooldown: 100, castTime: 0, roles: ["finisher"], delivery: { kind: "target", range: 400 }, onHit: [{ type: "damage", damageType: "true", amount: { base: 300 } }] });
+    // The holder hits for 50 and takes 150 a hit: it loses, and its 300 never kills the 2,000-health enemy.
+    const outcome = duel(fighter({ abilities: [burst], base: { ad: 50 } }), fighter({ base: { ad: 150 } }), { settings: { maxSeconds: 60 } });
+    const cast = ticksOf(outcome.timeline, 0, "casts R")[0];
+    expect(cast).toBeDefined();
+    expect(outcome.win[1]).toBe(1);
+    // Cast at or below half of 2,000 health (LAST_STAND), with the enemy ahead, not before.
+    const taken = ticksOf(outcome.timeline, 1, "attack deals").filter((t) => t <= (cast ?? 0)).length * 150 * (100 / 200);
+    expect(2000 - taken).toBeLessThanOrEqual(LAST_STAND * 2000 + 1e-9);
+    expect(2000 - taken).toBeGreaterThan(LAST_STAND * 2000 - 150);
   });
 });
 

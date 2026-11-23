@@ -607,7 +607,7 @@ export interface PetAttack {
 /** What a post-effect cooldown waits for (AbilitySpec.cooldownAfter). */
 export type CooldownAfter = "empower" | "channel" | "dash" | "field" | "state";
 
-/** "finisher": used only when its damage kills (Demacian Justice). */
+/** "finisher": used when its damage kills (Demacian Justice), or when its holder is low on health and behind (LAST_STAND in sim/behavior.ts). */
 export type AbilityRole = "damage" | "cc" | "engage" | "escape" | "defense" | "buff" | "finisher";
 
 export interface AbilitySpec {
