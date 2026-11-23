@@ -3611,6 +3611,17 @@ its pick scored 0.07 below the best over every scenario. Brawl-only screens scor
 0.11 to 0.15 below. Those samples were small and spread widely. On four pairings the
 spell search added 11% to 16% to a build pairing's time.
 
+The refresh ([run 45202719427](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/45202719427))
+computed all 14,878 pairings in each matrix on 20 shards, from 15:13 to about 17:45 UTC.
+Build pairings averaged 21.1 processor-seconds, against the planner's estimate of 21.8.
+Across the 29,756 loadouts, the second spells were Barrier 28%, Ignite 20%, Exhaust 16%,
+Ghost 15%, Cleanse 12% and Heal 9%. Most champions spread their choice across several
+spells by matchup, with no single spell above about a third. In the plain-stats matrix,
+only Garen's results changed, in 8 pairings (16 entries with both directions). Decisive
+Strike removes only slows, and Garen had cast it as a cleanse while stunned or rooted.
+Now he holds it for attacks, and against Jinx (+0.22 to +0.42) and Lux (−0.29 to −0.18)
+that helps him. The full suite passed on the refreshed commit (10,309 tests, five skips).
+
 Rune pages are not in this search. Main's rune effects are manual plain-stat
 selections, and the earlier full rune-page model was set aside so that runes have
 one implementation. It remains in this branch's history at `d1ea0ef`.
