@@ -12,7 +12,6 @@
     "build:data": "tsx pipeline/build.ts",
     "build:items": "tsx pipeline/items/build.ts",
     "build:summoners": "tsx pipeline/summoners/build.ts",
-    "build:rune-records": "tsx pipeline/runeRecords/build.ts",
     "fetch:runes": "tsx pipeline/runes/fetch.ts",
     "build:runes": "tsx pipeline/runes/build.ts",
     "runes:page": "tsx pipeline/runes/page.ts",

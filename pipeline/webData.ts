@@ -100,11 +100,10 @@ async function exportSnapshot(dataset: string, source: string, output: string): 
     await writeText(path.join(out, "profiles.json"), JSON.stringify(profiles));
     if (statShards) await writeJson(path.join(out, "stat-shards.json"), statShards);
     if ((await simulationProvenance(dataset)).fingerprint !== simulation.fingerprint) return false;
-    // The builds name items, summoner spells and runes from the catalogs: their wiki revisions and game data versions, for the attribution.
+    // The builds name items and summoner spells from the catalogs: their wiki revisions and game data version, for the attribution.
     const itemSources = builds ? (await readJson<{ sources: { ddragon: string; itemData: { title: string; revid: number } } }>(path.join(source, "items.json"))).sources : undefined;
-    // Datasets from before summoner spells and rune pages have neither catalog, and builds without loadouts.
+    // Datasets from before summoner spells have no spell catalog, and builds without loadouts.
     const spellSources = builds && existsSync(path.join(source, "summoners.json")) ? (await readJson<{ sources: { spellData: { title: string; revid: number } } }>(path.join(source, "summoners.json"))).sources : undefined;
-    const runeSources = builds && existsSync(path.join(source, "rune-records.json")) ? (await readJson<{ sources: { cdragon: string } }>(path.join(source, "rune-records.json"))).sources : undefined;
     if (builds && (await buildsProvenance(dataset)).fingerprint !== builds.fingerprint) return false;
     await writeJson(path.join(staging, "index.json"), {
       dataset,
@@ -119,7 +118,6 @@ async function exportSnapshot(dataset: string, source: string, output: string): 
               revid: itemSources.itemData.revid,
               ddragon: itemSources.ddragon,
               ...(spellSources ? { spellData: { title: spellSources.spellData.title, revid: spellSources.spellData.revid } } : {}),
-              ...(runeSources ? { cdragon: runeSources.cdragon } : {}),
             },
           }
         : {}),

@@ -115,8 +115,7 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
   });
   const items = [...new Set([...builds.values()].flatMap((row) => [...row.values()].flat()))].sort();
   const index = new Map(items.map((item, i) => [item, i]));
-  const named = (loadout: MatrixLoadout) => [...loadout.spells, loadout.page.keystone, ...loadout.page.primary, ...loadout.page.secondary, ...loadout.page.shards];
-  const loadoutNames = [...new Set([...loadouts.values()].flatMap((row) => [...row.values()].flatMap(named)))].sort();
+  const loadoutNames = [...new Set([...loadouts.values()].flatMap((row) => [...row.values()].flatMap((loadout) => loadout.spells)))].sort();
   const loadoutIndex = new Map(loadoutNames.map((name, i) => [name, i]));
   const round = (v: number | null) => (v === null ? null : Math.round(v * 1000) / 1000);
   const byEnemy = <T>(row: Map<string, T>, value: (v: T) => unknown) => JSON.stringify(Object.fromEntries([...row].sort(([a], [b]) => a.localeCompare(b)).map(([enemy, v]) => [enemy, value(v)])));
@@ -148,17 +147,15 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
   ].join("\n");
 }
 
-/** reports/builds.md: how the run went, and each champion's items, keystones and second summoner spells across its matchups. */
+/** reports/builds.md: how the run went, and each champion's items and second summoner spells across its matchups. */
 export function buildsReport(patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], names: Map<string, string>, reused = 0): string {
   const counts = new Map(ids.map((id) => [id, new Map<string, number>()]));
-  const keystones = new Map(ids.map((id) => [id, new Map<string, number>()]));
   const spells = new Map(ids.map((id) => [id, new Map<string, number>()]));
   const add = (table: Map<string, Map<string, number>>, who: string, name: string) => table.get(who)!.set(name, (table.get(who)!.get(name) ?? 0) + 1);
   results.forEach((result, i) => {
     const [you, enemy] = pairs[i]!;
     for (const [who, build] of [[you, result.builds[0]], [enemy, result.builds[1]]] as const) for (const item of build) add(counts, who, item);
     for (const [who, loadout] of [[you, result.loadouts[0]], [enemy, result.loadouts[1]]] as const) {
-      add(keystones, who, loadout.page.keystone);
       for (const spell of loadout.spells.slice(1)) add(spells, who, spell);
     }
   });
@@ -186,9 +183,9 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
     "",
     `Share of the ${builds} builds holding each item: ${top(total, 25, builds)}.`,
     "",
-    "## Keystones and summoner spells across all loadouts",
+    "## Summoner spells across all loadouts",
     "",
-    `Every loadout holds Flash (pipeline/loadouts/search.ts). Share of the ${builds} loadouts with each keystone: ${top(totalOf(keystones), 20, builds)}. With each second summoner spell: ${top(totalOf(spells), 10, builds)}.`,
+    `Every loadout holds Flash (pipeline/loadouts/search.ts). Share of the ${builds} loadouts with each second summoner spell: ${top(totalOf(spells), 10, builds)}.`,
     "",
     "## Each champion's items",
     "",
@@ -198,13 +195,13 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
     "| --- | --- |",
     ...ids.map((id) => `| ${name(id)} | ${top(counts.get(id)!, 8, ids.length - 1)} |`),
     "",
-    "## Each champion's keystones and second summoner spells",
+    "## Each champion's second summoner spells",
     "",
-    "Share of the champion's matchups with each keystone, its three most frequent, and with each second summoner spell (Flash is always the first).",
+    "Share of the champion's matchups with each second summoner spell, its three most frequent (Flash is always the first).",
     "",
-    "| Champion | Keystones | Second spells |",
-    "| --- | --- | --- |",
-    ...ids.map((id) => `| ${name(id)} | ${top(keystones.get(id)!, 3, ids.length - 1)} | ${top(spells.get(id)!, 3, ids.length - 1)} |`),
+    "| Champion | Second spells |",
+    "| --- | --- |",
+    ...ids.map((id) => `| ${name(id)} | ${top(spells.get(id)!, 3, ids.length - 1)} |`),
     "",
   ].join("\n");
 }

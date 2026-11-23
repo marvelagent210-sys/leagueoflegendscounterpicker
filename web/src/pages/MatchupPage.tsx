@@ -108,9 +108,8 @@ function BuildsResult({ data, you, enemy }: { data: AppData; you: Champion; enem
       </div>
       <VariantNotes names={[you.name, enemy.name]} ids={[you.id, enemy.id]} variants={variants} />
       <p className="note">
-        Level 20, six finished items each, with two summoner spells and a rune page, in a typical 30-minute game. Each build is the one the build search found to do best
-        against the other's, settled by fights between each side's best routes; then each side's keystone and second summoner spell were fought for against the other's,
-        and the rest of its rune page chosen by the build search's estimate. The searches are too slow for the browser, so these results were computed in advance at the
+        Level 20, six finished items each, with Flash and a second summoner spell, and no rune page. Each build is the one the build search found to do best against the
+        other's, settled by fights between each side's best routes; then each side's second summoner spell was fought for against the other's. The searches are too slow for the browser, so these results were computed in advance at the
         default fight settings
         {weightsChanged(settings) ? ", and the scenarios are reweighed by your weights (the builds were searched with the default ones)" : ""}. The fights below, which you
         can watch tick by tick, are the plain-stats duels.

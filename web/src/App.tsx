@@ -61,7 +61,6 @@ export function App() {
                       (revision {items.spellData.revid}).
                     </>
                   ) : null}
-                  {items.cdragon ? <> Rune data from the wiki's rune data templates, checked against Community Dragon {items.cdragon}.</> : null}
                 </>
               ) : null}
             </p>

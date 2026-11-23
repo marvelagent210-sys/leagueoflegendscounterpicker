@@ -1,87 +1,68 @@
 /**
- * The loadout search (PLAN.md §13, M8): the summoner spells and rune page each side of a matchup
- * plays with its item build (pipeline/items/search.ts), against the other side's.
+ * The loadout search (PLAN.md §13, M8): the summoner spells each side of a matchup plays with its
+ * item build (pipeline/items/search.ts), against the other side's.
  *
- * - Summoner spells: Flash, and a second spell, fought for among the others that do something
+ * - Every loadout holds Flash, and a second spell, fought for among the others that do something
  *   in a duel (summoners/modules/; Smite and Teleport don't).
- * - Rune pages: every keystone the champion can play (the wiki's Rune article's substitutions
- *   made; Unsealed Spellbook, which works outside duels, left out) is fought for, the rest of
- *   its page completed by the quick estimate (items/estimate.ts, with the runes' hints): the
- *   stat shards slot by slot, then the rune of each row of the keystone's path that adds most,
- *   then the secondary path's two runes that add most together. The estimate values neither
- *   movement speed, tenacity nor mana, so the runes and shards that give only those are never
- *   chosen over ones that give something it values.
- * - A fight for a candidate is a screen against the enemy's loadout: the all-in scenarios with one
- *   branch each, as the build search's route screen plays them, one fight each, with each
- *   fight's health margin. The sides answer each other's loadout in turn for two rounds; in the
- *   second, a side fights again only its first round's best keystones and spells.
+ * - A fight for a candidate is a screen against the enemy's loadout: the all-in scenarios with
+ *   one branch each, as the build search's route screen plays them, one fight each, with each
+ *   fight's health margin. The sides answer each other's spells in turn for two rounds; in the
+ *   second, a side fights again only its first round's best spells.
  *
- * Checked against every scenario played (PLAN.md §13), on the keystone of one side in three
- * samples of 10 pairings, the rest of both loadouts fixed: the keystone a brawl alone picked
- * scored 0.11 to 0.15 below the best keystone's full score on average; the all-in screen's,
- * 0.04 to 0.12; with health margins, as a fair pair, 0.03 to 0.15; and as one fight a scenario,
- * as here, 0.07 on the sample it was measured on, where the others were 0.12 to 0.17 below. The
- * samples are small and their spread wide: a screen guides the choice, and the matchup's result
- * then plays every scenario. On 8 pairings the loadout search added 68% to the build search's
- * time.
+ * The screen's design (all-in scenarios, one fight each, health margins) was checked against
+ * every scenario played when it also chose keystones (the rune page work parked on 23 November
+ * 2026, in this branch's history): the screen's pick scored 0.07 below the best on average, where
+ * a brawl alone was 0.11 to 0.15 below, on small samples with a wide spread. A screen guides the
+ * choice; the matchup's result then plays every scenario with the spells chosen.
+ *
+ * Rune pages are left to the rune work on main (runes/, docs/runes/README.md): a side fights
+ * with its spells and items only.
  *
  * The result is the best loadout found within the model, not a guaranteed optimum.
  */
 import { SCENARIO_WEIGHTS, engageRange, fightScore } from "../../engine/sim/scenarios";
 import { fairFight, fight } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
-import { type ItemParts, matchupSpecs } from "../../items/equip";
-import { estimateAgainst, estimateSide } from "../../items/estimate";
-import { type NamedRunePage, findRune, runeParts, substituteRune, substitutionFacts } from "../../runes/equip";
-import { RUNE_MODULES } from "../../runes/modules/index";
+import { matchupSpecs } from "../../items/equip";
 import { duelSpells } from "../../summoners/equip";
 import { SPELL_MODULES } from "../../summoners/modules/index";
-import { type LoadoutFighter, equipBuild, withItems } from "../itemData";
+import { type LoadoutFighter, equipBuild } from "../itemData";
 import type { ItemCatalog } from "../items/records";
-import type { RuneRecords } from "../runeRecords/records";
 import type { SpellCatalog } from "../summoners/records";
 
 /** The spell every loadout holds. */
 export const FLASH = "Flash";
 
-/** A side's summoner spells and rune page. */
+/** A side's summoner spells: Flash, then its second spell. */
 export interface Loadout {
   spells: string[];
-  page: NamedRunePage;
 }
 
 /** A side of the matchup as the loadout search sees it. */
 export interface LoadoutSide {
   /** The champion's kit, for fights. */
   spec: FighterSpec;
-  /** The kit as the quick estimate values it: the build search's calibrated kit (pipeline/items/calibrate.ts). */
-  estimate: FighterSpec;
   /** The item build it plays, by name. */
   build: string[];
-  /** The build's items as the estimate counts them. */
-  parts: readonly ItemParts[];
-  /** The champion's adaptive type, for adaptive force on a tie. */
-  adaptiveType: "Physical" | "Magic";
 }
 
 export interface LoadoutCatalogs {
   items: ItemCatalog;
-  runes: RuneRecords;
   spells: SpellCatalog;
 }
 
 export interface LoadoutOptions {
   /** Rounds in which the sides answer each other. */
   rounds?: number;
-  /** Keystones and spells a side fights for again after the first round: its best by the first round's screens. */
-  keep?: { keystones: number; spells: number };
+  /** Second spells a side fights for again after the first round: its best by the first round's screens. */
+  keep?: number;
   /** Screens played as one fight, the chooser moving first on the opening tick, rather than a fair pair (fairFight). */
   single?: boolean;
-  /** The second spell held while keystones are fought for before any spell is. */
+  /** The second spell a side holds before it has chosen one. */
   firstSpell?: string;
 }
 
-const DEFAULTS: Required<LoadoutOptions> = { rounds: 2, keep: { keystones: 3, spells: 2 }, single: true, firstSpell: "Ignite" };
+const DEFAULTS: Required<LoadoutOptions> = { rounds: 2, keep: 2, single: true, firstSpell: "Ignite" };
 
 export interface LoadoutScreen {
   candidate: string;
@@ -90,125 +71,17 @@ export interface LoadoutScreen {
 
 export interface SearchedLoadouts {
   loadouts: [Loadout, Loadout];
-  /** Each side's screens, round by round: its keystones, then its second spells, with its scores. */
-  screens: [Array<{ keystones: LoadoutScreen[]; spells: LoadoutScreen[] }>, Array<{ keystones: LoadoutScreen[]; spells: LoadoutScreen[] }>];
+  /** Each side's screens of its second spells, round by round, with their scores. */
+  screens: [LoadoutScreen[][], LoadoutScreen[][]];
   /** Screens fought, both sides. */
   fights: number;
   seconds: number;
 }
 
-/** A rune or shard a page can hold, as the estimate counts it. */
-interface Candidate {
-  name: string;
-  parts: ItemParts;
-}
-
-/** What a side can choose from: built once for its build. */
-interface Choices {
-  keystones: Array<{ name: string; path: string }>;
-  spells: string[];
-  /** Each path's lesser runes by row (the three rows after its keystones), as the champion plays them. */
-  rows: Map<string, Candidate[][]>;
-  /** Each shard slot's options. */
-  shards: Candidate[][];
-  /** Every candidate's parts, by rune name or "slot:shard". */
-  parts: Map<string, ItemParts>;
-}
-
-/**
- * A side's keystones, second spells, lesser runes and shards. Each catalog rune is played as the
- * Rune article's substitutions have it for the champion (holding Flash), once; runes that work
- * outside duels are left out, unless a row has nothing else.
- */
-function choicesFor(side: LoadoutSide, catalogs: LoadoutCatalogs): Choices {
-  return withItems(side.spec, side.build, catalogs.items, (items) => choicesWith(side, catalogs, items));
-}
-
-function choicesWith(side: LoadoutSide, catalogs: LoadoutCatalogs, items: Parameters<Parameters<typeof withItems>[3]>[0]): Choices {
-  const catalog = catalogs.runes;
-  const spells = [FLASH];
-  const facts = substitutionFacts(side.spec, catalog, spells);
-  const settings = { adaptiveType: side.adaptiveType, spells };
-  const built = new Map<string, { parts: ItemParts; outside: boolean }>();
-  const build = (name: string) => {
-    let found = built.get(name);
-    if (!found) built.set(name, (found = runeParts(items.form, { kind: "rune", entry: findRune(catalog, name) }, catalog, RUNE_MODULES, settings, items)));
-    return found;
-  };
-  const played = (names: string[]) => [...new Set(names.map((name) => substituteRune(name, catalog, facts).name))];
-  const inDuels = (names: string[]) => {
-    const kept = names.filter((name) => !build(name).outside);
-    return kept.length > 0 ? kept : names.slice(0, 1);
-  };
-  const rows = new Map<string, Candidate[][]>();
-  const keystones: Array<{ name: string; path: string }> = [];
-  for (const path of catalog.paths.map((entry) => entry.name)) {
-    const row = (index: number) => played(catalog.runes.filter((entry) => entry.path === path && entry.row === index).map((entry) => entry.name));
-    for (const name of row(0)) if (!build(name).outside) keystones.push({ name, path });
-    rows.set(path, [1, 2, 3].map((index) => inDuels(row(index)).map((name) => ({ name, parts: build(name).parts }))));
-  }
-  const shards = catalog.shards.map((slot, index) =>
-    slot.options.map((option) => ({ name: option.name, parts: runeParts(items.form, { kind: "shard", slot: index, option }, catalog, RUNE_MODULES, settings, items).parts })),
-  );
-  const parts = new Map<string, ItemParts>();
-  for (const candidates of rows.values()) for (const row of candidates) for (const candidate of row) parts.set(candidate.name, candidate.parts);
-  shards.forEach((options, slot) => options.forEach((option) => parts.set(`${slot}:${option.name}`, option.parts)));
-  return { keystones, spells: duelSpells(catalogs.spells, SPELL_MODULES, side.spec).filter((name) => name !== FLASH), rows, shards, parts };
-}
-
-/** A page's lesser runes and shards as the estimate counts them (its keystone has no hint: fights decide it). */
-function pageParts(choices: Choices, page: NamedRunePage | undefined): ItemParts[] {
-  if (!page) return [];
-  return [...page.primary, ...page.secondary].map((name) => choices.parts.get(name)!).concat(page.shards.map((name, slot) => choices.parts.get(`${slot}:${name}`)!));
-}
-
-/** The candidate with the highest value; the first of equals. */
-function best<T>(candidates: readonly T[], value: (candidate: T) => number): T {
+/** The candidate with the highest score; the first of equals. */
+function best(candidates: readonly LoadoutScreen[]): LoadoutScreen {
   if (candidates.length === 0) throw new Error("Nothing to choose from");
-  let found: T = candidates[0] as T;
-  let most = Number.NEGATIVE_INFINITY;
-  for (const candidate of candidates) {
-    const v = value(candidate);
-    if (v > most + 1e-12) {
-      most = v;
-      found = candidate;
-    }
-  }
-  return found;
-}
-
-/**
- * The rest of a page for a keystone of `path`, by the estimate: the shards slot by slot, the
- * path's rows one by one, then the secondary path's best two runes of two different rows.
- */
-function completePage(path: string, choices: Choices, value: (parts: ItemParts[]) => number): Omit<NamedRunePage, "keystone"> {
-  const chosen: ItemParts[] = [];
-  const shards = choices.shards.map((options) => {
-    const pick = best(options, (option) => value([...chosen, option.parts]));
-    chosen.push(pick.parts);
-    return pick.name;
-  });
-  const primary = choices.rows.get(path)!.map((row) => {
-    const pick = best(row, (candidate) => value([...chosen, candidate.parts]));
-    chosen.push(pick.parts);
-    return pick.name;
-  });
-  const pairs: Array<[Candidate, Candidate]> = [];
-  for (const [other, rows] of choices.rows) {
-    if (other === path) continue;
-    for (let i = 0; i < rows.length; i++) for (let j = i + 1; j < rows.length; j++) for (const x of rows[i]!) for (const y of rows[j]!) pairs.push([x, y]);
-  }
-  const [x, y] = best(pairs, ([a, b]) => value([...chosen, a.parts, b.parts]));
-  return { primary, secondary: [x.name, y.name], shards };
-}
-
-/** Side `s`'s page for each keystone it can play, against the other side's loadout: the rest of each page completed by the estimate. */
-export function keystonePages(sides: readonly [LoadoutSide, LoadoutSide], s: 0 | 1, enemyLoadout: Loadout | undefined, catalogs: LoadoutCatalogs): NamedRunePage[] {
-  const choices = [choicesFor(sides[0], catalogs), choicesFor(sides[1], catalogs)] as const;
-  const [side, enemy] = [sides[s], sides[s === 0 ? 1 : 0]];
-  const enemySide = estimateSide(enemy.estimate, [...enemy.parts, ...pageParts(choices[s === 0 ? 1 : 0], enemyLoadout?.page)], 1);
-  const value = (parts: ItemParts[]) => estimateAgainst(side.estimate, [...side.parts, ...parts], enemySide);
-  return choices[s].keystones.map((entry) => ({ keystone: entry.name, ...completePage(entry.path, choices[s], value) }));
+  return candidates.reduce((found, candidate) => (candidate.score > found.score + 1e-12 ? candidate : found));
 }
 
 /**
@@ -231,44 +104,30 @@ function screen(mine: LoadoutFighter, theirs: LoadoutFighter, single: boolean): 
   return (w.youEngage * engage + w.enemyEngages * engaged + w.brawl * value(play(0))) / (w.youEngage + w.enemyEngages + w.brawl);
 }
 
-/** A fighter holding its side's build and `loadout` (items alone without one). */
-export function equipLoadout(side: Pick<LoadoutSide, "spec" | "build" | "adaptiveType">, loadout: Loadout | undefined, catalogs: LoadoutCatalogs): LoadoutFighter {
-  return equipBuild(side.spec, side.build, catalogs.items, loadout ? { spells: { names: loadout.spells, catalog: catalogs.spells }, runes: { page: loadout.page, catalog: catalogs.runes, adaptiveType: side.adaptiveType } } : {});
+/** A fighter holding its side's build and `loadout`'s spells (items alone without one). */
+export function equipLoadout(side: LoadoutSide, loadout: Loadout | undefined, catalogs: LoadoutCatalogs): LoadoutFighter {
+  return equipBuild(side.spec, side.build, catalogs.items, loadout ? { spells: { names: loadout.spells, catalog: catalogs.spells } } : {});
 }
 
 /** Both sides' loadouts, each answering the other's in turn (the first side answering a side with none). */
 export function searchLoadouts(sides: [LoadoutSide, LoadoutSide], catalogs: LoadoutCatalogs, options: LoadoutOptions = {}): SearchedLoadouts {
   const o = { ...DEFAULTS, ...options };
   const started = performance.now();
-  const choices = [choicesFor(sides[0], catalogs), choicesFor(sides[1], catalogs)] as const;
+  const choices = sides.map((side) => duelSpells(catalogs.spells, SPELL_MODULES, side.spec).filter((name) => name !== FLASH));
   const loadouts: [Loadout | undefined, Loadout | undefined] = [undefined, undefined];
-  const ranked: Array<{ keystones: string[]; spells: string[] } | undefined> = [undefined, undefined];
+  const ranked: Array<string[] | undefined> = [undefined, undefined];
   const screens: SearchedLoadouts["screens"] = [[], []];
   let fights = 0;
   for (let round = 0; round < o.rounds; round++) {
     for (const s of [0, 1] as const) {
       const other = s === 0 ? 1 : 0;
-      const [side, enemy] = [sides[s], sides[other]];
-      const theirs = equipLoadout(enemy, loadouts[other], catalogs);
-      const enemySide = estimateSide(enemy.estimate, [...enemy.parts, ...pageParts(choices[other], loadouts[other]?.page)], 1);
-      const value = (parts: ItemParts[]) => estimateAgainst(side.estimate, [...side.parts, ...parts], enemySide);
-      const pages = new Map<string, Omit<NamedRunePage, "keystone">>();
-      const pageFor = (keystone: string): NamedRunePage => {
-        const path = choices[s].keystones.find((entry) => entry.name === keystone)!.path;
-        if (!pages.has(path)) pages.set(path, completePage(path, choices[s], value));
-        return { keystone, ...pages.get(path)! };
-      };
-      const candidates = round === 0 ? choices[s].keystones.map((entry) => entry.name) : ranked[s]!.keystones.slice(0, o.keep.keystones);
-      const spells = loadouts[s]?.spells ?? [FLASH, o.firstSpell];
-      const keystones = candidates.map((keystone) => ({ candidate: keystone, score: screen(equipLoadout(side, { spells, page: pageFor(keystone) }, catalogs), theirs, o.single) }));
-      const page = pageFor(best(keystones, (entry) => entry.score).candidate);
-      const seconds = round === 0 ? choices[s].spells : ranked[s]!.spells.slice(0, o.keep.spells);
-      const spellScreens = seconds.map((spell) => ({ candidate: spell, score: screen(equipLoadout(side, { spells: [FLASH, spell], page }, catalogs), theirs, o.single) }));
-      loadouts[s] = { spells: [FLASH, best(spellScreens, (entry) => entry.score).candidate], page };
-      fights += keystones.length + spellScreens.length;
-      screens[s].push({ keystones, spells: spellScreens });
-      const order = (list: LoadoutScreen[]) => [...list].sort((a, b) => b.score - a.score).map((entry) => entry.candidate);
-      if (round === 0) ranked[s] = { keystones: order(keystones), spells: order(spellScreens) };
+      const theirs = equipLoadout(sides[other], loadouts[other], catalogs);
+      const candidates = round === 0 ? choices[s]! : ranked[s]!.slice(0, o.keep);
+      const scored = candidates.map((spell) => ({ candidate: spell, score: screen(equipLoadout(sides[s], { spells: [FLASH, spell] }, catalogs), theirs, o.single) }));
+      loadouts[s] = { spells: [FLASH, best(scored).candidate] };
+      fights += scored.length;
+      screens[s].push(scored);
+      if (round === 0) ranked[s] = [...scored].sort((a, b) => b.score - a.score).map((entry) => entry.candidate);
     }
   }
   return { loadouts: [loadouts[0]!, loadouts[1]!], screens, fights, seconds: (performance.now() - started) / 1000 };

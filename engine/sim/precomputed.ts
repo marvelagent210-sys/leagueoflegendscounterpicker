@@ -34,25 +34,24 @@ export interface PrecomputedBuilds {
   items: string[];
   /** Each side's build against the other, as indices into `items`: builds[you][enemy] is yours. */
   builds: Record<string, Record<string, number[]>>;
-  /** The summoner spells, runes and stat shards the loadouts name, by index. */
+  /** The summoner spells the loadouts name, by index. */
   loadoutNames?: string[];
   /** Each side's loadout against the other (encodeLoadout): loadouts[you][enemy] is yours. */
   loadouts?: Record<string, Record<string, number[]>>;
   variants?: Record<string, Record<string, Record<string, number>>>;
 }
 
-/** A side's summoner spells and rune page, by name (the loadout search's, pipeline/loadouts/search.ts). */
+/** A side's summoner spells, by name: Flash, then its second spell (the loadout search's, pipeline/loadouts/search.ts). */
 export interface MatrixLoadout {
   spells: string[];
-  page: { keystone: string; primary: string[]; secondary: string[]; shards: string[] };
 }
 
-/** A stored loadout's indices: two summoner spells, the keystone, three primary runes, two secondary runes and three shards. */
-export const LOADOUT_LENGTH = 11;
+/** A stored loadout's indices: its two summoner spells. */
+export const LOADOUT_LENGTH = 2;
 
 /** A loadout as a build matrix stores it: its names' indices into the matrix's `loadoutNames`. */
 export function encodeLoadout(loadout: MatrixLoadout, index: ReadonlyMap<string, number>): number[] {
-  return [...loadout.spells, loadout.page.keystone, ...loadout.page.primary, ...loadout.page.secondary, ...loadout.page.shards].map((name) => {
+  return loadout.spells.map((name) => {
     const found = index.get(name);
     if (found === undefined) throw new Error(`The loadout names have no "${name}"`);
     return found;
@@ -64,7 +63,7 @@ export function decodeLoadout(indices: unknown, names: readonly string[]): Matri
   if (!Array.isArray(indices) || indices.length !== LOADOUT_LENGTH) return undefined;
   const found = indices.map((index) => (Number.isSafeInteger(index) ? names[index as number] : undefined));
   if (!found.every((name): name is string => typeof name === "string" && name.length > 0)) return undefined;
-  return { spells: found.slice(0, 2), page: { keystone: found[2]!, primary: found.slice(3, 6), secondary: found.slice(6, 8), shards: found.slice(8, 11) } };
+  return found[0] === found[1] ? undefined : { spells: found };
 }
 
 export function precomputedCurrent(raw: unknown, dataset: string, patch: string, fingerprint: string | undefined, gold: number, kitIds: string[]): boolean {

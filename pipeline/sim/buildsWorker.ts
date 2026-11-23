@@ -13,7 +13,7 @@ import type { FighterSpec } from "../../engine/sim/spec";
 import { matchupSpecs } from "../../items/equip";
 import { chooseRoutes, names, searchMatchup } from "../items/search";
 import type { BuildFormat } from "../items/rules";
-import { equipOptions, loadItemCatalog, loadRuneRecords, loadSpellCatalog } from "../itemData";
+import { equipOptions, loadItemCatalog, loadSpellCatalog } from "../itemData";
 import { equipLoadout } from "../loadouts/search";
 import { loadFighter, loadVariants } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
@@ -32,8 +32,8 @@ export type BuildsMessage = { completed: number } | { failed: { index: number; p
 
 const task = workerData as BuildsTask;
 const data = await loadSimData(task.dataset);
-const [catalog, runes, spells] = await Promise.all([loadItemCatalog(data.dataset), loadRuneRecords(data.dataset), loadSpellCatalog(data.dataset)]);
-const catalogs = { items: catalog, runes, spells };
+const [catalog, spells] = await Promise.all([loadItemCatalog(data.dataset), loadSpellCatalog(data.dataset)]);
+const catalogs = { items: catalog, spells };
 const equip = equipOptions(catalog);
 const defaults = new Map<string, FighterSpec>();
 const variants = new Map<string, KitVariant[]>();
@@ -54,15 +54,14 @@ for (const [index, you, enemy] of task.pairs) {
   try {
     const mine = await fighter(you);
     const theirs = await fighter(enemy);
-    const adaptiveTypes = [findChampion(data.champions, you).adaptiveType, findChampion(data.champions, enemy).adaptiveType] as ["Physical" | "Magic", "Physical" | "Magic"];
-    const found = searchMatchup(mine.spec, theirs.spec, catalog, equip, data.prices, { format: task.format, loadouts: { runes, spells, adaptiveTypes } });
+    const found = searchMatchup(mine.spec, theirs.spec, catalog, equip, data.prices, { format: task.format, loadouts: { spells } });
     const builds: [string[], string[]] = [names(found.routes[0][found.chosen[0]]!), names(found.routes[1][found.chosen[1]]!)];
     const loadouts = found.loadouts!.loadouts;
     let result: MatchupResult = found.result;
     const chosen: MatchupVariant[] = [];
     if (mine.variants.length > 1 || theirs.variants.length > 1) {
-      // The builds and loadouts found, on each variant: your best worst case, and the enemy's.
-      const holding = (spec: FighterSpec, side: 0 | 1) => equipLoadout({ spec, build: builds[side], adaptiveType: adaptiveTypes[side] }, loadouts[side], catalogs);
+      // The builds and spells found, on each variant: your best worst case, and the enemy's.
+      const holding = (spec: FighterSpec, side: 0 | 1) => equipLoadout({ spec, build: builds[side] }, loadouts[side], catalogs);
       const fights = mine.variants.map((a) => theirs.variants.map((b) => runScenarios(...matchupSpecs(holding(a.spec, 0), holding(b.spec, 1)))));
       const [row, column] = chooseRoutes(fights.map((line) => line.map((fight) => fight.score)));
       result = fights[row]![column]!;

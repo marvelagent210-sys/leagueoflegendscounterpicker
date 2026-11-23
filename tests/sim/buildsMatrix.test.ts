@@ -11,8 +11,8 @@ import { type PrecomputedBuilds, buildsComplete, decodeLoadout, loadoutsComplete
 import { BUILDS_FILE, buildsReport, simulatedBuildsJson } from "../../pipeline/sim/builds";
 import { type BuildsPairResult, readBuildsCheckpoint, validBuildsResult, writeBuildsCheckpoint } from "../../pipeline/sim/buildsCheckpoint";
 
-const conqueror = { spells: ["Flash", "Ignite"], page: { keystone: "Conqueror", primary: ["Triumph", "Legend: Alacrity", "Last Stand"], secondary: ["Bone Plating", "Unflinching"], shards: ["Attack Speed", "Health Scaling", "Health Scaling"] } };
-const grasp = { spells: ["Flash", "Barrier"], page: { keystone: "Grasp of the Undying", primary: ["Demolish", "Second Wind", "Overgrowth"], secondary: ["Legend: Haste", "Last Stand"], shards: ["Ability Haste", "Health Scaling", "Health"] } };
+const ignite = { spells: ["Flash", "Ignite"] };
+const barrier = { spells: ["Flash", "Barrier"] };
 
 // Every scenario at 0.5 but spacing, which doesn't apply: a weighted mean of 0.5.
 const result = (index: number, score = 0.5): BuildsPairResult => ({
@@ -20,7 +20,7 @@ const result = (index: number, score = 0.5): BuildsPairResult => ({
   score,
   scenarios: [score, score, score, score, null, score],
   builds: [["Infinity Edge", "Guardian Angel"], ["Sunfire Aegis", "Thornmail", "Frozen Heart"]],
-  loadouts: [conqueror, grasp],
+  loadouts: [ignite, barrier],
   seconds: 12,
 });
 
@@ -49,9 +49,9 @@ describe("build matrix checkpoints", () => {
     expect(validBuildsResult({ ...result(0), score: 0.4 })).toBe(false);
     expect(validBuildsResult({ ...result(0), builds: [["Infinity Edge", "Infinity Edge"], ["Thornmail"]] })).toBe(false);
     expect(validBuildsResult({ ...result(0), builds: [[], ["Thornmail"]] })).toBe(false);
-    expect(validBuildsResult({ ...result(0), loadouts: [conqueror] })).toBe(false);
-    expect(validBuildsResult({ ...result(0), loadouts: [{ ...conqueror, spells: ["Flash", "Flash"] }, grasp] })).toBe(false);
-    expect(validBuildsResult({ ...result(0), loadouts: [{ ...conqueror, page: { ...conqueror.page, secondary: ["Bone Plating"] } }, grasp] })).toBe(false);
+    expect(validBuildsResult({ ...result(0), loadouts: [ignite] })).toBe(false);
+    expect(validBuildsResult({ ...result(0), loadouts: [{ spells: ["Flash", "Flash"] }, barrier] })).toBe(false);
+    expect(validBuildsResult({ ...result(0), loadouts: [{ spells: ["Flash"] }, barrier] })).toBe(false);
     await expect(writeBuildsCheckpoint({ directory: tmpdir(), fingerprint: "f1", format: "sixItems" }, "16.21", ["A", "B"], { ...result(0), score: 2 })).rejects.toThrow(TypeError);
   });
 });
@@ -68,8 +68,8 @@ describe("the build matrix file", () => {
     expect(file.matchups.Darius!.Ahri![0]).toBe(-0.5);
     expect(file.builds.Ahri!.Darius!.map((i) => file.items[i])).toEqual(["Infinity Edge", "Guardian Angel"]);
     expect(file.builds.Darius!.Ahri!.map((i) => file.items[i])).toEqual(["Sunfire Aegis", "Thornmail", "Frozen Heart"]);
-    expect(decodeLoadout(file.loadouts!.Ahri!.Darius, file.loadoutNames!)).toEqual(conqueror);
-    expect(decodeLoadout(file.loadouts!.Darius!.Ahri, file.loadoutNames!)).toEqual(grasp);
+    expect(decodeLoadout(file.loadouts!.Ahri!.Darius, file.loadoutNames!)).toEqual(ignite);
+    expect(decodeLoadout(file.loadouts!.Darius!.Ahri, file.loadoutNames!)).toEqual(barrier);
     expect(file.loadoutNames).toEqual([...file.loadoutNames!].sort());
     expect(file.variants).toEqual({ Garen: { Ahri: { tripleTonic: 1 } } });
     expect(BUILDS_FILE).toBe("simulated-builds.json");
@@ -91,13 +91,13 @@ describe("the build matrix file", () => {
     expect(precomputedBuildsCurrent(older, "16.21", "26.21", "abc", "sixItems", ids)).toBe(false);
   });
 
-  it("reports each champion's items, keystones and second summoner spells across its matchups", () => {
+  it("reports each champion's items and second summoner spells across its matchups", () => {
     const report = buildsReport("26.21", "sixItems", ids, pairs, results, new Map([["Ahri", "Ahri"]]));
     expect(report).toContain("3 pairings");
     expect(report).toContain("| Ahri | Guardian Angel 100%, Infinity Edge 100% |");
-    // Ahri is side one twice (Conqueror and Ignite); Garen is side two twice (Grasp and Barrier).
-    expect(report).toContain("| Ahri | Conqueror 100% | Ignite 100% |");
-    expect(report).toContain("| Garen | Grasp of the Undying 100% | Barrier 100% |");
-    expect(report).toContain("Share of the 6 loadouts with each keystone: Conqueror 50%, Grasp of the Undying 50%.");
+    // Ahri is side one twice (Ignite); Garen is side two twice (Barrier).
+    expect(report).toContain("| Ahri | Ignite 100% |");
+    expect(report).toContain("| Garen | Barrier 100% |");
+    expect(report).toContain("Share of the 6 loadouts with each second summoner spell: Barrier 50%, Ignite 50%.");
   });
 });

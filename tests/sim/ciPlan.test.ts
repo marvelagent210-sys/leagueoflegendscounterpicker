@@ -49,8 +49,8 @@ describe("shards", () => {
   it("give each shard about an hour of computing, at most twenty, never more than the pairings", () => {
     expect(shardCount(0, SECONDS_PER_PAIRING.builds)).toBe(0);
     expect(shardCount(1, SECONDS_PER_PAIRING.builds)).toBe(1);
-    // A full build matrix with loadouts: 14,878 pairings of about 32 s on four threads a shard, 32.6 shard-hours.
-    expect((14878 * SECONDS_PER_PAIRING.builds) / (THREADS * TARGET_SECONDS)).toBeCloseTo(32.6, 1);
+    // A full build matrix with summoner spells: 14,878 pairings of about 22 s on four threads a shard, 22.5 shard-hours.
+    expect((14878 * SECONDS_PER_PAIRING.builds) / (THREADS * TARGET_SECONDS)).toBeCloseTo(22.5, 1);
     expect(shardCount(14878, SECONDS_PER_PAIRING.builds)).toBe(MAX_SHARDS);
     // More than that still runs on the twenty runners that run at once, each for longer.
     expect(shardCount(30000, SECONDS_PER_PAIRING.builds)).toBe(MAX_SHARDS);
@@ -67,11 +67,11 @@ describe("shards", () => {
     const minutes = (pending: number, seconds: number, shards: number) => (pending * seconds) / shards / THREADS / 60;
     // 10,222 plain-stats pairings (26.21's refresh) and the whole build matrix. Sized apart they
     // would make 5 and 20 shards, and five of the 25 would wait for a runner (26.21's did); together,
-    // 20 shards, each matrix's as long as whole shards allow: 95 and 115 minutes.
+    // 20 shards, each matrix's as long as whole shards allow: 71 and 84 minutes.
     const counts = planShards(work(10222, 14878));
-    expect(counts).toEqual({ sim: 3, builds: 17 });
-    expect(minutes(10222, SECONDS_PER_PAIRING.sim, counts.sim)).toBeCloseTo(95.1, 0);
-    expect(minutes(14878, SECONDS_PER_PAIRING.builds, counts.builds)).toBeCloseTo(115.2, 0);
+    expect(counts).toEqual({ sim: 4, builds: 16 });
+    expect(minutes(10222, SECONDS_PER_PAIRING.sim, counts.sim)).toBeCloseTo(71.3, 0);
+    expect(minutes(14878, SECONDS_PER_PAIRING.builds, counts.builds)).toBeCloseTo(84.5, 0);
     // One matrix alone, as shardCount sizes it.
     expect(planShards(work(0, 14878))).toEqual({ sim: 0, builds: MAX_SHARDS });
     expect(planShards({ sim: { pending: 9522, secondsPerPairing: SECONDS_PER_PAIRING.sim } })).toEqual({ sim: 5, builds: 0 });

@@ -1,22 +1,13 @@
-/** Both sides' item builds, summoner spells and rune pages in a matchup, and the kit variants they played. */
+/** Both sides' item builds and summoner spells in a matchup, and the kit variants they played. */
 import type { MatrixLoadout } from "../../../engine/sim/precomputed";
 import { type BuildsMatchup, variantText } from "../builds";
 
-/** A side's summoner spells and rune page: the keystone and its path's runes, the secondary path's two, and the shards. */
+/** A side's summoner spells. */
 function LoadoutLines({ loadout }: { loadout: MatrixLoadout }) {
-  const { page } = loadout;
   return (
     <dl className="loadout">
       <dt>Spells</dt>
       <dd>{loadout.spells.join(", ")}</dd>
-      <dt>Keystone</dt>
-      <dd>{page.keystone}</dd>
-      <dt>Runes</dt>
-      <dd>
-        {page.primary.join(", ")}; {page.secondary.join(", ")}
-      </dd>
-      <dt>Shards</dt>
-      <dd>{page.shards.join(", ")}</dd>
     </dl>
   );
 }

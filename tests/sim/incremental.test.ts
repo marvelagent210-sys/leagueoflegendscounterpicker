@@ -174,15 +174,18 @@ describe("reusing stored results", () => {
     const root = await mkdtemp(path.join(tmpdir(), "reuse-"));
     directories.push(root);
     await mkdir(path.join(root, "16.20"), { recursive: true });
-    const loadoutNames = ["Barrier", "Bone Plating", "Conqueror", "Flash", "Health", "Health Scaling", "Last Stand", "Legend: Alacrity", "Triumph", "Unflinching"];
-    const at = (...names: string[]) => names.map((name) => loadoutNames.indexOf(name));
-    const loadout = at("Flash", "Barrier", "Conqueror", "Triumph", "Legend: Alacrity", "Last Stand", "Bone Plating", "Unflinching", "Health Scaling", "Health Scaling", "Health");
+    const loadoutNames = ["Barrier", "Conqueror", "Flash"];
+    const loadout = [2, 0];
     const stored = { format: "sixItems", inputs, items: ["Guardian Angel", "Infinity Edge", "Thornmail"], matchups: { A: { B: [0.25, 0.25, 0.25, 0.25, 0.25, null, 0.25] }, B: { A: [-0.25, -0.25, -0.25, -0.25, -0.25, null, -0.25] } }, builds: { A: { B: [0, 1] }, B: { A: [2] } } };
     await writeFile(path.join(root, "16.20", "simulated-builds.json"), JSON.stringify({ ...stored, loadoutNames, loadouts: { A: { B: loadout }, B: { A: loadout } } }));
     const [store] = await buildsStores("16.21", "sixItems", "simulated-builds.json", root);
-    const played = { spells: ["Flash", "Barrier"], page: { keystone: "Conqueror", primary: ["Triumph", "Legend: Alacrity", "Last Stand"], secondary: ["Bone Plating", "Unflinching"], shards: ["Health Scaling", "Health Scaling", "Health"] } };
+    const played = { spells: ["Flash", "Barrier"] };
     expect(store!.result("A", "B")).toEqual({ score: 0.25, scenarios: [0.25, 0.25, 0.25, 0.25, null, 0.25], builds: [["Guardian Angel", "Infinity Edge"], ["Thornmail"]], loadouts: [played, played], seconds: 0 });
     expect(await buildsStores("16.21", "fiveItemsWithBoots", "simulated-builds.json", root)).toEqual([]);
+    // Loadouts of another shape (spells with a rune page's eleven names) are computed again.
+    await writeFile(path.join(root, "16.20", "simulated-builds.json"), JSON.stringify({ ...stored, loadoutNames, loadouts: { A: { B: [2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1] }, B: { A: loadout } } }));
+    const [paged] = await buildsStores("16.21", "sixItems", "simulated-builds.json", root);
+    expect(paged!.result("A", "B")).toBeUndefined();
     await writeFile(path.join(root, "16.20", "simulated-builds.json"), JSON.stringify(stored));
     const [older] = await buildsStores("16.21", "sixItems", "simulated-builds.json", root);
     expect(older!.result("A", "B")).toBeUndefined();

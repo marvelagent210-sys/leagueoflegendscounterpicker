@@ -1048,12 +1048,6 @@ export interface KitHooks {
   onDisrupted?(ctx: HookContext & { source: Unit; ability?: string }): void;
   /** An enemy champion received hostile immobilization, after its own accepted-CC callback. */
   onEnemyCCApplied?(ctx: HookContext & { target: Unit; cc: CCType; source: Unit; ability?: string }): void;
-  /**
-   * An enemy champion received hostile crowd control of any type, slows and silences included,
-   * after its own accepted-CC callback (Electrocute's and Font of Life's triggers); before
-   * onEnemyCCApplied when it immobilizes.
-   */
-  onEnemyCrowdControlled?(ctx: HookContext & { target: Unit; cc: CCType; source: Unit; ability?: string }): void;
   onTargetResurrection?(ctx: HookContext & { target: Unit }): void;
   /** Native notifications always supply frozen killCredit facts. Optional only
    * for callers constructing a manual hook context; snapshot consumers must not

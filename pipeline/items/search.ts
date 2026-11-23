@@ -14,7 +14,7 @@
  *    against the other's best answer: the rule Udyr's rank splits use (bestMatchup). The route
  *    fights are a screen, the all-in scenarios with one branch each (screenScore); the pair
  *    taken then plays every scenario, for the matchup's result.
- * 5. With `loadouts`, the sides then choose their summoner spells and rune pages for the builds
+ * 5. With `loadouts`, the sides then choose their summoner spells for the builds
  *    taken (pipeline/loadouts/search.ts), and the matchup's result is played with them.
  *
  * The result is the best build found within the model, not a guaranteed optimum.
@@ -28,7 +28,6 @@ import { type EstimateSide, estimateAgainst, estimateSide } from "../../items/es
 import { type CalibrationFight, calibrate, calibrated } from "./calibrate";
 import { equipBuild, findItem } from "../itemData";
 import { type LoadoutOptions, type SearchedLoadouts, equipLoadout, searchLoadouts } from "../loadouts/search";
-import type { RuneRecords } from "../runeRecords/records";
 import type { SpellCatalog } from "../summoners/records";
 import type { ItemCatalog, ItemRecord } from "./records";
 import { BUILD_FORMATS, BUILD_SLOTS, type BuildFormat, REVIEWED_GROUPS } from "./rules";
@@ -81,11 +80,8 @@ export interface SearchOptions {
   calibrate?: boolean;
   /** Routes chosen by a screen of the all-in scenarios (screenScore), the default, or by every scenario. */
   screen?: boolean;
-  /**
-   * The sides' summoner spells and rune pages chosen too, for the builds taken, from these
-   * catalogs (each champion's adaptive type for adaptive force on a tie); none by default.
-   */
-  loadouts?: { runes: RuneRecords; spells: SpellCatalog; adaptiveTypes: ["Physical" | "Magic", "Physical" | "Magic"]; options?: LoadoutOptions };
+  /** The sides' summoner spells chosen too, for the builds taken, from this catalog; none by default. */
+  loadouts?: { spells: SpellCatalog; options?: LoadoutOptions };
 }
 
 const DEFAULTS: Required<Omit<SearchOptions, "loadouts">> = { format: "sixItems", width: 8, perProfile: 1, rounds: 4, routes: 3, stacked: true, calibrate: true, screen: true };
@@ -222,7 +218,7 @@ export interface SearchedMatchup {
   rounds: number;
   /** Each kit's calibration, when the search calibrates. */
   calibrations?: [CalibrationFight, CalibrationFight];
-  /** The sides' summoner spells and rune pages, when the search chooses them. */
+  /** The sides' summoner spells, when the search chooses them. */
   loadouts?: SearchedLoadouts;
   seconds: { calibration: number; search: number; fights: number; loadouts?: number };
 }
@@ -269,10 +265,9 @@ export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: Ite
   let taken: [EquippedFighter, EquippedFighter] = [equippedMine[row]!, equippedTheirs[column]!];
   let loadouts: SearchedLoadouts | undefined;
   if (options.loadouts) {
-    const { runes, spells, adaptiveTypes, options: settings } = options.loadouts;
-    const catalogs = { items: catalog, runes, spells };
-    const side = (spec: FighterSpec, estimate: FighterSpec, build: Build, adaptiveType: "Physical" | "Magic") => ({ spec, estimate, build: names(build), parts: build.items.map((item) => item.parts), adaptiveType });
-    const sides = [side(you, mySpec, routes[0][row]!, adaptiveTypes[0]), side(enemy, theirSpec, routes[1][column]!, adaptiveTypes[1])] as const;
+    const { spells, options: settings } = options.loadouts;
+    const catalogs = { items: catalog, spells };
+    const sides = [{ spec: you, build: names(routes[0][row]!) }, { spec: enemy, build: names(routes[1][column]!) }] as const;
     loadouts = searchLoadouts([sides[0], sides[1]], catalogs, settings);
     taken = [equipLoadout(sides[0], loadouts.loadouts[0], catalogs), equipLoadout(sides[1], loadouts.loadouts[1], catalogs)];
   }

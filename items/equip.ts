@@ -148,11 +148,8 @@ export interface EquipOptions {
   source: ItemSource;
   /** Option overrides, by item name and option. */
   options?: Record<string, Record<string, number>>;
-  /**
-   * The rest of the loadout (summoner spells, the rune page), built for each form of the
-   * champion after its items, with the bonus stats they give and what they know of the holder.
-   */
-  extras?: (form: FighterSpec, items: { bonus: BonusStats; fighter: ItemFighter }) => LoadoutPart;
+  /** The rest of the loadout (summoner spells), built for each form of the champion after its items. */
+  extras?: (form: FighterSpec) => LoadoutPart;
 }
 
 /**
@@ -168,34 +165,6 @@ export interface LoadoutPart {
   enemyHooks: KitHooks[];
   /** The names its effects label their damage with. */
   labels: string[];
-  /** Stats fixed for the fight (a shard's adaptive force). */
-  bonus?: BonusStats;
-  /** Statuses from the start, set before the kit's onStart (permanentHooks). */
-  first?: KitHooks[];
-  /** Ability haste for some abilities only (Ultimate Hunter's ultimate haste). */
-  haste?: NonNullable<ItemDefinition["haste"]>;
-  /** Bonus maximum mana, for mana champions (Manaflow Band). */
-  mana?: number;
-  /** Effects every basic attack applies on hit. */
-  onHit?: Effect[];
-}
-
-/** Several loadout parts as one (summoner spells and a rune page): their lists joined, their stats and mana added. */
-export function joinParts(parts: ReadonlyArray<LoadoutPart | undefined>): LoadoutPart {
-  const joined: LoadoutPart = { abilities: [], hooks: [], first: [], enemyHooks: [], labels: [], bonus: {}, haste: [], mana: 0, onHit: [] };
-  for (const part of parts) {
-    if (!part) continue;
-    joined.abilities.push(...part.abilities);
-    joined.hooks.push(...part.hooks);
-    joined.first!.push(...(part.first ?? []));
-    joined.enemyHooks.push(...part.enemyHooks);
-    for (const label of part.labels) if (!joined.labels.includes(label)) joined.labels.push(label);
-    addBonus(joined.bonus!, part.bonus);
-    joined.haste!.push(...(part.haste ?? []));
-    joined.mana! += part.mana ?? 0;
-    joined.onHit!.push(...(part.onHit ?? []));
-  }
-  return joined;
 }
 
 // ---------------------------------------------------------------------------------------
@@ -397,8 +366,8 @@ function lockedInStasis(ability: AbilitySpec): AbilitySpec {
   return { ...ability, usable: (unit, world) => !inItemStasis(unit) && (own?.(unit, world) ?? true) };
 }
 
-/** Permanent statuses of an item (or rune), added before the fight (and the kit's onStart) under its own keys. */
-export function permanentHooks(item: string, statuses: Permanent[]): KitHooks {
+/** Permanent statuses of an item, added before the fight (and the kit's onStart) under the item's own keys. */
+function permanent(item: string, statuses: Permanent[]): KitHooks {
   return {
     onStart(ctx) {
       for (const status of statuses) {
@@ -504,7 +473,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     };
     const stats = shopStats(record, form);
     addBonus(bonus, stats.bonus);
-    for (const status of stats.statuses) first.push(permanentHooks(record.name, [status]));
+    for (const status of stats.statuses) first.push(permanent(record.name, [status]));
     critDamage += stats.critDamage;
     omnivamp += stats.omnivamp;
     regen.hp5 += stats.hp5;
@@ -528,7 +497,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     }
     addBonus(bonus, definition.bonus);
     if (definition.mana && fighter.mana) base.resource += definition.mana;
-    if (definition.permanent?.length) first.push(permanentHooks(record.name, definition.permanent));
+    if (definition.permanent?.length) first.push(permanent(record.name, definition.permanent));
     onHit.push(...(definition.onHit ?? []));
     if (definition.hooks) hooks.push(definition.hooks);
     if (definition.enemyHooks) enemyHooks.push(definition.enemyHooks);
@@ -553,21 +522,16 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     context.rule("Vamp", "Omnivamp").quote("Omnivamp is a stat which grants healing equal to a percentage of the post-mitigation physical damage, magic damage, and true damage dealt. It stacks additively and does not benefit from heal and shield power.");
     hooks.unshift(omnivampHooks(omnivamp));
   }
-  const extra = equip.extras?.(form, { bonus: { ...bonus }, fighter });
+  const extra = equip.extras?.(form);
   if (extra) {
     for (const label of extra.labels) itemNames.add(label);
-    addBonus(bonus, extra.bonus);
-    first.push(...(extra.first ?? []));
     hooks.push(...extra.hooks);
     enemyHooks.push(...extra.enemyHooks);
-    if (extra.mana && fighter.mana) base.resource += extra.mana;
-    onHit.push(...(extra.onHit ?? []));
   }
   const { combat, energized } = shared();
   if (combat) hooks.unshift(combat.hooks);
   if (energized) hooks.push(energized.hooks);
-  // Broad basic and ultimate haste are stats; the rest stays on the abilities it qualifies for. The rest of the loadout's haste (runes) goes the same way.
-  const haste = qualifiedHaste([...built.flatMap(({ definition }) => definition.haste ?? []), ...(extra?.haste ?? [])]);
+  const haste = qualifiedHaste(built.flatMap(({ definition }) => definition.haste ?? []));
   addBonus(bonus, haste.bonus);
   const stasis = built.some(({ definition }) => definition.stasis);
   const others = [...actives, ...(extra?.abilities ?? [])];

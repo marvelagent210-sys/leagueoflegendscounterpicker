@@ -28,7 +28,7 @@ npm ci
 npm run typecheck
 npm run build:sim -- --threads 4   # refresh duels, counter pages, ledger rankings and reports after engine changes
 npm run build:sim -- --check       # check whether committed duel results match current inputs
-npm run build:builds -- --threads 4   # the duels with item builds: the build search for every pairing (about 19 hours on four threads)
+npm run build:builds -- --threads 4   # the duels with item builds: the build and spell searches for every pairing (about 23 hours on four threads)
 npm run build:builds -- --check       # check whether the committed build matrix matches current inputs
 npm run build:sim -- --plan        # how many pairings a refresh would compute; unchanged ones are reused
 npm test
@@ -129,11 +129,9 @@ npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --e
 npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
-npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
+npm run duel -- Ahri Malphite --search       # the build search picks both builds and second spells (--format fiveItemsWithBoots for boots)
 npm run duel -- Garen Morgana --spells "Flash, Cleanse" --enemy-spells "Barrier, Ignite" --log youEngage
                                              # summoner spells, with item builds or without items
-npm run duel -- Garen Darius --runes "Conqueror, Triumph, Legend: Alacrity, Last Stand / Second Wind, Unflinching / Adaptive Force, Adaptive Force, Health Scaling"
-                                             # a rune page (--enemy-runes for the enemy's)
 ```
 
 Garen's Judgment excludes the attack-speed shard and the attack speed gained
@@ -166,16 +164,14 @@ With `--items` and `--enemy-items`, each side holds a build of up to six items i
 
 With `--spells` and `--enemy-spells`, each side holds up to two summoner spells (`summoners/`), with an item build or without items, not with the stat budget. Each spell's effect comes from the wiki's spell data at level 20, and its rules from the wiki: stasis and suppression stop every summoner spell, the other crowd control that stops casting stops only Flash, and spell shields don't block them. Ignite burns for 525 true damage over five seconds with Grievous Wounds; Exhaust slows by 40% and cuts damage dealt by 35% (not true damage) for three seconds; Barrier shields 502; Heal restores 346; Ghost gives 50.8% movement speed for ten seconds; Cleanse removes crowd control but knock-ups, nearsight and suppression, and Ignite's burn and Exhaust; Flash blinks 400 units. The default behavior casts them like the kit's abilities of the same kind: Ignite and Exhaust as soon as the enemy is in range, Barrier and Heal in combat below 90% health, Ghost to close the gap, Cleanse under half a second or more of crowd control, and Flash to dodge a decisive skillshot or to get away. Smite and Teleport do nothing in a duel. The output lists each spell's simplifications ([summoner spells](data/16.21/reports/summoners.md)).
 
-With `--runes` and `--enemy-runes`, each side holds a rune page (`runes/`): the keystone and its path's three lesser runes, then the secondary path's two, then the three shards, the groups split by `/`. A page follows the wiki's rules (its Rune article): one lesser rune from each row of the keystone's path, two from two different rows of another path, and a shard for each slot. A champion gets the runes the article lists in place of those it can't use (Aftershock is Grasp of the Undying without immobilizing abilities, Manaflow Band is Axiom Arcanist without mana, Hextech Flashtraption is Cash Back without Flash). Adaptive force gives bonus AD or AP by which the items give more of, the champion's adaptive type on a tie. Every rune is modeled from its wiki text at level 20, or left out with a reason ([runes](data/16.21/reports/runes.md)): those for gold, vision, wards, turrets, potions and takedowns do nothing in a duel. Runes that grow over a game take options for what they gathered before the fight (`--rune-option "Dark Harvest.souls=20"`; Grasp of the Undying's procs, Overgrowth's stacks, Gathering Storm's minutes, Bounty Hunter stacks), all 0 by default; the Legend runes are fully stacked, as Tear items are. The output lists each rune's simplifications.
-
-With `--search`, the build search (`pipeline/items/search.ts`, PLAN.md M8) picks both builds: it fills each side's build slot by slot by a quick estimate, keeping the best build of each profile (AD, crit, attack speed, AP, tank) as a route; the sides answer each other's best build until a pair of best builds comes back; then each side's routes fight the other's in a screen of the all-in scenarios, each side takes the route whose worst result is best, and that pair plays every scenario. The quick estimate counts items' stats, stat statuses, critical strike damage and on-hit effects, and what their passives and actives give on average over a ten-second fight (`items/hints.ts`), with each kit's damage, attacks and casts calibrated first to a fight of its own (`pipeline/items/calibrate.ts`); the fights between routes settle the rest.
+With `--search`, the build search (`pipeline/items/search.ts`, PLAN.md M8) picks both builds: it fills each side's build slot by slot by a quick estimate, keeping the best build of each profile (AD, crit, attack speed, AP, tank) as a route; the sides answer each other's best build until a pair of best builds comes back; then each side's routes fight the other's in a screen of the all-in scenarios, each side takes the route whose worst result is best. Then the loadout search (`pipeline/loadouts/search.ts`) gives each side Flash and fights for its second summoner spell among the six that do something in a duel: each candidate plays the three all-in scenarios with one branch, its health margin breaking ties, the sides answering each other's spell for two rounds (all six, then each side's best two). The builds and spells then play every scenario. Rune pages aren't searched: the rune effects on main's manual duels aren't in the matrices yet. The quick estimate counts items' stats, stat statuses, critical strike damage and on-hit effects, and what their passives and actives give on average over a ten-second fight (`items/hints.ts`), with each kit's damage, attacks and casts calibrated first to a fight of its own (`pipeline/items/calibrate.ts`); the fights between routes settle the rest.
 
 ```sh
 npm run build:builds -- --smoke --threads 4   # each kit against the next (172 pairings): a check before a full run
 npm run build:builds -- --threads 4           # all 14,878 pairings, resuming from checkpoints
 ```
 
-`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.21/reports/builds.md): each champion's most-built items across its matchups. A pairing takes about 19 s on one of four threads, so a full run takes about 19 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item code, the build search and the item catalog. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
+`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.21/reports/builds.md): each champion's most-built items and second summoner spells across its matchups. A pairing takes about 22 s on one of four threads (the spell search adds about 16%), so a full run takes about 23 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item and summoner spell code, the build and loadout searches, and the item and spell catalogs. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
 
 The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats, with penetration capped near what items give. Each prints a score from -1 to +1 for these scenarios:
 
@@ -255,11 +251,9 @@ npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
 npm run fetch -- --only items      # refetch just the item catalog's sources
 npm run fetch -- --only item-rules # refetch just the wiki rule pages item effects quote (Energized, combat status, ...)
 npm run fetch -- --only spells     # refetch just the summoner spells' sources
-npm run fetch -- --only rune-catalog # refetch just the rune catalog's sources
 npm run build:data   # rebuild data/<dataset>/ from those downloads, with the pairings whose inputs changed
 npm run build:items  # rebuild the item catalog (items.json, reports/items.md, reports/item-effects.md)
 npm run build:summoners # rebuild the summoner spell catalog (summoners.json, reports/summoners.md)
-npm run build:runes  # rebuild the rune catalog (rune-catalog.json, reports/runes.md)
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/` for patch 26.21; the previous patch's folder stays as it was, and a new patch's refresh reuses its results. It contains:
@@ -276,10 +270,9 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `rankings.json` | The ledger rankings, machine-readable |
 | `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, the options played by kits with a choice, and the inputs each matchup was computed from |
 | `simulated-spent.json` | The gold each side spent on each stat in each simulated matchup, to the whole gold piece: the simulator report reads it, and a refresh reuses it with the matchups it reuses |
-| `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build, the options played by kits with a choice, and the inputs each matchup was computed from |
+| `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build and summoner spells, the options played by kits with a choice, and the inputs each matchup was computed from |
 | `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel` and the build matrix |
 | `summoners.json` | The summoner spell catalog: the nine spells Summoner's Rift offers, with cooldowns, ranges, effects (values by level), each article's notes, the wiki rule pages spell effects quote, and Data Dragon's cooldowns and ranges compared. Summoner spells use it in `npm run duel` |
-| `rune-catalog.json` | The rune catalog: the 62 runes Summoner's Rift offers by path and row, with each one's effect (values by level, melee and ranged values, adaptive force) and its article's notes; the stat shards from the wiki's Rune article, named and checked against the client's perk data; the runes a champion gets in place of others; and the wiki rule pages rune effects quote. (`runes.json` holds the one rune kits read, Udyr's Triple Tonic.) |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
@@ -290,8 +283,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `reports/items.md` | The item catalog, readable: how it's chosen, the one-per-build groups, the cross-check against the game file, and every item's stats and effects |
 | `reports/item-effects.md` | What the simulator makes of each item: the effects it models, what it leaves out and why, its simplifications and options |
 | `reports/summoners.md` | The summoner spell catalog, readable: every spell's cooldown, range, effect and notes, and where Data Dragon differs from the wiki |
-| `reports/runes.md` | The rune catalog, readable: the stat shards, the substitutions, and every rune's effect and notes by path |
-| `reports/builds.md` | The build matrix's run, and each champion's most-built items across its matchups |
+| `reports/builds.md` | The build matrix's run, and each champion's most-built items and second summoner spells across its matchups |
 
 Tests run offline against the committed data.
 

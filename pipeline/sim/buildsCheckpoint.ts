@@ -9,7 +9,7 @@ import type { MatchupVariant } from "../../engine/sim/matchup";
 import type { MatrixLoadout } from "../../engine/sim/precomputed";
 import { SCENARIOS, SCENARIO_WEIGHTS } from "../../engine/sim/scenarios";
 
-/** A side's summoner spells and rune page, by name (pipeline/loadouts/search.ts). */
+/** A side's summoner spells, by name (pipeline/loadouts/search.ts). */
 export type LoadoutRecord = MatrixLoadout;
 
 /** One pairing of the build matrix. */
@@ -48,9 +48,9 @@ const finite = (value: unknown): value is number => typeof value === "number" &&
 const bounded = (value: unknown): value is number => finite(value) && Math.abs(value) <= 1;
 const build = (value: unknown): value is string[] => Array.isArray(value) && value.length >= 1 && value.length <= 6 && value.every((item) => typeof item === "string" && item.length > 0) && new Set(value).size === value.length;
 const names = (value: unknown, count: number): value is string[] => Array.isArray(value) && value.length === count && value.every((name) => typeof name === "string" && name.length > 0);
-/** Two different spells, and a page's keystone, three primary runes, two secondary runes and three shards, by name. */
+/** Two different spells, by name, and nothing else. */
 export const validLoadout = (value: unknown): value is LoadoutRecord =>
-  record(value) && names(value.spells, 2) && new Set(value.spells).size === 2 && record(value.page) && typeof value.page.keystone === "string" && value.page.keystone.length > 0 && names(value.page.primary, 3) && names(value.page.secondary, 2) && names(value.page.shards, 3);
+  record(value) && Object.keys(value).length === 1 && names(value.spells, 2) && new Set(value.spells).size === 2;
 
 function filename(context: BuildsCheckpointContext, pair: [string, string]): string {
   if (!pair.every((id) => typeof id === "string" && id.length > 0)) throw new TypeError("Checkpoint champion identifiers must be nonempty strings");

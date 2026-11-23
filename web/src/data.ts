@@ -51,8 +51,6 @@ export interface ItemSources {
   ddragon: string;
   /** The summoner spells' wiki module and revision. */
   spellData?: { title: string; revid: number };
-  /** The Community Dragon version the rune catalog was checked against. */
-  cdragon?: string;
 }
 
 /** The build format the build matrix plays: six items. */
