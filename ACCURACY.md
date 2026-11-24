@@ -3844,6 +3844,30 @@ Ryze, Taliyah and Ivern), the rooted side gains 0.067 on average, 51 pairings up
 against Maokai +0.67, Malphite against Neeko +0.58, Jhin against Morgana +0.50. Tests: a rooted
 champion casts and attacks; a stunned one does nothing.
 
+### Kiting: standing in a melee enemy's reach (24 November 2026)
+
+A scan of each ranged kit (range 450 or more) kiting a plain melee dummy 40 movement speed slower,
+which a kite can keep out of reach, found some that stood in its reach almost the whole fight:
+Caitlyn 97% of the time (12 of its attacks taken in 19 seconds), Vladimir 98%, Renata 92%. Jinx,
+for comparison, 5%. There were three causes:
+
+- **Caitlyn's trap.** The default proposes Yordle Snap Trap first, and her behavior holds it for a
+  target already held in place, putting an attack in its place. With her attack on cooldown, that
+  attack couldn't start, and she did nothing at all. She now plays on as if the trap weren't there.
+- **Attacks that can't start.** More generally, an attack a free champion can't start yet (on
+  cooldown, or out of range) left it standing still, whichever behavior asked for it (Renata's).
+  Such an attack now becomes the default's spacing: stepping back when kiting, closing in otherwise.
+- **Walking during casts.** During a cast or channel a champion can walk in (Vladimir charging Tides
+  of Blood), the default always walked toward the enemy. When kiting, it now spaces.
+
+Caitlyn now has the dummy in reach 22% of the time (1 attack taken), Renata 11% (1) and Vladimir 56%
+(3).
+Against every ninth champion, Caitlyn gains 0.524 on average (all 20 pairings moved), Renata 0.095,
+Vladimir 0.018. Samira, who also improved in the scan, loses 0.008. Aurelion Sol still stands while
+channeling Singularity, as the kit models it. Tests: Caitlyn kites the slower dummy out of its reach;
+an attack that can't start becomes a step back when kiting and a step in when out of range; a
+champion walking through a channel steps back when kiting and in when fighting.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

@@ -416,6 +416,30 @@ describe("attack discipline", () => {
     expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
   });
 
+  it("spaces instead of standing still when asked for an attack it can't start yet", () => {
+    const world = createWorld({ fighters: [fighter({ attack: RANGED }), fighter()], distance: 300, modes: ["kite", "fight"] });
+    world.units[0].attackReadyTick = world.tick + 20;
+    // Kiting a melee enemy that has closed in, between attacks: it steps back.
+    world.units[1].x = world.units[0].x + (world.units[1].x > world.units[0].x ? 1 : -1) * (world.units[0].spec.base.radius + world.units[1].spec.base.radius + 100);
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: -1 });
+    // In a fight, out of range, it closes in.
+    world.modes[0] = "fight";
+    world.units[0].attackReadyTick = world.tick;
+    world.units[1].x = world.units[0].x + (world.units[1].x > world.units[0].x ? 1 : -1) * 2000;
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+  });
+
+  it("spaces while kiting through a channel it can walk in, rather than walking in", () => {
+    const charge = ability({ key: "E", cooldown: 20, delivery: { kind: "self" }, channel: { duration: 1, interruptible: false, mobile: true, range: 400, onTick: [trueDamage(10)] } });
+    const world = createWorld({ fighters: [fighter({ attack: RANGED, abilities: [charge] }), fighter()], distance: 100, modes: ["kite", "fight"] });
+    startCast(world, world.units[0], charge);
+    expect(world.units[0].action?.kind).toBe("channel");
+    world.units[0].attackReadyTick = world.tick + 20;
+    expect(defaultBehavior(perceive(world, 0))).toEqual({ kind: "move", direction: -1 });
+    world.modes[0] = "fight";
+    expect(defaultBehavior(perceive(world, 0))).toEqual({ kind: "move", direction: 1 });
+  });
+
   it("reads an action the enemy started this tick as not started, whichever side decided first", () => {
     const world = near(fighter({ attack: RANGED }));
     startAttack(world, world.units[1]);

@@ -803,7 +803,12 @@ function outrunsWindup(view: View): boolean {
  * (Braum's against a Rakan stepping back between attacks cancelled 71 in a fight).
  */
 export function disciplined(view: View, command: Command | undefined): Command | undefined {
-  if (command?.kind !== "attack" || command.pet !== undefined || !outrunsWindup(view)) return command;
+  if (command?.kind !== "attack" || command.pet !== undefined) return command;
+  // An attack it can't start yet (on cooldown, out of range) would leave a free unit standing
+  // still: it spaces instead, kiting or closing in (Caitlyn and Renata stood in a melee enemy's
+  // reach between their attacks).
+  if (!view.self.action && view.mode !== "idle" && !canStartAttack(view.world, view.self)) return spacing(view, view.mode === "kite");
+  if (!outrunsWindup(view)) return command;
   // Already touching it, the unit can't get any closer: the attack is the best it has.
   if (contactGap(view.self, view.enemy) <= EPSILON) return command;
   return spacing(view, view.mode === "kite");
@@ -871,6 +876,8 @@ export const defaultBehavior: Behavior = (view) => {
     const ability = "ability" in action ? abilityOf(self, action.ability) : undefined;
     const walks = (action.kind === "cast" && ability?.moveWhileCasting) || (action.kind === "channel" && ability?.channel?.mobile);
     if (!walks) return undefined;
+    // Kiting, it spaces as between attacks rather than walking in (Vladimir charging Tides of Blood).
+    if (mode === "kite") return spacing(view, true);
     return { kind: "move", direction: mode === "flee" || self.memory.tradeDone ? -1 : 1 };
   }
   if (action?.kind === "windup") return undefined;
