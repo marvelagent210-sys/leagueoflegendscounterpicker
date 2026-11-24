@@ -1,12 +1,14 @@
 /**
  * The build matrix (PLAN.md §13, M8): every pairing played with the item builds the build search
  * finds for its two sides, instead of plain stats. Writes data/<dataset>/simulated-builds.json
- * and reports/builds.md from committed parsed data; no downloads.
+ * and reports/builds.md for six items (the default), or simulated-builds-boots.json and
+ * reports/builds-boots.md with --format fiveItemsWithBoots (BUILDS_FILES), from committed parsed
+ * data; no downloads.
  *
  *   npm run build:builds -- [--dataset 16.20] [--threads 4] [--format sixItems] [--smoke] [--check] [--plan] [--shard i/N] [--recompute A,B]
  *
  * Incremental (PLAN.md §13): a pairing whose inputs (pairKeys.ts) equal a stored result's, in
- * this dataset's simulated-builds.json or the previous dataset's, isn't computed again. The rest
+ * this dataset's file of the format or the previous dataset's, isn't computed again. The rest
  * are checkpointed as they finish (.cache/builds/), so that a run that stops resumes where it
  * was. A pairing that fails is reported and the rest go on; nothing is written until every
  * pairing has a result. `--smoke` plays each kit against the next one only (173 pairings, kept
@@ -20,7 +22,8 @@ import { readFile, rename, rm, writeFile } from "node:fs/promises";
 import { availableParallelism } from "node:os";
 import path from "node:path";
 import { Worker } from "node:worker_threads";
-import { type PrecomputedBuilds, type SimulationProvenance, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
+import { BUILDS_FILES } from "../../engine/sim/buildFiles";
+import { type MatrixLoadout, type PrecomputedBuilds, type SimulationProvenance, encodeLoadout, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
 import { SCENARIOS } from "../../engine/sim/scenarios";
 import { KITS } from "../../kits/champions/index";
 import { REPO_ROOT, datasetDir } from "../config";
@@ -32,7 +35,8 @@ import { buildsProvenance } from "./fingerprint";
 import { type PairInputs, pairInputs, pairInputsJson } from "./pairKeys";
 import { buildsStores, parseRecompute, parseShard, reusable, reuseSummary, shardOf } from "./reuse";
 
-export const BUILDS_FILE = "simulated-builds.json";
+/** The six-item build matrix's file. */
+export const BUILDS_FILE = BUILDS_FILES.sixItems.matrix;
 
 interface Failure {
   index: number;
@@ -94,6 +98,7 @@ async function playPairs(task: Omit<BuildsTask, "pairs">, pairs: Array<[string, 
 export function simulatedBuildsJson(dataset: string, patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], simulation: SimulationProvenance, inputs?: PairInputs): string {
   const scores = new Map(ids.map((id) => [id, new Map<string, Array<number | null>>()]));
   const builds = new Map(ids.map((id) => [id, new Map<string, string[]>()]));
+  const loadouts = new Map(ids.map((id) => [id, new Map<string, MatrixLoadout>()]));
   const variants = new Map<string, Map<string, Record<string, number>>>();
   const negate = (v: number | null) => (v === null ? null : v === 0 ? 0 : -v);
   results.forEach((result, i) => {
@@ -104,6 +109,8 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
     scores.get(enemy)!.set(you, [negate(result.score), negate(engaged ?? null), negate(engage ?? null), ...rest.map(negate)]);
     builds.get(you)!.set(enemy, result.builds[0]);
     builds.get(enemy)!.set(you, result.builds[1]);
+    loadouts.get(you)!.set(enemy, result.loadouts[0]);
+    loadouts.get(enemy)!.set(you, result.loadouts[1]);
     for (const variant of result.variants ?? []) {
       const [who, against] = variant.side === 0 ? [you, enemy] : [enemy, you];
       if (!variants.has(who)) variants.set(who, new Map());
@@ -112,10 +119,13 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
   });
   const items = [...new Set([...builds.values()].flatMap((row) => [...row.values()].flat()))].sort();
   const index = new Map(items.map((item, i) => [item, i]));
+  const loadoutNames = [...new Set([...loadouts.values()].flatMap((row) => [...row.values()].flatMap((loadout) => loadout.spells)))].sort();
+  const loadoutIndex = new Map(loadoutNames.map((name, i) => [name, i]));
   const round = (v: number | null) => (v === null ? null : Math.round(v * 1000) / 1000);
   const byEnemy = <T>(row: Map<string, T>, value: (v: T) => unknown) => JSON.stringify(Object.fromEntries([...row].sort(([a], [b]) => a.localeCompare(b)).map(([enemy, v]) => [enemy, value(v)])));
   const scoreLines = ids.map((you) => `    ${JSON.stringify(you)}: ${byEnemy(scores.get(you)!, (values) => values.map((value, i) => (i === 0 ? value : round(value))))}`);
   const buildLines = ids.map((you) => `    ${JSON.stringify(you)}: ${byEnemy(builds.get(you)!, (names) => names.map((name) => index.get(name)!))}`);
+  const loadoutLines = ids.map((you) => `    ${JSON.stringify(you)}: ${byEnemy(loadouts.get(you)!, (loadout) => encodeLoadout(loadout, loadoutIndex))}`);
   const variantLines = [...variants].sort(([a], [b]) => a.localeCompare(b)).map(([who, row]) => `    ${JSON.stringify(who)}: ${byEnemy(row, (options) => options)}`);
   return [
     "{",
@@ -131,21 +141,34 @@ export function simulatedBuildsJson(dataset: string, patch: string, format: stri
     "  },",
     "  \"builds\": {",
     buildLines.join(",\n"),
+    "  },",
+    `  "loadoutNames": ${JSON.stringify(loadoutNames)},`,
+    "  \"loadouts\": {",
+    loadoutLines.join(",\n"),
     `  }${variantLines.length ? `,\n  "variants": {\n${variantLines.join(",\n")}\n  }` : ""}`,
     "}",
     "",
   ].join("\n");
 }
 
-/** reports/builds.md: how the run went, and each champion's items across its matchups. */
+/** reports/builds.md: how the run went, and each champion's items and second summoner spells across its matchups. */
 export function buildsReport(patch: string, format: string, ids: string[], pairs: Array<[string, string]>, results: BuildsPairResult[], names: Map<string, string>, reused = 0): string {
   const counts = new Map(ids.map((id) => [id, new Map<string, number>()]));
+  const spells = new Map(ids.map((id) => [id, new Map<string, number>()]));
+  const add = (table: Map<string, Map<string, number>>, who: string, name: string) => table.get(who)!.set(name, (table.get(who)!.get(name) ?? 0) + 1);
   results.forEach((result, i) => {
     const [you, enemy] = pairs[i]!;
-    for (const [who, build] of [[you, result.builds[0]], [enemy, result.builds[1]]] as const) for (const item of build) counts.get(who)!.set(item, (counts.get(who)!.get(item) ?? 0) + 1);
+    for (const [who, build] of [[you, result.builds[0]], [enemy, result.builds[1]]] as const) for (const item of build) add(counts, who, item);
+    for (const [who, loadout] of [[you, result.loadouts[0]], [enemy, result.loadouts[1]]] as const) {
+      for (const spell of loadout.spells.slice(1)) add(spells, who, spell);
+    }
   });
-  const total = new Map<string, number>();
-  for (const row of counts.values()) for (const [item, n] of row) total.set(item, (total.get(item) ?? 0) + n);
+  const totalOf = (table: Map<string, Map<string, number>>) => {
+    const sums = new Map<string, number>();
+    for (const row of table.values()) for (const [entry, n] of row) sums.set(entry, (sums.get(entry) ?? 0) + n);
+    return sums;
+  };
+  const total = totalOf(counts);
   const seconds = results.reduce((sum, result) => sum + result.seconds, 0);
   const computed = results.length - reused;
   const builds = 2 * results.length;
@@ -164,6 +187,10 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
     "",
     `Share of the ${builds} builds holding each item: ${top(total, 25, builds)}.`,
     "",
+    "## Summoner spells across all loadouts",
+    "",
+    `Every loadout holds Flash (pipeline/loadouts/search.ts). Share of the ${builds} loadouts with each second summoner spell: ${top(totalOf(spells), 10, builds)}.`,
+    "",
     "## Each champion's items",
     "",
     "Share of the champion's matchups holding each item, its eight most frequent.",
@@ -171,6 +198,14 @@ export function buildsReport(patch: string, format: string, ids: string[], pairs
     "| Champion | Items |",
     "| --- | --- |",
     ...ids.map((id) => `| ${name(id)} | ${top(counts.get(id)!, 8, ids.length - 1)} |`),
+    "",
+    "## Each champion's second summoner spells",
+    "",
+    "Share of the champion's matchups with each second summoner spell, its three most frequent (Flash is always the first).",
+    "",
+    "| Champion | Second spells |",
+    "| --- | --- |",
+    ...ids.map((id) => `| ${name(id)} | ${top(spells.get(id)!, 3, ids.length - 1)} |`),
     "",
   ].join("\n");
 }
@@ -199,12 +234,13 @@ async function main(): Promise<void> {
   if (!(format in BUILD_FORMATS)) throw new Error(`--format takes one of: ${Object.keys(BUILD_FORMATS).join(", ")}`);
   const data = await loadSimData(value("--dataset"));
   const dir = datasetDir(data.dataset);
+  const files = BUILDS_FILES[format];
   const ids = Object.keys(KITS).sort();
   const provenance = await buildsProvenance(data.dataset);
   if (args.includes("--check")) {
-    const file = JSON.parse(await readFile(path.join(dir, BUILDS_FILE), "utf8")) as PrecomputedBuilds;
+    const file = JSON.parse(await readFile(path.join(dir, files.matrix), "utf8")) as PrecomputedBuilds;
     if (!precomputedBuildsCurrent(file, data.dataset, data.patch, provenance.fingerprint, format, ids)) throw new Error("The build matrix is stale, incomplete or lacks provenance. Run npm run build:builds to refresh it.");
-    console.log(`[builds] Dataset ${data.dataset}: the build matrix matches ${provenance.fingerprint}`);
+    console.log(`[builds] Dataset ${data.dataset}: the build matrix (${BUILD_FORMATS[format].label}) matches ${provenance.fingerprint}`);
     return;
   }
   const all: Array<[string, string]> = ids.flatMap((you, i) => ids.slice(i + 1).map((enemy): [string, string] => [you, enemy]));
@@ -215,7 +251,7 @@ async function main(): Promise<void> {
   const started = Date.now();
   // Pairings computed before from the same inputs stand; the rest are this run's to compute.
   const inputs = await pairInputs(data.dataset, "builds", format);
-  const reuse = reusable(pairs, inputs, await buildsStores(data.dataset, format), parseRecompute(value("--recompute"), ids));
+  const reuse = reusable(pairs, inputs, await buildsStores(data.dataset, format, files.matrix), parseRecompute(value("--recompute"), ids));
   const toCompute = pairs.map((_, index) => index).filter((index) => !reuse.results.has(index));
   if (plan) {
     console.log(JSON.stringify({ dataset: data.dataset, format, pairings: pairs.length, reused: reuse.results.size, pending: toCompute.length }));
@@ -262,8 +298,8 @@ async function main(): Promise<void> {
   if ((await buildsProvenance(data.dataset)).fingerprint !== provenance.fingerprint) throw new Error("The build matrix's inputs changed during the run. Nothing was written; its checkpoints stay under the old inputs.");
   const names = new Map(data.champions.map((champion) => [champion.id, champion.name]));
   const outputs = new Map([
-    [path.join(dir, BUILDS_FILE), simulatedBuildsJson(data.dataset, data.patch, format, ids, pairs, ordered, provenance, inputs)],
-    [path.join(dir, "reports", "builds.md"), buildsReport(data.patch, format, ids, pairs, ordered, names, reuse.results.size)],
+    [path.join(dir, files.matrix), simulatedBuildsJson(data.dataset, data.patch, format, ids, pairs, ordered, provenance, inputs)],
+    [path.join(dir, "reports", files.report), buildsReport(data.patch, format, ids, pairs, ordered, names, reuse.results.size)],
   ]);
   for (const [file, content] of outputs) {
     const temporary = `${file}.${process.pid}.tmp`;
@@ -274,7 +310,7 @@ async function main(): Promise<void> {
       await rm(temporary, { force: true });
     }
   }
-  console.log(`[builds] Wrote ${BUILDS_FILE} and reports/builds.md: ${pairs.length} pairings (${reuse.results.size} reused), ${((Date.now() - started) / 3600000).toFixed(1)} h.`);
+  console.log(`[builds] Wrote ${files.matrix} and reports/${files.report}: ${pairs.length} pairings (${reuse.results.size} reused), ${((Date.now() - started) / 3600000).toFixed(1)} h.`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {

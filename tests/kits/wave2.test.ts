@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { inAttackRange } from "../../engine/sim/actions";
 import { derive } from "../../engine/sim/derived";
-import { applyEffect } from "../../engine/sim/combat";
+import { applyEffect, hookContext } from "../../engine/sim/combat";
 import { allAbilities } from "../../engine/sim/forms";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec } from "../../engine/sim/spec";
@@ -704,6 +704,24 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(again).toMatchObject({ form: "Kled", hp: 2061.86 });
     expect(forms).toHaveLength(3);
     expect(courage.slice((again?.tick ?? 0) + 1).every((c) => c === 0)).toBe(true);
+  });
+
+  it("Skaarl doesn't come back for a Kled a hit this tick already took to 0 health", () => {
+    // Found by the five-items-and-boots matrix (Aurora against Kled): remounting a dying Kled
+    // kept his negative health as his own, and the next lethal hit dismounted him into it.
+    const compiled = kit("Kled");
+    const enemy = fighter({ id: "enemy", base: { hp: 9000, armor: 100, mr: 100, ad: 400, moveSpeed: 340 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "fight"], settings: { maxSeconds: 45 } });
+    const kled = world.units[0];
+    while (!world.result && kled.spec.form !== "Kled") step(world, [compiled.spec.behavior ?? defaultBehavior, defaultBehavior]);
+    expect(kled.spec.form).toBe("Kled");
+    kled.memory.remountAt = world.tick;
+    kled.hp = -5;
+    kled.spec.hooks!.onTick!(hookContext(world, kled));
+    expect(kled.spec.form).toBe("Kled");
+    kled.hp = 500;
+    kled.spec.hooks!.onTick!(hookContext(world, kled));
+    expect(kled.spec.form).toBe("Kled & Skaarl");
   });
 
   it("Chaaaaaaaarge!!! hits harder the longer it charged before the dash, and its shield grows as it travels", () => {

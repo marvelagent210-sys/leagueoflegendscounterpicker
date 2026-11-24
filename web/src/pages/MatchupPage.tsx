@@ -5,7 +5,7 @@ import { buildLedger, isHardCounter, type LedgerEntry } from "../../../engine/le
 import { SCENARIO_LABELS, SCENARIOS, type ScenarioId } from "../../../engine/sim/scenarios";
 import { TOP_LANE_MAX_LEVEL, statsAtLevel } from "../../../engine/stats";
 import type { Champion } from "../../../engine/types";
-import { buildsMatchup, shownResults } from "../builds";
+import { BUILD_TEXT, availableModes, buildsMatchup, matrixOf, shownMatrix, shownResults } from "../builds";
 import { BuildLists, VariantNotes } from "../components/BuildLists";
 import { ResultsToggle } from "../components/ResultsToggle";
 import { Confidence, ErrorBox, Loading, Score, ScoreBar, percent, signed } from "../components/common";
@@ -41,7 +41,7 @@ export function MatchupPage({ data, youId, enemyId }: { data: AppData; youId: st
           <a href={routeHash({ page: "kit", champion: you.id })}>{you.name}'s kit</a>
           <a href={routeHash({ page: "kit", champion: enemy.id })}>{enemy.name}'s kit</a>
         </div>
-        {simulated && data.builds ? <ResultsToggle /> : null}
+        {simulated && availableModes(data).length > 1 ? <ResultsToggle matrices={data} /> : null}
       </div>
       {simulated ? (
         <>
@@ -75,11 +75,12 @@ function verdictLine(score: number, scenarios: Array<number | null>, you: string
 function BuildsResult({ data, you, enemy }: { data: AppData; you: Champion; enemy: Champion }) {
   const { settings } = useSettings();
   const { wanted } = useResults();
-  if (!data.builds) return null;
-  if (shownResults(data.builds, wanted, settings) !== "builds") {
-    return wanted === "builds" ? <p className="note">The item builds were played at the default fight settings, so with yours this page shows plain stats only.</p> : null;
+  const shown = shownResults(data, wanted, settings);
+  const matrix = shownMatrix(data, wanted, settings);
+  if (!matrix || shown === "plain") {
+    return matrixOf(data, wanted) ? <p className="note">The item builds were played at the default fight settings, so with yours this page shows plain stats only.</p> : null;
   }
-  const matchup = buildsMatchup(data.builds, you.id, enemy.id, settings);
+  const matchup = buildsMatchup(matrix, you.id, enemy.id, settings);
   if (!matchup) return null;
   const { score, scenarios, variants } = matchup;
   return (
@@ -87,14 +88,14 @@ function BuildsResult({ data, you, enemy }: { data: AppData; you: Champion; enem
       <div className="verdict">
         <div>
           <p className="eyebrow" id="builds-head">
-            Counter score for {you.name} with item builds
+            Counter score for {you.name} with {BUILD_TEXT[shown]}
           </p>
           <p>{verdictLine(score, scenarios, you.name, enemy.name)}</p>
         </div>
         <span className={`big ${score > 0 ? "score win" : score < 0 ? "score lose" : "score"}`}>{signed(score)}</span>
         <ScoreBar value={score} />
       </div>
-      <BuildLists names={[you.name, enemy.name]} builds={matchup.builds} />
+      <BuildLists names={[you.name, enemy.name]} builds={matchup.builds} loadouts={matchup.loadouts} />
       <div className="scenario-list">
         {SCENARIOS.map((id, i) => (
           <div key={id} className="scen">
@@ -108,8 +109,9 @@ function BuildsResult({ data, you, enemy }: { data: AppData; you: Champion; enem
       </div>
       <VariantNotes names={[you.name, enemy.name]} ids={[you.id, enemy.id]} variants={variants} />
       <p className="note">
-        Level 20, six finished items each. Each build is the one the build search found to do best against the other's, settled by fights between each side's best
-        routes. The search is too slow for the browser, so these results were computed in advance at the default fight settings
+        Level 20, {BUILD_TEXT[shown]} each, with Flash and a second summoner spell, and no rune page. Each build is the one the build search found to do best against the
+        other's, settled by fights between each side's best routes; then each side's second summoner spell was fought for against the other's. The searches are too slow for the browser, so these results were computed in advance at the
+        default fight settings
         {weightsChanged(settings) ? ", and the scenarios are reweighed by your weights (the builds were searched with the default ones)" : ""}. The fights below, which you
         can watch tick by tick, are the plain-stats duels.
       </p>
@@ -123,7 +125,7 @@ function Simulation({ data, you, enemy }: { data: AppData; you: Champion; enemy:
   const run = useMatchupRun(data, you.id, enemy.id, settings, true);
   if (run.error) return <ErrorBox error={run.error} />;
   if (!run.value) return <Loading>Playing out the six scenarios…</Loading>;
-  return <Results you={you} enemy={enemy} run={run.value} settings={settings} plain={shownResults(data.builds, wanted, settings) === "builds"} />;
+  return <Results you={you} enemy={enemy} run={run.value} settings={settings} plain={shownResults(data, wanted, settings) !== "plain"} />;
 }
 
 const OUTCOME_LABELS: Partial<Record<ScenarioId, [string, string]>> = {

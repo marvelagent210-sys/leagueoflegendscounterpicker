@@ -409,7 +409,8 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec, anyRange
   if (!unit.alive || unit.resurrection || unit.deathDefied?.allowCasting === false || !abilityReady(world, unit, ability)) return false;
   // Casting cancels a windup, but nothing else can be interrupted (except a channel by its own recast).
   const allowedChannel = unit.action?.kind === "channel" && ability.allowedDuringChannel?.includes(unit.action.ability);
-  if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability) && !overlays(unit, ability) && !allowedChannel) return false;
+  const instant = ability.anytime === true && (ability.castTimeFor?.(unit) ?? ability.castTime) === 0;
+  if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability) && !overlays(unit, ability) && !allowedChannel && !instant) return false;
   if (ability.usable && !ability.usable(unit, world)) return false;
   if (!ability.flags?.usableWhileDisabled && !canCastUnderCC(unit, isMovement(ability) || ability.flags?.grounded === true, ability.flags?.usableWhileSilenced)) return false;
   if (ability.delivery.kind === "target" && (!canTarget(enemy, unit) || !enemy.alive)) return false;
@@ -469,8 +470,14 @@ function declareCast(world: World, unit: Unit, ability: AbilitySpec, aim?: Aim, 
   const endingChannel = unit.action?.kind === "channel" && ability.allowedDuringChannel?.includes(unit.action.ability) && !overlays(unit, ability) && !retainedChannel ? unit.action : undefined;
   const overlayDash = unit.action?.kind === "dash" && ability.overlay ? unit.action : undefined;
   const castTicks = toTicks(ability.castTimeFor?.(unit) ?? ability.castTime);
+  // Since V25.24's December 4th hotfix (the wiki's Basic attack article), "casting abilities or
+  // using item actives with no cast time no longer interrupts attacks": a cast with no cast time
+  // keeps the windup, unless it moves the caster (dashes, blinks) or starts a channel. The game's
+  // cast time is the ability's own (castTime): a kit that delivers a cast at once and locks the
+  // caster for its cast time instead (Kalista's Rend) still has one.
+  const instant = ability.castTime === 0 && castTicks === 0 && ability.delivery.kind !== "dash" && ability.delivery.kind !== "blink" && !ability.channel;
   if (unit.action?.kind === "windup") {
-    if (ability.preserveAttackWindup === true || (ability.preserveAttackWindup === "uncancellable" && unit.action.uncancellable)) {
+    if (instant || ability.preserveAttackWindup === true || (ability.preserveAttackWindup === "uncancellable" && unit.action.uncancellable)) {
       if (castTicks > 0 || ability.delivery.kind === "dash" || (ability.channel && !ability.channel.manualStart)) {
         unit.pendingAttack = unit.action;
         unit.action = undefined;
@@ -651,6 +658,9 @@ export function skillshotChance(world: World, target: Unit, seenTick: number, se
   );
 }
 
+/** A skillshot's chance to connect at or below which it is settled as a miss (and at or above 1 less it, a hit). */
+export const CERTAIN_MISS = 0.02;
+
 /**
  * Decides whether a skillshot connects. Certain outcomes are settled at once; uncertain
  * decisive ones are marked for the simulator to split the fight on (`split`); uncertain
@@ -666,8 +676,8 @@ export function resolveSkillshot(
   reach: number,
 ): { connects: boolean; scale: number; split?: number } {
   const chance = skillshotChance(world, target, castStartTick, travelSeconds, reach);
-  if (chance >= 0.98) return { connects: true, scale: 1 };
-  if (chance <= 0.02) return { connects: false, scale: 1 };
+  if (chance >= 1 - CERTAIN_MISS) return { connects: true, scale: 1 };
+  if (chance <= CERTAIN_MISS) return { connects: false, scale: 1 };
   if ((ability.decisive || decisive(world, caster, target, ability.onHit ?? [])) && world.splits < Math.log2(world.settings.maxBranches)) {
     return { connects: true, scale: 1, split: chance };
   }

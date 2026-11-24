@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { Behavior } from "../../engine/sim/behavior";
-import { canCast } from "../../engine/sim/actions";
+import { type Behavior, DEFENSIVE_SUSTAIN, LAST_STAND } from "../../engine/sim/behavior";
+import { canCast, startAttack, startCast } from "../../engine/sim/actions";
 import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
@@ -271,6 +271,59 @@ describe("finishers", () => {
     const hpAtCast = 2000 - 100 * ticksOf(outcome.timeline, 0, "attack deals").filter((t) => t <= (cast ?? 0)).length;
     expect(hpAtCast).toBeLessThanOrEqual(615);
     expect(hpAtCast).toBeGreaterThan(515);
+  });
+
+  it("casts a finisher that won't kill once its holder is low on health and behind, rather than dying with it", () => {
+    const burst = ability({ key: "R", cooldown: 100, castTime: 0, roles: ["finisher"], delivery: { kind: "target", range: 400 }, onHit: [{ type: "damage", damageType: "true", amount: { base: 300 } }] });
+    // The holder hits for 50 and takes 150 a hit: it loses, and its 300 never kills the 2,000-health enemy.
+    const outcome = duel(fighter({ abilities: [burst], base: { ad: 50 } }), fighter({ base: { ad: 150 } }), { settings: { maxSeconds: 60 } });
+    const cast = ticksOf(outcome.timeline, 0, "casts R")[0];
+    expect(cast).toBeDefined();
+    expect(outcome.win[1]).toBe(1);
+    // Cast at or below half of 2,000 health (LAST_STAND), with the enemy ahead, not before.
+    const taken = ticksOf(outcome.timeline, 1, "attack deals").filter((t) => t <= (cast ?? 0)).length * 150 * (100 / 200);
+    expect(2000 - taken).toBeLessThanOrEqual(LAST_STAND * 2000 + 1e-9);
+    expect(2000 - taken).toBeGreaterThan(LAST_STAND * 2000 - 150);
+  });
+});
+
+describe("defensive shields", () => {
+  it("go up in combat once their holder is below half health, kept for reactions until then", () => {
+    const barrier = ability({ key: "W", cooldown: 100, castTime: 0, roles: ["defense"], delivery: { kind: "self" }, onSelf: [{ type: "shield", amount: { base: 300 }, duration: 3 }] });
+    const outcome = duel(fighter({ abilities: [barrier] }), fighter({ base: { ad: 150 } }), { behaviors: [undefined, undefined], settings: { maxSeconds: 60 } });
+    const cast = ticksOf(outcome.timeline, 0, "casts W")[0];
+    expect(cast).toBeDefined();
+    // Each enemy hit takes 75 of 2,000 health: cast below 1,000, not before.
+    const taken = ticksOf(outcome.timeline, 1, "attack deals").filter((t) => t <= (cast ?? 0)).length * 75;
+    expect(2000 - taken).toBeLessThan(DEFENSIVE_SUSTAIN * 2000 + 1e-9);
+    expect(2000 - taken).toBeGreaterThanOrEqual(DEFENSIVE_SUSTAIN * 2000 - 75);
+  });
+});
+
+describe("instant casts during an attack windup", () => {
+  // V25.24's December 4th hotfix (the wiki's Basic attack article): "Casting abilities or using
+  // item actives with no cast time no longer interrupts attacks."
+  const buff = (castTime: number) => ability({ key: "W", cooldown: 10, castTime, delivery: { kind: "self" }, onSelf: [{ type: "stat", stat: "AD", amount: { base: 10 }, duration: 5 }] });
+  const windup = (castTime: number) => {
+    const world = createWorld({ fighters: [fighter({ abilities: [buff(castTime)] }), fighter()], distance: 0, modes: ["idle", "idle"] });
+    const unit = world.units[0];
+    startAttack(world, unit);
+    const before = unit.action;
+    step(world, [idle, idle]);
+    startCast(world, unit, unit.spec.abilities[0]!);
+    return { world, unit, before };
+  };
+
+  it("keep the windup when the cast has no cast time", () => {
+    const { unit, before } = windup(0);
+    expect(unit.action).toBe(before);
+    expect(unit.action?.kind).toBe("windup");
+  });
+
+  it("cancel it when the cast has one", () => {
+    const { world, unit } = windup(0.25);
+    expect(unit.action?.kind).toBe("cast");
+    expect(unit.attackReadyTick).toBe(world.tick);
   });
 });
 

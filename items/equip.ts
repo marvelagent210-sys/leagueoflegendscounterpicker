@@ -148,6 +148,23 @@ export interface EquipOptions {
   source: ItemSource;
   /** Option overrides, by item name and option. */
   options?: Record<string, Record<string, number>>;
+  /** The rest of the loadout (summoner spells), built for each form of the champion after its items. */
+  extras?: (form: FighterSpec) => LoadoutPart;
+}
+
+/**
+ * What a loadout adds besides its items (summoners/equip.ts), equipped in the same pass: like
+ * item actives, its actives are kept from the kit's cast hooks and its damage isn't the kit's
+ * ability damage; its hooks run after the items'.
+ */
+export interface LoadoutPart {
+  /** Actives, complete: keyed apart from the kit's abilities ("summoner:Flash"). */
+  abilities: AbilitySpec[];
+  hooks: KitHooks[];
+  /** Hooks on the enemy's side. */
+  enemyHooks: KitHooks[];
+  /** The names its effects label their damage with. */
+  labels: string[];
 }
 
 // ---------------------------------------------------------------------------------------
@@ -434,6 +451,7 @@ function chosenOptions(module: ItemModule, given: Record<string, number> | undef
 function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext, equip: EquipOptions, options: Record<string, Record<string, number>>, coverage: Map<string, ItemCoverage>): { spec: FighterSpec; enemyHooks: KitHooks[] } {
   const reserved = reservedNames(form);
   const items = build.map((record) => context.item(record, reserved));
+  // What isn't the kit's ability damage: the items', and the rest of the loadout's (added once it's built).
   const itemNames = new Set(items.map((item) => item.label));
   const { fighter, shared } = itemFighter(form, build, context, itemNames);
   const bonus: BonusStats = { ...form.bonus };
@@ -504,13 +522,20 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     context.rule("Vamp", "Omnivamp").quote("Omnivamp is a stat which grants healing equal to a percentage of the post-mitigation physical damage, magic damage, and true damage dealt. It stacks additively and does not benefit from heal and shield power.");
     hooks.unshift(omnivampHooks(omnivamp));
   }
+  const extra = equip.extras?.(form);
+  if (extra) {
+    for (const label of extra.labels) itemNames.add(label);
+    hooks.push(...extra.hooks);
+    enemyHooks.push(...extra.enemyHooks);
+  }
   const { combat, energized } = shared();
   if (combat) hooks.unshift(combat.hooks);
   if (energized) hooks.push(energized.hooks);
   const haste = qualifiedHaste(built.flatMap(({ definition }) => definition.haste ?? []));
   addBonus(bonus, haste.bonus);
   const stasis = built.some(({ definition }) => definition.stasis);
-  const abilities = [...form.abilities.map((ability) => withItemHaste(ability, haste.conditional)), ...actives].map((ability) => (stasis ? lockedInStasis(ability) : ability));
+  const others = [...actives, ...(extra?.abilities ?? [])];
+  const abilities = [...form.abilities.map((ability) => withItemHaste(ability, haste.conditional)), ...others].map((ability) => (stasis ? lockedInStasis(ability) : ability));
   const spec: FighterSpec = {
     ...form,
     base,
@@ -518,7 +543,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     attack: { ...form.attack, ...(onHit.length ? { onHit: [...(form.attack.onHit ?? []), ...onHit] } : {}) },
     abilities,
   };
-  const composed = composeHooks(form.hooks, hooks, first, actives.length > 0);
+  const composed = composeHooks(form.hooks, hooks, first, others.length > 0);
   if (composed) spec.hooks = ownDamageOnly(composed);
   return { spec, enemyHooks };
 }

@@ -114,7 +114,7 @@ describe("persisted browser shard settings", () => {
       expect(needsSimulation(settings, true)).toBe(true);
       expect(buildsApply(settings)).toBe(false);
       // Only matrix availability matters to this gating check.
-      expect(shownResults({} as PrecomputedBuilds, "builds", settings)).toBe("plain");
+      expect(shownResults({ builds: {} as PrecomputedBuilds }, "builds", settings)).toBe("plain");
     }
   });
 

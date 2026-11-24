@@ -170,17 +170,25 @@ describe("reusing stored results", () => {
     expect(await plainStores("16.20", root)).toEqual([]);
   });
 
-  it("read item builds back by name, from a file of the same format only", async () => {
+  it("read item builds and loadouts back by name, from a file of the same format only, and none from a file without loadouts", async () => {
     const root = await mkdtemp(path.join(tmpdir(), "reuse-"));
     directories.push(root);
     await mkdir(path.join(root, "16.20"), { recursive: true });
-    await writeFile(
-      path.join(root, "16.20", "simulated-builds.json"),
-      JSON.stringify({ format: "sixItems", inputs, items: ["Guardian Angel", "Infinity Edge", "Thornmail"], matchups: { A: { B: [0.25, 0.25, 0.25, 0.25, 0.25, null, 0.25] }, B: { A: [-0.25, -0.25, -0.25, -0.25, -0.25, null, -0.25] } }, builds: { A: { B: [0, 1] }, B: { A: [2] } } }),
-    );
+    const loadoutNames = ["Barrier", "Conqueror", "Flash"];
+    const loadout = [2, 0];
+    const stored = { format: "sixItems", inputs, items: ["Guardian Angel", "Infinity Edge", "Thornmail"], matchups: { A: { B: [0.25, 0.25, 0.25, 0.25, 0.25, null, 0.25] }, B: { A: [-0.25, -0.25, -0.25, -0.25, -0.25, null, -0.25] } }, builds: { A: { B: [0, 1] }, B: { A: [2] } } };
+    await writeFile(path.join(root, "16.20", "simulated-builds.json"), JSON.stringify({ ...stored, loadoutNames, loadouts: { A: { B: loadout }, B: { A: loadout } } }));
     const [store] = await buildsStores("16.21", "sixItems", "simulated-builds.json", root);
-    expect(store!.result("A", "B")).toEqual({ score: 0.25, scenarios: [0.25, 0.25, 0.25, 0.25, null, 0.25], builds: [["Guardian Angel", "Infinity Edge"], ["Thornmail"]], seconds: 0 });
+    const played = { spells: ["Flash", "Barrier"] };
+    expect(store!.result("A", "B")).toEqual({ score: 0.25, scenarios: [0.25, 0.25, 0.25, 0.25, null, 0.25], builds: [["Guardian Angel", "Infinity Edge"], ["Thornmail"]], loadouts: [played, played], seconds: 0 });
     expect(await buildsStores("16.21", "fiveItemsWithBoots", "simulated-builds.json", root)).toEqual([]);
+    // Loadouts of another shape (spells with a rune page's eleven names) are computed again.
+    await writeFile(path.join(root, "16.20", "simulated-builds.json"), JSON.stringify({ ...stored, loadoutNames, loadouts: { A: { B: [2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1] }, B: { A: loadout } } }));
+    const [paged] = await buildsStores("16.21", "sixItems", "simulated-builds.json", root);
+    expect(paged!.result("A", "B")).toBeUndefined();
+    await writeFile(path.join(root, "16.20", "simulated-builds.json"), JSON.stringify(stored));
+    const [older] = await buildsStores("16.21", "sixItems", "simulated-builds.json", root);
+    expect(older!.result("A", "B")).toBeUndefined();
   });
 });
 

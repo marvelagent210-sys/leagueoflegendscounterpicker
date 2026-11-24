@@ -28,7 +28,8 @@ npm ci
 npm run typecheck
 npm run build:sim -- --threads 4   # refresh duels, counter pages, ledger rankings and reports after engine changes
 npm run build:sim -- --check       # check whether committed duel results match current inputs
-npm run build:builds -- --threads 4   # the duels with item builds: the build search for every pairing (about 19 hours on four threads)
+npm run build:builds -- --threads 4   # the duels with item builds: the build and spell searches for every pairing (about 23 hours on four threads)
+npm run build:builds -- --format fiveItemsWithBoots --threads 4   # the same with five items and boots (simulated-builds-boots.json)
 npm run build:builds -- --check       # check whether the committed build matrix matches current inputs
 npm run build:sim -- --plan        # how many pairings a refresh would compute; unchanged ones are reused
 npm test
@@ -51,7 +52,7 @@ The app has four pages:
 
 Results at the default settings are precomputed by `npm run build:data`, or refreshed from committed parsed data with `npm run build:sim` without fetching raw sources. Each matrix records a fingerprint of its simulator, kits and input data. The browser reruns outdated results instead of presenting them as current. Changed settings, including weights that affect kit variant choices, run again in Web Workers. Settings stay in the browser.
 
-Where the dataset has a current build matrix (`simulated-builds.json`, from `npm run build:builds`), the picker ranks the duels with item builds by default, and each row opens on both sides' builds; the matchup page shows the result with builds above the plain-stats fights, which stay the ones to watch tick by tick. Plain stats are a click away on both pages and in the settings. The build search is too slow for the browser, so the builds hold at the default fight settings: scenario weights reweigh their scenarios, the plain stats' gold doesn't enter them, and any other changed setting shows plain stats instead. A build matrix that doesn't match the current inputs is left out.
+Where the dataset has a current build matrix (`simulated-builds.json`, from `npm run build:builds`), the picker ranks the duels with item builds by default, and each row opens on both sides' builds; the matchup page shows the result with builds above the plain-stats fights, which stay the ones to watch tick by tick. A dataset with the five-items-and-boots matrix too (`simulated-builds-boots.json`) adds it to the toggle: six items, five items and boots, or plain stats, on both pages and in the settings. The build search is too slow for the browser, so the builds hold at the default fight settings: scenario weights reweigh their scenarios, the plain stats' gold doesn't enter them, and any other changed setting shows plain stats instead. A build matrix that doesn't match the current inputs is left out.
 
 The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-244198f8?quickstart=1) uses a packaged build in a GitHub Codespace. Preview updates follow validation of each batch. Its `README-MOBILE.md` explains startup, phone access and resuming it. Keep port 8000's visibility **Private**. The downloadable package also includes the exact working source and parsed inputs in `SOURCE`, with computer setup instructions in `README-PRIVATE.md`.
 
@@ -129,7 +130,9 @@ npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --e
 npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
                                              # item builds instead of the stat budget
-npm run duel -- Ahri Malphite --search       # the build search picks both builds (--format fiveItemsWithBoots for boots)
+npm run duel -- Ahri Malphite --search       # the build search picks both builds and second spells (--format fiveItemsWithBoots for boots)
+npm run duel -- Garen Morgana --spells "Flash, Cleanse" --enemy-spells "Barrier, Ignite" --log youEngage
+                                             # summoner spells, with item builds or without items
 ```
 
 Garen's Judgment excludes the attack-speed shard and the attack speed gained
@@ -160,14 +163,16 @@ npm run duel -- Cassiopeia Akali --dataset 16.21 --gold 0 --combat-runes 8009 --
 
 With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.21/reports/item-effects.md)).
 
-With `--search`, the build search (`pipeline/items/search.ts`, PLAN.md M8) picks both builds: it fills each side's build slot by slot by a quick estimate, keeping the best build of each profile (AD, crit, attack speed, AP, tank) as a route; the sides answer each other's best build until a pair of best builds comes back; then each side's routes fight the other's in a screen of the all-in scenarios, each side takes the route whose worst result is best, and that pair plays every scenario. The quick estimate counts items' stats, stat statuses, critical strike damage and on-hit effects, and what their passives and actives give on average over a ten-second fight (`items/hints.ts`), with each kit's damage, attacks and casts calibrated first to a fight of its own (`pipeline/items/calibrate.ts`); the fights between routes settle the rest.
+With `--spells` and `--enemy-spells`, each side holds up to two summoner spells (`summoners/`), with an item build or without items, not with the stat budget. Each spell's effect comes from the wiki's spell data at level 20, and its rules from the wiki: stasis and suppression stop every summoner spell, the other crowd control that stops casting stops only Flash, and spell shields don't block them. Ignite burns for 525 true damage over five seconds with Grievous Wounds; Exhaust slows by 40% and cuts damage dealt by 35% (not true damage) for three seconds; Barrier shields 502; Heal restores 346; Ghost gives 50.8% movement speed for ten seconds; Cleanse removes crowd control but knock-ups, nearsight and suppression, and Ignite's burn and Exhaust; Flash blinks 400 units. The default behavior casts them like the kit's abilities of the same kind: Ignite and Exhaust as soon as the enemy is in range, Barrier and Heal in combat below 90% health, Ghost to close the gap, Cleanse under half a second or more of crowd control, and Flash to dodge a decisive skillshot or to get away. Smite and Teleport do nothing in a duel. The output lists each spell's simplifications ([summoner spells](data/16.21/reports/summoners.md)).
+
+With `--search`, the build search (`pipeline/items/search.ts`, PLAN.md M8) picks both builds: it fills each side's build slot by slot by a quick estimate, keeping the best build of each profile (AD, crit, attack speed, AP, tank) as a route; the sides answer each other's best build until a pair of best builds comes back; then each side's routes fight the other's in a screen of the all-in scenarios, each side takes the route whose worst result is best. Then the loadout search (`pipeline/loadouts/search.ts`) gives each side Flash and fights for its second summoner spell among the six that do something in a duel: each candidate plays the three all-in scenarios with one branch, its health margin breaking ties, the sides answering each other's spell for two rounds (all six, then each side's best two). The builds and spells then play every scenario. Rune pages aren't searched: the rune effects on main's manual duels aren't in the matrices yet. The quick estimate counts items' stats, stat statuses, critical strike damage and on-hit effects, and what their passives and actives give on average over a ten-second fight (`items/hints.ts`), with each kit's damage, attacks and casts calibrated first to a fight of its own (`pipeline/items/calibrate.ts`); the fights between routes settle the rest.
 
 ```sh
 npm run build:builds -- --smoke --threads 4   # each kit against the next (172 pairings): a check before a full run
 npm run build:builds -- --threads 4           # all 14,878 pairings, resuming from checkpoints
 ```
 
-`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.21/reports/builds.md): each champion's most-built items across its matchups. A pairing takes about 19 s on one of four threads, so a full run takes about 19 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item code, the build search and the item catalog. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
+`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.21/reports/builds.md) (with `--format fiveItemsWithBoots`, `simulated-builds-boots.json` and `reports/builds-boots.md`, the format taking about 5% longer): each champion's most-built items and second summoner spells across its matchups. A pairing takes about 22 s on one of four threads (the spell search adds about 16%), so a full run takes about 23 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item and summoner spell code, the build and loadout searches, and the item and spell catalogs. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
 
 The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats, with penetration capped near what items give. Each prints a score from -1 to +1 for these scenarios:
 
@@ -234,10 +239,10 @@ npm run build:sim -- --shard 0/4  # the first of four shares of the pending pair
 The [refresh workflow](.github/workflows/refresh.yml) runs a refresh on GitHub's runners, split into shards that run side by side. Push a change to [`.github/refresh-request.json`](.github/refresh-request.json) on a branch, or start the workflow from the Actions tab:
 
 ```json
-{ "dataset": "16.21", "matrices": ["sim", "builds"], "recompute": [], "shards": { "builds": 20 } }
+{ "dataset": "16.21", "matrices": ["sim", "builds", "boots"], "recompute": [], "shards": { "builds": 20 } }
 ```
 
-Every field is optional: the newest dataset, both matrices, nothing forced. Without a shard count, the matrices share 20 shards, the number of jobs GitHub runs at once: a shard per hour of computing on a four-core runner, at most 20 in all, split between the matrices so that their shards end together (`pipeline/sim/ciPlan.ts`). The plan job counts the pending pairings (`--plan`); each shard computes its share (`--shard i/N`) and uploads its checkpoints; the last job reads them all back, writes the outputs, checks them (`--check`), commits them to the branch and runs the tests. Runners use the same Node.js version as local refreshes, so both give the same numbers to the last bit. On a public repository the standard runners cost nothing, and twenty of them make a full refresh of the build matrix (about 78 processor-hours) take about an hour. Its first run computed Darius's pairings again on five runners and reproduced every committed result exactly, six minutes from the push to the commit ([ACCURACY.md](ACCURACY.md)). Patch 26.21's refresh, 10,222 plain-stats pairings and the whole build matrix (98 processor-hours), took two hours from the push to the commit. The runners take 20 jobs at a time, so 5 of its 25 shards waited for one. The plan now shares the 20 between the matrices: for that refresh, 4 plain-stats and 16 build shards of about 72 minutes each.
+Every field is optional: the newest dataset, all three matrices (plain stats, six-item builds, and five items and boots), nothing forced. Without a shard count, the matrices share 20 shards, the number of jobs GitHub runs at once: a shard per hour of computing on a four-core runner, at most 20 in all, split between the matrices so that their shards end together (`pipeline/sim/ciPlan.ts`). The plan job counts the pending pairings (`--plan`); each shard computes its share (`--shard i/N`) and uploads its checkpoints; the last job reads them all back, writes the outputs, checks them (`--check`), commits them to the branch and runs the tests. Runners use the same Node.js version as local refreshes, so both give the same numbers to the last bit. On a public repository the standard runners cost nothing, and twenty of them make a full refresh of the build matrix (about 78 processor-hours) take about an hour. Its first run computed Darius's pairings again on five runners and reproduced every committed result exactly, six minutes from the push to the commit ([ACCURACY.md](ACCURACY.md)). Patch 26.21's refresh, 10,222 plain-stats pairings and the whole build matrix (98 processor-hours), took two hours from the push to the commit. The runners take 20 jobs at a time, so 5 of its 25 shards waited for one. The plan now shares the 20 between the matrices: for that refresh, 4 plain-stats and 16 build shards of about 72 minutes each.
 
 ## Data pipeline
 
@@ -246,8 +251,10 @@ npm run fetch        # download the current patch's sources into data/raw/ (not 
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
 npm run fetch -- --only items      # refetch just the item catalog's sources
 npm run fetch -- --only item-rules # refetch just the wiki rule pages item effects quote (Energized, combat status, ...)
+npm run fetch -- --only spells     # refetch just the summoner spells' sources
 npm run build:data   # rebuild data/<dataset>/ from those downloads, with the pairings whose inputs changed
 npm run build:items  # rebuild the item catalog (items.json, reports/items.md, reports/item-effects.md)
+npm run build:summoners # rebuild the summoner spell catalog (summoners.json, reports/summoners.md)
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/` for patch 26.21; the previous patch's folder stays as it was, and a new patch's refresh reuses its results. It contains:
@@ -264,8 +271,9 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `rankings.json` | The ledger rankings, machine-readable |
 | `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, the options played by kits with a choice, and the inputs each matchup was computed from |
 | `simulated-spent.json` | The gold each side spent on each stat in each simulated matchup, to the whole gold piece: the simulator report reads it, and a refresh reuses it with the matchups it reuses |
-| `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build, the options played by kits with a choice, and the inputs each matchup was computed from |
+| `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build and summoner spells, the options played by kits with a choice, and the inputs each matchup was computed from |
 | `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel` and the build matrix |
+| `summoners.json` | The summoner spell catalog: the nine spells Summoner's Rift offers, with cooldowns, ranges, effects (values by level), each article's notes, the wiki rule pages spell effects quote, and Data Dragon's cooldowns and ranges compared. Summoner spells use it in `npm run duel` |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
@@ -275,7 +283,9 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.21/`
 | `reports/simulator.md` | The simulated standings, the golden matchups with their scores, and what the stat budget buys each champion |
 | `reports/items.md` | The item catalog, readable: how it's chosen, the one-per-build groups, the cross-check against the game file, and every item's stats and effects |
 | `reports/item-effects.md` | What the simulator makes of each item: the effects it models, what it leaves out and why, its simplifications and options |
-| `reports/builds.md` | The build matrix's run, and each champion's most-built items across its matchups |
+| `reports/summoners.md` | The summoner spell catalog, readable: every spell's cooldown, range, effect and notes, and where Data Dragon differs from the wiki |
+| `reports/builds.md` | The build matrix's run, and each champion's most-built items and second summoner spells across its matchups |
+| `simulated-builds-boots.json`, `reports/builds-boots.md` | The same with five items and boots (`npm run build:builds -- --format fiveItemsWithBoots`) |
 
 Tests run offline against the committed data.
 

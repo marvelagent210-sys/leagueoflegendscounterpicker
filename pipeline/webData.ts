@@ -7,7 +7,8 @@
  *   data/<dataset>/glossary.json     the wiki's lists the ledger reads
  *   data/<dataset>/profiles.json     every champion's fight profile, in one file, for the ledger
  *   data/<dataset>/simulated.json    the duel results at the default settings
- *   data/<dataset>/simulated-builds.json  the duel results with item builds, when built (npm run build:builds)
+ *   data/<dataset>/simulated-builds.json  the duel results with six-item builds, when built (npm run build:builds)
+ *   data/<dataset>/simulated-builds-boots.json  the same with five items and boots, when built (--format fiveItemsWithBoots)
  *   data/<dataset>/abilities/<id>.json  each champion's ability records, for kit pages and kits
  *   data/<dataset>/pets.json         every champion's pets (turrets, Mist Walkers, ...), by champion
  *   data/<dataset>/runes.json        the runes the simulator models (Triple Tonic)
@@ -15,6 +16,7 @@
  *
  * Usage: npm run web:data [-- --dataset 16.20]
  */
+import { existsSync } from "node:fs";
 import { cp, mkdir, readFile, readdir, rename, rm } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -27,6 +29,7 @@ import { buildsProvenance, simulationProvenance } from "./sim/fingerprint";
 import { loadRuneCatalog, RUNE_SOURCE_FILES } from "./runes/catalog";
 import { loadShardRules } from "./runes/shardRules";
 import { type StatShardData, validateStatShardData } from "../runes/shardData";
+import { BUILDS_FILES } from "../engine/sim/buildFiles";
 
 const OUT = path.join(REPO_ROOT, "web", "public", "data");
 
@@ -79,6 +82,8 @@ export async function exportWebData(selected?: string, output = OUT): Promise<vo
 async function exportSnapshot(dataset: string, source: string, output: string): Promise<boolean> {
   const simulation = await simulationProvenance(dataset);
   const builds = await exists(path.join(source, "simulated-builds.json")) ? await buildsProvenance(dataset) : undefined;
+  // The build matrices the dataset has, by format: both share the builds' inputs fingerprint.
+  const formats = builds ? (await Promise.all(Object.entries(BUILDS_FILES).map(async ([format, files]) => ((await exists(path.join(source, files.matrix))) ? format : undefined)))).filter((format): format is string => format !== undefined) : [];
   const manifest = await readJson<Manifest>(path.join(source, "manifest.json"));
   const statShards = await loadStatShards(dataset, source, manifest.patch, simulation.fingerprint);
   const operation = `${process.pid}-${randomUUID()}`;
@@ -87,7 +92,7 @@ async function exportSnapshot(dataset: string, source: string, output: string): 
   const out = path.join(staging, dataset);
   try {
     await mkdir(out, { recursive: true });
-    for (const file of ["champions.json", "rules.json", "glossary.json", "simulated.json", "runes.json", ...(builds ? ["simulated-builds.json"] : [])]) await cp(path.join(source, file), path.join(out, file));
+    for (const file of ["champions.json", "rules.json", "glossary.json", "simulated.json", "runes.json", ...formats.map((format) => BUILDS_FILES[format as keyof typeof BUILDS_FILES].matrix)]) await cp(path.join(source, file), path.join(out, file));
     await cp(path.join(source, "abilities"), path.join(out, "abilities"), { recursive: true });
     const petFiles = (await readdir(path.join(source, "pets"))).filter((file) => file.endsWith(".json")).sort();
     const pets = Object.fromEntries(
@@ -99,15 +104,28 @@ async function exportSnapshot(dataset: string, source: string, output: string): 
     await writeText(path.join(out, "profiles.json"), JSON.stringify(profiles));
     if (statShards) await writeJson(path.join(out, "stat-shards.json"), statShards);
     if ((await simulationProvenance(dataset)).fingerprint !== simulation.fingerprint) return false;
-    // The builds name items from the catalog: its wiki revision and Data Dragon version, for the attribution.
+    // The builds name items and summoner spells from the catalogs: their wiki revisions and game data version, for the attribution.
     const itemSources = builds ? (await readJson<{ sources: { ddragon: string; itemData: { title: string; revid: number } } }>(path.join(source, "items.json"))).sources : undefined;
+    // Datasets from before summoner spells have no spell catalog, and builds without loadouts.
+    const spellSources = builds && existsSync(path.join(source, "summoners.json")) ? (await readJson<{ sources: { spellData: { title: string; revid: number } } }>(path.join(source, "summoners.json"))).sources : undefined;
     if (builds && (await buildsProvenance(dataset)).fingerprint !== builds.fingerprint) return false;
     await writeJson(path.join(staging, "index.json"), {
       dataset,
       patch: manifest.patch,
       simulationFingerprint: simulation.fingerprint,
       ...(statShards ? { statShards: true } : {}),
-      ...(builds && itemSources ? { buildsFingerprint: builds.fingerprint, itemSources: { title: itemSources.itemData.title, revid: itemSources.itemData.revid, ddragon: itemSources.ddragon } } : {}),
+      ...(builds && itemSources
+        ? {
+            buildsFingerprint: builds.fingerprint,
+            buildFormats: formats,
+            itemSources: {
+              title: itemSources.itemData.title,
+              revid: itemSources.itemData.revid,
+              ddragon: itemSources.ddragon,
+              ...(spellSources ? { spellData: { title: spellSources.spellData.title, revid: spellSources.spellData.revid } } : {}),
+            },
+          }
+        : {}),
     });
     // Serve the previous complete export until its replacement is fully written.
     await rm(backup, { recursive: true, force: true });

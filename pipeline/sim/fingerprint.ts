@@ -32,17 +32,31 @@ export async function simulationProvenance(dataset: string): Promise<SimulationP
 
 /**
  * The build matrix's inputs: the simulation's, and the item effects, their hints, the build
- * search, the item catalog and the build matrix's own pipeline (npm run build:builds).
+ * search, the summoner spell effects, the loadout search, the item and summoner spell catalogs,
+ * and the build matrix's own pipeline (npm run build:builds).
  */
 export async function buildsProvenance(dataset: string): Promise<SimulationProvenance> {
   const code = [
     ...await sources(path.join(REPO_ROOT, "items")),
+    ...await sources(path.join(REPO_ROOT, "summoners")),
     ...await sources(path.join(REPO_ROOT, "pipeline", "items")),
-    ...["pipeline/itemData.ts", "pipeline/sim/builds.ts", "pipeline/sim/buildsWorker.ts", "pipeline/sim/buildsWorker.mjs", "pipeline/sim/buildsCheckpoint.ts"].map((file) => path.join(REPO_ROOT, file)),
+    ...await sources(path.join(REPO_ROOT, "pipeline", "loadouts")),
+    ...["pipeline/itemData.ts", "pipeline/summoners/records.ts", "pipeline/sim/builds.ts", "pipeline/sim/buildsWorker.ts", "pipeline/sim/buildsWorker.mjs", "pipeline/sim/buildsCheckpoint.ts"].map((file) => path.join(REPO_ROOT, file)),
   ];
-  const items = [path.join(datasetDir(dataset), "items.json")];
+  // Datasets from before summoner spells have no spell catalog.
+  const items = [path.join(datasetDir(dataset), "items.json"), ...(await optionalFiles(datasetDir(dataset), ["summoners.json"]))];
   const entries = await Promise.all([...code, ...items].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
   return { schema: 1, fingerprint: fingerprintEntries([...new Map([...(await simulationInputs(dataset)), ...entries])]) };
+}
+
+/** The files of `names` the directory holds. */
+async function optionalFiles(dir: string, names: string[]): Promise<string[]> {
+  const found = await Promise.all(names.map(async (name) => {
+    const file = path.join(dir, name);
+    try { await readFile(file); return file; }
+    catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined; throw error; }
+  }));
+  return found.filter((file): file is string => file !== undefined);
 }
 
 /** Optional on legacy datasets; partial source sets are rejected by the exporter. */

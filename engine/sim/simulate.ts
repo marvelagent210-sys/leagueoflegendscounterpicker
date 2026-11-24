@@ -179,6 +179,7 @@ function upkeep(world: World, unit: Unit): void {
     const source = world.units[status.source];
     const context = { ability: dot.label ?? status.key, persistent: true,
       ...(dot.originX !== undefined ? { originX: dot.originX } : {}),
+      ...(dot.unamplified ? { unamplified: true } : {}),
       ...(dot.observedDamageKind !== undefined ? { observedDamageKind: dot.observedDamageKind } : {}) };
     if (dot.castInstance === undefined) dealDamage(world, source, unit, dot.perHit, dot.damageType, context);
     else withCastInstance(world, source, dot.castInstance, () => dealDamage(world, source, unit, dot.perHit, dot.damageType, context));

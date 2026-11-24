@@ -3584,6 +3584,164 @@ and 10,266 tests passed, with five skips. Both native freshness checks,
 typechecking, the offline rune catalog check and the production build
 passed on the generated commit. [Refresh workflow](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/44950261943)
 
+## Summoner spells (23 November 2026)
+
+The nine spells Summoner's Rift offers come from Data Dragon 16.21.1's classic
+list, [Module:SpellData/data revision 4089805](https://wiki.leagueoflegends.com/en-us/Module:SpellData/data?oldid=4089805)
+and each spell's article, at level 20 ([spell catalog](data/16.21/reports/summoners.md)).
+Fourteen cooldowns and ranges were compared with Data Dragon. Two differ, Flash's
+range (400 on the wiki, 425 in Data Dragon) and Heal's (900 and 875), and the
+wiki's value is used. Seven spells act in a duel. Ignite burns 525 true damage
+over five seconds with Grievous Wounds, and damage amplifiers don't raise it. Exhaust
+slows by 40% and cuts damage dealt by 35% for three seconds. Barrier shields 502 and
+Heal restores 346. Ghost grants 50.8% movement speed. Cleanse removes the disables
+its notes list (not knock-ups, nearsight or suppression), and the behavior spends it
+only on crowd control it removes. Flash blinks 400 units. Smite and Teleport
+do nothing in a duel. Stasis and suppression stop every spell. Other cast-inhibiting
+crowd control stops only Flash, and spell shields don't block spells. Spells without
+a cast time are used during the caster's own casts, channels, dashes and windups
+without interrupting them. 39 tests cover the catalog and the effects.
+
+The build matrix gives each side Flash, then fights for its second spell among the
+six others that act in a duel. Each candidate plays the three all-in scenarios with
+one branch each, and a health margin breaks the many ties a score alone leaves. The
+sides answer each other's spell over two rounds: all six, then each side's best two.
+The screen was checked on keystone choices before the rune pages were parked, where
+its pick scored 0.07 below the best over every scenario. Brawl-only screens scored
+0.11 to 0.15 below. Those samples were small and spread widely. On four pairings the
+spell search added 11% to 16% to a build pairing's time.
+
+The refresh ([run 45202719427](https://github.com/marvelagent210-sys/leagueoflegendscounterpicker/actions/runs/45202719427))
+computed all 14,878 pairings in each matrix on 20 shards, from 15:13 to about 17:45 UTC.
+Build pairings averaged 21.1 processor-seconds, against the planner's estimate of 21.8.
+Across the 29,756 loadouts, the second spells were Barrier 28%, Ignite 20%, Exhaust 16%,
+Ghost 15%, Cleanse 12% and Heal 9%. Most champions spread their choice across several
+spells by matchup, with no single spell above about a third. In the plain-stats matrix,
+only Garen's results changed, in 8 pairings (16 entries with both directions). Decisive
+Strike removes only slows, and Garen had cast it as a cleanse while stunned or rooted.
+Now he holds it for attacks, and against Jinx (+0.22 to +0.42) and Lux (−0.29 to −0.18)
+that helps him. The full suite passed on the refreshed commit (10,309 tests, five skips).
+
+Rune pages are not in this search. Main's rune effects are manual plain-stat
+selections, and the earlier full rune-page model was set aside so that runes have
+one implementation. It remains in this branch's history at `d1ea0ef`.
+
+## Finishers held to the end, and mages' builds (23 November 2026)
+
+Across the build matrix, Guardian Angel is in 90% of builds, and mages carry Terminus,
+Yun Tal Wildarrows and Infinity Edge in a third to two-thirds of their matchups. To see
+whether the build search misses better AP builds, 18 pairings were played over every
+scenario: Ahri, Lux, Syndra, Annie, Orianna and Veigar against Zed, Darius and Malphite.
+Each mage played its searched build, then a standard AP build (Rabadon's Deathcap,
+Zhonya's Hourglass, Shadowflame, Void Staff, Luden's Echo, Banshee's Veil), then the same
+with Guardian Angel for Banshee's Veil, all against the enemy's searched build. The
+searched builds averaged +0.22, the AP build −0.28, and AP with Guardian Angel −0.13.
+The AP build beat the searched build in 3 of 18 pairings. So the search finds what the
+model rewards. The model favors sustained basic-attack damage and a second life in
+fights to the death at level 20. In the real game, mages are built around their
+abilities, so this is a modeling limit to keep in mind when reading mages' builds, not
+a search failure.
+
+One cause was a behavior bug. Damage by source in a brawl against Darius showed Veigar's
+AP build never casting Primordial Burst. His policy fired it only once Darius was missing
+a third of his health, or when it would kill. Neither happened before Veigar died. The
+default behavior has the same gap for every finisher: one was cast only when its damage
+would kill, so a losing holder died with it unused. Eleven kits have one: Caitlyn,
+Cho'Gath, Darius, Garen, Graves, Pyke, Riven, Syndra, Urgot, Veigar and Viego. Holding a
+finisher for the kill pays only if the holder outlasts the enemy. A ready finisher is now
+also cast once its holder is below half its health (`LAST_STAND`) and has a smaller share
+of its health left than the enemy. A fixed quarter of health was tried first and was too
+late: Darius's burst takes Veigar from 43% to dead in under half a second. Execute
+thresholds are unchanged. A new test covers a losing holder, and the existing finisher
+tests still pass. Main's Triumph sweep test now uses Garen against Sion: with the rule,
+Darius spends his ultimate before Sion's takedown, and Triumph's heal no longer changes
+that duel at any swept budget.
+
+## Instant casts keep attack windups (23 November 2026)
+
+The wiki's Basic attack article records V25.24's December 4th hotfix: "Casting abilities
+or using item actives with no cast time no longer interrupts attacks." It is the article's
+latest change, so it holds for patch 26.21. The simulator cancelled a windup on any cast
+unless the ability opted in with `preserveAttackWindup`, which 45 kits had done one ability
+at a time. A cast whose own cast time is 0 now keeps the windup at its launch tick, unless
+it moves the caster (dashes, blinks) or starts a channel. Kalista's Rend delivers at once
+but locks her for its 0.25-second cast time, and her attacks' text says Rend can cancel
+them, so it keeps its cancel. Tests: an instant self-buff keeps the windup; the same cast
+with a 0.25-second cast time cancels it.
+
+## Abilities never cast (23 November 2026)
+
+To find behavior bugs like Veigar's held ultimate, every champion played the fight scenarios
+with plain stats against Darius, Malphite, Zed, Jinx, Lux and Teemo, and each kit ability it
+never cast was listed: 45 champions had at least one. Most need an ally (Nami's and
+Orianna's ally casts, Soraka's W, Galio's R, Kalista's R, Rakan's E), give vision or nothing
+in a duel (Ashe's E, Kalista's W, Senna's E, Zoe's stolen Flash), are toggles kept on
+all fight (Singed's Q, Amumu's W), are cast automatically or as another version (Mordekaiser's
+recast, Qiyana's elemental Q), or are sub-entries of another cast (Hwei's combinations,
+Heimerdinger's turret beams, Brand's bounces). Two were behavior gaps:
+
+- Kai'Sa's Killer Instinct, a shield with the "defense" role. Such abilities are kept out of
+  the offense for reactions, but no reaction answered steady damage with a shield or heal.
+  A defensive shield or heal now goes up in combat once its holder is below half its health
+  (`DEFENSIVE_SUSTAIN`), and Kai'Sa casts it. Test: a defense-role shield waits until its
+  holder is below half health, then goes up.
+- Kindred's Lamb's Respite puts a 10%-health floor on everyone in its zone, the enemy
+  included, so whether it helps in a duel needs a policy of its own. It stays unused, a
+  remaining limit.
+
+Caitlyn's Ace in the Hole, a 1.4-second interruptible channel, is kept for a kill: at low
+health her attacks are worth more. Pyke's Death from Below is an execute, which the
+finisher rule leaves to its threshold.
+
+## Long casts thrown at a likely miss (23 November 2026)
+
+A second scan listed damaging abilities cast at least four times in a champion's fights
+that never dealt damage. Most log their damage under another name: a base name
+(Gwen's Needlework, Hecarim's charge, Locke's nails), an effect (Nautilus's Pain of Wrath,
+Illaoi's tentacles), or an internal key (Soraka's Starcall as `soraka:star:1`, Nami, Lulu,
+Varus, Hwei). Those keys show in the app's fight logs, a remaining cosmetic limit. One was a
+real miss. Ezreal cast Trueshot Barrage 27 times, and it never landed: its one-second cast
+lets an alert enemy sidestep it 97% of the time, so each cast cost a second of attacks for
+nothing. A damage skillshot with a cast of half a second or more (`LONG_CAST`) now waits,
+as crowd control does, until it is likely to land (35%). Ezreal holds the ultimate against
+Darius and fires it at a held target. A gate on the behavior's own 2% estimate was tried
+first and dropped: that estimate differs from the engine's, and it held Ziggs's and Vel'Koz's
+spells that do land. Tests: Ezreal fires Trueshot Barrage at a stunned enemy and holds it
+while the enemy can sidestep. The four-ability test now expects Q, W and E against Darius.
+
+## Kled remounting while dying (24 November 2026)
+
+The first refresh with the five-items-and-boots matrix failed on one pairing, Aurora against
+Kled: "Kled kit: onLethal kept the unit alive without giving it health". A tick's damage had
+taken the dismounted Kled below 0 health before his death was processed, and his Courage
+remount ran in that tick. It stored his negative health as his own and mounted him with
+Skaarl's health on top, so the next lethal hit dismounted him into negative health. Skaarl
+now comes back only for a Kled with health left. Aurora against Kled then completes (+0.74).
+Test: a dying Kled with his remount due stays dismounted, and one with health remounts.
+
+## Refresh with the behavior batch (24 November 2026)
+
+One refresh (run 41) recomputed all three matrices after the batch above (finishers held
+to the end, defensive shields, instant casts keeping windups, Kai'Sa's and Ezreal's
+ultimates, long casts held for a likely hit, Kled's remount). Against the previous
+matrices, 5,266 of 29,756 plain-stats entries moved (mean 0.024, 954 by more than 0.25)
+and 10,324 six-item entries (mean 0.065, 2,674 by more than 0.25); a build that moves
+also moves the searched builds behind it. Kai'Sa moved most, +0.31 on average in plain
+stats and +0.21 with items, now that Killer Instinct is cast. Then Garen (−0.15 plain),
+Pantheon (+0.09 both) and Ezreal (+0.06 both). The five-items-and-boots matrix completed
+its 14,878 pairings in 84.4 processor-hours: Plated Steelcaps are in 61% of its builds and
+Berserker's Greaves in 37%. Its second spells (Barrier 28%, Ignite 20%, Ghost 15%, Exhaust
+15%, Cleanse 12%, Heal 10%) are within a point of six items'. The full suite passes
+(10,316 tests, 5 skipped).
+
+## Five items and boots in the browser (23 November 2026)
+
+The build matrix now has a second format, five finished items and boots
+(`simulated-builds-boots.json`, `reports/builds-boots.md`). The app's results toggle
+offers six items, five items and boots, or plain stats. The refresh plans it as a third
+matrix with its own shards. On four pairings it took about 5% longer than six items, so
+the planner counts 22.9 s a pairing. A local smoke run of 172 pairings had no failures.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
@@ -3593,9 +3751,10 @@ passed on the generated commit. [Refresh workflow](https://github.com/marvelagen
   the builds hold at the default fight settings only, since the browser can't search them.
   A change to either kit, or to any item the search weighs, can make it settle on other
   builds, so the build matrix moves more than plain stats from one patch to the next.
-- Duels have no summoner spells, and in the six-item format no boots, so a melee kit
-  without a gap-closer as long as the enemy's range can be kept out of reach by a ranged
-  champion's basic attacks (Annie with a critical strike build beats Darius).
+- Duels have no rune pages yet (runes come one by one on main), and the six-item format
+  has no boots, so there a melee kit without a gap-closer as long as the enemy's range can
+  be kept out of reach by a ranged champion's basic attacks; the five-items-and-boots
+  format and Flash and Ghost narrow that gap.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
 - Skillshot branching has a finite limit; minor hits and further branches use expected

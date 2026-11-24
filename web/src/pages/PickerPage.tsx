@@ -4,7 +4,7 @@ import { compareChampionIds } from "../../../engine/championOrder";
 import { rankCounters } from "../../../engine/ledger/index";
 import { SCENARIO_LABELS, SCENARIOS } from "../../../engine/sim/scenarios";
 import type { Champion } from "../../../engine/types";
-import { type BuildsMatchup, buildsMatchup, shownResults } from "../builds";
+import { BUILD_TEXT, type BuildsMatchup, availableModes, buildsMatchup, matrixOf, shownMatrix, shownResults } from "../builds";
 import { ChampionSearch } from "../components/ChampionSearch";
 import { BuildLists, VariantNotes } from "../components/BuildLists";
 import { ResultsToggle } from "../components/ResultsToggle";
@@ -65,7 +65,8 @@ function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champ
   const { settings } = useSettings();
   const { wanted } = useResults();
   const others = useMemo(() => data.kitIds.filter((id) => id !== enemy.id), [data, enemy.id]);
-  const builds = shownResults(data.builds, wanted, settings) === "builds" ? data.builds : undefined;
+  const shown = shownResults(data, wanted, settings);
+  const builds = shownMatrix(data, wanted, settings);
   const custom = hasKit && !builds && needsSimulation(settings, data.precomputedCompatible);
   const batch = useMatchupBatch(data, others, enemy.id, settings, custom);
   const rows = useMemo(() => {
@@ -91,7 +92,7 @@ function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champ
       <div className="title-row">
         <h3 id="simulated-head">Simulated duels</h3>
         {hasKit ? <Confidence full /> : null}
-        {hasKit && data.builds ? <ResultsToggle /> : null}
+        {hasKit && availableModes(data).length > 1 ? <ResultsToggle matrices={data} /> : null}
       </div>
       {!hasKit ? (
         <p className="note">
@@ -102,14 +103,14 @@ function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champ
         <>
           {builds ? (
             <p className="note">
-              Each pick fought {enemy.name} through six scenarios, both at level 20 with six finished items: each side's build is the one the build search found to do
+              Each pick fought {enemy.name} through six scenarios, both at level 20 with {shown === "plain" ? "" : BUILD_TEXT[shown]}: each side's build is the one the build search found to do
               best against the other's. The score runs from −1 ({enemy.name} wins every time) to +1 (the pick does). Open a row for the scenarios and both builds.
             </p>
           ) : (
             <p className="note">
               Each pick fought {enemy.name} through six scenarios, both at level 20 and each spending {settings.gold.toLocaleString("en-US")} gold of plain stats against the
               other. The score runs from −1 ({enemy.name} wins every time) to +1 (the pick does). Open a row for the scenarios.
-              {data.builds && wanted === "builds" ? " The item builds were played at the default fight settings, so with yours the duels are plain stats." : ""}
+              {matrixOf(data, wanted) ? " The item builds were played at the default fight settings, so with yours the duels are plain stats." : ""}
             </p>
           )}
           {batch.error ? <ErrorBox error={batch.error} /> : custom && batch.done < batch.total ? (
@@ -162,7 +163,7 @@ function SimulatedRow({ data, enemy, rank, row }: { data: AppData; enemy: Champi
               <span className="val">{row.scenarios[i] === null ? "n/a" : <Score value={row.scenarios[i]} />}</span>
             </div>
           ))}
-          {row.builds ? <BuildLists names={[name, enemy.name]} builds={row.builds.builds} /> : null}
+          {row.builds ? <BuildLists names={[name, enemy.name]} builds={row.builds.builds} loadouts={row.builds.loadouts} /> : null}
           <VariantNotes names={[name, enemy.name]} ids={[row.id, enemy.id]} variants={variants} />
           <div className="row-links">
             <a href={routeHash({ page: "matchup", you: row.id, enemy: enemy.id })}>

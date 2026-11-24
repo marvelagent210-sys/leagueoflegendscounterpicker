@@ -248,5 +248,51 @@
       }
     ],
     "fetchedAt": "2026-11-03T01:39:30.109Z"
+  },
+  "spells": {
+    "ddragonVersion": "16.21.1",
+    "spellData": {
+      "title": "Module:SpellData/data",
+      "revid": 4089805
+    },
+    "articles": [
+      {
+        "title": "Barrier",
+        "revid": 3959683
+      },
+      {
+        "title": "Cleanse",
+        "revid": 4037451
+      },
+      {
+        "title": "Exhaust",
+        "revid": 4053233
+      },
+      {
+        "title": "Flash",
+        "revid": 4008665
+      },
+      {
+        "title": "Ghost",
+        "revid": 3991260
+      },
+      {
+        "title": "Heal",
+        "revid": 3958758
+      },
+      {
+        "title": "Ignite",
+        "revid": 4053158
+      },
+      {
+        "title": "Smite",
+        "revid": 4053300
+      },
+      {
+        "title": "Teleport",
+        "revid": 4088391
+      }
+    ],
+    "fetchedAt": "2026-11-03T15:20:24.823Z"
   }
 }

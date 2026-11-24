@@ -1,20 +1,35 @@
-/** Both sides' item builds in a matchup, and the kit variants they played. */
+/** Both sides' item builds and summoner spells in a matchup, and the kit variants they played. */
+import type { MatrixLoadout } from "../../../engine/sim/precomputed";
 import { type BuildsMatchup, variantText } from "../builds";
 
-/** The two builds side by side: yours, then the enemy's. Each is the search's best answer to the other. */
-export function BuildLists({ names, builds }: { names: [string, string]; builds: [string[], string[]] }) {
+/** A side's summoner spells. */
+function LoadoutLines({ loadout }: { loadout: MatrixLoadout }) {
+  return (
+    <dl className="loadout">
+      <dt>Spells</dt>
+      <dd>{loadout.spells.join(", ")}</dd>
+    </dl>
+  );
+}
+
+/** The two builds side by side: yours, then the enemy's, each with its loadout. Each is the searches' best answer to the other. */
+export function BuildLists({ names, builds, loadouts }: { names: [string, string]; builds: [string[], string[]]; loadouts?: BuildsMatchup["loadouts"] }) {
   return (
     <div className="builds">
-      {builds.map((items, side) => (
-        <div key={side} className="build">
-          <span className="label">{names[side]}'s build</span>
-          <ul className="items">
-            {items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {builds.map((items, side) => {
+        const loadout = loadouts?.[side];
+        return (
+          <div key={side} className="build">
+            <span className="label">{names[side]}'s build</span>
+            <ul className="items">
+              {items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            {loadout ? <LoadoutLines loadout={loadout} /> : null}
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { type LedgerContext, ledgerContext } from "../../engine/ledger/index";
 import type { KitProfile } from "../../engine/profiles";
 import type { Champion, ChampionDataset } from "../../engine/types";
 import { KITS } from "../../kits/champions/index";
+import { BUILDS_FILES } from "../../engine/sim/buildFiles";
 import { type PrecomputedBuilds, type PrecomputedMatchups, precomputedBuildsCurrent } from "../../engine/sim/precomputed";
 import { precomputedCompatible } from "./sim/cache";
 import { type StatShardData, validateStatShardData } from "../../runes/shardData";
@@ -40,18 +41,25 @@ export interface AppData {
    * they are the current inputs': the build search is too slow to run in the browser.
    */
   builds?: PrecomputedBuilds;
+  /** The build matrix with five items and boots, when the dataset has a current one. */
+  boots?: PrecomputedBuilds;
   /** Where the builds' item records come from: the wiki module's revision and the Data Dragon version. */
   itemSources?: ItemSources;
 }
 
+/** Where the builds' items, summoner spells and runes come from, for the attribution. */
 export interface ItemSources {
   title: string;
   revid: number;
   ddragon: string;
+  /** The summoner spells' wiki module and revision. */
+  spellData?: { title: string; revid: number };
 }
 
-/** The build format the build matrix plays: six items. */
+/** The build format the main build matrix plays: six items. */
 export const BUILDS_FORMAT = "sixItems";
+/** The build format of the second matrix: five items and boots. */
+export const BOOTS_FORMAT = "fiveItemsWithBoots";
 
 const cache = new Map<string, Promise<unknown>>();
 
@@ -75,7 +83,7 @@ let app: Promise<AppData> | undefined;
 
 export function loadAppData(): Promise<AppData> {
   app ??= (async () => {
-    const index = await fetchJson<{ dataset: string; patch: string; simulationFingerprint?: string; buildsFingerprint?: string; itemSources?: ItemSources; statShards?: boolean }>("data/index.json");
+    const index = await fetchJson<{ dataset: string; patch: string; simulationFingerprint?: string; buildsFingerprint?: string; buildFormats?: string[]; itemSources?: ItemSources; statShards?: boolean }>("data/index.json");
     if (index.statShards !== undefined && typeof index.statShards !== "boolean") throw new Error("Invalid stat-shard availability in dataset index");
     const dir = `data/${index.dataset}/`;
     const [dataset, profiles, glossary, simulated, rules, pets, runes] = await Promise.all([
@@ -95,6 +103,9 @@ export function loadAppData(): Promise<AppData> {
     // Optional: a dataset without builds, or with stale ones, shows plain stats only.
     const builds = index.buildsFingerprint ? await fetchJson<PrecomputedBuilds>(`${dir}simulated-builds.json`).catch(() => undefined) : undefined;
     const currentBuilds = builds && precomputedBuildsCurrent(builds, index.dataset, index.patch, index.buildsFingerprint, BUILDS_FORMAT, kitIds) ? builds : undefined;
+    // The boots matrix, listed in the index when exported, shares the builds' inputs.
+    const boots = index.buildsFingerprint && index.buildFormats?.includes(BOOTS_FORMAT) ? await fetchJson<PrecomputedBuilds>(`${dir}${BUILDS_FILES.fiveItemsWithBoots.matrix}`).catch(() => undefined) : undefined;
+    const currentBoots = boots && precomputedBuildsCurrent(boots, index.dataset, index.patch, index.buildsFingerprint, BOOTS_FORMAT, kitIds) ? boots : undefined;
     const shardPath = `${dir}stat-shards.json`;
     const statShards = index.statShards ? await fetchJson<unknown>(shardPath)
       .then((raw) => validateStatShardData(raw, index.dataset, index.patch, index.simulationFingerprint))
@@ -115,7 +126,9 @@ export function loadAppData(): Promise<AppData> {
       runes,
       ...(statShards ? { statShards } : {}),
       kitIds,
-      ...(currentBuilds ? { builds: currentBuilds, ...(index.itemSources ? { itemSources: index.itemSources } : {}) } : {}),
+      ...(currentBuilds ? { builds: currentBuilds } : {}),
+      ...(currentBoots ? { boots: currentBoots } : {}),
+      ...((currentBuilds || currentBoots) && index.itemSources ? { itemSources: index.itemSources } : {}),
     };
   })();
   app.catch(() => {

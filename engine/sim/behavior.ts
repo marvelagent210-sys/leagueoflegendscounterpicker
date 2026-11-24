@@ -451,14 +451,30 @@ function answers(view: View, state: StateType, t: Threat): boolean {
 
 /** Share of maximum health below which death-prevention abilities are used without a visible threat. */
 const LOW_HEALTH = 0.15;
+/**
+ * The share of its health below which a defensive shield or heal (an ability kept for
+ * reactions, roles "defense", whose effect is sustain) goes up in combat: no reaction answers
+ * steady damage with one (Kai'Sa's Killer Instinct was never cast).
+ */
+export const DEFENSIVE_SUSTAIN = 0.5;
 
-/** Ticks the worst crowd control on the unit still lasts, counting only types that stop it from acting. */
-function disabledFor(unit: Unit, tick: number): number {
+/**
+ * Ticks the worst crowd control on the unit still lasts, counting only types that stop it from
+ * acting, and with `cleanse` only those it removes (as applyEffect's cleanse does).
+ */
+function disabledFor(unit: Unit, tick: number, cleanse?: Extract<Effect, { type: "cleanse" }>): number {
   let longest = 0;
   for (const s of unit.statuses) {
-    if (s.kind === "cc" && IMMOBILIZING.has(s.key as CCType)) longest = Math.max(longest, s.endTick - tick);
+    if (s.kind !== "cc" || !IMMOBILIZING.has(s.key as CCType)) continue;
+    if (cleanse && !((cleanse.types ? cleanse.types.includes(s.key as CCType) : s.key !== "stasis" && s.key !== "kinematics") && (!s.sticky || cleanse.sticky === true))) continue;
+    longest = Math.max(longest, s.endTick - tick);
   }
   return longest;
+}
+
+/** The cleanse an ability gives its caster, if any. */
+function cleanseOf(ability: AbilitySpec): Extract<Effect, { type: "cleanse" }> | undefined {
+  return flatten([...(ability.onSelf ?? []), ...(ability.onCastStart ?? [])]).find((e): e is Extract<Effect, { type: "cleanse" }> => e.type === "cleanse");
 }
 
 /**
@@ -522,10 +538,12 @@ export function react(view: View): Command | undefined {
     const traits = traitsOf(ability);
     // A minimum health threshold also goes up when health runs low under steady damage.
     if (low && traits.defenses.has("minimumHealth")) return { kind: "cast", ability: ability.key };
+    if (traits.sustain && reactive(ability, traits) && inCombat(view) && self.hp < DEFENSIVE_SUSTAIN * derive(self).maxHp) return { kind: "cast", ability: ability.key };
     const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;
-    if (traits.cleanse && disabledFor(self, world.tick) >= 15) return { kind: "cast", ability: ability.key };
+    // A cleanse is spent on crowd control it removes (Cleanse leaves knock-ups).
+    if (traits.cleanse && disabledFor(self, world.tick, cleanseOf(ability)) >= 15) return { kind: "cast", ability: ability.key };
     for (const [state, duration] of traits.defenses) {
       if (view.threats.some((t) => inWindow(t, duration) && answers(view, state, t))) return { kind: "cast", ability: ability.key };
     }
@@ -553,11 +571,11 @@ function inCombat(view: View): boolean {
   return Math.abs(view.self.x - view.enemy.x) <= enemyAttackReach(view) + 150 || view.threats.length > 0;
 }
 
-/** Whether a crowd-control skillshot is worth throwing now: the enemy is likely to be hit. */
-function worthThrowing(view: View, ability: AbilitySpec): boolean {
+/** A skillshot's chance to hit the enemy if cast now (1 for other deliveries). */
+function throwChance(view: View, ability: AbilitySpec): number {
   const { world, self, enemy } = view;
   const d = ability.delivery;
-  if (d.kind !== "line" && d.kind !== "circle") return true;
+  if (d.kind !== "line" && d.kind !== "circle") return 1;
   const travel = d.kind === "line" ? travelTicks(self, enemy, d.speed) / 30 : Math.max(0, d.delayFor?.(self, enemy) ?? d.delay) + (d.flight ?? (d.speed ? Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed : 0));
   const timeToLand = (ability.deliveryAtCastStart ? 0 : (ability.castTimeFor?.(self) ?? ability.castTime)) + travel;
   const chance = hitChance(
@@ -566,11 +584,28 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
     world.settings.reactionTime,
     world.settings.hitSpread,
   );
-  return chance >= 0.35;
+  return chance;
+}
+
+/** Seconds of cast time from which a damage skillshot waits, as crowd control does, until it is likely to hit. */
+export const LONG_CAST = 0.5;
+
+/** Whether a crowd-control skillshot is worth throwing now: the enemy is likely to be hit. */
+function worthThrowing(view: View, ability: AbilitySpec): boolean {
+  return throwChance(view, ability) >= 0.35;
 }
 
 /** How far past a targeted finisher's range the champion steps in to use it, in seconds of walking. */
 const FINISH_STEP = 1;
+
+/**
+ * The share of its maximum health below which a champion that is also behind (a smaller share
+ * of its health left than the enemy) casts a ready finisher that won't kill: holding it for the
+ * kill pays only if the holder outlasts the enemy, and its damage is worth more spent now than
+ * carried to a death (Veigar's Primordial Burst against a tank it can't bring low enough first,
+ * which a burst can kill from 40% in half a second).
+ */
+export const LAST_STAND = 0.5;
 
 /** Edge-to-edge distance within which a movement speed boost is spent to close the gap. */
 const HASTE_REACH = 900;
@@ -596,11 +631,15 @@ function wasted(view: View, ability: AbilitySpec): boolean {
   return enemy.statuses.some((s) => s.endTick > lands && (s.key === "stasis" || (s.kind === "state" && (s.key === "untargetable" || s.key === "invulnerable"))));
 }
 
-/** Offensive casts and attacks, best first: executes, crowd control, damage, gap closers, buffs. */
-function offense(view: View, options: OffenseOptions): Command | undefined {
+/**
+ * Offensive casts and attacks, best first: executes, crowd control, damage, gap closers, buffs.
+ * With `only`, just casts of the abilities it admits (those usable while busy).
+ */
+function offense(view: View, options: OffenseOptions, only?: (ability: AbilitySpec) => boolean): Command | undefined {
   const { world, self, enemy } = view;
   if (!enemy.alive) return undefined;
   const eligible = (a: AbilitySpec) => {
+    if (only && !only(a)) return false;
     const traits = traitsOf(a);
     if (reactive(a, traits) || (!options.ultimates && a.slot === "R") || wasted(view, a)) return false;
     // Pure escapes are saved for getting away.
@@ -610,6 +649,7 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
   // A targeted finisher that would kill just out of range (a champion spacing at a longer attack range) is worth a step in.
   let closeIn = false;
   for (const ability of self.spec.abilities) {
+    if (only && !only(ability)) continue;
     const threshold = traitsOf(ability).execute;
     const finisher = ability.roles?.includes("finisher");
     if (!threshold && !finisher) continue;
@@ -626,7 +666,10 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
     const kills = threshold
       ? enemy.hp <= evaluate(threshold, self, enemy) + expectedDamage(ability.onHit ?? [], self, enemy, true)
       : expectedDamage(enemyEffects(ability), self, enemy, true) >= enemy.hp;
-    if (!kills) continue;
+    // Low on health and behind, a finisher that won't kill is cast for its damage rather than held to the end.
+    const share = self.hp / derive(self).maxHp;
+    const lastStand = ready && !threshold && share <= LAST_STAND && share < enemy.hp / derive(enemy).maxHp && expectedDamage(enemyEffects(ability), self, enemy, true) > 0;
+    if (!kills && !lastStand) continue;
     if (ready) return { kind: "cast", ability: ability.key };
     closeIn = true;
   }
@@ -653,6 +696,10 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
     if (traits.cc || traits.damage) {
       if (!inReach(ability, self, enemy)) continue;
       if (traits.cc && !worthThrowing(view, ability)) continue;
+      // A damage skillshot with a long cast (LONG_CAST) waits until it is likely to land, as
+      // crowd control does, rather than give up its attacks for a likely miss (Trueshot
+      // Barrage's second, which an alert enemy sidesteps 97% of the time).
+      if ((ability.castTimeFor?.(self) ?? ability.castTime) >= LONG_CAST && !worthThrowing(view, ability)) continue;
       return { kind: "cast", ability: ability.key };
     }
     if (traits.sustain) {
@@ -666,6 +713,7 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       if (traits.resetsAttack ? self.attackReadyTick > world.tick + 1 : self.attackReadyTick <= world.tick + 1) return { kind: "cast", ability: ability.key };
     }
   }
+  if (only) return undefined;
   const urgent = petTarget(view, true);
   if (urgent) return { kind: "attack", pet: urgent.id };
   if (canStartAttack(world, self) && !outrunsWindup(view)) return { kind: "attack" };
@@ -756,6 +804,11 @@ export const defaultBehavior: Behavior = (view) => {
   // canCast admits only the explicit overlays that may defend during another action.
   const reaction = react(view);
   if (reaction) return reaction;
+  // Abilities usable at any time (summoner spells), during the unit's own casts, channels, dashes and windups.
+  if (action && mode !== "flee" && self.spec.abilities.some((a) => a.anytime)) {
+    const instant = offense(view, { ultimates: mode !== "trade" && mode !== "hold", engage: mode !== "kite" }, (a) => a.anytime === true);
+    if (instant) return instant;
+  }
   if (action && action.kind !== "windup") {
     // Busy: only walking, during casts and channels that allow it.
     const ability = "ability" in action ? abilityOf(self, action.ability) : undefined;

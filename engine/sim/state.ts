@@ -31,7 +31,7 @@ export interface Status {
   blackShield?: boolean;
   /** `label`: what its ticks are logged as (the ability's name). */
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string; originX?: number;
-    castInstance?: number; observedDamageKind?: ObservedDamageKind };
+    castInstance?: number; observedDamageKind?: ObservedDamageKind; unamplified?: boolean };
   empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; hitsUntargetable?: boolean; spellShield?: boolean; spellShieldOnHit?: boolean; attackOnHitReplacement?: Effect[]; onHitApplications?: number; breakShields?: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];

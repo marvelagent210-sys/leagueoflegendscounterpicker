@@ -157,6 +157,9 @@ button.row-main:hover { background: var(--sunken); }
 .build { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .build .label { color: var(--muted); }
 .items { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; overflow-wrap: anywhere; }
+.loadout { margin: 4px 0 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 2px 8px; overflow-wrap: anywhere; }
+.loadout dt { color: var(--muted); }
+.loadout dd { margin: 0; }
 
 /* Tables */
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
