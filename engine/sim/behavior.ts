@@ -16,7 +16,7 @@
  * crowd control, and finish with executes. What it does with them depends on its mode
  * (state.ts).
  */
-import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
+import { CC_RULES, type CCType, IMMOBILIZING } from "../rules/crowdControl";
 import { effectiveResist, mitigate } from "../rules/damage";
 import { absorbWithShields, averageCritFactor, type Shield } from "../rules/defense";
 import { toTicks } from "../rules/time";
@@ -705,9 +705,6 @@ function offense(view: View, options: OffenseOptions, only?: (ability: AbilitySp
         if (inReach(ability, self, enemy)) return { kind: "cast", ability: ability.key };
         continue;
       }
-      // A gap closer that also shields or heals (Valor): within attack range already, it is cast
-      // for that, as other sustain is, rather than kept for closing a gap there isn't.
-      if (traits.sustain && inAttackRange(self, enemy) && inCombat(view) && self.hp < derive(self).maxHp * 0.9) return { kind: "cast", ability: ability.key };
       // A gap closer: worth it when out of attack range and the dash brings the enemy into it.
       const reach = (d.kind === "dash" || d.kind === "blink" ? d.distance : 0) + attackRange(self, view.enemy);
       if (!inAttackRange(self, enemy) && view.distance <= reach) return { kind: "cast", ability: ability.key };
@@ -771,19 +768,12 @@ function kitingBack(view: View): boolean {
 
 /**
  * Edge-to-edge units the enemy will open up during this unit's windup if it walks away: one
- * walking away already, one about to step back between its attacks (kitingBack), a feared one,
- * which keeps walking away until the fear ends, or one knocked away.
+ * walking away already, one about to step back between its attacks (kitingBack), or a feared
+ * one, which keeps walking away until the fear ends.
  */
 function escapeDuringWindup(view: View): number {
   const { world, self, enemy } = view;
   const windup = attackTiming(self).windup / 30;
-  // Knocked away: carried on until the displacement ends (or its distance runs out).
-  const forced = enemy.forced;
-  if (forced) {
-    if (enemy.moved !== -1) return 0;
-    const ticks = Math.min(attackTiming(self).windup, Math.max(0, forced.endTick - world.tick));
-    return Math.min(Math.abs(forced.perTick) * ticks, forced.remaining ?? Number.POSITIVE_INFINITY);
-  }
   const fear = !enemy.forced && ccTypes(enemy).has("fear") ? enemy.statuses.findLast((s) => s.kind === "cc" && s.key === "fear") : undefined;
   if (fear) return enemy.moved === -1 ? derive(enemy).moveSpeed * Math.min(windup, Math.max(0, (fear.endTick - world.tick) / 30)) : 0;
   if (!canMove(enemy)) return 0;
@@ -914,8 +904,15 @@ export const defaultBehavior: Behavior = (view) => {
   return undefined;
 };
 
-/** Whether crowd control leaves the unit any choice at all. */
+/**
+ * Whether crowd control leaves the unit any choice at all: crowd control that stops both its
+ * attacks and its abilities leaves none, but a root stops only walking (the wiki's crowd control
+ * table, CC_RULES: a rooted champion attacks and casts all but movement abilities).
+ */
 function canAct(unit: Unit): boolean {
-  for (const type of ccTypes(unit)) if (IMMOBILIZING.has(type)) return false;
+  for (const type of ccTypes(unit)) {
+    const rule = CC_RULES[type];
+    if ((rule.attacking === "disabled" || rule.attacking === "uncontrollable") && rule.abilities === "disabled") return false;
+  }
   return true;
 }

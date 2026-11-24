@@ -3754,11 +3754,13 @@ Nocturne cancelled 18 a fight, Braum 14 and Hecarim 8. There were three causes:
   who steps back between attacks. The check now applies to every behavior's command, the
   default's and the kits' own (`disciplined`, applied in `decide`): an attack the enemy would
   outrun becomes the default's spacing (closing in, except when kiting).
-- **Feared and knocked-back enemies.** A feared or knocked-back enemy can't move by choice,
-  so the check treated it as standing still, but it keeps moving away. Nocturne cancelled
-  attacks on enemies fleeing his Unspeakable Horror, and Milio on enemies his kick knocked
-  back. The check now counts a fear until it ends, and a displacement until it ends or its
-  distance runs out.
+- **Feared enemies.** A feared enemy can't move by choice, so the check treated it as
+  standing still, but it keeps walking away. Nocturne cancelled attacks on enemies fleeing his
+  Unspeakable Horror. The check now counts a fear until it ends. Counting knock-backs the same
+  way (Milio cancelled attacks on enemies his kick knocked back) was tried and left out: over
+  120 pairings of six champions with knock-backs it changed scores by +0.0002 on average, and it
+  tipped the golden Poppy against Kled, whose all-ins end with both sides below a fifth of their
+  health, from +0.32 to +0.05.
 - **Kiting.** A ranged enemy out-ranging the attacker by more than 50 steps back between its
   attacks (the default spacing). Attackers started their windups just before that step, often
   while the kiter was still in its own windup. They now expect the step once the kiter's own
@@ -3770,7 +3772,7 @@ decide first changes what the other sees; the mirrored-fight tests hold to 1e-10
 fell to 681 over the same 2,076 fights (0.33 a fight), and fights ended 0.23 s sooner on
 average. What remains is mostly forced: taunted champions attack by themselves (Rammus's
 Frenzying Taunt), and kits that step while attacking (Aphelios). Tests: the check passes a
-safe attack and holds one against an enemy walking away, feared or knocked back; a kiter's
+safe attack and holds one against an enemy walking away or feared; a kiter's
 step after its windup; an attack at contact; an enemy action started this tick; and a kit
 behavior that attacks whenever it can, which no longer cancels against a kiter.
 
@@ -3796,25 +3798,28 @@ before the attacks. So it was left out, and not extended to the kits' own behavi
 ### Defenses held to the end (24 November 2026)
 
 A scan of what each champion still had ready when it died (each kit against four opponents,
-the three all-ins) found defenses kept to the end. Three were decision mistakes:
+the three all-ins) found defenses kept to the end. Two were decision mistakes, now fixed:
 
 - **Thresh's Dark Passage** was ready in 11 of his 12 deaths. The lantern thrown at his own
   feet shields him (the wiki: "He and the first allied champion to come near the lantern are
   granted a shield"; 130 at level 20, 2 more per soul). The shared reactions don't see a shield
   there, since it comes from the lantern's contact. His behavior now throws it at his feet in a
   fight or trade below half health (`DEFENSIVE_SUSTAIN`), as other defensive shields go up.
-- **Riven's Valor and K'Sante's Footwork**, dashes that shield, were ready in 7 of Riven's 9
-  deaths. They counted as gap closers only, so they were cast only to reach an enemy out of
-  range. Within attack range they now go up once their holder is below 90% of its health in
-  combat, as other shields and heals do. Riven gains 0.135 on average against every ninth
-  champion (15 of 20 pairings moved) and K'Sante 0.178.
 - **Olaf's Ragnarok and Poppy's Steadfast Presence** are kept for what they answer (crowd
   control, dashes), but both also buff (attack damage; resistances). Ragnarok was ready in all
   three of Olaf's deaths. Against an enemy whose kit has nothing they answer, or once their
   holder is below half health, they now go up within attack range for the buff. Olaf gains
   0.007 and Poppy nothing on average (Poppy against Senna loses 0.07, against Hwei gains 0.04).
 
-One change was tried and left out. Below 15% health, Fiora's Riposte, Vladimir's Sanguine Pool,
+Two changes were tried and left out. Riven's Valor and K'Sante's Footwork, dashes that
+shield, were ready in 7 of Riven's 9 deaths: they count as gap closers only, cast to reach an
+enemy out of range. Letting them go up within attack range once their holder is hurt (below 90%
+of its health, or below half) raised Riven by 0.135 (0.051) and K'Sante by 0.178 (0.155) on
+average against every ninth champion. But K'Sante, with the 101 ability haste the stat budget
+buys him against Fiora and All Out's halved cooldown, then shields 240 every two seconds, and
+the golden Fiora against K'Sante turns from a clear win (+0.84) to a loss (−0.36). That rests
+on how his budget values haste, so the dashes stay gap closers until that is reviewed. Below
+15% health, Fiora's Riposte, Vladimir's Sanguine Pool,
 Fizz's Playful/Trickster and Sivir's Spell Shield were also let answer any damaging hit, not
 just one that kills by itself. Vladimir lost 0.031 and Fiora 0.019 on average: spent on a small
 hit, the block is on cooldown when the hit that kills arrives.
@@ -3822,10 +3827,22 @@ hit, the block is on cooldown when the hit that kills arrives.
 The rest of the scan's finds are not mistakes. Kindred's Lamb's Respite needs its own policy (a
 known limit), and Zeri's, Yasuo's and Lucian's dashes are kept for getting away. Renata's
 Loyalty Program shields only an ally. Sivir's Spell Shield blocks only spells, and these deaths
-were to attacks. Tests: Thresh throws the lantern at his feet below half health and not above;
-a shielding gap closer goes up in range at the hit that takes it below 90%; a cleanse that buffs
+were to attacks. Tests: Thresh throws the lantern at his feet below half health and not above; a cleanse that buffs
 goes up against an enemy with no crowd control, and is kept against one with crowd control
 until below half health.
+
+### Rooted champions stood idle (24 November 2026)
+
+A scan of ticks where a champion was free, its attack ready and the enemy in range, yet started
+nothing, found Heimerdinger idle through Morgana's Dark Binding. The default behavior returned no
+command at all under any immobilizing crowd control, roots included. The wiki's crowd control
+table (`CC_RULES`) has a rooted champion attack and cast everything but movement abilities, and the
+engine already allowed both. The behavior now stands down only under crowd control that stops
+both attacks and abilities (stuns, knock-ups, fears, charms, taunts, suppression, sleep). Over 100
+pairings of ten champions against ten that root (Morgana, Lux, Zyra, Maokai, Neeko, Rell, Jinx,
+Ryze, Taliyah and Ivern), the rooted side gains 0.067 on average, 51 pairings up and 11 down: Vayne
+against Maokai +0.67, Malphite against Neeko +0.58, Jhin against Morgana +0.50. Tests: a rooted
+champion casts and attacks; a stunned one does nothing.
 
 ## Remaining limits
 

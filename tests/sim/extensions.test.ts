@@ -299,17 +299,6 @@ describe("defensive shields", () => {
     expect(2000 - taken).toBeGreaterThanOrEqual(DEFENSIVE_SUSTAIN * 2000 - 75);
   });
 
-  it("on a gap closer (Valor) go up within attack range once it is hurt, rather than waiting for a gap", () => {
-    const valor = ability({ key: "E", cooldown: 100, castTime: 0, delivery: { kind: "dash", direction: "toward", distance: 250, speed: 1200 }, onSelf: [{ type: "shield", amount: { base: 300 }, duration: 1.5 }] });
-    const outcome = duel(fighter({ abilities: [valor] }), fighter({ base: { ad: 150 } }), { behaviors: [undefined, undefined], settings: { maxSeconds: 60 } });
-    const cast = ticksOf(outcome.timeline, 0, "casts E")[0];
-    expect(cast).toBeDefined();
-    // Within range from the start (a brawl), it is cast at the hit that takes its holder below 90%
-    // of its 2,000 health (75 a hit: the third), as other sustain is, not at full health.
-    const hits = ticksOf(outcome.timeline, 1, "attack deals");
-    expect(cast).toBeGreaterThanOrEqual(hits[2]!);
-    expect(cast).toBeLessThan(hits[3]!);
-  });
 });
 
 describe("defenses kept for what they answer that also buff", () => {
@@ -330,6 +319,26 @@ describe("defenses kept for what they answer that also buff", () => {
     expect(defaultBehavior(view)).not.toEqual({ kind: "cast", ability: "R" });
     view.self.hp = derive(view.self).maxHp * (DEFENSIVE_SUSTAIN - 0.05);
     expect(defaultBehavior(view)).toEqual({ kind: "cast", ability: "R" });
+  });
+});
+
+describe("crowd control that leaves a choice", () => {
+  // The wiki's crowd control table (CC_RULES): a root stops walking, not attacks or casts.
+  const rooted = (cc: "root" | "stun") => {
+    const world = createWorld({ fighters: [fighter({ abilities: [ability({ key: "Q", cooldown: 10, castTime: 0, delivery: { kind: "target", range: 300 }, onHit: [trueDamage(50)] })] }), fighter()], distance: 50, modes: ["fight", "idle"] });
+    applyEffect(world, world.units[1], world.units[0], { type: "cc", cc, duration: 2 }, { scale: 1 });
+    return perceive(world, 0);
+  };
+
+  it("lets a rooted champion cast and attack", () => {
+    const view = rooted("root");
+    expect(defaultBehavior(view)).toEqual({ kind: "cast", ability: "Q" });
+    view.self.cooldownReady.Q = 1000;
+    expect(defaultBehavior(view)).toEqual({ kind: "attack" });
+  });
+
+  it("leaves a stunned one none", () => {
+    expect(defaultBehavior(rooted("stun"))).toBeUndefined();
   });
 });
 
@@ -384,16 +393,6 @@ describe("attack discipline", () => {
     expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
     // A fear ending this tick leaves it no time to open the gap.
     world.tick = world.units[1].statuses.find((status) => status.key === "fear")!.endTick;
-    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
-  });
-
-  it("counts an enemy knocked away as carried on until the displacement ends", () => {
-    const world = near();
-    world.units[1].forced = { endTick: world.tick + 10, perTick: 20 };
-    world.units[1].moved = -1;
-    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
-    // With 5 units of the knock back left, it stays within the 10 units of range to spare.
-    world.units[1].forced = { endTick: world.tick + 10, perTick: 20, remaining: 5 };
     expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
   });
 
