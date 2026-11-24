@@ -3778,6 +3778,21 @@ The Presence of Mind command-line test compared Cassiopeia with and without the 
 Sion. Sion now closes in on her kiting and wins every all-in either way, so the rune's
 benefit can't show. The test uses Aatrox, against whom it adds 0.39 and two casts.
 
+### Crowd control cast on a held enemy: tried and left out
+
+The same scan counted crowd control cast while the enemy was already held, which wastes the
+overlap: Alistar cast Headbutt during his own Pulverize knock-up in 26 of 33 casts, Tahm Kench's
+Abyssal Dive and Rammus's Powerball landed with 1.4 and 1.3 s of hold left, and Nautilus's,
+Maokai's and Rell's did the same. Ultimates aren't counted, since some need a held target
+(Last Breath). Holding an immobilizing basic ability until the current hold is about to end
+(landing within 0.1 s of its end) was tried in the default behavior. It worked as meant:
+Alistar's Headbutt then lands as Pulverize ends, and the stun lasts longer. But over 60 pairings
+of the four kits it changes (Alistar, Maokai, Nami and Nautilus, each against every ninth
+champion), the change averaged −0.007, with single pairings moving from −0.46 to +0.34 as the
+fights took other courses. The damage and tempo the wait gives up are worth as much, in these
+fights, as the lockdown it adds, and holding a knock-back (Headbutt) also pushes the enemy away
+before the attacks. So it was left out, and not extended to the kits' own behaviors either.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
