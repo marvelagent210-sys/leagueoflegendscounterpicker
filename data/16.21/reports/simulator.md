@@ -9,177 +9,177 @@ Each champion's average score against the others (−1 to +1).
 | # | Champion | Average |
 |--:|---|--:|
 | 1 | Yorick | +0.77 |
-| 2 | K'Sante | +0.73 |
-| 3 | Nasus | +0.73 |
-| 4 | Fiora | +0.73 |
-| 5 | Vayne | +0.72 |
-| 6 | Trundle | +0.68 |
-| 7 | Ivern | +0.66 |
-| 8 | Dr. Mundo | +0.63 |
-| 9 | Kog'Maw | +0.63 |
-| 10 | Kayle | +0.62 |
-| 11 | Aphelios | +0.61 |
-| 12 | Lulu | +0.60 |
-| 13 | Jax | +0.58 |
-| 14 | Poppy | +0.57 |
-| 15 | Shyvana | +0.56 |
+| 2 | K'Sante | +0.74 |
+| 3 | Nasus | +0.74 |
+| 4 | Fiora | +0.72 |
+| 5 | Vayne | +0.71 |
+| 6 | Trundle | +0.69 |
+| 7 | Dr. Mundo | +0.63 |
+| 8 | Kog'Maw | +0.62 |
+| 9 | Poppy | +0.61 |
+| 10 | Jax | +0.61 |
+| 11 | Ivern | +0.60 |
+| 12 | Kayle | +0.58 |
+| 13 | Lulu | +0.57 |
+| 14 | Shyvana | +0.57 |
+| 15 | Aphelios | +0.56 |
 | 16 | Teemo | +0.54 |
 | 17 | Yasuo | +0.53 |
-| 18 | Zaahen | +0.50 |
-| 19 | Ashe | +0.48 |
-| 20 | Darius | +0.48 |
-| 21 | Gangplank | +0.47 |
-| 22 | Tryndamere | +0.46 |
-| 23 | Udyr | +0.45 |
-| 24 | Kled | +0.43 |
-| 25 | Corki | +0.43 |
-| 26 | Twisted Fate | +0.38 |
-| 27 | Olaf | +0.36 |
-| 28 | Zeri | +0.36 |
-| 29 | Xayah | +0.35 |
-| 30 | Warwick | +0.33 |
-| 31 | Volibear | +0.33 |
-| 32 | Mordekaiser | +0.33 |
-| 33 | Jayce | +0.32 |
-| 34 | Camille | +0.31 |
-| 35 | Zac | +0.31 |
-| 36 | Master Yi | +0.30 |
-| 37 | Karma | +0.30 |
-| 38 | Quinn | +0.30 |
-| 39 | Sion | +0.29 |
-| 40 | Heimerdinger | +0.29 |
-| 41 | Maokai | +0.29 |
-| 42 | Renekton | +0.28 |
-| 43 | Illaoi | +0.27 |
-| 44 | Neeko | +0.27 |
-| 45 | Orianna | +0.27 |
-| 46 | Taric | +0.26 |
-| 47 | Gnar | +0.26 |
-| 48 | Xin Zhao | +0.26 |
-| 49 | Kalista | +0.25 |
-| 50 | Gwen | +0.25 |
-| 51 | Tahm Kench | +0.24 |
-| 52 | Cho'Gath | +0.23 |
-| 53 | Bel'Veth | +0.23 |
-| 54 | Malphite | +0.22 |
-| 55 | Annie | +0.22 |
-| 56 | Graves | +0.22 |
-| 57 | Diana | +0.20 |
-| 58 | Wukong | +0.20 |
-| 59 | Yunara | +0.19 |
-| 60 | Aatrox | +0.18 |
-| 61 | Kennen | +0.18 |
-| 62 | Nocturne | +0.18 |
-| 63 | Lee Sin | +0.17 |
-| 64 | Kai'Sa | +0.16 |
-| 65 | Viego | +0.14 |
-| 66 | Aurora | +0.14 |
-| 67 | Milio | +0.13 |
+| 18 | Zaahen | +0.53 |
+| 19 | Olaf | +0.50 |
+| 20 | Tryndamere | +0.50 |
+| 21 | Darius | +0.50 |
+| 22 | Ashe | +0.48 |
+| 23 | Udyr | +0.47 |
+| 24 | Gangplank | +0.47 |
+| 25 | Kled | +0.46 |
+| 26 | Corki | +0.43 |
+| 27 | Volibear | +0.39 |
+| 28 | Twisted Fate | +0.36 |
+| 29 | Warwick | +0.36 |
+| 30 | Renekton | +0.36 |
+| 31 | Mordekaiser | +0.35 |
+| 32 | Zac | +0.34 |
+| 33 | Camille | +0.34 |
+| 34 | Sion | +0.33 |
+| 35 | Master Yi | +0.31 |
+| 36 | Zeri | +0.31 |
+| 37 | Taric | +0.30 |
+| 38 | Illaoi | +0.30 |
+| 39 | Nocturne | +0.29 |
+| 40 | Jayce | +0.29 |
+| 41 | Malphite | +0.29 |
+| 42 | Tahm Kench | +0.28 |
+| 43 | Xin Zhao | +0.28 |
+| 44 | Xayah | +0.27 |
+| 45 | Gnar | +0.27 |
+| 46 | Diana | +0.26 |
+| 47 | Quinn | +0.26 |
+| 48 | Gwen | +0.26 |
+| 49 | Kalista | +0.26 |
+| 50 | Heimerdinger | +0.25 |
+| 51 | Cho'Gath | +0.25 |
+| 52 | Bel'Veth | +0.23 |
+| 53 | Orianna | +0.23 |
+| 54 | Wukong | +0.22 |
+| 55 | Graves | +0.22 |
+| 56 | Aatrox | +0.20 |
+| 57 | Lee Sin | +0.19 |
+| 58 | Kennen | +0.19 |
+| 59 | Annie | +0.18 |
+| 60 | Braum | +0.17 |
+| 61 | Kai'Sa | +0.17 |
+| 62 | Neeko | +0.17 |
+| 63 | Viego | +0.17 |
+| 64 | Maokai | +0.15 |
+| 65 | Garen | +0.14 |
+| 66 | Karma | +0.13 |
+| 67 | Yunara | +0.13 |
 | 68 | Anivia | +0.13 |
-| 69 | Swain | +0.11 |
-| 70 | Garen | +0.11 |
-| 71 | Yone | +0.10 |
-| 72 | Jhin | +0.09 |
-| 73 | Tristana | +0.09 |
-| 74 | Irelia | +0.08 |
-| 75 | Riven | +0.06 |
-| 76 | Azir | +0.06 |
-| 77 | Jinx | +0.05 |
-| 78 | Rammus | +0.05 |
-| 79 | Braum | +0.04 |
-| 80 | Sett | +0.04 |
-| 81 | Morgana | +0.03 |
-| 82 | Gragas | +0.03 |
+| 69 | Yone | +0.12 |
+| 70 | Nilah | +0.11 |
+| 71 | Aurora | +0.10 |
+| 72 | Irelia | +0.09 |
+| 73 | Vi | +0.09 |
+| 74 | Jhin | +0.08 |
+| 75 | Riven | +0.08 |
+| 76 | Rammus | +0.07 |
+| 77 | Caitlyn | +0.06 |
+| 78 | Sett | +0.06 |
+| 79 | Gragas | +0.05 |
+| 80 | Varus | +0.04 |
+| 81 | Milio | +0.04 |
+| 82 | Rumble | +0.04 |
 | 83 | Sivir | +0.03 |
-| 84 | Smolder | +0.03 |
-| 85 | Varus | +0.03 |
-| 86 | Samira | +0.02 |
-| 87 | Vel'Koz | +0.02 |
-| 88 | Rumble | +0.02 |
-| 89 | Pantheon | +0.00 |
-| 90 | Sylas | +0.00 |
-| 91 | Miss Fortune | −0.00 |
-| 92 | Vi | −0.01 |
-| 93 | Rakan | −0.01 |
-| 94 | Ambessa | −0.02 |
-| 95 | Draven | −0.03 |
-| 96 | Lucian | −0.04 |
-| 97 | Lillia | −0.04 |
-| 98 | Fizz | −0.04 |
-| 99 | Ezreal | −0.04 |
-| 100 | Elise | −0.04 |
-| 101 | Urgot | −0.04 |
-| 102 | Nilah | −0.05 |
-| 103 | Cassiopeia | −0.06 |
-| 104 | Rek'Sai | −0.08 |
-| 105 | Rengar | −0.08 |
-| 106 | Hwei | −0.08 |
-| 107 | Singed | −0.08 |
-| 108 | Kassadin | −0.09 |
-| 109 | Zilean | −0.12 |
-| 110 | Malzahar | −0.13 |
-| 111 | Akshan | −0.13 |
-| 112 | Ziggs | −0.16 |
-| 113 | Jarvan IV | −0.16 |
-| 114 | Lux | −0.17 |
-| 115 | Alistar | −0.17 |
-| 116 | Sejuani | −0.17 |
-| 117 | Shen | −0.17 |
-| 118 | Skarner | −0.19 |
-| 119 | Kayn | −0.19 |
-| 120 | Bard | −0.20 |
-| 121 | Rell | −0.21 |
-| 122 | Brand | −0.21 |
-| 123 | Ornn | −0.22 |
-| 124 | Mel | −0.22 |
-| 125 | Janna | −0.24 |
-| 126 | Twitch | −0.26 |
-| 127 | Galio | −0.26 |
-| 128 | Shaco | −0.26 |
-| 129 | Kindred | −0.27 |
-| 130 | Fiddlesticks | −0.27 |
-| 131 | Zoe | −0.27 |
-| 132 | Briar | −0.28 |
-| 133 | Ryze | −0.28 |
-| 134 | Nautilus | −0.29 |
-| 135 | Leona | −0.32 |
-| 136 | Amumu | −0.32 |
-| 137 | Zed | −0.34 |
-| 138 | Zyra | −0.35 |
-| 139 | Syndra | −0.36 |
-| 140 | Aurelion Sol | −0.37 |
-| 141 | Soraka | −0.39 |
-| 142 | Akali | −0.39 |
-| 143 | Sona | −0.40 |
-| 144 | Senna | −0.41 |
-| 145 | Viktor | −0.42 |
-| 146 | Naafiri | −0.43 |
-| 147 | Nami | −0.43 |
-| 148 | Karthus | −0.43 |
-| 149 | Nidalee | −0.44 |
-| 150 | Hecarim | −0.46 |
-| 151 | Ekko | −0.46 |
-| 152 | Caitlyn | −0.48 |
-| 153 | Nunu & Willump | −0.49 |
-| 154 | Lissandra | −0.49 |
-| 155 | Vex | −0.49 |
-| 156 | Ahri | −0.51 |
-| 157 | Locke | −0.54 |
-| 158 | Xerath | −0.54 |
-| 159 | Veigar | −0.55 |
-| 160 | Seraphine | −0.58 |
-| 161 | Evelynn | −0.58 |
-| 162 | LeBlanc | −0.60 |
-| 163 | Kha'Zix | −0.61 |
-| 164 | Vladimir | −0.62 |
-| 165 | Talon | −0.64 |
-| 166 | Blitzcrank | −0.64 |
-| 167 | Renata Glasc | −0.70 |
+| 84 | Tristana | +0.03 |
+| 85 | Samira | +0.03 |
+| 86 | Swain | +0.02 |
+| 87 | Pantheon | +0.02 |
+| 88 | Sylas | −0.00 |
+| 89 | Vel'Koz | −0.00 |
+| 90 | Azir | −0.00 |
+| 91 | Ambessa | −0.01 |
+| 92 | Fizz | −0.01 |
+| 93 | Lillia | −0.02 |
+| 94 | Rakan | −0.02 |
+| 95 | Jinx | −0.02 |
+| 96 | Smolder | −0.02 |
+| 97 | Elise | −0.03 |
+| 98 | Ezreal | −0.03 |
+| 99 | Miss Fortune | −0.04 |
+| 100 | Urgot | −0.04 |
+| 101 | Kassadin | −0.05 |
+| 102 | Draven | −0.05 |
+| 103 | Rek'Sai | −0.06 |
+| 104 | Hwei | −0.07 |
+| 105 | Malzahar | −0.07 |
+| 106 | Rengar | −0.07 |
+| 107 | Alistar | −0.09 |
+| 108 | Lucian | −0.10 |
+| 109 | Zilean | −0.11 |
+| 110 | Cassiopeia | −0.11 |
+| 111 | Singed | −0.13 |
+| 112 | Sejuani | −0.13 |
+| 113 | Akshan | −0.13 |
+| 114 | Jarvan IV | −0.13 |
+| 115 | Kayn | −0.15 |
+| 116 | Morgana | −0.16 |
+| 117 | Skarner | −0.16 |
+| 118 | Ziggs | −0.17 |
+| 119 | Shen | −0.17 |
+| 120 | Twitch | −0.18 |
+| 121 | Rell | −0.19 |
+| 122 | Bard | −0.20 |
+| 123 | Brand | −0.21 |
+| 124 | Ornn | −0.22 |
+| 125 | Galio | −0.23 |
+| 126 | Kindred | −0.24 |
+| 127 | Shaco | −0.24 |
+| 128 | Fiddlesticks | −0.27 |
+| 129 | Amumu | −0.29 |
+| 130 | Zoe | −0.29 |
+| 131 | Janna | −0.29 |
+| 132 | Briar | −0.30 |
+| 133 | Zed | −0.31 |
+| 134 | Leona | −0.32 |
+| 135 | Mel | −0.34 |
+| 136 | Lux | −0.36 |
+| 137 | Aurelion Sol | −0.37 |
+| 138 | Syndra | −0.38 |
+| 139 | Akali | −0.39 |
+| 140 | Ryze | −0.40 |
+| 141 | Hecarim | −0.40 |
+| 142 | Nautilus | −0.40 |
+| 143 | Naafiri | −0.41 |
+| 144 | Viktor | −0.42 |
+| 145 | Karthus | −0.43 |
+| 146 | Sona | −0.44 |
+| 147 | Nidalee | −0.44 |
+| 148 | Zyra | −0.45 |
+| 149 | Ekko | −0.45 |
+| 150 | Nami | −0.46 |
+| 151 | Soraka | −0.47 |
+| 152 | Locke | −0.51 |
+| 153 | Vex | −0.51 |
+| 154 | Ahri | −0.52 |
+| 155 | Senna | −0.54 |
+| 156 | Xerath | −0.55 |
+| 157 | Nunu & Willump | −0.56 |
+| 158 | Seraphine | −0.56 |
+| 159 | Veigar | −0.56 |
+| 160 | Evelynn | −0.57 |
+| 161 | Lissandra | −0.59 |
+| 162 | Kha'Zix | −0.60 |
+| 163 | Vladimir | −0.61 |
+| 164 | Talon | −0.63 |
+| 165 | LeBlanc | −0.64 |
+| 166 | Blitzcrank | −0.65 |
+| 167 | Renata Glasc | −0.67 |
 | 168 | Katarina | −0.71 |
 | 169 | Taliyah | −0.72 |
-| 170 | Qiyana | −0.72 |
-| 171 | Yuumi | −0.76 |
-| 172 | Pyke | −0.77 |
+| 170 | Qiyana | −0.73 |
+| 171 | Pyke | −0.77 |
+| 172 | Yuumi | −0.78 |
 | 173 | Thresh | −0.78 |
 
 ## Golden matchups
@@ -193,21 +193,21 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Poppy beats Yasuo | slight | +0.80 | holds | Steadfast Presence stops Sweeping Blade. |
 | Poppy beats Yone | slight | +0.80 | holds | Steadfast Presence stops Mortal Steel's third-cast dash. |
 | Poppy beats Camille | slight | +0.83 | holds | Steadfast Presence stops Wall Dive. |
-| Poppy beats Fiora | slight | −0.28 | disputed | Steadfast Presence stops Lunge. *Disputed:* Fiora wins every all-in (-0.74). Poppy's damage is all physical, and with penetration capped the budget answers it with 5,600 gold of armor (406 in all), while Poppy spends hers on damage rather than health: her opening crowd control wears off with Fiora barely scratched. |
+| Poppy beats Fiora | slight | −0.38 | disputed | Steadfast Presence stops Lunge. *Disputed:* Fiora wins every all-in (-0.74). Poppy's damage is all physical, and with penetration capped the budget answers it with 5,600 gold of armor (406 in all), while Poppy spends hers on damage rather than health: her opening crowd control wears off with Fiora barely scratched. |
 | Poppy beats Kled | clear | +0.32 | holds | Steadfast Presence stops Jousting's dashes and Chaaaaaaaarge!!!'s final dash. |
 | Poppy beats Akali | clear | +0.83 | holds | Steadfast Presence stops Shuriken Flip's dash back in and both of Perfect Execution's dashes. |
 | Poppy beats Gnar | slight | +0.82 | holds | Steadfast Presence stops Hop and Crunch. |
 | Poppy beats Pantheon | slight | +0.84 | holds | Steadfast Presence stops Shield Vault's leap, and with it the stun. |
 | Teemo beats Tryndamere | clear | +0.82 | holds | Blinding Dart stops the crits Tryndamere's damage and Fury come from, and Teemo out-ranges him. |
 | Teemo beats Darius | slight | +0.83 | holds | Blinding Dart stops the attacks that stack Hemorrhage, and Teemo kites him. |
-| Teemo beats Garen | slight | +0.55 | holds | Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste. |
-| Teemo beats Olaf | slight | +0.86 | holds | Blinding Dart stops Olaf's attacks, and Teemo kites him. |
-| Teemo beats Volibear | slight | +0.84 | holds | Teemo kites him, and a blinded Thundering Smash attack misses, stun included. |
+| Teemo beats Garen | slight | +0.31 | holds | Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste. |
+| Teemo beats Olaf | slight | +0.46 | holds | Blinding Dart stops Olaf's attacks, and Teemo kites him. |
+| Teemo beats Volibear | slight | +0.01 | holds | Teemo kites him, and a blinded Thundering Smash attack misses, stun included. |
 | Teemo beats Gangplank | clear | +0.64 | holds | Teemo out-ranges Gangplank and shoots his Powder Kegs away, and Blinding Dart makes Trial by Fire's attack miss. |
 | Teemo beats Kled | slight | +0.82 | holds | Teemo kites Kled, and Blinding Dart stops his attacks. |
-| Teemo beats Udyr | slight | +0.81 | holds | Blinding Dart makes Udyr's empowered attacks miss, and Teemo kites him. |
+| Teemo beats Udyr | slight | +0.32 | holds | Blinding Dart makes Udyr's empowered attacks miss, and Teemo kites him. |
 | Quinn beats Darius | clear | +0.83 | holds | Quinn out-ranges Darius, and Vault knocks him back when he closes in. |
-| Quinn beats Garen | clear | +0.81 | holds | Quinn out-ranges Garen, and Blinding Assault's nearsight and Vault keep him off her. |
+| Quinn beats Garen | clear | +0.79 | holds | Quinn out-ranges Garen, and Blinding Assault's nearsight and Vault keep him off her. |
 | Kayle beats Darius | slight | +0.84 | holds | By level 20 Kayle attacks from range, and Divine Judgment's invulnerability answers Noxian Guillotine. |
 | Jax beats Tryndamere | slight | +0.79 | holds | Counter Strike dodges Tryndamere's attacks for two seconds, then stuns him. |
 | Jax beats Camille | slight | +0.77 | holds | Counter Strike dodges Precision Protocol's empowered attacks. |
@@ -228,7 +228,7 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Fiora beats Shen | slight | +0.84 | holds | Vitals deal true damage from maximum health, and Riposte parries Shadow Dash's taunt. |
 | Gwen beats Dr. Mundo | clear | +0.79 | holds | A Thousand Cuts deals magic damage from maximum health. |
 | Gwen beats Ornn | clear | +0.75 | holds | A Thousand Cuts deals magic damage from maximum health. |
-| Gwen beats Shen | slight | +0.77 | holds | A Thousand Cuts deals magic damage from maximum health. |
+| Gwen beats Shen | slight | +0.78 | holds | A Thousand Cuts deals magic damage from maximum health. |
 | Gwen beats Malphite | slight | +0.78 | holds | Gwen's damage is magic, so Malphite's armor doesn't help him. |
 | Mordekaiser beats Malphite | slight | +0.75 | holds | Mordekaiser's damage is magic, so Malphite's armor doesn't help him. |
 | Mordekaiser beats Ornn | slight | +0.76 | holds | Magic damage and Realm of Death's stolen stats against a tank. |
@@ -248,7 +248,7 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Yasuo beats Malphite | slight | +0.78 | holds | After Last Breath, Yasuo's critical strikes ignore 60% of Malphite's bonus armor, adding to his armor penetration, and Intent's doubled crit chance makes every attack crit. |
 | Malphite beats Yone | slight | +0.79 | holds | Armor against crits, and Ground Slam cuts Yone's attack speed. |
 | Malphite beats Riven | slight | +0.80 | holds | All of Riven's damage is physical, into Malphite's armor and Ground Slam. |
-| Malphite beats Irelia | slight | +0.61 | holds | Ground Slam cuts Irelia's attack speed, and her damage is mostly physical. |
+| Malphite beats Irelia | slight | +0.80 | holds | Ground Slam cuts Irelia's attack speed, and her damage is mostly physical. |
 | Olaf beats K'Sante | slight | +0.85 | holds | Ragnarok ignores Path Maker's stun and All Out's root, and Reckless Swing's true damage ignores K'Sante's resistances. |
 | Olaf beats Skarner | slight | +0.81 | holds | Ragnarok ignores Impale's suppression and Ixtal's Impact's stun. |
 | Malphite beats Pantheon | slight | +0.80 | holds | Pantheon's damage is all physical, into Malphite's armor. |
@@ -267,38 +267,38 @@ Average gold each champion spends on each stat across its matchups.
 | Champion | ad | ap | as | crit | ah | lethality | armpen | mpenflat | mpen | hp | armor | mr |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Aatrox | 2048 | 0 | 7620 | 3089 | 0 | 0 | 102 | 0 | 0 | 251 | 1579 | 311 |
-| Ahri | 979 | 2296 | 1033 | 956 | 2548 | 330 | 260 | 0 | 0 | 2693 | 3121 | 783 |
+| Ahri | 979 | 2296 | 1033 | 956 | 2548 | 330 | 260 | 0 | 0 | 2693 | 3122 | 783 |
 | Akali | 3455 | 89 | 1430 | 1485 | 858 | 214 | 264 | 135 | 276 | 2648 | 3407 | 740 |
 | Akshan | 2978 | 1161 | 1033 | 2119 | 0 | 668 | 1282 | 243 | 41 | 1508 | 3071 | 896 |
 | Alistar | 1955 | 413 | 3027 | 2614 | 468 | 207 | 1427 | 116 | 42 | 1584 | 2505 | 641 |
 | Ambessa | 5173 | 0 | 2891 | 2625 | 0 | 960 | 1781 | 0 | 0 | 0 | 1311 | 258 |
 | Amumu | 1005 | 1237 | 1353 | 1335 | 32 | 141 | 318 | 298 | 115 | 4258 | 3912 | 997 |
-| Anivia | 567 | 1352 | 688 | 563 | 14 | 107 | 50 | 281 | 1751 | 4686 | 3891 | 1050 |
+| Anivia | 567 | 1352 | 688 | 563 | 14 | 107 | 51 | 281 | 1751 | 4686 | 3890 | 1051 |
 | Annie | 1120 | 2611 | 1273 | 980 | 2454 | 353 | 294 | 380 | 566 | 1481 | 2850 | 638 |
 | Aphelios | 3978 | 0 | 2851 | 3941 | 0 | 37 | 1785 | 0 | 0 | 410 | 1634 | 364 |
 | Ashe | 3767 | 0 | 3019 | 3530 | 0 | 31 | 1786 | 0 | 0 | 874 | 1606 | 386 |
 | Aurelion Sol | 0 | 3179 | 0 | 0 | 0 | 0 | 0 | 23 | 2343 | 4582 | 3782 | 1091 |
 | Aurora | 1711 | 3481 | 1924 | 1673 | 0 | 551 | 814 | 230 | 256 | 1138 | 2638 | 584 |
-| Azir | 660 | 1642 | 5432 | 776 | 0 | 132 | 66 | 6 | 510 | 2104 | 2922 | 751 |
-| Bard | 3334 | 324 | 3719 | 3225 | 100 | 118 | 1623 | 52 | 10 | 439 | 1612 | 442 |
+| Azir | 659 | 1642 | 5431 | 776 | 0 | 132 | 66 | 6 | 510 | 2104 | 2922 | 751 |
+| Bard | 3335 | 324 | 3719 | 3226 | 100 | 119 | 1622 | 52 | 10 | 440 | 1609 | 443 |
 | Bel'Veth | 4397 | 0 | 5166 | 1463 | 0 | 3 | 56 | 0 | 0 | 1510 | 1999 | 406 |
 | Blitzcrank | 923 | 2034 | 1297 | 1140 | 0 | 308 | 353 | 483 | 915 | 3378 | 3355 | 813 |
-| Brand | 875 | 415 | 1004 | 902 | 1323 | 255 | 251 | 493 | 1131 | 3640 | 3785 | 925 |
+| Brand | 875 | 415 | 1004 | 902 | 1323 | 255 | 251 | 493 | 1131 | 3640 | 3784 | 926 |
 | Braum | 1537 | 0 | 4297 | 1659 | 0 | 69 | 152 | 19 | 48 | 3187 | 3183 | 849 |
 | Briar | 4265 | 0 | 3506 | 2898 | 0 | 15 | 1784 | 0 | 0 | 702 | 1574 | 256 |
-| Caitlyn | 3225 | 0 | 2694 | 3409 | 0 | 212 | 1786 | 0 | 0 | 1272 | 1900 | 502 |
+| Caitlyn | 3224 | 0 | 2692 | 3408 | 0 | 211 | 1786 | 0 | 0 | 1272 | 1905 | 503 |
 | Camille | 3429 | 0 | 3278 | 2901 | 0 | 100 | 1785 | 0 | 0 | 1325 | 1818 | 364 |
 | Cassiopeia | 60 | 4924 | 73 | 58 | 3252 | 20 | 13 | 0 | 2270 | 1334 | 2440 | 557 |
-| Cho'Gath | 648 | 11 | 3403 | 1391 | 1389 | 188 | 288 | 239 | 236 | 2136 | 3996 | 1073 |
-| Corki | 4669 | 0 | 2754 | 2947 | 0 | 0 | 8 | 0 | 0 | 1804 | 2253 | 564 |
+| Cho'Gath | 648 | 11 | 3404 | 1393 | 1389 | 187 | 289 | 239 | 234 | 2137 | 3996 | 1073 |
+| Corki | 4669 | 0 | 2753 | 2947 | 0 | 0 | 8 | 0 | 0 | 1805 | 2255 | 562 |
 | Darius | 1116 | 0 | 5139 | 1654 | 0 | 1180 | 1783 | 0 | 0 | 1555 | 2065 | 508 |
 | Diana | 1863 | 36 | 3265 | 1928 | 0 | 77 | 310 | 36 | 27 | 3854 | 2934 | 671 |
 | Dr. Mundo | 10 | 0 | 1706 | 9 | 258 | 120 | 615 | 31 | 97 | 8176 | 3155 | 821 |
-| Draven | 5167 | 0 | 1574 | 2408 | 0 | 322 | 1786 | 0 | 0 | 1278 | 1948 | 516 |
+| Draven | 5168 | 0 | 1574 | 2409 | 0 | 325 | 1786 | 0 | 0 | 1279 | 1944 | 516 |
 | Ekko | 720 | 3570 | 2752 | 746 | 0 | 187 | 198 | 103 | 138 | 2783 | 3157 | 645 |
 | Elise | 1010 | 2594 | 1333 | 1005 | 67 | 283 | 275 | 573 | 1269 | 2594 | 3201 | 798 |
 | Evelynn | 1114 | 2487 | 1366 | 1187 | 2334 | 350 | 453 | 153 | 461 | 2263 | 2348 | 486 |
-| Ezreal | 1663 | 0 | 169 | 290 | 6890 | 111 | 1467 | 0 | 0 | 1584 | 2285 | 542 |
+| Ezreal | 1662 | 0 | 169 | 290 | 6889 | 111 | 1467 | 0 | 0 | 1585 | 2286 | 541 |
 | Fiddlesticks | 1565 | 2509 | 1658 | 1451 | 3778 | 521 | 700 | 1 | 414 | 0 | 1943 | 460 |
 | Fiora | 9418 | 0 | 570 | 623 | 0 | 1 | 1 | 0 | 0 | 113 | 3434 | 840 |
 | Fizz | 2671 | 700 | 2418 | 2438 | 203 | 171 | 1450 | 145 | 25 | 1789 | 2423 | 569 |
@@ -307,62 +307,62 @@ Average gold each champion spends on each stat across its matchups.
 | Garen | 3215 | 0 | 1886 | 3324 | 0 | 429 | 1786 | 0 | 0 | 2475 | 1547 | 338 |
 | Gnar | 1358 | 0 | 3132 | 1166 | 0 | 43 | 1200 | 0 | 0 | 4265 | 3056 | 781 |
 | Gragas | 816 | 1117 | 1118 | 1026 | 2704 | 278 | 422 | 582 | 614 | 2580 | 2990 | 753 |
-| Graves | 2970 | 0 | 3747 | 3498 | 0 | 65 | 1786 | 0 | 0 | 865 | 1622 | 447 |
+| Graves | 2970 | 0 | 3747 | 3498 | 0 | 65 | 1786 | 0 | 0 | 865 | 1621 | 448 |
 | Gwen | 634 | 4493 | 4213 | 713 | 0 | 189 | 153 | 61 | 401 | 724 | 2835 | 583 |
 | Hecarim | 4234 | 0 | 3915 | 3695 | 4 | 11 | 1786 | 0 | 0 | 0 | 1113 | 242 |
-| Heimerdinger | 0 | 6096 | 0 | 0 | 0 | 0 | 0 | 4 | 2313 | 2748 | 3032 | 807 |
-| Hwei | 920 | 53 | 1020 | 976 | 2795 | 298 | 380 | 477 | 684 | 3074 | 3440 | 884 |
+| Heimerdinger | 0 | 6096 | 0 | 0 | 0 | 0 | 0 | 4 | 2313 | 2748 | 3033 | 806 |
+| Hwei | 919 | 52 | 1019 | 975 | 2797 | 297 | 379 | 477 | 684 | 3075 | 3440 | 886 |
 | Illaoi | 2775 | 0 | 2898 | 2513 | 0 | 682 | 1786 | 0 | 0 | 1600 | 2218 | 527 |
-| Irelia | 3560 | 0 | 2619 | 2719 | 0 | 150 | 1573 | 0 | 0 | 1527 | 2327 | 526 |
-| Ivern | 1738 | 1369 | 4433 | 1620 | 0 | 198 | 927 | 41 | 4 | 1272 | 2663 | 734 |
+| Irelia | 3560 | 0 | 2618 | 2719 | 0 | 150 | 1573 | 0 | 0 | 1527 | 2327 | 525 |
+| Ivern | 1738 | 1370 | 4433 | 1620 | 0 | 198 | 927 | 41 | 4 | 1273 | 2663 | 734 |
 | Janna | 3402 | 51 | 3464 | 3126 | 71 | 83 | 1646 | 10 | 0 | 992 | 1752 | 403 |
 | Jarvan IV | 4236 | 0 | 2484 | 3506 | 0 | 166 | 1786 | 0 | 0 | 655 | 1793 | 375 |
 | Jax | 1650 | 131 | 1936 | 2612 | 0 | 241 | 1493 | 33 | 15 | 3010 | 3123 | 757 |
-| Jayce | 1761 | 0 | 135 | 131 | 3039 | 279 | 1186 | 30 | 19 | 3695 | 3657 | 1069 |
+| Jayce | 1760 | 0 | 133 | 130 | 3040 | 281 | 1186 | 30 | 19 | 3694 | 3659 | 1068 |
 | Jhin | 4412 | 0 | 0 | 997 | 0 | 903 | 1786 | 0 | 0 | 2885 | 3108 | 911 |
-| Jinx | 4026 | 0 | 1244 | 3453 | 0 | 280 | 1786 | 0 | 0 | 1453 | 2211 | 548 |
+| Jinx | 4027 | 0 | 1245 | 3454 | 0 | 281 | 1786 | 0 | 0 | 1453 | 2206 | 548 |
 | K'Sante | 0 | 0 | 0 | 0 | 1481 | 489 | 1785 | 0 | 0 | 2700 | 6347 | 2198 |
-| Kai'Sa | 2574 | 1822 | 3937 | 1330 | 0 | 179 | 592 | 222 | 80 | 795 | 2839 | 629 |
+| Kai'Sa | 2571 | 1826 | 3938 | 1328 | 0 | 179 | 590 | 222 | 80 | 795 | 2841 | 630 |
 | Kalista | 3115 | 0 | 3920 | 2059 | 0 | 427 | 1786 | 0 | 0 | 1257 | 1872 | 564 |
-| Karma | 1606 | 1094 | 1664 | 1503 | 4853 | 530 | 738 | 1 | 597 | 8 | 1934 | 472 |
-| Karthus | 459 | 2123 | 507 | 434 | 49 | 158 | 85 | 301 | 1970 | 3912 | 3890 | 1111 |
+| Karma | 1609 | 1092 | 1667 | 1507 | 4846 | 531 | 740 | 1 | 595 | 8 | 1932 | 471 |
+| Karthus | 459 | 2124 | 507 | 434 | 49 | 158 | 85 | 301 | 1970 | 3912 | 3889 | 1111 |
 | Kassadin | 954 | 2478 | 1360 | 1257 | 0 | 346 | 426 | 508 | 1103 | 1943 | 3767 | 856 |
 | Katarina | 2308 | 1115 | 2009 | 1623 | 1868 | 308 | 773 | 346 | 93 | 1685 | 2375 | 495 |
-| Kayle | 3065 | 17 | 4544 | 3447 | 0 | 0 | 23 | 0 | 0 | 1255 | 2145 | 506 |
-| Kayn | 4721 | 0 | 3202 | 3034 | 33 | 109 | 1786 | 0 | 0 | 145 | 1643 | 327 |
+| Kayle | 3065 | 17 | 4544 | 3447 | 0 | 0 | 23 | 0 | 0 | 1254 | 2145 | 506 |
+| Kayn | 4732 | 0 | 3202 | 3033 | 33 | 109 | 1786 | 0 | 0 | 133 | 1643 | 328 |
 | Kennen | 2418 | 1114 | 2398 | 2063 | 1081 | 55 | 332 | 285 | 131 | 2302 | 2237 | 583 |
-| Kha'Zix | 4368 | 0 | 631 | 598 | 2108 | 671 | 1786 | 0 | 0 | 1791 | 2494 | 553 |
+| Kha'Zix | 4359 | 0 | 711 | 674 | 2036 | 651 | 1786 | 0 | 0 | 1761 | 2474 | 548 |
 | Kindred | 3635 | 0 | 2356 | 3175 | 0 | 178 | 1786 | 0 | 0 | 1417 | 1932 | 521 |
 | Kled | 3905 | 0 | 2806 | 3735 | 0 | 360 | 1786 | 0 | 0 | 247 | 1682 | 479 |
-| Kog'Maw | 2572 | 60 | 3506 | 1821 | 76 | 49 | 127 | 10 | 68 | 2880 | 3075 | 757 |
-| LeBlanc | 1100 | 1375 | 1119 | 925 | 2823 | 324 | 290 | 281 | 965 | 2214 | 2904 | 681 |
+| Kog'Maw | 2571 | 60 | 3505 | 1820 | 76 | 49 | 127 | 10 | 68 | 2885 | 3073 | 757 |
+| LeBlanc | 1100 | 1374 | 1120 | 925 | 2822 | 324 | 290 | 281 | 967 | 2213 | 2904 | 681 |
 | Lee Sin | 4110 | 0 | 3053 | 3035 | 36 | 340 | 1786 | 0 | 0 | 162 | 2038 | 439 |
 | Leona | 2210 | 126 | 2456 | 2345 | 823 | 122 | 1200 | 165 | 36 | 2093 | 2643 | 781 |
-| Lillia | 510 | 4898 | 587 | 558 | 825 | 201 | 226 | 16 | 0 | 2278 | 3920 | 981 |
-| Lissandra | 1265 | 1895 | 1426 | 1182 | 2157 | 329 | 426 | 323 | 504 | 1950 | 2867 | 675 |
+| Lillia | 510 | 4898 | 587 | 558 | 825 | 201 | 226 | 16 | 0 | 2278 | 3915 | 984 |
+| Lissandra | 1265 | 1895 | 1426 | 1183 | 2157 | 329 | 426 | 323 | 504 | 1950 | 2867 | 675 |
 | Locke | 1766 | 709 | 3959 | 1829 | 3 | 114 | 489 | 154 | 55 | 2363 | 2945 | 614 |
 | Lucian | 3745 | 0 | 2447 | 3201 | 0 | 142 | 1786 | 0 | 0 | 1260 | 1953 | 466 |
 | Lulu | 1941 | 1 | 5534 | 1387 | 0 | 46 | 30 | 3 | 72 | 2485 | 2796 | 705 |
 | Lux | 1066 | 2883 | 1070 | 1126 | 3435 | 369 | 506 | 64 | 285 | 979 | 2595 | 622 |
 | Malphite | 436 | 21 | 2258 | 805 | 1651 | 158 | 1370 | 6 | 0 | 2219 | 4832 | 1243 |
-| Malzahar | 2225 | 0 | 103 | 79 | 3552 | 27 | 12 | 1 | 2239 | 3015 | 2973 | 775 |
-| Maokai | 1839 | 10 | 2216 | 2166 | 1549 | 269 | 1076 | 325 | 139 | 2219 | 2490 | 703 |
+| Malzahar | 2225 | 0 | 103 | 79 | 3552 | 27 | 12 | 1 | 2239 | 3015 | 2972 | 775 |
+| Maokai | 1839 | 10 | 2216 | 2166 | 1549 | 269 | 1076 | 325 | 139 | 2219 | 2489 | 703 |
 | Master Yi | 4137 | 0 | 4192 | 2911 | 64 | 4 | 1661 | 0 | 0 | 76 | 1638 | 318 |
-| Mel | 1276 | 1644 | 1460 | 1348 | 2053 | 244 | 575 | 477 | 210 | 2170 | 2789 | 754 |
-| Milio | 3557 | 178 | 3302 | 3283 | 137 | 132 | 1660 | 29 | 1 | 478 | 1825 | 418 |
+| Mel | 1276 | 1645 | 1460 | 1348 | 2053 | 245 | 575 | 477 | 210 | 2171 | 2786 | 754 |
+| Milio | 3558 | 178 | 3303 | 3284 | 137 | 133 | 1659 | 29 | 1 | 478 | 1822 | 418 |
 | Miss Fortune | 4377 | 0 | 1872 | 2916 | 0 | 142 | 1786 | 0 | 0 | 1334 | 2094 | 479 |
 | Wukong | 3066 | 0 | 3470 | 3333 | 1 | 123 | 1786 | 0 | 0 | 1312 | 1546 | 363 |
 | Mordekaiser | 632 | 2777 | 1568 | 701 | 0 | 185 | 110 | 326 | 1291 | 3333 | 3311 | 765 |
-| Morgana | 2287 | 1029 | 3161 | 2584 | 971 | 175 | 1319 | 201 | 37 | 458 | 2239 | 539 |
+| Morgana | 2287 | 1029 | 3161 | 2584 | 971 | 175 | 1319 | 201 | 37 | 458 | 2237 | 540 |
 | Naafiri | 3820 | 0 | 4373 | 1066 | 0 | 360 | 1786 | 0 | 0 | 1039 | 2143 | 414 |
-| Nami | 1407 | 709 | 1515 | 1418 | 2541 | 193 | 625 | 438 | 58 | 2831 | 2542 | 725 |
+| Nami | 1407 | 708 | 1515 | 1418 | 2541 | 193 | 625 | 438 | 58 | 2830 | 2543 | 725 |
 | Nasus | 243 | 55 | 1237 | 3263 | 3 | 350 | 1648 | 26 | 40 | 3703 | 3492 | 940 |
 | Nautilus | 1846 | 1113 | 2926 | 2065 | 1095 | 287 | 1039 | 248 | 38 | 1779 | 2101 | 463 |
-| Neeko | 2341 | 366 | 3966 | 1837 | 1 | 82 | 337 | 106 | 44 | 2511 | 2690 | 720 |
+| Neeko | 2341 | 366 | 3965 | 1837 | 1 | 82 | 337 | 106 | 44 | 2511 | 2690 | 720 |
 | Nidalee | 2001 | 928 | 1798 | 1852 | 2123 | 372 | 786 | 345 | 85 | 1599 | 2457 | 655 |
 | Nilah | 4851 | 0 | 4121 | 4000 | 0 | 0 | 1152 | 0 | 0 | 0 | 778 | 98 |
 | Nocturne | 3524 | 0 | 3727 | 3331 | 0 | 171 | 1786 | 0 | 0 | 327 | 1749 | 386 |
-| Nunu & Willump | 1279 | 1306 | 1551 | 1367 | 1700 | 103 | 473 | 251 | 17 | 3954 | 2515 | 485 |
+| Nunu & Willump | 1279 | 1306 | 1552 | 1367 | 1700 | 103 | 473 | 251 | 17 | 3955 | 2513 | 485 |
 | Olaf | 4088 | 0 | 4034 | 4000 | 1 | 0 | 1608 | 0 | 0 | 0 | 1102 | 166 |
 | Orianna | 2119 | 928 | 4052 | 1641 | 7 | 88 | 320 | 180 | 85 | 1745 | 3090 | 745 |
 | Ornn | 608 | 0 | 1173 | 818 | 892 | 44 | 931 | 51 | 33 | 5156 | 4715 | 1579 |
@@ -370,17 +370,17 @@ Average gold each champion spends on each stat across its matchups.
 | Poppy | 2902 | 0 | 3186 | 3050 | 0 | 240 | 1786 | 0 | 0 | 1325 | 2001 | 511 |
 | Pyke | 4265 | 0 | 3709 | 3442 | 0 | 64 | 1786 | 0 | 0 | 0 | 1435 | 298 |
 | Qiyana | 3577 | 29 | 3977 | 2798 | 0 | 58 | 1775 | 0 | 0 | 638 | 1810 | 337 |
-| Quinn | 3429 | 0 | 3132 | 3973 | 0 | 37 | 1786 | 0 | 0 | 717 | 1538 | 389 |
+| Quinn | 3429 | 0 | 3133 | 3973 | 0 | 37 | 1786 | 0 | 0 | 717 | 1537 | 389 |
 | Rakan | 2425 | 1066 | 3750 | 2899 | 947 | 183 | 1425 | 152 | 2 | 0 | 1778 | 374 |
 | Rammus | 86 | 0 | 3015 | 2895 | 0 | 8 | 1597 | 0 | 0 | 1048 | 4790 | 1560 |
 | Rek'Sai | 3817 | 0 | 3000 | 3212 | 0 | 55 | 1786 | 0 | 0 | 1186 | 1627 | 317 |
-| Rell | 2108 | 60 | 3559 | 2093 | 69 | 50 | 647 | 13 | 7 | 1526 | 3774 | 1093 |
+| Rell | 2108 | 60 | 3558 | 2093 | 69 | 50 | 647 | 13 | 7 | 1526 | 3774 | 1093 |
 | Renata Glasc | 3443 | 48 | 3673 | 3217 | 30 | 64 | 1686 | 8 | 1 | 940 | 1529 | 360 |
 | Renekton | 2102 | 0 | 312 | 381 | 0 | 814 | 1572 | 76 | 32 | 4481 | 4036 | 1194 |
 | Rengar | 2883 | 8 | 2937 | 2912 | 191 | 221 | 1786 | 0 | 0 | 1546 | 2101 | 414 |
 | Riven | 5443 | 0 | 2223 | 3459 | 0 | 110 | 1786 | 0 | 0 | 0 | 1675 | 303 |
 | Rumble | 777 | 2417 | 1196 | 911 | 2658 | 337 | 271 | 204 | 1613 | 1150 | 2784 | 682 |
-| Ryze | 1054 | 2551 | 1159 | 1050 | 1686 | 381 | 413 | 305 | 1347 | 1579 | 2792 | 683 |
+| Ryze | 1056 | 2548 | 1161 | 1052 | 1684 | 382 | 414 | 306 | 1346 | 1579 | 2789 | 683 |
 | Samira | 3608 | 0 | 1628 | 3480 | 0 | 273 | 1786 | 0 | 0 | 1461 | 2176 | 587 |
 | Sejuani | 916 | 0 | 1733 | 1958 | 0 | 344 | 1786 | 0 | 0 | 4247 | 3081 | 936 |
 | Senna | 6350 | 0 | 2520 | 0 | 0 | 238 | 1786 | 0 | 0 | 1373 | 2215 | 518 |
@@ -388,34 +388,34 @@ Average gold each champion spends on each stat across its matchups.
 | Sett | 4361 | 0 | 1987 | 263 | 0 | 37 | 943 | 0 | 0 | 4435 | 2402 | 572 |
 | Shaco | 1918 | 208 | 1863 | 1461 | 2013 | 219 | 770 | 293 | 46 | 2645 | 2945 | 617 |
 | Shen | 969 | 159 | 910 | 1250 | 0 | 33 | 457 | 61 | 57 | 6541 | 3608 | 955 |
-| Shyvana | 3475 | 0 | 4406 | 2164 | 0 | 6 | 738 | 0 | 0 | 1781 | 2108 | 324 |
+| Shyvana | 3475 | 0 | 4406 | 2164 | 0 | 6 | 738 | 0 | 0 | 1780 | 2107 | 325 |
 | Singed | 737 | 3747 | 958 | 885 | 0 | 287 | 391 | 440 | 486 | 2993 | 3344 | 732 |
 | Sion | 2703 | 0 | 4053 | 3190 | 64 | 333 | 1786 | 0 | 0 | 66 | 2284 | 520 |
 | Sivir | 4016 | 0 | 3433 | 3478 | 0 | 16 | 1786 | 0 | 0 | 318 | 1616 | 337 |
 | Skarner | 1499 | 0 | 2940 | 1423 | 0 | 400 | 1786 | 0 | 0 | 3590 | 2710 | 652 |
 | Smolder | 4864 | 0 | 727 | 2849 | 65 | 72 | 1717 | 0 | 0 | 1716 | 2448 | 542 |
 | Sona | 2577 | 49 | 2681 | 2405 | 1307 | 82 | 1233 | 217 | 26 | 1580 | 2230 | 613 |
-| Soraka | 1238 | 664 | 1347 | 1168 | 3680 | 206 | 472 | 495 | 136 | 2035 | 2778 | 781 |
-| Swain | 1090 | 846 | 1218 | 1050 | 2439 | 288 | 332 | 412 | 548 | 3037 | 3042 | 697 |
+| Soraka | 1238 | 664 | 1347 | 1168 | 3680 | 206 | 472 | 495 | 136 | 2035 | 2777 | 782 |
+| Swain | 1090 | 846 | 1218 | 1050 | 2438 | 288 | 332 | 412 | 548 | 3038 | 3041 | 698 |
 | Sylas | 1340 | 2974 | 1230 | 1321 | 3445 | 434 | 601 | 146 | 117 | 921 | 2082 | 390 |
 | Syndra | 1069 | 1845 | 1160 | 1029 | 2436 | 292 | 306 | 81 | 219 | 2773 | 3057 | 733 |
 | Tahm Kench | 219 | 2 | 4426 | 243 | 0 | 23 | 31 | 2 | 32 | 7501 | 1982 | 540 |
 | Taliyah | 1087 | 2354 | 1482 | 1212 | 1751 | 329 | 423 | 218 | 433 | 2341 | 2711 | 659 |
 | Talon | 4044 | 0 | 2976 | 2908 | 0 | 244 | 1786 | 0 | 0 | 918 | 1784 | 340 |
-| Taric | 1277 | 0 | 1504 | 1442 | 0 | 294 | 422 | 73 | 272 | 2350 | 6039 | 1328 |
-| Teemo | 2069 | 826 | 4681 | 1836 | 0 | 47 | 517 | 48 | 11 | 1899 | 2482 | 585 |
+| Taric | 1278 | 0 | 1504 | 1444 | 0 | 294 | 422 | 73 | 272 | 2345 | 6041 | 1328 |
+| Teemo | 2070 | 826 | 4682 | 1837 | 0 | 46 | 517 | 48 | 11 | 1895 | 2483 | 585 |
 | Thresh | 4250 | 0 | 2699 | 2927 | 0 | 187 | 1417 | 0 | 0 | 641 | 2461 | 417 |
 | Tristana | 3550 | 0 | 3008 | 3616 | 0 | 37 | 1786 | 0 | 0 | 801 | 1804 | 398 |
 | Trundle | 2672 | 0 | 3998 | 3793 | 0 | 78 | 1786 | 0 | 0 | 679 | 1647 | 348 |
 | Tryndamere | 2118 | 0 | 4871 | 2500 | 0 | 353 | 1786 | 0 | 0 | 1114 | 1823 | 435 |
-| Twisted Fate | 3930 | 0 | 3232 | 2539 | 0 | 60 | 655 | 0 | 0 | 1583 | 2444 | 557 |
-| Twitch | 1225 | 3578 | 1733 | 1130 | 25 | 439 | 651 | 0 | 0 | 2576 | 2918 | 724 |
-| Udyr | 1480 | 3132 | 1071 | 737 | 1433 | 461 | 648 | 56 | 430 | 1984 | 3021 | 606 |
+| Twisted Fate | 3930 | 0 | 3232 | 2539 | 0 | 60 | 655 | 0 | 0 | 1583 | 2445 | 556 |
+| Twitch | 1229 | 3572 | 1734 | 1134 | 25 | 440 | 653 | 0 | 0 | 2575 | 2917 | 721 |
+| Udyr | 1461 | 3150 | 1058 | 725 | 1448 | 460 | 643 | 55 | 436 | 1994 | 3025 | 606 |
 | Urgot | 4308 | 0 | 0 | 0 | 0 | 1088 | 1786 | 0 | 0 | 3838 | 3068 | 912 |
-| Varus | 1393 | 2241 | 1508 | 978 | 886 | 177 | 357 | 204 | 266 | 2821 | 3354 | 816 |
+| Varus | 1393 | 2241 | 1508 | 979 | 886 | 177 | 357 | 204 | 265 | 2821 | 3354 | 816 |
 | Vayne | 495 | 0 | 6325 | 99 | 0 | 0 | 7 | 0 | 0 | 3670 | 3460 | 943 |
 | Veigar | 1160 | 1946 | 1185 | 1053 | 2399 | 228 | 413 | 474 | 281 | 2382 | 2760 | 718 |
-| Vel'Koz | 26 | 1636 | 35 | 27 | 4091 | 9 | 2 | 0 | 0 | 4210 | 3867 | 1096 |
+| Vel'Koz | 26 | 1634 | 35 | 27 | 4089 | 9 | 2 | 0 | 0 | 4213 | 3870 | 1095 |
 | Vex | 1238 | 1763 | 1472 | 1155 | 2952 | 334 | 411 | 278 | 478 | 1540 | 2740 | 640 |
 | Vi | 3421 | 0 | 3495 | 2382 | 0 | 233 | 1786 | 0 | 0 | 1298 | 1975 | 410 |
 | Viego | 1766 | 0 | 3805 | 4000 | 0 | 413 | 1786 | 0 | 0 | 480 | 2250 | 500 |
@@ -423,19 +423,19 @@ Average gold each champion spends on each stat across its matchups.
 | Vladimir | 912 | 382 | 1102 | 906 | 958 | 221 | 180 | 7 | 494 | 6605 | 2563 | 672 |
 | Volibear | 1646 | 2684 | 3766 | 1089 | 0 | 341 | 536 | 21 | 24 | 2207 | 2174 | 512 |
 | Warwick | 5299 | 0 | 5467 | 1695 | 0 | 1 | 92 | 0 | 0 | 0 | 2091 | 354 |
-| Xayah | 3552 | 0 | 1990 | 3797 | 0 | 251 | 1786 | 0 | 0 | 1083 | 2048 | 493 |
+| Xayah | 3552 | 0 | 1990 | 3797 | 0 | 251 | 1786 | 0 | 0 | 1083 | 2047 | 494 |
 | Xerath | 1510 | 1412 | 1854 | 1503 | 1486 | 173 | 575 | 432 | 175 | 2377 | 2782 | 719 |
 | Xin Zhao | 3335 | 0 | 4529 | 2855 | 0 | 32 | 1786 | 0 | 0 | 627 | 1549 | 287 |
 | Yasuo | 4778 | 0 | 1555 | 2000 | 0 | 524 | 1786 | 0 | 0 | 1657 | 2187 | 512 |
 | Yone | 4990 | 0 | 3462 | 2000 | 0 | 0 | 507 | 0 | 0 | 1500 | 2129 | 412 |
 | Yorick | 698 | 0 | 234 | 113 | 0 | 1151 | 1786 | 0 | 0 | 4834 | 4716 | 1470 |
 | Yunara | 3438 | 19 | 4065 | 3900 | 0 | 1 | 341 | 0 | 0 | 831 | 1978 | 428 |
-| Yuumi | 2812 | 4 | 3622 | 2659 | 322 | 46 | 1480 | 52 | 14 | 1608 | 1885 | 496 |
+| Yuumi | 2810 | 4 | 3620 | 2657 | 322 | 46 | 1480 | 52 | 14 | 1610 | 1889 | 496 |
 | Zaahen | 4175 | 0 | 2847 | 3085 | 0 | 1060 | 1781 | 0 | 0 | 312 | 1426 | 314 |
 | Zac | 947 | 1070 | 1206 | 1095 | 2582 | 247 | 484 | 488 | 317 | 3134 | 2751 | 679 |
 | Zed | 3512 | 0 | 2885 | 3009 | 0 | 165 | 1786 | 0 | 0 | 1424 | 1825 | 394 |
 | Zeri | 2925 | 0 | 2400 | 3135 | 0 | 192 | 1765 | 0 | 0 | 1472 | 2496 | 616 |
 | Ziggs | 944 | 1195 | 1129 | 964 | 2236 | 291 | 296 | 431 | 942 | 2751 | 3085 | 736 |
-| Zilean | 3443 | 56 | 3646 | 3327 | 91 | 99 | 1690 | 13 | 0 | 724 | 1535 | 375 |
-| Zoe | 691 | 123 | 829 | 790 | 2695 | 218 | 185 | 30 | 150 | 4136 | 3994 | 1159 |
+| Zilean | 3443 | 56 | 3646 | 3327 | 91 | 99 | 1690 | 13 | 0 | 724 | 1534 | 376 |
+| Zoe | 691 | 123 | 829 | 790 | 2693 | 219 | 184 | 30 | 150 | 4137 | 3995 | 1159 |
 | Zyra | 1321 | 1063 | 1465 | 1354 | 886 | 125 | 351 | 428 | 232 | 3661 | 3254 | 860 |
