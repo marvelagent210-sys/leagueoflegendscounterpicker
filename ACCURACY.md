@@ -3881,6 +3881,20 @@ pairings moved: Talon +0.25, Aphelios +0.10, Senna −0.05). The same scan of pu
 (Sett's Knuckle Down) ran out without their caster dealing damage. Test: Karthus turns Defile off
 in a fight below one Lay Waste's cost, and keeps it on above.
 
+### Refresh with step 4's first two batches (24 November 2026)
+
+One refresh (run 44) recomputed all three matrices for both batches above. Against run 41's:
+
+- **Plain stats:** 13,994 of 29,756 entries moved (mean 0.077; 2,994 by more than 0.25).
+- **Six items:** 19,660 moved (mean 0.134; 5,406 by more than 0.25).
+- **Five items and boots:** 20,526 moved (mean 0.143; 5,836 by more than 0.25).
+
+Caitlyn rose most, by 0.55 to 0.60 on average, now that she kites. Then Nilah (0.11 to 0.16),
+Hecarim, Olaf, Braum, Nocturne, Renata and Twitch, who no longer start attacks the enemy walks
+out of, or kite. The kits that fell most are the ones that root, now that a root no longer stops
+its target from attacking and casting: Maokai (0.14 to 0.32), Lissandra, Lux, Morgana, Zyra,
+Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 skipped).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
