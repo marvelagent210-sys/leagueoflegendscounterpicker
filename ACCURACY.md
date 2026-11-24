@@ -3771,7 +3771,10 @@ actions are read as they stood when the tick's decisions began, so neither side'
 decide first changes what the other sees; the mirrored-fight tests hold to 1e-10. Cancels
 fell to 681 over the same 2,076 fights (0.33 a fight), and fights ended 0.23 s sooner on
 average. What remains is mostly forced: taunted champions attack by themselves (Rammus's
-Frenzying Taunt), and kits that step while attacking (Aphelios). Tests: the check passes a
+Frenzying Taunt), and kits that step while attacking (Aphelios). Expecting a kiter's step back
+holds some ranged attackers too (Morgana against Ahri lost 0.09); expecting it for melee attackers
+only was tried and dropped, at −0.018 on average over 15 ranged-against-longer-range pairings (Annie
+against Lux −0.44, Zilean against Caitlyn +0.11). Tests: the check passes a
 safe attack and holds one against an enemy walking away or feared; a kiter's
 step after its windup; an attack at contact; an enemy action started this tick; and a kit
 behavior that attacks whenever it can, which no longer cancels against a kiter.
