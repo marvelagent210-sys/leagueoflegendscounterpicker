@@ -3895,6 +3895,19 @@ out of, or kite. The kits that fell most are the ones that root, now that a root
 its target from attacking and casting: Maokai (0.14 to 0.32), Lissandra, Lux, Morgana, Zyra,
 Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 skipped).
 
+### Spell shields and escapes: scanned, no change (24 November 2026)
+
+- **Casts into a raised spell shield.** The behavior doesn't check for one before casting. Against
+  Sivir and Nocturne (each against every sixth champion, two all-ins), their opponents cast 0.26
+  and 0.12 abilities a fight into a shield already up, of 12.5 and 11.4 casts, so a check isn't
+  worth its code.
+- **Escapes.** Every one of the 173 kits, fleeing from every twelfth champion, got away every
+  time: the escape scenario asks the fleeing side to survive eight seconds (`ESCAPE_SECONDS`), and
+  no chaser kills a fleeing champion that fast. So that scenario scores 0 in every matchup, adds
+  nothing to any result whatever a kit's escapes are, and can't show whether they are used well. It
+  holds 5% of the scenario weight. Making it count (a shorter window, a share of health kept rather
+  than survival) is a scoring decision, left open.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
