@@ -132,6 +132,16 @@ export function tradeValue(outcome: FightOutcome, trader: 0 | 1): number {
   return Math.max(-1, Math.min(1, outcome.hp[trader] - outcome.hp[other]));
 }
 
+/**
+ * How well the fleeing side gets away: the share of its health it keeps (its expected health
+ * left, 0 where it dies). Survival alone scored nothing: no chaser kills a fleeing champion
+ * within ESCAPE_SECONDS, so every kit got away every time, whatever its escapes and the
+ * chaser's slows and gap closers; health kept tells them apart.
+ */
+export function escapeHealth(outcome: FightOutcome, fleeing: 0 | 1): number {
+  return Math.max(0, Math.min(1, outcome.hp[fleeing]));
+}
+
 /** Chance that the fleeing side survives. */
 export function escapeChance(outcome: FightOutcome, fleeing: 0 | 1): number {
   const chaser = fleeing === 0 ? 1 : 0;
@@ -187,9 +197,9 @@ export function runScenarios(you: FighterSpec, enemy: FighterSpec, options: Scen
   const theyRun = run(you.attack.range, ["fight", "flee"], escapeSettings);
   results.push({
     id: "escape",
-    score: escapeChance(youRun, 0) - escapeChance(theyRun, 1),
+    score: escapeHealth(youRun, 0) - escapeHealth(theyRun, 1),
     outcomes: [youRun, theyRun],
-    note: `you get away ${chance(escapeChance(youRun, 0))} of the time, they get away ${chance(escapeChance(theyRun, 1))}`,
+    note: `you get away with ${chance(escapeHealth(youRun, 0))} of your health, they with ${chance(escapeHealth(theyRun, 1))}`,
   });
 
   let total = 0;

@@ -521,6 +521,17 @@ describe("Karthus behavior, allocation and mirrored matchups", () => {
     expect(world.units[0].resource).toBeGreaterThanOrEqual(0);
   });
 
+  it("turns Defile off in a fight once it has too little mana left for Lay Waste, keeping it for the Q", () => {
+    const world = worldFor(100); world.modes[0] = "fight";
+    const self = world.units[0];
+    self.memory.defileOn = true;
+    const qCost = costOf(self, ability(world, "Q"));
+    self.resource = qCost + 50;
+    expect(self.spec.behavior!(perceive(world, 0))).not.toEqual({ kind: "cast", ability: "E" });
+    self.resource = qCost - 1;
+    expect(self.spec.behavior!(perceive(world, 0))).toEqual({ kind: "cast", ability: "E" });
+  });
+
   it.each(["hold", "trade", "flee"] as const)("does not select offensive Requiem in %s mode", (mode) => {
     const world = worldFor(5000); world.modes[0] = mode;
     for (const key of ["Q", "W", "E"]) world.units[0].cooldownReady[key] = Infinity;

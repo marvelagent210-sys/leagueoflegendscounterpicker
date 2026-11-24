@@ -9,6 +9,9 @@
 import { type DamageType, effectiveResist, mitigate } from "../rules/damage";
 import { absorbWithShields, type Shield } from "../rules/defense";
 import { toTicks } from "../rules/time";
+
+/** Rounding allowed in a pet's reach (the engine's EPSILON, engine/sim/actions.ts). */
+const REACH_EPSILON = 1e-6;
 import { allocateCastInstance } from "./castInstance";
 import { applyEffect, canTarget, endForcedMovement, heal, hookContext, inStasis, isUntargetable, log, notifyActualMovement, notifyKill, observeBeforeDamage, observeDamage, observeOwnedPetAttack, withMovementTransition } from "./combat";
 import type { VisibilityPolicy } from "./combat";
@@ -414,7 +417,9 @@ export function advancePets(world: World): void {
       pet.x += dir * step;
       notifyActualMovement(world, petFormulaTarget(pet, owner, world.tick), previous, { kind: "walk", endTick: world.tick, ended: true }, pet);
     }
-    if (!attack || pet.windup || disabled(pet, "attacking") || world.tick < pet.nextAttackTick || Math.abs(enemy.x - pet.x) - targetRadius(enemy) > reach) continue;
+    // Within reach up to rounding: a pet that has just stepped to its reach must attack the same in
+    // a fight and in its mirror, whose positions round differently (Naafiri's Packmates didn't).
+    if (!attack || pet.windup || disabled(pet, "attacking") || world.tick < pet.nextAttackTick || Math.abs(enemy.x - pet.x) - targetRadius(enemy) > reach + REACH_EPSILON) continue;
     const victim = "owner" in enemy ? petFormulaTarget(enemy, owner, world.tick) : enemy;
     if (!canTarget(victim, petFormulaTarget(pet, owner, world.tick), owner)) continue;
     const cripple = pet.spec.ignoreOwnAttackSpeedSlows ? 1 : (pet.statuses ?? []).filter((status) => status.kind === "cc" && status.key === "cripple").reduce((factor, status) => factor * (1 - Math.min(1, Math.max(0, status.value))), 1);

@@ -4,8 +4,8 @@ import { simulateMatchup } from "../../engine/sim/matchup";
 import { flat } from "../../kits/champions/util";
 import { describe, expect, it } from "vitest";
 import { compileKit } from "../../engine/kits/compile";
-import { attackRange, canCast, canStartAttack, launchAttack, startAttack, startCast } from "../../engine/sim/actions";
-import { perceive } from "../../engine/sim/behavior";
+import { attackRange, canCast, canStartAttack, inAttackRange, launchAttack, startAttack, startCast } from "../../engine/sim/actions";
+import { defaultBehavior, perceive } from "../../engine/sim/behavior";
 import { abilityHit, applyEffect, canSee, hookContext } from "../../engine/sim/combat";
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { spawnPet } from "../../engine/sim/pets";
@@ -382,4 +382,20 @@ describe("Caitlyn/Jhin policy, delayed prediction and budget contracts", () => {
         .some((entry) => entry.side === 0 && entry.text === "Curtain Call interrupted by airborne")).toBe(true);
     }
   }, 60000);
+});
+
+describe("Caitlyn's kiting", () => {
+  it("kites a slower melee enemy rather than standing in its reach while she holds her trap", () => {
+    const caitlyn = compiled.Caitlyn!.spec;
+    const world = createWorld({ fighters: [caitlyn, fighter({ base: { hp: 3000, moveSpeed: 285, ad: 100, armor: 60, mr: 60 } })], distance: 300, modes: ["kite", "fight"], settings: { maxBranches: 1, maxSeconds: 20, log: true } });
+    let reached = 0, ticks = 0;
+    while (!world.result) {
+      step(world, [caitlyn.behavior!, defaultBehavior]);
+      ticks++;
+      if (inAttackRange(world.units[1], world.units[0])) reached++;
+    }
+    // She held the melee enemy in its reach 97% of the time when an attack on cooldown left her standing.
+    expect(reached / ticks).toBeLessThan(0.4);
+    expect(world.log.filter((entry) => entry.side === 1 && entry.text.startsWith("attack deals")).length).toBeLessThanOrEqual(3);
+  });
 });

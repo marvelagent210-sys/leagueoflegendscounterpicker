@@ -44,6 +44,16 @@ describe("pets", () => {
     expect(enemy.hp).toBeLessThan(2000);
   });
 
+  it("attack an enemy within reach up to rounding, the same at any position on the line", () => {
+    // An enemy a hair past the turret's 500 reach, as a mirrored fight's positions can round it.
+    const w = world(300);
+    const [owner, enemy] = w.units;
+    const pet = spawnPet(w, owner, turret(), owner.x);
+    pet.x = enemy.x - (enemy.x > owner.x ? 1 : -1) * (500 + enemy.spec.base.radius + 1e-9);
+    step(w, [idle, standStill]);
+    expect(2000 - enemy.hp).toBe(20);
+  });
+
   it("are dodged like attacks or blocked like abilities", () => {
     const w = world(300);
     const [owner, enemy] = w.units;

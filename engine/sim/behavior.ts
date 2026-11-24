@@ -16,12 +16,12 @@
  * crowd control, and finish with executes. What it does with them depends on its mode
  * (state.ts).
  */
-import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
+import { CC_RULES, type CCType, IMMOBILIZING } from "../rules/crowdControl";
 import { effectiveResist, mitigate } from "../rules/damage";
 import { absorbWithShields, averageCritFactor, type Shield } from "../rules/defense";
 import { toTicks } from "../rules/time";
 import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach, missileArrivalTicks, targetRange } from "./actions";
-import { canTarget, edgeDistance, isUntargetable } from "./combat";
+import { canTarget, contactGap, edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
 import { abilityOf } from "./forms";
 import { hitChance } from "./hitModel";
@@ -527,6 +527,19 @@ function sidestep(view: View): Command | undefined {
   return undefined;
 }
 
+/** Whether a defense answers specific enemy tools: crowd control (cleanses, immunity to it) or dashes. */
+function answersSomething(traits: Traits): boolean {
+  return traits.cleanse || traits.defenses.has("ccImmune") || traits.defenses.has("antiDash");
+}
+
+/** Whether the enemy's kit has something a defense answers (answersSomething). */
+function enemyHasAnswered(view: View, traits: Traits): boolean {
+  return view.enemy.spec.abilities.some((a) => {
+    const t = traitsOf(a);
+    return ((traits.cleanse || traits.defenses.has("ccImmune")) && t.cc) || (traits.defenses.has("antiDash") && (t.engage || t.escape));
+  });
+}
+
 /** Uses a defensive tool, a cleanse or a dash when something it answers is about to land. */
 export function react(view: View): Command | undefined {
   const step = sidestep(view);
@@ -539,6 +552,10 @@ export function react(view: View): Command | undefined {
     // A minimum health threshold also goes up when health runs low under steady damage.
     if (low && traits.defenses.has("minimumHealth")) return { kind: "cast", ability: ability.key };
     if (traits.sustain && reactive(ability, traits) && inCombat(view) && self.hp < DEFENSIVE_SUSTAIN * derive(self).maxHp) return { kind: "cast", ability: ability.key };
+    // One kept for crowd control or dashes that also buffs (Ragnarok's attack damage, Steadfast
+    // Presence's resistances) goes up within attack range for the buff when the enemy has
+    // nothing it answers, or once the holder is below half health, rather than kept to the end.
+    if (traits.buff && reactive(ability, traits) && answersSomething(traits) && inAttackRange(self, view.enemy) && (!enemyHasAnswered(view, traits) || self.hp < DEFENSIVE_SUSTAIN * derive(self).maxHp)) return { kind: "cast", ability: ability.key };
     const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;
@@ -739,17 +756,62 @@ function petTarget(view: View, urgentOnly: boolean): Pet | undefined {
   return best;
 }
 
-/** Edge-to-edge units the enemy will open up during this unit's windup if it keeps walking away. */
+/**
+ * Whether an enemy that out-ranges this unit will step back now, as spacing has a champion do
+ * between its attacks: free to walk, its attack not ready, and not yet at its own range.
+ */
+function kitingBack(view: View): boolean {
+  const { world, self, enemy } = view;
+  const range = attackRange(enemy, self);
+  return range > attackRange(self, enemy) + 50 && enemy.attackReadyTick > world.tick + 1 && view.distance < range - 25 - EPSILON;
+}
+
+/**
+ * Edge-to-edge units the enemy will open up during this unit's windup if it walks away: one
+ * walking away already, one about to step back between its attacks (kitingBack), or a feared
+ * one, which keeps walking away until the fear ends.
+ */
 function escapeDuringWindup(view: View): number {
-  const { self, enemy } = view;
-  if (enemy.moved !== -1 || !canMove(enemy) || enemy.action !== undefined) return 0;
-  return derive(enemy).moveSpeed * (attackTiming(self).windup / 30);
+  const { world, self, enemy } = view;
+  const windup = attackTiming(self).windup / 30;
+  const fear = !enemy.forced && ccTypes(enemy).has("fear") ? enemy.statuses.findLast((s) => s.kind === "cc" && s.key === "fear") : undefined;
+  if (fear) return enemy.moved === -1 ? derive(enemy).moveSpeed * Math.min(windup, Math.max(0, (fear.endTick - world.tick) / 30)) : 0;
+  if (!canMove(enemy)) return 0;
+  // Read as it stood when the tick's decisions began, so neither side's turn to decide first
+  // changes what the other sees: an action the enemy started this tick doesn't count yet.
+  const action = enemy.action && enemy.action.startTick < world.tick ? enemy.action : undefined;
+  // (An attack started this tick was ready before it, so the enemy wasn't then kiting back.)
+  if (enemy.action && !action) return enemy.moved === -1 || (enemy.action.kind !== "windup" && kitingBack(view)) ? derive(enemy).moveSpeed * windup : 0;
+  // A kiter's own attack or short cast holds it in place first; it steps back once that ends.
+  const busy = action === undefined ? 0 : action.kind === "windup" ? action.launchTick - world.tick : action.kind === "cast" ? action.endTick - world.tick : Number.POSITIVE_INFINITY;
+  if (action !== undefined ? !kitingBack(view) : enemy.moved !== -1 && !kitingBack(view)) return 0;
+  return derive(enemy).moveSpeed * Math.max(0, windup - Math.max(0, busy) / 30);
 }
 
 /** Whether an enemy walking away would leave attack range before the windup ends (cancelling it). */
 function outrunsWindup(view: View): boolean {
   const gap = escapeDuringWindup(view);
   return gap > 0 && view.distance + gap > attackRange(view.self, view.enemy) + EPSILON;
+}
+
+/**
+ * A champion's command, held to the attack discipline every behavior keeps, the default's and
+ * the kits' own: a basic attack on the enemy champion that would walk out of range during the
+ * windup is cancelled for nothing (cancelOutOfRange), so the unit walks as the default spaces
+ * instead (closing in, except when kiting), unless it is already touching the enemy. Kits' own
+ * behaviors start attacks whenever they can
+ * (Braum's against a Rakan stepping back between attacks cancelled 71 in a fight).
+ */
+export function disciplined(view: View, command: Command | undefined): Command | undefined {
+  if (command?.kind !== "attack" || command.pet !== undefined) return command;
+  // An attack it can't start yet (on cooldown, out of range) would leave a free unit standing
+  // still: it spaces instead, kiting or closing in (Caitlyn and Renata stood in a melee enemy's
+  // reach between their attacks).
+  if (!view.self.action && view.mode !== "idle" && !canStartAttack(view.world, view.self)) return spacing(view, view.mode === "kite");
+  if (!outrunsWindup(view)) return command;
+  // Already touching it, the unit can't get any closer: the attack is the best it has.
+  if (contactGap(view.self, view.enemy) <= EPSILON) return command;
+  return spacing(view, view.mode === "kite");
 }
 
 /** Walking: melee stay on the enemy; units that out-range it step back between attacks. */
@@ -814,6 +876,8 @@ export const defaultBehavior: Behavior = (view) => {
     const ability = "ability" in action ? abilityOf(self, action.ability) : undefined;
     const walks = (action.kind === "cast" && ability?.moveWhileCasting) || (action.kind === "channel" && ability?.channel?.mobile);
     if (!walks) return undefined;
+    // Kiting, it spaces as between attacks rather than walking in (Vladimir charging Tides of Blood).
+    if (mode === "kite") return spacing(view, true);
     return { kind: "move", direction: mode === "flee" || self.memory.tradeDone ? -1 : 1 };
   }
   if (action?.kind === "windup") return undefined;
@@ -847,8 +911,15 @@ export const defaultBehavior: Behavior = (view) => {
   return undefined;
 };
 
-/** Whether crowd control leaves the unit any choice at all. */
+/**
+ * Whether crowd control leaves the unit any choice at all: crowd control that stops both its
+ * attacks and its abilities leaves none, but a root stops only walking (the wiki's crowd control
+ * table, CC_RULES: a rooted champion attacks and casts all but movement abilities).
+ */
 function canAct(unit: Unit): boolean {
-  for (const type of ccTypes(unit)) if (IMMOBILIZING.has(type)) return false;
+  for (const type of ccTypes(unit)) {
+    const rule = CC_RULES[type];
+    if ((rule.attacking === "disabled" || rule.attacking === "uncontrollable") && rule.abilities === "disabled") return false;
+  }
   return true;
 }

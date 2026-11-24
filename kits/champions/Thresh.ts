@@ -1,7 +1,7 @@
 /** Thresh: actual soul drops, one hooked body, a real lantern and five breakable walls. */
 import type { KitModule } from "../../engine/kits/compile";
-import { canCast, EPSILON } from "../../engine/sim/actions";
-import { defaultBehavior, type Behavior } from "../../engine/sim/behavior";
+import { attackRange, canCast, EPSILON } from "../../engine/sim/actions";
+import { DEFENSIVE_SUSTAIN, defaultBehavior, type Behavior } from "../../engine/sim/behavior";
 import { abilityHit, abilityHitPet, applyEffect, directionTo, isUntargetable } from "../../engine/sim/combat";
 import { derive, hasState } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
@@ -165,6 +165,11 @@ const thresh: KitModule = {
         return ordinary?.kind === "cast" ? { kind: "move", direction: -1 } : ordinary;
       }
       if (view.mode === "fight" || view.mode === "trade") {
+        // Dark Passage shields Thresh himself too (the lantern thrown at his feet): the shared
+        // reactions don't see it, its shield coming from the lantern's contact, so it goes up
+        // in combat below half health, as other defensive shields do (DEFENSIVE_SUSTAIN).
+        const inCombat = view.distance <= attackRange(view.enemy, view.self) + 150 || view.threats.length > 0;
+        if (inCombat && view.self.hp < DEFENSIVE_SUSTAIN * derive(view.self).maxHp && canCast(view.world, view.self, get("W"))) return { kind: "cast", ability: "W", aim: { direction: 1, distance: 0 } };
         if (canCast(view.world, view.self, get("Q2")) && view.distance > view.self.spec.attack.range) return { kind: "cast", ability: "Q2" };
         if (!view.self.action && canCast(view.world, view.self, get("E")) && view.distance <= flayRanges[1]! + view.enemy.spec.base.radius) return { kind: "cast", ability: "E", aim: { direction: -1 } };
         if (!view.self.action && canCast(view.world, view.self, get("R")) && Math.abs(view.distance - cageRadius) <= view.enemy.spec.base.radius + wallWidth / 2) return { kind: "cast", ability: "R" };

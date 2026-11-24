@@ -4,7 +4,7 @@ import type { StatPrices } from "../../engine/budget";
 import { compileKit } from "../../engine/kits/compile";
 import { advanceMissiles, advanceZones, canCast, canStartAttack, startCast } from "../../engine/sim/actions";
 import { resolveAttackOnPet } from "../../engine/sim/attackPet";
-import { perceive, threatsTo, type Behavior } from "../../engine/sim/behavior";
+import { DEFENSIVE_SUSTAIN, perceive, threatsTo, type Behavior } from "../../engine/sim/behavior";
 import { abilityHit, abilityHitPet, applyCC, applyEffect, attackHit, beginResurrection, dealDamage, hookContext } from "../../engine/sim/combat";
 import { derive, hasState } from "../../engine/sim/derived";
 import { simulateMatchup } from "../../engine/sim/matchup";
@@ -143,6 +143,14 @@ describe("Thresh mechanics five real Box walls", () => {
 describe("Thresh mechanics ordinary behavior and reflection", () => {
   it("keeps idle idle and a completed trade retreating", () => { const world = arena(); expect(current.spec.behavior!(perceive(world, 0))).toBeUndefined(); world.modes[0] = "trade"; world.units[0].memory.tradeDone = true; expect(current.spec.behavior!(perceive(world, 0))).toEqual({ kind: "move", direction: -1 }); });
   it("flee uses an actual self lantern rather than a fabricated ally", () => { const world = arena(); world.modes[0] = "flee"; expect(current.spec.behavior!(perceive(world, 0))).toEqual({ kind: "cast", ability: "W", aim: { direction: -1, distance: 0 } }); expect(world.pets).toHaveLength(0); });
+  it("throws the lantern at his own feet for its self shield in a fight below half health, not above it", () => {
+    const world = arena(); world.modes[0] = "fight";
+    const lantern = { kind: "cast", ability: "W", aim: { direction: 1, distance: 0 } };
+    world.units[0].hp = derive(world.units[0]).maxHp * (DEFENSIVE_SUSTAIN + 0.05);
+    expect(current.spec.behavior!(perceive(world, 0))).not.toEqual(lantern);
+    world.units[0].hp = derive(world.units[0]).maxHp * (DEFENSIVE_SUSTAIN - 0.05);
+    expect(current.spec.behavior!(perceive(world, 0))).toEqual(lantern);
+  });
   it("keeps branch-local charge and target memory independent", () => { const world = arena(); contact(world); const copy = cloneWorld(world); copy.units[0].memory["thresh:chargeStart"] = 99; copy.units[1].statuses = []; expect(world.units[0].memory["thresh:chargeStart"]).toBe(0); expect(mark(world.units[1])).toBeDefined(); });
   it("reflects an ordinary short mirror without nonfinite results", () => { const result = fairFight({ fighters: [subject(), subject()], distance: 500, modes: ["fight", "fight"], settings: { maxSeconds: 5, maxBranches: 1 } }); expect(result.damage[0]).toBeCloseTo(result.damage[1], 8); expect(Number.isFinite(result.seconds)).toBe(true); });
 });

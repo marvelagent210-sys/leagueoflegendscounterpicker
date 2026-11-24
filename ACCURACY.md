@@ -3742,6 +3742,181 @@ offers six items, five items and boots, or plain stats. The refresh plans it as 
 matrix with its own shards. On four pairings it took about 5% longer than six items, so
 the planner counts 22.9 s a pairing. A local smoke run of 172 pairings had no failures.
 
+## Roadmap step 4: attacks the enemy walks out of (24 November 2026)
+
+A scan of every champion's fights (each kit against four opponents, the three all-in
+scenarios, plain stats) counted 2,513 basic attacks cancelled because the target left range
+during the windup, 1.21 a fight. A cancelled attack deals nothing and costs its windup.
+Nocturne cancelled 18 a fight, Braum 14 and Hecarim 8. There were three causes:
+
+- **Kits' own behaviors.** 35 kits issue their own attacks, and they skipped the default's
+  check for an enemy about to walk out. Braum cancelled 71 attacks in one brawl against Rakan,
+  who steps back between attacks. The check now applies to every behavior's command, the
+  default's and the kits' own (`disciplined`, applied in `decide`): an attack the enemy would
+  outrun becomes the default's spacing (closing in, except when kiting).
+- **Feared enemies.** A feared enemy can't move by choice, so the check treated it as
+  standing still, but it keeps walking away. Nocturne cancelled attacks on enemies fleeing his
+  Unspeakable Horror. The check now counts a fear until it ends. Counting knock-backs the same
+  way (Milio cancelled attacks on enemies his kick knocked back) was tried and left out: over
+  120 pairings of six champions with knock-backs it changed scores by +0.0002 on average, and it
+  tipped the golden Poppy against Kled, whose all-ins end with both sides below a fifth of their
+  health, from +0.32 to +0.05.
+- **Kiting.** A ranged enemy out-ranging the attacker by more than 50 steps back between its
+  attacks (the default spacing). Attackers started their windups just before that step, often
+  while the kiter was still in its own windup. They now expect the step once the kiter's own
+  attack or cast ends, and close in first.
+
+An attacker already touching the enemy attacks anyway, as it can't get closer. The enemy's
+actions are read as they stood when the tick's decisions began, so neither side's turn to
+decide first changes what the other sees; the mirrored-fight tests hold to 1e-10. Cancels
+fell to 681 over the same 2,076 fights (0.33 a fight), and fights ended 0.23 s sooner on
+average. What remains is mostly forced: taunted champions attack by themselves (Rammus's
+Frenzying Taunt), and kits that step while attacking (Aphelios). Tests: the check passes a
+safe attack and holds one against an enemy walking away or feared; a kiter's
+step after its windup; an attack at contact; an enemy action started this tick; and a kit
+behavior that attacks whenever it can, which no longer cancels against a kiter.
+
+The Presence of Mind command-line test compared Cassiopeia with and without the rune against
+Sion. Sion now closes in on her kiting and wins every all-in either way, so the rune's
+benefit can't show. The test uses Aatrox, against whom it adds 0.39 and two casts.
+
+### Crowd control cast on a held enemy: tried and left out
+
+The same scan counted crowd control cast while the enemy was already held, which wastes the
+overlap: Alistar cast Headbutt during his own Pulverize knock-up in 26 of 33 casts, Tahm Kench's
+Abyssal Dive and Rammus's Powerball landed with 1.4 and 1.3 s of hold left, and Nautilus's,
+Maokai's and Rell's did the same. Ultimates aren't counted, since some need a held target
+(Last Breath). Holding an immobilizing basic ability until the current hold is about to end
+(landing within 0.1 s of its end) was tried in the default behavior. It worked as meant:
+Alistar's Headbutt then lands as Pulverize ends, and the stun lasts longer. But over 60 pairings
+of the four kits it changes (Alistar, Maokai, Nami and Nautilus, each against every ninth
+champion), the change averaged −0.007, with single pairings moving from −0.46 to +0.34 as the
+fights took other courses. The damage and tempo the wait gives up are worth as much, in these
+fights, as the lockdown it adds, and holding a knock-back (Headbutt) also pushes the enemy away
+before the attacks. So it was left out, and not extended to the kits' own behaviors either.
+
+### Defenses held to the end (24 November 2026)
+
+A scan of what each champion still had ready when it died (each kit against four opponents,
+the three all-ins) found defenses kept to the end. Two were decision mistakes, now fixed:
+
+- **Thresh's Dark Passage** was ready in 11 of his 12 deaths. The lantern thrown at his own
+  feet shields him (the wiki: "He and the first allied champion to come near the lantern are
+  granted a shield"; 130 at level 20, 2 more per soul). The shared reactions don't see a shield
+  there, since it comes from the lantern's contact. His behavior now throws it at his feet in a
+  fight or trade below half health (`DEFENSIVE_SUSTAIN`), as other defensive shields go up.
+- **Olaf's Ragnarok and Poppy's Steadfast Presence** are kept for what they answer (crowd
+  control, dashes), but both also buff (attack damage; resistances). Ragnarok was ready in all
+  three of Olaf's deaths. Against an enemy whose kit has nothing they answer, or once their
+  holder is below half health, they now go up within attack range for the buff. Olaf gains
+  0.007 and Poppy nothing on average (Poppy against Senna loses 0.07, against Hwei gains 0.04).
+
+Two changes were tried and left out. Riven's Valor and K'Sante's Footwork, dashes that
+shield, were ready in 7 of Riven's 9 deaths: they count as gap closers only, cast to reach an
+enemy out of range. Letting them go up within attack range once their holder is hurt (below 90%
+of its health, or below half) raised Riven by 0.135 (0.051) and K'Sante by 0.178 (0.155) on
+average against every ninth champion. But K'Sante, with the 101 ability haste the stat budget
+buys him against Fiora and All Out's halved cooldown, then shields 240 every two seconds, and
+the golden Fiora against K'Sante turns from a clear win (+0.84) to a loss (−0.36). That rests
+on how his budget values haste, so the dashes stay gap closers until that is reviewed. Below
+15% health, Fiora's Riposte, Vladimir's Sanguine Pool,
+Fizz's Playful/Trickster and Sivir's Spell Shield were also let answer any damaging hit, not
+just one that kills by itself. Vladimir lost 0.031 and Fiora 0.019 on average: spent on a small
+hit, the block is on cooldown when the hit that kills arrives.
+
+The rest of the scan's finds are not mistakes. Kindred's Lamb's Respite needs its own policy (a
+known limit), and Zeri's, Yasuo's and Lucian's dashes are kept for getting away. Renata's
+Loyalty Program shields only an ally. Sivir's Spell Shield blocks only spells, and these deaths
+were to attacks. Tests: Thresh throws the lantern at his feet below half health and not above; a cleanse that buffs
+goes up against an enemy with no crowd control, and is kept against one with crowd control
+until below half health.
+
+### Rooted champions stood idle (24 November 2026)
+
+A scan of ticks where a champion was free, its attack ready and the enemy in range, yet started
+nothing, found Heimerdinger idle through Morgana's Dark Binding. The default behavior returned no
+command at all under any immobilizing crowd control, roots included. The wiki's crowd control
+table (`CC_RULES`) has a rooted champion attack and cast everything but movement abilities, and the
+engine already allowed both. The behavior now stands down only under crowd control that stops
+both attacks and abilities (stuns, knock-ups, fears, charms, taunts, suppression, sleep). Over 100
+pairings of ten champions against ten that root (Morgana, Lux, Zyra, Maokai, Neeko, Rell, Jinx,
+Ryze, Taliyah and Ivern), the rooted side gains 0.067 on average, 51 pairings up and 11 down: Vayne
+against Maokai +0.67, Malphite against Neeko +0.58, Jhin against Morgana +0.50. Tests: a rooted
+champion casts and attacks; a stunned one does nothing.
+
+### Kiting: standing in a melee enemy's reach (24 November 2026)
+
+A scan of each ranged kit (range 450 or more) kiting a plain melee dummy 40 movement speed slower,
+which a kite can keep out of reach, found some that stood in its reach almost the whole fight:
+Caitlyn 97% of the time (12 of its attacks taken in 19 seconds), Vladimir 98%, Renata 92%. Jinx,
+for comparison, 5%. There were three causes:
+
+- **Caitlyn's trap.** The default proposes Yordle Snap Trap first, and her behavior holds it for a
+  target already held in place, putting an attack in its place. With her attack on cooldown, that
+  attack couldn't start, and she did nothing at all. She now plays on as if the trap weren't there.
+- **Attacks that can't start.** More generally, an attack a free champion can't start yet (on
+  cooldown, or out of range) left it standing still, whichever behavior asked for it (Renata's).
+  Such an attack now becomes the default's spacing: stepping back when kiting, closing in otherwise.
+- **Walking during casts.** During a cast or channel a champion can walk in (Vladimir charging Tides
+  of Blood), the default always walked toward the enemy. When kiting, it now spaces.
+
+Caitlyn now has the dummy in reach 22% of the time (1 attack taken), Renata 11% (1) and Vladimir 56%
+(3).
+Against every ninth champion, Caitlyn gains 0.524 on average (all 20 pairings moved), Renata 0.095,
+Vladimir 0.018. Samira, who also improved in the scan, loses 0.008. Aurelion Sol still stands while
+channeling Singularity, as the kit models it. Tests: Caitlyn kites the slower dummy out of its reach;
+an attack that can't start becomes a step back when kiting and a step in when out of range; a
+champion walking through a channel steps back when kiting and in when fighting.
+
+### Karthus's Defile draining his Lay Waste mana (24 November 2026)
+
+A scan of the share of fight time each mana user spends without mana for its cheapest basic
+ability found Karthus dry 45% of the time. (Vladimir, Rengar and Renekton, at the top, pay with
+health or build their resource up in a fight; Lee Sin, Akali, Zed, Shen and Ambessa use energy.)
+His behavior turned Defile on with mana for it and one Lay Waste, but turned it off only out of
+range, so its drain took the mana Lay Waste, his main damage, needs. It now also goes off below
+one Lay Waste's cost. Karthus gains 0.019 on average against every ninth champion (12 of 20
+pairings moved: Talon +0.25, Aphelios +0.10, Senna −0.05). The same scan of pure self-buffs
+(attack damage, ability power, attack speed) found them rarely wasted: at most 3 of 41 casts
+(Sett's Knuckle Down) ran out without their caster dealing damage. Test: Karthus turns Defile off
+in a fight below one Lay Waste's cost, and keeps it on above.
+
+### Refresh with step 4's first two batches (24 November 2026)
+
+One refresh (run 44) recomputed all three matrices for both batches above. Against run 41's:
+
+- **Plain stats:** 13,994 of 29,756 entries moved (mean 0.077; 2,994 by more than 0.25).
+- **Six items:** 19,660 moved (mean 0.134; 5,406 by more than 0.25).
+- **Five items and boots:** 20,526 moved (mean 0.143; 5,836 by more than 0.25).
+
+Caitlyn rose most, by 0.55 to 0.60 on average, now that she kites. Then Nilah (0.11 to 0.16),
+Hecarim, Olaf, Braum, Nocturne, Renata and Twitch, who no longer start attacks the enemy walks
+out of, or kite. The kits that fell most are the ones that root, now that a root no longer stops
+its target from attacking and casting: Maokai (0.14 to 0.32), Lissandra, Lux, Morgana, Zyra,
+Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 skipped).
+
+### Spell shields and escapes (24 November 2026)
+
+- **Casts into a raised spell shield.** The behavior doesn't check for one before casting. Against
+  Sivir and Nocturne (each against every sixth champion, two all-ins), their opponents cast 0.26
+  and 0.12 abilities a fight into a shield already up, of 12.5 and 11.4 casts, so a check isn't
+  worth its code.
+- **Escapes.** Every one of the 173 kits, fleeing from every twelfth champion, got away every
+  time: the escape scenario asks the fleeing side to survive eight seconds (`ESCAPE_SECONDS`), and
+  no chaser kills a fleeing champion that fast. So that scenario scores 0 in every matchup, adds
+  nothing to any result whatever a kit's escapes are, and can't show whether they are used well. It
+  holds 5% of the scenario weight. It now scores the share of its health each side keeps getting
+  away (`escapeHealth`: its expected health left, 0 where it dies), one side's less the other's.
+  Over 88 sampled pairings, 1 scores 0; the score is 0.20 in size on average, from −0.31 to +0.32
+  between the 10th and 90th percentiles, so at its weight it moves a matchup by about 0.01. Test: a
+  runner a ranged chaser chips at survives (escape chance 1) but keeps less than all its health.
+- **A mirror break it showed.** Naafiri against Darius no longer reflected to 1e-12 (the kit's
+  reflection test): Darius fleeing kept 65.8% of his health as side 1 and 64.6% as side 0. Survival
+  had hidden it (1 either way). Naafiri's Packmates, having stepped to exactly their reach, compared
+  their distance to it with no allowance for rounding, and the two fights' positions round
+  differently. Pets now attack within their reach up to 1e-6 (the engine's `EPSILON`), and the
+  fights reflect again. Test: a pet attacks an enemy 1e-9 past its reach.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { type Behavior, DEFENSIVE_SUSTAIN, LAST_STAND } from "../../engine/sim/behavior";
-import { canCast, startAttack, startCast } from "../../engine/sim/actions";
+import { type Behavior, DEFENSIVE_SUSTAIN, LAST_STAND, defaultBehavior, disciplined, perceive } from "../../engine/sim/behavior";
+import { canCast, canStartAttack, startAttack, startCast } from "../../engine/sim/actions";
 import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
@@ -298,6 +298,48 @@ describe("defensive shields", () => {
     expect(2000 - taken).toBeLessThan(DEFENSIVE_SUSTAIN * 2000 + 1e-9);
     expect(2000 - taken).toBeGreaterThanOrEqual(DEFENSIVE_SUSTAIN * 2000 - 75);
   });
+
+});
+
+describe("defenses kept for what they answer that also buff", () => {
+  // Ragnarok's shape: a cleanse and immunity to crowd control, with bonus attack damage.
+  const ragnarok = ability({ key: "R", cooldown: 100, castTime: 0, delivery: { kind: "self" }, onSelf: [{ type: "cleanse", sticky: true }, { type: "state", state: "ccImmune", duration: 3 }, { type: "stat", stat: "AD", amount: { base: 50 }, duration: 3 }] });
+  const stun = ability({ key: "Q", cooldown: 100, castTime: 0, delivery: { kind: "target", range: 50 }, onHit: [{ type: "cc", cc: "stun", duration: 1 }] });
+  const first = (enemy: ReturnType<typeof fighter>) => {
+    const world = createWorld({ fighters: [fighter({ abilities: [ragnarok] }), enemy], distance: 0, modes: ["fight", "idle"] });
+    return perceive(world, 0);
+  };
+
+  it("go up for the buff within attack range when the enemy has nothing they answer", () => {
+    expect(defaultBehavior(first(fighter()))).toEqual({ kind: "cast", ability: "R" });
+  });
+
+  it("stay kept against an enemy with crowd control, until the holder is below half health", () => {
+    const view = first(fighter({ abilities: [stun] }));
+    expect(defaultBehavior(view)).not.toEqual({ kind: "cast", ability: "R" });
+    view.self.hp = derive(view.self).maxHp * (DEFENSIVE_SUSTAIN - 0.05);
+    expect(defaultBehavior(view)).toEqual({ kind: "cast", ability: "R" });
+  });
+});
+
+describe("crowd control that leaves a choice", () => {
+  // The wiki's crowd control table (CC_RULES): a root stops walking, not attacks or casts.
+  const rooted = (cc: "root" | "stun") => {
+    const world = createWorld({ fighters: [fighter({ abilities: [ability({ key: "Q", cooldown: 10, castTime: 0, delivery: { kind: "target", range: 300 }, onHit: [trueDamage(50)] })] }), fighter()], distance: 50, modes: ["fight", "idle"] });
+    applyEffect(world, world.units[1], world.units[0], { type: "cc", cc, duration: 2 }, { scale: 1 });
+    return perceive(world, 0);
+  };
+
+  it("lets a rooted champion cast and attack", () => {
+    const view = rooted("root");
+    expect(defaultBehavior(view)).toEqual({ kind: "cast", ability: "Q" });
+    view.self.cooldownReady.Q = 1000;
+    expect(defaultBehavior(view)).toEqual({ kind: "attack" });
+  });
+
+  it("leaves a stunned one none", () => {
+    expect(defaultBehavior(rooted("stun"))).toBeUndefined();
+  });
 });
 
 describe("instant casts during an attack windup", () => {
@@ -324,6 +366,94 @@ describe("instant casts during an attack windup", () => {
     const { world, unit } = windup(0.25);
     expect(unit.action?.kind).toBe("cast");
     expect(unit.attackReadyTick).toBe(world.tick);
+  });
+});
+
+describe("attack discipline", () => {
+  // A melee fighter (125 range) 10 units inside its range of the enemy, whose behavior asks to attack.
+  const near = (enemy = fighter()) => createWorld({ fighters: [fighter(), enemy], distance: 115, modes: ["fight", "fight"] });
+  const attack = { kind: "attack" } as const;
+
+  it("lets an attack the enemy can't walk out of go ahead", () => {
+    const world = near();
+    expect(perceive(world, 0).distance).toBeCloseTo(115);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("closes in instead of starting one an enemy walking away would outrun, whatever behavior asked for it", () => {
+    const world = near();
+    world.units[1].moved = -1;
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+  });
+
+  it("counts a feared enemy as walking away until its fear ends", () => {
+    const world = near();
+    apply(world, { type: "cc", cc: "fear", duration: 1 });
+    world.units[1].moved = -1;
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+    // A fear ending this tick leaves it no time to open the gap.
+    world.tick = world.units[1].statuses.find((status) => status.key === "fear")!.endTick;
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("expects an enemy that out-ranges it to step back once its own windup ends", () => {
+    const world = near(fighter({ attack: RANGED }));
+    const kiter = world.units[1];
+    startAttack(world, kiter);
+    world.tick++;
+    // Its windup ends before this one's: it steps back in the time left.
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+    // From up close, the step it can take doesn't get it out of range.
+    world.units[0].x = kiter.x - (kiter.x > world.units[0].x ? 1 : -1) * (world.units[0].spec.base.radius + kiter.spec.base.radius);
+    expect(perceive(world, 0).distance).toBeLessThan(1);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("attacks anyway once touching an enemy it can't get closer to, even if the enemy may walk out", () => {
+    const world = near();
+    world.units[1].moved = -1;
+    world.units[0].x = world.units[1].x - (world.units[1].x > world.units[0].x ? 1 : -1) * (world.units[0].spec.base.pathingRadius + world.units[1].spec.base.pathingRadius);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("spaces instead of standing still when asked for an attack it can't start yet", () => {
+    const world = createWorld({ fighters: [fighter({ attack: RANGED }), fighter()], distance: 300, modes: ["kite", "fight"] });
+    world.units[0].attackReadyTick = world.tick + 20;
+    // Kiting a melee enemy that has closed in, between attacks: it steps back.
+    world.units[1].x = world.units[0].x + (world.units[1].x > world.units[0].x ? 1 : -1) * (world.units[0].spec.base.radius + world.units[1].spec.base.radius + 100);
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: -1 });
+    // In a fight, out of range, it closes in.
+    world.modes[0] = "fight";
+    world.units[0].attackReadyTick = world.tick;
+    world.units[1].x = world.units[0].x + (world.units[1].x > world.units[0].x ? 1 : -1) * 2000;
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+  });
+
+  it("spaces while kiting through a channel it can walk in, rather than walking in", () => {
+    const charge = ability({ key: "E", cooldown: 20, delivery: { kind: "self" }, channel: { duration: 1, interruptible: false, mobile: true, range: 400, onTick: [trueDamage(10)] } });
+    const world = createWorld({ fighters: [fighter({ attack: RANGED, abilities: [charge] }), fighter()], distance: 100, modes: ["kite", "fight"] });
+    startCast(world, world.units[0], charge);
+    expect(world.units[0].action?.kind).toBe("channel");
+    world.units[0].attackReadyTick = world.tick + 20;
+    expect(defaultBehavior(perceive(world, 0))).toEqual({ kind: "move", direction: -1 });
+    world.modes[0] = "fight";
+    expect(defaultBehavior(perceive(world, 0))).toEqual({ kind: "move", direction: 1 });
+  });
+
+  it("reads an action the enemy started this tick as not started, whichever side decided first", () => {
+    const world = near(fighter({ attack: RANGED }));
+    startAttack(world, world.units[1]);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("keeps a behavior that attacks whenever it can from cancelling attacks on a kiting enemy", () => {
+    const eager: Behavior = (view) => (view.self.action ? undefined : canStartAttack(view.world, view.self) ? { kind: "attack" } : { kind: "move", direction: 1 });
+    // A 0.24-second windup, which a 350-speed kiter can't outrun from up close.
+    const quick = fighter({ base: { moveSpeed: 400, windup: { percent: 0.15, modifier: 1 } } });
+    const outcome = duel(quick, fighter({ attack: RANGED }), { distance: 300, behaviors: [eager, defaultBehavior], settings: { maxSeconds: 10, maxBranches: 1 } });
+    const timeline = outcome.timeline ?? [];
+    expect(timeline.filter((entry) => entry.side === 0 && entry.text === "attack cancelled: target out of range")).toHaveLength(0);
+    expect(timeline.filter((entry) => entry.side === 0 && entry.text.startsWith("attack deals")).length).toBeGreaterThan(5);
   });
 });
 

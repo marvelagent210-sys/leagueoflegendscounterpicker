@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { engageRange, escapeChance, runScenarios, SCENARIO_WEIGHTS, tradeValue } from "../../engine/sim/scenarios";
+import { engageRange, escapeChance, escapeHealth, runScenarios, SCENARIO_WEIGHTS, tradeValue } from "../../engine/sim/scenarios";
 import { fight } from "../../engine/sim/simulate";
 import { ability, fighter, RANGED } from "./kits";
 
@@ -52,6 +52,18 @@ describe("scenarios", () => {
       settings: { maxSeconds: 8 },
     });
     expect(escapeChance(caught, 0)).toBe(0);
+  });
+
+  it("scores an escape by the health the runner keeps, not survival alone", () => {
+    // A ranged chaser chips at a runner that gets away: it survives, but not unharmed.
+    const runner = fighter({ base: { moveSpeed: 400 } });
+    const chipped = fight({ fighters: [runner, fighter({ attack: RANGED, base: { ad: 200 } })], distance: 100, modes: ["flee", "fight"], settings: { maxSeconds: 8, maxBranches: 1 } });
+    expect(escapeChance(chipped, 0)).toBe(1);
+    expect(escapeHealth(chipped, 0)).toBeGreaterThan(0);
+    expect(escapeHealth(chipped, 0)).toBeLessThan(1);
+    expect(escapeHealth(chipped, 0)).toBeCloseTo(chipped.hp[0], 12);
+    const free = fight({ fighters: [runner, fighter()], distance: 100, modes: ["flee", "fight"], settings: { maxSeconds: 8 } });
+    expect(escapeHealth(free, 0)).toBe(1);
   });
 
   it("plays the spacing game when one side out-ranges the other", () => {

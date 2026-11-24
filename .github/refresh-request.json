@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices for this branch's batch of behavior changes (engine/sim/behavior.ts, engine/sim/actions.ts): finishers cast when their holder is below half health and behind (LAST_STAND); casts with no cast time keep an attack windup (V25.24's December 4th hotfix); defensive shields and heals go up below half health (DEFENSIVE_SUSTAIN); long-cast damage skillshots wait until likely to land (LONG_CAST). The five-items-and-boots matrix (simulated-builds-boots.json) is computed for the first time. Kled no longer remounts while a hit this tick has already taken him to 0 health (found by run 40's boots shard: Aurora against Kled).",
+  "note": "One recompute of all three matrices: the escape scenario now scores the share of its health each side keeps getting away (escapeHealth, engine/sim/scenarios.ts), since survival alone scored 0 in every pairing; and pets attack within their reach up to rounding (engine/sim/pets.ts), which restores mirror symmetry for Naafiri's Packmates.",
   "dataset": "16.21",
   "matrices": [
     "sim",

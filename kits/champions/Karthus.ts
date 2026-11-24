@@ -142,7 +142,7 @@ const karthus: KitModule = {
       if (self.action && self.action.kind !== "windup") return command;
       const offensive = mode !== "flee" && !self.memory.tradeDone;
       const close = Math.abs(self.x - enemy.x) <= defileRadius + enemy.spec.base.radius;
-      if (!zombie(self) && canCast(world, self, defile) && ((self.memory[ON] === true && (!close || !offensive)) || (self.memory[ON] !== true && close && offensive && self.resource >= defileRate / 2 + qCost))) return { kind: "cast", ability: "E" };
+      if (!zombie(self) && canCast(world, self, defile) && ((self.memory[ON] === true && (!close || !offensive || self.resource < qCost)) || (self.memory[ON] !== true && close && offensive && self.resource >= defileRate / 2 + qCost))) return { kind: "cast", ability: "E" };
       if (!offensive) return command;
       const allowR = mode === "fight" || mode === "kite";
       if (allowR && zombie(self) && canCast(world, self, requiem)) return { kind: "cast", ability: "R" };

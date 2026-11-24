@@ -91,7 +91,9 @@ const caitlyn: KitModule = {
       if (ordinary?.kind === "cast" && ordinary.ability === "W" && heldUntil(view.enemy) < view.world.tick + ticks(trapArm)) {
         const shot = abilities[0]!;
         if (canCast(view.world, view.self, shot) && Math.abs(view.enemy.x - view.self.x) <= qRange + view.enemy.spec.base.radius) return { kind: "cast", ability: "Q" };
-        return { kind: "attack" };
+        // Otherwise play on as if the trap weren't there: attacks when ready, spacing between them
+        // (an attack on cooldown left her standing still, never kiting).
+        return defaultBehavior({ ...view, self: { ...view.self, spec: { ...view.self.spec, abilities: view.self.spec.abilities.filter((a) => a.key !== "W") } } });
       }
       return ordinary;
     };

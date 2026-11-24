@@ -110,8 +110,8 @@ describe("actual manual command-line duels with Presence of Mind", () => {
 
   it.each([0, 1] as const)("includes side %s's resource-limited native benefit in the command's result", async side => {
     const mine = await loadFighter(data.dataset, findChampion(data.champions, "Cassiopeia"));
-    const theirs = await loadFighter(data.dataset, findChampion(data.champions, "Sion"));
-    const names = side === 0 ? ["Cassiopeia", "Sion"] as const : ["Sion", "Cassiopeia"] as const;
+    const theirs = await loadFighter(data.dataset, findChampion(data.champions, "Aatrox"));
+    const names = side === 0 ? ["Cassiopeia", "Aatrox"] as const : ["Aatrox", "Cassiopeia"] as const;
     const pair = side === 0
       ? runeMatchupSpecs(equipped(mine.spec, [8009]), equipped(theirs.spec, []))
       : runeMatchupSpecs(equipped(theirs.spec, []), equipped(mine.spec, [8009]));
