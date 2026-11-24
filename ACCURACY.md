@@ -3895,7 +3895,7 @@ out of, or kite. The kits that fell most are the ones that root, now that a root
 its target from attacking and casting: Maokai (0.14 to 0.32), Lissandra, Lux, Morgana, Zyra,
 Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 skipped).
 
-### Spell shields and escapes: scanned, no change (24 November 2026)
+### Spell shields and escapes (24 November 2026)
 
 - **Casts into a raised spell shield.** The behavior doesn't check for one before casting. Against
   Sivir and Nocturne (each against every sixth champion, two all-ins), their opponents cast 0.26
@@ -3905,8 +3905,17 @@ Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 s
   time: the escape scenario asks the fleeing side to survive eight seconds (`ESCAPE_SECONDS`), and
   no chaser kills a fleeing champion that fast. So that scenario scores 0 in every matchup, adds
   nothing to any result whatever a kit's escapes are, and can't show whether they are used well. It
-  holds 5% of the scenario weight. Making it count (a shorter window, a share of health kept rather
-  than survival) is a scoring decision, left open.
+  holds 5% of the scenario weight. It now scores the share of its health each side keeps getting
+  away (`escapeHealth`: its expected health left, 0 where it dies), one side's less the other's.
+  Over 88 sampled pairings, 1 scores 0; the score is 0.20 in size on average, from −0.31 to +0.32
+  between the 10th and 90th percentiles, so at its weight it moves a matchup by about 0.01. Test: a
+  runner a ranged chaser chips at survives (escape chance 1) but keeps less than all its health.
+- **A mirror break it showed.** Naafiri against Darius no longer reflected to 1e-12 (the kit's
+  reflection test): Darius fleeing kept 65.8% of his health as side 1 and 64.6% as side 0. Survival
+  had hidden it (1 either way). Naafiri's Packmates, having stepped to exactly their reach, compared
+  their distance to it with no allowance for rounding, and the two fights' positions round
+  differently. Pets now attack within their reach up to 1e-6 (the engine's `EPSILON`), and the
+  fights reflect again. Test: a pet attacks an enemy 1e-9 past its reach.
 
 ## Remaining limits
 

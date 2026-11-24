@@ -736,7 +736,7 @@ web/        the app
   - The all-ins start from each side's longest opener, or its attack range.
   - The short trade is scored as the health exchanged in your trade minus in theirs.
   - Spacing applies only when one side out-ranges the other by 100 units or out-runs it by 15.
-  - Escape compares how often each side gets away from the other's all-in, within 8 s or 1,400 units.
+  - Escape compares how much of its health each side keeps getting away from the other's all-in, within 8 s or 1,400 units (24 November 2026: survival alone was the same for every pairing, ACCURACY.md).
 - **Stat budget** (`engine/budget.ts`, prices in `data/<dataset>/rules.json` from Module:Gold value/data):
   - It buys AD, AP, attack speed, crit, ability haste, lethality, magic penetration, health, armor and magic resistance in 50-gold steps.
   - Each step goes to whichever stat raises ln(damage per second against the enemy) + ln(effective health against the enemy's damage mix) the most. Damage follows the champion's own ratios; ability shields and heals count toward effective health.

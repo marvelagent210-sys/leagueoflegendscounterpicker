@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices for roadmap step 4's first two batches of behavior changes (engine/sim/behavior.ts, engine/sim/simulate.ts, kits/champions/Thresh.ts, Caitlyn.ts, Karthus.ts): every behavior's basic attacks are held when the enemy would walk out of range during the windup (disciplined, with feared enemies and kiters' steps back counted), and an attack a free champion can't start yet becomes spacing; kiting champions space while walking through casts; rooted champions keep attacking and casting; Thresh throws Dark Passage at his feet for its self shield below half health; cleanses and anti-dash defenses that also buff go up when the enemy has nothing they answer, or below half health; Caitlyn plays on while holding her trap; Karthus turns Defile off below one Lay Waste's cost. Run 43, for the first batch alone, was cancelled as superseded.",
+  "note": "One recompute of all three matrices: the escape scenario now scores the share of its health each side keeps getting away (escapeHealth, engine/sim/scenarios.ts), since survival alone scored 0 in every pairing; and pets attack within their reach up to rounding (engine/sim/pets.ts), which restores mirror symmetry for Naafiri's Packmates.",
   "dataset": "16.21",
   "matrices": [
     "sim",
