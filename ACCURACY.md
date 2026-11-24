@@ -3719,6 +3719,21 @@ Skaarl's health on top, so the next lethal hit dismounted him into negative heal
 now comes back only for a Kled with health left. Aurora against Kled then completes (+0.74).
 Test: a dying Kled with his remount due stays dismounted, and one with health remounts.
 
+## Refresh with the behavior batch (24 November 2026)
+
+One refresh (run 41) recomputed all three matrices after the batch above (finishers held
+to the end, defensive shields, instant casts keeping windups, Kai'Sa's and Ezreal's
+ultimates, long casts held for a likely hit, Kled's remount). Against the previous
+matrices, 5,266 of 29,756 plain-stats entries moved (mean 0.024, 954 by more than 0.25)
+and 10,324 six-item entries (mean 0.065, 2,674 by more than 0.25); a build that moves
+also moves the searched builds behind it. Kai'Sa moved most, +0.31 on average in plain
+stats and +0.21 with items, now that Killer Instinct is cast. Then Garen (−0.15 plain),
+Pantheon (+0.09 both) and Ezreal (+0.06 both). The five-items-and-boots matrix completed
+its 14,878 pairings in 84.4 processor-hours: Plated Steelcaps are in 61% of its builds and
+Berserker's Greaves in 37%. Its second spells (Barrier 28%, Ignite 20%, Ghost 15%, Exhaust
+15%, Cleanse 12%, Heal 10%) are within a point of six items'. The full suite passes
+(10,316 tests, 5 skipped).
+
 ## Five items and boots in the browser (23 November 2026)
 
 The build matrix now has a second format, five finished items and boots
@@ -3736,9 +3751,10 @@ the planner counts 22.9 s a pairing. A local smoke run of 172 pairings had no fa
   the builds hold at the default fight settings only, since the browser can't search them.
   A change to either kit, or to any item the search weighs, can make it settle on other
   builds, so the build matrix moves more than plain stats from one patch to the next.
-- Duels have no summoner spells, and in the six-item format no boots, so a melee kit
-  without a gap-closer as long as the enemy's range can be kept out of reach by a ranged
-  champion's basic attacks (Annie with a critical strike build beats Darius).
+- Duels have no rune pages yet (runes come one by one on main), and the six-item format
+  has no boots, so there a melee kit without a gap-closer as long as the enemy's range can
+  be kept out of reach by a ranged champion's basic attacks; the five-items-and-boots
+  format and Flash and Ghost narrow that gap.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
 - Skillshot branching has a finite limit; minor hits and further branches use expected
