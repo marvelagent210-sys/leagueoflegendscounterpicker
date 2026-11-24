@@ -3793,6 +3793,40 @@ fights took other courses. The damage and tempo the wait gives up are worth as m
 fights, as the lockdown it adds, and holding a knock-back (Headbutt) also pushes the enemy away
 before the attacks. So it was left out, and not extended to the kits' own behaviors either.
 
+### Defenses held to the end (24 November 2026)
+
+A scan of what each champion still had ready when it died (each kit against four opponents,
+the three all-ins) found defenses kept to the end. Three were decision mistakes:
+
+- **Thresh's Dark Passage** was ready in 11 of his 12 deaths. The lantern thrown at his own
+  feet shields him (the wiki: "He and the first allied champion to come near the lantern are
+  granted a shield"; 130 at level 20, 2 more per soul). The shared reactions don't see a shield
+  there, since it comes from the lantern's contact. His behavior now throws it at his feet in a
+  fight or trade below half health (`DEFENSIVE_SUSTAIN`), as other defensive shields go up.
+- **Riven's Valor and K'Sante's Footwork**, dashes that shield, were ready in 7 of Riven's 9
+  deaths. They counted as gap closers only, so they were cast only to reach an enemy out of
+  range. Within attack range they now go up once their holder is below 90% of its health in
+  combat, as other shields and heals do. Riven gains 0.135 on average against every ninth
+  champion (15 of 20 pairings moved) and K'Sante 0.178.
+- **Olaf's Ragnarok and Poppy's Steadfast Presence** are kept for what they answer (crowd
+  control, dashes), but both also buff (attack damage; resistances). Ragnarok was ready in all
+  three of Olaf's deaths. Against an enemy whose kit has nothing they answer, or once their
+  holder is below half health, they now go up within attack range for the buff. Olaf gains
+  0.007 and Poppy nothing on average (Poppy against Senna loses 0.07, against Hwei gains 0.04).
+
+One change was tried and left out. Below 15% health, Fiora's Riposte, Vladimir's Sanguine Pool,
+Fizz's Playful/Trickster and Sivir's Spell Shield were also let answer any damaging hit, not
+just one that kills by itself. Vladimir lost 0.031 and Fiora 0.019 on average: spent on a small
+hit, the block is on cooldown when the hit that kills arrives.
+
+The rest of the scan's finds are not mistakes. Kindred's Lamb's Respite needs its own policy (a
+known limit), and Zeri's, Yasuo's and Lucian's dashes are kept for getting away. Renata's
+Loyalty Program shields only an ally. Sivir's Spell Shield blocks only spells, and these deaths
+were to attacks. Tests: Thresh throws the lantern at his feet below half health and not above;
+a shielding gap closer goes up in range at the hit that takes it below 90%; a cleanse that buffs
+goes up against an enemy with no crowd control, and is kept against one with crowd control
+until below half health.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

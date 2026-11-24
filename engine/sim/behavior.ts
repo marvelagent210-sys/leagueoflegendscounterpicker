@@ -527,6 +527,19 @@ function sidestep(view: View): Command | undefined {
   return undefined;
 }
 
+/** Whether a defense answers specific enemy tools: crowd control (cleanses, immunity to it) or dashes. */
+function answersSomething(traits: Traits): boolean {
+  return traits.cleanse || traits.defenses.has("ccImmune") || traits.defenses.has("antiDash");
+}
+
+/** Whether the enemy's kit has something a defense answers (answersSomething). */
+function enemyHasAnswered(view: View, traits: Traits): boolean {
+  return view.enemy.spec.abilities.some((a) => {
+    const t = traitsOf(a);
+    return ((traits.cleanse || traits.defenses.has("ccImmune")) && t.cc) || (traits.defenses.has("antiDash") && (t.engage || t.escape));
+  });
+}
+
 /** Uses a defensive tool, a cleanse or a dash when something it answers is about to land. */
 export function react(view: View): Command | undefined {
   const step = sidestep(view);
@@ -539,6 +552,10 @@ export function react(view: View): Command | undefined {
     // A minimum health threshold also goes up when health runs low under steady damage.
     if (low && traits.defenses.has("minimumHealth")) return { kind: "cast", ability: ability.key };
     if (traits.sustain && reactive(ability, traits) && inCombat(view) && self.hp < DEFENSIVE_SUSTAIN * derive(self).maxHp) return { kind: "cast", ability: ability.key };
+    // One kept for crowd control or dashes that also buffs (Ragnarok's attack damage, Steadfast
+    // Presence's resistances) goes up within attack range for the buff when the enemy has
+    // nothing it answers, or once the holder is below half health, rather than kept to the end.
+    if (traits.buff && reactive(ability, traits) && answersSomething(traits) && inAttackRange(self, view.enemy) && (!enemyHasAnswered(view, traits) || self.hp < DEFENSIVE_SUSTAIN * derive(self).maxHp)) return { kind: "cast", ability: ability.key };
     const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;
@@ -688,6 +705,9 @@ function offense(view: View, options: OffenseOptions, only?: (ability: AbilitySp
         if (inReach(ability, self, enemy)) return { kind: "cast", ability: ability.key };
         continue;
       }
+      // A gap closer that also shields or heals (Valor): within attack range already, it is cast
+      // for that, as other sustain is, rather than kept for closing a gap there isn't.
+      if (traits.sustain && inAttackRange(self, enemy) && inCombat(view) && self.hp < derive(self).maxHp * 0.9) return { kind: "cast", ability: ability.key };
       // A gap closer: worth it when out of attack range and the dash brings the enemy into it.
       const reach = (d.kind === "dash" || d.kind === "blink" ? d.distance : 0) + attackRange(self, view.enemy);
       if (!inAttackRange(self, enemy) && view.distance <= reach) return { kind: "cast", ability: ability.key };

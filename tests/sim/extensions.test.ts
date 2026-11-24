@@ -298,6 +298,39 @@ describe("defensive shields", () => {
     expect(2000 - taken).toBeLessThan(DEFENSIVE_SUSTAIN * 2000 + 1e-9);
     expect(2000 - taken).toBeGreaterThanOrEqual(DEFENSIVE_SUSTAIN * 2000 - 75);
   });
+
+  it("on a gap closer (Valor) go up within attack range once it is hurt, rather than waiting for a gap", () => {
+    const valor = ability({ key: "E", cooldown: 100, castTime: 0, delivery: { kind: "dash", direction: "toward", distance: 250, speed: 1200 }, onSelf: [{ type: "shield", amount: { base: 300 }, duration: 1.5 }] });
+    const outcome = duel(fighter({ abilities: [valor] }), fighter({ base: { ad: 150 } }), { behaviors: [undefined, undefined], settings: { maxSeconds: 60 } });
+    const cast = ticksOf(outcome.timeline, 0, "casts E")[0];
+    expect(cast).toBeDefined();
+    // Within range from the start (a brawl), it is cast at the hit that takes its holder below 90%
+    // of its 2,000 health (75 a hit: the third), as other sustain is, not at full health.
+    const hits = ticksOf(outcome.timeline, 1, "attack deals");
+    expect(cast).toBeGreaterThanOrEqual(hits[2]!);
+    expect(cast).toBeLessThan(hits[3]!);
+  });
+});
+
+describe("defenses kept for what they answer that also buff", () => {
+  // Ragnarok's shape: a cleanse and immunity to crowd control, with bonus attack damage.
+  const ragnarok = ability({ key: "R", cooldown: 100, castTime: 0, delivery: { kind: "self" }, onSelf: [{ type: "cleanse", sticky: true }, { type: "state", state: "ccImmune", duration: 3 }, { type: "stat", stat: "AD", amount: { base: 50 }, duration: 3 }] });
+  const stun = ability({ key: "Q", cooldown: 100, castTime: 0, delivery: { kind: "target", range: 50 }, onHit: [{ type: "cc", cc: "stun", duration: 1 }] });
+  const first = (enemy: ReturnType<typeof fighter>) => {
+    const world = createWorld({ fighters: [fighter({ abilities: [ragnarok] }), enemy], distance: 0, modes: ["fight", "idle"] });
+    return perceive(world, 0);
+  };
+
+  it("go up for the buff within attack range when the enemy has nothing they answer", () => {
+    expect(defaultBehavior(first(fighter()))).toEqual({ kind: "cast", ability: "R" });
+  });
+
+  it("stay kept against an enemy with crowd control, until the holder is below half health", () => {
+    const view = first(fighter({ abilities: [stun] }));
+    expect(defaultBehavior(view)).not.toEqual({ kind: "cast", ability: "R" });
+    view.self.hp = derive(view.self).maxHp * (DEFENSIVE_SUSTAIN - 0.05);
+    expect(defaultBehavior(view)).toEqual({ kind: "cast", ability: "R" });
+  });
 });
 
 describe("instant casts during an attack windup", () => {
