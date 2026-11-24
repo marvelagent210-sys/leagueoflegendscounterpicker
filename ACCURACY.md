@@ -3868,6 +3868,19 @@ channeling Singularity, as the kit models it. Tests: Caitlyn kites the slower du
 an attack that can't start becomes a step back when kiting and a step in when out of range; a
 champion walking through a channel steps back when kiting and in when fighting.
 
+### Karthus's Defile draining his Lay Waste mana (24 November 2026)
+
+A scan of the share of fight time each mana user spends without mana for its cheapest basic
+ability found Karthus dry 45% of the time. (Vladimir, Rengar and Renekton, at the top, pay with
+health or build their resource up in a fight; Lee Sin, Akali, Zed, Shen and Ambessa use energy.)
+His behavior turned Defile on with mana for it and one Lay Waste, but turned it off only out of
+range, so its drain took the mana Lay Waste, his main damage, needs. It now also goes off below
+one Lay Waste's cost. Karthus gains 0.019 on average against every ninth champion (12 of 20
+pairings moved: Talon +0.25, Aphelios +0.10, Senna −0.05). The same scan of pure self-buffs
+(attack damage, ability power, attack speed) found them rarely wasted: at most 3 of 41 casts
+(Sett's Knuckle Down) ran out without their caster dealing damage. Test: Karthus turns Defile off
+in a fight below one Lay Waste's cost, and keeps it on above.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
