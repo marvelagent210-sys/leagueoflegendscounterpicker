@@ -353,7 +353,8 @@ const kled: KitModule = {
             const guard = near <= guardRadius ? (guardBase + guardHealth * bonusHealth(self)) * (1 + guardPerEnemy) : 0;
             ctx.buff("guardArmor", "armor", guard, FOREVER);
             ctx.buff("guardMR", "MR", guard, FOREVER);
-            if (ctx.memory.remountAt !== undefined && ctx.tick >= Number(ctx.memory.remountAt)) remount(ctx);
+            // A Kled whose health a hit this tick already took to 0 is dying: Skaarl doesn't come back for him.
+            if (ctx.memory.remountAt !== undefined && ctx.tick >= Number(ctx.memory.remountAt) && self.hp > 0) remount(ctx);
           }
           // Violent Tendencies runs out after 4 s.
           if (ctx.memory.vtUntil !== undefined && ctx.tick >= Number(ctx.memory.vtUntil)) endFrenzy(ctx);

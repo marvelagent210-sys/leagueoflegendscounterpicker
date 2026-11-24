@@ -3709,6 +3709,16 @@ first and dropped: that estimate differs from the engine's, and it held Ziggs's 
 spells that do land. Tests: Ezreal fires Trueshot Barrage at a stunned enemy and holds it
 while the enemy can sidestep. The four-ability test now expects Q, W and E against Darius.
 
+## Kled remounting while dying (24 November 2026)
+
+The first refresh with the five-items-and-boots matrix failed on one pairing, Aurora against
+Kled: "Kled kit: onLethal kept the unit alive without giving it health". A tick's damage had
+taken the dismounted Kled below 0 health before his death was processed, and his Courage
+remount ran in that tick. It stored his negative health as his own and mounted him with
+Skaarl's health on top, so the next lethal hit dismounted him into negative health. Skaarl
+now comes back only for a Kled with health left. Aurora against Kled then completes (+0.74).
+Test: a dying Kled with his remount due stays dismounted, and one with health remounts.
+
 ## Five items and boots in the browser (23 November 2026)
 
 The build matrix now has a second format, five finished items and boots
