@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { type Behavior, DEFENSIVE_SUSTAIN, LAST_STAND } from "../../engine/sim/behavior";
-import { canCast, startAttack, startCast } from "../../engine/sim/actions";
+import { type Behavior, DEFENSIVE_SUSTAIN, LAST_STAND, defaultBehavior, disciplined, perceive } from "../../engine/sim/behavior";
+import { canCast, canStartAttack, startAttack, startCast } from "../../engine/sim/actions";
 import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
@@ -324,6 +324,80 @@ describe("instant casts during an attack windup", () => {
     const { world, unit } = windup(0.25);
     expect(unit.action?.kind).toBe("cast");
     expect(unit.attackReadyTick).toBe(world.tick);
+  });
+});
+
+describe("attack discipline", () => {
+  // A melee fighter (125 range) 10 units inside its range of the enemy, whose behavior asks to attack.
+  const near = (enemy = fighter()) => createWorld({ fighters: [fighter(), enemy], distance: 115, modes: ["fight", "fight"] });
+  const attack = { kind: "attack" } as const;
+
+  it("lets an attack the enemy can't walk out of go ahead", () => {
+    const world = near();
+    expect(perceive(world, 0).distance).toBeCloseTo(115);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("closes in instead of starting one an enemy walking away would outrun, whatever behavior asked for it", () => {
+    const world = near();
+    world.units[1].moved = -1;
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+  });
+
+  it("counts a feared enemy as walking away until its fear ends", () => {
+    const world = near();
+    apply(world, { type: "cc", cc: "fear", duration: 1 });
+    world.units[1].moved = -1;
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+    // A fear ending this tick leaves it no time to open the gap.
+    world.tick = world.units[1].statuses.find((status) => status.key === "fear")!.endTick;
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("counts an enemy knocked away as carried on until the displacement ends", () => {
+    const world = near();
+    world.units[1].forced = { endTick: world.tick + 10, perTick: 20 };
+    world.units[1].moved = -1;
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+    // With 5 units of the knock back left, it stays within the 10 units of range to spare.
+    world.units[1].forced = { endTick: world.tick + 10, perTick: 20, remaining: 5 };
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("expects an enemy that out-ranges it to step back once its own windup ends", () => {
+    const world = near(fighter({ attack: RANGED }));
+    const kiter = world.units[1];
+    startAttack(world, kiter);
+    world.tick++;
+    // Its windup ends before this one's: it steps back in the time left.
+    expect(disciplined(perceive(world, 0), attack)).toEqual({ kind: "move", direction: 1 });
+    // From up close, the step it can take doesn't get it out of range.
+    world.units[0].x = kiter.x - (kiter.x > world.units[0].x ? 1 : -1) * (world.units[0].spec.base.radius + kiter.spec.base.radius);
+    expect(perceive(world, 0).distance).toBeLessThan(1);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("attacks anyway once touching an enemy it can't get closer to, even if the enemy may walk out", () => {
+    const world = near();
+    world.units[1].moved = -1;
+    world.units[0].x = world.units[1].x - (world.units[1].x > world.units[0].x ? 1 : -1) * (world.units[0].spec.base.pathingRadius + world.units[1].spec.base.pathingRadius);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("reads an action the enemy started this tick as not started, whichever side decided first", () => {
+    const world = near(fighter({ attack: RANGED }));
+    startAttack(world, world.units[1]);
+    expect(disciplined(perceive(world, 0), attack)).toEqual(attack);
+  });
+
+  it("keeps a behavior that attacks whenever it can from cancelling attacks on a kiting enemy", () => {
+    const eager: Behavior = (view) => (view.self.action ? undefined : canStartAttack(view.world, view.self) ? { kind: "attack" } : { kind: "move", direction: 1 });
+    // A 0.24-second windup, which a 350-speed kiter can't outrun from up close.
+    const quick = fighter({ base: { moveSpeed: 400, windup: { percent: 0.15, modifier: 1 } } });
+    const outcome = duel(quick, fighter({ attack: RANGED }), { distance: 300, behaviors: [eager, defaultBehavior], settings: { maxSeconds: 10, maxBranches: 1 } });
+    const timeline = outcome.timeline ?? [];
+    expect(timeline.filter((entry) => entry.side === 0 && entry.text === "attack cancelled: target out of range")).toHaveLength(0);
+    expect(timeline.filter((entry) => entry.side === 0 && entry.text.startsWith("attack deals")).length).toBeGreaterThan(5);
   });
 });
 

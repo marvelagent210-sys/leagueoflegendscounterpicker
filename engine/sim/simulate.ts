@@ -42,7 +42,7 @@ import {
   startAttack,
   startCast,
 } from "./actions";
-import { type Behavior, type Command, defaultBehavior, perceive, traitsOf } from "./behavior";
+import { type Behavior, type Command, defaultBehavior, disciplined, perceive, traitsOf } from "./behavior";
 import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, endForcedMovement, heal, hookContext, log, notifyActualMovement, observeHealthShields } from "./combat";
 import { canMove, ccTypes, derive, hasState } from "./derived";
 import { abilityOf } from "./forms";
@@ -340,7 +340,8 @@ function decide(world: World, unit: Unit, behavior: Behavior, splits: PendingSpl
   if (!unit.alive) return;
   forcedAttack(world, unit);
   for (let i = 0; i < MAX_COMMANDS_PER_TICK; i++) {
-    const command = behavior(perceive(world, unit.side));
+    const view = perceive(world, unit.side);
+    const command = disciplined(view, behavior(view));
     if (!command) break;
     const result = execute(world, unit, command);
     if (result.split) splits.push(result.split);

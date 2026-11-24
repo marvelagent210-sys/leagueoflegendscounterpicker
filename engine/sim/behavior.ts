@@ -21,7 +21,7 @@ import { effectiveResist, mitigate } from "../rules/damage";
 import { absorbWithShields, averageCritFactor, type Shield } from "../rules/defense";
 import { toTicks } from "../rules/time";
 import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach, missileArrivalTicks, targetRange } from "./actions";
-import { canTarget, edgeDistance, isUntargetable } from "./combat";
+import { canTarget, contactGap, edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
 import { abilityOf } from "./forms";
 import { hitChance } from "./hitModel";
@@ -739,17 +739,64 @@ function petTarget(view: View, urgentOnly: boolean): Pet | undefined {
   return best;
 }
 
-/** Edge-to-edge units the enemy will open up during this unit's windup if it keeps walking away. */
+/**
+ * Whether an enemy that out-ranges this unit will step back now, as spacing has a champion do
+ * between its attacks: free to walk, its attack not ready, and not yet at its own range.
+ */
+function kitingBack(view: View): boolean {
+  const { world, self, enemy } = view;
+  const range = attackRange(enemy, self);
+  return range > attackRange(self, enemy) + 50 && enemy.attackReadyTick > world.tick + 1 && view.distance < range - 25 - EPSILON;
+}
+
+/**
+ * Edge-to-edge units the enemy will open up during this unit's windup if it walks away: one
+ * walking away already, one about to step back between its attacks (kitingBack), a feared one,
+ * which keeps walking away until the fear ends, or one knocked away.
+ */
 function escapeDuringWindup(view: View): number {
-  const { self, enemy } = view;
-  if (enemy.moved !== -1 || !canMove(enemy) || enemy.action !== undefined) return 0;
-  return derive(enemy).moveSpeed * (attackTiming(self).windup / 30);
+  const { world, self, enemy } = view;
+  const windup = attackTiming(self).windup / 30;
+  // Knocked away: carried on until the displacement ends (or its distance runs out).
+  const forced = enemy.forced;
+  if (forced) {
+    if (enemy.moved !== -1) return 0;
+    const ticks = Math.min(attackTiming(self).windup, Math.max(0, forced.endTick - world.tick));
+    return Math.min(Math.abs(forced.perTick) * ticks, forced.remaining ?? Number.POSITIVE_INFINITY);
+  }
+  const fear = !enemy.forced && ccTypes(enemy).has("fear") ? enemy.statuses.findLast((s) => s.kind === "cc" && s.key === "fear") : undefined;
+  if (fear) return enemy.moved === -1 ? derive(enemy).moveSpeed * Math.min(windup, Math.max(0, (fear.endTick - world.tick) / 30)) : 0;
+  if (!canMove(enemy)) return 0;
+  // Read as it stood when the tick's decisions began, so neither side's turn to decide first
+  // changes what the other sees: an action the enemy started this tick doesn't count yet.
+  const action = enemy.action && enemy.action.startTick < world.tick ? enemy.action : undefined;
+  // (An attack started this tick was ready before it, so the enemy wasn't then kiting back.)
+  if (enemy.action && !action) return enemy.moved === -1 || (enemy.action.kind !== "windup" && kitingBack(view)) ? derive(enemy).moveSpeed * windup : 0;
+  // A kiter's own attack or short cast holds it in place first; it steps back once that ends.
+  const busy = action === undefined ? 0 : action.kind === "windup" ? action.launchTick - world.tick : action.kind === "cast" ? action.endTick - world.tick : Number.POSITIVE_INFINITY;
+  if (action !== undefined ? !kitingBack(view) : enemy.moved !== -1 && !kitingBack(view)) return 0;
+  return derive(enemy).moveSpeed * Math.max(0, windup - Math.max(0, busy) / 30);
 }
 
 /** Whether an enemy walking away would leave attack range before the windup ends (cancelling it). */
 function outrunsWindup(view: View): boolean {
   const gap = escapeDuringWindup(view);
   return gap > 0 && view.distance + gap > attackRange(view.self, view.enemy) + EPSILON;
+}
+
+/**
+ * A champion's command, held to the attack discipline every behavior keeps, the default's and
+ * the kits' own: a basic attack on the enemy champion that would walk out of range during the
+ * windup is cancelled for nothing (cancelOutOfRange), so the unit walks as the default spaces
+ * instead (closing in, except when kiting), unless it is already touching the enemy. Kits' own
+ * behaviors start attacks whenever they can
+ * (Braum's against a Rakan stepping back between attacks cancelled 71 in a fight).
+ */
+export function disciplined(view: View, command: Command | undefined): Command | undefined {
+  if (command?.kind !== "attack" || command.pet !== undefined || !outrunsWindup(view)) return command;
+  // Already touching it, the unit can't get any closer: the attack is the best it has.
+  if (contactGap(view.self, view.enemy) <= EPSILON) return command;
+  return spacing(view, view.mode === "kite");
 }
 
 /** Walking: melee stay on the enemy; units that out-range it step back between attacks. */

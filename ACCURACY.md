@@ -3742,6 +3742,42 @@ offers six items, five items and boots, or plain stats. The refresh plans it as 
 matrix with its own shards. On four pairings it took about 5% longer than six items, so
 the planner counts 22.9 s a pairing. A local smoke run of 172 pairings had no failures.
 
+## Roadmap step 4: attacks the enemy walks out of (24 November 2026)
+
+A scan of every champion's fights (each kit against four opponents, the three all-in
+scenarios, plain stats) counted 2,513 basic attacks cancelled because the target left range
+during the windup, 1.21 a fight. A cancelled attack deals nothing and costs its windup.
+Nocturne cancelled 18 a fight, Braum 14 and Hecarim 8. There were three causes:
+
+- **Kits' own behaviors.** 35 kits issue their own attacks, and they skipped the default's
+  check for an enemy about to walk out. Braum cancelled 71 attacks in one brawl against Rakan,
+  who steps back between attacks. The check now applies to every behavior's command, the
+  default's and the kits' own (`disciplined`, applied in `decide`): an attack the enemy would
+  outrun becomes the default's spacing (closing in, except when kiting).
+- **Feared and knocked-back enemies.** A feared or knocked-back enemy can't move by choice,
+  so the check treated it as standing still, but it keeps moving away. Nocturne cancelled
+  attacks on enemies fleeing his Unspeakable Horror, and Milio on enemies his kick knocked
+  back. The check now counts a fear until it ends, and a displacement until it ends or its
+  distance runs out.
+- **Kiting.** A ranged enemy out-ranging the attacker by more than 50 steps back between its
+  attacks (the default spacing). Attackers started their windups just before that step, often
+  while the kiter was still in its own windup. They now expect the step once the kiter's own
+  attack or cast ends, and close in first.
+
+An attacker already touching the enemy attacks anyway, as it can't get closer. The enemy's
+actions are read as they stood when the tick's decisions began, so neither side's turn to
+decide first changes what the other sees; the mirrored-fight tests hold to 1e-10. Cancels
+fell to 681 over the same 2,076 fights (0.33 a fight), and fights ended 0.23 s sooner on
+average. What remains is mostly forced: taunted champions attack by themselves (Rammus's
+Frenzying Taunt), and kits that step while attacking (Aphelios). Tests: the check passes a
+safe attack and holds one against an enemy walking away, feared or knocked back; a kiter's
+step after its windup; an attack at contact; an enemy action started this tick; and a kit
+behavior that attacks whenever it can, which no longer cancels against a kiter.
+
+The Presence of Mind command-line test compared Cassiopeia with and without the rune against
+Sion. Sion now closes in on her kiting and wins every all-in either way, so the rune's
+benefit can't show. The test uses Aatrox, against whom it adds 0.39 and two casts.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
