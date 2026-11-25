@@ -3951,6 +3951,11 @@ deals 120% rather than 150%. The behavior's damage estimates and the build searc
 don't count it, so they slightly undervalue Randuin's Omen against critical strikers; the fights the
 search plays do count it. 85 items now have every effect modeled. Tests: those two ratios.
 
+The refresh (run 47) moved few results, as both items are rare in searched builds (under 2% of
+builds each, below the reports' item lists): plain stats not at all (no items), six items 42 of
+29,756 entries (22 by more than 0.1), five items and boots 98 (36 by more than 0.1). The full suite
+passes (10,338 tests, 5 skipped).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
