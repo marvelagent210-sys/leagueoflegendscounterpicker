@@ -36,6 +36,7 @@ import { HollowRadiance } from "./HollowRadiance";
 import { HorizonFocus } from "./HorizonFocus";
 import { Hullbreaker } from "./Hullbreaker";
 import { IcebornGauntlet } from "./IcebornGauntlet";
+import { IonianBoots } from "./IonianBoots";
 import { ImmortalShieldbow } from "./ImmortalShieldbow";
 import { ImperialMandate } from "./ImperialMandate";
 import { JakShoTheProtean } from "./JakShoTheProtean";
@@ -138,6 +139,7 @@ const MODULES: ItemModule[] = [
   HorizonFocus,
   Hullbreaker,
   IcebornGauntlet,
+  IonianBoots,
   ImmortalShieldbow,
   ImperialMandate,
   JakShoTheProtean,

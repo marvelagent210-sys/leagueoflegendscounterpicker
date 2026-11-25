@@ -29,6 +29,8 @@ export interface Derived {
   abilityHaste: number;
   basicAbilityHaste: number;
   ultimateAbilityHaste: number;
+  /** Summoner spell haste: summoner spells' cooldowns only, which ability haste leaves alone. */
+  summonerSpellHaste: number;
   lethality: number;
   magicPen: number;
   /** Percentage penetration, as fractions (several multiply). */
@@ -42,6 +44,8 @@ export interface Derived {
   damageDealt: number[];
   /** Damage received reductions (fractions, multiplicative). */
   damageReduction: number[];
+  /** The fraction critical strikes' damage to this unit is cut by (Randuin's Omen's Resilience), at most 1. */
+  critDamageTakenReduction: number;
   physicalReduction: number[];
   magicReduction: number[];
   armorReduction: { flat: number; percent: number[] };
@@ -134,6 +138,7 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
         || bonus.critChance !== bought.critChance || bonus.abilityHaste !== bought.abilityHaste
         || bonus.basicAbilityHaste !== bought.basicAbilityHaste
         || bonus.ultimateAbilityHaste !== bought.ultimateAbilityHaste
+        || bonus.summonerSpellHaste !== bought.summonerSpellHaste
         || bonus.lethality !== bought.lethality || bonus.magicPen !== bought.magicPen
         || bonus.armorPenPoints !== bought.armorPenPoints || bonus.magicPenPoints !== bought.magicPenPoints) return false;
   } else if (bonus !== bought) return false;
@@ -314,6 +319,7 @@ function computeDerived(unit: Unit): Derived {
     abilityHaste: Math.min(500, (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste")),
     basicAbilityHaste: (bonus.basicAbilityHaste ?? 0) + sum(st, "basicAbilityHaste"),
     ultimateAbilityHaste: (bonus.ultimateAbilityHaste ?? 0) + sum(st, "ultimateAbilityHaste"),
+    summonerSpellHaste: bonus.summonerSpellHaste ?? 0,
     lethality: (bonus.lethality ?? 0) + sum(st, "lethality"),
     magicPen: bonus.magicPen ?? 0,
     armorPen: [...list(st, "stat", "armorPen"), ...(bonus.armorPenPoints ? [boughtPenetration(bonus.armorPenPoints)] : [])],
@@ -323,6 +329,7 @@ function computeDerived(unit: Unit): Derived {
     tenacity: combineTenacity([[...tenacitySources, ...tenacityGroups.values()]]),
     damageDealt: list(st, "stat", "damageDealt"),
     damageReduction: list(st, "state", "damageReduction"),
+    critDamageTakenReduction: Math.min(1, sum(st, "critDamageTaken")),
     physicalReduction: list(st, "state", "physicalReduction"),
     magicReduction: list(st, "state", "magicReduction"),
     armorReduction: { flat: sum(st, "armorReduction"), percent: list(st, "stat", "armorReductionPercent") },

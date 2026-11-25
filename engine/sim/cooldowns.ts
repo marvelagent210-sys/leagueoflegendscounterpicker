@@ -52,6 +52,16 @@ export function abilityHasteFor(unit: Unit, source: AbilityHasteSource): number 
   return Math.min(500, stats.abilityHaste + specialized + (resolved.bonusAbilityHaste ?? 0));
 }
 
+/**
+ * The haste a cast's cooldown takes. A static cooldown takes no ability haste (Steel Tempest,
+ * item actives, summoner spells); a summoner spell's takes summoner spell haste instead, a haste
+ * of its own (wiki: "Haste", summoner spell haste; Ionian Insight's 10).
+ */
+export function cooldownHasteFor(unit: Unit, ability: AbilitySpec): number {
+  if (!ability.staticCooldown) return abilityHasteFor(unit, ability);
+  return ability.key.startsWith("summoner:") ? derive(unit).summonerSpellHaste : 0;
+}
+
 /** Preserve the initiating spell and its reviewed class, not its current haste value. */
 export function cooldownSourceSnapshot(unit: Unit, ability: AbilitySpec): AbilitySpec {
   return {

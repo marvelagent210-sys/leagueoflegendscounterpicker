@@ -18,7 +18,7 @@ import { toTicks } from "../rules/time";
 import { cooldownAfterHaste } from "../rules/timing";
 import { derive, evaluate, hasState } from "./derived";
 import { abilityOf, setForm } from "./forms";
-import { abilityForCooldown, abilityHasteFor, cooldownSourceSnapshot } from "./cooldowns";
+import { abilityForCooldown, abilityHasteFor, cooldownHasteFor, cooldownSourceSnapshot } from "./cooldowns";
 import { terrainGap, terrainLimit } from "./terrain";
 import { damagePet, petEffects } from "./pets";
 import { petFormulaTarget } from "./petTarget";
@@ -467,7 +467,14 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   const t = derive(target);
   const beforeCrit = raw;
   const critChance = Math.min(1, Math.max(0, ctx.crit?.chance ?? 0));
-  if (ctx.crit) raw = raw * averageCritFactor(critChance, ctx.crit.multiplier) + (ctx.crit.bonus ?? 0);
+  if (ctx.crit) {
+    // Expected over the critical outcome: a critical strike's damage is cut by the target's
+    // reduction (Resilience), the ordinary hit's isn't.
+    const cut = 1 - t.critDamageTakenReduction;
+    const bonus = ctx.crit.bonus ?? 0;
+    raw = cut === 1 ? raw * averageCritFactor(critChance, ctx.crit.multiplier) + bonus
+      : (raw + bonus) * (1 - critChance) + (raw * ctx.crit.multiplier + bonus) * critChance * cut;
+  }
   const resist =
     type === "physical"
       ? effectiveResist(t.armor, t.armorReduction, { flat: s.lethality, percent: s.armorPen, bonusPercent: s.bonusArmorPen })
@@ -1173,7 +1180,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       }
       const left = Math.max(0, ready - tick);
       const spec = abilityForCooldown(caster, effect.ability);
-      const whole = effect.total && spec ? toTicks(cooldownAfterHaste(spec.cooldownFor?.(caster) ?? spec.cooldown, spec.staticCooldown ? 0 : abilityHasteFor(caster, spec))) : left;
+      const whole = effect.total && spec ? toTicks(cooldownAfterHaste(spec.cooldownFor?.(caster) ?? spec.cooldown, cooldownHasteFor(caster, spec))) : left;
       const cut = (effect.seconds !== undefined ? toTicks(effect.seconds) : 0) + Math.round(whole * (effect.fraction ?? 0));
       if (left > 0) caster.cooldownReady[effect.ability] = tick + Math.max(0, left - cut);
       return;

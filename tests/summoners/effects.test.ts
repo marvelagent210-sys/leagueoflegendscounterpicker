@@ -37,6 +37,25 @@ const holdingSpin = (spin: AbilitySpec) => holding(fighter({ abilities: [spin] }
 const hits = (log: Array<{ side: number; text: string }>, side: 0 | 1, source: string) =>
   log.filter((entry) => entry.side === side && entry.text.startsWith(`${source} deals `)).map((entry) => Number(/deals (\d+)/.exec(entry.text)?.[1]));
 
+describe("summoner spell haste", () => {
+  it("shortens summoner spells' cooldowns (Ionian Insight's 10), which ability haste doesn't", () => {
+    const q = ability({ key: "Q", cooldown: 10, castTime: 0, delivery: { kind: "self" }, onSelf: [] });
+    /** The cooldown, in seconds, `key` goes on when cast at the first tick. */
+    const cooldown = (build: string[], key: string) => {
+      const spec = holding(fighter({ abilities: [q] }), ["Flash", "Ignite"], build).spec;
+      const w = world(spec);
+      expect(derive(w.units[0]).summonerSpellHaste).toBe(build.length ? 10 : 0);
+      step(w, [(view) => (view.world.tick === 0 ? { kind: "cast", ability: key } : undefined), idle]);
+      return w.units[0].cooldownReady[key]! / 30;
+    };
+    // Ignite's 180 seconds: with the boots' 10 summoner spell haste, 180 / 1.1.
+    expect(cooldown([], spellKey("Ignite"))).toBeCloseTo(180, 1);
+    expect(cooldown(["Ionian Boots of Lucidity"], spellKey("Ignite"))).toBeCloseTo(180 / 1.1, 1);
+    // The kit's Q takes the boots' 10 ability haste, not their summoner spell haste on top.
+    expect(cooldown(["Ionian Boots of Lucidity"], "Q")).toBeCloseTo(10 / 1.1, 1);
+  });
+});
+
 describe("summoner spells on a fighter", () => {
   it("are actives apart from the kit's: no cast time, a static cooldown, not a champion cast, past spell shields", () => {
     const ignite = active(spec("Ignite"), spellKey("Ignite"));

@@ -3771,7 +3771,10 @@ actions are read as they stood when the tick's decisions began, so neither side'
 decide first changes what the other sees; the mirrored-fight tests hold to 1e-10. Cancels
 fell to 681 over the same 2,076 fights (0.33 a fight), and fights ended 0.23 s sooner on
 average. What remains is mostly forced: taunted champions attack by themselves (Rammus's
-Frenzying Taunt), and kits that step while attacking (Aphelios). Tests: the check passes a
+Frenzying Taunt), and kits that step while attacking (Aphelios). Expecting a kiter's step back
+holds some ranged attackers too (Morgana against Ahri lost 0.09); expecting it for melee attackers
+only was tried and dropped, at −0.018 on average over 15 ranged-against-longer-range pairings (Annie
+against Lux −0.44, Zilean against Caitlyn +0.11). Tests: the check passes a
 safe attack and holds one against an enemy walking away or feared; a kiter's
 step after its windup; an attack at contact; an enemy action started this tick; and a kit
 behavior that attacks whenever it can, which no longer cancels against a kiter.
@@ -3916,6 +3919,37 @@ Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 s
   their distance to it with no allowance for rounding, and the two fights' positions round
   differently. Pets now attack within their reach up to 1e-6 (the engine's `EPSILON`), and the
   fights reflect again. Test: a pet attacks an enemy 1e-9 past its reach.
+- **Results (run 45 against run 44).** Nearly every entry moved a little, as the escape scenario now
+  counts: plain stats 29,426 of 29,756 (mean 0.013, 20 by more than 0.1), six items 27,426 (mean
+  0.021, 100 by more than 0.1), five items and boots 26,730 (mean 0.020, 90). Champions that catch
+  or chip at a fleeing enemy rose (Jarvan IV, Kha'Zix, Zed, Nocturne, Malphite, by about 0.02 to
+  0.03); several ranged champions fell (Quinn, Swain, Soraka, Nami, Caitlyn, by about
+  0.015 to 0.03). The full suite passes (10,334 tests, 5 skipped).
+
+## Roadmap step 5: Ionian Insight (25 November 2026)
+
+Ionian Boots of Lucidity's passive, Ionian Insight ("Gain 10 summoner spell haste"), was left out as
+"the simulator has no summoner spells". Summoner spells have been in since step 3. It is now a stat
+of its own, summoner spell haste, which only summoner spells' cooldowns take
+(`cooldownHasteFor`, engine/sim/cooldowns.ts). Their cooldowns stay unaffected by ability haste, and
+the kit's abilities take the boots' 10 ability haste but not this. With the boots, Ignite's 180-second
+cooldown is 180 / 1.1 = 163.6 seconds. The item effects report counts 84 items with every effect
+modeled (83 before). The item implementation pin of the adaptive-shard review
+(pipeline/runes/itemEligibility.ts) is updated: the change adds no attack damage or ability power. Test:
+with the boots, Ignite's cooldown is 180 / 1.1 and the kit's Q takes only the ability haste.
+
+### Randuin's Omen's Resilience
+
+Resilience ("Reduces incoming damage from critical strikes by 30%") was left out because "the
+simulator's damage hooks can't tell a critical outcome from an ordinary one". They needn't: the
+simulator deals critical strikes as expected values, an attack with crit chance c and crit damage m
+dealing 1 + c(m − 1) of an ordinary hit. The cut falls on the critical share alone, so the attack
+deals (1 − c) + c·m·0.7, the attack's bonus physical damage taking the cut on critical hits too. It is
+a stat on the holder (`critDamageTaken`), read where damage resolves (engine/sim/combat.ts). A sure
+critical strike deals 140% of an ordinary hit to the holder rather than 200%; one with a 50% chance
+deals 120% rather than 150%. The behavior's damage estimates and the build search's quick estimate
+don't count it, so they slightly undervalue Randuin's Omen against critical strikers; the fights the
+search plays do count it. 85 items now have every effect modeled. Tests: those two ratios.
 
 ## Remaining limits
 

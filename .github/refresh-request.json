@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices: the escape scenario now scores the share of its health each side keeps getting away (escapeHealth, engine/sim/scenarios.ts), since survival alone scored 0 in every pairing; and pets attack within their reach up to rounding (engine/sim/pets.ts), which restores mirror symmetry for Naafiri's Packmates.",
+  "note": "One recompute of all three matrices for roadmap step 5's first items: Ionian Boots of Lucidity's Ionian Insight (summoner spell haste, which only summoner spells' cooldowns take: engine/sim/cooldowns.ts, items/modules/IonianBoots.ts) and Randuin's Omen's Resilience (a 30% cut to the critical share of expected attack damage the holder takes: engine/sim/combat.ts, items/modules/RanduinsOmen.ts).",
   "dataset": "16.21",
   "matrices": [
     "sim",
