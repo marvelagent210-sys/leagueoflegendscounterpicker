@@ -200,7 +200,7 @@ export function petEffects(world: World, caster: Unit, pet: Pet, effects: readon
       applyEffect(world, caster, target, effect, context);
       pet.statuses = target.statuses;
     } else if (effect.type === "heal") {
-      heal(world, target, evaluate(effect.amount, caster, target) * scale);
+      heal(world, target, evaluate(effect.amount, caster, target) * scale, false, false, caster);
     } else if (effect.type === "execute") {
       const protection = healthProtection(world, pet);
       if (hasState(target, "invulnerable") || protection.invulnerable) continue;

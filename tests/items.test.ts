@@ -255,7 +255,7 @@ describe("the committed item catalog", async () => {
   });
 
   it("holds the rule pages item effects quote, at the revisions recorded for the dataset", () => {
-    expect(catalog.rulePages.map((page) => page.title)).toEqual(["Combat status", "Critical strike", "Template:Critical damage", "Template:Tip data/Energized", "Vamp"]);
+    expect(catalog.rulePages.map((page) => page.title)).toEqual(["Combat status", "Critical strike", "Template:Critical damage", "Template:Tip data/Energized", "Vamp", "Heal and shield power", "Template:Healing modifiers"]);
     for (const page of catalog.rulePages) expect(revisions[page.title], page.title).toBe(page.revid);
     const energized = catalog.rulePages.find((page) => page.title === "Template:Tip data/Energized")?.text;
     expect(energized).toContain("Champions with Energized gain 6 Charges per basic attack and 1 Charge for every 24 units travelled by any means.");

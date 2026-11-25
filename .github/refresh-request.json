@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices: Actualizer's Mana Made Real (doubled mana costs, more ability damage and faster basic cooldowns for 8 seconds: engine/sim/actions.ts costOf, items/modules/Actualizer.ts), and Randuin's Omen's Resilience now also cut on the split critical path (engine/sim/combat.ts).",
+  "note": "One recompute of all three matrices: heal and shield power (a healShieldPower stat on heals and shields: engine/sim/combat.ts heal and shield effects, items/modules/shared.ts itemShield), from the shop stat of five items, Dawncore's First Light and Actualizer's Mana Made Real.",
   "dataset": "16.21",
   "matrices": [
     "sim",

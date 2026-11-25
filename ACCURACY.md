@@ -3988,6 +3988,40 @@ The refresh (run 50, on main), with the Resilience correction above, moved almos
 or six-item entry, and 2 of 29,756 five-items-and-boots entries (both by more than 0.1). The build search
 seldom picks Actualizer or Randuin's Omen. The full suite passes (10,342 tests, 5 skipped).
 
+### Heal and shield power (25 November 2026)
+
+The item rules now pin two more wiki pages at their current revisions (data/16.21/items.json
+`rulePages`, manifest.json, wiki-revisions.json): "Heal and shield power" (revision 4021804) and
+"Template:Healing modifiers" (revision 4021803). The other five rule pages keep their revisions. The
+template's heal and shield power column, which it shares with Actualizer: health regeneration, life
+steal, omnivamp, physical vamp and spell vamp **no**; drain effects, self heals, self shields and
+outgoing heals and shields **yes**; incoming heals **no**. The page: "It stacks additively", and "Heal
+Power stacks additively with itself, but multiplicatively with other heal modifiers".
+
+- **The stat:** a new `healShieldPower` (engine/sim/spec.ts, derived.ts), summed over the unit's statuses.
+- **Heals:** `heal()` (engine/sim/combat.ts) multiplies by 1 + the healer's heal and shield power, then by
+  the healed unit's own healing modifiers (Spirit Visage). Regeneration and life steal or omnivamp heals
+  don't get it. The healer is the caster for `heal` effects (kits, items, pets) and for Kindred's Lamb's
+  Respite, which can heal the enemy too; for other direct heals it is the healed unit.
+- **Shields:** a `shield` effect is multiplied by its caster's power, and item shields (Sterak's Gage,
+  Eclipse, Maw of Malmortius, Seraph's Embrace and others, items/modules/shared.ts `itemShield`) by the
+  holder's.
+- **Items:** the shop stat (Ardent Censer 10%, Dawncore 16%, Mikael's Blessing 12%, Redemption 10%, Staff
+  of Flowing Water 10%) is a permanent status, as life steal is. Dawncore's First Light adds 2% per 100%
+  of the build's base mana regeneration under its own key, so it adds to the shop's 16% (18% for Dawncore
+  alone). Actualizer's Mana Made Real gives its 15% (+ 0.5% per 100 bonus mana) as heal and shield power
+  while Empowered, as the template's shared column and the page's sum for the highest power count it.
+- **Left out:** ability drains the kits give as a damage effect's `lifesteal` share (Aatrox's Deathbringer
+  Stance, Camille's Tactical Sweep) take the life steal path, so they don't get heal and shield power,
+  though drain effects should. Heals a kit gives allied pets directly count the pet's power (none), not
+  the caster's. Runes that give heal and shield power (Revitalize) wait for the rune pages.
+
+89 items have every effect modeled (85 before). Tests (tests/items/effects.test.ts): the shop stat sums
+across items; heals rise by the power and then by Spirit Visage's kind of increase, regeneration and
+life steal don't; the healer's power counts, not the healed unit's; ability and item shields rise; Dawncore
+makes 18%; Actualizer gives 16.5% for 8 seconds. The full suite passes apart from the three tests of the
+committed matrices, which wait for the refresh (10,345 tests pass, 5 skipped).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

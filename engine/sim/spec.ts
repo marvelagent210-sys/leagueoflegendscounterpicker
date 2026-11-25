@@ -180,6 +180,12 @@ export type BuffStat =
   | "slowResist"
   /** Increases healing and health regeneration received by a fraction (World Ender). */
   | "healingIncrease"
+  /**
+   * Heal and shield power, as a fraction: the unit's own heals and shields, on itself or others,
+   * are this much stronger. It stacks additively with itself and multiplies other heal modifiers;
+   * health regeneration, life steal and omnivamp don't get it (wiki: "Template:Healing modifiers").
+   */
+  | "healShieldPower"
   /** More maximum resource (Twilight Shroud's 100 energy). */
   | "maxResource"
   /** Percentage penetration of bonus armor only (All Out's 50%). */
