@@ -467,10 +467,11 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   const t = derive(target);
   const beforeCrit = raw;
   const critChance = Math.min(1, Math.max(0, ctx.crit?.chance ?? 0));
+  // A critical strike's damage is cut by the target's reduction (Resilience); the ordinary hit's isn't.
+  const critCut = 1 - t.critDamageTakenReduction;
   if (ctx.crit) {
-    // Expected over the critical outcome: a critical strike's damage is cut by the target's
-    // reduction (Resilience), the ordinary hit's isn't.
-    const cut = 1 - t.critDamageTakenReduction;
+    // Expected over the critical outcome.
+    const cut = critCut;
     const bonus = ctx.crit.bonus ?? 0;
     raw = cut === 1 ? raw * averageCritFactor(critChance, ctx.crit.multiplier) + bonus
       : (raw + bonus) * (1 - critChance) + (raw * ctx.crit.multiplier + bonus) * critChance * cut;
@@ -498,7 +499,7 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   };
   const splitCritical = ctx.crit && (criticalResist !== resist || flatReduction > 0 || adjustRaw);
   let mitigated = splitCritical
-    ? (critChance < 1 ? (1 - critChance) * mitigate(reduceRaw(beforeCrit + (ctx.crit!.bonus ?? 0)), type, resist, modifiers) : 0) + (critChance > 0 ? critChance * mitigate(reduceRaw(beforeCrit * ctx.crit!.multiplier + (ctx.crit!.bonus ?? 0)), type, criticalResist, modifiers) : 0)
+    ? (critChance < 1 ? (1 - critChance) * mitigate(reduceRaw(beforeCrit + (ctx.crit!.bonus ?? 0)), type, resist, modifiers) : 0) + (critChance > 0 ? critChance * mitigate(reduceRaw((beforeCrit * ctx.crit!.multiplier + (ctx.crit!.bonus ?? 0)) * critCut), type, criticalResist, modifiers) : 0)
     : mitigate(reduceRaw(raw), type, resist, modifiers);
   const adjustMitigated = target.spec.hooks?.modifyDamageBeforeShields;
   if (adjustMitigated && mitigated > 0) runHook(() => {

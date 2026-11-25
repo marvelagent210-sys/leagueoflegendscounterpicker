@@ -42,6 +42,19 @@ describe("Randuin's Omen's Resilience", () => {
     expect(taken(1, ["Randuin's Omen"]) / taken(0, ["Randuin's Omen"])).toBeCloseTo(1.4, 6);
   });
 
+  it("cuts it the same when the holder's own hooks adjust its raw damage taken (the split critical path)", () => {
+    // A pass-through raw damage hook on the holder sends critical hits through the split path.
+    const hooked = (critChance: number, holder: string[]) => {
+      const spec = equip(fighter({ base: { armor: 0 }, hooks: { modifyDamageTakenRaw: (ctx) => ctx.raw } }), ...holder).spec;
+      const w = world(fighter({ bonus: { critChance } }), spec);
+      const before = w.units[1].hp;
+      attackHit(w, w.units[0], w.units[1], false, []);
+      return before - w.units[1].hp;
+    };
+    expect(hooked(1, ["Randuin's Omen"]) / hooked(0, ["Randuin's Omen"])).toBeCloseTo(1.4, 6);
+    expect(hooked(1, []) / hooked(0, [])).toBeCloseTo(2, 6);
+  });
+
   it("cuts only the critical share of an attack that may crit", () => {
     // Half the time a crit (200%, cut to 140%), half not: 1.2 of an ordinary hit, not 1.5.
     expect(taken(0.5, ["Randuin's Omen"]) / taken(0, ["Randuin's Omen"])).toBeCloseTo(1.2, 6);

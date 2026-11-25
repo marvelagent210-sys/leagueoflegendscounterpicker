@@ -3951,6 +3951,13 @@ deals 120% rather than 150%. The behavior's damage estimates and the build searc
 don't count it, so they slightly undervalue Randuin's Omen against critical strikers; the fights the
 search plays do count it. 85 items now have every effect modeled. Tests: those two ratios.
 
+A correction (25 November): the cut was missed whenever a critical hit took the split path that
+resolves its ordinary and critical outcomes apart (engine/sim/combat.ts: when the holder has its own
+raw-damage hooks, a flat damage reduction, or the attacker ignores armor on critical strikes). That
+path recomputed the critical outcome from the damage before the crit and skipped Resilience. It now
+cuts it there too. Test: with a pass-through raw-damage hook on the holder, a sure critical strike
+still deals 140%. The results of run 47 below are from before this correction.
+
 The refresh (run 47) moved few results, as both items are rare in searched builds (under 2% of
 builds each, below the reports' item lists): plain stats not at all (no items), six items 42 of
 29,756 entries (22 by more than 0.1), five items and boots 98 (36 by more than 0.1). The full suite
