@@ -10,7 +10,7 @@ import { canAttack, canCastUnderCC, derive, evaluate, hasState } from "./derived
 import { healthProtection } from "./healthProtection";
 import { abilityOf, allAbilities } from "./forms";
 import { allocateCastInstance, currentCastInstance, withCastInstance } from "./castInstance";
-import { abilityHasteFor, cooldownSourceSnapshot } from "./cooldowns";
+import { abilityHasteFor, cooldownHasteFor, cooldownSourceSnapshot } from "./cooldowns";
 import { dashDistance, terrainLimit } from "./terrain";
 import { hitChance } from "./hitModel";
 import { type AbilitySpec, type AttackSplit, type Effect, cooldownKeyOf } from "./spec";
@@ -563,7 +563,7 @@ function startCooldown(world: World, unit: Unit, ability: AbilitySpec): void {
     unit.cooldownHeld[key] = ability.key;
     return;
   }
-  const haste = ability.staticCooldown ? 0 : abilityHasteFor(unit, ability);
+  const haste = cooldownHasteFor(unit, ability);
   unit.cooldownReady[key] = world.tick + toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste));
 }
 
@@ -575,7 +575,7 @@ export function releaseCooldowns(world: World, unit: Unit): void {
     if (ability && effectLasts(world, unit, ability)) continue;
     delete unit.cooldownHeld[key];
     if (ability && stored !== ability) unit.cooldownSources[key] = cooldownSourceSnapshot(unit, ability);
-    const haste = ability?.staticCooldown || !ability ? 0 : abilityHasteFor(unit, ability);
+    const haste = ability ? cooldownHasteFor(unit, ability) : 0;
     const full = ability ? toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste)) : 0;
     // Refunds that came while it was held.
     const pending = unit.pendingRefunds[key];

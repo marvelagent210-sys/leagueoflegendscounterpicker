@@ -3926,6 +3926,18 @@ Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 s
   0.03); several ranged champions fell (Quinn, Swain, Soraka, Nami, Caitlyn, by about
   0.015 to 0.03). The full suite passes (10,334 tests, 5 skipped).
 
+## Roadmap step 5: Ionian Insight (25 November 2026)
+
+Ionian Boots of Lucidity's passive, Ionian Insight ("Gain 10 summoner spell haste"), was left out as
+"the simulator has no summoner spells". Summoner spells have been in since step 3. It is now a stat
+of its own, summoner spell haste, which only summoner spells' cooldowns take
+(`cooldownHasteFor`, engine/sim/cooldowns.ts). Their cooldowns stay unaffected by ability haste, and
+the kit's abilities take the boots' 10 ability haste but not this. With the boots, Ignite's 180-second
+cooldown is 180 / 1.1 = 163.6 seconds. The item effects report counts 84 items with every effect
+modeled (83 before). The item implementation pin of the adaptive-shard review
+(pipeline/runes/itemEligibility.ts) is updated: the change adds no attack damage or ability power. Test:
+with the boots, Ignite's cooldown is 180 / 1.1 and the kit's Q takes only the ability haste.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

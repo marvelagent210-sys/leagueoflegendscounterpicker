@@ -29,6 +29,8 @@ export interface Derived {
   abilityHaste: number;
   basicAbilityHaste: number;
   ultimateAbilityHaste: number;
+  /** Summoner spell haste: summoner spells' cooldowns only, which ability haste leaves alone. */
+  summonerSpellHaste: number;
   lethality: number;
   magicPen: number;
   /** Percentage penetration, as fractions (several multiply). */
@@ -134,6 +136,7 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
         || bonus.critChance !== bought.critChance || bonus.abilityHaste !== bought.abilityHaste
         || bonus.basicAbilityHaste !== bought.basicAbilityHaste
         || bonus.ultimateAbilityHaste !== bought.ultimateAbilityHaste
+        || bonus.summonerSpellHaste !== bought.summonerSpellHaste
         || bonus.lethality !== bought.lethality || bonus.magicPen !== bought.magicPen
         || bonus.armorPenPoints !== bought.armorPenPoints || bonus.magicPenPoints !== bought.magicPenPoints) return false;
   } else if (bonus !== bought) return false;
@@ -314,6 +317,7 @@ function computeDerived(unit: Unit): Derived {
     abilityHaste: Math.min(500, (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste")),
     basicAbilityHaste: (bonus.basicAbilityHaste ?? 0) + sum(st, "basicAbilityHaste"),
     ultimateAbilityHaste: (bonus.ultimateAbilityHaste ?? 0) + sum(st, "ultimateAbilityHaste"),
+    summonerSpellHaste: bonus.summonerSpellHaste ?? 0,
     lethality: (bonus.lethality ?? 0) + sum(st, "lethality"),
     magicPen: bonus.magicPen ?? 0,
     armorPen: [...list(st, "stat", "armorPen"), ...(bonus.armorPenPoints ? [boughtPenetration(bonus.armorPenPoints)] : [])],

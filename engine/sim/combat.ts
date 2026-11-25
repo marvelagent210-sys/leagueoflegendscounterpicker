@@ -18,7 +18,7 @@ import { toTicks } from "../rules/time";
 import { cooldownAfterHaste } from "../rules/timing";
 import { derive, evaluate, hasState } from "./derived";
 import { abilityOf, setForm } from "./forms";
-import { abilityForCooldown, abilityHasteFor, cooldownSourceSnapshot } from "./cooldowns";
+import { abilityForCooldown, abilityHasteFor, cooldownHasteFor, cooldownSourceSnapshot } from "./cooldowns";
 import { terrainGap, terrainLimit } from "./terrain";
 import { damagePet, petEffects } from "./pets";
 import { petFormulaTarget } from "./petTarget";
@@ -1173,7 +1173,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       }
       const left = Math.max(0, ready - tick);
       const spec = abilityForCooldown(caster, effect.ability);
-      const whole = effect.total && spec ? toTicks(cooldownAfterHaste(spec.cooldownFor?.(caster) ?? spec.cooldown, spec.staticCooldown ? 0 : abilityHasteFor(caster, spec))) : left;
+      const whole = effect.total && spec ? toTicks(cooldownAfterHaste(spec.cooldownFor?.(caster) ?? spec.cooldown, cooldownHasteFor(caster, spec))) : left;
       const cut = (effect.seconds !== undefined ? toTicks(effect.seconds) : 0) + Math.round(whole * (effect.fraction ?? 0));
       if (left > 0) caster.cooldownReady[effect.ability] = tick + Math.max(0, left - cut);
       return;

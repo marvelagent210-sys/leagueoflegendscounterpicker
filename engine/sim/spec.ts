@@ -839,6 +839,8 @@ export interface BonusStats {
   basicAbilityHaste?: number;
   /** Ultimate-only haste; also available to source-qualified independent clocks. */
   ultimateAbilityHaste?: number;
+  /** Summoner spell haste (Ionian Boots of Lucidity's Ionian Insight): only summoner spell cooldowns. */
+  summonerSpellHaste?: number;
   lethality?: number;
   magicPen?: number;
   /**
