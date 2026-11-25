@@ -28,5 +28,4 @@ export const OUTSIDE_DUELS: ItemModule[] = [
   outside("Hubris", { Eminence: TAKEDOWN }),
   outside("Gluttonous Greaves", { Slay: TAKEDOWN }),
   outside("Runaan's Hurricane", { "Wind's Fury": "its bolts go to enemies other than the target, which in a duel can only be pets, and aren't modeled." }),
-  outside("Actualizer", { "Mana Made Real": "its doubled mana costs and faster cooldowns aren't modeled yet, so it isn't cast." }),
 ];

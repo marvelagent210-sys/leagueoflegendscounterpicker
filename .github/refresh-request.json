@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices for roadmap step 5's first items: Ionian Boots of Lucidity's Ionian Insight (summoner spell haste, which only summoner spells' cooldowns take: engine/sim/cooldowns.ts, items/modules/IonianBoots.ts) and Randuin's Omen's Resilience (a 30% cut to the critical share of expected attack damage the holder takes: engine/sim/combat.ts, items/modules/RanduinsOmen.ts).",
+  "note": "One recompute of all three matrices: Actualizer's Mana Made Real (doubled mana costs, more ability damage and faster basic cooldowns for 8 seconds: engine/sim/actions.ts costOf, items/modules/Actualizer.ts), and Randuin's Omen's Resilience now also cut on the split critical path (engine/sim/combat.ts).",
   "dataset": "16.21",
   "matrices": [
     "sim",

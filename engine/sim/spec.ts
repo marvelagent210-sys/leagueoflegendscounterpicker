@@ -146,6 +146,8 @@ export type BuffStat =
   | "attackSpeedCap"
   /** Cuts the damage of critical strikes the holder takes by this fraction (Randuin's Omen's Resilience). */
   | "critDamageTaken"
+  /** Raises a mana champion's ability mana costs by this fraction (Actualizer's Empowered mana: 100% more). */
+  | "manaCostIncrease"
   | "moveSpeedFlat"
   /** Flat loss of total movement speed after bonuses, before slows and soft caps. */
   | "totalMoveSpeedReduction"

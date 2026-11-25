@@ -2,7 +2,7 @@
 
 What the duel simulator makes of each item (items/, PLAN.md §13, M8): the effects it models from the item's wiki text, what it leaves out and why, and the simplifications it makes. Every number comes from the wiki's text: a quote that is no longer there fails the build.
 
-116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 85 have every effect modeled, 11 have none that can act in a duel, and the rest leave part out.
+116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 85 have every effect modeled, 10 have none that can act in a duel, and the rest leave part out.
 
 The rules the items follow beyond their own text come from pinned wiki pages: Combat status (revision 4058480), Critical strike (revision 4059009), Template:Critical damage (revision 4001015), Template:Tip data/Energized (revision 4013385), Vamp (revision 4089668).
 
@@ -16,7 +16,10 @@ Modeled: Unmake.
 
 ### Actualizer
 
-- Left out: Mana Made Real: its doubled mana costs and faster cooldowns aren't modeled yet, so it isn't cast.
+Modeled: Mana Made Real.
+- Left out: Mana Made Real's increased healing and shielding: like heal and shield power, not modeled yet.
+- Assumed: Mana Made Real's increased damage is on the kit's ability damage (as Liandry's Torment's and Spear of Shojin's), its pet damage included where the kit deals it as ability damage.
+- Assumed: Empowered basic abilities' cooldowns progress 30% faster: each tick takes 1.3 ticks off a running cooldown of Q, W or E; their charges' recharge isn't sped up.
 
 ### Archangel's Staff
 

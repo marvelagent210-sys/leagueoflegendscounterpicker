@@ -3963,6 +3963,27 @@ builds each, below the reports' item lists): plain stats not at all (no items), 
 29,756 entries (22 by more than 0.1), five items and boots 98 (36 by more than 0.1). The full suite
 passes (10,338 tests, 5 skipped).
 
+### Actualizer's Mana Made Real (25 November 2026)
+
+Mana Made Real was left out ("its doubled mana costs and faster cooldowns aren't modeled yet, so it
+isn't cast"). For 8 seconds the holder's mana is Empowered: "your abilities cost 100% more mana; you
+gain 15% (+ 0.5% per 100 bonus mana) increased ability and pet damage, healing, and shielding; and your
+basic abilities' cooldowns progress 30% faster". Now:
+
+- **Mana costs** take a new stat, `manaCostIncrease`, which `costOf` (engine/sim/actions.ts) reads for
+  mana champions' mana costs only, not health costs. The active's status sets it to 1 for 8 seconds.
+- **Damage:** the kit's ability damage (as Liandry's Torment and Spear of Shojin count it) is raised by
+  15% plus 0.5% per 100 bonus mana. Actualizer's own 300 mana makes 16.5%.
+- **Cooldowns:** each tick takes 1.3 ticks off a running Q, W or E cooldown; charges' recharge isn't
+  sped up.
+- **Left out:** the increased healing and shielding, as heal and shield power is.
+
+The active goes up as other self-buffs do; Lux with Actualizer and Rabadon's Deathcap against Garen
+casts it six times over the scenarios. A champion without mana gets no active. 85 items have every
+effect modeled and 10 none that can act in a duel (11 before). Tests: costs double and come back after
+8 seconds, ability damage rises by 16.5%, cooldowns run 1.3 times as fast, and no active for a champion
+without mana.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

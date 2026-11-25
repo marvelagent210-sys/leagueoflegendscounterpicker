@@ -46,6 +46,8 @@ export interface Derived {
   damageReduction: number[];
   /** The fraction critical strikes' damage to this unit is cut by (Randuin's Omen's Resilience), at most 1. */
   critDamageTakenReduction: number;
+  /** The fraction a mana champion's ability mana costs are raised by (Actualizer's Mana Made Real). */
+  manaCostIncrease: number;
   physicalReduction: number[];
   magicReduction: number[];
   armorReduction: { flat: number; percent: number[] };
@@ -330,6 +332,7 @@ function computeDerived(unit: Unit): Derived {
     damageDealt: list(st, "stat", "damageDealt"),
     damageReduction: list(st, "state", "damageReduction"),
     critDamageTakenReduction: Math.min(1, sum(st, "critDamageTaken")),
+    manaCostIncrease: sum(st, "manaCostIncrease"),
     physicalReduction: list(st, "state", "physicalReduction"),
     magicReduction: list(st, "state", "magicReduction"),
     armorReduction: { flat: sum(st, "armorReduction"), percent: list(st, "stat", "armorReductionPercent") },
