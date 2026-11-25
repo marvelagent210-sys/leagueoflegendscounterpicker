@@ -3919,6 +3919,12 @@ Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 s
   their distance to it with no allowance for rounding, and the two fights' positions round
   differently. Pets now attack within their reach up to 1e-6 (the engine's `EPSILON`), and the
   fights reflect again. Test: a pet attacks an enemy 1e-9 past its reach.
+- **Results (run 45 against run 44).** Nearly every entry moved a little, as the escape scenario now
+  counts: plain stats 29,426 of 29,756 (mean 0.013, 20 by more than 0.1), six items 27,426 (mean
+  0.021, 100 by more than 0.1), five items and boots 26,730 (mean 0.020, 90). Champions that catch
+  or chip at a fleeing enemy rose (Jarvan IV, Kha'Zix, Zed, Nocturne, Malphite, by about 0.02 to
+  0.03); ranged champions who flee by walking fell (Quinn, Swain, Soraka, Nami, Caitlyn, by about
+  0.015 to 0.03). The full suite passes (10,334 tests, 5 skipped).
 
 ## Remaining limits
 
