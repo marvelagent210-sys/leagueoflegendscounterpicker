@@ -44,6 +44,8 @@ export interface Derived {
   damageDealt: number[];
   /** Damage received reductions (fractions, multiplicative). */
   damageReduction: number[];
+  /** The fraction critical strikes' damage to this unit is cut by (Randuin's Omen's Resilience), at most 1. */
+  critDamageTakenReduction: number;
   physicalReduction: number[];
   magicReduction: number[];
   armorReduction: { flat: number; percent: number[] };
@@ -327,6 +329,7 @@ function computeDerived(unit: Unit): Derived {
     tenacity: combineTenacity([[...tenacitySources, ...tenacityGroups.values()]]),
     damageDealt: list(st, "stat", "damageDealt"),
     damageReduction: list(st, "state", "damageReduction"),
+    critDamageTakenReduction: Math.min(1, sum(st, "critDamageTaken")),
     physicalReduction: list(st, "state", "physicalReduction"),
     magicReduction: list(st, "state", "magicReduction"),
     armorReduction: { flat: sum(st, "armorReduction"), percent: list(st, "stat", "armorReductionPercent") },

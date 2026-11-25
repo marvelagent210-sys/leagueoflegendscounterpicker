@@ -2,7 +2,7 @@
 
 What the duel simulator makes of each item (items/, PLAN.md §13, M8): the effects it models from the item's wiki text, what it leaves out and why, and the simplifications it makes. Every number comes from the wiki's text: a quote that is no longer there fails the build.
 
-116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 84 have every effect modeled, 11 have none that can act in a duel, and the rest leave part out.
+116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 85 have every effect modeled, 11 have none that can act in a duel, and the rest leave part out.
 
 The rules the items follow beyond their own text come from pinned wiki pages: Combat status (revision 4058480), Critical strike (revision 4059009), Template:Critical damage (revision 4001015), Template:Tip data/Energized (revision 4013385), Vamp (revision 4089668).
 
@@ -335,8 +335,7 @@ Modeled: Magical Opus.
 
 ### Randuin's Omen
 
-Modeled: Humility.
-- Left out: Resilience: the simulator's damage hooks can't tell a critical outcome from an ordinary one yet.
+Modeled: Resilience, Humility.
 
 ### Rapid Firecannon
 

@@ -3,7 +3,7 @@
  * plain numbers (tests/sim/kits.ts: 100 AD into 100 armor is 50 damage an attack).
  */
 import { describe, expect, it } from "vitest";
-import { dealDamage, hookContext } from "../../engine/sim/combat";
+import { attackHit, dealDamage, hookContext } from "../../engine/sim/combat";
 import { createWorld } from "../../engine/sim/simulate";
 import { derive } from "../../engine/sim/derived";
 import type { FighterSpec, KitHooks } from "../../engine/sim/spec";
@@ -25,6 +25,28 @@ const world = (a: FighterSpec, b: FighterSpec = fighter()) => createWorld({ figh
 /** The damage numbers a side's log shows for a source ("attack", an item's name). */
 const hits = (log: Array<{ side: number; text: string }>, side: 0 | 1, source: string) =>
   log.filter((entry) => entry.side === side && entry.text.startsWith(`${source} deals `)).map((entry) => Number(/deals (\d+)/.exec(entry.text)?.[1]));
+
+describe("Randuin's Omen's Resilience", () => {
+  // "Reduces incoming damage from critical strikes by 30%": crits are expected values, so the cut
+  // falls on the critical share of each attack only.
+  const taken = (critChance: number, holder: string[]) => {
+    const w = world(fighter({ bonus: { critChance } }), equip(fighter({ base: { armor: 0 } }), ...holder).spec);
+    const target = w.units[1];
+    const before = target.hp;
+    attackHit(w, w.units[0], target, false, []);
+    return before - target.hp;
+  };
+
+  it("cuts a sure critical strike's damage by 30%: 140% of an ordinary hit rather than 200%", () => {
+    expect(taken(1, []) / taken(0, [])).toBeCloseTo(2, 6);
+    expect(taken(1, ["Randuin's Omen"]) / taken(0, ["Randuin's Omen"])).toBeCloseTo(1.4, 6);
+  });
+
+  it("cuts only the critical share of an attack that may crit", () => {
+    // Half the time a crit (200%, cut to 140%), half not: 1.2 of an ordinary hit, not 1.5.
+    expect(taken(0.5, ["Randuin's Omen"]) / taken(0, ["Randuin's Omen"])).toBeCloseTo(1.2, 6);
+  });
+});
 
 describe("item stats", () => {
   it("adds shop stats to bought stats, and Infinity Edge's crit damage to the 200%, times the champion's own modifier", () => {

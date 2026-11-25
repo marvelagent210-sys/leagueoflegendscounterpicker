@@ -144,6 +144,8 @@ export type BuffStat =
   | "attackSpeedMultiplier"
   /** Raises the normal attack speed cap to this value while active. */
   | "attackSpeedCap"
+  /** Cuts the damage of critical strikes the holder takes by this fraction (Randuin's Omen's Resilience). */
+  | "critDamageTaken"
   | "moveSpeedFlat"
   /** Flat loss of total movement speed after bonuses, before slows and soft caps. */
   | "totalMoveSpeedReduction"

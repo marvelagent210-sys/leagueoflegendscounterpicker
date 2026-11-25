@@ -3938,6 +3938,19 @@ modeled (83 before). The item implementation pin of the adaptive-shard review
 (pipeline/runes/itemEligibility.ts) is updated: the change adds no attack damage or ability power. Test:
 with the boots, Ignite's cooldown is 180 / 1.1 and the kit's Q takes only the ability haste.
 
+### Randuin's Omen's Resilience
+
+Resilience ("Reduces incoming damage from critical strikes by 30%") was left out because "the
+simulator's damage hooks can't tell a critical outcome from an ordinary one". They needn't: the
+simulator deals critical strikes as expected values, an attack with crit chance c and crit damage m
+dealing 1 + c(m − 1) of an ordinary hit. The cut falls on the critical share alone, so the attack
+deals (1 − c) + c·m·0.7, the attack's bonus physical damage taking the cut on critical hits too. It is
+a stat on the holder (`critDamageTaken`), read where damage resolves (engine/sim/combat.ts). A sure
+critical strike deals 140% of an ordinary hit to the holder rather than 200%; one with a 50% chance
+deals 120% rather than 150%. The behavior's damage estimates and the build search's quick estimate
+don't count it, so they slightly undervalue Randuin's Omen against critical strikers; the fights the
+search plays do count it. 85 items now have every effect modeled. Tests: those two ratios.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
