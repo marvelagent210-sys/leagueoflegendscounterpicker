@@ -3923,7 +3923,7 @@ Neeko, Ryze, Karma, Senna and Nautilus. The full suite passes (10,332 tests, 5 s
   counts: plain stats 29,426 of 29,756 (mean 0.013, 20 by more than 0.1), six items 27,426 (mean
   0.021, 100 by more than 0.1), five items and boots 26,730 (mean 0.020, 90). Champions that catch
   or chip at a fleeing enemy rose (Jarvan IV, Kha'Zix, Zed, Nocturne, Malphite, by about 0.02 to
-  0.03); ranged champions who flee by walking fell (Quinn, Swain, Soraka, Nami, Caitlyn, by about
+  0.03); several ranged champions fell (Quinn, Swain, Soraka, Nami, Caitlyn, by about
   0.015 to 0.03). The full suite passes (10,334 tests, 5 skipped).
 
 ## Remaining limits
