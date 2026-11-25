@@ -3,8 +3,9 @@
  * plain numbers (tests/sim/kits.ts: 100 AD into 100 armor is 50 damage an attack).
  */
 import { describe, expect, it } from "vitest";
-import { attackHit, dealDamage, hookContext } from "../../engine/sim/combat";
-import { createWorld } from "../../engine/sim/simulate";
+import { abilityHit, attackHit, dealDamage, hookContext } from "../../engine/sim/combat";
+import { costOf, startCast } from "../../engine/sim/actions";
+import { createWorld, step } from "../../engine/sim/simulate";
 import { derive } from "../../engine/sim/derived";
 import type { FighterSpec, KitHooks } from "../../engine/sim/spec";
 import { ItemContext } from "../../items/context";
@@ -26,6 +27,47 @@ const world = (a: FighterSpec, b: FighterSpec = fighter()) => createWorld({ figh
 const hits = (log: Array<{ side: number; text: string }>, side: 0 | 1, source: string) =>
   log.filter((entry) => entry.side === side && entry.text.startsWith(`${source} deals `)).map((entry) => Number(/deals (\d+)/.exec(entry.text)?.[1]));
 
+describe("Actualizer's Mana Made Real", () => {
+  // A mana fighter with a 50-mana Q (10 s cooldown, 100 true damage).
+  const q = { key: "Q", name: "Bolt", slot: "Q" as const, cooldown: 10, cost: 50, castTime: 0, delivery: { kind: "target" as const, range: 600 }, onHit: [{ type: "damage" as const, damageType: "true" as const, amount: { base: 100 } }] };
+  const mage = () => equip({ ...fighter({ base: { resource: 1000, resourceRegen: 0 } }), resourceType: "Mana", abilities: [q] }, "Actualizer");
+  const empower = (w: ReturnType<typeof world>) => {
+    const active = w.units[0].spec.abilities.find((a) => a.key === activeKey("Actualizer"))!;
+    startCast(w, w.units[0], active);
+  };
+
+  it("doubles mana costs, and adds 15% plus 0.5% per 100 bonus mana to ability damage, for 8 seconds", () => {
+    // The enemy takes the holder's hooks as a matchup gives them.
+    const w = world(...matchupSpecs(mage(), equip(fighter())));
+    const [self, enemy] = w.units;
+    expect(costOf(self, q)).toBe(50);
+    empower(w);
+    expect(costOf(self, q)).toBe(100);
+    // Actualizer's 300 mana is bonus mana: 15% + 1.5%.
+    const before = enemy.hp;
+    abilityHit(w, self, enemy, self.spec.abilities.find((a) => a.key === "Q")!, q.onHit);
+    expect(before - enemy.hp).toBeCloseTo(100 * 1.165, 6);
+    // Statuses expire as the fight steps on.
+    for (let i = 0; i <= 8 * 30; i++) step(w, [idle, idle]);
+    expect(costOf(self, q)).toBe(50);
+  });
+
+  it("speeds its basic abilities' cooldowns by 30% while Empowered", () => {
+    const w = world(mage().spec);
+    const self = w.units[0];
+    empower(w);
+    self.cooldownReady.Q = w.tick + 300;
+    const start = w.tick;
+    for (let i = 0; i < 30; i++) step(w, [idle, idle]);
+    // 30 ticks take 39 ticks of cooldown: the timer ends 9 ticks sooner.
+    expect(self.cooldownReady.Q! - (start + 300)).toBeCloseTo(-9, 6);
+  });
+
+  it("does nothing for a champion without mana", () => {
+    expect(equip(fighter(), "Actualizer").spec.abilities.some((a) => a.key === activeKey("Actualizer"))).toBe(false);
+  });
+});
+
 describe("Randuin's Omen's Resilience", () => {
   // "Reduces incoming damage from critical strikes by 30%": crits are expected values, so the cut
   // falls on the critical share of each attack only.
@@ -40,6 +82,19 @@ describe("Randuin's Omen's Resilience", () => {
   it("cuts a sure critical strike's damage by 30%: 140% of an ordinary hit rather than 200%", () => {
     expect(taken(1, []) / taken(0, [])).toBeCloseTo(2, 6);
     expect(taken(1, ["Randuin's Omen"]) / taken(0, ["Randuin's Omen"])).toBeCloseTo(1.4, 6);
+  });
+
+  it("cuts it the same when the holder's own hooks adjust its raw damage taken (the split critical path)", () => {
+    // A pass-through raw damage hook on the holder sends critical hits through the split path.
+    const hooked = (critChance: number, holder: string[]) => {
+      const spec = equip(fighter({ base: { armor: 0 }, hooks: { modifyDamageTakenRaw: (ctx) => ctx.raw } }), ...holder).spec;
+      const w = world(fighter({ bonus: { critChance } }), spec);
+      const before = w.units[1].hp;
+      attackHit(w, w.units[0], w.units[1], false, []);
+      return before - w.units[1].hp;
+    };
+    expect(hooked(1, ["Randuin's Omen"]) / hooked(0, ["Randuin's Omen"])).toBeCloseTo(1.4, 6);
+    expect(hooked(1, []) / hooked(0, [])).toBeCloseTo(2, 6);
   });
 
   it("cuts only the critical share of an attack that may crit", () => {

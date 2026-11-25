@@ -300,9 +300,11 @@ function chainOpen(world: World, unit: Unit, ability: AbilitySpec): boolean {
 
 /** An ability's cost now (some scale with the caster's stats). */
 export function costOf(unit: Unit, ability: AbilitySpec): number {
-  if (ability.costFor) return Math.max(0, ability.costFor(unit, ability));
+  // Mana costs only: a mana champion's, and not the health some abilities cost (Actualizer).
+  const more = unit.spec.resourceType === "Mana" && ability.costType !== "health" ? 1 + derive(unit).manaCostIncrease : 1;
+  if (ability.costFor) return Math.max(0, ability.costFor(unit, ability)) * more;
   const cost = ability.cost ?? 0;
-  return typeof cost === "number" ? cost : evaluate(cost, unit);
+  return (typeof cost === "number" ? cost : evaluate(cost, unit)) * more;
 }
 
 function affordable(world: World, unit: Unit, ability: AbilitySpec): boolean {

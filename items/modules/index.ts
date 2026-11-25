@@ -1,6 +1,7 @@
 /** Every item the simulator models beyond its shop stats, by its catalog name (items/equip.ts). */
 import type { ItemModule } from "../equip";
 import { AbyssalMask } from "./AbyssalMask";
+import { Actualizer } from "./Actualizer";
 import { ArchangelsStaff } from "./ArchangelsStaff";
 import { Bandlepipes } from "./Bandlepipes";
 import { BansheesVeil } from "./BansheesVeil";
@@ -104,6 +105,7 @@ import { OUTSIDE_DUELS } from "./outsideDuels";
 
 const MODULES: ItemModule[] = [
   AbyssalMask,
+  Actualizer,
   ArchangelsStaff,
   Bandlepipes,
   BansheesVeil,
