@@ -3984,6 +3984,10 @@ effect modeled and 10 none that can act in a duel (11 before). Tests: costs doub
 8 seconds, ability damage rises by 16.5%, cooldowns run 1.3 times as fast, and no active for a champion
 without mana.
 
+The refresh (run 50, on main), with the Resilience correction above, moved almost nothing: no plain-stats
+or six-item entry, and 2 of 29,756 five-items-and-boots entries (both by more than 0.1). The build search
+seldom picks Actualizer or Randuin's Omen. The full suite passes (10,342 tests, 5 skipped).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
