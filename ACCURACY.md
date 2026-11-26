@@ -4041,8 +4041,10 @@ fights decide between the best ones. Two item mechanics fights now play were mis
   don't. Dawncore's First Light gives a hint of its share (2% for Dawncore alone).
 - **Still left out of the estimate:** Actualizer's Empowered damage and heal and shield power (its
   damage would be a share of the abilities' damage, which the hints can't read without the budget
-  reading them back); Horizon Focus's Hypershot (the estimate has no range); Serpent's Fang's cut
-  to the enemy's shields; and stacks that change during a fight (Mejai's Soulstealer, Hubris).
+  reading them back); Horizon Focus's Hypershot (the estimate has no range); and Serpent's Fang's cut
+  to the enemy's shields. Mejai's Soulstealer and Hubris already agree with fights: Glory's stacks are
+  a fixed option before the fight (none by default), counted as shop AP in both, and Eminence needs
+  takedowns, which no duel has.
 
 Tests (tests/items/hints.test.ts): 20% heal and shield power and Spirit Visage give 1.2 × 1.25 of a
 kit's heals and 1.2 of its shields; an ability shield grows by 10% with Ardent Censer; life steal
