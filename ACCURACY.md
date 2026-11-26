@@ -4022,6 +4022,46 @@ life steal don't; the healer's power counts, not the healed unit's; ability and 
 makes 18%; Actualizer gives 16.5% for 8 seconds. The full suite passes apart from the three tests of the
 committed matrices, which wait for the refresh (10,345 tests pass, 5 skipped).
 
+The refresh (run 52, on main) moved no plain-stats entry, 110 of 29,756 six-item entries (20 by more
+than 0.1) and 92 five-items-and-boots entries (22 by more than 0.1): the five items and Actualizer are
+seldom in searched builds.
+
+### The build search's estimate: Resilience and heal and shield power (26 November 2026)
+
+The build search ranks builds by a quick estimate (items/estimate.ts, engine/budget.ts) before real
+fights decide between the best ones. Two item mechanics fights now play were missing from it:
+
+- **Randuin's Omen's Resilience:** the estimate's expected critical strike multiplier ignored the
+  target's cut. A new `critFactorAgainst` (engine/budget.ts) cuts the critical share only, as combat
+  does: a sure critical strike for 175% counts 122.5% against Resilience's 30%. It applies to basic
+  attacks, critical on-hit and ability damage, and to the life steal the estimate counts from attacks.
+- **Heal and shield power:** the abilities' heals and shields (the budget's `sustain`), the kit's
+  healing and shielding hints and the items' (their actives' included) now grow by the holder's heal
+  and shield power, the heals also by healing increases (Spirit Visage). Life steal and omnivamp
+  don't. Dawncore's First Light gives a hint of its share (2% for Dawncore alone).
+- **Still left out of the estimate:** Actualizer's Empowered damage and heal and shield power (its
+  damage would be a share of the abilities' damage, which the hints can't read without the budget
+  reading them back); Horizon Focus's Hypershot (the estimate has no range); Serpent's Fang's cut
+  to the enemy's shields; and stacks that change during a fight (Mejai's Soulstealer, Hubris).
+
+Tests (tests/items/hints.test.ts): 20% heal and shield power and Spirit Visage give 1.2 × 1.25 of a
+kit's heals and 1.2 of its shields; an ability shield grows by 10% with Ardent Censer; life steal
+doesn't; Dawncore gives 18%; Resilience leaves 70% of a sure critical attacker's physical damage.
+
+The refresh (run 53) moved the item builds a lot, nearly all through Randuin's Omen. The estimate had
+counted none of Resilience, so it seldom shortlisted Randuin's Omen for the fights that pick between
+builds, though those fights counted the cut. Most builds hold critical strike (Yun Tal Wildarrows,
+Infinity Edge), so the item is now in 30% of six-item builds (under 2% before) and 18% of five items and
+boots, with fewer critical strike items: Yun Tal Wildarrows 72% to 60%, Infinity Edge 40% to 26% of
+six-item builds.
+
+- **Plain stats:** no entry moved (no items).
+- **Six items:** 23,542 of 29,756 entries moved, 11,638 by more than 0.1 (mean change 0.232).
+- **Five items and boots:** 17,614 moved, 8,730 by more than 0.1 (mean change 0.164).
+
+The search took 124.5 processor-hours for six items (98.2 before) and 103.9 for five items and boots
+(98.2), as Randuin's Omen builds reach fights more often. The full suite passes (10,351 tests, 5 skipped).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

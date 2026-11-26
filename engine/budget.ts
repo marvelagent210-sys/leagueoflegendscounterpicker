@@ -359,6 +359,17 @@ function onHitTerms(effects: Effect[]): DamageTerm[] {
   return terms;
 }
 
+/**
+ * The expected critical strike multiplier against the target, as combat resolves it: its cut to
+ * critical strike damage (Randuin's Omen's Resilience) applies to the critical share only.
+ */
+export function critFactorAgainst(critChance: number, critDamage: number, target: Unit): number {
+  const cut = derive(target).critDamageTakenReduction;
+  if (!cut) return averageCritFactor(critChance, critDamage);
+  const chance = Math.min(1, Math.max(0, critChance));
+  return 1 - chance + chance * critDamage * (1 - cut);
+}
+
 /** The same damage floor and expected critical multiplier that a combat effect uses. */
 function termDamage(term: DamageTerm, self: Unit, target: Unit): number {
   const d = derive(self);
@@ -366,7 +377,7 @@ function termDamage(term: DamageTerm, self: Unit, target: Unit): number {
   const times = term.pulsesFor || term.pulses ? channelPulseCount(term, self)!
     : term.attackWindow !== undefined ? Math.min(term.times, d.attackSpeed * term.attackWindow)
     : term.times;
-  return amount * (term.canCrit ? averageCritFactor(d.critChance, term.critMultiplier ?? d.critDamage) : 1) * times;
+  return amount * (term.canCrit ? critFactorAgainst(d.critChance, term.critMultiplier ?? d.critDamage, target) : 1) * times;
 }
 
 /** What a valuation (budgetScope) has worked out once: units don't change while it runs. */
@@ -426,7 +437,7 @@ function attackDamage(self: Unit, target: Unit): DamageMix {
   const d = derive(self);
   const hints = self.spec.budget;
   const attacks = hints?.attacks !== false;
-  const attackDps = attacks ? d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed : 0;
+  const attackDps = attacks ? d.ad * critFactorAgainst(d.critChance, d.critDamage, target) * d.attackSpeed : 0;
   const split = hints?.attackSplit ?? { physical: 1, magic: 0 };
   const raw: DamageMix = { physical: attackDps * split.physical, magic: attackDps * split.magic, true: attackDps * (split.true ?? 0) };
   if (attacks && self.spec.attack.onHit) {
@@ -509,7 +520,10 @@ interface SustainUse extends ReferenceTiming {
 
 const sustainCache = new WeakMap<AbilitySpec[], SustainUse[][]>();
 
-/** Shields and heals abilities give their caster over the reference fight; `heals` scales the heals (healFactor). */
+/**
+ * Shields and heals abilities give their caster over the reference fight; `heals` scales the
+ * heals (healFactor), and heal and shield power both.
+ */
 function sustain(self: Unit, incoming: DamageMix, heals = 1): number {
   const abilities = abilitiesOf(self.spec);
   let sources = sustainCache.get(abilities);
@@ -527,6 +541,7 @@ function sustain(self: Unit, incoming: DamageMix, heals = 1): number {
     sources = [...groups.values()];
     sustainCache.set(abilities, sources);
   }
+  const power = 1 + derive(self).healShieldPower;
   let total = 0;
   for (const alternatives of sources) {
     let best = 0;
@@ -539,7 +554,7 @@ function sustain(self: Unit, incoming: DamageMix, heals = 1): number {
       for (const effect of source.effects) {
         // A type-specific shield cannot absorb damage of an unrelated type.
         if (effect.type === "shield" && effect.shieldType && effect.shieldType !== "normal" && incoming[effect.shieldType] <= 0) continue;
-        amount += evaluate(effect.amount, self) * (effect.type === "heal" ? heals : 1);
+        amount += evaluate(effect.amount, self) * (effect.type === "heal" ? heals : 1) * power;
       }
       best = Math.max(best, uses * amount);
     }
