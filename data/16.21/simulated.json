@@ -2,10 +2,10 @@
   "dataset": "16.21",
   "patch": "26.21",
   "confidence": "full",
-  "simulation": {"schema":1,"fingerprint":"c40eaf58214dc544c8c20765d5e0630de1c06c3f0857da7cc24d98b1a960d69d"},
+  "simulation": {"schema":1,"fingerprint":"56cb7980b9ac547cff49a558515ea6bc75effbdafda72a018ad7adc8676997c6"},
   "inputs": {
     "schema": 1,
-    "shared": "67fbc947520803f5b74ef8198abce97dc33fd689d3a0129bb2d864436b8ef63e",
+    "shared": "912ecd75593a594d27bab17ffa3088b65258c18a884497d09e3a377a0bb5cd47",
     "kits": {
       "Aatrox": "e151a028362920894d0d87f821aea27317727595880fedca6ad32bd9458c03a7",
       "Ahri": "7ff080cc26d2fba785b1ac074c54a206d2f55b2425f95a1e8be189a3e7200148",
@@ -73,7 +73,7 @@
       "Kayn": "5e9a7c48b46c6648fb3fb79d6ed0040a9015d6d5a40c31be6520a187164573c7",
       "Kennen": "4e9b37ad2c17516983c2660ffd36c7c136c3210d17c62927f15fffc300483afb",
       "Khazix": "39afb4c80d487bc4a2cdd83736f6930f8e953d8af847da0620d5bbe482e8ea73",
-      "Kindred": "6fcaed4176d777a37658c7d7a06a589a7afd6f7cb13a74caf8b2294f27a29a42",
+      "Kindred": "ff43ce33dd5318163afbc8184f322ea8ab338e0a2a5a0f9ef9d3c42698a2e7e4",
       "Kled": "2d7694664a87f59d6849bbc0cadaaa83a3c14419ea3e12027cff4db71a242ba9",
       "KogMaw": "b5763d587a1a7f34a4ef50610e1b35fca3833383570bcc1ff7dc807b864b8583",
       "Leblanc": "e7629795083e70082d2d1b0b2619fc6d0779e4138a18e7a5200b73eecd42eff7",
