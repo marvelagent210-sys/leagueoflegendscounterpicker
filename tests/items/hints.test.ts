@@ -118,6 +118,38 @@ describe("the estimate with item hints", () => {
     expect(budgetPool(visage.self, visage.foe) - hp(visage.self)).toBeCloseTo((1.25 * 100 + 50) * FIGHT, 6);
     expect(budgetPool(plain.self, plain.foe) - hp(plain.self)).toBeCloseTo((100 + 50) * FIGHT, 6);
   });
+
+  it("heal and shield power makes the kit's and items' heals and shields larger, not life steal", () => {
+    // Ardent Censer's 10% and Staff of Flowing Water's 10% (items whose other effects are for allies): 20%. Spirit Visage's 25% multiplies the heals.
+    const healer: FighterSpec = { ...fighter(), budget: { healing: () => 100, shielding: () => 50 } };
+    const powered = estimatePair(healer, parts(healer, "Ardent Censer", "Staff of Flowing Water", "Spirit Visage"), estimateSide(fighter(), [], 1));
+    expect(derive(powered.self).healShieldPower).toBeCloseTo(0.2, 12);
+    expect(budgetPool(powered.self, powered.foe) - derive(powered.self).maxHp).toBeCloseTo((1.2 * 1.25 * 100 + 1.2 * 50) * FIGHT, 6);
+    // An ability's shield: 100 every 5 seconds, twice over the ten seconds.
+    const shielder = fighter({ abilities: [ability({ key: "W", cooldown: 5, delivery: { kind: "self" }, onSelf: [{ type: "shield", amount: { base: 100 }, duration: 2 }] })] });
+    const shielded = (names: string[]) => { const pair = estimatePair(shielder, parts(shielder, ...names), estimateSide(fighter(), [], 1)); return budgetPool(pair.self, pair.foe) - derive(pair.self).maxHp; };
+    expect(shielded(["Ardent Censer"]) / shielded([])).toBeCloseTo(1.1, 9);
+    // Life steal isn't strengthened.
+    const thirsty = estimatePair(fighter(), [{ ...parts(fighter(), "Bloodthirster")[0]!, budget: undefined }, ...parts(fighter(), "Ardent Censer")], estimateSide(fighter(), [], 1));
+    const d = derive(thirsty.self);
+    expect(budgetPool(thirsty.self, thirsty.foe) - d.maxHp).toBeCloseTo(0.15 * d.ad * d.attackSpeed * 0.5 * FIGHT, 6);
+  });
+
+  it("Dawncore's First Light adds its heal and shield power", () => {
+    const pair = estimatePair(fighter(), parts(fighter(), "Dawncore"), estimateSide(fighter(), [], 1));
+    expect(derive(pair.self).healShieldPower).toBeCloseTo(0.18, 12);
+  });
+
+  it("Randuin's Omen's Resilience cuts the enemy's critical strikes, as fights do", () => {
+    // A sure critical strike for 175%: 30% less is 122.5%.
+    const critter = fighter({ id: "critter", bonus: { critChance: 1 } });
+    const against = (names: string[]) => { const pair = estimatePair(fighter(), parts(fighter(), ...names), estimateSide(critter, [], 1)); return budgetDamage(pair.foe, pair.self).physical; };
+    const plain = estimatePair(fighter(), [{ ...parts(fighter(), "Randuin's Omen")[0]!, statuses: [] }], estimateSide(critter, [], 1));
+    const cut = estimatePair(fighter(), parts(fighter(), "Randuin's Omen"), estimateSide(critter, [], 1));
+    expect(derive(cut.self).critDamageTakenReduction).toBeCloseTo(0.3, 12);
+    expect(budgetDamage(cut.foe, cut.self).physical / budgetDamage(plain.foe, plain.self).physical).toBeCloseTo(0.7, 9);
+    expect(against(["Randuin's Omen"])).toBeLessThan(against([]));
+  });
 });
 
 describe("crowd control from a cast triggers items on the next tick", () => {

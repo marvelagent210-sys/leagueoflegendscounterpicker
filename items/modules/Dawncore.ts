@@ -14,6 +14,6 @@ export const Dawncore: ItemModule = {
     // Its own key: the shop's heal and shield power is a permanent status under the item's stat key.
     const key = memo(item.name, "First Light");
     const share = (power * regeneration) / per;
-    return { bonus: { ap: (ap * regeneration) / per }, hooks: { onStart(ctx) { setStat(ctx.self, key, "healShieldPower", share, ctx.tick); } } };
+    return { bonus: { ap: (ap * regeneration) / per }, hooks: { onStart(ctx) { setStat(ctx.self, key, "healShieldPower", share, ctx.tick); } }, budget: { stats: () => [{ stat: "healShieldPower", value: share }] } };
   },
 };

@@ -4022,6 +4022,30 @@ life steal don't; the healer's power counts, not the healed unit's; ability and 
 makes 18%; Actualizer gives 16.5% for 8 seconds. The full suite passes apart from the three tests of the
 committed matrices, which wait for the refresh (10,345 tests pass, 5 skipped).
 
+### The build search's estimate: Resilience and heal and shield power (26 November 2026)
+
+The build search ranks builds by a quick estimate (items/estimate.ts, engine/budget.ts) before real
+fights decide between the best ones. Two item mechanics fights now play were missing from it:
+
+- **Randuin's Omen's Resilience:** the estimate's expected critical strike multiplier ignored the
+  target's cut. A new `critFactorAgainst` (engine/budget.ts) cuts the critical share only, as combat
+  does: a sure critical strike for 175% counts 122.5% against Resilience's 30%. It applies to basic
+  attacks, critical on-hit and ability damage, and to the life steal the estimate counts from attacks.
+- **Heal and shield power:** the abilities' heals and shields (the budget's `sustain`), the kit's
+  healing and shielding hints and the items' (their actives' included) now grow by the holder's heal
+  and shield power, the heals also by healing increases (Spirit Visage). Life steal and omnivamp
+  don't. Dawncore's First Light gives a hint of its share (2% for Dawncore alone).
+- **Still left out of the estimate:** Actualizer's Empowered damage and heal and shield power (its
+  damage would be a share of the abilities' damage, which the hints can't read without the budget
+  reading them back); Horizon Focus's Hypershot (the estimate has no range); Serpent's Fang's cut
+  to the enemy's shields; and stacks that change during a fight (Mejai's Soulstealer, Hubris).
+
+Tests (tests/items/hints.test.ts): 20% heal and shield power and Spirit Visage give 1.2 × 1.25 of a
+kit's heals and 1.2 of its shields; an ability shield grows by 10% with Ardent Censer; life steal
+doesn't; Dawncore gives 18%; Resilience leaves 70% of a sure critical attacker's physical damage.
+The full suite passes apart from the three tests of the committed matrices, which wait for the
+refresh (10,348 tests pass, 5 skipped).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

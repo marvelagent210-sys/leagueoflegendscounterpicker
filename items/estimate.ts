@@ -8,11 +8,12 @@
  * - its shop stats, its fixed passive stats, the stats it keeps as statuses (percentage
  *   penetration, life steal), its critical strike damage and its on-hit effects (itemParts);
  * - life steal on the holder's basic attacks and omnivamp on all its damage, as healing;
+ * - heal and shield power on the other heals and shields, the kit's and the items';
  * - its hint (ItemBudget): what its hooks and actives give on average over the budget's
  *   ten-second reference fight, as stats, statuses on the enemy, damage, healing and shields.
  */
-import { budgetDamage, budgetMultipliers, budgetPool, budgetScope, budgetUnit, budgetValue } from "../engine/budget";
-import { CRIT_DAMAGE, averageCritFactor } from "../engine/rules/defense";
+import { budgetDamage, budgetMultipliers, budgetPool, budgetScope, budgetUnit, budgetValue, critFactorAgainst } from "../engine/budget";
+import { CRIT_DAMAGE } from "../engine/rules/defense";
 import { addStatus } from "../engine/sim/combat";
 import { derive } from "../engine/sim/derived";
 import type { AbilitySpec, BonusStats, BudgetHints, DamageByType, Effect, FighterSpec } from "../engine/sim/spec";
@@ -81,11 +82,11 @@ function hasted(abilities: AbilitySpec[], haste: NonNullable<ItemDefinition["has
 const lifeStealOf = (parts: readonly ItemParts[]) => parts.reduce((sum, part) => sum + part.statuses.reduce((s, status) => s + (status.stat === "lifeSteal" ? status.value : 0), 0), 0);
 
 /** The holder's basic attacks' damage per second before resistances, as the budget counts them: what life steal heals from. */
-function attackDamage(self: Unit): number {
+function attackDamage(self: Unit, target: Unit): number {
   if (self.spec.budget?.attacks === false) return 0;
   const d = derive(self);
   const split = self.spec.budget?.attackSplit ?? { physical: 1, magic: 0 };
-  return d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed * split.physical * (self.spec.budget?.calibration?.damage ?? 1);
+  return d.ad * critFactorAgainst(d.critChance, d.critDamage, target) * d.attackSpeed * split.physical * (self.spec.budget?.calibration?.damage ?? 1);
 }
 
 /**
@@ -97,7 +98,8 @@ function estimateHints(kit: BudgetHints | undefined, parts: readonly ItemParts[]
   const lifeSteal = lifeStealOf(parts);
   const omnivamp = parts.reduce((sum, part) => sum + part.omnivamp, 0);
   const share = kit?.calibration?.damage ?? 1;
-  if (hinted.length === 0 && lifeSteal === 0 && omnivamp === 0 && (share === 1 || !kit?.damage)) return kit;
+  const powered = parts.some((part) => part.statuses.some((status) => status.stat === "healShieldPower")) && Boolean(kit?.healing || kit?.shielding);
+  if (hinted.length === 0 && lifeSteal === 0 && omnivamp === 0 && !powered && (share === 1 || !kit?.damage)) return kit;
   const own = kit?.damage && share !== 1 ? (self: Unit, target: Unit) => scaled(kit.damage!(self, target), share) : kit?.damage;
   const damaging = hinted.filter((part) => part.budget!.damage);
   const healing = hinted.filter((part) => part.budget!.healing);
@@ -117,12 +119,14 @@ function estimateHints(kit: BudgetHints | undefined, parts: readonly ItemParts[]
           },
         }
       : {}),
-    ...(healing.length || lifeSteal || omnivamp
+    ...(healing.length || lifeSteal || omnivamp || (powered && kit?.healing)
       ? {
           healing(self, target) {
+            // Heal and shield power strengthens the kit's and the items' heals, not life steal or omnivamp.
             let total = kit?.healing?.(self, target) ?? 0;
             for (const part of healing) total += part.budget!.healing!(self, target);
-            if (lifeSteal) total += lifeSteal * attackDamage(self) * budgetMultipliers(self, target).physical;
+            total *= 1 + derive(self).healShieldPower;
+            if (lifeSteal) total += lifeSteal * attackDamage(self, target) * budgetMultipliers(self, target).physical;
             if (omnivamp) {
               const dealt = budgetDamage(self, target);
               total += omnivamp * (dealt.physical + dealt.magic + dealt.true);
@@ -131,12 +135,12 @@ function estimateHints(kit: BudgetHints | undefined, parts: readonly ItemParts[]
           },
         }
       : {}),
-    ...(shielding.length
+    ...(shielding.length || (powered && kit?.shielding)
       ? {
           shielding(self, target) {
             let total = kit?.shielding?.(self, target) ?? 0;
             for (const part of shielding) total += part.budget!.shielding!(self, target);
-            return total;
+            return total * (1 + derive(self).healShieldPower);
           },
         }
       : {}),
