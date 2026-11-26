@@ -130,11 +130,15 @@ export function lifeline(item: string, effect: ItemEffectData, trigger: (ctx: Ho
   };
 }
 
-/** Gives the holder a shield of its item's for `seconds`; with `decay`, it shrinks evenly to nothing over that time. */
-export function itemShield(ctx: Pick<HookContext, "self" | "tick">, item: string, amount: number, seconds: number, decay: boolean, shieldType: "normal" | "magic" = "normal"): void {
+/**
+ * Gives the holder a shield of its item's for `seconds`, strengthened by its heal and shield
+ * power; with `decay`, it shrinks evenly to nothing over that time.
+ */
+export function itemShield(ctx: Pick<HookContext, "self" | "tick">, item: string, base: number, seconds: number, decay: boolean, shieldType: "normal" | "magic" = "normal"): void {
   const key = memo(item, "shield");
   ctx.self.statuses = ctx.self.statuses.filter((status) => status.memoKey !== key);
-  if (amount <= 0) return;
+  if (base <= 0) return;
+  const amount = base * (1 + derive(ctx.self).healShieldPower);
   addStatus(ctx.self, { kind: "shield", key: activeKey(item), source: ctx.self.side, startTick: ctx.tick, endTick: ctx.tick + toTicks(seconds), value: amount, shieldType, memoKey: key });
   if (decay) ctx.self.memory[memo(item, "decay")] = amount / toTicks(seconds);
   else delete ctx.self.memory[memo(item, "decay")];

@@ -2,9 +2,9 @@
 
 What the duel simulator makes of each item (items/, PLAN.md §13, M8): the effects it models from the item's wiki text, what it leaves out and why, and the simplifications it makes. Every number comes from the wiki's text: a quote that is no longer there fails the build.
 
-116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 85 have every effect modeled, 10 have none that can act in a duel, and the rest leave part out.
+116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 89 have every effect modeled, 10 have none that can act in a duel, and the rest leave part out.
 
-The rules the items follow beyond their own text come from pinned wiki pages: Combat status (revision 4058480), Critical strike (revision 4059009), Template:Critical damage (revision 4001015), Template:Tip data/Energized (revision 4013385), Vamp (revision 4089668).
+The rules the items follow beyond their own text come from pinned wiki pages: Combat status (revision 4058480), Critical strike (revision 4059009), Template:Critical damage (revision 4001015), Template:Tip data/Energized (revision 4013385), Vamp (revision 4089668), Heal and shield power (revision 4021804), Template:Healing modifiers (revision 4021803).
 
 Actives can be used under any crowd control but knock-ups and stuns (suppression, sleep and stasis count as stuns), and Mercurial Scimitar's Quicksilver under stuns too, never knocked up; a dash not while rooted or grounded either (confirmed on review, 20 October, and for suppression on 1 November; the wiki's own rule stops items under every cast-inhibiting type).
 
@@ -17,9 +17,9 @@ Modeled: Unmake.
 ### Actualizer
 
 Modeled: Mana Made Real.
-- Left out: Mana Made Real's increased healing and shielding: like heal and shield power, not modeled yet.
 - Assumed: Mana Made Real's increased damage is on the kit's ability damage (as Liandry's Torment's and Spear of Shojin's), its pet damage included where the kit deals it as ability damage.
 - Assumed: Empowered basic abilities' cooldowns progress 30% faster: each tick takes 1.3 ticks off a running cooldown of Q, W or E; their charges' recharge isn't sped up.
+- Assumed: Mana Made Real's increased healing and shielding is heal and shield power (the wiki's "Template:Healing modifiers" gives the two one column), adding to the holder's other heal and shield power.
 
 ### Archangel's Staff
 
@@ -29,7 +29,6 @@ Modeled: Awe, Manaflow, the passive "Transforms into Seraph's Embrace at 360 bon
 
 ### Ardent Censer
 
-- Left out: Heal and shield power: not modeled yet.
 - Left out: Sanctify: it works through allied champions, which a duel doesn't have.
 
 ### Axiom Arc
@@ -87,8 +86,7 @@ Modeled: Spelldance.
 ### Dawncore
 
 Modeled: First Light.
-- Left out: Heal and shield power: not modeled yet.
-- Assumed: First Light counts the base mana regeneration the build's items give in the shop, in proportion; its heal and shield power isn't modeled yet.
+- Assumed: First Light counts the base mana regeneration the build's items give in the shop, in proportion.
 
 ### Dead Man's Plate
 
@@ -290,7 +288,6 @@ Modeled: Quicksilver.
 ### Mikael's Blessing
 
 Modeled: Purify.
-- Left out: Heal and shield power: not modeled yet.
 - Assumed: Purify: "and heal the target for" has no value past level 18; its level-18 value is used at 20.
 
 ### Moonstone Renewer
@@ -353,7 +350,6 @@ Modeled: Ravenous Crescent.
 ### Redemption
 
 Modeled: Intervention.
-- Left out: Heal and shield power: not modeled yet.
 - Assumed: Intervention: "Allies within the area are healed for" has no value past level 18; its level-18 value is used at 20.
 - Assumed: Intervention strikes where the enemy stands; it heals the holder too when the holder is within its radius of the enemy.
 
@@ -405,7 +401,6 @@ Modeled: Boundless Vitality.
 
 ### Staff of Flowing Water
 
-- Left out: Heal and shield power: not modeled yet.
 - Left out: Rapids: it works through allied champions, which a duel doesn't have.
 
 ### Statikk Shiv

@@ -108,8 +108,8 @@ const kindred: KitModule = {
           if (ctx.zone.ability !== "R" || !ctx.zone.memory?.finalHeal) return;
           // Querying protection uses [start,end), so every expired field is already inactive.
           ctx.world.zones = ctx.world.zones.filter((zone) => !(zone.owner === ctx.self.side && zone.ability === "R" && zone.healthProtection && zone.endTick <= ctx.tick));
-          for (const target of ctx.world.units) if (healthProtectionEligible(ctx.world, target) && Math.abs(target.x - ctx.zone.x) <= rRadius + EPSILON && !isUntargetable(target)) heal(ctx.world, target, evaluate(rHeal, ctx.self, target));
-          for (const pet of ctx.world.pets) if (healthProtectionEligible(ctx.world, pet) && !pet.spec.untargetable && Math.abs(pet.x - ctx.zone.x) <= rRadius + EPSILON) { const target = petFormulaTarget(pet, ctx.self, ctx.tick); if (!isUntargetable(target)) heal(ctx.world, target, evaluate(rHeal, ctx.self, target)); }
+          for (const target of ctx.world.units) if (healthProtectionEligible(ctx.world, target) && Math.abs(target.x - ctx.zone.x) <= rRadius + EPSILON && !isUntargetable(target)) heal(ctx.world, target, evaluate(rHeal, ctx.self, target), false, false, ctx.self);
+          for (const pet of ctx.world.pets) if (healthProtectionEligible(ctx.world, pet) && !pet.spec.untargetable && Math.abs(pet.x - ctx.zone.x) <= rRadius + EPSILON) { const target = petFormulaTarget(pet, ctx.self, ctx.tick); if (!isUntargetable(target)) heal(ctx.world, target, evaluate(rHeal, ctx.self, target), false, false, ctx.self); }
         },
         onDashEnd(ctx) { if (ctx.ability.key === "Q") arrows(ctx); },
         onAbilityContact(ctx) {

@@ -971,9 +971,7 @@ See ACCURACY.md for the validation.
   - Actives can be used under any crowd control but knock-ups and stuns (suppression, sleep and stasis count as stuns), and the cleanse item (Mercurial Scimitar) under stuns too, never knocked up (confirmed on 20 October; suppression counting as a stun confirmed on 1 November). The wiki stops items under every cast-inhibiting type, silence included; kit abilities keep that rule.
   - Stacks a game gathers are options with stated defaults: Tear items are stacked and transformed, Yun Tal Wildarrows and Rod of Ages are fully stacked, and Mejai's Soulstealer and Heartsteel have none.
   - What the engine can't express yet, to fix with the next matrix refresh (each changes the fingerprint):
-    - Randuin's Omen's Resilience: the damage hooks can't tell a critical outcome from an ordinary one.
-    - Heal and shield power, shields received (Spirit Visage) and champion size.
-    - Actualizer's doubled costs and faster cooldowns.
+    - Shields received (Spirit Visage) and champion size.
     - Tenacity groups: the wiki adds the groups (Mercury's Treads' 30% and Courage's 60% are 90%); the engine multiplies them (72%).
     - The engine's own stasis state lets a unit act (Lissandra's Frozen Tomb on herself). Item stasis stops attacks, walking and casts itself.
 - **Runes** (about 1 week).

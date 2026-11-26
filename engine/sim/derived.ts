@@ -55,6 +55,8 @@ export interface Derived {
   lifeSteal: number;
   /** Extra healing and regeneration received, as a fraction. */
   healingIncrease: number;
+  /** Heal and shield power on the unit's own heals and shields, as a fraction. */
+  healShieldPower: number;
   maxResource: number;
   bonusArmorPen: number[];
   criticalBonusArmorIgnore: number;
@@ -339,6 +341,7 @@ function computeDerived(unit: Unit): Derived {
     mrReduction: { flat: sum(st, "mrReduction"), percent: list(st, "stat", "mrReductionPercent") },
     lifeSteal: sum(st, "lifeSteal"),
     healingIncrease: sum(st, "healingIncrease"),
+    healShieldPower: sum(st, "healShieldPower"),
     maxResource: (base.resource + sum(st, "maxResource")) * (unit.spec.resourceType === "Mana" ? 1 + ap * (conversion?.apToManaPercent ?? 0) : 1),
     bonusArmorPen: list(st, "stat", "bonusArmorPen"),
     criticalBonusArmorIgnore: sum(st, "criticalBonusArmorIgnore"),

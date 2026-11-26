@@ -19,8 +19,8 @@ export interface AdaptiveItemEligibility {
   readonly implementationSHA256: string;
 }
 
-const REVIEWED_CATALOG = "9fa27e07d191e2a23ad8a7fc04bc3d8956736036c1892e4aa1c3fae4bee52cab";
-const REVIEWED_IMPLEMENTATION = "04340ec74b07eafd152eeb9d1540304373eda33b94915c6d54db4fa70e1149d0";
+const REVIEWED_CATALOG = "021c200cf17d167fa842bea9efc818dd476965aa803a4044e832ba3f7bac8d86";
+const REVIEWED_IMPLEMENTATION = "3536950d93abd433896e0d68e4cd0547573d01cf2991f97c2385fb1449bd414e";
 const UNSUPPORTED: Readonly<Record<string, string>> = {
   "Rabadon's Deathcap": "Magical Opus needs source-qualified AP amplification, including otherwise excluded passive AP and excluding adaptive force itself",
   "Overlord's Bloodmail": "Tyranny and Retribution need dynamic eligible AD and adaptive-type reevaluation",

@@ -3,7 +3,7 @@
  * plain numbers (tests/sim/kits.ts: 100 AD into 100 armor is 50 damage an attack).
  */
 import { describe, expect, it } from "vitest";
-import { abilityHit, attackHit, dealDamage, hookContext } from "../../engine/sim/combat";
+import { abilityHit, applyEffect, attackHit, dealDamage, heal, hookContext } from "../../engine/sim/combat";
 import { costOf, startCast } from "../../engine/sim/actions";
 import { createWorld, step } from "../../engine/sim/simulate";
 import { derive } from "../../engine/sim/derived";
@@ -12,6 +12,7 @@ import { ItemContext } from "../../items/context";
 import { type EquippedFighter, composeHooks, equipItems, matchupSpecs } from "../../items/equip";
 import { ITEM_MODULES } from "../../items/modules/index";
 import { activeKey } from "../../items/runtime";
+import { itemShield } from "../../items/modules/shared";
 import { DATA_DIR } from "../../pipeline/config";
 import { latestDataset } from "../../pipeline/datasets";
 import { equipBuild, findItem, loadItemCatalog } from "../../pipeline/itemData";
@@ -65,6 +66,71 @@ describe("Actualizer's Mana Made Real", () => {
 
   it("does nothing for a champion without mana", () => {
     expect(equip(fighter(), "Actualizer").spec.abilities.some((a) => a.key === activeKey("Actualizer"))).toBe(false);
+  });
+});
+
+describe("heal and shield power", () => {
+  // Wiki "Template:Healing modifiers": heal and shield power strengthens self heals, self shields
+  // and outgoing heals and shields, and drain effects; not health regeneration, life steal or
+  // omnivamp, nor heals another unit gives. "Heal and shield power": it stacks additively with
+  // itself, and multiplicatively with other heal modifiers.
+  const power = (unit: { statuses: unknown[] }, value: number) =>
+    (unit.statuses as Array<object>).push({ kind: "stat", key: "healShieldPower", source: 0, startTick: 0, endTick: 1e9, value });
+  const hurt = (w: ReturnType<typeof world>) => { for (const unit of w.units) unit.hp = derive(unit).maxHp / 2; };
+
+  it("comes from the shop stat, stacking additively", () => {
+    expect(derive(world(equip(fighter(), "Redemption").spec).units[0]).healShieldPower).toBeCloseTo(0.1, 9);
+    expect(derive(world(equip(fighter(), "Redemption", "Mikael's Blessing").spec).units[0]).healShieldPower).toBeCloseTo(0.22, 9);
+  });
+
+  it("strengthens the unit's own heals, multiplying other heal modifiers, but not regeneration or life steal", () => {
+    const w = world(fighter());
+    hurt(w);
+    const self = w.units[0];
+    power(self, 0.2);
+    self.statuses.push({ kind: "stat", key: "healingIncrease", source: 0, startTick: 0, endTick: 1e9, value: 0.5 });
+    const healed = (regeneration: boolean, lifesteal: boolean) => { const before = self.hp; heal(w, self, 100, regeneration, lifesteal); return self.hp - before; };
+    expect(healed(false, false)).toBeCloseTo(100 * 1.2 * 1.5, 6);
+    expect(healed(true, false)).toBeCloseTo(150, 6);
+    expect(healed(false, true)).toBeCloseTo(150, 6);
+  });
+
+  it("is the healer's, not the healed unit's", () => {
+    const w = world(fighter());
+    hurt(w);
+    const [self, enemy] = w.units;
+    power(self, 0.3);
+    power(enemy, 0.5);
+    const before = enemy.hp;
+    applyEffect(w, self, enemy, { type: "heal", amount: { base: 100 } }, { scale: 1 });
+    expect(enemy.hp - before).toBeCloseTo(130, 6);
+  });
+
+  it("strengthens shields the unit casts, item shields included", () => {
+    const w = world(fighter());
+    const self = w.units[0];
+    power(self, 0.25);
+    applyEffect(w, self, self, { type: "shield", amount: { base: 200 }, duration: 2 }, { scale: 1 });
+    itemShield({ self, tick: w.tick }, "Eclipse", 100, 2, false);
+    expect(self.statuses.filter((s) => s.kind === "shield").map((s) => s.value)).toEqual([250, 125]);
+  });
+
+  it("counts Dawncore's First Light: 2% per 100% base mana regeneration", () => {
+    // Dawncore's 16% and, from its own 100% base mana regeneration, 2% more.
+    expect(derive(world(equip(fighter(), "Dawncore").spec).units[0]).healShieldPower).toBeCloseTo(0.18, 9);
+  });
+
+  it("is Actualizer's increased healing and shielding while Empowered", () => {
+    const q = { key: "Q", name: "Bolt", slot: "Q" as const, cooldown: 10, cost: 50, castTime: 0, delivery: { kind: "target" as const, range: 600 }, onHit: [] };
+    const w = world(equip({ ...fighter({ base: { resource: 1000, resourceRegen: 0 } }), resourceType: "Mana", abilities: [q] }, "Actualizer").spec);
+    const self = w.units[0];
+    expect(derive(self).healShieldPower).toBe(0);
+    startCast(w, self, self.spec.abilities.find((a) => a.key === activeKey("Actualizer"))!);
+    step(w, [idle, idle]);
+    // Actualizer's 300 mana is bonus mana: 15% + 1.5%.
+    expect(derive(self).healShieldPower).toBeCloseTo(0.165, 9);
+    for (let i = 0; i <= 8 * 30; i++) step(w, [idle, idle]);
+    expect(derive(self).healShieldPower).toBe(0);
   });
 });
 

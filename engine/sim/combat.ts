@@ -708,9 +708,11 @@ export function immediateDisplace(world: World, source: Unit, target: Unit, delt
 /**
  * Heals a unit; Grievous Wounds cuts healing and health regeneration alike. A unit brought to
  * 0 health this tick is dying and can't be healed back. Units under "noHealing" (Glory in
- * Death) are healed only by life steal and omnivamp (`lifesteal`).
+ * Death) are healed only by life steal and omnivamp (`lifesteal`). Heal and shield power is the
+ * healer's (`healer`, the healed unit by default): it doesn't strengthen regeneration, life steal
+ * or omnivamp, and it multiplies the other modifiers.
  */
-export function heal(world: World, unit: Unit, amount: number, regeneration = false, lifesteal = false): void {
+export function heal(world: World, unit: Unit, amount: number, regeneration = false, lifesteal = false, healer: Unit = unit): void {
   const pet = unit.petId === undefined ? undefined : world.pets.find((candidate) => candidate.id === unit.petId);
   if (unit.petId !== undefined && !pet) return;
   if (pet) unit.hp = pet.hp;
@@ -722,7 +724,8 @@ export function heal(world: World, unit: Unit, amount: number, regeneration = fa
   const cap = stateStatus(unit, "healthCap");
   const absoluteCap = stateStatus(unit, "healthCapAbsolute");
   const most = Math.min(d.maxHp, cap ? cap.value * d.maxHp : Infinity, absoluteCap?.value ?? Infinity);
-  const healed = Math.min(most - unit.hp, healingReceived(amount * (1 + d.healingIncrease), grievous));
+  const power = regeneration || lifesteal ? 0 : derive(healer).healShieldPower;
+  const healed = Math.min(most - unit.hp, healingReceived(amount * (1 + power) * (1 + d.healingIncrease), grievous));
   if (healed <= 0) return;
   unit.hp += healed;
   if (pet) pet.hp = unit.hp;
@@ -1026,7 +1029,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         source: caster.side,
         startTick: tick,
         endTick: tick + toTicks(effect.duration),
-        value: evaluate(effect.amount, caster, formulaTarget),
+        value: evaluate(effect.amount, caster, formulaTarget) * (1 + derive(caster).healShieldPower),
         shieldType: effect.shieldType ?? "normal",
         ...(effect.priority ? { priority: true } : {}),
         ...(effect.blackShield ? { blackShield: true } : {}),
@@ -1035,7 +1038,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       observeHealthShields(world, target);
       return;
     case "heal":
-      heal(world, target, evaluate(effect.amount, caster, formulaTarget) * ctx.scale);
+      heal(world, target, evaluate(effect.amount, caster, formulaTarget) * ctx.scale, false, false, caster);
       return;
     case "state":
       addStatus(target, {

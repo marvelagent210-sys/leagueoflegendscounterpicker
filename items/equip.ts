@@ -185,16 +185,17 @@ const BONUS_STATS: Record<string, [keyof BonusStats, number]> = {
 };
 
 /** Stats the simulator keeps as statuses: each item's is a status of its own (two penetration items are two sources). */
-const STATUS_STATS: Record<string, { stat: "armorPen" | "magicPenPercent" | "moveSpeedPercent" | "moveSpeedFlat" | "lifeSteal"; per: number }> = {
+const STATUS_STATS: Record<string, { stat: "armorPen" | "magicPenPercent" | "moveSpeedPercent" | "moveSpeedFlat" | "lifeSteal" | "healShieldPower"; per: number }> = {
   armpen: { stat: "armorPen", per: 100 },
   mpen: { stat: "magicPenPercent", per: 100 },
   ms: { stat: "moveSpeedPercent", per: 100 },
   msflat: { stat: "moveSpeedFlat", per: 1 },
   lifesteal: { stat: "lifeSteal", per: 100 },
+  hsp: { stat: "healShieldPower", per: 100 },
 };
 
 /** Stats changed in the base stats or by hooks, or not modeled. */
-const OTHER_STATS = new Set(["critdamage", "mana", "mp5", "hp5", "omnivamp", "tenacity", "hsp"]);
+const OTHER_STATS = new Set(["critdamage", "mana", "mp5", "hp5", "omnivamp", "tenacity"]);
 
 function addBonus(into: BonusStats, more: BonusStats | undefined): void {
   for (const [key, value] of Object.entries(more ?? {}) as Array<[keyof BonusStats, number]>) into[key] = (into[key] ?? 0) + value;
@@ -407,8 +408,7 @@ function shopStats(record: ItemRecord, form: FighterSpec): ShopStats {
       if (!usesMana) stats.unmodeled.push(`${key === "mana" ? "Mana" : "Mana regeneration"}: no effect, ${form.name} doesn't use mana.`);
       else if (key === "mana") stats.mana += value;
       else stats.mp5 += value / 100;
-    } else if (key === "hsp") stats.unmodeled.push("Heal and shield power: not modeled yet.");
-    else if (!OTHER_STATS.has(key)) throw new ItemDataError(record.name, `the simulator doesn't know the stat "${key}"`);
+    } else if (!OTHER_STATS.has(key)) throw new ItemDataError(record.name, `the simulator doesn't know the stat "${key}"`);
   }
   return stats;
 }
