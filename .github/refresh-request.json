@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices: the build search's estimate counts Randuin's Omen's Resilience (critFactorAgainst, engine/budget.ts) and heal and shield power on heals and shields (engine/budget.ts sustain, items/estimate.ts), with a hint for Dawncore's First Light.",
+  "note": "One recompute of all three matrices: the build search's estimate gets hints for Actualizer's Mana Made Real (ability damage and heal and shield power while Empowered), Horizon Focus's Hypershot (damage dealt after long-range abilities) and Serpent's Fang's Shield Reaver (shieldsReceivedCut on the enemy, engine/budget.ts).",
   "dataset": "16.21",
   "matrices": [
     "sim",

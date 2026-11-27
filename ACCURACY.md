@@ -4039,10 +4039,9 @@ fights decide between the best ones. Two item mechanics fights now play were mis
   healing and shielding hints and the items' (their actives' included) now grow by the holder's heal
   and shield power, the heals also by healing increases (Spirit Visage). Life steal and omnivamp
   don't. Dawncore's First Light gives a hint of its share (2% for Dawncore alone).
-- **Still left out of the estimate:** Actualizer's Empowered damage and heal and shield power (its
-  damage would be a share of the abilities' damage, which the hints can't read without the budget
-  reading them back); Horizon Focus's Hypershot (the estimate has no range); and Serpent's Fang's cut
-  to the enemy's shields. Mejai's Soulstealer and Hubris already agree with fights: Glory's stacks are
+- **Still left out of the estimate:** Actualizer's Empowered damage and heal and shield power, Horizon
+  Focus's Hypershot and Serpent's Fang's cut to the enemy's shields (added in the next section).
+  Mejai's Soulstealer and Hubris already agree with fights: Glory's stacks are
   a fixed option before the fight (none by default), counted as shop AP in both, and Eminence needs
   takedowns, which no duel has.
 
@@ -4063,6 +4062,29 @@ six-item builds.
 
 The search took 124.5 processor-hours for six items (98.2 before) and 103.9 for five items and boots
 (98.2), as Randuin's Omen builds reach fights more often. The full suite passes (10,351 tests, 5 skipped).
+
+### The build search's estimate: Actualizer, Horizon Focus and Serpent's Fang (27 November 2026)
+
+The three items with duel effects the estimate still left out now have hints (items/modules):
+
+- **Actualizer's Mana Made Real:** used from the start of the ten-second reference fight, Empowered for
+  8 of its seconds (its cooldown is 60). Its 15% (+ 0.5% per 100 bonus mana) is on the kit's ability
+  damage (`budgetAbilityDamage`, as Spear of Shojin's hint reads it) and is heal and shield power, both
+  times 0.8. Left out: the doubled mana costs and the 30% faster basic cooldowns.
+- **Horizon Focus's Hypershot:** 10% more damage dealt for the share of the fight within 6 seconds of a
+  cast of a damaging ability that reaches 600 units or more (a target, line or circle ability's cast
+  range), as if cast from its full range. Abilities with less reach, self-cast and area abilities
+  don't mark.
+- **Serpent's Fang's Shield Reaver:** the enemy is venomed throughout, so its shields count 50% less
+  against a melee holder, 35% against a ranged one. A new stat the estimate gives the enemy,
+  `shieldsReceivedCut` (engine/sim/spec.ts), cuts the abilities' shields and the shield hints in the
+  budget's health pool; heals are untouched. Fights play the item's own hooks.
+
+Tests (tests/items/hints.test.ts): Actualizer adds 0.8 × 16.5% of a mage's ability damage and as much
+heal and shield power; Horizon Focus gives 10% on a caster whose 700-range bolt marks the whole fight, none
+for a 300-range one; Serpent's Fang leaves half of an enemy's 50 shielding a second. The full suite passes
+apart from the three tests of the committed matrices, which wait for the refresh (10,351 tests pass, 5
+skipped).
 
 ## Remaining limits
 

@@ -57,6 +57,8 @@ export interface Derived {
   healingIncrease: number;
   /** Heal and shield power on the unit's own heals and shields, as a fraction. */
   healShieldPower: number;
+  /** The share of the shields it gains that the unit loses (the estimate's Shield Reaver), at most all. */
+  shieldsReceivedCut: number;
   maxResource: number;
   bonusArmorPen: number[];
   criticalBonusArmorIgnore: number;
@@ -342,6 +344,7 @@ function computeDerived(unit: Unit): Derived {
     lifeSteal: sum(st, "lifeSteal"),
     healingIncrease: sum(st, "healingIncrease"),
     healShieldPower: sum(st, "healShieldPower"),
+    shieldsReceivedCut: Math.min(1, sum(st, "shieldsReceivedCut")),
     maxResource: (base.resource + sum(st, "maxResource")) * (unit.spec.resourceType === "Mana" ? 1 + ap * (conversion?.apToManaPercent ?? 0) : 1),
     bonusArmorPen: list(st, "stat", "bonusArmorPen"),
     criticalBonusArmorIgnore: sum(st, "criticalBonusArmorIgnore"),

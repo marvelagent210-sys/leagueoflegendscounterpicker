@@ -5,7 +5,7 @@
  * those items deal in ten-second fights (PLAN.md §13).
  */
 import { describe, expect, it } from "vitest";
-import { type StatPrices, allocateBoth, budgetDamage, budgetPool, budgetUnit } from "../../engine/budget";
+import { type StatPrices, allocateBoth, budgetAbilityDamage, budgetDamage, budgetPool, budgetUnit } from "../../engine/budget";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, runWorld, step } from "../../engine/sim/simulate";
 import type { FighterSpec, KitHooks } from "../../engine/sim/spec";
@@ -138,6 +138,38 @@ describe("the estimate with item hints", () => {
   it("Dawncore's First Light adds its heal and shield power", () => {
     const pair = estimatePair(fighter(), parts(fighter(), "Dawncore"), estimateSide(fighter(), [], 1));
     expect(derive(pair.self).healShieldPower).toBeCloseTo(0.18, 12);
+  });
+
+  it("Actualizer: Mana Made Real's increase on ability damage and heals and shields, over its Empowered share", () => {
+    const bolt = ability({ key: "Q", cooldown: 4, delivery: { kind: "target", range: 600 }, onHit: [{ type: "damage", damageType: "magic", amount: { base: 200 } }] });
+    const mage: FighterSpec = { ...fighter({ base: { resource: 1000, resourceRegen: 0 }, abilities: [bolt] }), resourceType: "Mana" };
+    const [part] = parts(mage, "Actualizer");
+    const pair = estimatePair(mage, [part!], estimateSide(fighter(), [], 1));
+    // Empowered 8 seconds of the ten from the start (its cooldown is 60); Actualizer's 300 bonus mana make 16.5%.
+    const uptime = 0.8;
+    const abilities = budgetAbilityDamage(pair.self, pair.foe);
+    expect(part!.budget!.damage!(pair.self, pair.foe).magic).toBeCloseTo(abilities.magic * 0.165 * uptime, 9);
+    expect(derive(pair.self).healShieldPower).toBeCloseTo(0.165 * uptime, 9);
+  });
+
+  it("Horizon Focus: Hypershot's mark after damaging abilities that reach 600 units or more", () => {
+    const caster = (range: number) => fighter({ abilities: [ability({ key: "Q", cooldown: 4, delivery: { kind: "target", range }, onHit: [{ type: "damage", damageType: "magic", amount: { base: 100 } }] })] });
+    const marked = (range: number) => {
+      const pair = estimatePair(caster(range), parts(caster(range), "Horizon Focus"), estimateSide(fighter(), [], 1));
+      return derive(pair.self).damageDealt.reduce((sum, value) => sum + value, 0);
+    };
+    // Cast at 0, 4 and 8 seconds, each marking for 6: the whole ten seconds, 10% more damage.
+    expect(marked(700)).toBeCloseTo(0.1, 9);
+    expect(marked(300)).toBe(0);
+  });
+
+  it("Serpent's Fang: Shield Reaver cuts the enemy's shields, 50% for a melee holder", () => {
+    const shielded: FighterSpec = { ...fighter({ id: "shielded" }), budget: { healing: () => 100, shielding: () => 50 } };
+    const plain = estimatePair(fighter(), [], estimateSide(shielded, [], 1));
+    const reaved = estimatePair(fighter(), parts(fighter(), "Serpent's Fang"), estimateSide(shielded, [], 1));
+    const hp = derive(plain.foe).maxHp;
+    expect(budgetPool(plain.foe, plain.self) - hp).toBeCloseTo((100 + 50) * FIGHT, 6);
+    expect(budgetPool(reaved.foe, reaved.self) - hp).toBeCloseTo((100 + 25) * FIGHT, 6);
   });
 
   it("Randuin's Omen's Resilience cuts the enemy's critical strikes, as fights do", () => {

@@ -20,6 +20,7 @@ Modeled: Mana Made Real.
 - Assumed: Mana Made Real's increased damage is on the kit's ability damage (as Liandry's Torment's and Spear of Shojin's), its pet damage included where the kit deals it as ability damage.
 - Assumed: Empowered basic abilities' cooldowns progress 30% faster: each tick takes 1.3 ticks off a running cooldown of Q, W or E; their charges' recharge isn't sped up.
 - Assumed: Mana Made Real's increased healing and shielding is heal and shield power (the wiki's "Template:Healing modifiers" gives the two one column), adding to the holder's other heal and shield power.
+- Assumed: The build search's estimate counts the Empowered share of its ten-second reference fight, its increase on the kit's ability damage and heals and shields; it leaves out the doubled costs and the faster cooldowns.
 
 ### Archangel's Staff
 
@@ -190,6 +191,7 @@ Modeled: Immolate, Desolate.
 Modeled: Hypershot.
 - Left out: Focus: its sight and marks on other enemies don't matter in a duel.
 - Assumed: Hypershot measures 600 units from where the holder stands when the damage lands, center to center.
+- Assumed: The build search's estimate counts Hypershot's mark after each cast of a damaging ability that reaches 600 units or more, as if cast from its full range.
 
 ### Hubris
 
@@ -376,6 +378,7 @@ Modeled: Rimefrost.
 
 Modeled: Shield Reaver.
 - Assumed: Shield Reaver cuts a shield the enemy gains while venomed on the next tick after it gains it.
+- Assumed: The build search's estimate has the enemy venomed throughout, so all its shields are cut.
 
 ### Serylda's Grudge
 
