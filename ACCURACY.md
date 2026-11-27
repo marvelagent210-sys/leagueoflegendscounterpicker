@@ -4151,6 +4151,37 @@ Still left out:
   kits' own size changes (Cho'Gath's Feast, Nasus's Fury of the Sands and others) are left out as well,
   apart from the attack range some of them grant explicitly.
 
+### Movement, slows and cleanse in the build search's estimate: measured, left out (27 November 2026)
+
+The estimate (engine/budget.ts) has no movement: speed, slows and cleanse count nothing in it, though
+fights play them. Before giving them a value, an experiment measured what they are worth in fights.
+Sixty seeded random pairings were played, each side holding its champion's most frequent items from
+the six-item builds report (the holder's first five, then the item; the enemy's first six). Every
+scenario was played twice, with the item's module and with its shop stats only.
+
+| Item (effect) | Mean score gain | Mean absolute | Pairings moved by more than 0.1 |
+| --- | ---: | ---: | ---: |
+| Mercurial Scimitar (Quicksilver: cleanse, speed, ghosting) | +0.111 | 0.120 | 15 |
+| Rylai's Crystal Scepter (Rimefrost slow) | +0.047 | 0.074 | 6 |
+| Cosmic Drive (Spelldance speed) | +0.016 | 0.037 | 8 |
+| Youmuu's Ghostblade (Haunt, Wraith Step speed) | +0.010 | 0.043 | 7 |
+| Serylda's Grudge (Bitter Cold slow) | +0.007 | 0.045 | 9 |
+| Boots of Swiftness (slow resist) | −0.009 | 0.024 | 4 |
+| Shurelya's Battlesong (Inspiring Speech speed) | −0.026 | 0.062 | 8 |
+| Phantom Dancer (ghosting) | 0 | 0 | 0 |
+| *Randuin's Omen, every effect (for scale)* | *+0.167* | *0.176* | *22* |
+| *Blade of the Ruined King, every effect (for scale)* | *+0.112* | *0.123* | *18* |
+
+Speed and slows average near zero and move scores both ways: they change how a fight goes more than
+how often it's won, so a fixed value in the estimate would mislead it. Phantom Dancer's ghosting does
+nothing, as a duel has no unit collision. Mercurial Scimitar is the exception, worth about as much as
+Blade of the Ruined King's passive. A hint was tried and dropped: the holder's damage for the enemy's
+longest cleansable immobilizing crowd control, over the ten-second reference fight. Its estimate gain
+correlated 0.11 with the fight gain; half of the largest gains come against enemies it scores at zero
+(Malphite against Azir +0.70, Vel'Koz against Tryndamere +0.62, Aatrox against Lillia +0.59), where
+Quicksilver removes slows, sleep or knock-backs and its speed and ghosting chase or escape. Mercurial
+Scimitar is still a candidate in the search for its stats, and fights decide between the routes.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
