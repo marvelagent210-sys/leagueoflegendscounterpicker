@@ -302,7 +302,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 | Ability | Value | Source version |
 |---|---|---|
-| Lunge | Lunge deals basic damage | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
+| Lunge | Lunge deals basic damage, but also triggers spell effects by also being tagged as spell damage | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Lunge | Fiora can cast any of her abilities during the dash | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Duelist's Dance | Vitals take 1.75 seconds to become targetable | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |
 | Duelist's Dance | bonus true damage equal to 3% (+ 4% per 100 bonus AD) of target's maximum health | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |
