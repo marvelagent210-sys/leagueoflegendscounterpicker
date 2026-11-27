@@ -4097,6 +4097,21 @@ for a 300-range one; Serpent's Fang leaves half of an enemy's 50 shielding a sec
 apart from the three tests of the committed matrices, which wait for the refresh (10,354 tests pass, 5
 skipped).
 
+The refresh (run 56) moved no plain-stats entry, 6,298 of 29,756 six-item entries (2,808 by more than
+0.1) and 26,536 five-items-and-boots entries (12,010 by more than 0.1).
+
+- **Gluttonous Greaves** at full stacks (10% omnivamp) is now the most held boots, in 39% of five-items-
+  and-boots builds, ahead of Plated Steelcaps (55% to 38%) and Berserker's Greaves (43% to 22%). Most of
+  that matrix's movement comes from it. Its stacks are an option: with fewer, the boots are weaker.
+- **Actualizer** enters the builds of champions that buy mana and lean on ability damage: Kassadin
+  63% of six-item matchups (45% with boots), Udyr 61% (62%), Fiddlesticks 54%, Vel'Koz 38% and Karthus
+  37%. It is not among Ryze's eight most frequent items (Archangel's Staff, Frozen Heart and
+  Rabadon's Deathcap keep their places), nor Cassiopeia's or Ezreal's.
+- **Horizon Focus** and **Serpent's Fang** stay outside the 25 most held items.
+
+The search took 117.3 processor-hours for six items (124.5 before) and 93.2 for five items and boots
+(103.9). The full suite passes (10,357 tests, 5 skipped).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
