@@ -245,7 +245,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Double Up | castTime: Basic Attack Timer | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
 | Double Up | targetRange: 550 (+ 100% bonus attack range) | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
 | Double Up | applying on-attack effects to the primary target and on-hit effects to both enemies hit | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
-| Double Up | Double Up deals basic damage to both targets | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | Double Up deals basic damage to both targets, but also triggers spell effects by also being tagged as spell damage | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
 | Double Up | the spell shield will not prevent the shot from bouncing | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
 | Double Up | If Double Up kills the primary target, the bounce will critically strike | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
 | Double Up | target does not have to be visible to be hit by the bounce | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
