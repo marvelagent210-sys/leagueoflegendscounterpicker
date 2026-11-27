@@ -55,7 +55,7 @@ for (const [index, you, enemy] of task.pairs) {
     const mine = await fighter(you);
     const theirs = await fighter(enemy);
     const found = searchMatchup(mine.spec, theirs.spec, catalog, equip, data.prices, { format: task.format, loadouts: { spells } });
-    const builds: [string[], string[]] = [names(found.routes[0][found.chosen[0]]!), names(found.routes[1][found.chosen[1]]!)];
+    const builds: [string[], string[]] = [names(found.builds[0]), names(found.builds[1])];
     const loadouts = found.loadouts!.loadouts;
     let result: MatchupResult = found.result;
     const chosen: MatchupVariant[] = [];

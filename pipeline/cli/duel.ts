@@ -274,8 +274,9 @@ async function main(): Promise<void> {
     console.log(`Screen scores for ${you.name}, the all-in scenarios with one branch each (rows: ${you.name}'s routes; columns: ${enemy.name}'s):`);
     for (const line of found.scores) console.log(`  ${line.map((score) => signed(score)).join("  ")}`);
     console.log(`Each side takes the route whose worst result is best: ${you.name} ${found.chosen[0] + 1}, ${enemy.name} ${found.chosen[1] + 1}.`);
-    myItems = buildNames(found.routes[0][found.chosen[0]]!);
-    theirItems = buildNames(found.routes[1][found.chosen[1]]!);
+    found.swapped.forEach((item, side) => { if (item) console.log(`${side === 0 ? you.name : enemy.name} takes ${item} in place of an item, as a fight says it does better.`); });
+    myItems = buildNames(found.builds[0]);
+    theirItems = buildNames(found.builds[1]);
     const searched = found.loadouts!;
     console.log(`Loadout search: ${searched.seconds.toFixed(1)} s, ${searched.fights} screens (the all-in scenarios with one branch each, each fight's health margin added):`);
     searched.screens.forEach((rounds, side) =>

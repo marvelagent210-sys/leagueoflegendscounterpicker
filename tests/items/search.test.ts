@@ -8,7 +8,7 @@ import { DATA_DIR } from "../../pipeline/config";
 import { latestDataset } from "../../pipeline/datasets";
 import { equipBuild, equipOptions, findItem, loadItemCatalog } from "../../pipeline/itemData";
 import { REVIEWED_GROUPS, buildProblems } from "../../pipeline/items/rules";
-import { type Build, type Candidate, candidatesFor, chooseRoutes, fits, names, profileOf, screenScore, searchSide, withCycle } from "../../pipeline/items/search";
+import { type Build, type Candidate, FIGHT_CHECKED, candidatesFor, chooseRoutes, fightCheckedSwap, fits, names, profileOf, screenScore, searchSide, withCycle } from "../../pipeline/items/search";
 import { loadSimData } from "../../pipeline/simData";
 import { kit } from "../kits/helpers";
 
@@ -154,5 +154,43 @@ describe("the answers' cycle and the route screen", () => {
     const score = screenScore(equipBuild(darius, ["Trinity Force", "Sterak's Gage"], catalog).spec, equipBuild(garen, ["Sunfire Aegis"], catalog).spec);
     expect(score).toBeGreaterThanOrEqual(-1);
     expect(score).toBeLessThanOrEqual(1);
+  });
+});
+
+describe("the fight-checked swap", () => {
+  const candidates = candidatesFor(darius, catalog, equip, prices, "sixItems");
+  const pick = (...items: string[]) => items.map((name) => candidates.find((c) => c.record.name === name)!);
+  const build: Build = { items: pick("Black Cleaver", "Sterak's Gage", "Dead Man's Plate", "Infinity Edge", "Lord Dominik's Regards", "Thornmail"), value: 0 };
+  const mercurial = pick("Mercurial Scimitar")[0]!;
+  // The estimate misses Thornmail least here; the fight scores builds holding Mercurial Scimitar higher or lower.
+  const value = (items: Candidate[]) => (items.some((item) => item.record.name === "Thornmail") ? 0 : 1);
+  const fightFor = (gain: number) => (items: Candidate[]) => (items.some((item) => item === mercurial) ? gain : 0);
+
+  it("tries Mercurial Scimitar, the item fights value and the estimate can't", () => {
+    expect(FIGHT_CHECKED).toEqual(["Mercurial Scimitar"]);
+  });
+
+  it("puts the item in place of the one the estimate misses least, when the fight says it does better", () => {
+    const swapped = fightCheckedSwap(build, mercurial, "sixItems", value, fightFor(0.2));
+    expect(names(swapped!)).toEqual(["Black Cleaver", "Sterak's Gage", "Dead Man's Plate", "Infinity Edge", "Lord Dominik's Regards", "Mercurial Scimitar"]);
+  });
+
+  it("keeps the build when the fight says the swap does no better, or the build holds the item already", () => {
+    expect(fightCheckedSwap(build, mercurial, "sixItems", value, fightFor(0))).toBeUndefined();
+    expect(fightCheckedSwap(build, mercurial, "sixItems", value, fightFor(-0.1))).toBeUndefined();
+    const holding: Build = { items: pick("Black Cleaver", "Sterak's Gage", "Dead Man's Plate", "Infinity Edge", "Lord Dominik's Regards", "Mercurial Scimitar"), value: 0 };
+    expect(fightCheckedSwap(holding, mercurial, "sixItems", value, fightFor(1))).toBeUndefined();
+  });
+
+  it("swaps only where the build rules allow: in five items and boots it never replaces the boots", () => {
+    const withBoots = candidatesFor(darius, catalog, equip, prices, "fiveItemsWithBoots");
+    const pickBoots = (...items: string[]) => items.map((name) => withBoots.find((c) => c.record.name === name)!);
+    const booted: Build = { items: pickBoots("Black Cleaver", "Sterak's Gage", "Dead Man's Plate", "Infinity Edge", "Lord Dominik's Regards", "Plated Steelcaps"), value: 0 };
+    const scimitar = pickBoots("Mercurial Scimitar")[0]!;
+    // The estimate would miss the boots least, but a sixth finished item doesn't fit.
+    const missBoots = (items: Candidate[]) => (items.some((item) => item.boots) ? 0 : 1);
+    const swapped = fightCheckedSwap(booted, scimitar, "fiveItemsWithBoots", missBoots, (items) => (items.includes(scimitar) ? 0.2 : 0));
+    expect(names(swapped!)).toContain("Plated Steelcaps");
+    expect(names(swapped!)).toContain("Mercurial Scimitar");
   });
 });
