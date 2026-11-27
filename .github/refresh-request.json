@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices: the build search's estimate gets hints for Actualizer's Mana Made Real, Horizon Focus's Hypershot and Serpent's Fang's Shield Reaver (shieldsReceivedCut, engine/budget.ts); Gluttonous Greaves' Slay at 10 stacks by default (6% omnivamp); omnivamp hints no longer take heal and shield power (vampHealing).",
+  "note": "One recompute of all three matrices: the Hydras' Cleave (Ravenous Hydra, Profane Hydra, Stridebreaker) on the enemy's pets, and on the enemy champion when the holder attacks a pet (items/modules/hydras.ts).",
   "dataset": "16.21",
   "matrices": [
     "sim",

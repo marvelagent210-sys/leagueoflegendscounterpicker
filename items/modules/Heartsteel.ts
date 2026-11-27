@@ -58,7 +58,7 @@ export const Heartsteel: ItemModule = {
           ctx.self.hp += growth * dealt;
         },
       },
-      unmodeled: ["Goliath: the simulator doesn't change champions' size."],
+      unmodeled: ["Goliath: size changes the gameplay radius (wiki \"Unit size\"), which sets the reach of basic attacks and edge-to-edge spells; the simulator keeps every champion's radius fixed."],
     };
   },
 };

@@ -1,11 +1,12 @@
 import { toTicks } from "../../engine/rules/time";
 import type { ItemModule } from "../equip";
 import { activeKey, memo, ownStatus, setStat } from "../runtime";
-import { CLEAVE } from "./hydras";
+import { cleave } from "./hydras";
+import { joinHooks } from "./shared";
 
 export const Stridebreaker: ItemModule = {
   item: "Stridebreaker",
-  build(item) {
+  build(item, fighter) {
     const active = item.effect("Breaking Shockwave");
     const words = "Deal 80% AD physical damage to enemies within a 450 radius in front of you and slow them by 35% for 3 seconds.";
     const share = active.quoted(words) / 100;
@@ -18,7 +19,6 @@ export const Stridebreaker: ItemModule = {
     active.quote("Can move while casting.");
     const key = memo(item.name, "speed");
     return {
-      unmodeled: [CLEAVE],
       actives: [{
         name: active.name,
         cooldown: active.cooldown(),
@@ -26,7 +26,7 @@ export const Stridebreaker: ItemModule = {
         delivery: { kind: "aura", radius },
         onHit: [{ type: "damage", damageType: "physical", amount: { base: 0, ratios: { AD: share } } }, { type: "cc", cc: "slow", duration: slowSeconds, strength: slow }],
       }],
-      hooks: {
+      hooks: joinHooks({
         onAbilityHit(ctx) {
           if (ctx.ability.key !== activeKey(item.name)) return;
           setStat(ctx.self, key, "moveSpeedPercent", speed, ctx.tick, ctx.tick + toTicks(seconds));
@@ -36,7 +36,7 @@ export const Stridebreaker: ItemModule = {
           const status = ownStatus(ctx.self, key);
           if (status) status.value = Math.max(0, speed * (status.endTick - ctx.tick) / toTicks(seconds));
         },
-      },
+      }, cleave(item, fighter, "Basic attacks on-hit deal 40% AD (melee) / 20% AD (ranged) physical damage to other enemies in a 350 radius centered around the target.")),
     };
   },
 };
