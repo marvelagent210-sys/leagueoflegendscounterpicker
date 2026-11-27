@@ -441,7 +441,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - E retains the primary 0.4-second backward-step cast window, then performs an interruptible 2300 speed forward dash with 250 minimum/650 maximum aimed displacement, sourced from the full raw template and exact display array rather than the parser's truncated 250 range. Neither pinned source publishes backward displacement/speed; that distance and backward-step contacts are omitted rather than fabricated. The forward swept 200-radius damages each actual body once, nonchampions at 80%, applies 0.75-second knockup/standard sight, and stops at the first real Champion-class pathing body or terrain independently of spell shielding. There is no second damage packet on the forward leg. Anti-dash and forced interruption use shared dash rules.
 - R requires an actual living visible friendly Champion-class body; ordinary 1v 1 worlds provide none. Actual allied pets only qualify with explicit sourced targetClass champion; clone names or unitClass clone alone do not establish eligibility. No ally is created and no R damage/shield budget is assigned. Conditional R freezes that ally's cast position, resets Galio's own W shield, and grants five-second magic shields to actual allied champions in 650 radius. The 2.75-second channel is vulnerable for its first 1.25 seconds, then untargetable/CC immune; source estimated 0.8 air/0.2 travel leave the published remaining 0.5-second landing lock. Impact deals 350 + 70% AP + 100% bonus MR with 100 knockback/0.75 airborne at the frozen landing spot even if terrain stops Galio's travel. The ordinary engine has only two champion sides: additional real allied champion units, vision teams and allied-source crowd-control during R are limited to the available explicit body representation.
 
-### Source values read (104)
+### Source values read (105)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -458,6 +458,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Colossal Smash | This may occur only once per cast | [4038336](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) |
 | Colossal Smash | Even if the ability hit is | [4038336](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) |
 | Colossal Smash | basic damage | [4038336](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) |
+| Colossal Smash | also triggers spell effects by also being tagged as spell damage | [4038336](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) |
 | Colossal Smash | epic {{tip\|monster}} | [4038336](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) |
 | Colossal Smash | proc damage | [4038336](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) |
 | Colossal Smash | on-hit}} effects to its primary target twice | [4038336](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) |

@@ -304,8 +304,8 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 | Ability | Value | Source version |
 |---|---|---|
-| Jaws of the Beast | Jaws of the Beast deals basic damage | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
-| Infinite Duress | Infinite Duress deals basic damage | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Jaws of the Beast | Jaws of the Beast deals basic damage, but also triggers spell effects by also being tagged as spell damage | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Infinite Duress | Infinite Duress deals basic damage, but also triggers spell effects by also being tagged as spell damage | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
 | Eternal Hunger | Innate: Warwick deals 6 – 55 (based on level) (+ 15% bonus AD) (+ 10% AP) bonus magic damage on-hit. | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
 | Eternal Hunger | (+ 15% bonus AD) | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
 | Eternal Hunger | (+ 10% AP) | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |

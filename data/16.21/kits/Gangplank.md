@@ -284,7 +284,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 | Ability | Value | Source version |
 |---|---|---|
-| Parrrley | Parrrley deals basic damage | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | Parrrley deals basic damage, but also triggers spell effects by also being tagged as spell damage | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
 | Parrrley | applies on-hit effects as a ranged attack | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
 | Trial by Fire | staticCooldown: 15 | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
 | Trial by Fire | Innate: Periodically, Gangplank empowers his next basic attack to set the target on fire, dealing them 50 – 250 (based on level) (+ 100% bonus AD) bonus true damage over 2.5 seconds. | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |

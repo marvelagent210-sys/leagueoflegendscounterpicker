@@ -13,6 +13,7 @@ import { checkedOvergrowthDeaths, checkedOvergrowthRules } from "./overgrowth";
 import { checkedAftershockRules } from "./aftershock";
 import { checkedFontOfLifeRules } from "./fontOfLife";
 import { checkedTasteOfBloodRules } from "./tasteOfBlood";
+import { checkedScorchRules } from "./scorch";
 import { buildRuneEffect } from "./effectRuntime";
 import { checkedFleetFootworkRules, checkedEnergizedCharges } from "./fleetFootwork";
 import { checkedPressTheAttackRules } from "./pressTheAttack";
@@ -133,6 +134,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
   const aftershock = checkedAftershockRules(value.aftershock);
   const fontOfLife = checkedFontOfLifeRules(value.fontOfLife);
   const tasteOfBlood = checkedTasteOfBloodRules(value.tasteOfBlood);
+  const scorch = checkedScorchRules(value.scorch);
   const fleetFootwork = checkedFleetFootworkRules(value.fleetFootwork);
   const pressTheAttack = checkedPressTheAttackRules(value.pressTheAttack);
   const groups = {
@@ -200,7 +202,7 @@ function checkedRules(catalog: RuneCatalog, value: CombatRuneRules): CombatRuneR
     coupDeGrace: { ...value.coupDeGrace }, cutDown: { ...value.cutDown },
     lastStand: { ...value.lastStand }, secondWind: { ...value.secondWind },
     absorbLife: { ...value.absorbLife },
-    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth, aftershock, fontOfLife, tasteOfBlood,
+    pressTheAttack, fleetFootwork, lethalTempo, conqueror, grasp, bonePlating, shieldBash, overgrowth, aftershock, fontOfLife, tasteOfBlood, scorch,
     presenceOfMind: { ...value.presenceOfMind },
     triumph: { ...value.triumph },
     legendAlacrity: { ...value.legendAlacrity },
