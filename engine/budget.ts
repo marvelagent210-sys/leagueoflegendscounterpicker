@@ -522,7 +522,7 @@ const sustainCache = new WeakMap<AbilitySpec[], SustainUse[][]>();
 
 /**
  * Shields and heals abilities give their caster over the reference fight; `heals` scales the
- * heals (healFactor), and heal and shield power both.
+ * heals (healFactor), heal and shield power both, and a cut to shields received the shields.
  */
 function sustain(self: Unit, incoming: DamageMix, heals = 1): number {
   const abilities = abilitiesOf(self.spec);
@@ -542,6 +542,7 @@ function sustain(self: Unit, incoming: DamageMix, heals = 1): number {
     sustainCache.set(abilities, sources);
   }
   const power = 1 + derive(self).healShieldPower;
+  const shields = 1 - derive(self).shieldsReceivedCut;
   let total = 0;
   for (const alternatives of sources) {
     let best = 0;
@@ -554,7 +555,7 @@ function sustain(self: Unit, incoming: DamageMix, heals = 1): number {
       for (const effect of source.effects) {
         // A type-specific shield cannot absorb damage of an unrelated type.
         if (effect.type === "shield" && effect.shieldType && effect.shieldType !== "normal" && incoming[effect.shieldType] <= 0) continue;
-        amount += evaluate(effect.amount, self) * (effect.type === "heal" ? heals : 1) * power;
+        amount += evaluate(effect.amount, self) * (effect.type === "heal" ? heals : shields) * power;
       }
       best = Math.max(best, uses * amount);
     }
@@ -572,7 +573,8 @@ function healFactor(self: Unit): number {
 function pool(self: Unit, enemy: Unit, raw: DamageMix): number {
   const hints = self.spec.budget;
   const heals = healFactor(self);
-  const hooks = ((hints?.healing?.(self, enemy) ?? 0) * heals + (hints?.shielding?.(self, enemy) ?? 0)) * SUSTAIN_WINDOW;
+  const shields = 1 - derive(self).shieldsReceivedCut;
+  const hooks = ((hints?.healing?.(self, enemy) ?? 0) * heals + (hints?.shielding?.(self, enemy) ?? 0) * shields) * SUSTAIN_WINDOW;
   return derive(self).maxHp + sustain(self, raw, heals) + hooks;
 }
 

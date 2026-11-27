@@ -22,7 +22,7 @@ export const MawOfMalmortius: ItemModule = {
       budget: {
         shielding: (self, enemy) => lifelineShield(self, enemy, pick(base) + (pick(share) / 100) * derive(self).bonusAd, seconds, false, "magic"),
         // Its omnivamp for the rest of the fight: the last share of the holder's health.
-        healing(self, enemy) {
+        vampHealing(self, enemy) {
           if (incoming(self, enemy).magic <= 0) return 0;
           const dealt = budgetDamage(self, enemy);
           return vamp * threshold * (dealt.physical + dealt.magic + dealt.true);

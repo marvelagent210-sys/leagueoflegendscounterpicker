@@ -69,6 +69,26 @@ describe("Actualizer's Mana Made Real", () => {
   });
 });
 
+describe("Gluttonous Greaves' Slay", () => {
+  // "0.6% omnivamp, stacking up to 10 times for a total of 6%": takedowns come before a duel,
+  // so the stacks are an option, full by default.
+  const vampOf = (spec: FighterSpec) => {
+    const w = world(spec);
+    for (let i = 0; i < 2; i++) step(w, [idle, idle]);
+    return w.units[0].statuses.filter((status) => status.kind === "stat" && status.key === "item:omnivamp").reduce((sum, status) => sum + status.value, 0);
+  };
+
+  it("gives 6% omnivamp at its default 10 stacks, on top of the shop's 4%", () => {
+    expect(vampOf(equip(fighter(), "Gluttonous Greaves").spec)).toBeCloseTo(0.06, 12);
+  });
+
+  it("takes fewer stacks as an option, and none gives none", () => {
+    const withStacks = (stacks: number) => equipBuild(fighter(), ["Gluttonous Greaves"], catalog, { options: { "Gluttonous Greaves": { stacks } } }).spec;
+    expect(vampOf(withStacks(4))).toBeCloseTo(0.024, 12);
+    expect(vampOf(withStacks(0))).toBe(0);
+  });
+});
+
 describe("heal and shield power", () => {
   // Wiki "Template:Healing modifiers": heal and shield power strengthens self heals, self shields
   // and outgoing heals and shields, and drain effects; not health regeneration, life steal or

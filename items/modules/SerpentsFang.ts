@@ -15,6 +15,7 @@ export const SerpentsFang: ItemModule = {
     const reaved = memo(item.name, "reaved");
     const id = (status: Status) => `${status.startTick}:${status.key}:${status.memoKey ?? ""}`;
     item.assume("Shield Reaver cuts a shield the enemy gains while venomed on the next tick after it gains it.");
+    item.assume("The build search's estimate has the enemy venomed throughout, so all its shields are cut.");
     const reave = (shields: Status[], done: Set<string>) => {
       for (const shield of shields) {
         if (done.has(id(shield))) continue;
@@ -23,6 +24,7 @@ export const SerpentsFang: ItemModule = {
       }
     };
     return {
+      budget: { enemyStats: () => [{ stat: "shieldsReceivedCut", value: 1 - cut }] },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.petSource) return;

@@ -1,4 +1,6 @@
+import { budgetAbilityDamage } from "../../engine/budget";
 import type { ItemModule } from "../equip";
+import { FIGHT, coverage } from "../hints";
 import { bonusMana, memo, setStat } from "../runtime";
 
 /**
@@ -27,7 +29,21 @@ export const Actualizer: ItemModule = {
     const increase = (self: Parameters<typeof bonusMana>[0]) => base + (perMana * bonusMana(self, fighter.baseMana)) / per;
     const power = memo(item.name, "power");
     if (!fighter.mana) return { unmodeled: ["Mana Made Real: it changes only mana, and this champion has none."] };
+    // Used when ready from the start of the reference fight: the share of it Empowered.
+    const cooldown = real.cooldown();
+    const uses: number[] = [];
+    for (let at = 0; at < FIGHT && cooldown > 0; at += cooldown) uses.push(at);
+    const uptime = coverage(uses.length ? uses : [0], seconds);
+    item.assume("The build search's estimate counts the Empowered share of its ten-second reference fight, its increase on the kit's ability damage and heals and shields; it leaves out the doubled costs and the faster cooldowns.");
     return {
+      budget: {
+        damage(self, enemy) {
+          const share = increase(self) * uptime;
+          const abilities = budgetAbilityDamage(self, enemy);
+          return { physical: abilities.physical * share, magic: abilities.magic * share, true: abilities.true * share };
+        },
+        stats: (self) => [{ stat: "healShieldPower", value: increase(self) * uptime }],
+      },
       actives: [{ name: real.name, cooldown: real.cooldown(), delivery: { kind: "self" }, onSelf: [{ type: "stat", stat: "manaCostIncrease", amount: { base: cost }, duration: seconds }] }],
       hooks: {
         onTick(ctx) {

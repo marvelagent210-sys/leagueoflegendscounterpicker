@@ -4039,10 +4039,11 @@ fights decide between the best ones. Two item mechanics fights now play were mis
   healing and shielding hints and the items' (their actives' included) now grow by the holder's heal
   and shield power, the heals also by healing increases (Spirit Visage). Life steal and omnivamp
   don't. Dawncore's First Light gives a hint of its share (2% for Dawncore alone).
-- **Still left out of the estimate:** Actualizer's Empowered damage and heal and shield power (its
-  damage would be a share of the abilities' damage, which the hints can't read without the budget
-  reading them back); Horizon Focus's Hypershot (the estimate has no range); Serpent's Fang's cut
-  to the enemy's shields; and stacks that change during a fight (Mejai's Soulstealer, Hubris).
+- **Still left out of the estimate:** Actualizer's Empowered damage and heal and shield power, Horizon
+  Focus's Hypershot and Serpent's Fang's cut to the enemy's shields (added in the next section).
+  Mejai's Soulstealer and Hubris already agree with fights: Glory's stacks are
+  a fixed option before the fight (none by default), counted as shop AP in both, and Eminence needs
+  takedowns, which no duel has.
 
 Tests (tests/items/hints.test.ts): 20% heal and shield power and Spirit Visage give 1.2 × 1.25 of a
 kit's heals and 1.2 of its shields; an ability shield grows by 10% with Ardent Censer; life steal
@@ -4061,6 +4062,55 @@ six-item builds.
 
 The search took 124.5 processor-hours for six items (98.2 before) and 103.9 for five items and boots
 (98.2), as Randuin's Omen builds reach fights more often. The full suite passes (10,351 tests, 5 skipped).
+
+### The build search's estimate: Actualizer, Horizon Focus and Serpent's Fang (27 November 2026)
+
+The three items with duel effects the estimate still left out now have hints (items/modules):
+
+- **Actualizer's Mana Made Real:** used from the start of the ten-second reference fight, Empowered for
+  8 of its seconds (its cooldown is 60). Its 15% (+ 0.5% per 100 bonus mana) is on the kit's ability
+  damage (`budgetAbilityDamage`, as Spear of Shojin's hint reads it) and is heal and shield power, both
+  times 0.8. Left out: the doubled mana costs and the 30% faster basic cooldowns.
+- **Horizon Focus's Hypershot:** 10% more damage dealt for the share of the fight within 6 seconds of a
+  cast of a damaging ability that reaches 600 units or more (a target, line or circle ability's cast
+  range), as if cast from its full range. Abilities with less reach, self-cast and area abilities
+  don't mark.
+- **Serpent's Fang's Shield Reaver:** the enemy is venomed throughout, so its shields count 50% less
+  against a melee holder, 35% against a ranged one. A new stat the estimate gives the enemy,
+  `shieldsReceivedCut` (engine/sim/spec.ts), cuts the abilities' shields and the shield hints in the
+  budget's health pool; heals are untouched. Fights play the item's own hooks.
+
+- **Gluttonous Greaves' Slay** was left out ("a takedown ends the duel"). Its 0.6% omnivamp per takedown,
+  up to 10 stacks (6%), now comes from takedowns before the fight: an option, full by default, as Tear
+  items are stacked (Mejai's Soulstealer, whose stacks the item exists to gather, defaults to none). With
+  the shop's 4%, the boots give 10% omnivamp. 90 items have every effect modeled, 9 none that can act in
+  a duel.
+- **Omnivamp hints and heal and shield power:** the estimate's heal and shield power (previous section)
+  also raised the omnivamp healing of Riftmaker's and Maw of Malmortius's hints, which omnivamp
+  doesn't get. Their healing, and Gluttonous Greaves', is now a hint of its own (`vampHealing`,
+  items/equip.ts) that heal and shield power leaves alone.
+
+Tests (tests/items/hints.test.ts, tests/items/effects.test.ts): Gluttonous Greaves gives 6% omnivamp at
+10 stacks, 2.4% at 4 and none at 0, and its 10% isn't raised by Ardent Censer in the estimate. Actualizer adds 0.8 × 16.5% of a mage's ability damage and as much
+heal and shield power; Horizon Focus gives 10% on a caster whose 700-range bolt marks the whole fight, none
+for a 300-range one; Serpent's Fang leaves half of an enemy's 50 shielding a second. The full suite passes
+apart from the three tests of the committed matrices, which wait for the refresh (10,354 tests pass, 5
+skipped).
+
+The refresh (run 56) moved no plain-stats entry, 6,298 of 29,756 six-item entries (2,808 by more than
+0.1) and 26,536 five-items-and-boots entries (12,010 by more than 0.1).
+
+- **Gluttonous Greaves** at full stacks (10% omnivamp) is now the most held boots, in 39% of five-items-
+  and-boots builds, ahead of Plated Steelcaps (55% to 38%) and Berserker's Greaves (43% to 22%). Most of
+  that matrix's movement comes from it. Its stacks are an option: with fewer, the boots are weaker.
+- **Actualizer** enters the builds of champions that buy mana and lean on ability damage: Kassadin
+  63% of six-item matchups (45% with boots), Udyr 61% (62%), Fiddlesticks 54%, Vel'Koz 38% and Karthus
+  37%. It is not among Ryze's eight most frequent items (Archangel's Staff, Frozen Heart and
+  Rabadon's Deathcap keep their places), nor Cassiopeia's or Ezreal's.
+- **Horizon Focus** and **Serpent's Fang** stay outside the 25 most held items.
+
+The search took 117.3 processor-hours for six items (124.5 before) and 93.2 for five items and boots
+(103.9). The full suite passes (10,357 tests, 5 skipped).
 
 ## Remaining limits
 

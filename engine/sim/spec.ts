@@ -186,6 +186,11 @@ export type BuffStat =
    * health regeneration, life steal and omnivamp don't get it (wiki: "Template:Healing modifiers").
    */
   | "healShieldPower"
+  /**
+   * Cuts the shields the unit gains by a fraction, as the build search's estimate counts the
+   * enemy's Serpent's Fang (Shield Reaver); fights play that item's hooks instead.
+   */
+  | "shieldsReceivedCut"
   /** More maximum resource (Twilight Shroud's 100 energy). */
   | "maxResource"
   /** Percentage penetration of bonus armor only (All Out's 50%). */
