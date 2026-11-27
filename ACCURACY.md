@@ -4131,6 +4131,13 @@ before). Tests (tests/items/effects.test.ts): each of the three cleaves a pet 30
 champion for 40% AD and not one 700 past; an attack on a pet cleaves the champion beside it and
 another pet, and not the champion 1,000 units away; a ranged holder cleaves for 20% AD.
 
+The refresh (run 59) moved no entry in any matrix: plain stats weren't recomputed (no items), and
+the 29,756 six-item and five-items-and-boots entries came out as before. The Hydras are not among
+any champion's eight most frequent items, and no searched build holding one meets a pet champion, so
+Cleave's new damage never reaches a scored fight. The search's quick estimate has no pets, so it
+gives Cleave no value of its own either. The search took 106.7 processor-hours for six items (117.3
+before) and 105.6 for five items and boots (93.2).
+
 Still left out:
 
 - **Titanic Hydra's Cleave on other enemies:** "in a cone in the direction of the primary target", whose
