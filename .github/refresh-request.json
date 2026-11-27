@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices: the Hydras' Cleave (Ravenous Hydra, Profane Hydra, Stridebreaker) on the enemy's pets, and on the enemy champion when the holder attacks a pet (items/modules/hydras.ts).",
+  "note": "One recompute of the item-build matrices: the build search tries Mercurial Scimitar in each side's taken build by a screen fight (pipeline/items/search.ts fightCheckedSwap).",
   "dataset": "16.21",
   "matrices": [
     "sim",

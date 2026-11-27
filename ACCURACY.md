@@ -4179,8 +4179,18 @@ Blade of the Ruined King's passive. A hint was tried and dropped: the holder's d
 longest cleansable immobilizing crowd control, over the ten-second reference fight. Its estimate gain
 correlated 0.11 with the fight gain; half of the largest gains come against enemies it scores at zero
 (Malphite against Azir +0.70, Vel'Koz against Tryndamere +0.62, Aatrox against Lillia +0.59), where
-Quicksilver removes slows, sleep or knock-backs and its speed and ghosting chase or escape. Mercurial
-Scimitar is still a candidate in the search for its stats, and fights decide between the routes.
+Quicksilver removes slows, sleep or knock-backs and its speed and ghosting chase or escape.
+
+So fights check it instead (pipeline/items/search.ts `fightCheckedSwap`, `FIGHT_CHECKED`). Once each
+side's route is chosen, it tries Mercurial Scimitar in place of the item whose loss the estimate feels
+least (never its boots), and keeps it when the screen fight against the other side's build (the all-in
+scenarios, as routes are chosen) scores better. You try first, then the enemy against your build as it
+stands. On 24 seeded random pairings in both formats the swap was taken in 9 of 48, where the full
+matchup score moved by 0.435 on average (Urgot against K'Sante with boots: −0.763 to +0.592, as Urgot
+takes it; Ivern against Aphelios: 0.077 to −0.575, as Aphelios does), for about 12% more search time.
+Tests (tests/items/search.test.ts): the item goes in place of the one the estimate misses least when
+the fight scores the swap higher, the build stays when it scores no higher or holds the item already,
+and boots are never swapped out.
 
 ## Remaining limits
 
