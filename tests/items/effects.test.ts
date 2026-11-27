@@ -5,9 +5,11 @@
 import { describe, expect, it } from "vitest";
 import { abilityHit, applyEffect, attackHit, dealDamage, heal, hookContext } from "../../engine/sim/combat";
 import { costOf, startCast } from "../../engine/sim/actions";
+import { resolveAttackOnPet } from "../../engine/sim/attackPet";
+import { spawnPet } from "../../engine/sim/pets";
 import { createWorld, step } from "../../engine/sim/simulate";
 import { derive } from "../../engine/sim/derived";
-import type { FighterSpec, KitHooks } from "../../engine/sim/spec";
+import type { FighterSpec, KitHooks, PetSpec } from "../../engine/sim/spec";
 import { ItemContext } from "../../items/context";
 import { type EquippedFighter, composeHooks, equipItems, matchupSpecs } from "../../items/equip";
 import { ITEM_MODULES } from "../../items/modules/index";
@@ -66,6 +68,54 @@ describe("Actualizer's Mana Made Real", () => {
 
   it("does nothing for a champion without mana", () => {
     expect(equip(fighter(), "Actualizer").spec.abilities.some((a) => a.key === activeKey("Actualizer"))).toBe(false);
+  });
+});
+
+describe("the Hydras' Cleave on pets and, from a pet, the enemy champion", () => {
+  // "40% AD (melee) / 20% AD (ranged) physical damage to other enemies in a 350 radius centered
+  // around the target": in a duel the other enemies are pets, or the champion when a pet is hit.
+  const body: PetSpec = { kind: "fixture", name: "Fixture", hp: 10_000, armor: 0, mr: 0, radius: 30, moveSpeed: 0, duration: 30 };
+  const setup = (item: string, ranged = false) => {
+    const holder = equip(ranged ? { ...fighter(), attack: { ...fighter().attack, ranged: true, range: 550 } } : fighter(), item);
+    const w = world(...matchupSpecs(holder, equip(fighter())));
+    const [self, enemy] = w.units;
+    self.x = 0;
+    enemy.x = 100;
+    return { w, self, enemy, ad: derive(self).ad };
+  };
+
+  for (const item of ["Ravenous Hydra", "Profane Hydra", "Stridebreaker"]) {
+    it(`${item}: an attack on the champion cleaves pets within 350 of it, not farther`, () => {
+      const { w, self, enemy, ad } = setup(item);
+      const near = spawnPet(w, enemy, body, 400);
+      const far = spawnPet(w, enemy, body, 800);
+      attackHit(w, self, enemy, false, []);
+      expect(body.hp - near.hp).toBeCloseTo(0.4 * ad, 6);
+      expect(far.hp).toBe(body.hp);
+    });
+  }
+
+  it("an attack on a pet cleaves the enemy champion within 350 of the pet, and other pets, but not the pet twice", () => {
+    const { w, self, enemy } = setup("Ravenous Hydra");
+    const target = spawnPet(w, enemy, body, 50);
+    const other = spawnPet(w, enemy, body, 300);
+    const before = enemy.hp;
+    resolveAttackOnPet(w, self, target, false, [], {});
+    expect(before - enemy.hp).toBeGreaterThan(0);
+    expect(body.hp - other.hp).toBeCloseTo(0.4 * derive(self).ad, 6);
+    // The pet takes the attack itself, not Cleave as well.
+    expect(body.hp - target.hp).toBeCloseTo(derive(self).ad, 6);
+    enemy.x = 1000;
+    const away = enemy.hp;
+    resolveAttackOnPet(w, self, target, false, [], {});
+    expect(enemy.hp).toBe(away);
+  });
+
+  it("a ranged holder cleaves for 20% AD", () => {
+    const { w, self, enemy, ad } = setup("Ravenous Hydra", true);
+    const near = spawnPet(w, enemy, body, 200);
+    attackHit(w, self, enemy, false, []);
+    expect(body.hp - near.hp).toBeCloseTo(0.2 * ad, 6);
   });
 });
 

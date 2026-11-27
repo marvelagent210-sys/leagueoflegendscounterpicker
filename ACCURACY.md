@@ -4112,6 +4112,45 @@ The refresh (run 56) moved no plain-stats entry, 6,298 of 29,756 six-item entrie
 The search took 117.3 processor-hours for six items (124.5 before) and 93.2 for five items and boots
 (103.9). The full suite passes (10,357 tests, 5 skipped).
 
+### The Hydras' Cleave on pets (27 November 2026)
+
+Cleave, on Ravenous Hydra, Profane Hydra and Stridebreaker, was left out ("its damage to other
+enemies isn't modeled: in a duel they can only be pets"): "Basic attacks on-hit deal 40% AD (melee) /
+20% AD (ranged) physical damage to other enemies in a 350 radius centered around the target." In a duel
+those enemies are the enemy's pets, and, when the holder attacks a pet, the enemy champion. Now
+(items/modules/hydras.ts `cleave`):
+
+- An attack on the champion cleaves the enemy's pets whose edge is within 350 of it, as area damage.
+- An attack on a pet cleaves the enemy champion within 350 of the pet, and the enemy's other pets
+  there; the attacked pet takes the attack, not Cleave too.
+- Ravenous Hydra's Cleave heals through life steal ("benefits from life steal at 100% effectiveness");
+  the others' doesn't.
+
+The Hydras' actives already hit pets in their 450 radius. 93 items have every effect modeled (90
+before). Tests (tests/items/effects.test.ts): each of the three cleaves a pet 300 units past the
+champion for 40% AD and not one 700 past; an attack on a pet cleaves the champion beside it and
+another pet, and not the champion 1,000 units away; a ranged holder cleaves for 20% AD.
+
+The refresh (run 59) moved no entry in any matrix: plain stats weren't recomputed (no items), and
+the 29,756 six-item and five-items-and-boots entries came out as before. The Hydras are not among
+any champion's eight most frequent items, and no searched build holding one meets a pet champion, so
+Cleave's new damage never reaches a scored fight. The search's quick estimate has no pets, so it
+gives Cleave no value of its own either. The search took 106.7 processor-hours for six items (117.3
+before) and 105.6 for five items and boots (93.2).
+
+Still left out:
+
+- **Titanic Hydra's Cleave on other enemies:** "in a cone in the direction of the primary target", whose
+  length the item's text doesn't give.
+- **Runaan's Hurricane's bolts:** "at up to 2 enemies in front of you", whose reach the text doesn't
+  give either.
+- **Heartsteel's Goliath** (0% to 30% increased size): the wiki's "Unit size" (revision 4046606) says
+  size modifiers change the gameplay radius, "the most relevant to gameplay, as it determines the
+  registering of most direction-targeted projectiles (skillshots) and the reach of the various
+  edge-to-edge spells". The simulator keeps every champion's radius fixed, read in some 450 places, so
+  kits' own size changes (Cho'Gath's Feast, Nasus's Fury of the Sands and others) are left out as well,
+  apart from the attack range some of them grant explicitly.
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
