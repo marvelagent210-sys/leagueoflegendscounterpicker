@@ -26,6 +26,5 @@ export const OUTSIDE_DUELS: ItemModule[] = [
   outside("Axiom Arc", { Flux: TAKEDOWN }),
   outside("Cryptbloom", { "Life From Death": TAKEDOWN }),
   outside("Hubris", { Eminence: TAKEDOWN }),
-  outside("Gluttonous Greaves", { Slay: TAKEDOWN }),
   outside("Runaan's Hurricane", { "Wind's Fury": "its bolts go to enemies other than the target, which in a duel can only be pets, and aren't modeled." }),
 ];

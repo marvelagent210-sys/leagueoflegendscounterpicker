@@ -2,7 +2,7 @@
 
 What the duel simulator makes of each item (items/, PLAN.md §13, M8): the effects it models from the item's wiki text, what it leaves out and why, and the simplifications it makes. Every number comes from the wiki's text: a quote that is no longer there fails the build.
 
-116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 89 have every effect modeled, 10 have none that can act in a duel, and the rest leave part out.
+116 items (the 113 of the catalog and 3 transformed Tear items): 5 have stats only, 90 have every effect modeled, 9 have none that can act in a duel, and the rest leave part out.
 
 The rules the items follow beyond their own text come from pinned wiki pages: Combat status (revision 4058480), Critical strike (revision 4059009), Template:Critical damage (revision 4001015), Template:Tip data/Energized (revision 4013385), Vamp (revision 4089668), Heal and shield power (revision 4021804), Template:Healing modifiers (revision 4021803).
 
@@ -526,7 +526,8 @@ Modeled: Fleetfooted.
 
 ### Gluttonous Greaves
 
-- Left out: Slay: a takedown ends the duel.
+Modeled: Slay.
+- Option: Slay stacks from takedowns before the fight (10 at most) (option `stacks`, default 10)
 
 ### Ionian Boots of Lucidity
 

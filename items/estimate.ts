@@ -103,6 +103,7 @@ function estimateHints(kit: BudgetHints | undefined, parts: readonly ItemParts[]
   const own = kit?.damage && share !== 1 ? (self: Unit, target: Unit) => scaled(kit.damage!(self, target), share) : kit?.damage;
   const damaging = hinted.filter((part) => part.budget!.damage);
   const healing = hinted.filter((part) => part.budget!.healing);
+  const vamping = hinted.filter((part) => part.budget!.vampHealing);
   const shielding = hinted.filter((part) => part.budget!.shielding);
   return {
     ...kit,
@@ -119,13 +120,14 @@ function estimateHints(kit: BudgetHints | undefined, parts: readonly ItemParts[]
           },
         }
       : {}),
-    ...(healing.length || lifeSteal || omnivamp || (powered && kit?.healing)
+    ...(healing.length || vamping.length || lifeSteal || omnivamp || (powered && kit?.healing)
       ? {
           healing(self, target) {
             // Heal and shield power strengthens the kit's and the items' heals, not life steal or omnivamp.
             let total = kit?.healing?.(self, target) ?? 0;
             for (const part of healing) total += part.budget!.healing!(self, target);
             total *= 1 + derive(self).healShieldPower;
+            for (const part of vamping) total += part.budget!.vampHealing!(self, target);
             if (lifeSteal) total += lifeSteal * attackDamage(self, target) * budgetMultipliers(self, target).physical;
             if (omnivamp) {
               const dealt = budgetDamage(self, target);

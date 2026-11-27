@@ -4080,10 +4080,21 @@ The three items with duel effects the estimate still left out now have hints (it
   `shieldsReceivedCut` (engine/sim/spec.ts), cuts the abilities' shields and the shield hints in the
   budget's health pool; heals are untouched. Fights play the item's own hooks.
 
-Tests (tests/items/hints.test.ts): Actualizer adds 0.8 × 16.5% of a mage's ability damage and as much
+- **Gluttonous Greaves' Slay** was left out ("a takedown ends the duel"). Its 0.6% omnivamp per takedown,
+  up to 10 stacks (6%), now comes from takedowns before the fight: an option, full by default, as Tear
+  items are stacked (Mejai's Soulstealer, whose stacks the item exists to gather, defaults to none). With
+  the shop's 4%, the boots give 10% omnivamp. 90 items have every effect modeled, 9 none that can act in
+  a duel.
+- **Omnivamp hints and heal and shield power:** the estimate's heal and shield power (previous section)
+  also raised the omnivamp healing of Riftmaker's and Maw of Malmortius's hints, which omnivamp
+  doesn't get. Their healing, and Gluttonous Greaves', is now a hint of its own (`vampHealing`,
+  items/equip.ts) that heal and shield power leaves alone.
+
+Tests (tests/items/hints.test.ts, tests/items/effects.test.ts): Gluttonous Greaves gives 6% omnivamp at
+10 stacks, 2.4% at 4 and none at 0, and its 10% isn't raised by Ardent Censer in the estimate. Actualizer adds 0.8 × 16.5% of a mage's ability damage and as much
 heal and shield power; Horizon Focus gives 10% on a caster whose 700-range bolt marks the whole fight, none
 for a 300-range one; Serpent's Fang leaves half of an enemy's 50 shielding a second. The full suite passes
-apart from the three tests of the committed matrices, which wait for the refresh (10,351 tests pass, 5
+apart from the three tests of the committed matrices, which wait for the refresh (10,354 tests pass, 5
 skipped).
 
 ## Remaining limits

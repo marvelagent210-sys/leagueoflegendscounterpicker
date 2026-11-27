@@ -105,8 +105,10 @@ export interface ItemBudget {
   enemyStats?: (self: Unit, enemy: Unit) => EstimateStatus[];
   /** Damage per second the hooks and actives deal, by type, before the enemy's resistances. */
   damage?: (self: Unit, enemy: Unit) => Partial<DamageByType>;
-  /** Healing per second: healing increases and Grievous Wounds change it. */
+  /** Healing per second: healing increases and Grievous Wounds change it, and heal and shield power. */
   healing?: (self: Unit, enemy: Unit) => number;
+  /** Healing per second from omnivamp or life steal: as `healing`, but heal and shield power doesn't change it. */
+  vampHealing?: (self: Unit, enemy: Unit) => number;
   /** Shielding per second, and damage the hooks keep from landing (Sterak's Gage's Lifeline: its shield over the ten seconds). */
   shielding?: (self: Unit, enemy: Unit) => number;
   /** The kit's ability as the hooks change it (Navori Flickerblade's shorter cooldowns), the same object when they don't. */
@@ -648,6 +650,7 @@ export function joinBudgets(a: ItemBudget | undefined, b: ItemBudget | undefined
   const stats = both(a.stats, b.stats);
   const enemyStats = both(a.enemyStats, b.enemyStats);
   const healing = sum(a.healing, b.healing);
+  const vampHealing = sum(a.vampHealing, b.vampHealing);
   const shielding = sum(a.shielding, b.shielding);
   if (stats) joined.stats = stats;
   if (a.late || b.late) joined.late = true;
@@ -656,6 +659,7 @@ export function joinBudgets(a: ItemBudget | undefined, b: ItemBudget | undefined
   if (enemyStats) joined.enemyStats = enemyStats;
   if (damage) joined.damage = damage;
   if (healing) joined.healing = healing;
+  if (vampHealing) joined.vampHealing = vampHealing;
   if (shielding) joined.shielding = shielding;
   return joined;
 }

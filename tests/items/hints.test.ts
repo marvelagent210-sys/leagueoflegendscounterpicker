@@ -135,6 +135,16 @@ describe("the estimate with item hints", () => {
     expect(budgetPool(thirsty.self, thirsty.foe) - d.maxHp).toBeCloseTo(0.15 * d.ad * d.attackSpeed * 0.5 * FIGHT, 6);
   });
 
+  it("omnivamp hints aren't strengthened by heal and shield power: Gluttonous Greaves' 10% with Ardent Censer", () => {
+    const greaves = estimatePair(fighter(), parts(fighter(), "Gluttonous Greaves"), estimateSide(fighter(), [], 1));
+    const both = estimatePair(fighter(), parts(fighter(), "Gluttonous Greaves", "Ardent Censer"), estimateSide(fighter(), [], 1));
+    const healed = (pair: typeof greaves) => budgetPool(pair.self, pair.foe) - derive(pair.self).maxHp;
+    const dealt = (pair: typeof greaves) => { const d = budgetDamage(pair.self, pair.foe); return d.physical + d.magic + d.true; };
+    // The shop's 4% and Slay's 6% of the damage dealt, over the ten seconds.
+    expect(healed(greaves)).toBeCloseTo(0.1 * dealt(greaves) * FIGHT, 6);
+    expect(healed(both)).toBeCloseTo(0.1 * dealt(both) * FIGHT, 6);
+  });
+
   it("Dawncore's First Light adds its heal and shield power", () => {
     const pair = estimatePair(fighter(), parts(fighter(), "Dawncore"), estimateSide(fighter(), [], 1));
     expect(derive(pair.self).healShieldPower).toBeCloseTo(0.18, 12);

@@ -21,7 +21,7 @@ export const Riftmaker: ItemModule = {
       // Its stacks over the seconds of the fight, and its omnivamp once they are full.
       budget: {
         stats: (self) => [{ stat: "AP", value: infusion * bonusHealth(self) }, { stat: "damageDealt", value: perStack * stacksBySecond.reduce((a, b) => a + b, 0) / FIGHT }],
-        healing(self, enemy) {
+        vampHealing(self, enemy) {
           const dealt = budgetDamage(self, enemy);
           return ((fighter.ranged ? vamp.ranged : vamp.melee) / 100) * vampShare * (dealt.physical + dealt.magic + dealt.true);
         },

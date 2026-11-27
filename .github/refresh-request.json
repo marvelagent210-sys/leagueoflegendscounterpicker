@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of all three matrices: the build search's estimate gets hints for Actualizer's Mana Made Real (ability damage and heal and shield power while Empowered), Horizon Focus's Hypershot (damage dealt after long-range abilities) and Serpent's Fang's Shield Reaver (shieldsReceivedCut on the enemy, engine/budget.ts).",
+  "note": "One recompute of all three matrices: the build search's estimate gets hints for Actualizer's Mana Made Real, Horizon Focus's Hypershot and Serpent's Fang's Shield Reaver (shieldsReceivedCut, engine/budget.ts); Gluttonous Greaves' Slay at 10 stacks by default (6% omnivamp); omnivamp hints no longer take heal and shield power (vampHealing).",
   "dataset": "16.21",
   "matrices": [
     "sim",
