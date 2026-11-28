@@ -135,7 +135,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Sion | Sion | 75 | 5 |
 | Sivir | Sivir | 55 | 4 |
 | Skarner | Skarner | 62 | 5 |
-| Smolder | Smolder | 73 | 9 |
+| Smolder | Smolder | 74 | 9 |
 | Sona | Sona | 74 | 7 |
 | Soraka | Soraka | 61 | 7 |
 | Swain | Swain | 89 | 9 |
