@@ -4168,6 +4168,55 @@ Still left out:
   kits' own size changes (Cho'Gath's Feast, Nasus's Fury of the Sands and others) are left out as well,
   apart from the attack range some of them grant explicitly.
 
+### Movement, slows and cleanse in the build search's estimate: measured, left out (27 November 2026)
+
+The estimate (engine/budget.ts) has no movement: speed, slows and cleanse count nothing in it, though
+fights play them. Before giving them a value, an experiment measured what they are worth in fights.
+Sixty seeded random pairings were played, each side holding its champion's most frequent items from
+the six-item builds report (the holder's first five, then the item; the enemy's first six). Every
+scenario was played twice, with the item's module and with its shop stats only.
+
+| Item (effect) | Mean score gain | Mean absolute | Pairings moved by more than 0.1 |
+| --- | ---: | ---: | ---: |
+| Mercurial Scimitar (Quicksilver: cleanse, speed, ghosting) | +0.111 | 0.120 | 15 |
+| Rylai's Crystal Scepter (Rimefrost slow) | +0.047 | 0.074 | 6 |
+| Cosmic Drive (Spelldance speed) | +0.016 | 0.037 | 8 |
+| Youmuu's Ghostblade (Haunt, Wraith Step speed) | +0.010 | 0.043 | 7 |
+| Serylda's Grudge (Bitter Cold slow) | +0.007 | 0.045 | 9 |
+| Boots of Swiftness (slow resist) | −0.009 | 0.024 | 4 |
+| Shurelya's Battlesong (Inspiring Speech speed) | −0.026 | 0.062 | 8 |
+| Phantom Dancer (ghosting) | 0 | 0 | 0 |
+| *Randuin's Omen, every effect (for scale)* | *+0.167* | *0.176* | *22* |
+| *Blade of the Ruined King, every effect (for scale)* | *+0.112* | *0.123* | *18* |
+
+Speed and slows average near zero and move scores both ways: they change how a fight goes more than
+how often it's won, so a fixed value in the estimate would mislead it. Phantom Dancer's ghosting does
+nothing, as a duel has no unit collision. Mercurial Scimitar is the exception, worth about as much as
+Blade of the Ruined King's passive. A hint was tried and dropped: the holder's damage for the enemy's
+longest cleansable immobilizing crowd control, over the ten-second reference fight. Its estimate gain
+correlated 0.11 with the fight gain; half of the largest gains come against enemies it scores at zero
+(Malphite against Azir +0.70, Vel'Koz against Tryndamere +0.62, Aatrox against Lillia +0.59), where
+Quicksilver removes slows, sleep or knock-backs and its speed and ghosting chase or escape.
+
+So fights check it instead (pipeline/items/search.ts `fightCheckedSwap`, `FIGHT_CHECKED`). Once each
+side's route is chosen, it tries Mercurial Scimitar in place of the item whose loss the estimate feels
+least (never its boots), and keeps it when the screen fight against the other side's build (the all-in
+scenarios, as routes are chosen) scores better. You try first, then the enemy against your build as it
+stands. On 24 seeded random pairings in both formats the swap was taken in 9 of 48, where the full
+matchup score moved by 0.435 on average (Urgot against K'Sante with boots: −0.763 to +0.592, as Urgot
+takes it; Ivern against Aphelios: 0.077 to −0.575, as Aphelios does), for about 12% more search time.
+Tests (tests/items/search.test.ts): the item goes in place of the one the estimate misses least when
+the fight scores the swap higher, the build stays when it scores no higher or holds the item already,
+and boots are never swapped out.
+
+The refresh (run 62) moved no plain-stats entry, 8,562 of 29,756 six-item entries (5,490 by more than
+0.1) and 7,570 five-items-and-boots entries (4,862 by more than 0.1). Mercurial Scimitar, absent from
+the 25 most held items before, is now in 18% of six-item builds and 16% of five-items-and-boots ones,
+mostly marksmen, whom crowd control holds still: Caitlyn 35% of six-item matchups, Jinx 32%,
+Aphelios, Tristana and Twitch 31%, Miss Fortune 30%; Anivia (40%) and Zilean (32%) take it too, for its
+magic resistance and the cleanse. The search took 106.2 processor-hours for six items (113.8 before)
+and 111.4 for five items and boots (100.4).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the

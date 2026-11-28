@@ -14,7 +14,10 @@
  *    against the other's best answer: the rule Udyr's rank splits use (bestMatchup). The route
  *    fights are a screen, the all-in scenarios with one branch each (screenScore); the pair
  *    taken then plays every scenario, for the matchup's result.
- * 5. With `loadouts`, the sides then choose their summoner spells for the builds
+ * 5. Items whose worth the estimate can't see but fights do (FIGHT_CHECKED) are tried in each
+ *    side's taken build, in place of the item the estimate misses least, and kept when the
+ *    screen fight against the other side's build says so (fightCheckedSwap).
+ * 6. With `loadouts`, the sides then choose their summoner spells for the builds
  *    taken (pipeline/loadouts/search.ts), and the matchup's result is played with them.
  *
  * The result is the best build found within the model, not a guaranteed optimum.
@@ -80,11 +83,38 @@ export interface SearchOptions {
   calibrate?: boolean;
   /** Routes chosen by a screen of the all-in scenarios (screenScore), the default, or by every scenario. */
   screen?: boolean;
+  /** Items tried in each side's taken build by a fight (FIGHT_CHECKED by default; none with []). */
+  fightChecked?: readonly string[];
   /** The sides' summoner spells chosen too, for the builds taken, from this catalog; none by default. */
   loadouts?: { spells: SpellCatalog; options?: LoadoutOptions };
 }
 
-const DEFAULTS: Required<Omit<SearchOptions, "loadouts">> = { format: "sixItems", width: 8, perProfile: 1, rounds: 4, routes: 3, stacked: true, calibrate: true, screen: true };
+/**
+ * Items whose worth in fights the estimate can't see, tried in each side's taken build by a fight.
+ * Mercurial Scimitar's Quicksilver gains 0.11 of score on average in fights, about Blade of the
+ * Ruined King's passive, but no hint of the estimate predicts where (ACCURACY.md, "Movement, slows
+ * and cleanse in the build search's estimate").
+ */
+export const FIGHT_CHECKED: readonly string[] = ["Mercurial Scimitar"];
+
+const DEFAULTS: Required<Omit<SearchOptions, "loadouts">> = { format: "sixItems", width: 8, perProfile: 1, rounds: 4, routes: 3, stacked: true, calibrate: true, screen: true, fightChecked: FIGHT_CHECKED };
+
+/**
+ * The build with `item` in place of the item whose loss the estimate (`value`) feels least, when
+ * a fight (`fight`, higher is better) says it does better than the build; otherwise undefined.
+ */
+export function fightCheckedSwap(build: Build, item: Candidate, format: BuildFormat, value: (items: Candidate[]) => number, fight: (items: Candidate[]) => number): Build | undefined {
+  if (build.items.some((held) => held.record === item.record)) return undefined;
+  let best: { items: Candidate[]; rest: number } | undefined;
+  for (let i = 0; i < build.items.length; i++) {
+    const rest = build.items.filter((_, j) => j !== i);
+    if (!fits(rest, item, format)) continue;
+    const left = value(rest);
+    if (!best || left > best.rest) best = { items: [...rest.slice(0, i), item, ...rest.slice(i)], rest: left };
+  }
+  if (!best) return undefined;
+  return fight(best.items) > fight(build.items) + 1e-9 ? { items: best.items, value: value(best.items) } : undefined;
+}
 
 export function names(build: Build): string[] {
   return build.items.map((item) => item.record.name);
@@ -211,6 +241,10 @@ export interface SearchedMatchup {
   scores: number[][];
   /** The routes each side takes by Udyr's rule. */
   chosen: [number, number];
+  /** The builds the sides take: their chosen routes, with a fight-checked item swapped in where a fight said so. */
+  builds: [Build, Build];
+  /** The item each side swapped in by a fight, if any. */
+  swapped: [string | undefined, string | undefined];
   /** The chosen builds' matchup, every scenario played. */
   result: MatchupResult;
   score: number;
@@ -263,11 +297,37 @@ export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: Ite
   const scores = equippedMine.map((a) => equippedTheirs.map((b) => (o.screen ? screenScore(...matchupSpecs(a, b)) : runScenarios(...matchupSpecs(a, b)).score)));
   const [row, column] = chooseRoutes(scores);
   let taken: [EquippedFighter, EquippedFighter] = [equippedMine[row]!, equippedTheirs[column]!];
+  const builds: [Build, Build] = [routes[0][row]!, routes[1][column]!];
+  const swapped: [string | undefined, string | undefined] = [undefined, undefined];
+  // Each side in turn tries the fight-checked items in its build, against the other's build as it stands.
+  const specs = [mySpec, theirSpec] as const;
+  const champions = [you, enemy] as const;
+  const candidates = [mineCandidates, theirCandidates] as const;
+  for (const side of [0, 1] as const) {
+    const other = (1 - side) as 0 | 1;
+    const against = estimateSide(specs[other], partsOf(builds[other]), 1);
+    const value = (items: Candidate[]) => estimateAgainst(specs[side], items.map((item) => item.parts), against);
+    const fight = (items: Candidate[]) => {
+      const holder = equipBuild(champions[side], items.map((item) => item.record.name), catalog, build);
+      const pair = side === 0 ? matchupSpecs(holder, taken[1]) : matchupSpecs(taken[0], holder);
+      const score = o.screen ? screenScore(...pair) : runScenarios(...pair).score;
+      return side === 0 ? score : -score;
+    };
+    for (const name of o.fightChecked) {
+      const item = candidates[side].find((candidate) => candidate.record.name === name);
+      if (!item) continue;
+      const better = fightCheckedSwap(builds[side], item, o.format, value, fight);
+      if (!better) continue;
+      builds[side] = better;
+      swapped[side] = name;
+      taken[side] = equipBuild(champions[side], names(better), catalog, build);
+    }
+  }
   let loadouts: SearchedLoadouts | undefined;
   if (options.loadouts) {
     const { spells, options: settings } = options.loadouts;
     const catalogs = { items: catalog, spells };
-    const sides = [{ spec: you, build: names(routes[0][row]!) }, { spec: enemy, build: names(routes[1][column]!) }] as const;
+    const sides = [{ spec: you, build: names(builds[0]) }, { spec: enemy, build: names(builds[1]) }] as const;
     loadouts = searchLoadouts([sides[0], sides[1]], catalogs, settings);
     taken = [equipLoadout(sides[0], loadouts.loadouts[0], catalogs), equipLoadout(sides[1], loadouts.loadouts[1], catalogs)];
   }
@@ -278,6 +338,8 @@ export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: Ite
     routes,
     scores,
     chosen: [row, column],
+    builds,
+    swapped,
     result,
     score: result.score,
     rounds,
