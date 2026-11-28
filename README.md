@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
 - items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
-- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Twenty-two partial combat effects are available in manual plain-stat duels, including Scorch, Taste of Blood, Font of Life, Aftershock, Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
+- runes with a source-backed catalog, structural page validation and all seven stat shards in manual duels and browser plain-stat duels. Twenty-three partial combat effects are available in manual plain-stat duels, including Cheap Shot, Scorch, Taste of Blood, Font of Life, Aftershock, Grasp of the Undying and all four Precision keystones. Full rune effects and page search remain in progress. [Rune rules and examples](docs/runes/README.md)
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -87,6 +87,8 @@ Font of Life (`8463`) heals the owner on a qualifying slow or immobilization. Th
 Taste of Blood (`8139`) heals an injured owner after qualifying champion damage. Its level-20 heal includes 10% of bonus attack damage and 5% of ability power. [Taste of Blood rules and example](docs/runes/README.md#taste-of-blood)
 
 Scorch (`8237`) schedules one magic burn one second after qualifying ability damage. Azir's soldier attacks and Bel'Veth's Royal Maelstrom use their specific on-attack damage modifiers. [Scorch rules and example](docs/runes/README.md#scorch)
+
+Cheap Shot (`8126`) adds a separate true-damage proc when a qualifying hit lands on an impaired champion. The model checks the control's timing and cast identity, including Ashe's Frost Shot sequence. [Cheap Shot rules and example](docs/runes/README.md#cheap-shot)
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 

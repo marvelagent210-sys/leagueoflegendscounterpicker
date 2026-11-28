@@ -14,12 +14,13 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const fixture = () => ({ catalog: structuredClone(originalCatalog), bundle: structuredClone(originalBundle), game: originalGame });
 type Fixture = ReturnType<typeof fixture>;
 const build = ({ catalog, bundle, game } = fixture()) => buildCombatRuneRules(catalog, bundle, game);
-const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8139, 8237, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111];
+const selected = [8005, 8008, 8009, 8010, 8014, 8017, 8021, 8126, 8139, 8237, 8299, 8401, 8437, 8439, 8444, 8451, 8463, 8473, 9101, 9103, 9104, 9105, 9111];
 const overgrowthPath = "Perks/Styles/Resolve/Overgrowth";
 const aftershockPath = "Perks/Styles/Resolve/Aftershock";
 const fontPath = "Perks/Styles/Resolve/FontOfLife";
 const tastePath = "Perks/Styles/Domination/TasteOfBlood";
 const scorchPath = "Perks/Styles/Sorcery/Scorch";
+const cheapShotPath = "Perks/Styles/Domination/CheapShot";
 const shieldBashPath = "Perks/Styles/Resolve/ShieldBash";
 const bonePath = "Perks/Styles/Resolve/BonePlating";
 const graspPath = "Perks/Styles/Resolve/GraspOfTheUndying";
@@ -89,6 +90,18 @@ function editGame(input: Fixture, change: (game: Game) => void): void {
   change(game);
   input.game = JSON.stringify(game);
 }
+
+describe("Cheap Shot source rules", () => {
+  it("binds the level-20 true damage and four-second cooldown", () => {
+    expect(build().cheapShot).toEqual({ modelLevel: 20, damage: 835 / 17, cooldown: 4 });
+  });
+
+  it.each(["DamageIncMin", "DamageIncMax", "Cooldown"])("rejects a changed client %s", field => {
+    const input = fixture();
+    editGame(input, records => { records[cheapShotPath]!.mScript.mSpellScriptData.mEffectAmount[field]! += 0.1; });
+    expect(() => build(input)).toThrow(new RegExp(`Cheap Shot Wiki/game ${field} disagree`));
+  });
+});
 
 describe("Scorch source rules", () => {
   it("reads the exact level-20 burn, delay and cooldown", () => {
@@ -540,10 +553,10 @@ describe("reviewed combat rune numeric rules", () => {
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.BonusPercentDamage).not.toBe(0.08);
     expect(game[gamePaths[1]]!.mScript.mSpellScriptData.mEffectAmount.EnemyHealthPercentageThreshold).not.toBe(0.6);
     expect(originalCatalog.runes.filter((rune) => selected.includes(rune.id)).map((rune) => rune.combatStatus))
-      .toEqual(Array(22).fill("manual-effects"));
+      .toEqual(Array(23).fill("manual-effects"));
   });
 
-  it("binds all 126 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
+  it("binds all 128 complete Wiki revisions, full client bytes, and evidence excerpts", () => {
     expect(originalBundle.pages.map((page) => [page.title, page.revid])).toEqual([
       ["Absorb Life", 3980915],
       ["Champion ability", 4086204],
@@ -671,7 +684,11 @@ describe("reviewed combat rune numeric rules", () => {
       ["Scorch", 4024859],
       ["Template:Tip data/Ability damage", 4060550],
       ["Template:Data Bel'Veth/Royal Maelstrom", 4046605],
+      ["Template:Rune data Cheap Shot", 3992989],
+      ["Cheap Shot", 4023785],
     ]);
+    expect(sha(JSON.stringify(originalBundle.pages.slice(0, 126))))
+      .toBe("37a99b59a7ac2be1f2193ddbfe97a61db10c521e3d35b3f0929ee00198aa025e");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 42))))
       .toBe("e226a7cfeb994f2c09911fc2c6bbf812a86b9267bf1f854e9abbe4efaeec4274");
     expect(sha(JSON.stringify(originalBundle.pages.slice(0, 47))))
@@ -704,7 +721,7 @@ describe("reviewed combat rune numeric rules", () => {
     expect(originalBundle.gameData).toEqual({ url: COMBAT_RUNE_GAME_URL, sha256: sha(originalGame) });
     expect(sha(originalGame)).toBe("f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f");
     const evidence = build().evidence;
-    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(126);
+    expect(new Set(evidence.map((entry) => entry.title)).size).toBe(128);
     for (const excerpt of evidence) {
       const source = originalBundle.pages.find((page) => page.title === excerpt.title)!;
       expect(excerpt.revid).toBe(source.revid);
@@ -845,11 +862,11 @@ describe("exact source identity and completeness", () => {
 
   it("rejects missing, duplicate, extra, unknown, empty and wrongly hashed sources", () => {
     const missing = fixture(); missing.bundle.pages.pop();
-    expect(() => build(missing)).toThrow(/all 126 complete/);
+    expect(() => build(missing)).toThrow(/all 128 complete/);
     const duplicate = fixture(); duplicate.bundle.pages[1] = structuredClone(duplicate.bundle.pages[0]!);
     expect(() => build(duplicate)).toThrow(/duplicate Wiki source/);
     const extra = fixture(); extra.bundle.pages.push(structuredClone(extra.bundle.pages[0]!));
-    expect(() => build(extra)).toThrow(/all 126 complete/);
+    expect(() => build(extra)).toThrow(/all 128 complete/);
     const unknown = fixture(); unknown.bundle.pages[0]!.title = "Unreviewed rule";
     expect(() => build(unknown)).toThrow(/unexpected Wiki source title/);
     const empty = fixture(); editWiki(empty, "Damage", () => "");
@@ -884,7 +901,7 @@ describe("exact source identity and completeness", () => {
     expect(() => build(wiki)).toThrow(/Damage modifier full reviewed revision changed/);
     const game = fixture();
     const retained = new Set([...gamePaths, ...fleetClientPaths, tempoPath, ...tempoBolts, conquerorPath,
-      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath, aftershockPath, fontPath, tastePath, scorchPath]);
+      triumphMissilePath, presenceMissilePath, graspPath, graspHealMissile, bonePath, shieldBashPath, overgrowthPath, aftershockPath, fontPath, tastePath, scorchPath, cheapShotPath]);
     editGame(game, (records) => {
       for (const key of Object.keys(records)) if (!retained.has(key)) delete records[key];
     });

@@ -22,11 +22,13 @@ import { buildAftershock } from "./aftershock";
 import { buildFontOfLife } from "./fontOfLife";
 import { buildTasteOfBlood } from "./tasteOfBlood";
 import { buildScorch } from "./scorch";
+import { buildCheapShot } from "./cheapShot";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
   beforeStart?: NonNullable<KitHooks["onStart"]>;
   hooks?: KitHooks;
+  observeDamageControl?: true;
   enemyHooks?: KitHooks[];
   /** Shared aggregate resolver; equipment combines these before adapting raw damage. */
   enemyDamageIncrease?: RuneDamageIncrease;
@@ -38,6 +40,7 @@ export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRun
   if (id === 8008) return buildLethalTempo(_form, rules);
   if (id === 8009) return buildPresenceOfMind(_form, rules);
   if (id === 8010) return buildConqueror(_form, rules);
+  if (id === 8126) return buildCheapShot(_form, rules);
   if (id === 8139) return buildTasteOfBlood(rules);
   if (id === 8237) return buildScorch(rules);
   if (id === 8401) return buildShieldBash(_form, rules);

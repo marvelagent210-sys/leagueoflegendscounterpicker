@@ -8,6 +8,25 @@ The Bloodline follow-up began on 8 November; its genuine full refresh and
 checkpoint audit completed on 10 November. The mechanics proof limits below
 remain in force.
 
+## Cheap Shot
+
+The template and client support the level curve and four-second cooldown.
+The article places the eligibility check in the on-deal-pre-drain phase.
+The model captures the target's active control before native damage
+callbacks and emits the separate proc after accepting a positive hit.
+It treats shield absorption as positive accepted damage. The exact live
+order with shields, simultaneous procs, and death or resurrection still
+needs verification. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3992989) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4023785)
+
+The model uses recognized non-proc packets and native control history.
+Same-tick fresh control requires identifiable independent casts. The
+reviewed grouping of basic damage and Ashe's next-attack behavior have
+explicit native checks. Held Lucent Singularity is outside the current
+Lux duel policy, which detonates the spell on arrival. The model can
+evaluate a later packet from the same cast once its control is active.
+Custom packet classification, neutral and allied control, and full team
+attribution remain open. [Cast instance](https://wiki.leagueoflegends.com/en-us/?oldid=4069908) · [Lucent Singularity](https://wiki.leagueoflegends.com/en-us/?oldid=4007677) · [Manual duel rules](README.md#cheap-shot)
+
 ## Scorch
 
 The template and frozen client support the damage curve, one-second
