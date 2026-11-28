@@ -43,7 +43,7 @@ describe("Warwick reads the wiki at level 20", () => {
     expect(spec.attack.onHit).toEqual([{ type: "damage", damageType: "magic", amount: { base: expect.closeTo(HUNGER, 4), ratios: { bonusAD: 0.15, AP: 0.1 } }, label: "Eternal Hunger" }]);
     const q = spec.abilities.find((a) => a.key === "Q")!;
     expect(q).toMatchObject({ cooldown: 6, cost: 100, castTime: 0.264, delivery: { kind: "target", range: 365 }, flags: { spellShield: true, parry: true, appliesOnHit: true, appliesLifeSteal: true, grounded: false } });
-    expect(q.onHit).toEqual([{ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: 0.1, AD: 1.2, AP: 1 } }, label: "Jaws of the Beast" }]);
+    expect(q.onHit).toEqual([{ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: 0.1, AD: 1.2, AP: 1 } }, label: "Jaws of the Beast", scorchScale: 1 }]);
     expect(spec.abilities.find((a) => a.key === "W")).toMatchObject({ cooldown: 40, cost: 55, castTime: 0.5 });
     expect(spec.abilities.find((a) => a.key === "E")).toMatchObject({ cooldown: 11, cost: 40, castTime: 0, chainCooldown: "last", overlay: true });
     expect(spec.abilities.find((a) => a.key === "E2")).toMatchObject({

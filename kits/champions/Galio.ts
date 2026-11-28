@@ -20,7 +20,7 @@ const galio: KitModule = {
     const p = kit.ability("I"), q = kit.ability("Q"), w = kit.ability("W"), e = kit.ability("E"), r = kit.ability("R");
     const smashBase = p.levelValue("next basic attack"), smashAD = p.quoted("(+ 100% AD)") / 100, smashAP = p.quoted("(+ 40% AP)") / 100, smashMR = p.quoted("(+ 60% bonus magic resistance)") / 100;
     const pCD = p.field("staticCooldown"), pReduction = p.quoted("reduced by 3 seconds"), pAS = p.quoted("gain 40% bonus attack speed") / 100, pRadius = p.field("effectRadius"), pCrit = p.quoted("critically strike for 200% damage") / 100;
-    p.quote("uncancellable windup"); p.quote("This may occur only once per cast"); p.quote("Even if the ability hit is"); p.quote("basic damage"); p.quote("epic {{tip|monster}}"); p.quote("proc damage"); p.quote("on-hit}} effects to its primary target twice"); p.quote("will not trigger against"); p.gameQuote('"mCooldownNotAffectedByCDR":true');
+    p.quote("uncancellable windup"); p.quote("This may occur only once per cast"); p.quote("Even if the ability hit is"); p.quote("basic damage"); p.quote("also triggers spell effects by also being tagged as spell damage"); p.quote("epic {{tip|monster}}"); p.quote("proc damage"); p.quote("on-hit}} effects to its primary target twice"); p.quote("will not trigger against"); p.gameQuote('"mCooldownNotAffectedByCDR":true');
     const qDamage = q.formula("Magic Damage"), qRange = q.field("targetRange"), qRadius = q.field("effectRadius"), qSpeed = q.field("speed", "Curving missile speed"), tornadoSpeed = q.field("speed", "Tornado speed, estimated"), qCD = q.cooldown(), qCast = q.castTime();
     const tornadoTime = q.quoted("persists for 2 seconds"), tornadoInterval = q.quoted("every 0.5 seconds"), tornadoMax = q.quoted("capped at 150 per tick"), tornadoPct = q.quoted("equal to 2%") / 100, tornadoAP = q.quoted("(+ 1% per 100 AP)") / 10000;
     q.quote("will block the gusts damage but not the tornado's"); q.quote("The tornado will not form if only one windblast reaches the target location"); q.quote("Effect at cast time end");
@@ -155,7 +155,7 @@ const galio: KitModule = {
           ctx.attack.baseDamageScale=0; ctx.memory[`${P}:ready`]=ctx.tick+ticks(pCD); syncSmash(ctx);
           // Primary is still basic damage, independent of area-specific pet reductions.
           if (ctx.pet) abilityHitPet(ctx.world,ctx.self,ctx.pet,smash,[{type:"damage",damageType:"magic",amount}],"basic",ctx.scale);
-          else abilityHit(ctx.world,ctx.self,ctx.enemy,smash,[{type:"damage",damageType:"magic",amount}],ctx.scale);
+          else abilityHit(ctx.world,ctx.self,ctx.enemy,smash,[{type:"damage",damageType:"magic",amount,scorchScale:1}],ctx.scale);
           for (const contact of contacts(ctx)) if ((ctx.pet ? contact.pet?.id!==ctx.pet.id : !!contact.pet) && Math.abs(contact.target.x-origin)<=pRadius+contact.target.spec.base.radius+EPSILON) hit(ctx,contact,cleave,[{type:"damage",damageType:"magic",amount,noLifeSteal:true,petDamageCategory:"proc"}],"area",ctx.scale,origin);
         },
         onAbilityContact(ctx) {

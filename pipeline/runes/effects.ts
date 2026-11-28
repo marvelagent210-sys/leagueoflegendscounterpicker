@@ -629,8 +629,29 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-03-06T17:28:48Z",
     sha256: "cfc94beda265254eb2ce70015fa5b91b102817e21dac1d559c78daf7baeaa94b",
   },
+  "Template:Rune data Scorch": {
+    revid: 3985169,
+    timestamp: "2026-01-18T21:40:49Z",
+    sha256: "e9a01bb5a987ae6331c33370765b91b629f4b4e685965b6f03b3d8c58e401e77",
+  },
+  "Scorch": {
+    revid: 4024859,
+    timestamp: "2026-06-03T19:05:03Z",
+    sha256: "74fdf392b2ded1dc27f5084b94f4c307cc789f23d12bee91cda1b7f02c0d499d",
+  },
+  "Template:Tip data/Ability damage": {
+    revid: 4060550,
+    timestamp: "2026-09-10T03:45:06Z",
+    sha256: "187eaa9f1f61ea19b03c38bef733a23173f99701405605ae2d39b3eb43dbf24e",
+  },
+  "Template:Data Bel'Veth/Royal Maelstrom": {
+    revid: 4046605,
+    timestamp: "2026-07-28T20:21:57Z",
+    sha256: "2d4a90f48b9226a06f0ce34af1233d2b6bcf9d7beae9d2fd2a021e5f1ce8aada",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8237, name: "Scorch", path: 8200, slot: 3, game: "Perks/Styles/Sorcery/Scorch" },
   { id: 8139, name: "Taste of Blood", path: 8100, slot: 1, game: "Perks/Styles/Domination/TasteOfBlood" },
   { id: 8463, name: "Font of Life", path: 8400, slot: 1, game: "Perks/Styles/Resolve/FontOfLife" },
   { id: 8439, name: "Aftershock", path: 8400, slot: 0, game: "Perks/Styles/Resolve/Aftershock" },
@@ -753,6 +774,34 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const scorch = description("Scorch");
+  quote(scorch.page, "Dealing {{tip|ability damage}} to an enemy {{tip|champion|champion}} sets them on fire");
+  const [scorchMin, scorchMax, scorchSteps, scorchLevel, scorchDelay] = matchNumbers("Scorch level curve and delay", scorch.text,
+    /\{\{pp\|(\d+) \+ \((\d+)-\1\)\/(\d+)\*\(x-1\)\|1 to (\d+) by 1\}\}\|magic damage\}\} \{\{as\|'''bonus''' magic damage\}\} after ([\d.]+) second/);
+  const [scorchCooldown] = matchNumbers("Scorch cooldown", scorch.page.content, /^\|cooldown\s*=\s*(\d+)[ \t]*$/m);
+  requireThat(scorchLevel === TOP_LANE_MAX_LEVEL && scorchSteps === 17 && scorchMax! > scorchMin!, "Scorch level curve changed");
+  const scorchAmounts = client("Scorch");
+  for (const [field, value] of Object.entries({ Damage: scorchMin!, DamageMax: scorchMax!, DotDuration: scorchDelay!,
+    BurnlockoutDuration: scorchCooldown! })) agree("Scorch", scorchAmounts, field, value);
+  const scorchCalculations = record(clientData("Scorch").mCalculations, "Scorch client calculations");
+  const scorchParts = record(scorchCalculations.DamageCalc, "Scorch DamageCalc").mFormulaParts;
+  requireThat(Array.isArray(scorchParts) && scorchParts.length === 1, "Scorch needs one level interpolation");
+  const scorchCurve = record(scorchParts[0], "Scorch level interpolation");
+  requireThat(scorchCurve.__type === "ByCharLevelInterpolationCalculationPart" && scorchCurve.mStartValue === scorchMin
+    && scorchCurve.mEndValue === scorchMax, "Scorch client level interpolation changed");
+  const scorchNotes = pages.get("Scorch")!;
+  for (const excerpt of [
+    "deals {{tip|proc damage}} and is tagged as {{tip|indirect damage}} and {{tip|persistent damage|periodic}} without applying {{tip|spell effects}}",
+    "only affects one champion",
+    "triggered as an {{tip|on-attack}} effect (via {{ai|Arise!|Azir}}, {{ai|Royal Maelstrom|Bel'Veth}}), the damage dealt will be affected by on-attack damage modifiers",
+  ]) quote(scorchNotes, excerpt);
+  quote(pages.get("Template:Tip data/Ability damage")!, "(internally, ActiveSpell) is a primary damage tag");
+  quote(pages.get("Template:Data Azir/Arise!")!, "attack applies both {{tip|on-hit}} and {{tip|on-attack}} effects, the damage of which is reduced to 50% effectiveness");
+  const maelstrom = pages.get("Template:Data Bel'Veth/Royal Maelstrom")!;
+  quote(maelstrom, "formula=0.12% per 1% of target's '''missing''' health");
+  quote(maelstrom, "the on-attack modifier also incorrectly applies to various other damaging effects triggered by the same damage instance");
+  quote(maelstrom, "{{ri|Scorch}}, {{ii|Blackfire Torch}}");
 
   const taste = description("Taste of Blood");
   quote(taste.page, "Damaging an enemy {{tip|champion}} {{tip|heal|heals}} you");
@@ -1778,6 +1827,8 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    scorch: { modelLevel: 20, damage: (scorchMin! * scorchSteps + (scorchMax! - scorchMin!) * (scorchLevel - 1)) / scorchSteps,
+      delay: scorchDelay!, cooldown: scorchCooldown! },
     tasteOfBlood: { modelLevel: 20, heal: (tasteMin! * tasteSteps + (tasteMax! - tasteMin!) * (tasteLevel - 1)) / tasteSteps,
       bonusAdRatio: tasteAdRatio, apRatio: tasteApRatio, cooldown: tasteCooldown! },
     fontOfLife: { modelLevel: 20, heal: fontMin! + (fontMax! - fontMin!) * (fontLevel - 1) / fontSteps,

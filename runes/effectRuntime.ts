@@ -21,6 +21,7 @@ import { buildOvergrowth } from "./overgrowth";
 import { buildAftershock } from "./aftershock";
 import { buildFontOfLife } from "./fontOfLife";
 import { buildTasteOfBlood } from "./tasteOfBlood";
+import { buildScorch } from "./scorch";
 import type { RuneEquipOptions } from "./equipOptions";
 
 export interface RuneEffectBuild {
@@ -38,6 +39,7 @@ export function buildRuneEffect(id: number, _form: FighterSpec, rules: CombatRun
   if (id === 8009) return buildPresenceOfMind(_form, rules);
   if (id === 8010) return buildConqueror(_form, rules);
   if (id === 8139) return buildTasteOfBlood(rules);
+  if (id === 8237) return buildScorch(rules);
   if (id === 8401) return buildShieldBash(_form, rules);
   if (id === 8437) return buildGrasp(rules);
   if (id === 8439) return buildAftershock(_form, rules);

@@ -1,5 +1,5 @@
 {
-  "note": "One recompute of the item-build matrices: the build search tries Mercurial Scimitar in each side's taken build by a screen fight (pipeline/items/search.ts fightCheckedSwap).",
+  "note": "One recompute of the item-build matrices after merging main (#52, Scorch and kit changes) into the fight-checked Mercurial Scimitar swap (pipeline/items/search.ts fightCheckedSwap): neither side's committed build results match the combined code.",
   "dataset": "16.21",
   "matrices": [
     "sim",
