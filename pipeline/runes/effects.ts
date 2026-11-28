@@ -649,8 +649,19 @@ const REVIEWED: Readonly<Record<string, { revid: number; timestamp: string; sha2
     timestamp: "2026-07-28T20:21:57Z",
     sha256: "2d4a90f48b9226a06f0ce34af1233d2b6bcf9d7beae9d2fd2a021e5f1ce8aada",
   },
+  "Template:Rune data Cheap Shot": {
+    revid: 3992989,
+    timestamp: "2026-02-20T14:45:45Z",
+    sha256: "5ba0e564f6f207fe54748eb9ae56e32d8d7d372bcd61d96f885328b195a4480c",
+  },
+  "Cheap Shot": {
+    revid: 4023785,
+    timestamp: "2026-05-29T16:28:17Z",
+    sha256: "8e40041283249c5dbf9545ed0ab37b71aca024a9dfd38af2387f289b7c876fd7",
+  },
 };
 const RUNE_SOURCES = [
+  { id: 8126, name: "Cheap Shot", path: 8100, slot: 1, game: "Perks/Styles/Domination/CheapShot" },
   { id: 8237, name: "Scorch", path: 8200, slot: 3, game: "Perks/Styles/Sorcery/Scorch" },
   { id: 8139, name: "Taste of Blood", path: 8100, slot: 1, game: "Perks/Styles/Domination/TasteOfBlood" },
   { id: 8463, name: "Font of Life", path: 8400, slot: 1, game: "Perks/Styles/Resolve/FontOfLife" },
@@ -774,6 +785,39 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
     requireThat(typeof actual === "number" && Number.isFinite(actual) && Math.abs(actual - expected) < 1e-6,
       `${name} Wiki/game ${key} disagree`);
   };
+
+  const cheap = description("Cheap Shot");
+  quote(cheap.page, "Non-{{tip|proc damage|proc}} damage sources deal");
+  quote(cheap.page, "{{sbc|Valid Crowd Control:}}\n* {{tip|Immobilize|Immobilizes}}\n* {{tip|Blind}}\n* {{tip|Disarm}}\n* {{tip|Ground}}\n* {{tip|Nearsight}}\n* {{tip|Polymorph}}\n* {{tip|Silence}}\n* {{tip|Slow}}");
+  quote(cheap.page, "The target must already be impaired prior to the damaging attack or spell");
+  const [cheapMin, cheapMax, cheapSteps, cheapLevel] = matchNumbers("Cheap Shot level curve", cheap.text,
+    /\{\{pp\|(\d+) \+ \((\d+)-\1\)\/(\d+)\*\(x-1\)\|1 to (\d+) by 1\}\}\|true damage\}\} \{\{as\|'''bonus''' true damage\}\}/);
+  const [cheapCooldown] = matchNumbers("Cheap Shot cooldown", cheap.page.content, /^\|cooldown\s*=\s*(\d+)[ \t]*$/m);
+  requireThat(cheapLevel === TOP_LANE_MAX_LEVEL && cheapSteps === 17 && cheapMax! > cheapMin!, "Cheap Shot level curve changed");
+  const cheapAmounts = client("Cheap Shot");
+  for (const [field, value] of Object.entries({ DamageIncMin: cheapMin!, DamageIncMax: cheapMax!, Cooldown: cheapCooldown! })) {
+    agree("Cheap Shot", cheapAmounts, field, value);
+  }
+  const cheapCalculations = record(clientData("Cheap Shot").mCalculations, "Cheap Shot client calculations");
+  const cheapParts = record(cheapCalculations.DamageCalc, "Cheap Shot DamageCalc").mFormulaParts;
+  requireThat(Array.isArray(cheapParts) && cheapParts.length === 1, "Cheap Shot needs one level interpolation");
+  const cheapCurve = record(cheapParts[0], "Cheap Shot level interpolation");
+  requireThat(cheapCurve.__type === "ByCharLevelInterpolationCalculationPart" && cheapCurve.mStartValue === cheapMin
+    && cheapCurve.mEndValue === cheapMax, "Cheap Shot client level interpolation changed");
+  const cheapNotes = pages.get("Cheap Shot")!;
+  for (const excerpt of [
+    "deals {{tip|proc damage}}, and thus will not trigger [[spell effects]]",
+    "{{tip|Cripple}} does '''not''' count as a valid crowd control",
+    "during the damage event's on-deal-pre-drain phase",
+    "on the same game tick as a crowd control effect from the same {{tip|cast instance}}",
+    "If the target is already under the effects of crowd control, this does not apply.",
+    "can apply a crowd control effect themselves and deal damage at a delay",
+    "it clears this marker for the next time the same cast instance applies a crowd control effect",
+    "All {{tip|Basic damage}} (''Note: All damage with this damage tag, not only damage from basic attacks'') is considered the same {{tip|cast instance}}",
+    "her next basic attack on that target will trigger '''Cheap Shot''', regardless of the target being slowed or not",
+    "effects applied before a crowd control may also trigger '''Cheap Shot''' on a damage tick",
+    "Damage is no longer affected by on-attack damage modifiers.",
+  ]) quote(cheapNotes, excerpt);
 
   const scorch = description("Scorch");
   quote(scorch.page, "Dealing {{tip|ability damage}} to an enemy {{tip|champion|champion}} sets them on fire");
@@ -1827,6 +1871,7 @@ export function buildCombatRuneRules(catalog: RuneCatalog, bundle: CombatRuneSou
   requireThat(sha256(gameText) === GAME_SHA256, "complete reviewed game source changed");
   return {
     schema: 1, dataset: "16.21", patch: "26.21",
+    cheapShot: { modelLevel: 20, damage: (cheapMin! * cheapSteps + (cheapMax! - cheapMin!) * (cheapLevel - 1)) / cheapSteps, cooldown: cheapCooldown! },
     scorch: { modelLevel: 20, damage: (scorchMin! * scorchSteps + (scorchMax! - scorchMin!) * (scorchLevel - 1)) / scorchSteps,
       delay: scorchDelay!, cooldown: scorchCooldown! },
     tasteOfBlood: { modelLevel: 20, heal: (tasteMin! * tasteSteps + (tasteMax! - tasteMin!) * (tasteLevel - 1)) / tasteSteps,

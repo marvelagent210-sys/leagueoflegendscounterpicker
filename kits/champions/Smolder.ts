@@ -39,6 +39,7 @@ const smolder: KitModule = {
     const qDamage = q.formula("Physical Damage"), qRange = q.field("targetRange"), qSpeed = q.field("speed", "Fireball"), qSplash = q.field("effectRadius", "Tier 1"), qExtraRadius = q.field("effectRadius", "Tier 2"), qExtraRange = q.field("range"), qExtraSpeed = q.field("speed", "Tier 2");
     q.fieldNumbers("castTime");
     q.quote("The fireball deals spell damage and procs basic damage required effects");
+    q.quote("The burn deals proc damage");
     const qv = values(q, "Characters/Smolder/Spells/SmolderQAbility/SmolderQ"), tier1 = qv("StackTier1"), tier2 = qv("StackTier2"), tier3 = qv("StackTier3"), qCrit = qv("CritRatio"), qLifeSteal = qv("LifestealMod"), qRefund = qv("ManaRestore"), burnSeconds = qv("Tier3_DotLength"), executeShare = qv("Tier3_ExecuteThresholdStart") / 100, extraShare = qv("Tier2_BlowbackPercentageDamage") / 100;
     const extraRadius = (game(q, "Characters/Smolder/Spells/SmolderQAbility/SmolderQ2BlowbackMissileA", "mMissileSpec") as { mMissileWidth: number }).mMissileWidth;
     game(q, "Characters/Smolder/Spells/SmolderQAbility/SmolderQ", "mSpellCalculations");
@@ -184,7 +185,8 @@ const smolder: KitModule = {
             if ((data?.stacks ?? stacks(ctx.self)) >= tier3 && !ctx.defense) {
               const serial = data?.serial ?? 0;
               effects.unshift({ type: "mark", key: BURN, duration: burnSeconds });
-              effects.push({ type: "dot", damageType: "true", total: flat((burnAD * derive(ctx.self).bonusAd + burnStack * stacks(ctx.self)) * derive(ctx.enemy).maxHp), duration: burnSeconds, interval: 1, stacks: true, label: `${q.name} (burn #${serial})` });
+              effects.push({ type: "dot", damageType: "true", total: flat((burnAD * derive(ctx.self).bonusAd + burnStack * stacks(ctx.self)) * derive(ctx.enemy).maxHp),
+                duration: burnSeconds, interval: 1, stacks: true, label: `${q.name} (burn #${serial})`, observedDamageKind: "proc" });
             }
             if (!ctx.defense) ctx.memory["smolder:qActiveSerial"] = data?.serial ?? 0;
             return effects;

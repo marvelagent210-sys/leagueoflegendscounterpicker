@@ -25,8 +25,8 @@ import { petFormulaTarget } from "./petTarget";
 import { healthProtection } from "./healthProtection";
 import { channelIn, clearChannel } from "./channelState";
 import { cancelTargetCast } from "./actions";
-import { currentCastInstance } from "./castInstance";
-import type { HealthShieldSnapshot, ObservedDamageKind, ResolvedDamageSnapshot } from "./spec";
+import { currentCastInstance, currentCastUsesBasicDamage, markBasicDamageCast } from "./castInstance";
+import type { DamageControlSnapshot, HealthShieldSnapshot, ObservedDamageKind, ResolvedDamageSnapshot } from "./spec";
 import { type AbilitySpec, type ActualMovement, type AttackSplit, type BasicAttackLaunchedSnapshot, type BuffStat, type CombatActivitySnapshot, type CombatIdentity, type DamageReport, type Effect, type HookContext, type MovementSnapshot, type PetDamageCategory, type ResolvedOnHitSnapshot, cooldownKeyOf } from "./spec";
 import { type Action, type AttackHitOptions, type Pet, type Side, type Status, type Unit, type World, other } from "./state";
 
@@ -421,6 +421,18 @@ export function damageProtected(world: World, source: Unit, target: Unit): boole
   return hasState(target, "invulnerable") || outsideGuard || inStasis(target) || healthProtection(world, target).invulnerable;
 }
 
+function captureDamageControl(world: World, target: Unit): readonly DamageControlSnapshot[] {
+  const slowImmune = hasState(target, "slowImmune");
+  const control: DamageControlSnapshot[] = [];
+  for (const status of target.statuses) {
+    if (status.kind !== "cc" || status.startTick > world.tick || status.endTick <= world.tick) continue;
+    if ((status.key === "slow" || status.key === "drowsy") && (status.value <= 0 || (slowImmune && !status.bypassSlowImmune))) continue;
+    control.push(Object.freeze({ cc: status.key as CCType, source: status.source, startTick: status.startTick,
+      ...(status.controlCastInstance === undefined ? {} : { castInstance: status.controlCastInstance }), basic: status.controlFromBasic === true }));
+  }
+  return Object.freeze(control);
+}
+
 function resolveDamage(world: World, source: Unit, target: Unit, raw: number, type: DamageType, ctx: DamageContext): number {
   if (!target.alive || (raw <= 0 && (raw !== 0 || !hasCombatActivityObserver(world)))) return 0;
   if (target.petId !== undefined) {
@@ -459,12 +471,18 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   }
   const observer = world.units[source.side];
   const onDamageResolved = observer.spec.hooks?.onDamageResolved;
-  const observed = onDamageResolved && source.side !== target.side && !stateStatus(target, "parry") ? {
-    tick: world.tick, source: combatIdentity(world, source), target: combatIdentity(world, target),
-    ranged: observer.spec.attack.ranged, kind: ctx.observedDamageKind ?? (ctx.attack ? "basic" : "unclassified"),
-    ...(ctx.scorchScale === undefined ? {} : { scorchScale: ctx.scorchScale }),
-    castInstance: currentCastInstance(world, source), conquerorPerPacket: ctx.conquerorPerPacket === true,
-  } satisfies Omit<ResolvedDamageSnapshot, "mitigated"> : undefined;
+  let observed: Omit<ResolvedDamageSnapshot, "mitigated"> | undefined;
+  if (onDamageResolved && source.side !== target.side && !stateStatus(target, "parry")) {
+    const kind = ctx.observedDamageKind ?? (ctx.attack ? "basic" : "unclassified");
+    const castInstance = currentCastInstance(world, source);
+    observed = {
+      tick: world.tick, source: combatIdentity(world, source), target: combatIdentity(world, target),
+      ranged: observer.spec.attack.ranged, kind, castInstance, conquerorPerPacket: ctx.conquerorPerPacket === true,
+      ...(ctx.scorchScale === undefined ? {} : { scorchScale: ctx.scorchScale }),
+      ...(observer.spec.observeDamageControl && target === world.units[target.side]
+        ? { controlBeforeDamage: captureDamageControl(world, target) } : {}),
+    };
+  }
   const s = derive(source);
   const t = derive(target);
   const beforeCrit = raw;
@@ -577,6 +595,15 @@ function resolveDamage(world: World, source: Unit, target: Unit, raw: number, ty
   observeDamage(world, source, target, report, ctx.attack === true);
   notifyCombatActivity(world, activity);
   if (observed && onDamageResolved && !parried && resolvedDamage > 0) {
+    const cast = observed.castInstance;
+    if (observed.controlBeforeDamage && observed.kind === "basic" && cast !== undefined) {
+      markBasicDamageCast(world, source, cast);
+      for (const status of target.statuses) {
+        if (status.kind === "cc" && status.startTick === world.tick && status.source === source.side && status.controlCastInstance === cast) {
+          status.controlFromBasic = true;
+        }
+      }
+    }
     const damage = Object.freeze({ ...observed, mitigated: resolvedDamage });
     const resolved = { ...hookContext(world, observer, undefined, target), damage };
     Object.defineProperty(resolved, "damage", { writable: false, configurable: false });
@@ -840,9 +867,15 @@ export function applyCC(world: World, source: Unit, target: Unit, type: CCType, 
   const ticks = toTicks(ccDuration(duration, type, derive(target).tenacity));
   if (ticks <= 0) return false;
   const activity = hasCombatActivityObserver(world) ? captureCombatActivity(world, source, target, { kind: "cc", cc: type, ...(ability ? { ability } : {}) }) : undefined;
+  const controlCastInstance = target === world.units[target.side] && source.side !== target.side
+    && world.units[source.side].spec.observeDamageControl ? currentCastInstance(world, source) : undefined;
   // Topping up crowd control that is still on (a field's slow, pulse after pulse) isn't logged again.
   const ongoing = target.statuses.some((s) => s.kind === "cc" && s.key === type && s.source === source.side && s.value === strength && s.endTick > world.tick);
-  addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength, ...(sticky ? { sticky } : {}), ...(ability ? { ability } : {}), ...(bypassSlowImmune ? { bypassSlowImmune: true } : {}), ...(slowStackGroup ? { slowStackGroup } : {}), ...(type === "fear" && fearOriginX !== undefined ? { fearOriginX } : {}), ...(whileCC ? { whileCC } : {}) });
+  addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength,
+    ...(controlCastInstance === undefined ? {} : { controlCastInstance,
+      ...(currentCastUsesBasicDamage(world, source) ? { controlFromBasic: true } : {}) }),
+    ...(sticky ? { sticky } : {}), ...(ability ? { ability } : {}), ...(bypassSlowImmune ? { bypassSlowImmune: true } : {}),
+    ...(slowStackGroup ? { slowStackGroup } : {}), ...(type === "fear" && fearOriginX !== undefined ? { fearOriginX } : {}), ...(whileCC ? { whileCC } : {}) });
   const shown = type === "nearsight" ? ` to ${Math.round(strength)} units` : strength ? ` ${Math.round(strength * 100)}%` : "";
   if (!ongoing) log(world, source.side, `inflicts ${type}${shown} for ${(ticks / 30).toFixed(2)} s`);
   interrupt(world, target, type);
@@ -1108,7 +1141,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
           perHit: (evaluate(effect.total, caster, formulaTarget) * ctx.scale) / hits,
           intervalTicks,
           nextTick: first,
-          ...(castInstance !== undefined ? { castInstance, observedDamageKind: ctx.ability ? "spell" : ctx.attack ? "proc" : "unclassified" } : {}),
+          ...(castInstance !== undefined ? { castInstance, observedDamageKind: effect.observedDamageKind ?? (ctx.ability ? "spell" : ctx.attack ? "proc" : "unclassified") } : {}),
           ...(effect.label || ctx.ability ? { label: effect.label ?? ctx.ability?.name } : {}),
           ...(effect.unamplified ? { unamplified: true } : {}),
         },

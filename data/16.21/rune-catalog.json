@@ -386,7 +386,7 @@
         "sha256": "5ba0e564f6f207fe54748eb9ae56e32d8d7d372bcd61d96f885328b195a4480c",
         "content": "{{{{{1<noinclude>|Rune data</noinclude>}}}|Cheap Shot|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|released     = Season 2018\n|path         = Domination\n|slot         = 1\n|description  = {{sbc|Passive:}} Non-{{tip|proc damage|proc}} damage sources deal {{as|{{pp|10 + (45-10)/17*(x-1)|1 to 20 by 1}}|true damage}} {{as|'''bonus''' true damage}} to enemy {{tip|champion|champions}} affected by certain {{tip|crowd control}} effects.\n|description2 = {{sbc|Valid Crowd Control:}}\n* {{tip|Immobilize|Immobilizes}}\n* {{tip|Blind}}\n* {{tip|Disarm}}\n* {{tip|Ground}}\n* {{tip|Nearsight}}\n* {{tip|Polymorph}}\n* {{tip|Silence}}\n* {{tip|Slow}}\n|description3 = The target must already be impaired prior to the damaging attack or spell in order to trigger the '''bonus''' damage.\n|range        = \n|cooldown     = 4\n}}"
       },
-      "combatStatus": "not-implemented"
+      "combatStatus": "manual-effects"
     },
     {
       "id": 8128,

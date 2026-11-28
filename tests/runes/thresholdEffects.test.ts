@@ -12,6 +12,7 @@ import { fighter } from "../sim/kits";
 
 const rules: CombatRuneRules = {
   schema: 1, dataset: "16.21", patch: "26.21",
+  cheapShot: { modelLevel: 20, damage: 835 / 17, cooldown: 4 },
   scorch: { modelLevel: 20, damage: 720 / 17, delay: 1, cooldown: 10 },
   tasteOfBlood: { modelLevel: 20, heal: 728 / 17, bonusAdRatio: 0.1, apRatio: 0.05, cooldown: 20 },
   fontOfLife: { modelLevel: 20, heal: 930 / 17, rangedRatio: 0.7, cooldown: 20, allyRadius: 1000 },

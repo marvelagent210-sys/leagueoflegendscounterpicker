@@ -2,8 +2,8 @@
 
 The source catalog and page validator describe the current rune system. Explicit
 manual-duel options and browser plain-stat duels apply all seven stat shards.
-Manual plain-stat duels also support twenty-two partial combat effects, including
-Scorch, Taste of Blood, Font of Life, Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
+Manual plain-stat duels also support twenty-three partial combat effects, including
+Cheap Shot, Scorch, Taste of Blood, Font of Life, Aftershock, Overgrowth, Shield Bash, Bone Plating, Grasp of the Undying and all four Precision keystones.
 The Grasp refresh recalculated all 14,878 pairings per default matrix and
 reproduced both previous results. [Grasp refresh audit](../../ACCURACY.md#grasp-of-the-undying-19-november-2026)
 The Conqueror refresh recalculated all 14,878 pairings per default matrix
@@ -119,7 +119,7 @@ npm run duel -- Kled Braum --dataset 16.21 --gold 0 --combat-runes 8437,8473 --e
 npm run duel -- Camille Malphite --dataset 16.21 --gold 0 --combat-runes 8401,8437,8473 --enemy-combat-runes 8401 --log brawl
 ```
 
-Each combat-rune flag takes comma-separated rune IDs for that side. These twenty-two effects are
+Each combat-rune flag takes comma-separated rune IDs for that side. These twenty-three effects are
 supported as partial manual selections:
 
 | Rune | ID | Implemented rule |
@@ -130,6 +130,7 @@ supported as partial manual selections:
 | Fleet Footwork | 8021 | At 100 Energized charges the next qualified champion hit heals the owner and grants one second of bonus movement speed. Declare starting charges separately for each side. |
 | Coup de Grace | 8014 | 8% increased damage to the enemy champion while its health is strictly below 40%. |
 | Cut Down | 8017 | 8% increased damage to the enemy champion while its health is strictly above 60%. |
+| Cheap Shot | 8126 | Qualifying damage against an impaired champion deals a separate `835/17` true damage at level 20. It has a four-second cooldown and observes control timing and cast identity. |
 | Taste of Blood | 8139 | Positive champion damage heals the injured owner for `728/17` plus 10% of bonus AD and 5% of AP at level 20. It has a 20-second cooldown. |
 | Scorch | 8237 | Qualifying ability damage starts a ten-second cooldown and schedules one magic burn of `720/17` at level 20 one second later. Azir's soldier attack and Bel'Veth's Royal Maelstrom scale the burn. |
 | Last Stand | 8299 | Increased damage to the enemy champion while the owner is strictly below 60% health: rises linearly from the 5% lower endpoint toward 11% as health falls to 30%, then stays at 11%. Exactly 60% health receives no increase. |
@@ -165,9 +166,9 @@ explicit `--legend-points` or `--enemy-legend-points`, including zero. No pre-du
 Presence or Triumph entitlement is inferred. Presence requires an explicit
 Mana or Energy resource type and rejects other types without substituting
 Triumph; complete-page automatic substitutions remain unfinished.
-Taste of Blood occupies Domination's first lesser row and can accompany
-Precision effects or Resolve effects within the two-path limit. Scorch occupies
-Sorcery's final lesser row. It can accompany Taste of Blood on a two-path page.
+Cheap Shot and Taste of Blood share Domination's first lesser row. Pick one
+of them alongside any compatible selections. Scorch occupies Sorcery's
+final lesser row and can accompany either rune on a two-path page.
 Unknown or unimplemented IDs, duplicates and selections that cannot fit a legal page fail. The validator may
 use other runes to prove page compatibility, but those fillers are never equipped.
 Omitting a side's flag applies none of these optional effects to that side. This
@@ -181,11 +182,13 @@ plain-stat allocation remains its no-rune reference; it does not optimize
 purchases for the selected effects. These explicit selections are not applied to precomputed
 rankings and do not add combat-rune controls to the browser.
 
-The offline compiler checks **126 complete Wiki revisions** in
+The offline compiler checks **128 complete Wiki revisions** in
 `data/16.21/rune-combat-sources.json` and the complete versioned CommunityDragon
 `perks.cdtb.bin.json`, retained as `data/16.21/rune-game-perks.json`. It checks
-full-content hashes, exact revisions and excerpts, binds the twenty-two templates to
+full-content hashes, exact revisions and excerpts, binds the twenty-three templates to
 the catalog, and cross-checks numeric rules against frozen normal-mode fields.
+Cheap Shot adds its complete article and template and checks three named
+client fields and the level interpolation.
 Scorch adds its article and template, the ability-damage definition and the
 Royal Maelstrom revision. The compiler checks the client damage curve and four
 named fields.
@@ -254,9 +257,34 @@ Compatibility limits remain explicit:
 
 Full pages, the remaining keystones and historical-state effects, champion-specific
 substitutions, item compatibility, separate amplifier packets and automatic rune
-selection require further implementation and validation. These twenty-two catalog entries are
+selection require further implementation and validation. These twenty-three catalog entries are
 marked `manual-effects`; that status identifies this limited manual interface,
 not complete rune-page fidelity.
+
+### Cheap Shot
+
+Select `8126` for either side of a manual plain-stat duel. An accepted
+basic, spell or explicitly default damage packet can trigger a separate
+`835/17` true-damage proc at model level 20. The opposing champion needs
+qualifying impairment. Immobilization, blind, disarm, ground, nearsight,
+polymorph, silence and effective slows qualify. The cooldown starts at
+activation and lasts four seconds. [Rune template](https://wiki.leagueoflegends.com/en-us/?oldid=3992989) · [Rune article](https://wiki.leagueoflegends.com/en-us/?oldid=4023785)
+
+```bash
+npm run duel -- Ashe Nasus --dataset 16.21 --gold 0 --combat-runes 8126 --enemy-combat-runes 8126 --log brawl
+```
+
+The simulator captures control before native damage callbacks and applies
+the proc after the initiating packet is accepted. An earlier active
+impairment qualifies. A fresh impairment on the same tick qualifies
+when both cast identities are known and independent. The model treats
+basic damage as one cast group for this rule. Ashe's accepted Frost Shot
+can set up a later basic attack even after its slow has expired. [Frost Shot](https://wiki.leagueoflegends.com/en-us/?oldid=4062251) · [Mechanics limits](MECHANICS_GAPS.md#cheap-shot)
+
+Smolder's initial Super Scorcher Breath can trigger the rune when the
+target is already impaired. Its periodic burn uses proc classification.
+Bel'Veth's Royal Maelstrom can trigger Cheap Shot at full effectiveness.
+Patch 26.09 removed on-attack damage scaling from this rune. [Super Scorcher Breath](https://wiki.leagueoflegends.com/en-us/?oldid=4030432) · [Cheap Shot patch history](https://wiki.leagueoflegends.com/en-us/?oldid=4023785)
 
 ### Scorch
 
