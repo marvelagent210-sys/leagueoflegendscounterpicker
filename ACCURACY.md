@@ -4192,6 +4192,14 @@ Tests (tests/items/search.test.ts): the item goes in place of the one the estima
 the fight scores the swap higher, the build stays when it scores no higher or holds the item already,
 and boots are never swapped out.
 
+The refresh (run 62) moved no plain-stats entry, 8,562 of 29,756 six-item entries (5,490 by more than
+0.1) and 7,570 five-items-and-boots entries (4,862 by more than 0.1). Mercurial Scimitar, absent from
+the 25 most held items before, is now in 18% of six-item builds and 16% of five-items-and-boots ones,
+mostly marksmen, whom crowd control holds still: Caitlyn 35% of six-item matchups, Jinx 32%,
+Aphelios, Tristana and Twitch 31%, Miss Fortune 30%; Anivia (40%) and Zilean (32%) take it too, for its
+magic resistance and the cleanse. The search took 106.2 processor-hours for six items (113.8 before)
+and 111.4 for five items and boots (100.4).
+
 ## Remaining limits
 
 - Every one of the 173 champions has a kit, so every pairing is a simulated duel; the
